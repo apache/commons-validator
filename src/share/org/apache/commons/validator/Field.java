@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.19 2003/06/12 01:04:11 dgraham Exp $
- * $Revision: 1.19 $
- * $Date: 2003/06/12 01:04:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.20 2003/08/03 17:29:40 dgraham Exp $
+ * $Revision: 1.20 $
+ * $Date: 2003/08/03 17:29:40 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.19 $ $Date: 2003/06/12 01:04:11 $
+ * @version $Revision: 1.20 $ $Date: 2003/08/03 17:29:40 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -143,6 +143,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Holds Maps of arguments.  args[0] returns the Map for the first replacement
      * argument.
+     * @since Validator 1.1
      */
     protected Map[] args = new Map[10];
     
@@ -292,6 +293,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Add an <code>Arg</code> to the replacement argument list.
+     * @since Validator 1.1
      */
     public void addArg(Arg arg) {
         // TODO this first if check can go away after arg0, etc. are removed from dtd
@@ -332,6 +334,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Gets the default <code>Arg</code> object at the given position.
      * @return The default Arg or null if not found.
+     * @since Validator 1.1
      */
     public Arg getArg(int position) {
         return this.getArg(DEFAULT_ARG, position);
@@ -344,6 +347,7 @@ public class Field implements Cloneable, Serializable {
      * the given position (if any) will be retrieved.
      * @param position The Arg number to find.
      * @return The Arg with the given name and position or null if not found.
+     * @since Validator 1.1
      */
     public Arg getArg(String key, int position) {
 		if ((position >= this.args.length) || (this.args[position] == null)) {

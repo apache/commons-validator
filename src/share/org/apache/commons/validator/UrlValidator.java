@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.13 2003/05/03 21:14:51 dgraham Exp $
- * $Revision: 1.13 $
- * $Date: 2003/05/03 21:14:51 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.14 2003/08/03 17:29:40 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/08/03 17:29:40 $
  *
  * ====================================================================
  *
@@ -114,7 +114,8 @@ import org.apache.oro.text.perl.Perl5Util;
  *
  * @author Robert Leland
  * @author David Graham
- * @version $Revision: 1.13 $ $Date: 2003/05/03 21:14:51 $
+ * @since Validator 1.1
+ * @version $Revision: 1.14 $ $Date: 2003/08/03 17:29:40 $
  */
 public class UrlValidator implements Serializable {
     

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.8 2003/05/29 03:34:35 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/05/29 03:34:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.9 2003/08/03 17:29:40 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/08/03 17:29:40 $
  *
  * ====================================================================
  *
@@ -78,7 +78,7 @@ import org.apache.commons.collections.FastHashMap;
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2003/05/29 03:34:35 $
+ * @version $Revision: 1.9 $ $Date: 2003/08/03 17:29:40 $
  */
 public class Form implements Serializable {
 
@@ -140,7 +140,9 @@ public class Form implements Serializable {
     }
     
     /**
-     * Returns the Field with the given name or null if this Form has no such field
+     * Returns the Field with the given name or null if this Form has no such 
+     * field.
+     * @since Validator 1.1
      */
     public Field getField(String fieldName) {
         return (Field) this.hFields.get(fieldName);
@@ -148,6 +150,7 @@ public class Form implements Serializable {
     
     /**
      * Returns true if this Form contains a Field with the given name.
+     * @since Validator 1.1
      */
     public boolean containsField(String fieldName){
         return this.hFields.containsKey(fieldName);

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.7 2003/05/03 21:25:02 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2003/05/03 21:25:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.8 2003/08/03 17:29:40 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/08/03 17:29:40 $
  *
  * ====================================================================
  *
@@ -77,7 +77,8 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.7 $ $Date: 2003/05/03 21:25:02 $
+ * @since Validator 1.1
+ * @version $Revision: 1.8 $ $Date: 2003/08/03 17:29:40 $
  */
 public class EmailValidator {
     

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/DateValidator.java,v 1.1 2003/05/01 02:42:30 dgraham Exp $
- * $Revision: 1.1 $
- * $Date: 2003/05/01 02:42:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/DateValidator.java,v 1.2 2003/08/03 17:29:40 dgraham Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/08/03 17:29:40 $
  *
  * ====================================================================
  *
@@ -69,14 +69,16 @@ import java.util.Locale;
 /**
  * <p>Perform date validations.</p>
  * <p>
- * This class is a Singleton; you can retrieve the instance via the getInstance() method.
+ * This class is a Singleton; you can retrieve the instance via the 
+ * getInstance() method.
  * </p>
  *
  * @author David Winterfeldt
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.1 $
+ * @since Validator 1.1
+ * @version $Revision: 1.2 $
  */
 public class DateValidator {
 

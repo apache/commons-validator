@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.8 2003/06/08 21:53:38 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/06/08 21:53:38 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.9 2003/08/03 17:29:40 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/08/03 17:29:40 $
  *
  * ====================================================================
  *
@@ -80,7 +80,8 @@ import org.apache.commons.validator.util.Flags;
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.8 $ $Date: 2003/06/08 21:53:38 $
+ * @since Validator 1.1
+ * @version $Revision: 1.9 $ $Date: 2003/08/03 17:29:40 $
  */
 public class CreditCardValidator {
 

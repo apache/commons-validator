@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.23 2003/06/05 01:17:43 dgraham Exp $
- * $Revision: 1.23 $
- * $Date: 2003/06/05 01:17:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.24 2003/08/03 17:29:40 dgraham Exp $
+ * $Revision: 1.24 $
+ * $Date: 2003/08/03 17:29:40 $
  *
  * ====================================================================
  *
@@ -92,7 +92,7 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.23 $ $Date: 2003/06/05 01:17:43 $
+ * @version $Revision: 1.24 $ $Date: 2003/08/03 17:29:40 $
  */
 public class ValidatorResources implements Serializable {
 
@@ -150,6 +150,7 @@ public class ValidatorResources implements Serializable {
      * 
      * @param in InputStream to a validation.xml configuration file.  It's the client's 
      * responsibility to close this stream.
+     * @since Validator 1.1
      */
     public ValidatorResources(InputStream in) throws IOException {
         this(new InputStream[] { in });
@@ -161,6 +162,7 @@ public class ValidatorResources implements Serializable {
      * @param streams An array of InputStreams to several validation.xml 
      * configuration files that will be read in order and merged into this object.  
      * It's the client's responsibility to close these streams.
+     * @since Validator 1.1
      */
     public ValidatorResources(InputStream[] streams) throws IOException {
         super();
@@ -207,6 +209,7 @@ public class ValidatorResources implements Serializable {
      * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
      * object.  It will be associated with the <code>Locale</code> of the 
      * <code>FormSet</code>.
+     * @since Validator 1.1
      */
     public void addFormSet(FormSet fs) {
         String key = this.buildKey(fs);
@@ -344,6 +347,7 @@ public class ValidatorResources implements Serializable {
      *    <li>language</li>
      *    <li>default locale</li>
      * </ol>
+     * @since Validator 1.1
      */
     public Form getForm(Locale locale, String formKey) {
         return this.getForm(
@@ -385,6 +389,7 @@ public class ValidatorResources implements Serializable {
      *    <li>language</li>
      *    <li>default locale</li>
      * </ol>
+     * @since Validator 1.1
      */
     public Form getForm(
         String language,
