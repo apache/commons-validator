@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.26 2004/06/08 14:48:35 husted Exp $
- * $Revision: 1.26 $
- * $Date: 2004/06/08 14:48:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.27 2004/06/12 18:18:38 leosutic Exp $
+ * $Revision: 1.27 $
+ * $Date: 2004/06/12 18:18:38 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -151,8 +151,8 @@ public class EmailTest extends TestCommon {
    }
 
    /**
-    * <p>Tests the e-mail validation with a dot at the end of 
-    * the address.</p>
+    * Tests the e-mail validation with a dot at the end of 
+    * the address.
     */
    public void testEmailWithDotEnd() throws ValidatorException {
       // Create bean to run test on.
@@ -164,8 +164,8 @@ public class EmailTest extends TestCommon {
    }
 
     /**
-     * <p>Tests the e-mail validation with an RCS-noncompliant character in
-     * the address.</p>
+     * Tests the e-mail validation with an RCS-noncompliant character in
+     * the address.
      */
     public void testEmailWithBogusCharacter() throws ValidatorException {
         // Create bean to run test on.
@@ -199,10 +199,11 @@ public class EmailTest extends TestCommon {
     /**
      * Write this test according to parts of RFC, as opposed to the type of character
      * that is being tested.
-     * @throws ValidatorException
-     * 
-     * FIXME This test fails so disable it with a leading _ for 1.1.2 release.
+     *
+     * <p><b>FIXME</b>: This test fails so disable it with a leading _ for 1.1.2 release.
      * The real solution is to fix the email parsing.
+     *
+     * @throws ValidatorException
      */
     public void _testEmailUserName() throws ValidatorException {
         ValueBean info = new ValueBean();
