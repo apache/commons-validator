@@ -102,7 +102,8 @@ public class ValidatorAction implements Serializable {
    /**
     * <p>The method signature of the validation method.  This 
     * should be a comma delimited list of the full 
-    * class names of each parameter that the method takes.</p>
+    * class names of each parameter in the correct order 
+    * that the method takes.</p>
     *
     * <p>Note: <code>java.lang.Object</code> is reserved for the 
     * JavaBean that is being validated.  The <code>ValidatorAction</code> 
@@ -111,11 +112,8 @@ public class ValidatorAction implements Serializable {
     * specified in the method signature.</p>
    */
    private String methodParams = Validator.BEAN_KEY + "," + 
-   				  Validator.VALIDATOR_ACTION_KEY + "," + 
-   				  Validator.FIELD_KEY + "," + 
-   				  Validator.ACTION_ERRORS_KEY + "," + 
-   				  Validator.HTTP_SERVLET_REQUEST_KEY + "," + 
-   				  Validator.SERVLET_CONTEXT_KEY; 
+   				 Validator.VALIDATOR_ACTION_KEY + "," + 
+   				 Validator.FIELD_KEY; 
    
    /**
     * The other <code>ValidatorAction</code>s that this
