@@ -39,7 +39,7 @@
       <pathelement path="${dist}/${validator.jar}" />
    </path>
    
-   <target name="prepare">
+   <target name="init" description="creates any directories needed by the build process">
       <!-- Create the time stamp -->
       <tstamp/>
       <!-- Create the build directory structure used by compile -->
@@ -47,7 +47,7 @@
    </target>
 
    <!-- Compile shared source -->
-   <target name="compile" depends="prepare">
+   <target name="build" depends="init" description="builds binary distribution">
       <!-- Compile the java code from ${src}/${share} into ${build}/${share} -->
       <javac srcdir="${src}/${share}" 
              destdir="${build}/${share}">
@@ -56,8 +56,8 @@
    </target>
    
    <!-- Create distribution jar of shared source -->
-   <target name="jar" depends="compile">
-      <!-- Create the ${dist}/lib directory -->
+   <target name="jar" depends="build" description="creates distributable jar of the binaries">
+      <!-- Create the ${dist} directory -->
       <mkdir dir="${dist}" />
       
       <!-- Put everything in ${build} -->
@@ -79,9 +79,17 @@
          <classpath refid="javadoc.classpath" />
       </javadoc>
    </target>
-   
+
+   <!-- Create distribution -->
+   <target name="dist" depends="jar,javadocs" description="creates complete distribution">
+      <!-- Create the ${dist} directory -->
+      <mkdir dir="${dist}" />
+      
+      <copy todir="${dist}" file="../LICENSE"/>
+   </target>
+      
    <!-- Compile JUnit Tests -->
-   <target name="compile_tests" depends="jar">
+   <target name="build-test" depends="jar" description="builds binaries for testing">
       <mkdir dir="${build}/${test}"/>
       
       <!-- Compile the java code from ${src}/${test} into ${build}/${test} -->
@@ -91,8 +99,8 @@
       </javac>
    </target>
 
-   <!-- Compile JUnit Tests -->
-   <target name="runtests" depends="compile_tests">
+   <!-- Run JUnit Tests -->
+   <target name="test" depends="build-test" description="runs junit tests">
       <java fork="yes" classname="junit.textui.TestRunner" 
           taskname="junit" failonerror="true">
           <arg value="org.apache.commons.validator.ValidatorTest"/>
