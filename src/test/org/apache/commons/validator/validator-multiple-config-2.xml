@@ -1,0 +1,16 @@
+<!--
+	This second config file only contains the formset definitions.
+-->
+<form-validation>
+   <formset>
+      <form    name="nameForm">
+         <field    property="firstName"  depends="required">
+         	     <arg0 key="nameForm.firstname.displayname"/>
+         </field>    
+         <field    property="lastName"
+         	   depends="required,int">
+         	     <arg0 key="nameForm.lastname.displayname"/>
+         </field>
+      </form>
+   </formset>   
+</form-validation>

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.8 2003/05/03 02:16:37 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/05/03 02:16:37 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.9 2003/05/22 02:52:07 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/05/22 02:52:07 $
  *
  * ====================================================================
  *
@@ -75,7 +75,7 @@ import org.apache.commons.validator.util.FlagsTest;
  *
  * @author David Winterfeldt
  * @author James Turner
- * @version $Revision: 1.8 $ $Date: 2003/05/03 02:16:37 $
+ * @version $Revision: 1.9 $ $Date: 2003/05/22 02:52:07 $
 */
 public class ValidatorTestSuite extends TestCase {
 
@@ -89,6 +89,7 @@ public class ValidatorTestSuite extends TestCase {
        suite.addTest(RequiredNameTest.suite());
        suite.addTest(RequiredIfTest.suite());
        suite.addTest(MultipleTests.suite());
+       suite.addTestSuite(MultipleConfigFilesTest.class);
        suite.addTest(ByteTest.suite());
        suite.addTest(ShortTest.suite());
        suite.addTest(IntegerTest.suite());

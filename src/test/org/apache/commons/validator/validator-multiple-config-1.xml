@@ -1,0 +1,16 @@
+<!--
+	This first config file only contains the validator definitions.  This 
+	separation is how Struts does things.
+-->
+<form-validation>
+   <global>
+      <validator name="int"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateInt"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+      <validator name="required"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateRequired"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+   </global>  
+</form-validation>
