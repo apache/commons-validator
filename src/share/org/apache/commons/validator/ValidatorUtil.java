@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.8 2003/04/29 00:53:43 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/04/29 00:53:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.9 2003/04/29 02:15:35 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/04/29 02:15:35 $
  *
  * ====================================================================
  *
@@ -59,7 +59,6 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.lang.reflect.InvocationTargetException;
@@ -70,29 +69,36 @@ import org.apache.commons.collections.FastHashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * <p>Basic utility methods.</p>
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.8 $ $Date: 2003/04/29 00:53:43 $
+ * @version $Revision: 1.9 $ $Date: 2003/04/29 02:15:35 $
 */
-public class ValidatorUtil  {
+public class ValidatorUtil {
 
-   /**
-    * Logger.
-    */
-   protected static Log log = LogFactory.getLog(ValidatorUtil.class);
-   
-   /**
-    * <p>Replace part of a <code>String</code> with another value.</p>
-    *
-    * @param	value		<code>String</code> to perform the replacement on.
-    * @param	key		The name of the constant.
-    * @param	replaceValue	The value of the constant.
-    */
-   public static String replace(String value, String key, String replaceValue) {
+	/**
+	 * Delimiter to put around a regular expression following Perl 5 syntax.
+	 */
+	public final static String REGEXP_DELIMITER = "/";
+
+	/**
+	 * Logger.
+	 */
+	protected static Log log = LogFactory.getLog(ValidatorUtil.class);
+
+	/**
+	 * <p>Replace part of a <code>String</code> with another value.</p>
+	 *
+	 * @param	value		<code>String</code> to perform the replacement on.
+	 * @param	key		The name of the constant.
+	 * @param	replaceValue	The value of the constant.
+	 */
+	public static String replace(
+		String value,
+		String key,
+		String replaceValue) {
 		if (value == null || key == null || replaceValue == null) {
 			return value;
 		}
@@ -102,7 +108,7 @@ public class ValidatorUtil  {
 		if (pos < 0) {
 			return value;
 		}
-        
+
 		int length = value.length();
 		int start = pos;
 		int end = pos + key.length();
@@ -119,41 +125,41 @@ public class ValidatorUtil  {
 		}
 
 		return value;
-   }
+	}
 
-   /**
-    * Convenience method for getting a value from a bean property as a 
-    * <code>String</code>.
-    */
-   public static String getValueAsString(Object bean, String property) {
-      Object value = null;
+	/**
+	 * Convenience method for getting a value from a bean property as a 
+	 * <code>String</code>.
+	 */
+	public static String getValueAsString(Object bean, String property) {
+		Object value = null;
 
-         try {
+		try {
 			value = PropertyUtils.getProperty(bean, property);
-            
-		} catch (IllegalAccessException e) {
-            log.error(e.getMessage(), e);
-		} catch (InvocationTargetException e) {
-            log.error(e.getMessage(), e);
-		} catch (NoSuchMethodException e) {
-            log.error(e.getMessage(), e);
-		}	
-   	
-      return (value != null ? value.toString() : null);    	
-   }
 
-   /**
-    * Makes a deep copy of a <code>FastHashMap</code> if the values 
-    * are <code>String</code>, <code>Msg</code>, <code>Arg</code>, 
-    * or <code>Var</code>.  Otherwise it is a shallow copy.
-    * 
-    * @param map <code>FastHashMap</code> to copy.
-    * @return FastHashMap A copy of the <code>FastHashMap</code> that was 
-    * passed in.
-    */
-    public static FastHashMap copyFastHashMap(FastHashMap map) {
-    	FastHashMap results = new FastHashMap();
-        
+		} catch (IllegalAccessException e) {
+			log.error(e.getMessage(), e);
+		} catch (InvocationTargetException e) {
+			log.error(e.getMessage(), e);
+		} catch (NoSuchMethodException e) {
+			log.error(e.getMessage(), e);
+		}
+
+		return (value != null ? value.toString() : null);
+	}
+
+	/**
+	 * Makes a deep copy of a <code>FastHashMap</code> if the values 
+	 * are <code>String</code>, <code>Msg</code>, <code>Arg</code>, 
+	 * or <code>Var</code>.  Otherwise it is a shallow copy.
+	 * 
+	 * @param map <code>FastHashMap</code> to copy.
+	 * @return FastHashMap A copy of the <code>FastHashMap</code> that was 
+	 * passed in.
+	 */
+	public static FastHashMap copyFastHashMap(FastHashMap map) {
+		FastHashMap results = new FastHashMap();
+
 		Iterator i = map.keySet().iterator();
 		while (i.hasNext()) {
 			String key = (String) i.next();
@@ -178,5 +184,12 @@ public class ValidatorUtil  {
 
 		return results;
 	}
-   
+
+	/**
+	 * Adds a '/' on either side of the regular expression.
+	 */
+	public static String getDelimitedRegExp(String regexp) {
+		return (REGEXP_DELIMITER + regexp + REGEXP_DELIMITER);
+	}
+
 }

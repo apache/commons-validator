@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.14 2003/04/29 01:45:43 dgraham Exp $
- * $Revision: 1.14 $
- * $Date: 2003/04/29 01:45:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.15 2003/04/29 02:15:35 dgraham Exp $
+ * $Revision: 1.15 $
+ * $Date: 2003/04/29 02:15:35 $
  *
  * ====================================================================
  *
@@ -69,22 +69,21 @@ import java.text.ParseException;
 import org.apache.oro.text.perl.Perl5Util;
 
 /**
- * <p>This class contains basic methods for 
- * performing validations.</p>
+ * <p>This class contains basic methods for performing validations.</p>
  *
  * @author David Winterfeldt
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.14 $ $Date: 2003/04/29 01:45:43 $
+ * @version $Revision: 1.15 $ $Date: 2003/04/29 02:15:35 $
  */
 public class GenericValidator implements Serializable {
 
     /**
-     * Delimiter to put around a regular expression 
-     * following Perl 5 syntax.
+     * Delimiter to put around a regular expression following Perl 5 syntax.
+     * @deprecated Use ValidatorUtil.REGEXP_DELIMITER instead.
      */
-    public final static String REGEXP_DELIM = "/";
+    public final static String REGEXP_DELIM = ValidatorUtil.REGEXP_DELIMITER;
 
     /**
      * <p>Checks if the field isn't null and length of the field is greater than zero not 
@@ -322,138 +321,19 @@ public class GenericValidator implements Serializable {
 
     /**
      * <p>Checks if a field has a valid e-mail address.</p>
-     * <p>Based on a script by Sandeep V. Tamhankar (stamhankar@hotmail.com), 
-     * http://javascript.internet.com</p>
      *
-     * @param 	value 		The value validation is being performed on.
+     * @param value The value validation is being performed on.
      */
-    public static boolean isEmail(String value) {
-        boolean bValid = true;
-
-        try {
-            String specialChars = "\\(\\)<>@,;:\\\\\\\"\\.\\[\\]";
-            String validChars = "[^\\s" + specialChars + "]";
-            String quotedUser = "(\"[^\"]*\")";
-            String atom = validChars + '+';
-            String word = "(" + atom + "|" + quotedUser + ")";
-
-            // Each pattern must be surrounded by /
-            String legalAsciiPat = getDelimittedRegexp("^[\\000-\\177]+$");
-            String emailPat = getDelimittedRegexp("^(.+)@(.+)$");
-            String ipDomainPat =
-                getDelimittedRegexp("^(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})$");
-            String userPat = getDelimittedRegexp("^" + word + "(\\." + word + ")*$");
-            String domainPat =
-                getDelimittedRegexp("^" + atom + "(\\." + atom + ")*$");
-            String atomPat = getDelimittedRegexp("(" + atom + ")");
-
-            Perl5Util matchEmailPat = new Perl5Util();
-            Perl5Util matchUserPat = new Perl5Util();
-            Perl5Util matchIPPat = new Perl5Util();
-            Perl5Util matchDomainPat = new Perl5Util();
-            Perl5Util matchAtomPat = new Perl5Util();
-            Perl5Util matchAsciiPat = new Perl5Util();
-
-            boolean ipAddress = false;
-            boolean symbolic = false;
-
-            if (!matchAsciiPat.match(legalAsciiPat, value)) {
-                return false;
-            }
-
-            // Check the whole email address structure
-            bValid = matchEmailPat.match(emailPat, value);
-
-            if (value.endsWith(".")) {
-                bValid = false;
-            }
-
-            // Check the user component of the email address
-            if (bValid) {
-
-                String user = matchEmailPat.group(1);
-
-                // See if "user" is valid 
-                bValid = matchUserPat.match(userPat, user);
-            }
-
-            // Check the domain component of the email address
-            if (bValid) {
-                String domain = matchEmailPat.group(2);
-
-                // check if domain is IP address or symbolic
-                ipAddress = matchIPPat.match(ipDomainPat, domain);
-
-                if (ipAddress) {
-                    // this is an IP address so check components
-                    for (int i = 1; i <= 4; i++) {
-                        String ipSegment = matchIPPat.group(i);
-                        if (ipSegment != null && ipSegment.length() > 0) {
-                            int iIpSegment = 0;
-                            try {
-                                iIpSegment = Integer.parseInt(ipSegment);
-                            } catch (Exception e) {
-                                bValid = false;
-                            }
-
-                            if (iIpSegment > 255) {
-                                bValid = false;
-                            }
-                        } else {
-                            bValid = false;
-                        }
-                    }
-                } else {
-                    // Domain is symbolic name
-                    symbolic = matchDomainPat.match(domainPat, domain);
-                }
-
-                if (symbolic) {
-                    // this is a symbolic domain so check components
-                    String[] domainSegment = new String[10];
-                    boolean match = true;
-                    int i = 0;
-                    int l = 0;
-
-                    while (match) {
-                        match = matchAtomPat.match(atomPat, domain);
-                        if (match) {
-                            domainSegment[i] = matchAtomPat.group(1);
-                            l = domainSegment[i].length() + 1;
-                            domain =
-                                (l >= domain.length()) ? "" : domain.substring(l);
-                            i++;
-                        }
-                    }
-
-                    int len = i;
-                    if (domainSegment[len - 1].length() < 2
-                        || domainSegment[len - 1].length() > 4) {
-                        bValid = false;
-                    }
-
-                    // Make sure there's a host name preceding the domain.
-                    if (len < 2) {
-                        bValid = false;
-                    }
-
-                } else {
-                    bValid = false;
-                }
-            }
-        } catch (Exception e) {
-            bValid = false;
-        }
-
-        return bValid;
-    }
+	public static boolean isEmail(String value) {
+		return EmailValidator.getInstance().isEmail(value);
+	}
 
     /**
      * <p>Checks if the value's length is less than or equal to the max.</p>
      *
      * @param 	value 		The value validation is being performed on.
      * @param 	max		The maximum length.
-    */
+     */
     public static boolean maxLength(String value, int max) {
         return (value.length() <= max);
     }
@@ -463,15 +343,16 @@ public class GenericValidator implements Serializable {
      *
      * @param 	value 		The value validation is being performed on.
      * @param 	min		The minimum length.
-    */
+     */
     public static boolean minLength(String value, int min) {
         return (value.length() >= min);
     }
 
     /**
      * Adds a '/' on either side of the regular expression.
-    */
+     * @deprecated use ValidatorUtil.getDelimitedRegExp() instead.
+     */
     protected static String getDelimittedRegexp(String regexp) {
-        return (REGEXP_DELIM + regexp + REGEXP_DELIM);
+        return ValidatorUtil.getDelimitedRegExp(regexp);
     }
 }
