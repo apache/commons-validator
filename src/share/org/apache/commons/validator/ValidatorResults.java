@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResults.java,v 1.5 2003/05/24 18:54:13 dgraham Exp $
- * $Revision: 1.5 $
- * $Date: 2003/05/24 18:54:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResults.java,v 1.6 2003/05/24 19:48:03 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/05/24 19:48:03 $
  *
  * ====================================================================
  *
@@ -75,7 +75,7 @@ import java.util.Set;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.5 $ $Date: 2003/05/24 18:54:13 $
+ * @version $Revision: 1.6 $ $Date: 2003/05/24 19:48:03 $
  */
 public class ValidatorResults implements Serializable {
 
@@ -95,30 +95,27 @@ public class ValidatorResults implements Serializable {
 	 * Add a the result of a validator action.
 	 */
 	public void add(Field field, String validatorName, boolean result) {
-		add(field, validatorName, result, null);
+		this.add(field, validatorName, result, null);
 	}
 
 	/**
 	 * Add a the result of a validator action.
 	 */
-	public void add(
-		Field field,
-		String validatorName,
-		boolean result,
-		Object value) {
-            
-		ValidatorResult validatorResult = null;
+    public void add(
+        Field field,
+        String validatorName,
+        boolean result,
+        Object value) {
 
-		if (hResults.containsKey(field.getKey())) {
-			validatorResult = (ValidatorResult) hResults.get(field.getKey());
-		} else {
-			validatorResult = new ValidatorResult(field);
-		}
+        ValidatorResult validatorResult = this.getValidatorResult(field.getKey());
 
-		validatorResult.add(validatorName, result, value);
+        if (validatorResult == null) {
+            validatorResult = new ValidatorResult(field);
+            this.hResults.put(field.getKey(), validatorResult);
+        }
 
-		hResults.put(field.getKey(), validatorResult);
-	}
+        validatorResult.add(validatorName, result, value);
+    }
 
 	/**
 	 * Clear all results recorded by this object.
@@ -200,7 +197,7 @@ public class ValidatorResults implements Serializable {
 
 		for (Iterator i = hResults.keySet().iterator(); i.hasNext();) {
 			String propertyKey = (String) i.next();
-			ValidatorResult vr = (ValidatorResult) hResults.get(propertyKey);
+			ValidatorResult vr = this.getValidatorResult(propertyKey);
 
 			Map actions = vr.getActionMap();
 			for (Iterator x = actions.keySet().iterator(); x.hasNext();) {
