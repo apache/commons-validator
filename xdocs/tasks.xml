@@ -63,6 +63,10 @@
         		Validate vaildation.xml files while initializing a Validator to alert developers to configuration
         		errors.
         	</li>
+        	<li>
+        		Refactored <code>GenericValidator</code> methods into reusable objects.  These include:
+        		CreditCardValidator, EmailValidator, DateValidator, and UrlValidator.
+        	</li>
          </ul>
     </subsection>
 </section>
