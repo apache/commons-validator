@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.2 2003/04/30 21:28:40 rleland Exp $
- * $Revision: 1.2 $
- * $Date: 2003/04/30 21:28:40 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.3 2003/05/02 05:25:28 dgraham Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/05/02 05:25:28 $
  *
  * ====================================================================
  *
@@ -77,15 +77,30 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.2 $ $Date: 2003/04/30 21:28:40 $
+ * @version $Revision: 1.3 $ $Date: 2003/05/02 05:25:28 $
  */
 public class EmailValidator {
+    
+    private static final String specialChars = "\\(\\)<>@,;:\\\\\\\"\\.\\[\\]";
+    private static final String validChars = "[^\\s" + specialChars + "]";
+    private static final String quotedUser = "(\"[^\"]*\")";
+    private static final String atom = validChars + '+';
+    private static final String word = "(" + atom + "|" + quotedUser + ")";
+    
+    // Each pattern must be surrounded by /
+    private static final String legalAsciiPat = "/^[\\000-\\177]+$/";
+    private static final String emailPat = "/^(.+)@(.+)$/";
+    private static final String ipDomainPat =
+    	"/^(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})$/";
+        
+    private static final String userPat = "/^" + word + "(\\." + word + ")*$/";
+    private static final String domainPat = "/^" + atom + "(\\." + atom + ")*$/";
+    private static final String atomPat = "/(" + atom + ")/";
 
 	/**
 	 * Singleton instance of this class.
 	 */
-	private static final EmailValidator instance =
-		new EmailValidator();
+	private static final EmailValidator instance = new EmailValidator();
 
 	/**
 	 * Returns the Singleton instance of this validator.
@@ -107,131 +122,125 @@ public class EmailValidator {
 	 * @param value The value validation is being performed on.
 	 */
 	public boolean isValid(String value) {
-		boolean isValid = true;
+		boolean symbolic = false;
 
 		try {
-			String specialChars = "\\(\\)<>@,;:\\\\\\\"\\.\\[\\]";
-			String validChars = "[^\\s" + specialChars + "]";
-			String quotedUser = "(\"[^\"]*\")";
-			String atom = validChars + '+';
-			String word = "(" + atom + "|" + quotedUser + ")";
-
-			// Each pattern must be surrounded by /
-			String legalAsciiPat =
-				ValidatorUtil.getDelimitedRegExp("^[\\000-\\177]+$");
-			String emailPat = ValidatorUtil.getDelimitedRegExp("^(.+)@(.+)$");
-			String ipDomainPat =
-				ValidatorUtil.getDelimitedRegExp(
-					"^(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})$");
-			String userPat =
-				ValidatorUtil.getDelimitedRegExp(
-					"^" + word + "(\\." + word + ")*$");
-			String domainPat =
-				ValidatorUtil.getDelimitedRegExp(
-					"^" + atom + "(\\." + atom + ")*$");
-			String atomPat = ValidatorUtil.getDelimitedRegExp("(" + atom + ")");
-
-			Perl5Util matchEmailPat = new Perl5Util();
-			Perl5Util matchUserPat = new Perl5Util();
-			Perl5Util matchIPPat = new Perl5Util();
-			Perl5Util matchDomainPat = new Perl5Util();
-			Perl5Util matchAtomPat = new Perl5Util();
 			Perl5Util matchAsciiPat = new Perl5Util();
-
-			boolean ipAddress = false;
-			boolean symbolic = false;
-
 			if (!matchAsciiPat.match(legalAsciiPat, value)) {
 				return false;
 			}
 
 			// Check the whole email address structure
-			isValid = matchEmailPat.match(emailPat, value);
+			Perl5Util matchEmailPat = new Perl5Util();
+			if (!matchEmailPat.match(emailPat, value)) {
+				return false;
+			}
 
 			if (value.endsWith(".")) {
-				isValid = false;
+				return false;
 			}
 
 			// Check the user component of the email address
-			if (isValid) {
 
-				String user = matchEmailPat.group(1);
+			String user = matchEmailPat.group(1);
 
-				// See if "user" is valid
-				isValid = matchUserPat.match(userPat, user);
+			// See if "user" is valid
+			Perl5Util matchUserPat = new Perl5Util();
+			if (!matchUserPat.match(userPat, user)) {
+				return false;
 			}
 
 			// Check the domain component of the email address
-			if (isValid) {
-				String domain = matchEmailPat.group(2);
+			String domain = matchEmailPat.group(2);
 
-				// check if domain is IP address or symbolic
-				ipAddress = matchIPPat.match(ipDomainPat, domain);
+			// check if domain is IP address or symbolic
+			Perl5Util matchIPPat = new Perl5Util();
+			boolean ipAddress = matchIPPat.match(ipDomainPat, domain);
 
-				if (ipAddress) {
-					// this is an IP address so check components
-					for (int i = 1; i <= 4; i++) {
-						String ipSegment = matchIPPat.group(i);
-						if (ipSegment != null && ipSegment.length() > 0) {
-							int iIpSegment = 0;
-							try {
-								iIpSegment = Integer.parseInt(ipSegment);
-							} catch (Exception e) {
-								isValid = false;
-							}
-
-							if (iIpSegment > 255) {
-								isValid = false;
-							}
-						} else {
-							isValid = false;
-						}
-					}
-				} else {
-					// Domain is symbolic name
-					symbolic = matchDomainPat.match(domainPat, domain);
+			if (ipAddress) {
+				if (!checkIpAddress(matchIPPat)) {
+					return false;
 				}
-
-				if (symbolic) {
-					// this is a symbolic domain so check components
-					String[] domainSegment = new String[10];
-					boolean match = true;
-					int i = 0;
-					int l = 0;
-
-					while (match) {
-						match = matchAtomPat.match(atomPat, domain);
-						if (match) {
-							domainSegment[i] = matchAtomPat.group(1);
-							l = domainSegment[i].length() + 1;
-							domain =
-								(l >= domain.length())
-									? ""
-									: domain.substring(l);
-							i++;
-						}
-					}
-
-					int len = i;
-					if (domainSegment[len - 1].length() < 2
-						|| domainSegment[len - 1].length() > 4) {
-						isValid = false;
-					}
-
-					// Make sure there's a host name preceding the domain.
-					if (len < 2) {
-						isValid = false;
-					}
-
-				} else {
-					isValid = false;
-				}
+			} else {
+				// Domain is symbolic name
+				Perl5Util matchDomainPat = new Perl5Util();
+				symbolic = matchDomainPat.match(domainPat, domain);
 			}
+
+			if (symbolic) {
+				if (!checkSymbolicDomain(domain)) {
+					return false;
+				}
+			} else {
+				return false;
+			}
+
 		} catch (Exception e) {
-			isValid = false;
+			return false;
 		}
 
-		return isValid;
+		return true;
+	}
+
+    /**
+     * Validates an IP address. Returns true if valid.
+     */
+	private boolean checkIpAddress(Perl5Util matchIPPat) {
+		for (int i = 1; i <= 4; i++) {
+			String ipSegment = matchIPPat.group(i);
+			if (ipSegment == null || ipSegment.length() <= 0) {
+				return false;
+			}
+			int iIpSegment = 0;
+			try {
+				iIpSegment = Integer.parseInt(ipSegment);
+			} catch (NumberFormatException e) {
+				return false;
+			}
+
+			if (iIpSegment > 255) {
+				return false;
+			}
+
+		}
+		return true;
+	}
+
+    /**
+     * Validates a symbolic domain name.  Returns true if it's valid.
+     */
+	private boolean checkSymbolicDomain(String domain) {
+    	String[] domainSegment = new String[10];
+    	boolean match = true;
+    	int i = 0;
+    	Perl5Util matchAtomPat = new Perl5Util();
+    
+    	while (match) {
+    		match = matchAtomPat.match(atomPat, domain);
+    		if (match) {
+    			domainSegment[i] = matchAtomPat.group(1);
+    			int l = domainSegment[i].length() + 1;
+    			domain =
+    				(l >= domain.length())
+    					? ""
+    					: domain.substring(l);
+    			i++;
+    		}
+    	}
+    
+    	int len = i;
+    	if (domainSegment[len - 1].length() < 2
+    		|| domainSegment[len - 1].length() > 4) {
+    
+    		return false;
+    	}
+    
+    	// Make sure there's a host name preceding the domain.
+    	if (len < 2) {
+    		return false;
+    	}
+        
+    	return true;
 	}
 
 }
