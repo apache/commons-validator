@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.10 2002/10/25 03:22:55 turner Exp $
- * $Revision: 1.10 $
- * $Date: 2002/10/25 03:22:55 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.11 2002/12/15 21:46:41 martinc Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/12/15 21:46:41 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -88,14 +88,14 @@ import org.apache.commons.logging.LogSource;
  *
  * @author David Winterfeldt
  * @author James Turner
- * @version $Revision: 1.10 $ $Date: 2002/10/25 03:22:55 $
+ * @version $Revision: 1.11 $ $Date: 2002/12/15 21:46:41 $
 */
 public class Validator implements Serializable {
 
    /**
     * Logger
    */
-   protected static Log log = LogSource.getInstance(Validator.class.getName());
+   protected static Log log = LogFactory.getLog(Validator.class);
 
    /**
     * Resources key the JavaBean is stored to perform validation on.
@@ -147,8 +147,8 @@ public class Validator implements Serializable {
    protected ClassLoader classLoader = null;
 
    /**
-    * Do we want to use the Context ClassLoader when loading classes
-    * for instantiating new objects?  Default is <code>false</code>.
+    * Whether or not to use the Context ClassLoader when loading classes
+    * for instantiating new objects.  Default is <code>false</code>.
    */
    protected boolean useContextClassLoader = false;
 

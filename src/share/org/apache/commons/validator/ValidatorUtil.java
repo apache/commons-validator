@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.5 2002/03/30 04:33:17 dwinterfeldt Exp $
- * $Revision: 1.5 $
- * $Date: 2002/03/30 04:33:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.6 2002/12/15 21:46:41 martinc Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/12/15 21:46:41 $
  *
  * ====================================================================
  *
@@ -67,21 +67,21 @@ import java.util.Map;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.FastHashMap; 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
  * <p>Basic utility methods.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2002/03/30 04:33:17 $
+ * @version $Revision: 1.6 $ $Date: 2002/12/15 21:46:41 $
 */
 public class ValidatorUtil  {
 
    /**
     * Logger
    */
-   protected static Log log = LogSource.getInstance(ValidatorUtil.class.getName());
+   protected static Log log = LogFactory.getLog(ValidatorUtil.class);
    
    /**
     * <p>Replace part of a <code>String</code> with another value.</p>

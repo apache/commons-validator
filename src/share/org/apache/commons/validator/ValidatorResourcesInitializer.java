@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.9 2002/11/13 02:02:56 martinc Exp $
- * $Revision: 1.9 $
- * $Date: 2002/11/13 02:02:56 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.10 2002/12/15 21:46:41 martinc Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/12/15 21:46:41 $
  *
  * ====================================================================
  *
@@ -70,7 +70,7 @@ import java.net.URL;
 import org.apache.commons.digester.Digester;
 import org.xml.sax.SAXException;
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -78,14 +78,14 @@ import org.apache.commons.logging.LogSource;
  *
  * @author David Winterfeldt
  * @author Dave Derry
- * @version $Revision: 1.9 $ $Date: 2002/11/13 02:02:56 $
+ * @version $Revision: 1.10 $ $Date: 2002/12/15 21:46:41 $
 */
 public class ValidatorResourcesInitializer {
 
    /**
     * Logger
    */
-   protected static Log log = LogSource.getInstance(ValidatorResourcesInitializer.class.getName());
+   protected static Log log = LogFactory.getLog(ValidatorResourcesInitializer.class);
    
 
     /**

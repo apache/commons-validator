@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.8 2002/12/04 21:24:01 turner Exp $
- * $Revision: 1.8 $
- * $Date: 2002/12/04 21:24:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.9 2002/12/15 21:46:41 martinc Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/12/15 21:46:41 $
  *
  * ====================================================================
  *
@@ -71,7 +71,7 @@ import java.util.Locale;
 import java.util.Map;
 import org.apache.commons.collections.FastHashMap;    
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -83,14 +83,14 @@ import org.apache.commons.logging.LogSource;
  * application server environments.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2002/12/04 21:24:01 $
+ * @version $Revision: 1.9 $ $Date: 2002/12/15 21:46:41 $
 */
 public class ValidatorResources implements Serializable {
 
    /**
     * Logger
    */
-   protected static Log log = LogSource.getInstance(ValidatorResources.class.getName());
+   protected static Log log = LogFactory.getLog(ValidatorResources.class);
    
    /**
     * <code>FastHashMap</code> of <code>FormSet</code>s stored under 

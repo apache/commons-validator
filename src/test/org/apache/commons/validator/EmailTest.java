@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.3 2002/12/15 20:58:57 martinc Exp $
- * $Revision: 1.3 $
- * $Date: 2002/12/15 20:58:57 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.4 2002/12/15 21:46:41 martinc Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/12/15 21:46:41 $
  *
  * ====================================================================
  *
@@ -70,14 +70,14 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.framework.AssertionFailedError;              
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
 
                                                           
 /**                                                       
  * <p>Performs Validation Test for e-mail validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.3 $ $Date: 2002/12/15 20:58:57 $
+ * @version $Revision: 1.4 $ $Date: 2002/12/15 21:46:41 $
 */                                                       
 public class EmailTest extends TestCase {            
    
@@ -96,7 +96,7 @@ public class EmailTest extends TestCase {
    /**
     * Commons Logging instance.
    */
-   private Log log = LogSource.getInstance(this.getClass().getName());
+   private Log log = LogFactory.getLog(this.getClass());
    
    /**
     * Resources used for validation tests.

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredIfTest.java,v 1.1 2002/09/19 17:11:46 turner Exp $
- * $Revision: 1.1 $
- * $Date: 2002/09/19 17:11:46 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredIfTest.java,v 1.2 2002/12/15 21:46:41 martinc Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/12/15 21:46:41 $
  *
  * ====================================================================
  *
@@ -70,13 +70,13 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.framework.AssertionFailedError;              
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
                                                           
 /**                                                       
  * <p>Performs Validation Test.</p> 
  *
  * @author James Turner
- * @version $Revision: 1.1 $ $Date: 2002/09/19 17:11:46 $
+ * @version $Revision: 1.2 $ $Date: 2002/12/15 21:46:41 $
 */                                                       
 public class RequiredIfTest extends TestCase {            
    
@@ -95,7 +95,7 @@ public class RequiredIfTest extends TestCase {
    /**
     * Commons Logging instance.
    */
-   private Log log = LogSource.getInstance(this.getClass().getName());
+   private Log log = LogFactory.getLog(this.getClass());
    
    /**
     * Resources used for validation tests.
