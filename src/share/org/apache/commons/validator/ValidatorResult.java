@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResult.java,v 1.5 2003/05/24 18:36:19 dgraham Exp $
- * $Revision: 1.5 $
- * $Date: 2003/05/24 18:36:19 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResult.java,v 1.6 2003/06/08 07:14:51 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/06/08 07:14:51 $
  *
  * ====================================================================
  *
@@ -71,7 +71,7 @@ import java.util.Map;
  * validation rules processed on JavaBean.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2003/05/24 18:36:19 $
+ * @version $Revision: 1.6 $ $Date: 2003/06/08 07:14:51 $
  */
 public class ValidatorResult implements Serializable {
 
@@ -83,6 +83,7 @@ public class ValidatorResult implements Serializable {
 
    /**
     * <code>Field</code> being validated.
+    * TODO This variable is not used.  Need to investigate removing it.
     */
     protected Field field = null;
    
