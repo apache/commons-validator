@@ -1,174 +1,335 @@
-<!--
-   You will need Ant setup properly to run this script.  The "build.properties.sample" file 
-   will need to be edited to point to some jar files and renamed to "build.properties".
--->
-<project name="Commons Validator" default="jar" basedir=".">
-   <!-- set global properties for this build -->
-   <property file="build.properties"/>
-   <property file="../build.properties"/>
-   <property file="${user.home}/build.properties"/>
-   
-   <property name="title" value="Commons Validator" />
-   <property name="name" value="validator" />
-   <property name="validator.jar" value="commons-validator.jar"/>
-   <property name="src" value="src" />
-   <property name="build" value="build" />
-   <property name="example" value="example" />
-   <property name="test" value="test" />
-   <property name="share" value="share" />
-   <property name="dist" value="dist" />
-   <property name="docs" value="docs" />
-   <property name="build.javadocs" value="${dist}/${docs}/api" />
-   <property name="package.root" value="org/apache/commons/validator"/>
-   
-   <!-- Setting Classpath -->
-   <path id="base.classpath">
-      <pathelement path="${commons-beanutils.jar}"/>
-      <pathelement path="${commons-collections.jar}"/>
-      <pathelement path="${commons-digester.jar}"/>
-      <pathelement path="${commons-logging.jar}"/>
-      <pathelement path="${oro.jar}"/>
-   </path>
-   
-   <path id="test.classpath">
-      <path refid="base.classpath"/>
-      <pathelement path="${junit.jar}"/>
-      <pathelement location="${xerces.jar}"/>
-      <pathelement path="${commons-beanutils.jar}"/>
-      <pathelement path="${commons-collections.jar}"/>
-      <pathelement path="${commons-digester.jar}"/>
-      <pathelement path="${commons-logging.jar}"/>
-      <pathelement path="${dist}/${validator.jar}" />
-      <pathelement path="${build}/${test}" />
-   </path>
+<project name="Validator" default="jar" basedir=".">
 
+
+<!--
+        "Validator" component of the Jakarta Commons Subproject
+        $Id: build.xml,v 1.11 2002/10/22 06:18:02 martinc Exp $
+-->
+
+
+<!-- ========== Initialize Properties ===================================== -->
+
+
+  <property file="build.properties"/>                <!-- Component local   -->
+  <property file="../build.properties"/>             <!-- Commons local     -->
+  <property file="${user.home}/build.properties"/>   <!-- User local        -->
+
+
+<!-- ========== External Dependencies ===================================== -->
+
+
+  <!-- The directories corresponding to your necessary dependencies -->
+  <property name="junit.home"              value="/usr/local/junit3.7"/>
+  <property name="commons.home"            value="../../jakarta-commons"/>
+  <property name="sandbox.home"            value="../../jakarta-commons-sandbox"/>
+  <property name="beanutils.home"          value="${commons.home}/beanutils"/>
+  <property name="collections.home"        value="${commons.home}/collections"/>
+  <property name="digester.home"           value="${commons.home}/digester"/>
+  <property name="logging.home"            value="${commons.home}/logging"/>
+
+
+<!-- ========== Derived Values ============================================ -->
+
+
+  <!-- The locations of necessary jar files -->
+  <property name="junit.jar"               value="${junit.home}/junit.jar"/>
+  <property name="commons-beanutils.jar"   value="${beanutils.home}/dist/commons-beanutils.jar"/>
+  <property name="commons-collections.jar" value="${collections.home}/dist/commons-collections.jar"/>
+  <property name="commons-digester.jar"    value="${digester.home}/dist/commons-digester.jar"/>
+  <property name="commons-logging.jar"     value="${logging.home}/dist/commons-logging.jar"/>
+
+
+<!-- ========== Component Declarations ==================================== -->
+
+
+  <!-- The name of this component -->
+  <property name="component.name"          value="validator"/>
+
+  <!-- The title of this component -->
+  <property name="component.title"         value="Validator"/>
+
+  <!-- The current version number of this component -->
+  <property name="component.version"       value="1.0-dev"/>
+
+  <!-- The base directory for compilation targets -->
+  <property name="build.home"              value="target"/>
+
+  <!-- The base directory for component configuration files -->
+  <property name="conf.home"               value="conf/share"/>
+
+  <!-- The base directory for distribution targets -->
+  <property name="dist.home"               value="dist"/>
+
+  <!-- The base directory for release targets -->
+  <property name="release.home"            value="release" />
+
+  <!-- The base directory for component sources -->
+  <property name="source.home"             value="src/share"/>
+
+  <!-- The base directory for unit test sources -->
+  <property name="test.home"               value="src/test"/>
+
+  <!-- The base directory for example sources -->
+  <property name="example.home"            value="src/example"/>
+
+  <!-- Directory where binary release files are staged -->
+  <property name="stage.bin.dir"           value="${release.home}/stage/bin"/>
+
+  <!-- Directory where source release files are staged -->
+  <property name="stage.src.dir"           value="${release.home}/stage/src"/>
+
+  <!-- Directory where release builds are prepared for upload -->
+  <property name="upload.dir"              value="${release.home}/upload"/>
+
+  <!-- Base file name for upload files -->
+  <property name="upload.file.base"        value="${component.name}-${component.version}"/>
+
+
+<!-- ========== Compiler Defaults ========================================= -->
+
+
+  <!-- Should Java compilations set the 'debug' compiler option? -->
+  <property name="compile.debug"           value="true"/>
+
+  <!-- Should Java compilations set the 'deprecation' compiler option? -->
+  <property name="compile.deprecation"     value="false"/>
+
+  <!-- Should Java compilations set the 'optimize' compiler option? -->
+  <property name="compile.optimize"        value="true"/>
+
+  <!-- Construct compile classpath -->
+  <path id="compile.classpath">
+    <pathelement location="${build.home}/classes"/>
+    <pathelement location="${commons-beanutils.jar}"/>
+    <pathelement location="${commons-collections.jar}"/>
+    <pathelement location="${commons-digester.jar}"/>
+    <pathelement location="${commons-logging.jar}"/>
+    <pathelement location="${oro.jar}"/>
+  </path>
+
+
+<!-- ========== Test Execution Defaults =================================== -->
+
+
+  <!-- Construct unit test classpath -->
+  <path id="test.classpath">
+    <pathelement location="${build.home}/classes"/>
+    <pathelement location="${build.home}/tests"/>
+    <pathelement location="${commons-beanutils.jar}"/>
+    <pathelement location="${commons-collections.jar}"/>
+    <pathelement location="${commons-digester.jar}"/>
+    <pathelement location="${commons-logging.jar}"/>
+    <pathelement location="${oro.jar}"/>
+    <pathelement location="${junit.jar}"/>
+  </path>
+
+  <!-- Should all tests fail if one does? -->
+  <property name="test.failonerror"        value="true"/>
+
+  <!-- The test runner to execute -->
+  <property name="test.runner"             value="junit.textui.TestRunner"/>
+
+
+<!-- ========== Example Execution Defaults ================================ -->
+
+
+  <!-- Construct example classpath -->
    <path id="example.classpath">
       <path refid="test.classpath"/>
-      <pathelement path="${build}/${example}" />
+      <pathelement location="${build.home}/example" />
    </path>
    
-   <path id="javadoc.classpath">
-      <path refid="base.classpath"/>
-      <pathelement location="${xerces.jar}"/>
-      <pathelement path="${dist}/${validator.jar}" />
-   </path>
-   
-   <target name="init" description="creates any directories needed by the build process">
-      <!-- Create the time stamp -->
-      <tstamp/>
-      <!-- Create the build directory structure used by compile -->
-      <mkdir dir="${build}/${share}"/>
-   </target>
 
-   <!-- Compile shared source -->
-   <target name="build" depends="init" description="builds binary distribution">
-      <!-- Compile the java code from ${src}/${share} into ${build}/${share} -->
-      <javac srcdir="${src}/${share}" 
-             destdir="${build}/${share}">
-         <classpath refid="base.classpath" />
-      </javac>
-   </target>
-   
-   <!-- Create distribution jar of shared source -->
-   <target name="jar" depends="build" description="creates distributable jar of the binaries">
-      <!-- Create the ${dist} directory -->
-      <mkdir dir="${dist}" />
-      
-      <!-- Put everything in ${build} -->
-      <jar jarfile="${dist}/${validator.jar}" 
-           basedir="${build}/${share}"
-           includes="${package.root}/**"/>
-   </target>
-   
-   <!-- Create Javadocs -->
-   <target name="javadocs" depends="jar" description="Creates the API documentation">
-      <mkdir dir="${build.javadocs}"/>
-      <javadoc packagenames="org.apache.commons.validator.*"
-      	     sourcepath="${src}/${share}"
-               destdir="${build.javadocs}"
-               author="true"
-               version="true"
-               windowtitle="${title} API"
-               doctitle="${title}">
-         <classpath refid="javadoc.classpath" />
-      </javadoc>
-   </target>
+<!-- ========== Executable Targets ======================================== -->
 
-   <!-- Create distribution -->
-   <target name="dist" depends="jar,javadocs" description="creates complete distribution">
-      <!-- Create the ${dist} directory -->
-      <mkdir dir="${dist}" />
-      
-      <copy todir="${dist}" file="../LICENSE"/>
-   </target>
-      
-   <!-- Clean build and dist directories -->
-   <target name="clean"
-    description="Clean build and distribution directories">
-      <delete dir="${build}"/>
-      <delete dir="${dist}"/>
-   </target>
 
-   <!-- Compile Example -->
-   <target name="build-example" depends="jar" description="builds binaries for example">
-      <mkdir dir="${build}/${example}"/>
-      
-      <!-- Compile the java code from ${src}/${example} into ${build}/${example} -->
-      <javac srcdir="${src}/${example}" 
-             debug="on"
-             destdir="${build}/${example}">
-         <classpath refid="test.classpath" />
-      </javac>
+  <target name="init"
+   description="Initialize and evaluate conditionals">
+    <echo message="-------- ${component.name} ${component.version} --------"/>
+    <filter  token="name"                  value="${component.name}"/>
+    <filter  token="version"               value="${component.version}"/>
+  </target>
 
-      <copy todir="${build}/${example}" >
-         <fileset dir="${src}/${example}"
-                  excludes="**/*.java" 
-         />
-      </copy>
-   </target>
-   <target name="example" depends="build-example" description="runs example">
-      <java fork="yes" classname="org.apache.commons.validator.example.ValidateExample" 
-          taskname="main" failonerror="true">
-          <classpath refid="example.classpath" />
+
+  <target name="prepare" depends="init"
+   description="Prepare build directory">
+    <mkdir dir="${build.home}"/>
+    <mkdir dir="${build.home}/classes"/>
+    <mkdir dir="${build.home}/conf"/>
+    <mkdir dir="${build.home}/tests"/>
+  </target>
+
+
+  <target name="static" depends="prepare"
+   description="Copy static files to build directory">
+    <tstamp/>
+    <copy  todir="${build.home}/conf" filtering="on">
+      <fileset dir="${conf.home}" includes="*.MF"/>
+    </copy>
+  </target>
+
+
+  <target name="compile" depends="static"
+   description="Compile shareable components">
+    <javac  srcdir="${source.home}"
+           destdir="${build.home}/classes"
+             debug="${compile.debug}"
+       deprecation="${compile.deprecation}"
+          optimize="${compile.optimize}">
+      <classpath refid="compile.classpath"/>
+    </javac>
+    <copy    todir="${build.home}/classes" filtering="on">
+      <fileset dir="${source.home}"
+          excludes="**/*.java"/>
+    </copy>
+    <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
+              file="${conf.home}/validator_1_0.dtd"/>
+  </target>
+
+
+  <target name="clean"
+   description="Clean build and distribution directories">
+    <delete    dir="${build.home}"/>
+    <delete    dir="${dist.home}"/>
+    <delete    dir="${release.home}"/>
+  </target>
+
+
+  <target name="all" depends="clean,compile"
+   description="Clean and compile all components"/>
+
+
+  <target name="javadoc" depends="compile"
+   description="Create component Javadoc documentation">
+    <mkdir      dir="${dist.home}"/>
+    <mkdir      dir="${dist.home}/docs"/>
+    <mkdir      dir="${dist.home}/docs/api"/>
+    <javadoc sourcepath="${source.home}"
+                destdir="${dist.home}/docs/api"
+           packagenames="org.apache.commons.*"
+                 author="true"
+                private="true"
+                version="true"
+               doctitle="&lt;h1&gt;${component.title} (Version ${component.version})&lt;/h1&gt;"
+            windowtitle="${component.title} (Version ${component.version})"
+                 bottom="Copyright (c) 2001-2002 - Apache Software Foundation"
+           classpathref="compile.classpath" />
+  </target>
+
+
+  <target name="dist" depends="compile,javadoc"
+   description="Create binary distribution">
+    <mkdir      dir="${dist.home}"/>
+    <copy      file="LICENSE.txt"
+              todir="${dist.home}"/>
+    <copy      file="RELEASE-NOTES.txt"
+              todir="${dist.home}"/>
+    <mkdir      dir="${build.home}/classes/META-INF"/>
+    <copy      file="LICENSE.txt"
+             tofile="${build.home}/classes/META-INF/LICENSE.txt"/>
+    <jar    jarfile="${dist.home}/commons-${component.name}.jar"
+            basedir="${build.home}/classes"
+           manifest="${build.home}/conf/MANIFEST.MF"/>
+  </target>
+
+
+<!-- ========== Unit Test Targets ========================================= -->
+
+
+  <target name="compile.tests" depends="compile"
+   description="Compile unit test cases">
+    <javac  srcdir="${test.home}"
+           destdir="${build.home}/tests"
+             debug="${compile.debug}"
+       deprecation="${compile.deprecation}"
+          optimize="${compile.optimize}">
+      <classpath refid="test.classpath"/>
+    </javac>
+    <copy    todir="${build.home}/tests" filtering="on">
+      <fileset dir="${test.home}" excludes="**/*.java"/>
+    </copy>
+  </target>
+
+
+  <target name="test"  depends="compile.tests"
+   description="Run all unit test cases">
+    <echo message="Running tests ..."/>
+    <java classname="${test.runner}" fork="yes"
+        failonerror="${test.failonerror}">
+      <arg value="org.apache.commons.validator.ValidatorTestSuite"/>
+      <classpath refid="test.classpath"/>
+    </java>
+  </target>
+
+
+<!-- ========== Example Targets =========================================== -->
+
+
+  <target name="prepare.example" depends="compile"
+   description="Prepare example directory">
+    <mkdir dir="${build.home}/example"/>
+  </target>
+
+
+  <target name="compile.example" depends="prepare.example"
+   description="Compile example application">
+    <javac  srcdir="${example.home}"
+           destdir="${build.home}/example"
+             debug="${compile.debug}"
+       deprecation="${compile.deprecation}"
+          optimize="${compile.optimize}">
+      <classpath refid="example.classpath"/>
+    </javac>
+    <copy    todir="${build.home}/example" filtering="on">
+      <fileset dir="${example.home}" excludes="**/*.java"/>
+    </copy>
+  </target>
+
+
+   <target name="example" depends="compile.example"
+    description="Run example application">
+      <java fork="yes"
+       classname="org.apache.commons.validator.example.ValidateExample" 
+        taskname="main" failonerror="true">
+        <classpath refid="example.classpath" />
       </java>
    </target>
 
-   <!-- Compile JUnit Tests -->
-   <target name="build-test" depends="jar" description="builds binaries for testing">
-      <mkdir dir="${build}/${test}"/>
-      
-      <!-- Compile the java code from ${src}/${test} into ${build}/${test} -->
-      <javac srcdir="${src}/${test}" 
-             destdir="${build}/${test}">
-         <classpath refid="test.classpath" />
-      </javac>
 
-      <copy todir="${build}/${test}" >
-         <fileset dir="${src}/${test}"
-                  excludes="**/*.java" 
-         />
-      </copy>
-   </target>
+<!-- ========== Release Targets =========================================== -->
 
-   <!-- Run JUnit Tests -->
-   <target name="test" depends="build-test" description="runs junit tests">
-      <java fork="yes" classname="junit.textui.TestRunner" 
-          taskname="junit" failonerror="true">
-          <arg value="org.apache.commons.validator.ValidatorTestSuite"/>
-          <classpath refid="test.classpath" />
-      </java>
-   </target>
 
-   <!-- Run JUnit Tests for Email only -->
-   <target name="test.email"
-        depends="build-test" description="runs email tests">
-      <java fork="yes" classname="junit.textui.TestRunner" 
-          taskname="junit" failonerror="true">
-          <arg value="org.apache.commons.validator.EmailTest"/>
-          <classpath refid="test.classpath" />
-      </java>
-   </target>
-
+    <target name="release" depends="clean,dist"
+    description="Construct release distribution">
+        <mkdir dir="${stage.bin.dir}/${upload.file.base}"/>
+        <mkdir dir="${stage.src.dir}/${upload.file.base}-src"/>
+        <copy todir="${stage.bin.dir}/${upload.file.base}">
+            <fileset dir="${dist.home}"/>
+        </copy>
+        <copy todir="${stage.src.dir}/${upload.file.base}-src">
+            <fileset dir=".">
+                <exclude name="build.properties"/>
+                <exclude name="target/**"/>
+                <exclude name="dist/**"/>
+                <exclude name="release/**"/>
+            </fileset>
+        </copy>
+        <mkdir dir="${upload.dir}"/>
+        <zip  zipfile="${upload.dir}/${upload.file.base}.zip"
+              basedir="${stage.bin.dir}"/>
+        <zip  zipfile="${upload.dir}/${upload.file.base}-src.zip"
+              basedir="${stage.src.dir}"/>
+        <tar  tarfile="${upload.dir}/${upload.file.base}.tar"
+              basedir="${stage.bin.dir}"
+             longfile="gnu"/>
+        <tar  tarfile="${upload.dir}/${upload.file.base}-src.tar"
+              basedir="${stage.src.dir}"
+             longfile="gnu"/>
+        <gzip     src="${upload.dir}/${upload.file.base}.tar"
+              zipfile="${upload.dir}/${upload.file.base}.tar.gz"/>
+        <gzip     src="${upload.dir}/${upload.file.base}-src.tar"
+              zipfile="${upload.dir}/${upload.file.base}-src.tar.gz"/>
+    </target>
 
       
 </project>
