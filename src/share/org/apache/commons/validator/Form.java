@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.3 2002/03/30 04:33:17 dwinterfeldt Exp $
- * $Revision: 1.3 $
- * $Date: 2002/03/30 04:33:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.4 2003/04/29 02:59:49 dgraham Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/04/29 02:59:49 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -72,19 +72,18 @@ import org.apache.commons.collections.FastHashMap;
 
 
 /**
- * <p>This contains a set of validation rules for a 
- * form/JavaBean.  The information is contained in a 
- * list of <code>Field</code> objects.</p>
+ * <p>This contains a set of validation rules for a form/JavaBean.  The information is 
+ * contained in a list of <code>Field</code> objects.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.3 $ $Date: 2002/03/30 04:33:17 $
-*/
+ * @version $Revision: 1.4 $ $Date: 2003/04/29 02:59:49 $
+ */
 public class Form implements Serializable {
 
     /**
      * The name/key the set of validation rules is 
      * stored under.
-    */
+     */
     protected String name = null;
 
     /**
@@ -92,7 +91,7 @@ public class Form implements Serializable {
      * the order they were added in although individual 
      * <code>Field</code>s can be retrieved using 
      * <code>Map</code> of <code>Field</code>s.
-    */
+     */
     protected List lFields = new ArrayList();
     
     /**
@@ -102,21 +101,21 @@ public class Form implements Serializable {
 
     /**
      * Gets the name/key of the set of validation rules.
-    */
+     */
     public String getName() {
        return name;	
     }
 
     /**
      * Sets the name/key of the set of validation rules.
-    */
+     */
     public void setName(String name) {
        this.name = name;	
     }
 
     /**
      * Add a <code>Field</code> to the <code>Form</code>.
-    */
+     */
     public void addField(Field f) {
        if (f != null && f.getProperty() != null && f.getProperty().length() > 0) {
        	  lFields.add(f);
@@ -128,7 +127,7 @@ public class Form implements Serializable {
     /**
      * A <code>List</code> of <code>Field</code>s is returned as an 
      * unmodifiable <code>List</code>.
-    */
+     */
     public List getFields() {
     	return Collections.unmodifiableList(lFields);
     }
@@ -136,26 +135,26 @@ public class Form implements Serializable {
     /**
      * A <code>Map</code> of <code>Field</code>s is returned as an 
      * unmodifiable <code>List</code>.
-    */
+     */
     public Map getFieldMap() {
     	return Collections.unmodifiableMap(hFields);
     }
 
     /**
      * Processes all of the <code>Form</code>'s <code>Field</code>s.
-    */
+     */
     public void process(Map globalConstants, Map constants) {
-       hFields.setFast(true);
-       
-       for (Iterator i = lFields.iterator(); i.hasNext(); ) {
-       	  Field f = (Field)i.next();
-       	  f.process(globalConstants, constants);
-       }
+    	hFields.setFast(true);
+    
+    	for (Iterator i = lFields.iterator(); i.hasNext();) {
+    		Field f = (Field) i.next();
+    		f.process(globalConstants, constants);
+    	}
     }
 
     /**
      * Returns a string representation of the object.
-    */    
+     */    
     public String toString() {
        StringBuffer results = new StringBuffer();
        
