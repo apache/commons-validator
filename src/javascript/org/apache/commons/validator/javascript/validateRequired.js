@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateRequired.js,v $ $Revision: 1.13 $ $Date: 2004/03/28 16:53:21 $ */
+    /*$RCSfile: validateRequired.js,v $ $Rev$ $Date$ */
     /**
     *  Check to see if fields must contain a value.
     * Fields are not checked if they are disabled.

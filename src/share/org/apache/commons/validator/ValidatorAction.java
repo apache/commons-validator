@@ -1,10 +1,10 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.22 2004/04/10 21:01:59 dgraham Exp $
- * $Revision: 1.22 $
- * $Date: 2004/04/10 21:01:59 $
+ * $Id$
+ * $Rev$
+ * $Date$
  *
  * ====================================================================
- * Copyright 2001-2004 The Apache Software Foundation
+ * Copyright 2001-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

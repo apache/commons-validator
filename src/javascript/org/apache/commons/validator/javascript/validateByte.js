@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateByte.js,v $ $Revision: 1.9 $ $Date: 2004/03/28 16:53:21 $ */
+    /*$RCSfile: validateByte.js,v $ $Rev$ $Date$ */
     /**
     * Check to see if fields are a valid byte.
     * Fields are not checked if they are disabled.

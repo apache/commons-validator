@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateMask.js,v $ $Revision: 1.10 $ $Date: 2004/03/28 16:53:21 $ */
+    /*$RCSfile: validateMask.js,v $ $Rev$ $Date$ */
     /**
     * Check to see if fields are a valid using a regular expression.
     * Fields are not checked if they are disabled.

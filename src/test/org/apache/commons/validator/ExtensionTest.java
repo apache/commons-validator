@@ -1,10 +1,10 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ExtensionTest.java,v 1.2 2004/11/26 21:35:19 dgraham Exp $
- * $Revision: 1.2 $
- * $Date: 2004/11/26 21:35:19 $
+ * $Id$
+ * $Rev$
+ * $Date$
  *
  * ====================================================================
- * Copyright 2001-2004 The Apache Software Foundation
+ * Copyright 2001-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

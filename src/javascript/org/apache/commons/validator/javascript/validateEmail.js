@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateEmail.js,v $ $Revision: 1.10 $ $Date: 2004/06/12 00:31:02 $ */
+    /*$RCSfile: validateEmail.js,v $ $Rev$ $Date$ */
     /**
     * Check to see if fields are a valid email address.
     * Fields are not checked if they are disabled.

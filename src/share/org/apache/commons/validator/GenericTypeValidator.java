@@ -1,10 +1,10 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.15 2004/11/26 21:25:12 dgraham Exp $
- * $Revision: 1.15 $
- * $Date: 2004/11/26 21:25:12 $
+ * $Id$
+ * $Rev$
+ * $Date$
  *
  * ====================================================================
- * Copyright 2001-2004 The Apache Software Foundation
+ * Copyright 2001-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateMinLength.js,v $ $Revision: 1.11 $ $Date: 2004/03/28 16:53:21 $ */
+    /*$RCSfile: validateMinLength.js,v $ $Rev$ $Date$ */
     /**
     * A field is considered valid if greater than the specified minimum.
     * Fields are not checked if they are disabled.

@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateFloat.js,v $ $Revision: 1.11 $ $Date: 2004/03/28 16:53:21 $ */
+    /*$RCSfile: validateFloat.js,v $ $Rev$ $Date$ */
     /**
     * Check to see if fields are a valid float.
     * Fields are not checked if they are disabled.

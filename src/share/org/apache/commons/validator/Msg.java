@@ -1,10 +1,10 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.14 2004/11/11 15:32:49 niallp Exp $
- * $Revision: 1.14 $
- * $Date: 2004/11/11 15:32:49 $
+ * $Id$
+ * $Rev$
+ * $Date$
  *
  * ====================================================================
- * Copyright 2001-2004 The Apache Software Foundation
+ * Copyright 2001-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateInteger.js,v $ $Revision: 1.9 $ $Date: 2004/03/28 16:53:21 $ */
+    /*$RCSfile: validateInteger.js,v $ $Rev$ $Date$ */
     /**
     * Check to see if fields are a valid integer.
     * Fields are not checked if they are disabled.
