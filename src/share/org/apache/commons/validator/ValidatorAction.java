@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.7 2003/05/18 21:31:06 rleland Exp $
- * $Revision: 1.7 $
- * $Date: 2003/05/18 21:31:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.8 2003/05/20 02:00:24 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/05/20 02:00:24 $
  *
  * ====================================================================
  *
@@ -75,14 +75,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * <p>Contains the information to dynamically instantiate  and run a validation 
- * method.  This is the class representation of a pluggable validator that can be defined 
- * in an xml file.
- * </p>
+ * <p>Contains the information to dynamically create and run a validation 
+ * method.  This is the class representation of a pluggable validator that can be 
+ * defined in an xml file.</p>
+ * 
  * <strong>Note</strong>: The validation method is assumed to be thread safe.
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2003/05/18 21:31:06 $
+ * @version $Revision: 1.8 $ $Date: 2003/05/20 02:00:24 $
  */
 public class ValidatorAction implements Serializable {
 
@@ -136,14 +136,13 @@ public class ValidatorAction implements Serializable {
 	private String msg = null;
 
 	/**
-	 * An optional field to contain the name to be 
-	 * used if JavaScript is generated.
+	 * An optional field to contain the name to be used if JavaScript is generated.
 	 */
 	private String jsFunctionName = null;
 
     /**
-     * An optional field to contain the class path to be
-     * used to retrieve the JavaScript function.
+     * An optional field to contain the class path to be used to retrieve the 
+     * JavaScript function.
      */
     private String jsFunction = null;
 
@@ -159,10 +158,9 @@ public class ValidatorAction implements Serializable {
 	 */
 	private Object instance = null;
 
-
     /**
-     * Logger
-    */
+     * Logger.
+     */
     private static Log log = LogFactory.getLog(ValidatorAction.class);
 
 	/**
@@ -234,7 +232,7 @@ public class ValidatorAction implements Serializable {
 
 	/**
 	 * Gets the method parameters for the method.
-	*/
+	 */
 	public List getMethodParamsList() {
 		return Collections.unmodifiableList(methodParameterList);
 	}
@@ -248,7 +246,7 @@ public class ValidatorAction implements Serializable {
 
 	/**
 	 * Sets the dependencies of the validator action.
-	*/
+	 */
 	public void setDepends(String depends) {
 		this.depends = depends;
 	}
@@ -316,11 +314,10 @@ public class ValidatorAction implements Serializable {
         this.jsFunction = jsFunction;
     }
 
-
 	/**
 	 * Gets the Javascript equivalent of the java class and method 
 	 * associated with this action.
-	*/
+	 */
 	public String getJavascript() {
 		return javascript;
 	}
@@ -338,7 +335,7 @@ public class ValidatorAction implements Serializable {
 
 	/**
 	 * Gets an instance based on the validator action's classname.
-	*/
+	 */
 	public Object getClassnameInstance() {
 		return instance;
 	}
@@ -362,8 +359,8 @@ public class ValidatorAction implements Serializable {
       * implementation, the <code>jsFunction</code> property should contain a fully
       * qualified package and script name, separated by periods, to be loaded from
       * the class loader that created this instance.
-     *
-     *  @TODO if the path begins with a '/' the path will be intepreted as absolute, and remain unchanged.
+      *
+      * TODO if the path begins with a '/' the path will be intepreted as absolute, and remain unchanged.
       * If this fails then it will attempt to treat the path as a file path.
       * It is assumed the script ends with a '.js'.
       */
@@ -444,16 +441,18 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Used to generate the javascript name when it is not specified.
-     * @return
      */
     private String generateJsFunction() {
-        StringBuffer jsName = new StringBuffer("org.apache.commons.validator.javascript");
-            jsName.append(".validate");
-            jsName.append(name.substring(0,1).toUpperCase());
-        jsName.append(name.substring(1,name.length()));
+        StringBuffer jsName =
+            new StringBuffer("org.apache.commons.validator.javascript");
+            
+        jsName.append(".validate");
+        jsName.append(name.substring(0, 1).toUpperCase());
+        jsName.append(name.substring(1, name.length()));
+        
         return jsName.toString();
-
     }
+    
 	/**
 	 * Creates a <code>FastHashMap</code> for the isDependency method 
 	 * based on depends.
