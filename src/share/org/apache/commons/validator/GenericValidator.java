@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.10 2003/01/20 06:50:26 turner Exp $
- * $Revision: 1.10 $
- * $Date: 2003/01/20 06:50:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.11 2003/03/13 02:26:25 dgraham Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/03/13 02:26:25 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -75,8 +75,8 @@ import org.apache.oro.text.perl.Perl5Util;
  *
  * @author David Winterfeldt
  * @author James Turner
- * @version $Revision: 1.10 $ $Date: 2003/01/20 06:50:26 $
-*/
+ * @version $Revision: 1.11 $ $Date: 2003/03/13 02:26:25 $
+ */
 public class GenericValidator implements Serializable {
 
     /**
@@ -499,8 +499,11 @@ public class GenericValidator implements Serializable {
                  // Make sure there's a host name preceding the domain.
                  if (len < 2) {
                     bValid = false;
-                 }
-              }               	
+                 } 
+                 
+              } else {
+                bValid = false; 
+              }          	
 	   }
        } catch (Exception e) {
           bValid = false;

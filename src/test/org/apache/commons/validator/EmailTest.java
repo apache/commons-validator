@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.7 2003/03/13 02:09:23 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2003/03/13 02:09:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.8 2003/03/13 02:26:25 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/03/13 02:26:25 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -77,7 +77,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Performs Validation Test for e-mail validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2003/03/13 02:09:23 $
+ * @version $Revision: 1.8 $ $Date: 2003/03/13 02:26:25 $
 */                                                       
 public class EmailTest extends TestCase {            
    
@@ -223,6 +223,19 @@ public class EmailTest extends TestCase {
       info.setValue("andy.noble@\u008fdata-workshop.com");
       valueTest(info, false);
 
+   }
+   
+   /**
+    * Tests the email validation with commas.
+    */
+   public void testEmailWithCommas() throws ValidatorException {
+      ValueBean info = new ValueBean();
+      info.setValue("joe,blow@apache.org");
+      valueTest(info, false);
+      info.setValue("joeblow@apa,che.org");
+      valueTest(info, false);
+      info.setValue("joeblow@apache.o,rg");
+      valueTest(info, false);
    }
 
    /**
