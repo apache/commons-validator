@@ -1,0 +1,37 @@
+# Properties related to the user's environment. This file should be provided
+# for building the Cactus Sample or the properties need to be specified on
+# the command line when starting Ant with the -D switch
+
+java.home=d:/jdk1.3
+commons-beanutils.jar=d:/java/lib/commons-beanutils.jar
+commons-collections.jar=d:/java/lib/commons-collections.jar
+commons-digester.jar=d:/java/lib/commons-digester.jar
+regexp.jar=e:/software/regexp/jakarta-regexp-1.2.jar
+xerces.jar=e:/software/xerces/xerces.jar
+
+# For compile_struts task (Struts interface for Validator)
+struts.jar=../../target/library/struts.jar
+struts.tlds=../../target/library
+servlet.jar=e:/tomcat3/lib/servlet.jar
+jdbc20ext.jar=d:/java/lib/jdbc2_0-stdext.jar
+
+# Unit Testing
+junit.jar=e:/software/junit3.5/junit.jar
+
+# Unit Testing For Struts Interface to Validator
+cactus.jar=e:/software/cactus/lib/commons-cactus.jar
+cactus.ant.jar=e:/software/cactus/lib/commons-cactus-ant.jar
+
+# Shouldn't be necessary, there is a problem with my ant setup
+#ant.jar=c:/software/ant/lib/ant.jar
+#ant.optional.jar=c:/software/ant/lib/optional.jar
+
+# Servlet engine locations for the tests
+
+# Note: If you don't want to run the test on a given servlet engine, just
+#       comment it's home property. For example, if you don't want to run the
+#       tests on the Resin 1.3, comment the "resin.home.13" property.
+#resin.home.13=f:/applis/resin-1.3.s010125
+tomcat.home.32=e:/tomcat3
+tomcat.home.40=e:/tomcat4
+

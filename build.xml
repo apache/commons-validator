@@ -1,0 +1,102 @@
+<!--
+   You will need Ant setup properly and have the commons-cactus-ant.jar in the classpath.  The build.properties file 
+   will need to be edited to point to some jar files, java.home, and the application servers you want to 
+   run the tests on.
+-->
+<project name="Commons Validator" default="jar" basedir=".">
+   <!-- set global properties for this build -->
+   <property file="build.properties"/>
+   
+   <property name="title" value="Commons Validator" />
+   <property name="name" value="validator" />
+   <property name="validator.jar" value="commons-validator.jar"/>
+   <property name="src" value="src" />
+   <property name="build" value="build" />
+   <property name="test" value="test" />
+   <property name="share" value="share" />
+   <property name="dist" value="dist" />
+   <property name="docs" value="docs" />
+   <property name="build.javadocs" value="${dist}/${docs}/api" />
+   <property name="package.root" value="org/apache/commons/validator"/>
+   
+   <!-- Setting Classpath -->
+   <path id="base.classpath">
+      <pathelement path="${commons-beanutils.jar}"/>
+      <pathelement path="${commons-collections.jar}"/>
+      <pathelement path="${commons-digester.jar}"/>
+      <pathelement path="${regexp.jar}"/>
+   </path>
+   
+   <path id="test.classpath">
+      <path refid="base.classpath"/>
+      <pathelement path="${junit.jar}"/>
+      <pathelement path="${dist}/${validator.jar}" />
+      <pathelement path="${build}/${test}" />
+   </path>
+   
+   <path id="javadoc.classpath">
+      <path refid="base.classpath"/>
+      <pathelement location="${xerces.jar}"/>
+      <pathelement path="${dist}/${validator.jar}" />
+   </path>
+   
+   <target name="prepare">
+      <!-- Create the time stamp -->
+      <tstamp/>
+      <!-- Create the build directory structure used by compile -->
+      <mkdir dir="${build}/${share}"/>
+   </target>
+                                                             
+   <target name="compile" depends="prepare">
+      <!-- Compile the java code from ${src}/${share} into ${build}/${share} -->
+      <javac srcdir="${src}/${share}" 
+             destdir="${build}/${share}">
+         <classpath refid="base.classpath" />
+      </javac>
+   </target>
+   
+   <target name="jar" depends="compile">
+      <!-- Create the ${dist}/lib directory -->
+      <mkdir dir="${dist}" />
+      
+      <!-- Put everything in ${build} -->
+      <jar jarfile="${dist}/${validator.jar}" 
+           basedir="${build}/${share}"
+           includes="${package.root}/**"/>
+   </target>
+   
+   <target name="javadocs" depends="jar" description="Creates the API documentation">
+      <mkdir dir="${build.javadocs}"/>
+      <javadoc packagenames="org.apache.commons.validator.*"
+      	     sourcepath="${src}/${share}"
+               destdir="${build.javadocs}"
+               author="true"
+               version="true"
+               windowtitle="${title} API"
+               doctitle="${title}">
+         <classpath refid="javadoc.classpath" />
+      </javadoc>
+   </target>
+   
+   <!-- Compile JUnit Tests -->
+   <target name="compile_tests" depends="jar">
+      <mkdir dir="${build}/${test}"/>
+      
+      <!-- Compile the java code from ${src}/${test} into ${build}/${test} -->
+      <javac srcdir="${src}/${test}" 
+             destdir="${build}/${test}">
+         <classpath refid="test.classpath" />
+      </javac>
+   </target>
+
+   <!-- Compile JUnit Tests -->
+   <target name="runtests" depends="compile_tests">
+      <java fork="yes" classname="junit.textui.TestRunner" 
+          taskname="junit" failonerror="true">
+          <arg value="org.apache.commons.validator.ValidatorTest"/>
+          <classpath refid="test.classpath" />
+      </java>
+   </target>
+      
+</project>
+
