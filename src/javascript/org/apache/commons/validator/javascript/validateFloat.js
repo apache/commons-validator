@@ -27,9 +27,14 @@
                 if (value.length > 0) {
                     // remove '.' before checking digits
                     var tempArray = value.split('.');
-                    var joinedString= tempArray.join('');
- 
-                    if (!isAllDigits(joinedString)) {
+                    //Strip off leading '0'
+                    var zeroIndex = 0;
+                    while (joinedString.charAt(zeroIndex) == '0') {
+                        zeroIndex++;
+                    }
+                    var noZeroString = joinedString.substring(zeroIndex,joinedString.length);
+
+                    if (!isAllDigits(noZeroString)) {
                         bValid = false;
                         if (i == 0) {
                             focusField = field;
