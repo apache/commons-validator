@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.20 2003/05/28 04:14:32 dgraham Exp $
- * $Revision: 1.20 $
- * $Date: 2003/05/28 04:14:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.21 2003/05/29 03:03:02 dgraham Exp $
+ * $Revision: 1.21 $
+ * $Date: 2003/05/29 03:03:02 $
  *
  * ====================================================================
  *
@@ -92,7 +92,7 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.20 $ $Date: 2003/05/28 04:14:32 $
+ * @version $Revision: 1.21 $ $Date: 2003/05/29 03:03:02 $
  */
 public class ValidatorResources implements Serializable {
 
@@ -330,13 +330,13 @@ public class ValidatorResources implements Serializable {
      * @deprecated Use getForm() instead.
      */
     public Form get(Locale locale, Object formKey) {
-        return this.getForm(locale, formKey);
+        return this.getForm(locale, formKey.toString());
     }
     
     /**
-     * <p>Gets a <code>Form</code> based on the name of the form and the <code>Locale</code> that 
-     * most closely matches the <code>Locale</code> passed in.  The order of <code>Locale</code> 
-     * matching is:</p>
+     * <p>Gets a <code>Form</code> based on the name of the form and the 
+     * <code>Locale</code> that most closely matches the <code>Locale</code> 
+     * passed in.  The order of <code>Locale</code> matching is:</p>
      * <ol>
      *    <li>language + country + variant</li>
      *    <li>language + country</li>
@@ -344,7 +344,7 @@ public class ValidatorResources implements Serializable {
      *    <li>default locale</li>
      * </ol>
      */
-    public Form getForm(Locale locale, Object formKey) {
+    public Form getForm(Locale locale, String formKey) {
         return this.getForm(
             locale.getLanguage(),
             locale.getCountry(),
@@ -370,7 +370,7 @@ public class ValidatorResources implements Serializable {
         String variant,
         Object formKey) {
 
-        return this.getForm(language, country, variant, formKey);
+        return this.getForm(language, country, variant, formKey.toString());
     }
     
     /**
@@ -388,7 +388,7 @@ public class ValidatorResources implements Serializable {
         String language,
         String country,
         String variant,
-        Object formKey) {
+        String formKey) {
 
         String key = this.buildLocale(language, country, variant);
 
@@ -427,10 +427,11 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * <p>Process the <code>ValidatorResources</code> object.  </p>
-     *
-     * <p>Currently sets the <code>FastHashMap</code>s to the 'fast' 
-     * mode and call the processes all other resources.</p>
+     * Process the <code>ValidatorResources</code> object.  Currently sets the 
+     * <code>FastHashMap</code>s to the 'fast' mode and call the processes all 
+     * other resources.  <strong>Note</strong>: The framework calls this automatically
+     * when ValidatorResources is created from an XML file.  If you create an instance
+     * of this class by hand you <strong>must</strong> call this method when finished.
      */
     public void process() {
         hFormSets.setFast(true);
