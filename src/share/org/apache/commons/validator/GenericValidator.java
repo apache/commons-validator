@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.13 2003/03/15 23:18:12 dgraham Exp $
- * $Revision: 1.13 $
- * $Date: 2003/03/15 23:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.14 2003/04/29 01:45:43 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/04/29 01:45:43 $
  *
  * ====================================================================
  *
@@ -74,14 +74,16 @@ import org.apache.oro.text.perl.Perl5Util;
  *
  * @author David Winterfeldt
  * @author James Turner
- * @version $Revision: 1.13 $ $Date: 2003/03/15 23:18:12 $
+ * @author <a href="mailto:husted@apache.org">Ted Husted</a>
+ * @author David Graham
+ * @version $Revision: 1.14 $ $Date: 2003/04/29 01:45:43 $
  */
 public class GenericValidator implements Serializable {
 
     /**
      * Delimiter to put around a regular expression 
      * following Perl 5 syntax.
-    */
+     */
     public final static String REGEXP_DELIM = "/";
 
     /**
@@ -89,7 +91,7 @@ public class GenericValidator implements Serializable {
      * including whitespace.</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
+     */
     public static boolean isBlankOrNull(String value) {
         return ((value == null) || (value.trim().length() == 0));
     }
@@ -99,7 +101,7 @@ public class GenericValidator implements Serializable {
      *
      * @param 	value 		The value validation is being performed on.
      * @param 	regexp		The regular expression.
-    */
+     */
     public static boolean matchRegexp(String value, String regexp) {
         boolean match = false;
 
@@ -115,7 +117,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a byte primitive.</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
+     */
     public static boolean isByte(String value) {
         return (GenericTypeValidator.formatByte(value) != null);
     }
@@ -124,7 +126,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a short primitive.</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
+     */
     public static boolean isShort(String value) {
         return (GenericTypeValidator.formatShort(value) != null);
     }
@@ -133,7 +135,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a int primitive.</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
+     */
     public static boolean isInt(String value) {
         return (GenericTypeValidator.formatInt(value) != null);
     }
@@ -142,7 +144,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a long primitive.</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
+     */
     public static boolean isLong(String value) {
         return (GenericTypeValidator.formatLong(value) != null);
     }
@@ -151,7 +153,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a float primitive.</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
+     */
     public static boolean isFloat(String value) {
         return (GenericTypeValidator.formatFloat(value) != null);
     }
@@ -160,7 +162,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a double primitive.</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
+     */
     public static boolean isDouble(String value) {
         return (GenericTypeValidator.formatDouble(value) != null);
     }
@@ -172,7 +174,7 @@ public class GenericValidator implements Serializable {
      *
      * @param 	value 		The value validation is being performed on.
      * @param 	Locale	        The locale to use for the date format, defaults to the default system default if null.
-    */
+     */
     public static boolean isDate(String value, Locale locale) {
         boolean bValid = true;
 
@@ -211,7 +213,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
      * @param 	datePattern	The pattern passed to <code>SimpleDateFormat</code>.
      * @param 	strict	        Whether or not to have an exact match of the datePattern.
-    */
+     */
     public static boolean isDate(String value, String datePattern, boolean strict) {
 
         boolean bValid = true;
@@ -246,7 +248,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
      * @param 	min		The minimum value of the range.
      * @param 	max		The maximum value of the range.
-    */
+     */
     public static boolean isInRange(int value, int min, int max) {
         return ((value >= min) && (value <= max));
     }
@@ -258,7 +260,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
      * @param 	min		The minimum value of the range.
      * @param 	max		The maximum value of the range.
-    */
+     */
     public static boolean isInRange(float value, float min, float max) {
         return ((value >= min) && (value <= max));
     }
@@ -270,7 +272,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
      * @param 	min		The minimum value of the range.
      * @param 	max		The maximum value of the range.
-    */
+     */
     public static boolean isInRange(short value, short min, short max) {
         return ((value >= min) && (value <= max));
     }
@@ -282,112 +284,40 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
      * @param 	min		The minimum value of the range.
      * @param 	max		The maximum value of the range.
-    */
+     */
     public static boolean isInRange(double value, double min, double max) {
         return ((value >= min) && (value <= max));
     }
 
     /**
-     * <p>Checks if the field is a valid credit card number.</p>
-     * <p>Translated to Java by Ted Husted (<a href="mailto:husted@apache.org">husted@apache.org</a>).<br>
-     * &nbsp;&nbsp;&nbsp; Reference Sean M. Burke's script at http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl</p>
+     * Checks if the field is a valid credit card number.
      *
-     * @param 	value 		The value validation is being performed on.
-    */
+     * @param value The value validation is being performed on.
+     */
     public static boolean isCreditCard(String value) {
-        return (
-            validateCreditCardLuhnCheck(value)
-                && validateCreditCardPrefixCheck(value));
+		return CreditCardValidator.getInstance().isCreditCard(value);
     }
-
+    
     /**
-     * <p>Checks for a valid credit card number.</p>
-     * <p>Translated to Java by Ted Husted (<a href="mailto:husted@apache.org">husted@apache.org</a>).<br>
-     * &nbsp;&nbsp;&nbsp; Reference Sean M. Burke's script at http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl</p>
+     * Checks for a valid credit card number.
      *
-     * @param 	cardNumber 		Credit Card Number
-    */
-    protected static boolean validateCreditCardLuhnCheck(String cardNumber) {
-        // number must be validated as 0..9 numeric first!!
-        int digits = cardNumber.length();
-        int oddoeven = digits & 1;
-        long sum = 0;
-        for (int count = 0; count < digits; count++) {
-            int digit = 0;
-            try {
-                digit = Integer.parseInt(String.valueOf(cardNumber.charAt(count)));
-            } catch (NumberFormatException e) {
-                return false;
-            }
-            if (((count & 1) ^ oddoeven) == 0) { // not
-                digit *= 2;
-                if (digit > 9) {
-                    digit -= 9;
-                }
-            }
-            sum += digit;
-        }
-        if (sum == 0) {
-            return false;
-        }
-
-        if (sum % 10 == 0) {
-            return true;
-        }
-
-        return false;
-    }
-
+     * @param cardNumber Credit Card Number.
+     * @deprecated Use CreditCardValidator.validateCreditCardLuhnCheck() instead.
+     */
+	protected static boolean validateCreditCardLuhnCheck(String cardNumber) {
+		return CreditCardValidator.getInstance().validateCreditCardLuhnCheck(
+			cardNumber);
+	}
+    
     /**
-     * <p>Checks for a valid credit card number.</p>
-     * <p>Translated to Java by Ted Husted (<a href="mailto:husted@apache.org">husted@apache.org</a>).<br>
-     * &nbsp;&nbsp;&nbsp; Reference Sean M. Burke's script at http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl</p>
+     * Checks for a valid credit card number.
      *
-     * @param 	cardNumber 		Credit Card Number
-    */
-    protected static boolean validateCreditCardPrefixCheck(String cardNumber) {
-        final String AX_PREFIX = "34,37,";
-        final String VS_PREFIX = "4";
-        final String MC_PREFIX = "51,52,53,54,55,";
-        final String DS_PREFIX = "6011";
-
-        int length = cardNumber.length();
-        if (length < 13) {
-            return false;
-        }
-
-        boolean valid = false;
-        int cardType = 0;
-
-        String prefix2 = cardNumber.substring(0, 2) + ",";
-
-        if (AX_PREFIX.indexOf(prefix2) != -1) {
-            cardType = 3;
-        }
-        if (cardNumber.substring(0, 1).equals(VS_PREFIX)) {
-            cardType = 4;
-        }
-        if (MC_PREFIX.indexOf(prefix2) != -1) {
-            cardType = 5;
-        }
-        if (cardNumber.substring(0, 4).equals(DS_PREFIX)) {
-            cardType = 6;
-        }
-
-        if ((cardType == 3) && (length == 15)) {
-            valid = true;
-        }
-        if ((cardType == 4) && ((length == 13) || (length == 16))) {
-            valid = true;
-        }
-        if ((cardType == 5) && (length == 16)) {
-            valid = true;
-        }
-        if ((cardType == 6) && (length == 16)) {
-            valid = true;
-        }
-
-        return valid;
+     * @param cardNumber Credit Card Number.
+     * @deprecated Use CreditCardValidator.validateCreditCardPrefixCheck() instead.
+     */
+    protected boolean validateCreditCardPrefixCheck(String cardNumber) {
+        return CreditCardValidator.getInstance().validateCreditCardPrefixCheck(
+                    cardNumber);
     }
 
     /**
@@ -396,7 +326,7 @@ public class GenericValidator implements Serializable {
      * http://javascript.internet.com</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
+     */
     public static boolean isEmail(String value) {
         boolean bValid = true;
 
