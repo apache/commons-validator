@@ -15,7 +15,7 @@
 
   <description>
     Commons Validator provides the building blocks for both client side validation
-    and server side data validation. It may be used standalone on with a framework like
+    and server side data validation. It may be used standalone or with a framework like
     Struts.
   </description>
   <url>http://jakarta.apache.org/commons/validator/</url>
@@ -163,5 +163,34 @@
 
 
   </build>
+
+  <reports>
+    <!--
+     |
+     | These should all be completely self contained. You should be able
+     | to generate each of them individually without needing the final
+     | xdoc transformation.
+     |
+     | Each report plugin with it's POM and plugin.jelly logic should
+     | contain everything needed to produced the report.
+     |
+    -->
+
+    <report>maven-jdepend-plugin</report>
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-changes-plugin</report>
+    <report>maven-changelog-plugin</report>
+    <report>maven-file-activity-plugin</report>
+    <report>maven-developer-activity-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-tasklist-plugin</report>
+    <report>maven-jellydoc-plugin</report>
+    <report>maven-pmd-plugin</report>
+    <report>maven-simian-plugin</report>
+    <report>maven-faq-plugin</report>
+    <report>maven-multiproject-plugin</report>
+  </reports>
 
 </project>
