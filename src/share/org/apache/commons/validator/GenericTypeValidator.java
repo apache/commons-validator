@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.5 2002/10/11 01:16:36 turner Exp $
- * $Revision: 1.5 $
- * $Date: 2002/10/11 01:16:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.6 2003/04/29 01:14:29 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/04/29 01:14:29 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,29 +69,29 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
-
 /**
- * <p>This class contains basic methods for 
- * performing validations that return the 
- * correctly typed class based on the 
- * validation performed.</p>
+ * <p>This class contains basic methods for performing validations that return the 
+ * correctly typed class based on the validation performed.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2002/10/11 01:16:36 $
-*/
+ * @author <a href="mailto:husted@apache.org">Ted Husted</a>
+ * @author David Graham
+ * @version $Revision: 1.6 $ $Date: 2003/04/29 01:14:29 $
+ */
 public class GenericTypeValidator implements Serializable {
     
     /**
      * <p>Checks if the value can safely be converted to a byte primitive.</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
+     */
     public static Byte formatByte(String value) {
        Byte result = null;
        
        try {
           result = new Byte(value);
        } catch (Exception e) {
+            // TODO Why are we catching Exception?  Should this be NumberFormatException?
        }
        
        return result;
@@ -101,13 +101,14 @@ public class GenericTypeValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a short primitive.</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
+     */
     public static Short formatShort(String value) {
        Short result = null;
        
        try {
           result = new Short(value);
        } catch (Exception e) {
+           // TODO Why are we catching Exception?  Should this be NumberFormatException?
        }
        
        return result;
@@ -117,29 +118,31 @@ public class GenericTypeValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a int primitive.</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
-    public static Integer formatInt(String value) {
-       Integer result = null;
-       
-       try {
-          result = new Integer(value);
-       } catch (Exception e) {
-       }
-       
-       return result;
-    }
+     */
+	public static Integer formatInt(String value) {
+		Integer result = null;
+
+		try {
+			result = new Integer(value);
+		} catch (Exception e) {
+			// TODO Why are we catching Exception?  Should this be NumberFormatException?
+		}
+
+		return result;
+	}
 
     /**
      * <p>Checks if the value can safely be converted to a long primitive.</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
+     */
     public static Long formatLong(String value) {
        Long result = null;
        
        try {
           result = new Long(value);
        } catch (Exception e) {
+            // TODO Why are we catching Exception?  Should this be NumberFormatException?
        }
        
        return result;
@@ -149,13 +152,14 @@ public class GenericTypeValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a float primitive.</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
+     */
     public static Float formatFloat(String value) {
        Float result = null;
        
        try {
           result = new Float(value);
        } catch (Exception e) {
+            // TODO Why are we catching Exception?  Should this be NumberFormatException?
        }
        
        return result;
@@ -165,13 +169,14 @@ public class GenericTypeValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a double primitive.</p>
      *
      * @param 	value 		The value validation is being performed on.
-    */
+     */
     public static Double formatDouble(String value) {
        Double result = null;
        
        try {
           result = new Double(value);
        } catch (Exception e) {
+            // TODO Why are we catching Exception?  Should this be NumberFormatException?
        }
        
        return result;
@@ -184,27 +189,35 @@ public class GenericTypeValidator implements Serializable {
      *
      * @param 	value 		The value validation is being performed on.
      * @param 	Locale        	The Locale to use to parse the date (system default if null)
-    */
+     */
     public static Date formatDate(String value, Locale locale) {
-	Date date = null;
+		Date date = null;
 
-	if (value != null) {
-	   try {
-	      DateFormat formatter = null;
-	      if (locale != null) {
-	         formatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-	      } else {
-	         formatter = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
-	      }
-	         
-              formatter.setLenient(false);
-              
-              date = formatter.parse(value);
-    	   } catch (ParseException e) {
-           }
-        }
+		if (value == null) {
+			return null;
+		}
 
-        return date;
+		try {
+			DateFormat formatter = null;
+			if (locale != null) {
+				formatter =
+					DateFormat.getDateInstance(DateFormat.SHORT, locale);
+			} else {
+				formatter =
+					DateFormat.getDateInstance(
+						DateFormat.SHORT,
+						Locale.getDefault());
+			}
+
+			formatter.setLenient(false);
+
+			date = formatter.parse(value);
+		} catch (ParseException e) {
+			// TODO Should either document why exception is swallowed or 
+			// not swallow it.
+		}
+
+		return date;
     }	
     
     /**
@@ -217,47 +230,49 @@ public class GenericTypeValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
      * @param 	datePattern	The pattern passed to <code>SimpleDateFormat</code>.
      * @param 	strict	        Whether or not to have an exact match of the datePattern.
-    */
+     */
     public static Date formatDate(String value, String datePattern, boolean strict) {
-        Date date = null;
+		Date date = null;
 
-	if (value != null && datePattern != null && datePattern.length() > 0) {
-	   try {
-              SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
-              formatter.setLenient(false);
-              
-              date = formatter.parse(value);
-              
-              if (strict) {
-                 if (datePattern.length() != value.length()) {
-                    date = null;
-                 }
-              }
-    	   } catch (ParseException e) {
-           }
-        }
+		if (value == null
+			|| datePattern == null
+			|| datePattern.length() == 0) {
+			return null;
+		}
 
-        return date;
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+			formatter.setLenient(false);
+
+			date = formatter.parse(value);
+
+			if (strict) {
+				if (datePattern.length() != value.length()) {
+					date = null;
+				}
+			}
+		} catch (ParseException e) {
+			// TODO Should either document why exception is swallowed or 
+			// not swallow it.
+		}
+
+		return date;
     }	
 
     /**
      * <p>Checks if the field is a valid credit card number.</p>
-     * <p>Translated to Java by Ted Husted (<a href="mailto:husted@apache.org">husted@apache.org</a>).<br>
-     * &nbsp;&nbsp;&nbsp; Reference Sean M. Burke's script at http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl</p>
+     * Reference Sean M. Burke's script at http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl</p>
      *
-     * @param 	value 		The value validation is being performed on.
-    */
+     * @param value The value validation is being performed on.
+     */
     public static Long formatCreditCard(String value) {
-       Long result = null;
-       
-       try {
-          if (GenericValidator.validateCreditCardLuhnCheck(value) && GenericValidator.validateCreditCardPrefixCheck(value)) {
-             result = new Long(value);
-          }
-       } catch (Exception e) {
-       }
-       
-       return result;
+    	Long result = null;
+    
+    	if (GenericValidator.isCreditCard(value)) {
+    		result = new Long(value);
+    	}
+    
+    	return result;
     }
 
 }
