@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Var.java,v 1.9 2004/01/11 23:30:20 dgraham Exp $
- * $Revision: 1.9 $
- * $Date: 2004/01/11 23:30:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Var.java,v 1.10 2004/01/17 17:35:27 dgraham Exp $
+ * $Revision: 1.10 $
+ * $Date: 2004/01/17 17:35:27 $
  *
  * ====================================================================
  *
@@ -163,7 +163,7 @@ public class Var implements Cloneable, Serializable {
             return super.clone();
 
         } catch(CloneNotSupportedException e) {
-            throw new InternalError(e.toString());
+            throw new RuntimeException(e.toString());
         }
     }
 

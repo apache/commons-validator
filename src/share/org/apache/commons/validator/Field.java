@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.28 2004/01/11 23:30:20 dgraham Exp $
- * $Revision: 1.28 $
- * $Date: 2004/01/11 23:30:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.29 2004/01/17 17:35:27 dgraham Exp $
+ * $Revision: 1.29 $
+ * $Date: 2004/01/17 17:35:27 $
  *
  * ====================================================================
  *
@@ -731,7 +731,7 @@ public class Field implements Cloneable, Serializable {
         try {
             field = (Field) super.clone();
         } catch(CloneNotSupportedException e) {
-            throw new InternalError(e.toString());
+            throw new RuntimeException(e.toString());
         }
 
         field.args = new Map[this.args.length];
