@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.8 2003/05/24 17:09:41 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/05/24 17:09:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.9 2003/05/25 18:00:23 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/05/25 18:00:23 $
  *
  * ====================================================================
  *
@@ -79,7 +79,8 @@ import java.io.Serializable;
  * <p>Instances of this class are configured with an &lt;arg&gt; xml element.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2003/05/24 17:09:41 $
+ * @author David Graham
+ * @version $Revision: 1.9 $ $Date: 2003/05/25 18:00:23 $
  */
 public class Arg implements Cloneable, Serializable {
 
@@ -98,6 +99,12 @@ public class Arg implements Cloneable, Serializable {
      * If it is 'true', the value will try to be resolved as a message resource.
      */
     protected boolean resource = true;
+    
+    /**
+     * This argument's position in the message (ie. you would set postion=0 to make 
+     * a replacement in this string "some msg {0}").
+     */
+    protected int position = 0;
 
     /**
      * Gets the name of the dependency.
@@ -185,6 +192,20 @@ public class Arg implements Cloneable, Serializable {
         results.append("\n");
 
         return results.toString();
+    }
+
+    /**
+     * @return This argument's replacement position.
+     */
+    public int getPosition() {
+        return this.position;
+    }
+
+    /**
+     * Set this argument's replacement position.
+     */
+    public void setPosition(int position) {
+        this.position = position;
     }
 
 }

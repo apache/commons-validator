@@ -9,7 +9,7 @@
      "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0.1//EN"
      "http://jakarta.apache.org/commons/dtds/validator_1_0_1.dtd">
 
-    $Id: validator_1_1.dtd,v 1.2 2003/05/24 18:55:13 dgraham Exp $
+    $Id: validator_1_1.dtd,v 1.3 2003/05/25 18:00:24 dgraham Exp $
 -->
 
 
@@ -111,7 +111,7 @@
                      validations for this field.
 
 -->
-<!ELEMENT field (msg|arg0|arg1|arg2|arg3|var)*>
+<!ELEMENT field (msg|arg|arg0|arg1|arg2|arg3|var)*>
 <!ATTLIST field property CDATA #REQUIRED>
 <!ATTLIST field depends CDATA #IMPLIED>
 <!ATTLIST field page CDATA #IMPLIED>
@@ -140,7 +140,39 @@
 <!ATTLIST msg resource CDATA #IMPLIED>
 
 
+
 <!--
+     The "arg" element defines a replacement value to use with the
+     message template for this validator or this field.
+     The arg element accepts these attributes.
+
+      name        The name of the validator corresponding to this msg.
+      			  If not supplied, this argument will be used in the given 
+      			  position for every validator.
+
+      key         The key that will return the message template from a
+                  resource bundle.
+
+      resource    If set to "false", the key is taken to be a literal
+                  value rather than a bundle key.
+                  [true]
+
+      position    The position of this replacement parameter in the message.
+      			  For example, position="0" will set the first argument.
+      			  [0]
+-->
+<!ELEMENT arg EMPTY>
+<!ATTLIST arg key CDATA #REQUIRED>
+<!ATTLIST arg name CDATA #IMPLIED>
+<!ATTLIST arg resource CDATA #IMPLIED>
+<!ATTLIST arg position CDATA #IMPLIED>
+
+
+
+<!--
+
+		DEPRECATED Use <arg position="0"/> instead.
+
      The "arg0" element defines the first replacement value to use with the
      message template for this validator or this field.
      The arg0 element accepts these attributes.
@@ -161,6 +193,9 @@
 
 
 <!--
+
+		DEPRECATED Use <arg position="1"/> instead.
+
      The "arg1" element defines the second replacement value to use with the
      message template for this validator or this field.
      The arg1 element accepts these attributes.
@@ -181,6 +216,9 @@
 
 
 <!--
+
+		DEPRECATED Use <arg position="2"/> instead.
+
      The "arg2" element defines the third replacement value to use with the
      message template for this validator or this field.
      The arg2 element accepts these attributes.
@@ -199,7 +237,11 @@
 <!ATTLIST arg2 key CDATA #IMPLIED>
 <!ATTLIST arg2 resource CDATA #IMPLIED>
 
+
 <!--
+
+		DEPRECATED Use <arg position="3"/> instead.
+
      The "arg3" element defines the fourth replacement value to use with the
      message template for this validator or this field.
      The arg0 element accepts these attributes.

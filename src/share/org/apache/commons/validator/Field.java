@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.12 2003/05/24 18:26:49 dgraham Exp $
- * $Revision: 1.12 $
- * $Date: 2003/05/24 18:26:49 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.13 2003/05/25 18:00:23 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/05/25 18:00:23 $
  *
  * ====================================================================
  *
@@ -65,6 +65,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +82,8 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.12 $ $Date: 2003/05/24 18:26:49 $
+ * @author David Graham
+ * @version $Revision: 1.13 $ $Date: 2003/05/25 18:00:23 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -137,9 +139,31 @@ public class Field implements Cloneable, Serializable {
     
     protected FastHashMap hVars = new FastHashMap();
     protected FastHashMap hMsgs = new FastHashMap();
-    protected FastHashMap hArg0 = new FastHashMap();
+    
+    /**
+     * Holds Maps of arguments.  args[0] returns the Map for the first replacement
+     * argument.
+     */
+    protected Map[] args = new Map[10];
+    
+    /**
+     * @deprecated This variable is no longer used, use args instead.
+     */
+    private FastHashMap hArg0 = new FastHashMap();
+    
+    /**
+     * @deprecated This variable is no longer used, use args instead.
+     */
     protected FastHashMap hArg1 = new FastHashMap();
+
+    /**
+     * @deprecated This variable is no longer used, use args instead.
+     */
     protected FastHashMap hArg2 = new FastHashMap();
+    
+    /**
+     * @deprecated This variable is no longer used, use args instead.
+     */
     protected FastHashMap hArg3 = new FastHashMap();
 
 
@@ -166,14 +190,12 @@ public class Field implements Cloneable, Serializable {
        return this.fieldOrder;	
     }
 
-
     /**
      * Sets the position of the <code>Field</code> in the validation list.
      */
     public void setFieldOrder(int fieldOrder) {
        this.fieldOrder = fieldOrder;	
     }
-    
    
     /**
      * Gets the property name of the field.
@@ -181,7 +203,6 @@ public class Field implements Cloneable, Serializable {
     public String getProperty() {
        return this.property;	
     }
-
 
     /**
      * Sets the property name of the field.
@@ -198,7 +219,6 @@ public class Field implements Cloneable, Serializable {
     public String getIndexedProperty() {
        return this.indexedProperty;	
     }
-
 
     /**
      * Sets the indexed property name of the field.
@@ -217,7 +237,6 @@ public class Field implements Cloneable, Serializable {
     public String getIndexedListProperty() {
        return this.indexedListProperty;	
     }
-
 
     /**
      * Sets the indexed property name of the field.
@@ -273,131 +292,164 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
+     * Add an <code>Arg</code> to the replacement argument list.
+     */
+    public void addArg(Arg arg) {
+        // TODO this first if check can go away after arg0, etc. are removed from dtd
+        if (arg == null || arg.getKey() == null || arg.getKey().length() == 0) {
+            return;
+        }
+
+        this.ensureArgsCapacity(arg);
+
+        Map argMap = (Map) this.args[arg.getPosition()];
+        if (argMap == null) {
+            argMap = new HashMap();
+            this.args[arg.getPosition()] = argMap;
+        }
+
+        if (arg.getName() == null) {
+            argMap.put(DEFAULT_ARG, arg);
+        } else {
+            argMap.put(arg.getName(), arg);
+        }
+
+    }
+
+    /**
+     * Ensures that the args array can hold the given arg.  Resizes the array as 
+     * necessary.
+     * @param arg Determine if the args array is long enough to store this arg's 
+     * position. 
+     */
+    private void ensureArgsCapacity(Arg arg) {
+        if (arg.getPosition() >= this.args.length) {
+            Map[] newArgs = new Map[arg.getPosition() + 1];
+            System.arraycopy(this.args, 0, newArgs, 0, this.args.length);
+            this.args = newArgs;
+        }
+    }
+    
+    /**
+     * Gets the default <code>Arg</code> object at the given position.
+     */
+    public Arg getArg(int position) {
+        return this.getArg(DEFAULT_ARG, position);
+    }
+
+    /**
+     * Gets the default <code>Arg</code> object at the given position.
+     */
+    public Arg getArg(String key, int position) {
+        if (position >= this.args.length) {
+            return null;
+        }
+
+        return (args[position] == null) ? null : (Arg) args[position].get(key);
+    }
+
+    /**
      * Add a <code>Arg</code> to the arg0 list.
+     * @deprecated Use addArg(Arg) instead.
      */
     public void addArg0(Arg arg) {
-    	if (arg != null && arg.getKey() != null && arg.getKey().length() > 0) {
-            
-    		if (arg.getName() != null && arg.getName().length() > 0) {
-    			hArg0.put(arg.getName(), arg);
-    		} else {
-    			hArg0.put(DEFAULT_ARG, arg);
-    		}
-            
-    	}
+        arg.setPosition(0);
+        this.addArg(arg);
     }
 
     /**
      * Gets the default arg0 <code>Arg</code> object.
+     * @deprecated Use getArg(0) instead.
      */
     public Arg getArg0() {
-       return (Arg) hArg0.get(DEFAULT_ARG);	
+       return this.getArg(0);
     }
 
     /**
      * Gets the arg0 <code>Arg</code> object based on the key passed in.  If the key 
      * finds a <code>null</code> value then the default value will try to be retrieved.
+     * @deprecated Use getArg(String, 0) instead.
      */
     public Arg getArg0(String key) {
-       Arg arg = (Arg) hArg0.get(key);
-       
-       return (arg != null) ? arg : getArg0();
+        return this.getArg(key, 0);
     }
 
     /**
      * Add a <code>Arg</code> to the arg1 list.
+     * @deprecated Use addArg(Arg) instead.
      */
     public void addArg1(Arg arg) {
-       if (arg != null && arg.getKey() != null && arg.getKey().length() > 0) {
-           
-          if (arg.getName() != null && arg.getName().length() > 0) {
-             hArg1.put(arg.getName(), arg);
-          } else {
-             hArg1.put(DEFAULT_ARG, arg);
-          }
-          
-       }
+        arg.setPosition(1);
+        this.addArg(arg);
     }
 
     /**
      * Gets the default arg1 <code>Arg</code> object.
+     * @deprecated Use getArg(1) instead.
      */
     public Arg getArg1() {
-       return (Arg) hArg1.get(DEFAULT_ARG);	
+       return this.getArg(1);	
     }
 
     /**
      * Gets the arg1 <code>Arg</code> object based on the key passed in.  If the key 
      * finds a <code>null</code> value then the default value will try to be retrieved.
+     * @deprecated Use getArg(String, 1) instead.
      */
     public Arg getArg1(String key) {
-       Arg arg = (Arg) hArg1.get(key);
-       
-       return (arg != null) ? arg : getArg1();
+        return this.getArg(key, 1);
     }
     
     /**
      * Add a <code>Arg</code> to the arg2 list.
+     * @deprecated Use addArg(Arg) instead.
      */
     public void addArg2(Arg arg) {
-       if (arg != null && arg.getKey() != null && arg.getKey().length() > 0) {
-           
-          if (arg.getName() != null && arg.getName().length() > 0) {
-             hArg2.put(arg.getName(), arg);
-          } else {
-             hArg2.put(DEFAULT_ARG, arg);
-          }
-          
-       }
+        arg.setPosition(2);
+        this.addArg(arg);
     }
 
     /**
      * Gets the default arg2 <code>Arg</code> object.
-    */
+     * @deprecated Use getArg(2) instead.
+     */
     public Arg getArg2() {
-       return (Arg) hArg2.get(DEFAULT_ARG);	
+       return this.getArg(2);
     }
 
     /**
      * Gets the arg2 <code>Arg</code> object based on the key passed in.  If the key 
      * finds a <code>null</code> value then the default value will try to be retrieved.
-    */
+     * @deprecated Use getArg(String, 2) instead.
+     */
     public Arg getArg2(String key) {
-       Arg arg = (Arg) hArg2.get(key);
-       
-       return (arg != null) ? arg : getArg2();
+        return this.getArg(key, 2);
     }
     
     /**
      * Add a <code>Arg</code> to the arg3 list.
+     * @deprecated Use addArg(Arg) instead.
      */
     public void addArg3(Arg arg) {
-       if (arg != null && arg.getKey() != null && arg.getKey().length() > 0) {
-           
-          if (arg.getName() != null && arg.getName().length() > 0) {
-             hArg3.put(arg.getName(), arg);
-          } else {
-             hArg3.put(DEFAULT_ARG, arg);
-          }
-          
-       }
+        arg.setPosition(3);
+        this.addArg(arg);
     }
 
     /**
      * Gets the default arg3 <code>Arg</code> object.
-    */
+     * @deprecated Use getArg(3) instead.
+     */
     public Arg getArg3() {
-       return (Arg) hArg3.get(DEFAULT_ARG);	
+       return this.getArg(3); 
     }
 
     /**
      * Gets the arg3 <code>Arg</code> object based on the key passed in.  If the key 
      * finds a <code>null</code> value then the default value will try to be retrieved.
+     * @deprecated Use getArg(String, 3) instead.
      */
     public Arg getArg3(String key) {
-       Arg arg = (Arg) hArg3.get(key);
-       
-       return (arg != null) ? arg : getArg3();
+        return this.getArg(key, 3);
     }
         
     /**
@@ -494,12 +546,8 @@ public class Field implements Cloneable, Serializable {
      * to create the dependency <code>Map</code>.
      */
     public void process(Map globalConstants, Map constants) {
-    	hMsgs.setFast(false);
-    	hArg0.setFast(true);
-    	hArg1.setFast(true);
-    	hArg2.setFast(true);
-    	hArg3.setFast(true);
-    	hVars.setFast(true);
+    	this.hMsgs.setFast(false);
+    	this.hVars.setFast(true);
     
     	this.generateKey();
     
@@ -513,7 +561,7 @@ public class Field implements Cloneable, Serializable {
     
     		processVars(key2, replaceValue);
     
-    		processMessageComponents(key2, replaceValue);
+    		this.processMessageComponents(key2, replaceValue);
     	}
     
     	// Process Global Constants
@@ -526,7 +574,7 @@ public class Field implements Cloneable, Serializable {
     
     		processVars(key2, replaceValue);
     
-    		processMessageComponents(key2, replaceValue);
+    		this.processMessageComponents(key2, replaceValue);
     	}
     
     	// Process Var Constant Replacement
@@ -536,7 +584,7 @@ public class Field implements Cloneable, Serializable {
     		Var var = (Var) hVars.get(key);
     		String replaceValue = var.getValue();
     
-    		processMessageComponents(key2, replaceValue);
+    		this.processMessageComponents(key2, replaceValue);
     	}
     
     	hMsgs.setFast(true);
@@ -546,10 +594,10 @@ public class Field implements Cloneable, Serializable {
      * Replace the vars value with the key/value pairs passed in.
      */
     private void processVars(String key, String replaceValue) {
-        Iterator i = hVars.keySet().iterator();
+        Iterator i = this.hVars.keySet().iterator();
         while (i.hasNext()) {
             String varKey = (String) i.next();
-            Var var = (Var) hVars.get(varKey);
+            Var var = (Var) this.hVars.get(varKey);
 
             var.setValue(ValidatorUtils.replace(var.getValue(), key, replaceValue));
         }
@@ -558,36 +606,53 @@ public class Field implements Cloneable, Serializable {
     
     /**
      * Replace the args key value with the key/value pairs passed in.
+     * @deprecated This is an internal setup method that clients don't need to call.
      */
     public void processMessageComponents(String key, String replaceValue) {
-    	String varKey = TOKEN_START + TOKEN_VAR;
-    	// Process Messages
-    	if (key != null && !key.startsWith(varKey)) {
-    		for (Iterator i = hMsgs.keySet().iterator(); i.hasNext();) {
-    			String msgKey = (String) i.next();
-    			String value = (String) hMsgs.get(msgKey);
+        this.internalProcessMessageComponents(key, replaceValue);
+    }
     
-    			hMsgs.put(msgKey, ValidatorUtils.replace(value, key, replaceValue));
-    		}
+    /**
+     * Replace the args key value with the key/value pairs passed in.
+     * TODO When processMessageComponents() is removed from the public API we
+     * should rename this private method to "processMessageComponents".
+     */
+    private void internalProcessMessageComponents(String key, String replaceValue) {
+        String varKey = TOKEN_START + TOKEN_VAR;
+        // Process Messages
+        if (key != null && !key.startsWith(varKey)) {
+            for (Iterator i = hMsgs.keySet().iterator(); i.hasNext();) {
+                String msgKey = (String) i.next();
+                String value = (String) hMsgs.get(msgKey);
+    
+                hMsgs.put(msgKey, ValidatorUtils.replace(value, key, replaceValue));
+            }
        }
        
-       processArg(hArg0, key, replaceValue);
-       processArg(hArg1, key, replaceValue);
-       processArg(hArg2, key, replaceValue);
-       processArg(hArg3, key, replaceValue);
-       
+       this.processArg(key, replaceValue);
     }
 
     /**
-     * Replace the arg <code>Collection</code> key value with the key/value pairs passed in.
+     * Replace the arg <code>Collection</code> key value with the key/value pairs 
+     * passed in.
      */
-    private void processArg(Map hArgs, String key, String replaceValue) {
-        for (Iterator i = hArgs.values().iterator(); i.hasNext();) {
-        	Arg arg = (Arg) i.next();
-        
-        	if (arg != null) {
-        		arg.setKey(ValidatorUtils.replace(arg.getKey(), key, replaceValue));
-        	}
+    private void processArg(String key, String replaceValue) {
+        for (int i = 0; i < this.args.length; i++) {
+
+            Map argMap = this.args[i];
+            if (argMap == null) {
+                continue;
+            }
+
+            Iterator iter = argMap.values().iterator();
+            while (iter.hasNext()) {
+                Arg arg = (Arg) iter.next();
+
+                if (arg != null) {
+                    arg.setKey(
+                        ValidatorUtils.replace(arg.getKey(), key, replaceValue));
+                }
+            }
         }
     }
 
@@ -619,20 +684,32 @@ public class Field implements Cloneable, Serializable {
      * Creates and returns a copy of this object.
      */
     public Object clone() {
-       try {
-           Field field = (Field) super.clone();
-           
-           field.hVars = ValidatorUtils.copyFastHashMap(hVars);
-           field.hMsgs = ValidatorUtils.copyFastHashMap(hMsgs);
-           field.hArg0 = ValidatorUtils.copyFastHashMap(hArg0);
-           field.hArg1 = ValidatorUtils.copyFastHashMap(hArg1);
-           field.hArg2 = ValidatorUtils.copyFastHashMap(hArg2);
-           field.hArg3 = ValidatorUtils.copyFastHashMap(hArg3);
-    
-           return field;
-       } catch (CloneNotSupportedException e) {
-          throw new InternalError(e.toString());
-       }
+        try {
+            Field field = (Field) super.clone();
+            
+            field.args = new Map[this.args.length];
+            for (int i = 0; i < this.args.length; i++) {
+                Map argMap = new HashMap(this.args[i]);
+                Iterator iter = argMap.keySet().iterator();
+                while (iter.hasNext()) {
+                    String validatorName = (String) iter.next();
+                    Arg arg = (Arg) argMap.get(validatorName);
+                    argMap.put(validatorName, arg.clone());
+                }
+                field.args[i] = argMap;
+            }
+
+            field.hVars = ValidatorUtils.copyFastHashMap(hVars);
+            field.hMsgs = ValidatorUtils.copyFastHashMap(hMsgs);
+            field.hArg0 = ValidatorUtils.copyFastHashMap(hArg0);
+            field.hArg1 = ValidatorUtils.copyFastHashMap(hArg1);
+            field.hArg2 = ValidatorUtils.copyFastHashMap(hArg2);
+            field.hArg3 = ValidatorUtils.copyFastHashMap(hArg3);
+
+            return field;
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError(e.toString());
+        }
     }    
 
     /**

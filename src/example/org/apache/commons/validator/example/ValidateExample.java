@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.9 2003/05/24 19:40:12 dgraham Exp $
- * $Revision: 1.9 $
- * $Date: 2003/05/24 19:40:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.10 2003/05/25 18:00:24 dgraham Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/05/25 18:00:24 $
  *
  * ====================================================================
  *
@@ -82,7 +82,7 @@ import org.apache.commons.validator.ValidatorResults;
  * <p>A simple example of setting up and using the Validator.</p> 
  *
  * @author James Turner
- * @version $Revision: 1.9 $ $Date: 2003/05/24 19:40:12 $
+ * @version $Revision: 1.10 $ $Date: 2003/05/25 18:00:24 $
  *
  * This simple example shows all the steps needed to set up and use
  * the Validator.  Note that in most cases, some kind of framework
@@ -191,7 +191,7 @@ public class ValidateExample extends Object {
             Field field = (Field) form.getFieldMap().get(propertyName);
 
             // Look up the formatted name of the field from the Field arg0
-            String prettyFieldName = apps.getString(field.getArg0().getKey());
+            String prettyFieldName = apps.getString(field.getArg(0).getKey());
 
             // Get the result of validating the property.
             ValidatorResult result = results.getValidatorResult(propertyName);

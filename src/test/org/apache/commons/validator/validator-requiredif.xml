@@ -8,7 +8,7 @@
    <formset>
       <form    name="nameForm">
          <field    property="firstName"  depends="requiredif">
-         	     <arg0 key="nameForm.firstname.displayname"/>
+         	     <arg key="nameForm.firstname.displayname"/>
                   <var>
                    <var-name>field[0]</var-name>
                    <var-value>lastName</var-value>
@@ -20,7 +20,7 @@
          </field>    
          <field    property="lastName"
          	   depends="requiredif">
-         	     <arg0 key="nameForm.lastname.displayname"/>
+         	     <arg key="nameForm.lastname.displayname"/>
                   <var>
                    <var-name>field[0]</var-name>
                    <var-value>firstName</var-value>
