@@ -1,7 +1,7 @@
 /*
  * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.37 2004/12/07 00:00:15 niallp Exp $
  * $Revision: 1.37 $
- * $Date: 2004/12/07 00:00:15 $
+ * $Date$
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -245,6 +245,8 @@ public class Field implements Cloneable, Serializable {
             return;
         }
 
+        determineArgPosition(arg);
+
         this.ensureArgsCapacity(arg);
 
         Map argMap = this.args[arg.getPosition()];
@@ -258,6 +260,47 @@ public class Field implements Cloneable, Serializable {
         } else {
             argMap.put(arg.getName(), arg);
         }
+
+    }
+
+    /**
+     * Calculate the position of the Arg
+     */
+    private void determineArgPosition(Arg arg) {
+        
+        int position = arg.getPosition();
+
+        // position has been explicity set
+        if (position >= 0) {
+            return;
+        }
+
+        // first arg to be added
+        if (args == null || args.length == 0) {
+            arg.setPosition(0);
+            return;
+        }
+
+        // determine the position of the last argument with
+        // the same name or the last default argument
+        String key = arg.getName() == null ? DEFAULT_ARG : arg.getName();
+        int lastPosition = -1;
+        int lastDefault  = -1;
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] != null && args[i].containsKey(key)) {
+                lastPosition = i;
+            }
+            if (args[i] != null && args[i].containsKey(DEFAULT_ARG)) {
+                lastDefault = i;
+            }
+        }
+
+        if (lastPosition < 0) { 
+            lastPosition = lastDefault;
+        }
+
+        // allocate the next position
+        arg.setPosition(++lastPosition);
 
     }
 
