@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.14 2003/05/18 21:28:22 rleland Exp $
- * $Revision: 1.14 $
- * $Date: 2003/05/18 21:28:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.15 2003/05/20 02:05:33 dgraham Exp $
+ * $Revision: 1.15 $
+ * $Date: 2003/05/20 02:05:33 $
  *
  * ====================================================================
  *
@@ -59,7 +59,6 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.io.BufferedInputStream;
@@ -67,24 +66,24 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+
 import org.apache.commons.digester.Digester;
-import org.xml.sax.SAXException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.xml.sax.SAXException;
 
 /**
  * <p>Maps an xml file to <code>ValidatorResources</code>.</p>
  *
  * @author David Winterfeldt
  * @author Dave Derry
- * @version $Revision: 1.14 $ $Date: 2003/05/18 21:28:22 $
-*/
+ * @version $Revision: 1.15 $ $Date: 2003/05/20 02:05:33 $
+ */
 public class ValidatorResourcesInitializer {
 
    /**
-    * Logger
-   */
+    * Logger.
+    */
    protected static Log log = LogFactory.getLog(ValidatorResourcesInitializer.class);
    
 
@@ -108,7 +107,7 @@ public class ValidatorResourcesInitializer {
     * file path and automatically process the resources.
     *
     * @param	fileName	The file path for the xml resource.
-   */
+    */
    public static ValidatorResources initialize(String fileName)
       throws IOException { 
       
@@ -116,162 +115,214 @@ public class ValidatorResourcesInitializer {
    }
 
    /**
-    * Initializes a <code>ValidatorResources</code> based on the <code>InputStream</code> 
-    * and automatically process the resources.
+    * Initializes a <code>ValidatorResources</code> based on the 
+    * <code>InputStream</code> and automatically process the resources.
     *
-    * @param	in		<code>InputStream</code> for the xml resource.
-   */
-   public static ValidatorResources initialize(InputStream in)
-      throws IOException { 
-      
-      ValidatorResources resources = new ValidatorResources();
-      initialize(resources, in);
-      
-      return resources;
-   	
-   }
+    * @param	in <code>InputStream</code> for the xml resource.
+    */
+    public static ValidatorResources initialize(InputStream in) throws IOException {
+    
+        ValidatorResources resources = new ValidatorResources();
+        initialize(resources, in);
+    
+        return resources;
+    }
 
 
    /**
     * Initializes the <code>ValidatorResources</code> based on the <code>InputStream</code> 
     * and automatically process the resources.
     *
-    * @param	resources	Resources to initialize.
-    * @param	in		<code>InputStream</code> for the xml resource.
-   */   
-   public static void initialize(ValidatorResources resources, InputStream in)
-      throws IOException { 
-       initialize(resources, in, true);
-   }
+    * @param	resources Resources to initialize.
+    * @param	in <code>InputStream</code> for the xml resource.
+    */   
+    public static void initialize(ValidatorResources resources, InputStream in)
+        throws IOException {
+            
+        initialize(resources, in, true);
+    }
    
    /**
     * Initializes a <code>ValidatorResources</code> based on the <code>InputStream</code> 
     * and processes the resources based on the <code>boolean</code> passed in.
     *
-    * @param	resources	Resources to initialize.
-    * @param	in		<code>InputStream</code> for the xml resource.
-    * @param	process		Whether or not to call process on <code>ValidatorResources</code>.
-   */   
-   public static void initialize(ValidatorResources resources, InputStream in, boolean process)
-      throws IOException { 
-       	
-      Digester digester = new Digester();
-      digester.push(resources);
-      digester.setNamespaceAware(true);
-      digester.setValidating(false);
-      // register DTDs
-      for (int i = 0; i < registrations.length; i += 2) {
-          URL url = ValidatorResourcesInitializer.class.getResource(registrations[i+1]);
-          if (url != null) {
-              digester.register(registrations[i], url.toString());
-          }
-      }
-      
-      digester.setUseContextClassLoader(true);
-      
-      // Create Global Constant objects
-      digester.addCallMethod("form-validation/global/constant",
-                             "addConstantParam", 2);
-      digester.addCallParam("form-validation/global/constant/constant-name", 0);
-      digester.addCallParam("form-validation/global/constant/constant-value", 1);
-      		    
-      // Create Global ValidatorAction objects
-      digester.addObjectCreate("form-validation/global/validator",
-      			 "org.apache.commons.validator.ValidatorAction", "className");
-      digester.addSetProperties("form-validation/global/validator");
-      digester.addSetNext("form-validation/global/validator", "addValidatorAction",
-      		    "org.apache.commons.validator.ValidatorAction");
-      
-      // Add the body of a javascript element to the Validatoraction
-      digester.addCallMethod("form-validation/global/validator/javascript",
-                             "setJavascript", 0);
+    * @param	resources Resources to initialize.
+    * @param	in <code>InputStream</code> for the xml resource.
+    * @param	process Whether or not to call process on 
+    * <code>ValidatorResources</code>.
+    */   
+    public static void initialize(
+        ValidatorResources resources,
+        InputStream in,
+        boolean process)
+        throws IOException {
 
-      		    
-      // Create FormSet objects
-      digester.addObjectCreate("form-validation/formset", "org.apache.commons.validator.FormSet",
-      			 "className");
-      digester.addSetProperties("form-validation/formset");
-      digester.addSetNext("form-validation/formset", "put",
-      		    "org.apache.commons.validator.FormSet");
-
-      // Create Constant objects
-      digester.addCallMethod("form-validation/formset/constant",
-                             "addConstantParam", 2);
-      digester.addCallParam("form-validation/formset/constant/constant-name", 0);
-      digester.addCallParam("form-validation/formset/constant/constant-value", 1);
-
-      // Create Form objects
-      digester.addObjectCreate("form-validation/formset/form",
-      			 "org.apache.commons.validator.Form", "className");
-      digester.addSetProperties("form-validation/formset/form");
-      digester.addSetNext("form-validation/formset/form", "addForm",
-      		    "org.apache.commons.validator.Form");
-      // Create Field objects
-      digester.addObjectCreate("form-validation/formset/form/field",
-      			 "org.apache.commons.validator.Field", "className");
-      digester.addSetProperties("form-validation/formset/form/field");
-      digester.addSetNext("form-validation/formset/form/field", "addField",
-      		    "org.apache.commons.validator.Field");
-
-      // Create Var objects
-      digester.addCallMethod("form-validation/formset/form/field/var",
-                             "addVarParam", 3);
-      digester.addCallParam("form-validation/formset/form/field/var/var-name", 0);
-      digester.addCallParam("form-validation/formset/form/field/var/var-value", 1);
-      digester.addCallParam("form-validation/formset/form/field/var/var-jstype", 2);
-        
-      // Create Msg object
-      digester.addObjectCreate("form-validation/formset/form/field/msg",
-      			 "org.apache.commons.validator.Msg", "className");
-      digester.addSetProperties("form-validation/formset/form/field/msg");
-      digester.addSetNext("form-validation/formset/form/field/msg", "addMsg",
-      		    "org.apache.commons.validator.Msg");
-      		    
-      // Create Arg objects
-      // Arg0
-      digester.addObjectCreate("form-validation/formset/form/field/arg0",
-      			 "org.apache.commons.validator.Arg", "className");
-      digester.addSetProperties("form-validation/formset/form/field/arg0");
-      digester.addSetNext("form-validation/formset/form/field/arg0", "addArg0",
-      		    "org.apache.commons.validator.Arg");
-      
-      // Arg1
-      digester.addObjectCreate("form-validation/formset/form/field/arg1",
-      			 "org.apache.commons.validator.Arg", "className");
-      digester.addSetProperties("form-validation/formset/form/field/arg1");
-      digester.addSetNext("form-validation/formset/form/field/arg1", "addArg1",
-      		    "org.apache.commons.validator.Arg");
-      
-      // Arg2
-      digester.addObjectCreate("form-validation/formset/form/field/arg2",
-      			 "org.apache.commons.validator.Arg", "className");
-      digester.addSetProperties("form-validation/formset/form/field/arg2");
-      digester.addSetNext("form-validation/formset/form/field/arg2", "addArg2",
-      		    "org.apache.commons.validator.Arg");
-      
-      // Arg3
-      digester.addObjectCreate("form-validation/formset/form/field/arg3",
-      			 "org.apache.commons.validator.Arg", "className");
-      digester.addSetProperties("form-validation/formset/form/field/arg3");
-      digester.addSetNext("form-validation/formset/form/field/arg3", "addArg3",
-      		    "org.apache.commons.validator.Arg");
-      
-      try {
-         // Parse the input stream to initialize our database
-         digester.parse(in);
-         
-      } catch (SAXException e) {
-          log.error(e.getMessage(), e);
-      } finally {
-        if (in != null) {
-            in.close();
+        Digester digester = new Digester();
+        digester.push(resources);
+        digester.setNamespaceAware(true);
+        digester.setValidating(false);
+        // register DTDs
+        for (int i = 0; i < registrations.length; i += 2) {
+            URL url =
+                ValidatorResourcesInitializer.class.getResource(
+                    registrations[i + 1]);
+            if (url != null) {
+                digester.register(registrations[i], url.toString());
+            }
         }
-      }
-      
-      if (process) {
-         resources.process();
-      }
- 
-   }
+
+        digester.setUseContextClassLoader(true);
+
+        // Create Global Constant objects
+        digester.addCallMethod(
+            "form-validation/global/constant",
+            "addConstantParam",
+            2);
+        digester.addCallParam("form-validation/global/constant/constant-name", 0);
+        digester.addCallParam("form-validation/global/constant/constant-value", 1);
+        
+        // Create Global ValidatorAction objects
+        digester.addObjectCreate(
+            "form-validation/global/validator",
+            "org.apache.commons.validator.ValidatorAction",
+            "className");
+        digester.addSetProperties("form-validation/global/validator");
+        digester.addSetNext(
+            "form-validation/global/validator",
+            "addValidatorAction",
+            "org.apache.commons.validator.ValidatorAction");
+            
+        // Add the body of a javascript element to the Validatoraction
+        digester.addCallMethod(
+            "form-validation/global/validator/javascript",
+            "setJavascript",
+            0);
+
+        // Create FormSet objects
+        digester.addObjectCreate(
+            "form-validation/formset",
+            "org.apache.commons.validator.FormSet",
+            "className");
+        digester.addSetProperties("form-validation/formset");
+        digester.addSetNext(
+            "form-validation/formset",
+            "put",
+            "org.apache.commons.validator.FormSet");
+
+        // Create Constant objects
+        digester.addCallMethod(
+            "form-validation/formset/constant",
+            "addConstantParam",
+            2);
+        digester.addCallParam("form-validation/formset/constant/constant-name", 0);
+        digester.addCallParam("form-validation/formset/constant/constant-value", 1);
+
+        // Create Form objects
+        digester.addObjectCreate(
+            "form-validation/formset/form",
+            "org.apache.commons.validator.Form",
+            "className");
+        digester.addSetProperties("form-validation/formset/form");
+        digester.addSetNext(
+            "form-validation/formset/form",
+            "addForm",
+            "org.apache.commons.validator.Form");
+            
+        // Create Field objects
+        digester.addObjectCreate(
+            "form-validation/formset/form/field",
+            "org.apache.commons.validator.Field",
+            "className");
+        digester.addSetProperties("form-validation/formset/form/field");
+        digester.addSetNext(
+            "form-validation/formset/form/field",
+            "addField",
+            "org.apache.commons.validator.Field");
+
+        // Create Var objects
+        digester.addCallMethod(
+            "form-validation/formset/form/field/var",
+            "addVarParam",
+            3);
+        digester.addCallParam("form-validation/formset/form/field/var/var-name", 0);
+        digester.addCallParam("form-validation/formset/form/field/var/var-value", 1);
+        digester.addCallParam(
+            "form-validation/formset/form/field/var/var-jstype",
+            2);
+
+        // Create Msg object
+        digester.addObjectCreate(
+            "form-validation/formset/form/field/msg",
+            "org.apache.commons.validator.Msg",
+            "className");
+        digester.addSetProperties("form-validation/formset/form/field/msg");
+        digester.addSetNext(
+            "form-validation/formset/form/field/msg",
+            "addMsg",
+            "org.apache.commons.validator.Msg");
+
+        // Create Arg objects
+        // Arg0
+        digester.addObjectCreate(
+            "form-validation/formset/form/field/arg0",
+            "org.apache.commons.validator.Arg",
+            "className");
+        digester.addSetProperties("form-validation/formset/form/field/arg0");
+        digester.addSetNext(
+            "form-validation/formset/form/field/arg0",
+            "addArg0",
+            "org.apache.commons.validator.Arg");
+
+        // Arg1
+        digester.addObjectCreate(
+            "form-validation/formset/form/field/arg1",
+            "org.apache.commons.validator.Arg",
+            "className");
+        digester.addSetProperties("form-validation/formset/form/field/arg1");
+        digester.addSetNext(
+            "form-validation/formset/form/field/arg1",
+            "addArg1",
+            "org.apache.commons.validator.Arg");
+
+        // Arg2
+        digester.addObjectCreate(
+            "form-validation/formset/form/field/arg2",
+            "org.apache.commons.validator.Arg",
+            "className");
+        digester.addSetProperties("form-validation/formset/form/field/arg2");
+        digester.addSetNext(
+            "form-validation/formset/form/field/arg2",
+            "addArg2",
+            "org.apache.commons.validator.Arg");
+
+        // Arg3
+        digester.addObjectCreate(
+            "form-validation/formset/form/field/arg3",
+            "org.apache.commons.validator.Arg",
+            "className");
+        digester.addSetProperties("form-validation/formset/form/field/arg3");
+        digester.addSetNext(
+            "form-validation/formset/form/field/arg3",
+            "addArg3",
+            "org.apache.commons.validator.Arg");
+
+        try {
+            // Parse the input stream to initialize our database
+            digester.parse(in);
+
+        } catch (SAXException e) {
+            log.error(e.getMessage(), e);
+            
+        } finally {
+            if (in != null) {
+                in.close();
+            }
+        }
+
+        if (process) {
+            resources.process();
+        }
+
+    }
    
 }
