@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.14 2003/05/28 04:14:32 dgraham Exp $
- * $Revision: 1.14 $
- * $Date: 2003/05/28 04:14:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.15 2003/05/29 03:04:33 dgraham Exp $
+ * $Revision: 1.15 $
+ * $Date: 2003/05/29 03:04:33 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.14 $ $Date: 2003/05/28 04:14:32 $
+ * @version $Revision: 1.15 $ $Date: 2003/05/29 03:04:33 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -547,6 +547,8 @@ public class Field implements Cloneable, Serializable {
     /**
      * Replace constants with values in fields and process the depends field 
      * to create the dependency <code>Map</code>.
+     * @deprecated This method is called by the framework.  It will be made protected
+     * in a future release.  TODO
      */
     public void process(Map globalConstants, Map constants) {
     	this.hMsgs.setFast(false);
@@ -584,7 +586,7 @@ public class Field implements Cloneable, Serializable {
     	for (Iterator i = hVars.keySet().iterator(); i.hasNext();) {
     		String key = (String) i.next();
     		String key2 = TOKEN_START + TOKEN_VAR + key + TOKEN_END;
-    		Var var = (Var) hVars.get(key);
+    		Var var = this.getVar(key);
     		String replaceValue = var.getValue();
     
     		this.processMessageComponents(key2, replaceValue);
@@ -600,7 +602,7 @@ public class Field implements Cloneable, Serializable {
         Iterator i = this.hVars.keySet().iterator();
         while (i.hasNext()) {
             String varKey = (String) i.next();
-            Var var = (Var) this.hVars.get(varKey);
+            Var var = this.getVar(varKey);
 
             var.setValue(ValidatorUtils.replace(var.getValue(), key, replaceValue));
         }
@@ -626,7 +628,7 @@ public class Field implements Cloneable, Serializable {
         if (key != null && !key.startsWith(varKey)) {
             for (Iterator i = hMsgs.keySet().iterator(); i.hasNext();) {
                 String msgKey = (String) i.next();
-                String value = (String) hMsgs.get(msgKey);
+                String value = this.getMsg(msgKey);
     
                 hMsgs.put(msgKey, ValidatorUtils.replace(value, key, replaceValue));
             }
