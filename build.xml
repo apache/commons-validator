@@ -128,6 +128,18 @@
           <classpath refid="test.classpath" />
       </java>
    </target>
+
+   <!-- Run JUnit Tests for Email only -->
+   <target name="test.email"
+        depends="build-test" description="runs email tests">
+      <java fork="yes" classname="junit.textui.TestRunner" 
+          taskname="junit" failonerror="true">
+          <arg value="org.apache.commons.validator.EmailTest"/>
+          <classpath refid="test.classpath" />
+      </java>
+   </target>
+
+
       
 </project>
 
