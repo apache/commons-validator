@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.23 2003/08/21 21:43:05 rleland Exp $
- * $Revision: 1.23 $
- * $Date: 2003/08/21 21:43:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.24 2003/08/26 16:08:50 rleland Exp $
+ * $Revision: 1.24 $
+ * $Date: 2003/08/26 16:08:50 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.23 $ $Date: 2003/08/21 21:43:05 $
+ * @version $Revision: 1.24 $ $Date: 2003/08/26 16:08:50 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -296,7 +296,7 @@ public class Field implements Cloneable, Serializable {
 
         this.ensureArgsCapacity(arg);
 
-        Map argMap = (Map) this.args[arg.getPosition()];
+        Map argMap = this.args[arg.getPosition()];
         if (argMap == null) {
             argMap = new HashMap();
             this.args[arg.getPosition()] = argMap;
