@@ -1,4 +1,4 @@
-#   Copyright 2003-2004 The Apache Software Foundation
+#   Copyright 2003-2005 The Apache Software Foundation
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -12,24 +12,20 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-# $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/build.properties.sample,v 1.13 2004/09/24 16:04:41 rwinston Exp $
-# $Revision: 1.13 $
-# $Date: 2004/09/24 16:04:41 $
+# $Id$
+# $Rev$
+# $Date$
 # -----------------------------------------------------------------------------
 # This is an example "build.properties" file.  Make any changes you need, 
 # and rename this file to "build.properties" in the same directory that 
 # contains the "build.xml" file.
 # -----------------------------------------------------------------------------
 apache.dir=D:/Java/Programs/Apache
-# The JAR file containing version 1.6.1 (or later) of the Beanutils package
+# The JAR file containing version 1.7.0 (or later) of the Beanutils package
 # from the Jakarta Commons project.
 commons-beanutils.jar=../beanutils/dist/commons-beanutils.jar
 
-# The JAR file containing version 2.1 (or later) of the Collections package
-# from the Jakarta Commons project.
-commons-collections.jar=../collections/dist/commons-collections.jar
-
-# The JAR file containing version 1.5 (or later) of the Digester package
+# The JAR file containing version 1.6 (or later) of the Digester package
 # from the Jakarta Commons project.
 commons-digester.jar=../digester/dist/commons-digester.jar
 
