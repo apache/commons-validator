@@ -3,7 +3,7 @@
 
 <!--
         "Validator" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.17 2003/03/12 06:02:53 dgraham Exp $
+        $Id: build.xml,v 1.18 2003/03/27 02:44:06 dgraham Exp $
 -->
 
 
@@ -228,7 +228,7 @@
     <mkdir      dir="${dist.home}"/>
     <copy      file="LICENSE.txt"
               todir="${dist.home}"/>
-    <copy      file="RELEASE-NOTES.txt"
+    <copy      file="RELEASE-NOTES-1.0.2.txt"
               todir="${dist.home}"/>
     <mkdir      dir="${build.home}/classes/META-INF"/>
     <copy      file="LICENSE.txt"
