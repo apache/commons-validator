@@ -108,11 +108,13 @@ public class Msg implements Cloneable, java.io.Serializable {
        try {
            Msg msg = (Msg)super.clone();
            
-           if (key != null)
+           if (key != null) {
               msg.name = new String(name);
+           }
            
-           if (key != null)
+           if (key != null) {
               msg.key = new String(key);
+           }
 
            return msg;
        } catch (CloneNotSupportedException e) {

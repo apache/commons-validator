@@ -58,6 +58,8 @@
 package org.apache.commons.validator;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogSource;
 
 
 /**
@@ -68,6 +70,11 @@ import org.apache.commons.beanutils.PropertyUtils;
 */
 public class ValidatorUtil  {
 
+   /**
+    * Logger
+   */
+   protected static Log log = LogSource.getInstance(ValidatorUtil.class.getName());
+   
    /**
     * <p>Replace part of a <code>String</code> with another value.</p>
     *
@@ -105,7 +112,7 @@ public class ValidatorUtil  {
       try {
          value = PropertyUtils.getProperty(bean, property);	
       } catch (Exception e) {
-         //log("ValidatorUtil::getValueAsString() - " + e.getMessage(), e);
+         log.error("ValidatorUtil::getValueAsString - " + e.getMessage(), e);
       }
    	
       return (value != null ? value.toString() : null);    	

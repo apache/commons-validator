@@ -129,14 +129,17 @@ public class Arg implements Cloneable, java.io.Serializable {
        try {
            Arg arg = (Arg)super.clone();
 
-           if (name != null)
+           if (name != null) {
               arg.name = new String(name);
+           }
               
-           if (key != null)
+           if (key != null) {
               arg.key = new String(key);
+           }
            
-           if (resource != null)
+           if (resource != null) {
               arg.resource = new String(resource);
+           }
 
            return arg;
        } catch (CloneNotSupportedException e) {

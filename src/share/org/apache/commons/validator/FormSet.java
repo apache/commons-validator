@@ -156,10 +156,9 @@ public class FormSet implements Serializable {
     */
     public void addConstant(Constant c) {
        if (c.getName() != null && c.getName().length() > 0 &&
-           c.getValue() != null && c.getValue().length() > 0)
-       hConstants.put(c.getName(), c.getValue());
-       
-       //System.out.println("Add Constant: " + c.getName() + "," + c.getValue());
+           c.getValue() != null && c.getValue().length() > 0) {
+          hConstants.put(c.getName(), c.getValue());
+       }
     }
 
     /**
@@ -167,8 +166,6 @@ public class FormSet implements Serializable {
     */    
     public void addForm(Form f) {
        hForms.put(f.getName(), f);
-       
-       //System.out.println("Add Form: " + f.getName());
     }
 
     /**

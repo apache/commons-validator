@@ -71,6 +71,9 @@ import java.util.StringTokenizer;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogSource;
+
 
 /**
  * <p>This class performs validations.  The methods are can be configured to be 
@@ -79,6 +82,12 @@ import org.apache.commons.beanutils.PropertyUtils;
  * @author David Winterfeldt
 */
 public class Validator implements Serializable {
+
+   /**
+    * Logger
+   */
+   protected static Log log = LogSource.getInstance(Validator.class.getName());
+
    public static String SERVLET_CONTEXT_KEY = "javax.servlet.ServletContext";
    public static String HTTP_SERVLET_REQUEST_KEY = "javax.servlet.http.HttpServletRequest";
    public static String MESSAGE_RESOURCES_KEY = "org.apache.struts.util.MessageResources";
@@ -89,14 +98,12 @@ public class Validator implements Serializable {
    public static String FIELD_KEY = "org.apache.commons.validator.Field";
    
    protected ValidatorResources resources = null;
-   protected ValidatorLog logger = null;
    protected String formName = null;
    protected HashMap hResources = new HashMap();
    protected int page = 0;   
    
    public Validator(ValidatorResources resources, String formName) {
       this.resources = resources;
-      this.logger = resources.getLogger();
       this.formName = formName;
    }
    
@@ -160,22 +167,21 @@ public class Validator implements Serializable {
                   String depend = st.nextToken().trim();
                   Object o = hActionsRun.get(depend);
       
-                  //if (logger.getDebug() > 10)
-      	    //   logger.info("***### Validator main - " + va.getName() + " - " + va.getDepends());
+                  if (log.isDebugEnabled()) {
+      	             log.debug("Validator::validate - ValidatorAction name=" + va.getName() + "  depends=" + va.getDepends());
+      	          }
       	                       
                   if (o == null) {
-                     //if (logger.getDebug() > 10)
-                     //   logger.info("***### Validator o==null - " + va.getName() + " - " + va.getDepends());
-                        
                      lActions.clear();
                      va = null;
                      bMoreActions = false;
                      break;
                   } else {
                      boolean bContinue = ((Boolean)o).booleanValue();
-                     
-                     //if (logger.getDebug() > 10)
-                     //   logger.info("***### Validator - " + va.getName() + "  depend=" + depend + "  bContinue=" + bContinue);
+
+                     if (log.isDebugEnabled()) {
+      	                log.debug("Validator::validate - ValidatorAction name=" + va.getName() + "  depend=" + depend + "  bContinue=" + bContinue);
+      	             }
                      
                      if (!bContinue) {
                         lActions.clear();
@@ -185,22 +191,21 @@ public class Validator implements Serializable {
                      }
                   }
                }
-               
-               
-            
             }
             
             // For debug   
-            /**if (logger.getDebug() > 10) {
-               logger.info("***Order ******************************");
+
+            if (log.isDebugEnabled()) {
+               StringBuffer sbLog = new StringBuffer();
+      	       sbLog.append("Validator::validate - Order \n");
                
                for (Iterator actions = lActions.iterator(); actions.hasNext(); ) {
-               	 ValidatorAction tmp = (ValidatorAction)actions.next();
-                  logger.info("***Order - " + tmp.getName() + " " + tmp.getDepends());
+                  ValidatorAction tmp = (ValidatorAction)actions.next();
+                  sbLog.append("\t ValidatorAction name=" + tmp.getName() + "  depends=" + tmp.getDepends() + "\n");
                }
-      
-               logger.info("***Order End ******************************");
-            }*/
+
+               log.debug(sbLog.toString());
+      	    }
             
             if (va != null) {
                for (Iterator i = form.getFields().iterator(); i.hasNext(); ) {
@@ -225,11 +230,13 @@ public class Validator implements Serializable {
                      	  for (int x = 0; x < size; x++) {
                      	     String paramKey = (String)lParams.get(x);
              	             
-             	             if (BEAN_KEY.equals(paramKey))
+             	             if (BEAN_KEY.equals(paramKey)) {
              	                beanIndexPos = x;
+             	             }
              	                
-             	             if (FIELD_KEY.equals(paramKey))
+             	             if (FIELD_KEY.equals(paramKey)) {
              	                fieldIndexPos = x;
+             	             }
              	             
                      	     // There were problems calling getClass on paramValue[]
                      	     paramClass[x] = Class.forName(paramKey, true, this.getClass().getClassLoader());
@@ -238,16 +245,16 @@ public class Validator implements Serializable {
       
                         Method m = c.getMethod(va.getMethod(), paramClass);
       		  
-      		  // If the method is static we don't need an instance of the class 
-      		  // to call the method.  If it isn't, we do.
+      		        // If the method is static we don't need an instance of the class 
+      		        // to call the method.  If it isn't, we do.
                         if (!Modifier.isStatic(m.getModifiers())) {
                            try {
-                           	if (va.getClassnameInstance() == null) {
+                              if (va.getClassnameInstance() == null) {
                                  va.setClassnameInstance(c.newInstance());
                               }
                            } catch (Exception ex) {
-                              logger.log("Validator::validate - Couldn't load instance " +
-                                         "of class " + va.getClassname() + ".  " + ex.getMessage());   
+                              log.error("Validator::validate - Couldn't load instance " +
+                                        "of class " + va.getClassname() + ".  " + ex.getMessage());
                            }
                         }
       
@@ -305,10 +312,11 @@ public class Validator implements Serializable {
                         }
       	       } catch (Exception e) {
       	          bErrors = true;
-      	          logger.log("Validator::validate() reflection - " + e.getMessage());
+      	          log.error("Validator::validate - reflection: " + e.getMessage(), e);
       	          
-      	          if (e instanceof ValidatorException)
+      	          if (e instanceof ValidatorException) {
       	             throw ((ValidatorException)e);
+      	          }
       	       }
                
                   }
@@ -320,18 +328,22 @@ public class Validator implements Serializable {
                   hActionsRun.put(va.getName(), new Boolean(false));
                }
                
-               if (logger.getDebug() > 10)
-                  logger.info("*** Validator - " + va.getName() + "  size=" + lActions.size());
+               if (log.isDebugEnabled()) {
+                  log.debug("Validator::validate - name=" + va.getName() + "  size=" + lActions.size());
+               }
                   
-               if (lActions.size() > 0)
+               if (lActions.size() > 0) {
                   lActions.remove(0);
+               }
                
-               if (logger.getDebug() > 10)
-                  logger.info("*** Validator - after remove - " + va.getName() + "  size=" + lActions.size());
+               if (log.isDebugEnabled()) {
+                  log.debug("Validator::validate - after remove - name=" + va.getName() + "  size=" + lActions.size());
+               }
             }
             
-            if (lActions.size() == 0)
+            if (lActions.size() == 0) {
                bMoreActions = false;
+            }
          }
       }
       

@@ -63,6 +63,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import org.apache.commons.digester.Digester;
 import org.xml.sax.SAXException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogSource;
 
 
 /**
@@ -72,6 +74,11 @@ import org.xml.sax.SAXException;
 */
 public class ValidatorResourcesInitializer {
 
+   /**
+    * Logger
+   */
+   protected static Log log = LogSource.getInstance(ValidatorResourcesInitializer.class.getName());
+   
    /**
     * Initializes a <code>ValidatorResources</code> based on a
     * file path and automatically process the resources.
@@ -221,7 +228,7 @@ public class ValidatorResourcesInitializer {
          digester.parse(in);
          in.close();
       } catch (SAXException e) {
-          System.out.println("ValidatorResourcesInitializer::initialize - SAXException: " + e.getMessage());
+          log.error("ValidatorResourcesInitializer::initialize - SAXException: " + e.getMessage(), e);
       } finally {
       	 if (in != null)
             try {in.close(); } catch (Exception e) {}

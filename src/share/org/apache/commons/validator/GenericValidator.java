@@ -81,10 +81,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isBlankOrNull(String value) {
-       if (value == null || value.trim().length() == 0)
-          return true;
-       else
-          return false;
+       return ((value == null) || (value.trim().length() == 0));
     }
 
     /**
@@ -95,10 +92,8 @@ public class GenericValidator implements Serializable {
     */
     public static boolean matchRegexp(String value, String regexp) throws RESyntaxException {
        if (regexp != null && regexp.length() > 0) {
-             RE r = new RE(regexp);
-             boolean match = r.match(value);
-             
-             return match;
+          RE r = new RE(regexp);
+          return (r.match(value));
        } else {
        	  return false;
        }
@@ -204,16 +199,16 @@ public class GenericValidator implements Serializable {
      * @param 	datePattern	The pattern passed to <code>SimpleDateFormat</code>.
     */
     public static boolean isDate(String value, Locale locale) {
-
 	boolean bValid = true;
 
 	if (value != null) {
 	   try {
 	      DateFormat formatter = null;
-	      if (locale != null)
+	      if (locale != null) {
 	         formatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-	      else
+	      } else {
 	         formatter = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
+	      }
 	         
               formatter.setLenient(false);
               
@@ -251,8 +246,9 @@ public class GenericValidator implements Serializable {
               Date date = formatter.parse(value);
               
               if (strict) {
-                 if (datePattern.length() != value.length())
+                 if (datePattern.length() != value.length()) {
                     bValid = false;
+                 }
               }
 
     	   } catch (ParseException e) {
@@ -275,10 +271,7 @@ public class GenericValidator implements Serializable {
      * @param 	max		The maximum value of the range.
     */
     public static boolean isInRange(int value, int min, int max) {
-       if (!(value >= min && value <= max))
-          return false;
-       else
-          return true;
+       return ((value >= min) && (value <= max));
     }
 
     /**
@@ -289,10 +282,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isCreditCard(String value) {
-       if (!(validateCreditCardLuhnCheck(value) && validateCreditCardPrefixCheck(value)))
-          return false;
-       else
-          return true;
+       return (validateCreditCardLuhnCheck(value) && validateCreditCardPrefixCheck(value));
     }
         
     /**
@@ -316,12 +306,20 @@ public class GenericValidator implements Serializable {
            }
            if (((count & 1) ^ oddoeven) == 0) { // not
                digit *= 2;
-               if (digit > 9) digit -= 9;
+               if (digit > 9) { 
+                  digit -= 9;
+               }
            }
            sum += digit;
         }
-        if (sum == 0) return false;
-        if (sum % 10 == 0) return true;
+        if (sum == 0) {
+           return false;
+        }
+        
+        if (sum % 10 == 0) {
+           return true;
+        }
+        
         return false;
     }
 
@@ -339,30 +337,40 @@ public class GenericValidator implements Serializable {
         final String DS_PREFIX = "6011";
 
         int length = cardNumber.length();
-        if (length < 13) return false;
+        if (length < 13) {
+           return false;
+        }
 
         boolean valid = false;
         int cardType = 0;
 
         String prefix2 = cardNumber.substring(0,2) + ",";
 
-        if (AX_PREFIX.indexOf(prefix2) != -1)
-            cardType = 3;
-        if (cardNumber.substring(0,1).equals(VS_PREFIX))
-            cardType = 4;
-        if (MC_PREFIX.indexOf(prefix2) != -1)
-            cardType = 5;
-        if (cardNumber.substring(0,4).equals(DS_PREFIX))
-            cardType = 6;
+        if (AX_PREFIX.indexOf(prefix2) != -1) {
+           cardType = 3;
+        }
+        if (cardNumber.substring(0,1).equals(VS_PREFIX)) {
+           cardType = 4;
+        }
+        if (MC_PREFIX.indexOf(prefix2) != -1) {
+           cardType = 5;
+        }
+        if (cardNumber.substring(0,4).equals(DS_PREFIX)) {
+           cardType = 6;
+        }
 
-        if ((cardType==3) && (length==15))
-            valid = true;
-        if ((cardType==4) && ((length==13) || (length==16)))
-            valid = true;
-        if ((cardType==5) && (length==16))
-            valid = true;
-        if ((cardType==6) && (length==16))
-            valid = true;
+        if ((cardType==3) && (length==15)) {
+           valid = true;
+        }
+        if ((cardType==4) && ((length==13) || (length==16))) {
+           valid = true;
+        }
+        if ((cardType==5) && (length==16)) {
+           valid = true;
+        }
+        if ((cardType==6) && (length==16)) {
+           valid = true;
+        }
 
         return valid;
     }
@@ -393,16 +401,18 @@ public class GenericValidator implements Serializable {
 
 	  boolean matchEmailPat = emailPat.match(value);
 	  	      
-          if (!matchEmailPat)
+          if (!matchEmailPat) {
              bValid = false;
+          }
 
           if (bValid) {
              if (matchEmailPat) {
                 String user = emailPat.getParen(1);
                 
                 // See if "user" is valid 
-                if (!userPat.match(user))
-                    bValid = false;
+                if (!userPat.match(user)) {
+                   bValid = false;
+                }
              } else {
                 bValid = false;
              }
@@ -425,8 +435,9 @@ public class GenericValidator implements Serializable {
                           bValid = false;
                        }
                        
-                       if (iIpSegment > 255)
+                       if (iIpSegment > 255) {
                           bValid = false;
+                       }
                     } else {
                        bValid = false;
                     }
@@ -434,8 +445,9 @@ public class GenericValidator implements Serializable {
              } else {
                if (bValid) {
                   // Domain is symbolic name
-                  if (!domainPat.match(domain))
-                      bValid = false;
+                  if (!domainPat.match(domain)) {
+                     bValid = false;
+                  }
                }
                if (bValid) {
                   RE atomPat = new RE("(" + atom + ")");
@@ -454,17 +466,17 @@ public class GenericValidator implements Serializable {
                      }
                   }
                   int len = i;
-                  if (domainSegment[len - 1].length() < 2 || domainSegment[len - 1].length() > 3)
+                  if (domainSegment[len - 1].length() < 2 || domainSegment[len - 1].length() > 3) {
                      bValid = false;
+                  }
                
                   // Make sure there's a host name preceding the domain.
-                  if (len < 2)
+                  if (len < 2) {
                      bValid = false;
+                  }
                }               	
 	     }
           }
-
-
        } catch (RESyntaxException e) {
           bValid = false;
        } catch (Exception e) {
@@ -481,10 +493,7 @@ public class GenericValidator implements Serializable {
      * @param 	max		The maximum length.
     */
     public static boolean maxLength(String value, int max) {
-       if (value.length() <= max)
-          return true;
-       else
-          return false;
+       return (value.length() <= max);
     } 
 
     /**
@@ -494,10 +503,7 @@ public class GenericValidator implements Serializable {
      * @param 	min		The minimum length.
     */
     public static boolean minLength(String value, int min) {
-       if (value.length() >= min)
-          return true;
-       else
-          return false;
+       return (value.length() >= min);
     } 
 
 }

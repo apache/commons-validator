@@ -250,16 +250,18 @@ public class ValidatorAction implements Serializable {
     public synchronized void process(Map globalConstants) {
        // Create FastHashMap for isDependency method
        if (getDepends() != null) {
-       	  if (hDependencies == null)
+       	  if (hDependencies == null) {
        	     hDependencies = new FastHashMap();
+       	  }
        	     
           StringTokenizer st = new StringTokenizer(getDepends(), ",");
           String value = "";
           while (st.hasMoreTokens()) {
              String depend = st.nextToken().trim();
              
-             if (depend != null && depend.length() > 0)
+             if (depend != null && depend.length() > 0) {
                 hDependencies.put(depend, value);
+             }
           
           }
               
@@ -268,16 +270,18 @@ public class ValidatorAction implements Serializable {
        
        // Create List for methodParams
        if (getMethodParams() != null) {
-       	  if (lMethodParams == null)
+       	  if (lMethodParams == null) {
        	     lMethodParams = new ArrayList();
+       	  }
        	     
           StringTokenizer st = new StringTokenizer(getMethodParams(), ",");
 
           while (st.hasMoreTokens()) {
              String value = st.nextToken().trim();
              
-             if (value != null && value.length() > 0)
+             if (value != null && value.length() > 0) {
                 lMethodParams.add(value);
+             }
           }
        }
     }
@@ -286,10 +290,11 @@ public class ValidatorAction implements Serializable {
      * Checks whether or not the value passed in is in the depends field.
     */
     public boolean isDependency(String key) {
-       if (hDependencies != null)
+       if (hDependencies != null) {
           return hDependencies.containsKey(key);	
-       else
+       } else {
           return false;
+       }
     }
 
     /**
