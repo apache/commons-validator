@@ -39,6 +39,10 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
     <release version="1.2.0 (alpha)" date="in CVS">
+      <action dev="dgraham" type="add">
+        Added ISBNValidator for validating book numbers.
+        PR# 31489
+      </action>
       <action dev="husted" type="add">
         Add support for min or max numeric values.
         PR# 29015
