@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.9 2003/05/02 23:39:30 dgraham Exp $
- * $Revision: 1.9 $
- * $Date: 2003/05/02 23:39:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.10 2003/05/21 02:53:40 dgraham Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/05/21 02:53:40 $
  *
  * ====================================================================
  *
@@ -80,7 +80,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.9 $ $Date: 2003/05/02 23:39:30 $
+ * @version $Revision: 1.10 $ $Date: 2003/05/21 02:53:40 $
 */                                                       
 public class ValidatorTest extends TestCase {            
                                                           
@@ -140,7 +140,7 @@ public class ValidatorTest extends TestCase {
       fs.addForm(form);
       
       resources.addValidatorAction(va);
-      resources.put(fs);
+      resources.addFormSet(fs);
       resources.process();
 
       TestBean bean = new TestBean();  
@@ -209,7 +209,7 @@ public class ValidatorTest extends TestCase {
       fs.addForm(form);
       
       resources.addValidatorAction(va);
-      resources.put(fs);
+      resources.addFormSet(fs);
       resources.process();
 
       List l = new ArrayList();

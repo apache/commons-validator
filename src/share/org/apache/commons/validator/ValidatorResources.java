@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.14 2003/05/18 21:29:36 rleland Exp $
- * $Revision: 1.14 $
- * $Date: 2003/05/18 21:29:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.15 2003/05/21 02:53:41 dgraham Exp $
+ * $Revision: 1.15 $
+ * $Date: 2003/05/21 02:53:41 $
  *
  * ====================================================================
  *
@@ -77,13 +77,13 @@ import org.apache.commons.logging.LogFactory;
  * <p>General purpose class for storing <code>FormSet</code> objects based 
  * on their associated <code>Locale</code>.</p>
  *
- * <p><strong>IMPLEMENTATION NOTE</strong> - Classes that extend this class
+ * <p><strong>Note</strong> - Classes that extend this class
  * must be Serializable so that instances may be used in distributable
  * application server environments.</p>
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.14 $ $Date: 2003/05/18 21:29:36 $
+ * @version $Revision: 1.15 $ $Date: 2003/05/21 02:53:41 $
  */
 public class ValidatorResources implements Serializable {
 
@@ -119,23 +119,35 @@ public class ValidatorResources implements Serializable {
      * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
      * object.  It will be associated with the <code>Locale</code> of the 
      * <code>FormSet</code>.
+     * @deprecated Use addFormSet() instead.
      */
     public void put(FormSet fs) {
-        if (fs != null) {
-            String key = buildKey(fs);
-            List formsets = (List) hFormSets.get(key);
+        this.addFormSet(fs);
+    }
+    
+    /**
+     * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
+     * object.  It will be associated with the <code>Locale</code> of the 
+     * <code>FormSet</code>.
+     */
+    public void addFormSet(FormSet fs) {
+        if (fs == null) {
+            return;
+        }
+        
+        String key = buildKey(fs);
+        List formsets = (List) hFormSets.get(key);
 
-            if (formsets == null) {
-                formsets = new ArrayList();
-                hFormSets.put(key, formsets);
-            }
+        if (formsets == null) {
+            formsets = new ArrayList();
+            hFormSets.put(key, formsets);
+        }
 
-            if (!formsets.contains(fs)) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Adding FormSet '" + fs.toString() + "'.");
-                }
-                formsets.add(fs);
+        if (!formsets.contains(fs)) {
+            if (log.isDebugEnabled()) {
+                log.debug("Adding FormSet '" + fs.toString() + "'.");
             }
+            formsets.add(fs);
         }
     }
 
@@ -248,15 +260,12 @@ public class ValidatorResources implements Serializable {
      *    <li>language</li>
      *    <li>default locale</li>
      * </ol>
-    */
+     * @deprecated Use getForm() instead.
+     */
     public Form get(Locale locale, Object formKey) {
-        return get(
-            locale.getLanguage(),
-            locale.getCountry(),
-            locale.getVariant(),
-            formKey);
+        return this.getForm(locale, formKey);
     }
-
+    
     /**
      * <p>Gets a <code>Form</code> based on the name of the form and the <code>Locale</code> that 
      * most closely matches the <code>Locale</code> passed in.  The order of <code>Locale</code> 
@@ -268,7 +277,47 @@ public class ValidatorResources implements Serializable {
      *    <li>default locale</li>
      * </ol>
      */
+    public Form getForm(Locale locale, Object formKey) {
+        return this.getForm(
+            locale.getLanguage(),
+            locale.getCountry(),
+            locale.getVariant(),
+            formKey);
+    }
+
+    /**
+     * <p>Gets a <code>Form</code> based on the name of the form and the 
+     * <code>Locale</code> that most closely matches the <code>Locale</code> 
+     * passed in.  The order of <code>Locale</code> matching is:</p>
+     * <ol>
+     *    <li>language + country + variant</li>
+     *    <li>language + country</li>
+     *    <li>language</li>
+     *    <li>default locale</li>
+     * </ol>
+     * @deprecated Use getForm() instead.
+     */
     public Form get(
+        String language,
+        String country,
+        String variant,
+        Object formKey) {
+
+        return this.getForm(language, country, variant, formKey);
+    }
+    
+    /**
+     * <p>Gets a <code>Form</code> based on the name of the form and the 
+     * <code>Locale</code> that most closely matches the <code>Locale</code> 
+     * passed in.  The order of <code>Locale</code> matching is:</p>
+     * <ol>
+     *    <li>language + country + variant</li>
+     *    <li>language + country</li>
+     *    <li>language</li>
+     *    <li>default locale</li>
+     * </ol>
+     */
+    public Form getForm(
         String language,
         String country,
         String variant,
@@ -276,20 +325,20 @@ public class ValidatorResources implements Serializable {
 
         String key = null;
 
-        key = ((language != null && language.length() > 0) ? language : "");
-        key += ((country != null && country.length() > 0) ? "_" + country : "");
-        key += ((variant != null && variant.length() > 0) ? "_" + variant : "");
+        key = (language != null && language.length() > 0) ? language : "";
+        key += (country != null && country.length() > 0) ? "_" + country : "";
+        key += (variant != null && variant.length() > 0) ? "_" + variant : "";
 
         List v = (List) hFormSets.get(key);
 
         if (v == null) {
-            key = ((language != null && language.length() > 0) ? language : "");
-            key += ((country != null && country.length() > 0) ? "_" + country : "");
+            key = (language != null && language.length() > 0) ? language : "";
+            key += (country != null && country.length() > 0) ? "_" + country : "";
             v = (List) hFormSets.get(key);
         }
 
         if (v == null) {
-            key = ((language != null && language.length() > 0) ? language : "");
+            key = (language != null && language.length() > 0) ? language : "";
             v = (List) hFormSets.get(key);
         }
 
@@ -362,18 +411,19 @@ public class ValidatorResources implements Serializable {
                     // If they don't exist in the current locale's form, then clone them.
                     Form defaultForm = get(defaultLocale, formKey);
 
-                    for (Iterator defaultFields = defaultForm.getFields().iterator();
-                        defaultFields.hasNext();
-                        ) {
+                    Iterator defaultFields = defaultForm.getFields().iterator();
+                    while (defaultFields.hasNext()) {
                         Field defaultField = (Field) defaultFields.next();
                         String fieldKey = defaultField.getKey();
 
                         if (form.getFieldMap().containsKey(fieldKey)) {
                             newForm.addField(
                                 (Field) form.getFieldMap().get(fieldKey));
+                                
                         } else {
                             Field field =
                                 getClosestLocaleField(fs, formKey, fieldKey);
+                                
                             newForm.addField((Field) field.clone());
                         }
                     }
@@ -382,6 +432,7 @@ public class ValidatorResources implements Serializable {
                 }
             }
         }
+        
         // Process Fully Constructed FormSets
         for (Iterator i = hFormSets.values().iterator(); i.hasNext();) {
             List formsets = (List) i.next();
@@ -401,7 +452,7 @@ public class ValidatorResources implements Serializable {
      * on <code>FormSet</code>'s locale.  This is used when 
      * constructing a clone, field by field, of partial 
      * <code>FormSet</code>.
-    */
+     */
     protected Field getClosestLocaleField(
         FormSet fs,
         String formKey,

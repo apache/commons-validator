@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.19 2003/05/20 01:52:27 dgraham Exp $
- * $Revision: 1.19 $
- * $Date: 2003/05/20 01:52:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.20 2003/05/21 02:53:41 dgraham Exp $
+ * $Revision: 1.20 $
+ * $Date: 2003/05/21 02:53:41 $
  *
  * ====================================================================
  *
@@ -85,7 +85,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.19 $ $Date: 2003/05/20 01:52:27 $
+ * @version $Revision: 1.20 $ $Date: 2003/05/21 02:53:41 $
  */
 public class Validator implements Serializable {
 
@@ -608,7 +608,7 @@ public class Validator implements Serializable {
             throw new ValidatorException("Resources not defined for Validator");
         }
 
-        Form form = resources.get(locale, formName);
+        Form form = resources.getForm(locale, formName);
         if (form != null) {
             Iterator forms = form.getFields().iterator();
             while (forms.hasNext()) {
