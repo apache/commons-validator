@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.7 2002/10/11 01:16:37 turner Exp $
- * $Revision: 1.7 $
- * $Date: 2002/10/11 01:16:37 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.8 2002/10/16 22:17:31 turner Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/10/16 22:17:31 $
  *
  * ====================================================================
  *
@@ -63,7 +63,6 @@
 package org.apache.commons.validator;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Locale;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -76,7 +75,7 @@ import org.apache.oro.text.perl.Perl5Util;
  *
  * @author David Winterfeldt
  * @author James Turner
- * @version $Revision: 1.7 $ $Date: 2002/10/11 01:16:37 $
+ * @version $Revision: 1.8 $ $Date: 2002/10/16 22:17:31 $
 */
 public class GenericValidator implements Serializable {
 
