@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.18 2003/06/08 06:03:16 dgraham Exp $
- * $Revision: 1.18 $
- * $Date: 2003/06/08 06:03:16 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.19 2003/06/12 01:04:11 dgraham Exp $
+ * $Revision: 1.19 $
+ * $Date: 2003/06/12 01:04:11 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.18 $ $Date: 2003/06/08 06:03:16 $
+ * @version $Revision: 1.19 $ $Date: 2003/06/12 01:04:11 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -701,32 +701,37 @@ public class Field implements Cloneable, Serializable {
      * Creates and returns a copy of this object.
      */
     public Object clone() {
+        Field field = null;
         try {
-            Field field = (Field) super.clone();
-            
-            field.args = new Map[this.args.length];
-            for (int i = 0; i < this.args.length; i++) {
-                Map argMap = new HashMap(this.args[i]);
-                Iterator iter = argMap.keySet().iterator();
-                while (iter.hasNext()) {
-                    String validatorName = (String) iter.next();
-                    Arg arg = (Arg) argMap.get(validatorName);
-                    argMap.put(validatorName, arg.clone());
-                }
-                field.args[i] = argMap;
-            }
-
-            field.hVars = ValidatorUtils.copyFastHashMap(hVars);
-            field.hMsgs = ValidatorUtils.copyFastHashMap(hMsgs);
-            field.hArg0 = ValidatorUtils.copyFastHashMap(hArg0);
-            field.hArg1 = ValidatorUtils.copyFastHashMap(hArg1);
-            field.hArg2 = ValidatorUtils.copyFastHashMap(hArg2);
-            field.hArg3 = ValidatorUtils.copyFastHashMap(hArg3);
-
-            return field;
+            field = (Field) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new InternalError(e.toString());
         }
+
+        field.args = new Map[this.args.length];
+        for (int i = 0; i < this.args.length; i++) {
+            if (this.args[i] == null) {
+                continue;
+            }
+
+            Map argMap = new HashMap(this.args[i]);
+            Iterator iter = argMap.keySet().iterator();
+            while (iter.hasNext()) {
+                String validatorName = (String) iter.next();
+                Arg arg = (Arg) argMap.get(validatorName);
+                argMap.put(validatorName, arg.clone());
+            }
+            field.args[i] = argMap;
+        }
+
+        field.hVars = ValidatorUtils.copyFastHashMap(hVars);
+        field.hMsgs = ValidatorUtils.copyFastHashMap(hMsgs);
+        field.hArg0 = ValidatorUtils.copyFastHashMap(hArg0);
+        field.hArg1 = ValidatorUtils.copyFastHashMap(hArg1);
+        field.hArg2 = ValidatorUtils.copyFastHashMap(hArg2);
+        field.hArg3 = ValidatorUtils.copyFastHashMap(hArg3);
+
+        return field;
     }    
 
     /**
