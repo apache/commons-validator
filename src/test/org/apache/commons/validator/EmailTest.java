@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.8 2003/03/13 02:26:25 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/03/13 02:26:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.9 2003/05/02 23:53:38 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/05/02 23:53:38 $
  *
  * ====================================================================
  *
@@ -59,7 +59,6 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.io.IOException;
@@ -72,12 +71,12 @@ import junit.framework.TestSuite;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-                                                          
 /**                                                       
  * <p>Performs Validation Test for e-mail validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2003/03/13 02:26:25 $
+ * @author David Graham
+ * @version $Revision: 1.9 $ $Date: 2003/05/02 23:53:38 $
 */                                                       
 public class EmailTest extends TestCase {            
    
@@ -161,26 +160,34 @@ public class EmailTest extends TestCase {
       valueTest(info, true);
    }
 
-   /**
-    * Tests the e-mail validation.
-   */
-   public void testEmailExtension() throws ValidatorException {
-      // Create bean to run test on.
-      ValueBean info = new ValueBean();
-
-      info.setValue("jsmith@apache.org");
-      valueTest(info, true);
-
-      info.setValue("jsmith@apache.com");
-      valueTest(info, true);
-
-      info.setValue("jsmith@apache.net");
-      valueTest(info, true);
-
-      info.setValue("jsmith@apache.info");
-      valueTest(info, true);
-
-   }
+    /**
+     * Tests the e-mail validation.
+     */
+    public void testEmailExtension() throws ValidatorException {
+    	// Create bean to run test on.
+    	ValueBean info = new ValueBean();
+    
+    	info.setValue("jsmith@apache.org");
+    	valueTest(info, true);
+    
+    	info.setValue("jsmith@apache.com");
+    	valueTest(info, true);
+    
+    	info.setValue("jsmith@apache.net");
+    	valueTest(info, true);
+    
+    	info.setValue("jsmith@apache.info");
+    	valueTest(info, true);
+    
+    	info.setValue("jsmith@apache.infoo");
+    	valueTest(info, false);
+        
+        info.setValue("jsmith@apache.");
+        valueTest(info, false);
+        
+        info.setValue("jsmith@apache.c");
+        valueTest(info, false);
+    }
 
    /**
     * <p>Tests the e-mail validation with a dash in 
@@ -212,18 +219,21 @@ public class EmailTest extends TestCase {
 
    }
 
-   /**
-    * <p>Tests the e-mail validation with an RCS-noncompliant character in 
-    * the address.</p>
-   */
-   public void testEmailWithBogusCharacter() throws ValidatorException {
-      // Create bean to run test on.
-      ValueBean info = new ValueBean();
-
-      info.setValue("andy.noble@\u008fdata-workshop.com");
-      valueTest(info, false);
-
-   }
+    /**
+     * <p>Tests the e-mail validation with an RCS-noncompliant character in 
+     * the address.</p>
+     */
+    public void testEmailWithBogusCharacter() throws ValidatorException {
+    	// Create bean to run test on.
+    	ValueBean info = new ValueBean();
+    
+    	info.setValue("andy.noble@\u008fdata-workshop.com");
+    	valueTest(info, false);
+    
+        // The ' character is valid in an email address.
+    	info.setValue("andy.o'reilly@data-workshop.com");
+    	valueTest(info, true);
+    }
    
    /**
     * Tests the email validation with commas.
