@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.18 2003/04/30 21:24:41 rleland Exp $
- * $Revision: 1.18 $
- * $Date: 2003/04/30 21:24:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.19 2003/04/30 21:28:40 rleland Exp $
+ * $Revision: 1.19 $
+ * $Date: 2003/04/30 21:28:40 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
  * @author Robert Leland
- * @version $Revision: 1.18 $ $Date: 2003/04/30 21:24:41 $
+ * @version $Revision: 1.19 $ $Date: 2003/04/30 21:28:40 $
  */
 public class GenericValidator implements Serializable {
 
@@ -331,7 +331,7 @@ public class GenericValidator implements Serializable {
     * @param value The value validation is being performed on.
     */
    public static boolean isEmail(String value) {
-      return EmailValidator.getInstance().isEmail(value);
+      return EmailValidator.getInstance().isValid(value);
    }
 
    /**

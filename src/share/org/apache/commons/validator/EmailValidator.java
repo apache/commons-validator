@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.1 2003/04/29 02:15:35 dgraham Exp $
- * $Revision: 1.1 $
- * $Date: 2003/04/29 02:15:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.2 2003/04/30 21:28:40 rleland Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/04/30 21:28:40 $
  *
  * ====================================================================
  *
@@ -69,15 +69,15 @@ import org.apache.oro.text.perl.Perl5Util;
  * This class is a Singleton; you can retrieve the instance via the getInstance() method.
  * </p>
  * <p>
- * Based on a script by <a href="mailto:stamhankar@hotmail.com">Sandeep V. Tamhankar</a>  
+ * Based on a script by <a href="mailto:stamhankar@hotmail.com">Sandeep V. Tamhankar</a>
  * http://javascript.internet.com
  * </p>
- * 
+ *
  * @author David Winterfeldt
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.1 $ $Date: 2003/04/29 02:15:35 $
+ * @version $Revision: 1.2 $ $Date: 2003/04/30 21:28:40 $
  */
 public class EmailValidator {
 
@@ -106,7 +106,7 @@ public class EmailValidator {
 	 *
 	 * @param value The value validation is being performed on.
 	 */
-	public boolean isEmail(String value) {
+	public boolean isValid(String value) {
 		boolean isValid = true;
 
 		try {
@@ -157,7 +157,7 @@ public class EmailValidator {
 
 				String user = matchEmailPat.group(1);
 
-				// See if "user" is valid 
+				// See if "user" is valid
 				isValid = matchUserPat.match(userPat, user);
 			}
 
