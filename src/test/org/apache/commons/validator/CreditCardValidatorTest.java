@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/CreditCardValidatorTest.java,v 1.1 2003/06/08 21:33:22 dgraham Exp $
- * $Revision: 1.1 $
- * $Date: 2003/06/08 21:33:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/CreditCardValidatorTest.java,v 1.2 2003/06/08 21:54:07 dgraham Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/06/08 21:54:07 $
  *
  * ====================================================================
  *
@@ -84,7 +84,13 @@ public class CreditCardValidatorTest extends TestCase {
         assertFalse(ccv.isValid(""));
         assertFalse(ccv.isValid("123456789012"));   // too short
         assertFalse(ccv.isValid("12345678901234567890"));   // too long
+        assertFalse(ccv.isValid("4417123456789112"));
+        assertFalse(ccv.isValid("4417q23456w89113"));
+        assertTrue(ccv.isValid("4417123456789113"));
         
+        // disallow Visa so it should fail even with good number
+        ccv = new CreditCardValidator(CreditCardValidator.AMEX);
+        assertFalse(ccv.isValid("4417123456789113"));
 	}
 
 }
