@@ -1,8 +1,11 @@
 
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateMask.js,v 1.4 2003/11/17 04:57:50 rleland Exp $
-  //$Revision: 1.4 $
-  //$Date: 2003/11/17 04:57:50 $
-
+    /*$RCSfile: validateMask.js,v $ $Revision: 1.5 $ $Date: 2003/12/15 02:56:57 $ */
+    /**
+    * Check to see if fields are a valid using a regular expression.
+    * Fields are not checked if they are disabled.
+    * <p>
+    * @param form The form validation is taking place on.
+    */
     function validateMask(form) {
         var isValid = true;
         var focusField = null;

@@ -1,8 +1,13 @@
 
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateMaxLength.js,v 1.5 2003/11/17 04:57:50 rleland Exp $
-  //$Revision: 1.5 $
-  //$Date: 2003/11/17 04:57:50 $
-
+    /*$RCSfile: validateMaxLength.js,v $ $Revision: 1.6 $ $Date: 2003/12/15 02:56:57 $ */
+    /**
+    * A field is considered valid if less than the specified maximum.
+    * Fields are not checked if they are disabled.
+    * <strong>Caution:</strong> Using <code>validateMaxLength</code> on a password field in a 
+    *  login page gives unnecessary information away to hackers. While it only slightly
+    *  weakens security, we suggest using it only when modifying a password.</p>
+    * @param form The form validation is taking place on.
+    */
     function validateMaxLength(form) {
         var isValid = true;
         var focusField = null;

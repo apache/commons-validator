@@ -1,8 +1,11 @@
 
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateIntRange.js,v 1.5 2003/11/17 04:57:50 rleland Exp $
-  //$Revision: 1.5 $
-  //$Date: 2003/11/17 04:57:50 $
-
+    /*$RCSfile: validateIntRange.js,v $ $Revision: 1.6 $ $Date: 2003/12/15 02:56:57 $ */
+    /**
+    * Check to see if fields is in a valid integer range.
+    * Fields are not checked if they are disabled.
+    * <p>
+    * @param form The form validation is taking place on.
+    */
     function validateIntRange(form) {
         var isValid = true;
         var focusField = null;

@@ -1,8 +1,11 @@
- 
- //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateInteger.js,v 1.4 2003/11/17 04:57:50 rleland Exp $
-  //$Revision: 1.4 $
-  //$Date: 2003/11/17 04:57:50 $
 
+    /*$RCSfile: validateInteger.js,v $ $Revision: 1.5 $ $Date: 2003/12/15 02:56:57 $ */
+    /**
+    * Check to see if fields are a valid integer.
+    * Fields are not checked if they are disabled.
+    * <p>
+    * @param form The form validation is taking place on.
+    */
     function validateInteger(form) {
         var bValid = true;
         var focusField = null;

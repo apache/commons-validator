@@ -3,7 +3,7 @@
 <project>
   <name>Validator</name>
   <id>commons-validator</id>
-  <currentVersion>1.1.1-dev</currentVersion>
+  <currentVersion>1.1.1</currentVersion>
 
   <organization>
     <name>Apache Software Foundation</name>

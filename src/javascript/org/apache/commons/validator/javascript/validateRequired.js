@@ -1,7 +1,11 @@
 
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateRequired.js,v 1.8 2003/11/17 04:57:50 rleland Exp $
-  //$Revision: 1.8 $
-  //$Date: 2003/11/17 04:57:50 $
+    /*$RCSfile: validateRequired.js,v $ $Revision: 1.9 $ $Date: 2003/12/15 02:56:57 $ */
+    /**
+    *  Check to see if fields must contain a value.
+    * Fields are not checked if they are disabled.
+    * <p>
+    * @param form The form validation is taking place on.
+    */
 
     function validateRequired(form) {
         var isValid = true;

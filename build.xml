@@ -3,7 +3,7 @@
 
 <!--
         "Validator" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.27 2003/09/14 02:53:15 rleland Exp $
+        $Id: build.xml,v 1.28 2003/12/15 02:56:57 rleland Exp $
 -->
 
 
@@ -247,8 +247,6 @@
    description="Create binary distribution">
     <mkdir      dir="${dist.home}"/>
     <copy      file="LICENSE.txt"
-              todir="${dist.home}"/>
-    <copy      file="RELEASE-NOTES-1.0.2.txt"
               todir="${dist.home}"/>
     <mkdir      dir="${build.home}/classes/META-INF"/>
     <copy      file="LICENSE.txt"
