@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LocaleTest.java,v 1.1 2003/01/20 06:15:06 turner Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/20 06:15:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LocaleTest.java,v 1.2 2003/03/13 02:09:23 dgraham Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/03/13 02:09:23 $
  *
  * ====================================================================
  *
@@ -64,20 +64,20 @@ package org.apache.commons.validator;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
-import junit.framework.Test;                           
-import junit.framework.TestCase;                          
+import java.util.Locale;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import junit.framework.AssertionFailedError;              
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import java.util.Locale;
                                                           
 /**                                                       
  * <p>Performs Validation Test for <code>long</code> validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.1 $ $Date: 2003/01/20 06:15:06 $
+ * @version $Revision: 1.2 $ $Date: 2003/03/13 02:09:23 $
 */                                                       
 public class LocaleTest extends TestCase {            
    

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredNameTest.java,v 1.5 2002/12/15 21:46:41 martinc Exp $
- * $Revision: 1.5 $
- * $Date: 2002/12/15 21:46:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredNameTest.java,v 1.6 2003/03/13 02:09:24 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/03/13 02:09:24 $
  *
  * ====================================================================
  *
@@ -64,11 +64,11 @@ package org.apache.commons.validator;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
-import junit.framework.Test;                           
-import junit.framework.TestCase;                          
+
+import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import junit.framework.AssertionFailedError;              
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -77,7 +77,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2002/12/15 21:46:41 $
+ * @version $Revision: 1.6 $ $Date: 2003/03/13 02:09:24 $
 */                                                       
 public class RequiredNameTest extends TestCase {            
    

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.2 2002/10/23 04:02:02 martinc Exp $
- * $Revision: 1.2 $
- * $Date: 2002/10/23 04:02:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.3 2003/03/13 02:11:39 dgraham Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/03/13 02:11:39 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,20 +62,27 @@
 
 package org.apache.commons.validator.example;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
-import java.util.Map;
 import java.text.MessageFormat;
+import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
-import org.apache.commons.validator.*;
+
+import org.apache.commons.validator.Field;
+import org.apache.commons.validator.Form;
+import org.apache.commons.validator.Validator;
+import org.apache.commons.validator.ValidatorAction;
+import org.apache.commons.validator.ValidatorResources;
+import org.apache.commons.validator.ValidatorResourcesInitializer;
+import org.apache.commons.validator.ValidatorResult;
+import org.apache.commons.validator.ValidatorResults;
 
 /**                                                       
  * <p>A simple example of setting up and using the Validator.</p> 
  *
  * @author James Turner
- * @version $Revision: 1.2 $ $Date: 2002/10/23 04:02:02 $
+ * @version $Revision: 1.3 $ $Date: 2003/03/13 02:11:39 $
  *
  * This simple example shows all the steps needed to set up and use
  * the Validator.  Note that in most cases, some kind of framework

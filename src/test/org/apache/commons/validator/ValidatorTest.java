@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.5 2002/12/15 20:58:57 martinc Exp $
- * $Revision: 1.5 $
- * $Date: 2002/12/15 20:58:57 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.6 2003/03/13 02:09:24 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/03/13 02:09:24 $
  *
  * ====================================================================
  *
@@ -62,23 +62,23 @@
 
 package org.apache.commons.validator;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.text.DateFormat;
-import java.text.ParseException;
-import junit.framework.Test;                           
-import junit.framework.TestCase;                          
-import junit.framework.TestSuite;
-import junit.framework.AssertionFailedError;              
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;              
 
                                                           
 /**                                                       
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2002/12/15 20:58:57 $
+ * @version $Revision: 1.6 $ $Date: 2003/03/13 02:09:24 $
 */                                                       
 public class ValidatorTest extends TestCase {            
                                                           

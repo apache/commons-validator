@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.6 2002/12/15 21:46:41 martinc Exp $
- * $Revision: 1.6 $
- * $Date: 2002/12/15 21:46:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.7 2003/03/13 02:11:39 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/03/13 02:11:39 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -63,9 +63,9 @@
 package org.apache.commons.validator;
 
 import java.util.Iterator;
-import java.util.Map;
+
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.FastHashMap; 
+import org.apache.commons.collections.FastHashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -74,7 +74,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Basic utility methods.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2002/12/15 21:46:41 $
+ * @version $Revision: 1.7 $ $Date: 2003/03/13 02:11:39 $
 */
 public class ValidatorUtil  {
 

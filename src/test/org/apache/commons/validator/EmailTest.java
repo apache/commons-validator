@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.6 2003/01/20 06:50:26 turner Exp $
- * $Revision: 1.6 $
- * $Date: 2003/01/20 06:50:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.7 2003/03/13 02:09:23 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/03/13 02:09:23 $
  *
  * ====================================================================
  *
@@ -64,11 +64,11 @@ package org.apache.commons.validator;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
-import junit.framework.Test;                           
-import junit.framework.TestCase;                          
+
+import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import junit.framework.AssertionFailedError;              
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -77,7 +77,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Performs Validation Test for e-mail validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2003/01/20 06:50:26 $
+ * @version $Revision: 1.7 $ $Date: 2003/03/13 02:09:23 $
 */                                                       
 public class EmailTest extends TestCase {            
    
