@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.11 2003/01/20 06:15:06 turner Exp $
- * $Revision: 1.11 $
- * $Date: 2003/01/20 06:15:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.12 2003/03/12 06:06:46 dgraham Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/03/12 06:06:46 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author Dave Derry
- * @version $Revision: 1.11 $ $Date: 2003/01/20 06:15:06 $
+ * @version $Revision: 1.12 $ $Date: 2003/03/12 06:06:46 $
 */
 public class ValidatorResourcesInitializer {
 
@@ -94,8 +94,10 @@ public class ValidatorResourcesInitializer {
      * <strong>MUST</strong> be an even number of Strings in this list!
      */
     protected static String registrations[] = {
+        "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN",
+        "/org/apache/commons/validator/resources/validator_1_0.dtd",
         "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0.1//EN",
-	"/org/apache/commons/validator/resources/validator_1_0_1.dtd"
+        "/org/apache/commons/validator/resources/validator_1_0_1.dtd"
    };
 
 
