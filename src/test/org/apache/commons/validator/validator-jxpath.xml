@@ -1,0 +1,39 @@
+<!DOCTYPE form-validation PUBLIC
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN"
+     "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+     
+<form-validation>
+   <global>
+      <validator name="jxpath"
+                 classname="org.apache.commons.validator.JXPathValidator"
+                 method="isValid"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+   </global>
+   <formset>
+      <form name="jxpathForm">
+         <field property="value" depends="jxpath">
+            <var>
+             <var-name>test</var-name>
+             <var-value>.="foo"</var-value>
+            </var>
+         </field> 
+      </form>
+      <form name="jxpathForm-numeric">
+         <field property="value" depends="jxpath">
+            <var>
+             <var-name>test</var-name>
+             <var-value>number(.)>0 and number(.)&lt;100</var-value>
+            </var>
+         </field> 
+      </form>
+      <form name="jxpathForm-nested">
+         <field property="object" depends="jxpath">
+            <var>
+             <var-name>test</var-name>
+             <var-value>./value="foo"</var-value>
+            </var>
+         </field> 
+      </form>
+   </formset>   
+</form-validation>

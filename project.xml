@@ -261,6 +261,12 @@
       <version>1.0.3</version>
       <url>http://jakarta.apache.org/commons/logging.html</url>
     </dependency>
+    
+    <dependency>
+      <id>commons-jxpath</id>
+      <version>1.1</version>
+      <url>http://jakarta.apache.org/commons/jxpath.html</url>
+    </dependency>
 
     <dependency>
       <id>oro</id>

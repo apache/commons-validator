@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.17 2004/06/08 14:48:35 husted Exp $
- * $Revision: 1.17 $
- * $Date: 2004/06/08 14:48:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.18 2004/06/08 15:05:38 husted Exp $
+ * $Revision: 1.18 $
+ * $Date: 2004/06/08 15:05:38 $
  *
  * ====================================================================
  * Copyright 2000-2004 The Apache Software Foundation
@@ -61,6 +61,7 @@ public class ValidatorTestSuite extends TestCase {
        suite.addTestSuite(FlagsTest.class);
        suite.addTestSuite(ExceptionTest.class);
        suite.addTest(UrlTest.suite());
+       suite.addTest(JXPathTest.suite());
        
        return suite;
     }
