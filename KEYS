@@ -12,6 +12,39 @@ Apache developers:
 Apache developers: please ensure that your key is also available via the
 PGP keyservers (such as pgpkeys.mit.edu).
 
+Type bits      keyID      Date       User ID
+DSS  2048/1024 0x357AE38C 2002/12/30 *** DEFAULT SIGNING KEY ***
+                                     Martin F. N. Cooper <martinc@apache.org>
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: PGP 6.5.8
+
+mQGiBD4QG2ARBADidho8fyIoGRxNu1rXBtVov8IpHcHCOzqY6C1Phgj+sCkeoLvX
+7fBPwLhk+YhrkbhX2Fy0Hg8RzOy7J6XM1GYclPpYc+F7gW7tYqzGoiEeVAx3tIYa
+X83Z3d4f3pcwz3MePsFFIMkJzm766DbxEJwUlrNziD7KHOMkSPtt9E1O2QCg/21P
+4LIkL6MAiqSoHPi7iXSCcv8D/1Vj4Nw7VpTFYupzDotjTf43G9WpbRjYPwPIpBbK
+G72JC8a3BQZmKUXEVHTHfOe4vWFrkrs1WTsBT8q5qo3d+wSxrUVj1wlNqQolQ8RP
+7j+dx5zRYDKYD+DGdkF2Qokd3qx2uxcJnRNBeUsAB3aPj9IEqMMMGjEqybCbzTjv
+EfiuA/4x7hqPNGirRiNLkGFn9GJg+z/yYkiC2eaQC6VMU+S8JccHE2l4DgUSfKnc
+vm+QJGjDbylpZ1P4shtCkkHnoC21oeJrcKYB8jn/TAEGPv955xZDLj5fvvYQreg7
+iaQ6Hx5TAnu+7tnET9UmoZe/fMN1jpwT4G3lXsl4AsizTXXZDbQoTWFydGluIEYu
+IE4uIENvb3BlciA8bWFydGluY0BhcGFjaGUub3JnPokATgQQEQIADgUCPhAbYAQL
+AwIBAhkBAAoJEJhjoec1euOM5g4An1/g/v4GZcqxsMWRpGsZRGJYASDSAKCKAIlZ
+RMiKyomfYl43R8HtgNNp0rkCDQQ+EBtgEAgA9kJXtwh/CBdyorrWqULzBej5UxE5
+T7bxbrlLOCDaAadWoxTpj0BV89AHxstDqZSt90xkhkn4DIO9ZekX1KHTUPj1WV/c
+dlJPPT2N286Z4VeSWc39uK50T8X8dryDxUcwYc58yWb/Ffm7/ZFexwGq01uejaCl
+cjrUGvC/RgBYK+X0iP1YTknbzSC0neSRBzZrM2w4DUUdD3yIsxx8Wy2O9vPJI8BD
+8KVbGI2Ou1WMuF040zT9fBdXQ6MdGGzeMyEstSr/POGxKUAYEY18hKcKctaGxAMZ
+yAcpesqVDNmWn6vQClCbAkbTCD1mpF1Bn5x8vYlLIhkmuquiXsNV6TILOwACAgf8
+D0YiROjHXpHdBHkBaSoL9DmHT+JoUA5XLaLekQ2j4aNpGVHrPpRIEUUVLZFlfiTm
+IYVt4sMhh8prmqo7Yr4o1vG4cKJbqkiD+wCMntc4WTAifR9Py2I2G8D8aBQt2oRY
+fJdjEM41NX6B6k5swiCYjqEIHR1fh10cc/jeCwjcb2S65JK+UlTPBjjUNbbwVgmo
+VB2VOfjpas8yXTPZB0MOaxQqLP6+LPwUBLeNPvl+19Pfnaf6vSoObz4/OlO4FXET
+Q3wj/kipicoWaUj4Wq0bNETIeaKOnNkKn0Vvk8/yTn1RSzYb2xLFSm2wJBJAazfD
+g6pbPTWu532wXg1ErKCgm4kARgQYEQIABgUCPhAbYAAKCRCYY6HnNXrjjOvSAKC5
+2FwUjvHy9zKbEV458B6p/BxtXwCg1xYG1Ad4mNDb5udKpQtMMzM28Ik=
+=noY8
+-----END PGP PUBLIC KEY BLOCK-----
+
 
 pub  1024D/F2A46D40 2003-08-27 Rob Leland (For Uploading Builds/Releases) <rleland@apache.org>
      Key fingerprint = A20A A262 E293 2AB1 889A  7CFB 7F77 23FE F2A4 6D40
