@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.27 2004/06/12 18:18:38 leosutic Exp $
- * $Revision: 1.27 $
- * $Date: 2004/06/12 18:18:38 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.28 2004/08/27 16:13:52 jmitchell Exp $
+ * $Revision: 1.28 $
+ * $Date: 2004/08/27 16:13:52 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -200,7 +200,7 @@ public class EmailTest extends TestCommon {
      * Write this test according to parts of RFC, as opposed to the type of character
      * that is being tested.
      *
-     * <p><b>FIXME</b>: This test fails so disable it with a leading _ for 1.1.2 release.
+     * <p><b>FIXME</b>: This test fails so disable it with a leading _ for 1.1.4 release.
      * The real solution is to fix the email parsing.
      *
      * @throws ValidatorException
@@ -357,7 +357,7 @@ public class EmailTest extends TestCommon {
      * 
      * @throws ValidatorException
      * 
-     * FIXME This test fails so disable it with a leading _ for 1.1.2 release.
+     * FIXME This test fails so disable it with a leading _ for 1.1.4 release.
      * The real solution is to fix the email parsing.
      */
     public void _testEmailFromPerl() throws ValidatorException {
