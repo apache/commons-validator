@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResults.java,v 1.4 2003/05/02 05:36:35 dgraham Exp $
- * $Revision: 1.4 $
- * $Date: 2003/05/02 05:36:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResults.java,v 1.5 2003/05/24 18:54:13 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/05/24 18:54:13 $
  *
  * ====================================================================
  *
@@ -66,6 +66,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>This contains the results of a set of 
@@ -74,8 +75,8 @@ import java.util.Map;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.4 $ $Date: 2003/05/02 05:36:35 $
-*/
+ * @version $Revision: 1.5 $ $Date: 2003/05/24 18:54:13 $
+ */
 public class ValidatorResults implements Serializable {
 
 	/**
@@ -123,7 +124,7 @@ public class ValidatorResults implements Serializable {
 	 * Clear all results recorded by this object.
 	 */
 	public void clear() {
-		hResults.clear();
+		this.hResults.clear();
 	}
 
 	/**
@@ -148,19 +149,18 @@ public class ValidatorResults implements Serializable {
 	 * with the key passed in.  The key the <code>ValidatorResult</code> 
 	 * is stored under is the <code>Field</code>'s getKey method.
 	 *
-	 * @param	key		The key generated from <code>Field</code>.
+	 * @param key The key generated from <code>Field</code> (this is often just 
+     * the field name).
 	 */
 	public ValidatorResult getValidatorResult(String key) {
-		return (
-			(hResults.containsKey(key))
-				? ((ValidatorResult) hResults.get(key))
-				: null);
+		return (ValidatorResult) this.hResults.get(key);
 	}
 
 	/**
 	 * Return the set of all recorded messages, without distinction
 	 * by which property the messages are associated with.  If there are
 	 * no messages recorded, an empty enumeration is returned.
+     * @deprecated Use getPropertyNames() instead.
 	 */
 	public Iterator get() {
 		if (hResults.isEmpty()) {
@@ -168,36 +168,7 @@ public class ValidatorResults implements Serializable {
 		}
 
 		return hResults.keySet().iterator();
-		//
-		//ArrayList results = new ArrayList();
-		//
-		//for (Iterator i =  actionItems.iterator(); i.hasNext(); ) {
-		//   ActionMessageItem ami = (ActionMessageItem)i.next();
-		//
-		//   for (Iterator messages =  ami.getList().iterator(); messages.hasNext(); )
-		//      results.add(messages.next());
-		//}
-		//
-		//return (results.iterator());
-
 	}
-
-	/**
-	 * Return the set of messages related to a specific property.
-	 * If there are no such messages, an empty enumeration is returned.
-	 *
-	 * @param property Property name (or ActionMessages.GLOBAL_MESSAGE)
-	 */
-	//public Iterator get(String property) {
-
-	//ActionMessageItem ami = (ActionMessageItem) messages.get(property);
-	//
-	//if (ami == null)
-	//   return (Collections.EMPTY_LIST.iterator());
-	//else
-	//   return (ami.getList().iterator());
-
-	//}
 
 	/**
 	 * Return the set of property names for which at least one message has
@@ -205,14 +176,24 @@ public class ValidatorResults implements Serializable {
 	 * If you have recorded global messages, the String value of
 	 * <code>ActionMessages.GLOBAL_MESSAGE</code> will be one of the returned
 	 * property names.
+     * @deprecated Use getPropertyNames() instead.
 	 */
 	public Iterator properties() {
 		return hResults.keySet().iterator();
 	}
+    
+    /**
+     * Return the set of property names for which at least one message has
+     * been recorded.
+     * @return An unmodifiable Set of the property names.
+     */
+    public Set getPropertyNames() {
+        return Collections.unmodifiableSet(this.hResults.keySet());
+    }
 
 	/**
-	 * Get a <code>Map</code> of any <code>Object</code>s 
-	 * returned from validation routines.
+	 * Get a <code>Map</code> of any <code>Object</code>s returned from 
+     * validation routines.
 	 */
 	public Map getResultValueMap() {
 		Map results = new HashMap();

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.7 2003/05/22 03:12:18 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2003/05/22 03:12:18 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.8 2003/05/24 18:54:13 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/05/24 18:54:13 $
  *
  * ====================================================================
  *
@@ -82,7 +82,7 @@ import org.apache.commons.validator.ValidatorResults;
  * <p>A simple example of setting up and using the Validator.</p> 
  *
  * @author James Turner
- * @version $Revision: 1.7 $ $Date: 2003/05/22 03:12:18 $
+ * @version $Revision: 1.8 $ $Date: 2003/05/24 18:54:13 $
  *
  * This simple example shows all the steps needed to set up and use
  * the Validator.  Note that in most cases, some kind of framework
@@ -183,7 +183,7 @@ public class ValidateExample extends Object {
         System.out.println(bean);
 
         // Iterate over each of the properties of the Bean which had messages.
-        Iterator propertyNames = results.get();
+        Iterator propertyNames = results.getPropertyNames().iterator();
         while (propertyNames.hasNext()) {
             String propertyName = (String) propertyNames.next();
 
