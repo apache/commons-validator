@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResult.java,v 1.6 2003/06/08 07:14:51 dgraham Exp $
- * $Revision: 1.6 $
- * $Date: 2003/06/08 07:14:51 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResult.java,v 1.7 2003/08/14 03:54:51 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/08/14 03:54:51 $
  *
  * ====================================================================
  *
@@ -71,7 +71,7 @@ import java.util.Map;
  * validation rules processed on JavaBean.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2003/06/08 07:14:51 $
+ * @version $Revision: 1.7 $ $Date: 2003/08/14 03:54:51 $
  */
 public class ValidatorResult implements Serializable {
 
@@ -99,7 +99,7 @@ public class ValidatorResult implements Serializable {
      * Add the result of a validator action.
      */
     public void add(String validatorName, boolean result) {
-        add(validatorName, result, null);
+        this.add(validatorName, result, null);
     }
 
    /**
@@ -120,6 +120,13 @@ public class ValidatorResult implements Serializable {
 
     public Map getActionMap() {
         return Collections.unmodifiableMap(hAction);
+    }
+      
+    /**
+     * Returns the Field that was validated.
+     */
+    public Field getField() {
+        return this.field;
     }
       
     /**
@@ -175,5 +182,5 @@ public class ValidatorResult implements Serializable {
         }
     
     }
-   
+
 }
