@@ -4,7 +4,7 @@
 	digester-rules.xml defines the rules our Digester will use to transform 
 	validation.xml files into Java objects.
 	
-	$Id: digester-rules.xml,v 1.1 2003/05/22 00:26:52 dgraham Exp $
+	$Id: digester-rules.xml,v 1.2 2003/05/22 00:27:45 dgraham Exp $
 -->
 
 
