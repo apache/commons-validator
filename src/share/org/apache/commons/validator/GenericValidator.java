@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.8 2002/10/16 22:17:31 turner Exp $
- * $Revision: 1.8 $
- * $Date: 2002/10/16 22:17:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.9 2003/01/20 06:28:37 turner Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/01/20 06:28:37 $
  *
  * ====================================================================
  *
@@ -75,7 +75,7 @@ import org.apache.oro.text.perl.Perl5Util;
  *
  * @author David Winterfeldt
  * @author James Turner
- * @version $Revision: 1.8 $ $Date: 2002/10/16 22:17:31 $
+ * @version $Revision: 1.9 $ $Date: 2003/01/20 06:28:37 $
 */
 public class GenericValidator implements Serializable {
 
@@ -424,8 +424,13 @@ public class GenericValidator implements Serializable {
            // Check the whole email address structure
            bValid = matchEmailPat.match(emailPat, value);
 
+	   if (value.endsWith(".")) {
+	       bValid = false;
+	   }
+
            // Check the user component of the email address
            if (bValid) {
+
               String user = matchEmailPat.group(1);
               
               // See if "user" is valid 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.4 2002/12/15 21:46:41 martinc Exp $
- * $Revision: 1.4 $
- * $Date: 2002/12/15 21:46:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.5 2003/01/20 06:28:37 turner Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/01/20 06:28:37 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Performs Validation Test for e-mail validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.4 $ $Date: 2002/12/15 21:46:41 $
+ * @version $Revision: 1.5 $ $Date: 2003/01/20 06:28:37 $
 */                                                       
 public class EmailTest extends TestCase {            
    
@@ -196,6 +196,19 @@ public class EmailTest extends TestCase {
       info.setValue("andy-noble@data-workshop.com");
       valueTest(info, true);
 
+
+   }
+
+   /**
+    * <p>Tests the e-mail validation with a dot at the end of 
+    * the address.</p>
+   */
+   public void testEmailWithDotEnd() throws ValidatorException {
+      // Create bean to run test on.
+      ValueBean info = new ValueBean();
+
+      info.setValue("andy.noble@data-workshop.com.");
+      valueTest(info, false);
 
    }
 
