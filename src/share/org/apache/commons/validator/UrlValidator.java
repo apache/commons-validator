@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.11 2003/05/03 20:39:03 dgraham Exp $
- * $Revision: 1.11 $
- * $Date: 2003/05/03 20:39:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.12 2003/05/03 20:53:59 dgraham Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/05/03 20:53:59 $
  *
  * ====================================================================
  *
@@ -114,7 +114,7 @@ import org.apache.oro.text.perl.Perl5Util;
  *
  * @author Robert Leland
  * @author David Graham
- * @version $Revision: 1.11 $ $Date: 2003/05/03 20:39:03 $
+ * @version $Revision: 1.12 $ $Date: 2003/05/03 20:53:59 $
  */
 public class UrlValidator implements Serializable {
     
@@ -345,22 +345,17 @@ public class UrlValidator implements Serializable {
 	 * of hostname and port.
 	 */
 	protected boolean isValidAuthority(String authority) {
-		boolean bValid = true;
-		Perl5Util matchAuthorityPat = new Perl5Util();
+		Perl5Util authorityMatcher = new Perl5Util();
 		Perl5Util matchIPV4Pat = new Perl5Util();
-		Perl5Util matchDomainPat = new Perl5Util();
-		Perl5Util matchAtomPat = new Perl5Util();
-		Perl5Util matchPortPat = new Perl5Util();
-		Perl5Util matchAlphaPat = new Perl5Util();
-        
-        if (!matchAuthorityPat.match(AUTHORITY_PATTERN, authority)) {
+		
+        if (!authorityMatcher.match(AUTHORITY_PATTERN, authority)) {
         	return false;
         }
         
         boolean ipV4Address = false;
         boolean hostname = false;
         // check if authority is IP address or hostname
-        String hostIP = matchAuthorityPat.group(PARSE_AUTHORITY_HOST_IP);
+        String hostIP = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
         ipV4Address = matchIPV4Pat.match(IP_V4_DOMAIN_PATTERN, hostIP);
         
 		if (ipV4Address) {
@@ -382,20 +377,22 @@ public class UrlValidator implements Serializable {
 			}
         } else {
         	// Domain is hostname name
-        	hostname = matchDomainPat.match(DOMAIN_PATTERN, hostIP);
+            Perl5Util domainMatcher = new Perl5Util();
+        	hostname = domainMatcher.match(DOMAIN_PATTERN, hostIP);
         }
+        
         //rightmost hostname will never start with a digit.
         if (hostname) {
-        	// this is a hostname authority so check components
         	String[] domainSegment = new String[10];
         	boolean match = true;
         	int segmentCount = 0;
         	int segmentLength = 0;
-        
+            Perl5Util atomMatcher = new Perl5Util();
+            
         	while (match) {
-        		match = matchAtomPat.match(ATOM_PATTERN, hostIP);
+        		match = atomMatcher.match(ATOM_PATTERN, hostIP);
         		if (match) {
-        			domainSegment[segmentCount] = matchAtomPat.group(1);
+        			domainSegment[segmentCount] = atomMatcher.group(1);
         			segmentLength = domainSegment[segmentCount].length() + 1;
         			hostIP =
         				(segmentLength >= hostIP.length())
@@ -411,7 +408,8 @@ public class UrlValidator implements Serializable {
         	}
         
         	// First letter of top level must be a alpha
-        	if (!matchAlphaPat.match(ALPHA_PATTERN, topLevel.substring(0, 1))) {
+            Perl5Util alphaMatcher = new Perl5Util();
+        	if (!alphaMatcher.match(ALPHA_PATTERN, topLevel.substring(0, 1))) {
         		return false;
         	}
         
@@ -420,24 +418,25 @@ public class UrlValidator implements Serializable {
         		return false;
         	}
         }
+
+		if (!hostname && !ipV4Address) {
+			return false;
+		}
         
-        if (bValid) {
-        	bValid = (hostname || ipV4Address);
-        }
-        
-        if (bValid) {
-        	String port = matchAuthorityPat.group(PARSE_AUTHORITY_PORT);
-        	if (port != null) {
-        		bValid = matchPortPat.match(PORT_PATTERN, port);
-        	}
-        }
-        
-        if (bValid) {
-        	String extra = matchAuthorityPat.group(PARSE_AUTHORITY_EXTRA);
-        	bValid = ((extra == null) || (extra.length() == 0));
-        }
-        
-        return bValid;
+		String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
+		if (port != null) {
+			Perl5Util portMatcher = new Perl5Util();
+			if (!portMatcher.match(PORT_PATTERN, port)) {
+				return false;
+			}
+		}
+
+		String extra = authorityMatcher.group(PARSE_AUTHORITY_EXTRA);
+		if (!GenericValidator.isBlankOrNull(extra)) {
+			return false;
+		}
+
+		return true;
 	}
 
     /**
