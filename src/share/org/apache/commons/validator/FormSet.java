@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.6 2002/03/30 04:33:17 dwinterfeldt Exp $
- * $Revision: 1.6 $
- * $Date: 2002/03/30 04:33:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.7 2003/04/29 02:33:17 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/04/29 02:33:17 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -75,24 +75,24 @@ import org.apache.commons.collections.FastHashMap;
  * on the country, language, and variant specified.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2002/03/30 04:33:17 $
-*/
+ * @version $Revision: 1.7 $ $Date: 2003/04/29 02:33:17 $
+ */
 public class FormSet implements Serializable {
     
     /**
      * Whether or not the this <code>FormSet</code> was processed 
      * for replacing variables in strings with their values.
-    */
-    private boolean bProcessed = false;
+     */
+    private boolean processed = false;
 
     /**
      * Language component of <code>Locale</code> (required).
-    */
+     */
     private String language = null;
     
     /**
      * Country component of <code>Locale</code> (optional).
-    */
+     */
     private String country = null;
 
     /**
@@ -103,33 +103,33 @@ public class FormSet implements Serializable {
     /**
      * A <code>FastHashMap</code> of <code>Form</code>s 
      * using the name field of the <code>Form</code> as the key.
-    */
-    private FastHashMap hForms = new FastHashMap();
+     */
+    private FastHashMap forms = new FastHashMap();
 
     /**
      * A <code>FastHashMap</code> of <code>Constant</code>s 
      * using the name field of the <code>Constant</code> as the key.
-    */
-    private FastHashMap hConstants = new FastHashMap();
+     */
+    private FastHashMap constants = new FastHashMap();
 
     /**
      * Whether or not the this <code>FormSet</code> was processed 
      * for replacing variables in strings with their values.
-    */    
+     */    
     public boolean isProcessed() {
-       return bProcessed;	
+       return processed;	
     }
 
     /**
      * Gets the equivalent of the language component of <code>Locale</code>.
-    */
+     */
     public String getLanguage() {
        return language;	
     }
 
     /**
      * Sets the equivalent of the language component of <code>Locale</code>.
-    */
+     */
     public void setLanguage(String language) {
        this.language = language;	
     }
@@ -143,93 +143,88 @@ public class FormSet implements Serializable {
 
     /**
      * Sets the equivalent of the country component of <code>Locale</code>.
-    */
+     */
     public void setCountry(String country) {
        this.country = country;	
     }
 
     /**
      * Gets the equivalent of the variant component of <code>Locale</code>.
-    */
+     */
     public String getVariant() {
        return variant;	
     }
 
     /**
      * Sets the equivalent of the variant component of <code>Locale</code>.
-    */
+     */
     public void setVariant(String variant) {
        this.variant = variant;	
     }
 
     /**
      * Add a <code>Constant</code> (locale level).
-    */
+     */
     public void addConstant(Constant c) {
        if (c.getName() != null && c.getName().length() > 0 &&
            c.getValue() != null && c.getValue().length() > 0) {
-          hConstants.put(c.getName(), c.getValue());
+               
+          constants.put(c.getName(), c.getValue());
        }
     }
 
     /**
      * Add a <code>Constant</code> to the locale level.
-    */
+     */
     public void addConstantParam(String name, String value) {
        if (name != null && name.length() > 0 &&
            value != null && value.length() > 0) {
-          hConstants.put(name, value);
+               
+          constants.put(name, value);
        }
     }
    
     /**
      * Add a <code>Form</code> to the <code>FormSet</code>.
-    */    
+     */    
     public void addForm(Form f) {
-       hForms.put(f.getName(), f);
+       forms.put(f.getName(), f);
     }
 
     /**
      * Retrieve a <code>Form</code> based on the form name.
-    */
+     */
     public Form getForm(Object key) {
-    	Form f = null;
-    	Object o = hForms.get(key);
-    	
-    	if (o != null) {
-    	   f = (Form)o;
-    	}
-    	
-    	return f;
+		return (Form) forms.get(key);
     }
     
     /**
      * A <code>Map</code> of <code>Form</code>s is returned as an 
      * unmodifiable <code>Map</code> with the key based on the form name.
-    */
+     */
     public Map getForms() {
-    	return Collections.unmodifiableMap(hForms);
+    	return Collections.unmodifiableMap(forms);
     }
     
     /**
      * Processes all of the <code>Form</code>s, set <code>FastHashMap</code>s 
      * to 'fast' mode.
-    */
+     */
     public synchronized void process(Map globalConstants) {
-       for (Iterator i = hForms.values().iterator(); i.hasNext(); ) {
-       	  Form f = (Form)i.next();
-       	  f.process(globalConstants, hConstants);
-       }
-       
-       hForms.setFast(true);
-       hConstants.setFast(true);
-       
-       bProcessed = true;
+    	for (Iterator i = forms.values().iterator(); i.hasNext();) {
+    		Form f = (Form) i.next();
+    		f.process(globalConstants, constants);
+    	}
+    
+    	forms.setFast(true);
+    	constants.setFast(true);
+    
+    	processed = true;
     }
 
     /**
      * Returns a string representation of the object.
-    */    
+     */    
     public String toString() {
        StringBuffer results = new StringBuffer();
     
