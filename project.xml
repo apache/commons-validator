@@ -7,17 +7,41 @@
   <currentVersion>1.0-dev</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <gumpRepositoryId>jakarta</gumpRepositoryId>
-  <shortDescription>Commons Database Connection Pooling</shortDescription>
+  <shortDescription>Commons Validator</shortDescription>
 
   <description>
-    Commons Database Connection Pooling
+    Commons Validator component.
   </description>
   
+  <url>http://jakarta.apache.org/commons/validator/</url>
+  <issueTrackingUrl>http://nagoya.apache.org/bugzilla/</issueTrackingUrl>
+  <siteAddress>jakarta.apache.org</siteAddress>
+  <siteDirectory>/www/jakarta.apache.org/commons/validator/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/validator/</distributionDirectory>
+
   <developers>
     <developer>
+      <name>David Winterfeldt</name>
+      <id>dwinterfeldt</id>
+      <email>dwinterfeldt@apache.org</email>
+      <organization></organization>
+    </developer>
+    <developer>
       <name>Craig McClanahan</name>
-      <id></id>
-      <email></email>
+      <id>craigmcc</id>
+      <email>craigmcc@apache.org</email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>James Turner</name>
+      <id>turner</id>
+      <email>turner@apache.org</email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>Martin Cooper</name>
+      <id>martinc</id>
+      <email>martinc@apache.org</email>
       <organization></organization>
     </developer>
   </developers>
@@ -62,6 +86,8 @@
   </dependencies>
 
   <build>
+
+    <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
 
     <sourceDirectory>src/share</sourceDirectory>
 
