@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.15 2003/04/29 02:15:35 dgraham Exp $
- * $Revision: 1.15 $
- * $Date: 2003/04/29 02:15:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.16 2003/04/30 19:04:23 rleland Exp $
+ * $Revision: 1.16 $
+ * $Date: 2003/04/30 19:04:23 $
  *
  * ====================================================================
  *
@@ -66,6 +66,7 @@ import java.util.Locale;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+
 import org.apache.oro.text.perl.Perl5Util;
 
 /**
@@ -75,284 +76,300 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.15 $ $Date: 2003/04/29 02:15:35 $
+ * @author Robert Leland
+ * @version $Revision: 1.16 $ $Date: 2003/04/30 19:04:23 $
  */
 public class GenericValidator implements Serializable {
 
-    /**
-     * Delimiter to put around a regular expression following Perl 5 syntax.
-     * @deprecated Use ValidatorUtil.REGEXP_DELIMITER instead.
-     */
-    public final static String REGEXP_DELIM = ValidatorUtil.REGEXP_DELIMITER;
+   /**
+    * Delimiter to put around a regular expression following Perl 5 syntax.
+    * @deprecated Use ValidatorUtil.REGEXP_DELIMITER instead.
+    */
+   public final static String REGEXP_DELIM = ValidatorUtil.REGEXP_DELIMITER;
 
-    /**
-     * <p>Checks if the field isn't null and length of the field is greater than zero not 
-     * including whitespace.</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     */
-    public static boolean isBlankOrNull(String value) {
-        return ((value == null) || (value.trim().length() == 0));
-    }
+   /**
+    * <p>Checks if the field isn't null and length of the field is greater than zero not
+    * including whitespace.</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    */
+   public static boolean isBlankOrNull(String value) {
+      return ((value == null) || (value.trim().length() == 0));
+   }
 
-    /**
-     * <p>Checks if the value matches the regular expression.</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     * @param 	regexp		The regular expression.
-     */
-    public static boolean matchRegexp(String value, String regexp) {
-        boolean match = false;
+   /**
+    * <p>Checks if the value matches the regular expression.</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @param 	regexp		The regular expression.
+    */
+   public static boolean matchRegexp(String value, String regexp) {
+      boolean match = false;
 
-        if (regexp != null && regexp.length() > 0) {
-            Perl5Util r = new Perl5Util();
-            match = r.match(getDelimittedRegexp(regexp), value);
-        }
+      if (regexp != null && regexp.length() > 0) {
+         Perl5Util r = new Perl5Util();
+         match = r.match( ValidatorUtil.getDelimitedRegExp(regexp), value);
+      }
 
-        return match;
-    }
+      return match;
+   }
 
-    /**
-     * <p>Checks if the value can safely be converted to a byte primitive.</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     */
-    public static boolean isByte(String value) {
-        return (GenericTypeValidator.formatByte(value) != null);
-    }
+   /**
+    * <p>Checks if the value can safely be converted to a byte primitive.</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    */
+   public static boolean isByte(String value) {
+      return (GenericTypeValidator.formatByte(value) != null);
+   }
 
-    /**
-     * <p>Checks if the value can safely be converted to a short primitive.</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     */
-    public static boolean isShort(String value) {
-        return (GenericTypeValidator.formatShort(value) != null);
-    }
+   /**
+    * <p>Checks if the value can safely be converted to a short primitive.</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    */
+   public static boolean isShort(String value) {
+      return (GenericTypeValidator.formatShort(value) != null);
+   }
 
-    /**
-     * <p>Checks if the value can safely be converted to a int primitive.</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     */
-    public static boolean isInt(String value) {
-        return (GenericTypeValidator.formatInt(value) != null);
-    }
+   /**
+    * <p>Checks if the value can safely be converted to a int primitive.</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    */
+   public static boolean isInt(String value) {
+      return (GenericTypeValidator.formatInt(value) != null);
+   }
 
-    /**
-     * <p>Checks if the value can safely be converted to a long primitive.</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     */
-    public static boolean isLong(String value) {
-        return (GenericTypeValidator.formatLong(value) != null);
-    }
+   /**
+    * <p>Checks if the value can safely be converted to a long primitive.</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    */
+   public static boolean isLong(String value) {
+      return (GenericTypeValidator.formatLong(value) != null);
+   }
 
-    /**
-     * <p>Checks if the value can safely be converted to a float primitive.</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     */
-    public static boolean isFloat(String value) {
-        return (GenericTypeValidator.formatFloat(value) != null);
-    }
+   /**
+    * <p>Checks if the value can safely be converted to a float primitive.</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    */
+   public static boolean isFloat(String value) {
+      return (GenericTypeValidator.formatFloat(value) != null);
+   }
 
-    /**
-     * <p>Checks if the value can safely be converted to a double primitive.</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     */
-    public static boolean isDouble(String value) {
-        return (GenericTypeValidator.formatDouble(value) != null);
-    }
+   /**
+    * <p>Checks if the value can safely be converted to a double primitive.</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    */
+   public static boolean isDouble(String value) {
+      return (GenericTypeValidator.formatDouble(value) != null);
+   }
 
-    /**
-     * <p>Checks if the field is a valid date.  The <code>Locale</code> is 
-     * used with <code>java.text.DateFormat</code>.  The setLenient method 
-     * is set to <code>false</code> for all.</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     * @param 	Locale	        The locale to use for the date format, defaults to the default system default if null.
-     */
-    public static boolean isDate(String value, Locale locale) {
-        boolean bValid = true;
+   /**
+    * <p>Checks if the field is a valid date.  The <code>Locale</code> is
+    * used with <code>java.text.DateFormat</code>.  The setLenient method
+    * is set to <code>false</code> for all.</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @param 	locale	        The locale to use for the date format, defaults to the default system default if null.
+    */
+   public static boolean isDate(String value, Locale locale) {
+      boolean bValid = true;
 
-        if (value != null) {
-            try {
-                DateFormat formatter = null;
-                if (locale != null) {
-                    formatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-                } else {
-                    formatter =
-                        DateFormat.getDateInstance(
-                            DateFormat.SHORT,
-                            Locale.getDefault());
-                }
-
-                formatter.setLenient(false);
-
-                formatter.parse(value);
-            } catch (ParseException e) {
-                bValid = false;
+      if (value != null) {
+         try {
+            DateFormat formatter = null;
+            if (locale != null) {
+               formatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+            } else {
+               formatter =
+                     DateFormat.getDateInstance(
+                           DateFormat.SHORT,
+                           Locale.getDefault());
             }
-        } else {
+
+            formatter.setLenient(false);
+
+            formatter.parse(value);
+         } catch (ParseException e) {
             bValid = false;
-        }
+         }
+      } else {
+         bValid = false;
+      }
 
-        return bValid;
-    }
+      return bValid;
+   }
 
-    /**
-     * <p>Checks if the field is a valid date.  The pattern is used with 
-     * <code>java.text.SimpleDateFormat</code>.  If strict is true, then the 
-     * length will be checked so '2/12/1999' will not pass validation with 
-     * the format 'MM/dd/yyyy' because the month isn't two digits. 
-     * The setLenient method is set to <code>false</code> for all.</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     * @param 	datePattern	The pattern passed to <code>SimpleDateFormat</code>.
-     * @param 	strict	        Whether or not to have an exact match of the datePattern.
-     */
-    public static boolean isDate(String value, String datePattern, boolean strict) {
+   /**
+    * <p>Checks if the field is a valid date.  The pattern is used with
+    * <code>java.text.SimpleDateFormat</code>.  If strict is true, then the
+    * length will be checked so '2/12/1999' will not pass validation with
+    * the format 'MM/dd/yyyy' because the month isn't two digits.
+    * The setLenient method is set to <code>false</code> for all.</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @param 	datePattern	The pattern passed to <code>SimpleDateFormat</code>.
+    * @param 	strict	        Whether or not to have an exact match of the datePattern.
+    */
+   public static boolean isDate(String value, String datePattern, boolean strict) {
 
-        boolean bValid = true;
+      boolean bValid = true;
 
-        if (value != null && datePattern != null && datePattern.length() > 0) {
-            try {
-                SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
-                formatter.setLenient(false);
+      if (value != null && datePattern != null && datePattern.length() > 0) {
+         try {
+            SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+            formatter.setLenient(false);
 
-                formatter.parse(value);
+            formatter.parse(value);
 
-                if (strict) {
-                    if (datePattern.length() != value.length()) {
-                        bValid = false;
-                    }
-                }
-
-            } catch (ParseException e) {
-                bValid = false;
+            if (strict) {
+               if (datePattern.length() != value.length()) {
+                  bValid = false;
+               }
             }
-        } else {
+
+         } catch (ParseException e) {
             bValid = false;
-        }
+         }
+      } else {
+         bValid = false;
+      }
 
-        return bValid;
-    }
+      return bValid;
+   }
 
-    /**
-     * <p>Checks if a value is within a range (min &amp; max specified 
-     * in the vars attribute).</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     * @param 	min		The minimum value of the range.
-     * @param 	max		The maximum value of the range.
-     */
-    public static boolean isInRange(int value, int min, int max) {
-        return ((value >= min) && (value <= max));
-    }
+   /**
+    * <p>Checks if a value is within a range (min &amp; max specified
+    * in the vars attribute).</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @param 	min		The minimum value of the range.
+    * @param 	max		The maximum value of the range.
+    */
+   public static boolean isInRange(int value, int min, int max) {
+      return ((value >= min) && (value <= max));
+   }
 
-    /**
-     * <p>Checks if a value is within a range (min &amp; max specified 
-     * in the vars attribute).</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     * @param 	min		The minimum value of the range.
-     * @param 	max		The maximum value of the range.
-     */
-    public static boolean isInRange(float value, float min, float max) {
-        return ((value >= min) && (value <= max));
-    }
+   /**
+    * <p>Checks if a value is within a range (min &amp; max specified
+    * in the vars attribute).</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @param 	min		The minimum value of the range.
+    * @param 	max		The maximum value of the range.
+    */
+   public static boolean isInRange(float value, float min, float max) {
+      return ((value >= min) && (value <= max));
+   }
 
-    /**
-     * <p>Checks if a value is within a range (min &amp; max specified 
-     * in the vars attribute).</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     * @param 	min		The minimum value of the range.
-     * @param 	max		The maximum value of the range.
-     */
-    public static boolean isInRange(short value, short min, short max) {
-        return ((value >= min) && (value <= max));
-    }
+   /**
+    * <p>Checks if a value is within a range (min &amp; max specified
+    * in the vars attribute).</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @param 	min		The minimum value of the range.
+    * @param 	max		The maximum value of the range.
+    */
+   public static boolean isInRange(short value, short min, short max) {
+      return ((value >= min) && (value <= max));
+   }
 
-    /**
-     * <p>Checks if a value is within a range (min &amp; max specified 
-     * in the vars attribute).</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     * @param 	min		The minimum value of the range.
-     * @param 	max		The maximum value of the range.
-     */
-    public static boolean isInRange(double value, double min, double max) {
-        return ((value >= min) && (value <= max));
-    }
+   /**
+    * <p>Checks if a value is within a range (min &amp; max specified
+    * in the vars attribute).</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @param 	min		The minimum value of the range.
+    * @param 	max		The maximum value of the range.
+    */
+   public static boolean isInRange(double value, double min, double max) {
+      return ((value >= min) && (value <= max));
+   }
 
-    /**
-     * Checks if the field is a valid credit card number.
-     *
-     * @param value The value validation is being performed on.
-     */
-    public static boolean isCreditCard(String value) {
-		return CreditCardValidator.getInstance().isCreditCard(value);
-    }
-    
-    /**
-     * Checks for a valid credit card number.
-     *
-     * @param cardNumber Credit Card Number.
-     * @deprecated Use CreditCardValidator.validateCreditCardLuhnCheck() instead.
-     */
-	protected static boolean validateCreditCardLuhnCheck(String cardNumber) {
-		return CreditCardValidator.getInstance().validateCreditCardLuhnCheck(
-			cardNumber);
-	}
-    
-    /**
-     * Checks for a valid credit card number.
-     *
-     * @param cardNumber Credit Card Number.
-     * @deprecated Use CreditCardValidator.validateCreditCardPrefixCheck() instead.
-     */
-    protected boolean validateCreditCardPrefixCheck(String cardNumber) {
-        return CreditCardValidator.getInstance().validateCreditCardPrefixCheck(
-                    cardNumber);
-    }
+   /**
+    * Checks if the field is a valid credit card number.
+    *
+    * @param value The value validation is being performed on.
+    */
+   public static boolean isCreditCard(String value) {
+      return CreditCardValidator.getInstance().isCreditCard(value);
+   }
 
-    /**
-     * <p>Checks if a field has a valid e-mail address.</p>
-     *
-     * @param value The value validation is being performed on.
-     */
-	public static boolean isEmail(String value) {
-		return EmailValidator.getInstance().isEmail(value);
-	}
+   /**
+    * Checks for a valid credit card number.
+    *
+    * @param cardNumber Credit Card Number.
+    * @deprecated Use CreditCardValidator.validateCreditCardLuhnCheck() instead.
+    */
+   protected static boolean validateCreditCardLuhnCheck(String cardNumber) {
+      return CreditCardValidator.getInstance().validateCreditCardLuhnCheck(
+            cardNumber);
+   }
 
-    /**
-     * <p>Checks if the value's length is less than or equal to the max.</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     * @param 	max		The maximum length.
-     */
-    public static boolean maxLength(String value, int max) {
-        return (value.length() <= max);
-    }
+   /**
+    * Checks for a valid credit card number.
+    *
+    * @param cardNumber Credit Card Number.
+    * @deprecated Use CreditCardValidator.validateCreditCardPrefixCheck() instead.
+    */
+   protected boolean validateCreditCardPrefixCheck(String cardNumber) {
+      return CreditCardValidator.getInstance().validateCreditCardPrefixCheck(
+            cardNumber);
+   }
 
-    /**
-     * <p>Checks if the value's length is greater than or equal to the min.</p>
-     *
-     * @param 	value 		The value validation is being performed on.
-     * @param 	min		The minimum length.
-     */
-    public static boolean minLength(String value, int min) {
-        return (value.length() >= min);
-    }
+   /**
+    * <p>Checks if a field has a valid e-mail address.</p>
+    *
+    * @param value The value validation is being performed on.
+    */
+   public static boolean isEmail(String value) {
+      return EmailValidator.getInstance().isEmail(value);
+   }
 
-    /**
-     * Adds a '/' on either side of the regular expression.
-     * @deprecated use ValidatorUtil.getDelimitedRegExp() instead.
-     */
-    protected static String getDelimittedRegexp(String regexp) {
-        return ValidatorUtil.getDelimitedRegExp(regexp);
-    }
+   /**
+    * <p>Checks if a field is a valid url address.</p>
+    * If you need to modify what is considered valid then
+    * consider using the UrlValidator directly.
+    *
+    * @param value The value validation is being performed on.
+    */
+   public static boolean isUrl(String value) {
+      if (urlValidator == null)
+         urlValidator = new UrlValidator();
+      return (urlValidator.isValid(value));
+   }
+
+   /**
+    * <p>Checks if the value's length is less than or equal to the max.</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @param 	max		The maximum length.
+    */
+   public static boolean maxLength(String value, int max) {
+      return (value.length() <= max);
+   }
+
+   /**
+    * <p>Checks if the value's length is greater than or equal to the min.</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @param 	min		The minimum length.
+    */
+   public static boolean minLength(String value, int min) {
+      return (value.length() >= min);
+   }
+
+   /**
+    * Adds a '/' on either side of the regular expression.
+    * @deprecated use ValidatorUtil.getDelimitedRegExp() instead.
+    */
+   protected static String getDelimittedRegexp(String regexp) {
+      return ValidatorUtil.getDelimitedRegExp(regexp);
+   }
+
+   static UrlValidator urlValidator = null;
 }
