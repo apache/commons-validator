@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.11 2003/05/22 03:28:05 dgraham Exp $
- * $Revision: 1.11 $
- * $Date: 2003/05/22 03:28:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.12 2003/05/24 18:26:49 dgraham Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/05/24 18:26:49 $
  *
  * ====================================================================
  *
@@ -62,9 +62,11 @@
 package org.apache.commons.validator;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -79,7 +81,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.11 $ $Date: 2003/05/22 03:28:05 $
+ * @version $Revision: 1.12 $ $Date: 2003/05/24 18:26:49 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -88,26 +90,51 @@ public class Field implements Cloneable, Serializable {
      * This is the value that will be used as a key if the <code>Arg</code> 
      * name field has no value.
      */
-    public final static String ARG_DEFAULT = "org.apache.commons.validator.Field.DEFAULT";
+    private static final String DEFAULT_ARG =
+        "org.apache.commons.validator.Field.DEFAULT";
+    
+    /**
+     * This is the value that will be used as a key if the <code>Arg</code> 
+     * name field has no value.
+     * @deprecated
+     */
+    public static final String ARG_DEFAULT = DEFAULT_ARG;
     
     /**
      * This indicates an indexed property is being referenced.
      */
-    public final static String TOKEN_INDEXED = "[]";
+    public static final String TOKEN_INDEXED = "[]";
     
-    protected final static String TOKEN_START = "${";
-    protected final static String TOKEN_END = "}";
-    protected final static String TOKEN_VAR = "var:";
+    protected static final String TOKEN_START = "${";
+    protected static final String TOKEN_END = "}";
+    protected static final String TOKEN_VAR = "var:";
     
     protected String property = null;
     protected String indexedProperty = null;
     protected String indexedListProperty = null;
     protected String key = null;
+    
+    /**
+     * A comma separated list of validator's this field depends on.
+     */
     protected String depends = null;
+    
     protected int page = 0;
     protected int fieldOrder = 0;
     
+    /**
+     * @deprecated This is no longer used.
+     */
     protected FastHashMap hDependencies = new FastHashMap();
+    
+    /**
+     * Internal representation of this.depends String as a List.  This List gets updated
+     * whenever setDepends() gets called.  This List is synchronized so a call to 
+     * setDepends() (which clears the List) won't interfere with a call to 
+     * isDependency().
+     */
+    private List dependencyList = Collections.synchronizedList(new ArrayList());
+    
     protected FastHashMap hVars = new FastHashMap();
     protected FastHashMap hMsgs = new FastHashMap();
     protected FastHashMap hArg0 = new FastHashMap();
@@ -121,7 +148,7 @@ public class Field implements Cloneable, Serializable {
      * validation.
      */
     public int getPage() {
-       return page;	
+       return this.page;	
     }
 
     /**
@@ -136,7 +163,7 @@ public class Field implements Cloneable, Serializable {
      * Gets the position of the <code>Field</code> in the validation list.
      */
     public int getFieldOrder() {
-       return fieldOrder;	
+       return this.fieldOrder;	
     }
 
 
@@ -152,7 +179,7 @@ public class Field implements Cloneable, Serializable {
      * Gets the property name of the field.
      */
     public String getProperty() {
-       return property;	
+       return this.property;	
     }
 
 
@@ -169,7 +196,7 @@ public class Field implements Cloneable, Serializable {
      * a parameter for indexed property value retrieval.
      */
     public String getIndexedProperty() {
-       return indexedProperty;	
+       return this.indexedProperty;	
     }
 
 
@@ -188,7 +215,7 @@ public class Field implements Cloneable, Serializable {
      * validations.
      */
     public String getIndexedListProperty() {
-       return indexedListProperty;	
+       return this.indexedListProperty;	
     }
 
 
@@ -200,17 +227,28 @@ public class Field implements Cloneable, Serializable {
     }
     
     /**
-     * Gets the validation rules for this field.
+     * Gets the validation rules for this field as a comma separated list.
      */
     public String getDepends() {
-       return depends;	
+       return this.depends;	
     }
 
     /**
-     * Sets the validation rules for this field.
+     * Sets the validation rules for this field as a comma separated list.
      */
     public void setDepends(String depends) {
-       this.depends = depends;	
+       this.depends = depends;
+
+       this.dependencyList.clear();
+
+       StringTokenizer st = new StringTokenizer(depends, ",");
+       while (st.hasMoreTokens()) {
+           String depend = st.nextToken().trim();
+
+           if (depend != null && depend.length() > 0) {
+               this.dependencyList.add(depend);
+           }
+       }	
     }
 
     /**
@@ -243,7 +281,7 @@ public class Field implements Cloneable, Serializable {
     		if (arg.getName() != null && arg.getName().length() > 0) {
     			hArg0.put(arg.getName(), arg);
     		} else {
-    			hArg0.put(ARG_DEFAULT, arg);
+    			hArg0.put(DEFAULT_ARG, arg);
     		}
             
     	}
@@ -253,7 +291,7 @@ public class Field implements Cloneable, Serializable {
      * Gets the default arg0 <code>Arg</code> object.
      */
     public Arg getArg0() {
-       return (Arg) hArg0.get(ARG_DEFAULT);	
+       return (Arg) hArg0.get(DEFAULT_ARG);	
     }
 
     /**
@@ -275,7 +313,7 @@ public class Field implements Cloneable, Serializable {
           if (arg.getName() != null && arg.getName().length() > 0) {
              hArg1.put(arg.getName(), arg);
           } else {
-             hArg1.put(ARG_DEFAULT, arg);
+             hArg1.put(DEFAULT_ARG, arg);
           }
           
        }
@@ -285,7 +323,7 @@ public class Field implements Cloneable, Serializable {
      * Gets the default arg1 <code>Arg</code> object.
      */
     public Arg getArg1() {
-       return (Arg) hArg1.get(ARG_DEFAULT);	
+       return (Arg) hArg1.get(DEFAULT_ARG);	
     }
 
     /**
@@ -307,7 +345,7 @@ public class Field implements Cloneable, Serializable {
           if (arg.getName() != null && arg.getName().length() > 0) {
              hArg2.put(arg.getName(), arg);
           } else {
-             hArg2.put(ARG_DEFAULT, arg);
+             hArg2.put(DEFAULT_ARG, arg);
           }
           
        }
@@ -317,7 +355,7 @@ public class Field implements Cloneable, Serializable {
      * Gets the default arg2 <code>Arg</code> object.
     */
     public Arg getArg2() {
-       return (Arg) hArg2.get(ARG_DEFAULT);	
+       return (Arg) hArg2.get(DEFAULT_ARG);	
     }
 
     /**
@@ -339,7 +377,7 @@ public class Field implements Cloneable, Serializable {
           if (arg.getName() != null && arg.getName().length() > 0) {
              hArg3.put(arg.getName(), arg);
           } else {
-             hArg3.put(ARG_DEFAULT, arg);
+             hArg3.put(DEFAULT_ARG, arg);
           }
           
        }
@@ -349,7 +387,7 @@ public class Field implements Cloneable, Serializable {
      * Gets the default arg3 <code>Arg</code> object.
     */
     public Arg getArg3() {
-       return (Arg) hArg3.get(ARG_DEFAULT);	
+       return (Arg) hArg3.get(DEFAULT_ARG);	
     }
 
     /**
@@ -376,19 +414,18 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Add a <code>Var</code>, based on the values passed in, to the <code>Field</code>.
+     * Add a <code>Var</code>, based on the values passed in, to the 
+     * <code>Field</code>.
      */
     public void addVarParam(String name, String value, String jsType) {
-       if (name != null && name.length() > 0 && value != null) {
-          hVars.put(name, new Var(name, value, jsType));
-       }
+       this.addVar(new Var(name, value, jsType));
     }
 
     /**
      * Retrieve a variable.
      */
     public Var getVar(String mainKey) {
-       return ((Var) hVars.get(mainKey));
+       return (Var) hVars.get(mainKey);
     }
 
     /**
@@ -418,11 +455,11 @@ public class Field implements Cloneable, Serializable {
      * Gets a unique key based on the property and indexedProperty fields.
      */
     public String getKey() {
-       if (key == null) {
-          generateKey();
+       if (this.key == null) {
+          this.generateKey();
        }
           
-       return key;
+       return this.key;
     }
 
     /**
@@ -445,10 +482,10 @@ public class Field implements Cloneable, Serializable {
      * Generate correct <code>key</code> value.
      */    
     public void generateKey() {
-       if (isIndexed()) {
-          key = indexedListProperty + TOKEN_INDEXED + "." + property;
+       if (this.isIndexed()) {
+          this.key = this.indexedListProperty + TOKEN_INDEXED + "." + this.property;
        } else {
-          key = property;
+          this.key = this.property;
        }
     }
                 
@@ -464,7 +501,7 @@ public class Field implements Cloneable, Serializable {
     	hArg3.setFast(true);
     	hVars.setFast(true);
     
-    	generateKey();
+    	this.generateKey();
     
     	// Process FormSet Constants
     	for (Iterator i = constants.keySet().iterator(); i.hasNext();) {
@@ -502,20 +539,6 @@ public class Field implements Cloneable, Serializable {
     		processMessageComponents(key2, replaceValue);
     	}
     
-    	if (getDepends() != null) {
-    		StringTokenizer st = new StringTokenizer(getDepends(), ",");
-    		String value = "";
-    		while (st.hasMoreTokens()) {
-    			String depend = st.nextToken().trim();
-    
-    			if (depend != null && depend.length() > 0) {
-    				hDependencies.put(depend, value);
-    			}
-    
-    		}
-    
-    		hDependencies.setFast(true);
-    	}
     	hMsgs.setFast(true);
     }
 
@@ -523,14 +546,14 @@ public class Field implements Cloneable, Serializable {
      * Replace the vars value with the key/value pairs passed in.
      */
     private void processVars(String key, String replaceValue) {
+        Iterator i = hVars.keySet().iterator();
+        while (i.hasNext()) {
+            String varKey = (String) i.next();
+            Var var = (Var) hVars.get(varKey);
 
-    	for (Iterator i = hVars.keySet().iterator(); i.hasNext();) {
-    		String varKey = (String) i.next();
-    		Var var = (Var) hVars.get(varKey);
-    
-    		var.setValue(ValidatorUtils.replace(var.getValue(), key, replaceValue));
-    	}
-       
+            var.setValue(ValidatorUtils.replace(var.getValue(), key, replaceValue));
+        }
+
     }
     
     /**
@@ -569,53 +592,36 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Checks if the key is listed as a dependency.
+     * Checks if the validator is listed as a dependency.
      */
-    public boolean isDependency(String key) {
-       if (hDependencies != null) {
-          return hDependencies.containsKey(key);	
-       } else {
-          return false;
-       }
+    public boolean isDependency(String validatorName) {
+        return this.dependencyList.contains(validatorName);
     }
 
     /**
      * Gets an unmodifiable <code>Set</code> of the dependencies.
-    */
+     * @deprecated Use getDependencyList() instead.
+     */
     public Collection getDependencies() {
-       return Collections.unmodifiableMap(hDependencies).keySet();
+       return this.getDependencyList();
     }
-
+    
+    /**
+     * Gets an unmodifiable <code>List</code> of the dependencies in the same order
+     * they were defined in parameter passed to the setDepends() method.
+     */
+    public List getDependencyList() {
+        return Collections.unmodifiableList(this.dependencyList);
+    }
+    
+    
     /**
      * Creates and returns a copy of this object.
-    */
+     */
     public Object clone() {
        try {
-           Field field = (Field)super.clone();
-
-           if (key != null) {
-              field.setKey(new String(key));
-           }
-
-           if (property != null) {
-              field.setProperty(new String(property));
-           }
-
-           if (indexedProperty != null) {
-              field.setIndexedProperty(new String(indexedProperty));
-           }
-
-           if (indexedListProperty != null) {
-              field.setIndexedListProperty(new String(indexedListProperty));
-           }
+           Field field = (Field) super.clone();
            
-           if (depends != null) {
-              field.setDepends(new String(depends));
-           }
-
-           // page & fieldOrder should be taken care of by clone method
-           
-           field.hDependencies = ValidatorUtils.copyFastHashMap(hDependencies);
            field.hVars = ValidatorUtils.copyFastHashMap(hVars);
            field.hMsgs = ValidatorUtils.copyFastHashMap(hMsgs);
            field.hArg0 = ValidatorUtils.copyFastHashMap(hArg0);
@@ -631,7 +637,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Returns a string representation of the object.
-    */       
+     */       
     public String toString() {
        StringBuffer results = new StringBuffer();
        
