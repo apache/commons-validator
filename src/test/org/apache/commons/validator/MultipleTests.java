@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleTests.java,v 1.12 2003/08/26 16:12:47 rleland Exp $
- * $Revision: 1.12 $
- * $Date: 2003/08/26 16:12:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleTests.java,v 1.13 2003/09/06 05:17:59 rleland Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/09/06 05:17:59 $
  *
  * ====================================================================
  *
@@ -63,14 +63,10 @@
 package org.apache.commons.validator;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
 
 /**
@@ -78,9 +74,9 @@ import org.xml.sax.SAXException;
  *
  * @author James Turner
  * @author Arun Mammen Thomas
- * @version $Revision: 1.12 $ $Date: 2003/08/26 16:12:47 $
+ * @version $Revision: 1.13 $ $Date: 2003/09/06 05:17:59 $
 */
-public class MultipleTests extends TestCase {
+public class MultipleTests extends TestCommon {
 
    /**
     * The key used to retrieve the set of validation
@@ -94,15 +90,6 @@ public class MultipleTests extends TestCase {
    protected static String ACTION = "required";
 
 
-   /**
-    * Commons Logging instance.
-   */
-   private Log log = LogFactory.getLog(this.getClass());
-
-   /**
-    * Resources used for validation tests.
-   */
-   private ValidatorResources resources = null;
 
    public MultipleTests(String name) {
        super(name);
@@ -132,19 +119,7 @@ public class MultipleTests extends TestCase {
    */
    protected void setUp() throws IOException, SAXException {
       // Load resources
-      InputStream in = null;
-
-      try {
-         in = this.getClass().getResourceAsStream("validator-multipletest.xml");
-         resources = new ValidatorResources(in);
-      } catch (IOException e) {
-         log.error(e.getMessage(), e);
-         throw e;
-      } finally {
-         if (in != null) {
-            try { in.close(); } catch (Exception e) {}
-         }
-      }
+      loadResources("validator-multipletest.xml");
    }
 
    protected void tearDown() {

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LocaleTest.java,v 1.9 2003/08/23 02:24:07 rleland Exp $
- * $Revision: 1.9 $
- * $Date: 2003/08/23 02:24:07 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LocaleTest.java,v 1.10 2003/09/06 05:17:59 rleland Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/09/06 05:17:59 $
  *
  * ====================================================================
  *
@@ -63,24 +63,21 @@
 package org.apache.commons.validator;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Locale;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 import org.xml.sax.SAXException;
                                                           
 /**                                                       
  * <p>Performs Validation Test for <code>long</code> validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.9 $ $Date: 2003/08/23 02:24:07 $
+ * @version $Revision: 1.10 $ $Date: 2003/09/06 05:17:59 $
 */                                                       
-public class LocaleTest extends TestCase {            
+public class LocaleTest extends TestCommon {
    
    /**
     * The key used to retrieve the set of validation 
@@ -93,17 +90,7 @@ public class LocaleTest extends TestCase {
    */
    protected static String ACTION = "required";
 
-   
-   /**
-    * Commons Logging instance.
-   */
-   private Log log = LogFactory.getLog(this.getClass());
-   
-   /**
-    * Resources used for validation tests.
-   */
-   private ValidatorResources resources = null;
-   
+
    public LocaleTest(String name) {                  
        super(name);                                      
    }                                                     
@@ -132,19 +119,7 @@ public class LocaleTest extends TestCase {
    */
    protected void setUp() throws IOException, SAXException {
       // Load resources
-      InputStream in = null;
-      
-      try {
-         in = this.getClass().getResourceAsStream("validator-locale.xml");
-         resources = new ValidatorResources(in);
-      } catch (IOException e) {
-         log.error(e.getMessage(), e);
-         throw e;
-      } finally {
-         if (in != null) {
-            try { in.close(); } catch (Exception e) {}	
-         }
-      }
+      loadResources("validator-locale.xml");
    }
 
    protected void tearDown() {

@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/IntegerTest.java,v 1.12 2003/09/06 05:17:59 rleland Exp $
- * $Revision: 1.12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestNumber.java,v 1.1 2003/09/06 05:17:59 rleland Exp $
+ * $Revision: 1.1 $
  * $Date: 2003/09/06 05:17:59 $
  *
  * ====================================================================
@@ -58,111 +58,101 @@
  * <http://www.apache.org/>.
  *
  */
-
-
 package org.apache.commons.validator;
 
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import java.io.IOException;
 
+import org.xml.sax.SAXException;
 
-/**                                                       
- * <p>Performs Validation Test for <code>int</code> validations.</p> 
+/**
  *
- * @author David Winterfeldt
- * @version $Revision: 1.12 $ $Date: 2003/09/06 05:17:59 $
+ * Abstracts number unit tests methods.
  */
-public class IntegerTest extends TestNumber {
+public class TestNumber extends TestCommon {
+    /**
+     * The key used to retrieve the set of validation
+     * rules from the xml file.
+     */
+    protected String FORM_KEY;
+    /**
+     * The key used to retrieve the validator action.
+     */
+    protected String ACTION;
 
 
-    public IntegerTest(String name) {
+    public TestNumber(String name) {
         super(name);
-        FORM_KEY = "intForm";
-        ACTION = "int";
     }
 
     /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
+     * Load <code>ValidatorResources</code> from 
+     * validator-numeric.xml.
      */
-    public static void main(String[] theArgs) {
-        junit.awtui.TestRunner.main(new String[]{IntegerTest.class.getName()});
+    protected void setUp() throws IOException, SAXException {
+        // Load resources
+        loadResources("validator-numeric.xml");
+    }
+
+    protected void tearDown() {
     }
 
     /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
+     * Tests the number validation.
      */
-    public static Test suite() {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(IntegerTest.class);
-    }
-
-    /**
-     * Tests the int validation.
-     */
-    public void testInt() throws ValidatorException {
+    public void testNumber() throws ValidatorException {
         // Create bean to run test on.
         ValueBean info = new ValueBean();
         info.setValue("0");
-
+        if (log.isDebugEnabled()) {
+            log.debug("testNumberFailure Action=" + ACTION + ", FORM_KEY=" + FORM_KEY);
+        }
         valueTest(info, true);
     }
 
     /**
-     * Tests the int validation.
+     * Tests the float validation failure.
      */
-    public void testIntMin() throws ValidatorException {
+    public void testNumberFailure() throws ValidatorException {
         // Create bean to run test on.
         ValueBean info = new ValueBean();
-        info.setValue(new Integer(Integer.MIN_VALUE).toString());
-
-        valueTest(info, true);
-    }
-
-    /**
-     * Tests the int validation.
-     */
-    public void testIntegerMax() throws ValidatorException {
-        // Create bean to run test on.
-        ValueBean info = new ValueBean();
-        info.setValue(new Integer(Integer.MAX_VALUE).toString());
-
-        valueTest(info, true);
-    }
-
-    /**
-     * Tests the int validation failure.
-     */
-    public void testIntFailure() throws ValidatorException {
-        // Create bean to run test on.
-        ValueBean info = new ValueBean();
-
+        if (log.isDebugEnabled()) {
+            log.debug("testNumberFailure Action=" + ACTION + ", FORM_KEY=" + FORM_KEY);
+        }
         valueTest(info, false);
     }
 
     /**
-     * Tests the int validation failure.
+     * Utlity class to run a test on a value.
+     *
+     * @param	info	Value to run test on.
+     * @param	passed	Whether or not the test is expected to pass.
      */
-    public void testIntBeyondMin() throws ValidatorException {
-        // Create bean to run test on.
-        ValueBean info = new ValueBean();
-        info.setValue(Integer.MIN_VALUE + "1");
+    protected void valueTest(Object info, boolean passed) throws ValidatorException {
+        // Construct validator based on the loaded resources
+        // and the form key
+        Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, info);
 
-        valueTest(info, false);
+        // Get results of the validation.
+        ValidatorResults results = null;
+
+        // throws ValidatorException,
+        // but we aren't catching for testing
+        // since no validation methods we use
+        // throw this
+        results = validator.validate();
+
+        assertNotNull("Results are null.", results);
+
+        ValidatorResult result = results.getValidatorResult("value");
+
+        assertNotNull(ACTION + " value ValidatorResult should not be null.", result);
+        assertTrue(ACTION + " value ValidatorResult should contain the '" + ACTION + "' action.", result.containsAction(ACTION));
+        assertTrue(ACTION + " value ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".", (passed ? result.isValid(ACTION) : !result.isValid(ACTION)));
     }
 
-    /**
-     * Tests the int validation failure.
-     */
-    public void testIntBeyondMax() throws ValidatorException {
-        // Create bean to run test on.
-        ValueBean info = new ValueBean();
-        info.setValue(Integer.MAX_VALUE + "1");
-
-        valueTest(info, false);
-    }
 
 }

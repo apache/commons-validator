@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ShortTest.java,v 1.12 2003/09/06 05:17:59 rleland Exp $
- * $Revision: 1.12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestCommon.java,v 1.1 2003/09/06 05:17:59 rleland Exp $
+ * $Revision: 1.1 $
  * $Date: 2003/09/06 05:17:59 $
  *
  * ====================================================================
@@ -58,91 +58,55 @@
  * <http://www.apache.org/>.
  *
  */
-
-
 package org.apache.commons.validator;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import junit.framework.TestCase;
 
+import java.io.IOException;
+import java.io.InputStream;
 
-                                                          
-/**                                                       
- * <p>Performs Validation Test for <code>short</code> validations.</p> 
- *
- * @author David Winterfeldt
- * @version $Revision: 1.12 $ $Date: 2003/09/06 05:17:59 $
-*/                                                       
-public class ShortTest extends TestNumber {
-   
+import org.xml.sax.SAXException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-   
+/**
+ * Consolidates reading in xml config file into parent class.
+ */
+public class TestCommon extends TestCase {
+    /**
+     * Resources used for validation tests.
+     */
+    protected ValidatorResources resources = null;
+    /**
+     * Commons Logging instance.
+     */
+    protected Log log = LogFactory.getLog(this.getClass());
 
-   public ShortTest(String name) {                  
-       super(name);
-      FORM_KEY = "shortForm";
-      ACTION = "short";
-   }
+    public TestCommon(String string) {
+        super(string);
+    }
 
-   /**
-    * Start the tests.
-    *
-    * @param theArgs the arguments. Not used
-    */
-   public static void main(String[] theArgs) {
-       junit.awtui.TestRunner.main(new String[] {ShortTest.class.getName()});
-   }
+    /**
+     * Load <code>ValidatorResources</code> from
+     * validator-numeric.xml.
+     */
+    protected void loadResources(String file) throws IOException, SAXException {
+        // Load resources
+        InputStream in = null;
 
-   /**
-    * @return a test suite (<code>TestSuite</code>) that includes all methods
-    *         starting with "test"
-    */
-   public static Test suite() {
-       // All methods starting with "test" will be executed in the test suite.
-       return new TestSuite(ShortTest.class);
-   }
-
-   /**
-    * Tests the short validation.
-   */
-   public void testShortMin() throws ValidatorException {
-      // Create bean to run test on.
-      ValueBean info = new ValueBean();
-      info.setValue(new Short(Short.MIN_VALUE).toString());
-      
-      valueTest(info, true);
-   }
-
-   /**
-    * Tests the short validation.
-   */
-   public void testShortMax() throws ValidatorException {
-      // Create bean to run test on.
-      ValueBean info = new ValueBean();
-      info.setValue(new Short(Short.MAX_VALUE).toString());
-      
-      valueTest(info, true);
-   }
-
-   /**
-    * Tests the short validation failure.
-   */
-   public void testShortBeyondMin() throws ValidatorException {
-      // Create bean to run test on.
-      ValueBean info = new ValueBean();
-      info.setValue(Short.MIN_VALUE + "1");
-      
-      valueTest(info, false);
-   }
-   
-   /**
-    * Tests the short validation failure.
-   */
-   public void testShortBeyondMax() throws ValidatorException {
-      // Create bean to run test on.
-      ValueBean info = new ValueBean();
-      info.setValue(Short.MAX_VALUE + "1");
-      
-      valueTest(info, false);
-   }
-}                                                         
+        try {
+            in = this.getClass().getResourceAsStream(file);
+            resources = new ValidatorResources(in);
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+            throw e;
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TypeTest.java,v 1.12 2003/08/23 02:24:07 rleland Exp $
- * $Revision: 1.12 $
- * $Date: 2003/08/23 02:24:07 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TypeTest.java,v 1.13 2003/09/06 05:17:59 rleland Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/09/06 05:17:59 $
  *
  * ====================================================================
  *
@@ -63,16 +63,14 @@
 package org.apache.commons.validator;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Map;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
+
 import junit.framework.TestSuite;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 import org.xml.sax.SAXException;
 
                                                           
@@ -80,9 +78,9 @@ import org.xml.sax.SAXException;
  * <p>Performs Validation Test for type validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.12 $ $Date: 2003/08/23 02:24:07 $
+ * @version $Revision: 1.13 $ $Date: 2003/09/06 05:17:59 $
 */                                                       
-public class TypeTest extends TestCase {            
+public class TypeTest extends TestCommon {
    
    /**
     * The key used to retrieve the set of validation 
@@ -95,17 +93,6 @@ public class TypeTest extends TestCase {
    */
    protected static String ACTION = "byte";
 
-   
-   /**
-    * Commons Logging instance.
-   */
-   private Log log = LogFactory.getLog(this.getClass());
-   
-   /**
-    * Resources used for validation tests.
-   */
-   private ValidatorResources resources = null;
-   
    public TypeTest(String name) {                  
        super(name);                                      
    }                                                     
@@ -134,19 +121,7 @@ public class TypeTest extends TestCase {
    */
    protected void setUp() throws IOException, SAXException {
       // Load resources
-      InputStream in = null;
-      
-      try {
-         in = this.getClass().getResourceAsStream("validator-type.xml");
-         resources = new ValidatorResources(in);
-      } catch (IOException e) {
-         log.error(e.getMessage(), e);
-         throw e;
-      } finally {
-         if (in != null) {
-            try { in.close(); } catch (Exception e) {}	
-         }
-      }
+      loadResources("validator-type.xml");
    }
 
    protected void tearDown() {

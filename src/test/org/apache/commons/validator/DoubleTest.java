@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/DoubleTest.java,v 1.11 2003/08/23 02:24:07 rleland Exp $
- * $Revision: 1.11 $
- * $Date: 2003/08/23 02:24:07 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/DoubleTest.java,v 1.12 2003/09/06 05:17:59 rleland Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/09/06 05:17:59 $
  *
  * ====================================================================
  *
@@ -73,155 +73,82 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
 
-                                                          
+
 /**                                                       
  * <p>Performs Validation Test for <code>double</code> validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.11 $ $Date: 2003/08/23 02:24:07 $
-*/                                                       
-public class DoubleTest extends TestCase {            
-   
-   /**
-    * The key used to retrieve the set of validation 
-    * rules from the xml file.
-   */
-   protected static String FORM_KEY = "doubleForm";   
+ * @version $Revision: 1.12 $ $Date: 2003/09/06 05:17:59 $
+ */
+public class DoubleTest extends TestNumber {
 
-   /**
-    * The key used to retrieve the validator action.
-   */
-   protected static String ACTION = "double";
+    public DoubleTest(String name) {
+        super(name);
+        ACTION = "double";
+        FORM_KEY = "doubleForm";
+    }
 
-   
-   /**
-    * Commons Logging instance.
-   */
-   private Log log = LogFactory.getLog(this.getClass());
-   
-   /**
-    * Resources used for validation tests.
-   */
-   private ValidatorResources resources = null;
-   
-   public DoubleTest(String name) {                  
-       super(name);                                      
-   }                                                     
 
-   /**
-    * Start the tests.
-    *
-    * @param theArgs the arguments. Not used
-    */
-   public static void main(String[] theArgs) {
-       junit.awtui.TestRunner.main(new String[] {DoubleTest.class.getName()});
-   }
+    /**
+     * Start the tests.
+     *
+     * @param theArgs the arguments. Not used
+     */
+    public static void main(String[] theArgs) {
+        junit.awtui.TestRunner.main(new String[]{DoubleTest.class.getName()});
+    }
 
-   /**
-    * @return a test suite (<code>TestSuite</code>) that includes all methods
-    *         starting with "test"
-    */
-   public static Test suite() {
-       // All methods starting with "test" will be executed in the test suite.
-       return new TestSuite(DoubleTest.class);
-   }
+    /**
+     * @return a test suite (<code>TestSuite</code>) that includes all methods
+     *         starting with "test"
+     */
+    public static Test suite() {
+        // All methods starting with "test" will be executed in the test suite.
+        return new TestSuite(DoubleTest.class);
+    }
 
-   /**
-    * Load <code>ValidatorResources</code> from 
-    * validator-numeric.xml.
-   */
-   protected void setUp() throws IOException, SAXException {
-      // Load resources
-      InputStream in = null;
-      
-      try {
-         in = this.getClass().getResourceAsStream("validator-numeric.xml");
-         resources = new ValidatorResources(in);
-      } catch (IOException e) {
-         log.error(e.getMessage(), e);
-         throw e;
-      } finally {
-         if (in != null) {
-            try { in.close(); } catch (Exception e) {}	
-         }
-      }
-   }
 
-   protected void tearDown() {
-   }
+    /**
+     * Tests the double validation.
+     */
+    public void testDouble() throws ValidatorException {
+        // Create bean to run test on.
+        ValueBean info = new ValueBean();
+        info.setValue("0");
 
-   /**
-    * Tests the double validation.
-   */
-   public void testDouble() throws ValidatorException {
-      // Create bean to run test on.
-      ValueBean info = new ValueBean();
-      info.setValue("0");
-      
-      valueTest(info, true);
-   }
+        valueTest(info, true);
+    }
 
-   /**
-    * Tests the double validation.
-   */
-   public void testDoubleMin() throws ValidatorException {
-      // Create bean to run test on.
-      ValueBean info = new ValueBean();
-      info.setValue(new Double(Double.MIN_VALUE).toString());
-      
-      valueTest(info, true);
-   }
+    /**
+     * Tests the double validation.
+     */
+    public void testDoubleMin() throws ValidatorException {
+        // Create bean to run test on.
+        ValueBean info = new ValueBean();
+        info.setValue(new Double(Double.MIN_VALUE).toString());
 
-   /**
-    * Tests the double validation.
-   */
-   public void testDoubleMax() throws ValidatorException {
-      // Create bean to run test on.
-      ValueBean info = new ValueBean();
-      info.setValue(new Double(Double.MAX_VALUE).toString());
-      
-      valueTest(info, true);
-   }
+        valueTest(info, true);
+    }
 
-   /**
-    * Tests the double validation failure.
-   */
-   public void testDoubleFailure() throws ValidatorException {
-      // Create bean to run test on.
-      ValueBean info = new ValueBean();
-      
-      valueTest(info, false);
-   }
-   
-   /**
-    * Utlity class to run a test on a value.
-    *
-    * @param	info	Value to run test on.
-    * @param	passed	Whether or not the test is expected to pass.
-   */
-   private void valueTest(Object info, boolean passed) throws ValidatorException {
-      // Construct validator based on the loaded resources 
-      // and the form key
-      Validator validator = new Validator(resources, FORM_KEY);
-      // add the name bean to the validator as a resource 
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, info);
+    /**
+     * Tests the double validation.
+     */
+    public void testDoubleMax() throws ValidatorException {
+        // Create bean to run test on.
+        ValueBean info = new ValueBean();
+        info.setValue(new Double(Double.MAX_VALUE).toString());
 
-      // Get results of the validation.
-      ValidatorResults results = null;
-      
-      // throws ValidatorException, 
-      // but we aren't catching for testing 
-      // since no validation methods we use 
-      // throw this
-      results = validator.validate();
-      
-      assertNotNull("Results are null.", results);
-      
-      ValidatorResult result = results.getValidatorResult("value");
+        valueTest(info, true);
+    }
 
-      assertNotNull(ACTION + " value ValidatorResult should not be null.", result);
-      assertTrue(ACTION + " value ValidatorResult should contain the '" + ACTION +"' action.", result.containsAction(ACTION));
-      assertTrue(ACTION + " value ValidatorResult for the '" + ACTION +"' action should have " + (passed ? "passed" : "failed") + ".", (passed ? result.isValid(ACTION) : !result.isValid(ACTION)));
-   }
+    /**
+     * Tests the double validation failure.
+     */
+    public void testDoubleFailure() throws ValidatorException {
+        // Create bean to run test on.
+        ValueBean info = new ValueBean();
+
+        valueTest(info, false);
+    }
+
 }                                                         
