@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.4 2003/05/02 23:48:54 dgraham Exp $
- * $Revision: 1.4 $
- * $Date: 2003/05/02 23:48:54 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.5 2003/05/03 00:08:02 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/05/03 00:08:02 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.4 $ $Date: 2003/05/02 23:48:54 $
+ * @version $Revision: 1.5 $ $Date: 2003/05/03 00:08:02 $
  */
 public class EmailValidator {
     
@@ -121,51 +121,54 @@ public class EmailValidator {
 	 *
 	 * @param value The value validation is being performed on.
 	 */
-	public boolean isValid(String value) {
-		boolean symbolic = false;
-
+	public boolean isValid(String email) {
 		Perl5Util matchAsciiPat = new Perl5Util();
-		if (!matchAsciiPat.match(LEGAL_ASCII_PATTERN, value)) {
+		if (!matchAsciiPat.match(LEGAL_ASCII_PATTERN, email)) {
 			return false;
 		}
 
 		// Check the whole email address structure
-		Perl5Util matchEmailPat = new Perl5Util();
-		if (!matchEmailPat.match(EMAIL_PATTERN, value)) {
+		Perl5Util emailMatcher = new Perl5Util();
+		if (!emailMatcher.match(EMAIL_PATTERN, email)) {
 			return false;
 		}
 
-		if (value.endsWith(".")) {
+		if (email.endsWith(".")) {
 			return false;
 		}
 
-		// Check the user component of the email address
-
-		String user = matchEmailPat.group(1);
-
-		// See if "user" is valid
-		Perl5Util matchUserPat = new Perl5Util();
-		if (!matchUserPat.match(USER_PATTERN, user)) {
-			return false;
+		if(!isValidUser(emailMatcher.group(1))){
+            return false;
 		}
 
 		// Check the domain component of the email address
-		String domain = matchEmailPat.group(2);
+		String domain = emailMatcher.group(2);
 
 		// check if domain is IP address or symbolic
-		Perl5Util matchIPPat = new Perl5Util();
-		boolean ipAddress = matchIPPat.match(IP_DOMAIN_PATTERN, domain);
+		if(!isValidDomain(domain)){
+            return false;
+		}
 
-		if (ipAddress) {
-			if (!isValidIpAddress(matchIPPat)) {
+		return true;
+	}
+
+    /**
+     * Returns true if the domain component of an email address is valid.
+     */
+	private boolean isValidDomain(String domain) {
+        boolean symbolic = false;
+		Perl5Util ipAddressMatcher = new Perl5Util();
+		
+		if (ipAddressMatcher.match(IP_DOMAIN_PATTERN, domain)) {
+			if (!isValidIpAddress(ipAddressMatcher)) {
 				return false;
 			}
 		} else {
 			// Domain is symbolic name
-			Perl5Util matchDomainPat = new Perl5Util();
-			symbolic = matchDomainPat.match(DOMAIN_PATTERN, domain);
+			Perl5Util domainMatcher = new Perl5Util();
+			symbolic = domainMatcher.match(DOMAIN_PATTERN, domain);
 		}
-
+		
 		if (symbolic) {
 			if (!isValidSymbolicDomain(domain)) {
 				return false;
@@ -173,16 +176,27 @@ public class EmailValidator {
 		} else {
 			return false;
 		}
-
+        
 		return true;
+	}
+
+    /**
+     * Returns true if the user component of an email address is valid.
+     */
+	private boolean isValidUser(String user) {
+		Perl5Util userMatcher = new Perl5Util();
+		if (userMatcher.match(USER_PATTERN, user)) {
+			return true;
+		}
+		return false;
 	}
 
     /**
      * Validates an IP address. Returns true if valid.
      */
-	private boolean isValidIpAddress(Perl5Util matchIPPat) {
+	private boolean isValidIpAddress(Perl5Util ipAddressMatcher) {
 		for (int i = 1; i <= 4; i++) {
-			String ipSegment = matchIPPat.group(i);
+			String ipSegment = ipAddressMatcher.group(i);
 			if (ipSegment == null || ipSegment.length() <= 0) {
 				return false;
 			}
@@ -208,12 +222,12 @@ public class EmailValidator {
     	String[] domainSegment = new String[10];
     	boolean match = true;
     	int i = 0;
-    	Perl5Util matchAtomPat = new Perl5Util();
+    	Perl5Util atomMatcher = new Perl5Util();
     
     	while (match) {
-    		match = matchAtomPat.match(ATOM_PATTERN, domain);
+    		match = atomMatcher.match(ATOM_PATTERN, domain);
     		if (match) {
-    			domainSegment[i] = matchAtomPat.group(1);
+    			domainSegment[i] = atomMatcher.group(1);
     			int l = domainSegment[i].length() + 1;
     			domain =
     				(l >= domain.length())
