@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/Attic/BSFTest.java,v 1.1 2004/06/08 14:48:35 husted Exp $
- * $Revision: 1.1 $
- * $Date: 2004/06/08 14:48:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/Attic/BSFTest.java,v 1.2 2004/06/08 15:09:50 husted Exp $
+ * $Revision: 1.2 $
+ * $Date: 2004/06/08 15:09:50 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -103,8 +103,6 @@ public class BSFTest extends TestCommon {
    /**
     * Tests BSF validation on nested objects
     */
-    /*
-    FIXME; Where is ObjectBean imported?
    public void testBSF_nested() throws ValidatorException {
       // Create bean to run test on.
       ObjectBean info = new ObjectBean();
@@ -116,7 +114,6 @@ public class BSFTest extends TestCommon {
       kid.setValue("foobar");
       objectTest(info, "bsfForm-nested",false);
    }
-  */
 
 
    /**
@@ -158,8 +155,6 @@ public class BSFTest extends TestCommon {
     * @param info	Object to run test on.
     * @param passed	Whether or not the test is expected to pass.
     */
-    /*
-    FIXME: Where is ObjectBean imported?
    private void objectTest(ObjectBean info, String form, boolean passed) throws ValidatorException {
       // Construct validator based on the loaded resources 
       // and the form key
@@ -186,5 +181,4 @@ public class BSFTest extends TestCommon {
       assertTrue("Object "+info.getObject()+" ValidatorResult should contain the '" + ACTION +"' action.", result.containsAction(ACTION));
       assertTrue("Object "+info.getObject()+"ValidatorResult for the '" + ACTION +"' action should have " + (passed ? "passed" : "failed") + ".", (passed ? result.isValid(ACTION) : !result.isValid(ACTION)));
     }
-    */
 }                                                         
