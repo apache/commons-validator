@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.15 2003/05/29 03:04:33 dgraham Exp $
- * $Revision: 1.15 $
- * $Date: 2003/05/29 03:04:33 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.16 2003/06/07 19:25:58 dgraham Exp $
+ * $Revision: 1.16 $
+ * $Date: 2003/06/07 19:25:58 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.15 $ $Date: 2003/05/29 03:04:33 $
+ * @version $Revision: 1.16 $ $Date: 2003/06/07 19:25:58 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -149,7 +149,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * @deprecated This variable is no longer used, use args instead.
      */
-    private FastHashMap hArg0 = new FastHashMap();
+    protected FastHashMap hArg0 = new FastHashMap();
     
     /**
      * @deprecated This variable is no longer used, use args instead.
@@ -165,7 +165,6 @@ public class Field implements Cloneable, Serializable {
      * @deprecated This variable is no longer used, use args instead.
      */
     protected FastHashMap hArg3 = new FastHashMap();
-
 
     /**
      * Gets the page value that the Field is associated with for 
