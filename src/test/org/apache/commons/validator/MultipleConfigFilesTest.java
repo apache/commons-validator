@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleConfigFilesTest.java,v 1.1 2003/05/22 02:52:07 dgraham Exp $
- * $Revision: 1.1 $
- * $Date: 2003/05/22 02:52:07 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleConfigFilesTest.java,v 1.2 2003/05/22 02:52:47 dgraham Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/05/22 02:52:47 $
  *
  * ====================================================================
  *
