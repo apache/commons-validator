@@ -1,5 +1,5 @@
 <!--
-    DTD for the Validator Rules Configuration File, Version 1.0
+    DTD for the Validator Rules Configuration File, Version 1.0.1
 
     To allow for XML validation of your rules configuration
     file, include the following DOCTYPE element at the beginning (after
@@ -9,7 +9,7 @@
      "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0.1//EN"
      "http://jakarta.apache.org/commons/dtds/validator_1_0_1.dtd">
 
-    $Id: validator_1_0_1.dtd,v 1.1 2003/01/20 06:15:06 turner Exp $
+    $Id: validator_1_0_1.dtd,v 1.2 2003/03/12 06:03:43 dgraham Exp $
 -->
 
 
