@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.9 2003/05/02 23:39:31 dgraham Exp $
- * $Revision: 1.9 $
- * $Date: 2003/05/02 23:39:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.10 2003/05/20 01:09:39 dgraham Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/05/20 01:09:39 $
  *
  * ====================================================================
  *
@@ -59,7 +59,6 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.io.Serializable;
@@ -72,14 +71,13 @@ import java.util.StringTokenizer;
 import org.apache.commons.collections.FastHashMap;
 import org.apache.commons.validator.util.ValidatorUtils;
 
-
 /**
  * <p>This contains the list of pluggable validators to 
  * run on a field and any message information and variables
  * to perform the validations and generate error messages.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.9 $ $Date: 2003/05/02 23:39:31 $
+ * @version $Revision: 1.10 $ $Date: 2003/05/20 01:09:39 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -142,7 +140,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Sets the position of the <code>Field</code> in the validation list.
-    */
+     */
     public void setFieldOrder(int fieldOrder) {
        this.fieldOrder = fieldOrder;	
     }
@@ -150,7 +148,7 @@ public class Field implements Cloneable, Serializable {
    
     /**
      * Gets the property name of the field.
-    */
+     */
     public String getProperty() {
        return property;	
     }
@@ -158,7 +156,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Sets the property name of the field.
-    */
+     */
     public void setProperty(String property) {
        this.property = property;	
     }
@@ -167,7 +165,7 @@ public class Field implements Cloneable, Serializable {
      * Gets the indexed property name of the field.  This 
      * is the method name that can take an <code>int</code> as 
      * a parameter for indexed property value retrieval.
-    */
+     */
     public String getIndexedProperty() {
        return indexedProperty;	
     }
@@ -175,7 +173,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Sets the indexed property name of the field.
-    */
+     */
     public void setIndexedProperty(String indexedProperty) {
        this.indexedProperty = indexedProperty;	
     }
@@ -186,7 +184,7 @@ public class Field implements Cloneable, Serializable {
      * <code>Collection</code> used to retrieve the 
      * list and then loop through the list performing the specified 
      * validations.
-    */
+     */
     public String getIndexedListProperty() {
        return indexedListProperty;	
     }
@@ -194,21 +192,21 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Sets the indexed property name of the field.
-    */
+     */
     public void setIndexedListProperty(String indexedListProperty) {
        this.indexedListProperty = indexedListProperty;	
     }
     
     /**
      * Gets the validation rules for this field.
-    */
+     */
     public String getDepends() {
        return depends;	
     }
 
     /**
      * Sets the validation rules for this field.
-    */
+     */
     public void setDepends(String depends) {
        this.depends = depends;	
     }
@@ -251,61 +249,65 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Gets the default arg0 <code>Arg</code> object.
-    */
+     */
     public Arg getArg0() {
-       return (Arg)hArg0.get(ARG_DEFAULT);	
+       return (Arg) hArg0.get(ARG_DEFAULT);	
     }
 
     /**
      * Gets the arg0 <code>Arg</code> object based on the key passed in.  If the key 
      * finds a <code>null</code> value then the default value will try to be retrieved.
-    */
+     */
     public Arg getArg0(String key) {
-       Object o = hArg0.get(key);
+       Arg arg = (Arg) hArg0.get(key);
        
-       return ((o != null) ? (Arg)o : getArg0());
+       return (arg != null) ? arg : getArg0();
     }
 
     /**
      * Add a <code>Arg</code> to the arg1 list.
-    */
+     */
     public void addArg1(Arg arg) {
        if (arg != null && arg.getKey() != null && arg.getKey().length() > 0) {
+           
           if (arg.getName() != null && arg.getName().length() > 0) {
              hArg1.put(arg.getName(), arg);
           } else {
              hArg1.put(ARG_DEFAULT, arg);
           }
+          
        }
     }
 
     /**
      * Gets the default arg1 <code>Arg</code> object.
-    */
+     */
     public Arg getArg1() {
-       return (Arg)hArg1.get(ARG_DEFAULT);	
+       return (Arg) hArg1.get(ARG_DEFAULT);	
     }
 
     /**
      * Gets the arg1 <code>Arg</code> object based on the key passed in.  If the key 
      * finds a <code>null</code> value then the default value will try to be retrieved.
-    */
+     */
     public Arg getArg1(String key) {
-       Object o = hArg1.get(key);
+       Arg arg = (Arg) hArg1.get(key);
        
-       return ((o != null) ? (Arg)o : getArg1());
+       return (arg != null) ? arg : getArg1();
     }
     
     /**
      * Add a <code>Arg</code> to the arg2 list.
-    */
+     */
     public void addArg2(Arg arg) {
        if (arg != null && arg.getKey() != null && arg.getKey().length() > 0) {
+           
           if (arg.getName() != null && arg.getName().length() > 0) {
              hArg2.put(arg.getName(), arg);
           } else {
              hArg2.put(ARG_DEFAULT, arg);
           }
+          
        }
     }
 
@@ -313,7 +315,7 @@ public class Field implements Cloneable, Serializable {
      * Gets the default arg2 <code>Arg</code> object.
     */
     public Arg getArg2() {
-       return (Arg)hArg2.get(ARG_DEFAULT);	
+       return (Arg) hArg2.get(ARG_DEFAULT);	
     }
 
     /**
@@ -321,21 +323,23 @@ public class Field implements Cloneable, Serializable {
      * finds a <code>null</code> value then the default value will try to be retrieved.
     */
     public Arg getArg2(String key) {
-       Object o = hArg2.get(key);
+       Arg arg = (Arg) hArg2.get(key);
        
-       return ((o != null) ? (Arg)o : getArg2());
+       return (arg != null) ? arg : getArg2();
     }
     
     /**
      * Add a <code>Arg</code> to the arg3 list.
-    */
+     */
     public void addArg3(Arg arg) {
        if (arg != null && arg.getKey() != null && arg.getKey().length() > 0) {
+           
           if (arg.getName() != null && arg.getName().length() > 0) {
              hArg3.put(arg.getName(), arg);
           } else {
              hArg3.put(ARG_DEFAULT, arg);
           }
+          
        }
     }
 
@@ -343,31 +347,35 @@ public class Field implements Cloneable, Serializable {
      * Gets the default arg3 <code>Arg</code> object.
     */
     public Arg getArg3() {
-       return (Arg)hArg3.get(ARG_DEFAULT);	
+       return (Arg) hArg3.get(ARG_DEFAULT);	
     }
 
     /**
      * Gets the arg3 <code>Arg</code> object based on the key passed in.  If the key 
      * finds a <code>null</code> value then the default value will try to be retrieved.
-    */
+     */
     public Arg getArg3(String key) {
-       Object o = hArg3.get(key);
+       Arg arg = (Arg) hArg3.get(key);
        
-       return ((o != null) ? (Arg)o : getArg3());
+       return (arg != null) ? arg : getArg3();
     }
         
     /**
      * Add a <code>Var</code> to the <code>Field</code>.
-    */
+     */
     public void addVar(Var v) {
-       if (v != null && v.getName() != null && v.getName().length() > 0 && v.getValue() != null) {
-          hVars.put(v.getName(), v);
-       }
+        if (v != null
+            && v.getName() != null
+            && v.getName().length() > 0
+            && v.getValue() != null) {
+            
+            hVars.put(v.getName(), v);
+        }
     }
 
     /**
      * Add a <code>Var</code>, based on the values passed in, to the <code>Field</code>.
-    */
+     */
     public void addVarParam(String name, String value, String jsType) {
        if (name != null && name.length() > 0 && value != null) {
           hVars.put(name, new Var(name, value, jsType));
@@ -376,9 +384,9 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Retrieve a variable.
-    */
+     */
     public Var getVar(String mainKey) {
-       return ((Var)hVars.get(mainKey));
+       return ((Var) hVars.get(mainKey));
     }
 
     /**
@@ -399,14 +407,14 @@ public class Field implements Cloneable, Serializable {
     /**
      * The <code>Field</code>'s variables are returned as an 
      * unmodifiable <code>Map</code>.
-    */
+     */
     public Map getVars() {
     	return Collections.unmodifiableMap(hVars);
     }
 
     /**
      * Gets a unique key based on the property and indexedProperty fields.
-    */
+     */
     public String getKey() {
        if (key == null) {
           generateKey();
@@ -418,7 +426,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Sets a unique key for the field.  This can be used to change 
      * the key temporarily to have a unique key for an indexed field.
-    */
+     */
     public void setKey(String key) {
        this.key = key;
     }
@@ -426,14 +434,14 @@ public class Field implements Cloneable, Serializable {
     /**
      * If there is a value specified for the indexedProperty field then 
      * <code>true</code> will be returned.  Otherwise it will be <code>false</code>.
-    */
+     */
     public boolean isIndexed() {
        return ((indexedListProperty != null && indexedListProperty.length() > 0));
     }
 
     /**
      * Generate correct <code>key</code> value.
-    */    
+     */    
     public void generateKey() {
        if (isIndexed()) {
           key = indexedListProperty + TOKEN_INDEXED + "." + property;
