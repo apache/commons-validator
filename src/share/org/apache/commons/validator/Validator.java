@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.9 2002/09/24 20:23:35 turner Exp $
- * $Revision: 1.9 $
- * $Date: 2002/09/24 20:23:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.10 2002/10/25 03:22:55 turner Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/10/25 03:22:55 $
  *
  * ====================================================================
  *
@@ -88,7 +88,7 @@ import org.apache.commons.logging.LogSource;
  *
  * @author David Winterfeldt
  * @author James Turner
- * @version $Revision: 1.9 $ $Date: 2002/09/24 20:23:35 $
+ * @version $Revision: 1.10 $ $Date: 2002/10/25 03:22:55 $
 */
 public class Validator implements Serializable {
 
@@ -334,9 +334,11 @@ public class Validator implements Serializable {
 					ValidatorResults results,
 					Map hActions,
 					int pos) throws ValidatorException {
-	if (results.getValidatorResult(va.getName()) != null) {
-	    return isValid(results.getValidatorResult(va.getName()));
-	}
+	if (results.getValidatorResult(field.getKey()) != null) {
+            ValidatorResult result = results.getValidatorResult(field.getKey());
+            if (result.containsAction(va.getName()))
+		return result.isValid(va.getName());
+        }
 
 	if (va.getDepends() != null) {
 	    StringTokenizer st = new StringTokenizer(va.getDepends(), ",");
