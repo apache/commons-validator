@@ -36,7 +36,7 @@
   <organization>
     <name>The Apache Software Foundation</name>
     <url>http://jakarta.apache.org</url>
-    <logo>http://jakarta.apache.org/images/original-jakarta-logo.gif</logo>
+    <logo>http://jakarta.apache.org/images/jakarta-logo.gif</logo>
   </organization>
 
   <licenses>
@@ -262,7 +262,6 @@
       <url>http://jakarta.apache.org/commons/logging.html</url>
     </dependency>
 
-
     <dependency>
       <id>oro</id>
       <version>2.0.8</version>
@@ -306,17 +305,6 @@
   </build>
 
   <reports>
-    <!--
-     |
-     | These should all be completely self contained. You should be able
-     | to generate each of them individually without needing the final
-     | xdoc transformation.
-     |
-     | Each report plugin with it's POM and plugin.jelly logic should
-     | contain everything needed to produced the report.
-     |
-    -->
-
     <report>maven-jdepend-plugin</report>
     <report>maven-checkstyle-plugin</report>
     <report>maven-changes-plugin</report>
@@ -326,11 +314,10 @@
     <report>maven-javadoc-plugin</report>
     <report>maven-jxr-plugin</report>
     <report>maven-junit-report-plugin</report>
-    <!-- <report>maven-tasklist-plugin</report> -->
     <report>maven-pmd-plugin</report>
     <report>maven-simian-plugin</report>
     <report>maven-faq-plugin</report>
-    <!-- <report>maven-clover-plugin</report> -->
+    <!-- <report>maven-tasklist-plugin</report> -->
   </reports>
 
 </project>
