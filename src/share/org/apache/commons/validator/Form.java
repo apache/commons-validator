@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.14 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.14 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.14.2.1 2004/06/22 02:24:38 husted Exp $
+ * $Revision: 1.14.2.1 $
+ * $Date: 2004/06/22 02:24:38 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -28,7 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.FastHashMap;
+import org.apache.commons.collections.FastHashMap; // DEPRECATED
 
 /**
  * <p>
@@ -36,7 +36,10 @@ import org.apache.commons.collections.FastHashMap;
  * contained in a list of <code>Field</code> objects.  Instances of this class are
  * configured with a &lt;form&gt; xml element.
  * </p>
- *
+ * <p>
+ * The use of FastHashMap is deprecated and will be replaced in a future
+ * release.
+ * </p>
  */
 public class Form implements Serializable {
 

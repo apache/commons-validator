@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.14 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.14 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.14.2.1 2004/06/22 02:24:38 husted Exp $
+ * $Revision: 1.14.2.1 $
+ * $Date: 2004/06/22 02:24:38 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -21,7 +21,7 @@
 
 package org.apache.commons.validator;
 
-import org.apache.commons.collections.FastHashMap;
+import org.apache.commons.collections.FastHashMap; // DEPRECATED
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
