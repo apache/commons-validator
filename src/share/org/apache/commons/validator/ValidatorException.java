@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorException.java,v 1.3 2002/03/30 04:33:17 dwinterfeldt Exp $
- * $Revision: 1.3 $
- * $Date: 2002/03/30 04:33:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorException.java,v 1.4 2003/06/07 18:06:43 dgraham Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/06/07 18:06:43 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,11 +59,7 @@
  *
  */
 
-
 package org.apache.commons.validator;
-
-import java.io.Serializable;
-
 
 /**
  * <p>Exception for the Validator Framework.  All other 
@@ -73,22 +69,24 @@ import java.io.Serializable;
  * <code>ValidatorException</code> will be thrown.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.3 $ $Date: 2002/03/30 04:33:17 $
-*/
-public class ValidatorException extends Exception implements Serializable{
+ * @version $Revision: 1.4 $ $Date: 2003/06/07 18:06:43 $
+ */
+public class ValidatorException extends Exception {
 
-   /**
-    * Constructs an Exception with no specified detail message.
-   */
-   public ValidatorException() {}
-   
-   /**
-    * Constructs an Exception with the specified detail message.
-    * 
-    * @param	message		The error message.
-   */
-   public ValidatorException(String message) {
-      super(message);	
-   }
+	/**
+	 * Constructs an Exception with no specified detail message.
+	 */
+	public ValidatorException() {
+        super();
+	}
+
+	/**
+	 * Constructs an Exception with the specified detail message.
+	 * 
+	 * @param	message The error message.
+	 */
+	public ValidatorException(String message) {
+		super(message);
+	}
 
 }
