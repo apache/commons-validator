@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.10 2003/01/20 06:15:06 turner Exp $
- * $Revision: 1.10 $
- * $Date: 2003/01/20 06:15:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.11 2003/03/20 01:11:18 dgraham Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/03/20 01:11:18 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,20 +59,19 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.io.Serializable;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Enumeration;
-import java.util.Vector;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
-import org.apache.commons.collections.FastHashMap;    
+import java.util.Vector;
+
+import org.apache.commons.collections.FastHashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 
 /**
  * <p>General purpose class for storing <code>FormSet</code> objects based 
@@ -83,338 +82,381 @@ import org.apache.commons.logging.LogFactory;
  * application server environments.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.10 $ $Date: 2003/01/20 06:15:06 $
+ * @version $Revision: 1.11 $ $Date: 2003/03/20 01:11:18 $
 */
 public class ValidatorResources implements Serializable {
 
-   /**
-    * Logger
-   */
-   protected static Log log = LogFactory.getLog(ValidatorResources.class);
-   
-   /**
-    * <code>FastHashMap</code> of <code>FormSet</code>s stored under 
-    * a <code>Locale</code> key.
-   */
-   protected FastHashMap hFormSets = new FastHashMap();
-   
-   /**
-    * <code>FastHashMap</code> of global constant values with 
-    * the name of the constant as the key.
-   */
-   protected FastHashMap hConstants = new FastHashMap();
+    /**
+     * Logger.
+    */
+    protected static Log log = LogFactory.getLog(ValidatorResources.class);
 
-   /**
-    * <code>FastHashMap</code> of <code>ValidatorAction</code>s with 
-    * the name of the <code>ValidatorAction</code> as the key.
-   */
-   protected FastHashMap hActions = new FastHashMap();
+    /**
+     * <code>FastHashMap</code> of <code>FormSet</code>s stored under 
+     * a <code>Locale</code> key.
+    */
+    protected FastHashMap hFormSets = new FastHashMap();
 
-   /**
-    * The default locale on our server.
-   */
-   protected static Locale defaultLocale = Locale.getDefault();
+    /**
+     * <code>FastHashMap</code> of global constant values with 
+     * the name of the constant as the key.
+    */
+    protected FastHashMap hConstants = new FastHashMap();
 
-   /**
-    * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
-    * object.  It will be associated with the <code>Locale</code> of the 
-    * <code>FormSet</code>.
-   */
-   public void put(FormSet fs) {
-   	if (fs != null) {
-	    String key = buildKey(fs);
-	    if (hFormSets.get(key) == null) {
-		hFormSets.put(key, new Vector());
-	    }
-	    Vector formsets = (Vector) hFormSets.get(key);
-	    if (!formsets.contains(fs)) {
-		formsets.add(fs);
-	    }
+    /**
+     * <code>FastHashMap</code> of <code>ValidatorAction</code>s with 
+     * the name of the <code>ValidatorAction</code> as the key.
+    */
+    protected FastHashMap hActions = new FastHashMap();
 
-          if (log.isDebugEnabled()) {
-	      log.debug("Adding FormSet '" + fs.toString() + "'.");
-	   }
-   	}
-   }
+    /**
+     * The default locale on our server.
+    */
+    protected static Locale defaultLocale = Locale.getDefault();
 
-   /**
-    * Add a global constant to the resource.
-   */
-   public void addConstant(Constant c) {
-      if (c != null &&
-          c.getName() != null && c.getName().length() > 0 &&
-          c.getValue() != null && c.getValue().length() > 0) {
-         hConstants.put(c.getName(), c.getValue());
-      }
-      
-      if (log.isDebugEnabled()) {
-         log.debug("Add Global Constant: " + c.getName() + "," + c.getValue());
-      }
-   }
+    /**
+     * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
+     * object.  It will be associated with the <code>Locale</code> of the 
+     * <code>FormSet</code>.
+    */
+    public void put(FormSet fs) {
+        if (fs != null) {
+            String key = buildKey(fs);
+            if (hFormSets.get(key) == null) {
+                hFormSets.put(key, new Vector());
+            }
+            Vector formsets = (Vector) hFormSets.get(key);
+            if (!formsets.contains(fs)) {
+                formsets.add(fs);
+            }
 
-   /**
-    * Add a global constant to the resource.
-   */
-   public void addConstantParam(String name, String value) {
-      if (name != null && name.length() > 0 &&
-          value != null && value.length() > 0) {
-         hConstants.put(name, value);
-      }
-      
-      if (log.isDebugEnabled()) {
-         log.debug("Add Global Constant: " + name + "," + value);
-      }
-   }
-    
-   /**
-    * <p>Add a <code>ValidatorAction</code> to the resource.  It also creates an instance 
-    * of the class based on the <code>ValidatorAction</code>s classname and retrieves 
-    * the <code>Method</code> instance and sets them in the <code>ValidatorAction</code>.</p>
-   */
-   public void addValidatorAction(ValidatorAction va) {
-      if (va != null && 
-          va.getName() != null && va.getName().length() > 0 &&
-          va.getClassname() != null && va.getClassname().length() > 0 &&
-          va.getMethod() != null && va.getMethod().length() > 0) {
-
-	 va.process(hConstants);
-
-         hActions.put(va.getName(), va);
-         
-         if (log.isDebugEnabled()) {
-            log.debug("Add ValidatorAction: " + va.getName() + "," + va.getClassname());   
-         }
-      }
-   }
-   
-   /**
-    * Get a <code>ValidatorAction</code> based on it's name.
-   */
-   public ValidatorAction getValidatorAction(String key) {
-      return (ValidatorAction)hActions.get(key);
-   }
-
-   /**
-    * Get an unmodifiable <code>Map</code> of the <code>ValidatorAction</code>s.
-   */
-   public Map getValidatorActions() {
-      return Collections.unmodifiableMap(hActions);
-   }
-
-   /**
-    * Builds a key to store the <code>FormSet</code> under based on it's language, country, 
-    * and variant values.
-   */
-   protected String buildKey(FormSet fs) {
-      String key = ((fs.getLanguage() != null && fs.getLanguage().length() > 0) ? fs.getLanguage() : "") + 
-                   ((fs.getCountry() != null && fs.getCountry().length() > 0) ? "_" + fs.getCountry() : "") + 
-                   ((fs.getVariant() != null && fs.getVariant().length() > 0) ? "_" + fs.getVariant() : "");
-      
-      if (key.length() == 0) {
-         key = defaultLocale.toString();
-      }
-      
-      return key;
-   }
-
-   /**
-    * <p>Gets a <code>Form</code> based on the name of the form and the <code>Locale</code> that 
-    * most closely matches the <code>Locale</code> passed in.  The order of <code>Locale</code> 
-    * matching is:</p>
-    * <ol>
-    *    <li>language + country + variant</li>
-    *    <li>language + country</li>
-    *    <li>language</li>
-    *    <li>default locale</li>
-    * </ol>
-   */
-   public Form get(Locale locale, Object formKey) {
-      return get(locale.getLanguage(), locale.getCountry(), locale.getVariant(), formKey);
-   }
-
-   /**
-    * <p>Gets a <code>Form</code> based on the name of the form and the <code>Locale</code> that 
-    * most closely matches the <code>Locale</code> passed in.  The order of <code>Locale</code> 
-    * matching is:</p>
-    * <ol>
-    *    <li>language + country + variant</li>
-    *    <li>language + country</li>
-    *    <li>language</li>
-    *    <li>default locale</li>
-    * </ol>
-   */
-    public Form get(String language, String country, String variant, Object formKey) {
-	FormSet fs = null;
-	Form f = null;
-	String key = null;
-	Object o = null;
-
-	key = ((language != null && language.length() > 0) ? language : "") + 
-            ((country != null && country.length() > 0) ? "_" + country : "") + 
-            ((variant != null && variant.length() > 0) ? "_" + variant : "");
-      
-	Vector v = (Vector) hFormSets.get(key);
-
-	if (v == null) {
-	    key = ((language != null && language.length() > 0) ? language : "") + 
-		((country != null && country.length() > 0) ? "_" + country : "");
-	    v = (Vector) hFormSets.get(key);
-	}
-
-	if (v == null) {
-	    key = ((language != null && language.length() > 0) ? language : "");
-	    v = (Vector) hFormSets.get(key);
-	}
-
-	if (v == null) {
-	    key = defaultLocale.toString();
-	    v = (Vector) hFormSets.get(key);
-	}
-
-	if (v == null) return null;
-
-	Enumeration formsets = v.elements();
-	while (formsets.hasMoreElements()) {
-	    o = formsets.nextElement();
-	    if (o != null) {
-		fs = (FormSet)o;
-		if ((fs != null) && (fs.getForm(formKey) != null)) {
-		    return fs.getForm(formKey);
-		}
-	    }
-	}
-	return null;	
+            if (log.isDebugEnabled()) {
+                log.debug("Adding FormSet '" + fs.toString() + "'.");
+            }
+        }
     }
 
-   /**
-    * <p>Process the <code>ValidatorResources</code> object.  </p>
-    *
-    * <p>Currently sets the <code>FastHashMap</code>s to the 'fast' 
-    * mode and call the processes all other resources.</p>
-   */
-   public void process() {
-      hFormSets.setFast(true);	
-      hConstants.setFast(true);
-      hActions.setFast(true);
+    /**
+     * Add a global constant to the resource.
+    */
+    public void addConstant(Constant c) {
+        if (c != null
+            && c.getName() != null
+            && c.getName().length() > 0
+            && c.getValue() != null
+            && c.getValue().length() > 0) {
+                
+            hConstants.put(c.getName(), c.getValue());
+        }
 
-      processForms(); 
-   }
+        if (log.isDebugEnabled()) {
+            log.debug("Add Global Constant: " + c.getName() + "," + c.getValue());
+        }
+    }
 
-   /**
-    * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s 
-    * that don't exist in a <code>FormSet</code> compared to the default 
-    * <code>FormSet</code>.</p>
-   */
-    public void processForms() {
-	//hFormSets.put(buildKey(fs), fs);
-	String defaultKey = defaultLocale.toString();
-      
-	// Loop through FormSets
-	for (Iterator i = hFormSets.keySet().iterator(); i.hasNext(); ) {
-	    String key = (String)i.next();
-	    // Skip default FormSet
-	    if (key.equals(defaultKey))
-		continue;
-	    Vector formsets = (Vector)hFormSets.get(key);
-	    Enumeration formsets_en = formsets.elements();
-	    while (formsets_en.hasMoreElements()) {
-		FormSet fs = (FormSet) formsets_en.nextElement();
-         
-		// Loop through Forms and copy/clone fields from default locale
-		for (Iterator x = fs.getForms().keySet().iterator(); x.hasNext(); ) {
-		    String formKey = (String)x.next();
-		    Form form = (Form)fs.getForms().get(formKey);
-		    // Create a new Form object so the order from the default is 
-		    // maintained (very noticable in the JavaScript).
-		    Form newForm = new Form();
-		    newForm.setName(form.getName());
+    /**
+     * Add a global constant to the resource.
+    */
+    public void addConstantParam(String name, String value) {
+        if (name != null
+            && name.length() > 0
+            && value != null
+            && value.length() > 0) {
+            hConstants.put(name, value);
+        }
 
-		    // Loop through the default locale form's fields
-		    // If they don't exist in the current locale's form, then clone them.
-		    Form defaultForm = get(defaultLocale, formKey);
+        if (log.isDebugEnabled()) {
+            log.debug("Add Global Constant: " + name + "," + value);
+        }
+    }
 
-		    for (Iterator defaultFields = defaultForm.getFields().iterator(); defaultFields.hasNext(); ) {
-			Field defaultField = (Field)defaultFields.next();
-			String fieldKey = defaultField.getKey();
+    /**
+     * <p>Add a <code>ValidatorAction</code> to the resource.  It also creates an instance 
+     * of the class based on the <code>ValidatorAction</code>s classname and retrieves 
+     * the <code>Method</code> instance and sets them in the <code>ValidatorAction</code>.</p>
+    */
+    public void addValidatorAction(ValidatorAction va) {
+        if (va != null
+            && va.getName() != null
+            && va.getName().length() > 0
+            && va.getClassname() != null
+            && va.getClassname().length() > 0
+            && va.getMethod() != null
+            && va.getMethod().length() > 0) {
 
-			if (form.getFieldMap().containsKey(fieldKey)) {
-			    newForm.addField((Field)form.getFieldMap().get(fieldKey));
-			} else {
-			    Field field = getClosestLocaleField(fs, formKey, fieldKey);
-			    newForm.addField((Field)field.clone());   
-			}
-		    }
+            va.process(hConstants);
+
+            hActions.put(va.getName(), va);
+
+            if (log.isDebugEnabled()) {
+                log.debug(
+                    "Add ValidatorAction: "
+                        + va.getName()
+                        + ","
+                        + va.getClassname());
+            }
+        }
+    }
+
+    /**
+     * Get a <code>ValidatorAction</code> based on it's name.
+    */
+    public ValidatorAction getValidatorAction(String key) {
+        return (ValidatorAction) hActions.get(key);
+    }
+
+    /**
+     * Get an unmodifiable <code>Map</code> of the <code>ValidatorAction</code>s.
+    */
+    public Map getValidatorActions() {
+        return Collections.unmodifiableMap(hActions);
+    }
+
+    /**
+     * Builds a key to store the <code>FormSet</code> under based on it's language, country, 
+     * and variant values.
+    */
+    protected String buildKey(FormSet fs) {
+        String key =
+            ((fs.getLanguage() != null && fs.getLanguage().length() > 0)
+                ? fs.getLanguage()
+                : "")
+                + ((fs.getCountry() != null && fs.getCountry().length() > 0)
+                    ? "_" + fs.getCountry()
+                    : "")
+                + ((fs.getVariant() != null && fs.getVariant().length() > 0)
+                    ? "_" + fs.getVariant()
+                    : "");
+
+        if (key.length() == 0) {
+            key = defaultLocale.toString();
+        }
+
+        return key;
+    }
+
+    /**
+     * <p>Gets a <code>Form</code> based on the name of the form and the <code>Locale</code> that 
+     * most closely matches the <code>Locale</code> passed in.  The order of <code>Locale</code> 
+     * matching is:</p>
+     * <ol>
+     *    <li>language + country + variant</li>
+     *    <li>language + country</li>
+     *    <li>language</li>
+     *    <li>default locale</li>
+     * </ol>
+    */
+    public Form get(Locale locale, Object formKey) {
+        return get(
+            locale.getLanguage(),
+            locale.getCountry(),
+            locale.getVariant(),
+            formKey);
+    }
+
+    /**
+     * <p>Gets a <code>Form</code> based on the name of the form and the <code>Locale</code> that 
+     * most closely matches the <code>Locale</code> passed in.  The order of <code>Locale</code> 
+     * matching is:</p>
+     * <ol>
+     *    <li>language + country + variant</li>
+     *    <li>language + country</li>
+     *    <li>language</li>
+     *    <li>default locale</li>
+     * </ol>
+    */
+    public Form get(
+        String language,
+        String country,
+        String variant,
+        Object formKey) {
             
-		    fs.addForm(newForm);
-		}
-	    }
-	}
-	// Process Fully Constructed FormSets
-	for (Iterator i = hFormSets.values().iterator(); i.hasNext(); ) {
-	    Vector formsets = (Vector)i.next();
-	    Enumeration formsets_en = formsets.elements();
-	    while (formsets_en.hasMoreElements()) {
-		FormSet fs = (FormSet)formsets_en.nextElement();
-	      
-		if (!fs.isProcessed()) {
-		    fs.process(hConstants);
-		}
-	    }
-	}
+        FormSet fs = null;
+        Form f = null;
+        String key = null;
+        Object o = null;
+
+        key =
+            ((language != null && language.length() > 0) ? language : "")
+                + ((country != null && country.length() > 0) ? "_" + country : "")
+                + ((variant != null && variant.length() > 0) ? "_" + variant : "");
+
+        Vector v = (Vector) hFormSets.get(key);
+
+        if (v == null) {
+            key =
+                ((language != null && language.length() > 0) ? language : "")
+                    + ((country != null && country.length() > 0) ? "_" + country : "");
+            v = (Vector) hFormSets.get(key);
+        }
+
+        if (v == null) {
+            key = ((language != null && language.length() > 0) ? language : "");
+            v = (Vector) hFormSets.get(key);
+        }
+
+        if (v == null) {
+            key = defaultLocale.toString();
+            v = (Vector) hFormSets.get(key);
+        }
+
+        if (v == null) {
+            return null;
+        }
+
+        Enumeration formsets = v.elements();
+        while (formsets.hasMoreElements()) {
+            o = formsets.nextElement();
+            if (o != null) {
+                fs = (FormSet) o;
+                if ((fs != null) && (fs.getForm(formKey) != null)) {
+                    return fs.getForm(formKey);
+                }
+            }
+        }
+        return null;
     }
 
-   /**
-    * Retrieves the closest matching <code>Field</code> based 
-    * on <code>FormSet</code>'s locale.  This is used when 
-    * constructing a clone, field by field, of partial 
-    * <code>FormSet</code>.
-   */
-   protected Field getClosestLocaleField(FormSet fs, String formKey, String fieldKey) {
-      Field field = null;
-      String language = fs.getLanguage();
-      String country = fs.getCountry();
-      String variant = fs.getVariant();
+    /**
+     * <p>Process the <code>ValidatorResources</code> object.  </p>
+     *
+     * <p>Currently sets the <code>FastHashMap</code>s to the 'fast' 
+     * mode and call the processes all other resources.</p>
+    */
+    public void process() {
+        hFormSets.setFast(true);
+        hConstants.setFast(true);
+        hActions.setFast(true);
 
-      if (!GenericValidator.isBlankOrNull(language) && 
-          !GenericValidator.isBlankOrNull(country) && 
-          !GenericValidator.isBlankOrNull(variant)) {
-         Form form = get(language, country, variant, formKey);
+        processForms();
+    }
 
-         if (form.getFieldMap().containsKey(fieldKey)) {
-            field = (Field)form.getFieldMap().get(fieldKey);
-         }
-      }
+    /**
+     * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s 
+     * that don't exist in a <code>FormSet</code> compared to the default 
+     * <code>FormSet</code>.</p>
+    */
+    public void processForms() {
+        //hFormSets.put(buildKey(fs), fs);
+        String defaultKey = defaultLocale.toString();
 
-      if (field == null) {
-         if (!GenericValidator.isBlankOrNull(language) && 
-             !GenericValidator.isBlankOrNull(country)) {
-            Form form = get(language, country, null, formKey);
-         
-            if (form.getFieldMap().containsKey(fieldKey)) {
-               field = (Field)form.getFieldMap().get(fieldKey);
+        // Loop through FormSets
+        for (Iterator i = hFormSets.keySet().iterator(); i.hasNext();) {
+            String key = (String) i.next();
+            // Skip default FormSet
+            if (key.equals(defaultKey)) {
+                continue;
             }
-         }
-      }  
+            Vector formsets = (Vector) hFormSets.get(key);
+            Enumeration formsets_en = formsets.elements();
+            while (formsets_en.hasMoreElements()) {
+                FormSet fs = (FormSet) formsets_en.nextElement();
 
-      if (field == null) {
-         if (!GenericValidator.isBlankOrNull(language)) {
-            Form form = get(language, null, null, formKey);
-         
-            if (form.getFieldMap().containsKey(fieldKey)) {
-               field = (Field)form.getFieldMap().get(fieldKey);
+                // Loop through Forms and copy/clone fields from default locale
+                for (Iterator x = fs.getForms().keySet().iterator(); x.hasNext();) {
+                    String formKey = (String) x.next();
+                    Form form = (Form) fs.getForms().get(formKey);
+                    // Create a new Form object so the order from the default is 
+                    // maintained (very noticable in the JavaScript).
+                    Form newForm = new Form();
+                    newForm.setName(form.getName());
+
+                    // Loop through the default locale form's fields
+                    // If they don't exist in the current locale's form, then clone them.
+                    Form defaultForm = get(defaultLocale, formKey);
+
+                    for (Iterator defaultFields = defaultForm.getFields().iterator();
+                        defaultFields.hasNext();
+                        ) {
+                        Field defaultField = (Field) defaultFields.next();
+                        String fieldKey = defaultField.getKey();
+
+                        if (form.getFieldMap().containsKey(fieldKey)) {
+                            newForm.addField(
+                                (Field) form.getFieldMap().get(fieldKey));
+                        } else {
+                            Field field =
+                                getClosestLocaleField(fs, formKey, fieldKey);
+                            newForm.addField((Field) field.clone());
+                        }
+                    }
+
+                    fs.addForm(newForm);
+                }
             }
-         }
-      }  
+        }
+        // Process Fully Constructed FormSets
+        for (Iterator i = hFormSets.values().iterator(); i.hasNext();) {
+            Vector formsets = (Vector) i.next();
+            Enumeration formsets_en = formsets.elements();
+            while (formsets_en.hasMoreElements()) {
+                FormSet fs = (FormSet) formsets_en.nextElement();
 
-      if (field == null) {
-         Form form = get(defaultLocale, formKey);
-         
-         if (form.getFieldMap().containsKey(fieldKey)) {
-            field = (Field)form.getFieldMap().get(fieldKey);
-         }
-      }
-      
-      return field;  	
-   }
+                if (!fs.isProcessed()) {
+                    fs.process(hConstants);
+                }
+            }
+        }
+    }
+
+    /**
+     * Retrieves the closest matching <code>Field</code> based 
+     * on <code>FormSet</code>'s locale.  This is used when 
+     * constructing a clone, field by field, of partial 
+     * <code>FormSet</code>.
+    */
+    protected Field getClosestLocaleField(
+        FormSet fs,
+        String formKey,
+        String fieldKey) {
+            
+        Field field = null;
+        String language = fs.getLanguage();
+        String country = fs.getCountry();
+        String variant = fs.getVariant();
+
+        if (!GenericValidator.isBlankOrNull(language)
+            && !GenericValidator.isBlankOrNull(country)
+            && !GenericValidator.isBlankOrNull(variant)) {
+                
+            Form form = get(language, country, variant, formKey);
+
+            if (form.getFieldMap().containsKey(fieldKey)) {
+                field = (Field) form.getFieldMap().get(fieldKey);
+            }
+        }
+
+        if (field == null) {
+            if (!GenericValidator.isBlankOrNull(language)
+                && !GenericValidator.isBlankOrNull(country)) {
+                    
+                Form form = get(language, country, null, formKey);
+
+                if (form.getFieldMap().containsKey(fieldKey)) {
+                    field = (Field) form.getFieldMap().get(fieldKey);
+                }
+            }
+        }
+
+        if (field == null) {
+            if (!GenericValidator.isBlankOrNull(language)) {
+                Form form = get(language, null, null, formKey);
+
+                if (form.getFieldMap().containsKey(fieldKey)) {
+                    field = (Field) form.getFieldMap().get(fieldKey);
+                }
+            }
+        }
+
+        if (field == null) {
+            Form form = get(defaultLocale, formKey);
+
+            if (form.getFieldMap().containsKey(fieldKey)) {
+                field = (Field) form.getFieldMap().get(fieldKey);
+            }
+        }
+
+        return field;
+    }
 
 }
