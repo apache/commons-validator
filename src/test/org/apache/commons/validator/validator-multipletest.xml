@@ -15,6 +15,12 @@
                  method="validateRequired"
                  methodParams="java.lang.Object,org.apache.commons.validator.Field"
                  msg=""/>
+      <validator name="positive"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validatePositive"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 depends="required,int" 
+                 msg=""/>
    </global>
    
    <formset>
@@ -22,6 +28,9 @@
          <field    property="firstName"  depends="required">
          	     <arg key="nameForm.firstname.displayname"/>
          </field>    
+         <field    property="middleName" depends="positive">
+                 <arg0 key="nameForm.middlename.displayname"/> 
+         </field>   
          <field    property="lastName"
          	   depends="required,int">
          	     <arg key="nameForm.lastname.displayname"/>

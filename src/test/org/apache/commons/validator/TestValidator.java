@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.10 2003/08/23 02:24:07 rleland Exp $
- * $Revision: 1.10 $
- * $Date: 2003/08/23 02:24:07 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.11 2003/08/26 15:18:56 rleland Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/08/26 15:18:56 $
  *
  * ====================================================================
  *
@@ -69,7 +69,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * unit tests.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.10 $ $Date: 2003/08/23 02:24:07 $
+ * @version $Revision: 1.11 $ $Date: 2003/08/26 15:18:56 $
 */                                                       
 public class TestValidator {
                                                           
@@ -128,6 +128,20 @@ public class TestValidator {
       String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isInt(value);
+   }
+
+   /**
+    * Checks if field is positive assuming it is an integer
+    * 
+    * @param    value       The value validation is being performed on.
+    * @param    field       Description of the field to be evaluated
+    * @return   boolean     If the integer field is greater than zero, returns
+    *                        true, otherwise returns false.
+    */
+   public static boolean validatePositive(Object bean , Field field) {
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   
+      return GenericTypeValidator.formatInt(value).intValue() > 0;                                                      
    }
 
    /**

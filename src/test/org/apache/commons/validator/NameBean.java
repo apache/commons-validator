@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/NameBean.java,v 1.3 2003/08/23 02:24:07 rleland Exp $
- * $Revision: 1.3 $
- * $Date: 2003/08/23 02:24:07 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/NameBean.java,v 1.4 2003/08/26 15:18:56 rleland Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/08/26 15:18:56 $
  *
  * ====================================================================
  *
@@ -67,11 +67,13 @@ package org.apache.commons.validator;
  * first name and last name.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.3 $ $Date: 2003/08/23 02:24:07 $
+ * @version $Revision: 1.4 $ $Date: 2003/08/26 15:18:56 $
 */                                                       
 public class NameBean {
    
    protected String firstName = null;
+   
+   protected String middleName = null;
    
    protected String lastName = null;
                                                              
@@ -87,6 +89,21 @@ public class NameBean {
    */
    public void setFirstName(String firstName) {
       this.firstName = firstName;	
+   }
+
+      
+   /**
+    * @return
+    */
+   public String getMiddleName() {
+       return middleName;
+   }
+
+   /**
+    * @param string
+    */
+   public void setMiddleName(String middleName) {
+       this.middleName = middleName;
    }
 
    /**

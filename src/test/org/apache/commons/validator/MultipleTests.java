@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleTests.java,v 1.10 2003/08/23 02:24:07 rleland Exp $
- * $Revision: 1.10 $
- * $Date: 2003/08/23 02:24:07 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleTests.java,v 1.11 2003/08/26 15:18:56 rleland Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/08/26 15:18:56 $
  *
  * ====================================================================
  *
@@ -77,7 +77,8 @@ import org.xml.sax.SAXException;
  * <p>Performs Validation Test.</p>
  *
  * @author James Turner
- * @version $Revision: 1.10 $ $Date: 2003/08/23 02:24:07 $
+ * @author Arun Mammen Thomas
+ * @version $Revision: 1.11 $ $Date: 2003/08/26 15:18:56 $
 */
 public class MultipleTests extends TestCase {
 
@@ -292,5 +293,156 @@ public class MultipleTests extends TestCase {
       assertTrue("Last Name ValidatorResult for the 'int' action should have passed.", lastNameResult.isValid("int"));
    }
 
+   /**
+    * If middle name is not there, then the required dependent test should fail.
+    * No other tests should run
+    *
+    * @throws ValidatorException
+    */
+   public void testFailingFirstDependentValidator() throws ValidatorException {
+       // Create bean to run test on.
+       NameBean name = new NameBean();
 
+       // Construct validator based on the loaded resources
+       // and the form key
+       Validator validator = new Validator(resources, FORM_KEY);
+       // add the name bean to the validator as a resource
+       // for the validations to be performed on.
+       validator.addResource(Validator.BEAN_KEY, name);
+
+       // Get results of the validation.
+       ValidatorResults results = null;
+
+       results = validator.validate();
+
+       assertNotNull("Results are null.", results);
+
+       ValidatorResult middleNameResult = results.getValidatorResult("middleName");
+
+       assertNotNull("Middle Name ValidatorResult should not be null.", middleNameResult);
+
+       assertTrue("Middle Name ValidatorResult should contain the 'required' action.", middleNameResult.containsAction("required"));
+       assertTrue("Middle Name ValidatorResult for the 'required' action should have failed", !middleNameResult.isValid("required"));
+
+       assertTrue("Middle Name ValidatorResult should not contain the 'int' action.", !middleNameResult.containsAction("int"));
+
+       assertTrue("Middle Name ValidatorResult should not contain the 'positive' action.", !middleNameResult.containsAction("positive"));
+   }
+
+   /**
+    * If middle name is there but not int, then the required dependent test
+    * should pass, but the int dependent test should fail. No other tests should
+    * run.
+    *
+    * @throws ValidatorException
+    */
+   public void testFailingNextDependentValidator() throws ValidatorException {
+       // Create bean to run test on.
+       NameBean name = new NameBean();
+       name.setMiddleName("TEST");
+
+       // Construct validator based on the loaded resources
+       // and the form key
+       Validator validator = new Validator(resources, FORM_KEY);
+       // add the name bean to the validator as a resource
+       // for the validations to be performed on.
+       validator.addResource(Validator.BEAN_KEY, name);
+
+       // Get results of the validation.
+       ValidatorResults results = null;
+
+       results = validator.validate();
+
+       assertNotNull("Results are null.", results);
+
+       ValidatorResult middleNameResult = results.getValidatorResult("middleName");
+
+       assertNotNull("Middle Name ValidatorResult should not be null.", middleNameResult);
+
+       assertTrue("Middle Name ValidatorResult should contain the 'required' action.", middleNameResult.containsAction("required"));
+       assertTrue("Middle Name ValidatorResult for the 'required' action should have passed", middleNameResult.isValid("required"));
+
+       assertTrue("Middle Name ValidatorResult should contain the 'int' action.", middleNameResult.containsAction("int"));
+       assertTrue("Middle Name ValidatorResult for the 'int' action should have failed", !middleNameResult.isValid("int"));
+
+       assertTrue("Middle Name ValidatorResult should not contain the 'positive' action.", !middleNameResult.containsAction("positive"));
+   }
+
+   /**
+    * If middle name is there and a negative int, then the required and int
+    * dependent tests should pass, but the positive test should fail.
+    *
+    * @throws ValidatorException
+    */
+   public void testPassingDependentsFailingMain() throws ValidatorException {
+       // Create bean to run test on.
+       NameBean name = new NameBean();
+       name.setMiddleName("-2534");
+
+       // Construct validator based on the loaded resources
+       // and the form key
+       Validator validator = new Validator(resources, FORM_KEY);
+       // add the name bean to the validator as a resource
+       // for the validations to be performed on.
+       validator.addResource(Validator.BEAN_KEY, name);
+
+       // Get results of the validation.
+       ValidatorResults results = null;
+
+       results = validator.validate();
+
+       assertNotNull("Results are null.", results);
+
+       ValidatorResult middleNameResult = results.getValidatorResult("middleName");
+
+       assertNotNull("Middle Name ValidatorResult should not be null.", middleNameResult);
+
+       assertTrue("Middle Name ValidatorResult should contain the 'required' action.", middleNameResult.containsAction("required"));
+       assertTrue("Middle Name ValidatorResult for the 'required' action should have passed", middleNameResult.isValid("required"));
+
+       assertTrue("Middle Name ValidatorResult should contain the 'int' action.", middleNameResult.containsAction("int"));
+       assertTrue("Middle Name ValidatorResult for the 'int' action should have passed", middleNameResult.isValid("int"));
+
+       assertTrue("Middle Name ValidatorResult should contain the 'positive' action.", middleNameResult.containsAction("positive"));
+       assertTrue("Middle Name ValidatorResult for the 'positive' action should have failed", !middleNameResult.isValid("positive"));
+   }
+
+   /**
+    * If middle name is there and a positve int, then the required and int
+    * dependent tests should pass, and the positive test should pass.
+    *
+    * @throws ValidatorException
+    */
+   public void testPassingDependentsPassingMain() throws ValidatorException {
+       // Create bean to run test on.
+       NameBean name = new NameBean();
+       name.setMiddleName("2534");
+
+       // Construct validator based on the loaded resources
+       // and the form key
+       Validator validator = new Validator(resources, FORM_KEY);
+       // add the name bean to the validator as a resource
+       // for the validations to be performed on.
+       validator.addResource(Validator.BEAN_KEY, name);
+
+       // Get results of the validation.
+       ValidatorResults results = null;
+
+       results = validator.validate();
+
+       assertNotNull("Results are null.", results);
+
+       ValidatorResult middleNameResult = results.getValidatorResult("middleName");
+
+       assertNotNull("Middle Name ValidatorResult should not be null.", middleNameResult);
+
+       assertTrue("Middle Name ValidatorResult should contain the 'required' action.", middleNameResult.containsAction("required"));
+       assertTrue("Middle Name ValidatorResult for the 'required' action should have passed", middleNameResult.isValid("required"));
+
+       assertTrue("Middle Name ValidatorResult should contain the 'int' action.", middleNameResult.containsAction("int"));
+       assertTrue("Middle Name ValidatorResult for the 'int' action should have passed", middleNameResult.isValid("int"));
+
+       assertTrue("Middle Name ValidatorResult should contain the 'positive' action.", middleNameResult.containsAction("positive"));
+       assertTrue("Middle Name ValidatorResult for the 'positive' action should have passed", middleNameResult.isValid("positive"));
+   }
 }
