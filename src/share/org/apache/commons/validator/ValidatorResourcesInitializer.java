@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.12 2003/03/12 06:06:46 dgraham Exp $
- * $Revision: 1.12 $
- * $Date: 2003/03/12 06:06:46 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.13 2003/03/15 23:14:10 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/03/15 23:14:10 $
  *
  * ====================================================================
  *
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author Dave Derry
- * @version $Revision: 1.12 $ $Date: 2003/03/12 06:06:46 $
+ * @version $Revision: 1.13 $ $Date: 2003/03/15 23:14:10 $
 */
 public class ValidatorResourcesInitializer {
 
@@ -160,8 +160,9 @@ public class ValidatorResourcesInitializer {
       // register DTDs
       for (int i = 0; i < registrations.length; i += 2) {
           URL url = ValidatorResourcesInitializer.class.getResource(registrations[i+1]);
-          if (url != null)
+          if (url != null) {
               digester.register(registrations[i], url.toString());
+          }
       }
       
       digester.setUseContextClassLoader(true);
@@ -256,12 +257,13 @@ public class ValidatorResourcesInitializer {
       try {
          // Parse the input stream to initialize our database
          digester.parse(in);
-         in.close();
+         
       } catch (SAXException e) {
           log.error(e.getMessage(), e);
       } finally {
-      	 if (in != null)
-            try {in.close(); } catch (Exception e) {}
+        if (in != null) {
+            in.close();
+        }
       }
       
       if (process) {
