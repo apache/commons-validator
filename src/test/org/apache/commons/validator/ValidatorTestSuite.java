@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.13 2004/01/11 23:30:21 dgraham Exp $
- * $Revision: 1.13 $
- * $Date: 2004/01/11 23:30:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.14 2004/01/17 21:58:09 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2004/01/17 21:58:09 $
  *
  * ====================================================================
  *
@@ -97,6 +97,7 @@ public class ValidatorTestSuite extends TestCase {
        suite.addTest(LocaleTest.suite());
        suite.addTestSuite(FieldTest.class);
        suite.addTestSuite(FlagsTest.class);
+       suite.addTestSuite(ExceptionTest.class);
        suite.addTest(UrlTest.suite());
        
        return suite;
