@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.10 2003/08/21 21:43:05 rleland Exp $
- * $Revision: 1.10 $
- * $Date: 2003/08/21 21:43:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.11 2003/08/22 02:31:50 rleland Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/08/22 02:31:50 $
  *
  * ====================================================================
  *
@@ -67,6 +67,8 @@ import java.util.Locale;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>This class contains basic methods for performing validations that return the
@@ -75,9 +77,13 @@ import java.text.ParseException;
  * @author David Winterfeldt
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.10 $ $Date: 2003/08/21 21:43:05 $
+ * @version $Revision: 1.11 $ $Date: 2003/08/22 02:31:50 $
  */
 public class GenericTypeValidator implements Serializable {
+    /*
+    * Logger.
+    */
+   private static Log log = LogFactory.getLog(GenericTypeValidator.class);
 
     /**
      * Checks if the value can safely be converted to a byte primitive.
@@ -193,7 +199,7 @@ public class GenericTypeValidator implements Serializable {
      * is set to <code>false</code> for all.</p>
      *
      * @param value The value validation is being performed on.
-     * @param Locale The Locale to use to parse the date (system default if null)
+     * @param locale The Locale to use to parse the date (system default if null)
      */
     public static Date formatDate(String value, Locale locale) {
         Date date = null;
@@ -219,6 +225,7 @@ public class GenericTypeValidator implements Serializable {
             date = formatter.parse(value);
         } catch(ParseException e) {
             // Bad date so return null
+            log.warn(value, e);
         }
 
         return date;
@@ -257,6 +264,7 @@ public class GenericTypeValidator implements Serializable {
             }
         } catch(ParseException e) {
             // Bad date so return null
+            log.warn(value, e);
         }
 
         return date;
