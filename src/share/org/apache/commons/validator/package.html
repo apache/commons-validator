@@ -7,43 +7,12 @@ The Validator package provides validation for JavaBeans based on an xml file.
 <br><br>
 <a name="doc.Description"></a>
 <div align="center">
-<a href="#doc.Depend">[Dependencies]</a>
+<a href="http://jakarta.apache.org/commons/validator/dependencies.html">[Dependencies]</a>
 <a href="#doc.Intro">[Introduction]</a>
 <a href="#doc.Overview">[Overview]</a>
 <a href="#doc.Resources">[Resources]</a>
 <a href="#doc.Usage">[Usage Example]</a>
 </div>
-
-<a name="doc.Depend"></a>
-<h3>External Dependencies</h3>
-
-<ul>
-  <li>
-    <a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-beanutils">
-    Beanutils Package (Jakarta Commons)</a>, version 1.0 or later
-  </li>
-  <li>
-    <a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-collections">
-    Collections Package (Jakarta Commons)</a>, version 1.0 or later
-  </li>
-  <li>
-    <a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-digester">
-    Digester Package (Jakarta Commons)</a>, version 1.0 or later
-  </li>
-  <li>
-    <a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-logging">
-    Logging Package (Jakarta Commons)</a>, version 1.0 or later
-  </li>
-  <li>An xml parser conforming to
-    <a href="http://www.megginson.com/SAX/">SAX 2.0</a> for the Commons Digester
-  </li>
-  <li>Optionally, an XML parser conforming to
-    <a href="http://java.sun.com/products/xml">JAXP
-    </a>, version 1.1 or later (the first one to support SAX 2.0)
-     for the Commons Digester
-  </li>
-
-</ul>
 
 <a name="doc.Intro"></a>
 <h3>Introduction</h3>
@@ -98,8 +67,8 @@ speed development and maintenance of validation rules.
 <p>
    After a Validator instance is created, instances of
    classes can be added to it to be passed into
-   validation methods by calling the addResource
-   method.  Below is a list of reserved keys (class names).
+   validation methods by calling the setParameter()
+   method.  Below is a list of reserved parameters (class names).
 </p>
 
 <table width="100%" border="1" cellspacing="5">
@@ -110,12 +79,12 @@ speed development and maintenance of validation rules.
    </tr>
    <tr>
       <td>java.lang.Object</td>
-      <td>Validator.BEAN_KEY</td>
+      <td>Validator.BEAN_PARAM</td>
       <td>JavaBean that is being validated</td>
    </tr>
    <tr>
       <td>java.util.Locale</td>
-      <td>Validator.LOCALE_KEY</td>
+      <td>Validator.LOCALE_PARAM</td>
       <td>
          Locale to use when retrieving a FormSet.
          The default locale will be used if one
@@ -124,7 +93,7 @@ speed development and maintenance of validation rules.
    </tr>
    <tr>
       <td>org.apache.commons.validator.ValidatorAction</td>
-      <td>Validator.VALIDATOR_ACTION_KEY</td>
+      <td>Validator.VALIDATOR_ACTION_PARAM</td>
       <td>
          This is automatically added to a Validator's
          resources as a validation is being processed.
@@ -136,7 +105,7 @@ speed development and maintenance of validation rules.
    </tr>
    <tr>
       <td>org.apache.commons.validator.Field</td>
-      <td>Validator.FIELD_KEY</td>
+      <td>Validator.FIELD_PARAM</td>
       <td>
          This is automatically added to a Validator's
          resources as a validation is being processed.
@@ -224,10 +193,7 @@ InputStream in = this.getClass().getResourceAsStream("validator-name-required.xm
 <br>
 // Create an instance of ValidatorResources to <br>
 // initialize from an xml file. <br>
-ValidatorResources resources = new ValidatorResources();<br>
-<br>
-// Load resources into ValidatorResources passed in <br>
-ValidatorResourcesInitializer.initialize(resources, in);<br>
+ValidatorResources resources = new ValidatorResources(in);
 </p>
 <p>
 // Create bean to run test on.<br>
@@ -238,20 +204,20 @@ Name name = new Name();<br>
       Validator validator = new Validator(resources, "nameForm");<br>
       // add the name bean to the validator as a resource <br>
       // for the validations to be performed on.<br>
-      validator.addResource(Validator.BEAN_KEY, name);<br>
+      validator.setParameter(Validator.BEAN_PARAM, name);<br>
 <br>
       // Get results of the validation.<br>
-      Map hResults = null;<br>
+      Map results = null;<br>
       <br>
       // throws ValidatorException, <br>
       // but aren't catching for example <br>
-      hResults = validator.validate();<br>
+      results = validator.validate();<br>
       <br>
-      if (hResults.get("firstName") == null) { <br>
+      if (results.get("firstName") == null) { <br>
 &nbsp;&nbsp;&nbsp; // no error <br>
       } else {<br>
 &nbsp;&nbsp;&nbsp; // number of errors for first name
-&nbsp;&nbsp;&nbsp; int errors = ((Integer)hResults.get("firstName")).intValue();<br>
+&nbsp;&nbsp;&nbsp; int errors = ((Integer)results.get("firstName")).intValue();<br>
       } <br>
 </p>
 
