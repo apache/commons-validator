@@ -116,6 +116,12 @@
       <email>dwinterfeldt@apache.org</email>
       <organization></organization>
     </developer>
+    <developer>
+      <name>Don Brown</name>
+      <id>mrdon</id>
+      <email>mrdon@apache.org</email>
+      <organization></organization>
+    </developer>
    </developers>
   
   <contributors>
