@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.15 2003/03/17 01:41:17 dgraham Exp $
- * $Revision: 1.15 $
- * $Date: 2003/03/17 01:41:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.16 2003/04/30 21:51:05 rleland Exp $
+ * $Revision: 1.16 $
+ * $Date: 2003/04/30 21:51:05 $
  *
  * ====================================================================
  *
@@ -85,7 +85,7 @@ import org.apache.commons.logging.LogFactory;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.15 $ $Date: 2003/03/17 01:41:17 $
+ * @version $Revision: 1.16 $ $Date: 2003/04/30 21:51:05 $
  */
 public class Validator implements Serializable {
 
@@ -123,7 +123,7 @@ public class Validator implements Serializable {
      * specified in the method signature.
      */
     public static String VALIDATOR_KEY = "org.apache.commons.validator.Validator";
-    
+
     /**
      * Resources key the <code>Locale</code> is stored.
      * This will be used to retrieve the appropriate
@@ -279,7 +279,7 @@ public class Validator implements Serializable {
      * using Context ClassLoader, then the class-loading defaults to
      * using the calling-class' ClassLoader.
      *
-     * @param boolean determines whether to use Context ClassLoader.
+     * @param use determines whether to use Context ClassLoader.
      */
     public void setUseContextClassLoader(boolean use) {
 
@@ -359,7 +359,7 @@ public class Validator implements Serializable {
                             + field.getProperty());
                     return false;
                 }
-                
+
                 if (!validateFieldForRule(field, action, results, actions, pos)) {
                     return false;
                 }
@@ -516,7 +516,7 @@ public class Validator implements Serializable {
                                 + field.getProperty());
                         return;
                     }
-                    
+
                     boolean good =
                         validateFieldForRule(field, action, results, actions, pos);
                     allResults.merge(results);
@@ -540,7 +540,7 @@ public class Validator implements Serializable {
                             + field.getProperty());
                     return;
                 }
-                
+
                 boolean good = validateFieldForRule(field, action, results, actions, 0);
                 allResults.merge(results);
                 if (!good) {

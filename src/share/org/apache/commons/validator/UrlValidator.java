@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.2 2003/04/30 20:31:45 rleland Exp $
- * $Revision: 1.2 $
- * $Date: 2003/04/30 20:31:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.3 2003/04/30 21:51:05 rleland Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/04/30 21:51:05 $
  *
  * ====================================================================
  *
@@ -80,7 +80,7 @@ import org.apache.oro.text.perl.Perl5Util;
  *  </a>
  *
  * @author Robert Leland
- * @version $Revision: 1.2 $ $Date: 2003/04/30 20:31:45 $
+ * @version $Revision: 1.3 $ $Date: 2003/04/30 21:51:05 $
  */
 public class UrlValidator implements Serializable {
    private static final String alphaChars = "a-zA-Z"; //used
@@ -120,21 +120,30 @@ public class UrlValidator implements Serializable {
 
    /**
     * Allow a double slash in the path componet such that
-    * path//file is treated as path/file
+    * path//file is treated as path/file.
     */
    public static final String OPTION_ALLOW_2_SLASH = "allow2Slash";
+   /**
+    * Don't allow a fragment in a url. A fragment is usually indicated
+    * by a '#' character and follows a query.
+    */
    public static final String OPTION_NO_FRAGMENT = "noFragment";
 
    // Non static fields
    private boolean allow2Slash = false;
    private boolean noFragment = false;
 
+   /**
+    * Construct a UrlValidator with default behaviour.
+    */
    public UrlValidator() {
 
    }
 
    /**
     * Behavour of validation is modified by passing in several strings options:
+    * @param options Pass in one or more of the OPTION_XXXX predefined strings
+    *   to change the validation behavour.
     *   allow2Slash - Allows double '/' characters in the path  component
     *   noFragment - If the noFragment option is included then fragments are flagged as illegal.
     **/
@@ -155,8 +164,8 @@ public class UrlValidator implements Serializable {
 
    /**
     * Behavour of validation is modified by passing in options:
-    *   allow2Slash - If True, allows double '/' characters in the path  component
-    *   noFragment - If true, fragments are flagged as illegal.
+    *   @param allow2Slash If True, allows double '/' characters in the path  component
+    *   @param noFragment If true, fragments are flagged as illegal.
     **/
 
    public UrlValidator(boolean allow2Slash, boolean noFragment) {
@@ -170,6 +179,7 @@ public class UrlValidator implements Serializable {
     * <p>Checks if a field has a valid url address.</p>
     *
     * @param 	value 		The value validation is being performed on.
+    * @return true if the url is valid.
     */
    public boolean isValid(String value) {
       boolean bValid = true;

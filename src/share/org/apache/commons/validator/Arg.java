@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.5 2003/03/16 00:23:15 dgraham Exp $
- * $Revision: 1.5 $
- * $Date: 2003/03/16 00:23:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.6 2003/04/30 21:51:05 rleland Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/04/30 21:51:05 $
  *
  * ====================================================================
  *
@@ -66,19 +66,19 @@ import java.io.Serializable;
 
 
 /**
- * <p>A default argument or an argument for a 
- * specific validator definition (ex: required) 
- * can be stored to pass into a message as parameters.  This can be used in a 
- * pluggable validator for constructing locale 
- * sensitive messages by using <code>java.text.MessageFormat</code> 
- * or an equivalent class.  The resource field can be 
- * used to determine if the value stored in the argument 
- * is a value to be retrieved from a locale sensitive 
+ * <p>A default argument or an argument for a
+ * specific validator definition (ex: required)
+ * can be stored to pass into a message as parameters.  This can be used in a
+ * pluggable validator for constructing locale
+ * sensitive messages by using <code>java.text.MessageFormat</code>
+ * or an equivalent class.  The resource field can be
+ * used to determine if the value stored in the argument
+ * is a value to be retrieved from a locale sensitive
  * message retrieval system like <code>java.util.PropertyResourceBundle</code>.
  * The resource field defaults to 'true'.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2003/03/16 00:23:15 $
+ * @version $Revision: 1.6 $ $Date: 2003/04/30 21:51:05 $
 */
 public class Arg implements Cloneable, Serializable {
 
@@ -93,7 +93,7 @@ public class Arg implements Cloneable, Serializable {
     protected String key = null;
 
     /**
-     * Whether or not the key is a message resource (optional).  Defaults to true.  
+     * Whether or not the key is a message resource (optional).  Defaults to true.
      * If it is 'true', the value will try to be resolved as a message resource.
     */
     protected boolean resource = true;
@@ -101,48 +101,55 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Gets the name of the dependency.
+     * @return the name of the dependency.
     */
     public String getName() {
-       return name;	
+       return name;
     }
 
     /**
      * Sets the name of the dependency.
+     * @param name the name of the dependency.
     */
     public void setName(String name) {
-       this.name = name;	
+       this.name = name;
     }
- 
+
      /**
      * Gets the key/value.
+      * @return the key value.
     */
     public String getKey() {
-       return key;	
+       return key;
     }
 
     /**
      * Sets the key/value.
+     * @param key They to access the argument.
     */
     public void setKey(String key) {
-       this.key = key;	
+       this.key = key;
     }
-    
+
     /**
      * Gets whether or not the key is a resource.
+     * @return Returns true if key is a resource.
     */
     public boolean getResource() {
-       return resource;	
+       return resource;
     }
 
     /**
      * Sets whether or not the key is a resource.
+     * @param resource If true indicates the key is a resource.
     */
     public void setResource(boolean resource) {
-       this.resource = resource;	
+       this.resource = resource;
     }
 
     /**
      * Creates and returns a copy of this object.
+     * @return A copy of this object.
     */
     public Object clone() {
        try {
@@ -151,25 +158,26 @@ public class Arg implements Cloneable, Serializable {
            if (name != null) {
               arg.setName(new String(name));
            }
-              
+
            if (key != null) {
               arg.setKey(new String(key));
            }
-           
+
            arg.setResource(resource);
 
            return arg;
        } catch (CloneNotSupportedException e) {
           throw new InternalError(e.toString());
        }
-    }  
-    
+    }
+
     /**
      * Returns a string representation of the object.
+     * @return a string representation of the object.
     */
     public String toString() {
        StringBuffer results = new StringBuffer();
-       
+
        results.append("Arg: name=");
        results.append(name);
        results.append("  key=");
@@ -177,8 +185,8 @@ public class Arg implements Cloneable, Serializable {
        results.append("  resource=");
        results.append(resource);
        results.append("\n");
-    			 
+
        return results.toString();
     }
-	
+
 }
