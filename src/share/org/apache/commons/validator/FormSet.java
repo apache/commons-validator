@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.13 2004/01/11 23:30:20 dgraham Exp $
- * $Revision: 1.13 $
- * $Date: 2004/01/11 23:30:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.14 2004/01/18 20:02:37 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2004/01/18 20:02:37 $
  *
  * ====================================================================
  *
@@ -59,15 +59,13 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import org.apache.commons.collections.FastHashMap;
-
 
 /**
  * Holds a set of <code>Form</code>s stored associated with a
@@ -98,16 +96,16 @@ public class FormSet implements Serializable {
     private String variant = null;
 
     /**
-     * A <code>FastHashMap</code> of <code>Form</code>s
+     * A <code>Map</code> of <code>Form</code>s
      * using the name field of the <code>Form</code> as the key.
      */
-    private FastHashMap forms = new FastHashMap();
+    private Map forms = new HashMap();
 
     /**
-     * A <code>FastHashMap</code> of <code>Constant</code>s
+     * A <code>Map</code> of <code>Constant</code>s
      * using the name field of the <code>Constant</code> as the key.
      */
-    private FastHashMap constants = new FastHashMap();
+    private Map constants = new HashMap();
 
     /**
      * Whether or not the this <code>FormSet</code> was processed
@@ -185,7 +183,6 @@ public class FormSet implements Serializable {
 
     /**
      * Add a <code>Constant</code> to the locale level.
-     * @deprecated Use addConstant(String, String) instead.
      */
     public void addConstant(String name, String value) {
         this.constants.put(name, value);
@@ -222,8 +219,7 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Processes all of the <code>Form</code>s, set <code>FastHashMap</code>s
-     * to 'fast' mode.
+     * Processes all of the <code>Form</code>s.
      * @deprecated This method is called by the framework.  It will be made protected
      * in a future release.  TODO
      */
@@ -232,9 +228,6 @@ public class FormSet implements Serializable {
             Form f = (Form) i.next();
             f.process(globalConstants, constants);
         }
-
-        forms.setFast(true);
-        constants.setFast(true);
 
         processed = true;
     }
