@@ -236,14 +236,13 @@
   </dependencies>
 
   <build>
-
     <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
-
     <sourceDirectory>src/share</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
 
     <unitTest>
       <includes>
-        <include>**/*Test.java</include>
+        <include>**/ValidatorTestSuite.java</include>
       </includes>
       <resources>
         <resource>
@@ -254,15 +253,6 @@
         </resource>
       </resources>
     </unitTest>
-
-    <resources>
-      <resource>
-        <excludes>
-          <exclude>**/*.java</exclude>
-        </excludes>
-      </resource>
-    </resources>
-
 
   </build>
 
