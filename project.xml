@@ -20,7 +20,6 @@
   <name>Validator</name>
   <id>commons-validator</id>
   <currentVersion>1.1.3-dev</currentVersion>
-  <logo>/images/validator-logo-blue.png</logo>
   <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.validator</package>
 
