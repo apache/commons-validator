@@ -33,9 +33,22 @@
       	<li>
       		Change the validation.xml file semantics to match a more general "bean" validation usage.
       		Currently, the &lt;form-validation&gt;, &lt;formset&gt;, &lt;form&gt;, and &lt;field&gt; elements
-      		require a form-centric view of validations.  Changing these to &lt;bean-validation&gt;, &lt;beans&gt;,
-      		&lt;bean&gt;, and &lt;property&gt; respectively would allow Validator to be used more easily in
+      		require a form-centric view of validations.  Changing these to &lt;bean-validation&gt; or &lt;validator-config&gt;, 
+      		&lt;beans&gt;, &lt;bean&gt;, and &lt;property&gt; respectively would allow Validator to be used more easily in
       		non-form based environments.
+      	</li>
+      	<li>
+      	    The above changes to validation.xml could only apply to Validator's native configuration format.  We
+      	    could add a ValidatorResources constructor that accepts a digester-rules file to allow parsing any
+      	    XML format into Validator configuration objects.  This would allow higher level frameworks like Struts 
+      	    to use configuration semantics specific to their domain.
+      	</li>
+      	<li>
+      	    Examine the need for all dependencies.  Validator has many dependencies that are very lightly used
+      	    and could be removed.  Two likely candidates for removal are commons-collections and ORO.  The first
+      	    because Validator only uses one class in a very large jar and backward incompatible changes in recent 
+      	    versions.  The second because it can easily be replaced with the faster and standard Java 1.4 regex
+      	    engine.
       	</li>
       	<li>
       	    Scenario one:
@@ -46,12 +59,24 @@
       		we also change the configuration file semantics.
       	</li>
       	<li>
-      		More likely Scenario:
-      		ORO provides a much richer interface to regular expression, such that we don't have
+      		Scenario two:
+      		ORO provides a much richer interface to regular expressions, such that we don't have
       		to worry about bit twiddling, this includes a pluggable regex engine. Jeffrey E Friedl states
       		in Mastering Regular Expressions 2ed, says that in speaking to the ORO developers that they
       		will likely develop an adapter to the Java 1.4 regex, See page 378. So we get use of ORO and the speed of 
       		Java 1.4 Regex engine. 
+      	</li>
+      	<li>
+      	    ValidatorException is only thrown to indicate configuration and programmer errors
+      	    yet is a checked exception.  ValidatorException should be converted to a RuntimeException to match its
+      	    real purpose.  Furthermore, the exception handling for pluggable validations (ValidatorActions)
+      	    is not well defined or documented.  RuntimeExceptions thrown from ValidatorActions should be propogated
+      	    out of the Validator framework as is because they indicate programmer error.  Checked exceptions thrown
+      	    from a ValidatorAction should stop validation and be propogated out of the framework for handling as these 
+      	    indicate an unrecoverable system failure.  Validation method implementation becomes easier because they
+      	    can throw SQLException, IOException, etc. instead of wrapping the exception or defining it as a rule failure.
+      	    This allows clients to reliably distinguish between a normal validation failure (invalid data) and exceptional
+      	    conditions.
       	</li>
       </ul>
     </subsection>
