@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.12 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.12 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.12.2.2 2004/11/11 15:32:03 niallp Exp $
+ * $Revision: 1.12.2.2 $
+ * $Date: 2004/11/11 15:32:03 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -49,6 +49,14 @@ public class Msg implements Cloneable, Serializable {
     protected String name = null;
 
     /**
+     * Whether or not the key is a message resource (optional).  Defaults to
+     * true.  If it is 'true', the value will try to be resolved as a message
+     * resource.
+     * @since Validator 1.1.4
+     */
+    protected boolean resource = true;
+
+    /**
      * Returns the resource bundle name.
      * @since Validator 1.1
      */
@@ -94,6 +102,24 @@ public class Msg implements Cloneable, Serializable {
     }
 
     /**
+     * Tests whether or not the key is a resource key or literal value.
+     * @return <code>true</code> if key is a resource key.
+     * @since Validator 1.1.4
+     */
+    public boolean isResource() {
+        return this.resource;
+    }
+
+    /**
+     * Sets whether or not the key is a resource.
+     * @param resource If true indicates the key is a resource.
+     * @since Validator 1.1.4
+     */
+    public void setResource(boolean resource) {
+        this.resource = resource;
+    }
+
+    /**
      * Creates and returns a copy of this object.
      */
     public Object clone() {
@@ -115,6 +141,10 @@ public class Msg implements Cloneable, Serializable {
         results.append(name);
         results.append("  key=");
         results.append(key);
+        results.append("  resource=");
+        results.append(resource);
+        results.append("  bundle=");
+        results.append(bundle);
         results.append("\n");
 
         return results.toString();

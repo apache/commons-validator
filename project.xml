@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
    Copyright 2003-2004 The Apache Software Foundation
 
@@ -19,8 +19,7 @@
   <extend>../commons-build/project.xml</extend>
   <name>Validator</name>
   <id>commons-validator</id>
-  <currentVersion>1.1.2-dev</currentVersion>
-  <logo>/images/validator-logo-blue.png</logo>
+  <currentVersion>1.1.4</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.validator</package>
 
@@ -68,6 +67,12 @@
       <email>dwinterfeldt@apache.org</email>
       <organization></organization>
     </developer>
+      <developer>
+        <name>Ted Husted</name>
+        <id>husted</id>
+        <email>husted@apache.org</email>
+        <organization></organization>
+      </developer>
   </developers>
   
   <contributors>
@@ -237,14 +242,13 @@
   </dependencies>
 
   <build>
-
     <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
-
     <sourceDirectory>src/share</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
 
     <unitTest>
       <includes>
-        <include>**/*Test.java</include>
+        <include>**/ValidatorTestSuite.java</include>
       </includes>
       <resources>
         <resource>
@@ -255,15 +259,6 @@
         </resource>
       </resources>
     </unitTest>
-
-    <resources>
-      <resource>
-        <excludes>
-          <exclude>**/*.java</exclude>
-        </excludes>
-      </resource>
-    </resources>
-
 
   </build>
 

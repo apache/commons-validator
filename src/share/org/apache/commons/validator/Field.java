@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.31 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.31 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.31.2.3 2004/11/11 15:32:03 niallp Exp $
+ * $Revision: 1.31.2.3 $
+ * $Date: 2004/11/11 15:32:03 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.FastHashMap;
+import org.apache.commons.collections.FastHashMap; // DEPRECATED
 import org.apache.commons.validator.util.ValidatorUtils;
 
 /**
@@ -41,6 +41,9 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * message information and variables to perform the validations and generate 
  * error messages.  Instances of this class are configured with a 
  * &lt;field&gt; xml element.
+ *
+ * The use of FastHashMap is deprecated and will be replaced in a future
+ * release.
  *
  * @see org.apache.commons.validator.Form
  */
@@ -236,14 +239,32 @@ public class Field implements Cloneable, Serializable {
      * Add a <code>Msg</code> to the <code>Field</code>.
      */
     public void addMsg(Msg msg) {
-        hMsgs.put(msg.getName(), msg.getKey());
+        hMsgs.put(msg.getName(), msg);
     }
 
     /**
      * Retrieve a message value.
      */
     public String getMsg(String key) {
-        return (String) hMsgs.get(key);
+        Msg msg = getMessage(key);
+        return (msg == null) ? null : msg.getKey();
+    }
+
+    /**
+     * Retrieve a message object.
+     * @since Validator 1.1.4
+     */
+    public Msg getMessage(String key) {
+        return (Msg)hMsgs.get(key);
+    }
+
+    /**
+     * The <code>Field</code>'s messages are returned as an
+     * unmodifiable <code>Map</code>.
+     * @since Validator 1.1.4
+     */
+    public Map getMessages() {
+        return Collections.unmodifiableMap(hMsgs);
     }
 
     /**
@@ -624,11 +645,9 @@ public class Field implements Cloneable, Serializable {
         String varKey = TOKEN_START + TOKEN_VAR;
         // Process Messages
         if (key != null && !key.startsWith(varKey)) {
-            for (Iterator i = hMsgs.keySet().iterator(); i.hasNext();) {
-                String msgKey = (String) i.next();
-                String value = this.getMsg(msgKey);
-
-                hMsgs.put(msgKey, ValidatorUtils.replace(value, key, replaceValue));
+            for (Iterator i = hMsgs.values().iterator(); i.hasNext();) {
+                Msg msg = (Msg) i.next();
+                msg.setKey(ValidatorUtils.replace(msg.getKey(), key, replaceValue));
             }
         }
 

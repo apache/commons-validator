@@ -13,7 +13,26 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
+
 <project default="java:jar">
+
+
+  <!-- ================================================================== -->
+  <!-- START : C O M M O N S - B U I L D                                  -->
+  <!-- ================================================================== -->
+  <!-- Required: Look and Feel for documentation within distributions     -->
+  <!-- ================================================================== -->
+  <postGoal name="xdoc:copy-resources">  
+    <copy todir="${basedir}/target/docs/style/" failonerror="false">
+      <fileset dir="${basedir}/../commons-build/xdocs/style">
+      	<include name='**/*'/>
+      	<exclude name='**/CVS/**'/>
+      </fileset>
+    </copy>
+  </postGoal>
+  <!-- ================================================================== -->
+  <!-- END: C O M M O N S - B U I L D                                     -->
+  <!-- ================================================================== -->
 
   <preGoal name="xdoc:jelly-transform">
     <attainGoal name="html2xdoc"/>
@@ -21,25 +40,22 @@
 
   <postGoal name="java:compile">
     
-    <copy    todir="${maven.build.dir}/classes/">
+    <copy todir="${maven.build.dir}/classes/">
       <fileset dir="${pom.build.sourceDirectory}"
           excludes="**/*.java"/>
     </copy>
 
-    <copy    todir="${maven.build.dir}/classes/org/apache/commons/validator/resources/"
-              file="${basedir}/conf/share/validator_1_0.dtd"/>
+    <copy todir="${maven.build.dir}/classes/org/apache/commons/validator/resources/">
+      <fileset dir="${basedir}/conf/share"
+          includes="validator*.dtd"/>
+    </copy>
 
-    <copy    todir="${maven.build.dir}/classes/org/apache/commons/validator/resources/"
-              file="${basedir}/conf/share/validator_1_0_1.dtd"/>
-
-    <copy    todir="${maven.build.dir}/classes/org/apache/commons/validator/resources/"
-              file="${basedir}/conf/share/validator_1_1.dtd"/>
-
-    <copy    todir="${maven.build.dir}/classes/">
-      <fileset dir="${javascript.home}"
+    <copy todir="${maven.build.dir}/classes/">
+      <fileset dir="src/javascript"
           includes="**/*.js"/>
     </copy>
 
   </postGoal>
 
 </project>
+
