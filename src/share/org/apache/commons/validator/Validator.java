@@ -111,207 +111,253 @@ public class Validator implements Serializable {
    public int getPage() {
       return page;	
    }
-       
-   public void validate() throws ValidatorException {
-   	Locale locale = null;
-   	
-   	if (hResources.containsKey(LOCALE_KEY))
-   	   locale = (Locale)hResources.get(LOCALE_KEY);
-   	
-   	if (locale == null)
-   	   locale = Locale.getDefault();
-   	   
-	Form form = null;
-	if ((form = resources.get(locale, formName)) != null) {	    
-	   Map hActions = resources.getValidatorActions();
-	   List lActions = new ArrayList();
-	   Map hActionsRun = new HashMap();
-	   boolean bMoreActions = true;
-	   boolean bErrors = false;
+   
+   /**
+    * Performs validations based on the configured resources.  
+    * 
+    * @return	The <code>Map</code> returned uses the property 
+    *		of the <code>Field</code> for the key and the value 
+    *		is the number of error the field had.
+   */ 
+   public Map validate() throws ValidatorException {
+      Map hResults = new HashMap();
+      Locale locale = null;
+      
+      if (hResources.containsKey(LOCALE_KEY))
+         locale = (Locale)hResources.get(LOCALE_KEY);
+      
+      if (locale == null)
+         locale = Locale.getDefault();
+         
+      Form form = null;
+      if ((form = resources.get(locale, formName)) != null) {	    
+         Map hActions = resources.getValidatorActions();
+         List lActions = new ArrayList();
+         Map hActionsRun = new HashMap();
+         boolean bMoreActions = true;
+         boolean bErrors = false;
+      
+         for (Iterator actions = hActions.values().iterator(); actions.hasNext(); )
+            lActions.add(actions.next());
+      
+         while (bMoreActions) {
+            ValidatorAction va = null;
+            int iErrorCount = 0;
+            
+            // FIX ME - These sorts will not work for all variations.
+            // Sort by number dependencies
+            Collections.sort(lActions, new DependencyComparator());
+      
+            // Sort by number of dependencies successfully run
+            Collections.sort(lActions, new DependencySuccessComparator(hActionsRun));
+            
+            if (lActions.size() > 0)
+               va = (ValidatorAction)lActions.get(0);
+      
+            if (va != null && va.getDepends() != null && va.getDepends().length() > 0) {
+               StringTokenizer st = new StringTokenizer(va.getDepends(), ",");
+               while (st.hasMoreTokens()) {
+                  String depend = st.nextToken().trim();
+                  Object o = hActionsRun.get(depend);
+      
+                  //if (logger.getDebug() > 10)
+      	    //   logger.info("***### Validator main - " + va.getName() + " - " + va.getDepends());
+      	                       
+                  if (o == null) {
+                     //if (logger.getDebug() > 10)
+                     //   logger.info("***### Validator o==null - " + va.getName() + " - " + va.getDepends());
+                        
+                     lActions.clear();
+                     va = null;
+                     bMoreActions = false;
+                     break;
+                  } else {
+                     boolean bContinue = ((Boolean)o).booleanValue();
+                     
+                     //if (logger.getDebug() > 10)
+                     //   logger.info("***### Validator - " + va.getName() + "  depend=" + depend + "  bContinue=" + bContinue);
+                     
+                     if (!bContinue) {
+                        lActions.clear();
+                        va = null;
+                        bMoreActions = false;
+                        break;
+                     }
+                  }
+               }
+               
+               
+            
+            }
+            
+            // For debug   
+            /**if (logger.getDebug() > 10) {
+               logger.info("***Order ******************************");
+               
+               for (Iterator actions = lActions.iterator(); actions.hasNext(); ) {
+               	 ValidatorAction tmp = (ValidatorAction)actions.next();
+                  logger.info("***Order - " + tmp.getName() + " " + tmp.getDepends());
+               }
+      
+               logger.info("***Order End ******************************");
+            }*/
+            
+            if (va != null) {
+               for (Iterator i = form.getFields().iterator(); i.hasNext(); ) {
+                  Field field = (Field)i.next();         
+      
+                  if (field.getPage() <= page && (field.getDepends() != null && field.isDependency(va.getName()))) {
+                     try {
+                     	  // Add these two Objects to the resources since they reference 
+                     	  // the current validator action and field
+                     	  hResources.put(VALIDATOR_ACTION_KEY, va);
+                     	  hResources.put(FIELD_KEY, field);
+      
+                     	  Class c = Class.forName(va.getClassname(), true, this.getClass().getClassLoader());
+                     	  
+                     	  List lParams = va.getMethodParamsList();
+                     	  int size = lParams.size();
+                     	  int beanIndexPos = -1;
+                     	  int fieldIndexPos = -1;
+                     	  Class[] paramClass = new Class[size];
+                     	  Object[] paramValue = new Object[size];
+      
+                     	  for (int x = 0; x < size; x++) {
+                     	     String paramKey = (String)lParams.get(x);
+             	             
+             	             if (BEAN_KEY.equals(paramKey))
+             	                beanIndexPos = x;
+             	                
+             	             if (FIELD_KEY.equals(paramKey))
+             	                fieldIndexPos = x;
+             	             
+                     	     // There were problems calling getClass on paramValue[]
+                     	     paramClass[x] = Class.forName(paramKey, true, this.getClass().getClassLoader());
+                     	     paramValue[x] = hResources.get(paramKey);
+                     	  }
+      
+                        Method m = c.getMethod(va.getMethod(), paramClass);
+      		  
+      		  // If the method is static we don't need an instance of the class 
+      		  // to call the method.  If it isn't, we do.
+                        if (!Modifier.isStatic(m.getModifiers())) {
+                           try {
+                           	if (va.getClassnameInstance() == null) {
+                                 va.setClassnameInstance(c.newInstance());
+                              }
+                           } catch (Exception ex) {
+                              logger.log("Validator::validate - Couldn't load instance " +
+                                         "of class " + va.getClassname() + ".  " + ex.getMessage());   
+                           }
+                        }
+      
+                        Object result = null;
+                        
+                        if (field.isIndexed()) {
+                           Object oIndexed = PropertyUtils.getProperty(hResources.get(BEAN_KEY), field.getIndexedListProperty());
+                           Object indexedList[] = new Object[0];
+                           
+                           if (oIndexed instanceof Collection)
+                              indexedList = ((Collection)oIndexed).toArray();
+                           else if(oIndexed.getClass().isArray())
+                              indexedList = (Object[])oIndexed;
+                           
+                           for (int pos = 0; pos < indexedList.length; pos++) {
+                              // Set current iteration object to the parameter array
+                              paramValue[beanIndexPos] = indexedList[pos];
+                              
+                              // Set field clone with the key modified to represent 
+                              // the current field
+                              Field indexedField = (Field)field.clone();
+                              indexedField.setKey(ValidatorUtil.replace(indexedField.getKey(), Field.TOKEN_INDEXED, "[" + pos + "]"));
+                              paramValue[fieldIndexPos] = indexedField;
+                              
+                              result = m.invoke(va.getClassnameInstance(), paramValue);
+      
+                              int iCount = getErrorCount(result);
+                              
+                              if (iCount != 0) {
+                                 iErrorCount += iCount;
+                                 
+                                 if (hResults.containsKey(field.getKey())) {
+                                    Integer currentCount = (Integer)hResults.get(field.getKey());
+                                    hResults.put(field.getKey(), new Integer(currentCount.intValue() + iCount));	
+                                 } else {
+                                    hResults.put(field.getKey(), new Integer(iCount));	
+                                 }
+                              }
+                           }
+                        } else {
+                           result = m.invoke(va.getClassnameInstance(), paramValue);
 
-           for (Iterator actions = hActions.values().iterator(); actions.hasNext(); )
-              lActions.add(actions.next());
+                           int iCount = getErrorCount(result);
+                           
+                           if (iCount != 0) {
+                              iErrorCount += iCount;
+                              
+                              if (hResults.containsKey(field.getKey())) {
+                                 Integer currentCount = (Integer)hResults.get(field.getKey());
+                                 hResults.put(field.getKey(), new Integer(currentCount.intValue() + iCount));	
+                              } else {
+                                 hResults.put(field.getKey(), new Integer(iCount));	
+                              }
+                           }
+                        }
+      	       } catch (Exception e) {
+      	          bErrors = true;
+      	          logger.log("Validator::validate() reflection - " + e.getMessage());
+      	          
+      	          if (e instanceof ValidatorException)
+      	             throw ((ValidatorException)e);
+      	       }
+               
+                  }
+               }
+               
+               if (iErrorCount == 0) {
+                  hActionsRun.put(va.getName(), new Boolean(true));
+               } else {
+                  hActionsRun.put(va.getName(), new Boolean(false));
+               }
+               
+               if (logger.getDebug() > 10)
+                  logger.info("*** Validator - " + va.getName() + "  size=" + lActions.size());
+                  
+               if (lActions.size() > 0)
+                  lActions.remove(0);
+               
+               if (logger.getDebug() > 10)
+                  logger.info("*** Validator - after remove - " + va.getName() + "  size=" + lActions.size());
+            }
+            
+            if (lActions.size() == 0)
+               bMoreActions = false;
+         }
+      }
+      
+      return hResults;
+   }
 
-           while (bMoreActions) {
-              ValidatorAction va = null;
-              int iErrorCount = 0;
-	      
-	      // FIX ME - These sorts will not work for all variations.
-	      // Sort by number dependencies
-              Collections.sort(lActions, new DependencyComparator());
-
-	      // Sort by number of dependencies successfully run
-              Collections.sort(lActions, new DependencySuccessComparator(hActionsRun));
-              
-	      if (lActions.size() > 0)
-	         va = (ValidatorAction)lActions.get(0);
-
-	      if (va != null && va.getDepends() != null && va.getDepends().length() > 0) {
-	         StringTokenizer st = new StringTokenizer(va.getDepends(), ",");
-                 while (st.hasMoreTokens()) {
-                    String depend = st.nextToken().trim();
-                    Object o = hActionsRun.get(depend);
-
-                    //if (logger.getDebug() > 10)
-		    //   logger.info("***### Validator main - " + va.getName() + " - " + va.getDepends());
-		                       
-                    if (o == null) {
-                       //if (logger.getDebug() > 10)
-                       //   logger.info("***### Validator o==null - " + va.getName() + " - " + va.getDepends());
-                          
-                       lActions.clear();
-                       va = null;
-                       bMoreActions = false;
-                       break;
-                    } else {
-                       boolean bContinue = ((Boolean)o).booleanValue();
-                       
-                       //if (logger.getDebug() > 10)
-                       //   logger.info("***### Validator - " + va.getName() + "  depend=" + depend + "  bContinue=" + bContinue);
-                       
-                       if (!bContinue) {
-                          lActions.clear();
-                          va = null;
-                          bMoreActions = false;
-                          break;
-                       }
-                    }
-                 }
-                 
-                 
-              
-              }
-	      
-	      // For debug   
-	      /**if (logger.getDebug() > 10) {
-	         logger.info("***Order ******************************");
-	         
-	         for (Iterator actions = lActions.iterator(); actions.hasNext(); ) {
-	         	 ValidatorAction tmp = (ValidatorAction)actions.next();
-                    logger.info("***Order - " + tmp.getName() + " " + tmp.getDepends());
-	         }
-
-	         logger.info("***Order End ******************************");
-	      }*/
-	      
-	      if (va != null) {
-                 for (Iterator i = form.getFields().iterator(); i.hasNext(); ) {
-                    Field field = (Field)i.next();         
-
-                    if (field.getPage() <= page && (field.getDepends() != null && field.isDependency(va.getName()))) {
-	               try {
-	               	  // Add these two Objects to the resources since they reference 
-	               	  // the current validator action and field
-	               	  hResources.put(VALIDATOR_ACTION_KEY, va);
-	               	  hResources.put(FIELD_KEY, field);
-
-	               	  Class c = Class.forName(va.getClassname(), true, this.getClass().getClassLoader());
-	               	  
-	               	  List lParams = va.getMethodParamsList();
-	               	  int size = lParams.size();
-	               	  int beanIndexPos = -1;
-	               	  int fieldIndexPos = -1;
-	               	  Class[] paramClass = new Class[size];
-	               	  Object[] paramValue = new Object[size];
-
-	               	  for (int x = 0; x < size; x++) {
-	               	     String paramKey = (String)lParams.get(x);
-               	             
-               	             if (BEAN_KEY.equals(paramKey))
-               	                beanIndexPos = x;
-               	                
-               	             if (FIELD_KEY.equals(paramKey))
-               	                fieldIndexPos = x;
-               	             
-	               	     // There were problems calling getClass on paramValue[]
-	               	     paramClass[x] = Class.forName(paramKey, true, this.getClass().getClassLoader());
-	               	     paramValue[x] = hResources.get(paramKey);
-	               	  }
-
-                          Method m = c.getMethod(va.getMethod(), paramClass);
-			  
-			  // If the method is static we don't need an instance of the class 
-			  // to call the method.  If it isn't, we do.
-	                  if (!Modifier.isStatic(m.getModifiers())) {
-	                     try {
-	                     	if (va.getClassnameInstance() == null) {
-	                           va.setClassnameInstance(c.newInstance());
-	                        }
-	                     } catch (Exception ex) {
-	                        logger.log("Validator::validate - Couldn't load instance " +
-	                                   "of class " + va.getClassname() + ".  " + ex.getMessage());   
-	                     }
-	                  }
-
-                          Object result = null;
-                          
-                          if (field.isIndexed()) {
-                             Object oIndexed = PropertyUtils.getProperty(hResources.get(BEAN_KEY), field.getIndexedListProperty());
-                             Object indexedList[] = new Object[0];
-                             
-                             if (oIndexed instanceof Collection)
-                                indexedList = ((Collection)oIndexed).toArray();
-                             else if(oIndexed.getClass().isArray())
-                                indexedList = (Object[])oIndexed;
-                             
-                             for (int pos = 0; pos < indexedList.length; pos++) {
-                                // Set current iteration object to the parameter array
-                                paramValue[beanIndexPos] = indexedList[pos];
-                                
-                                // Set field clone with the key modified to represent 
-                                // the current field
-                                Field indexedField = (Field)field.clone();
-                                indexedField.setKey(ValidatorUtil.replace(indexedField.getKey(), Field.TOKEN_INDEXED, "[" + pos + "]"));
-                                paramValue[fieldIndexPos] = indexedField;
-                                
-                             	result = m.invoke(va.getClassnameInstance(), paramValue);
-
-                                if (result instanceof Boolean) {
-                                   Boolean valid = (Boolean)result;
-                                   if (!valid.booleanValue())
-                                      iErrorCount++;
-                                }
-                             }
-                          } else {
-                             result = m.invoke(va.getClassnameInstance(), paramValue);
-
-                             if (result instanceof Boolean) {
-                                Boolean valid = (Boolean)result;
-                                if (!valid.booleanValue())
-                                   iErrorCount++;
-                             }
-                          }
-		       } catch (Exception e) {
-		          bErrors = true;
-		          logger.log("Validator::validate() reflection - " + e.getMessage());
-		          
-		          if (e instanceof ValidatorException)
-		             throw ((ValidatorException)e);
-		       }
-                 
-	            }
-	         }
-                 
-                 if (iErrorCount == 0) {
-                    hActionsRun.put(va.getName(), new Boolean(true));
-                 } else {
-                    hActionsRun.put(va.getName(), new Boolean(false));
-	         }
-	         
-	         if (logger.getDebug() > 10)
-	            logger.info("*** Validator - " + va.getName() + "  size=" + lActions.size());
-                    
-                 if (lActions.size() > 0)
-	            lActions.remove(0);
-	         
-	         if (logger.getDebug() > 10)
-	            logger.info("*** Validator - after remove - " + va.getName() + "  size=" + lActions.size());
-              }
-              
-	      if (lActions.size() == 0)
-	         bMoreActions = false;        
-	   }
-	}
+   /**
+    * Returns the error count for the validation loop.  If the 
+    * result object is <code>Boolean</code>, then it will increment 
+    * the error count if the value is <code>false</code>.  If the 
+    * result object isn't <code>Boolean</code>, then it will increment 
+    * the error count if the result object is <code>null</code>.
+   */
+   private int getErrorCount(Object result) {
+      int iResult = 0;
+      
+      if (result instanceof Boolean) {
+         Boolean valid = (Boolean)result;
+         if (!valid.booleanValue())
+            iResult++;
+      } else {
+         if (result == null)
+            iResult++;
+      }
+      
+      return iResult;
    }
 
    /**

@@ -206,8 +206,9 @@ public class Field implements Cloneable, Serializable {
     */
     public void addMsg(Msg msg) {
        if (msg != null && msg.getKey() != null && msg.getKey().length() > 0 &&
-           msg.getName() != null && msg.getName().length() > 0)
+           msg.getName() != null && msg.getName().length() > 0) {
              hMsgs.put(msg.getName(), msg.getKey());
+       }
     }
 
     /**
@@ -222,10 +223,11 @@ public class Field implements Cloneable, Serializable {
     */
     public void addArg0(Arg arg) {
        if (arg != null && arg.getKey() != null && arg.getKey().length() > 0) {
-          if (arg.getName() != null && arg.getName().length() > 0) 
+          if (arg.getName() != null && arg.getName().length() > 0) {
              hArg0.put(arg.getName(), arg);
-          else
+          } else {
              hArg0.put(ARG_DEFAULT, arg);
+          }
        }
     }
 
@@ -243,10 +245,7 @@ public class Field implements Cloneable, Serializable {
     public Arg getArg0(String key) {
        Object o = hArg0.get(key);
        
-       if (o != null)
-          return (Arg)o;
-       else 
-          return getArg0();	
+       return ((o != null) ? (Arg)o : getArg0());
     }
 
     /**
@@ -254,10 +253,11 @@ public class Field implements Cloneable, Serializable {
     */
     public void addArg1(Arg arg) {
        if (arg != null && arg.getKey() != null && arg.getKey().length() > 0) {
-          if (arg.getName() != null && arg.getName().length() > 0) 
+          if (arg.getName() != null && arg.getName().length() > 0) {
              hArg1.put(arg.getName(), arg);
-          else
+          } else {
              hArg1.put(ARG_DEFAULT, arg);
+          }
        }
     }
 
@@ -275,10 +275,7 @@ public class Field implements Cloneable, Serializable {
     public Arg getArg1(String key) {
        Object o = hArg1.get(key);
        
-       if (o != null)
-          return (Arg)o;
-       else 
-          return getArg1();	
+       return ((o != null) ? (Arg)o : getArg1());
     }
     
     /**
@@ -286,10 +283,11 @@ public class Field implements Cloneable, Serializable {
     */
     public void addArg2(Arg arg) {
        if (arg != null && arg.getKey() != null && arg.getKey().length() > 0) {
-          if (arg.getName() != null && arg.getName().length() > 0) 
+          if (arg.getName() != null && arg.getName().length() > 0) {
              hArg2.put(arg.getName(), arg);
-          else
+          } else {
              hArg2.put(ARG_DEFAULT, arg);
+          }
        }
     }
 
@@ -307,10 +305,7 @@ public class Field implements Cloneable, Serializable {
     public Arg getArg2(String key) {
        Object o = hArg2.get(key);
        
-       if (o != null)
-          return (Arg)o;
-       else 
-          return getArg2();	
+       return ((o != null) ? (Arg)o : getArg2());
     }
     
     /**
@@ -318,10 +313,11 @@ public class Field implements Cloneable, Serializable {
     */
     public void addArg3(Arg arg) {
        if (arg != null && arg.getKey() != null && arg.getKey().length() > 0) {
-          if (arg.getName() != null && arg.getName().length() > 0) 
+          if (arg.getName() != null && arg.getName().length() > 0) {
              hArg3.put(arg.getName(), arg);
-          else
+          } else {
              hArg3.put(ARG_DEFAULT, arg);
+          }
        }
     }
 
@@ -339,33 +335,32 @@ public class Field implements Cloneable, Serializable {
     public Arg getArg3(String key) {
        Object o = hArg3.get(key);
        
-       if (o != null)
-          return (Arg)o;
-       else 
-          return getArg3();	
+       return ((o != null) ? (Arg)o : getArg3());
     }
         
     /**
      * Add a <code>Var</code> to the <code>Field</code>.
     */
     public void addVar(Var v) {
-       if (v != null && v.getName() != null && v.getName().length() > 0 && v.getValue() != null) 
+       if (v != null && v.getName() != null && v.getName().length() > 0 && v.getValue() != null) {
           hVars.put(v.getName(), v);
+       }
     }
 
     /**
      * Add a <code>Var</code>, based on the values passed in, to the <code>Field</code>.
     */
     public void addVarParam(String name, String value, String jsType) {
-       if (name != null && name.length() > 0 && value != null) 
+       if (name != null && name.length() > 0 && value != null) {
           hVars.put(name, new Var(name, value, jsType));
+       }
     }
 
     /**
      * Retrieve a variable.
     */
     public Var getVar(String mainKey) {
-       return (Var)hVars.get(mainKey);
+       return ((Var)hVars.get(mainKey));
     }
 
     /**
@@ -395,8 +390,9 @@ public class Field implements Cloneable, Serializable {
      * Gets a unique key based on the property and indexedProperty fields.
     */
     public String getKey() {
-       if (key == null)
+       if (key == null) {
           generateKey();
+       }
           
        return key;
     }
@@ -414,21 +410,19 @@ public class Field implements Cloneable, Serializable {
      * <code>true</code> will be returned.  Otherwise it will be <code>false</code>.
     */
     public boolean isIndexed() {
-       if ((indexedProperty != null && indexedProperty.length() > 0) &&
-           (indexedListProperty != null && indexedListProperty.length() > 0))
-          return true;
-       else
-          return false;
+       return ((indexedProperty != null && indexedProperty.length() > 0) &&
+               (indexedListProperty != null && indexedListProperty.length() > 0));
     }
 
     /**
      * Generate correct <code>key</code> value.
     */    
     public void generateKey() {
-       if (isIndexed())
+       if (isIndexed()) {
           key = indexedProperty + TOKEN_INDEXED + "." + property;
-       else
+       } else {
           key = property;
+       }
     }
                 
     /**
@@ -487,8 +481,9 @@ public class Field implements Cloneable, Serializable {
           while (st.hasMoreTokens()) {
              String depend = st.nextToken().trim();
              
-             if (depend != null && depend.length() > 0)
+             if (depend != null && depend.length() > 0) {
                 hDependencies.put(depend, value);
+             }
           
           }
               
@@ -540,8 +535,9 @@ public class Field implements Cloneable, Serializable {
        for (Iterator i = hArgs.values().iterator(); i.hasNext(); ) {
           Arg arg = (Arg)i.next();
 
-          if (arg != null)
+          if (arg != null) {
 	     arg.setKey(ValidatorUtil.replace(arg.getKey(), key, replaceValue));
+	  }
        }
        
     }
@@ -550,10 +546,11 @@ public class Field implements Cloneable, Serializable {
      * Checks if the key is listed as a dependency.
     */
     public boolean isDependency(String key) {
-       if (hDependencies != null)
+       if (hDependencies != null) {
           return hDependencies.containsKey(key);	
-       else
+       } else {
           return false;
+       }
     }
 
     /**
@@ -567,20 +564,25 @@ public class Field implements Cloneable, Serializable {
        try {
            Field field = (Field)super.clone();
 
-           if (key != null)
+           if (key != null) {
               field.setKey(new String(key));
+           }
 
-           if (property != null)
+           if (property != null) {
               field.setProperty(new String(property));
+           }
 
-           if (indexedProperty != null)
+           if (indexedProperty != null) {
               field.setIndexedProperty(new String(indexedProperty));
+           }
 
-           if (indexedListProperty != null)
+           if (indexedListProperty != null) {
               field.setIndexedListProperty(new String(indexedListProperty));
+           }
            
-           if (depends != null)
+           if (depends != null) {
               field.setDepends(new String(depends));
+           }
 
            // page & fieldOrder should be taken care of by clone method
            

@@ -178,8 +178,9 @@ public class FormSet implements Serializable {
     	Form f = null;
     	Object o = hForms.get(key);
     	
-    	if (o != null)
+    	if (o != null) {
     	   f = (Form)o;
+    	}
     	
     	return f;
     }

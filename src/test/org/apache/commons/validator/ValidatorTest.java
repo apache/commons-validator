@@ -58,15 +58,15 @@
 package org.apache.commons.validator;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.text.DateFormat;
+import java.text.ParseException;
 import junit.framework.Test;                           
 import junit.framework.TestCase;                          
 import junit.framework.TestSuite;
 import junit.framework.AssertionFailedError;              
-//import java.io.BufferedReader;
-//import java.io.IOException;
-//import java.io.InputStreamReader;
-//import java.io.StringWriter;
 
                                                           
 /**                                                       
@@ -103,12 +103,64 @@ public class ValidatorTest extends TestCase {
 
    protected void tearDown() {
    }
+
+   /**
+    * Verify that one value generates an error and the other passes.  The validation 
+    * method being tested returns an object (<code>null</code> will be considered an error).
+   */
+   public void testManualObject() {
+      ValidatorResources resources = new ValidatorResources();
+
+      ValidatorAction va = new ValidatorAction();
+      va.setName("date");
+      va.setClassname("org.apache.commons.validator.ValidatorTest");
+      va.setMethod("formatDate");
+      va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field");
+      
+      FormSet fs = new FormSet();
+      Form form = new Form();
+      form.setName("testForm");
+      Field field = new Field();
+      field.setProperty("date");
+      field.setDepends("date");
+      form.addField(field);
+      fs.addForm(form);
+      
+      resources.addValidatorAction(va);
+      resources.put(fs);
+      resources.process();
+
+      List l = new ArrayList();
+
+      TestBean bean = new TestBean();  
+      bean.setDate("2/3/1999");
+      
+      Validator validator = new Validator(resources, "testForm");
+      validator.addResource(Validator.BEAN_KEY, bean);
+
+      try {
+         assertEquals("Validation of the date formatting has failed.", 0, validator.validate().size());
+      } catch (Exception e) {
+         fail("An exception was thrown while calling Validator.validate()");
+      }
+
+      bean.setDate("2/30/1999");
+      
+      try {
+         assertEquals("Validation of the date formatting has failed.", 1, validator.validate().size());
+      } catch (Exception e) {
+         fail("An exception was thrown while calling Validator.validate()");
+      }
+
+
+   }
                                                           
    /**
-    * Verify that one value generates and error and the other passes.
-    */
-   public void testManual() {
-      ValidatorResources resources = new ValidatorResources(new DefaultValidatorLog());
+    * Verify that one value generates an error and the other passes.  The validation 
+    * method being tested returns a <code>boolean</code> value.
+   */
+   public void testManualBoolean() {
+      ValidatorResources resources = new ValidatorResources();
 
       ValidatorAction va = new ValidatorAction();
       va.setName("capLetter");
@@ -159,8 +211,8 @@ public class ValidatorTest extends TestCase {
    }
 
    /**
-    * Verify that two <code>String</code>s match using the <code>EqualTag</code>.
-    */
+    * Checks if the field is one upper case letter between 'A' and 'Z'.
+   */
    public static boolean isCapLetter(Object bean, Field field, List l) {
       String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
 
@@ -176,9 +228,33 @@ public class ValidatorTest extends TestCase {
          return false;
       }
    }
+
+   /**
+    * Formats a <code>String</code> to a <code>Date</code>.  
+    * The <code>Validator</code> will interpret a <code>null</code> 
+    * as validation having failed.
+   */
+   public static Date formatDate(Object bean, Field field) {
+      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      Date date = null;
+      
+      try {
+         DateFormat formatter = null;
+         formatter = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
+            
+         formatter.setLenient(false);
+             
+         date = formatter.parse(value);
+      } catch (ParseException e) {
+         System.out.println("ValidatorTest::formatDate - " + e.getMessage());
+      }
    
+      return date;
+   }	
+       
    public class TestBean {
       private String letter = null;
+      private String date = null;
       
       public String getLetter() {
          return letter;
@@ -187,7 +263,14 @@ public class ValidatorTest extends TestCase {
       public void setLetter(String letter) {
          this.letter = letter;	
       }
-   }
 
+      public String getDate() {
+         return date;
+      }
+      
+      public void setDate(String date) {
+         this.date = date;	
+      }
+   }
 
 }                                                         

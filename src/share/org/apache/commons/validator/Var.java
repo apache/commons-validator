@@ -155,15 +155,18 @@ public class Var implements Cloneable, java.io.Serializable {
        try {
            Var var = (Var)super.clone();
            
-           if (name != null)
+           if (name != null) {
               var.name = new String(name);
+           }
            
-           if (value != null)
+           if (value != null) {
               var.value = new String(value);
+           }
            
-           if (jsType != null)
+           if (jsType != null) {
               var.jsType = new String(jsType);
-
+           }
+           
            return var;
        } catch (CloneNotSupportedException e) {
           throw new InternalError(e.toString());

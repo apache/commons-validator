@@ -74,76 +74,59 @@ public class ValidatorResourcesInitializer {
 
    /**
     * Initializes a <code>ValidatorResources</code> based on a
-    * file path.
+    * file path and automatically process the resources.
     *
     * @param	fileName	The file path for the xml resource.
    */
    public static ValidatorResources initialize(String fileName)
       throws IOException { 
       
-      return initialize(fileName, 0);
+      return initialize(new BufferedInputStream(new FileInputStream(fileName)));
    }
 
    /**
-    * Initializes a <code>ValidatorResources</code> based on an 
-    * <code>InputStream</code>.
+    * Initializes a <code>ValidatorResources</code> based on the <code>InputStream</code> 
+    * and automatically process the resources.
     *
     * @param	in		<code>InputStream</code> for the xml resource.
    */
    public static ValidatorResources initialize(InputStream in)
       throws IOException { 
-      	
-      return initialize(in, 0);
+      
+      ValidatorResources resources = new ValidatorResources();
+      initialize(resources, in);
+      
+      return resources;
    	
    }
 
-   /**
-    * Initializes a <code>ValidatorResources</code> based on a
-    * file path and the debug level.
-    *
-    * @param	fileName	The file path for the xml resource.
-    * @param	debug		The debug level
-   */
-   public static ValidatorResources initialize(String fileName, int debug)
-      throws IOException { 
-      
-      BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileName));      
-      
-      return initialize(new DefaultValidatorLog(), in, debug);
-   }
 
    /**
-    * Initializes a <code>ValidatorResources</code> based on an 
-    * <code>InputStream</code> and the debug level.
+    * Initializes the <code>ValidatorResources</code> based on the <code>InputStream</code> 
+    * and automatically process the resources.
     *
+    * @param	resources	Resources to initialize.
     * @param	in		<code>InputStream</code> for the xml resource.
-    * @param	debug		The debug level
-   */
-   public static ValidatorResources initialize(InputStream in, int debug)
-      throws IOException { 
-      	
-      return initialize(new DefaultValidatorLog(), in, debug);
-   	
-   }
-
-   /**
-    * Initializes a <code>ValidatorResources</code> based on an 
-    * <code>ValidatorLog</code>, <code>InputStream</code>, and the debug level.
-    *
-    * @param	logger		Used for logging.
-    * @param	in		<code>InputStream</code> for the xml resource.
-    * @param	debug		The debug level
    */   
-   public static ValidatorResources initialize(ValidatorLog logger, InputStream in, int debug)
+   public static void initialize(ValidatorResources resources, InputStream in)
+      throws IOException { 
+       initialize(resources, in, true);
+   }
+   
+   /**
+    * Initializes a <code>ValidatorResources</code> based on the <code>InputStream</code> 
+    * and processes the resources based on the <code>boolean</code> passed in.
+    *
+    * @param	resources	Resources to initialize.
+    * @param	in		<code>InputStream</code> for the xml resource.
+    * @param	process		Whether or not to call process on <code>ValidatorResources</code>.
+   */   
+   public static void initialize(ValidatorResources resources, InputStream in, boolean process)
       throws IOException { 
        	
-      logger.setDebug(debug);
-      
-      ValidatorResources resources = new ValidatorResources(logger);
-         
       Digester digester = new Digester();
       digester.push(resources);
-      digester.setDebug(debug);
+      digester.setDebug(1);
       digester.setNamespaceAware(true);
       digester.setValidating(false);
       
@@ -161,10 +144,9 @@ public class ValidatorResourcesInitializer {
       		    "org.apache.commons.validator.ValidatorAction");
       
       // Add the body of a javascript element to the Validatoraction
-      digester.addCallMethod("form-validation/global/validator",
-                             "setJavascript", 1);
-      digester.addCallParam("form-validation/global/validator/javascript", 0);      		    
-      		    
+      digester.addCallMethod("form-validation/global/validator/javascript",
+                             "setJavascript", 0);
+
       		    
       // Create FormSet objects
       digester.addObjectCreate("form-validation/formset", "org.apache.commons.validator.FormSet",
@@ -239,16 +221,16 @@ public class ValidatorResourcesInitializer {
          digester.parse(in);
          in.close();
       } catch (SAXException e) {
-          logger.log("ValidatorResourcesInitializer::initialize - SAXException: " + e.getMessage(), e);
+          System.out.println("ValidatorResourcesInitializer::initialize - SAXException: " + e.getMessage());
       } finally {
       	 if (in != null)
             try {in.close(); } catch (Exception e) {}
       }
       
-      resources.process();
-      
-      return resources;
-
+      if (process) {
+         resources.process();
+      }
+ 
    }
    
 }

@@ -79,7 +79,7 @@ public class ValidatorResources implements Serializable {
     /**
      * Logging interface.
     */
-    protected ValidatorLog logger = null;
+    protected ValidatorLog logger = new DefaultValidatorLog();
     
     /**
      * <code>FastHashMap</code> of <code>FormSet</code>s stored under 
@@ -104,10 +104,6 @@ public class ValidatorResources implements Serializable {
     */
     protected static Locale defaultLocale = Locale.getDefault();
 
-    public ValidatorResources(ValidatorLog logger) {
-       this.logger = logger;	
-    }
-    
     /**
      * Gets the logger.
     */
