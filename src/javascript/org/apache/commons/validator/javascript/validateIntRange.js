@@ -1,7 +1,7 @@
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateIntRange.js,v 1.3 2003/08/15 20:22:03 rleland Exp $
-  //$Revision: 1.3 $
-  //$Date: 2003/08/15 20:22:03 $
 
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateIntRange.js,v 1.4 2003/10/22 07:20:57 rleland Exp $
+  //$Revision: 1.4 $
+  //$Date: 2003/10/22 07:20:57 $
 
     function validateIntRange(form) {
         var isValid = true;

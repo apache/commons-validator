@@ -1,7 +1,7 @@
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateMaxLength.js,v 1.3 2003/10/07 03:00:15 rleland Exp $
-  //$Revision: 1.3 $
-  //$Date: 2003/10/07 03:00:15 $
 
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateMaxLength.js,v 1.4 2003/10/22 07:20:57 rleland Exp $
+  //$Revision: 1.4 $
+  //$Date: 2003/10/22 07:20:57 $
 
     function validateMaxLength(form) {
         var isValid = true;

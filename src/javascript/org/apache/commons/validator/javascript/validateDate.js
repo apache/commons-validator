@@ -1,6 +1,7 @@
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateDate.js,v 1.3 2003/09/26 17:03:22 rleland Exp $
-  //$Revision: 1.3 $
-  //$Date: 2003/09/26 17:03:22 $
+
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateDate.js,v 1.4 2003/10/22 07:20:57 rleland Exp $
+  //$Revision: 1.4 $
+  //$Date: 2003/10/22 07:20:57 $
 
 
     function validateDate(form) {
@@ -128,7 +129,7 @@
        }
        return bValid;
     }
-
+    
     function isValidDate(day, month, year) {
 	    if (month < 1 || month > 12) {
             return false;

@@ -1,7 +1,7 @@
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateFloat.js,v 1.4 2003/10/22 04:18:42 rleland Exp $
-  //$Revision: 1.4 $
-  //$Date: 2003/10/22 04:18:42 $
 
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateFloat.js,v 1.5 2003/10/22 07:20:57 rleland Exp $
+  //$Revision: 1.5 $
+  //$Date: 2003/10/22 07:20:57 $
 
     function validateFloat(form) {
         var bValid = true;

@@ -1,4 +1,8 @@
 
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateRequired.js,v 1.6 2003/10/22 07:20:57 rleland Exp $
+  //$Revision: 1.6 $
+  //$Date: 2003/10/22 07:20:57 $
+
     function validateRequired(form) {
         var isValid = true;
         var focusField = null;
