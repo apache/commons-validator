@@ -3,7 +3,7 @@
 
 <!--
         "Validator" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.24 2003/08/22 04:24:58 rleland Exp $
+        $Id: build.xml,v 1.25 2003/08/22 06:33:04 rleland Exp $
 -->
 
 
@@ -231,6 +231,16 @@
                  bottom="Copyright (c) 2001-2002 - Apache Software Foundation"
            classpathref="compile.classpath" />
   </target>
+  
+  <target name="change-log" >
+   	<cvschangelog destfile="changelog.xml" start="${cvs.start}" />
+     <style in="changelog.xml" out="changelog.html" style="${ant.home}/etc/changelog.xsl">
+          <param name="title" expression="Validator ChangeLog"/>
+          <param name="module" expression="commons"/>
+          <param name="cvsweb" expression="http://cvs.apache.org/viewcvs/"/>
+    </style>
+  </target>
+
 
 
   <target name="dist" depends="compile,javadoc"
