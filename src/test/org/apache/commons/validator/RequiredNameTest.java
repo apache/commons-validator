@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredNameTest.java,v 1.10 2003/05/28 04:28:00 dgraham Exp $
- * $Revision: 1.10 $
- * $Date: 2003/05/28 04:28:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredNameTest.java,v 1.11 2003/08/12 00:29:34 dgraham Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/08/12 00:29:34 $
  *
  * ====================================================================
  *
@@ -71,13 +71,14 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.xml.sax.SAXException;
 
                                                           
 /**                                                       
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.10 $ $Date: 2003/05/28 04:28:00 $
+ * @version $Revision: 1.11 $ $Date: 2003/08/12 00:29:34 $
 */                                                       
 public class RequiredNameTest extends TestCase {            
    
@@ -129,7 +130,7 @@ public class RequiredNameTest extends TestCase {
     * Load <code>ValidatorResources</code> from 
     * validator-name-required.xml.
    */
-   protected void setUp() throws IOException {
+   protected void setUp() throws IOException, SAXException {
       // Load resources
       InputStream in = null;
       

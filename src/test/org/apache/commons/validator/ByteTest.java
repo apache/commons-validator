@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ByteTest.java,v 1.9 2003/08/03 17:39:11 dgraham Exp $
- * $Revision: 1.9 $
- * $Date: 2003/08/03 17:39:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ByteTest.java,v 1.10 2003/08/12 00:29:34 dgraham Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/08/12 00:29:34 $
  *
  * ====================================================================
  *
@@ -71,13 +71,14 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.xml.sax.SAXException;
 
                                                           
 /**                                                       
  * <p>Performs Validation Test for <code>byte</code> validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.9 $ $Date: 2003/08/03 17:39:11 $
+ * @version $Revision: 1.10 $ $Date: 2003/08/12 00:29:34 $
 */                                                       
 public class ByteTest extends TestCase {            
    
@@ -129,7 +130,7 @@ public class ByteTest extends TestCase {
     * Load <code>ValidatorResources</code> from 
     * validator-numeric.xml.
    */
-   protected void setUp() throws IOException {
+   protected void setUp() throws IOException, SAXException {
       // Load resources
       InputStream in = null;
       

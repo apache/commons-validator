@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleConfigFilesTest.java,v 1.5 2003/05/28 04:28:00 dgraham Exp $
- * $Revision: 1.5 $
- * $Date: 2003/05/28 04:28:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleConfigFilesTest.java,v 1.6 2003/08/12 00:29:34 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/08/12 00:29:34 $
  *
  * ====================================================================
  *
@@ -64,6 +64,8 @@ package org.apache.commons.validator;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.xml.sax.SAXException;
+
 import junit.framework.TestCase;
 
 /**
@@ -100,7 +102,7 @@ public class MultipleConfigFilesTest extends TestCase {
     /** 
      * Load <code>ValidatorResources</code> from multiple xml files.
      */
-    protected void setUp() throws IOException {
+    protected void setUp() throws IOException, SAXException {
         InputStream[] streams =
             new InputStream[] {
                 this.getClass().getResourceAsStream(

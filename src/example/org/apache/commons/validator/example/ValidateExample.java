@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.13 2003/06/08 07:11:25 dgraham Exp $
- * $Revision: 1.13 $
- * $Date: 2003/06/08 07:11:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.14 2003/08/12 00:29:34 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/08/12 00:29:34 $
  *
  * ====================================================================
  *
@@ -77,12 +77,10 @@ import org.apache.commons.validator.ValidatorException;
 import org.apache.commons.validator.ValidatorResources;
 import org.apache.commons.validator.ValidatorResult;
 import org.apache.commons.validator.ValidatorResults;
+import org.xml.sax.SAXException;
 
 /**                                                       
  * <p>A simple example of setting up and using the Validator.</p> 
- *
- * @author James Turner
- * @version $Revision: 1.13 $ $Date: 2003/06/08 07:11:25 $
  *
  * This simple example shows all the steps needed to set up and use
  * the Validator.  Note that in most cases, some kind of framework
@@ -90,13 +88,16 @@ import org.apache.commons.validator.ValidatorResults;
  * the Struts Validator Framework.  However, should you wish to use
  * the Validator against raw Beans in a pure Java application, you
  * can see everything you need to know to get it working here.
- *
-*/
+ * 
+ * @author James Turner
+ * @version $Revision: 1.14 $ $Date: 2003/08/12 00:29:34 $
+ */
 public class ValidateExample extends Object {
 
     /**
-     * We need a resource bundle to get our field names and errors messages from.  Note that this is not strictly
-     * required to make the Validator work, but is a good coding practice.
+     * We need a resource bundle to get our field names and errors messages 
+     * from.  Note that this is not strictly required to make the Validator 
+     * work, but is a good coding practice.
      */
     private static ResourceBundle apps =
         ResourceBundle.getBundle(
@@ -105,9 +106,10 @@ public class ValidateExample extends Object {
     /**
      * This is the main method that will be called to initialize the Validator, create some sample beans, and
      * run the Validator against them.
-     *
      */
-    public static void main(String[] args) throws IOException, ValidatorException {
+    public static void main(String[] args)
+        throws ValidatorException, IOException, SAXException {
+            
         InputStream in = null;
         ValidatorResources resources = null;
         

@@ -1,34 +1,44 @@
+<!DOCTYPE form-validation PUBLIC
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN"
+     "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+     
 <form-validation>
    <global>
       <validator name="byte"
                  classname="org.apache.commons.validator.TestTypeValidator"
                  method="validateByte"
-                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
 
       <validator name="short"
                  classname="org.apache.commons.validator.TestTypeValidator"
                  method="validateShort"
-                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
 
       <validator name="int"
                  classname="org.apache.commons.validator.TestTypeValidator"
                  method="validateInt"
-                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
 
       <validator name="long"
                  classname="org.apache.commons.validator.TestTypeValidator"
                  method="validateLong"
-                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
 
       <validator name="float"
                  classname="org.apache.commons.validator.TestTypeValidator"
                  method="validateFloat"
-                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
 
       <validator name="double"
                  classname="org.apache.commons.validator.TestTypeValidator"
                  method="validateDouble"
-                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
 
    </global>
    <formset>

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.24 2003/08/03 17:29:40 dgraham Exp $
- * $Revision: 1.24 $
- * $Date: 2003/08/03 17:29:40 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.25 2003/08/12 00:29:34 dgraham Exp $
+ * $Revision: 1.25 $
+ * $Date: 2003/08/12 00:29:34 $
  *
  * ====================================================================
  *
@@ -92,7 +92,7 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.24 $ $Date: 2003/08/03 17:29:40 $
+ * @version $Revision: 1.25 $ $Date: 2003/08/12 00:29:34 $
  */
 public class ValidatorResources implements Serializable {
 
@@ -150,9 +150,12 @@ public class ValidatorResources implements Serializable {
      * 
      * @param in InputStream to a validation.xml configuration file.  It's the client's 
      * responsibility to close this stream.
+     * @throws IOException
+     * @throws SAXException if the validation XML files are not valid or well 
+     * formed.
      * @since Validator 1.1
      */
-    public ValidatorResources(InputStream in) throws IOException {
+    public ValidatorResources(InputStream in) throws IOException, SAXException {
         this(new InputStream[] { in });
     }
     
@@ -162,15 +165,20 @@ public class ValidatorResources implements Serializable {
      * @param streams An array of InputStreams to several validation.xml 
      * configuration files that will be read in order and merged into this object.  
      * It's the client's responsibility to close these streams.
+     * @throws IOException
+     * @throws SAXException if the validation XML files are not valid or well 
+     * formed.
      * @since Validator 1.1
      */
-    public ValidatorResources(InputStream[] streams) throws IOException {
+    public ValidatorResources(InputStream[] streams)
+        throws IOException, SAXException {
+            
         super();
-        
+
         URL rulesUrl = this.getClass().getResource("digester-rules.xml");
         Digester digester = DigesterLoader.createDigester(rulesUrl);
         digester.setNamespaceAware(true);
-        digester.setValidating(false);
+        digester.setValidating(true);
         digester.setUseContextClassLoader(true);
 
         // register DTDs
@@ -183,15 +191,9 @@ public class ValidatorResources implements Serializable {
 
         for (int i = 0; i < streams.length; i++) {
             digester.push(this);
-
-            try {
-                digester.parse(streams[i]);
-
-            } catch (SAXException e) {
-                log.error(e.getMessage(), e);
-            }
+            digester.parse(streams[i]);
         }
-        
+
         this.process();
     }
 
