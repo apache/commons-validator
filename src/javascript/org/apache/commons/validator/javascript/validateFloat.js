@@ -1,6 +1,6 @@
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateFloat.js,v 1.3 2003/08/15 20:20:40 rleland Exp $
-  //$Revision: 1.3 $
-  //$Date: 2003/08/15 20:20:40 $
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateFloat.js,v 1.4 2003/10/22 04:18:42 rleland Exp $
+  //$Revision: 1.4 $
+  //$Date: 2003/10/22 04:18:42 $
 
 
     function validateFloat(form) {
@@ -33,6 +33,7 @@
                     var tempArray = value.split('.');
                     //Strip off leading '0'
                     var zeroIndex = 0;
+                    var joinedString= tempArray.join('');
                     while (joinedString.charAt(zeroIndex) == '0') {
                         zeroIndex++;
                     }
