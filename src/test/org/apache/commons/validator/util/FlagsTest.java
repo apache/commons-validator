@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.8 2003/05/03 02:16:37 dgraham Exp $
- * $Revision: 1.8 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/util/FlagsTest.java,v 1.1 2003/05/03 02:16:37 dgraham Exp $
+ * $Revision: 1.1 $
  * $Date: 2003/05/03 02:16:37 $
  *
  * ====================================================================
@@ -59,54 +59,100 @@
  *
  */
 
+package org.apache.commons.validator.util;
 
-package org.apache.commons.validator;
-
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
-import org.apache.commons.validator.util.FlagsTest;
-
 
 /**
- * Test suite for <code>org.apache.commons.validator</code>
- * package.
- *
- * @author David Winterfeldt
- * @author James Turner
- * @version $Revision: 1.8 $ $Date: 2003/05/03 02:16:37 $
-*/
-public class ValidatorTestSuite extends TestCase {
+ * Test the Flags class.
+ * 
+ * @author David Graham
+ */
+public class FlagsTest extends TestCase {
 
-    public ValidatorTestSuite(String name) {
-        super(name);
-    }
+	/**
+	 * Declare some flags for testing.
+	 */
+	private static final long LONG_FLAG = 1;
+	private static final long LONG_FLAG_2 = 2;
+	private static final int INT_FLAG = 4;
 
-    public static Test suite() {
-       TestSuite suite = new TestSuite();
+	/**
+	 * Constructor for FlagsTest.
+	 * @param arg0
+	 */
+	public FlagsTest(String arg0) {
+		super(arg0);
+	}
 
-       suite.addTest(RequiredNameTest.suite());
-       suite.addTest(RequiredIfTest.suite());
-       suite.addTest(MultipleTests.suite());
-       suite.addTest(ByteTest.suite());
-       suite.addTest(ShortTest.suite());
-       suite.addTest(IntegerTest.suite());
-       suite.addTest(LongTest.suite());
-       suite.addTest(FloatTest.suite());
-       suite.addTest(DoubleTest.suite());
-       suite.addTest(TypeTest.suite());
-       suite.addTest(EmailTest.suite());
-       suite.addTest(ValidatorTest.suite());
-       suite.addTest(LocaleTest.suite());
-       suite.addTestSuite(FlagsTest.class);
-       suite.addTest(UrlTest.suite());
-       
-       return suite;
-    }
+	public void testHashCode() {
+		Flags f = new Flags(45);
+		assertEquals(f.hashCode(), 45);
+	}
 
-    public static void main(String args[]) {
-        junit.textui.TestRunner.run(suite());
-    }
+	public void testGetFlags() {
+		Flags f = new Flags(45);
+		assertEquals(f.getFlags(), 45);
+	}
+
+	public void testIsOnOff() {
+		Flags f = new Flags();
+		f.turnOn(LONG_FLAG);
+		f.turnOn(INT_FLAG);
+		assertTrue(f.isOn(LONG_FLAG));
+		assertTrue(!f.isOff(LONG_FLAG));
+
+		assertTrue(f.isOn(INT_FLAG));
+		assertTrue(!f.isOff(INT_FLAG));
+
+		assertTrue(f.isOff(LONG_FLAG_2));
+	}
+
+	public void testTurnOnOff() {
+	}
+
+	public void testTurnOff() {
+	}
+
+	public void testTurnOffAll() {
+		Flags f = new Flags(98432);
+		f.turnOffAll();
+		assertEquals(0, f.getFlags());
+	}
+
+	public void testTurnOnAll() {
+		Flags f = new Flags();
+		f.turnOnAll();
+		assertEquals(Long.MAX_VALUE, f.getFlags());
+	}
+
+	/**
+	 * Test for Object clone()
+	 */
+	public void testClone() {
+	}
+
+	/**
+	 * Test for boolean equals(Object)
+	 */
+	public void testEqualsObject() {
+	}
+
+	/**
+	 * Test for String toString()
+	 */
+	public void testToString() {
+		Flags f = new Flags();
+		String s = f.toString();
+		assertEquals(64, s.length());
+
+		f.turnOn(INT_FLAG);
+		s = f.toString();
+		assertEquals(64, s.length());
+
+		assertEquals(
+			"0000000000000000000000000000000000000000000000000000000000000100",
+			s);
+	}
 
 }
