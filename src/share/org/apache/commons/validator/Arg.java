@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.10 2003/08/03 17:13:55 dgraham Exp $
- * $Revision: 1.10 $
- * $Date: 2003/08/03 17:13:55 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.11 2003/08/03 17:42:58 dgraham Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/08/03 17:42:58 $
  *
  * ====================================================================
  *
@@ -80,9 +80,16 @@ import java.io.Serializable;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.10 $ $Date: 2003/08/03 17:13:55 $
+ * @version $Revision: 1.11 $ $Date: 2003/08/03 17:42:58 $
  */
 public class Arg implements Cloneable, Serializable {
+
+    /**
+     * The resource bundle name that this Arg's <code>key</code> should be
+     * resolved in (optional). 
+     * @since Validator 1.1
+     */
+    protected String bundle = null;
 
     /**
      * The key or value of the argument.
@@ -93,10 +100,11 @@ public class Arg implements Cloneable, Serializable {
      * The name dependency that this argument goes with (optional).
      */
     protected String name = null;
-    
+
     /**
      * This argument's position in the message (ie. you would set postion=0 to 
      * make a replacement in this string "some msg {0}").
+     * @since Validator 1.1
      */
     protected int position = 0;
 
@@ -118,6 +126,14 @@ public class Arg implements Cloneable, Serializable {
         } catch (CloneNotSupportedException e) {
             throw new InternalError(e.toString());
         }
+    }
+
+    /**
+     * Returns the resource bundle name.
+     * @since Validator 1.1
+     */
+    public String getBundle() {
+        return this.bundle;
     }
 
     /**
@@ -151,13 +167,22 @@ public class Arg implements Cloneable, Serializable {
     public boolean getResource() {
         return this.isResource();
     }
-    
+
     /**
      * Tests whether or not the key is a resource key or literal value.
      * @return <code>true</code> if key is a resource key.
      */
     public boolean isResource() {
         return this.resource;
+    }
+
+    /**
+     * Sets the resource bundle name.
+     * @param bundle The new bundle name.
+     * @since Validator 1.1
+     */
+    public void setBundle(String bundle) {
+        this.bundle = bundle;
     }
 
     /**

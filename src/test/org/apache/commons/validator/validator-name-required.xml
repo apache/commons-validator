@@ -9,7 +9,7 @@
       <form    name="nameForm">
          <field    property="firstName"
          	   depends="required">
-         	     <arg key="nameForm.firstname.displayname" position="0"/>
+         	     <arg key="nameForm.firstname.displayname" position="0" bundle="test"/>
          </field>    
          <field    property="lastName"
          	   depends="required">

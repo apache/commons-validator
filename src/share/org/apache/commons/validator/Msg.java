@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.6 2003/05/25 18:18:31 dgraham Exp $
- * $Revision: 1.6 $
- * $Date: 2003/05/25 18:18:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.7 2003/08/03 17:42:58 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/08/03 17:42:58 $
  *
  * ====================================================================
  *
@@ -72,14 +72,16 @@ import java.io.Serializable;
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2003/05/25 18:18:31 $
+ * @version $Revision: 1.7 $ $Date: 2003/08/03 17:42:58 $
  */
 public class Msg implements Cloneable, Serializable {
-    
+
     /**
-     * The name dependency that this argument goes with (optional).
+     * The resource bundle name that this Msg's <code>key</code> should be
+     * resolved in (optional). 
+     * @since Validator 1.1
      */
-    protected String name = null;
+    protected String bundle = null;
 
     /**
      * The key or value of the argument.
@@ -87,58 +89,80 @@ public class Msg implements Cloneable, Serializable {
     protected String key = null;
 
     /**
+     * The name dependency that this argument goes with (optional).
+     */
+    protected String name = null;
+
+    /**
+     * Returns the resource bundle name.
+     * @since Validator 1.1
+     */
+    public String getBundle() {
+        return this.bundle;
+    }
+
+    /**
+     * Sets the resource bundle name.
+     * @param bundle The new bundle name.
+     * @since Validator 1.1
+     */
+    public void setBundle(String bundle) {
+        this.bundle = bundle;
+    }
+
+    /**
      * Gets the name of the dependency.
      */
     public String getName() {
-       return name;	
+        return name;
     }
 
     /**
      * Sets the name of the dependency.
      */
     public void setName(String name) {
-       this.name = name;	
+        this.name = name;
     }
- 
+
     /**
      * Gets the key/value.
      */
     public String getKey() {
-       return key;	
+        return key;
     }
 
     /**
      * Sets the key/value.
      */
     public void setKey(String key) {
-       this.key = key;	
+        this.key = key;
     }
 
     /**
      * Creates and returns a copy of this object.
      */
     public Object clone() {
-       try {
-           return super.clone();
+        try {
+            return super.clone();
 
-       } catch (CloneNotSupportedException e) {
-          throw new InternalError(e.toString());
-       }
-    }  
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError(e.toString());
+        }
+    }
 
     /**
      * Returns a string representation of the object.
      */
     public String toString() {
-       StringBuffer results = new StringBuffer();
-       
-       results.append("Msg: name=");
-       results.append(name);
-       results.append("  key=");
-       results.append(key);
-       results.append("\n");
-       
-       return results.toString();
+        StringBuffer results = new StringBuffer();
+
+        results.append("Msg: name=");
+        results.append(name);
+        results.append("  key=");
+        results.append(key);
+        results.append("\n");
+
+        return results.toString();
     }
-	
+
 }
