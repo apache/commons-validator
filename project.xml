@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <extend>../project.xml</extend>
+  <name>commons-dbcp</name>
+  <id>commons-dbcp</id>
+  <currentVersion>1.0-dev</currentVersion>
+  <inceptionYear>2002</inceptionYear>
+  <gumpRepositoryId>jakarta</gumpRepositoryId>
+  <shortDescription>Commons Database Connection Pooling</shortDescription>
+
+  <description>
+    Commons Database Connection Pooling
+  </description>
+  
+  <developers>
+    <developer>
+      <name>Craig McClanahan</name>
+      <id></id>
+      <email></email>
+      <organization></organization>
+    </developer>
+  </developers>
+  
+  <dependencies>
+
+    <dependency>
+      <id>commons-beanutils</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <id>commons-collections</id>
+      <version>2.0</version>
+    </dependency>
+
+    <dependency>
+      <id>commons-digester</id>
+      <version>1.2</version>
+    </dependency>
+
+    <dependency>
+      <id>commons-logging</id>
+      <version>1.0</version>
+    </dependency>
+    
+    <dependency>
+      <id>oro</id>
+      <version>2.0.6</version>
+    </dependency>
+
+    <dependency>
+      <id>xml-apis</id>
+      <version>2.0.2</version>
+    </dependency>
+
+    <dependency>
+      <id>junit</id>
+      <version>3.7</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+
+    <sourceDirectory>src/share</sourceDirectory>
+
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+    </unitTest>
+
+  </build>
+
+</project>

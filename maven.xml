@@ -1,0 +1,13 @@
+<project default="java:jar">
+
+  <postGoal name="java:compile">
+    
+    <copy todir="${maven.build.dir}/test-classes/org/apache/commons/validator">
+      <fileset dir="src/test/org/apache/commons/validator">
+        <include name="*.xml"/>
+      </fileset>
+    </copy>
+    
+  </postGoal>
+
+</project>
