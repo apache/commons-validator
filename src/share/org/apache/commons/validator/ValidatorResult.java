@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResult.java,v 1.3 2002/12/03 05:31:02 martinc Exp $
- * $Revision: 1.3 $
- * $Date: 2002/12/03 05:31:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResult.java,v 1.4 2002/12/13 07:54:10 martinc Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/12/13 07:54:10 $
  *
  * ====================================================================
  *
@@ -73,7 +73,7 @@ import java.util.Map;
  * validation rules processed on JavaBean.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.3 $ $Date: 2002/12/03 05:31:02 $
+ * @version $Revision: 1.4 $ $Date: 2002/12/13 07:54:10 $
 */
 public class ValidatorResult implements Serializable {
 
@@ -129,7 +129,7 @@ public class ValidatorResult implements Serializable {
    /**
     * Contains the status of the validation.
    */
-   protected class ResultStatus {
+   protected class ResultStatus implements Serializable {
       private boolean valid = false;
       private Object result = null;
       
