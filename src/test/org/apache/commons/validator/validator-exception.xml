@@ -1,0 +1,18 @@
+<!DOCTYPE form-validation PUBLIC
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN"
+     "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+     
+<form-validation>
+   <global>
+      <validator name="raiseException"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateRaiseException"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+   </global>
+   <formset>
+      <form name="exceptionForm">
+         <field property="value" depends="raiseException" />
+      </form>
+   </formset>   
+</form-validation>

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.12 2004/01/11 23:30:21 dgraham Exp $
- * $Revision: 1.12 $
- * $Date: 2004/01/11 23:30:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.13 2004/01/17 21:56:49 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2004/01/17 21:56:49 $
  *
  * ====================================================================
  *
@@ -67,15 +67,46 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * Contains validation methods for different unit tests.
  */                                                       
 public class TestValidator {
+          
+    /**
+     * Throws a runtime exception if the value of the argument is "RUNTIME", 
+     * an exception if the value of the argument is "CHECKED", and a 
+     * ValidatorException otherwise.
+     * 
+     * @param value string which selects type of exception to generate
+     * @throws RuntimeException with "RUNTIME-EXCEPTION as message" 
+     * if value is "RUNTIME"
+     * @throws Exception with "CHECKED-EXCEPTION" as message 
+     * if value is "CHECKED"
+     * @throws ValidatorException with "VALIDATOR-EXCEPTION" as message  
+     * otherwise
+     */
+    public static boolean validateRaiseException(
+        final Object bean,
+        final Field field)
+        throws Exception {
+            
+        final String value =
+            ValidatorUtils.getValueAsString(bean, field.getProperty());
+            
+        if ("RUNTIME".equals(value)) {
+            throw new RuntimeException("RUNTIME-EXCEPTION");
+            
+        } else if ("CHECKED".equals(value)) {
+            throw new Exception("CHECKED-EXCEPTION");
+            
+        } else {
+            throw new ValidatorException("VALIDATOR-EXCEPTION");
+        }
+    }
                                                           
    /**
     * Checks if the field is required.
     *
-    * @param 	value 		The value validation is being performed on.
-    * @return	boolean		If the field isn't <code>null</code> and 
-    *                           has a length greater than zero, 
-    *                           <code>true</code> is returned.  
-    *                           Otherwise <code>false</code>.
+    * @param value The value validation is being performed on.
+    * @return boolean If the field isn't <code>null</code> and 
+    * has a length greater than zero, <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
     */
    public static boolean validateRequired(Object bean, Field field) {
       String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
