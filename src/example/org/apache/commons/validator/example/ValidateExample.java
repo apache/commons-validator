@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.4 2003/03/16 00:29:21 dgraham Exp $
- * $Revision: 1.4 $
- * $Date: 2003/03/16 00:29:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.5 2003/05/21 03:16:29 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/05/21 03:16:29 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.validator.ValidatorResults;
  * <p>A simple example of setting up and using the Validator.</p> 
  *
  * @author James Turner
- * @version $Revision: 1.4 $ $Date: 2003/03/16 00:29:21 $
+ * @version $Revision: 1.5 $ $Date: 2003/05/21 03:16:29 $
  *
  * This simple example shows all the steps needed to set up and use
  * the Validator.  Note that in most cases, some kind of framework
@@ -181,7 +181,7 @@ public class ValidateExample extends Object {
         boolean success = true;
 
         // Start by getting the form for the current locale and Bean.
-        Form form = resources.get(Locale.getDefault(), "ValidateBean");
+        Form form = resources.getForm(Locale.getDefault(), "ValidateBean");
 
         System.out.println("\n\nValidating:");
         System.out.println(bean);
