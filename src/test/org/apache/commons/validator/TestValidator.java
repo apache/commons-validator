@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.4 2002/04/02 01:59:44 dwinterfeldt Exp $
- * $Revision: 1.4 $
- * $Date: 2002/04/02 01:59:44 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.5 2002/09/19 17:11:46 turner Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/09/19 17:11:46 $
  *
  * ====================================================================
  *
@@ -67,7 +67,7 @@ package org.apache.commons.validator;
  * unit tests.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.4 $ $Date: 2002/04/02 01:59:44 $
+ * @version $Revision: 1.5 $ $Date: 2002/09/19 17:11:46 $
 */                                                       
 public class TestValidator {
                                                           
@@ -183,5 +183,85 @@ public class TestValidator {
 
       return GenericValidator.isEmail(value);
    }
+
+  public final static String FIELD_TEST_NULL = "NULL";
+  public final static String FIELD_TEST_NOTNULL = "NOTNULL";
+  public final static String FIELD_TEST_EQUAL = "EQUAL";
+
+  public static boolean validateRequiredIf(Object bean,
+      Field field,
+      Validator validator) {
+    Object form = validator.getResource(Validator.BEAN_KEY);
+    String value = null;
+    boolean required = false;
+    if (isString(bean)) {
+      value = (String) bean;
+    } else {
+      value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+    }
+    int i = 0;
+    String fieldJoin = "AND";
+    if (!GenericValidator.isBlankOrNull(field.getVarValue("field-join"))) {
+      fieldJoin = field.getVarValue("field-join");
+    }
+    if (fieldJoin.equalsIgnoreCase("AND")) {
+      required = true;
+    }
+    while (!GenericValidator.isBlankOrNull(field.getVarValue("field[" + i + "]"))) {
+      String dependProp = field.getVarValue("field[" + i + "]");
+      String dependTest = field.getVarValue("field-test[" + i + "]");
+      String dependTestValue = field.getVarValue("field-value[" + i + "]");
+      String dependIndexed = field.getVarValue("field-indexed[" + i + "]");
+      if (dependIndexed == null) dependIndexed="false";
+      String dependVal = null;
+      boolean this_required = false;
+      if (field.isIndexed() && dependIndexed.equalsIgnoreCase("true")) {
+        String key = field.getKey();
+        if ((key.indexOf("[") > -1) &&
+            (key.indexOf("]") > -1)) {
+          String ind = key.substring(0, key.indexOf(".") + 1);
+          dependProp = ind + dependProp;
+        }
+      }
+      dependVal = ValidatorUtil.getValueAsString(form, dependProp);
+      if (dependTest.equals(FIELD_TEST_NULL)) {
+        if ((dependVal != null ) && (dependVal.length() > 0)) {
+          this_required =  false;
+        } else {
+          this_required =  true;
+        }
+      }
+      if (dependTest.equals(FIELD_TEST_NOTNULL)) {
+        if ((dependVal != null ) && (dependVal.length() > 0)) {
+          this_required =  true;
+        } else {
+          this_required =  false;
+        }
+      }
+      if (dependTest.equals(FIELD_TEST_EQUAL)) {
+        this_required =  dependTestValue.equalsIgnoreCase(dependVal);
+      }
+      if (fieldJoin.equalsIgnoreCase("AND")) {
+        required = required && this_required;
+      } else {
+        required = required || this_required;
+      }
+      i++;
+    }
+    if (required) {
+      if ((value != null) && (value.length() > 0)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return true;
+  }
+  private static Class stringClass = new String().getClass();
+
+  private static boolean isString(Object o) {
+    if (o == null) return true;
+    return (stringClass.isInstance(o));
+  }
       
 }                                                         

@@ -1,0 +1,35 @@
+<form-validation>
+   <global>
+      <validator name="requiredif"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateRequiredIf"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,org.apache.commons.validator.Validator"/>
+   </global>
+   <formset>
+      <form    name="nameForm">
+         <field    property="firstName"  depends="requiredif">
+         	     <arg0 key="nameForm.firstname.displayname"/>
+                  <var>
+                   <var-name>field[0]</var-name>
+                   <var-value>lastName</var-value>
+                  </var>
+                  <var>
+                   <var-name>field-test[0]</var-name>
+                   <var-value>NOTNULL</var-value>
+                  </var>
+         </field>    
+         <field    property="lastName"
+         	   depends="requiredif">
+         	     <arg0 key="nameForm.lastname.displayname"/>
+                  <var>
+                   <var-name>field[0]</var-name>
+                   <var-value>firstName</var-value>
+                  </var>
+                  <var>
+                   <var-name>field-test[0]</var-name>
+                   <var-value>NOTNULL</var-value>
+                  </var>
+         </field>
+      </form>
+   </formset>   
+</form-validation>

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResults.java,v 1.2 2002/03/30 04:28:35 dwinterfeldt Exp $
- * $Revision: 1.2 $
- * $Date: 2002/03/30 04:28:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResults.java,v 1.3 2002/09/19 17:11:46 turner Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/09/19 17:11:46 $
  *
  * ====================================================================
  *
@@ -74,7 +74,8 @@ import java.util.Map;
  * validation rules processed on JavaBean.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.2 $ $Date: 2002/03/30 04:28:35 $
+ * @author James Turner
+ * @version $Revision: 1.3 $ $Date: 2002/09/19 17:11:46 $
 */
 public class ValidatorResults implements Serializable {
 
@@ -82,6 +83,15 @@ public class ValidatorResults implements Serializable {
     * Map of validation results .
    */
    protected Map hResults = new HashMap();
+
+    /** 
+     * Merge another ValidatorResults into mine
+     */
+
+    public void merge(ValidatorResults res) {
+	this.hResults.putAll(res.hResults);
+    }
+	
 
    /**
     * Add a the result of a validator action.

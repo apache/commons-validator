@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.7 2002/03/30 04:28:35 dwinterfeldt Exp $
- * $Revision: 1.7 $
- * $Date: 2002/03/30 04:28:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.8 2002/09/19 17:11:46 turner Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/09/19 17:11:46 $
  *
  * ====================================================================
  *
@@ -87,7 +87,8 @@ import org.apache.commons.logging.LogSource;
  * and the validation rules for a JavaBean.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2002/03/30 04:28:35 $
+ * @author James Turner
+ * @version $Revision: 1.8 $ $Date: 2002/09/19 17:11:46 $
 */
 public class Validator implements Serializable {
 
@@ -117,6 +118,13 @@ public class Validator implements Serializable {
    */
    public static String FIELD_KEY = "org.apache.commons.validator.Field";
 
+   /**
+    * Resources key the <code>Validator</code> is stored under.  
+    * This will be automatically passed into a validation method 
+    * with the current <code>Validator</code> if it is 
+    * specified in the method signature.
+   */
+   public static String VALIDATOR_KEY = "org.apache.commons.validator.Validator";
    /**
     * Resources key the <code>Locale</code> is stored.
     * This will be used to retrieve the appropriate 
@@ -188,6 +196,20 @@ public class Validator implements Serializable {
       hResources.put(key, value);
    }
 
+   /**
+    * Get a resource to be used during the processing 
+    * of validations.
+    *
+    * @param	key		The full class name of the parameter 
+    *				of the validation method that 
+    *				corresponds to the value/instance 
+    *				passed in with it.
+   */
+
+  public Object getResource(String key) {
+      return hResources.get(key);
+  }
+   
    /**
     * Gets the form name which is the key 
     * to a set of validation rules.
@@ -320,12 +342,16 @@ public class Validator implements Serializable {
       if (hResources.containsKey(LOCALE_KEY)) {
          locale = (Locale)hResources.get(LOCALE_KEY);
       }
+      hResources.put(VALIDATOR_KEY, this);
       
       if (locale == null) {
          locale = Locale.getDefault();
       }
          
       Form form = null;
+      if (resources == null) {
+	  throw new ValidatorException("Resources not defined for Validator");
+      }
       if ((form = resources.get(locale, formName)) != null) {	    
          Map hActions = resources.getValidatorActions();
          List lActions = new ArrayList();
@@ -413,12 +439,17 @@ public class Validator implements Serializable {
                      	  int size = lParams.size();
                      	  int beanIndexPos = -1;
                      	  int fieldIndexPos = -1;
+                     	  int validatorIndexPos = -1;
                      	  Class[] paramClass = new Class[size];
                      	  Object[] paramValue = new Object[size];
       
                      	  for (int x = 0; x < size; x++) {
                      	     String paramKey = (String)lParams.get(x);
              	             
+			     if (VALIDATOR_KEY.equals(paramKey)) {
+				 validatorIndexPos = x;
+			     }
+
              	             if (BEAN_KEY.equals(paramKey)) {
              	                beanIndexPos = x;
              	             }

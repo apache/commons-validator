@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.3 2002/04/02 01:59:44 dwinterfeldt Exp $
- * $Revision: 1.3 $
- * $Date: 2002/04/02 01:59:44 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.4 2002/09/19 17:11:46 turner Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/09/19 17:11:46 $
  *
  * ====================================================================
  *
@@ -72,7 +72,7 @@ import junit.framework.TestSuite;
  * package.
  *
  * @author David Winterfeldt
- * @version $Revision: 1.3 $ $Date: 2002/04/02 01:59:44 $
+ * @version $Revision: 1.4 $ $Date: 2002/09/19 17:11:46 $
 */                                                       
 public class ValidatorTestSuite extends TestCase {            
                                                           
@@ -84,6 +84,7 @@ public class ValidatorTestSuite extends TestCase {
        TestSuite suite = new TestSuite();
 
        suite.addTest(RequiredNameTest.suite()); 
+       suite.addTest(RequiredIfTest.suite()); 
        suite.addTest(ByteTest.suite()); 
        suite.addTest(ShortTest.suite()); 
        suite.addTest(IntegerTest.suite()); 
