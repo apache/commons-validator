@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.16 2004/04/04 13:53:25 rleland Exp $
- * $Revision: 1.16 $
- * $Date: 2004/04/04 13:53:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.17 2004/06/08 14:48:35 husted Exp $
+ * $Revision: 1.17 $
+ * $Date: 2004/06/08 14:48:35 $
  *
  * ====================================================================
  * Copyright 2000-2004 The Apache Software Foundation
@@ -40,6 +40,7 @@ public class ValidatorTestSuite extends TestCase {
     public static Test suite() {
        TestSuite suite = new TestSuite();
 
+       suite.addTest(BSFTest.suite());
        suite.addTest(RequiredNameTest.suite());
        suite.addTest(RequiredIfTest.suite());
        suite.addTest(MultipleTests.suite());

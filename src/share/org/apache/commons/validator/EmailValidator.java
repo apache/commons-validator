@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.14 2004/05/03 00:50:23 husted Exp $
- * $Revision: 1.14 $
- * $Date: 2004/05/03 00:50:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.15 2004/06/08 14:48:35 husted Exp $
+ * $Revision: 1.15 $
+ * $Date: 2004/06/08 14:48:35 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -51,10 +51,10 @@ public class EmailValidator {
     private static final String LEGAL_ASCII_PATTERN = "/^[\\000-\\177]+$/";
     private static final String EMAIL_PATTERN = "/^(.+)@(.+)$/";
     private static final String IP_DOMAIN_PATTERN =
-            "/^(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})$/";
+            "/^\\[(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})\\]$/";
 
-    private static final String USER_PATTERN = "/^" + WORD + "(\\." + WORD + ")*$/";
-    private static final String DOMAIN_PATTERN = "/^" + ATOM + "(\\." + ATOM + ")*$/";
+    private static final String USER_PATTERN = "/^\\s*" + WORD + "(\\." + WORD + ")*\\s*$/";
+    private static final String DOMAIN_PATTERN = "/^\\s*" + ATOM + "(\\." + ATOM + ")*\\s*$/";
     private static final String ATOM_PATTERN = "/(" + ATOM + ")/";
 
     /**
@@ -126,6 +126,8 @@ public class EmailValidator {
         if (ipAddressMatcher.match(IP_DOMAIN_PATTERN, domain)) {
             if (!isValidIpAddress(ipAddressMatcher)) {
                 return false;
+            } else {
+                return true;
             }
         } else {
             // Domain is symbolic name
@@ -189,7 +191,6 @@ public class EmailValidator {
         boolean match = true;
         int i = 0;
         Perl5Util atomMatcher = new Perl5Util();
-
         while (match) {
             match = atomMatcher.match(ATOM_PATTERN, domain);
             if (match) {
@@ -201,7 +202,7 @@ public class EmailValidator {
                         : domain.substring(l);
 
                 i++;
-            }
+            } 
         }
 
         int len = i;

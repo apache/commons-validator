@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.25 2004/03/30 02:42:06 dgraham Exp $
- * $Revision: 1.25 $
- * $Date: 2004/03/30 02:42:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.26 2004/06/08 14:48:35 husted Exp $
+ * $Revision: 1.26 $
+ * $Date: 2004/06/08 14:48:35 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -88,6 +88,17 @@ public class EmailTest extends TestCommon {
       info.setValue("jsmith@apache.org");
       valueTest(info, true);
    }
+    
+   /**
+    * Tests the email validation with numeric domains.
+    */
+    public void testEmailWithNumericAddress() throws ValidatorException {
+        ValueBean info = new ValueBean();
+        info.setValue("someone@[216.109.118.76]");
+        valueTest(info, true);
+        info.setValue("someone@yahoo.com");
+        valueTest(info, true);
+    }
 
     /**
      * Tests the e-mail validation.
