@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TypeTest.java,v 1.1 2002/03/30 04:21:03 dwinterfeldt Exp $
- * $Revision: 1.1 $
- * $Date: 2002/03/30 04:21:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TypeTest.java,v 1.2 2002/03/30 05:13:12 dwinterfeldt Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/03/30 05:13:12 $
  *
  * ====================================================================
  *
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogSource;
  * <p>Performs Validation Test for type validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.1 $ $Date: 2002/03/30 04:21:03 $
+ * @version $Revision: 1.2 $ $Date: 2002/03/30 05:13:12 $
 */                                                       
 public class TypeTest extends TestCase {            
    
@@ -183,6 +183,13 @@ public class TypeTest extends TestCase {
       assertNotNull("Results are null.", results);
       
       Map hResultValues = results.getResultValueMap();
+
+      assertTrue("Expecting byte result to be an instance of Byte.", (hResultValues.get("byte") instanceof Byte));
+      assertTrue("Expecting short result to be an instance of Short.", (hResultValues.get("short") instanceof Short));
+      assertTrue("Expecting integer result to be an instance of Integer.", (hResultValues.get("integer") instanceof Integer));
+      assertTrue("Expecting long result to be an instance of Long.", (hResultValues.get("long") instanceof Long));
+      assertTrue("Expecting float result to be an instance of Float.", (hResultValues.get("float") instanceof Float));
+      assertTrue("Expecting double result to be an instance of Double.", (hResultValues.get("double") instanceof Double));
       
       for (Iterator i = hResultValues.keySet().iterator(); i.hasNext(); ) {
          String key = (String)i.next();

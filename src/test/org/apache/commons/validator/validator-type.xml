@@ -39,7 +39,7 @@
          <field    property="short"
          	   depends="short">
          </field>    
-         <field    property="int"
+         <field    property="integer"
          	   depends="int">
          </field>    
          <field    property="long"
