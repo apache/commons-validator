@@ -5,23 +5,32 @@
   <name>Validator</name>
   <id>commons-validator</id>
   <currentVersion>1.1.0-dev</currentVersion>
+
+  <organization>
+    <name>Apache Software Foundation</name>
+    <url>http://www.apache.org</url>
+    <logo>http://jakarta.apache.org/images/jakarta-logo-blue.gif</logo>
+  </organization>
+  <logo>/images/Validatorlogo.gif</logo>
   
   <inceptionYear>2002</inceptionYear>
-  <gumpRepositoryId>jakarta</gumpRepositoryId>
   <package>org.apache.commons.validator</package>
 
   <shortDescription>Commons Validator</shortDescription>
-  <logo>/images/Validatorlogo.gif</logo>
-
   <description>
     Commons Validator provides the building blocks for both client side validation
     and server side data validation. It may be used standalone or with a framework like
     Struts.
   </description>
   <url>http://jakarta.apache.org/commons/validator/</url>
- 
-  <issueTrackingUrl>http://nagoya.apache.org/bugzilla/</issueTrackingUrl>
-  <siteAddress>jakarta.apache.org</siteAddress>
+  <gumpRepositoryId>jakarta</gumpRepositoryId>
+
+  <repository>
+     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/validator</connection>
+     <developerConnection>scm:cvs:pserver:${cvs.developer.id}@${cvs.developer.host}:/home/cvs:jakarta-commons/validator</developerConnection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/validator</url>
+  </repository>
+
   <siteDirectory>/www/jakarta.apache.org/commons/validator/</siteDirectory>
   <distributionDirectory>http://jakarta.apache.org/site/binindex.cgi</distributionDirectory>
   <mailingLists>
@@ -126,6 +135,7 @@
       <url>http://xml.apache.org/commons/</url>
     </dependency>
 
+	<!-- for unit tests -->
     <dependency>
       <id>junit</id>
       <version>3.8.1</version>
