@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.18 2003/05/20 00:19:10 dgraham Exp $
- * $Revision: 1.18 $
- * $Date: 2003/05/20 00:19:10 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.19 2003/05/20 01:52:27 dgraham Exp $
+ * $Revision: 1.19 $
+ * $Date: 2003/05/20 01:52:27 $
  *
  * ====================================================================
  *
@@ -78,15 +78,14 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.util.ValidatorUtils;
 
 /**
- * <p>Validations are processed by the validate method.
- * An instance of <code>ValidatorResources</code> is
- * used to define the validators (validation methods)
- * and the validation rules for a JavaBean.</p>
+ * <p>Validations are processed by the validate method. An instance of 
+ * <code>ValidatorResources</code> is used to define the validators 
+ * (validation methods) and the validation rules for a JavaBean.</p>
  *
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.18 $ $Date: 2003/05/20 00:19:10 $
+ * @version $Revision: 1.19 $ $Date: 2003/05/20 01:52:27 $
  */
 public class Validator implements Serializable {
 
@@ -134,8 +133,11 @@ public class Validator implements Serializable {
     public static String LOCALE_KEY = "java.util.Locale";
 
     protected ValidatorResources resources = null;
+    
     protected String formName = null;
+
     protected HashMap hResources = new HashMap();
+    
     protected int page = 0;
 
     /**
@@ -269,9 +271,7 @@ public class Validator implements Serializable {
      * @param use determines whether to use Context ClassLoader.
      */
     public void setUseContextClassLoader(boolean use) {
-
-        useContextClassLoader = use;
-
+        this.useContextClassLoader = use;
     }
 
     /**
@@ -286,13 +286,13 @@ public class Validator implements Serializable {
      */
     public ClassLoader getClassLoader() {
         if (this.classLoader != null) {
-            return (this.classLoader);
+            return this.classLoader;
         }
 
         if (this.useContextClassLoader) {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             if (classLoader != null) {
-                return (classLoader);
+                return classLoader;
             }
         }
 
@@ -312,7 +312,7 @@ public class Validator implements Serializable {
 
     /**
      * Executes the given ValidatorAction and all ValidatorActions that it depends on.
-     * @return True if the validation succeeded.
+     * @return true if the validation succeeded.
      */
     private boolean validateFieldForRule(
         Field field,
@@ -322,69 +322,112 @@ public class Validator implements Serializable {
         int pos)
         throws ValidatorException {
 
-        if (results.getValidatorResult(field.getKey()) != null) {
-            ValidatorResult result = results.getValidatorResult(field.getKey());
-            if (result.containsAction(va.getName())) {
-                return result.isValid(va.getName());
+        ValidatorResult result = results.getValidatorResult(field.getKey());
+        if (result != null && result.containsAction(va.getName())) {
+            return result.isValid(va.getName());
+        }
+
+        if(!this.runDependentValidators(field, va, results, actions, pos)){
+            return false;
+        }
+
+        return this.executeValidationMethod(field, va, results, pos);
+    }
+
+    /**
+     * Calls all of the validators that this validator depends on.
+     * @param field
+     * @param va
+     * @param results
+     * @param actions
+     * @param pos
+     * @return true if all of the dependent validations passed.
+     * @throws ValidatorException
+     */
+    private boolean runDependentValidators(
+        Field field,
+        ValidatorAction va,
+        ValidatorResults results,
+        Map actions,
+        int pos)
+        throws ValidatorException {
+
+        if (va.getDepends() == null) {
+            return true;
+        }
+        
+        StringTokenizer st = new StringTokenizer(va.getDepends(), ",");
+        while (st.hasMoreTokens()) {
+            String depend = st.nextToken().trim();
+
+            ValidatorAction action = (ValidatorAction) actions.get(depend);
+            if (action == null) {
+                log.error(
+                    "No ValidatorAction named "
+                        + depend
+                        + " found for field "
+                        + field.getProperty());
+
+                return false;
+            }
+
+            if (!this.validateFieldForRule(field, action, results, actions, pos)) {
+                return false;
             }
         }
 
-        // Execute all validators that this validator depends on.
-        if (va.getDepends() != null) {
-            StringTokenizer st = new StringTokenizer(va.getDepends(), ",");
-            while (st.hasMoreTokens()) {
-                String depend = st.nextToken().trim();
+        return true;
+    }
 
-                ValidatorAction action = (ValidatorAction) actions.get(depend);
-                if (action == null) {
-                    log.error(
-                        "No ValidatorAction called "
-                            + depend
-                            + " found for field "
-                            + field.getProperty());
-                    return false;
-                }
-
-                if (!validateFieldForRule(field, action, results, actions, pos)) {
-                    return false;
-                }
-            }
-        }
-
+    /**
+     * Dynamically runs the validation method for this validator and returns true if the
+     * data is valid. 
+     * @param field
+     * @param va
+     * @param results
+     * @param pos
+     * @throws ValidatorException
+     */
+    private boolean executeValidationMethod(
+        Field field,
+        ValidatorAction va,
+        ValidatorResults results,
+        int pos)
+        throws ValidatorException {
+            
         try {
             // Add these two Objects to the resources since they reference
             // the current validator action and field
             hResources.put(VALIDATOR_ACTION_KEY, va);
             hResources.put(FIELD_KEY, field);
-
+        
             Class c = getClassLoader().loadClass(va.getClassname());
-
-            List lParams = va.getMethodParamsList();
-            int size = lParams.size();
+        
+            List params = va.getMethodParamsList();
             int beanIndexPos = -1;
             int fieldIndexPos = -1;
-            Class[] paramClass = new Class[size];
-            Object[] paramValue = new Object[size];
-
-            for (int x = 0; x < size; x++) {
-                String paramKey = (String) lParams.get(x);
-
+            Class[] paramClass = new Class[params.size()];
+            Object[] paramValue = new Object[params.size()];
+        
+            for (int x = 0; x < params.size(); x++) {
+                String paramKey = (String) params.get(x);
+        
                 if (BEAN_KEY.equals(paramKey)) {
                     beanIndexPos = x;
                 }
-
+        
                 if (FIELD_KEY.equals(paramKey)) {
                     fieldIndexPos = x;
                 }
-
+        
                 // There were problems calling getClass on paramValue[]
                 paramClass[x] = getClassLoader().loadClass(paramKey);
-
+        
                 paramValue[x] = hResources.get(paramKey);
             }
-
+        
             Method m = c.getMethod(va.getMethod(), paramClass);
-
+        
             // If the method is static we don't need an instance of the class
             // to call the method.  If it isn't, we do.
             if (!Modifier.isStatic(m.getModifiers())) {
@@ -401,25 +444,27 @@ public class Validator implements Serializable {
                             + ex.getMessage());
                 }
             }
-
+        
             Object result = null;
-
+        
             if (field.isIndexed()) {
                 Object oIndexed =
                     PropertyUtils.getProperty(
                         hResources.get(BEAN_KEY),
                         field.getIndexedListProperty());
+                        
                 Object indexedList[] = new Object[0];
-
+        
                 if (oIndexed instanceof Collection) {
                     indexedList = ((Collection) oIndexed).toArray();
+                    
                 } else if (oIndexed.getClass().isArray()) {
                     indexedList = (Object[]) oIndexed;
                 }
-
+        
                 // Set current iteration object to the parameter array
                 paramValue[beanIndexPos] = indexedList[pos];
-
+        
                 // Set field clone with the key modified to represent
                 // the current field
                 Field indexedField = (Field) field.clone();
@@ -428,8 +473,9 @@ public class Validator implements Serializable {
                         indexedField.getKey(),
                         Field.TOKEN_INDEXED,
                         "[" + pos + "]"));
+                        
                 paramValue[fieldIndexPos] = indexedField;
-
+        
                 result = m.invoke(va.getClassnameInstance(), paramValue);
                 results.add(field, va.getName(), isValid(result), result);
                 if (!isValid(result)) {
@@ -442,30 +488,32 @@ public class Validator implements Serializable {
                     return false;
                 }
             }
+            
         } catch (Exception e) {
             log.error("reflection: " + e.getMessage(), e);
-
+        
             results.add(field, va.getName(), false);
-
+        
             if (e instanceof ValidatorException) {
-                throw ((ValidatorException) e);
+                throw (ValidatorException) e;
             }
             return false;
         }
+        
         return true;
     }
 
     /**
      * Run the validations on a given field, modifying the passed
-     * ValidatorResults to add in any new errors found.  If the
-     * field is indexed, run all the validations in the depends
-     * clause over each item in turn, returning when the first one fails.
-     * If it's non-indexed, just run it on the field.
+     * ValidatorResults to add in any new errors found.  Run all the validations in 
+     * the depends clause over each item in turn, returning when the first one fails.
      */
     private void validateField(Field field, ValidatorResults allResults)
         throws ValidatorException {
-
-        Map actions = resources.getValidatorActions();
+            
+        int length = 1; // default to non-indexed length of 1
+        
+        // this block only finds out how many times to run the validation
         if (field.isIndexed()) {
             Object oIndexed;
             try {
@@ -473,61 +521,62 @@ public class Validator implements Serializable {
                     PropertyUtils.getProperty(
                         hResources.get(BEAN_KEY),
                         field.getIndexedListProperty());
+        
             } catch (Exception e) {
                 log.error("in validateField", e);
                 return;
             }
-
+        
             Object indexedList[] = new Object[0];
-
+        
             if (oIndexed instanceof Collection) {
                 indexedList = ((Collection) oIndexed).toArray();
             } else if (oIndexed.getClass().isArray()) {
                 indexedList = (Object[]) oIndexed;
             }
+        
+            length = indexedList.length;
+        }
+        
+        this.validateList(field, allResults, length);
+    }
 
-            for (int pos = 0; pos < indexedList.length; pos++) {
-                ValidatorResults results = new ValidatorResults();
-                StringTokenizer st = new StringTokenizer(field.getDepends(), ",");
-                while (st.hasMoreTokens()) {
-                    String depend = st.nextToken().trim();
-
-                    ValidatorAction action = (ValidatorAction) actions.get(depend);
-                    if (action == null) {
-                        log.error(
-                            "No ValidatorAction called "
-                                + depend
-                                + " found for field "
-                                + field.getProperty());
-                        return;
-                    }
-
-                    boolean good =
-                        validateFieldForRule(field, action, results, actions, pos);
-                    allResults.merge(results);
-                    if (!good) {
-                        return;
-                    }
-                }
-            }
-        } else {
+    /**
+     * Runs all validations on the field.
+     * @param field
+     * @param allResults
+     * @param length 1 for non-indexed fields, the array length for indexed fields.
+     * @throws ValidatorException
+     */
+    private void validateList(
+        Field field,
+        ValidatorResults allResults,
+        int length)
+        throws ValidatorException {
+            
+        Map actions = resources.getValidatorActions();
+            
+        for (int pos = 0; pos < length; pos++) {
             ValidatorResults results = new ValidatorResults();
             StringTokenizer st = new StringTokenizer(field.getDepends(), ",");
             while (st.hasMoreTokens()) {
                 String depend = st.nextToken().trim();
-
+        
                 ValidatorAction action = (ValidatorAction) actions.get(depend);
                 if (action == null) {
                     log.error(
-                        "No ValidatorAction called "
+                        "No ValidatorAction named "
                             + depend
                             + " found for field "
                             + field.getProperty());
+                            
                     return;
                 }
-
-                boolean good = validateFieldForRule(field, action, results, actions, 0);
+        
+                boolean good = validateFieldForRule(field, action, results, actions, pos);
+        
                 allResults.merge(results);
+        
                 if (!good) {
                     return;
                 }
@@ -561,13 +610,17 @@ public class Validator implements Serializable {
 
         Form form = resources.get(locale, formName);
         if (form != null) {
-            for (Iterator i = form.getFields().iterator(); i.hasNext();) {
-                Field field = (Field) i.next();
+            Iterator forms = form.getFields().iterator();
+            while (forms.hasNext()) {
+                Field field = (Field) forms.next();
+                
                 if ((field.getPage() <= page) && (field.getDepends() != null)) {
-                    validateField(field, results);
+                    this.validateField(field, results);
                 }
             }
+
         }
+        
         return results;
     }
 
@@ -579,15 +632,14 @@ public class Validator implements Serializable {
      * object is <code>null</code> and <code>true</code> if it isn't.
      */
     private boolean isValid(Object result) {
-        boolean isValid = false;
 
         if (result instanceof Boolean) {
             Boolean valid = (Boolean) result;
-            isValid = valid.booleanValue();
+            return valid.booleanValue();
         } else {
-            isValid = (result != null);
+            return (result != null);
         }
 
-        return isValid;
     }
+    
 }
