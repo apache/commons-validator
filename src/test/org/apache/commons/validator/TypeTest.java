@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TypeTest.java,v 1.5 2003/03/13 02:09:24 dgraham Exp $
- * $Revision: 1.5 $
- * $Date: 2003/03/13 02:09:24 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TypeTest.java,v 1.6 2003/05/22 02:29:46 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/05/22 02:29:46 $
  *
  * ====================================================================
  *
@@ -79,7 +79,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Performs Validation Test for type validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2003/03/13 02:09:24 $
+ * @version $Revision: 1.6 $ $Date: 2003/05/22 02:29:46 $
 */                                                       
 public class TypeTest extends TestCase {            
    
@@ -170,7 +170,7 @@ public class TypeTest extends TestCase {
       Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource 
       // for the validations to be performed on.
-      validator.addResource(Validator.BEAN_KEY, info);
+      validator.addParameter(Validator.BEAN_KEY, info);
 
       // Get results of the validation.
       ValidatorResults results = null;

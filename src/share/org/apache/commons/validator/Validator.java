@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.20 2003/05/21 02:53:41 dgraham Exp $
- * $Revision: 1.20 $
- * $Date: 2003/05/21 02:53:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.21 2003/05/22 02:29:47 dgraham Exp $
+ * $Revision: 1.21 $
+ * $Date: 2003/05/22 02:29:47 $
  *
  * ====================================================================
  *
@@ -62,6 +62,7 @@
 package org.apache.commons.validator;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
@@ -85,7 +86,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.20 $ $Date: 2003/05/21 02:53:41 $
+ * @version $Revision: 1.21 $ $Date: 2003/05/22 02:29:47 $
  */
 public class Validator implements Serializable {
 
@@ -97,7 +98,7 @@ public class Validator implements Serializable {
     /**
      * Resources key the JavaBean is stored to perform validation on.
      */
-    public static String BEAN_KEY = "java.lang.Object";
+    public static final String BEAN_KEY = "java.lang.Object";
 
     /**
      * Resources key the <code>ValidatorAction</code> is stored under.
@@ -105,7 +106,7 @@ public class Validator implements Serializable {
      * with the current <code>ValidatorAction</code> if it is
      * specified in the method signature.
      */
-    public static String VALIDATOR_ACTION_KEY =
+    public static final String VALIDATOR_ACTION_KEY =
         "org.apache.commons.validator.ValidatorAction";
 
     /**
@@ -114,7 +115,7 @@ public class Validator implements Serializable {
      * with the current <code>Field</code> if it is
      * specified in the method signature.
      */
-    public static String FIELD_KEY = "org.apache.commons.validator.Field";
+    public static final String FIELD_KEY = "org.apache.commons.validator.Field";
 
     /**
      * Resources key the <code>Validator</code> is stored under.
@@ -122,7 +123,7 @@ public class Validator implements Serializable {
      * with the current <code>Validator</code> if it is
      * specified in the method signature.
      */
-    public static String VALIDATOR_KEY = "org.apache.commons.validator.Validator";
+    public static final String VALIDATOR_KEY = "org.apache.commons.validator.Validator";
 
     /**
      * Resources key the <code>Locale</code> is stored.
@@ -130,14 +131,26 @@ public class Validator implements Serializable {
      * <code>FormSet</code> and <code>Form</code> to be
      * processed.
      */
-    public static String LOCALE_KEY = "java.util.Locale";
+    public static final String LOCALE_KEY = "java.util.Locale";
 
     protected ValidatorResources resources = null;
     
     protected String formName = null;
 
-    protected HashMap hResources = new HashMap();
+    /**
+     * Maps validation method parameter class names to the objects to be passed 
+     * into the method.
+     */
+    protected HashMap parameters = new HashMap();
+
+    /**
+     * @deprecated Use parameters instead.
+     */
+    protected HashMap hResources = this.parameters;
     
+    /**
+     * The current page number to validate.
+     */
     protected int page = 0;
 
     /**
@@ -184,23 +197,51 @@ public class Validator implements Serializable {
      * Add a resource to be used during the processing
      * of validations.
      *
-     * @param key The full class name of the parameter of the validation method 
-     * that corresponds to the value/instance passed in with it.
-     * @param value The instance that will be passed into the validation method.
+     * @param parameterClassName The full class name of the parameter of the 
+     * validation method that corresponds to the value/instance passed in with it.
+     * 
+     * @param parameterValue The instance that will be passed into the 
+     * validation method.
+     * @deprecated Use addParameter(String, Object) instead.
      */
-    public void addResource(String key, Object value) {
-        hResources.put(key, value);
+    public void addResource(String parameterClassName, Object parameterValue) {
+        this.addParameter(parameterClassName, parameterValue);
+    }
+    
+    /**
+     * Add a resource to be used during the processing
+     * of validations.
+     *
+     * @param parameterClassName The full class name of the parameter of the 
+     * validation method that corresponds to the value/instance passed in with it.
+     * 
+     * @param parameterValue The instance that will be passed into the 
+     * validation method.
+     */
+    public void addParameter(String parameterClassName, Object parameterValue) {
+        this.parameters.put(parameterClassName, parameterValue);
     }
 
     /**
-     * Get a resource to be used during the processing
-     * of validations.
+     * Get a resource to be used during the processing of validations.
      *
-     * @param key The full class name of the parameter of the validation method 
-     * that corresponds to the value/instance passed in with it.
+     * @param parameterClassName The full class name of the parameter of the 
+     * validation method that corresponds to the value/instance passed in with it.
+     * @deprecated Use getParameterValue(String) instead.
      */
-    public Object getResource(String key) {
-        return hResources.get(key);
+    public Object getResource(String parameterClassName) {
+        return this.getParameterValue(parameterClassName);
+    }
+    
+    /**
+     * Returns the value of the specified parameter that will be used during the 
+     * processing of validations.
+     *
+     * @param parameterClassName The full class name of the parameter of the 
+     * validation method that corresponds to the value/instance passed in with it.
+     */
+    public Object getParameterValue(String parameterClassName) {
+        return this.parameters.get(parameterClassName);
     }
 
     /**
@@ -236,29 +277,26 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Clears the form name, resources that were added,
-     * and the page that was set (if any).  This can
-     * be called to reinitialize the Validator instance
-     * so it can be reused.  The form name (key to
-     * set of validation rules) and any resources needed,
-     * like the JavaBean being validated, will need to
-     * set and/or added to this instance again.  The
-     * <code>ValidatorResources</code> will not be removed
-     * since it can be used again and is thread safe.
+     * Clears the form name, resources that were added, and the page that was 
+     * set (if any).  This can be called to reinitialize the Validator instance
+     * so it can be reused.  The form name (key to set of validation rules) and any 
+     * resources needed, like the JavaBean being validated, will need to
+     * set and/or added to this instance again.  The 
+     * <code>ValidatorResources</code> will not be removed since it can be used 
+     * again and is thread safe.
      */
     public void clear() {
-        formName = null;
-        hResources = new HashMap();
-        page = 0;
+        this.formName = null;
+        this.parameters = new HashMap();
+        this.hResources = this.parameters;
+        this.page = 0;
     }
 
     /**
      * Return the boolean as to whether the context classloader should be used.
      */
     public boolean getUseContextClassLoader() {
-
-        return useContextClassLoader;
-
+        return this.useContextClassLoader;
     }
 
     /**
@@ -290,9 +328,9 @@ public class Validator implements Serializable {
         }
 
         if (this.useContextClassLoader) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            if (classLoader != null) {
-                return classLoader;
+            ClassLoader contextLoader = Thread.currentThread().getContextClassLoader();
+            if (contextLoader != null) {
+                return contextLoader;
             }
         }
 
@@ -398,95 +436,36 @@ public class Validator implements Serializable {
         try {
             // Add these two Objects to the resources since they reference
             // the current validator action and field
-            hResources.put(VALIDATOR_ACTION_KEY, va);
-            hResources.put(FIELD_KEY, field);
+            this.parameters.put(VALIDATOR_ACTION_KEY, va);
+            this.parameters.put(FIELD_KEY, field);
         
-            Class c = getClassLoader().loadClass(va.getClassname());
+            Class validationClass = getClassLoader().loadClass(va.getClassname());
         
             List params = va.getMethodParamsList();
-            int beanIndexPos = -1;
-            int fieldIndexPos = -1;
-            Class[] paramClass = new Class[params.size()];
-            Object[] paramValue = new Object[params.size()];
+            
+            Class[] paramClass = this.getParameterClasses(params);
+            Object[] paramValue = this.getParameterValues(params);
         
-            for (int x = 0; x < params.size(); x++) {
-                String paramKey = (String) params.get(x);
+            Method validationMethod =
+                validationClass.getMethod(va.getMethod(), paramClass);
         
-                if (BEAN_KEY.equals(paramKey)) {
-                    beanIndexPos = x;
-                }
-        
-                if (FIELD_KEY.equals(paramKey)) {
-                    fieldIndexPos = x;
-                }
-        
-                // There were problems calling getClass on paramValue[]
-                paramClass[x] = getClassLoader().loadClass(paramKey);
-        
-                paramValue[x] = hResources.get(paramKey);
+            // If the method is static, we don't need an instance of the class
+            // to call the method.
+            if (!Modifier.isStatic(validationMethod.getModifiers())) {
+                this.storeClassInAction(validationClass, va);
             }
-        
-            Method m = c.getMethod(va.getMethod(), paramClass);
-        
-            // If the method is static we don't need an instance of the class
-            // to call the method.  If it isn't, we do.
-            if (!Modifier.isStatic(m.getModifiers())) {
-                try {
-                    if (va.getClassnameInstance() == null) {
-                        va.setClassnameInstance(c.newInstance());
-                    }
-                } catch (Exception ex) {
-                    log.error(
-                        "Couldn't load instance "
-                            + "of class "
-                            + va.getClassname()
-                            + ".  "
-                            + ex.getMessage());
-                }
-            }
-        
-            Object result = null;
-        
+
             if (field.isIndexed()) {
-                Object oIndexed =
-                    PropertyUtils.getProperty(
-                        hResources.get(BEAN_KEY),
-                        field.getIndexedListProperty());
-                        
-                Object indexedList[] = new Object[0];
-        
-                if (oIndexed instanceof Collection) {
-                    indexedList = ((Collection) oIndexed).toArray();
-                    
-                } else if (oIndexed.getClass().isArray()) {
-                    indexedList = (Object[]) oIndexed;
-                }
-        
-                // Set current iteration object to the parameter array
-                paramValue[beanIndexPos] = indexedList[pos];
-        
-                // Set field clone with the key modified to represent
-                // the current field
-                Field indexedField = (Field) field.clone();
-                indexedField.setKey(
-                    ValidatorUtils.replace(
-                        indexedField.getKey(),
-                        Field.TOKEN_INDEXED,
-                        "[" + pos + "]"));
-                        
-                paramValue[fieldIndexPos] = indexedField;
-        
-                result = m.invoke(va.getClassnameInstance(), paramValue);
-                results.add(field, va.getName(), isValid(result), result);
-                if (!isValid(result)) {
-                    return false;
-                }
-            } else {
-                result = m.invoke(va.getClassnameInstance(), paramValue);
-                results.add(field, va.getName(), isValid(result), result);
-                if (!isValid(result)) {
-                    return false;
-                }
+                this.handleIndexedField(field, pos, params, paramValue);
+            } 
+            
+            Object result =
+                validationMethod.invoke(va.getClassnameInstance(), paramValue);
+                
+            results.add(field, va.getName(), isValid(result), result);
+            
+            if (!this.isValid(result)) {
+                return false;
             }
             
         } catch (Exception e) {
@@ -501,6 +480,120 @@ public class Validator implements Serializable {
         }
         
         return true;
+    }
+    
+    /**
+     * Converts a List of parameter class names into their Class objects.
+     * @param paramNames
+     * @return An array containing the Class object for each parameter.  This array 
+     * is in the same order as the given List and is suitable for passing to the validation
+     * method.
+     * @throws ClassNotFoundException
+     */
+    private Class[] getParameterClasses(List paramNames)
+        throws ClassNotFoundException {
+            
+        Class[] paramClass = new Class[paramNames.size()];
+
+        for (int i = 0; i < paramNames.size(); i++) {
+            String paramClassName = (String) paramNames.get(i);
+
+            // There were problems calling getClass on paramValue[]
+            paramClass[i] = this.getClassLoader().loadClass(paramClassName);
+        }
+
+        return paramClass;
+    }
+    
+    /**
+     * Converts a List of parameter class names into their values contained in the 
+     * parameters Map.
+     * @param paramNames
+     * @return An array containing the value object for each parameter.  This array 
+     * is in the same order as the given List and is suitable for passing to the validation
+     * method.
+     */
+    private Object[] getParameterValues(List paramNames) {
+            
+        Object[] paramValue = new Object[paramNames.size()];
+
+        for (int i = 0; i < paramNames.size(); i++) {
+            String paramClassName = (String) paramNames.get(i);
+            paramValue[i] = this.parameters.get(paramClassName);
+        }
+
+        return paramValue;
+    }
+
+    /**
+     * If the given action doesn't already have an instance of the class, store a new
+     * instance in the action.
+     * @param validationClass The pluggable validation class to store.
+     * @param va The ValidatorAction to store the object in.
+     */
+    private void storeClassInAction(Class validationClass, ValidatorAction va) {
+        try {
+            if (va.getClassnameInstance() == null) {
+                va.setClassnameInstance(validationClass.newInstance());
+            }
+        } catch (Exception ex) {
+            log.error(
+                "Couldn't load instance "
+                    + "of class "
+                    + va.getClassname()
+                    + ".  "
+                    + ex.getMessage());
+        }
+    }
+
+    /**
+     * Modifies the paramValue array with indexed fields.
+     * 
+     * @param field
+     * @param pos
+     * @param params
+     * @param paramValue
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     */
+    private void handleIndexedField(
+        Field field,
+        int pos,
+        List params,
+        Object[] paramValue)
+        throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+            
+        int beanIndexPos = params.indexOf(BEAN_KEY);
+        int fieldIndexPos = params.indexOf(FIELD_KEY);
+        
+        Object oIndexed =
+            PropertyUtils.getProperty(
+                this.parameters.get(BEAN_KEY),
+                field.getIndexedListProperty());
+                
+        Object indexedList[] = new Object[0];
+        
+        if (oIndexed instanceof Collection) {
+            indexedList = ((Collection) oIndexed).toArray();
+            
+        } else if (oIndexed.getClass().isArray()) {
+            indexedList = (Object[]) oIndexed;
+        }
+        
+        // Set current iteration object to the parameter array
+        paramValue[beanIndexPos] = indexedList[pos];
+        
+        // Set field clone with the key modified to represent
+        // the current field
+        Field indexedField = (Field) field.clone();
+        indexedField.setKey(
+            ValidatorUtils.replace(
+                indexedField.getKey(),
+                Field.TOKEN_INDEXED,
+                "[" + pos + "]"));
+                
+        paramValue[fieldIndexPos] = indexedField;
     }
 
     /**
@@ -519,7 +612,7 @@ public class Validator implements Serializable {
             try {
                 oIndexed =
                     PropertyUtils.getProperty(
-                        hResources.get(BEAN_KEY),
+                        this.parameters.get(BEAN_KEY),
                         field.getIndexedListProperty());
         
             } catch (Exception e) {
@@ -593,22 +686,19 @@ public class Validator implements Serializable {
      */
     public ValidatorResults validate() throws ValidatorException {
         ValidatorResults results = new ValidatorResults();
-        Locale locale = null;
-
-        if (hResources.containsKey(LOCALE_KEY)) {
-            locale = (Locale) hResources.get(LOCALE_KEY);
-        }
-        hResources.put(VALIDATOR_KEY, this);
+        Locale locale = (Locale) this.parameters.get(LOCALE_KEY);
 
         if (locale == null) {
             locale = Locale.getDefault();
         }
+        
+        this.parameters.put(VALIDATOR_KEY, this);
 
-        if (resources == null) {
+        if (this.resources == null) {
             throw new ValidatorException("Resources not defined for Validator");
         }
 
-        Form form = resources.getForm(locale, formName);
+        Form form = this.resources.getForm(locale, this.formName);
         if (form != null) {
             Iterator forms = form.getFields().iterator();
             while (forms.hasNext()) {

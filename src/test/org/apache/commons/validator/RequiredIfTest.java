@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredIfTest.java,v 1.3 2003/03/13 02:09:23 dgraham Exp $
- * $Revision: 1.3 $
- * $Date: 2003/03/13 02:09:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredIfTest.java,v 1.4 2003/05/22 02:29:46 dgraham Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/05/22 02:29:46 $
  *
  * ====================================================================
  *
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Performs Validation Test.</p> 
  *
  * @author James Turner
- * @version $Revision: 1.3 $ $Date: 2003/03/13 02:09:23 $
+ * @version $Revision: 1.4 $ $Date: 2003/05/22 02:29:46 $
 */                                                       
 public class RequiredIfTest extends TestCase {            
    
@@ -162,7 +162,7 @@ public class RequiredIfTest extends TestCase {
       Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource 
       // for the validations to be performed on.
-      validator.addResource(Validator.BEAN_KEY, name);
+      validator.addParameter(Validator.BEAN_KEY, name);
 
       // Get results of the validation.
       ValidatorResults results = null;
@@ -201,7 +201,7 @@ public class RequiredIfTest extends TestCase {
       Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource 
       // for the validations to be performed on.
-      validator.addResource(Validator.BEAN_KEY, name);
+      validator.addParameter(Validator.BEAN_KEY, name);
 
       // Get results of the validation.
       ValidatorResults results = null;
@@ -236,7 +236,7 @@ public class RequiredIfTest extends TestCase {
       Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource 
       // for the validations to be performed on.
-      validator.addResource(Validator.BEAN_KEY, name);
+      validator.addParameter(Validator.BEAN_KEY, name);
 
       // Get results of the validation.
       ValidatorResults results = null;
@@ -271,7 +271,7 @@ public class RequiredIfTest extends TestCase {
       Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource 
       // for the validations to be performed on.
-      validator.addResource(Validator.BEAN_KEY, name);
+      validator.addParameter(Validator.BEAN_KEY, name);
 
       // Get results of the validation.
       ValidatorResults results = null;
@@ -306,7 +306,7 @@ public class RequiredIfTest extends TestCase {
       Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource 
       // for the validations to be performed on.
-      validator.addResource(Validator.BEAN_KEY, name);
+      validator.addParameter(Validator.BEAN_KEY, name);
 
       // Get results of the validation.
       ValidatorResults results = null;

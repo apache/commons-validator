@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.9 2003/05/02 23:53:38 dgraham Exp $
- * $Revision: 1.9 $
- * $Date: 2003/05/02 23:53:38 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.10 2003/05/22 02:29:46 dgraham Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/05/22 02:29:46 $
  *
  * ====================================================================
  *
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.9 $ $Date: 2003/05/02 23:53:38 $
+ * @version $Revision: 1.10 $ $Date: 2003/05/22 02:29:46 $
 */                                                       
 public class EmailTest extends TestCase {            
    
@@ -260,7 +260,7 @@ public class EmailTest extends TestCase {
       Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource 
       // for the validations to be performed on.
-      validator.addResource(Validator.BEAN_KEY, info);
+      validator.addParameter(Validator.BEAN_KEY, info);
 
       // Get results of the validation.
       ValidatorResults results = null;

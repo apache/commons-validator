@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.10 2003/05/21 02:53:40 dgraham Exp $
- * $Revision: 1.10 $
- * $Date: 2003/05/21 02:53:40 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.11 2003/05/22 02:29:46 dgraham Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/05/22 02:29:46 $
  *
  * ====================================================================
  *
@@ -80,7 +80,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.10 $ $Date: 2003/05/21 02:53:40 $
+ * @version $Revision: 1.11 $ $Date: 2003/05/22 02:29:46 $
 */                                                       
 public class ValidatorTest extends TestCase {            
                                                           
@@ -147,7 +147,7 @@ public class ValidatorTest extends TestCase {
       bean.setDate("2/3/1999");
       
       Validator validator = new Validator(resources, "testForm");
-      validator.addResource(Validator.BEAN_KEY, bean);
+      validator.addParameter(Validator.BEAN_KEY, bean);
 
       try {
          ValidatorResults results = validator.validate();
@@ -218,8 +218,8 @@ public class ValidatorTest extends TestCase {
       bean.setLetter("A");
       
       Validator validator = new Validator(resources, "testForm");
-      validator.addResource(Validator.BEAN_KEY, bean);
-      validator.addResource("java.util.List", l);
+      validator.addParameter(Validator.BEAN_KEY, bean);
+      validator.addParameter("java.util.List", l);
 
       try {
          validator.validate();
