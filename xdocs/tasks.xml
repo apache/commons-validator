@@ -24,6 +24,12 @@
     
     <subsection name="Medium priority"> 
       <ul>
+        <li>
+            Integrate the creation of javascript javadocs into the maven build. What will need to happen
+            is something similar to the exec task in the ant build.xml. Then to put a Maven template around
+            the javadoc it and the legacy 1.0.2 javadoc will need to be copied to a temporary directory then the
+            html2xdoc task will need to be run against that temporary directory.
+        </li>
       	<li>
       		Change the validation.xml file semantics to match a more general "bean" validation usage.
       		Currently, the &lt;form-validation&gt;, &lt;formset&gt;, &lt;form&gt;, and &lt;field&gt; elements
@@ -32,7 +38,7 @@
       		non-form based environments.
       	</li>
       	<li>
-      	        Scenario one:
+      	    Scenario one:
       		Replace the Jakarta ORO regex engine with the standard Java 1.4 engine.  Preliminary tests show a 
       		50% speed improvement using the standard engine.  This will remove the ORO dependency and
       		bring Validator in line with standard Java regular expressions.  However, this requires a move
@@ -40,7 +46,7 @@
       		we also change the configuration file semantics.
       	</li>
       	<li>
-      		Much more likely Scenario:
+      		More likely Scenario:
       		ORO provides a much richer interface to regular expression, such that we don't have
       		to worry about bit twiddling, this includes a pluggable regex engine. Jeffrey E Friedl states
       		in Mastering Regular Expressions 2ed, says that in speaking to the ORO developers that they
@@ -84,6 +90,7 @@
         	<li>
         	  Add ability to use required condition on array types like checkboxes.
         	</li>
+        </ul>
     </subsection>
     <subsection name='Since 1.0.2 Release'>
         <ul>
