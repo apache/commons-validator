@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.17 2003/06/08 05:29:27 dgraham Exp $
- * $Revision: 1.17 $
- * $Date: 2003/06/08 05:29:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.18 2003/06/08 06:03:16 dgraham Exp $
+ * $Revision: 1.18 $
+ * $Date: 2003/06/08 06:03:16 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.17 $ $Date: 2003/06/08 05:29:27 $
+ * @version $Revision: 1.18 $ $Date: 2003/06/08 06:03:16 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -331,20 +331,33 @@ public class Field implements Cloneable, Serializable {
     
     /**
      * Gets the default <code>Arg</code> object at the given position.
+     * @return The default Arg or null if not found.
      */
     public Arg getArg(int position) {
         return this.getArg(DEFAULT_ARG, position);
     }
 
     /**
-     * Gets the default <code>Arg</code> object at the given position.
+     * Gets the default <code>Arg</code> object at the given position.  If the key 
+     * finds a <code>null</code> value then the default value will try to be retrieved.
+     * @param key The name the Arg is stored under.  If not found, the default Arg for 
+     * the given position (if any) will be retrieved.
+     * @param position The Arg number to find.
+     * @return The Arg with the given name and position or null if not found.
      */
     public Arg getArg(String key, int position) {
-        if (position >= this.args.length) {
-            return null;
-        }
+		if ((position >= this.args.length) || (this.args[position] == null)) {
+			return null;
+		}
 
-        return (args[position] == null) ? null : (Arg) args[position].get(key);
+		Arg arg = (Arg) args[position].get(key);
+        
+        // Didn't find default arg so exit, otherwise we would get into infinite recursion
+		if ((arg == null) && key.equals(DEFAULT_ARG)) {
+			return null;
+		}
+
+		return (arg == null) ? this.getArg(position) : arg;
     }
 
     /**
