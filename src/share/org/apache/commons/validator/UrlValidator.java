@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.12 2003/05/03 20:53:59 dgraham Exp $
- * $Revision: 1.12 $
- * $Date: 2003/05/03 20:53:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.13 2003/05/03 21:14:51 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/05/03 21:14:51 $
  *
  * ====================================================================
  *
@@ -114,7 +114,7 @@ import org.apache.oro.text.perl.Perl5Util;
  *
  * @author Robert Leland
  * @author David Graham
- * @version $Revision: 1.12 $ $Date: 2003/05/03 20:53:59 $
+ * @version $Revision: 1.13 $ $Date: 2003/05/03 21:14:51 $
  */
 public class UrlValidator implements Serializable {
     
@@ -217,7 +217,7 @@ public class UrlValidator implements Serializable {
     /**
      * The set of schemes that are allowed to be in a URL.
      */
-	private Set allowedSchemes = null;
+	private Set allowedSchemes = new HashSet();
     
     /**
      * If no schemes are provided, default to this set.
@@ -271,51 +271,50 @@ public class UrlValidator implements Serializable {
             schemes = this.defaultSchemes;
         }
         
-    	this.allowedSchemes = new HashSet(Arrays.asList(schemes));
+    	this.allowedSchemes.addAll(Arrays.asList(schemes));
 	}
 
 	/**
 	 * <p>Checks if a field has a valid url address.</p>
 	 *
-	 * @param value The value validation is being performed on.
+	 * @param value The value validation is being performed on.  A <code>null</code>
+     * value is considered invalid.
 	 * @return true if the url is valid.
 	 */
 	public boolean isValid(String value) {
-		try {
-			Perl5Util matchUrlPat = new Perl5Util();
-			Perl5Util matchAsciiPat = new Perl5Util();
+		if (value == null) {
+			return false;
+		}
 
-			if (!matchAsciiPat.match(LEGAL_ASCII_PATTERN, value)) {
-				return false;
-			}
+		Perl5Util matchUrlPat = new Perl5Util();
+		Perl5Util matchAsciiPat = new Perl5Util();
 
-			// Check the whole url address structure
-			if (!matchUrlPat.match(URL_PATTERN, value)) {
-				return false;
-			}
+		if (!matchAsciiPat.match(LEGAL_ASCII_PATTERN, value)) {
+			return false;
+		}
 
-			if (!isValidScheme(matchUrlPat.group(PARSE_URL_SCHEME))) {
-				return false;
-			}
+		// Check the whole url address structure
+		if (!matchUrlPat.match(URL_PATTERN, value)) {
+			return false;
+		}
 
-			if (!isValidAuthority(matchUrlPat.group(PARSE_URL_AUTHORITY))) {
-				return false;
-			}
+		if (!isValidScheme(matchUrlPat.group(PARSE_URL_SCHEME))) {
+			return false;
+		}
 
-			if (!isValidPath(matchUrlPat.group(PARSE_URL_PATH))) {
-				return false;
-			}
+		if (!isValidAuthority(matchUrlPat.group(PARSE_URL_AUTHORITY))) {
+			return false;
+		}
 
-			if (!isValidQuery(matchUrlPat.group(PARSE_URL_QUERY))) {
-				return false;
-			}
+		if (!isValidPath(matchUrlPat.group(PARSE_URL_PATH))) {
+			return false;
+		}
 
-			if (!isValidFragment(matchUrlPat.group(PARSE_URL_FRAGMENT))) {
-				return false;
-			}
+		if (!isValidQuery(matchUrlPat.group(PARSE_URL_QUERY))) {
+			return false;
+		}
 
-		} catch (Exception e) {
-			// TODO Do we need to catch Exception?
+		if (!isValidFragment(matchUrlPat.group(PARSE_URL_FRAGMENT))) {
 			return false;
 		}
 
@@ -325,26 +324,40 @@ public class UrlValidator implements Serializable {
 	/**
 	 * Validate scheme. If schemes[] was initialized to a non null,
 	 * then only those scheme's are allowed.  Note this is slightly different
-	 * than for the Constructor.
-	 * @param scheme The scheme to validate.
-	 * @return   true is valid.
+	 * than for the constructor.
+	 * @param scheme The scheme to validate.  A <code>null</code> value is considered
+     * invalid.
+	 * @return true if valid.
 	 */
 	protected boolean isValidScheme(String scheme) {
+		if (scheme == null) {
+			return false;
+		}
+        
 		Perl5Util schemeMatcher = new Perl5Util();
-		boolean bValid = schemeMatcher.match(SCHEME_PATTERN, scheme);
-		if (bValid) {
-			if (allowedSchemes != null) {
-				bValid = allowedSchemes.contains(scheme);
+		if (!schemeMatcher.match(SCHEME_PATTERN, scheme)) {
+			return false;
+		}
+
+		if (this.options.isOff(ALLOW_ALL_SCHEMES)) {
+
+			if (!this.allowedSchemes.contains(scheme)) {
+				return false;
 			}
 		}
-		return bValid;
+
+		return true;
 	}
 
 	/**
 	 * Returns true if the authority is properly formatted.  An authority is the combination
-	 * of hostname and port.
+	 * of hostname and port.  A <code>null</code> authority value is considered invalid.
 	 */
 	protected boolean isValidAuthority(String authority) {
+		if (authority == null) {
+			return false;
+		}
+        
 		Perl5Util authorityMatcher = new Perl5Util();
 		Perl5Util matchIPV4Pat = new Perl5Util();
 		
@@ -440,9 +453,13 @@ public class UrlValidator implements Serializable {
 	}
 
     /**
-     * Returns true if the path is valid.
+     * Returns true if the path is valid.  A <code>null</code> value is considered invalid.
      */
 	protected boolean isValidPath(String path) {
+		if (path == null) {
+			return false;
+		}
+        
 		Perl5Util pathMatcher = new Perl5Util();
 
 		if (!pathMatcher.match(PATH_PATTERN, path)) {
