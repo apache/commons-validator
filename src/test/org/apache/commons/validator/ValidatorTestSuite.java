@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.15 2004/02/21 17:10:30 rleland Exp $
- * $Revision: 1.15 $
- * $Date: 2004/02/21 17:10:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.16 2004/04/04 13:53:25 rleland Exp $
+ * $Revision: 1.16 $
+ * $Date: 2004/04/04 13:53:25 $
  *
  * ====================================================================
  * Copyright 2000-2004 The Apache Software Foundation
@@ -51,6 +51,7 @@ public class ValidatorTestSuite extends TestCase {
        suite.addTest(FloatTest.suite());
        suite.addTest(DoubleTest.suite());
        suite.addTest(TypeTest.suite());
+       suite.addTest(ExtensionTest.suite());        
        suite.addTest(EmailTest.suite());
        suite.addTestSuite(CreditCardValidatorTest.class);
        suite.addTest(ValidatorTest.suite());

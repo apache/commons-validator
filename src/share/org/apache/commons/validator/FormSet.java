@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.15 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.15 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.16 2004/04/04 13:53:25 rleland Exp $
+ * $Revision: 1.16 $
+ * $Date: 2004/04/04 13:53:25 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -186,7 +186,7 @@ public class FormSet implements Serializable {
     public synchronized void process(Map globalConstants) {
         for (Iterator i = forms.values().iterator(); i.hasNext();) {
             Form f = (Form) i.next();
-            f.process(globalConstants, constants);
+            f.process(globalConstants, constants, forms);
         }
 
         processed = true;

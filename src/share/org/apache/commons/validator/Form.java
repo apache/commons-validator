@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.14 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.14 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.15 2004/04/04 13:53:25 rleland Exp $
+ * $Revision: 1.15 $
+ * $Date: 2004/04/04 13:53:25 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -58,6 +58,17 @@ public class Form implements Serializable {
      * Map of <code>Field</code>s keyed on their property value.
      */
     protected FastHashMap hFields = new FastHashMap();
+
+	/**
+	 * The name/key of the form which this form extends from.
+	*/
+	protected String inherit = null;
+
+	/**
+	 * Whether or not the this <code>Form</code> was processed
+	 * for replacing variables in strings with their values.
+	*/
+	private boolean processed = false;
 
     /**
      * Gets the name/key of the set of validation rules.
@@ -126,7 +137,46 @@ public class Form implements Serializable {
             Field f = (Field) i.next();
             f.process(globalConstants, constants);
         }
+
+		processed = true;
     }
+
+	/**
+	 * Processes all of the <code>Form</code>'s <code>Field</code>s.
+	*/
+	protected void process(Map globalConstants, Map constants, Map forms) {
+
+		if (isProcessed()) {
+			return;
+		}
+		int n = 0; //we want the fields from its parent first
+		if (isExtending()) {
+			Form parent = (Form) forms.get(inherit);
+			if (parent != null) {
+				if (!parent.isProcessed()) {
+					//we want to go all the way up the tree
+					parent.process(constants, globalConstants, forms);
+				}
+				for (Iterator i = parent.getFields().iterator(); i.hasNext();) {
+					Field f = (Field) i.next();
+					//we want to be able to override any fields we like
+					if (hFields.get(f.getKey()) == null) {
+						lFields.add(n, f);
+						hFields.put(f.getKey(), f);
+						n++;
+					}
+				}
+			}
+		}
+		hFields.setFast(true);
+		//no need to reprocess parent's fields, we iterate from 'n'
+		for (Iterator i = lFields.listIterator(n); i.hasNext();) {
+			Field f = (Field) i.next();
+			f.process(globalConstants, constants);
+		}
+
+		processed = true;
+	}
 
     /**
      * Returns a string representation of the object.
@@ -146,7 +196,7 @@ public class Form implements Serializable {
 
         return results.toString();
     }
-    
+
     /**
      * Validate all Fields in this Form on the given page and below.
      * @param params A Map of parameter class names to parameter values to pass
@@ -175,4 +225,32 @@ public class Form implements Serializable {
         return results;
     }
 
+	/**
+ 	 * Whether or not the this <code>Form</code> was processed
+ 	 * for replacing variables in strings with their values.
+ 	*/
+ 	public boolean isProcessed() {
+ 	   return processed;
+ 	}
+
+ 	/**
+ 	 * Gets the name/key of the parent set of validation rules.
+ 	 */
+ 	public String getExtends() {
+ 		return inherit;
+ 	}
+
+ 	/**
+ 	 * Sets the name/key of the parent set of validation rules.
+ 	 */
+ 	public void setExtends(String string) {
+ 		inherit = string;
+ 	}
+
+ 	/**
+ 	 * Get extends flag.
+ 	 */
+ 	public boolean isExtending() {
+ 	  return inherit != null;
+ 	}
 }

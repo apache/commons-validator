@@ -1,0 +1,39 @@
+<!DOCTYPE form-validation PUBLIC
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.2.0//EN"
+     "http://jakarta.apache.org/commons/dtds/validator_1_2_0.dtd">
+     <form-validation>
+
+   <global>
+      <validator name="required"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateRequired"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+   </global>
+   <formset>
+
+      <form name="nameForm" extends="baseForm">
+         <field property="lastName"
+               depends="required">
+                 <arg0 key="nameForm.lastname.displayname"/>
+         </field>
+      </form>
+
+        <form name="nameForm2" extends="nameForm">
+            <!--override rule with no action (set to "" and Field will not find any tokens
+                while iterating StringTokenizer(",") in the process method) -->
+            <field property="lastName" depends=""/>
+            <!--override rule with different message-->
+            <field property="firstName" depends="required">
+                <arg0 key="nameForm.lastname.displayname"/>
+            </field>
+        </form>
+
+        <form name="baseForm">
+            <field property="firstName" depends="required">
+                <arg0 key="nameForm.firstname.displayname"/>
+            </field>
+        </form>
+
+   </formset>
+</form-validation>

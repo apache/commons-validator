@@ -12,9 +12,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-# $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/build.properties.sample,v 1.11 2004/02/29 09:48:28 scolebourne Exp $
-# $Revision: 1.11 $
-# $Date: 2004/02/29 09:48:28 $
+# $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/build.properties.sample,v 1.12 2004/04/04 13:53:25 rleland Exp $
+# $Revision: 1.12 $
+# $Date: 2004/04/04 13:53:25 $
 # -----------------------------------------------------------------------------
 # This is an example "build.properties" file.  Make any changes you need, 
 # and rename this file to "build.properties" in the same directory that 
@@ -37,16 +37,16 @@ commons-digester.jar=../digester/dist/commons-digester.jar
 # from the Jakarta Commons project.
 commons-logging.jar=../logging/dist/commons-logging.jar
 
-# The JAR file containing version 2.07 (or later) of 
+# The JAR file containing version 2.08 (or later) of
 # the the Jakarta ORO project.
-oro.jar=${apache.dir}/jakarta-oro-2.0.7/jakarta-oro-2.0.7.jar
+oro.jar=${apache.dir}/jakarta-oro-2.0.8/jakarta-oro-2.0.8.jar
 
 # The JAR file containing version 3.8.1 (or later) of
 # JUnit Unit Testing (http://www.junit.org)
 junit.jar=D:/java/Lib/junit3.8.1/junit.jar
 
-# Needed for building the Javadocs
-xerces.jar=${apache.dir}/xerces-1_4_2/xerces.jar
+# Needed for building the version Javadocs
+xerces.jar=${apache.dir}/xerces-2_5_0/xercesImpl.jar
 
 # jsdoc 1.5.2 or Newer is needed for building the Javascript Javadocs
 jsdoc.home=/cygdrive/d/Projects/Sourceforge/JsDoc/JSDoc-1.5.2

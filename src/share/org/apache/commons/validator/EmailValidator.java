@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.12 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.12 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.13 2004/04/04 13:53:25 rleland Exp $
+ * $Revision: 1.13 $
+ * $Date: 2004/04/04 13:53:25 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -87,6 +87,8 @@ public class EmailValidator {
         if (!matchAsciiPat.match(LEGAL_ASCII_PATTERN, email)) {
             return false;
         }
+
+        email = stripComments(email);
 
         // Check the whole email address structure
         Perl5Util emailMatcher = new Perl5Util();
@@ -212,5 +214,24 @@ public class EmailValidator {
 
         return true;
     }
+    /**
+     *   Recursively remove comments, and replace with a single space.  The simpler
+     *   regexps in the Email Addressing FAQ are imperfect - they will miss escaped
+     *   chars in atoms, for example.
+     *   Derived From    Mail::RFC822::Address
+    */
+    protected String stripComments(String emailStr)  {
+     String input = emailStr;
+     String result = emailStr;
+     String commentPat = "s/^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/$1 /osx";
+     Perl5Util commentMatcher = new Perl5Util();
+     result = commentMatcher.substitute(commentPat,input);
+     // This really needs to be =~ or Perl5Matcher comparison
+     while (!result.equals(input)) {
+        input = result;
+        result = commentMatcher.substitute(commentPat,input);
+     }
+     return result;
 
+    }
 }
