@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.2 2003/04/30 21:24:41 rleland Exp $
- * $Revision: 1.2 $
- * $Date: 2003/04/30 21:24:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.3 2003/04/30 22:11:06 rleland Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/04/30 22:11:06 $
  *
  * ====================================================================
  *
@@ -73,7 +73,7 @@ package org.apache.commons.validator;
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.2 $ $Date: 2003/04/30 21:24:41 $
+ * @version $Revision: 1.3 $ $Date: 2003/04/30 22:11:06 $
  */
 public class CreditCardValidator {
 
@@ -118,7 +118,7 @@ public class CreditCardValidator {
 	 *
 	 * @param cardNumber Credit Card Number.
 	 */
-	protected static boolean validateCreditCardLuhnCheck(String cardNumber) {
+	protected boolean validateCreditCardLuhnCheck(String cardNumber) {
 		// number must be validated as 0..9 numeric first!!
 		int digits = cardNumber.length();
 		int oddoeven = digits & 1;
@@ -155,7 +155,7 @@ public class CreditCardValidator {
 	 *
 	 * @param cardNumber Credit Card Number.
 	 */
-	protected static boolean validateCreditCardPrefixCheck(String cardNumber) {
+	protected boolean validateCreditCardPrefixCheck(String cardNumber) {
 
 		int length = cardNumber.length();
 		if (length < 13) {

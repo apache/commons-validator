@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.19 2003/04/30 21:28:40 rleland Exp $
- * $Revision: 1.19 $
- * $Date: 2003/04/30 21:28:40 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.20 2003/04/30 22:11:06 rleland Exp $
+ * $Revision: 1.20 $
+ * $Date: 2003/04/30 22:11:06 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
  * @author Robert Leland
- * @version $Revision: 1.19 $ $Date: 2003/04/30 21:28:40 $
+ * @version $Revision: 1.20 $ $Date: 2003/04/30 22:11:06 $
  */
 public class GenericValidator implements Serializable {
 
@@ -310,7 +310,7 @@ public class GenericValidator implements Serializable {
     * @deprecated Use CreditCardValidator.validateCreditCardLuhnCheck() instead.
     */
    protected static boolean validateCreditCardLuhnCheck(String cardNumber) {
-      return CreditCardValidator.validateCreditCardLuhnCheck(
+      return CreditCardValidator.getInstance().validateCreditCardLuhnCheck(
             cardNumber);
    }
 
@@ -321,7 +321,7 @@ public class GenericValidator implements Serializable {
     * @deprecated Use CreditCardValidator.validateCreditCardPrefixCheck() instead.
     */
    protected boolean validateCreditCardPrefixCheck(String cardNumber) {
-      return CreditCardValidator.validateCreditCardPrefixCheck(
+      return CreditCardValidator.getInstance().validateCreditCardPrefixCheck(
             cardNumber);
    }
 
