@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.17 2003/05/02 23:39:31 dgraham Exp $
- * $Revision: 1.17 $
- * $Date: 2003/05/02 23:39:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.18 2003/05/20 00:19:10 dgraham Exp $
+ * $Revision: 1.18 $
+ * $Date: 2003/05/20 00:19:10 $
  *
  * ====================================================================
  *
@@ -86,12 +86,12 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.17 $ $Date: 2003/05/02 23:39:31 $
+ * @version $Revision: 1.18 $ $Date: 2003/05/20 00:19:10 $
  */
 public class Validator implements Serializable {
 
     /**
-     * Logger
+     * Logger.
      */
     protected static Log log = LogFactory.getLog(Validator.class);
 
@@ -158,8 +158,7 @@ public class Validator implements Serializable {
      * passed in to retrieve pluggable validators
      * the different sets of validation rules.
      *
-     * @param	resources	<code>ValidatorResources</code>
-     *				to use during validation.
+     * @param resources <code>ValidatorResources</code> to use during validation.
      */
     public Validator(ValidatorResources resources) {
         this.resources = resources;
@@ -171,10 +170,8 @@ public class Validator implements Serializable {
      * passed in to retrieve pluggable validators
      * the different sets of validation rules.
      *
-     * @param	resources	<code>ValidatorResources</code>
-     *				to use during validation.
-     * @param	formName	Key used for retrieving the set of
-     *				validation rules.
+     * @param resources <code>ValidatorResources</code> to use during validation.
+     * @param formName Key used for retrieving the set of validation rules.
      */
     public Validator(ValidatorResources resources, String formName) {
         this.resources = resources;
@@ -185,12 +182,9 @@ public class Validator implements Serializable {
      * Add a resource to be used during the processing
      * of validations.
      *
-     * @param	key		The full class name of the parameter
-     *				of the validation method that
-     *				corresponds to the value/instance
-     *				passed in with it.
-     * @param	value		The instance that will be passed
-     *				into the validation method.
+     * @param key The full class name of the parameter of the validation method 
+     * that corresponds to the value/instance passed in with it.
+     * @param value The instance that will be passed into the validation method.
      */
     public void addResource(String key, Object value) {
         hResources.put(key, value);
@@ -200,48 +194,40 @@ public class Validator implements Serializable {
      * Get a resource to be used during the processing
      * of validations.
      *
-     * @param	key		The full class name of the parameter
-     *				of the validation method that
-     *				corresponds to the value/instance
-     *				passed in with it.
+     * @param key The full class name of the parameter of the validation method 
+     * that corresponds to the value/instance passed in with it.
      */
     public Object getResource(String key) {
         return hResources.get(key);
     }
 
     /**
-     * Gets the form name which is the key
-     * to a set of validation rules.
+     * Gets the form name which is the key to a set of validation rules.
      */
     public String getFormName() {
         return formName;
     }
 
     /**
-     * Sets the form name which is the key
-     * to a set of validation rules.
+     * Sets the form name which is the key to a set of validation rules.
      */
     public void setFormName(String formName) {
         this.formName = formName;
     }
 
     /**
-     * Gets the page.  This in conjunction with
-     * the page property of a <code>Field<code>
-     * can control the processing of fields.
-     * If the field's page is less than or equal
-     * to this page value, it will be processed.
+     * Gets the page.  This in conjunction with the page property of 
+     * a <code>Field<code> can control the processing of fields. If the field's 
+     * page is less than or equal to this page value, it will be processed.
      */
     public int getPage() {
         return page;
     }
 
     /**
-     * Sets the page.  This in conjunction with
-     * the page property of a <code>Field<code>
-     * can control the processing of fields.
-     * If the field's page is less than or equal
-     * to this page value, it will be processed.
+     * Sets the page.  This in conjunction with the page property of 
+     * a <code>Field<code> can control the processing of fields. If the field's page 
+     * is less than or equal to this page value, it will be processed.
      */
     public void setPage(int page) {
         this.page = page;
@@ -310,7 +296,7 @@ public class Validator implements Serializable {
             }
         }
 
-        return (this.getClass().getClassLoader());
+        return this.getClass().getClassLoader();
     }
 
     /**
@@ -321,9 +307,7 @@ public class Validator implements Serializable {
      *  to revert to the standard rules
      */
     public void setClassLoader(ClassLoader classLoader) {
-
         this.classLoader = classLoader;
-
     }
 
     /**
@@ -554,9 +538,9 @@ public class Validator implements Serializable {
     /**
      * Performs validations based on the configured resources.
      *
-     * @return The <code>Map</code> returned uses the property
-     *		of the <code>Field</code> for the key and the value
-     *		is the number of error the field had.
+     * @return The <code>Map</code> returned uses the property of the 
+     * <code>Field</code> for the key and the value is the number of error the 
+     * field had.
      */
     public ValidatorResults validate() throws ValidatorException {
         ValidatorResults results = new ValidatorResults();
@@ -592,8 +576,7 @@ public class Validator implements Serializable {
      * result object is <code>Boolean</code>, then it will
      * the value.  If the result object isn't <code>Boolean</code>,
      * then it will return <code>false</code> if the result
-     * object is <code>null</code> and <code>true</code> if it
-     * isn't.
+     * object is <code>null</code> and <code>true</code> if it isn't.
      */
     private boolean isValid(Object result) {
         boolean isValid = false;
