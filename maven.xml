@@ -1,5 +1,9 @@
 <project default="java:jar">
 
+  <preGoal name="xdoc:jelly-transform">
+    <attainGoal name="html2xdoc"/>
+  </preGoal>
+
   <postGoal name="java:compile">
     
     <copy    todir="${maven.build.dir}/classes/">
