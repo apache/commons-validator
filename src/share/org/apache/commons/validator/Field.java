@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.6 2002/10/11 01:49:33 turner Exp $
- * $Revision: 1.6 $
- * $Date: 2002/10/11 01:49:33 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.7 2002/10/16 22:13:32 turner Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/10/16 22:13:32 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.commons.collections.FastHashMap;
  * to perform the validations and generate error messages.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2002/10/11 01:49:33 $
+ * @version $Revision: 1.7 $ $Date: 2002/10/16 22:13:32 $
  * @see org.apache.commons.validator.Form
 */
 public class Field implements Cloneable, Serializable {
@@ -498,6 +498,7 @@ public class Field implements Cloneable, Serializable {
               
           hDependencies.setFast(true);
        }
+       hMsgs.setFast(true);
     }
 
     /**
