@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LongTest.java,v 1.12 2003/09/06 05:17:59 rleland Exp $
- * $Revision: 1.12 $
- * $Date: 2003/09/06 05:17:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LongTest.java,v 1.13 2003/10/05 16:47:27 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/10/05 16:47:27 $
  *
  * ====================================================================
  *
@@ -29,14 +29,14 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Commons", and "Apache Software
+ * 4. The names, "Apache", "The Jakarta Project", "Commons", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
- *    nor may "Apache" appear in their names without prior written
- *    permission of the Apache Group.
+ *    nor may "Apache" appear in their name, without prior written
+ *    permission of the Apache Software Foundation.
  *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
@@ -59,7 +59,6 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import junit.framework.Test;
@@ -69,10 +68,9 @@ import junit.framework.TestSuite;
  * <p>Performs Validation Test for <code>long</code> validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.12 $ $Date: 2003/09/06 05:17:59 $
+ * @version $Revision: 1.13 $ $Date: 2003/10/05 16:47:27 $
  */
 public class LongTest extends TestNumber {
-
 
     public LongTest(String name) {
         super(name);

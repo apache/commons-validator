@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleConfigFilesTest.java,v 1.7 2003/08/23 02:24:07 rleland Exp $
- * $Revision: 1.7 $
- * $Date: 2003/08/23 02:24:07 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleConfigFilesTest.java,v 1.8 2003/10/05 16:47:27 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/10/05 16:47:27 $
  *
  * ====================================================================
  *
@@ -64,9 +64,9 @@ package org.apache.commons.validator;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.xml.sax.SAXException;
-
 import junit.framework.TestCase;
+
+import org.xml.sax.SAXException;
 
 /**
  * Tests that validator rules split between 2 different XML files get merged properly.

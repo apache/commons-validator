@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/DoubleTest.java,v 1.13 2003/10/05 16:41:09 dgraham Exp $
- * $Revision: 1.13 $
- * $Date: 2003/10/05 16:41:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/DoubleTest.java,v 1.14 2003/10/05 16:47:27 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/10/05 16:47:27 $
  *
  * ====================================================================
  *
@@ -59,18 +59,16 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-
 /**                                                       
  * <p>Performs Validation Test for <code>double</code> validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.13 $ $Date: 2003/10/05 16:41:09 $
+ * @version $Revision: 1.14 $ $Date: 2003/10/05 16:47:27 $
  */
 public class DoubleTest extends TestNumber {
 
