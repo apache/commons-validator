@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.13 2004/04/04 13:53:25 rleland Exp $
- * $Revision: 1.13 $
- * $Date: 2004/04/04 13:53:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.14 2004/05/03 00:50:23 husted Exp $
+ * $Revision: 1.14 $
+ * $Date: 2004/05/03 00:50:23 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -32,7 +32,11 @@ import org.apache.oro.text.perl.Perl5Util;
  * Based on a script by <a href="mailto:stamhankar@hotmail.com">Sandeep V. Tamhankar</a>
  * http://javascript.internet.com
  * </p>
- *
+ * <p>
+ * This implementation is not guaranteed to catch all possible errors in an email address.
+ * For example, an address like nobody@noplace.d- will pass validator, even though there
+ * is no TLD "d-"
+ * </p>.
  * @since Validator 1.1
  */
 public class EmailValidator {
