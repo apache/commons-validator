@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.29 2003/08/22 02:30:59 rleland Exp $
- * $Revision: 1.29 $
- * $Date: 2003/08/22 02:30:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.30 2003/08/26 16:11:48 rleland Exp $
+ * $Revision: 1.30 $
+ * $Date: 2003/08/26 16:11:48 $
  *
  * ====================================================================
  *
@@ -86,7 +86,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.29 $ $Date: 2003/08/22 02:30:59 $
+ * @version $Revision: 1.30 $ $Date: 2003/08/26 16:11:48 $
  */
 public class Validator implements Serializable {
 
@@ -608,9 +608,6 @@ public class Validator implements Serializable {
      * @param pos
      * @param params
      * @param paramValue
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
-     * @throws NoSuchMethodException
      */
     private void handleIndexedField(
             Field field,
