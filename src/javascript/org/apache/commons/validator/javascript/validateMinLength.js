@@ -12,7 +12,7 @@
                 field.type == 'textarea') {
 
                 var iMin = parseInt(oMinLength[x][2]("minlength"));
-                if ((field.value.length > 0) && (field.value.length < iMin)) {
+                if ((trim(field.value).length > 0) && (field.value.length < iMin)) {
                     if (i == 0) {
                         focusField = field;
                     }
