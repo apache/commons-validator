@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.13 2003/05/28 04:28:00 dgraham Exp $
- * $Revision: 1.13 $
- * $Date: 2003/05/28 04:28:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.14 2003/06/14 18:49:03 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/06/14 18:49:03 $
  *
  * ====================================================================
  *
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.13 $ $Date: 2003/05/28 04:28:00 $
+ * @version $Revision: 1.14 $ $Date: 2003/06/14 18:49:03 $
 */                                                       
 public class EmailTest extends TestCase {            
    
@@ -232,6 +232,9 @@ public class EmailTest extends TestCase {
         // The ' character is valid in an email address.
     	info.setValue("andy.o'reilly@data-workshop.com");
     	valueTest(info, true);
+        
+        info.setValue("foo+bar@i.am.not.in.us.example.com");
+        valueTest(info, true);
     }
    
    /**
