@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.12.2.1 2004/11/11 12:17:32 niallp Exp $
- * $Revision: 1.12.2.1 $
- * $Date: 2004/11/11 12:17:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.12.2.2 2004/11/11 15:32:03 niallp Exp $
+ * $Revision: 1.12.2.2 $
+ * $Date: 2004/11/11 15:32:03 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -52,6 +52,7 @@ public class Msg implements Cloneable, Serializable {
      * Whether or not the key is a message resource (optional).  Defaults to
      * true.  If it is 'true', the value will try to be resolved as a message
      * resource.
+     * @since Validator 1.1.4
      */
     protected boolean resource = true;
 
@@ -103,6 +104,7 @@ public class Msg implements Cloneable, Serializable {
     /**
      * Tests whether or not the key is a resource key or literal value.
      * @return <code>true</code> if key is a resource key.
+     * @since Validator 1.1.4
      */
     public boolean isResource() {
         return this.resource;
@@ -111,6 +113,7 @@ public class Msg implements Cloneable, Serializable {
     /**
      * Sets whether or not the key is a resource.
      * @param resource If true indicates the key is a resource.
+     * @since Validator 1.1.4
      */
     public void setResource(boolean resource) {
         this.resource = resource;
