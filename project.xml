@@ -4,7 +4,7 @@
   <extend>../project.xml</extend>
   <name>Validator</name>
   <id>commons-validator</id>
-  <currentVersion>1.0.2</currentVersion>
+  <currentVersion>1.1.0</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <gumpRepositoryId>jakarta</gumpRepositoryId>
   <shortDescription>Commons Validator</shortDescription>
@@ -54,7 +54,7 @@
     <developer>
       <name>Rob Leland</name>
       <id>rleland</id>
-      <email>rleland@apache.org</email>
+      <email>rleland at apache.org</email>
       <organization></organization>
     </developer>
   </developers>
@@ -72,7 +72,7 @@
 
     <dependency>
       <id>commons-beanutils</id>
-      <version>1.5</version>
+      <version>1.6.1</version>
     </dependency>
 
     <dependency>
@@ -102,7 +102,7 @@
 
     <dependency>
       <id>junit</id>
-      <version>3.7</version>
+      <version>3.8.1</version>
     </dependency>
 
   </dependencies>
