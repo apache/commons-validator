@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.16 2003/06/07 19:25:58 dgraham Exp $
- * $Revision: 1.16 $
- * $Date: 2003/06/07 19:25:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.17 2003/06/08 05:29:27 dgraham Exp $
+ * $Revision: 1.17 $
+ * $Date: 2003/06/08 05:29:27 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.16 $ $Date: 2003/06/07 19:25:58 $
+ * @version $Revision: 1.17 $ $Date: 2003/06/08 05:29:27 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -720,29 +720,29 @@ public class Field implements Cloneable, Serializable {
      * Returns a string representation of the object.
      */       
     public String toString() {
-       StringBuffer results = new StringBuffer();
-       
-       results.append("\t\tkey=                 " + key    + "\n");
-       results.append("\t\tproperty=            " + property    + "\n");
-       results.append("\t\tindexedProperty=     " + indexedProperty    + "\n");
-       results.append("\t\tindexedListProperty= " + indexedListProperty    + "\n");
-       results.append("\t\tdepends=             " + depends    + "\n");
-       results.append("\t\tpage=                " + page    + "\n");
-       results.append("\t\tfieldOrder=          " + fieldOrder    + "\n");
-
-       if (hVars != null) {
-          results.append("\t\tVars:\n");
-    	  for (Iterator i = hVars.keySet().iterator(); i.hasNext(); ) {
-    	     Object key = i.next();
-    	     results.append("\t\t\t");
-    	     results.append(key);
-    	     results.append("=");
-    	     results.append(hVars.get(key));
-    	     results.append("\n");
-    	   }
+    	StringBuffer results = new StringBuffer();
+    
+    	results.append("\t\tkey = " + key + "\n");
+    	results.append("\t\tproperty = " + property + "\n");
+    	results.append("\t\tindexedProperty = " + indexedProperty + "\n");
+    	results.append("\t\tindexedListProperty = " + indexedListProperty + "\n");
+    	results.append("\t\tdepends = " + depends + "\n");
+    	results.append("\t\tpage = " + page + "\n");
+    	results.append("\t\tfieldOrder = " + fieldOrder + "\n");
+    
+    	if (hVars != null) {
+    		results.append("\t\tVars:\n");
+    		for (Iterator i = hVars.keySet().iterator(); i.hasNext();) {
+    			Object key = i.next();
+    			results.append("\t\t\t");
+    			results.append(key);
+    			results.append("=");
+    			results.append(hVars.get(key));
+    			results.append("\n");
+    		}
     	}
-    	
-       return results.toString();
+    
+    	return results.toString();
     }
     
 }
