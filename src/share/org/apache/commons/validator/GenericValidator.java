@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.29 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.29 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.30 2004/04/08 22:51:17 dgraham Exp $
+ * $Revision: 1.30 $
+ * $Date: 2004/04/08 22:51:17 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -30,12 +30,6 @@ import org.apache.oro.text.perl.Perl5Util;
  * This class contains basic methods for performing validations.
  */
 public class GenericValidator implements Serializable {
-
-    /**
-     * Delimiter to put around a regular expression following Perl 5 syntax.
-     * @deprecated Use ValidatorUtils.REGEXP_DELIMITER instead.
-     */
-    public final static String REGEXP_DELIM = ValidatorUtil.REGEXP_DELIMITER;
 
     /**
      * UrlValidator used in wrapper method.
@@ -236,26 +230,6 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * Checks for a valid credit card number.
-     *
-     * @param cardNumber Credit Card Number.
-     * @deprecated This functionality has moved to CreditCardValidator.
-     */
-    protected static boolean validateCreditCardLuhnCheck(String cardNumber) {
-        return (new CreditCardValidator()).luhnCheck(cardNumber);
-    }
-
-    /**
-     * Checks for a valid credit card number.
-     *
-     * @param cardNumber Credit Card Number.
-     * @deprecated This functionality has move to CreditCardValidator.
-     */
-    protected boolean validateCreditCardPrefixCheck(String cardNumber) {
-        return (new CreditCardValidator()).isValidPrefix(cardNumber);
-    }
-
-    /**
      * <p>Checks if a field has a valid e-mail address.</p>
      *
      * @param value The value validation is being performed on.
@@ -295,11 +269,4 @@ public class GenericValidator implements Serializable {
         return (value.length() >= min);
     }
 
-    /**
-     * Adds a '/' on either side of the regular expression.
-     * @deprecated use ValidatorUtils.getDelimitedRegExp() instead.
-     */
-    protected static String getDelimittedRegexp(String regexp) {
-        return ValidatorUtil.getDelimitedRegExp(regexp);
-    }
 }
