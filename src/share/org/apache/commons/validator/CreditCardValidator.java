@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.14 2004/01/17 19:22:02 dgraham Exp $
- * $Revision: 1.14 $
- * $Date: 2004/01/17 19:22:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.15 2004/02/01 02:41:25 dgraham Exp $
+ * $Revision: 1.15 $
+ * $Date: 2004/02/01 02:41:25 $
  *
  * ====================================================================
  *
@@ -104,22 +104,22 @@ public class CreditCardValidator {
     /**
      * Option specifying that American Express cards are allowed.
      */
-    public static final int AMEX = 1;
+    public static final int AMEX = 1 << 0;
 
     /**
      * Option specifying that Visa cards are allowed.
      */
-    public static final int VISA = 2;
+    public static final int VISA = 1 << 1;
 
     /**
      * Option specifying that Mastercard cards are allowed.
      */
-    public static final int MASTERCARD = 4;
+    public static final int MASTERCARD = 1 << 2;
 
     /**
      * Option specifying that Discover cards are allowed.
      */
-    public static final int DISCOVER = 8;
+    public static final int DISCOVER = 1 << 3;
     
     /**
      * The CreditCardTypes that are allowed to pass validation.

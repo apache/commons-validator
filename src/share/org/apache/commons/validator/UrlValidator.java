@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.17 2004/01/11 23:30:20 dgraham Exp $
- * $Revision: 1.17 $
- * $Date: 2004/01/11 23:30:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.18 2004/02/01 02:41:25 dgraham Exp $
+ * $Revision: 1.18 $
+ * $Date: 2004/02/01 02:41:25 $
  *
  * ====================================================================
  *
@@ -120,17 +120,17 @@ public class UrlValidator implements Serializable {
      * Allows all validly formatted schemes to pass validation instead of supplying a
      * set of valid schemes.
      */
-    public static final int ALLOW_ALL_SCHEMES = 1;
+    public static final int ALLOW_ALL_SCHEMES = 1 << 0;
 
     /**
      * Allow two slashes in the path component of the URL.
      */
-    public static final int ALLOW_2_SLASHES = 2;
+    public static final int ALLOW_2_SLASHES = 1 << 1;
 
     /**
      * Enabling this options disallows any URL fragments.
      */
-    public static final int NO_FRAGMENTS = 4;
+    public static final int NO_FRAGMENTS = 1 << 2;
 
     private static final String ALPHA_CHARS = "a-zA-Z";
 
