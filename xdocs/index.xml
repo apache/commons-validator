@@ -62,6 +62,24 @@
       </p>
 
     </section>
+    
+    <section name="Features">
+        <p>Validator provides two distinct sets of functionality:</p>
+        <ol>
+            <li>A configurable (typically XML) validation engine</li>
+            <li>Reusable "primitive" validation methods</li>
+        </ol>
+        
+        <p>
+        Your validation methods are plugged into the engine and 
+        executed against your data.  Often, these methods use
+        resources specific to one application or framework so Commons 
+        Validator doesn't directly provide pluggable validator actions.
+        However, it does have a set of common validation methods 
+        (email addresses, dates, URLs, etc.) that help in creating 
+        pluggable actions.    
+        </p>
+    </section>
 
   </body>
 
