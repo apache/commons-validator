@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateRequired.js,v $ $Revision: 1.11 $ $Date: 2004/03/08 23:24:25 $ */
+    /*$RCSfile: validateRequired.js,v $ $Revision: 1.12 $ $Date: 2004/03/25 04:56:11 $ */
     /**
     *  Check to see if fields must contain a value.
     * Fields are not checked if they are disabled.
@@ -12,7 +12,8 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        oRequired = eval('new ' + form.name + '_required()');
+        var formName = getAttribute(form,"name");
+        oRequired = eval('new ' + formName.value + '_required()');
 
         for (x in oRequired) {
             var field = form[oRequired[x][0]];

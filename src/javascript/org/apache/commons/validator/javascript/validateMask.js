@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateMask.js,v $ $Revision: 1.8 $ $Date: 2004/03/08 23:24:25 $ */
+    /*$RCSfile: validateMask.js,v $ $Revision: 1.9 $ $Date: 2004/03/25 04:56:11 $ */
     /**
     * Check to see if fields are a valid using a regular expression.
     * Fields are not checked if they are disabled.
@@ -11,7 +11,9 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        oMasked = eval('new ' + form.name + '_mask()');      
+        var formName = getAttribute(form,"name");
+
+        oMasked = eval('new ' + formName.value + '_mask()');      
         for (x in oMasked) {
             var field = form[oMasked[x][0]];
 

@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateShort.js,v $ $Revision: 1.7 $ $Date: 2004/03/08 23:24:25 $ */
+    /*$RCSfile: validateShort.js,v $ $Revision: 1.8 $ $Date: 2004/03/25 04:56:11 $ */
     /**
     *  Check to see if fields are a valid short.
     * Fields are not checked if they are disabled.
@@ -11,7 +11,9 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        oShort = eval('new ' + form.name + '_ShortValidations()');
+        var formName = getAttribute(form,"name");
+
+        oShort = eval('new ' + formName.value + '_ShortValidations()');
 
         for (x in oShort) {
             var field = form[oShort[x][0]];

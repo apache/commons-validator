@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateByte.js,v $ $Revision: 1.7 $ $Date: 2004/03/08 23:24:25 $ */
+    /*$RCSfile: validateByte.js,v $ $Revision: 1.8 $ $Date: 2004/03/25 04:56:11 $ */
     /**
     * Check to see if fields are a valid byte.
     * Fields are not checked if they are disabled.
@@ -11,7 +11,9 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        oByte = eval('new ' + form.name + '_ByteValidations()');
+        var formName = getAttribute(form,"name");
+
+        oByte = eval('new ' + formName.value + '_ByteValidations()');
 
         for (x in oByte) {
             var field = form[oByte[x][0]];

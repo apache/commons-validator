@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateIntRange.js,v $ $Revision: 1.8 $ $Date: 2004/03/08 23:24:25 $ */
+    /*$RCSfile: validateIntRange.js,v $ $Revision: 1.9 $ $Date: 2004/03/25 04:56:11 $ */
     /**
     * Check to see if fields is in a valid integer range.
     * Fields are not checked if they are disabled.
@@ -11,7 +11,9 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        oRange = eval('new ' + form.name + '_intRange()');        
+        var formName = getAttribute(form,"name");
+
+        oRange = eval('new ' + formName.value + '_intRange()');        
         for (x in oRange) {
             var field = form[oRange[x][0]];
             if (field.disabled == false)  {

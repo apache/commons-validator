@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateCreditCard.js,v $ $Revision: 1.6 $ $Date: 2004/03/08 23:24:25 $ */
+    /*$RCSfile: validateCreditCard.js,v $ $Revision: 1.7 $ $Date: 2004/03/25 04:56:11 $ */
     /**
     * Check to see if fields are a valid creditcard number based on Luhn checksum.
     * Fields are not checked if they are disabled.
@@ -11,7 +11,9 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        oCreditCard = eval('new ' + form.name + '_creditCard()');
+        var formName = getAttribute(form,"name");
+
+        oCreditCard = eval('new ' + formName.value + '_creditCard()');
 
         for (x in oCreditCard) {
             if ((form[oCreditCard[x][0]].type == 'text' ||

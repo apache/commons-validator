@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateFloat.js,v $ $Revision: 1.9 $ $Date: 2004/03/08 23:24:25 $ */
+    /*$RCSfile: validateFloat.js,v $ $Revision: 1.10 $ $Date: 2004/03/25 04:56:11 $ */
     /**
     * Check to see if fields are a valid float.
     * Fields are not checked if they are disabled.
@@ -11,7 +11,9 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        oFloat = eval('new ' + form.name + '_FloatValidations()');
+        var formName = getAttribute(form,"name");
+
+        oFloat = eval('new ' + formName.value + '_FloatValidations()');
         for (x in oFloat) {
         	var field = form[oFloat[x][0]];
         	

@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateMinLength.js,v $ $Revision: 1.9 $ $Date: 2004/03/08 23:24:25 $ */
+    /*$RCSfile: validateMinLength.js,v $ $Revision: 1.10 $ $Date: 2004/03/25 04:56:11 $ */
     /**
     * A field is considered valid if greater than the specified minimum.
     * Fields are not checked if they are disabled.
@@ -14,7 +14,10 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        oMinLength = eval('new ' + form.name + '_minlength()');
+        var formName = getAttribute(form,"name");
+
+
+        oMinLength = eval('new ' + formName.value + '_minlength()');
 
         for (x in oMinLength) {
             var field = form[oMinLength[x][0]];

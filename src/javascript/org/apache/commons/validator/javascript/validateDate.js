@@ -1,5 +1,5 @@
 
-   /*$RCSfile: validateDate.js,v $ $Revision: 1.8 $ $Date: 2004/03/08 23:24:25 $ */
+   /*$RCSfile: validateDate.js,v $ $Revision: 1.9 $ $Date: 2004/03/25 04:56:11 $ */
     /**
     * Check to see if fields are a valid date.
     * Fields are not checked if they are disabled.
@@ -11,7 +11,9 @@
        var focusField = null;
        var i = 0;
        var fields = new Array();
-       oDate = eval('new ' + form.name + '_DateValidations()');
+       var formName = getAttribute(form,"name");
+
+       oDate = eval('new ' + formName.value + '_DateValidations()');
 
        for (x in oDate) {
            var field = form[oDate[x][0]];
