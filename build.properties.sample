@@ -1,6 +1,6 @@
-# $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/build.properties.sample,v 1.7 2003/08/21 21:49:31 rleland Exp $
-# $Revision: 1.7 $
-# $Date: 2003/08/21 21:49:31 $
+# $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/build.properties.sample,v 1.8 2003/08/23 02:36:49 rleland Exp $
+# $Revision: 1.8 $
+# $Date: 2003/08/23 02:36:49 $
 # -----------------------------------------------------------------------------
 # This is an example "build.properties" file.  Make any changes you need, 
 # and rename this file to "build.properties" in the same directory that 
@@ -33,3 +33,11 @@ junit.jar=D:/java/Lib/junit3.8.1/junit.jar
 
 # Just needed for building the Javadocs
 xerces.jar=${apache.dir}/xerces-1_4_2/xerces.jar
+#############################Maven Variables #######################################
+# CVS Start Change Log date
+cvs.start=17 April 2003
+
+
+# If you are using ssh tunneling & have a .cvspass file setup
+cvs.developer.host=localhost
+cvs.developer.id=rleland
