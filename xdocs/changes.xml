@@ -59,8 +59,22 @@ The <action> type attribute can be add,update,fix,remove.
         Allow forms to inherit validation rules from other forms.
         PR# 27870
       </action>
+      <action dev="niallp" type="add">
+        Remove the need to specify an Arguement's position.
+        PR# 31194
+      </action>
     </release>
   
+    <release version="1.1.4" date="2004-11-12">
+      <action dev="niallp" type="add">
+        Added getMessage(key) and getMessages() methods to Field (PR# 29452)
+      </action>
+      <action dev="niallp" type="add">
+        Added resource property (including getter/setter) to Msg to support
+        the 'resource' attribute specified in the DTD. 
+      </action>
+    </release>
+
     <release version="1.1.3" date="2004-08-25">
       <action dev="dgraham" type="fix">
         Fixed javascript file reading in Java WebStart environment.
