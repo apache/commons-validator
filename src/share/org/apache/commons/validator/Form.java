@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.17 2004/04/08 23:22:03 dgraham Exp $
- * $Revision: 1.17 $
- * $Date: 2004/04/08 23:22:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.18 2004/04/11 06:47:22 dgraham Exp $
+ * $Revision: 1.18 $
+ * $Date: 2004/04/11 06:47:22 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -32,9 +32,9 @@ import org.apache.commons.collections.FastHashMap;
 
 /**
  * <p>
- * This contains a set of validation rules for a form/JavaBean.  The information is
- * contained in a list of <code>Field</code> objects.  Instances of this class are
- * configured with a &lt;form&gt; xml element.
+ * This contains a set of validation rules for a form/JavaBean.  The information 
+ * is contained in a list of <code>Field</code> objects.  Instances of this 
+ * class are configured with a &lt;form&gt; xml element.
  * </p>
  */
 public class Form implements Serializable {
@@ -58,17 +58,17 @@ public class Form implements Serializable {
      */
     protected FastHashMap hFields = new FastHashMap();
 
-	/**
-	 * The name/key of the form which this form extends from.
+    /**
+     * The name/key of the form which this form extends from.
      * @since Validator 1.2.0
-	 */
-	protected String inherit = null;
+     */
+    protected String inherit = null;
 
-	/**
-	 * Whether or not the this <code>Form</code> was processed
-	 * for replacing variables in strings with their values.
-	 */
-	private boolean processed = false;
+    /**
+     * Whether or not the this <code>Form</code> was processed
+     * for replacing variables in strings with their values.
+     */
+    private boolean processed = false;
 
     /**
      * Gets the name/key of the set of validation rules.
@@ -117,43 +117,43 @@ public class Form implements Serializable {
         return this.hFields.containsKey(fieldName);
     }
 
-	/**
-	 * Processes all of the <code>Form</code>'s <code>Field</code>s.
+    /**
+     * Processes all of the <code>Form</code>'s <code>Field</code>s.
      * @since Validator 1.2.0
-	 */
-	protected void process(Map globalConstants, Map constants, Map forms) {
-		if (isProcessed()) {
-			return;
-		}
-        
-		int n = 0; //we want the fields from its parent first
-		if (isExtending()) {
-			Form parent = (Form) forms.get(inherit);
-			if (parent != null) {
-				if (!parent.isProcessed()) {
-					//we want to go all the way up the tree
-					parent.process(constants, globalConstants, forms);
-				}
-				for (Iterator i = parent.getFields().iterator(); i.hasNext();) {
-					Field f = (Field) i.next();
-					//we want to be able to override any fields we like
-					if (hFields.get(f.getKey()) == null) {
-						lFields.add(n, f);
-						hFields.put(f.getKey(), f);
-						n++;
-					}
-				}
-			}
-		}
-		hFields.setFast(true);
-		//no need to reprocess parent's fields, we iterate from 'n'
-		for (Iterator i = lFields.listIterator(n); i.hasNext();) {
-			Field f = (Field) i.next();
-			f.process(globalConstants, constants);
-		}
+     */
+    protected void process(Map globalConstants, Map constants, Map forms) {
+        if (isProcessed()) {
+            return;
+        }
 
-		processed = true;
-	}
+        int n = 0; //we want the fields from its parent first
+        if (isExtending()) {
+            Form parent = (Form) forms.get(inherit);
+            if (parent != null) {
+                if (!parent.isProcessed()) {
+                    //we want to go all the way up the tree
+                    parent.process(constants, globalConstants, forms);
+                }
+                for (Iterator i = parent.getFields().iterator(); i.hasNext();) {
+                    Field f = (Field) i.next();
+                    //we want to be able to override any fields we like
+                    if (hFields.get(f.getKey()) == null) {
+                        lFields.add(n, f);
+                        hFields.put(f.getKey(), f);
+                        n++;
+                    }
+                }
+            }
+        }
+        hFields.setFast(true);
+        //no need to reprocess parent's fields, we iterate from 'n'
+        for (Iterator i = lFields.listIterator(n); i.hasNext();) {
+            Field f = (Field) i.next();
+            f.process(globalConstants, constants);
+        }
+
+        processed = true;
+    }
 
     /**
      * Returns a string representation of the object.
@@ -202,36 +202,36 @@ public class Form implements Serializable {
         return results;
     }
 
-	/**
- 	 * Whether or not the this <code>Form</code> was processed
- 	 * for replacing variables in strings with their values.
+    /**
+     * Whether or not the this <code>Form</code> was processed
+     * for replacing variables in strings with their values.
      * @since Validator 1.2.0
- 	 */
- 	public boolean isProcessed() {
- 	   return processed;
- 	}
+     */
+    public boolean isProcessed() {
+        return processed;
+    }
 
- 	/**
- 	 * Gets the name/key of the parent set of validation rules.
+    /**
+     * Gets the name/key of the parent set of validation rules.
      * @since Validator 1.2.0
- 	 */
- 	public String getExtends() {
- 		return inherit;
- 	}
+     */
+    public String getExtends() {
+        return inherit;
+    }
 
- 	/**
- 	 * Sets the name/key of the parent set of validation rules.
+    /**
+     * Sets the name/key of the parent set of validation rules.
      * @since Validator 1.2.0
- 	 */
- 	public void setExtends(String string) {
- 		inherit = string;
- 	}
+     */
+    public void setExtends(String string) {
+        inherit = string;
+    }
 
- 	/**
- 	 * Get extends flag.
+    /**
+     * Get extends flag.
      * @since Validator 1.2.0
- 	 */
- 	public boolean isExtending() {
- 	  return inherit != null;
- 	}
+     */
+    public boolean isExtending() {
+        return inherit != null;
+    }
 }
