@@ -1,4 +1,9 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.4 2002/03/30 04:25:59 dwinterfeldt Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/03/30 04:25:59 $
+ *
+ * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
@@ -72,6 +77,7 @@ import org.apache.regexp.RESyntaxException;
  * performing validations.</p>
  *
  * @author David Winterfeldt
+ * @version $Revision: 1.4 $ $Date: 2002/03/30 04:25:59 $
 */
 public class GenericValidator implements Serializable {
 
@@ -107,13 +113,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isByte(String value) {
-       try {
-          Byte.parseByte(value);
-       } catch (Exception e) {
-          return false;
-       }
-       
-       return true;
+       return (GenericTypeValidator.formatByte(value) != null);
     }
 
     /**
@@ -122,13 +122,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isShort(String value) {
-       try {
-          Short.parseShort(value);
-       } catch (Exception e) {
-          return false;
-       }
-       
-       return true;
+       return (GenericTypeValidator.formatShort(value) != null);
     }
 
     /**
@@ -137,13 +131,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isInt(String value) {
-       try {
-          Integer.parseInt(value);
-       } catch (Exception e) {
-          return false;
-       }
-       
-       return true;
+       return (GenericTypeValidator.formatInt(value) != null);
     }
 
     /**
@@ -152,13 +140,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isLong(String value) {
-       try {
-          Long.parseLong(value);
-       } catch (Exception e) {
-          return false;
-       }
-       
-       return true;
+       return (GenericTypeValidator.formatLong(value) != null);
     }
 
     /**
@@ -167,13 +149,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isFloat(String value) {
-       try {
-          Float.parseFloat(value);
-       } catch (Exception e) {
-          return false;
-       }
-       
-       return true;
+       return (GenericTypeValidator.formatFloat(value) != null);
     }
 
     /**
@@ -182,13 +158,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isDouble(String value) {
-       try {
-          Double.parseDouble(value);
-       } catch (Exception e) {
-          return false;
-       }
-       
-       return true;
+       return (GenericTypeValidator.formatDouble(value) != null);
     }
 
     /**
