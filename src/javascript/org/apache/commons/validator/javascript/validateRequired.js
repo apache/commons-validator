@@ -26,7 +26,7 @@
                     value = field.value;
                 }
 
-                if (value == '') {
+                if (trim(value).length == 0) {
 
                     if (i == 0) {
                         focusField = field;
@@ -41,4 +41,9 @@
            alert(fields.join('\n'));
         }
         return isValid;
+    }
+    
+    // Trim whitespace from left and right sides of s.
+    function trim(s) {
+        return s.replace( /^\s*/, "" ).replace( /\s*$/, "" );
     }
