@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.20 2003/09/06 05:17:59 rleland Exp $
- * $Revision: 1.20 $
- * $Date: 2003/09/06 05:17:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.21 2003/10/05 16:41:09 dgraham Exp $
+ * $Revision: 1.21 $
+ * $Date: 2003/10/05 16:41:09 $
  *
  * ====================================================================
  *
@@ -64,7 +64,6 @@ package org.apache.commons.validator;
 import java.io.IOException;
 
 import junit.framework.Test;
-
 import junit.framework.TestSuite;
 
 import org.xml.sax.SAXException;
@@ -75,7 +74,7 @@ import org.xml.sax.SAXException;
  * @author David Winterfeldt
  * @author David Graham
  * @author Rob Leland
- * @version $Revision: 1.20 $ $Date: 2003/09/06 05:17:59 $
+ * @version $Revision: 1.21 $ $Date: 2003/10/05 16:41:09 $
 */                                                       
 public class EmailTest extends TestCommon {
    

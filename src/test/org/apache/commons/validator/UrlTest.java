@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/UrlTest.java,v 1.5 2003/08/23 02:24:07 rleland Exp $
- * $Revision: 1.5 $
- * $Date: 2003/08/23 02:24:07 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/UrlTest.java,v 1.6 2003/10/05 16:41:09 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/10/05 16:41:09 $
  *
  * ====================================================================
  *
@@ -62,15 +62,15 @@
 
 package org.apache.commons.validator;
 
-import junit.framework.TestCase;
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
  * <p>Performs Validation Test for url validations.</p>
  *
  * @author Robert Leland
- * @version $Revision: 1.5 $ $Date: 2003/08/23 02:24:07 $
+ * @version $Revision: 1.6 $ $Date: 2003/10/05 16:41:09 $
  */
 public class UrlTest extends TestCase {
    class TestPair {

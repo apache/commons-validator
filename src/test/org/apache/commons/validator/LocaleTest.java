@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LocaleTest.java,v 1.10 2003/09/06 05:17:59 rleland Exp $
- * $Revision: 1.10 $
- * $Date: 2003/09/06 05:17:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LocaleTest.java,v 1.11 2003/10/05 16:41:09 dgraham Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/10/05 16:41:09 $
  *
  * ====================================================================
  *
@@ -68,14 +68,13 @@ import java.util.Locale;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-
 import org.xml.sax.SAXException;
                                                           
 /**                                                       
  * <p>Performs Validation Test for <code>long</code> validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.10 $ $Date: 2003/09/06 05:17:59 $
+ * @version $Revision: 1.11 $ $Date: 2003/10/05 16:41:09 $
 */                                                       
 public class LocaleTest extends TestCommon {
    
