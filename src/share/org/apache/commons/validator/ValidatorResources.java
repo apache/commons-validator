@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.18 2003/05/24 19:17:57 dgraham Exp $
- * $Revision: 1.18 $
- * $Date: 2003/05/24 19:17:57 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.19 2003/05/24 19:24:58 dgraham Exp $
+ * $Revision: 1.19 $
+ * $Date: 2003/05/24 19:24:58 $
  *
  * ====================================================================
  *
@@ -92,7 +92,7 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.18 $ $Date: 2003/05/24 19:17:57 $
+ * @version $Revision: 1.19 $ $Date: 2003/05/24 19:24:58 $
  */
 public class ValidatorResources implements Serializable {
 
@@ -233,19 +233,7 @@ public class ValidatorResources implements Serializable {
      * Add a global constant to the resource.
      */
     public void addConstant(Constant c) {
-        if (c != null
-            && c.getName() != null
-            && c.getName().length() > 0
-            && c.getValue() != null
-            && c.getValue().length() > 0) {
-
-            if (log.isDebugEnabled()) {
-                log.debug(
-                    "Adding Global Constant: " + c.getName() + "," + c.getValue());
-            }
-
-            hConstants.put(c.getName(), c.getValue());
-        }
+       this.addConstantParam(c.getName(), c.getValue());
     }
 
     /**
@@ -261,7 +249,7 @@ public class ValidatorResources implements Serializable {
                 log.debug("Adding Global Constant: " + name + "," + value);
             }
 
-            hConstants.put(name, value);
+            this.hConstants.put(name, value);
         }
     }
 
@@ -451,15 +439,27 @@ public class ValidatorResources implements Serializable {
         hConstants.setFast(true);
         hActions.setFast(true);
 
-        processForms();
+        this.internalProcessForms();
     }
 
     /**
      * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s 
      * that don't exist in a <code>FormSet</code> compared to the default 
      * <code>FormSet</code>.</p>
+     * @deprecated This is an internal method that client classes need not call directly.
      */
     public void processForms() {
+        this.internalProcessForms();
+    }
+    
+    /**
+     * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s 
+     * that don't exist in a <code>FormSet</code> compared to the default 
+     * <code>FormSet</code>.</p>
+     * TODO When processForms() is removed from the public interface, rename this 
+     * private method back to "processForms".
+     */
+    private void internalProcessForms() {
         //hFormSets.put(buildKey(fs), fs);
         String defaultKey = defaultLocale.toString();
 
