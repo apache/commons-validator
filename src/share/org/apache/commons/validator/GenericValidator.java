@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.26 2003/08/21 21:43:05 rleland Exp $
- * $Revision: 1.26 $
- * $Date: 2003/08/21 21:43:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.27 2003/08/26 16:11:01 rleland Exp $
+ * $Revision: 1.27 $
+ * $Date: 2003/08/26 16:11:01 $
  *
  * ====================================================================
  *
@@ -74,7 +74,7 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
  * @author Robert Leland
- * @version $Revision: 1.26 $ $Date: 2003/08/21 21:43:05 $
+ * @version $Revision: 1.27 $ $Date: 2003/08/26 16:11:01 $
  */
 public class GenericValidator implements Serializable {
 
@@ -203,10 +203,22 @@ public class GenericValidator implements Serializable {
     }
 
     /**
+	* <p>Checks if a value is within a range (min &amp; max specified
+	* in the vars attribute).</p>
+	*
+	* @param 	value 		The value validation is being performed on.
+	* @param 	min		The minimum value of the range.
+	* @param 	max		The maximum value of the range.
+	*/
+   public static boolean isInRange(byte value, byte min, byte max) {
+	  return ((value >= min) && (value <= max));
+   }
+
+    /**
      * <p>Checks if a value is within a range (min &amp; max specified
      * in the vars attribute).</p>
      *
-     * @param     value         The value validation is being performed on.
+     * @param     value      The value validation is being performed on.
      * @param     min        The minimum value of the range.
      * @param     max        The maximum value of the range.
      */
@@ -218,7 +230,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if a value is within a range (min &amp; max specified
      * in the vars attribute).</p>
      *
-     * @param     value         The value validation is being performed on.
+     * @param     value      The value validation is being performed on.
      * @param     min        The minimum value of the range.
      * @param     max        The maximum value of the range.
      */
@@ -230,7 +242,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if a value is within a range (min &amp; max specified
      * in the vars attribute).</p>
      *
-     * @param     value         The value validation is being performed on.
+     * @param     value      The value validation is being performed on.
      * @param     min        The minimum value of the range.
      * @param     max        The maximum value of the range.
      */
@@ -238,11 +250,23 @@ public class GenericValidator implements Serializable {
         return ((value >= min) && (value <= max));
     }
 
+   /**
+    * <p>Checks if a value is within a range (min &amp; max specified
+    * in the vars attribute).</p>
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @param 	min		The minimum value of the range.
+    * @param 	max		The maximum value of the range.
+    */
+   public static boolean isInRange(long value, long min, long max) {
+      return ((value >= min) && (value <= max));
+   }
+
     /**
      * <p>Checks if a value is within a range (min &amp; max specified
      * in the vars attribute).</p>
      *
-     * @param     value         The value validation is being performed on.
+     * @param     value      The value validation is being performed on.
      * @param     min        The minimum value of the range.
      * @param     max        The maximum value of the range.
      */
