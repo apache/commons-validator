@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TypeTest.java,v 1.9 2003/05/28 04:28:00 dgraham Exp $
- * $Revision: 1.9 $
- * $Date: 2003/05/28 04:28:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TypeTest.java,v 1.10 2003/08/03 17:39:11 dgraham Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/08/03 17:39:11 $
  *
  * ====================================================================
  *
@@ -79,7 +79,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Performs Validation Test for type validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.9 $ $Date: 2003/05/28 04:28:00 $
+ * @version $Revision: 1.10 $ $Date: 2003/08/03 17:39:11 $
 */                                                       
 public class TypeTest extends TestCase {            
    
@@ -129,7 +129,7 @@ public class TypeTest extends TestCase {
 
    /**
     * Load <code>ValidatorResources</code> from 
-    * validator-name-required.xml.
+    * validator-type.xml.
    */
    protected void setUp() throws IOException {
       // Load resources

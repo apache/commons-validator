@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleTests.java,v 1.7 2003/05/28 04:28:00 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2003/05/28 04:28:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleTests.java,v 1.8 2003/08/03 17:39:11 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/08/03 17:39:11 $
  *
  * ====================================================================
  *
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Performs Validation Test.</p>
  *
  * @author James Turner
- * @version $Revision: 1.7 $ $Date: 2003/05/28 04:28:00 $
+ * @version $Revision: 1.8 $ $Date: 2003/08/03 17:39:11 $
 */
 public class MultipleTests extends TestCase {
 
@@ -126,7 +126,7 @@ public class MultipleTests extends TestCase {
 
    /**
     * Load <code>ValidatorResources</code> from
-    * validator-name-required.xml.
+    * validator-multipletest.xml.
    */
    protected void setUp() throws IOException {
       // Load resources

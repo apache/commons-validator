@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ByteTest.java,v 1.8 2003/05/28 04:28:00 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/05/28 04:28:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ByteTest.java,v 1.9 2003/08/03 17:39:11 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/08/03 17:39:11 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Performs Validation Test for <code>byte</code> validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2003/05/28 04:28:00 $
+ * @version $Revision: 1.9 $ $Date: 2003/08/03 17:39:11 $
 */                                                       
 public class ByteTest extends TestCase {            
    
@@ -127,7 +127,7 @@ public class ByteTest extends TestCase {
 
    /**
     * Load <code>ValidatorResources</code> from 
-    * validator-name-required.xml.
+    * validator-numeric.xml.
    */
    protected void setUp() throws IOException {
       // Load resources
