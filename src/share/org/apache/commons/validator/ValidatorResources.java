@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.27 2003/08/21 21:43:05 rleland Exp $
- * $Revision: 1.27 $
- * $Date: 2003/08/21 21:43:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.28 2003/08/22 02:30:59 rleland Exp $
+ * $Revision: 1.28 $
+ * $Date: 2003/08/22 02:30:59 $
  *
  * ====================================================================
  *
@@ -93,7 +93,7 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.27 $ $Date: 2003/08/21 21:43:05 $
+ * @version $Revision: 1.28 $ $Date: 2003/08/22 02:30:59 $
  */
 public class ValidatorResources implements Serializable {
 
@@ -113,7 +113,8 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Logger.
-     */
+     * @deprecated Subclasses should use their own logging instance.
+      */
     protected static Log log = LogFactory.getLog(ValidatorResources.class);
 
     /**

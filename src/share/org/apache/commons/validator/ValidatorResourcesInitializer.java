@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.19 2003/08/21 21:43:06 rleland Exp $
- * $Revision: 1.19 $
- * $Date: 2003/08/21 21:43:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.20 2003/08/22 02:30:59 rleland Exp $
+ * $Revision: 1.20 $
+ * $Date: 2003/08/22 02:30:59 $
  *
  * ====================================================================
  *
@@ -79,13 +79,14 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author Dave Derry
- * @version $Revision: 1.19 $ $Date: 2003/08/21 21:43:06 $
+ * @version $Revision: 1.20 $ $Date: 2003/08/22 02:30:59 $
  * @deprecated ValidatorResources knows how to initialize itself now.
  */
 public class ValidatorResourcesInitializer {
 
     /**
      * Logger.
+     * @deprecated Subclasses should use their own logging instance.
      */
     protected static Log log = LogFactory.getLog(ValidatorResourcesInitializer.class);
 
