@@ -7,13 +7,21 @@
         oRange = new intRange();
         for (x in oRange) {
             var field = form[oRange[x][0]];
-            
-            if ((field.type == 'text' || field.type == 'textarea') &&
-                (field.value.length > 0)) {
-
+            var value = '';
+            if (field.type == 'text' || field.type == 'textarea' ||
+                field.type == 'radio' ) {
+                value = field.value;
+            }
+            if (field.type == 'select-one') {
+                var si = field.selectedIndex;
+                if (si >= 0) {
+                    value = field.options[si].value;
+                }
+            }
+            if (value.length > 0) {
                 var iMin = parseInt(oRange[x][2]("min"));
                 var iMax = parseInt(oRange[x][2]("max"));
-                var iValue = parseInt(field.value);
+                var iValue = parseInt(value);
                 if (!(iValue >= iMin && iValue <= iMax)) {
                     if (i == 0) {
                         focusField = field;
