@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.13 2003/08/21 21:43:05 rleland Exp $
- * $Revision: 1.13 $
- * $Date: 2003/08/21 21:43:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.14 2003/11/29 19:05:30 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/11/29 19:05:30 $
  *
  * ====================================================================
  *
@@ -80,7 +80,7 @@ import java.io.Serializable;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.13 $ $Date: 2003/08/21 21:43:05 $
+ * @version $Revision: 1.14 $ $Date: 2003/11/29 19:05:30 $
  */
 public class Arg implements Cloneable, Serializable {
 
@@ -102,8 +102,8 @@ public class Arg implements Cloneable, Serializable {
     protected String name = null;
 
     /**
-     * This argument's position in the message (ie. you would set postion=0 to
-     * make a replacement in this string "some msg {0}").
+     * This argument's position in the message. Set postion=0 to
+     * make a replacement in this string: "some msg {0}".
      * @since Validator 1.1
      */
     protected int position = 0;
