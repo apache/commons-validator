@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.12 2003/05/24 19:17:57 dgraham Exp $
- * $Revision: 1.12 $
- * $Date: 2003/05/24 19:17:57 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.13 2003/05/28 04:28:01 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/05/28 04:28:01 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.12 $ $Date: 2003/05/24 19:17:57 $
+ * @version $Revision: 1.13 $ $Date: 2003/05/28 04:28:01 $
  */
 public class ValidatorAction implements Serializable {
 
@@ -118,11 +118,11 @@ public class ValidatorAction implements Serializable {
      * </p>
 	 */
 	private String methodParams =
-		Validator.BEAN_KEY
+		Validator.BEAN_PARAM
 			+ ","
-			+ Validator.VALIDATOR_ACTION_KEY
+			+ Validator.VALIDATOR_ACTION_PARAM
 			+ ","
-			+ Validator.FIELD_KEY;
+			+ Validator.FIELD_PARAM;
 
 	/**
 	 * The other <code>ValidatorAction</code>s that this one depends on.  If any 

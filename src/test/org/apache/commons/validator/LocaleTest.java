@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LocaleTest.java,v 1.5 2003/05/24 19:40:11 dgraham Exp $
- * $Revision: 1.5 $
- * $Date: 2003/05/24 19:40:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LocaleTest.java,v 1.6 2003/05/28 04:28:00 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/05/28 04:28:00 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Performs Validation Test for <code>long</code> validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2003/05/24 19:40:11 $
+ * @version $Revision: 1.6 $ $Date: 2003/05/28 04:28:00 $
 */                                                       
 public class LocaleTest extends TestCase {            
    
@@ -197,8 +197,8 @@ public class LocaleTest extends TestCase {
       Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource 
       // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_KEY, name);
-      validator.setParameter(Validator.LOCALE_KEY, loc);
+      validator.setParameter(Validator.BEAN_PARAM, name);
+      validator.setParameter(Validator.LOCALE_PARAM, loc);
       // Get results of the validation.
       ValidatorResults results = null;
       

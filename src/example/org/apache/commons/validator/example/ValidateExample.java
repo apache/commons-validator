@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.10 2003/05/25 18:00:24 dgraham Exp $
- * $Revision: 1.10 $
- * $Date: 2003/05/25 18:00:24 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.11 2003/05/28 04:28:01 dgraham Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/05/28 04:28:01 $
  *
  * ====================================================================
  *
@@ -82,7 +82,7 @@ import org.apache.commons.validator.ValidatorResults;
  * <p>A simple example of setting up and using the Validator.</p> 
  *
  * @author James Turner
- * @version $Revision: 1.10 $ $Date: 2003/05/25 18:00:24 $
+ * @version $Revision: 1.11 $ $Date: 2003/05/28 04:28:01 $
  *
  * This simple example shows all the steps needed to set up and use
  * the Validator.  Note that in most cases, some kind of framework
@@ -136,7 +136,7 @@ public class ValidateExample extends Object {
         Validator validator = new Validator(resources, "ValidateBean");
         
         // Tell the validator which bean to validate against.
-        validator.setParameter(Validator.BEAN_KEY, bean);
+        validator.setParameter(Validator.BEAN_PARAM, bean);
         
         ValidatorResults results = null;
         

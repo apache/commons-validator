@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.8 2003/05/22 02:29:46 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/05/22 02:29:46 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.9 2003/05/28 04:28:00 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/05/28 04:28:00 $
  *
  * ====================================================================
  *
@@ -69,7 +69,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * unit tests.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2003/05/22 02:29:46 $
+ * @version $Revision: 1.9 $ $Date: 2003/05/28 04:28:00 $
 */                                                       
 public class TestValidator {
                                                           
@@ -195,7 +195,7 @@ public class TestValidator {
         Field field,
         Validator validator) {
     
-        Object form = validator.getParameterValue(Validator.BEAN_KEY);
+        Object form = validator.getParameterValue(Validator.BEAN_PARAM);
         String value = null;
         boolean required = false;
         if (isString(bean)) {

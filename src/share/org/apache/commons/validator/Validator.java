@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.23 2003/05/24 20:09:39 dgraham Exp $
- * $Revision: 1.23 $
- * $Date: 2003/05/24 20:09:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.24 2003/05/28 04:28:01 dgraham Exp $
+ * $Revision: 1.24 $
+ * $Date: 2003/05/28 04:28:01 $
  *
  * ====================================================================
  *
@@ -86,7 +86,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.23 $ $Date: 2003/05/24 20:09:39 $
+ * @version $Revision: 1.24 $ $Date: 2003/05/28 04:28:01 $
  */
 public class Validator implements Serializable {
 
@@ -98,7 +98,13 @@ public class Validator implements Serializable {
     /**
      * Resources key the JavaBean is stored to perform validation on.
      */
-    public static final String BEAN_KEY = "java.lang.Object";
+    public static final String BEAN_PARAM = "java.lang.Object";
+
+    /**
+     * Resources key the JavaBean is stored to perform validation on.
+     * @deprecated Use BEAN_PARAM instead.
+     */
+    public static final String BEAN_KEY = BEAN_PARAM;
 
     /**
      * Resources key the <code>ValidatorAction</code> is stored under.
@@ -106,8 +112,17 @@ public class Validator implements Serializable {
      * with the current <code>ValidatorAction</code> if it is
      * specified in the method signature.
      */
-    public static final String VALIDATOR_ACTION_KEY =
+    public static final String VALIDATOR_ACTION_PARAM =
         "org.apache.commons.validator.ValidatorAction";
+
+    /**
+     * Resources key the <code>ValidatorAction</code> is stored under.
+     * This will be automatically passed into a validation method
+     * with the current <code>ValidatorAction</code> if it is
+     * specified in the method signature.
+     * @deprecated Use VALIDATOR_ACTION_PARAM instead.
+     */
+    public static final String VALIDATOR_ACTION_KEY = VALIDATOR_ACTION_PARAM;
 
     /**
      * Resources key the <code>Field</code> is stored under.
@@ -115,7 +130,16 @@ public class Validator implements Serializable {
      * with the current <code>Field</code> if it is
      * specified in the method signature.
      */
-    public static final String FIELD_KEY = "org.apache.commons.validator.Field";
+    public static final String FIELD_PARAM = "org.apache.commons.validator.Field";
+
+    /**
+     * Resources key the <code>Field</code> is stored under.
+     * This will be automatically passed into a validation method
+     * with the current <code>Field</code> if it is
+     * specified in the method signature.
+     * @deprecated Use FIELD_PARAM instead.
+     */
+    public static final String FIELD_KEY = FIELD_PARAM;
 
     /**
      * Resources key the <code>Validator</code> is stored under.
@@ -123,7 +147,17 @@ public class Validator implements Serializable {
      * with the current <code>Validator</code> if it is
      * specified in the method signature.
      */
-    public static final String VALIDATOR_KEY = "org.apache.commons.validator.Validator";
+    public static final String VALIDATOR_PARAM =
+        "org.apache.commons.validator.Validator";
+
+    /**
+     * Resources key the <code>Validator</code> is stored under.
+     * This will be automatically passed into a validation method
+     * with the current <code>Validator</code> if it is
+     * specified in the method signature.
+     * @deprecated Use VALIDATOR_PARAM instead.
+     */
+    public static final String VALIDATOR_KEY = VALIDATOR_PARAM;
 
     /**
      * Resources key the <code>Locale</code> is stored.
@@ -131,7 +165,16 @@ public class Validator implements Serializable {
      * <code>FormSet</code> and <code>Form</code> to be
      * processed.
      */
-    public static final String LOCALE_KEY = "java.util.Locale";
+    public static final String LOCALE_PARAM = "java.util.Locale";
+
+    /**
+     * Resources key the <code>Locale</code> is stored.
+     * This will be used to retrieve the appropriate
+     * <code>FormSet</code> and <code>Form</code> to be
+     * processed.
+     * @deprecated Use LOCALE_PARAM instead.
+     */
+    public static final String LOCALE_KEY = LOCALE_PARAM;
 
     protected ValidatorResources resources = null;
     
@@ -189,6 +232,10 @@ public class Validator implements Serializable {
      * @param formName Key used for retrieving the set of validation rules.
      */
     public Validator(ValidatorResources resources, String formName) {
+        if (resources == null) {
+            throw new IllegalArgumentException("Resources cannot be null.");
+        }
+        
         this.resources = resources;
         this.formName = formName;
     }
@@ -435,8 +482,8 @@ public class Validator implements Serializable {
         try {
             // Add these two Objects to the resources since they reference
             // the current validator action and field
-            this.setParameter(VALIDATOR_ACTION_KEY, va);
-            this.setParameter(FIELD_KEY, field);
+            this.setParameter(VALIDATOR_ACTION_PARAM, va);
+            this.setParameter(FIELD_PARAM, field);
         
             Class validationClass = getClassLoader().loadClass(va.getClassname());
         
@@ -563,8 +610,8 @@ public class Validator implements Serializable {
         Object[] paramValue)
         throws ValidatorException {
             
-        int beanIndexPos = params.indexOf(BEAN_KEY);
-        int fieldIndexPos = params.indexOf(FIELD_KEY);
+        int beanIndexPos = params.indexOf(BEAN_PARAM);
+        int fieldIndexPos = params.indexOf(FIELD_PARAM);
         
         Object indexedList[] = this.getIndexedProperty(field);
         
@@ -639,7 +686,7 @@ public class Validator implements Serializable {
         try {
             indexedProperty =
                 PropertyUtils.getProperty(
-                    this.getParameterValue(BEAN_KEY),
+                    this.getParameterValue(BEAN_PARAM),
                     field.getIndexedListProperty());
                     
         } catch (IllegalAccessException e) {
@@ -674,23 +721,19 @@ public class Validator implements Serializable {
      */
     public ValidatorResults validate() throws ValidatorException {
         ValidatorResults results = new ValidatorResults();
-        Locale locale = (Locale) this.getParameterValue(LOCALE_KEY);
+        Locale locale = (Locale) this.getParameterValue(LOCALE_PARAM);
 
         if (locale == null) {
             locale = Locale.getDefault();
         }
         
-        this.setParameter(VALIDATOR_KEY, this);
-
-        if (this.resources == null) {
-            throw new ValidatorException("Resources not defined for Validator");
-        }
+        this.setParameter(VALIDATOR_PARAM, this);
 
         Form form = this.resources.getForm(locale, this.formName);
         if (form != null) {
-            Iterator forms = form.getFields().iterator();
-            while (forms.hasNext()) {
-                Field field = (Field) forms.next();
+            Iterator fields = form.getFields().iterator();
+            while (fields.hasNext()) {
+                Field field = (Field) fields.next();
                 
                 if ((field.getPage() <= page) && (field.getDepends() != null)) {
                     this.validateField(field, results);

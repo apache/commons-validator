@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/IntegerTest.java,v 1.7 2003/05/24 19:40:11 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2003/05/24 19:40:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/IntegerTest.java,v 1.8 2003/05/28 04:28:00 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/05/28 04:28:00 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Performs Validation Test for <code>int</code> validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2003/05/24 19:40:11 $
+ * @version $Revision: 1.8 $ $Date: 2003/05/28 04:28:00 $
 */                                                       
 public class IntegerTest extends TestCase {            
    
@@ -226,7 +226,7 @@ public class IntegerTest extends TestCase {
       Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource 
       // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_KEY, info);
+      validator.setParameter(Validator.BEAN_PARAM, info);
 
       // Get results of the validation.
       ValidatorResults results = null;

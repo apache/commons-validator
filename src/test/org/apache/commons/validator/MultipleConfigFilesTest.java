@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleConfigFilesTest.java,v 1.4 2003/05/24 19:40:11 dgraham Exp $
- * $Revision: 1.4 $
- * $Date: 2003/05/24 19:40:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleConfigFilesTest.java,v 1.5 2003/05/28 04:28:00 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/05/28 04:28:00 $
  *
  * ====================================================================
  *
@@ -127,7 +127,7 @@ public class MultipleConfigFilesTest extends TestCase {
         Validator validator = new Validator(resources, FORM_KEY);
         // add the name bean to the validator as a resource
         // for the validations to be performed on.
-        validator.setParameter(Validator.BEAN_KEY, name);
+        validator.setParameter(Validator.BEAN_PARAM, name);
 
         // Get results of the validation.
         ValidatorResults results = null;
@@ -168,7 +168,7 @@ public class MultipleConfigFilesTest extends TestCase {
         Validator validator = new Validator(resources, FORM_KEY);
         // add the name bean to the validator as a resource
         // for the validations to be performed on.
-        validator.setParameter(Validator.BEAN_KEY, name);
+        validator.setParameter(Validator.BEAN_PARAM, name);
 
         // Get results of the validation.
         ValidatorResults results = null;
@@ -203,7 +203,7 @@ public class MultipleConfigFilesTest extends TestCase {
         Validator validator = new Validator(resources, FORM_KEY);
         // add the name bean to the validator as a resource
         // for the validations to be performed on.
-        validator.setParameter(Validator.BEAN_KEY, name);
+        validator.setParameter(Validator.BEAN_PARAM, name);
 
         // Get results of the validation.
         ValidatorResults results = null;
@@ -238,7 +238,7 @@ public class MultipleConfigFilesTest extends TestCase {
         Validator validator = new Validator(resources, FORM_KEY);
         // add the name bean to the validator as a resource
         // for the validations to be performed on.
-        validator.setParameter(Validator.BEAN_KEY, name);
+        validator.setParameter(Validator.BEAN_PARAM, name);
 
         // Get results of the validation.
         ValidatorResults results = null;
