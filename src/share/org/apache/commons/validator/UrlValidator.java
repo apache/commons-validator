@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.6 2003/05/02 23:39:31 dgraham Exp $
- * $Revision: 1.6 $
- * $Date: 2003/05/02 23:39:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.7 2003/05/03 05:08:01 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/05/03 05:08:01 $
  *
  * ====================================================================
  *
@@ -105,7 +105,7 @@ import org.apache.oro.text.perl.Perl5Util;
  *  </a>
  *
  * @author Robert Leland
- * @version $Revision: 1.6 $ $Date: 2003/05/02 23:39:31 $
+ * @version $Revision: 1.7 $ $Date: 2003/05/03 05:08:01 $
  */
 public class UrlValidator implements Serializable {
    private static final String alphaChars = "a-zA-Z"; 
@@ -127,7 +127,12 @@ public class UrlValidator implements Serializable {
     * Schema/Protocol (ie. http:, ftp:, file:, etc).
     */
    private static final int PARSE_URL_SCHEME = 2; 
-   private static final int PARSE_URL_AUTHORITY = 4; //Includes host/ip port
+   
+   /**
+    * Includes hostname/ip and port number.
+    */
+   private static final int PARSE_URL_AUTHORITY = 4;
+    
    private static final int PARSE_URL_PATH = 5;
    private static final int PARSE_URL_QUERY = 7;
    private static final int PARSE_URL_FRAGMENT = 9;
@@ -209,57 +214,53 @@ public class UrlValidator implements Serializable {
 
    }
 
-   /**
-    * <p>Checks if a field has a valid url address.</p>
-    *
-    * @param value The value validation is being performed on.
-    * @return true if the url is valid.
-    */
-   public boolean isValid(String value) {
-      boolean bValid = true;
-      try {
-         Perl5Util matchUrlPat = new Perl5Util();
-         Perl5Util matchAsciiPat = new Perl5Util();
-
-         if (!matchAsciiPat.match(legalAsciiPat, value)) {
-            return false;
-         }
-
-         // Check the whole url address structure
-         bValid = matchUrlPat.match(urlPat, value);
-
-         // Check the scheme component of the url address
-         if (bValid) {
-            bValid = isValidScheme(matchUrlPat.group(PARSE_URL_SCHEME));
-         }
-
-         // Check the domain component of the url address
-         if (bValid) {
-            // Check the whole url address structure
-            bValid = isValidAuthority(matchUrlPat.group(PARSE_URL_AUTHORITY));
-         }
-
-         // Check the path component of the url address
-         if (bValid) {
-            bValid = isValidPath(matchUrlPat.group(PARSE_URL_PATH));
-         }
-
-         // Check the query component of the url address
-         if (bValid) {
-            bValid = isValidQuery(matchUrlPat.group(PARSE_URL_QUERY));
-         }
-
-         // Check the fragment component of the url address
-         if (bValid) {
-            bValid = isValidFragment(matchUrlPat.group(PARSE_URL_FRAGMENT));
-         }
-
-      } catch (Exception e) {
-         bValid = false;
-      }
-
-      return bValid;
-   }
+    /**
+     * <p>Checks if a field has a valid url address.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @return true if the url is valid.
+     */
+    public boolean isValid(String value) {
+    	try {
+    		Perl5Util matchUrlPat = new Perl5Util();
+    		Perl5Util matchAsciiPat = new Perl5Util();
+    
+    		if (!matchAsciiPat.match(legalAsciiPat, value)) {
+    			return false;
+    		}
+    
+    		// Check the whole url address structure
+    		if (!matchUrlPat.match(urlPat, value)) {
+    			return false;
+    		}
+    
+    		if (!isValidScheme(matchUrlPat.group(PARSE_URL_SCHEME))) {
+    			return false;
+    		}
+    
+    		if (!isValidAuthority(matchUrlPat.group(PARSE_URL_AUTHORITY))) {
+    			return false;
+    		}
+    
+    		if (!isValidPath(matchUrlPat.group(PARSE_URL_PATH))) {
+    			return false;
+    		}
+    
+    		if (!isValidQuery(matchUrlPat.group(PARSE_URL_QUERY))) {
+    			return false;
+    		}
+    
+    		if (!isValidFragment(matchUrlPat.group(PARSE_URL_FRAGMENT))) {
+    			return false;
+    		}
+    
+    	} catch (Exception e) {
+            // TODO Do we need to catch Exception?
+    		return false;
+    	}
+    
+    	return true;
+    }
 
    /**
     * Validate scheme. If schemes[] was initialized to a non null,
@@ -270,7 +271,6 @@ public class UrlValidator implements Serializable {
     */
    protected boolean isValidScheme(String scheme) {
       Perl5Util matchSchemePat = new Perl5Util();
-      // See if "scheme" is valid
       boolean bValid = matchSchemePat.match(schemePat, scheme);
       if (bValid) {
          if (allowedSchemeSet != null) {
@@ -280,6 +280,10 @@ public class UrlValidator implements Serializable {
       return bValid;
    }
 
+    /**
+     * Returns true if the authority is properly formatted.  An authority is the combination
+     * of hostname and port.
+     */
    protected boolean isValidAuthority(String authority) {
       boolean bValid = true;
       Perl5Util matchAuthorityPat = new Perl5Util();
@@ -380,7 +384,7 @@ public class UrlValidator implements Serializable {
    protected boolean isValidPath(String path) {
       Perl5Util matchPathPat = new Perl5Util();
       boolean bValid = true;
-      // See if "path" is bValid
+
       bValid = matchPathPat.match(pathPat, path);
       if (bValid) {  //Shouldn't end with a '/'
          bValid = (path.lastIndexOf("/") < (path.length() - 1));
@@ -403,35 +407,43 @@ public class UrlValidator implements Serializable {
       return bValid;
    }
 
-   protected boolean isValidQuery(String query) {
-      Perl5Util matchQueryPat = new Perl5Util();
-      boolean bValid = true;
-      if (null != query) {
-         // See if "query" is bValid
-         bValid = matchQueryPat.match(queryPat, query);
-      }
-      return bValid;
-   }
+	/**
+	 * Returns true if the query is null or it's a properly formatted query string.
+	 */
+	protected boolean isValidQuery(String query) {
+		if (query == null) {
+			return true;
+		}
 
-   protected boolean isValidFragment(String fragment) {
-      boolean bValid = true;
-      if (null != fragment) {
-         bValid = (noFragment == false);
-      }
-      return bValid;
-   }
+		Perl5Util matchQueryPat = new Perl5Util();
+		return matchQueryPat.match(queryPat, query);
+	}
 
+	/**
+	 * Returns true if the given fragment is null or fragments are allowed.
+	 */
+	protected boolean isValidFragment(String fragment) {
+		if (fragment == null) {
+			return true;
+		}
 
-   protected static int countToken(String token, String target) {
-      int tokenIndex = 0;
-      int count = 0;
-      while (tokenIndex != -1) {
-         tokenIndex = target.indexOf(token, tokenIndex);
-         if (tokenIndex > -1) {
-            tokenIndex++;
-            count++;
-         }
-      }
-      return count;
-   }
+		return (noFragment == false);
+	}
+
+    
+    /**
+     * Returns the number of times the token appears in the target.
+     */
+    protected int countToken(String token, String target) {
+    	int tokenIndex = 0;
+    	int count = 0;
+    	while (tokenIndex != -1) {
+    		tokenIndex = target.indexOf(token, tokenIndex);
+    		if (tokenIndex > -1) {
+    			tokenIndex++;
+    			count++;
+    		}
+    	}
+    	return count;
+    }
 }
