@@ -4,9 +4,22 @@
 # contains the "build.xml" file.
 # -----------------------------------------------------------------------------
 
+# The JAR file containing version 1.0 (or later) of the Beanutils package
+# from the Jakarta Commons project.
 commons-beanutils.jar=d:/java/lib/commons-beanutils.jar
+
+# The JAR file containing version 1.0 (or later) of the Collections package
+# from the Jakarta Commons project.
 commons-collections.jar=d:/java/lib/commons-collections.jar
+
+# The JAR file containing version 1.0 (or later) of the Digester package
+# from the Jakarta Commons project.
 commons-digester.jar=d:/java/lib/commons-digester.jar
+
+# The JAR file containing version 1.0 (or later) of the Logging package
+# from the Jakarta Commons project.
+commons-logging.jar=e:/software/commons-logging/commons-logging.jar
+
 regexp.jar=e:/software/regexp/jakarta-regexp-1.2.jar
 
 # Unit Testing

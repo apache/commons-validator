@@ -23,6 +23,7 @@
       <pathelement path="${commons-beanutils.jar}"/>
       <pathelement path="${commons-collections.jar}"/>
       <pathelement path="${commons-digester.jar}"/>
+      <pathelement path="${commons-logging.jar}"/>
       <pathelement path="${regexp.jar}"/>
    </path>
    
