@@ -39,7 +39,7 @@ The Validator package provides validation for JavaBeans based on an xml file.
   </li>
   <li>Optionally, an XML parser conforming to
     <a href="http://java.sun.com/products/xml">JAXP
-    </a>, version 1.1 or later (the first one to support SAX 2.0) 
+    </a>, version 1.1 or later (the first one to support SAX 2.0)
      for the Commons Digester
   </li>
 
@@ -48,21 +48,21 @@ The Validator package provides validation for JavaBeans based on an xml file.
 <a name="doc.Intro"></a>
 <h3>Introduction</h3>
 
-<p>A common issue when receiving data either electronically or from 
-user input is verifying the integrity of the data.  This work is 
-repetitive and becomes even more complicated when different sets 
-of validation rules need to be applied to the same set of data based 
-on locale for example.  Error messages may also vary by locale.  
-This package attempts to address some of these issues and 
+<p>A common issue when receiving data either electronically or from
+user input is verifying the integrity of the data.  This work is
+repetitive and becomes even more complicated when different sets
+of validation rules need to be applied to the same set of data based
+on locale for example.  Error messages may also vary by locale.
+This package attempts to address some of these issues and
 speed development and maintenance of validation rules.
 </p>
 
 <p>In order to use the Validator, the following basic steps are required:</p>
 <ul>
    <li>Create a new instance of the
-       <code>org.apache.commons.validator.Validator</code> class.  Currently 
-       Validator instances may be safely reused if the current ValidatorResources 
-       are the same, as long as 
+       <code>org.apache.commons.validator.Validator</code> class.  Currently
+       Validator instances may be safely reused if the current ValidatorResources
+       are the same, as long as
        you have completed any previous validation, and you do not try to utilize
        a particular Validator instance from more than one thread at a time.</li>
    <li>Add any <a href="#doc.Resources">resources</a>
@@ -73,39 +73,39 @@ speed development and maintenance of validation rules.
 <a name="doc.Overview"></a>
 <h3>Overview</h3>
 <p>
-   The Commons Validator is a basic validation framework that 
-   lets you define validation rules for a JavaBean in an xml file.  
-   Validators, the validation definition, can also be defined in 
-   the xml file.  An example of a validator would be defining 
-   what method and class will be called to perform the validation 
-   for a required field.  Validation rules can be grouped together 
-   based on locale and a JavaBean/Form that the rules are associated 
-   with.  The framework has basic support for user defined constants 
-   which can be used in some field attributes. 
+   The Commons Validator is a basic validation framework that
+   lets you define validation rules for a JavaBean in an xml file.
+   Validators, the validation definition, can also be defined in
+   the xml file.  An example of a validator would be defining
+   what method and class will be called to perform the validation
+   for a required field.  Validation rules can be grouped together
+   based on locale and a JavaBean/Form that the rules are associated
+   with.  The framework has basic support for user defined constants
+   which can be used in some field attributes.
 </p>
 <p>
-   Validation rules can be defined in an xml file which keeps 
-   them abstracted from JavaBean you are validating.  The 
-   property reference to a field supports nested properties 
-   using the Jakarta Commons BeanUtils 
-   (http://jakarta.apache.org/commons/beanutils.html) package.  
-   Error messages and the arguments for error messages can be 
+   Validation rules can be defined in an xml file which keeps
+   them abstracted from JavaBean you are validating.  The
+   property reference to a field supports nested properties
+   using the Jakarta Commons BeanUtils
+   (http://jakarta.apache.org/commons/beanutils.html) package.
+   Error messages and the arguments for error messages can be
    associated with a fields validation.
 </p>
 
 <a name="doc.Resources"></a>
 <h3>Resources</h3>
 <p>
-   After a Validator instance is created, instances of 
-   classes can be added to it to be passed into 
-   validation methods by calling the addResource 
+   After a Validator instance is created, instances of
+   classes can be added to it to be passed into
+   validation methods by calling the addResource
    method.  Below is a list of reserved keys (class names).
 </p>
 
 <table width="100%" border="1" cellspacing="5">
    <tr>
       <th>Class Name</th>
-      <th>Validator Contant</th>
+      <th>Validator Contstant</th>
       <th>Description</th>
    </tr>
    <tr>
@@ -117,8 +117,8 @@ speed development and maintenance of validation rules.
       <td>java.util.Locale</td>
       <td>Validator.LOCALE_KEY</td>
       <td>
-         Locale to use when retrieving a FormSet.  
-         The default locale will be used if one 
+         Locale to use when retrieving a FormSet.
+         The default locale will be used if one
          isn't specified.
       </td>
    </tr>
@@ -126,11 +126,11 @@ speed development and maintenance of validation rules.
       <td>org.apache.commons.validator.ValidatorAction</td>
       <td>Validator.VALIDATOR_ACTION_KEY</td>
       <td>
-         This is automatically added to a Validator's  
-         resources as a validation is being processed. 
-         If this class name is used when defining 
-         a method signature for a pluggable validator, 
-         the current ValidatorAction will be passed into 
+         This is automatically added to a Validator's
+         resources as a validation is being processed.
+         If this class name is used when defining
+         a method signature for a pluggable validator,
+         the current ValidatorAction will be passed into
          the validation method.
       </td>
    </tr>
@@ -138,11 +138,11 @@ speed development and maintenance of validation rules.
       <td>org.apache.commons.validator.Field</td>
       <td>Validator.FIELD_KEY</td>
       <td>
-         This is automatically added to a Validator's  
-         resources as a validation is being processed. 
-         If this class name is used when defining 
-         a method signature for a pluggable validator, 
-         the current Field will be passed into 
+         This is automatically added to a Validator's
+         resources as a validation is being processed.
+         If this class name is used when defining
+         a method signature for a pluggable validator,
+         the current Field will be passed into
          the validation method.
       </td>
    </tr>
@@ -152,13 +152,13 @@ speed development and maintenance of validation rules.
 <a name="doc.Usage"></a>
 <h3>Usage Example</h3>
 <p>
-   This is a basic example setting up a required validator for 
-   a name bean.  This example is a working unit test (reference 
-   <code>org.apache.commons.validator.RequiredNameTest</code> and 
+   This is a basic example setting up a required validator for
+   a name bean.  This example is a working unit test (reference
+   <code>org.apache.commons.validator.RequiredNameTest</code> and
    validator-name-required.xml located under validator/src/test).
 </p>
 <p>
-   Create an xml file with your validator and validation rules. 
+   Create an xml file with your validator and validation rules.
    Setup your required validator in your xml file.<br>
    <br>
    <a href="#doc.Usage.xml">XML Example</a><br>
@@ -200,11 +200,11 @@ speed development and maintenance of validation rules.
 <b>
    &nbsp;&nbsp;&nbsp; &lt;formset&gt; <br>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;form    name="nameForm"&gt; <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    &lt;field    property="firstName" 
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    &lt;field    property="firstName"
                                                         depends="required"&gt; <br>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    	     &lt;arg0 key="nameForm.firstname.displayname"/&gt; <br>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    &lt;/field&gt; <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    &lt;field    property="lastName" 
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    &lt;field    property="lastName"
                                                              depends="required"&gt; <br>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    	     &lt;arg0 key="nameForm.lastname.displayname"/&gt; <br>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    &lt;/field&gt; <br>
@@ -258,7 +258,7 @@ Name name = new Name();<br>
 <a name="doc.Usage.pluggableValidator"></a>
 <h4>Pluggable Validator Example</h4>
 <p>
-Validation method defined in the 'required' pluggable validator 
+Validation method defined in the 'required' pluggable validator
 (excerpt from org.apache.commons.validator.TestValidator).
 </p>
 
