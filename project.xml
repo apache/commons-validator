@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
    Copyright 2003-2004 The Apache Software Foundation
 
@@ -87,6 +87,12 @@
       <organization></organization>
     </developer>
     <developer>
+      <name>Ted Husted</name>
+      <id>husted</id>
+      <email>husted@apache.org</email>
+      <organization></organization>
+    </developer>
+    <developer>
       <name>Rob Leland</name>
       <id>rleland</id>
       <email>rleland at apache.org</email>
@@ -110,7 +116,7 @@
       <email>dwinterfeldt@apache.org</email>
       <organization></organization>
     </developer>
-  </developers>
+   </developers>
   
   <contributors>
     <contributor>
