@@ -4,7 +4,7 @@
 	digester-rules.xml defines the rules our Digester will use to transform 
 	validation.xml files into Java objects.
 	
-	$Id: digester-rules.xml,v 1.4 2003/05/28 04:14:32 dgraham Exp $
+	$Id: digester-rules.xml,v 1.5 2004/04/08 23:20:52 dgraham Exp $
 -->
 
 
@@ -69,28 +69,6 @@
 					<object-create-rule classname="org.apache.commons.validator.Arg" />
 					<set-properties-rule/>
 					<set-next-rule methodname="addArg" paramtype="org.apache.commons.validator.Arg" />
-				</pattern>
-				
-				<!-- The arg0, etc. elements are deprecated.  We can remove these definitions after 1.1 -->
-				<pattern value="arg0">
-					<object-create-rule classname="org.apache.commons.validator.Arg" />
-					<set-properties-rule/>
-					<set-next-rule methodname="addArg0" paramtype="org.apache.commons.validator.Arg" />
-				</pattern>
-				<pattern value="arg1">
-					<object-create-rule classname="org.apache.commons.validator.Arg" />
-					<set-properties-rule/>
-					<set-next-rule methodname="addArg1" paramtype="org.apache.commons.validator.Arg" />
-				</pattern>
-				<pattern value="arg2">
-					<object-create-rule classname="org.apache.commons.validator.Arg" />
-					<set-properties-rule/>
-					<set-next-rule methodname="addArg2" paramtype="org.apache.commons.validator.Arg" />
-				</pattern>
-				<pattern value="arg3">
-					<object-create-rule classname="org.apache.commons.validator.Arg" />
-					<set-properties-rule/>
-					<set-next-rule methodname="addArg3" paramtype="org.apache.commons.validator.Arg" />
 				</pattern>
 			
 			</pattern>	

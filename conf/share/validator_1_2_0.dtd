@@ -9,7 +9,7 @@
      "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.2.0//EN"
      "http://jakarta.apache.org/commons/dtds/validator_1_2_0.dtd">
 
-    $Id: validator_1_2_0.dtd,v 1.4 2004/04/06 22:19:58 rleland Exp $
+    $Id: validator_1_2_0.dtd,v 1.5 2004/04/08 23:20:52 dgraham Exp $
 -->
 
 
@@ -190,100 +190,6 @@
 <!ATTLIST arg name CDATA #IMPLIED>
 <!ATTLIST arg resource CDATA #IMPLIED>
 <!ATTLIST arg position CDATA #IMPLIED>
-
-
-
-<!--
-
-		DEPRECATED Use <arg position="0"/> instead.
-
-     The "arg0" element defines the first replacement value to use with the
-     message template for this validator or this field.
-     The arg0 element accepts these attributes.
-
-      name        The name of the validator corresponding to this msg.
-
-      key         The key that will return the message template from a
-                  resource bundle.
-
-      resource    If set to "false", the key is taken to be a literal
-                  value rather than a bundle key.
-                  [true]
--->
-<!ELEMENT arg0 EMPTY>
-<!ATTLIST arg0 name CDATA #IMPLIED>
-<!ATTLIST arg0 key CDATA #IMPLIED>
-<!ATTLIST arg0 resource CDATA #IMPLIED>
-
-
-<!--
-
-		DEPRECATED Use <arg position="1"/> instead.
-
-     The "arg1" element defines the second replacement value to use with the
-     message template for this validator or this field.
-     The arg1 element accepts these attributes.
-
-      name        The name of the validator corresponding to this msg.
-
-      key         The key that will return the message template from a
-                  resource bundle.
-
-      resource    If set to "false", the key is taken to be a literal
-                  value rather than a bundle key.
-                  [true]
--->
-<!ELEMENT arg1 EMPTY>
-<!ATTLIST arg1 name CDATA #IMPLIED>
-<!ATTLIST arg1 key CDATA #IMPLIED>
-<!ATTLIST arg1 resource CDATA #IMPLIED>
-
-
-<!--
-
-		DEPRECATED Use <arg position="2"/> instead.
-
-     The "arg2" element defines the third replacement value to use with the
-     message template for this validator or this field.
-     The arg2 element accepts these attributes.
-
-      name        The name of the validator corresponding to this msg.
-
-      key         The key that will return the message template from a
-                  resource bundle.
-
-      resource    If set to "false", the key is taken to be a literal
-                  value rather than a bundle key.
-                  [true]
--->
-<!ELEMENT arg2 EMPTY>
-<!ATTLIST arg2 name CDATA #IMPLIED>
-<!ATTLIST arg2 key CDATA #IMPLIED>
-<!ATTLIST arg2 resource CDATA #IMPLIED>
-
-
-<!--
-
-		DEPRECATED Use <arg position="3"/> instead.
-
-     The "arg3" element defines the fourth replacement value to use with the
-     message template for this validator or this field.
-     The arg0 element accepts these attributes.
-
-      name        The name of the validator corresponding to this msg.
-
-      key         The key that will return the message template from a
-                  resource bundle.
-
-      resource    If set to "false", the key is taken to be a literal
-                  value rather than a bundle key.
-                  [true]
--->
-<!ELEMENT arg3 EMPTY>
-<!ATTLIST arg3 name CDATA #IMPLIED>
-<!ATTLIST arg3 key CDATA #IMPLIED>
-<!ATTLIST arg3 resource CDATA #IMPLIED>
-
 
 <!--
      The "var" element can set parameters that a field may need to pass to
