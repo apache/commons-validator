@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.19 2003/05/24 19:24:58 dgraham Exp $
- * $Revision: 1.19 $
- * $Date: 2003/05/24 19:24:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.20 2003/05/28 04:14:32 dgraham Exp $
+ * $Revision: 1.20 $
+ * $Date: 2003/05/28 04:14:32 $
  *
  * ====================================================================
  *
@@ -92,7 +92,7 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.19 $ $Date: 2003/05/24 19:24:58 $
+ * @version $Revision: 1.20 $ $Date: 2003/05/28 04:14:32 $
  */
 public class ValidatorResources implements Serializable {
 
@@ -209,11 +209,7 @@ public class ValidatorResources implements Serializable {
      * <code>FormSet</code>.
      */
     public void addFormSet(FormSet fs) {
-        if (fs == null) {
-            return;
-        }
-        
-        String key = buildKey(fs);
+        String key = this.buildKey(fs);
         List formsets = (List) hFormSets.get(key);
 
         if (formsets == null) {
@@ -231,6 +227,7 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Add a global constant to the resource.
+     * @deprecated Use addConstant(String, String) instead.
      */
     public void addConstant(Constant c) {
        this.addConstantParam(c.getName(), c.getValue());
@@ -238,6 +235,7 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Add a global constant to the resource.
+     * @deprecated Use addConstant(String, String) instead.
      */
     public void addConstantParam(String name, String value) {
         if (name != null
@@ -252,32 +250,31 @@ public class ValidatorResources implements Serializable {
             this.hConstants.put(name, value);
         }
     }
+    
+    /**
+     * Add a global constant to the resource.
+     */
+    public void addConstant(String name, String value) {
+        if (log.isDebugEnabled()) {
+            log.debug("Adding Global Constant: " + name + "," + value);
+        }
+        
+        this.hConstants.put(name, value);
+    }
 
     /**
-     * <p>Add a <code>ValidatorAction</code> to the resource.  It also creates an instance 
-     * of the class based on the <code>ValidatorAction</code>s classname and retrieves 
-     * the <code>Method</code> instance and sets them in the <code>ValidatorAction</code>.</p>
+     * Add a <code>ValidatorAction</code> to the resource.  It also creates an 
+     * instance of the class based on the <code>ValidatorAction</code>s 
+     * classname and retrieves the <code>Method</code> instance and sets them 
+     * in the <code>ValidatorAction</code>.
      */
     public void addValidatorAction(ValidatorAction va) {
-        if (va != null
-            && va.getName() != null
-            && va.getName().length() > 0
-            && va.getClassname() != null
-            && va.getClassname().length() > 0
-            && va.getMethod() != null
-            && va.getMethod().length() > 0) {
-
-            va.init();
-
-            hActions.put(va.getName(), va);
-
-            if (log.isDebugEnabled()) {
-                log.debug(
-                    "Add ValidatorAction: "
-                        + va.getName()
-                        + ","
-                        + va.getClassname());
-            }
+        va.init();
+        
+        this.hActions.put(va.getName(), va);
+        
+        if (log.isDebugEnabled()) {
+            log.debug("Add ValidatorAction: " + va.getName() + "," + va.getClassname());
         }
     }
 
@@ -296,22 +293,27 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Builds a key to store the <code>FormSet</code> under based on it's language, country, 
-     * and variant values.
+     * Builds a key to store the <code>FormSet</code> under based on it's 
+     * language, country, and variant values.
      */
     protected String buildKey(FormSet fs) {
-        String lang = fs.getLanguage();
-        String country = fs.getCountry();
-        String variant = fs.getVariant();
+        String locale =
+            this.buildLocale(fs.getLanguage(), fs.getCountry(), fs.getVariant());
 
+        if (locale.length() == 0) {
+            locale = defaultLocale.toString();
+        }
+
+        return locale;
+    }
+
+    /**
+     * Assembles a Locale code from the given parts.
+     */
+    private String buildLocale(String lang, String country, String variant) {
         String key = ((lang != null && lang.length() > 0) ? lang : "");
         key += ((country != null && country.length() > 0) ? "_" + country : "");
         key += ((variant != null && variant.length() > 0) ? "_" + variant : "");
-
-        if (key.length() == 0) {
-            key = defaultLocale.toString();
-        }
-
         return key;
     }
 
@@ -388,11 +390,7 @@ public class ValidatorResources implements Serializable {
         String variant,
         Object formKey) {
 
-        String key = null;
-
-        key = (language != null && language.length() > 0) ? language : "";
-        key += (country != null && country.length() > 0) ? "_" + country : "";
-        key += (variant != null && variant.length() > 0) ? "_" + variant : "";
+        String key = this.buildLocale(language, country, variant);
 
         List v = (List) hFormSets.get(key);
 
@@ -544,41 +542,29 @@ public class ValidatorResources implements Serializable {
             && !GenericValidator.isBlankOrNull(country)
             && !GenericValidator.isBlankOrNull(variant)) {
 
-            Form form = get(language, country, variant, formKey);
-
-            if (form.getFieldMap().containsKey(fieldKey)) {
-                field = (Field) form.getFieldMap().get(fieldKey);
-            }
+            Form form = this.getForm(language, country, variant, formKey);
+            field = (Field) form.getFieldMap().get(fieldKey);
         }
 
         if (field == null) {
             if (!GenericValidator.isBlankOrNull(language)
                 && !GenericValidator.isBlankOrNull(country)) {
 
-                Form form = get(language, country, null, formKey);
-
-                if (form.getFieldMap().containsKey(fieldKey)) {
-                    field = (Field) form.getFieldMap().get(fieldKey);
-                }
+                Form form = this.getForm(language, country, null, formKey);
+                field = (Field) form.getFieldMap().get(fieldKey);
             }
         }
 
         if (field == null) {
             if (!GenericValidator.isBlankOrNull(language)) {
-                Form form = get(language, null, null, formKey);
-
-                if (form.getFieldMap().containsKey(fieldKey)) {
-                    field = (Field) form.getFieldMap().get(fieldKey);
-                }
+                Form form = this.getForm(language, null, null, formKey);
+                field = (Field) form.getFieldMap().get(fieldKey);
             }
         }
 
         if (field == null) {
-            Form form = get(defaultLocale, formKey);
-
-            if (form.getFieldMap().containsKey(fieldKey)) {
-                field = (Field) form.getFieldMap().get(fieldKey);
-            }
+            Form form = this.getForm(defaultLocale, formKey);
+            field = (Field) form.getFieldMap().get(fieldKey);            
         }
 
         return field;

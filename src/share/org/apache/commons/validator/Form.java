@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.5 2003/05/22 03:28:05 dgraham Exp $
- * $Revision: 1.5 $
- * $Date: 2003/05/22 03:28:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.6 2003/05/28 04:14:32 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/05/28 04:14:32 $
  *
  * ====================================================================
  *
@@ -59,7 +59,6 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.io.Serializable;
@@ -68,8 +67,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.collections.FastHashMap; 
 
+import org.apache.commons.collections.FastHashMap;
 
 /**
  * <p>
@@ -79,7 +78,7 @@ import org.apache.commons.collections.FastHashMap;
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2003/05/22 03:28:05 $
+ * @version $Revision: 1.6 $ $Date: 2003/05/28 04:14:32 $
  */
 public class Form implements Serializable {
 
@@ -99,7 +98,7 @@ public class Form implements Serializable {
     
     /**
      * Map of <code>Field</code>s keyed on their property value.
-    */
+     */
     protected FastHashMap hFields = new FastHashMap();
 
     /**
@@ -120,11 +119,8 @@ public class Form implements Serializable {
      * Add a <code>Field</code> to the <code>Form</code>.
      */
     public void addField(Field f) {
-       if (f != null && f.getProperty() != null && f.getProperty().length() > 0) {
-       	  lFields.add(f);
-       	  
-          hFields.put(f.getKey(), f);
-       }
+        this.lFields.add(f);
+        this.hFields.put(f.getKey(), f);
     }
 
     /**
@@ -136,8 +132,7 @@ public class Form implements Serializable {
     }
     
     /**
-     * A <code>Map</code> of <code>Field</code>s is returned as an 
-     * unmodifiable <code>List</code>.
+     * The <code>Field</code>s are returned as an unmodifiable <code>Map</code>.
      */
     public Map getFieldMap() {
     	return Collections.unmodifiableMap(hFields);

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.8 2003/05/22 03:28:05 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/05/22 03:28:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.9 2003/05/28 04:14:32 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/05/28 04:14:32 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.commons.collections.FastHashMap;
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2003/05/22 03:28:05 $
+ * @version $Revision: 1.9 $ $Date: 2003/05/28 04:14:32 $
  */
 public class FormSet implements Serializable {
     
@@ -166,6 +166,7 @@ public class FormSet implements Serializable {
 
     /**
      * Add a <code>Constant</code> (locale level).
+     * @deprecated Use addConstant(String, String) instead.
      */
     public void addConstant(Constant c) {
        if (c.getName() != null && c.getName().length() > 0 &&
@@ -177,6 +178,7 @@ public class FormSet implements Serializable {
 
     /**
      * Add a <code>Constant</code> to the locale level.
+     * @deprecated Use addConstant(String, String) instead.
      */
     public void addConstantParam(String name, String value) {
        if (name != null && name.length() > 0 &&
@@ -184,6 +186,14 @@ public class FormSet implements Serializable {
                
           constants.put(name, value);
        }
+    }
+    
+    /**
+     * Add a <code>Constant</code> to the locale level.
+     * @deprecated Use addConstant(String, String) instead.
+     */
+    public void addConstant(String name, String value) {
+          this.constants.put(name, value);
     }
    
     /**

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.13 2003/05/25 18:00:23 dgraham Exp $
- * $Revision: 1.13 $
- * $Date: 2003/05/25 18:00:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.14 2003/05/28 04:14:32 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/05/28 04:14:32 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.13 $ $Date: 2003/05/25 18:00:23 $
+ * @version $Revision: 1.14 $ $Date: 2003/05/28 04:14:32 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -456,20 +456,23 @@ public class Field implements Cloneable, Serializable {
      * Add a <code>Var</code> to the <code>Field</code>.
      */
     public void addVar(Var v) {
-        if (v != null
-            && v.getName() != null
-            && v.getName().length() > 0
-            && v.getValue() != null) {
-            
-            hVars.put(v.getName(), v);
-        }
+        this.hVars.put(v.getName(), v);
     }
 
     /**
      * Add a <code>Var</code>, based on the values passed in, to the 
      * <code>Field</code>.
+     * @deprecated Use addVar(String, String, String) instead.
      */
     public void addVarParam(String name, String value, String jsType) {
+       this.addVar(new Var(name, value, jsType));
+    }
+    
+    /**
+     * Add a <code>Var</code>, based on the values passed in, to the 
+     * <code>Field</code>.
+     */
+    public void addVar(String name, String value, String jsType) {
        this.addVar(new Var(name, value, jsType));
     }
 

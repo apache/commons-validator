@@ -4,7 +4,7 @@
 	digester-rules.xml defines the rules our Digester will use to transform 
 	validation.xml files into Java objects.
 	
-	$Id: digester-rules.xml,v 1.3 2003/05/25 18:00:23 dgraham Exp $
+	$Id: digester-rules.xml,v 1.4 2003/05/28 04:14:32 dgraham Exp $
 -->
 
 
@@ -16,7 +16,7 @@
 	<pattern value="form-validation/global">
 		
 		<pattern value="constant">
-			<call-method-rule methodname="addConstantParam" paramcount="2" />
+			<call-method-rule methodname="addConstant" paramcount="2" />
 			<call-param-rule pattern="constant-name" paramnumber="0" />
 			<call-param-rule pattern="constant-value" paramnumber="1" />
 		</pattern>
@@ -37,7 +37,7 @@
 		<set-next-rule methodname="addFormSet" paramtype="org.apache.commons.validator.FormSet" />
 		
 		<pattern value="constant">
-			<call-method-rule methodname="addConstantParam" paramcount="2" />
+			<call-method-rule methodname="addConstant" paramcount="2" />
 			<call-param-rule pattern="constant-name" paramnumber="0" />
 			<call-param-rule pattern="constant-value" paramnumber="1" />
 		</pattern>
@@ -53,7 +53,7 @@
 				<set-next-rule methodname="addField" paramtype="org.apache.commons.validator.Field" />
 				
 				<pattern value="var">
-					<call-method-rule methodname="addVarParam" paramcount="3" />
+					<call-method-rule methodname="addVar" paramcount="3" />
 					<call-param-rule pattern="var-name" paramnumber="0" />
 					<call-param-rule pattern="var-value" paramnumber="1" />
 					<call-param-rule pattern="var-jstype" paramnumber="2" />
