@@ -7,13 +7,12 @@
 -->
 <form-validation>
    <formset>
-      <form    name="nameForm">
-         <field    property="firstName"  depends="required">
-         	     <arg key="nameForm.firstname.displayname"/>
+      <form name="nameForm">
+         <field property="firstName" depends="required">
+             <arg key="nameForm.firstname.displayname"/>
          </field>    
-         <field    property="lastName"
-         	   depends="required,int">
-         	     <arg key="nameForm.lastname.displayname"/>
+         <field property="lastName" depends="required,int">
+             <arg key="nameForm.lastname.displayname"/>
          </field>
       </form>
    </formset>   

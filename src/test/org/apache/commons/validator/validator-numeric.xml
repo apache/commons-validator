@@ -42,35 +42,23 @@
 
    </global>
    <formset>
-      <form    name="byteForm">
-         <field    property="value"
-         	   depends="byte">
-         </field>    
+      <form name="byteForm">
+         <field property="value" depends="byte"/>
       </form>
-      <form    name="shortForm">
-         <field    property="value"
-         	   depends="short">
-         </field>    
+      <form name="shortForm">
+         <field property="value" depends="short"/>
       </form>
-      <form    name="intForm">
-         <field    property="value"
-         	   depends="int">
-         </field>    
+      <form name="intForm">
+         <field property="value" depends="int"/>    
       </form>
-      <form    name="longForm">
-         <field    property="value"
-         	   depends="long">
-         </field>    
+      <form name="longForm">
+         <field property="value" depends="long"/>    
       </form>
-      <form    name="floatForm">
-         <field    property="value"
-         	   depends="float">
-         </field>    
+      <form name="floatForm">
+         <field property="value" depends="float"/>
       </form>
-      <form    name="doubleForm">
-         <field    property="value"
-         	   depends="double">
-         </field>    
+      <form name="doubleForm">
+         <field property="value" depends="double"/>
       </form>
    </formset>   
 </form-validation>

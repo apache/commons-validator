@@ -11,14 +11,12 @@
                  msg=""/>
    </global>
    <formset>
-      <form    name="nameForm">
-         <field    property="firstName"
-         	   depends="required">
-         	     <arg key="nameForm.firstname.displayname" position="0" bundle="test"/>
+      <form name="nameForm">
+         <field property="firstName" depends="required">
+             <arg key="nameForm.firstname.displayname" position="0" bundle="test"/>
          </field>    
-         <field    property="lastName"
-         	   depends="required">
-         	     <arg key="nameForm.lastname.displayname"/>
+         <field property="lastName" depends="required">
+             <arg key="nameForm.lastname.displayname"/>
          </field>
       </form>
    </formset>   

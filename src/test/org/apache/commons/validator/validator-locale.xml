@@ -11,46 +11,42 @@
                  msg=""/>
    </global>
    <formset>
-      <form    name="nameForm" >
-         <field    property="firstName"  depends="required">
-         	     <arg key="nameForm.firstname.displayname"/>
+      <form name="nameForm">
+         <field property="firstName" depends="required">
+             <arg key="nameForm.firstname.displayname"/>
          </field>    
-         <field    property="lastName"
-         	   depends="required">
-         	     <arg key="nameForm.lastname.displayname"/>
+         <field property="lastName" depends="required">
+             <arg key="nameForm.lastname.displayname"/>
          </field>
       </form>
    </formset>   
    <formset language="en" country="US" variant="TEST1">
-      <form    name="nameForm" >
-         <field    property="firstName"  depends="required">
-         	     <arg key="nameForm.firstname.displayname"/>
+      <form name="nameForm">
+         <field property="firstName" depends="required">
+             <arg key="nameForm.firstname.displayname"/>
          </field>    
-         <field    property="lastName"
-         	   depends="required">
-         	     <arg key="nameForm.lastname.displayname"/>
+         <field property="lastName" depends="required">
+             <arg key="nameForm.lastname.displayname"/>
          </field>
       </form>
    </formset>   
    <formset language="en" country="US" variant="TEST2">
-      <form    name="nameForm" >
-         <field    property="firstName"  depends="">
-         	     <arg key="nameForm.firstname.displayname"/>
+      <form name="nameForm" >
+         <field property="firstName" depends="">
+             <arg key="nameForm.firstname.displayname"/>
          </field>    
-         <field    property="lastName"
-         	   depends="required">
-         	     <arg key="nameForm.lastname.displayname"/>
+         <field property="lastName" depends="required">
+         	 <arg key="nameForm.lastname.displayname"/>
          </field>
       </form>
    </formset>   
    <formset language="en" country="UK">
-      <form    name="nameForm" >
-         <field    property="firstName"  depends="required">
-         	     <arg key="nameForm.firstname.displayname"/>
+      <form name="nameForm">
+         <field property="firstName" depends="required">
+         	 <arg key="nameForm.firstname.displayname"/>
          </field>    
-         <field    property="lastName"
-         	   depends="">
-         	     <arg key="nameForm.lastname.displayname"/>
+         <field property="lastName" depends="">
+             <arg key="nameForm.lastname.displayname"/>
          </field>
       </form>
    </formset>   
