@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.10 2003/05/03 20:22:43 dgraham Exp $
- * $Revision: 1.10 $
- * $Date: 2003/05/03 20:22:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.11 2003/05/03 20:39:03 dgraham Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/05/03 20:39:03 $
  *
  * ====================================================================
  *
@@ -70,14 +70,18 @@ import org.apache.commons.validator.util.Flags;
 import org.apache.oro.text.perl.Perl5Util;
 
 /**
- * <p>Validates URL.</p>
+ * <p>Validates URLs.</p>
  * Behavour of validation is modified by passing in options:
- *   allow2Slash - [FALSE]. which allows double '/' characters in the path  component
- *   noFragment - [FALSE] By default fragments are allowed, if the noFragment option is
- *              included then fragments are flagged as illegal.
+ * <li>ALLOW_2_SLASHES - [FALSE]  Allows double '/' characters in the path 
+ * component.</li>
+ * <li>NO_FRAGMENT- [FALSE]  By default fragments are allowed, if this option is
+ * included then fragments are flagged as illegal.</li>
+ * <li>ALLOW_ALL_SCHEMES - [FALSE] By default only http, https, and ftp are 
+ * considered valid schemes.  Enabling this option will let any scheme pass validation.</li>
+ * 
  * <p>Originally based in on php script by Debbie Dyer, validation.php v1.2b, Date: 03/07/02,
  * http://javascript.internet.com. However, this validation now bears little resemblance
- * to the PHP original.</p>
+ * to the php original.</p>
  * <pre>
  *   Example of usage:
  *   Construct a UrlValidator with valid schemes of "http", and "https".
@@ -102,14 +106,15 @@ import org.apache.oro.text.perl.Perl5Util;
  *
  *   prints out "url is valid"
  *  </pre>
+ * 
  * @see
- *   <a href='http://www.ietf.org/rfc/rfc2396.txt' >
+ * <a href='http://www.ietf.org/rfc/rfc2396.txt' >
  *  Uniform Resource Identifiers (URI): Generic Syntax
- *  </a>
+ * </a>
  *
  * @author Robert Leland
  * @author David Graham
- * @version $Revision: 1.10 $ $Date: 2003/05/03 20:22:43 $
+ * @version $Revision: 1.11 $ $Date: 2003/05/03 20:39:03 $
  */
 public class UrlValidator implements Serializable {
     
@@ -263,12 +268,10 @@ public class UrlValidator implements Serializable {
 		}
 
 		if (schemes == null) {
-			this.allowedSchemes =
-				new HashSet(Arrays.asList(this.defaultSchemes));
-		} else {
-			this.allowedSchemes = new HashSet(Arrays.asList(schemes));
-		}
-
+            schemes = this.defaultSchemes;
+        }
+        
+    	this.allowedSchemes = new HashSet(Arrays.asList(schemes));
 	}
 
 	/**
@@ -327,8 +330,8 @@ public class UrlValidator implements Serializable {
 	 * @return   true is valid.
 	 */
 	protected boolean isValidScheme(String scheme) {
-		Perl5Util matchSchemePat = new Perl5Util();
-		boolean bValid = matchSchemePat.match(SCHEME_PATTERN, scheme);
+		Perl5Util schemeMatcher = new Perl5Util();
+		boolean bValid = schemeMatcher.match(SCHEME_PATTERN, scheme);
 		if (bValid) {
 			if (allowedSchemes != null) {
 				bValid = allowedSchemes.contains(scheme);
@@ -437,31 +440,34 @@ public class UrlValidator implements Serializable {
         return bValid;
 	}
 
+    /**
+     * Returns true if the path is valid.
+     */
 	protected boolean isValidPath(String path) {
-		Perl5Util matchPathPat = new Perl5Util();
-		boolean bValid = true;
+		Perl5Util pathMatcher = new Perl5Util();
 
-		bValid = matchPathPat.match(PATH_PATTERN, path);
-		if (bValid) { //Shouldn't end with a '/'
-			bValid = (path.lastIndexOf("/") < (path.length() - 1));
+		if (!pathMatcher.match(PATH_PATTERN, path)) {
+			return false;
 		}
 
-		if (bValid) {
-			int slash2Count = countToken("//", path);
-
-			if (this.options.isOff(ALLOW_2_SLASHES)) {
-				bValid = (slash2Count == 0);
-			}
-
-			if (bValid) {
-				int slashCount = countToken("/", path);
-				int dot2Count = countToken("..", path);
-				if (dot2Count > 0) {
-					bValid = ((slashCount - slash2Count - 1) > dot2Count);
-				}
-			}
+		if (path.endsWith("/")) {
+			return false;
 		}
-		return bValid;
+
+		int slash2Count = countToken("//", path);
+		if (this.options.isOff(ALLOW_2_SLASHES) && (slash2Count > 0)) {
+			return false;
+		}
+
+		int slashCount = countToken("/", path);
+		int dot2Count = countToken("..", path);
+		if (dot2Count > 0) {
+            if((slashCount - slash2Count - 1) <= dot2Count){
+                return false;
+            }
+		}
+
+		return true;
 	}
 
 	/**
@@ -472,8 +478,8 @@ public class UrlValidator implements Serializable {
 			return true;
 		}
 
-		Perl5Util matchQueryPat = new Perl5Util();
-		return matchQueryPat.match(QUERY_PATTERN, query);
+		Perl5Util queryMatcher = new Perl5Util();
+		return queryMatcher.match(QUERY_PATTERN, query);
 	}
 
 	/**
