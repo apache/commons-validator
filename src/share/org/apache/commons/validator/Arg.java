@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.7 2003/05/22 03:28:05 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2003/05/22 03:28:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.8 2003/05/24 17:09:41 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/05/24 17:09:41 $
  *
  * ====================================================================
  *
@@ -59,11 +59,9 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.io.Serializable;
-
 
 /**
  * <p>
@@ -81,115 +79,112 @@ import java.io.Serializable;
  * <p>Instances of this class are configured with an &lt;arg&gt; xml element.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2003/05/22 03:28:05 $
-*/
+ * @version $Revision: 1.8 $ $Date: 2003/05/24 17:09:41 $
+ */
 public class Arg implements Cloneable, Serializable {
 
     /**
      * The name dependency that this argument goes with (optional).
-    */
+     */
     protected String name = null;
 
     /**
      * The key or value of the argument.
-    */
+     */
     protected String key = null;
 
     /**
      * Whether or not the key is a message resource (optional).  Defaults to true.
      * If it is 'true', the value will try to be resolved as a message resource.
-    */
+     */
     protected boolean resource = true;
-
 
     /**
      * Gets the name of the dependency.
      * @return the name of the dependency.
-    */
+     */
     public String getName() {
-       return name;
+        return this.name;
     }
 
     /**
      * Sets the name of the dependency.
      * @param name the name of the dependency.
-    */
+     */
     public void setName(String name) {
-       this.name = name;
+        this.name = name;
     }
 
-     /**
+    /**
      * Gets the key/value.
-      * @return the key value.
-    */
+     * @return the key value.
+     */
     public String getKey() {
-       return key;
+        return this.key;
     }
 
     /**
      * Sets the key/value.
      * @param key They to access the argument.
-    */
+     */
     public void setKey(String key) {
-       this.key = key;
+        this.key = key;
     }
 
     /**
      * Gets whether or not the key is a resource.
      * @return Returns true if key is a resource.
-    */
+     * @deprecated Use isResource() instead.
+     */
     public boolean getResource() {
-       return resource;
+        return this.isResource();
+    }
+    
+    /**
+     * Tests whether or not the key is a resource key or literal value.
+     * @return <code>true</code> if key is a resource key.
+     */
+    public boolean isResource() {
+        return this.resource;
     }
 
     /**
      * Sets whether or not the key is a resource.
      * @param resource If true indicates the key is a resource.
-    */
+     */
     public void setResource(boolean resource) {
-       this.resource = resource;
+        this.resource = resource;
     }
 
     /**
      * Creates and returns a copy of this object.
      * @return A copy of this object.
-    */
+     */
     public Object clone() {
-       try {
-           Arg arg = (Arg)super.clone();
+        try {
+            return super.clone();
 
-           if (name != null) {
-              arg.setName(new String(name));
-           }
-
-           if (key != null) {
-              arg.setKey(new String(key));
-           }
-
-           arg.setResource(resource);
-
-           return arg;
-       } catch (CloneNotSupportedException e) {
-          throw new InternalError(e.toString());
-       }
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError(e.toString());
+        }
     }
 
     /**
      * Returns a string representation of the object.
      * @return a string representation of the object.
-    */
+     */
     public String toString() {
-       StringBuffer results = new StringBuffer();
+        StringBuffer results = new StringBuffer();
 
-       results.append("Arg: name=");
-       results.append(name);
-       results.append("  key=");
-       results.append(key);
-       results.append("  resource=");
-       results.append(resource);
-       results.append("\n");
+        results.append("Arg: name=");
+        results.append(name);
+        results.append("  key=");
+        results.append(key);
+        results.append("  resource=");
+        results.append(resource);
+        results.append("\n");
 
-       return results.toString();
+        return results.toString();
     }
 
 }
