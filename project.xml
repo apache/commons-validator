@@ -20,7 +20,7 @@
   
   <name>Validator</name>
   <id>commons-validator</id>
-  <currentVersion>1.1.4</currentVersion>
+  <currentVersion>1.2.0-dev</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons Validator</shortDescription>
   <description>
@@ -75,6 +75,12 @@
   
   <developers>
     <developer>
+      <name>Don Brown</name>
+      <id>mrdon</id>
+      <email>mrdon@apache.org</email>
+      <organization></organization>
+    </developer>
+    <developer>
       <name>Martin Cooper</name>
       <id>martinc</id>
       <email>martinc@apache.org</email>
@@ -105,24 +111,6 @@
       <organization></organization>
     </developer>
     <developer>
-      <name>James Turner</name>
-      <id>turner</id>
-      <email>turner@apache.org</email>
-      <organization></organization>
-    </developer>
-    <developer>
-      <name>David Winterfeldt</name>
-      <id>dwinterfeldt</id>
-      <email>dwinterfeldt@apache.org</email>
-      <organization></organization>
-    </developer>
-    <developer>
-      <name>Don Brown</name>
-      <id>mrdon</id>
-      <email>mrdon@apache.org</email>
-      <organization></organization>
-    </developer>
-    <developer>
       <name>James Mitchell</name>
       <id>jmitchell</id>
       <email>jmitchell NOSPAM apache.org</email>
@@ -132,6 +120,18 @@
       <name>Niall Pemberton</name>
       <id>niallp</id>
       <email>niallp NOSPAM apache.org</email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>James Turner</name>
+      <id>turner</id>
+      <email>turner@apache.org</email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>David Winterfeldt</name>
+      <id>dwinterfeldt</id>
+      <email>dwinterfeldt@apache.org</email>
       <organization></organization>
     </developer>
    </developers>
@@ -270,25 +270,25 @@
     
     <dependency>
       <id>commons-beanutils</id>
-      <version>1.6.1</version>
+      <version>1.7.0</version>
       <url>http://jakarta.apache.org/commons/beanutils.html</url>
     </dependency>
 
     <dependency>
       <id>commons-collections</id>
-      <version>2.1</version>
+      <version>3.1</version>
       <url>http://jakarta.apache.org/commons/collections.html</url>
     </dependency>
 
     <dependency>
       <id>commons-digester</id>
-      <version>1.5</version>
+      <version>1.6</version>
       <url>http://jakarta.apache.org/commons/digester.html</url>
     </dependency>
 
     <dependency>
       <id>commons-logging</id>
-      <version>1.0.3</version>
+      <version>1.0.4</version>
       <url>http://jakarta.apache.org/commons/logging.html</url>
     </dependency>
     
