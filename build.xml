@@ -3,7 +3,7 @@
 
 <!--
         "Validator" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.13 2002/10/22 06:26:17 martinc Exp $
+        $Id: build.xml,v 1.14 2002/10/23 04:02:01 martinc Exp $
 -->
 
 
@@ -45,11 +45,14 @@
   <!-- The name of this component -->
   <property name="component.name"          value="validator"/>
 
+  <!-- The primary package name of this component -->
+  <property name="component.package"       value="org.apache.commons.validator"/>
+
   <!-- The title of this component -->
   <property name="component.title"         value="Validator"/>
 
   <!-- The current version number of this component -->
-  <property name="component.version"       value="1.1-dev"/>
+  <property name="component.version"       value="1.0"/>
 
   <!-- The base directory for compilation targets -->
   <property name="build.home"              value="target"/>
@@ -147,6 +150,7 @@
    description="Initialize and evaluate conditionals">
     <echo message="-------- ${component.name} ${component.version} --------"/>
     <filter  token="name"                  value="${component.name}"/>
+    <filter  token="package"               value="${component.package}"/>
     <filter  token="version"               value="${component.version}"/>
   </target>
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.1 2002/10/11 20:17:50 turner Exp $
- * $Revision: 1.1 $
- * $Date: 2002/10/11 20:17:50 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.2 2002/10/23 04:02:02 martinc Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/10/23 04:02:02 $
  *
  * ====================================================================
  *
@@ -75,7 +75,7 @@ import org.apache.commons.validator.*;
  * <p>A simple example of setting up and using the Validator.</p> 
  *
  * @author James Turner
- * @version $Revision: 1.1 $ $Date: 2002/10/11 20:17:50 $
+ * @version $Revision: 1.2 $ $Date: 2002/10/23 04:02:02 $
  *
  * This simple example shows all the steps needed to set up and use
  * the Validator.  Note that in most cases, some kind of framework
@@ -94,7 +94,8 @@ public class ValidateExample extends Object {
      *
      */
 
-    private static ResourceBundle apps = ResourceBundle.getBundle("org.apache.commons.validator.applicationResources");
+    private static ResourceBundle apps = ResourceBundle.getBundle(
+            "org.apache.commons.validator.example.applicationResources");
 
 
     /**
