@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.11 2003/05/24 19:07:36 dgraham Exp $
- * $Revision: 1.11 $
- * $Date: 2003/05/24 19:07:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.12 2003/05/24 19:17:57 dgraham Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/05/24 19:17:57 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.11 $ $Date: 2003/05/24 19:07:36 $
+ * @version $Revision: 1.12 $ $Date: 2003/05/24 19:17:57 $
  */
 public class ValidatorAction implements Serializable {
 
@@ -174,7 +174,8 @@ public class ValidatorAction implements Serializable {
 	private List dependencyList = Collections.synchronizedList(new ArrayList());
 
 	/**
-	 * A list of all the validation method's parameters.
+	 * An internal List representation of all the validation method's parameters defined 
+     * in the methodParams String.
 	 */
 	private List methodParameterList = new ArrayList();
 
@@ -229,27 +230,41 @@ public class ValidatorAction implements Serializable {
 
 	/**
 	 * Sets the method parameters for the method.
+     * @param methodParams A comma separated list of parameters.
 	 */
 	public void setMethodParams(String methodParams) {
-		this.methodParams = methodParams;
-	}
+        this.methodParams = methodParams;
+
+        this.methodParameterList.clear();
+
+        StringTokenizer st = new StringTokenizer(methodParams, ",");
+        while (st.hasMoreTokens()) {
+            String value = st.nextToken().trim();
+
+            if (value != null && value.length() > 0) {
+                this.methodParameterList.add(value);
+            }
+        }
+    }
 
 	/**
-	 * Gets the method parameters for the method.
+	 * Gets the method parameters for the method as an unmodifiable List.
 	 */
 	public List getMethodParamsList() {
-		return Collections.unmodifiableList(methodParameterList);
+		return Collections.unmodifiableList(this.methodParameterList);
 	}
 
 	/**
-	 * Gets the dependencies of the validator action.
+	 * Gets the dependencies of the validator action as a comma separated list of 
+     * validator names.
 	 */
 	public String getDepends() {
-		return depends;
+		return this.depends;
 	}
 
 	/**
 	 * Sets the dependencies of the validator action.
+     * @param depends A comma separated list of validator names.
 	 */
     public void setDepends(String depends) {
         this.depends = depends;
@@ -492,25 +507,11 @@ public class ValidatorAction implements Serializable {
 	/**
 	 * Creates a <code>FastHashMap</code> for the isDependency method 
 	 * based on depends.
+     * @deprecated This functionality has been moved to other methods.  It's no longer
+     * required to call this method to initialize this object.
 	 */
 	public synchronized void process(Map globalConstants) {
-
-		// Create List for methodParams
-		if (getMethodParams() != null) {
-			if (methodParameterList == null) {
-				methodParameterList = new ArrayList();
-			}
-
-			StringTokenizer st = new StringTokenizer(getMethodParams(), ",");
-
-			while (st.hasMoreTokens()) {
-				String value = st.nextToken().trim();
-
-				if (value != null && value.length() > 0) {
-					methodParameterList.add(value);
-				}
-			}
-		}
+        // do nothing
 	}
 
 	/**

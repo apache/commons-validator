@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.17 2003/05/22 03:28:05 dgraham Exp $
- * $Revision: 1.17 $
- * $Date: 2003/05/22 03:28:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.18 2003/05/24 19:17:57 dgraham Exp $
+ * $Revision: 1.18 $
+ * $Date: 2003/05/24 19:17:57 $
  *
  * ====================================================================
  *
@@ -92,7 +92,7 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.17 $ $Date: 2003/05/22 03:28:05 $
+ * @version $Revision: 1.18 $ $Date: 2003/05/24 19:17:57 $
  */
 public class ValidatorResources implements Serializable {
 
@@ -280,7 +280,6 @@ public class ValidatorResources implements Serializable {
             && va.getMethod().length() > 0) {
 
             va.init();
-            va.process(hConstants);
 
             hActions.put(va.getName(), va);
 
