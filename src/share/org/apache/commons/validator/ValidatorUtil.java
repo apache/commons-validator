@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.7 2003/03/13 02:11:39 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2003/03/13 02:11:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.8 2003/04/29 00:53:43 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/04/29 00:53:43 $
  *
  * ====================================================================
  *
@@ -62,6 +62,7 @@
 
 package org.apache.commons.validator;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -74,13 +75,14 @@ import org.apache.commons.logging.LogFactory;
  * <p>Basic utility methods.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2003/03/13 02:11:39 $
+ * @author David Graham
+ * @version $Revision: 1.8 $ $Date: 2003/04/29 00:53:43 $
 */
 public class ValidatorUtil  {
 
    /**
-    * Logger
-   */
+    * Logger.
+    */
    protected static Log log = LogFactory.getLog(ValidatorUtil.class);
    
    /**
@@ -89,39 +91,53 @@ public class ValidatorUtil  {
     * @param	value		<code>String</code> to perform the replacement on.
     * @param	key		The name of the constant.
     * @param	replaceValue	The value of the constant.
-   */
+    */
    public static String replace(String value, String key, String replaceValue) {
-      if (value != null && key != null && replaceValue != null) {
-         int pos = value.indexOf(key);
-          
-         if (pos >= 0) {
-            int length = value.length();
-            int start = pos;
-            int end = pos + key.length();
-         
-            if (length == key.length()) {
-               value = replaceValue;
-            } else if (end == length) {
-               value = value.substring(0, start) + replaceValue; //+ value.substring(end);
-            } else {
-            	value = value.substring(0, start) + replaceValue + replace(value.substring(end), key, replaceValue);
-            }
-         }
-      }
-      return value;
+		if (value == null || key == null || replaceValue == null) {
+			return value;
+		}
+
+		int pos = value.indexOf(key);
+
+		if (pos < 0) {
+			return value;
+		}
+        
+		int length = value.length();
+		int start = pos;
+		int end = pos + key.length();
+
+		if (length == key.length()) {
+			value = replaceValue;
+		} else if (end == length) {
+			value = value.substring(0, start) + replaceValue;
+		} else {
+			value =
+				value.substring(0, start)
+					+ replaceValue
+					+ replace(value.substring(end), key, replaceValue);
+		}
+
+		return value;
    }
 
    /**
-    * Convenience method for getting a value from a bean property as a <code>String</code>.
-   */
+    * Convenience method for getting a value from a bean property as a 
+    * <code>String</code>.
+    */
    public static String getValueAsString(Object bean, String property) {
       Object value = null;
 
-      try {
-         value = PropertyUtils.getProperty(bean, property);	
-      } catch (Exception e) {
-         log.error(e.getMessage(), e);
-      }
+         try {
+			value = PropertyUtils.getProperty(bean, property);
+            
+		} catch (IllegalAccessException e) {
+            log.error(e.getMessage(), e);
+		} catch (InvocationTargetException e) {
+            log.error(e.getMessage(), e);
+		} catch (NoSuchMethodException e) {
+            log.error(e.getMessage(), e);
+		}	
    	
       return (value != null ? value.toString() : null);    	
    }
@@ -131,33 +147,36 @@ public class ValidatorUtil  {
     * are <code>String</code>, <code>Msg</code>, <code>Arg</code>, 
     * or <code>Var</code>.  Otherwise it is a shallow copy.
     * 
-    * @param	map		<code>FastHashMap</code> to copy.
-    * @return 	FastHashMap	A copy of the <code>FastHashMap</code> 
-    *				that was passed in.
-   */
-   public static FastHashMap copyFastHashMap(FastHashMap map) {
-      FastHashMap hResults = new FastHashMap();
-      
-      for (Iterator i = map.keySet().iterator(); i.hasNext(); ) {
-         String key = (String)i.next();
-         Object value = map.get(key);
+    * @param map <code>FastHashMap</code> to copy.
+    * @return FastHashMap A copy of the <code>FastHashMap</code> that was 
+    * passed in.
+    */
+    public static FastHashMap copyFastHashMap(FastHashMap map) {
+    	FastHashMap results = new FastHashMap();
+        
+		Iterator i = map.keySet().iterator();
+		while (i.hasNext()) {
+			String key = (String) i.next();
+			Object value = map.get(key);
 
-      	  if (value instanceof String) {
-      	     hResults.put(key, new String((String)value));
-      	  } else if (value instanceof Msg) {
-      	     hResults.put(key, ((Msg)value).clone());
-      	  } else if (value instanceof Arg) {
-      	     hResults.put(key, ((Arg)value).clone());
-      	  } else if (value instanceof Var) {
-      	     hResults.put(key, ((Var)value).clone());
-         } else {
-            hResults.put(key, value);	
-         }
-      }
-      
-      hResults.setFast(true);
-      
-      return hResults;
-   }
+			// TODO I don't think Strings need to be copied and do we really need to cast
+			// before cloning?
+			if (value instanceof String) {
+				results.put(key, new String((String) value));
+			} else if (value instanceof Msg) {
+				results.put(key, ((Msg) value).clone());
+			} else if (value instanceof Arg) {
+				results.put(key, ((Arg) value).clone());
+			} else if (value instanceof Var) {
+				results.put(key, ((Var) value).clone());
+			} else {
+				results.put(key, value);
+			}
+		}
+
+		results.setFast(true);
+
+		return results;
+	}
    
 }
