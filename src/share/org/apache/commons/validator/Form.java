@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.15 2004/04/04 13:53:25 rleland Exp $
- * $Revision: 1.15 $
- * $Date: 2004/04/04 13:53:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.16 2004/04/04 19:38:45 dgraham Exp $
+ * $Revision: 1.16 $
+ * $Date: 2004/04/04 19:38:45 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -61,13 +61,14 @@ public class Form implements Serializable {
 
 	/**
 	 * The name/key of the form which this form extends from.
-	*/
+     * @since Validator 1.2.0
+	 */
 	protected String inherit = null;
 
 	/**
 	 * Whether or not the this <code>Form</code> was processed
 	 * for replacing variables in strings with their values.
-	*/
+	 */
 	private boolean processed = false;
 
     /**
@@ -143,12 +144,13 @@ public class Form implements Serializable {
 
 	/**
 	 * Processes all of the <code>Form</code>'s <code>Field</code>s.
-	*/
+     * @since Validator 1.2.0
+	 */
 	protected void process(Map globalConstants, Map constants, Map forms) {
-
 		if (isProcessed()) {
 			return;
 		}
+        
 		int n = 0; //we want the fields from its parent first
 		if (isExtending()) {
 			Form parent = (Form) forms.get(inherit);
@@ -228,13 +230,15 @@ public class Form implements Serializable {
 	/**
  	 * Whether or not the this <code>Form</code> was processed
  	 * for replacing variables in strings with their values.
- 	*/
+     * @since Validator 1.2.0
+ 	 */
  	public boolean isProcessed() {
  	   return processed;
  	}
 
  	/**
  	 * Gets the name/key of the parent set of validation rules.
+     * @since Validator 1.2.0
  	 */
  	public String getExtends() {
  		return inherit;
@@ -242,6 +246,7 @@ public class Form implements Serializable {
 
  	/**
  	 * Sets the name/key of the parent set of validation rules.
+     * @since Validator 1.2.0
  	 */
  	public void setExtends(String string) {
  		inherit = string;
@@ -249,6 +254,7 @@ public class Form implements Serializable {
 
  	/**
  	 * Get extends flag.
+     * @since Validator 1.2.0
  	 */
  	public boolean isExtending() {
  	  return inherit != null;
