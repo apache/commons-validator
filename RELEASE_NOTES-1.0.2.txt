@@ -1,0 +1,27 @@
+$Id: RELEASE_NOTES-1.0.2.txt,v 1.1 2003/03/27 02:41:48 dgraham Exp $
+
+			Commons Validator Package
+			     Version 1.0.2
+			    Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for this version of the Commons
+Validator package. 
+
+This is a bugfix release based on the Commons Validator 1.0.1 release.  No new 
+functionality was introduced.
+
+
+NEW FEATURES:
+
+None
+
+BUG FIXES:
+15898 GenericValidaor.isEmail bug 
+16045 NPE in Validator.java after upgrading to Struts 1.1b3 
+16073 i18n issue, variant not being picked up by Validator 
+16198 isEmail accepts Umlauts and other non-ASCII characters 
+17219 Email address validation incorrectly accepts commas 
+17470 unknown host when loading app 
