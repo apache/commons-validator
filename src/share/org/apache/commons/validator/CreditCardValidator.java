@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.1 2003/04/29 01:45:43 dgraham Exp $
- * $Revision: 1.1 $
- * $Date: 2003/04/29 01:45:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.2 2003/04/30 21:24:41 rleland Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/04/30 21:24:41 $
  *
  * ====================================================================
  *
@@ -66,14 +66,14 @@ package org.apache.commons.validator;
  * <p>
  * This class is a Singleton; you can retrieve the instance via the getInstance() method.
  * </p>
- * Reference Sean M. Burke's script at 
+ * Reference Sean M. Burke's script at
  * http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl
- * 
+ *
  * @author David Winterfeldt
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.1 $ $Date: 2003/04/29 01:45:43 $
+ * @version $Revision: 1.2 $ $Date: 2003/04/30 21:24:41 $
  */
 public class CreditCardValidator {
 
@@ -118,7 +118,7 @@ public class CreditCardValidator {
 	 *
 	 * @param cardNumber Credit Card Number.
 	 */
-	protected boolean validateCreditCardLuhnCheck(String cardNumber) {
+	protected static boolean validateCreditCardLuhnCheck(String cardNumber) {
 		// number must be validated as 0..9 numeric first!!
 		int digits = cardNumber.length();
 		int oddoeven = digits & 1;
@@ -155,7 +155,7 @@ public class CreditCardValidator {
 	 *
 	 * @param cardNumber Credit Card Number.
 	 */
-	protected boolean validateCreditCardPrefixCheck(String cardNumber) {
+	protected static boolean validateCreditCardPrefixCheck(String cardNumber) {
 
 		int length = cardNumber.length();
 		if (length < 13) {
