@@ -1,7 +1,7 @@
-$Id: RELEASE-NOTES.txt,v 1.1 2002/10/21 04:53:12 turner Exp $
+$Id: RELEASE-NOTES.txt,v 1.2 2002/12/13 08:12:51 turner Exp $
 
 			Commons Validator Package
-			     Version 1.0
+			     Version 1.01
 			    Release Notes
 
 
@@ -10,22 +10,22 @@ INTRODUCTION:
 This document contains the release notes for this version of the Commons
 Validator package. 
 
-Because Struts 1.1 depends on Commons Validator, it is important to have 
-a stable Validator release before Struts 1.1 is released.  In addition,
-Validator has never had a release, meaning that there has been no stable
-release for other developers to work from, only the nightly build.
+This is a bugfix release based on the Commons Validator 1.0 release.  No new 
+functionality is introduced.
 
-With a clean bug list, Validator seems ready to go out into the world for
-a 1.0 release.  On the other side of the release, we anticipate improving
-the documentation, writing more test cases, and doing some code cleanup.
-
+A new requirement is introduced by virtue of one of the bug fixes.  Any
+validator rule must now return a value which implements Serializable.
 
 NEW FEATURES:
 
-N/A, first release
+None
 
 BUG FIXES:
 
-See Above
+14591: Serialization problem with org.apache.commons.validator.ValidatorResult$ResultStatus 
+
+14384: ValidatorResources.get-method not working properly 
+
+
 
 
