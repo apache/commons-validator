@@ -1,5 +1,5 @@
 
-   /*$RCSfile: validateFloatRange.js,v $ $Revision: 1.6 $ $Date: 2004/02/02 23:58:52 $ */
+   /*$RCSfile: validateFloatRange.js,v $ $Revision: 1.7 $ $Date: 2004/03/08 23:24:25 $ */
     /**
     * Check to see if fields are in a valid float range.
     * Fields are not checked if they are disabled.
@@ -11,7 +11,7 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        oRange = new floatRange();
+        oRange = eval('new ' + form.name + '_floatRange()');
         for (x in oRange) {
             var field = form[oRange[x][0]];
             
