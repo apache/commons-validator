@@ -44,8 +44,7 @@ import org.apache.commons.collections.FastHashMap; // DEPRECATED
 public class Form implements Serializable {
 
     /**
-     * The name/key the set of validation rules is
-     * stored under.
+     * The name/key the set of validation rules is stored under.
      */
     protected String name = null;
 
@@ -59,6 +58,7 @@ public class Form implements Serializable {
 
     /**
      * Map of <code>Field</code>s keyed on their property value.
+     * @deprecated Subclasses should use getFieldMap() instead.
      */
     protected FastHashMap hFields = new FastHashMap();
 
@@ -228,8 +228,8 @@ public class Form implements Serializable {
      * Sets the name/key of the parent set of validation rules.
      * @since Validator 1.2.0
      */
-    public void setExtends(String string) {
-        inherit = string;
+    public void setExtends(String inherit) {
+        this.inherit = inherit;
     }
 
     /**
@@ -238,5 +238,13 @@ public class Form implements Serializable {
      */
     public boolean isExtending() {
         return inherit != null;
+    }
+
+    /**
+     * Returns a Map of String field keys to Field objects.
+     * @since Validator 1.2.0
+     */
+    protected Map getFieldMap() {
+        return hFields;
     }
 }

@@ -41,10 +41,10 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * message information and variables to perform the validations and generate 
  * error messages.  Instances of this class are configured with a 
  * &lt;field&gt; xml element.
- *
+ * <p>
  * The use of FastHashMap is deprecated and will be replaced in a future
  * release.
- *
+ * </p>
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -87,8 +87,14 @@ public class Field implements Cloneable, Serializable {
      */
     private List dependencyList = Collections.synchronizedList(new ArrayList());
 
+    /**
+     * @deprecated Subclasses should use getVarMap() instead. 
+     */
     protected FastHashMap hVars = new FastHashMap();
-    
+
+    /**
+     * @deprecated Subclasses should use getMsgMap() instead.
+     */
     protected FastHashMap hMsgs = new FastHashMap();
 
     /**
@@ -223,7 +229,7 @@ public class Field implements Cloneable, Serializable {
      * @since Validator 1.1.4
      */
     public Msg getMessage(String key) {
-        return (Msg)hMsgs.get(key);
+        return (Msg) hMsgs.get(key);
     }
 
     /**
@@ -246,8 +252,7 @@ public class Field implements Cloneable, Serializable {
         }
 
         determineArgPosition(arg);
-
-        this.ensureArgsCapacity(arg);
+        ensureArgsCapacity(arg);
 
         Map argMap = this.args[arg.getPosition()];
         if (argMap == null) {
@@ -796,11 +801,24 @@ public class Field implements Cloneable, Serializable {
      * @throws ValidatorException
      */
     private void handleMissingAction(String name) throws ValidatorException {
-        throw new ValidatorException(
-            "No ValidatorAction named "
-                + name
-                + " found for field "
-                + this.getProperty());
+        throw new ValidatorException("No ValidatorAction named " + name
+                + " found for field " + this.getProperty());
+    }
+
+    /**
+     * Returns a Map of String Msg names to Msg objects.
+     * @since Validator 1.2.0
+     */
+    protected Map getMsgMap() {
+        return hMsgs;
+    }
+
+    /**
+     * Returns a Map of String Var names to Var objects.
+     * @since Validator 1.2.0
+     */
+    protected Map getVarMap() {
+        return hVars;
     }
 
 }

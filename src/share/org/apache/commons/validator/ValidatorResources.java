@@ -74,26 +74,26 @@ public class ValidatorResources implements Serializable {
         "/org/apache/commons/validator/resources/validator_1_2_0.dtd"
     };
 
-    /**
-     * Logger.
-     */
     private static final Log log = LogFactory.getLog(ValidatorResources.class);
 
     /**
-     * <code>FastHashMap</code> of <code>FormSet</code>s stored under
+     * <code>Map</code> of <code>FormSet</code>s stored under
      * a <code>Locale</code> key.
+     * @deprecated Subclasses should use getFormSets() instead.
      */
     protected FastHashMap hFormSets = new FastHashMap();
 
     /**
-     * <code>FastHashMap</code> of global constant values with
+     * <code>Map</code> of global constant values with
      * the name of the constant as the key.
+     * @deprecated Subclasses should use getConstants() instead.
      */
     protected FastHashMap hConstants = new FastHashMap();
 
     /**
-     * <code>FastHashMap</code> of <code>ValidatorAction</code>s with
+     * <code>Map</code> of <code>ValidatorAction</code>s with
      * the name of the <code>ValidatorAction</code> as the key.
+     * @deprecated Subclasses should use getActions() instead.
      */
     protected FastHashMap hActions = new FastHashMap();
 
@@ -263,11 +263,8 @@ public class ValidatorResources implements Serializable {
      * @since Validator 1.1
      */
     public Form getForm(Locale locale, String formKey) {
-        return this.getForm(
-                locale.getLanguage(),
-                locale.getCountry(),
-                locale.getVariant(),
-                formKey);
+        return this.getForm(locale.getLanguage(), locale.getCountry(), locale
+                .getVariant(), formKey);
     }
 
     /**
@@ -282,10 +279,7 @@ public class ValidatorResources implements Serializable {
      * </ol>
      * @since Validator 1.1
      */
-    public Form getForm(
-            String language,
-            String country,
-            String variant,
+    public Form getForm(String language, String country, String variant,
             String formKey) {
 
         String key = this.buildLocale(language, country, variant);
@@ -414,9 +408,7 @@ public class ValidatorResources implements Serializable {
      * constructing a clone, field by field, of partial
      * <code>FormSet</code>.
      */
-    protected Field getClosestLocaleField(
-            FormSet fs,
-            String formKey,
+    protected Field getClosestLocaleField(FormSet fs, String formKey,
             String fieldKey) {
 
         Field field = null;
@@ -454,6 +446,30 @@ public class ValidatorResources implements Serializable {
         }
 
         return field;
+    }
+
+    /**
+     * Returns a Map of String locale keys to Lists of their FormSets.
+     * @since Validator 1.2.0
+     */
+    protected Map getFormSets() {
+        return hFormSets;
+    }
+
+    /**
+     * Returns a Map of String constant names to their String values.
+     * @since Validator 1.2.0
+     */
+    protected Map getConstants() {
+        return hConstants;
+    }
+
+    /**
+     * Returns a Map of String ValidatorAction names to their ValidatorAction.
+     * @since Validator 1.2.0
+     */
+    protected Map getActions() {
+        return hActions;
     }
 
 }
