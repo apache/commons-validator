@@ -1,4 +1,9 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.3 2002/03/30 04:32:14 dwinterfeldt Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/03/30 04:32:14 $
+ *
+ * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
@@ -62,6 +67,7 @@ package org.apache.commons.validator;
  * unit tests.</p> 
  *
  * @author David Winterfeldt
+ * @version $Revision: 1.3 $ $Date: 2002/03/30 04:32:14 $
 */                                                       
 public class TestValidator {
                                                           
@@ -79,5 +85,89 @@ public class TestValidator {
 
       return !GenericValidator.isBlankOrNull(value);
    }
+
+   /**
+    * Checks if the field can be successfully converted to a <code>byte</code>.
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @return	boolean		If the field can be successfully converted 
+    *                           to a <code>byte</code> <code>true</code> is returned.  
+    *                           Otherwise <code>false</code>.
+   */
+   public static boolean validateByte(Object bean, Field field) {
+      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+
+      return GenericValidator.isByte(value);
+   }
+
+   /**
+    * Checks if the field can be successfully converted to a <code>short</code>.
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @return	boolean		If the field can be successfully converted 
+    *                           to a <code>short</code> <code>true</code> is returned.  
+    *                           Otherwise <code>false</code>.
+   */
+   public static boolean validateShort(Object bean, Field field) {
+      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+
+      return GenericValidator.isShort(value);
+   }
+
+   /**
+    * Checks if the field can be successfully converted to a <code>int</code>.
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @return	boolean		If the field can be successfully converted 
+    *                           to a <code>int</code> <code>true</code> is returned.  
+    *                           Otherwise <code>false</code>.
+   */
+   public static boolean validateInt(Object bean, Field field) {
+      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+
+      return GenericValidator.isInt(value);
+   }
+
+   /**
+    * Checks if the field can be successfully converted to a <code>long</code>.
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @return	boolean		If the field can be successfully converted 
+    *                           to a <code>long</code> <code>true</code> is returned.  
+    *                           Otherwise <code>false</code>.
+   */
+   public static boolean validateLong(Object bean, Field field) {
+      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+
+      return GenericValidator.isLong(value);
+   }
+
+   /**
+    * Checks if the field can be successfully converted to a <code>float</code>.
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @return	boolean		If the field can be successfully converted 
+    *                           to a <code>float</code> <code>true</code> is returned.  
+    *                           Otherwise <code>false</code>.
+   */
+   public static boolean validateFloat(Object bean, Field field) {
+      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+
+      return GenericValidator.isFloat(value);
+   }
    
+   /**
+    * Checks if the field can be successfully converted to a <code>double</code>.
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @return	boolean		If the field can be successfully converted 
+    *                           to a <code>double</code> <code>true</code> is returned.  
+    *                           Otherwise <code>false</code>.
+   */
+   public static boolean validateDouble(Object bean, Field field) {
+      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+
+      return GenericValidator.isDouble(value);
+   }
+      
 }                                                         
