@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.6 2003/03/13 02:09:24 dgraham Exp $
- * $Revision: 1.6 $
- * $Date: 2003/03/13 02:09:24 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.7 2003/04/29 00:43:10 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/04/29 00:43:10 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -78,7 +78,7 @@ import junit.framework.TestSuite;
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2003/03/13 02:09:24 $
+ * @version $Revision: 1.7 $ $Date: 2003/04/29 00:43:10 $
 */                                                       
 public class ValidatorTest extends TestCase {            
                                                           
@@ -140,8 +140,6 @@ public class ValidatorTest extends TestCase {
       resources.addValidatorAction(va);
       resources.put(fs);
       resources.process();
-
-      List l = new ArrayList();
 
       TestBean bean = new TestBean();  
       bean.setDate("2/3/1999");
