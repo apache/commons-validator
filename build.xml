@@ -13,6 +13,7 @@
    <property name="validator.jar" value="commons-validator.jar"/>
    <property name="src" value="src" />
    <property name="build" value="build" />
+   <property name="example" value="example" />
    <property name="test" value="test" />
    <property name="share" value="share" />
    <property name="dist" value="dist" />
@@ -39,6 +40,11 @@
       <pathelement path="${commons-logging.jar}"/>
       <pathelement path="${dist}/${validator.jar}" />
       <pathelement path="${build}/${test}" />
+   </path>
+
+   <path id="example.classpath">
+      <path refid="test.classpath"/>
+      <pathelement path="${build}/${example}" />
    </path>
    
    <path id="javadoc.classpath">
@@ -101,6 +107,30 @@
     description="Clean build and distribution directories">
       <delete dir="${build}"/>
       <delete dir="${dist}"/>
+   </target>
+
+   <!-- Compile Example -->
+   <target name="build-example" depends="jar" description="builds binaries for example">
+      <mkdir dir="${build}/${example}"/>
+      
+      <!-- Compile the java code from ${src}/${example} into ${build}/${example} -->
+      <javac srcdir="${src}/${example}" 
+             debug="on"
+             destdir="${build}/${example}">
+         <classpath refid="test.classpath" />
+      </javac>
+
+      <copy todir="${build}/${example}" >
+         <fileset dir="${src}/${example}"
+                  excludes="**/*.java" 
+         />
+      </copy>
+   </target>
+   <target name="example" depends="build-example" description="runs example">
+      <java fork="yes" classname="org.apache.commons.validator.ValidateExample" 
+          taskname="main" failonerror="true">
+          <classpath refid="example.classpath" />
+      </java>
    </target>
 
    <!-- Compile JUnit Tests -->
