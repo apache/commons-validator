@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.10 2003/06/08 21:33:22 dgraham Exp $
- * $Revision: 1.10 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/CreditCardValidatorTest.java,v 1.1 2003/06/08 21:33:22 dgraham Exp $
+ * $Revision: 1.1 $
  * $Date: 2003/06/08 21:33:22 $
  *
  * ====================================================================
@@ -61,53 +61,30 @@
 
 package org.apache.commons.validator;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
-import org.apache.commons.validator.util.FlagsTest;
 
 /**
- * Test suite for <code>org.apache.commons.validator</code>
- * package.
- *
- * @author David Winterfeldt
- * @author James Turner
+ * Test the CreditCardValidator class.
+ * 
  * @author David Graham
- * @version $Revision: 1.10 $ $Date: 2003/06/08 21:33:22 $
-*/
-public class ValidatorTestSuite extends TestCase {
+ */
+public class CreditCardValidatorTest extends TestCase {
 
-    public ValidatorTestSuite(String name) {
-        super(name);
-    }
+	/**
+	 * Constructor for CreditCardValidatorTest.
+	 */
+	public CreditCardValidatorTest(String name) {
+		super(name);
+	}
 
-    public static Test suite() {
-       TestSuite suite = new TestSuite();
-
-       suite.addTest(RequiredNameTest.suite());
-       suite.addTest(RequiredIfTest.suite());
-       suite.addTest(MultipleTests.suite());
-       suite.addTestSuite(MultipleConfigFilesTest.class);
-       suite.addTest(ByteTest.suite());
-       suite.addTest(ShortTest.suite());
-       suite.addTest(IntegerTest.suite());
-       suite.addTest(LongTest.suite());
-       suite.addTest(FloatTest.suite());
-       suite.addTest(DoubleTest.suite());
-       suite.addTest(TypeTest.suite());
-       suite.addTest(EmailTest.suite());
-       suite.addTestSuite(CreditCardValidatorTest.class);
-       suite.addTest(ValidatorTest.suite());
-       suite.addTest(LocaleTest.suite());
-       suite.addTestSuite(FlagsTest.class);
-       suite.addTest(UrlTest.suite());
-       
-       return suite;
-    }
-
-    public static void main(String args[]) {
-        junit.textui.TestRunner.run(suite());
-    }
+	public void testIsValid() {
+        CreditCardValidator ccv = new CreditCardValidator();
+        
+        assertFalse(ccv.isValid(null));
+        assertFalse(ccv.isValid(""));
+        assertFalse(ccv.isValid("123456789012"));   // too short
+        assertFalse(ccv.isValid("12345678901234567890"));   // too long
+        
+	}
 
 }
