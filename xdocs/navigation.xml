@@ -7,10 +7,10 @@
   <body>
     <menu name="Validator">
       <item name="Overview"                href="/index.html"/>
-      <item name="FAQ"                     href="/faq.html"/>
       <item name="Community"               href="/community.html"/>
       <item name="To Do List"              href="/tasks.html"/>
       <item name="Resources"               href="/resources.html"/>
+      <item name="Legacy 1.0.2"            href="/1.0.2/api/org/apache/commons/validator/package-summary.html"/>
     </menu>
   </body>
 </project>
