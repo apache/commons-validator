@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.6 2003/01/20 06:15:06 turner Exp $
- * $Revision: 1.6 $
- * $Date: 2003/01/20 06:15:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.7 2003/04/30 18:47:33 rleland Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/04/30 18:47:33 $
  *
  * ====================================================================
  *
@@ -73,7 +73,7 @@ import junit.framework.TestSuite;
  *
  * @author David Winterfeldt
  * @author James Turner
- * @version $Revision: 1.6 $ $Date: 2003/01/20 06:15:06 $
+ * @version $Revision: 1.7 $ $Date: 2003/04/30 18:47:33 $
 */
 public class ValidatorTestSuite extends TestCase {
 
@@ -95,6 +95,7 @@ public class ValidatorTestSuite extends TestCase {
        suite.addTest(DoubleTest.suite());
        suite.addTest(TypeTest.suite());
        suite.addTest(EmailTest.suite());
+       suite.addTest(UrlTest.suite());
        suite.addTest(ValidatorTest.suite());
        suite.addTest(LocaleTest.suite());
 
