@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/ValidatorUtils.java,v 1.2 2003/05/25 18:18:31 dgraham Exp $
- * $Revision: 1.2 $
- * $Date: 2003/05/25 18:18:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/ValidatorUtils.java,v 1.3 2003/08/15 23:44:19 dgraham Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/08/15 23:44:19 $
  *
  * ====================================================================
  *
@@ -62,6 +62,7 @@
 package org.apache.commons.validator.util;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 import java.util.Iterator;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -77,7 +78,7 @@ import org.apache.commons.validator.Var;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.2 $ $Date: 2003/05/25 18:18:31 $
+ * @version $Revision: 1.3 $ $Date: 2003/08/15 23:44:19 $
 */
 public class ValidatorUtils {
 
@@ -97,6 +98,7 @@ public class ValidatorUtils {
 		String value,
 		String key,
 		String replaceValue) {
+            
 		if (value == null || key == null || replaceValue == null) {
 			return value;
 		}
@@ -113,8 +115,10 @@ public class ValidatorUtils {
 
 		if (length == key.length()) {
 			value = replaceValue;
+            
 		} else if (end == length) {
 			value = value.substring(0, start) + replaceValue;
+            
 		} else {
 			value =
 				value.substring(0, start)
@@ -127,24 +131,41 @@ public class ValidatorUtils {
 
 	/**
 	 * Convenience method for getting a value from a bean property as a 
-	 * <code>String</code>.
+	 * <code>String</code>.  If the property is a <code>String[]</code> or 
+     * <code>Collection</code> and it is empty, an empty <code>String</code> 
+     * "" is returned.  Otherwise, property.toString() is returned.  This method
+     * may return <code>null</code> if there was an error retrieving the 
+     * property.
 	 */
-	public static String getValueAsString(Object bean, String property) {
-		Object value = null;
+    public static String getValueAsString(Object bean, String property) {
+        Object value = null;
 
-		try {
-			value = PropertyUtils.getProperty(bean, property);
+        try {
+            value = PropertyUtils.getProperty(bean, property);
 
-		} catch (IllegalAccessException e) {
-			log.error(e.getMessage(), e);
-		} catch (InvocationTargetException e) {
-			log.error(e.getMessage(), e);
-		} catch (NoSuchMethodException e) {
-			log.error(e.getMessage(), e);
-		}
+        } catch (IllegalAccessException e) {
+            log.error(e.getMessage(), e);
+        } catch (InvocationTargetException e) {
+            log.error(e.getMessage(), e);
+        } catch (NoSuchMethodException e) {
+            log.error(e.getMessage(), e);
+        }
 
-		return (value != null ? value.toString() : null);
-	}
+        if (value == null) {
+            return null;
+        }
+
+        if (value instanceof String[]) {
+            return ((String[]) value).length > 0 ? value.toString() : "";
+
+        } else if (value instanceof Collection) {
+            return ((Collection) value).isEmpty() ? "" : value.toString();
+
+        } else {
+            return value.toString();
+        }
+
+    }
 
 	/**
 	 * Makes a deep copy of a <code>FastHashMap</code> if the values 
