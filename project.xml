@@ -4,7 +4,7 @@
   <extend>../project.xml</extend>
   <name>Validator</name>
   <id>commons-validator</id>
-  <currentVersion>1.0-dev</currentVersion>
+  <currentVersion>1.1-dev</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <gumpRepositoryId>jakarta</gumpRepositoryId>
   <shortDescription>Commons Validator</shortDescription>
@@ -51,7 +51,7 @@
 
     <dependency>
       <id>commons-beanutils</id>
-      <version>SNAPSHOT</version>
+      <version>1.5</version>
     </dependency>
 
     <dependency>
