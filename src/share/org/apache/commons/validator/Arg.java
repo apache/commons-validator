@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.6 2003/04/30 21:51:05 rleland Exp $
- * $Revision: 1.6 $
- * $Date: 2003/04/30 21:51:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.7 2003/05/22 03:28:05 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/05/22 03:28:05 $
  *
  * ====================================================================
  *
@@ -66,7 +66,8 @@ import java.io.Serializable;
 
 
 /**
- * <p>A default argument or an argument for a
+ * <p>
+ * A default argument or an argument for a
  * specific validator definition (ex: required)
  * can be stored to pass into a message as parameters.  This can be used in a
  * pluggable validator for constructing locale
@@ -75,10 +76,12 @@ import java.io.Serializable;
  * used to determine if the value stored in the argument
  * is a value to be retrieved from a locale sensitive
  * message retrieval system like <code>java.util.PropertyResourceBundle</code>.
- * The resource field defaults to 'true'.</p>
+ * The resource field defaults to 'true'.
+ * </p>
+ * <p>Instances of this class are configured with an &lt;arg&gt; xml element.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2003/04/30 21:51:05 $
+ * @version $Revision: 1.7 $ $Date: 2003/05/22 03:28:05 $
 */
 public class Arg implements Cloneable, Serializable {
 

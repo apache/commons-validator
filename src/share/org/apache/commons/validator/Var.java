@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Var.java,v 1.4 2002/03/30 04:33:17 dwinterfeldt Exp $
- * $Revision: 1.4 $
- * $Date: 2002/03/30 04:33:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Var.java,v 1.5 2003/05/22 03:28:05 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/05/22 03:28:05 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,55 +59,58 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.io.Serializable;
 
-
 /**
- * <p>A variable can be associate with a <code>Field</code> for 
- * passing in information to a pluggable validator.</p>
+ * <p>
+ * A variable that can be associated with a <code>Field</code> for 
+ * passing in information to a pluggable validator.  Instances of this class are 
+ * configured with a &lt;var&gt; xml element.
+ * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.4 $ $Date: 2002/03/30 04:33:17 $
-*/
+ * @version $Revision: 1.5 $ $Date: 2003/05/22 03:28:05 $
+ */
 public class Var implements Cloneable, Serializable {
 
     /**
      * Int Constant for JavaScript type.  This can be used 
      * when auto-generating JavaScript.
-    */
+     */
     public final static String JSTYPE_INT = "int";
 
     /**
      * String Constant for JavaScript type.  This can be used 
      * when auto-generating JavaScript.
-    */
+     */
     public final static String JSTYPE_STRING = "string";
 
     /**
      * Regular Expression Constant for JavaScript type.  This can be used 
      * when auto-generating JavaScript.
-    */
+     */
     public final static String JSTYPE_REGEXP = "regexp";
     
     /**
      * The name of the variable.
-    */
+     */
     private String name = null;
 
     /**
      * The name of the value.
-    */
+     */
     private String value = null;
 
     /**
      * The optional JavaScript type of the variable.
-    */
+     */
     private String jsType = null;
     
-    public Var() {}
+    public Var() {
+        super();
+    }
     
     public Var(String name, String value, String jsType) {
        this.name = name;
@@ -117,49 +120,49 @@ public class Var implements Cloneable, Serializable {
     
     /**
      * Gets the name of the variable.
-    */
+     */
     public String getName() {
        return name;	
     }
 
     /**
      * Sets the name of the variable.
-    */
+     */
     public void setName(String name) {
        this.name = name;	
     }
 
     /**
      * Gets the value of the variable.
-    */
+     */
     public String getValue() {
        return value;	
     }
 
     /**
      * Sets the value of the variable.
-    */
+     */
     public void setValue(String value) {
        this.value = value;	
     }
 
     /**
      * Gets the JavaScript type of the variable.
-    */
+     */
     public String getJsType() {
        return jsType;	
     }
 
     /**
      * Sets the JavaScript type of the variable.
-    */
+     */
     public void setJsType(String jsType) {
        this.jsType = jsType;	
     }
 
     /**
      * Creates and returns a copy of this object.
-    */
+     */
     public Object clone() {
        try {
            Var var = (Var)super.clone();
@@ -184,7 +187,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Returns a string representation of the object.
-    */
+     */
     public String toString() {
        StringBuffer results = new StringBuffer();
        

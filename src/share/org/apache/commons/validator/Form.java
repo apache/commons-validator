@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.4 2003/04/29 02:59:49 dgraham Exp $
- * $Revision: 1.4 $
- * $Date: 2003/04/29 02:59:49 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.5 2003/05/22 03:28:05 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/05/22 03:28:05 $
  *
  * ====================================================================
  *
@@ -72,11 +72,14 @@ import org.apache.commons.collections.FastHashMap;
 
 
 /**
- * <p>This contains a set of validation rules for a form/JavaBean.  The information is 
- * contained in a list of <code>Field</code> objects.</p>
+ * <p>
+ * This contains a set of validation rules for a form/JavaBean.  The information is 
+ * contained in a list of <code>Field</code> objects.  Instances of this class are 
+ * configured with a &lt;form&gt; xml element.
+ * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.4 $ $Date: 2003/04/29 02:59:49 $
+ * @version $Revision: 1.5 $ $Date: 2003/05/22 03:28:05 $
  */
 public class Form implements Serializable {
 

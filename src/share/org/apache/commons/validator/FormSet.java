@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.7 2003/04/29 02:33:17 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2003/04/29 02:33:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.8 2003/05/22 03:28:05 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/05/22 03:28:05 $
  *
  * ====================================================================
  *
@@ -70,12 +70,14 @@ import org.apache.commons.collections.FastHashMap;
 
 
 /**
- * <p>Holds a set of <code>Form</code>s 
- * stored associated with a <code>Locale</code> based 
- * on the country, language, and variant specified.</p>
+ * <p>
+ * Holds a set of <code>Form</code>s stored associated with a 
+ * <code>Locale</code> based on the country, language, and variant specified.
+ * Instances of this class are configured with a &lt;formset&gt; xml element.
+ * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2003/04/29 02:33:17 $
+ * @version $Revision: 1.8 $ $Date: 2003/05/22 03:28:05 $
  */
 public class FormSet implements Serializable {
     

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.4 2002/03/30 04:33:17 dwinterfeldt Exp $
- * $Revision: 1.4 $
- * $Date: 2002/03/30 04:33:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.5 2003/05/22 03:28:05 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/05/22 03:28:05 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,63 +59,64 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.io.Serializable;
 
-
 /**
- * <p>An alternative message can be associated with a <code>Field</code> 
+ * <p>
+ * An alternative message can be associated with a <code>Field</code> 
  * and a pluggable validator instead of using the default message 
- * stored in the <code>ValidatorAction</code> (aka pluggable validator).</p>
+ * stored in the <code>ValidatorAction</code> (aka pluggable validator).
+ * Instances of this class are configured with a &lt;msg&gt; xml element.
+ * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.4 $ $Date: 2002/03/30 04:33:17 $
-*/
+ * @version $Revision: 1.5 $ $Date: 2003/05/22 03:28:05 $
+ */
 public class Msg implements Cloneable, Serializable {
     
     /**
      * The name dependency that this argument goes with (optional).
-    */
+     */
     protected String name = null;
 
     /**
      * The key or value of the argument.
-    */
+     */
     protected String key = null;
 
     /**
      * Gets the name of the dependency.
-    */
+     */
     public String getName() {
        return name;	
     }
 
     /**
      * Sets the name of the dependency.
-    */
+     */
     public void setName(String name) {
        this.name = name;	
     }
  
-     /**
+    /**
      * Gets the key/value.
-    */
+     */
     public String getKey() {
        return key;	
     }
 
     /**
      * Sets the key/value.
-    */
+     */
     public void setKey(String key) {
        this.key = key;	
     }
 
     /**
      * Creates and returns a copy of this object.
-    */
+     */
     public Object clone() {
        try {
            Msg msg = (Msg)super.clone();
@@ -136,7 +137,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Returns a string representation of the object.
-    */
+     */
     public String toString() {
        StringBuffer results = new StringBuffer();
        

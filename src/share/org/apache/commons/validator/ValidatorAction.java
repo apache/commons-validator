@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.8 2003/05/20 02:00:24 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/05/20 02:00:24 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.9 2003/05/22 03:28:05 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/05/22 03:28:05 $
  *
  * ====================================================================
  *
@@ -77,12 +77,12 @@ import org.apache.commons.logging.LogFactory;
 /**
  * <p>Contains the information to dynamically create and run a validation 
  * method.  This is the class representation of a pluggable validator that can be 
- * defined in an xml file.</p>
+ * defined in an xml file with the &lt;validator&gt; element.</p>
  * 
  * <strong>Note</strong>: The validation method is assumed to be thread safe.
  *
  * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2003/05/20 02:00:24 $
+ * @version $Revision: 1.9 $ $Date: 2003/05/22 03:28:05 $
  */
 public class ValidatorAction implements Serializable {
 

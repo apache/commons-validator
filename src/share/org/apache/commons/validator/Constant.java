@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/Constant.java,v 1.4 2003/04/30 21:51:05 rleland Exp $
- * $Revision: 1.4 $
- * $Date: 2003/04/30 21:51:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/Constant.java,v 1.5 2003/05/22 03:28:05 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/05/22 03:28:05 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -73,28 +73,27 @@ import java.io.Serializable;
  * the <code>Msg</code>'s key field, and the <code>Arg</code>'s
  * key field can all contain constants reference for replacement.
  * <br>
- * &nbsp;&nbsp;&nbsp;ex: &lt;constant name="zip" value="^\d{5}$" /&gt;<br>
- * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mask="${zip}" </p>
+ * ex: &lt;constant name="zip" value="^\d{5}$" /&gt; mask="${zip}" </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.4 $ $Date: 2003/04/30 21:51:05 $
-*/
+ * @version $Revision: 1.5 $ $Date: 2003/05/22 03:28:05 $
+ */
 public class Constant implements Serializable {
 
     /**
      * The name of the constant.
-    */
+     */
     private String name = null;
 
     /**
      * The name of the constant.
-    */
+     */
     private String value = null;
 
     /**
      * Gets the name of the constant.
      * @return the name o fthe constant.
-    */
+     */
     public String getName() {
        return name;
     }
@@ -102,7 +101,7 @@ public class Constant implements Serializable {
     /**
      * Sets the name of the constant.
      * @param name sets the name of the constant.
-    */
+     */
     public void setName(String name) {
        this.name = name;
     }
@@ -110,7 +109,7 @@ public class Constant implements Serializable {
     /**
      * Gets the value of the constant.
      * @return the value of the constant.
-    */
+     */
     public String getValue() {
        return value;
     }
@@ -118,7 +117,7 @@ public class Constant implements Serializable {
     /**
      * Sets the value of the constant.
      * @param value the value of the constant.
-    */
+     */
     public void setValue(String value) {
        this.value = value;
     }
@@ -126,7 +125,7 @@ public class Constant implements Serializable {
     /**
      * Returns a string representation of the object.
      * @return the string representation of the object.
-    */
+     */
     public String toString() {
        StringBuffer results = new StringBuffer();
 

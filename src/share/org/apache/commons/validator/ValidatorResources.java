@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.16 2003/05/22 03:12:18 dgraham Exp $
- * $Revision: 1.16 $
- * $Date: 2003/05/22 03:12:18 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.17 2003/05/22 03:28:05 dgraham Exp $
+ * $Revision: 1.17 $
+ * $Date: 2003/05/22 03:28:05 $
  *
  * ====================================================================
  *
@@ -80,8 +80,11 @@ import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
 
 /**
- * <p>General purpose class for storing <code>FormSet</code> objects based 
- * on their associated <code>Locale</code>.</p>
+ * <p>
+ * General purpose class for storing <code>FormSet</code> objects based 
+ * on their associated <code>Locale</code>.  Instances of this class are usually 
+ * configured through a validation.xml file that is parsed in a constructor.
+ * </p>
  *
  * <p><strong>Note</strong> - Classes that extend this class
  * must be Serializable so that instances may be used in distributable
@@ -89,7 +92,7 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.16 $ $Date: 2003/05/22 03:12:18 $
+ * @version $Revision: 1.17 $ $Date: 2003/05/22 03:28:05 $
  */
 public class ValidatorResources implements Serializable {
 

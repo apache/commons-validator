@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.10 2003/05/20 01:09:39 dgraham Exp $
- * $Revision: 1.10 $
- * $Date: 2003/05/20 01:09:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.11 2003/05/22 03:28:05 dgraham Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/05/22 03:28:05 $
  *
  * ====================================================================
  *
@@ -72,12 +72,14 @@ import org.apache.commons.collections.FastHashMap;
 import org.apache.commons.validator.util.ValidatorUtils;
 
 /**
- * <p>This contains the list of pluggable validators to 
- * run on a field and any message information and variables
- * to perform the validations and generate error messages.</p>
+ * <p>
+ * This contains the list of pluggable validators to run on a field and any message 
+ * information and variables to perform the validations and generate error 
+ * messages.  Instances of this class are configured with a &lt;field&gt; xml element.
+ * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.10 $ $Date: 2003/05/20 01:09:39 $
+ * @version $Revision: 1.11 $ $Date: 2003/05/22 03:28:05 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
