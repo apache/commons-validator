@@ -18,7 +18,6 @@
 <document>
   <properties>
     <title>Community</title>
-    <author email="rleland@apache.org">Robert Leland</author>
   </properties>
 
   <body>
@@ -32,6 +31,17 @@
           observe the usual rules of netiquette.
         </p>
         </section>
+        
+    <section name="Struts Console">
+      <p>
+       <a href='http://www.jamesholmes.com/struts/'>Struts Console</a> is a free 
+       standalone Java Swing application for managing 
+       Struts related configuration files, including Commons Validator config files.
+       Struts Console also plugs into several popular Java IDEs for seamless
+       management of config files from one central development tool.
+      </p>
+
+    </section>
   </body>
 </document>
 

@@ -24,10 +24,9 @@
     <menu name="Validator">
       <item name="Overview"                href="/index.html"/>
       <item name="Community"               href="/community.html"/>
+      <item name="Downloads"               href="/downloads.html"/>
       <item name="To Do List"              href="/tasks.html"/>
-      <item name="Resources"               href="/resources.html"/>
       <item name="Javascript Javadoc"      href="/javascript/org/apache/commons/validator/javascript/allclasses-summary.html"/>
-      <item name="Download"                href="http://jakarta.apache.org/site/binindex.cgi"/>
       <item name="Legacy 1.0.2"            href="/1.0.2/api/org/apache/commons/validator/package-summary.html"/>
     </menu>
     
