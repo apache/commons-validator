@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/UrlTest.java,v 1.7 2004/01/11 23:30:21 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2004/01/11 23:30:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/UrlTest.java,v 1.8 2004/01/19 14:11:33 rleland Exp $
+ * $Revision: 1.8 $
+ * $Date: 2004/01/19 14:11:33 $
  *
  * ====================================================================
  *
@@ -69,15 +69,6 @@ import junit.framework.TestSuite;
  * Performs Validation Test for url validations.
  */
 public class UrlTest extends TestCase {
-   class TestPair {
-      public String item;
-      public boolean valid;
-
-      public TestPair(String item, boolean valid) {
-         this.item = item;
-         this.valid = valid;  //Weather the individual part of url is valid.
-      }
-   }
 
    private boolean printStatus = false;
    private boolean printIndex = false;//print index that indicates current scheme,host,port,path, query test were using.

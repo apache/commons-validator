@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.22 2004/01/11 23:30:21 dgraham Exp $
- * $Revision: 1.22 $
- * $Date: 2004/01/11 23:30:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.23 2004/01/19 14:11:33 rleland Exp $
+ * $Revision: 1.23 $
+ * $Date: 2004/01/19 14:11:33 $
  *
  * ====================================================================
  *
@@ -72,12 +72,12 @@ import org.xml.sax.SAXException;
  * Performs Validation Test for e-mail validations.
  */                                                       
 public class EmailTest extends TestCommon {
-   
-   /**
-    * The key used to retrieve the set of validation 
-    * rules from the xml file.
-    */
-   protected static String FORM_KEY = "emailForm";   
+
+    /**
+     * The key used to retrieve the set of validation
+     * rules from the xml file.
+     */
+    protected static String FORM_KEY = "emailForm";
 
    /**
     * The key used to retrieve the validator action.
@@ -133,27 +133,27 @@ public class EmailTest extends TestCommon {
      * Tests the e-mail validation.
      */
     public void testEmailExtension() throws ValidatorException {
-    	// Create bean to run test on.
-    	ValueBean info = new ValueBean();
-    
-    	info.setValue("jsmith@apache.org");
-    	valueTest(info, true);
-    
-    	info.setValue("jsmith@apache.com");
-    	valueTest(info, true);
-    
-    	info.setValue("jsmith@apache.net");
-    	valueTest(info, true);
-    
-    	info.setValue("jsmith@apache.info");
-    	valueTest(info, true);
-    
-    	info.setValue("jsmith@apache.infoo");
-    	valueTest(info, false);
-        
+        // Create bean to run test on.
+        ValueBean info = new ValueBean();
+
+        info.setValue("jsmith@apache.org");
+        valueTest(info, true);
+
+        info.setValue("jsmith@apache.com");
+        valueTest(info, true);
+
+        info.setValue("jsmith@apache.net");
+        valueTest(info, true);
+
+        info.setValue("jsmith@apache.info");
+        valueTest(info, true);
+
+        info.setValue("jsmith@apache.infoo");
+        valueTest(info, false);
+
         info.setValue("jsmith@apache.");
         valueTest(info, false);
-        
+
         info.setValue("jsmith@apache.c");
         valueTest(info, false);
     }
@@ -193,20 +193,20 @@ public class EmailTest extends TestCommon {
    }
 
     /**
-     * <p>Tests the e-mail validation with an RCS-noncompliant character in 
+     * <p>Tests the e-mail validation with an RCS-noncompliant character in
      * the address.</p>
      */
     public void testEmailWithBogusCharacter() throws ValidatorException {
-    	// Create bean to run test on.
-    	ValueBean info = new ValueBean();
-    
-    	info.setValue("andy.noble@\u008fdata-workshop.com");
-    	valueTest(info, false);
+        // Create bean to run test on.
+        ValueBean info = new ValueBean();
+
+        info.setValue("andy.noble@\u008fdata-workshop.com");
+        valueTest(info, false);
     
         // The ' character is valid in an email address.
-    	info.setValue("andy.o'reilly@data-workshop.com");
-    	valueTest(info, true);
-        
+        info.setValue("andy.o'reilly@data-workshop.com");
+        valueTest(info, true);
+
         info.setValue("foo+bar@i.am.not.in.us.example.com");
         valueTest(info, true);
     }
@@ -215,11 +215,11 @@ public class EmailTest extends TestCommon {
     * Tests the email validation with commas.
     */
     public void testEmailWithCommas() throws ValidatorException {
-       ValueBean info = new ValueBean();
-       info.setValue("joeblow@apa,che.org");
-       valueTest(info, false);
-       info.setValue("joeblow@apache.o,rg");
-       valueTest(info, false);
+        ValueBean info = new ValueBean();
+        info.setValue("joeblow@apa,che.org");
+        valueTest(info, false);
+        info.setValue("joeblow@apache.o,rg");
+        valueTest(info, false);
         info.setValue("joeblow@apache,org");
         valueTest(info, false);
 
@@ -231,9 +231,9 @@ public class EmailTest extends TestCommon {
      * @throws ValidatorException
      */
     public void testEmailUserName() throws ValidatorException {
-       ValueBean info = new ValueBean();
-       info.setValue("joe1blow@apache.org");
-       valueTest(info, true);
+        ValueBean info = new ValueBean();
+        info.setValue("joe1blow@apache.org");
+        valueTest(info, true);
         info.setValue("joe$blow@apache.org");
         valueTest(info, true);
         info.setValue("joe-@apache.org");
@@ -300,7 +300,95 @@ public class EmailTest extends TestCommon {
 
     }
 
+    /**
+     * These test values derive directly from RFC 822 &
+     * Mail::RFC822::Address & RFC::RFC822::Address perl test.pl
+     * For traceability don't combine these test values with other tests.
+     */
+    TestPair[] testEmailFromPerl = {
+        new TestPair("abigail@example.com", true),
+        new TestPair("abigail@example.com ", true),
+        new TestPair(" abigail@example.com", true),
+        new TestPair("abigail @example.com ", true),
+        new TestPair("*@example.net", true),
+        new TestPair("\"\\\"\"@foo.bar", true),
+        new TestPair("fred&barny@example.com", true),
+        new TestPair("---@example.com", true),
+        new TestPair("foo-bar@example.net", true),
+        new TestPair("\"127.0.0.1\"@[127.0.0.1]", true),
+        new TestPair("Abigail <abigail@example.com>", true),
+        new TestPair("Abigail<abigail@example.com>", true),
+        new TestPair("Abigail<@a,@b,@c:abigail@example.com>", true),
+        new TestPair("\"This is a phrase\"<abigail@example.com>", true),
+        new TestPair("\"Abigail \"<abigail@example.com>", true),
+        new TestPair("\"Joe & J. Harvey\" <example @Org>", true),
+        new TestPair("Abigail <abigail @ example.com>", true),
+        new TestPair("Abigail made this <  abigail   @   example  .    com    >", true),
+        new TestPair("Abigail(the bitch)@example.com", true),
+        new TestPair("Abigail <abigail @ example . (bar) com >", true),
+        new TestPair("Abigail < (one)  abigail (two) @(three)example . (bar) com (quz) >", true),
+        new TestPair("Abigail (foo) (((baz)(nested) (comment)) ! ) < (one)  abigail (two) @(three)example . (bar) com (quz) >", true),
+        new TestPair("Abigail <abigail(fo\\(o)@example.com>", true),
+        new TestPair("Abigail <abigail(fo\\)o)@example.com> ", true),
+        new TestPair("(foo) abigail@example.com", true),
+        new TestPair("abigail@example.com (foo)", true),
+        new TestPair("\"Abi\\\"gail\" <abigail@example.com>", true),
+        new TestPair("abigail@[example.com]", true),
+        new TestPair("abigail@[exa\\[ple.com]", true),
+        new TestPair("abigail@[exa\\]ple.com]", true),
+        new TestPair("\":sysmail\"@  Some-Group. Some-Org", true),
+        new TestPair("Muhammed.(I am  the greatest) Ali @(the)Vegas.WBA", true),
+        new TestPair("mailbox.sub1.sub2@this-domain", true),
+        new TestPair("sub-net.mailbox@sub-domain.domain", true),
+        new TestPair("name:;", true),
+        new TestPair("':;", true),
+        new TestPair("name:   ;", true),
+        new TestPair("Alfred Neuman <Neuman@BBN-TENEXA>", true),
+        new TestPair("Neuman@BBN-TENEXA", true),
+        new TestPair("\"George, Ted\" <Shared@Group.Arpanet>", true),
+        new TestPair("Wilt . (the  Stilt) Chamberlain@NBA.US", true),
+        new TestPair("Cruisers:  Port@Portugal, Jones@SEA;", true),
+        new TestPair("$@[]", true),
+        new TestPair("*()@[]", true),
+        new TestPair("\"quoted ( brackets\" ( a comment )@example.com", true),
+        new TestPair("\"Joe & J. Harvey\"\\x0D\\x0A     <ddd\\@ Org>", true),
+        new TestPair("\"Joe &\\x0D\\x0A J. Harvey\" <ddd \\@ Org>", true),
+        new TestPair("Gourmets:  Pompous Person <WhoZiWhatZit\\@Cordon-Bleu>,\\x0D\\x0A" +
+            "        Childs\\@WGBH.Boston, \"Galloping Gourmet\"\\@\\x0D\\x0A" +
+            "        ANT.Down-Under (Australian National Television),\\x0D\\x0A" +
+            "        Cheapie\\@Discount-Liquors;", true),
+        new TestPair("   Just a string", false),
+        new TestPair("string", false),
+        new TestPair("(comment)", false),
+        new TestPair("()@example.com", false),
+        new TestPair("fred(&)barny@example.com", false),
+        new TestPair("fred\\ barny@example.com", false),
+        new TestPair("Abigail <abi gail @ example.com>", false),
+        new TestPair("Abigail <abigail(fo(o)@example.com>", false),
+        new TestPair("Abigail <abigail(fo)o)@example.com>", false),
+        new TestPair("\"Abi\"gail\" <abigail@example.com>", false),
+        new TestPair("abigail@[exa]ple.com]", false),
+        new TestPair("abigail@[exa[ple.com]", false),
+        new TestPair("abigail@[exaple].com]", false),
+        new TestPair("abigail@", false),
+        new TestPair("@example.com", false),
+        new TestPair("phrase: abigail@example.com abigail@example.com ;", false),
+        new TestPair("invalid£char@example.com", false)
+    };
 
+    /**
+     * Write this test based on perl Mail::RFC822::Address
+     * which takes its example email address directly from RFC822
+     * 
+     * @throws ValidatorException 
+     */
+    public void testEmailFromPerl() throws ValidatorException {
+        ValueBean info = new ValueBean();
+        for (int index = 0; index < testEmailFromPerl.length; index++) {
+            info.setValue(testEmailFromPerl[index].item);
+            valueTest(info, testEmailFromPerl[index].valid);
+        }
+    }
 
    /**
     * Utlity class to run a test on a value.
@@ -332,5 +420,5 @@ public class EmailTest extends TestCommon {
       assertNotNull(ACTION + " value ValidatorResult should not be null.", result);
       assertTrue("Value "+info.getValue()+" ValidatorResult should contain the '" + ACTION +"' action.", result.containsAction(ACTION));
       assertTrue("Value "+info.getValue()+"ValidatorResult for the '" + ACTION +"' action should have " + (passed ? "passed" : "failed") + ".", (passed ? result.isValid(ACTION) : !result.isValid(ACTION)));
-   }
+    }
 }                                                         
