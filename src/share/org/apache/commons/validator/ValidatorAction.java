@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.15 2003/08/21 21:43:05 rleland Exp $
- * $Revision: 1.15 $
- * $Date: 2003/08/21 21:43:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.16 2003/11/17 03:34:50 rleland Exp $
+ * $Revision: 1.16 $
+ * $Date: 2003/11/17 03:34:50 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.15 $ $Date: 2003/08/21 21:43:05 $
+ * @version $Revision: 1.16 $ $Date: 2003/11/17 03:34:50 $
  */
 public class ValidatorAction implements Serializable {
 
@@ -440,18 +440,21 @@ public class ValidatorAction implements Serializable {
         }
 
         if (is == null) {
+            log.debug("  Unable to read javascript name "+javascriptFileName);
             return null;
         }
 
         StringBuffer function = new StringBuffer();
         try {
             int bufferSize = is.available();
-
+            int bytesRead;
             while (bufferSize > 0) {
                 byte[] buffer = new byte[bufferSize];
-                is.read(buffer, 0, bufferSize);
-                String functionPart = new String(buffer);
-                function.append(functionPart);
+                bytesRead = is.read(buffer, 0, bufferSize);
+                if (bytesRead > 0) {
+                    String functionPart = new String(buffer,0,bytesRead);
+                    function.append(functionPart);
+                }
                 bufferSize = is.available();
             }
 
@@ -465,8 +468,8 @@ public class ValidatorAction implements Serializable {
                 log.error("readJavascriptFile()", e);
             }
         }
-
-        return function.toString().equals("") ? null : function.toString();
+        String strFunction = function.toString();
+        return strFunction.equals("") ? null : strFunction;
     }
 
     /**
