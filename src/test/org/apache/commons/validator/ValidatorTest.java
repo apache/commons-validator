@@ -81,7 +81,7 @@ public class ValidatorTest extends TestCase {
    }                                                     
 
    /**
-    * Start the tests.
+    * Start the tests. 
     *
     * @param theArgs the arguments. Not used
     */
@@ -109,10 +109,15 @@ public class ValidatorTest extends TestCase {
     * method being tested returns an object (<code>null</code> will be considered an error).
    */
    public void testManualObject() {
+      // property name of the method we are validating
+      String property = "date";
+      // name of ValidatorAction
+      String action = "date";
+      
       ValidatorResources resources = new ValidatorResources();
 
       ValidatorAction va = new ValidatorAction();
-      va.setName("date");
+      va.setName(action);
       va.setClassname("org.apache.commons.validator.ValidatorTest");
       va.setMethod("formatDate");
       va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field");
@@ -121,8 +126,8 @@ public class ValidatorTest extends TestCase {
       Form form = new Form();
       form.setName("testForm");
       Field field = new Field();
-      field.setProperty("date");
-      field.setDepends("date");
+      field.setProperty(property);
+      field.setDepends(action);
       form.addField(field);
       fs.addForm(form);
       
@@ -139,7 +144,17 @@ public class ValidatorTest extends TestCase {
       validator.addResource(Validator.BEAN_KEY, bean);
 
       try {
-         assertEquals("Validation of the date formatting has failed.", 0, validator.validate().size());
+         ValidatorResults results = validator.validate();
+         
+         assertNotNull("Results are null.", results);
+         
+         ValidatorResult result = results.getValidatorResult(property);
+         
+         assertNotNull("Results are null.", results);
+         
+         assertTrue("ValidatorResult does not contain '" + action + "' validator result.", result.containsAction(action));
+         
+         assertTrue("Validation of the date formatting has failed.", result.isValid(action));
       } catch (Exception e) {
          fail("An exception was thrown while calling Validator.validate()");
       }
@@ -147,7 +162,17 @@ public class ValidatorTest extends TestCase {
       bean.setDate("2/30/1999");
       
       try {
-         assertEquals("Validation of the date formatting has failed.", 1, validator.validate().size());
+         ValidatorResults results = validator.validate();
+         
+         assertNotNull("Results are null.", results);
+         
+         ValidatorResult result = results.getValidatorResult(property);
+         
+         assertNotNull("Results are null.", results);
+         
+         assertTrue("ValidatorResult does not contain '" + action + "' validator result.", result.containsAction(action));
+         
+         assertTrue("Validation of the date formatting has passed when it should have failed.", !result.isValid(action));
       } catch (Exception e) {
          fail("An exception was thrown while calling Validator.validate()");
       }

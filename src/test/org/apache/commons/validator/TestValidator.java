@@ -77,7 +77,7 @@ public class TestValidator {
    public static boolean validateRequired(Object bean, Field field) {
       String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
 
-      return GenericValidator.isBlankOrNull(value);
+      return !GenericValidator.isBlankOrNull(value);
    }
    
 }                                                         

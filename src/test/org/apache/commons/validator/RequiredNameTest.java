@@ -80,6 +80,12 @@ public class RequiredNameTest extends TestCase {
     * rules from the xml file.
    */
    protected static String FORM_KEY = "nameForm";   
+
+   /**
+    * The key used to retrieve the validator action.
+   */
+   protected static String ACTION = "required";
+
    
    /**
     * Commons Logging instance.
@@ -144,7 +150,7 @@ public class RequiredNameTest extends TestCase {
    public void testRequired() throws ValidatorException {
       // Create bean to run test on.
       Name name = new Name();
-
+      
       // Construct validator based on the loaded resources 
       // and the form key
       Validator validator = new Validator(resources, FORM_KEY);
@@ -153,18 +159,26 @@ public class RequiredNameTest extends TestCase {
       validator.addResource(Validator.BEAN_KEY, name);
 
       // Get results of the validation.
-      Map hResults = null;
+      ValidatorResults results = null;
       
       // throws ValidatorException, 
       // but we aren't catching for testing 
       // since no validation methods we use 
       // throw this
-      hResults = validator.validate();
+      results = validator.validate();
       
-      assertNotNull("Results are null.", hResults);
-      assertNull("First Name should have passed no validations.", hResults.get("firstName"));
-      assertNull("Last Name should have passed no validations.", hResults.get("lastName"));
-
+      assertNotNull("Results are null.", results);
+      
+      ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+      ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+      
+      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
+      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
+      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have failed.", !firstNameResult.isValid(ACTION));
+      
+      assertNotNull("First Name ValidatorResult should not be null.", lastNameResult);
+      assertTrue("Last Name ValidatorResult should contain the '" + ACTION +"' action.", lastNameResult.containsAction(ACTION));
+      assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have failed.", !lastNameResult.isValid(ACTION));
    }
 
    /**
@@ -183,14 +197,22 @@ public class RequiredNameTest extends TestCase {
       validator.addResource(Validator.BEAN_KEY, name);
 
       // Get results of the validation.
-      Map hResults = null;
+      ValidatorResults results = null;
       
-      hResults = validator.validate();
+      results = validator.validate();
       
-      assertNotNull("Results are null.", hResults);
-      assertNull("First Name should have passed no validations.", hResults.get("firstName"));
-      assertNull("Last Name should have passed no validations.", hResults.get("lastName"));
-
+      assertNotNull("Results are null.", results);
+      
+      ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+      ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+      
+      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
+      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
+      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have failed.", !firstNameResult.isValid(ACTION));
+      
+      assertNotNull("First Name ValidatorResult should not be null.", lastNameResult);
+      assertTrue("Last Name ValidatorResult should contain the '" + ACTION +"' action.", lastNameResult.containsAction(ACTION));
+      assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have failed.", !lastNameResult.isValid(ACTION));
    }
 
    /**
@@ -209,15 +231,22 @@ public class RequiredNameTest extends TestCase {
       validator.addResource(Validator.BEAN_KEY, name);
 
       // Get results of the validation.
-      Map hResults = null;
+      ValidatorResults results = null;
       
-      hResults = validator.validate();
+      results = validator.validate();
       
-      assertNotNull("Results are null.", hResults);
-      assertNotNull("First Name result should not be null.", hResults.get("firstName"));
-      assertEquals("First Name should have passed one validation.", 1, ((Integer)hResults.get("firstName")).intValue());
-      assertNull("Last Name should have passed no validations.", hResults.get("lastName"));
-
+      assertNotNull("Results are null.", results);
+      
+      ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+      ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+      
+      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
+      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
+      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have passed.", firstNameResult.isValid(ACTION));
+      
+      assertNotNull("First Name ValidatorResult should not be null.", lastNameResult);
+      assertTrue("Last Name ValidatorResult should contain the '" + ACTION +"' action.", lastNameResult.containsAction(ACTION));
+      assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have failed.", !lastNameResult.isValid(ACTION));
    }
 
    /**
@@ -236,14 +265,22 @@ public class RequiredNameTest extends TestCase {
       validator.addResource(Validator.BEAN_KEY, name);
 
       // Get results of the validation.
-      Map hResults = null;
+      ValidatorResults results = null;
       
-      hResults = validator.validate();
+      results = validator.validate();
       
-      assertNotNull("Results are null.", hResults);
-      assertNull("First Name should have passed no validations.", hResults.get("firstName"));
-      assertNull("Last Name should have passed no validations.", hResults.get("lastName"));
-
+      assertNotNull("Results are null.", results);
+      
+      ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+      ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+      
+      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
+      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
+      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have failed.", !firstNameResult.isValid(ACTION));
+      
+      assertNotNull("First Name ValidatorResult should not be null.", lastNameResult);
+      assertTrue("Last Name ValidatorResult should contain the '" + ACTION +"' action.", lastNameResult.containsAction(ACTION));
+      assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have failed.", !lastNameResult.isValid(ACTION));
    }
 
    /**
@@ -262,14 +299,22 @@ public class RequiredNameTest extends TestCase {
       validator.addResource(Validator.BEAN_KEY, name);
 
       // Get results of the validation.
-      Map hResults = null;
+      ValidatorResults results = null;
       
-      hResults = validator.validate();
+      results = validator.validate();
       
-      assertNotNull("Results are null.", hResults);
-      assertNull("First Name should have passed no validations.", hResults.get("firstName"));
-      assertNotNull("Last Name result should not be null.", hResults.get("lastName"));
-      assertEquals("Last Name should have passed one validation.", 1, ((Integer)hResults.get("lastName")).intValue());
+      assertNotNull("Results are null.", results);
+      
+      ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+      ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+      
+      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
+      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
+      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have failed.", !firstNameResult.isValid(ACTION));
+      
+      assertNotNull("First Name ValidatorResult should not be null.", lastNameResult);
+      assertTrue("Last Name ValidatorResult should contain the '" + ACTION +"' action.", lastNameResult.containsAction(ACTION));
+      assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have passed.", lastNameResult.isValid(ACTION));
 
    }
 
@@ -290,16 +335,22 @@ public class RequiredNameTest extends TestCase {
       validator.addResource(Validator.BEAN_KEY, name);
 
       // Get results of the validation.
-      Map hResults = null;
+      ValidatorResults results = null;
       
-      hResults = validator.validate();
+      results = validator.validate();
       
-      assertNotNull("Results are null.", hResults);
-      assertNotNull("First Name result should not be null.", hResults.get("firstName"));
-      assertEquals("First Name should have passed one validation.", 1, ((Integer)hResults.get("firstName")).intValue());
-      assertNotNull("Last Name result should not be null.", hResults.get("lastName"));
-      assertEquals("Last Name should have passed one validation.", 1, ((Integer)hResults.get("lastName")).intValue());
-
+      assertNotNull("Results are null.", results);
+      
+      ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+      ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+      
+      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
+      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
+      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have passed.", firstNameResult.isValid(ACTION));
+      
+      assertNotNull("First Name ValidatorResult should not be null.", lastNameResult);
+      assertTrue("Last Name ValidatorResult should contain the '" + ACTION +"' action.", lastNameResult.containsAction(ACTION));
+      assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have passed.", lastNameResult.isValid(ACTION));
    }
    
 }                                                         
