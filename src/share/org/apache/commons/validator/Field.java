@@ -414,8 +414,7 @@ public class Field implements Cloneable, Serializable {
      * <code>true</code> will be returned.  Otherwise it will be <code>false</code>.
     */
     public boolean isIndexed() {
-       return ((indexedProperty != null && indexedProperty.length() > 0) &&
-               (indexedListProperty != null && indexedListProperty.length() > 0));
+       return ((indexedListProperty != null && indexedListProperty.length() > 0));
     }
 
     /**
@@ -423,7 +422,7 @@ public class Field implements Cloneable, Serializable {
     */    
     public void generateKey() {
        if (isIndexed()) {
-          key = indexedProperty + TOKEN_INDEXED + "." + property;
+          key = indexedListProperty + TOKEN_INDEXED + "." + property;
        } else {
           key = property;
        }
