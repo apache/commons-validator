@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.31 2004/04/11 06:47:22 dgraham Exp $
- * $Revision: 1.31 $
- * $Date: 2004/04/11 06:47:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.32 2004/06/08 15:22:29 husted Exp $
+ * $Revision: 1.32 $
+ * $Date: 2004/06/08 15:22:29 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -267,6 +267,88 @@ public class GenericValidator implements Serializable {
      */
     public static boolean minLength(String value, int min) {
         return (value.length() >= min);
+    }
+    
+    // See http://issues.apache.org/bugzilla/show_bug.cgi?id=29015 WRT the "value" methods
+
+    /**
+     * <p>Checks if the value is greater than or equal to the min.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum numeric value.
+     */
+    public static boolean minValue(int value, int min) {
+        return (value >= min);
+    }
+
+    /**
+     * <p>Checks if the value is greater than or equal to the min.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum numeric value.
+     */
+    public static boolean minValue(long value, long min) {
+        return (value >= min);
+    }
+
+    /**
+     * <p>Checks if the value is greater than or equal to the min.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum numeric value.
+     */
+    public static boolean minValue(double value, double min) {
+        return (value >= min);
+    }
+
+    /**
+     * <p>Checks if the value is greater than or equal to the min.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum numeric value.
+     */
+    public static boolean minValue(float value, float min) {
+        return (value >= min);
+    }
+
+    /**
+     * <p>Checks if the value is less than or equal to the max.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max The maximum numeric value.
+     */
+    public static boolean maxValue(int value, int max) {
+        return (value <= max);
+    }
+
+    /**
+     * <p>Checks if the value is less than or equal to the max.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max The maximum numeric value.
+     */
+    public static boolean maxValue(long value, long max) {
+        return (value <= max);
+    }
+
+    /**
+     * <p>Checks if the value is less than or equal to the max.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max The maximum numeric value.
+     */
+    public static boolean maxValue(double value, double max) {
+        return (value <= max);
+    }
+
+    /**
+     * <p>Checks if the value is less than or equal to the max.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max The maximum numeric value.
+     */
+    public static boolean maxValue(float value, float max) {
+        return (value <= max);
     }
 
 }
