@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.4 2003/05/02 18:28:18 rleland Exp $
- * $Revision: 1.4 $
- * $Date: 2003/05/02 18:28:18 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.5 2003/05/02 23:18:17 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/05/02 23:18:17 $
  *
  * ====================================================================
  *
@@ -105,11 +105,11 @@ import org.apache.oro.text.perl.Perl5Util;
  *  </a>
  *
  * @author Robert Leland
- * @version $Revision: 1.4 $ $Date: 2003/05/02 18:28:18 $
+ * @version $Revision: 1.5 $ $Date: 2003/05/02 23:18:17 $
  */
 public class UrlValidator implements Serializable {
-   private static final String alphaChars = "a-zA-Z"; //used
-   private static final String alphaNumChars = alphaChars + "\\d"; //used
+   private static final String alphaChars = "a-zA-Z"; 
+   private static final String alphaNumChars = alphaChars + "\\d"; 
    private static final String specialChars = ";/@&=,.?:+$";
    private static final String validChars = "[^\\s" + specialChars + "]";
 
@@ -117,31 +117,43 @@ public class UrlValidator implements Serializable {
    private static final String authorityChars = alphaNumChars + "\\-\\.";
    private static final String atom = validChars + '+';
 
-   // ----- This expressions derived/taken from the BNF for URI (RFC2396) -------------
-   private static final String urlPat = ValidatorUtil.getDelimitedRegExp("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
+   /**
+    * This expression derived/taken from the BNF for URI (RFC2396).
+    */
+   private static final String urlPat = "/^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?/";
    //                                                                      12            3  4          5       6   7        8 9
-   private static final int PARSE_URL_SCHEME = 2; //Schema, (Protocol), http:, ftp:, file:, ...
+   
+   /**
+    * Schema/Protocol (ie. http:, ftp:, file:, etc).
+    */
+   private static final int PARSE_URL_SCHEME = 2; 
    private static final int PARSE_URL_AUTHORITY = 4; //Includes host/ip port
    private static final int PARSE_URL_PATH = 5;
    private static final int PARSE_URL_QUERY = 7;
    private static final int PARSE_URL_FRAGMENT = 9;
-   //Protocol eg: http:, ftp:,https:
-   private static final String schemePat = ValidatorUtil.getDelimitedRegExp("^[" + schemeChars + "]");
+   
+   /**
+    * Protocol (ie. http:, ftp:,https:).
+    */
+   private static final String schemePat = "/^[" + schemeChars + "]/";
    private static final String authorityPat = ValidatorUtil.getDelimitedRegExp("^([" + authorityChars + "]*)(:\\d*)?(.*)?");
    //                                                                            1                          2  3       4
    private static final int PARSE_AUTHORITY_HOST_IP = 1;
    private static final int PARSE_AUTHORITY_PORT = 2;
-   private static final int PARSE_AUTHORITY_EXTRA = 3;//Should always be empty.
+   
+   /**
+    * Should always be empty.
+    */
+   private static final int PARSE_AUTHORITY_EXTRA = 3;
 
-
-   private static final String pathPat = ValidatorUtil.getDelimitedRegExp("^(/[-a-zA-Z0-9_:@&?=+,.!/~*'%$]*)$");
-   private static final String queryPat = ValidatorUtil.getDelimitedRegExp("^(.*)$");
-   private static final String legalAsciiPat = ValidatorUtil.getDelimitedRegExp("^[\\000-\\177]+$");
-   private static final String ipV4DomainPat = ValidatorUtil.getDelimitedRegExp("^(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})$");
-   private static final String domainPat = ValidatorUtil.getDelimitedRegExp("^" + atom + "(\\." + atom + ")*$");
-   private static final String portPat = ValidatorUtil.getDelimitedRegExp("^:(\\d{1,5})$");
-   private static final String atomPat = ValidatorUtil.getDelimitedRegExp("(" + atom + ")");
-   private static final String alphaPat = ValidatorUtil.getDelimitedRegExp("^[" + alphaChars + "]");
+   private static final String pathPat = "/^(/[-a-zA-Z0-9_:@&?=+,.!/~*'%$]*)$/";
+   private static final String queryPat = "/^(.*)$/";
+   private static final String legalAsciiPat = "/^[\\000-\\177]+$/";
+   private static final String ipV4DomainPat = "/^(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})$/";
+   private static final String domainPat = "/^" + atom + "(\\." + atom + ")*$/";
+   private static final String portPat = "/^:(\\d{1,5})$/";
+   private static final String atomPat = "/(" + atom + ")/";
+   private static final String alphaPat = "/^[" + alphaChars + "]/";
 
    // Non static fields
    private boolean allow2Slash = false;
@@ -151,6 +163,7 @@ public class UrlValidator implements Serializable {
    protected String[] defaultSchemeSet = {"http", "https", "ftp"};
 
    /**
+    * Create a UrlValidator with default properties.
     */
    public UrlValidator() {
       this(null);
@@ -163,7 +176,7 @@ public class UrlValidator implements Serializable {
     *        If a non-null schemes is specified then all valid schemes must
     *        be specified. Setting the allowAllScheme option to true will
     *        ignore the contents of schemes.
-    **/
+    */
    public UrlValidator(String[] schemes) {
       this(schemes, false, false, false);
    }
@@ -173,11 +186,12 @@ public class UrlValidator implements Serializable {
     *   @param allowAllScheme If true, allows all validly formatted schemes. [false]
     *   @param allow2Slash If true, allows double '/' characters in the path  component, [false]
     *   @param noFragment If true, fragments are flagged as illegal.[false]
-    **/
+    */
    public UrlValidator(String[] schemes, boolean allowAllScheme, boolean allow2Slash, boolean noFragment) {
       this.allowAllScheme = allowAllScheme;
       this.allow2Slash = allow2Slash;
       this.noFragment = noFragment;
+      
       if (!this.allowAllScheme) {
          if (schemes == null) {
             this.allowedSchemeSet = new HashSet(defaultSchemeSet.length);
@@ -195,11 +209,10 @@ public class UrlValidator implements Serializable {
 
    }
 
-
    /**
     * <p>Checks if a field has a valid url address.</p>
     *
-    * @param 	value 		The value validation is being performed on.
+    * @param value The value validation is being performed on.
     * @return true if the url is valid.
     */
    public boolean isValid(String value) {
@@ -276,9 +289,7 @@ public class UrlValidator implements Serializable {
       Perl5Util matchPortPat = new Perl5Util();
       Perl5Util matchAlphaPat = new Perl5Util();
 
-
       bValid = matchAuthorityPat.match(authorityPat, authority);
-
 
       if (bValid) {
          boolean ipV4Address = false;
@@ -374,11 +385,13 @@ public class UrlValidator implements Serializable {
       if (bValid) {  //Shouldn't end with a '/'
          bValid = (path.lastIndexOf("/") < (path.length() - 1));
       }
+      
       if (bValid) {
          int slash2Count = countToken("//", path);
          if (!allow2Slash) {
             bValid = (slash2Count == 0);
          }
+         
          if (bValid) {
             int slashCount = countToken("/", path);
             int dot2Count = countToken("..", path);
