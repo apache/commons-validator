@@ -11,7 +11,7 @@
     <url>http://www.apache.org</url>
     <logo>http://jakarta.apache.org/images/jakarta-logo-blue.gif</logo>
   </organization>
-  <logo>/images/Validatorlogo.gif</logo>
+  <logo>/images/validator-logo-blue.png</logo>
   
   <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.validator</package>
