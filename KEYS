@@ -1,0 +1,46 @@
+This file contains the PGP keys of various Apache developers.
+Please don't use them for email unless you have to. Their main
+purpose is code signing.
+
+Apache users: pgp < KEYS
+Apache developers: 
+        (pgpk -ll <your name> && pgpk -xa <your name>) >> this file.
+      or
+        (gpg --fingerprint --list-sigs <your name>
+             && gpg --armor --export <your name>) >> this file.
+
+Apache developers: please ensure that your key is also available via the
+PGP keyservers (such as pgpkeys.mit.edu).
+
+
+pub  1024D/F2A46D40 2003-08-27 Rob Leland (For Uploading Builds/Releases) <rleland@apache.org>
+     Key fingerprint = A20A A262 E293 2AB1 889A  7CFB 7F77 23FE F2A4 6D40
+sig 3       F2A46D40 2003-08-27   Rob Leland (For Uploading Builds/Releases) <rleland@apache.org>
+sub  1056g/EF8E1258 2003-08-27 [expires: 2005-08-26]
+sig         F2A46D40 2003-08-27   Rob Leland (For Uploading Builds/Releases) <rleland@apache.org>
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.2.2 (Cygwin)
+
+mQGiBD9MWnURBADIx7Q8AIe+NTbRiCxM2pkgeMFZN/3mO4vd1mW5R9TD5PcpisUv
+htxykhVyQb5ifHBRK732nE+2nGGAqDP2I0lKKt9EhYXIUUU1UYrveK2gFXA31m0d
+L+Ghoa8Ugm11uPJz5IYjTLU9LOIu3sBLo25BCOi5dZ1E0oEP+iU52NLuNwCgkK59
+ZdbDVqWyrO5a86EwbHiyhk8D/0Wyn9isVS7vw5CQh9/u3WCvbh4MovZYZ6/3sy//
+4X4Uy8wBKAjZQhJQuFsQY2tcIj/MEE8g9nqpF3QGJIinbt7DNW80w439+MczoSmJ
+Ck33GqMffniaSWOBW+Xlsm379vdCZR+DFZeOoaXzKeBCu/SRnpRYMR3UoQHw9hyO
+ReA3A/9f0DcwumJ2ofpRIAbTRMnDvXUSfc95qtiCm4JHaRMbFdD10L2swE76N+/A
+I1fhQdcBv5I1hm0DGBo9++6TItGYpP+IJxoIpETAOahM/jg64ZPRmtoCTYbnWqig
+lTuAs1xIwR1L43mH70dxaE8Coge/V5HBi5rz/gwTRyP3/9pUk7Q/Um9iIExlbGFu
+ZCAoRm9yIFVwbG9hZGluZyBCdWlsZHMvUmVsZWFzZXMpIDxybGVsYW5kQGFwYWNo
+ZS5vcmc+iGEEExECACEFAj9MWnUFCQPCZwAGCwkIBwMCAxUCAwMWAgECHgECF4AA
+CgkQf3cj/vKkbUDCLACffF7f0Rel07bxCSGLrg9fzMsHIL8AoI9rVGqq8ID+4VgA
+0AiyP1k99BPNuQEVBD9MWncQBCDlujLhU6jr+pkF/EA7n+9yVennnev9GMLts91k
+7vla47VV2Uxdywd+sEE7nW5Ld+oHhFTPIWOF9aezKyGseob0sjmp95dp5q5rLk8X
+f0V+IsVCWyevRIXxNoKiCpWUuWwBcHzsbgOoNnnuxxC/QSkP4sHr8bax3inBoCfd
+3YFLb1i5TuMAAwUEHRjnW05hHCVl+SyCzVAV+/UvJDKE9UXM0Is6yIOd1jwqUnNQ
+xMjuMLjnRHIXt79UHYV8GXkgxWjdx+w1eW9KDpUSy2TcTAD6l6tXBIBI24dzGxHl
+tDbTAX1kNl1Qmw8qUiu1qc8nSDTD0B26tGveTyp15Zb80uN3zNjC9qDsuVdfiu6D
+7YhMBBgRAgAMBQI/TFp3BQkDwmcAAAoJEH93I/7ypG1AaSMAn1tMyP0k00bYBKzX
++s7PneFo65zWAJ9g2bgkGaAwByLTuah16xaRLNKC0g==
+=xkP8
+-----END PGP PUBLIC KEY BLOCK-----
