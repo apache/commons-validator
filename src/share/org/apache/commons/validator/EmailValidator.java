@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.5 2003/05/03 00:08:02 dgraham Exp $
- * $Revision: 1.5 $
- * $Date: 2003/05/03 00:08:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.6 2003/05/03 21:21:04 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/05/03 21:21:04 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.5 $ $Date: 2003/05/03 00:08:02 $
+ * @version $Revision: 1.6 $ $Date: 2003/05/03 21:21:04 $
  */
 public class EmailValidator {
     
@@ -119,9 +119,14 @@ public class EmailValidator {
 	/**
 	 * <p>Checks if a field has a valid e-mail address.</p>
 	 *
-	 * @param value The value validation is being performed on.
+	 * @param value The value validation is being performed on.  A <code>null</code>
+     * value is considered invalid.
 	 */
 	public boolean isValid(String email) {
+		if (email == null) {
+			return false;
+		}
+        
 		Perl5Util matchAsciiPat = new Perl5Util();
 		if (!matchAsciiPat.match(LEGAL_ASCII_PATTERN, email)) {
 			return false;
@@ -137,17 +142,13 @@ public class EmailValidator {
 			return false;
 		}
 
-		if(!isValidUser(emailMatcher.group(1))){
-            return false;
-		}
-
-		// Check the domain component of the email address
-		String domain = emailMatcher.group(2);
-
-		// check if domain is IP address or symbolic
-		if(!isValidDomain(domain)){
-            return false;
-		}
+        if (!isValidUser(emailMatcher.group(1))) {
+        	return false;
+        }
+        
+        if (!isValidDomain(emailMatcher.group(2))) {
+        	return false;
+        }
 
 		return true;
 	}
@@ -185,10 +186,7 @@ public class EmailValidator {
      */
 	private boolean isValidUser(String user) {
 		Perl5Util userMatcher = new Perl5Util();
-		if (userMatcher.match(USER_PATTERN, user)) {
-			return true;
-		}
-		return false;
+		return userMatcher.match(USER_PATTERN, user);
 	}
 
     /**
@@ -200,7 +198,9 @@ public class EmailValidator {
 			if (ipSegment == null || ipSegment.length() <= 0) {
 				return false;
 			}
+            
 			int iIpSegment = 0;
+            
 			try {
 				iIpSegment = Integer.parseInt(ipSegment);
 			} catch (NumberFormatException e) {
@@ -233,6 +233,7 @@ public class EmailValidator {
     				(l >= domain.length())
     					? ""
     					: domain.substring(l);
+                        
     			i++;
     		}
     	}
