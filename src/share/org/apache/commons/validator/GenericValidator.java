@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.5 2002/04/02 01:59:11 dwinterfeldt Exp $
- * $Revision: 1.5 $
- * $Date: 2002/04/02 01:59:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.6 2002/09/19 17:25:27 turner Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/09/19 17:25:27 $
  *
  * ====================================================================
  *
@@ -75,7 +75,8 @@ import org.apache.oro.text.perl.Perl5Util;
  * performing validations.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2002/04/02 01:59:11 $
+ * @author James Turner
+ * @version $Revision: 1.6 $ $Date: 2002/09/19 17:25:27 $
 */
 public class GenericValidator implements Serializable {
 
@@ -248,6 +249,42 @@ public class GenericValidator implements Serializable {
      * @param 	max		The maximum value of the range.
     */
     public static boolean isInRange(int value, int min, int max) {
+       return ((value >= min) && (value <= max));
+    }
+
+    /**
+     * <p>Checks if a value is within a range (min &amp; max specified 
+     * in the vars attribute).</p>
+     *
+     * @param 	value 		The value validation is being performed on.
+     * @param 	min		The minimum value of the range.
+     * @param 	max		The maximum value of the range.
+    */
+    public static boolean isInRange(float value, float min, float max) {
+       return ((value >= min) && (value <= max));
+    }
+
+    /**
+     * <p>Checks if a value is within a range (min &amp; max specified 
+     * in the vars attribute).</p>
+     *
+     * @param 	value 		The value validation is being performed on.
+     * @param 	min		The minimum value of the range.
+     * @param 	max		The maximum value of the range.
+    */
+    public static boolean isInRange(short value, short min, short max) {
+       return ((value >= min) && (value <= max));
+    }
+
+    /**
+     * <p>Checks if a value is within a range (min &amp; max specified 
+     * in the vars attribute).</p>
+     *
+     * @param 	value 		The value validation is being performed on.
+     * @param 	min		The minimum value of the range.
+     * @param 	max		The maximum value of the range.
+    */
+    public static boolean isInRange(double value, double min, double max) {
        return ((value >= min) && (value <= max));
     }
 
