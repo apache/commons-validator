@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.34 2004/11/11 12:18:25 niallp Exp $
- * $Revision: 1.34 $
- * $Date: 2004/11/11 12:18:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.35 2004/11/11 15:32:49 niallp Exp $
+ * $Revision: 1.35 $
+ * $Date: 2004/11/11 15:32:49 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -214,22 +214,24 @@ public class Field implements Cloneable, Serializable {
      * Retrieve a message value.
      */
     public String getMsg(String key) {
-        Msg msg = getMsgObject(key);
+        Msg msg = getMessage(key);
         return (msg == null) ? null : msg.getKey();
     }
 
     /**
      * Retrieve a message object.
+     * @since Validator 1.1.4
      */
-    public Msg getMsgObject(String key) {
+    public Msg getMessage(String key) {
         return (Msg)hMsgs.get(key);
     }
 
     /**
      * The <code>Field</code>'s messages are returned as an
      * unmodifiable <code>Map</code>.
+     * @since Validator 1.1.4
      */
-    public Map getMsgs() {
+    public Map getMessages() {
         return Collections.unmodifiableMap(hMsgs);
     }
 
