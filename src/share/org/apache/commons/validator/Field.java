@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.20 2003/08/03 17:29:40 dgraham Exp $
- * $Revision: 1.20 $
- * $Date: 2003/08/03 17:29:40 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.21 2003/08/11 23:50:31 dgraham Exp $
+ * $Revision: 1.21 $
+ * $Date: 2003/08/11 23:50:31 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.20 $ $Date: 2003/08/03 17:29:40 $
+ * @version $Revision: 1.21 $ $Date: 2003/08/11 23:50:31 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -274,21 +274,14 @@ public class Field implements Cloneable, Serializable {
      * Add a <code>Msg</code> to the <code>Field</code>.
      */
     public void addMsg(Msg msg) {
-    	if (msg != null
-    		&& msg.getKey() != null
-    		&& msg.getKey().length() > 0
-    		&& msg.getName() != null
-    		&& msg.getName().length() > 0) {
-    
-    		hMsgs.put(msg.getName(), msg.getKey());
-    	}
+        hMsgs.put(msg.getName(), msg.getKey());
     }
 
     /**
      * Retrieve a message value.
      */
     public String getMsg(String key) {
-       return (String)hMsgs.get(key);
+        return (String) hMsgs.get(key);
     }
 
     /**
