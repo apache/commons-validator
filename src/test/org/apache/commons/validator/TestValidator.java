@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.3 2002/03/30 04:32:14 dwinterfeldt Exp $
- * $Revision: 1.3 $
- * $Date: 2002/03/30 04:32:14 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.4 2002/04/02 01:59:44 dwinterfeldt Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/04/02 01:59:44 $
  *
  * ====================================================================
  *
@@ -67,7 +67,7 @@ package org.apache.commons.validator;
  * unit tests.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.3 $ $Date: 2002/03/30 04:32:14 $
+ * @version $Revision: 1.4 $ $Date: 2002/04/02 01:59:44 $
 */                                                       
 public class TestValidator {
                                                           
@@ -168,6 +168,20 @@ public class TestValidator {
       String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isDouble(value);
+   }
+
+   /**
+    * Checks if the field is an e-mail address.
+    *
+    * @param 	value 		The value validation is being performed on.
+    * @return	boolean		If the field is an e-mail address
+    *                           <code>true</code> is returned.  
+    *                           Otherwise <code>false</code>.
+   */
+   public static boolean validateEmail(Object bean, Field field) {
+      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+
+      return GenericValidator.isEmail(value);
    }
       
 }                                                         

@@ -1,0 +1,15 @@
+<form-validation>
+   <global>
+      <validator name="email"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateEmail"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+   </global>
+   <formset>
+      <form    name="emailForm">
+         <field    property="value"
+         	   depends="email">
+         </field>    
+      </form>
+   </formset>   
+</form-validation>
