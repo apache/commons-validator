@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.31 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.31 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.32 2004/04/08 23:22:03 dgraham Exp $
+ * $Revision: 1.32 $
+ * $Date: 2004/04/08 23:22:03 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -54,13 +54,6 @@ public class Field implements Cloneable, Serializable {
             "org.apache.commons.validator.Field.DEFAULT";
 
     /**
-     * This is the value that will be used as a key if the <code>Arg</code>
-     * name field has no value.
-     * @deprecated
-     */
-    public static final String ARG_DEFAULT = DEFAULT_ARG;
-
-    /**
      * This indicates an indexed property is being referenced.
      */
     public static final String TOKEN_INDEXED = "[]";
@@ -84,11 +77,6 @@ public class Field implements Cloneable, Serializable {
     protected int fieldOrder = 0;
 
     /**
-     * @deprecated This is no longer used.
-     */
-    protected FastHashMap hDependencies = new FastHashMap();
-
-    /**
      * Internal representation of this.depends String as a List.  This List 
      * gets updated whenever setDepends() gets called.  This List is 
      * synchronized so a call to setDepends() (which clears the List) won't 
@@ -107,26 +95,6 @@ public class Field implements Cloneable, Serializable {
      * @since Validator 1.1
      */
     protected Map[] args = new Map[0];
-
-    /**
-     * @deprecated This variable is no longer used, use args instead.
-     */
-    protected FastHashMap hArg0 = new FastHashMap();
-
-    /**
-     * @deprecated This variable is no longer used, use args instead.
-     */
-    protected FastHashMap hArg1 = new FastHashMap();
-
-    /**
-     * @deprecated This variable is no longer used, use args instead.
-     */
-    protected FastHashMap hArg2 = new FastHashMap();
-
-    /**
-     * @deprecated This variable is no longer used, use args instead.
-     */
-    protected FastHashMap hArg3 = new FastHashMap();
 
     /**
      * Gets the page value that the Field is associated with for
@@ -339,124 +307,10 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Add a <code>Arg</code> to the arg0 list.
-     * @deprecated Use addArg(Arg) instead.
-     */
-    public void addArg0(Arg arg) {
-        arg.setPosition(0);
-        this.addArg(arg);
-    }
-
-    /**
-     * Gets the default arg0 <code>Arg</code> object.
-     * @deprecated Use getArg(0) instead.
-     */
-    public Arg getArg0() {
-        return this.getArg(0);
-    }
-
-    /**
-     * Gets the arg0 <code>Arg</code> object based on the key passed in.  If 
-     * the key finds a <code>null</code> value then the default value will 
-     * be retrieved.
-     * @deprecated Use getArg(String, 0) instead.
-     */
-    public Arg getArg0(String key) {
-        return this.getArg(key, 0);
-    }
-
-    /**
-     * Add a <code>Arg</code> to the arg1 list.
-     * @deprecated Use addArg(Arg) instead.
-     */
-    public void addArg1(Arg arg) {
-        arg.setPosition(1);
-        this.addArg(arg);
-    }
-
-    /**
-     * Gets the default arg1 <code>Arg</code> object.
-     * @deprecated Use getArg(1) instead.
-     */
-    public Arg getArg1() {
-        return this.getArg(1);
-    }
-
-    /**
-     * Gets the arg1 <code>Arg</code> object based on the key passed in.  If the key
-     * finds a <code>null</code> value then the default value will try to be retrieved.
-     * @deprecated Use getArg(String, 1) instead.
-     */
-    public Arg getArg1(String key) {
-        return this.getArg(key, 1);
-    }
-
-    /**
-     * Add a <code>Arg</code> to the arg2 list.
-     * @deprecated Use addArg(Arg) instead.
-     */
-    public void addArg2(Arg arg) {
-        arg.setPosition(2);
-        this.addArg(arg);
-    }
-
-    /**
-     * Gets the default arg2 <code>Arg</code> object.
-     * @deprecated Use getArg(2) instead.
-     */
-    public Arg getArg2() {
-        return this.getArg(2);
-    }
-
-    /**
-     * Gets the arg2 <code>Arg</code> object based on the key passed in.  If the key
-     * finds a <code>null</code> value then the default value will try to be retrieved.
-     * @deprecated Use getArg(String, 2) instead.
-     */
-    public Arg getArg2(String key) {
-        return this.getArg(key, 2);
-    }
-
-    /**
-     * Add a <code>Arg</code> to the arg3 list.
-     * @deprecated Use addArg(Arg) instead.
-     */
-    public void addArg3(Arg arg) {
-        arg.setPosition(3);
-        this.addArg(arg);
-    }
-
-    /**
-     * Gets the default arg3 <code>Arg</code> object.
-     * @deprecated Use getArg(3) instead.
-     */
-    public Arg getArg3() {
-        return this.getArg(3);
-    }
-
-    /**
-     * Gets the arg3 <code>Arg</code> object based on the key passed in.  If the key
-     * finds a <code>null</code> value then the default value will try to be retrieved.
-     * @deprecated Use getArg(String, 3) instead.
-     */
-    public Arg getArg3(String key) {
-        return this.getArg(key, 3);
-    }
-
-    /**
      * Add a <code>Var</code> to the <code>Field</code>.
      */
     public void addVar(Var v) {
         this.hVars.put(v.getName(), v);
-    }
-
-    /**
-     * Add a <code>Var</code>, based on the values passed in, to the
-     * <code>Field</code>.
-     * @deprecated Use addVar(String, String, String) instead.
-     */
-    public void addVarParam(String name, String value, String jsType) {
-        this.addVar(new Var(name, value, jsType));
     }
 
     /**
@@ -545,10 +399,8 @@ public class Field implements Cloneable, Serializable {
     /**
      * Replace constants with values in fields and process the depends field
      * to create the dependency <code>Map</code>.
-     * @deprecated This method is called by the framework.  It will be made protected
-     * in a future release.  TODO
      */
-    public void process(Map globalConstants, Map constants) {
+    void process(Map globalConstants, Map constants) {
         this.hMsgs.setFast(false);
         this.hVars.setFast(true);
 
@@ -609,18 +461,8 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Replace the args key value with the key/value pairs passed in.
-     * @deprecated This is an internal setup method that clients don't need to call.
      */
-    public void processMessageComponents(String key, String replaceValue) {
-        this.internalProcessMessageComponents(key, replaceValue);
-    }
-
-    /**
-     * Replace the args key value with the key/value pairs passed in.
-     * TODO When processMessageComponents() is removed from the public API we
-     * should rename this private method to "processMessageComponents".
-     */
-    private void internalProcessMessageComponents(String key, String replaceValue) {
+    private void processMessageComponents(String key, String replaceValue) {
         String varKey = TOKEN_START + TOKEN_VAR;
         // Process Messages
         if (key != null && !key.startsWith(varKey)) {
@@ -667,21 +509,12 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Gets an unmodifiable <code>Set</code> of the dependencies.
-     * @deprecated Use getDependencyList() instead.
-     */
-    public Collection getDependencies() {
-        return this.getDependencyList();
-    }
-
-    /**
      * Gets an unmodifiable <code>List</code> of the dependencies in the same 
      * order they were defined in parameter passed to the setDepends() method.
      */
     public List getDependencyList() {
         return Collections.unmodifiableList(this.dependencyList);
     }
-
 
     /**
      * Creates and returns a copy of this object.
@@ -712,10 +545,6 @@ public class Field implements Cloneable, Serializable {
 
         field.hVars = ValidatorUtils.copyFastHashMap(hVars);
         field.hMsgs = ValidatorUtils.copyFastHashMap(hMsgs);
-        field.hArg0 = ValidatorUtils.copyFastHashMap(hArg0);
-        field.hArg1 = ValidatorUtils.copyFastHashMap(hArg1);
-        field.hArg2 = ValidatorUtils.copyFastHashMap(hArg2);
-        field.hArg3 = ValidatorUtils.copyFastHashMap(hArg3);
 
         return field;
     }

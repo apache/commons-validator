@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.16 2004/04/04 13:53:25 rleland Exp $
- * $Revision: 1.16 $
- * $Date: 2004/04/04 13:53:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.17 2004/04/08 23:22:03 dgraham Exp $
+ * $Revision: 1.17 $
+ * $Date: 2004/04/08 23:22:03 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -118,30 +118,6 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Add a <code>Constant</code> (locale level).
-     * @deprecated Use addConstant(String, String) instead.
-     */
-    public void addConstant(Constant c) {
-        if (c.getName() != null && c.getName().length() > 0 &&
-                c.getValue() != null && c.getValue().length() > 0) {
-
-            constants.put(c.getName(), c.getValue());
-        }
-    }
-
-    /**
-     * Add a <code>Constant</code> to the locale level.
-     * @deprecated Use addConstant(String, String) instead.
-     */
-    public void addConstantParam(String name, String value) {
-        if (name != null && name.length() > 0 &&
-                value != null && value.length() > 0) {
-
-            constants.put(name, value);
-        }
-    }
-
-    /**
      * Add a <code>Constant</code> to the locale level.
      */
     public void addConstant(String name, String value) {
@@ -153,14 +129,6 @@ public class FormSet implements Serializable {
      */
     public void addForm(Form f) {
         forms.put(f.getName(), f);
-    }
-
-    /**
-     * Retrieve a <code>Form</code> based on the form name.
-     * @deprecated Use getForm(String) instead.
-     */
-    public Form getForm(Object key) {
-        return (Form) this.forms.get(key);
     }
 
     /**
@@ -180,10 +148,8 @@ public class FormSet implements Serializable {
 
     /**
      * Processes all of the <code>Form</code>s.
-     * @deprecated This method is called by the framework.  It will be made protected
-     * in a future release.  TODO
      */
-    public synchronized void process(Map globalConstants) {
+    synchronized void process(Map globalConstants) {
         for (Iterator i = forms.values().iterator(); i.hasNext();) {
             Form f = (Form) i.next();
             f.process(globalConstants, constants, forms);

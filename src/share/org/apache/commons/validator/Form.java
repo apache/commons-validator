@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.16 2004/04/04 19:38:45 dgraham Exp $
- * $Revision: 1.16 $
- * $Date: 2004/04/04 19:38:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.17 2004/04/08 23:22:03 dgraham Exp $
+ * $Revision: 1.17 $
+ * $Date: 2004/04/08 23:22:03 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -36,7 +36,6 @@ import org.apache.commons.collections.FastHashMap;
  * contained in a list of <code>Field</code> objects.  Instances of this class are
  * configured with a &lt;form&gt; xml element.
  * </p>
- *
  */
 public class Form implements Serializable {
 
@@ -102,14 +101,6 @@ public class Form implements Serializable {
     }
 
     /**
-     * The <code>Field</code>s are returned as an unmodifiable <code>Map</code>.
-     * @deprecated Use containsField(String) and getField(String) instead.
-     */
-    public Map getFieldMap() {
-        return Collections.unmodifiableMap(hFields);
-    }
-
-    /**
      * Returns the Field with the given name or null if this Form has no such
      * field.
      * @since Validator 1.1
@@ -124,22 +115,6 @@ public class Form implements Serializable {
      */
     public boolean containsField(String fieldName) {
         return this.hFields.containsKey(fieldName);
-    }
-
-    /**
-     * Processes all of the <code>Form</code>'s <code>Field</code>s.
-     * @deprecated This method is called by the framework.  It will be made protected
-     * in a future release.  TODO
-     */
-    public void process(Map globalConstants, Map constants) {
-        hFields.setFast(true);
-
-        for (Iterator i = lFields.iterator(); i.hasNext();) {
-            Field f = (Field) i.next();
-            f.process(globalConstants, constants);
-        }
-
-		processed = true;
     }
 
 	/**
