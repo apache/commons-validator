@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.6 2003/05/03 21:21:04 dgraham Exp $
- * $Revision: 1.6 $
- * $Date: 2003/05/03 21:21:04 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/EmailValidator.java,v 1.7 2003/05/03 21:25:02 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/05/03 21:25:02 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.6 $ $Date: 2003/05/03 21:21:04 $
+ * @version $Revision: 1.7 $ $Date: 2003/05/03 21:25:02 $
  */
 public class EmailValidator {
     
@@ -156,7 +156,7 @@ public class EmailValidator {
     /**
      * Returns true if the domain component of an email address is valid.
      */
-	private boolean isValidDomain(String domain) {
+	protected boolean isValidDomain(String domain) {
         boolean symbolic = false;
 		Perl5Util ipAddressMatcher = new Perl5Util();
 		
@@ -184,7 +184,7 @@ public class EmailValidator {
     /**
      * Returns true if the user component of an email address is valid.
      */
-	private boolean isValidUser(String user) {
+	protected boolean isValidUser(String user) {
 		Perl5Util userMatcher = new Perl5Util();
 		return userMatcher.match(USER_PATTERN, user);
 	}
@@ -192,7 +192,7 @@ public class EmailValidator {
     /**
      * Validates an IP address. Returns true if valid.
      */
-	private boolean isValidIpAddress(Perl5Util ipAddressMatcher) {
+	protected boolean isValidIpAddress(Perl5Util ipAddressMatcher) {
 		for (int i = 1; i <= 4; i++) {
 			String ipSegment = ipAddressMatcher.group(i);
 			if (ipSegment == null || ipSegment.length() <= 0) {
@@ -218,7 +218,7 @@ public class EmailValidator {
     /**
      * Validates a symbolic domain name.  Returns true if it's valid.
      */
-	private boolean isValidSymbolicDomain(String domain) {
+	protected boolean isValidSymbolicDomain(String domain) {
     	String[] domainSegment = new String[10];
     	boolean match = true;
     	int i = 0;
