@@ -1,0 +1,23 @@
+<form-validation>
+   <global>
+      <validator name="int"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateInt"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+      <validator name="required"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateRequired"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+   </global>
+   <formset>
+      <form    name="nameForm">
+         <field    property="firstName"  depends="required">
+         	     <arg0 key="nameForm.firstname.displayname"/>
+         </field>    
+         <field    property="lastName"
+         	   depends="required,int">
+         	     <arg0 key="nameForm.lastname.displayname"/>
+         </field>
+      </form>
+   </formset>   
+</form-validation>

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.4 2002/09/19 17:11:46 turner Exp $
- * $Revision: 1.4 $
- * $Date: 2002/09/19 17:11:46 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.5 2002/09/24 20:23:35 turner Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/09/24 20:23:35 $
  *
  * ====================================================================
  *
@@ -62,44 +62,46 @@
 
 package org.apache.commons.validator;
 
-import junit.framework.Test;                           
-import junit.framework.TestCase;                          
+import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-                                                          
-/**                                                       
+
+/**
  * Test suite for <code>org.apache.commons.validator</code>
  * package.
  *
  * @author David Winterfeldt
- * @version $Revision: 1.4 $ $Date: 2002/09/19 17:11:46 $
-*/                                                       
-public class ValidatorTestSuite extends TestCase {            
-                                                          
-    public ValidatorTestSuite(String name) {                  
+ * @author James Turner
+ * @version $Revision: 1.5 $ $Date: 2002/09/24 20:23:35 $
+*/
+public class ValidatorTestSuite extends TestCase {
+
+    public ValidatorTestSuite(String name) {
         super(name);
-    }                                                     
+    }
 
     public static Test suite() {
        TestSuite suite = new TestSuite();
 
-       suite.addTest(RequiredNameTest.suite()); 
-       suite.addTest(RequiredIfTest.suite()); 
-       suite.addTest(ByteTest.suite()); 
-       suite.addTest(ShortTest.suite()); 
-       suite.addTest(IntegerTest.suite()); 
-       suite.addTest(LongTest.suite()); 
-       suite.addTest(FloatTest.suite()); 
-       suite.addTest(DoubleTest.suite()); 
-       suite.addTest(TypeTest.suite()); 
-       suite.addTest(EmailTest.suite()); 
-       suite.addTest(ValidatorTest.suite()); 
+       suite.addTest(RequiredNameTest.suite());
+       suite.addTest(RequiredIfTest.suite());
+       suite.addTest(MultipleTests.suite());
+       suite.addTest(ByteTest.suite());
+       suite.addTest(ShortTest.suite());
+       suite.addTest(IntegerTest.suite());
+       suite.addTest(LongTest.suite());
+       suite.addTest(FloatTest.suite());
+       suite.addTest(DoubleTest.suite());
+       suite.addTest(TypeTest.suite());
+       suite.addTest(EmailTest.suite());
+       suite.addTest(ValidatorTest.suite());
 
        return suite;
     }
-                                                          
-    public static void main(String args[]) {              
+
+    public static void main(String args[]) {
         junit.textui.TestRunner.run(suite());
-    }          
-                                               
+    }
+
 }
