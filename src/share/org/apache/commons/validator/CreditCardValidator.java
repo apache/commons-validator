@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.7 2003/06/08 21:32:29 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2003/06/08 21:32:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.8 2003/06/08 21:53:38 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/06/08 21:53:38 $
  *
  * ====================================================================
  *
@@ -71,15 +71,16 @@ import org.apache.commons.validator.util.Flags;
  * <code>CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.AMEX + CreditCardValidator.VISA);</code>
  * configures the validator to only pass American Express and Visa cards. 
  * </p>
- * Reference Sean M. Burke's 
- * <a href="http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl">script</a>.  More information
- * also available <a href="http://www.merriampark.com/anatomycc.htm">here</a>.
+ * For a similar implementation in Perl, reference Sean M. Burke's 
+ * <a href="http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html">script</a>.  
+ * More information is also available 
+ * <a href="http://www.merriampark.com/anatomycc.htm">here</a>.
  *
  * @author David Winterfeldt
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.7 $ $Date: 2003/06/08 21:32:29 $
+ * @version $Revision: 1.8 $ $Date: 2003/06/08 21:53:38 $
  */
 public class CreditCardValidator {
 
@@ -176,7 +177,7 @@ public class CreditCardValidator {
 	protected boolean luhnCheck(String cardNumber) {
 		// number must be validated as 0..9 numeric first!!
 		int digits = cardNumber.length();
-		int oddoeven = digits & 1;
+		int oddOrEven = digits & 1;
 		long sum = 0;
 		for (int count = 0; count < digits; count++) {
 			int digit = 0;
@@ -187,7 +188,7 @@ public class CreditCardValidator {
 				return false;
 			}
 
-			if (((count & 1) ^ oddoeven) == 0) { // not
+			if (((count & 1) ^ oddOrEven) == 0) { // not
 				digit *= 2;
 				if (digit > 9) {
 					digit -= 9;
@@ -200,11 +201,7 @@ public class CreditCardValidator {
 			return false;
 		}
 
-		if (sum % 10 == 0) {
-			return true;
-		}
-
-		return false;
+		return (sum % 10 == 0);
 	}
 
 	/**
