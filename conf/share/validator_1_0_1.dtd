@@ -9,7 +9,7 @@
      "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0.1//EN"
      "http://jakarta.apache.org/commons/dtds/validator_1_0_1.dtd">
 
-    $Id: validator_1_0_1.dtd,v 1.2 2003/03/12 06:03:43 dgraham Exp $
+    $Id: validator_1_0_1.dtd,v 1.3 2003/03/15 23:07:06 dgraham Exp $
 -->
 
 
@@ -32,10 +32,8 @@
 
 
 <!--
-     The "validator" element defines what validators objects can be used with
-     the fields referenced by the formset elements. The validator element can
-     accept 4 properties: name, classname, method, methodparams, msg, depends,
-     and jsFunctionName.
+     The "validator" element defines what validator objects can be used with
+     the fields referenced by the formset elements.
 -->
 <!ELEMENT validator (javascript?)>
 <!ATTLIST validator name           CDATA #REQUIRED
