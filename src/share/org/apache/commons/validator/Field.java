@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.26 2003/09/28 20:39:57 dgraham Exp $
- * $Revision: 1.26 $
- * $Date: 2003/09/28 20:39:57 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.27 2003/11/17 03:35:30 rleland Exp $
+ * $Revision: 1.27 $
+ * $Date: 2003/11/17 03:35:30 $
  *
  * ====================================================================
  *
@@ -84,7 +84,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.26 $ $Date: 2003/09/28 20:39:57 $
+ * @version $Revision: 1.27 $ $Date: 2003/11/17 03:35:30 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -258,6 +258,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Sets the validation rules for this field as a comma separated list.
+     * @param depends A comma separated list of validator names.
      */
     public void setDepends(String depends) {
         this.depends = depends;
