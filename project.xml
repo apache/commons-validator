@@ -16,17 +16,11 @@
 -->
 
 <project>
+  <extend>../commons-build/project.xml</extend>
   <name>Validator</name>
   <id>commons-validator</id>
   <currentVersion>1.1.2-dev</currentVersion>
-
-  <organization>
-    <name>Apache Software Foundation</name>
-    <url>http://www.apache.org</url>
-    <logo>http://jakarta.apache.org/images/jakarta-logo-blue.gif</logo>
-  </organization>
   <logo>/images/validator-logo-blue.png</logo>
-  
   <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.validator</package>
 
@@ -36,54 +30,8 @@
     and server side data validation. It may be used standalone or with a framework like
     Struts.
   </description>
-  <url>http://jakarta.apache.org/commons/validator/</url>
-  <gumpRepositoryId>jakarta</gumpRepositoryId>
-
-  <issueTrackingUrl>http://issues.apache.org/bugzilla/</issueTrackingUrl>
-  <siteAddress>jakarta.apache.org</siteAddress>
   
-  <repository>
-     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/validator</connection>
-     <developerConnection>scm:cvs:pserver:${cvs.developer.id}@${cvs.developer.host}:/home/cvs:jakarta-commons/validator</developerConnection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons/validator</url>
-  </repository>
-
-  <siteDirectory>/www/jakarta.apache.org/commons/validator/</siteDirectory>
-  <distributionDirectory>http://jakarta.apache.org/site/binindex.cgi</distributionDirectory>
-  <mailingLists>
-    <mailingList>
-      <name>Commons Dev List</name>
-      <subscribe>commons-dev-subscribe@jakarta.apache.org</subscribe>
-      <unsubscribe>commons-dev-unsubscribe@jakarta.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/eyebrowse/SummarizeList?listName=commons-dev@jakarta.apache.org</archive>
-    </mailingList>
-    <mailingList>
-      <name>Commons User List</name>
-      <subscribe>commons-user-subscribe@jakarta.apache.org</subscribe>
-      <unsubscribe>commons-user-unsubscribe@jakarta.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/eyebrowse/SummarizeList?listName=commons-user@jakarta.apache.org</archive>
-    </mailingList>
-  </mailingLists>
-
   <developers>
-    <developer>
-      <name>David Winterfeldt</name>
-      <id>dwinterfeldt</id>
-      <email>dwinterfeldt@apache.org</email>
-      <organization></organization>
-    </developer>
-    <developer>
-      <name>Craig McClanahan</name>
-      <id>craigmcc</id>
-      <email>craigmcc@apache.org</email>
-      <organization></organization>
-    </developer>
-    <developer>
-      <name>James Turner</name>
-      <id>turner</id>
-      <email>turner@apache.org</email>
-      <organization></organization>
-    </developer>
     <developer>
       <name>Martin Cooper</name>
       <id>martinc</id>
@@ -100,6 +48,24 @@
       <name>Rob Leland</name>
       <id>rleland</id>
       <email>rleland at apache.org</email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>Craig McClanahan</name>
+      <id>craigmcc</id>
+      <email>craigmcc@apache.org</email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>James Turner</name>
+      <id>turner</id>
+      <email>turner@apache.org</email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>David Winterfeldt</name>
+      <id>dwinterfeldt</id>
+      <email>dwinterfeldt@apache.org</email>
       <organization></organization>
     </developer>
   </developers>
@@ -326,7 +292,7 @@
     <report>maven-pmd-plugin</report>
     <report>maven-simian-plugin</report>
     <report>maven-faq-plugin</report>
-    <report>maven-clover-plugin</report>
+<!--    <report>maven-clover-plugin</report>-->
   </reports>
 
 </project>
