@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.22 2003/05/24 19:40:12 dgraham Exp $
- * $Revision: 1.22 $
- * $Date: 2003/05/24 19:40:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.23 2003/05/24 20:09:39 dgraham Exp $
+ * $Revision: 1.23 $
+ * $Date: 2003/05/24 20:09:39 $
  *
  * ====================================================================
  *
@@ -86,7 +86,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.22 $ $Date: 2003/05/24 19:40:12 $
+ * @version $Revision: 1.23 $ $Date: 2003/05/24 20:09:39 $
  */
 public class Validator implements Serializable {
 
@@ -561,24 +561,12 @@ public class Validator implements Serializable {
         int pos,
         List params,
         Object[] paramValue)
-        throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        throws ValidatorException {
             
         int beanIndexPos = params.indexOf(BEAN_KEY);
         int fieldIndexPos = params.indexOf(FIELD_KEY);
         
-        Object oIndexed =
-            PropertyUtils.getProperty(
-                this.getParameterValue(BEAN_KEY),
-                field.getIndexedListProperty());
-                
-        Object indexedList[] = new Object[0];
-        
-        if (oIndexed instanceof Collection) {
-            indexedList = ((Collection) oIndexed).toArray();
-            
-        } else if (oIndexed.getClass().isArray()) {
-            indexedList = (Object[]) oIndexed;
-        }
+        Object indexedList[] = this.getIndexedProperty(field);
         
         // Set current iteration object to the parameter array
         paramValue[beanIndexPos] = indexedList[pos];
@@ -591,7 +579,7 @@ public class Validator implements Serializable {
                 indexedField.getKey(),
                 Field.TOKEN_INDEXED,
                 "[" + pos + "]"));
-                
+        
         paramValue[fieldIndexPos] = indexedField;
     }
 
@@ -602,58 +590,17 @@ public class Validator implements Serializable {
      */
     private void validateField(Field field, ValidatorResults allResults)
         throws ValidatorException {
-            
-        int length = 1; // default to non-indexed length of 1
-        
-        // this block only finds out how many times to run the validation
-        if (field.isIndexed()) {
-            Object oIndexed;
-            try {
-                oIndexed =
-                    PropertyUtils.getProperty(
-                        this.getParameterValue(BEAN_KEY),
-                        field.getIndexedListProperty());
-        
-            } catch (Exception e) {
-                log.error("in validateField", e);
-                return;
-            }
-        
-            Object indexedList[] = new Object[0];
-        
-            if (oIndexed instanceof Collection) {
-                indexedList = ((Collection) oIndexed).toArray();
-            } else if (oIndexed.getClass().isArray()) {
-                indexedList = (Object[]) oIndexed;
-            }
-        
-            length = indexedList.length;
-        }
-        
-        this.validateList(field, allResults, length);
-    }
 
-    /**
-     * Runs all validations on the field.
-     * @param field
-     * @param allResults
-     * @param length 1 for non-indexed fields, the array length for indexed fields.
-     * @throws ValidatorException
-     */
-    private void validateList(
-        Field field,
-        ValidatorResults allResults,
-        int length)
-        throws ValidatorException {
-            
-        Map actions = resources.getValidatorActions();
-            
-        for (int pos = 0; pos < length; pos++) {
-            ValidatorResults results = new ValidatorResults();
+        int numberOfFieldsToValidate =
+            field.isIndexed() ? this.getIndexedProperty(field).length : 1;
+
+        Map actions = this.resources.getValidatorActions();
+
+        for (int fieldNumber = 0; fieldNumber < numberOfFieldsToValidate; fieldNumber++) {
             StringTokenizer st = new StringTokenizer(field.getDepends(), ",");
             while (st.hasMoreTokens()) {
                 String depend = st.nextToken().trim();
-        
+
                 ValidatorAction action = (ValidatorAction) actions.get(depend);
                 if (action == null) {
                     log.error(
@@ -661,19 +608,61 @@ public class Validator implements Serializable {
                             + depend
                             + " found for field "
                             + field.getProperty());
-                            
+
                     return;
                 }
-        
-                boolean good = validateFieldForRule(field, action, results, actions, pos);
-        
+
+                ValidatorResults results = new ValidatorResults();
+                boolean good =
+                    validateFieldForRule(field, action, results, actions, fieldNumber);
+
                 allResults.merge(results);
-        
+
                 if (!good) {
                     return;
                 }
             }
         }
+    }
+    
+    /**
+     * Returns an indexed property from the object we're validating.
+     * 
+     * @param field This field.getIndexedListProperty() will be found in the object we're
+     * currently validating
+     * @throws ValidatorException If there's an error looking up the property or, the 
+     * property found is not indexed.
+     */
+    private Object[] getIndexedProperty(Field field) throws ValidatorException {
+        Object indexedProperty = null;
+
+        try {
+            indexedProperty =
+                PropertyUtils.getProperty(
+                    this.getParameterValue(BEAN_KEY),
+                    field.getIndexedListProperty());
+                    
+        } catch (IllegalAccessException e) {
+            throw new ValidatorException(e.getMessage());
+        } catch (InvocationTargetException e) {
+            throw new ValidatorException(e.getMessage());
+        } catch (NoSuchMethodException e) {
+            throw new ValidatorException(e.getMessage());
+        }
+
+        if (indexedProperty instanceof Collection) {
+            return ((Collection) indexedProperty).toArray();
+            
+        } else if (indexedProperty.getClass().isArray()) {
+            return (Object[]) indexedProperty;
+            
+        } else {
+            throw new ValidatorException(
+                "Non-collection, non-array indexed property "
+                    + field.getKey()
+                    + " found");
+        }
+
     }
 
     /**
