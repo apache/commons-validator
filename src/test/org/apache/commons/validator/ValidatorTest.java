@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.4 2002/03/30 04:33:18 dwinterfeldt Exp $
- * $Revision: 1.4 $
- * $Date: 2002/03/30 04:33:18 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.5 2002/12/15 20:58:57 martinc Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/12/15 20:58:57 $
  *
  * ====================================================================
  *
@@ -78,7 +78,7 @@ import junit.framework.AssertionFailedError;
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.4 $ $Date: 2002/03/30 04:33:18 $
+ * @version $Revision: 1.5 $ $Date: 2002/12/15 20:58:57 $
 */                                                       
 public class ValidatorTest extends TestCase {            
                                                           

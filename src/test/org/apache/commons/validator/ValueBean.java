@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValueBean.java,v 1.1 2002/03/30 04:26:51 dwinterfeldt Exp $
- * $Revision: 1.1 $
- * $Date: 2002/03/30 04:26:51 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValueBean.java,v 1.2 2002/12/15 20:58:57 martinc Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/12/15 20:58:57 $
  *
  * ====================================================================
  *
@@ -67,7 +67,7 @@ package org.apache.commons.validator;
  * run tests on.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.1 $ $Date: 2002/03/30 04:26:51 $
+ * @version $Revision: 1.2 $ $Date: 2002/12/15 20:58:57 $
 */                                                       
 public class ValueBean {
    

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.2 2002/07/19 03:09:06 craigmcc Exp $
- * $Revision: 1.2 $
- * $Date: 2002/07/19 03:09:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.3 2002/12/15 20:58:57 martinc Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/12/15 20:58:57 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.commons.logging.LogSource;
  * <p>Performs Validation Test for e-mail validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.2 $ $Date: 2002/07/19 03:09:06 $
+ * @version $Revision: 1.3 $ $Date: 2002/12/15 20:58:57 $
 */                                                       
 public class EmailTest extends TestCase {            
    

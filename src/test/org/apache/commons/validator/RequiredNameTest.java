@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredNameTest.java,v 1.3 2002/03/30 04:30:56 dwinterfeldt Exp $
- * $Revision: 1.3 $
- * $Date: 2002/03/30 04:30:56 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredNameTest.java,v 1.4 2002/12/15 20:58:57 martinc Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/12/15 20:58:57 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.commons.logging.LogSource;
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.3 $ $Date: 2002/03/30 04:30:56 $
+ * @version $Revision: 1.4 $ $Date: 2002/12/15 20:58:57 $
 */                                                       
 public class RequiredNameTest extends TestCase {            
    
