@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.29 2004/01/17 17:35:27 dgraham Exp $
- * $Revision: 1.29 $
- * $Date: 2004/01/17 17:35:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.30 2004/02/01 02:25:08 dgraham Exp $
+ * $Revision: 1.30 $
+ * $Date: 2004/02/01 02:25:08 $
  *
  * ====================================================================
  *
@@ -62,6 +62,7 @@
 package org.apache.commons.validator;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -71,16 +72,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.FastHashMap;
 import org.apache.commons.validator.util.ValidatorUtils;
 
 /**
- * <p>
  * This contains the list of pluggable validators to run on a field and any 
  * message information and variables to perform the validations and generate 
  * error messages.  Instances of this class are configured with a 
  * &lt;field&gt; xml element.
- * </p>
  *
  * @see org.apache.commons.validator.Form
  */
@@ -787,6 +787,169 @@ public class Field implements Cloneable, Serializable {
         }
 
         return results.toString();
+    }
+    
+    /**
+     * Returns an indexed property from the object we're validating.
+     *
+     * @param bean The bean to extract the indexed values from.
+     * @throws ValidatorException If there's an error looking up the property 
+     * or, the property found is not indexed.
+     */
+    Object[] getIndexedProperty(Object bean) throws ValidatorException {
+        Object indexedProperty = null;
+
+        try {
+            indexedProperty =
+                PropertyUtils.getProperty(bean, this.getIndexedListProperty());
+
+        } catch(IllegalAccessException e) {
+            throw new ValidatorException(e.getMessage());
+        } catch(InvocationTargetException e) {
+            throw new ValidatorException(e.getMessage());
+        } catch(NoSuchMethodException e) {
+            throw new ValidatorException(e.getMessage());
+        }
+
+        if (indexedProperty instanceof Collection) {
+            return ((Collection) indexedProperty).toArray();
+
+        } else if (indexedProperty.getClass().isArray()) {
+            return (Object[]) indexedProperty;
+
+        } else {
+            throw new ValidatorException(this.getKey() + " is not indexed");
+        }
+
+    }
+    
+    /**
+     * Executes the given ValidatorAction and all ValidatorActions that it 
+     * depends on.
+     * @return true if the validation succeeded.
+     */
+    private boolean validateForRule(
+        ValidatorAction va,
+        ValidatorResults results,
+        Map actions,
+        Map params,
+        int pos)
+        throws ValidatorException {
+
+        ValidatorResult result = results.getValidatorResult(this.getKey());
+        if (result != null && result.containsAction(va.getName())) {
+            return result.isValid(va.getName());
+        }
+
+        if (!this.runDependentValidators(va, results, actions, params, pos)) {
+            return false;
+        }
+
+        return va.executeValidationMethod(this, params, results, pos);
+    }
+
+    /**
+     * Calls all of the validators that this validator depends on.
+     * TODO ValidatorAction should know how to run its own dependencies.
+     * @param va Run dependent validators for this action.
+     * @param results
+     * @param actions
+     * @param pos
+     * @return true if all of the dependent validations passed.
+     * @throws ValidatorException
+     */
+    private boolean runDependentValidators(
+        ValidatorAction va,
+        ValidatorResults results,
+        Map actions,
+        Map params,
+        int pos)
+        throws ValidatorException {
+
+        List dependentValidators = va.getDependencyList();
+
+        if (dependentValidators.isEmpty()) {
+            return true;
+        }
+
+        Iterator iter = dependentValidators.iterator();
+        while (iter.hasNext()) {
+            String depend = (String) iter.next();
+
+            ValidatorAction action = (ValidatorAction) actions.get(depend);
+            if (action == null) {
+                this.handleMissingAction(depend);
+            }
+
+            if (!this.validateForRule(action, results, actions, params, pos)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Run the configured validations on this field.  Run all validations 
+     * in the depends clause over each item in turn, returning when the first 
+     * one fails.
+     * @param params A Map of parameter class names to parameter values to pass
+     * into validation methods.
+     * @param actions A Map of validator names to ValidatorAction objects.
+     * @return A ValidatorResults object containing validation messages for 
+     * this field.
+     */
+    ValidatorResults validate(Map params, Map actions)
+        throws ValidatorException {
+        
+        if (this.getDepends() == null) {
+            return new ValidatorResults();
+        }
+
+        ValidatorResults allResults = new ValidatorResults();
+
+        Object bean = params.get(Validator.BEAN_PARAM);
+        int numberOfFieldsToValidate =
+            this.isIndexed() ? this.getIndexedProperty(bean).length : 1;
+
+        for (int fieldNumber = 0; fieldNumber < numberOfFieldsToValidate; fieldNumber++) {
+            
+            Iterator dependencies = this.dependencyList.iterator();
+            while (dependencies.hasNext()) {
+                String depend = (String) dependencies.next();
+
+                ValidatorAction action = (ValidatorAction) actions.get(depend);
+                if (action == null) {
+                    this.handleMissingAction(depend);
+                }
+
+                ValidatorResults results = new ValidatorResults();
+                boolean good =
+                    validateForRule(action, results, actions, params, fieldNumber);
+
+                allResults.merge(results);
+
+                if (!good) {
+                    return allResults;
+                }
+            }
+        }
+        
+        return allResults;
+    }
+    
+    /**
+     * Called when a validator name is used in a depends clause but there is
+     * no know ValidatorAction configured for that name.
+     * @param name The name of the validator in the depends list.
+     * @throws ValidatorException
+     */
+    private void handleMissingAction(String name) throws ValidatorException {
+        throw new ValidatorException(
+            "No ValidatorAction named "
+                + name
+                + " found for field "
+                + this.getProperty());
     }
 
 }

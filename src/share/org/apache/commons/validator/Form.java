@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.12 2004/01/11 23:30:20 dgraham Exp $
- * $Revision: 1.12 $
- * $Date: 2004/01/11 23:30:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.13 2004/02/01 02:25:08 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2004/02/01 02:25:08 $
  *
  * ====================================================================
  *
@@ -185,6 +185,34 @@ public class Form implements Serializable {
         }
 
         return results.toString();
+    }
+    
+    /**
+     * Validate all Fields in this Form on the given page and below.
+     * @param params A Map of parameter class names to parameter values to pass
+     * into validation methods.
+     * @param actions A Map of validator names to ValidatorAction objects.
+     * @param page Fields on pages higher than this will not be validated.
+     * @return A ValidatorResults object containing all validation messages.
+     * @throws ValidatorException
+     */
+    ValidatorResults validate(Map params, Map actions, int page)
+        throws ValidatorException {
+
+        ValidatorResults results = new ValidatorResults();
+
+        Iterator fields = this.lFields.iterator();
+        while (fields.hasNext()) {
+            Field field = (Field) fields.next();
+
+            params.put(Validator.FIELD_PARAM, field);
+
+            if (field.getPage() <= page) {
+                results.merge(field.validate(params, actions));
+            }
+        }
+
+        return results;
     }
 
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.18 2004/01/18 19:38:46 dgraham Exp $
- * $Revision: 1.18 $
- * $Date: 2004/01/18 19:38:46 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.19 2004/02/01 02:25:08 dgraham Exp $
+ * $Revision: 1.19 $
+ * $Date: 2004/02/01 02:25:08 $
  *
  * ====================================================================
  *
@@ -64,6 +64,9 @@ package org.apache.commons.validator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -73,13 +76,12 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.validator.util.ValidatorUtils;
 
 /**
- * <p>
  * Contains the information to dynamically create and run a validation
  * method.  This is the class representation of a pluggable validator that can 
  * be defined in an xml file with the &lt;validator&gt; element.
- * </p>
  *
  * <strong>Note</strong>: The validation method is assumed to be thread safe.
  */
@@ -100,12 +102,22 @@ public class ValidatorAction implements Serializable {
      * the validation method associated with this action.
      */
     private String classname = null;
+    
+    /**
+     * The Class object loaded from the classname.
+     */
+    private Class validationClass = null;
 
     /**
      * The full method name of the validation to be performed.  The method
      * must be thread safe.
      */
     private String method = null;
+    
+    /**
+     * The Method object loaded from the method name.
+     */
+    private Method validationMethod = null;
 
     /**
      * <p>
@@ -127,6 +139,11 @@ public class ValidatorAction implements Serializable {
             + Validator.VALIDATOR_ACTION_PARAM
             + ","
             + Validator.FIELD_PARAM;
+            
+    /**
+     * The Class objects for each entry in methodParameterList.
+     */        
+    private Class[] parameterClasses = null;
 
     /**
      * The other <code>ValidatorAction</code>s that this one depends on.  If 
@@ -250,6 +267,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Gets the method parameters for the method as an unmodifiable List.
+     * @deprecated This will be removed after Validator 1.1.2
      */
     public List getMethodParamsList() {
         return Collections.unmodifiableList(this.methodParameterList);
@@ -369,6 +387,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Gets an instance based on the validator action's classname.
+     * @deprecated This will be removed after Validator 1.1.2
      */
     public Object getClassnameInstance() {
         return instance;
@@ -376,6 +395,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Sets an instance based on the validator action's classname.
+     * @deprecated This will be removed after Validator 1.1.2
      */
     public void setClassnameInstance(Object instance) {
         this.instance = instance;
@@ -553,6 +573,267 @@ public class ValidatorAction implements Serializable {
         results.append("\n");
 
         return results.toString();
+    }
+    
+    /**
+     * Dynamically runs the validation method for this validator and returns 
+     * true if the data is valid.
+     * @param field
+     * @param params A Map of class names to parameter values.
+     * @param results
+     * @param pos The index of the list property to validate if it's indexed.
+     * @throws ValidatorException
+     */
+    boolean executeValidationMethod(
+        Field field,
+        Map params,
+        ValidatorResults results,
+        int pos)
+        throws ValidatorException {
+
+        params.put(Validator.VALIDATOR_ACTION_PARAM, this);
+
+        try {
+            ClassLoader loader = this.getClassLoader(params);
+            this.loadValidationClass(loader);
+            this.loadParameterClasses(loader);
+            this.loadValidationMethod();
+
+            Object[] paramValues = this.getParameterValues(params);
+            
+            if (field.isIndexed()) {
+                this.handleIndexedField(field, pos, paramValues);
+            }
+
+            Object result = null;
+            try {
+                result =
+                    validationMethod.invoke(
+                        getValidationClassInstance(),
+                        paramValues);
+
+            } catch (IllegalArgumentException e) {
+                throw new ValidatorException(e.getMessage());
+            } catch (IllegalAccessException e) {
+                throw new ValidatorException(e.getMessage());
+            } catch (InvocationTargetException e) {
+
+                if (e.getTargetException() instanceof Exception) {
+                    throw (Exception) e.getTargetException();
+
+                } else if (e.getTargetException() instanceof Error) {
+                    throw (Error) e.getTargetException();
+                }
+            }
+
+            boolean valid = this.isValid(result);
+            if (!valid || (valid && !onlyReturnErrors(params))) {
+                results.add(field, this.name, valid, result);
+            }
+
+            if (!valid) {
+                return false;
+            }
+
+            // TODO This catch block remains for backward compatibility.  Remove
+            // this for Validator 2.0 when exception scheme changes.
+        } catch (Exception e) {
+            if (e instanceof ValidatorException) {
+                throw (ValidatorException) e;
+            }
+
+            log.error(
+                "Unhandled exception thrown during validation: " + e.getMessage(),
+                e);
+
+            results.add(field, this.name, false);
+            return false;
+        }
+
+        return true;
+    }
+    
+    /**
+     * Load the Method object for the configured validation method name.
+     * @throws ValidatorException
+     */
+    private void loadValidationMethod() throws ValidatorException {
+        if (this.validationMethod != null) {
+            return;
+        }
+     
+        try {
+            this.validationMethod =
+                this.validationClass.getMethod(this.method, this.parameterClasses);
+     
+        } catch (NoSuchMethodException e) {
+            throw new ValidatorException(e.getMessage());
+        }
+    }
+    
+    /**
+     * Load the Class object for the configured validation class name.
+     * @param loader The ClassLoader used to load the Class object.
+     * @throws ValidatorException
+     */
+    private void loadValidationClass(ClassLoader loader) 
+        throws ValidatorException {
+        
+        if (this.validationClass != null) {
+            return;
+        }
+        
+        try {
+            this.validationClass = loader.loadClass(this.classname);
+        } catch (ClassNotFoundException e) {
+            throw new ValidatorException(e.getMessage());
+        }
+    }
+    
+    /**
+     * Converts a List of parameter class names into their Class objects.
+     * @return An array containing the Class object for each parameter.  This 
+     * array is in the same order as the given List and is suitable for passing 
+     * to the validation method.
+     * @throws ValidatorException if a class cannot be loaded.
+     */
+    private void loadParameterClasses(ClassLoader loader)
+        throws ValidatorException {
+
+        if (this.parameterClasses != null) {
+            return;
+        }
+        
+        this.parameterClasses = new Class[this.methodParameterList.size()];
+
+        for (int i = 0; i < this.methodParameterList.size(); i++) {
+            String paramClassName = (String) this.methodParameterList.get(i);
+
+            try {
+                this.parameterClasses[i] = loader.loadClass(paramClassName);
+                    
+            } catch (ClassNotFoundException e) {
+                throw new ValidatorException(e.getMessage());
+            }
+        }
+    }
+    
+    /**
+     * Converts a List of parameter class names into their values contained in 
+     * the parameters Map.
+     * @param params A Map of class names to parameter values.
+     * @return An array containing the value object for each parameter.  This 
+     * array is in the same order as the given List and is suitable for passing 
+     * to the validation method.
+     */
+    private Object[] getParameterValues(Map params) {
+
+        Object[] paramValue = new Object[this.methodParameterList.size()];
+
+        for (int i = 0; i < this.methodParameterList.size(); i++) {
+            String paramClassName = (String) this.methodParameterList.get(i);
+            paramValue[i] = params.get(paramClassName);
+        }
+
+        return paramValue;
+    }
+    
+    /**
+     * Return an instance of the validation class or null if the validation 
+     * method is static so does not require an instance to be executed.
+     */
+    private Object getValidationClassInstance() throws ValidatorException {
+        if (Modifier.isStatic(this.validationMethod.getModifiers())) {
+            this.instance = null;
+
+        } else {
+            if (this.instance == null) {
+                try {
+                    this.instance = this.validationClass.newInstance();
+                } catch (InstantiationException e) {
+                    String msg =
+                        "Couldn't create instance of "
+                            + this.classname
+                            + ".  "
+                            + e.getMessage();
+
+                    throw new ValidatorException(msg);
+
+                } catch (IllegalAccessException e) {
+                    String msg =
+                        "Couldn't create instance of "
+                            + this.classname
+                            + ".  "
+                            + e.getMessage();
+
+                    throw new ValidatorException(msg);
+                }
+            }
+        }
+
+        return this.instance;
+    }
+    
+    /**
+     * Modifies the paramValue array with indexed fields.
+     *
+     * @param field
+     * @param pos
+     * @param paramValues
+     */
+    private void handleIndexedField(Field field, int pos, Object[] paramValues)
+        throws ValidatorException {
+
+        int beanIndex = this.methodParameterList.indexOf(Validator.BEAN_PARAM);
+        int fieldIndex = this.methodParameterList.indexOf(Validator.FIELD_PARAM);
+
+        Object indexedList[] = field.getIndexedProperty(paramValues[beanIndex]);
+
+        // Set current iteration object to the parameter array
+        paramValues[beanIndex] = indexedList[pos];
+
+        // Set field clone with the key modified to represent
+        // the current field
+        Field indexedField = (Field) field.clone();
+        indexedField.setKey(
+            ValidatorUtils.replace(
+                indexedField.getKey(),
+                Field.TOKEN_INDEXED,
+                "[" + pos + "]"));
+
+        paramValues[fieldIndex] = indexedField;
+    }
+    
+    /**
+     * If the result object is a <code>Boolean</code>, it will return its 
+     * value.  If not it will return <code>false</code> if the object is 
+     * <code>null</code> and <code>true</code> if it isn't.
+     */
+    private boolean isValid(Object result) {
+        if (result instanceof Boolean) {
+            Boolean valid = (Boolean) result;
+            return valid.booleanValue();
+        } else {
+            return (result != null);
+        }
+    }
+
+    /**
+     * Returns the ClassLoader set in the Validator contained in the parameter
+     * Map.
+     */
+    private ClassLoader getClassLoader(Map params) {
+        Validator v = (Validator) params.get(Validator.VALIDATOR_PARAM);
+        return v.getClassLoader();
+    }
+    
+    /**
+     * Returns the onlyReturnErrors setting in the Validator contained in the 
+     * parameter Map.
+     */
+    private boolean onlyReturnErrors(Map params) {
+        Validator v = (Validator) params.get(Validator.VALIDATOR_PARAM);
+        return v.getOnlyReturnErrors();
     }
 
 }

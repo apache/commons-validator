@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.32 2004/01/17 21:37:20 dgraham Exp $
- * $Revision: 1.32 $
- * $Date: 2004/01/17 21:37:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.33 2004/02/01 02:25:08 dgraham Exp $
+ * $Revision: 1.33 $
+ * $Date: 2004/02/01 02:25:08 $
  *
  * ====================================================================
  *
@@ -62,21 +62,12 @@
 package org.apache.commons.validator;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.StringTokenizer;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.validator.util.ValidatorUtils;
 
 /**
  * Validations are processed by the validate method. An instance of
@@ -396,357 +387,6 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Executes the given ValidatorAction and all ValidatorActions that it 
-     * depends on.
-     * @return true if the validation succeeded.
-     */
-    private boolean validateFieldForRule(
-            Field field,
-            ValidatorAction va,
-            ValidatorResults results,
-            Map actions,
-            int pos)
-            throws ValidatorException {
-
-        ValidatorResult result = results.getValidatorResult(field.getKey());
-        if (result != null && result.containsAction(va.getName())) {
-            return result.isValid(va.getName());
-        }
-
-        if (!this.runDependentValidators(field, va, results, actions, pos)) {
-            return false;
-        }
-
-        return this.executeValidationMethod(field, va, results, pos);
-    }
-
-    /**
-     * Calls all of the validators that this validator depends on.
-     * @param field
-     * @param va
-     * @param results
-     * @param actions
-     * @param pos
-     * @return true if all of the dependent validations passed.
-     * @throws ValidatorException
-     */
-    private boolean runDependentValidators(
-            Field field,
-            ValidatorAction va,
-            ValidatorResults results,
-            Map actions,
-            int pos)
-            throws ValidatorException {
-
-        if (va.getDepends() == null) {
-            return true;
-        }
-
-        StringTokenizer st = new StringTokenizer(va.getDepends(), ",");
-        while (st.hasMoreTokens()) {
-            String depend = st.nextToken().trim();
-
-            ValidatorAction action = (ValidatorAction) actions.get(depend);
-            if (action == null) {
-                log.error(
-                        "No ValidatorAction named "
-                        + depend
-                        + " found for field "
-                        + field.getProperty());
-
-                return false;
-            }
-
-            if (!this.validateFieldForRule(field, action, results, actions, pos)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Dynamically runs the validation method for this validator and returns 
-     * true if the data is valid.
-     * @param field
-     * @param va
-     * @param results
-     * @param pos
-     * @throws ValidatorException
-     */
-    private boolean executeValidationMethod(
-        Field field,
-        ValidatorAction va,
-        ValidatorResults results,
-        int pos)
-        throws ValidatorException {
-
-        // Add these two Objects to the resources since they reference
-        // the current validator action and field
-        this.setParameter(VALIDATOR_ACTION_PARAM, va);
-        this.setParameter(FIELD_PARAM, field);
-
-        try {
-            Class validationClass;
-            try {
-                validationClass = getClassLoader().loadClass(va.getClassname());
-            } catch (ClassNotFoundException e) {
-                throw new ValidatorException(e.getMessage());
-            }
-
-            List params = va.getMethodParamsList();
-
-            Class[] paramClass = this.getParameterClasses(params);
-            Object[] paramValue = this.getParameterValues(params);
-
-            Method validationMethod;
-            try {
-                validationMethod = validationClass.getMethod(va.getMethod(), paramClass);
-            } catch (NoSuchMethodException e) {
-                throw new ValidatorException(e.getMessage());
-            }
-
-            // If the method is static, we don't need an instance of the class
-            // to call the method.
-            if (!Modifier.isStatic(validationMethod.getModifiers())) {
-                this.storeClassInAction(validationClass, va);
-            }
-
-            if (field.isIndexed()) {
-                this.handleIndexedField(field, pos, params, paramValue);
-            }
-
-            Object result = null;
-            try {
-                result = validationMethod.invoke(va.getClassnameInstance(), paramValue);
-            } catch (IllegalArgumentException e) {
-                throw new ValidatorException(e.getMessage());
-            } catch (IllegalAccessException e) {
-                throw new ValidatorException(e.getMessage());
-            } catch (InvocationTargetException e) {
-                
-                if (e.getTargetException() instanceof Exception) {
-                    throw (Exception) e.getTargetException();
-                
-                } else if (e.getTargetException() instanceof Error) {
-                    throw (Error) e.getTargetException();
-                }
-            }
-
-            boolean valid = this.isValid(result);
-            if (!valid || (valid && !this.onlyReturnErrors)) {
-                results.add(field, va.getName(), valid, result);
-            }
-
-            if (!valid) {
-                return false;
-            }
-
-        // TODO This catch block remains for backward compatibility.  Remove
-        // this for Validator 2.0 when exception scheme changes.
-        } catch (Exception e) {
-            if (e instanceof ValidatorException) {
-                throw (ValidatorException) e;
-            }
-            
-            log.error(
-                "Unhandled exception thrown during validation: " + e.getMessage(),
-                e);
-
-            results.add(field, va.getName(), false);
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Converts a List of parameter class names into their Class objects.
-     * @param paramNames
-     * @return An array containing the Class object for each parameter.  This 
-     * array is in the same order as the given List and is suitable for passing 
-     * to the validation method.
-     * @throws ValidatorException if a class cannot be loaded.
-     */
-    private Class[] getParameterClasses(List paramNames)
-        throws ValidatorException {
-
-        Class[] paramClass = new Class[paramNames.size()];
-
-        for (int i = 0; i < paramNames.size(); i++) {
-            String paramClassName = (String) paramNames.get(i);
-
-            // There were problems calling getClass on paramValue[]
-            try {
-                paramClass[i] = this.getClassLoader().loadClass(paramClassName);
-            } catch (ClassNotFoundException e) {
-                throw new ValidatorException(e.getMessage());
-            }
-        }
-
-        return paramClass;
-    }
-
-    /**
-     * Converts a List of parameter class names into their values contained in 
-     * the parameters Map.
-     * @param paramNames
-     * @return An array containing the value object for each parameter.  This 
-     * array is in the same order as the given List and is suitable for passing 
-     * to the validation method.
-     */
-    private Object[] getParameterValues(List paramNames) {
-
-        Object[] paramValue = new Object[paramNames.size()];
-
-        for (int i = 0; i < paramNames.size(); i++) {
-            String paramClassName = (String) paramNames.get(i);
-            paramValue[i] = this.getParameterValue(paramClassName);
-        }
-
-        return paramValue;
-    }
-
-    /**
-     * If the given action doesn't already have an instance of the class, 
-     * store a new instance in the action.
-     * @param validationClass The pluggable validation class to store.
-     * @param va The ValidatorAction to store the object in.
-     */
-    private void storeClassInAction(Class validationClass, ValidatorAction va) {
-        try {
-            if (va.getClassnameInstance() == null) {
-                va.setClassnameInstance(validationClass.newInstance());
-            }
-        } catch(Exception ex) {
-            log.error(
-                    "Couldn't load instance "
-                    + "of class "
-                    + va.getClassname()
-                    + ".  "
-                    + ex.getMessage());
-        }
-    }
-
-    /**
-     * Modifies the paramValue array with indexed fields.
-     *
-     * @param field
-     * @param pos
-     * @param params
-     * @param paramValue
-     */
-    private void handleIndexedField(
-            Field field,
-            int pos,
-            List params,
-            Object[] paramValue)
-            throws ValidatorException {
-
-        int beanIndexPos = params.indexOf(BEAN_PARAM);
-        int fieldIndexPos = params.indexOf(FIELD_PARAM);
-
-        Object indexedList[] = this.getIndexedProperty(field);
-
-        // Set current iteration object to the parameter array
-        paramValue[beanIndexPos] = indexedList[pos];
-
-        // Set field clone with the key modified to represent
-        // the current field
-        Field indexedField = (Field) field.clone();
-        indexedField.setKey(
-                ValidatorUtils.replace(
-                        indexedField.getKey(),
-                        Field.TOKEN_INDEXED,
-                        "[" + pos + "]"));
-
-        paramValue[fieldIndexPos] = indexedField;
-    }
-
-    /**
-     * Run the validations on a given field, modifying the passed
-     * ValidatorResults to add in any new errors found.  Run all the 
-     * validations in the depends clause over each item in turn, returning 
-     * when the first one fails.
-     */
-    private void validateField(Field field, ValidatorResults allResults)
-        throws ValidatorException {
-
-        int numberOfFieldsToValidate =
-                field.isIndexed() ? this.getIndexedProperty(field).length : 1;
-
-        Map actions = this.resources.getValidatorActions();
-
-        for (int fieldNumber = 0; fieldNumber < numberOfFieldsToValidate; fieldNumber++) {
-            StringTokenizer st = new StringTokenizer(field.getDepends(), ",");
-            while (st.hasMoreTokens()) {
-                String depend = st.nextToken().trim();
-
-                ValidatorAction action = (ValidatorAction) actions.get(depend);
-                if (action == null) {
-                    log.error(
-                            "No ValidatorAction named "
-                            + depend
-                            + " found for field "
-                            + field.getProperty());
-
-                    return;
-                }
-
-                ValidatorResults results = new ValidatorResults();
-                boolean good =
-                        validateFieldForRule(field, action, results, actions, fieldNumber);
-
-                allResults.merge(results);
-
-                if (!good) {
-                    return;
-                }
-            }
-        }
-    }
-
-    /**
-     * Returns an indexed property from the object we're validating.
-     *
-     * @param field This field.getIndexedListProperty() will be found in the object we're
-     * currently validating
-     * @throws ValidatorException If there's an error looking up the property or, the
-     * property found is not indexed.
-     */
-    private Object[] getIndexedProperty(Field field) throws ValidatorException {
-        Object indexedProperty = null;
-
-        try {
-            indexedProperty =
-                    PropertyUtils.getProperty(
-                            this.getParameterValue(BEAN_PARAM),
-                            field.getIndexedListProperty());
-
-        } catch(IllegalAccessException e) {
-            throw new ValidatorException(e.getMessage());
-        } catch(InvocationTargetException e) {
-            throw new ValidatorException(e.getMessage());
-        } catch(NoSuchMethodException e) {
-            throw new ValidatorException(e.getMessage());
-        }
-
-        if (indexedProperty instanceof Collection) {
-            return ((Collection) indexedProperty).toArray();
-
-        } else if (indexedProperty.getClass().isArray()) {
-            return (Object[]) indexedProperty;
-
-        } else {
-            throw new ValidatorException(
-                    "Non-collection, non-array indexed property "
-                    + field.getKey()
-                    + " found");
-        }
-
-    }
-
-    /**
      * Performs validations based on the configured resources.
      *
      * @return The <code>Map</code> returned uses the property of the
@@ -754,7 +394,6 @@ public class Validator implements Serializable {
      * field had.
      */
     public ValidatorResults validate() throws ValidatorException {
-        ValidatorResults results = new ValidatorResults();
         Locale locale = (Locale) this.getParameterValue(LOCALE_PARAM);
 
         if (locale == null) {
@@ -765,36 +404,13 @@ public class Validator implements Serializable {
 
         Form form = this.resources.getForm(locale, this.formName);
         if (form != null) {
-            Iterator fields = form.getFields().iterator();
-            while (fields.hasNext()) {
-                Field field = (Field) fields.next();
-
-                if ((field.getPage() <= page) && (field.getDepends() != null)) {
-                    this.validateField(field, results);
-                }
-            }
-
+            return form.validate(
+                this.parameters,
+                this.resources.getValidatorActions(),
+                this.page);
         }
 
-        return results;
-    }
-
-    /**
-     * Returns if the result if valid.  If the
-     * result object is <code>Boolean</code>, then it will
-     * the value.  If the result object isn't <code>Boolean</code>,
-     * then it will return <code>false</code> if the result
-     * object is <code>null</code> and <code>true</code> if it isn't.
-     */
-    private boolean isValid(Object result) {
-
-        if (result instanceof Boolean) {
-            Boolean valid = (Boolean) result;
-            return valid.booleanValue();
-        } else {
-            return (result != null);
-        }
-
+        return new ValidatorResults();
     }
 
     /**
