@@ -24,6 +24,9 @@
   <url>http://jakarta.apache.org/commons/validator/</url>
   <gumpRepositoryId>jakarta</gumpRepositoryId>
 
+  <issueTrackingUrl>http://nagoya.apache.org/bugzilla/</issueTrackingUrl>
+  <siteAddress>jakarta.apache.org</siteAddress>
+  
   <repository>
      <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/validator</connection>
      <developerConnection>scm:cvs:pserver:${cvs.developer.id}@${cvs.developer.host}:/home/cvs:jakarta-commons/validator</developerConnection>
