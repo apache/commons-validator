@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.18 2004/04/11 06:47:22 dgraham Exp $
- * $Revision: 1.18 $
- * $Date: 2004/04/11 06:47:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.19 2004/06/08 14:57:42 husted Exp $
+ * $Revision: 1.19 $
+ * $Date: 2004/06/08 14:57:42 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -187,6 +187,7 @@ public class Form implements Serializable {
         throws ValidatorException {
 
         ValidatorResults results = new ValidatorResults();
+        params.put(Validator.VALIDATOR_RESULTS_PARAM, results);
 
         Iterator fields = this.lFields.iterator();
         while (fields.hasNext()) {

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.35 2004/04/08 23:05:39 dgraham Exp $
- * $Revision: 1.35 $
- * $Date: 2004/04/08 23:05:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.36 2004/06/08 14:57:42 husted Exp $
+ * $Revision: 1.36 $
+ * $Date: 2004/06/08 14:57:42 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -46,7 +46,24 @@ public class Validator implements Serializable {
      */
     public static final String VALIDATOR_ACTION_PARAM =
             "org.apache.commons.validator.ValidatorAction";
+            
+    /**
+     * Resources key the <code>ValidatorResults</code> is stored under.
+     * This will be automatically passed into a validation method
+     * with the current <code>ValidatorResults</code> if it is
+     * specified in the method signature.
+     */
+    public static final String VALIDATOR_RESULTS_PARAM =
+            "org.apache.commons.validator.ValidatorResults";        
 
+    /**
+     * Resources key the <code>Form</code> is stored under.
+     * This will be automatically passed into a validation method
+     * with the current <code>Form</code> if it is
+     * specified in the method signature.
+     */
+    public static final String FORM_PARAM = "org.apache.commons.validator.Form";
+            
     /**
      * Resources key the <code>Field</code> is stored under.
      * This will be automatically passed into a validation method
@@ -63,7 +80,7 @@ public class Validator implements Serializable {
      */
     public static final String VALIDATOR_PARAM =
             "org.apache.commons.validator.Validator";
-
+            
     /**
      * Resources key the <code>Locale</code> is stored.
      * This will be used to retrieve the appropriate
@@ -281,6 +298,7 @@ public class Validator implements Serializable {
 
         Form form = this.resources.getForm(locale, this.formName);
         if (form != null) {
+            this.setParameter(FORM_PARAM, this);
             return form.validate(
                 this.parameters,
                 this.resources.getValidatorActions(),
