@@ -1,31 +1,31 @@
-# $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/build.properties.sample,v 1.8 2003/08/23 02:36:49 rleland Exp $
-# $Revision: 1.8 $
-# $Date: 2003/08/23 02:36:49 $
+# $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/build.properties.sample,v 1.9 2003/10/15 04:15:40 rleland Exp $
+# $Revision: 1.9 $
+# $Date: 2003/10/15 04:15:40 $
 # -----------------------------------------------------------------------------
 # This is an example "build.properties" file.  Make any changes you need, 
 # and rename this file to "build.properties" in the same directory that 
 # contains the "build.xml" file.
 # -----------------------------------------------------------------------------
 apache.dir=D:/Java/Programs/Apache
-# The JAR file containing version 1.0 (or later) of the Beanutils package
+# The JAR file containing version 1.6.1 (or later) of the Beanutils package
 # from the Jakarta Commons project.
 commons-beanutils.jar=../beanutils/dist/commons-beanutils.jar
 
-# The JAR file containing version 1.0 (or later) of the Collections package
+# The JAR file containing version 2.1 (or later) of the Collections package
 # from the Jakarta Commons project.
 commons-collections.jar=../collections/dist/commons-collections.jar
 
-# The JAR file containing version 1.0 (or later) of the Digester package
+# The JAR file containing version 1.5 (or later) of the Digester package
 # from the Jakarta Commons project.
 commons-digester.jar=../digester/dist/commons-digester.jar
 
-# The JAR file containing version 1.0 (or later) of the Logging package
+# The JAR file containing version 1.0.3 (or later) of the Logging package
 # from the Jakarta Commons project.
 commons-logging.jar=../logging/dist/commons-logging.jar
 
-# The JAR file containing version 2.06 (or later) of 
+# The JAR file containing version 2.07 (or later) of 
 # the the Jakarta ORO project.
-oro.jar=${apache.dir}/jakarta-oro-2.0.6/jakarta-oro-2.0.6.jar
+oro.jar=${apache.dir}/jakarta-oro-2.0.7/jakarta-oro-2.0.7.jar
 
 # The JAR file containing version 3.8.1 (or later) of
 # JUnit Unit Testing (http://www.junit.org)
@@ -35,7 +35,7 @@ junit.jar=D:/java/Lib/junit3.8.1/junit.jar
 xerces.jar=${apache.dir}/xerces-1_4_2/xerces.jar
 #############################Maven Variables #######################################
 # CVS Start Change Log date
-cvs.start=17 April 2003
+maven.changelog.range=2000
 
 
 # If you are using ssh tunneling & have a .cvspass file setup
