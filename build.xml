@@ -1,7 +1,6 @@
 <!--
-   You will need Ant setup properly and have the commons-cactus-ant.jar in the classpath.  The build.properties file 
-   will need to be edited to point to some jar files, java.home, and the application servers you want to 
-   run the tests on.
+   You will need Ant setup properly to run this script.  The "build.properties.sample" file 
+   will need to be edited to point to some jar files and renamed to "build.properties".
 -->
 <project name="Commons Validator" default="jar" basedir=".">
    <!-- set global properties for this build -->
@@ -46,7 +45,8 @@
       <!-- Create the build directory structure used by compile -->
       <mkdir dir="${build}/${share}"/>
    </target>
-                                                             
+
+   <!-- Compile shared source -->
    <target name="compile" depends="prepare">
       <!-- Compile the java code from ${src}/${share} into ${build}/${share} -->
       <javac srcdir="${src}/${share}" 
@@ -55,6 +55,7 @@
       </javac>
    </target>
    
+   <!-- Create distribution jar of shared source -->
    <target name="jar" depends="compile">
       <!-- Create the ${dist}/lib directory -->
       <mkdir dir="${dist}" />
@@ -65,6 +66,7 @@
            includes="${package.root}/**"/>
    </target>
    
+   <!-- Create Javadocs -->
    <target name="javadocs" depends="jar" description="Creates the API documentation">
       <mkdir dir="${build.javadocs}"/>
       <javadoc packagenames="org.apache.commons.validator.*"
