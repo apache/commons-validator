@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.24 2003/08/26 16:08:50 rleland Exp $
- * $Revision: 1.24 $
- * $Date: 2003/08/26 16:08:50 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.25 2003/09/28 18:47:32 dgraham Exp $
+ * $Revision: 1.25 $
+ * $Date: 2003/09/28 18:47:32 $
  *
  * ====================================================================
  *
@@ -76,14 +76,15 @@ import org.apache.commons.validator.util.ValidatorUtils;
 
 /**
  * <p>
- * This contains the list of pluggable validators to run on a field and any message
- * information and variables to perform the validations and generate error
- * messages.  Instances of this class are configured with a &lt;field&gt; xml element.
+ * This contains the list of pluggable validators to run on a field and any 
+ * message information and variables to perform the validations and generate 
+ * error messages.  Instances of this class are configured with a 
+ * &lt;field&gt; xml element.
  * </p>
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.24 $ $Date: 2003/08/26 16:08:50 $
+ * @version $Revision: 1.25 $ $Date: 2003/09/28 18:47:32 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -122,6 +123,7 @@ public class Field implements Cloneable, Serializable {
     protected String depends = null;
 
     protected int page = 0;
+    
     protected int fieldOrder = 0;
 
     /**
@@ -130,19 +132,20 @@ public class Field implements Cloneable, Serializable {
     protected FastHashMap hDependencies = new FastHashMap();
 
     /**
-     * Internal representation of this.depends String as a List.  This List gets updated
-     * whenever setDepends() gets called.  This List is synchronized so a call to
-     * setDepends() (which clears the List) won't interfere with a call to
-     * isDependency().
+     * Internal representation of this.depends String as a List.  This List 
+     * gets updated whenever setDepends() gets called.  This List is 
+     * synchronized so a call to setDepends() (which clears the List) won't 
+     * interfere with a call to isDependency().
      */
     private List dependencyList = Collections.synchronizedList(new ArrayList());
 
     protected FastHashMap hVars = new FastHashMap();
+    
     protected FastHashMap hMsgs = new FastHashMap();
 
     /**
-     * Holds Maps of arguments.  args[0] returns the Map for the first replacement
-     * argument.
+     * Holds Maps of arguments.  args[0] returns the Map for the first 
+     * replacement argument.
      * @since Validator 1.1
      */
     protected Map[] args = new Map[10];
@@ -334,10 +337,11 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Gets the default <code>Arg</code> object at the given position.  If the key
-     * finds a <code>null</code> value then the default value will try to be retrieved.
-     * @param key The name the Arg is stored under.  If not found, the default Arg for
-     * the given position (if any) will be retrieved.
+     * Gets the <code>Arg</code> object at the given position.  If the key
+     * finds a <code>null</code> value then the default value will be 
+     * retrieved.
+     * @param key The name the Arg is stored under.  If not found, the default 
+     * Arg for the given position (if any) will be retrieved.
      * @param position The Arg number to find.
      * @return The Arg with the given name and position or null if not found.
      * @since Validator 1.1
@@ -349,7 +353,8 @@ public class Field implements Cloneable, Serializable {
 
         Arg arg = (Arg) args[position].get(key);
 
-        // Didn't find default arg so exit, otherwise we would get into infinite recursion
+        // Didn't find default arg so exit, otherwise we would get into 
+        // infinite recursion
         if ((arg == null) && key.equals(DEFAULT_ARG)) {
             return null;
         }
@@ -375,8 +380,9 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Gets the arg0 <code>Arg</code> object based on the key passed in.  If the key
-     * finds a <code>null</code> value then the default value will try to be retrieved.
+     * Gets the arg0 <code>Arg</code> object based on the key passed in.  If 
+     * the key finds a <code>null</code> value then the default value will 
+     * be retrieved.
      * @deprecated Use getArg(String, 0) instead.
      */
     public Arg getArg0(String key) {
@@ -542,7 +548,8 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * If there is a value specified for the indexedProperty field then
-     * <code>true</code> will be returned.  Otherwise it will be <code>false</code>.
+     * <code>true</code> will be returned.  Otherwise it will be 
+     * <code>false</code>.
      */
     public boolean isIndexed() {
         return ((indexedListProperty != null && indexedListProperty.length() > 0));
@@ -653,8 +660,8 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Replace the arg <code>Collection</code> key value with the key/value pairs
-     * passed in.
+     * Replace the arg <code>Collection</code> key value with the key/value 
+     * pairs passed in.
      */
     private void processArg(String key, String replaceValue) {
         for (int i = 0; i < this.args.length; i++) {
@@ -692,8 +699,8 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Gets an unmodifiable <code>List</code> of the dependencies in the same order
-     * they were defined in parameter passed to the setDepends() method.
+     * Gets an unmodifiable <code>List</code> of the dependencies in the same 
+     * order they were defined in parameter passed to the setDepends() method.
      */
     public List getDependencyList() {
         return Collections.unmodifiableList(this.dependencyList);
