@@ -1,7 +1,7 @@
 
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateRequired.js,v 1.6 2003/10/22 07:20:57 rleland Exp $
-  //$Revision: 1.6 $
-  //$Date: 2003/10/22 07:20:57 $
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateRequired.js,v 1.7 2003/10/31 06:20:34 rleland Exp $
+  //$Revision: 1.7 $
+  //$Date: 2003/10/31 06:20:34 $
 
     function validateRequired(form) {
         var isValid = true;
@@ -16,6 +16,7 @@
             if (field.type == 'text' ||
                 field.type == 'textarea' ||
                 field.type == 'file' ||
+                field.type == 'checkbox' ||
                 field.type == 'select-one' ||
                 field.type == 'password') {
 
@@ -25,6 +26,10 @@
                     var si = field.selectedIndex;
                     if (si >= 0) {
                         value = field.options[si].value;
+                    }
+                } else if (field.type == 'checkbox') {
+                    if (field.checked) {
+                        value = field.value;
                     }
                 } else {
                     value = field.value;
