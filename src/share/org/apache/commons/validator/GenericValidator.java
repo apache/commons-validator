@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.16 2003/04/30 19:04:23 rleland Exp $
- * $Revision: 1.16 $
- * $Date: 2003/04/30 19:04:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.17 2003/04/30 21:17:48 rleland Exp $
+ * $Revision: 1.17 $
+ * $Date: 2003/04/30 21:17:48 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
  * @author Robert Leland
- * @version $Revision: 1.16 $ $Date: 2003/04/30 19:04:23 $
+ * @version $Revision: 1.17 $ $Date: 2003/04/30 21:17:48 $
  */
 public class GenericValidator implements Serializable {
 
@@ -87,6 +87,10 @@ public class GenericValidator implements Serializable {
     */
    public final static String REGEXP_DELIM = ValidatorUtil.REGEXP_DELIMITER;
 
+   /**
+    * UrlValidator used in wrapper method, lazy initialization.
+    */
+   private static UrlValidator urlValidator = null;
    /**
     * <p>Checks if the field isn't null and length of the field is greater than zero not
     * including whitespace.</p>
@@ -370,6 +374,4 @@ public class GenericValidator implements Serializable {
    protected static String getDelimittedRegexp(String regexp) {
       return ValidatorUtil.getDelimitedRegExp(regexp);
    }
-
-   static UrlValidator urlValidator = null;
 }
