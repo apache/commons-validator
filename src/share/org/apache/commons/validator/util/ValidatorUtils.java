@@ -1,7 +1,7 @@
 /*
- * $Id: ValidatorUtils.java 153692 2005-02-14 01:33:31Z niallp $
+ * $Id$
  * $Rev$
- * $Date: 2005-02-13 18:33:31 -0700 (Sun, 13 Feb 2005) $
+ * $Date$
  *
  * ====================================================================
  * Copyright 2001-2005 The Apache Software Foundation

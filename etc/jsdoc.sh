@@ -1,7 +1,7 @@
 #!/bin/sh
 #  $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/etc/jsdoc.sh,v 1.4 2004/05/21 14:28:12 rleland Exp $
-#  $Revision: 1.4 $
-#  $Date: 2004/05/21 14:28:12 $
+#  $Revision$
+#  $Date$
 # 
 #  ====================================================================
 #  Copyright  2004 The Apache Software Foundation
