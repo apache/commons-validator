@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.13 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.13 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.14 2004/04/09 00:16:39 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2004/04/09 00:16:39 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -35,9 +35,7 @@ import org.apache.commons.logging.LogFactory;
  * correctly typed class based on the validation performed.
  */
 public class GenericTypeValidator implements Serializable {
-    /*
-    * Logger.
-    */
+   
    private static Log log = LogFactory.getLog(GenericTypeValidator.class);
 
     /**
