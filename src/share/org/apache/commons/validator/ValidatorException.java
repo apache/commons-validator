@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorException.java,v 1.5 2003/08/21 19:40:13 rleland Exp $
- * $Revision: 1.5 $
- * $Date: 2003/08/21 19:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorException.java,v 1.6 2003/08/21 21:43:05 rleland Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/08/21 21:43:05 $
  *
  * ====================================================================
  *
@@ -62,31 +62,31 @@
 package org.apache.commons.validator;
 
 /**
- * <p>Exception for the Validator Framework.  All other 
- * <code>Exception</code>s thrown while the 
- * <code>Validator</code>'s validate method is being 
- * called will be considered errors.  A 
+ * <p>Exception for the Validator Framework.  All other
+ * <code>Exception</code>s thrown while the
+ * <code>Validator</code>'s validate method is being
+ * called will be considered errors.  A
  * <code>ValidatorException</code> will be thrown.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2003/08/21 19:40:13 $
+ * @version $Revision: 1.6 $ $Date: 2003/08/21 21:43:05 $
  */
 public class ValidatorException extends Exception {
 
-	/**
-	 * Constructs an Exception with no specified detail message.
-	 */
-	public ValidatorException() {
+    /**
+     * Constructs an Exception with no specified detail message.
+     */
+    public ValidatorException() {
         super();
-	}
+    }
 
-	/**
-	 * Constructs an Exception with the specified detail message.
-	 * 
-	 * @param	message The error message.
-	 */
-	public ValidatorException(String message) {
-		super(message);
-	}
+    /**
+     * Constructs an Exception with the specified detail message.
+     *
+     * @param    message The error message.
+     */
+    public ValidatorException(String message) {
+        super(message);
+    }
 
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/DateValidator.java,v 1.3 2003/08/21 19:40:13 rleland Exp $
- * $Revision: 1.3 $
- * $Date: 2003/08/21 19:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/DateValidator.java,v 1.4 2003/08/21 21:43:05 rleland Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/08/21 21:43:05 $
  *
  * ====================================================================
  *
@@ -69,7 +69,7 @@ import java.util.Locale;
 /**
  * <p>Perform date validations.</p>
  * <p>
- * This class is a Singleton; you can retrieve the instance via the 
+ * This class is a Singleton; you can retrieve the instance via the
  * getInstance() method.
  * </p>
  *
@@ -78,99 +78,99 @@ import java.util.Locale;
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
  * @since Validator 1.1
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class DateValidator {
 
-	/**
-	 * Singleton instance of this class.
-	 */
-	private static final DateValidator instance = new DateValidator();
+    /**
+     * Singleton instance of this class.
+     */
+    private static final DateValidator instance = new DateValidator();
 
-	/**
-	 * Returns the Singleton instance of this validator.
-	 */
-	public static DateValidator getInstance() {
-		return instance;
-	}
+    /**
+     * Returns the Singleton instance of this validator.
+     */
+    public static DateValidator getInstance() {
+        return instance;
+    }
 
-	/**
-	 * Protected constructor for subclasses to use.
-	 */
-	protected DateValidator() {
-		super();
-	}
+    /**
+     * Protected constructor for subclasses to use.
+     */
+    protected DateValidator() {
+        super();
+    }
 
-	/**
-	 * <p>Checks if the field is a valid date.  The pattern is used with
-	 * <code>java.text.SimpleDateFormat</code>.  If strict is true, then the
-	 * length will be checked so '2/12/1999' will not pass validation with
-	 * the format 'MM/dd/yyyy' because the month isn't two digits.
-	 * The setLenient method is set to <code>false</code> for all.</p>
-	 *
-	 * @param value The value validation is being performed on.
-	 * @param datePattern The pattern passed to <code>SimpleDateFormat</code>.
-	 * @param strict Whether or not to have an exact match of the datePattern.
-	 */
-	public boolean isValid(String value, String datePattern, boolean strict) {
+    /**
+     * <p>Checks if the field is a valid date.  The pattern is used with
+     * <code>java.text.SimpleDateFormat</code>.  If strict is true, then the
+     * length will be checked so '2/12/1999' will not pass validation with
+     * the format 'MM/dd/yyyy' because the month isn't two digits.
+     * The setLenient method is set to <code>false</code> for all.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param datePattern The pattern passed to <code>SimpleDateFormat</code>.
+     * @param strict Whether or not to have an exact match of the datePattern.
+     */
+    public boolean isValid(String value, String datePattern, boolean strict) {
 
-		if (value == null
-			|| datePattern == null
-			|| datePattern.length() <= 0) {
-                
-			return false;
-		}
+        if (value == null
+                || datePattern == null
+                || datePattern.length() <= 0) {
 
-		SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
-		formatter.setLenient(false);
+            return false;
+        }
 
-		try {
-			formatter.parse(value);
-		} catch (ParseException e) {
-			return false;
-		}
+        SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+        formatter.setLenient(false);
 
-		if (strict && (datePattern.length() != value.length())) {
-			return false;
-		}
+        try {
+            formatter.parse(value);
+        } catch(ParseException e) {
+            return false;
+        }
 
-		return true;
-	}
+        if (strict && (datePattern.length() != value.length())) {
+            return false;
+        }
 
-	/**
-	 * <p>Checks if the field is a valid date.  The <code>Locale</code> is
-	 * used with <code>java.text.DateFormat</code>.  The setLenient method
-	 * is set to <code>false</code> for all.</p>
-	 *
-	 * @param value The value validation is being performed on.
-	 * @param locale The locale to use for the date format, defaults to the default 
-	 * system default if null.
-	 */
-	public boolean isValid(String value, Locale locale) {
+        return true;
+    }
 
-		if (value == null) {
-			return false;
-		}
+    /**
+     * <p>Checks if the field is a valid date.  The <code>Locale</code> is
+     * used with <code>java.text.DateFormat</code>.  The setLenient method
+     * is set to <code>false</code> for all.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param locale The locale to use for the date format, defaults to the default
+     * system default if null.
+     */
+    public boolean isValid(String value, Locale locale) {
 
-		DateFormat formatter = null;
-		if (locale != null) {
-			formatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-		} else {
-			formatter =
-				DateFormat.getDateInstance(
-					DateFormat.SHORT,
-					Locale.getDefault());
-		}
+        if (value == null) {
+            return false;
+        }
 
-		formatter.setLenient(false);
+        DateFormat formatter = null;
+        if (locale != null) {
+            formatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+        } else {
+            formatter =
+                    DateFormat.getDateInstance(
+                            DateFormat.SHORT,
+                            Locale.getDefault());
+        }
 
-		try {
-			formatter.parse(value);
-		} catch (ParseException e) {
-			return false;
-		}
+        formatter.setLenient(false);
 
-		return true;
-	}
+        try {
+            formatter.parse(value);
+        } catch(ParseException e) {
+            return false;
+        }
+
+        return true;
+    }
 
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/Constant.java,v 1.7 2003/08/21 19:40:13 rleland Exp $
- * $Revision: 1.7 $
- * $Date: 2003/08/21 19:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/Constant.java,v 1.8 2003/08/21 21:43:05 rleland Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/08/21 21:43:05 $
  *
  * ====================================================================
  *
@@ -76,7 +76,7 @@ import java.io.Serializable;
  * ex: &lt;constant name="zip" value="^\d{5}$" /&gt; mask="${zip}" </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2003/08/21 19:40:13 $
+ * @version $Revision: 1.8 $ $Date: 2003/08/21 21:43:05 $
  * @deprecated This class is no longer needed.
  */
 public class Constant implements Serializable {
@@ -96,7 +96,7 @@ public class Constant implements Serializable {
      * @return the name o fthe constant.
      */
     public String getName() {
-       return name;
+        return name;
     }
 
     /**
@@ -104,7 +104,7 @@ public class Constant implements Serializable {
      * @param name sets the name of the constant.
      */
     public void setName(String name) {
-       this.name = name;
+        this.name = name;
     }
 
     /**
@@ -112,7 +112,7 @@ public class Constant implements Serializable {
      * @return the value of the constant.
      */
     public String getValue() {
-       return value;
+        return value;
     }
 
     /**
@@ -120,7 +120,7 @@ public class Constant implements Serializable {
      * @param value the value of the constant.
      */
     public void setValue(String value) {
-       this.value = value;
+        this.value = value;
     }
 
     /**
@@ -128,15 +128,15 @@ public class Constant implements Serializable {
      * @return the string representation of the object.
      */
     public String toString() {
-       StringBuffer results = new StringBuffer();
+        StringBuffer results = new StringBuffer();
 
-       results.append("Constant: name=");
-       results.append(name);
-       results.append("  value=");
-       results.append(value);
-       results.append("\n");
+        results.append("Constant: name=");
+        results.append(name);
+        results.append("  value=");
+        results.append(value);
+        results.append("\n");
 
-       return results.toString();
+        return results.toString();
     }
 
 }

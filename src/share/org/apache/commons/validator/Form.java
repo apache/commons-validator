@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.10 2003/08/21 19:40:13 rleland Exp $
- * $Revision: 1.10 $
- * $Date: 2003/08/21 19:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.11 2003/08/21 21:43:05 rleland Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/08/21 21:43:05 $
  *
  * ====================================================================
  *
@@ -72,30 +72,30 @@ import org.apache.commons.collections.FastHashMap;
 
 /**
  * <p>
- * This contains a set of validation rules for a form/JavaBean.  The information is 
- * contained in a list of <code>Field</code> objects.  Instances of this class are 
+ * This contains a set of validation rules for a form/JavaBean.  The information is
+ * contained in a list of <code>Field</code> objects.  Instances of this class are
  * configured with a &lt;form&gt; xml element.
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.10 $ $Date: 2003/08/21 19:40:13 $
+ * @version $Revision: 1.11 $ $Date: 2003/08/21 21:43:05 $
  */
 public class Form implements Serializable {
 
     /**
-     * The name/key the set of validation rules is 
+     * The name/key the set of validation rules is
      * stored under.
      */
     protected String name = null;
 
     /**
-     * List of <code>Field</code>s.  Used to maintain 
-     * the order they were added in although individual 
-     * <code>Field</code>s can be retrieved using 
+     * List of <code>Field</code>s.  Used to maintain
+     * the order they were added in although individual
+     * <code>Field</code>s can be retrieved using
      * <code>Map</code> of <code>Field</code>s.
      */
     protected List lFields = new ArrayList();
-    
+
     /**
      * Map of <code>Field</code>s keyed on their property value.
      */
@@ -105,14 +105,14 @@ public class Form implements Serializable {
      * Gets the name/key of the set of validation rules.
      */
     public String getName() {
-       return name;	
+        return name;
     }
 
     /**
      * Sets the name/key of the set of validation rules.
      */
     public void setName(String name) {
-       this.name = name;	
+        this.name = name;
     }
 
     /**
@@ -124,35 +124,35 @@ public class Form implements Serializable {
     }
 
     /**
-     * A <code>List</code> of <code>Field</code>s is returned as an 
+     * A <code>List</code> of <code>Field</code>s is returned as an
      * unmodifiable <code>List</code>.
      */
     public List getFields() {
-    	return Collections.unmodifiableList(lFields);
+        return Collections.unmodifiableList(lFields);
     }
-    
+
     /**
      * The <code>Field</code>s are returned as an unmodifiable <code>Map</code>.
      * @deprecated Use containsField(String) and getField(String) instead.
      */
     public Map getFieldMap() {
-    	return Collections.unmodifiableMap(hFields);
+        return Collections.unmodifiableMap(hFields);
     }
-    
+
     /**
-     * Returns the Field with the given name or null if this Form has no such 
+     * Returns the Field with the given name or null if this Form has no such
      * field.
      * @since Validator 1.1
      */
     public Field getField(String fieldName) {
         return (Field) this.hFields.get(fieldName);
     }
-    
+
     /**
      * Returns true if this Form contains a Field with the given name.
      * @since Validator 1.1
      */
-    public boolean containsField(String fieldName){
+    public boolean containsField(String fieldName) {
         return this.hFields.containsKey(fieldName);
     }
 
@@ -162,31 +162,31 @@ public class Form implements Serializable {
      * in a future release.  TODO
      */
     public void process(Map globalConstants, Map constants) {
-    	hFields.setFast(true);
-    
-    	for (Iterator i = lFields.iterator(); i.hasNext();) {
-    		Field f = (Field) i.next();
-    		f.process(globalConstants, constants);
-    	}
+        hFields.setFast(true);
+
+        for (Iterator i = lFields.iterator(); i.hasNext();) {
+            Field f = (Field) i.next();
+            f.process(globalConstants, constants);
+        }
     }
 
     /**
      * Returns a string representation of the object.
-     */    
+     */
     public String toString() {
-       StringBuffer results = new StringBuffer();
-       
-       results.append("Form: ");
-       results.append(name);
-       results.append("\n");
+        StringBuffer results = new StringBuffer();
 
-       for (Iterator i = lFields.iterator(); i.hasNext(); ) {
-          results.append("\tField: \n");
-          results.append(i.next());
-          results.append("\n");	
-       }
-       
-       return results.toString();
+        results.append("Form: ");
+        results.append(name);
+        results.append("\n");
+
+        for (Iterator i = lFields.iterator(); i.hasNext();) {
+            results.append("\tField: \n");
+            results.append(i.next());
+            results.append("\n");
+        }
+
+        return results.toString();
     }
-	
+
 }

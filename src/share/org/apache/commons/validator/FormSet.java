@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.11 2003/08/21 19:40:13 rleland Exp $
- * $Revision: 1.11 $
- * $Date: 2003/08/21 19:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.12 2003/08/21 21:43:05 rleland Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/08/21 21:43:05 $
  *
  * ====================================================================
  *
@@ -66,23 +66,23 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
-import org.apache.commons.collections.FastHashMap; 
+import org.apache.commons.collections.FastHashMap;
 
 
 /**
  * <p>
- * Holds a set of <code>Form</code>s stored associated with a 
+ * Holds a set of <code>Form</code>s stored associated with a
  * <code>Locale</code> based on the country, language, and variant specified.
  * Instances of this class are configured with a &lt;formset&gt; xml element.
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.11 $ $Date: 2003/08/21 19:40:13 $
+ * @version $Revision: 1.12 $ $Date: 2003/08/21 21:43:05 $
  */
 public class FormSet implements Serializable {
-    
+
     /**
-     * Whether or not the this <code>FormSet</code> was processed 
+     * Whether or not the this <code>FormSet</code> was processed
      * for replacing variables in strings with their values.
      */
     private boolean processed = false;
@@ -91,7 +91,7 @@ public class FormSet implements Serializable {
      * Language component of <code>Locale</code> (required).
      */
     private String language = null;
-    
+
     /**
      * Country component of <code>Locale</code> (optional).
      */
@@ -99,69 +99,69 @@ public class FormSet implements Serializable {
 
     /**
      * Variant component of <code>Locale</code> (optional).
-    */
+     */
     private String variant = null;
-    
+
     /**
-     * A <code>FastHashMap</code> of <code>Form</code>s 
+     * A <code>FastHashMap</code> of <code>Form</code>s
      * using the name field of the <code>Form</code> as the key.
      */
     private FastHashMap forms = new FastHashMap();
 
     /**
-     * A <code>FastHashMap</code> of <code>Constant</code>s 
+     * A <code>FastHashMap</code> of <code>Constant</code>s
      * using the name field of the <code>Constant</code> as the key.
      */
     private FastHashMap constants = new FastHashMap();
 
     /**
-     * Whether or not the this <code>FormSet</code> was processed 
+     * Whether or not the this <code>FormSet</code> was processed
      * for replacing variables in strings with their values.
-     */    
+     */
     public boolean isProcessed() {
-       return processed;	
+        return processed;
     }
 
     /**
      * Gets the equivalent of the language component of <code>Locale</code>.
      */
     public String getLanguage() {
-       return language;	
+        return language;
     }
 
     /**
      * Sets the equivalent of the language component of <code>Locale</code>.
      */
     public void setLanguage(String language) {
-       this.language = language;	
+        this.language = language;
     }
 
     /**
      * Gets the equivalent of the country component of <code>Locale</code>.
-    */
+     */
     public String getCountry() {
-       return country;	
+        return country;
     }
 
     /**
      * Sets the equivalent of the country component of <code>Locale</code>.
      */
     public void setCountry(String country) {
-       this.country = country;	
+        this.country = country;
     }
 
     /**
      * Gets the equivalent of the variant component of <code>Locale</code>.
      */
     public String getVariant() {
-       return variant;	
+        return variant;
     }
 
     /**
      * Sets the equivalent of the variant component of <code>Locale</code>.
      */
     public void setVariant(String variant) {
-       this.variant = variant;	
+        this.variant = variant;
     }
 
     /**
@@ -169,11 +169,11 @@ public class FormSet implements Serializable {
      * @deprecated Use addConstant(String, String) instead.
      */
     public void addConstant(Constant c) {
-       if (c.getName() != null && c.getName().length() > 0 &&
-           c.getValue() != null && c.getValue().length() > 0) {
-               
-          constants.put(c.getName(), c.getValue());
-       }
+        if (c.getName() != null && c.getName().length() > 0 &&
+                c.getValue() != null && c.getValue().length() > 0) {
+
+            constants.put(c.getName(), c.getValue());
+        }
     }
 
     /**
@@ -181,26 +181,26 @@ public class FormSet implements Serializable {
      * @deprecated Use addConstant(String, String) instead.
      */
     public void addConstantParam(String name, String value) {
-       if (name != null && name.length() > 0 &&
-           value != null && value.length() > 0) {
-               
-          constants.put(name, value);
-       }
+        if (name != null && name.length() > 0 &&
+                value != null && value.length() > 0) {
+
+            constants.put(name, value);
+        }
     }
-    
+
     /**
      * Add a <code>Constant</code> to the locale level.
      * @deprecated Use addConstant(String, String) instead.
      */
     public void addConstant(String name, String value) {
-          this.constants.put(name, value);
+        this.constants.put(name, value);
     }
-   
+
     /**
      * Add a <code>Form</code> to the <code>FormSet</code>.
-     */    
+     */
     public void addForm(Form f) {
-       forms.put(f.getName(), f);
+        forms.put(f.getName(), f);
     }
 
     /**
@@ -208,7 +208,7 @@ public class FormSet implements Serializable {
      * @deprecated Use getForm(String) instead.
      */
     public Form getForm(Object key) {
-		return (Form) this.forms.get(key);
+        return (Form) this.forms.get(key);
     }
 
     /**
@@ -217,54 +217,54 @@ public class FormSet implements Serializable {
     public Form getForm(String formName) {
         return (Form) this.forms.get(formName);
     }
-    
+
     /**
-     * A <code>Map</code> of <code>Form</code>s is returned as an 
+     * A <code>Map</code> of <code>Form</code>s is returned as an
      * unmodifiable <code>Map</code> with the key based on the form name.
      */
     public Map getForms() {
-    	return Collections.unmodifiableMap(forms);
+        return Collections.unmodifiableMap(forms);
     }
-    
+
     /**
-     * Processes all of the <code>Form</code>s, set <code>FastHashMap</code>s 
+     * Processes all of the <code>Form</code>s, set <code>FastHashMap</code>s
      * to 'fast' mode.
      * @deprecated This method is called by the framework.  It will be made protected
      * in a future release.  TODO
      */
     public synchronized void process(Map globalConstants) {
-    	for (Iterator i = forms.values().iterator(); i.hasNext();) {
-    		Form f = (Form) i.next();
-    		f.process(globalConstants, constants);
-    	}
-    
-    	forms.setFast(true);
-    	constants.setFast(true);
-    
-    	processed = true;
+        for (Iterator i = forms.values().iterator(); i.hasNext();) {
+            Form f = (Form) i.next();
+            f.process(globalConstants, constants);
+        }
+
+        forms.setFast(true);
+        constants.setFast(true);
+
+        processed = true;
     }
 
     /**
      * Returns a string representation of the object.
-     */    
+     */
     public String toString() {
-       StringBuffer results = new StringBuffer();
-    
-       results.append("FormSet: language=");
-       results.append(language);
-       results.append("  country=");
-       results.append(country);
-       results.append("  variant=");
-       results.append(variant);
-       results.append("\n");
-       
-       for (Iterator i = getForms().values().iterator(); i.hasNext(); ) {
-          results.append("   ");
-          results.append(i.next());
-          results.append("\n");
-       }
-       
-       return results.toString();
+        StringBuffer results = new StringBuffer();
+
+        results.append("FormSet: language=");
+        results.append(language);
+        results.append("  country=");
+        results.append(country);
+        results.append("  variant=");
+        results.append(variant);
+        results.append("\n");
+
+        for (Iterator i = getForms().values().iterator(); i.hasNext();) {
+            results.append("   ");
+            results.append(i.next());
+            results.append("\n");
+        }
+
+        return results.toString();
     }
-	
+
 }

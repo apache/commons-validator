@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.27 2003/08/21 19:40:13 rleland Exp $
- * $Revision: 1.27 $
- * $Date: 2003/08/21 19:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.28 2003/08/21 21:43:05 rleland Exp $
+ * $Revision: 1.28 $
+ * $Date: 2003/08/21 21:43:05 $
  *
  * ====================================================================
  *
@@ -79,14 +79,14 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.util.ValidatorUtils;
 
 /**
- * <p>Validations are processed by the validate method. An instance of 
- * <code>ValidatorResources</code> is used to define the validators 
+ * <p>Validations are processed by the validate method. An instance of
+ * <code>ValidatorResources</code> is used to define the validators
  * (validation methods) and the validation rules for a JavaBean.</p>
  *
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.27 $ $Date: 2003/08/21 19:40:13 $
+ * @version $Revision: 1.28 $ $Date: 2003/08/21 21:43:05 $
  */
 public class Validator implements Serializable {
 
@@ -113,7 +113,7 @@ public class Validator implements Serializable {
      * specified in the method signature.
      */
     public static final String VALIDATOR_ACTION_PARAM =
-        "org.apache.commons.validator.ValidatorAction";
+            "org.apache.commons.validator.ValidatorAction";
 
     /**
      * Resources key the <code>ValidatorAction</code> is stored under.
@@ -148,7 +148,7 @@ public class Validator implements Serializable {
      * specified in the method signature.
      */
     public static final String VALIDATOR_PARAM =
-        "org.apache.commons.validator.Validator";
+            "org.apache.commons.validator.Validator";
 
     /**
      * Resources key the <code>Validator</code> is stored under.
@@ -177,11 +177,11 @@ public class Validator implements Serializable {
     public static final String LOCALE_KEY = LOCALE_PARAM;
 
     protected ValidatorResources resources = null;
-    
+
     protected String formName = null;
 
     /**
-     * Maps validation method parameter class names to the objects to be passed 
+     * Maps validation method parameter class names to the objects to be passed
      * into the method.
      */
     protected Map parameters = new HashMap();
@@ -190,7 +190,7 @@ public class Validator implements Serializable {
      * @deprecated Use parameters instead.
      */
     protected HashMap hResources = (HashMap) this.parameters;
-    
+
     /**
      * The current page number to validate.
      */
@@ -209,7 +209,7 @@ public class Validator implements Serializable {
      * for instantiating new objects.  Default is <code>false</code>.
      */
     protected boolean useContextClassLoader = false;
-    
+
     /**
      * Set this to true to not return Fields that pass validation.  Only return failures.
      */
@@ -240,7 +240,7 @@ public class Validator implements Serializable {
         if (resources == null) {
             throw new IllegalArgumentException("Resources cannot be null.");
         }
-        
+
         this.resources = resources;
         this.formName = formName;
     }
@@ -249,24 +249,24 @@ public class Validator implements Serializable {
      * Add a resource to be used during the processing
      * of validations.
      *
-     * @param parameterClassName The full class name of the parameter of the 
+     * @param parameterClassName The full class name of the parameter of the
      * validation method that corresponds to the value/instance passed in with it.
-     * 
-     * @param parameterValue The instance that will be passed into the 
+     *
+     * @param parameterValue The instance that will be passed into the
      * validation method.
      * @deprecated Use setParameter(String, Object) instead.
      */
     public void addResource(String parameterClassName, Object parameterValue) {
         this.setParameter(parameterClassName, parameterValue);
     }
-    
+
     /**
      * Set a parameter of a pluggable validation method.
      *
-     * @param parameterClassName The full class name of the parameter of the 
+     * @param parameterClassName The full class name of the parameter of the
      * validation method that corresponds to the value/instance passed in with it.
-     * 
-     * @param parameterValue The instance that will be passed into the 
+     *
+     * @param parameterValue The instance that will be passed into the
      * validation method.
      */
     public void setParameter(String parameterClassName, Object parameterValue) {
@@ -276,19 +276,19 @@ public class Validator implements Serializable {
     /**
      * Get a resource to be used during the processing of validations.
      *
-     * @param parameterClassName The full class name of the parameter of the 
+     * @param parameterClassName The full class name of the parameter of the
      * validation method that corresponds to the value/instance passed in with it.
      * @deprecated Use getParameterValue(String) instead.
      */
     public Object getResource(String parameterClassName) {
         return this.getParameterValue(parameterClassName);
     }
-    
+
     /**
-     * Returns the value of the specified parameter that will be used during the 
+     * Returns the value of the specified parameter that will be used during the
      * processing of validations.
      *
-     * @param parameterClassName The full class name of the parameter of the 
+     * @param parameterClassName The full class name of the parameter of the
      * validation method that corresponds to the value/instance passed in with it.
      */
     public Object getParameterValue(String parameterClassName) {
@@ -310,8 +310,8 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Gets the page.  This in conjunction with the page property of 
-     * a <code>Field<code> can control the processing of fields. If the field's 
+     * Gets the page.  This in conjunction with the page property of
+     * a <code>Field<code> can control the processing of fields. If the field's
      * page is less than or equal to this page value, it will be processed.
      */
     public int getPage() {
@@ -319,8 +319,8 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Sets the page.  This in conjunction with the page property of 
-     * a <code>Field<code> can control the processing of fields. If the field's page 
+     * Sets the page.  This in conjunction with the page property of
+     * a <code>Field<code> can control the processing of fields. If the field's page
      * is less than or equal to this page value, it will be processed.
      */
     public void setPage(int page) {
@@ -328,12 +328,12 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Clears the form name, resources that were added, and the page that was 
+     * Clears the form name, resources that were added, and the page that was
      * set (if any).  This can be called to reinitialize the Validator instance
-     * so it can be reused.  The form name (key to set of validation rules) and any 
+     * so it can be reused.  The form name (key to set of validation rules) and any
      * resources needed, like the JavaBean being validated, will need to
-     * set and/or added to this instance again.  The 
-     * <code>ValidatorResources</code> will not be removed since it can be used 
+     * set and/or added to this instance again.  The
+     * <code>ValidatorResources</code> will not be removed since it can be used
      * again and is thread safe.
      */
     public void clear() {
@@ -404,19 +404,19 @@ public class Validator implements Serializable {
      * @return true if the validation succeeded.
      */
     private boolean validateFieldForRule(
-        Field field,
-        ValidatorAction va,
-        ValidatorResults results,
-        Map actions,
-        int pos)
-        throws ValidatorException {
+            Field field,
+            ValidatorAction va,
+            ValidatorResults results,
+            Map actions,
+            int pos)
+            throws ValidatorException {
 
         ValidatorResult result = results.getValidatorResult(field.getKey());
         if (result != null && result.containsAction(va.getName())) {
             return result.isValid(va.getName());
         }
 
-        if(!this.runDependentValidators(field, va, results, actions, pos)){
+        if (!this.runDependentValidators(field, va, results, actions, pos)) {
             return false;
         }
 
@@ -434,17 +434,17 @@ public class Validator implements Serializable {
      * @throws ValidatorException
      */
     private boolean runDependentValidators(
-        Field field,
-        ValidatorAction va,
-        ValidatorResults results,
-        Map actions,
-        int pos)
-        throws ValidatorException {
+            Field field,
+            ValidatorAction va,
+            ValidatorResults results,
+            Map actions,
+            int pos)
+            throws ValidatorException {
 
         if (va.getDepends() == null) {
             return true;
         }
-        
+
         StringTokenizer st = new StringTokenizer(va.getDepends(), ",");
         while (st.hasMoreTokens()) {
             String depend = st.nextToken().trim();
@@ -452,7 +452,7 @@ public class Validator implements Serializable {
             ValidatorAction action = (ValidatorAction) actions.get(depend);
             if (action == null) {
                 log.error(
-                    "No ValidatorAction named "
+                        "No ValidatorAction named "
                         + depend
                         + " found for field "
                         + field.getProperty());
@@ -470,7 +470,7 @@ public class Validator implements Serializable {
 
     /**
      * Dynamically runs the validation method for this validator and returns true if the
-     * data is valid. 
+     * data is valid.
      * @param field
      * @param va
      * @param results
@@ -478,28 +478,28 @@ public class Validator implements Serializable {
      * @throws ValidatorException
      */
     private boolean executeValidationMethod(
-        Field field,
-        ValidatorAction va,
-        ValidatorResults results,
-        int pos)
-        throws ValidatorException {
-            
+            Field field,
+            ValidatorAction va,
+            ValidatorResults results,
+            int pos)
+            throws ValidatorException {
+
         try {
             // Add these two Objects to the resources since they reference
             // the current validator action and field
             this.setParameter(VALIDATOR_ACTION_PARAM, va);
             this.setParameter(FIELD_PARAM, field);
-        
+
             Class validationClass = getClassLoader().loadClass(va.getClassname());
-        
+
             List params = va.getMethodParamsList();
-            
+
             Class[] paramClass = this.getParameterClasses(params);
             Object[] paramValue = this.getParameterValues(params);
-        
+
             Method validationMethod =
-                validationClass.getMethod(va.getMethod(), paramClass);
-        
+                    validationClass.getMethod(va.getMethod(), paramClass);
+
             // If the method is static, we don't need an instance of the class
             // to call the method.
             if (!Modifier.isStatic(validationMethod.getModifiers())) {
@@ -508,45 +508,45 @@ public class Validator implements Serializable {
 
             if (field.isIndexed()) {
                 this.handleIndexedField(field, pos, params, paramValue);
-            } 
-            
+            }
+
             Object result =
-                validationMethod.invoke(va.getClassnameInstance(), paramValue);
-                
-			boolean valid = this.isValid(result);
-			if (!valid || (valid && !this.onlyReturnErrors)) {
-				results.add(field, va.getName(), valid, result);
-			}
-            
-			if (!valid) {
-				return false;
-			}
-            
-        } catch (Exception e) {
+                    validationMethod.invoke(va.getClassnameInstance(), paramValue);
+
+            boolean valid = this.isValid(result);
+            if (!valid || (valid && !this.onlyReturnErrors)) {
+                results.add(field, va.getName(), valid, result);
+            }
+
+            if (!valid) {
+                return false;
+            }
+
+        } catch(Exception e) {
             log.error("reflection: " + e.getMessage(), e);
-        
+
             results.add(field, va.getName(), false);
-        
+
             if (e instanceof ValidatorException) {
                 throw (ValidatorException) e;
             }
             return false;
         }
-        
+
         return true;
     }
-    
+
     /**
      * Converts a List of parameter class names into their Class objects.
      * @param paramNames
-     * @return An array containing the Class object for each parameter.  This array 
+     * @return An array containing the Class object for each parameter.  This array
      * is in the same order as the given List and is suitable for passing to the validation
      * method.
      * @throws ClassNotFoundException
      */
     private Class[] getParameterClasses(List paramNames)
-        throws ClassNotFoundException {
-            
+            throws ClassNotFoundException {
+
         Class[] paramClass = new Class[paramNames.size()];
 
         for (int i = 0; i < paramNames.size(); i++) {
@@ -558,17 +558,17 @@ public class Validator implements Serializable {
 
         return paramClass;
     }
-    
+
     /**
-     * Converts a List of parameter class names into their values contained in the 
+     * Converts a List of parameter class names into their values contained in the
      * parameters Map.
      * @param paramNames
-     * @return An array containing the value object for each parameter.  This array 
+     * @return An array containing the value object for each parameter.  This array
      * is in the same order as the given List and is suitable for passing to the validation
      * method.
      */
     private Object[] getParameterValues(List paramNames) {
-            
+
         Object[] paramValue = new Object[paramNames.size()];
 
         for (int i = 0; i < paramNames.size(); i++) {
@@ -590,9 +590,9 @@ public class Validator implements Serializable {
             if (va.getClassnameInstance() == null) {
                 va.setClassnameInstance(validationClass.newInstance());
             }
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             log.error(
-                "Couldn't load instance "
+                    "Couldn't load instance "
                     + "of class "
                     + va.getClassname()
                     + ".  "
@@ -602,7 +602,7 @@ public class Validator implements Serializable {
 
     /**
      * Modifies the paramValue array with indexed fields.
-     * 
+     *
      * @param field
      * @param pos
      * @param params
@@ -612,42 +612,42 @@ public class Validator implements Serializable {
      * @throws NoSuchMethodException
      */
     private void handleIndexedField(
-        Field field,
-        int pos,
-        List params,
-        Object[] paramValue)
-        throws ValidatorException {
-            
+            Field field,
+            int pos,
+            List params,
+            Object[] paramValue)
+            throws ValidatorException {
+
         int beanIndexPos = params.indexOf(BEAN_PARAM);
         int fieldIndexPos = params.indexOf(FIELD_PARAM);
-        
+
         Object indexedList[] = this.getIndexedProperty(field);
-        
+
         // Set current iteration object to the parameter array
         paramValue[beanIndexPos] = indexedList[pos];
-        
+
         // Set field clone with the key modified to represent
         // the current field
         Field indexedField = (Field) field.clone();
         indexedField.setKey(
-            ValidatorUtils.replace(
-                indexedField.getKey(),
-                Field.TOKEN_INDEXED,
-                "[" + pos + "]"));
-        
+                ValidatorUtils.replace(
+                        indexedField.getKey(),
+                        Field.TOKEN_INDEXED,
+                        "[" + pos + "]"));
+
         paramValue[fieldIndexPos] = indexedField;
     }
 
     /**
      * Run the validations on a given field, modifying the passed
-     * ValidatorResults to add in any new errors found.  Run all the validations in 
+     * ValidatorResults to add in any new errors found.  Run all the validations in
      * the depends clause over each item in turn, returning when the first one fails.
      */
     private void validateField(Field field, ValidatorResults allResults)
-        throws ValidatorException {
+            throws ValidatorException {
 
         int numberOfFieldsToValidate =
-            field.isIndexed() ? this.getIndexedProperty(field).length : 1;
+                field.isIndexed() ? this.getIndexedProperty(field).length : 1;
 
         Map actions = this.resources.getValidatorActions();
 
@@ -659,7 +659,7 @@ public class Validator implements Serializable {
                 ValidatorAction action = (ValidatorAction) actions.get(depend);
                 if (action == null) {
                     log.error(
-                        "No ValidatorAction named "
+                            "No ValidatorAction named "
                             + depend
                             + " found for field "
                             + field.getProperty());
@@ -669,7 +669,7 @@ public class Validator implements Serializable {
 
                 ValidatorResults results = new ValidatorResults();
                 boolean good =
-                    validateFieldForRule(field, action, results, actions, fieldNumber);
+                        validateFieldForRule(field, action, results, actions, fieldNumber);
 
                 allResults.merge(results);
 
@@ -679,13 +679,13 @@ public class Validator implements Serializable {
             }
         }
     }
-    
+
     /**
      * Returns an indexed property from the object we're validating.
-     * 
+     *
      * @param field This field.getIndexedListProperty() will be found in the object we're
      * currently validating
-     * @throws ValidatorException If there's an error looking up the property or, the 
+     * @throws ValidatorException If there's an error looking up the property or, the
      * property found is not indexed.
      */
     private Object[] getIndexedProperty(Field field) throws ValidatorException {
@@ -693,27 +693,27 @@ public class Validator implements Serializable {
 
         try {
             indexedProperty =
-                PropertyUtils.getProperty(
-                    this.getParameterValue(BEAN_PARAM),
-                    field.getIndexedListProperty());
-                    
-        } catch (IllegalAccessException e) {
+                    PropertyUtils.getProperty(
+                            this.getParameterValue(BEAN_PARAM),
+                            field.getIndexedListProperty());
+
+        } catch(IllegalAccessException e) {
             throw new ValidatorException(e.getMessage());
-        } catch (InvocationTargetException e) {
+        } catch(InvocationTargetException e) {
             throw new ValidatorException(e.getMessage());
-        } catch (NoSuchMethodException e) {
+        } catch(NoSuchMethodException e) {
             throw new ValidatorException(e.getMessage());
         }
 
         if (indexedProperty instanceof Collection) {
             return ((Collection) indexedProperty).toArray();
-            
+
         } else if (indexedProperty.getClass().isArray()) {
             return (Object[]) indexedProperty;
-            
+
         } else {
             throw new ValidatorException(
-                "Non-collection, non-array indexed property "
+                    "Non-collection, non-array indexed property "
                     + field.getKey()
                     + " found");
         }
@@ -723,8 +723,8 @@ public class Validator implements Serializable {
     /**
      * Performs validations based on the configured resources.
      *
-     * @return The <code>Map</code> returned uses the property of the 
-     * <code>Field</code> for the key and the value is the number of error the 
+     * @return The <code>Map</code> returned uses the property of the
+     * <code>Field</code> for the key and the value is the number of error the
      * field had.
      */
     public ValidatorResults validate() throws ValidatorException {
@@ -734,7 +734,7 @@ public class Validator implements Serializable {
         if (locale == null) {
             locale = Locale.getDefault();
         }
-        
+
         this.setParameter(VALIDATOR_PARAM, this);
 
         Form form = this.resources.getForm(locale, this.formName);
@@ -742,14 +742,14 @@ public class Validator implements Serializable {
             Iterator fields = form.getFields().iterator();
             while (fields.hasNext()) {
                 Field field = (Field) fields.next();
-                
+
                 if ((field.getPage() <= page) && (field.getDepends() != null)) {
                     this.validateField(field, results);
                 }
             }
 
         }
-        
+
         return results;
     }
 
@@ -770,21 +770,21 @@ public class Validator implements Serializable {
         }
 
     }
-    
-	/**
-	 * Returns true if the Validator is only returning Fields that fail validation.
-	 */
-	public boolean getOnlyReturnErrors() {
-		return onlyReturnErrors;
-	}
 
-	/**
+    /**
+     * Returns true if the Validator is only returning Fields that fail validation.
+     */
+    public boolean getOnlyReturnErrors() {
+        return onlyReturnErrors;
+    }
+
+    /**
      * Configures which Fields the Validator returns from the validate() method.  Set this
-     * to true to only return Fields that failed validation.  By default, validate() returns 
+     * to true to only return Fields that failed validation.  By default, validate() returns
      * all fields.
-	 */
-	public void setOnlyReturnErrors(boolean onlyReturnErrors) {
-		this.onlyReturnErrors = onlyReturnErrors;
-	}
+     */
+    public void setOnlyReturnErrors(boolean onlyReturnErrors) {
+        this.onlyReturnErrors = onlyReturnErrors;
+    }
 
 }

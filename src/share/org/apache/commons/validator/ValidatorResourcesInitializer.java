@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.18 2003/08/21 19:40:13 rleland Exp $
- * $Revision: 1.18 $
- * $Date: 2003/08/21 19:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.19 2003/08/21 21:43:06 rleland Exp $
+ * $Revision: 1.19 $
+ * $Date: 2003/08/21 21:43:06 $
  *
  * ====================================================================
  *
@@ -71,6 +71,7 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.xml.sax.SAXException;
 
 /**
@@ -78,16 +79,16 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author Dave Derry
- * @version $Revision: 1.18 $ $Date: 2003/08/21 19:40:13 $
+ * @version $Revision: 1.19 $ $Date: 2003/08/21 21:43:06 $
  * @deprecated ValidatorResources knows how to initialize itself now.
  */
 public class ValidatorResourcesInitializer {
 
-   /**
-    * Logger.
-    */
-   protected static Log log = LogFactory.getLog(ValidatorResourcesInitializer.class);
-   
+    /**
+     * Logger.
+     */
+    protected static Log log = LogFactory.getLog(ValidatorResourcesInitializer.class);
+
 
     /**
      * The set of public identifiers, and corresponding resource names, for
@@ -101,75 +102,75 @@ public class ValidatorResourcesInitializer {
         "/org/apache/commons/validator/resources/validator_1_0_1.dtd",
         "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN",
         "/org/apache/commons/validator/resources/validator_1_1.dtd"
-   };
+    };
 
 
-   /**
-    * Initializes a <code>ValidatorResources</code> based on a
-    * file path and automatically process the resources.
-    *
-    * @param	fileName	The file path for the xml resource.
-    */
-   public static ValidatorResources initialize(String fileName)
-      throws IOException { 
-      
-      return initialize(new BufferedInputStream(new FileInputStream(fileName)));
-   }
+    /**
+     * Initializes a <code>ValidatorResources</code> based on a
+     * file path and automatically process the resources.
+     *
+     * @param    fileName    The file path for the xml resource.
+     */
+    public static ValidatorResources initialize(String fileName)
+            throws IOException {
 
-   /**
-    * Initializes a <code>ValidatorResources</code> based on the 
-    * <code>InputStream</code> and automatically process the resources.
-    *
-    * @param	in <code>InputStream</code> for the xml resource.
-    */
+        return initialize(new BufferedInputStream(new FileInputStream(fileName)));
+    }
+
+    /**
+     * Initializes a <code>ValidatorResources</code> based on the
+     * <code>InputStream</code> and automatically process the resources.
+     *
+     * @param    in <code>InputStream</code> for the xml resource.
+     */
     public static ValidatorResources initialize(InputStream in) throws IOException {
-    
+
         ValidatorResources resources = new ValidatorResources();
         initialize(resources, in);
-    
+
         return resources;
     }
 
 
-   /**
-    * Initializes the <code>ValidatorResources</code> based on the <code>InputStream</code> 
-    * and automatically process the resources.
-    *
-    * @param	resources Resources to initialize.
-    * @param	in <code>InputStream</code> for the xml resource.
-    */   
+    /**
+     * Initializes the <code>ValidatorResources</code> based on the <code>InputStream</code>
+     * and automatically process the resources.
+     *
+     * @param    resources Resources to initialize.
+     * @param    in <code>InputStream</code> for the xml resource.
+     */
     public static void initialize(ValidatorResources resources, InputStream in)
-        throws IOException {
-            
+            throws IOException {
+
         initialize(resources, in, true);
     }
-   
-   /**
-    * Initializes a <code>ValidatorResources</code> based on the <code>InputStream</code> 
-    * and processes the resources based on the <code>boolean</code> passed in.
-    *
-    * @param	resources Resources to initialize.
-    * @param	in <code>InputStream</code> for the xml resource.
-    * @param	process Whether or not to call process on 
-    * <code>ValidatorResources</code>.
-    */   
+
+    /**
+     * Initializes a <code>ValidatorResources</code> based on the <code>InputStream</code>
+     * and processes the resources based on the <code>boolean</code> passed in.
+     *
+     * @param    resources Resources to initialize.
+     * @param    in <code>InputStream</code> for the xml resource.
+     * @param    process Whether or not to call process on
+     * <code>ValidatorResources</code>.
+     */
     public static void initialize(
-        ValidatorResources resources,
-        InputStream in,
-        boolean process)
-        throws IOException {
+            ValidatorResources resources,
+            InputStream in,
+            boolean process)
+            throws IOException {
 
         URL rulesUrl = ValidatorResourcesInitializer.class.getResource("digester-rules.xml");
         Digester digester = DigesterLoader.createDigester(rulesUrl);
         digester.setNamespaceAware(true);
         digester.setValidating(false);
         digester.setUseContextClassLoader(true);
-        
+
         // register DTDs
         for (int i = 0; i < registrations.length; i += 2) {
             URL url =
-                ValidatorResourcesInitializer.class.getResource(
-                    registrations[i + 1]);
+                    ValidatorResourcesInitializer.class.getResource(
+                            registrations[i + 1]);
             if (url != null) {
                 digester.register(registrations[i], url.toString());
             }
@@ -180,9 +181,9 @@ public class ValidatorResourcesInitializer {
         try {
             digester.parse(in);
 
-        } catch (SAXException e) {
+        } catch(SAXException e) {
             log.error(e.getMessage(), e);
-            
+
         } finally {
             if (in != null) {
                 in.close();
@@ -194,5 +195,5 @@ public class ValidatorResourcesInitializer {
         }
 
     }
-   
+
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.11 2003/08/21 19:40:13 rleland Exp $
- * $Revision: 1.11 $
- * $Date: 2003/08/21 19:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.12 2003/08/21 21:43:06 rleland Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/08/21 21:43:06 $
  *
  * ====================================================================
  *
@@ -70,66 +70,66 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.11 $ $Date: 2003/08/21 19:40:13 $
+ * @version $Revision: 1.12 $ $Date: 2003/08/21 21:43:06 $
  * @deprecated This class has moved to the org.apache.commons.validator.util
  * package.
-*/
+ */
 public class ValidatorUtil {
 
-	/**
-	 * Delimiter to put around a regular expression following Perl 5 syntax.
+    /**
+     * Delimiter to put around a regular expression following Perl 5 syntax.
      * @deprecated Use "/" directly.
-	 */
-	public final static String REGEXP_DELIMITER = "/";
+     */
+    public final static String REGEXP_DELIMITER = "/";
 
-	/**
-	 * Logger.
+    /**
+     * Logger.
      * @deprecated Subclasses should use their own logging instance.
-	 */
-	protected static Log log = LogFactory.getLog(ValidatorUtil.class);
+     */
+    protected static Log log = LogFactory.getLog(ValidatorUtil.class);
 
-	/**
-	 * <p>Replace part of a <code>String</code> with another value.</p>
-	 *
-	 * @param	value		<code>String</code> to perform the replacement on.
-	 * @param	key		The name of the constant.
-	 * @param	replaceValue	The value of the constant.
-	 */
-	public static String replace(
-		String value,
-		String key,
-		String replaceValue) {
-            
+    /**
+     * <p>Replace part of a <code>String</code> with another value.</p>
+     *
+     * @param    value        <code>String</code> to perform the replacement on.
+     * @param    key        The name of the constant.
+     * @param    replaceValue    The value of the constant.
+     */
+    public static String replace(
+            String value,
+            String key,
+            String replaceValue) {
+
         return org.apache.commons.validator.util.ValidatorUtils.replace(value, key, replaceValue);
-	}
+    }
 
-	/**
-	 * Convenience method for getting a value from a bean property as a 
-	 * <code>String</code>.
-	 */
-	public static String getValueAsString(Object bean, String property) {
-		return org.apache.commons.validator.util.ValidatorUtils.getValueAsString(bean, property);
-	}
+    /**
+     * Convenience method for getting a value from a bean property as a
+     * <code>String</code>.
+     */
+    public static String getValueAsString(Object bean, String property) {
+        return org.apache.commons.validator.util.ValidatorUtils.getValueAsString(bean, property);
+    }
 
-	/**
-	 * Makes a deep copy of a <code>FastHashMap</code> if the values 
-	 * are <code>String</code>, <code>Msg</code>, <code>Arg</code>, 
-	 * or <code>Var</code>.  Otherwise it is a shallow copy.
-	 * 
-	 * @param map <code>FastHashMap</code> to copy.
-	 * @return FastHashMap A copy of the <code>FastHashMap</code> that was 
-	 * passed in.
-	 */
-	public static FastHashMap copyFastHashMap(FastHashMap map) {
+    /**
+     * Makes a deep copy of a <code>FastHashMap</code> if the values
+     * are <code>String</code>, <code>Msg</code>, <code>Arg</code>,
+     * or <code>Var</code>.  Otherwise it is a shallow copy.
+     *
+     * @param map <code>FastHashMap</code> to copy.
+     * @return FastHashMap A copy of the <code>FastHashMap</code> that was
+     * passed in.
+     */
+    public static FastHashMap copyFastHashMap(FastHashMap map) {
         return org.apache.commons.validator.util.ValidatorUtils.copyFastHashMap(map);
-	}
+    }
 
-	/**
-	 * Adds a '/' on either side of the regular expression.
+    /**
+     * Adds a '/' on either side of the regular expression.
      * @deprecated Use "/" directly.
-	 */
-	public static String getDelimitedRegExp(String regexp) {
-		return (REGEXP_DELIMITER + regexp + REGEXP_DELIMITER);
-	}
+     */
+    public static String getDelimitedRegExp(String regexp) {
+        return (REGEXP_DELIMITER + regexp + REGEXP_DELIMITER);
+    }
 
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResult.java,v 1.8 2003/08/21 19:40:13 rleland Exp $
- * $Revision: 1.8 $
- * $Date: 2003/08/21 19:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResult.java,v 1.9 2003/08/21 21:43:06 rleland Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/08/21 21:43:06 $
  *
  * ====================================================================
  *
@@ -67,28 +67,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>This contains the results of a set of 
+ * <p>This contains the results of a set of
  * validation rules processed on JavaBean.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2003/08/21 19:40:13 $
+ * @version $Revision: 1.9 $ $Date: 2003/08/21 21:43:06 $
  */
 public class ValidatorResult implements Serializable {
 
-   /**
-    * Map of results.  The key is the name of the <code>ValidatorAction</code> 
-    * and the value is whether or not this field passed or not.
-    */
+    /**
+     * Map of results.  The key is the name of the <code>ValidatorAction</code>
+     * and the value is whether or not this field passed or not.
+     */
     protected Map hAction = new HashMap();
 
-   /**
-    * <code>Field</code> being validated.
-    * TODO This variable is not used.  Need to investigate removing it.
-    */
-    protected Field field = null;
-   
     /**
-     * Constructs a <code>ValidatorResult</code> with the associated field being 
+     * <code>Field</code> being validated.
+     * TODO This variable is not used.  Need to investigate removing it.
+     */
+    protected Field field = null;
+
+    /**
+     * Constructs a <code>ValidatorResult</code> with the associated field being
      * validated.
      */
     public ValidatorResult(Field field) {
@@ -102,13 +102,13 @@ public class ValidatorResult implements Serializable {
         this.add(validatorName, result, null);
     }
 
-   /**
-    * Add the result of a validator action.
-    */
+    /**
+     * Add the result of a validator action.
+     */
     public void add(String validatorName, boolean result, Object value) {
         hAction.put(validatorName, new ResultStatus(result, value));
     }
-    
+
     public boolean containsAction(String validatorName) {
         return hAction.containsKey(validatorName);
     }
@@ -121,26 +121,26 @@ public class ValidatorResult implements Serializable {
     public Map getActionMap() {
         return Collections.unmodifiableMap(hAction);
     }
-      
+
     /**
      * Returns the Field that was validated.
      */
     public Field getField() {
         return this.field;
     }
-      
+
     /**
      * Contains the status of the validation.
      */
     protected class ResultStatus implements Serializable {
         private boolean valid = false;
         private Object result = null;
-    
+
         public ResultStatus(boolean valid, Object result) {
             this.valid = valid;
             this.result = result;
         }
-    
+
         /**
          * Gets whether or not the validation passed.
          * @deprecated Use isValid() instead.
@@ -148,39 +148,39 @@ public class ValidatorResult implements Serializable {
         public boolean getValid() {
             return valid;
         }
-    
+
         /**
          * Tests whether or not the validation passed.
          */
         public boolean isValid() {
             return valid;
         }
-    
+
         /**
          * Sets whether or not the validation passed.
          */
         public void setValid(boolean valid) {
             this.valid = valid;
         }
-    
+
         /**
-         * Gets the result returned by a validation method.  
-         * This can be used to retrieve to the correctly 
+         * Gets the result returned by a validation method.
+         * This can be used to retrieve to the correctly
          * typed value of a date validation for example.
          */
         public Object getResult() {
             return result;
         }
-    
+
         /**
-         * Sets the result returned by a validation method.  
-         * This can be used to retrieve to the correctly 
+         * Sets the result returned by a validation method.
+         * This can be used to retrieve to the correctly
          * typed value of a date validation for example.
          */
         public void setResult(Object result) {
             this.result = result;
         }
-    
+
     }
 
 }

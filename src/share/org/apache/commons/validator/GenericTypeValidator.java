@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.9 2003/08/21 19:40:13 rleland Exp $
- * $Revision: 1.9 $
- * $Date: 2003/08/21 19:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.10 2003/08/21 21:43:05 rleland Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/08/21 21:43:05 $
  *
  * ====================================================================
  *
@@ -69,16 +69,16 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
 /**
- * <p>This class contains basic methods for performing validations that return the 
+ * <p>This class contains basic methods for performing validations that return the
  * correctly typed class based on the validation performed.</p>
  *
  * @author David Winterfeldt
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.9 $ $Date: 2003/08/21 19:40:13 $
+ * @version $Revision: 1.10 $ $Date: 2003/08/21 21:43:05 $
  */
 public class GenericTypeValidator implements Serializable {
-    
+
     /**
      * Checks if the value can safely be converted to a byte primitive.
      *
@@ -88,13 +88,13 @@ public class GenericTypeValidator implements Serializable {
         if (value == null) {
             return null;
         }
-                
-       try {
-          return new Byte(value);
-       } catch (NumberFormatException e) {
+
+        try {
+            return new Byte(value);
+        } catch(NumberFormatException e) {
             return null;
-       }
-       
+        }
+
     }
 
     /**
@@ -106,13 +106,13 @@ public class GenericTypeValidator implements Serializable {
         if (value == null) {
             return null;
         }
-                
-       try {
-          return new Short(value);
-       } catch (NumberFormatException e) {
-           return null;
-       }
-      
+
+        try {
+            return new Short(value);
+        } catch(NumberFormatException e) {
+            return null;
+        }
+
     }
 
     /**
@@ -120,18 +120,18 @@ public class GenericTypeValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      */
-	public static Integer formatInt(String value) {
+    public static Integer formatInt(String value) {
         if (value == null) {
             return null;
         }
-                
-		try {
-			return new Integer(value);
-		} catch (NumberFormatException e) {
-			return null;
-		}
-        
-	}
+
+        try {
+            return new Integer(value);
+        } catch(NumberFormatException e) {
+            return null;
+        }
+
+    }
 
     /**
      * Checks if the value can safely be converted to a long primitive.
@@ -142,13 +142,13 @@ public class GenericTypeValidator implements Serializable {
         if (value == null) {
             return null;
         }
-        
-       try {
-          return new Long(value);
-       } catch (NumberFormatException e) {
+
+        try {
+            return new Long(value);
+        } catch(NumberFormatException e) {
             return null;
-       }
-       
+        }
+
     }
 
     /**
@@ -163,7 +163,7 @@ public class GenericTypeValidator implements Serializable {
 
         try {
             return new Float(value);
-        } catch (NumberFormatException e) {
+        } catch(NumberFormatException e) {
             return null;
         }
 
@@ -178,57 +178,57 @@ public class GenericTypeValidator implements Serializable {
         if (value == null) {
             return null;
         }
-       
-       try {
-          return new Double(value);
-       } catch (NumberFormatException e) {
+
+        try {
+            return new Double(value);
+        } catch(NumberFormatException e) {
             return null;
-       }
-       
+        }
+
     }
 
     /**
-     * <p>Checks if the field is a valid date.  The <code>Locale</code> is 
-     * used with <code>java.text.DateFormat</code>.  The setLenient method 
+     * <p>Checks if the field is a valid date.  The <code>Locale</code> is
+     * used with <code>java.text.DateFormat</code>.  The setLenient method
      * is set to <code>false</code> for all.</p>
      *
      * @param value The value validation is being performed on.
      * @param Locale The Locale to use to parse the date (system default if null)
      */
     public static Date formatDate(String value, Locale locale) {
-		Date date = null;
+        Date date = null;
 
-		if (value == null) {
-			return null;
-		}
+        if (value == null) {
+            return null;
+        }
 
-		try {
-			DateFormat formatter = null;
-			if (locale != null) {
-				formatter =
-					DateFormat.getDateInstance(DateFormat.SHORT, locale);
-			} else {
-				formatter =
-					DateFormat.getDateInstance(
-						DateFormat.SHORT,
-						Locale.getDefault());
-			}
+        try {
+            DateFormat formatter = null;
+            if (locale != null) {
+                formatter =
+                        DateFormat.getDateInstance(DateFormat.SHORT, locale);
+            } else {
+                formatter =
+                        DateFormat.getDateInstance(
+                                DateFormat.SHORT,
+                                Locale.getDefault());
+            }
 
-			formatter.setLenient(false);
+            formatter.setLenient(false);
 
-			date = formatter.parse(value);
-		} catch (ParseException e) {
-			// Bad date so return null
-		}
+            date = formatter.parse(value);
+        } catch(ParseException e) {
+            // Bad date so return null
+        }
 
-		return date;
-    }	
-    
+        return date;
+    }
+
     /**
-     * <p>Checks if the field is a valid date.  The pattern is used with 
-     * <code>java.text.SimpleDateFormat</code>.  If strict is true, then the 
-     * length will be checked so '2/12/1999' will not pass validation with 
-     * the format 'MM/dd/yyyy' because the month isn't two digits. 
+     * <p>Checks if the field is a valid date.  The pattern is used with
+     * <code>java.text.SimpleDateFormat</code>.  If strict is true, then the
+     * length will be checked so '2/12/1999' will not pass validation with
+     * the format 'MM/dd/yyyy' because the month isn't two digits.
      * The setLenient method is set to <code>false</code> for all.</p>
      *
      * @param value The value validation is being performed on.
@@ -236,35 +236,35 @@ public class GenericTypeValidator implements Serializable {
      * @param strict Whether or not to have an exact match of the datePattern.
      */
     public static Date formatDate(String value, String datePattern, boolean strict) {
-		Date date = null;
+        Date date = null;
 
-		if (value == null
-			|| datePattern == null
-			|| datePattern.length() == 0) {
-			return null;
-		}
+        if (value == null
+                || datePattern == null
+                || datePattern.length() == 0) {
+            return null;
+        }
 
-		try {
-			SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
-			formatter.setLenient(false);
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+            formatter.setLenient(false);
 
-			date = formatter.parse(value);
+            date = formatter.parse(value);
 
-			if (strict) {
-				if (datePattern.length() != value.length()) {
-					date = null;
-				}
-			}
-		} catch (ParseException e) {
-			// Bad date so return null
-		}
+            if (strict) {
+                if (datePattern.length() != value.length()) {
+                    date = null;
+                }
+            }
+        } catch(ParseException e) {
+            // Bad date so return null
+        }
 
-		return date;
-    }	
+        return date;
+    }
 
     /**
      * <p>Checks if the field is a valid credit card number.</p>
-     * <p>Reference Sean M. Burke's 
+     * <p>Reference Sean M. Burke's
      * <a href="http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl">script</a>.</p>
      *
      * @param value The value validation is being performed on.

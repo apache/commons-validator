@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.26 2003/08/21 19:40:13 rleland Exp $
- * $Revision: 1.26 $
- * $Date: 2003/08/21 19:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.27 2003/08/21 21:43:05 rleland Exp $
+ * $Revision: 1.27 $
+ * $Date: 2003/08/21 21:43:05 $
  *
  * ====================================================================
  *
@@ -77,12 +77,13 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.xml.sax.SAXException;
 
 /**
  * <p>
- * General purpose class for storing <code>FormSet</code> objects based 
- * on their associated <code>Locale</code>.  Instances of this class are usually 
+ * General purpose class for storing <code>FormSet</code> objects based
+ * on their associated <code>Locale</code>.  Instances of this class are usually
  * configured through a validation.xml file that is parsed in a constructor.
  * </p>
  *
@@ -92,7 +93,7 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.26 $ $Date: 2003/08/21 19:40:13 $
+ * @version $Revision: 1.27 $ $Date: 2003/08/21 21:43:05 $
  */
 public class ValidatorResources implements Serializable {
 
@@ -108,7 +109,7 @@ public class ValidatorResources implements Serializable {
         "/org/apache/commons/validator/resources/validator_1_0_1.dtd",
         "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN",
         "/org/apache/commons/validator/resources/validator_1_1.dtd"
-   };
+    };
 
     /**
      * Logger.
@@ -116,19 +117,19 @@ public class ValidatorResources implements Serializable {
     protected static Log log = LogFactory.getLog(ValidatorResources.class);
 
     /**
-     * <code>FastHashMap</code> of <code>FormSet</code>s stored under 
+     * <code>FastHashMap</code> of <code>FormSet</code>s stored under
      * a <code>Locale</code> key.
      */
     protected FastHashMap hFormSets = new FastHashMap();
 
     /**
-     * <code>FastHashMap</code> of global constant values with 
+     * <code>FastHashMap</code> of global constant values with
      * the name of the constant as the key.
      */
     protected FastHashMap hConstants = new FastHashMap();
 
     /**
-     * <code>FastHashMap</code> of <code>ValidatorAction</code>s with 
+     * <code>FastHashMap</code> of <code>ValidatorAction</code>s with
      * the name of the <code>ValidatorAction</code> as the key.
      */
     protected FastHashMap hActions = new FastHashMap();
@@ -144,35 +145,35 @@ public class ValidatorResources implements Serializable {
     public ValidatorResources() {
         super();
     }
-    
+
     /**
      * Create a ValidatorResources object from an InputStream.
-     * 
-     * @param in InputStream to a validation.xml configuration file.  It's the client's 
+     *
+     * @param in InputStream to a validation.xml configuration file.  It's the client's
      * responsibility to close this stream.
      * @throws IOException
-     * @throws SAXException if the validation XML files are not valid or well 
+     * @throws SAXException if the validation XML files are not valid or well
      * formed.
      * @since Validator 1.1
      */
     public ValidatorResources(InputStream in) throws IOException, SAXException {
-        this(new InputStream[] { in });
+        this(new InputStream[]{in});
     }
-    
+
     /**
      * Create a ValidatorResources object from an InputStream.
-     * 
-     * @param streams An array of InputStreams to several validation.xml 
-     * configuration files that will be read in order and merged into this object.  
+     *
+     * @param streams An array of InputStreams to several validation.xml
+     * configuration files that will be read in order and merged into this object.
      * It's the client's responsibility to close these streams.
      * @throws IOException
-     * @throws SAXException if the validation XML files are not valid or well 
+     * @throws SAXException if the validation XML files are not valid or well
      * formed.
      * @since Validator 1.1
      */
     public ValidatorResources(InputStream[] streams)
-        throws IOException, SAXException {
-            
+            throws IOException, SAXException {
+
         super();
 
         URL rulesUrl = this.getClass().getResource("digester-rules.xml");
@@ -199,17 +200,17 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
-     * object.  It will be associated with the <code>Locale</code> of the 
+     * object.  It will be associated with the <code>Locale</code> of the
      * <code>FormSet</code>.
      * @deprecated Use addFormSet() instead.
      */
     public void put(FormSet fs) {
         this.addFormSet(fs);
     }
-    
+
     /**
      * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
-     * object.  It will be associated with the <code>Locale</code> of the 
+     * object.  It will be associated with the <code>Locale</code> of the
      * <code>FormSet</code>.
      * @since Validator 1.1
      */
@@ -235,7 +236,7 @@ public class ValidatorResources implements Serializable {
      * @deprecated Use addConstant(String, String) instead.
      */
     public void addConstant(Constant c) {
-       this.addConstantParam(c.getName(), c.getValue());
+        this.addConstantParam(c.getName(), c.getValue());
     }
 
     /**
@@ -244,9 +245,9 @@ public class ValidatorResources implements Serializable {
      */
     public void addConstantParam(String name, String value) {
         if (name != null
-            && name.length() > 0
-            && value != null
-            && value.length() > 0) {
+                && name.length() > 0
+                && value != null
+                && value.length() > 0) {
 
             if (log.isDebugEnabled()) {
                 log.debug("Adding Global Constant: " + name + "," + value);
@@ -255,7 +256,7 @@ public class ValidatorResources implements Serializable {
             this.hConstants.put(name, value);
         }
     }
-    
+
     /**
      * Add a global constant to the resource.
      */
@@ -263,21 +264,21 @@ public class ValidatorResources implements Serializable {
         if (log.isDebugEnabled()) {
             log.debug("Adding Global Constant: " + name + "," + value);
         }
-        
+
         this.hConstants.put(name, value);
     }
 
     /**
-     * Add a <code>ValidatorAction</code> to the resource.  It also creates an 
-     * instance of the class based on the <code>ValidatorAction</code>s 
-     * classname and retrieves the <code>Method</code> instance and sets them 
+     * Add a <code>ValidatorAction</code> to the resource.  It also creates an
+     * instance of the class based on the <code>ValidatorAction</code>s
+     * classname and retrieves the <code>Method</code> instance and sets them
      * in the <code>ValidatorAction</code>.
      */
     public void addValidatorAction(ValidatorAction va) {
         va.init();
-        
+
         this.hActions.put(va.getName(), va);
-        
+
         if (log.isDebugEnabled()) {
             log.debug("Add ValidatorAction: " + va.getName() + "," + va.getClassname());
         }
@@ -298,12 +299,12 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Builds a key to store the <code>FormSet</code> under based on it's 
+     * Builds a key to store the <code>FormSet</code> under based on it's
      * language, country, and variant values.
      */
     protected String buildKey(FormSet fs) {
         String locale =
-            this.buildLocale(fs.getLanguage(), fs.getCountry(), fs.getVariant());
+                this.buildLocale(fs.getLanguage(), fs.getCountry(), fs.getVariant());
 
         if (locale.length() == 0) {
             locale = defaultLocale.toString();
@@ -323,8 +324,8 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * <p>Gets a <code>Form</code> based on the name of the form and the <code>Locale</code> that 
-     * most closely matches the <code>Locale</code> passed in.  The order of <code>Locale</code> 
+     * <p>Gets a <code>Form</code> based on the name of the form and the <code>Locale</code> that
+     * most closely matches the <code>Locale</code> passed in.  The order of <code>Locale</code>
      * matching is:</p>
      * <ol>
      *    <li>language + country + variant</li>
@@ -338,10 +339,10 @@ public class ValidatorResources implements Serializable {
         String key = (formKey == null) ? null : formKey.toString();
         return this.getForm(locale, key);
     }
-    
+
     /**
-     * <p>Gets a <code>Form</code> based on the name of the form and the 
-     * <code>Locale</code> that most closely matches the <code>Locale</code> 
+     * <p>Gets a <code>Form</code> based on the name of the form and the
+     * <code>Locale</code> that most closely matches the <code>Locale</code>
      * passed in.  The order of <code>Locale</code> matching is:</p>
      * <ol>
      *    <li>language + country + variant</li>
@@ -353,15 +354,15 @@ public class ValidatorResources implements Serializable {
      */
     public Form getForm(Locale locale, String formKey) {
         return this.getForm(
-            locale.getLanguage(),
-            locale.getCountry(),
-            locale.getVariant(),
-            formKey);
+                locale.getLanguage(),
+                locale.getCountry(),
+                locale.getVariant(),
+                formKey);
     }
 
     /**
-     * <p>Gets a <code>Form</code> based on the name of the form and the 
-     * <code>Locale</code> that most closely matches the <code>Locale</code> 
+     * <p>Gets a <code>Form</code> based on the name of the form and the
+     * <code>Locale</code> that most closely matches the <code>Locale</code>
      * passed in.  The order of <code>Locale</code> matching is:</p>
      * <ol>
      *    <li>language + country + variant</li>
@@ -372,18 +373,18 @@ public class ValidatorResources implements Serializable {
      * @deprecated Use getForm() instead.
      */
     public Form get(
-        String language,
-        String country,
-        String variant,
-        Object formKey) {
-            
-		String key = (formKey == null) ? null : formKey.toString();
-		return this.getForm(language, country, variant, key);
+            String language,
+            String country,
+            String variant,
+            Object formKey) {
+
+        String key = (formKey == null) ? null : formKey.toString();
+        return this.getForm(language, country, variant, key);
     }
-    
+
     /**
-     * <p>Gets a <code>Form</code> based on the name of the form and the 
-     * <code>Locale</code> that most closely matches the <code>Locale</code> 
+     * <p>Gets a <code>Form</code> based on the name of the form and the
+     * <code>Locale</code> that most closely matches the <code>Locale</code>
      * passed in.  The order of <code>Locale</code> matching is:</p>
      * <ol>
      *    <li>language + country + variant</li>
@@ -394,10 +395,10 @@ public class ValidatorResources implements Serializable {
      * @since Validator 1.1
      */
     public Form getForm(
-        String language,
-        String country,
-        String variant,
-        String formKey) {
+            String language,
+            String country,
+            String variant,
+            String formKey) {
 
         String key = this.buildLocale(language, country, variant);
 
@@ -436,8 +437,8 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Process the <code>ValidatorResources</code> object.  Currently sets the 
-     * <code>FastHashMap</code>s to the 'fast' mode and call the processes all 
+     * Process the <code>ValidatorResources</code> object.  Currently sets the
+     * <code>FastHashMap</code>s to the 'fast' mode and call the processes all
      * other resources.  <strong>Note</strong>: The framework calls this automatically
      * when ValidatorResources is created from an XML file.  If you create an instance
      * of this class by hand you <strong>must</strong> call this method when finished.
@@ -451,20 +452,20 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s 
-     * that don't exist in a <code>FormSet</code> compared to the default 
+     * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s
+     * that don't exist in a <code>FormSet</code> compared to the default
      * <code>FormSet</code>.</p>
      * @deprecated This is an internal method that client classes need not call directly.
      */
     public void processForms() {
         this.internalProcessForms();
     }
-    
+
     /**
-     * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s 
-     * that don't exist in a <code>FormSet</code> compared to the default 
+     * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s
+     * that don't exist in a <code>FormSet</code> compared to the default
      * <code>FormSet</code>.</p>
-     * TODO When processForms() is removed from the public interface, rename this 
+     * TODO When processForms() is removed from the public interface, rename this
      * private method back to "processForms".
      */
     private void internalProcessForms() {
@@ -487,7 +488,7 @@ public class ValidatorResources implements Serializable {
                 for (Iterator x = fs.getForms().keySet().iterator(); x.hasNext();) {
                     String formKey = (String) x.next();
                     Form form = (Form) fs.getForms().get(formKey);
-                    // Create a new Form object so the order from the default is 
+                    // Create a new Form object so the order from the default is
                     // maintained (very noticable in the JavaScript).
                     Form newForm = new Form();
                     newForm.setName(form.getName());
@@ -503,11 +504,11 @@ public class ValidatorResources implements Serializable {
 
                         if (form.containsField(fieldKey)) {
                             newForm.addField(form.getField(fieldKey));
-                                
+
                         } else {
                             Field field =
-                                getClosestLocaleField(fs, formKey, fieldKey);
-                                
+                                    getClosestLocaleField(fs, formKey, fieldKey);
+
                             newForm.addField((Field) field.clone());
                         }
                     }
@@ -516,7 +517,7 @@ public class ValidatorResources implements Serializable {
                 }
             }
         }
-        
+
         // Process Fully Constructed FormSets
         for (Iterator i = hFormSets.values().iterator(); i.hasNext();) {
             List formsets = (List) i.next();
@@ -532,15 +533,15 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Retrieves the closest matching <code>Field</code> based 
-     * on <code>FormSet</code>'s locale.  This is used when 
-     * constructing a clone, field by field, of partial 
+     * Retrieves the closest matching <code>Field</code> based
+     * on <code>FormSet</code>'s locale.  This is used when
+     * constructing a clone, field by field, of partial
      * <code>FormSet</code>.
      */
     protected Field getClosestLocaleField(
-        FormSet fs,
-        String formKey,
-        String fieldKey) {
+            FormSet fs,
+            String formKey,
+            String fieldKey) {
 
         Field field = null;
         String language = fs.getLanguage();
@@ -548,8 +549,8 @@ public class ValidatorResources implements Serializable {
         String variant = fs.getVariant();
 
         if (!GenericValidator.isBlankOrNull(language)
-            && !GenericValidator.isBlankOrNull(country)
-            && !GenericValidator.isBlankOrNull(variant)) {
+                && !GenericValidator.isBlankOrNull(country)
+                && !GenericValidator.isBlankOrNull(variant)) {
 
             Form form = this.getForm(language, country, variant, formKey);
             field = form.getField(fieldKey);
@@ -557,7 +558,7 @@ public class ValidatorResources implements Serializable {
 
         if (field == null) {
             if (!GenericValidator.isBlankOrNull(language)
-                && !GenericValidator.isBlankOrNull(country)) {
+                    && !GenericValidator.isBlankOrNull(country)) {
 
                 Form form = this.getForm(language, country, null, formKey);
                 field = form.getField(fieldKey);
@@ -573,7 +574,7 @@ public class ValidatorResources implements Serializable {
 
         if (field == null) {
             Form form = this.getForm(defaultLocale, formKey);
-            field = form.getField(fieldKey);            
+            field = form.getField(fieldKey);
         }
 
         return field;

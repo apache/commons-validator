@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.12 2003/08/21 19:40:13 rleland Exp $
- * $Revision: 1.12 $
- * $Date: 2003/08/21 19:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.13 2003/08/21 21:43:05 rleland Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/08/21 21:43:05 $
  *
  * ====================================================================
  *
@@ -80,13 +80,13 @@ import java.io.Serializable;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.12 $ $Date: 2003/08/21 19:40:13 $
+ * @version $Revision: 1.13 $ $Date: 2003/08/21 21:43:05 $
  */
 public class Arg implements Cloneable, Serializable {
 
     /**
      * The resource bundle name that this Arg's <code>key</code> should be
-     * resolved in (optional). 
+     * resolved in (optional).
      * @since Validator 1.1
      */
     protected String bundle = null;
@@ -102,15 +102,15 @@ public class Arg implements Cloneable, Serializable {
     protected String name = null;
 
     /**
-     * This argument's position in the message (ie. you would set postion=0 to 
+     * This argument's position in the message (ie. you would set postion=0 to
      * make a replacement in this string "some msg {0}").
      * @since Validator 1.1
      */
     protected int position = 0;
 
     /**
-     * Whether or not the key is a message resource (optional).  Defaults to 
-     * true.  If it is 'true', the value will try to be resolved as a message 
+     * Whether or not the key is a message resource (optional).  Defaults to
+     * true.  If it is 'true', the value will try to be resolved as a message
      * resource.
      */
     protected boolean resource = true;
@@ -123,7 +123,7 @@ public class Arg implements Cloneable, Serializable {
         try {
             return super.clone();
 
-        } catch (CloneNotSupportedException e) {
+        } catch(CloneNotSupportedException e) {
             throw new InternalError(e.toString());
         }
     }
@@ -153,6 +153,7 @@ public class Arg implements Cloneable, Serializable {
     }
 
     /**
+     * Argument's replacement position.
      * @return This argument's replacement position.
      */
     public int getPosition() {
@@ -203,6 +204,7 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Set this argument's replacement position.
+     * @param position set this argument's replacement position.
      */
     public void setPosition(int position) {
         this.position = position;

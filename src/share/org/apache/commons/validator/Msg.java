@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.8 2003/08/21 19:40:13 rleland Exp $
- * $Revision: 1.8 $
- * $Date: 2003/08/21 19:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.9 2003/08/21 21:43:05 rleland Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/08/21 21:43:05 $
  *
  * ====================================================================
  *
@@ -65,20 +65,20 @@ import java.io.Serializable;
 
 /**
  * <p>
- * An alternative message can be associated with a <code>Field</code> 
- * and a pluggable validator instead of using the default message 
+ * An alternative message can be associated with a <code>Field</code>
+ * and a pluggable validator instead of using the default message
  * stored in the <code>ValidatorAction</code> (aka pluggable validator).
  * Instances of this class are configured with a &lt;msg&gt; xml element.
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2003/08/21 19:40:13 $
+ * @version $Revision: 1.9 $ $Date: 2003/08/21 21:43:05 $
  */
 public class Msg implements Cloneable, Serializable {
 
     /**
      * The resource bundle name that this Msg's <code>key</code> should be
-     * resolved in (optional). 
+     * resolved in (optional).
      * @since Validator 1.1
      */
     protected String bundle = null;
@@ -145,7 +145,7 @@ public class Msg implements Cloneable, Serializable {
         try {
             return super.clone();
 
-        } catch (CloneNotSupportedException e) {
+        } catch(CloneNotSupportedException e) {
             throw new InternalError(e.toString());
         }
     }
