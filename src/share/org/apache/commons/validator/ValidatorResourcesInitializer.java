@@ -137,11 +137,11 @@ public class ValidatorResourcesInitializer {
       digester.setValidating(false);
       
       // Create Global Constant objects
-      digester.addObjectCreate("form-validation/global/constant",
-      			 "org.apache.commons.validator.Constant", "className");
-      digester.addSetProperties("form-validation/global/constant");
-      digester.addSetNext("form-validation/global/constant", "addConstant",
-      		    "org.apache.commons.validator.Constant");
+      digester.addCallMethod("form-validation/global/constant",
+                             "addConstantParam", 2);
+      digester.addCallParam("form-validation/global/constant/constant-name", 0);
+      digester.addCallParam("form-validation/global/constant/constant-value", 1);
+      		    
       // Create Global ValidatorAction objects
       digester.addObjectCreate("form-validation/global/validator",
       			 "org.apache.commons.validator.ValidatorAction", "className");
@@ -160,12 +160,13 @@ public class ValidatorResourcesInitializer {
       digester.addSetProperties("form-validation/formset");
       digester.addSetNext("form-validation/formset", "put",
       		    "org.apache.commons.validator.FormSet");
+
       // Create Constant objects
-      digester.addObjectCreate("form-validation/formset/constant",
-      			 "org.apache.commons.validator.Constant", "className");
-      digester.addSetProperties("form-validation/formset/constant");
-      digester.addSetNext("form-validation/formset/constant", "addConstant",
-      		    "org.apache.commons.validator.Constant");
+      digester.addCallMethod("form-validation/formset/constant",
+                             "addConstantParam", 2);
+      digester.addCallParam("form-validation/formset/constant/constant-name", 0);
+      digester.addCallParam("form-validation/formset/constant/constant-value", 1);
+
       // Create Form objects
       digester.addObjectCreate("form-validation/formset/form",
       			 "org.apache.commons.validator.Form", "className");
@@ -227,7 +228,7 @@ public class ValidatorResourcesInitializer {
          digester.parse(in);
          in.close();
       } catch (SAXException e) {
-          log.error("ValidatorResourcesInitializer::initialize - SAXException: " + e.getMessage(), e);
+          log.error(e.getMessage(), e);
       } finally {
       	 if (in != null)
             try {in.close(); } catch (Exception e) {}
