@@ -27,9 +27,13 @@
            <li><a href="http://jakarta.apache.org/site/binindex.cgi#commons-validator">1.0.2 Binary</a></li>
            <li><a href="http://jakarta.apache.org/site/sourceindex.cgi#commons-validator">1.0.2 Source</a></li>
          </ul>
-         
-         <br/>
-         
+
+          <p><strong>Latest Development Release</strong></p>
+          <ul>
+            <li><a href="http://www.apache.org/~martinc/validator/v1.1.2/commons-validator-1.1.2.zip">1.1.2 Binary</a></li>
+            <li><a href="http://www.apache.org/~martinc/validator/v1.1.2/commons-validator-1.1.2-src.zip">1.1.2 Source</a></li>
+          </ul>
+
          <!--
          <p>
             <strong>Archived Releases</strong>
