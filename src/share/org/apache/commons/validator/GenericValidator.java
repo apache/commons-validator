@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.11 2003/03/13 02:26:25 dgraham Exp $
- * $Revision: 1.11 $
- * $Date: 2003/03/13 02:26:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.12 2003/03/13 02:28:34 dgraham Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/03/13 02:28:34 $
  *
  * ====================================================================
  *
@@ -59,7 +59,6 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.io.Serializable;
@@ -75,7 +74,7 @@ import org.apache.oro.text.perl.Perl5Util;
  *
  * @author David Winterfeldt
  * @author James Turner
- * @version $Revision: 1.11 $ $Date: 2003/03/13 02:26:25 $
+ * @version $Revision: 1.12 $ $Date: 2003/03/13 02:28:34 $
  */
 public class GenericValidator implements Serializable {
 
@@ -92,7 +91,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isBlankOrNull(String value) {
-       return ((value == null) || (value.trim().length() == 0));
+        return ((value == null) || (value.trim().length() == 0));
     }
 
     /**
@@ -102,16 +101,15 @@ public class GenericValidator implements Serializable {
      * @param 	regexp		The regular expression.
     */
     public static boolean matchRegexp(String value, String regexp) {
-       boolean match = false;
-       
-       if (regexp != null && regexp.length() > 0) {
-          Perl5Util r = new Perl5Util();
-          match = r.match(getDelimittedRegexp(regexp), value);
-       }
-       
-       return match;
-    }        
-    
+        boolean match = false;
+
+        if (regexp != null && regexp.length() > 0) {
+            Perl5Util r = new Perl5Util();
+            match = r.match(getDelimittedRegexp(regexp), value);
+        }
+
+        return match;
+    }
 
     /**
      * <p>Checks if the value can safely be converted to a byte primitive.</p>
@@ -119,7 +117,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isByte(String value) {
-       return (GenericTypeValidator.formatByte(value) != null);
+        return (GenericTypeValidator.formatByte(value) != null);
     }
 
     /**
@@ -128,7 +126,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isShort(String value) {
-       return (GenericTypeValidator.formatShort(value) != null);
+        return (GenericTypeValidator.formatShort(value) != null);
     }
 
     /**
@@ -137,7 +135,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isInt(String value) {
-       return (GenericTypeValidator.formatInt(value) != null);
+        return (GenericTypeValidator.formatInt(value) != null);
     }
 
     /**
@@ -146,7 +144,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isLong(String value) {
-       return (GenericTypeValidator.formatLong(value) != null);
+        return (GenericTypeValidator.formatLong(value) != null);
     }
 
     /**
@@ -155,7 +153,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isFloat(String value) {
-       return (GenericTypeValidator.formatFloat(value) != null);
+        return (GenericTypeValidator.formatFloat(value) != null);
     }
 
     /**
@@ -164,7 +162,7 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isDouble(String value) {
-       return (GenericTypeValidator.formatDouble(value) != null);
+        return (GenericTypeValidator.formatDouble(value) != null);
     }
 
     /**
@@ -176,30 +174,33 @@ public class GenericValidator implements Serializable {
      * @param 	Locale	        The locale to use for the date format, defaults to the default system default if null.
     */
     public static boolean isDate(String value, Locale locale) {
-	boolean bValid = true;
+        boolean bValid = true;
 
-	if (value != null) {
-	   try {
-	      DateFormat formatter = null;
-	      if (locale != null) {
-	         formatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-	      } else {
-	         formatter = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
-	      }
-	         
-              formatter.setLenient(false);
-              
-              formatter.parse(value);
-    	   } catch (ParseException e) {
-    	      bValid = false;
-           }
+        if (value != null) {
+            try {
+                DateFormat formatter = null;
+                if (locale != null) {
+                    formatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+                } else {
+                    formatter =
+                        DateFormat.getDateInstance(
+                            DateFormat.SHORT,
+                            Locale.getDefault());
+                }
+
+                formatter.setLenient(false);
+
+                formatter.parse(value);
+            } catch (ParseException e) {
+                bValid = false;
+            }
         } else {
-           bValid = false;	
+            bValid = false;
         }
 
         return bValid;
-    }	
-    
+    }
+
     /**
      * <p>Checks if the field is a valid date.  The pattern is used with 
      * <code>java.text.SimpleDateFormat</code>.  If strict is true, then the 
@@ -213,31 +214,30 @@ public class GenericValidator implements Serializable {
     */
     public static boolean isDate(String value, String datePattern, boolean strict) {
 
-	boolean bValid = true;
+        boolean bValid = true;
 
-	if (value != null && datePattern != null && datePattern.length() > 0) {
-	   try {
-              SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
-              formatter.setLenient(false);
-              
-              formatter.parse(value);
-              
-              if (strict) {
-                 if (datePattern.length() != value.length()) {
-                    bValid = false;
-                 }
-              }
+        if (value != null && datePattern != null && datePattern.length() > 0) {
+            try {
+                SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+                formatter.setLenient(false);
 
-    	   } catch (ParseException e) {
-    	      bValid = false;
-           }
+                formatter.parse(value);
+
+                if (strict) {
+                    if (datePattern.length() != value.length()) {
+                        bValid = false;
+                    }
+                }
+
+            } catch (ParseException e) {
+                bValid = false;
+            }
         } else {
-           bValid = false;	
+            bValid = false;
         }
 
         return bValid;
-    }	
-
+    }
 
     /**
      * <p>Checks if a value is within a range (min &amp; max specified 
@@ -248,7 +248,7 @@ public class GenericValidator implements Serializable {
      * @param 	max		The maximum value of the range.
     */
     public static boolean isInRange(int value, int min, int max) {
-       return ((value >= min) && (value <= max));
+        return ((value >= min) && (value <= max));
     }
 
     /**
@@ -260,7 +260,7 @@ public class GenericValidator implements Serializable {
      * @param 	max		The maximum value of the range.
     */
     public static boolean isInRange(float value, float min, float max) {
-       return ((value >= min) && (value <= max));
+        return ((value >= min) && (value <= max));
     }
 
     /**
@@ -272,7 +272,7 @@ public class GenericValidator implements Serializable {
      * @param 	max		The maximum value of the range.
     */
     public static boolean isInRange(short value, short min, short max) {
-       return ((value >= min) && (value <= max));
+        return ((value >= min) && (value <= max));
     }
 
     /**
@@ -284,7 +284,7 @@ public class GenericValidator implements Serializable {
      * @param 	max		The maximum value of the range.
     */
     public static boolean isInRange(double value, double min, double max) {
-       return ((value >= min) && (value <= max));
+        return ((value >= min) && (value <= max));
     }
 
     /**
@@ -295,9 +295,11 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isCreditCard(String value) {
-       return (validateCreditCardLuhnCheck(value) && validateCreditCardPrefixCheck(value));
+        return (
+            validateCreditCardLuhnCheck(value)
+                && validateCreditCardPrefixCheck(value));
     }
-        
+
     /**
      * <p>Checks for a valid credit card number.</p>
      * <p>Translated to Java by Ted Husted (<a href="mailto:husted@apache.org">husted@apache.org</a>).<br>
@@ -311,28 +313,28 @@ public class GenericValidator implements Serializable {
         int oddoeven = no_digit & 1;
         long sum = 0;
         for (int count = 0; count < no_digit; count++) {
-           int digit = 0;
-           try {
-              digit = Integer.parseInt(String.valueOf(cardNumber.charAt(count)));
-           } catch (NumberFormatException e) {
-              return false;
-           }
-           if (((count & 1) ^ oddoeven) == 0) { // not
-               digit *= 2;
-               if (digit > 9) { 
-                  digit -= 9;
-               }
-           }
-           sum += digit;
+            int digit = 0;
+            try {
+                digit = Integer.parseInt(String.valueOf(cardNumber.charAt(count)));
+            } catch (NumberFormatException e) {
+                return false;
+            }
+            if (((count & 1) ^ oddoeven) == 0) { // not
+                digit *= 2;
+                if (digit > 9) {
+                    digit -= 9;
+                }
+            }
+            sum += digit;
         }
         if (sum == 0) {
-           return false;
+            return false;
         }
-        
+
         if (sum % 10 == 0) {
-           return true;
+            return true;
         }
-        
+
         return false;
     }
 
@@ -351,38 +353,38 @@ public class GenericValidator implements Serializable {
 
         int length = cardNumber.length();
         if (length < 13) {
-           return false;
+            return false;
         }
 
         boolean valid = false;
         int cardType = 0;
 
-        String prefix2 = cardNumber.substring(0,2) + ",";
+        String prefix2 = cardNumber.substring(0, 2) + ",";
 
         if (AX_PREFIX.indexOf(prefix2) != -1) {
-           cardType = 3;
+            cardType = 3;
         }
-        if (cardNumber.substring(0,1).equals(VS_PREFIX)) {
-           cardType = 4;
+        if (cardNumber.substring(0, 1).equals(VS_PREFIX)) {
+            cardType = 4;
         }
         if (MC_PREFIX.indexOf(prefix2) != -1) {
-           cardType = 5;
+            cardType = 5;
         }
-        if (cardNumber.substring(0,4).equals(DS_PREFIX)) {
-           cardType = 6;
+        if (cardNumber.substring(0, 4).equals(DS_PREFIX)) {
+            cardType = 6;
         }
 
-        if ((cardType==3) && (length==15)) {
-           valid = true;
+        if ((cardType == 3) && (length == 15)) {
+            valid = true;
         }
-        if ((cardType==4) && ((length==13) || (length==16))) {
-           valid = true;
+        if ((cardType == 4) && ((length == 13) || (length == 16))) {
+            valid = true;
         }
-        if ((cardType==5) && (length==16)) {
-           valid = true;
+        if ((cardType == 5) && (length == 16)) {
+            valid = true;
         }
-        if ((cardType==6) && (length==16)) {
-           valid = true;
+        if ((cardType == 6) && (length == 16)) {
+            valid = true;
         }
 
         return valid;
@@ -396,120 +398,124 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
     */
     public static boolean isEmail(String value) {
-       boolean bValid = true;
-       
-       try {
-           String specialChars = "\\(\\)<>@,;:\\\\\\\"\\.\\[\\]";
-           String validChars = "[^\\s" + specialChars + "]";
-           String quotedUser = "(\"[^\"]*\")";
-           String atom = validChars + '+';
-           String word = "(" + atom + "|" + quotedUser + ")";
+        boolean bValid = true;
 
-           // Each pattern must be surrounded by /
-	   String legalAsciiPat = getDelimittedRegexp("^[\\000-\\177]+$");
-           String emailPat = getDelimittedRegexp("^(.+)@(.+)$");
-           String ipDomainPat = getDelimittedRegexp("^(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})$");
-           String userPat = getDelimittedRegexp("^" + word + "(\\." + word + ")*$");
-           String domainPat = getDelimittedRegexp("^" + atom + "(\\." + atom +")*$");
-           String atomPat = getDelimittedRegexp("(" + atom + ")");
-         
-           Perl5Util matchEmailPat = new Perl5Util();
-           Perl5Util matchUserPat = new Perl5Util();
-           Perl5Util matchIPPat = new Perl5Util();
-           Perl5Util matchDomainPat = new Perl5Util();
-           Perl5Util matchAtomPat = new Perl5Util();
-           Perl5Util matchAsciiPat = new Perl5Util();
-         
-           boolean ipAddress = false;
-           boolean symbolic = false;
-         
-	   if (!matchAsciiPat.match(legalAsciiPat, value)) {
-	       return false;
-	   }
+        try {
+            String specialChars = "\\(\\)<>@,;:\\\\\\\"\\.\\[\\]";
+            String validChars = "[^\\s" + specialChars + "]";
+            String quotedUser = "(\"[^\"]*\")";
+            String atom = validChars + '+';
+            String word = "(" + atom + "|" + quotedUser + ")";
 
-           // Check the whole email address structure
-           bValid = matchEmailPat.match(emailPat, value);
+            // Each pattern must be surrounded by /
+            String legalAsciiPat = getDelimittedRegexp("^[\\000-\\177]+$");
+            String emailPat = getDelimittedRegexp("^(.+)@(.+)$");
+            String ipDomainPat =
+                getDelimittedRegexp("^(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})$");
+            String userPat = getDelimittedRegexp("^" + word + "(\\." + word + ")*$");
+            String domainPat =
+                getDelimittedRegexp("^" + atom + "(\\." + atom + ")*$");
+            String atomPat = getDelimittedRegexp("(" + atom + ")");
 
-	   if (value.endsWith(".")) {
-	       bValid = false;
-	   }
+            Perl5Util matchEmailPat = new Perl5Util();
+            Perl5Util matchUserPat = new Perl5Util();
+            Perl5Util matchIPPat = new Perl5Util();
+            Perl5Util matchDomainPat = new Perl5Util();
+            Perl5Util matchAtomPat = new Perl5Util();
+            Perl5Util matchAsciiPat = new Perl5Util();
 
-           // Check the user component of the email address
-           if (bValid) {
+            boolean ipAddress = false;
+            boolean symbolic = false;
 
-              String user = matchEmailPat.group(1);
-              
-              // See if "user" is valid 
-              bValid = matchUserPat.match(userPat, user);
-           }
-         
-           // Check the domain component of the email address
-           if (bValid) {
-              String domain = matchEmailPat.group(2);
-         
-              // check if domain is IP address or symbolic
-              ipAddress = matchIPPat.match(ipDomainPat, domain);
-             
-              if (ipAddress) {
-                 // this is an IP address so check components
-                 for (int i = 1; i <= 4; i++) {
-                     String ipSegment = matchIPPat.group(i);
-                     if (ipSegment != null && ipSegment.length() > 0) {
-                         int iIpSegment = 0;
-                         try {
-                            iIpSegment = Integer.parseInt(ipSegment);
-                         } catch (Exception e) {
+            if (!matchAsciiPat.match(legalAsciiPat, value)) {
+                return false;
+            }
+
+            // Check the whole email address structure
+            bValid = matchEmailPat.match(emailPat, value);
+
+            if (value.endsWith(".")) {
+                bValid = false;
+            }
+
+            // Check the user component of the email address
+            if (bValid) {
+
+                String user = matchEmailPat.group(1);
+
+                // See if "user" is valid 
+                bValid = matchUserPat.match(userPat, user);
+            }
+
+            // Check the domain component of the email address
+            if (bValid) {
+                String domain = matchEmailPat.group(2);
+
+                // check if domain is IP address or symbolic
+                ipAddress = matchIPPat.match(ipDomainPat, domain);
+
+                if (ipAddress) {
+                    // this is an IP address so check components
+                    for (int i = 1; i <= 4; i++) {
+                        String ipSegment = matchIPPat.group(i);
+                        if (ipSegment != null && ipSegment.length() > 0) {
+                            int iIpSegment = 0;
+                            try {
+                                iIpSegment = Integer.parseInt(ipSegment);
+                            } catch (Exception e) {
+                                bValid = false;
+                            }
+
+                            if (iIpSegment > 255) {
+                                bValid = false;
+                            }
+                        } else {
                             bValid = false;
-                         }
-                     
-                         if (iIpSegment > 255) {
-                            bValid = false;
-                         }
-                     } else {
-                        bValid = false;
-                     }
-                 }
-              } else {    
-                 // Domain is symbolic name
-                 symbolic = matchDomainPat.match(domainPat, domain);
-              }
-              
-              if (symbolic) {
-                 // this is a symbolic domain so check components
-                 String[] domainSegment = new String[10];
-                 boolean match = true;
-                 int i = 0;
-                 int l = 0;
-                 
-                 while (match) {
-                    match = matchAtomPat.match(atomPat, domain);
-                    if (match) {
-                       domainSegment[i] = matchAtomPat.group(1);
-                       l = domainSegment[i].length() + 1;
-                       domain = (l >= domain.length())? "" : domain.substring(l);
-                       i++;
+                        }
                     }
-                 }
-                 
-                 int len = i;
-                 if (domainSegment[len - 1].length() < 2 || domainSegment[len - 1].length() > 4) {
-                     bValid = false;
-                 }
+                } else {
+                    // Domain is symbolic name
+                    symbolic = matchDomainPat.match(domainPat, domain);
+                }
 
-                 // Make sure there's a host name preceding the domain.
-                 if (len < 2) {
+                if (symbolic) {
+                    // this is a symbolic domain so check components
+                    String[] domainSegment = new String[10];
+                    boolean match = true;
+                    int i = 0;
+                    int l = 0;
+
+                    while (match) {
+                        match = matchAtomPat.match(atomPat, domain);
+                        if (match) {
+                            domainSegment[i] = matchAtomPat.group(1);
+                            l = domainSegment[i].length() + 1;
+                            domain =
+                                (l >= domain.length()) ? "" : domain.substring(l);
+                            i++;
+                        }
+                    }
+
+                    int len = i;
+                    if (domainSegment[len - 1].length() < 2
+                        || domainSegment[len - 1].length() > 4) {
+                        bValid = false;
+                    }
+
+                    // Make sure there's a host name preceding the domain.
+                    if (len < 2) {
+                        bValid = false;
+                    }
+
+                } else {
                     bValid = false;
-                 } 
-                 
-              } else {
-                bValid = false; 
-              }          	
-	   }
-       } catch (Exception e) {
-          bValid = false;
-       }
+                }
+            }
+        } catch (Exception e) {
+            bValid = false;
+        }
 
-       return bValid;
+        return bValid;
     }
 
     /**
@@ -519,8 +525,8 @@ public class GenericValidator implements Serializable {
      * @param 	max		The maximum length.
     */
     public static boolean maxLength(String value, int max) {
-       return (value.length() <= max);
-    } 
+        return (value.length() <= max);
+    }
 
     /**
      * <p>Checks if the value's length is greater than or equal to the min.</p>
@@ -529,14 +535,13 @@ public class GenericValidator implements Serializable {
      * @param 	min		The minimum length.
     */
     public static boolean minLength(String value, int min) {
-       return (value.length() >= min);
-    } 
-
+        return (value.length() >= min);
+    }
 
     /**
      * Adds a '/' on either side of the regular expression.
     */
     protected static String getDelimittedRegexp(String regexp) {
-       return (REGEXP_DELIM + regexp + REGEXP_DELIM);
+        return (REGEXP_DELIM + regexp + REGEXP_DELIM);
     }
 }
