@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.9 2003/05/28 04:14:32 dgraham Exp $
- * $Revision: 1.9 $
- * $Date: 2003/05/28 04:14:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.10 2003/05/29 03:02:01 dgraham Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/05/29 03:02:01 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.commons.collections.FastHashMap;
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.9 $ $Date: 2003/05/28 04:14:32 $
+ * @version $Revision: 1.10 $ $Date: 2003/05/29 03:02:01 $
  */
 public class FormSet implements Serializable {
     
@@ -205,9 +205,17 @@ public class FormSet implements Serializable {
 
     /**
      * Retrieve a <code>Form</code> based on the form name.
+     * @deprecated Use getForm(String) instead.
      */
     public Form getForm(Object key) {
-		return (Form) forms.get(key);
+		return (Form) this.forms.get(key);
+    }
+
+    /**
+     * Retrieve a <code>Form</code> based on the form name.
+     */
+    public Form getForm(String formName) {
+        return (Form) this.forms.get(formName);
     }
     
     /**
@@ -221,6 +229,8 @@ public class FormSet implements Serializable {
     /**
      * Processes all of the <code>Form</code>s, set <code>FastHashMap</code>s 
      * to 'fast' mode.
+     * @deprecated This method is called by the framework.  It will be made protected
+     * in a future release.  TODO
      */
     public synchronized void process(Map globalConstants) {
     	for (Iterator i = forms.values().iterator(); i.hasNext();) {
