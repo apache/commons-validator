@@ -1,5 +1,5 @@
 
-   /*$RCSfile: validateEmail.js,v $ $Revision: 1.8 $ $Date: 2004/03/25 04:56:11 $ */
+   /*$RCSfile: validateEmail.js,v $ $Revision: 1.9 $ $Date: 2004/03/28 16:53:21 $ */
     /**
     * Check to see if fields are a valid email address.
     * Fields are not checked if they are disabled.
@@ -11,7 +11,8 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        var formName = getAttribute(form,"name");
+        var formName = form.getAttributeNode("name");
+
 
         oEmail = eval('new ' + formName.value + '_email()');
 
@@ -89,3 +90,5 @@
        }
        return true;
     }
+
+  
