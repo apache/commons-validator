@@ -1,5 +1,5 @@
 
-   /*$RCSfile: validateEmail.js,v $ $Revision: 1.5 $ $Date: 2003/12/15 02:56:57 $ */
+   /*$RCSfile: validateEmail.js,v $ $Revision: 1.6 $ $Date: 2004/02/02 23:58:52 $ */
     /**
     * Check to see if fields are a valid email address.
     * Fields are not checked if they are disabled.
@@ -13,13 +13,15 @@
         var fields = new Array();
         oEmail = new email();
         for (x in oEmail) {
-            if ((form[oEmail[x][0]].type == 'text' ||
-                 form[oEmail[x][0]].type == 'textarea') &&
-                (form[oEmail[x][0]].value.length > 0) &&
-                form[oEmail[x][0]].disabled == false) {
-                if (!checkEmail(form[oEmail[x][0]].value)) {
+            var field = form[oEmail[x][0]];
+            if ((field.type == 'hidden' || 
+                 field.type == 'text' ||
+                 field.type == 'textarea') &&
+                (field.value.length > 0) &&
+                field.disabled == false) {
+                if (!checkEmail(field.value)) {
                     if (i == 0) {
-                        focusField = form[oEmail[x][0]];
+                        focusField = field;
                     }
                     fields[i++] = oEmail[x][1];
                     bValid = false;

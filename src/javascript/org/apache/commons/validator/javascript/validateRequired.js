@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateRequired.js,v $ $Revision: 1.9 $ $Date: 2003/12/15 02:56:57 $ */
+    /*$RCSfile: validateRequired.js,v $ $Revision: 1.10 $ $Date: 2004/02/02 23:58:52 $ */
     /**
     *  Check to see if fields must contain a value.
     * Fields are not checked if they are disabled.
@@ -17,7 +17,8 @@
         for (x in oRequired) {
             var field = form[oRequired[x][0]];
 
-            if ((field.type == 'text' ||
+            if ((field.type == 'hidden' ||
+                field.type == 'text' ||
                 field.type == 'textarea' ||
                 field.type == 'file' ||
                 field.type == 'checkbox' ||

@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateFloat.js,v $ $Revision: 1.7 $ $Date: 2003/12/15 02:56:57 $ */
+    /*$RCSfile: validateFloat.js,v $ $Revision: 1.8 $ $Date: 2004/02/02 23:58:52 $ */
     /**
     * Check to see if fields are a valid float.
     * Fields are not checked if they are disabled.
@@ -15,7 +15,8 @@
         for (x in oFloat) {
         	var field = form[oFloat[x][0]];
         	
-            if ((field.type == 'text' ||
+            if ((field.type == 'hidden' ||
+                field.type == 'text' ||
                 field.type == 'textarea' ||
                 field.type == 'select-one' ||
                 field.type == 'radio') &&

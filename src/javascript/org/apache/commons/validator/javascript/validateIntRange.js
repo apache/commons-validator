@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateIntRange.js,v $ $Revision: 1.6 $ $Date: 2003/12/15 02:56:57 $ */
+    /*$RCSfile: validateIntRange.js,v $ $Revision: 1.7 $ $Date: 2004/02/02 23:58:52 $ */
     /**
     * Check to see if fields is in a valid integer range.
     * Fields are not checked if they are disabled.
@@ -16,7 +16,8 @@
             var field = form[oRange[x][0]];
             if (field.disabled == false)  {
                 var value = '';
-                if (field.type == 'text' || field.type == 'textarea' ||
+                if (field.type == 'hidden' ||
+                    field.type == 'text' || field.type == 'textarea' ||
                     field.type == 'radio' ) {
                     value = field.value;
                 }

@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateByte.js,v $ $Revision: 1.5 $ $Date: 2003/12/15 02:56:57 $ */
+    /*$RCSfile: validateByte.js,v $ $Revision: 1.6 $ $Date: 2004/02/02 23:58:52 $ */
     /**
     * Check to see if fields are a valid byte.
     * Fields are not checked if they are disabled.
@@ -15,7 +15,8 @@
         for (x in oByte) {
             var field = form[oByte[x][0]];
 
-            if ((field.type == 'text' ||
+            if ((field.type == 'hidden' ||
+                field.type == 'text' ||
                 field.type == 'textarea' ||
                 field.type == 'select-one' ||
                 field.type == 'radio')  &&

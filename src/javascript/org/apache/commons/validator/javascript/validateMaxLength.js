@@ -1,8 +1,9 @@
 
-    /*$RCSfile: validateMaxLength.js,v $ $Revision: 1.6 $ $Date: 2003/12/15 02:56:57 $ */
+    /*$RCSfile: validateMaxLength.js,v $ $Revision: 1.7 $ $Date: 2004/02/02 23:58:52 $ */
     /**
     * A field is considered valid if less than the specified maximum.
     * Fields are not checked if they are disabled.
+    * <p>
     * <strong>Caution:</strong> Using <code>validateMaxLength</code> on a password field in a 
     *  login page gives unnecessary information away to hackers. While it only slightly
     *  weakens security, we suggest using it only when modifying a password.</p>
@@ -17,7 +18,8 @@
         for (x in oMaxLength) {
             var field = form[oMaxLength[x][0]];
 
-            if ((field.type == 'text' ||
+            if ((field.type == 'hidden' ||
+                field.type == 'text' ||
                 field.type == 'password' ||
                 field.type == 'textarea') &&
                 field.disabled == false) {

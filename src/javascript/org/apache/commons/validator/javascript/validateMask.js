@@ -1,5 +1,5 @@
 
-    /*$RCSfile: validateMask.js,v $ $Revision: 1.5 $ $Date: 2003/12/15 02:56:57 $ */
+    /*$RCSfile: validateMask.js,v $ $Revision: 1.6 $ $Date: 2004/02/02 23:58:52 $ */
     /**
     * Check to see if fields are a valid using a regular expression.
     * Fields are not checked if they are disabled.
@@ -15,7 +15,8 @@
         for (x in oMasked) {
             var field = form[oMasked[x][0]];
 
-            if ((field.type == 'text' ||
+            if ((field.type == 'hidden' ||
+                field.type == 'text' ||
                  field.type == 'textarea') &&
                  (field.value.length > 0) &&
                  field.disabled == false) {

@@ -1,5 +1,5 @@
 
-   /*$RCSfile: validateDate.js,v $ $Revision: 1.6 $ $Date: 2003/12/15 02:56:57 $ */
+   /*$RCSfile: validateDate.js,v $ $Revision: 1.7 $ $Date: 2004/02/02 23:58:52 $ */
     /**
     * Check to see if fields are a valid date.
     * Fields are not checked if they are disabled.
@@ -13,15 +13,17 @@
        var fields = new Array();
        oDate = new DateValidations();
        for (x in oDate) {
-           var value = form[oDate[x][0]].value;
+           var field = form[oDate[x][0]];
+           var value = field.value;
            var datePattern = oDate[x][2]("datePatternStrict");
            // try loose pattern
            if (datePattern == null)
                datePattern = oDate[x][2]("datePattern");
-           if ((form[oDate[x][0]].type == 'text' ||
-                form[oDate[x][0]].type == 'textarea') &&
+           if ((field.type == 'hidden' ||
+                field.type == 'text' ||
+                field.type == 'textarea') &&
                (value.length > 0) && (datePattern.length > 0) &&
-                form[oDate[x][0]].disabled == false) {
+                field.disabled == false) {
                  var MONTH = "MM";
                  var DAY = "dd";
                  var YEAR = "yyyy";
@@ -46,14 +48,14 @@
                      if(matched != null) {
                         if (!isValidDate(matched[2], matched[1], matched[3])) {
                            if (i == 0) {
-                               focusField = form[oDate[x][0]];
+                               focusField = field;
                            }
                            fields[i++] = oDate[x][1];
                            bValid =  false;
                         }
                      } else {
                         if (i == 0) {
-                            focusField = form[oDate[x][0]];
+                            focusField = field;
                         }
                         fields[i++] = oDate[x][1];
                         bValid =  false;
@@ -76,14 +78,14 @@
                      if(matched != null) {
                          if (!isValidDate(matched[1], matched[2], matched[3])) {
                              if (i == 0) {
-                         focusField = form[oDate[x][0]];
+                         focusField = field;
                              }
                              fields[i++] = oDate[x][1];
                              bValid =  false;
                           }
                      } else {
                          if (i == 0) {
-                             focusField = form[oDate[x][0]];
+                             focusField = field;
                          }
                          fields[i++] = oDate[x][1];
                          bValid =  false;
@@ -106,21 +108,21 @@
                      if(matched != null) {
                          if (!isValidDate(matched[3], matched[2], matched[1])) {
                              if (i == 0) {
-                                 focusField = form[oDate[x][0]];
+                                 focusField = field;
                              }
                              fields[i++] = oDate[x][1];
                              bValid =  false;
                          }
                      } else {
                           if (i == 0) {
-                              focusField = form[oDate[x][0]];
+                              focusField = field;
                           }
                           fields[i++] = oDate[x][1];
                           bValid =  false;
                      }
                  } else {
                      if (i == 0) {
-                         focusField = form[oDate[x][0]];
+                         focusField = field;
                      }
                      fields[i++] = oDate[x][1];
                      bValid =  false;
