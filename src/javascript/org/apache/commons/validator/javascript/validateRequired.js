@@ -5,6 +5,7 @@
         var i = 0;
         var fields = new Array();
         oRequired = new required();
+
         for (x in oRequired) {
             var field = form[oRequired[x][0]];
 
@@ -12,7 +13,6 @@
                 field.type == 'textarea' ||
                 field.type == 'file' ||
                 field.type == 'select-one' ||
-                field.type == 'radio' ||
                 field.type == 'password') {
 
                 var value = '';
@@ -34,10 +34,7 @@
                     fields[i++] = oRequired[x][1];
                     isValid = false;
                 }
-            }
-            // For fields that are actually object arrays, like radio button banks,
-            // iterate through the array and make sure something is checked
-            if (field.length > 0) {
+            } else if ((field.length > 0) && (field[0].type == 'radio')) {
                 isChecked=-1;
                 for (loop=0;loop < field.length;loop++) {
                     if (field[loop].checked) {
@@ -45,7 +42,10 @@
                     }
                 }
                 if (isChecked < 0) {
-                    fields[i++] = oRequired[x][1]
+                    if (i == 0) {
+                        focusField = field[0];
+                    }
+                    fields[i++] = oRequired[x][1];
                     isValid=false;
                 }
             }
