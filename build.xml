@@ -3,7 +3,7 @@
 
 <!--
         "Validator" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.18 2003/03/27 02:44:06 dgraham Exp $
+        $Id: build.xml,v 1.19 2003/04/17 03:20:10 martinc Exp $
 -->
 
 
@@ -52,7 +52,7 @@
   <property name="component.title"         value="Validator"/>
 
   <!-- The current version number of this component -->
-  <property name="component.version"       value="1.1-dev"/>
+  <property name="component.version"       value="1.0.2"/>
 
   <!-- The base directory for compilation targets -->
   <property name="build.home"              value="target"/>
