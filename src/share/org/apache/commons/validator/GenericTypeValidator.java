@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.7 2003/05/24 17:15:25 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2003/05/24 17:15:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.8 2003/05/25 18:29:51 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/05/25 18:29:51 $
  *
  * ====================================================================
  *
@@ -75,7 +75,7 @@ import java.text.ParseException;
  * @author David Winterfeldt
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.7 $ $Date: 2003/05/24 17:15:25 $
+ * @version $Revision: 1.8 $ $Date: 2003/05/25 18:29:51 $
  */
 public class GenericTypeValidator implements Serializable {
     
@@ -85,15 +85,16 @@ public class GenericTypeValidator implements Serializable {
      * @param value The value validation is being performed on.
      */
     public static Byte formatByte(String value) {
-       Byte result = null;
-       
+        if (value == null) {
+            return null;
+        }
+                
        try {
-          result = new Byte(value);
-       } catch (Exception e) {
-            // TODO Why are we catching Exception?  Should this be NumberFormatException?
+          return new Byte(value);
+       } catch (NumberFormatException e) {
+            return null;
        }
        
-       return result;
     }
 
     /**
@@ -102,15 +103,16 @@ public class GenericTypeValidator implements Serializable {
      * @param value The value validation is being performed on.
      */
     public static Short formatShort(String value) {
-       Short result = null;
-       
+        if (value == null) {
+            return null;
+        }
+                
        try {
-          result = new Short(value);
-       } catch (Exception e) {
-           // TODO Why are we catching Exception?  Should this be NumberFormatException?
+          return new Short(value);
+       } catch (NumberFormatException e) {
+           return null;
        }
-       
-       return result;
+      
     }
 
     /**
@@ -119,15 +121,16 @@ public class GenericTypeValidator implements Serializable {
      * @param value The value validation is being performed on.
      */
 	public static Integer formatInt(String value) {
-		Integer result = null;
-
+        if (value == null) {
+            return null;
+        }
+                
 		try {
-			result = new Integer(value);
-		} catch (Exception e) {
-			// TODO Why are we catching Exception?  Should this be NumberFormatException?
+			return new Integer(value);
+		} catch (NumberFormatException e) {
+			return null;
 		}
-
-		return result;
+        
 	}
 
     /**
@@ -136,15 +139,16 @@ public class GenericTypeValidator implements Serializable {
      * @param value The value validation is being performed on.
      */
     public static Long formatLong(String value) {
-       Long result = null;
-       
+        if (value == null) {
+            return null;
+        }
+        
        try {
-          result = new Long(value);
-       } catch (Exception e) {
-            // TODO Why are we catching Exception?  Should this be NumberFormatException?
+          return new Long(value);
+       } catch (NumberFormatException e) {
+            return null;
        }
        
-       return result;
     }
 
     /**
@@ -153,15 +157,16 @@ public class GenericTypeValidator implements Serializable {
      * @param value The value validation is being performed on.
      */
     public static Float formatFloat(String value) {
-       Float result = null;
-       
-       try {
-          result = new Float(value);
-       } catch (Exception e) {
-            // TODO Why are we catching Exception?  Should this be NumberFormatException?
-       }
-       
-       return result;
+        if (value == null) {
+            return null;
+        }
+
+        try {
+            return new Float(value);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
     }
 
     /**
@@ -170,15 +175,16 @@ public class GenericTypeValidator implements Serializable {
      * @param value The value validation is being performed on.
      */
     public static Double formatDouble(String value) {
-       Double result = null;
+        if (value == null) {
+            return null;
+        }
        
        try {
-          result = new Double(value);
-       } catch (Exception e) {
-            // TODO Why are we catching Exception?  Should this be NumberFormatException?
+          return new Double(value);
+       } catch (NumberFormatException e) {
+            return null;
        }
        
-       return result;
     }
 
     /**
@@ -212,8 +218,7 @@ public class GenericTypeValidator implements Serializable {
 
 			date = formatter.parse(value);
 		} catch (ParseException e) {
-			// TODO Should either document why exception is swallowed or 
-			// not swallow it.
+			// Bad date so return null
 		}
 
 		return date;
@@ -251,8 +256,7 @@ public class GenericTypeValidator implements Serializable {
 				}
 			}
 		} catch (ParseException e) {
-			// TODO Should either document why exception is swallowed or 
-			// not swallow it.
+			// Bad date so return null
 		}
 
 		return date;
