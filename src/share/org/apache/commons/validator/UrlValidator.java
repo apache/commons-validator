@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.8 2003/05/03 05:10:32 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/05/03 05:10:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.9 2003/05/03 15:53:53 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/05/03 15:53:53 $
  *
  * ====================================================================
  *
@@ -105,28 +105,29 @@ import org.apache.oro.text.perl.Perl5Util;
  *  </a>
  *
  * @author Robert Leland
- * @version $Revision: 1.8 $ $Date: 2003/05/03 05:10:32 $
+ * @author David Graham
+ * @version $Revision: 1.9 $ $Date: 2003/05/03 15:53:53 $
  */
 public class UrlValidator implements Serializable {
-	private static final String alphaChars = "a-zA-Z";
+	private static final String ALPHA_CHARS = "a-zA-Z";
     
-	private static final String alphaNumChars = alphaChars + "\\d";
+	private static final String ALPHA_NUMERIC_CHARS = ALPHA_CHARS + "\\d";
     
-	private static final String specialChars = ";/@&=,.?:+$";
+	private static final String SPECIAL_CHARS = ";/@&=,.?:+$";
     
-	private static final String validChars = "[^\\s" + specialChars + "]";
+	private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
 
-	private static final String schemeChars = alphaChars;
+	private static final String SCHEME_CHARS = ALPHA_CHARS;
     
 	// Drop numeric, and  "+-." for now
-	private static final String authorityChars = alphaNumChars + "\\-\\.";
+	private static final String AUTHORITY_CHARS = ALPHA_NUMERIC_CHARS + "\\-\\.";
     
-	private static final String atom = validChars + '+';
+	private static final String ATOM = VALID_CHARS + '+';
 
 	/**
 	 * This expression derived/taken from the BNF for URI (RFC2396).
 	 */
-	private static final String urlPat =
+	private static final String URL_PATTERN =
 		"/^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?/";
 	//                                                                      12            3  4          5       6   7        8 9
 
@@ -149,10 +150,10 @@ public class UrlValidator implements Serializable {
 	/**
 	 * Protocol (ie. http:, ftp:,https:).
 	 */
-	private static final String schemePat = "/^[" + schemeChars + "]/";
+	private static final String SCHEME_PATTERN = "/^[" + SCHEME_CHARS + "]/";
     
-	private static final String authorityPat =
-		"/^([" + authorityChars + "]*)(:\\d*)?(.*)?/";
+	private static final String AUTHORITY_PATTERN =
+		"/^([" + AUTHORITY_CHARS + "]*)(:\\d*)?(.*)?/";
 	//                                                                            1                          2  3       4
     
 	private static final int PARSE_AUTHORITY_HOST_IP = 1;
@@ -164,24 +165,24 @@ public class UrlValidator implements Serializable {
 	 */
 	private static final int PARSE_AUTHORITY_EXTRA = 3;
 
-	private static final String pathPat =
+	private static final String PATH_PATTERN =
 		"/^(/[-a-zA-Z0-9_:@&?=+,.!/~*'%$]*)$/";
         
-	private static final String queryPat = "/^(.*)$/";
+	private static final String QUERY_PATTERN = "/^(.*)$/";
     
-	private static final String legalAsciiPat = "/^[\\000-\\177]+$/";
+	private static final String LEGAL_ASCII_PATTERN = "/^[\\000-\\177]+$/";
     
-	private static final String ipV4DomainPat =
+	private static final String IP_V4_DOMAIN_PATTERN =
 		"/^(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})$/";
         
-	private static final String domainPat =
-		"/^" + atom + "(\\." + atom + ")*$/";
+	private static final String DOMAIN_PATTERN =
+		"/^" + ATOM + "(\\." + ATOM + ")*$/";
         
-	private static final String portPat = "/^:(\\d{1,5})$/";
+	private static final String PORT_PATTERN = "/^:(\\d{1,5})$/";
     
-	private static final String atomPat = "/(" + atom + ")/";
+	private static final String ATOM_PATTERN = "/(" + ATOM + ")/";
     
-	private static final String alphaPat = "/^[" + alphaChars + "]/";
+	private static final String ALPHA_PATTERN = "/^[" + ALPHA_CHARS + "]/";
 
 	// Non static fields
 	private boolean allow2Slash = false;
@@ -255,12 +256,12 @@ public class UrlValidator implements Serializable {
 			Perl5Util matchUrlPat = new Perl5Util();
 			Perl5Util matchAsciiPat = new Perl5Util();
 
-			if (!matchAsciiPat.match(legalAsciiPat, value)) {
+			if (!matchAsciiPat.match(LEGAL_ASCII_PATTERN, value)) {
 				return false;
 			}
 
 			// Check the whole url address structure
-			if (!matchUrlPat.match(urlPat, value)) {
+			if (!matchUrlPat.match(URL_PATTERN, value)) {
 				return false;
 			}
 
@@ -301,7 +302,7 @@ public class UrlValidator implements Serializable {
 	 */
 	protected boolean isValidScheme(String scheme) {
 		Perl5Util matchSchemePat = new Perl5Util();
-		boolean bValid = matchSchemePat.match(schemePat, scheme);
+		boolean bValid = matchSchemePat.match(SCHEME_PATTERN, scheme);
 		if (bValid) {
 			if (allowedSchemeSet != null) {
 				bValid = allowedSchemeSet.contains(scheme);
@@ -322,104 +323,99 @@ public class UrlValidator implements Serializable {
 		Perl5Util matchAtomPat = new Perl5Util();
 		Perl5Util matchPortPat = new Perl5Util();
 		Perl5Util matchAlphaPat = new Perl5Util();
-
-		bValid = matchAuthorityPat.match(authorityPat, authority);
-
-		if (bValid) {
-			boolean ipV4Address = false;
-			boolean hostname = false;
-			// check if authority is IP address or hostname
-			String hostIP = matchAuthorityPat.group(PARSE_AUTHORITY_HOST_IP);
-			ipV4Address = matchIPV4Pat.match(ipV4DomainPat, hostIP);
-
-			if (ipV4Address) {
-				// this is an IP address so check components
-				for (int i = 1; i <= 4; i++) {
-					String ipSegment = matchIPV4Pat.group(i);
-					if (ipSegment != null && ipSegment.length() > 0) {
-						int iIpSegment = 0;
-						try {
-							iIpSegment = Integer.parseInt(ipSegment);
-						} catch (Exception e) {
-							bValid = false;
-						}
-
-						if (iIpSegment > 255) {
-							bValid = false;
-						}
-					} else {
-						bValid = false;
+        
+        if (!matchAuthorityPat.match(AUTHORITY_PATTERN, authority)) {
+        	return false;
+        }
+        
+        boolean ipV4Address = false;
+        boolean hostname = false;
+        // check if authority is IP address or hostname
+        String hostIP = matchAuthorityPat.group(PARSE_AUTHORITY_HOST_IP);
+        ipV4Address = matchIPV4Pat.match(IP_V4_DOMAIN_PATTERN, hostIP);
+        
+		if (ipV4Address) {
+			// this is an IP address so check components
+			for (int i = 1; i <= 4; i++) {
+				String ipSegment = matchIPV4Pat.group(i);
+				if (ipSegment == null || ipSegment.length() <= 0) {
+					return false;
+				}
+                
+				try {
+					if (Integer.parseInt(ipSegment) > 255) {
+						return false;
 					}
+				} catch (NumberFormatException e) {
+					return false;
 				}
-			} else {
-				// Domain is hostname name
-				hostname = matchDomainPat.match(domainPat, hostIP);
+
 			}
-			//rightmost hostname will never start with a digit.
-			if (hostname) {
-				// this is a hostname authority so check components
-				String[] domainSegment = new String[10];
-				boolean match = true;
-				int segmentCount = 0;
-				int segmentLength = 0;
-
-				while (match) {
-					match = matchAtomPat.match(atomPat, hostIP);
-					if (match) {
-						domainSegment[segmentCount] = matchAtomPat.group(1);
-						segmentLength =
-							domainSegment[segmentCount].length() + 1;
-						hostIP =
-							(segmentLength >= hostIP.length())
-								? ""
-								: hostIP.substring(segmentLength);
-						segmentCount++;
-					}
-				}
-				String topLevel = domainSegment[segmentCount - 1];
-				if (topLevel.length() < 2 || topLevel.length() > 4) {
-					bValid = false;
-				}
-
-				// First letter of top level must be a alpha
-				boolean isAlpha;
-				isAlpha =
-					matchAlphaPat.match(alphaPat, topLevel.substring(0, 1));
-				if (!isAlpha) {
-					bValid = false;
-				}
-
-				// Make sure there's a host name preceding the authority.
-				if (segmentCount < 2) {
-					bValid = false;
-				}
-			}
-
-			if (bValid) {
-				bValid = (hostname || ipV4Address);
-			}
-
-			if (bValid) {
-				String port = matchAuthorityPat.group(PARSE_AUTHORITY_PORT);
-				if (port != null) {
-					bValid = matchPortPat.match(portPat, port);
-				}
-			}
-
-			if (bValid) {
-				String extra = matchAuthorityPat.group(PARSE_AUTHORITY_EXTRA);
-				bValid = ((extra == null) || (extra.length() == 0));
-			}
-
-		}
-		return bValid;
+        } else {
+        	// Domain is hostname name
+        	hostname = matchDomainPat.match(DOMAIN_PATTERN, hostIP);
+        }
+        //rightmost hostname will never start with a digit.
+        if (hostname) {
+        	// this is a hostname authority so check components
+        	String[] domainSegment = new String[10];
+        	boolean match = true;
+        	int segmentCount = 0;
+        	int segmentLength = 0;
+        
+        	while (match) {
+        		match = matchAtomPat.match(ATOM_PATTERN, hostIP);
+        		if (match) {
+        			domainSegment[segmentCount] = matchAtomPat.group(1);
+        			segmentLength = domainSegment[segmentCount].length() + 1;
+        			hostIP =
+        				(segmentLength >= hostIP.length())
+        					? ""
+        					: hostIP.substring(segmentLength);
+                            
+        			segmentCount++;
+        		}
+        	}
+        	String topLevel = domainSegment[segmentCount - 1];
+        	if (topLevel.length() < 2 || topLevel.length() > 4) {
+        		return false;
+        	}
+        
+        	// First letter of top level must be a alpha
+        	if (!matchAlphaPat.match(ALPHA_PATTERN, topLevel.substring(0, 1))) {
+        		return false;
+        	}
+        
+        	// Make sure there's a host name preceding the authority.
+        	if (segmentCount < 2) {
+        		return false;
+        	}
+        }
+        
+        if (bValid) {
+        	bValid = (hostname || ipV4Address);
+        }
+        
+        if (bValid) {
+        	String port = matchAuthorityPat.group(PARSE_AUTHORITY_PORT);
+        	if (port != null) {
+        		bValid = matchPortPat.match(PORT_PATTERN, port);
+        	}
+        }
+        
+        if (bValid) {
+        	String extra = matchAuthorityPat.group(PARSE_AUTHORITY_EXTRA);
+        	bValid = ((extra == null) || (extra.length() == 0));
+        }
+        
+        return bValid;
 	}
 
 	protected boolean isValidPath(String path) {
 		Perl5Util matchPathPat = new Perl5Util();
 		boolean bValid = true;
 
-		bValid = matchPathPat.match(pathPat, path);
+		bValid = matchPathPat.match(PATH_PATTERN, path);
 		if (bValid) { //Shouldn't end with a '/'
 			bValid = (path.lastIndexOf("/") < (path.length() - 1));
 		}
@@ -450,7 +446,7 @@ public class UrlValidator implements Serializable {
 		}
 
 		Perl5Util matchQueryPat = new Perl5Util();
-		return matchQueryPat.match(queryPat, query);
+		return matchQueryPat.match(QUERY_PATTERN, query);
 	}
 
 	/**
