@@ -1,4 +1,4 @@
-$Id: RELEASE_NOTES-1.0.2.txt,v 1.1 2003/03/27 02:41:48 dgraham Exp $
+$Id: RELEASE-NOTES-1.0.2.txt,v 1.1 2003/03/29 00:13:59 craigmcc Exp $
 
 			Commons Validator Package
 			     Version 1.0.2
