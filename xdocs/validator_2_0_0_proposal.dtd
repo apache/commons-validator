@@ -1,0 +1,253 @@
+<!--
+    Proposed DTD for the Validator Rules Configuration File, Version 2.0.0
+
+    To allow for XML validation of your rules configuration
+    file, include the following DOCTYPE element at the beginning (after
+    the "xml" declaration):
+
+    <!DOCTYPE form-validation PUBLIC
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 2.0.0//EN"
+     "http://jakarta.apache.org/commons/dtds/validator_2_0_0.dtd">
+
+    $Id: validator_2_0_0_proposal.dtd,v 1.1 2004/04/12 04:20:36 dgraham Exp $
+-->
+
+<!--
+This is a proposal for what Validator's 2.0 XML configuration file will
+look like.  Comments and suggestions are highly appreciated.  The goal is 
+to simplify the configuration as much as possible and use bean semantics rather
+than HTML form terminology.  Some changes include:
+
+- The following elements were renamed (old name == new name):
+form-validation == validator-config
+formset == bean-set
+form == bean
+field == property
+javascript == script
+
+- The global element has been removed.  It provided no real value so "constant"
+and "validator" elements are now declared directly inside "validator-config".
+
+- The validator name attribute was renamed to id and is now defined as an ID
+type so that other attributes can be defined as IDREF or IDREFS.  This allows
+Digester to more strictly validate the XML and notify users of errors.
+Note that IDREFS attributes are whitespace separated rather than comma separated.
+
+- The old validator jsFunction and jsFunctionName attributes were moved to the
+script element as src and function-name.  This will require a new Script class
+for Digester to populate this info with.  This has a nice side effect of 
+refactoring the javascript loading code out of ValidatorAction and into Script.
+ValidatorAction will have a getScript() method to get at this object.
+
+- The validator element's classname and methodParams attributes were renamed to
+class and params for simplicity.
+
+- While JavaScript is likely to remain the primary scripting language, we can
+treat scripts more generically by leaving out all "js" references; hence the
+renaming of javascript to script.  Thick clients (ie. Swing/SWT) may want to 
+use Python, Ruby, etc. as their scripting language.
+
+- The msg and arg elements' name attribute was renamed to validator to make it
+clear that you're not naming the msg but specifying which validator the msg
+applies to.
+-->
+
+
+<!--
+     The root of the configuration file hierarchy; contains 
+     nested elements for all of the other configuration settings.
+-->
+<!ELEMENT validator-config (constant*, validator*, bean-set*)>
+
+
+<!--
+     Defines what validator objects can be used with
+     the objects referenced by the bean-set elements.
+     elements:
+       validator         Defines a new validatior
+       script            The scripting source code for client side validation.
+     attributes:
+         id              The unique name of this validation
+         class           The java class name that handles server side validation
+         method          The java method that handles server side validation
+         params    The java class types passed to the serverside method
+         msg             a generic message key to use when this validator fails.
+                         It can be overridden by the 'msg' element for a specific field.
+         depends         The whitespace delimited list of validator ids that are called before this validator.
+                         For this validation to succeed, all the listed validators must succeed.
+-->
+<!ELEMENT validator (script?)>
+<!ATTLIST validator id ID #REQUIRED>
+<!ATTLIST validator class CDATA #REQUIRED>
+<!ATTLIST validator method CDATA #REQUIRED>
+<!ATTLIST validator params CDATA #REQUIRED>
+<!ATTLIST validator msg CDATA #REQUIRED>
+<!ATTLIST validator depends IDREFS #IMPLIED>
+
+
+<!--
+     The body of this element defines any scripting languages' source 
+     code that can be used to perform client side validations.
+     
+     Attributes:
+     function-name  An optional function name to use instead of 
+                    the validator id for the name of the
+                    scripting function/object.
+
+     src            Sets the fully qualified class path of the scripting
+                    function file. Use this instead of specifying the source 
+                    in the element body.
+-->
+<!ELEMENT script (#PCDATA)>
+<!ATTLIST script src CDATA #IMPLIED>
+<!ATTLIST script function-name CDATA #IMPLIED>
+
+
+<!--
+     The "constant" element defines a static value that can be used as
+     replacement parameters within "field" elements. The "constant-name" and
+     "constant-value" elements define the constant's reference id and replacement
+     value.
+-->
+<!ELEMENT constant (constant-name, constant-value)>
+<!ELEMENT constant-name  (#PCDATA)>
+<!ELEMENT constant-value (#PCDATA)>
+
+
+<!--
+      Defines a set of beans for a locale. Beans for
+      specific locales can override only those properties that change. The
+      localization is properly scoped, so that you can override just the
+      language, or just the country, or both.
+-->
+<!ELEMENT bean-set (constant*, bean+)>
+<!ATTLIST bean-set language CDATA #IMPLIED>
+<!ATTLIST bean-set country CDATA #IMPLIED>
+<!ATTLIST bean-set variant CDATA #IMPLIED>
+
+
+<!--
+     Defines a set of bean properties to be validated. The name
+     corresponds to the identifier the application assigns to the bean. 
+-->
+<!ELEMENT bean (property+)>
+<!ATTLIST bean name CDATA #REQUIRED>
+<!ATTLIST bean extends CDATA #IMPLIED>
+ 
+
+
+<!--
+     Defines the properties to be validated. In a
+     web application, a field would also correspond to a control on
+     a HTML form. To validate the properties, the validator works through
+     a JavaBean representation. The field element accepts these 
+     attributes:
+
+     name            The name of the bean property.
+
+     depends         The whitespace delimited list of validator ids to 
+                     apply against this field. For the field to succeed, all the
+                     validators must succeed.
+
+     page            Only fields with a "page" attribute
+                     value that is equal to or less than the page property
+                     on the form JavaBean are processed. This is useful when
+                     using a "wizard" approach to completing a large form,
+                     to ensure that a page is not skipped.
+                     [0]
+
+     indexed-list-property
+                     The method name that will
+                     return an array or a Collection used to retrieve the
+                     list and then loop through the list performing the
+                     validations for this field.
+
+-->
+<!ELEMENT property (msg|arg|var)*>
+<!ATTLIST property name CDATA #REQUIRED>
+<!ATTLIST property depends IDREFS #IMPLIED>
+<!ATTLIST property page CDATA "0">
+<!ATTLIST property indexed-list-property CDATA #IMPLIED>
+
+
+<!--
+     The "msg" element defines a custom message key to use when one of the
+     validators for this field fails. Each validator has a default message
+     property that is used when a corresponding field msg is not specified.
+     Each validator applied to a field may have its own msg element.
+     The msg element accepts these attributes.
+
+      validator   The id of the validator corresponding to this msg.
+      
+      bundle      The resource bundle name that the key should be resolved in.
+
+      key         The key that will return the message template from a
+                  resource bundle.
+
+      resource    If set to "false", the key is taken to be a literal
+                  value rather than a bundle key.
+                  [true]
+-->
+<!ELEMENT msg EMPTY>
+<!ATTLIST msg key CDATA #REQUIRED>
+<!ATTLIST msg validator IDREF #REQUIRED>
+<!ATTLIST msg bundle CDATA #IMPLIED>
+<!ATTLIST msg resource (true|false) "true">
+
+
+
+<!--
+     The "arg" element defines a replacement value to use with the
+     message template for this validator or this field.
+     The arg element accepts these attributes.
+
+      validator   The id of the validator corresponding to this msg.
+      			  If not supplied, this argument will be used in the given 
+      			  position for every validator.
+      			  
+      bundle     The resource bundle name that the key should be resolved in.      			  
+
+      key         The key that will return the message template from a
+                  resource bundle.
+
+      resource    If set to "false", the key is taken to be a literal
+                  value rather than a bundle key.
+                  [true]
+
+      position    The position of this replacement parameter in the message.
+      			  For example, position="0" will set the first argument.
+      			  [0]
+-->
+<!ELEMENT arg EMPTY>
+<!ATTLIST arg key CDATA #REQUIRED>
+<!ATTLIST arg bundle CDATA #IMPLIED>
+<!ATTLIST arg validator IDREF #IMPLIED>
+<!ATTLIST arg resource (true|false) "true">
+<!ATTLIST arg position CDATA "0">
+
+<!--
+     The "var" element can set parameters that a field may need to pass to
+     one of its validators, such as the minimum and maximum values in a
+     range validation. These parameters may also be referenced by one of the
+     arg? elements using a shell syntax: ${var:var-name}.
+-->
+<!ELEMENT var (var-name, var-value, var-script-type?)>
+
+
+<!--
+     The name of the var parameter to provide to a field's validators.
+-->
+<!ELEMENT var-name  (#PCDATA)>
+
+
+<!--
+     The value of the var parameter to provide to a field's validators.
+-->
+<!ELEMENT var-value (#PCDATA)>
+
+<!--
+     The scripting variable type, Possible Values [int| string | regexp] 
+
+-->
+<!ELEMENT var-script-type (#PCDATA)>
+

@@ -39,7 +39,7 @@
       		Currently, the &lt;form-validation&gt;, &lt;formset&gt;, &lt;form&gt;, and &lt;field&gt; elements
       		require a form-centric view of validations.  Changing these to &lt;bean-validation&gt; or &lt;validator-config&gt;, 
       		&lt;beans&gt;, &lt;bean&gt;, and &lt;property&gt; respectively would allow Validator to be used more easily in
-      		non-form based environments.
+      		non-form based environments. See the 2.0 DTD <a href="validator_2_0_0_proposal.dtd">proposal</a> for specifics.
       	</li>
       	<li>
       	    The above changes to validation.xml could only apply to Validator's native configuration format.  We
