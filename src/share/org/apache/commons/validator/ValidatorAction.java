@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.17 2004/01/11 23:30:20 dgraham Exp $
- * $Revision: 1.17 $
- * $Date: 2004/01/11 23:30:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.18 2004/01/18 19:38:46 dgraham Exp $
+ * $Revision: 1.18 $
+ * $Date: 2004/01/18 19:38:46 $
  *
  * ====================================================================
  *
@@ -75,13 +75,20 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * <p>Contains the information to dynamically create and run a validation
- * method.  This is the class representation of a pluggable validator that can be
- * defined in an xml file with the &lt;validator&gt; element.</p>
+ * <p>
+ * Contains the information to dynamically create and run a validation
+ * method.  This is the class representation of a pluggable validator that can 
+ * be defined in an xml file with the &lt;validator&gt; element.
+ * </p>
  *
  * <strong>Note</strong>: The validation method is assumed to be thread safe.
  */
 public class ValidatorAction implements Serializable {
+    
+    /**
+     * Logger.
+     */
+    private static final Log log = LogFactory.getLog(ValidatorAction.class);
 
     /**
      * The name of the validation.
@@ -100,15 +107,16 @@ public class ValidatorAction implements Serializable {
      */
     private String method = null;
 
-    // Default for Struts
     /**
-     * <p>The method signature of the validation method.  This should be a comma
-     * delimited list of the full class names of each parameter in the correct order that
-     * the method takes.</p>
-     *
-     * <p>Note: <code>java.lang.Object</code> is reserved for the
+     * <p>
+     * The method signature of the validation method.  This should be a comma
+     * delimited list of the full class names of each parameter in the correct 
+     * order that the method takes.
+     * </p>
+     * <p>
+     * Note: <code>java.lang.Object</code> is reserved for the
      * JavaBean that is being validated.  The <code>ValidatorAction</code>
-     * and <code>Field</code> that are associated with a fields
+     * and <code>Field</code> that are associated with a field's
      * validation will automatically be populated if they are
      * specified in the method signature.
      * </p>
@@ -121,9 +129,9 @@ public class ValidatorAction implements Serializable {
             + Validator.FIELD_PARAM;
 
     /**
-     * The other <code>ValidatorAction</code>s that this one depends on.  If any
-     * errors occur in an action that this one depends on, this action will not be
-     * processsed.
+     * The other <code>ValidatorAction</code>s that this one depends on.  If 
+     * any errors occur in an action that this one depends on, this action will 
+     * not be processsed.
      */
     private String depends = null;
 
@@ -133,7 +141,8 @@ public class ValidatorAction implements Serializable {
     private String msg = null;
 
     /**
-     * An optional field to contain the name to be used if JavaScript is generated.
+     * An optional field to contain the name to be used if JavaScript is 
+     * generated.
      */
     private String jsFunctionName = null;
 
@@ -150,15 +159,11 @@ public class ValidatorAction implements Serializable {
     private String javascript = null;
 
     /**
-     * If the java method matching the correct signature isn't static, the instance is
-     * stored in the action.  This assumes the method is thread safe.
+     * If the java method matching the correct signature isn't static, the 
+     * instance is stored in the action.  This assumes the method is thread 
+     * safe.
      */
     private Object instance = null;
-
-    /**
-     * Logger.
-     */
-    private static final Log log = LogFactory.getLog(ValidatorAction.class);
 
     /**
      * An internal List representation of the other <code>ValidatorAction</code>s
@@ -170,8 +175,8 @@ public class ValidatorAction implements Serializable {
     private List dependencyList = Collections.synchronizedList(new ArrayList());
 
     /**
-     * An internal List representation of all the validation method's parameters defined
-     * in the methodParams String.
+     * An internal List representation of all the validation method's 
+     * parameters defined in the methodParams String.
      */
     private List methodParameterList = new ArrayList();
 
@@ -251,8 +256,8 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Gets the dependencies of the validator action as a comma separated list of
-     * validator names.
+     * Gets the dependencies of the validator action as a comma separated list 
+     * of validator names.
      */
     public String getDepends() {
         return this.depends;
@@ -314,9 +319,11 @@ public class ValidatorAction implements Serializable {
      * <p>
      * This is optional and can be used <strong>instead</strong> of the setJavascript().
      * Attempting to call both <code>setJsFunction</code> and <code>setJavascript</code>
-     * will result in an <code>IllegalStateException</code> being thrown. </p><p>
-     * If <strong>neither</strong> setJsFunction or setJavascript is set then validator will attempt
-     * to load the default javascript definition.   </p>
+     * will result in an <code>IllegalStateException</code> being thrown. </p>
+     * <p>
+     * If <strong>neither</strong> setJsFunction or setJavascript is set then 
+     * validator will attempt to load the default javascript definition.
+     * </p>
      * <pre>
      * <b>Examples</b>
      *   If in the validator.xml :
@@ -383,13 +390,14 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Load the javascript function specified by the given path.  For this
-     * implementation, the <code>jsFunction</code> property should contain a fully
-     * qualified package and script name, separated by periods, to be loaded from
-     * the class loader that created this instance.
+     * implementation, the <code>jsFunction</code> property should contain a 
+     * fully qualified package and script name, separated by periods, to be 
+     * loaded from the class loader that created this instance.
      *
-     * TODO if the path begins with a '/' the path will be intepreted as absolute, and remain unchanged.
-     * If this fails then it will attempt to treat the path as a file path.
-     * It is assumed the script ends with a '.js'.
+     * TODO if the path begins with a '/' the path will be intepreted as 
+     * absolute, and remain unchanged.  If this fails then it will attempt to 
+     * treat the path as a file path.  It is assumed the script ends with a 
+     * '.js'.
      */
     protected synchronized void loadJavascriptFunction() {
 
@@ -469,8 +477,8 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * @return A filename suitable for passing to a ClassLoader.getResourceAsStream()
-     * method.
+     * @return A filename suitable for passing to a 
+     * ClassLoader.getResourceAsStream() method.
      */
     private String formatJavascriptFileName() {
         String name = this.jsFunction.substring(1);
@@ -506,11 +514,11 @@ public class ValidatorAction implements Serializable {
     /**
      * Creates a <code>FastHashMap</code> for the isDependency method
      * based on depends.
-     * @deprecated This functionality has been moved to other methods.  It's no longer
-     * required to call this method to initialize this object.
+     * @deprecated This functionality has been moved to other methods.  It's no 
+     * longer required to call this method to initialize this object.
      */
     public synchronized void process(Map globalConstants) {
-// do nothing
+        // do nothing
     }
 
     /**
