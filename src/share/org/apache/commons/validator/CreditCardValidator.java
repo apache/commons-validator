@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.3 2003/04/30 22:11:06 rleland Exp $
- * $Revision: 1.3 $
- * $Date: 2003/04/30 22:11:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.4 2003/05/01 02:15:16 dgraham Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/05/01 02:15:16 $
  *
  * ====================================================================
  *
@@ -73,7 +73,7 @@ package org.apache.commons.validator;
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.3 $ $Date: 2003/04/30 22:11:06 $
+ * @version $Revision: 1.4 $ $Date: 2003/05/01 02:15:16 $
  */
 public class CreditCardValidator {
 
@@ -107,7 +107,7 @@ public class CreditCardValidator {
 	 *
 	 * @param value The value validation is being performed on.
 	 */
-	public boolean isCreditCard(String value) {
+	public boolean isValid(String value) {
 		return (
 			this.validateCreditCardLuhnCheck(value)
 				&& this.validateCreditCardPrefixCheck(value));
@@ -162,14 +162,13 @@ public class CreditCardValidator {
 			return false;
 		}
 
-		boolean valid = false;
 		int cardType = 0;
 
-		String prefix2 = cardNumber.substring(0, 2) + ",";
+		final String prefix2 = cardNumber.substring(0, 2) + ",";
 
 		if (AX_PREFIX.indexOf(prefix2) != -1) {
 			cardType = 3;
-		}
+		} 
 		if (cardNumber.substring(0, 1).equals(VS_PREFIX)) {
 			cardType = 4;
 		}
@@ -181,19 +180,19 @@ public class CreditCardValidator {
 		}
 
 		if ((cardType == 3) && (length == 15)) {
-			valid = true;
+			return true;
 		}
 		if ((cardType == 4) && ((length == 13) || (length == 16))) {
-			valid = true;
+			return true;
 		}
 		if ((cardType == 5) && (length == 16)) {
-			valid = true;
+			return true;
 		}
 		if ((cardType == 6) && (length == 16)) {
-			valid = true;
+			return true;
 		}
 
-		return valid;
+		return false;
 	}
 
 }

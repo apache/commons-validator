@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.20 2003/04/30 22:11:06 rleland Exp $
- * $Revision: 1.20 $
- * $Date: 2003/04/30 22:11:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.21 2003/05/01 02:15:16 dgraham Exp $
+ * $Revision: 1.21 $
+ * $Date: 2003/05/01 02:15:16 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
  * @author Robert Leland
- * @version $Revision: 1.20 $ $Date: 2003/04/30 22:11:06 $
+ * @version $Revision: 1.21 $ $Date: 2003/05/01 02:15:16 $
  */
 public class GenericValidator implements Serializable {
 
@@ -300,7 +300,7 @@ public class GenericValidator implements Serializable {
     * @param value The value validation is being performed on.
     */
    public static boolean isCreditCard(String value) {
-      return CreditCardValidator.getInstance().isCreditCard(value);
+      return CreditCardValidator.getInstance().isValid(value);
    }
 
    /**
