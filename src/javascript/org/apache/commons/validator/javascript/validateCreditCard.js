@@ -1,3 +1,7 @@
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateCreditCard.js,v 1.2 2003/08/15 20:20:40 rleland Exp $
+  //$Revision: 1.2 $
+  //$Date: 2003/08/15 20:20:40 $
+
 
     function validateCreditCard(form) {
         var bValid = true;
