@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.14 2003/03/12 06:22:23 dgraham Exp $
- * $Revision: 1.14 $
- * $Date: 2003/03/12 06:22:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.15 2003/03/17 01:41:17 dgraham Exp $
+ * $Revision: 1.15 $
+ * $Date: 2003/03/17 01:41:17 $
  *
  * ====================================================================
  *
@@ -85,7 +85,7 @@ import org.apache.commons.logging.LogFactory;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.14 $ $Date: 2003/03/12 06:22:23 $
+ * @version $Revision: 1.15 $ $Date: 2003/03/17 01:41:17 $
  */
 public class Validator implements Serializable {
 
@@ -325,14 +325,18 @@ public class Validator implements Serializable {
 
     }
 
+    /**
+     * Executes the given ValidatorAction and all ValidatorActions that it depends on.
+     * @return True if the validation succeeded.
+     */
     private boolean validateFieldForRule(
         Field field,
         ValidatorAction va,
         ValidatorResults results,
-        Map hActions,
+        Map actions,
         int pos)
         throws ValidatorException {
-            
+
         if (results.getValidatorResult(field.getKey()) != null) {
             ValidatorResult result = results.getValidatorResult(field.getKey());
             if (result.containsAction(va.getName())) {
@@ -340,13 +344,14 @@ public class Validator implements Serializable {
             }
         }
 
+        // Execute all validators that this validator depends on.
         if (va.getDepends() != null) {
             StringTokenizer st = new StringTokenizer(va.getDepends(), ",");
             while (st.hasMoreTokens()) {
                 String depend = st.nextToken().trim();
 
-                ValidatorAction depAction = (ValidatorAction) hActions.get(depend);
-                if (depAction == null) {
+                ValidatorAction action = (ValidatorAction) actions.get(depend);
+                if (action == null) {
                     log.error(
                         "No ValidatorAction called "
                             + depend
@@ -355,11 +360,7 @@ public class Validator implements Serializable {
                     return false;
                 }
                 
-                if (!validateFieldForRule(field,
-                    depAction,
-                    results,
-                    hActions,
-                    pos)) {
+                if (!validateFieldForRule(field, action, results, actions, pos)) {
                     return false;
                 }
             }
@@ -472,14 +473,14 @@ public class Validator implements Serializable {
     /**
      * Run the validations on a given field, modifying the passed
      * ValidatorResults to add in any new errors found.  If the
-     * field is an indexed one, run all the validations in the depends
+     * field is indexed, run all the validations in the depends
      * clause over each item in turn, returning when the first one fails.
      * If it's non-indexed, just run it on the field.
      */
     private void validateField(Field field, ValidatorResults allResults)
         throws ValidatorException {
 
-        Map hActions = resources.getValidatorActions();
+        Map actions = resources.getValidatorActions();
         if (field.isIndexed()) {
             Object oIndexed;
             try {
@@ -506,9 +507,8 @@ public class Validator implements Serializable {
                 while (st.hasMoreTokens()) {
                     String depend = st.nextToken().trim();
 
-                    ValidatorAction depAction =
-                        (ValidatorAction) hActions.get(depend);
-                    if (depAction == null) {
+                    ValidatorAction action = (ValidatorAction) actions.get(depend);
+                    if (action == null) {
                         log.error(
                             "No ValidatorAction called "
                                 + depend
@@ -518,12 +518,7 @@ public class Validator implements Serializable {
                     }
                     
                     boolean good =
-                        validateFieldForRule(
-                            field,
-                            depAction,
-                            results,
-                            hActions,
-                            pos);
+                        validateFieldForRule(field, action, results, actions, pos);
                     allResults.merge(results);
                     if (!good) {
                         return;
@@ -536,8 +531,8 @@ public class Validator implements Serializable {
             while (st.hasMoreTokens()) {
                 String depend = st.nextToken().trim();
 
-                ValidatorAction depAction = (ValidatorAction) hActions.get(depend);
-                if (depAction == null) {
+                ValidatorAction action = (ValidatorAction) actions.get(depend);
+                if (action == null) {
                     log.error(
                         "No ValidatorAction called "
                             + depend
@@ -545,10 +540,9 @@ public class Validator implements Serializable {
                             + field.getProperty());
                     return;
                 }
-                boolean good =
-                    validateFieldForRule(field, depAction, results, hActions, 0);
+                
+                boolean good = validateFieldForRule(field, action, results, actions, 0);
                 allResults.merge(results);
-
                 if (!good) {
                     return;
                 }
@@ -559,7 +553,7 @@ public class Validator implements Serializable {
     /**
      * Performs validations based on the configured resources.
      *
-     * @return	The <code>Map</code> returned uses the property
+     * @return The <code>Map</code> returned uses the property
      *		of the <code>Field</code> for the key and the value
      *		is the number of error the field had.
      */
