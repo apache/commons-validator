@@ -1,6 +1,6 @@
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateMaxLength.js,v 1.2 2003/08/15 20:22:03 rleland Exp $
-  //$Revision: 1.2 $
-  //$Date: 2003/08/15 20:22:03 $
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateMaxLength.js,v 1.3 2003/10/07 03:00:15 rleland Exp $
+  //$Revision: 1.3 $
+  //$Date: 2003/10/07 03:00:15 $
 
 
     function validateMaxLength(form) {
@@ -13,6 +13,7 @@
             var field = form[oMaxLength[x][0]];
 
             if (field.type == 'text' ||
+                field.type == 'password' ||
                 field.type == 'textarea') {
 
                 var iMax = parseInt(oMaxLength[x][2]("maxlength"));
