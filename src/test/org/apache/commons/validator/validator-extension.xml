@@ -15,7 +15,7 @@
       <form name="nameForm" extends="baseForm">
          <field property="lastName"
                depends="required">
-                 <arg0 key="nameForm.lastname.displayname"/>
+                 <arg key="nameForm.lastname.displayname"/>
          </field>
       </form>
 
@@ -25,13 +25,13 @@
             <field property="lastName" depends=""/>
             <!--override rule with different message-->
             <field property="firstName" depends="required">
-                <arg0 key="nameForm.lastname.displayname"/>
+                <arg key="nameForm.lastname.displayname"/>
             </field>
         </form>
 
         <form name="baseForm">
             <field property="firstName" depends="required">
-                <arg0 key="nameForm.firstname.displayname"/>
+                <arg key="nameForm.firstname.displayname"/>
             </field>
         </form>
 

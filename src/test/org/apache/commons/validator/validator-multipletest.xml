@@ -29,7 +29,7 @@
              <arg key="nameForm.firstname.displayname"/>
          </field>
          <field property="middleName" depends="positive">
-             <arg0 key="nameForm.middlename.displayname"/> 
+             <arg key="nameForm.middlename.displayname"/> 
          </field>
          <field property="lastName" depends="required,int">
              <arg key="nameForm.lastname.displayname"/>
