@@ -1,4 +1,9 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.7 2002/03/30 04:28:35 dwinterfeldt Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/03/30 04:28:35 $
+ *
+ * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
@@ -82,6 +87,7 @@ import org.apache.commons.logging.LogSource;
  * and the validation rules for a JavaBean.</p>
  *
  * @author David Winterfeldt
+ * @version $Revision: 1.7 $ $Date: 2002/03/30 04:28:35 $
 */
 public class Validator implements Serializable {
 
@@ -474,7 +480,7 @@ public class Validator implements Serializable {
                            iErrorCount++;
                         }
                          
-                        results.add(field, va.getName(), isValid(result));
+                        results.add(field, va.getName(), isValid(result), result);
       	       } catch (Exception e) {
       	          bErrors = true;
       	          log.error("reflection: " + e.getMessage(), e);

@@ -1,4 +1,9 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResults.java,v 1.2 2002/03/30 04:28:35 dwinterfeldt Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/03/30 04:28:35 $
+ *
+ * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
@@ -69,6 +74,7 @@ import java.util.Map;
  * validation rules processed on JavaBean.</p>
  *
  * @author David Winterfeldt
+ * @version $Revision: 1.2 $ $Date: 2002/03/30 04:28:35 $
 */
 public class ValidatorResults implements Serializable {
 
@@ -81,6 +87,13 @@ public class ValidatorResults implements Serializable {
     * Add a the result of a validator action.
    */
    public void add(Field field, String validatorName, boolean bResult) {
+      add(field, validatorName, bResult, null);
+   }
+
+   /**
+    * Add a the result of a validator action.
+   */
+   public void add(Field field, String validatorName, boolean bResult, Object value) {
       ValidatorResult result = null;
       
       if (hResults.containsKey(field.getKey())) {
@@ -89,7 +102,7 @@ public class ValidatorResults implements Serializable {
          result = new ValidatorResult(field);
       }
       
-      result.add(validatorName, bResult);
+      result.add(validatorName, bResult, value);
       
       hResults.put(field.getKey(), result);
    }
@@ -125,7 +138,7 @@ public class ValidatorResults implements Serializable {
     * Return the set of all recorded messages, without distinction
     * by which property the messages are associated with.  If there are
     * no messages recorded, an empty enumeration is returned.
-    */
+   */
    public Iterator get() {
       if (hResults.size() == 0) {
          return (Collections.EMPTY_LIST.iterator());
@@ -175,5 +188,34 @@ public class ValidatorResults implements Serializable {
    public Iterator properties() {
       return (hResults.keySet().iterator());
    }
+   
+   /**
+    * Get a <code>Map</code> of any <code>Object</code>s 
+    * returned from validation routines.
+   */
+   public Map getResultValueMap() {
+      Map results = new HashMap();
+      
+      for (Iterator i = hResults.keySet().iterator(); i.hasNext(); ) {
+         String propertyKey = (String)i.next();
+         ValidatorResult vr = (ValidatorResult)hResults.get(propertyKey);
+         
+         Map hActions = vr.getActionMap();
+         for (Iterator x = hActions.keySet().iterator(); x.hasNext(); ) {
+            String actionKey = (String)x.next();   
+            ValidatorResult.ResultStatus rs = (ValidatorResult.ResultStatus)hActions.get(actionKey);
 
+            if (rs != null) {
+               Object result = rs.getResult();
+
+               if (result != null && !(result instanceof Boolean)) {
+                  results.put(propertyKey, result);
+               }
+            }
+         }   
+      }
+      
+      return results;
+   }
+   
 }

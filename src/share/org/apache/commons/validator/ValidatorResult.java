@@ -1,4 +1,9 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResult.java,v 1.2 2002/03/30 04:28:35 dwinterfeldt Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/03/30 04:28:35 $
+ *
+ * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
@@ -58,6 +63,7 @@
 package org.apache.commons.validator;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,6 +73,7 @@ import java.util.Map;
  * validation rules processed on JavaBean.</p>
  *
  * @author David Winterfeldt
+ * @version $Revision: 1.2 $ $Date: 2002/03/30 04:28:35 $
 */
 public class ValidatorResult implements Serializable {
 
@@ -95,7 +102,14 @@ public class ValidatorResult implements Serializable {
     * Add the result of a validator action.
    */
    public void add(String validatorName, boolean result) {
-      hAction.put(validatorName, new Boolean(result));
+      add(validatorName, result, null);
+   }
+
+   /**
+    * Add the result of a validator action.
+   */
+   public void add(String validatorName, boolean result, Object value) {
+      hAction.put(validatorName, new ResultStatus(result, value));
    }
 
    public boolean containsAction(String validatorName) {
@@ -105,7 +119,57 @@ public class ValidatorResult implements Serializable {
    public boolean isValid(String validatorName) {
       Object o = hAction.get(validatorName);	
       
-      return ((o != null) ? ((Boolean)o).booleanValue() : false);
+      return ((o != null) ? ((ResultStatus)o).getValid() : false);
+   }
+
+   public Map getActionMap() {
+      return Collections.unmodifiableMap(hAction);
+   }
+      
+   /**
+    * Contains the status of the validation.
+   */
+   protected class ResultStatus {
+      private boolean valid = false;
+      private Object result = null;
+      
+      public ResultStatus(boolean valid, Object result) {
+         this.valid = valid;
+         this.result = result;
+      }
+      
+      /**
+       * Gets whether or not the validation passed.
+      */
+      public boolean getValid() {
+         return valid;
+      }
+
+      /**
+       * Sets whether or not the validation passed.
+      */
+      public void setValid(boolean valid) {
+         this.valid = valid;
+      }
+
+      /**
+       * Gets the result returned by a validation method.  
+       * This can be used to retrieve to the correctly 
+       * typed value of a date validation for example.
+      */
+      public Object getResult() {
+         return result;
+      }
+
+      /**
+       * Sets the result returned by a validation method.  
+       * This can be used to retrieve to the correctly 
+       * typed value of a date validation for example.
+      */
+      public void setResult(Object result) {
+         this.result = result;
+      }
+
    }
    
 }
