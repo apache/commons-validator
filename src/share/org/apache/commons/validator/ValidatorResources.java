@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.22 2003/05/29 03:34:35 dgraham Exp $
- * $Revision: 1.22 $
- * $Date: 2003/05/29 03:34:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.23 2003/06/05 01:17:43 dgraham Exp $
+ * $Revision: 1.23 $
+ * $Date: 2003/06/05 01:17:43 $
  *
  * ====================================================================
  *
@@ -92,7 +92,7 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.22 $ $Date: 2003/05/29 03:34:35 $
+ * @version $Revision: 1.23 $ $Date: 2003/06/05 01:17:43 $
  */
 public class ValidatorResources implements Serializable {
 
@@ -330,7 +330,8 @@ public class ValidatorResources implements Serializable {
      * @deprecated Use getForm() instead.
      */
     public Form get(Locale locale, Object formKey) {
-        return this.getForm(locale, formKey.toString());
+        String key = (formKey == null) ? null : formKey.toString();
+        return this.getForm(locale, key);
     }
     
     /**
@@ -369,8 +370,9 @@ public class ValidatorResources implements Serializable {
         String country,
         String variant,
         Object formKey) {
-
-        return this.getForm(language, country, variant, formKey.toString());
+            
+		String key = (formKey == null) ? null : formKey.toString();
+		return this.getForm(language, country, variant, key);
     }
     
     /**
