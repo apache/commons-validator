@@ -1,0 +1,19 @@
+Struts Validator
+==================
+You must do the following to have the build script work.
+
+1. Edit the build.properties file.
+2. Add the follwing to the lib directory.
+     Struts - struts.jar (http://jakarta.apache.org/struts/)
+     Jakarata Regexp - jakarta-regexp.jar (http://jakarta.apache.org/regexp/)
+     JDBC 2.0 Optonal Package - jdbc2_0-stdext.jar (http://java.sun.com/products/jdbc/download.html#spec)
+3. Place the following Struts tlds from the Struts download in 'struts/WEB-INF/tlds'.
+    (struts-bean.tld  struts-html.tld  struts-logic.tld  struts-template.tld)
+
+Overview
+---------
+The Validation Framework was made to work with Struts. It can perform basic validations to check if a field
+is required, matches a regular expression, email, credit card, and server side type checking and date
+validation. Different validation rules can be defined for different locales. The framework has basic support for
+user defined constants which can be used in some field attributes. The validation routines are modifiable in
+the validation.xml file so custom validation routines can be created and added to the framework. 
