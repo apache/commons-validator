@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.7 2002/10/16 22:13:32 turner Exp $
- * $Revision: 1.7 $
- * $Date: 2002/10/16 22:13:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.8 2003/04/29 02:38:49 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/04/29 02:38:49 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -77,20 +77,20 @@ import org.apache.commons.collections.FastHashMap;
  * to perform the validations and generate error messages.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2002/10/16 22:13:32 $
+ * @version $Revision: 1.8 $ $Date: 2003/04/29 02:38:49 $
  * @see org.apache.commons.validator.Form
-*/
+ */
 public class Field implements Cloneable, Serializable {
 
     /**
      * This is the value that will be used as a key if the <code>Arg</code> 
      * name field has no value.
-    */
+     */
     public final static String ARG_DEFAULT = "org.apache.commons.validator.Field.DEFAULT";
     
     /**
      * This indicates an indexed property is being referenced.
-    */
+     */
     public final static String TOKEN_INDEXED = "[]";
     
     protected final static String TOKEN_START = "${";
@@ -117,7 +117,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Gets the page value that the Field is associated with for 
      * validation.
-    */
+     */
     public int getPage() {
        return page;	
     }
@@ -125,14 +125,14 @@ public class Field implements Cloneable, Serializable {
     /**
      * Sets the page value that the Field is associated with for 
      * validation.
-    */
+     */
     public void setPage(int page) {
        this.page = page;	
     }
 
     /**
      * Gets the position of the <code>Field</code> in the validation list.
-    */
+     */
     public int getFieldOrder() {
        return fieldOrder;	
     }
@@ -213,32 +213,38 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Add a <code>Msg</code> to the <code>Field</code>.
-    */
+     */
     public void addMsg(Msg msg) {
-       if (msg != null && msg.getKey() != null && msg.getKey().length() > 0 &&
-           msg.getName() != null && msg.getName().length() > 0) {
-             hMsgs.put(msg.getName(), msg.getKey());
-       }
+    	if (msg != null
+    		&& msg.getKey() != null
+    		&& msg.getKey().length() > 0
+    		&& msg.getName() != null
+    		&& msg.getName().length() > 0) {
+    
+    		hMsgs.put(msg.getName(), msg.getKey());
+    	}
     }
 
     /**
      * Retrieve a message value.
-    */
+     */
     public String getMsg(String key) {
        return (String)hMsgs.get(key);
     }
 
     /**
      * Add a <code>Arg</code> to the arg0 list.
-    */
+     */
     public void addArg0(Arg arg) {
-       if (arg != null && arg.getKey() != null && arg.getKey().length() > 0) {
-          if (arg.getName() != null && arg.getName().length() > 0) {
-             hArg0.put(arg.getName(), arg);
-          } else {
-             hArg0.put(ARG_DEFAULT, arg);
-          }
-       }
+    	if (arg != null && arg.getKey() != null && arg.getKey().length() > 0) {
+            
+    		if (arg.getName() != null && arg.getName().length() > 0) {
+    			hArg0.put(arg.getName(), arg);
+    		} else {
+    			hArg0.put(ARG_DEFAULT, arg);
+    		}
+            
+    	}
     }
 
     /**
@@ -375,17 +381,17 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Retrieve a variable's value.
-    */
+     */
     public String getVarValue(String mainKey) {
-       String value = null;
-       
-       Object o = hVars.get(mainKey);
-       if (o != null && o instanceof Var) {
-       	  Var v = (Var)o;
-          value = v.getValue();
-       }
-       
-       return value;
+    	String value = null;
+    
+    	Object o = hVars.get(mainKey);
+    	if (o != null && o instanceof Var) {
+    		Var v = (Var) o;
+    		value = v.getValue();
+    	}
+    
+    	return value;
     }
 
     /**
@@ -437,97 +443,97 @@ public class Field implements Cloneable, Serializable {
     /**
      * Replace constants with values in fields and process the depends field 
      * to create the dependency <code>Map</code>.
-    */
+     */
     public void process(Map globalConstants, Map constants) {
-       hMsgs.setFast(false);
-       hArg0.setFast(true);
-       hArg1.setFast(true);
-       hArg2.setFast(true);
-       hArg3.setFast(true);
-       hVars.setFast(true);
-
-       generateKey();
-              
-       // Process FormSet Constants
-       for (Iterator i = constants.keySet().iterator(); i.hasNext(); ) {
-          String key = (String)i.next();
-          String key2 = TOKEN_START + key + TOKEN_END;
-          String replaceValue = (String)constants.get(key);
-
-	  property = ValidatorUtil.replace(property, key2, replaceValue);
-
-          processVars(key2, replaceValue);
-	  
-	  processMessageComponents(key2, replaceValue);
-       }
-
-       // Process Global Constants
-       for (Iterator i = globalConstants.keySet().iterator(); i.hasNext(); ) {
-          String key = (String)i.next();
-          String key2 = TOKEN_START + key + TOKEN_END;
-          String replaceValue = (String)globalConstants.get(key);
-	  
-	  property = ValidatorUtil.replace(property, key2, replaceValue);
-	  
-	  processVars(key2, replaceValue);
-	  
-	  processMessageComponents(key2, replaceValue);
-       }
-
-       // Process Var Constant Replacement
-       for (Iterator i = hVars.keySet().iterator(); i.hasNext(); ) {
-          String key = (String)i.next();
-          String key2 = TOKEN_START + TOKEN_VAR + key + TOKEN_END;
-          Var var = (Var)hVars.get(key);
-          String replaceValue = var.getValue();
-	  
-	  processMessageComponents(key2, replaceValue);
-       }
-
-       if (getDepends() != null) {
-          StringTokenizer st = new StringTokenizer(getDepends(), ",");
-          String value = "";
-          while (st.hasMoreTokens()) {
-             String depend = st.nextToken().trim();
-             
-             if (depend != null && depend.length() > 0) {
-                hDependencies.put(depend, value);
-             }
-          
-          }
-              
-          hDependencies.setFast(true);
-       }
-       hMsgs.setFast(true);
+    	hMsgs.setFast(false);
+    	hArg0.setFast(true);
+    	hArg1.setFast(true);
+    	hArg2.setFast(true);
+    	hArg3.setFast(true);
+    	hVars.setFast(true);
+    
+    	generateKey();
+    
+    	// Process FormSet Constants
+    	for (Iterator i = constants.keySet().iterator(); i.hasNext();) {
+    		String key = (String) i.next();
+    		String key2 = TOKEN_START + key + TOKEN_END;
+    		String replaceValue = (String) constants.get(key);
+    
+    		property = ValidatorUtil.replace(property, key2, replaceValue);
+    
+    		processVars(key2, replaceValue);
+    
+    		processMessageComponents(key2, replaceValue);
+    	}
+    
+    	// Process Global Constants
+    	for (Iterator i = globalConstants.keySet().iterator(); i.hasNext();) {
+    		String key = (String) i.next();
+    		String key2 = TOKEN_START + key + TOKEN_END;
+    		String replaceValue = (String) globalConstants.get(key);
+    
+    		property = ValidatorUtil.replace(property, key2, replaceValue);
+    
+    		processVars(key2, replaceValue);
+    
+    		processMessageComponents(key2, replaceValue);
+    	}
+    
+    	// Process Var Constant Replacement
+    	for (Iterator i = hVars.keySet().iterator(); i.hasNext();) {
+    		String key = (String) i.next();
+    		String key2 = TOKEN_START + TOKEN_VAR + key + TOKEN_END;
+    		Var var = (Var) hVars.get(key);
+    		String replaceValue = var.getValue();
+    
+    		processMessageComponents(key2, replaceValue);
+    	}
+    
+    	if (getDepends() != null) {
+    		StringTokenizer st = new StringTokenizer(getDepends(), ",");
+    		String value = "";
+    		while (st.hasMoreTokens()) {
+    			String depend = st.nextToken().trim();
+    
+    			if (depend != null && depend.length() > 0) {
+    				hDependencies.put(depend, value);
+    			}
+    
+    		}
+    
+    		hDependencies.setFast(true);
+    	}
+    	hMsgs.setFast(true);
     }
 
     /**
      * Replace the vars value with the key/value pairs passed in.
-    */
+     */
     private void processVars(String key, String replaceValue) {
 
-       for (Iterator i = hVars.keySet().iterator(); i.hasNext(); ) {
-          String varKey = (String)i.next();
-          Var var = (Var)hVars.get(varKey);
-	  
-	  var.setValue(ValidatorUtil.replace(var.getValue(), key, replaceValue));
-       }
+    	for (Iterator i = hVars.keySet().iterator(); i.hasNext();) {
+    		String varKey = (String) i.next();
+    		Var var = (Var) hVars.get(varKey);
+    
+    		var.setValue(ValidatorUtil.replace(var.getValue(), key, replaceValue));
+    	}
        
     }
     
     /**
      * Replace the args key value with the key/value pairs passed in.
-    */
+     */
     public void processMessageComponents(String key, String replaceValue) {
-       String varKey = TOKEN_START + TOKEN_VAR;
-       // Process Messages
-       if (key != null && !key.startsWith(varKey)) {
-          for (Iterator i = hMsgs.keySet().iterator(); i.hasNext(); ) {
-             String msgKey = (String)i.next();
-             String value = (String)hMsgs.get(msgKey);
-             
-	     hMsgs.put(msgKey, ValidatorUtil.replace(value, key, replaceValue));
-          }
+    	String varKey = TOKEN_START + TOKEN_VAR;
+    	// Process Messages
+    	if (key != null && !key.startsWith(varKey)) {
+    		for (Iterator i = hMsgs.keySet().iterator(); i.hasNext();) {
+    			String msgKey = (String) i.next();
+    			String value = (String) hMsgs.get(msgKey);
+    
+    			hMsgs.put(msgKey, ValidatorUtil.replace(value, key, replaceValue));
+    		}
        }
        
        processArg(hArg0, key, replaceValue);
@@ -539,22 +545,20 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Replace the arg <code>Collection</code> key value with the key/value pairs passed in.
-    */
+     */
     private void processArg(Map hArgs, String key, String replaceValue) {
-
-       for (Iterator i = hArgs.values().iterator(); i.hasNext(); ) {
-          Arg arg = (Arg)i.next();
-
-          if (arg != null) {
-	     arg.setKey(ValidatorUtil.replace(arg.getKey(), key, replaceValue));
-	  }
-       }
-       
+        for (Iterator i = hArgs.values().iterator(); i.hasNext();) {
+        	Arg arg = (Arg) i.next();
+        
+        	if (arg != null) {
+        		arg.setKey(ValidatorUtil.replace(arg.getKey(), key, replaceValue));
+        	}
+        }
     }
 
     /**
      * Checks if the key is listed as a dependency.
-    */
+     */
     public boolean isDependency(String key) {
        if (hDependencies != null) {
           return hDependencies.containsKey(key);	
