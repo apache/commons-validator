@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.5 2002/03/30 04:33:17 dwinterfeldt Exp $
- * $Revision: 1.5 $
- * $Date: 2002/03/30 04:33:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.6 2003/04/29 02:47:53 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/04/29 02:47:53 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,6 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.io.Serializable;
@@ -69,316 +68,309 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import org.apache.commons.collections.FastHashMap; 
-
+import org.apache.commons.collections.FastHashMap;
 
 /**
- * <p>Contains the information to dynamically instantiate 
- * and run a validation method.  This is the class 
- * representation of a pluggable validator that can be defined 
- * in an xml file.<br>
- * &nbsp;&nbsp;&nbsp; Note: The validation method is assumed 
- * to be thread safe.</p>
+ * <p>Contains the information to dynamically instantiate  and run a validation 
+ * method.  This is the class representation of a pluggable validator that can be defined 
+ * in an xml file.
+ * </p>
+ * <strong>Note</strong>: The validation method is assumed to be thread safe.
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2002/03/30 04:33:17 $
-*/
+ * @version $Revision: 1.6 $ $Date: 2003/04/29 02:47:53 $
+ */
 public class ValidatorAction implements Serializable {
 
-   /**
-    * The name of the validation.
-   */
-   private String name = null;
+	/**
+	 * The name of the validation.
+	 */
+	private String name = null;
 
-   /**
-    * The full class name of the class containing 
-    * the validation method associated with 
-    * this action.
-   */   
-   private String classname = null;
-   
-   /**
-    * The full method name of the validation 
-    * to be performed.  The method must be 
-    * thread safe.
-   */
-   private String method = null; 
+	/**
+	 * The full class name of the class containing 
+	 * the validation method associated with this action.
+	 */
+	private String classname = null;
 
-   // Default for Struts
-   /**
-    * <p>The method signature of the validation method.  This 
-    * should be a comma delimited list of the full 
-    * class names of each parameter in the correct order 
-    * that the method takes.</p>
-    *
-    * <p>Note: <code>java.lang.Object</code> is reserved for the 
-    * JavaBean that is being validated.  The <code>ValidatorAction</code> 
-    * and <code>Field</code> that are associated with a fields 
-    * validation will automatically be populated if they are 
-    * specified in the method signature.</p>
-   */
-   private String methodParams = Validator.BEAN_KEY + "," + 
-   				 Validator.VALIDATOR_ACTION_KEY + "," + 
-   				 Validator.FIELD_KEY; 
-   
-   /**
-    * The other <code>ValidatorAction</code>s that this
-    * one depends on.  If any errors occur in an action 
-    * that this one depends on, this action will not 
-    * be processsed.
-   */
-   private String depends = null;       
-   
-   /**
-    * The default error message associated with 
-    * this action.
-   */
-   private String msg = null;    
-   
-   /**
-    * An optional field to contain the name to be 
-    * used if JavaScript is generated.
-   */
-   private String jsFunctionName = null;
+	/**
+	 * The full method name of the validation to be performed.  The method 
+     * must be thread safe.
+	 */
+	private String method = null;
 
-   /**
-    * An optional field to containing a 
-    * JavaScript representation of the 
-    * java method assocated with this action.
-   */
-   private String javascript = null;
+	// Default for Struts
+	/**
+	 * <p>The method signature of the validation method.  This should be a comma 
+     * delimited list of the full class names of each parameter in the correct order that 
+     * the method takes.</p>
+	 *
+	 * <p>Note: <code>java.lang.Object</code> is reserved for the 
+	 * JavaBean that is being validated.  The <code>ValidatorAction</code> 
+	 * and <code>Field</code> that are associated with a fields 
+	 * validation will automatically be populated if they are 
+	 * specified in the method signature.
+     * </p>
+	 */
+	private String methodParams =
+		Validator.BEAN_KEY
+			+ ","
+			+ Validator.VALIDATOR_ACTION_KEY
+			+ ","
+			+ Validator.FIELD_KEY;
 
-   /**
-    * If the java method matching the correct 
-    * signature isn't static, the instance is 
-    * stored in the action.  This assumes the 
-    * method is thread safe.
-   */
-   private Object instance = null;
-   
-   /**
-    * A <code>FastHashMap</code> of the other 
-    * <code>ValiadtorAction</code>s this one depends
-    * on (if any).
-   */
-   private FastHashMap hDependencies = new FastHashMap();   
-   
-   /**
-    * A list of all the validation method's parameters.
-   */
-   private List lMethodParams = new ArrayList();   
+	/**
+	 * The other <code>ValidatorAction</code>s that this one depends on.  If any 
+     * errors occur in an action that this one depends on, this action will not be 
+     * processsed.
+	 */
+	private String depends = null;
 
-   /**
-    * Gets the name of the validator action.
-   */
-   public String getName() {
-      return name;	
-   }
+	/**
+	 * The default error message associated with this action.
+	 */
+	private String msg = null;
 
-   /**
-    * Sets the name of the validator action.
-   */
-   public void setName(String name) {
-      this.name = name;	
-   }
+	/**
+	 * An optional field to contain the name to be 
+	 * used if JavaScript is generated.
+	 */
+	private String jsFunctionName = null;
 
-   /**
-    * Gets the class of the validator action.
-   */
-   public String getClassname() {
-      return classname;	
-   }
+	/**
+	 * An optional field to containing a JavaScript representation of the 
+	 * java method assocated with this action.
+	 */
+	private String javascript = null;
 
-   /**
-    * Sets the class of the validator action.
-   */
-   public void setClassname(String classname) {
-      this.classname = classname;	
-   }
+	/**
+	 * If the java method matching the correct signature isn't static, the instance is 
+	 * stored in the action.  This assumes the method is thread safe.
+	 */
+	private Object instance = null;
 
-   /**
-    * Gets the name of method being called for the validator action.
-   */
-   public String getMethod() {
-      return method;	
-   }
+	/**
+	 * A <code>FastHashMap</code> of the other 
+	 * <code>ValidatorAction</code>s this one depends on (if any).
+	 */
+	private FastHashMap dependencies = new FastHashMap();
 
-   /**
-    * Sets the name of method being called for the validator action.
-   */
-   public void setMethod(String method) {
-      this.method = method;	
-   }
-   
-   /**
-    * Gets the method parameters for the method.
-   */
-   public String getMethodParams() {
-      return methodParams;	
-   }
+	/**
+	 * A list of all the validation method's parameters.
+	 */
+	private List methodParameterList = new ArrayList();
 
-   /**
-    * Sets the method parameters for the method.
-   */
-   public void setMethodParams(String methodParams) {
-      this.methodParams = methodParams;	
-   }
+	/**
+	 * Gets the name of the validator action.
+	 */
+	public String getName() {
+		return name;
+	}
 
-   /**
-    * Gets the method parameters for the method.
-   */
-   public List getMethodParamsList() {
-      return Collections.unmodifiableList(lMethodParams);
-   }
-   
-   /**
-    * Gets the dependencies of the validator action.
-   */
-   public String getDepends() {
-      return depends;	
-   }
+	/**
+	 * Sets the name of the validator action.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
-   /**
-    * Sets the dependencies of the validator action.
-   */
-   public void setDepends(String depends) {
-      this.depends = depends;	
-   }
+	/**
+	 * Gets the class of the validator action.
+	 */
+	public String getClassname() {
+		return classname;
+	}
 
-   /**
-    * Gets the message associated with the validator action.
-   */
-   public String getMsg() {
-      return msg;	
-   }
+	/**
+	 * Sets the class of the validator action.
+	 */
+	public void setClassname(String classname) {
+		this.classname = classname;
+	}
 
-   /**
-    * Sets the message associated with the validator action.
-   */
-   public void setMsg(String msg) {
-      this.msg = msg;	
-   }
+	/**
+	 * Gets the name of method being called for the validator action.
+	 */
+	public String getMethod() {
+		return method;
+	}
 
-   /**
-    * Gets the Javascript function name.  This is optional and can 
-    * be used instead of validator action name for the name of the 
-    * Javascript function/object.
-   */
-   public String getJsFunctionName() {
-      return jsFunctionName;	
-   }
+	/**
+	 * Sets the name of method being called for the validator action.
+	 */
+	public void setMethod(String method) {
+		this.method = method;
+	}
 
-   /**
-    * Sets the Javascript function name.  This is optional and can 
-    * be used instead of validator action name for the name of the 
-    * Javascript function/object.
-   */
-   public void setJsFunctionName(String jsFunctionName) {
-      this.jsFunctionName = jsFunctionName;	
-   }
-   
-   /**
-    * Gets the Javascript equivalent of the java class and method 
-    * associated with this action.
-   */
-   public String getJavascript() {
-      return javascript;	
-   }
+	/**
+	 * Gets the method parameters for the method.
+	 */
+	public String getMethodParams() {
+		return methodParams;
+	}
 
-   /**
-    * Sets the Javascript equivalent of the java class and method 
-    * associated with this action.
-   */
-   public void setJavascript(String javascript) {
-      this.javascript = javascript;	
-   }
+	/**
+	 * Sets the method parameters for the method.
+	 */
+	public void setMethodParams(String methodParams) {
+		this.methodParams = methodParams;
+	}
 
-   /**
-    * Gets an instance based on the validator action's classname.
-   */
-   public Object getClassnameInstance() {
-      return instance;	
-   }
+	/**
+	 * Gets the method parameters for the method.
+	*/
+	public List getMethodParamsList() {
+		return Collections.unmodifiableList(methodParameterList);
+	}
 
-   /**
-    * Sets an instance based on the validator action's classname.
-   */
-   public void setClassnameInstance(Object instance) {
-      this.instance = instance;	
-   }
+	/**
+	 * Gets the dependencies of the validator action.
+	 */
+	public String getDepends() {
+		return depends;
+	}
 
-   /**
-    * Creates a <code>FastHashMap</code> for the isDependency method 
-    * based on depends.
-   */
-   public synchronized void process(Map globalConstants) {
-      // Create FastHashMap for isDependency method
-      if (getDepends() != null) {
-      	  if (hDependencies == null) {
-      	     hDependencies = new FastHashMap();
-      	  }
-      	     
-         StringTokenizer st = new StringTokenizer(getDepends(), ",");
-         String value = "";
-         while (st.hasMoreTokens()) {
-            String depend = st.nextToken().trim();
-            
-            if (depend != null && depend.length() > 0) {
-               hDependencies.put(depend, value);
-            }
-         
-         }
-             
-         hDependencies.setFast(true);
-      }
-      
-      // Create List for methodParams
-      if (getMethodParams() != null) {
-      	  if (lMethodParams == null) {
-      	     lMethodParams = new ArrayList();
-      	  }
-      	     
-         StringTokenizer st = new StringTokenizer(getMethodParams(), ",");
+	/**
+	 * Sets the dependencies of the validator action.
+	*/
+	public void setDepends(String depends) {
+		this.depends = depends;
+	}
 
-         while (st.hasMoreTokens()) {
-            String value = st.nextToken().trim();
-            
-            if (value != null && value.length() > 0) {
-               lMethodParams.add(value);
-            }
-         }
-      }
-   }
+	/**
+	 * Gets the message associated with the validator action.
+	 */
+	public String getMsg() {
+		return msg;
+	}
 
-   /**
-    * Checks whether or not the value passed in is in the depends field.
-   */
-   public boolean isDependency(String key) {
-      if (hDependencies != null) {
-         return hDependencies.containsKey(key);	
-      } else {
-         return false;
-      }
-   }
+	/**
+	 * Sets the message associated with the validator action.
+	 */
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 
-   /**
-    * Gets the dependencies as a <code>Collection</code>.
-   */
-   public Collection getDependencies() {
-      return Collections.unmodifiableMap(hDependencies).keySet();
-   }
+	/**
+	 * Gets the Javascript function name.  This is optional and can 
+	 * be used instead of validator action name for the name of the 
+	 * Javascript function/object.
+	 */
+	public String getJsFunctionName() {
+		return jsFunctionName;
+	}
 
-   /**
-    * Returns a string representation of the object.
-   */
-   public String toString() {
-      StringBuffer results = new StringBuffer();
-      
-      results.append("ValidatorAction: ");
-      results.append(name);
-      results.append("\n");
-   
-      return results.toString();
-   }
-	
+	/**
+	 * Sets the Javascript function name.  This is optional and can 
+	 * be used instead of validator action name for the name of the 
+	 * Javascript function/object.
+	 */
+	public void setJsFunctionName(String jsFunctionName) {
+		this.jsFunctionName = jsFunctionName;
+	}
+
+	/**
+	 * Gets the Javascript equivalent of the java class and method 
+	 * associated with this action.
+	*/
+	public String getJavascript() {
+		return javascript;
+	}
+
+	/**
+	 * Sets the Javascript equivalent of the java class and method 
+	 * associated with this action.
+	 */
+	public void setJavascript(String javascript) {
+		this.javascript = javascript;
+	}
+
+	/**
+	 * Gets an instance based on the validator action's classname.
+	*/
+	public Object getClassnameInstance() {
+		return instance;
+	}
+
+	/**
+	 * Sets an instance based on the validator action's classname.
+	 */
+	public void setClassnameInstance(Object instance) {
+		this.instance = instance;
+	}
+
+	/**
+	 * Creates a <code>FastHashMap</code> for the isDependency method 
+	 * based on depends.
+	 */
+	public synchronized void process(Map globalConstants) {
+		// Create FastHashMap for isDependency method
+		if (getDepends() != null) {
+			if (dependencies == null) {
+				dependencies = new FastHashMap();
+			}
+
+			StringTokenizer st = new StringTokenizer(getDepends(), ",");
+			String value = "";
+			while (st.hasMoreTokens()) {
+				String depend = st.nextToken().trim();
+
+				if (depend != null && depend.length() > 0) {
+					dependencies.put(depend, value);
+				}
+
+			}
+
+			dependencies.setFast(true);
+		}
+
+		// Create List for methodParams
+		if (getMethodParams() != null) {
+			if (methodParameterList == null) {
+				methodParameterList = new ArrayList();
+			}
+
+			StringTokenizer st = new StringTokenizer(getMethodParams(), ",");
+
+			while (st.hasMoreTokens()) {
+				String value = st.nextToken().trim();
+
+				if (value != null && value.length() > 0) {
+					methodParameterList.add(value);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Checks whether or not the value passed in is in the depends field.
+	 */
+	public boolean isDependency(String key) {
+		if (dependencies != null) {
+			return dependencies.containsKey(key);
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Gets the dependencies as a <code>Collection</code>.
+	 */
+	public Collection getDependencies() {
+		return Collections.unmodifiableMap(dependencies).keySet();
+	}
+
+	/**
+	 * Returns a string representation of the object.
+	 */
+	public String toString() {
+		StringBuffer results = new StringBuffer();
+
+		results.append("ValidatorAction: ");
+		results.append(name);
+		results.append("\n");
+
+		return results.toString();
+	}
+
 }
