@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.24 2003/05/28 04:28:01 dgraham Exp $
- * $Revision: 1.24 $
- * $Date: 2003/05/28 04:28:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.25 2003/05/28 04:30:58 dgraham Exp $
+ * $Revision: 1.25 $
+ * $Date: 2003/05/28 04:30:58 $
  *
  * ====================================================================
  *
@@ -86,7 +86,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.24 $ $Date: 2003/05/28 04:28:01 $
+ * @version $Revision: 1.25 $ $Date: 2003/05/28 04:30:58 $
  */
 public class Validator implements Serializable {
 
@@ -184,12 +184,12 @@ public class Validator implements Serializable {
      * Maps validation method parameter class names to the objects to be passed 
      * into the method.
      */
-    protected HashMap parameters = new HashMap();
+    protected Map parameters = new HashMap();
 
     /**
      * @deprecated Use parameters instead.
      */
-    protected HashMap hResources = this.parameters;
+    protected HashMap hResources = (HashMap) this.parameters;
     
     /**
      * The current page number to validate.
@@ -334,7 +334,7 @@ public class Validator implements Serializable {
     public void clear() {
         this.formName = null;
         this.parameters = new HashMap();
-        this.hResources = this.parameters;
+        this.hResources = (HashMap) this.parameters;
         this.page = 0;
     }
 
