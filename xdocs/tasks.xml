@@ -17,7 +17,7 @@
     <subsection name="High priority"> 
       <ul>
       	<li>
-      		Remove deprecated functionality after 1.1.1 release.
+      		Remove functionality deprecated in 1.1.0 release in 1.2.0 release.
       	</li>
        </ul>
     </subsection>
@@ -32,11 +32,20 @@
       		non-form based environments.
       	</li>
       	<li>
+      	        Scenario one:
       		Replace the Jakarta ORO regex engine with the standard Java 1.4 engine.  Preliminary tests show a 
       		50% speed improvement using the standard engine.  This will remove the ORO dependency and
       		bring Validator in line with standard Java regular expressions.  However, this requires a move
       		to Java 1.4 as the base required Java version.  A good time for this move may be Validator 2.0 when
       		we also change the configuration file semantics.
+      	</li>
+      	<li>
+      		Much more likely Scenario:
+      		ORO provides a much richer interface to regular expression, such that we don't have
+      		to worry about bit twiddling, this includes a pluggable regex engine. Jeffrey E Friedl states
+      		in Mastering Regular Expressions 2ed, says that in speaking to the ORO developers that they
+      		will likely develop an adapter to the Java 1.4 regex, See page 378. So we get use of ORO and the speed of 
+      		Java 1.4 Regex engine. 
       	</li>
       </ul>
     </subsection>
@@ -60,7 +69,7 @@
         		Make Arg system more flexible to allow any number of args in a message.
         	</li>
         	<li>
-        		Validate vaildation.xml files while initializing a Validator to alert developers to configuration
+        		Validate validation.xml files while initializing a Validator to alert developers to configuration
         		errors.
         	</li>
         	<li>
