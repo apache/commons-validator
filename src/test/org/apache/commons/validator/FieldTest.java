@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.11 2003/09/28 20:39:57 dgraham Exp $
- * $Revision: 1.11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/FieldTest.java,v 1.1 2003/09/28 20:39:57 dgraham Exp $
+ * $Revision: 1.1 $
  * $Date: 2003/09/28 20:39:57 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,20 +23,20 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution, if
- *    any, must include the following acknowlegement:
+ *    any, must include the following acknowledgement:
  *       "This product includes software developed by the
  *        Apache Software Foundation (http://www.apache.org/)."
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Commons", and "Apache Software
+ * 4. The names, "Apache", "The Jakarta Project", "Commons", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
- *    nor may "Apache" appear in their names without prior written
- *    permission of the Apache Group.
+ *    nor may "Apache" appear in their name, without prior written
+ *    permission of the Apache Software Foundation.
  *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
@@ -61,54 +61,62 @@
 
 package org.apache.commons.validator;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
-import org.apache.commons.validator.util.FlagsTest;
 
 /**
- * Test suite for <code>org.apache.commons.validator</code>
- * package.
- *
- * @author David Winterfeldt
- * @author James Turner
+ * Test <code>Field</code> objects.
+ * 
  * @author David Graham
- * @version $Revision: 1.11 $ $Date: 2003/09/28 20:39:57 $
-*/
-public class ValidatorTestSuite extends TestCase {
+ */
+public class FieldTest extends TestCase {
 
-    public ValidatorTestSuite(String name) {
-        super(name);
-    }
+	/**
+	 * FieldTest constructor.
+	 */
+	public FieldTest() {
+		super();
+	}
 
-    public static Test suite() {
-       TestSuite suite = new TestSuite();
+	/**
+	 * FieldTest constructor.
+	 * @param name
+	 */
+	public FieldTest(String name) {
+		super(name);
+	}
 
-       suite.addTest(RequiredNameTest.suite());
-       suite.addTest(RequiredIfTest.suite());
-       suite.addTest(MultipleTests.suite());
-       suite.addTestSuite(MultipleConfigFilesTest.class);
-       suite.addTest(ByteTest.suite());
-       suite.addTest(ShortTest.suite());
-       suite.addTest(IntegerTest.suite());
-       suite.addTest(LongTest.suite());
-       suite.addTest(FloatTest.suite());
-       suite.addTest(DoubleTest.suite());
-       suite.addTest(TypeTest.suite());
-       suite.addTest(EmailTest.suite());
-       suite.addTestSuite(CreditCardValidatorTest.class);
-       suite.addTest(ValidatorTest.suite());
-       suite.addTest(LocaleTest.suite());
-       suite.addTestSuite(FieldTest.class);
-       suite.addTestSuite(FlagsTest.class);
-       suite.addTest(UrlTest.suite());
-       
-       return suite;
-    }
+	public void testGetArgs() {
+		// Arg with a validator name
+		Arg a = new Arg();
+		a.setKey("my.resource.key");
+		a.setName("required");
 
-    public static void main(String args[]) {
-        junit.textui.TestRunner.run(suite());
-    }
+		// Arg without name so it will be stored under default name
+		Arg a2 = new Arg();
+		a2.setKey("another.resource.key");
+		a2.setPosition(1);
+
+		Field f = new Field();
+        // test empty args first
+        Arg[] emptyArgs = f.getArgs("required");
+        assertEquals(0, emptyArgs.length);
+        
+        // add args for other tests
+		f.addArg(a);
+		f.addArg(a2);
+
+		// test arg lookup for "required" validator
+		Arg[] args = f.getArgs("required");
+		assertEquals(2, args.length);
+		assertTrue(args[0] == a);
+
+		// test arg lookup for non-existent "required2" validator
+		// should find default arg for position 1
+		Arg[] args2 = f.getArgs("required2");
+		assertEquals(2, args2.length);
+		assertNull(args2[0]); // we didn't define a 0 position arg
+		assertTrue(args2[1] == a2);
+
+	}
 
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.25 2003/09/28 18:47:32 dgraham Exp $
- * $Revision: 1.25 $
- * $Date: 2003/09/28 18:47:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.26 2003/09/28 20:39:57 dgraham Exp $
+ * $Revision: 1.26 $
+ * $Date: 2003/09/28 20:39:57 $
  *
  * ====================================================================
  *
@@ -84,7 +84,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.25 $ $Date: 2003/09/28 18:47:32 $
+ * @version $Revision: 1.26 $ $Date: 2003/09/28 20:39:57 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -145,10 +145,11 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Holds Maps of arguments.  args[0] returns the Map for the first 
-     * replacement argument.
+     * replacement argument.  Start with a 0 length array so that it will
+     * only grow to the size of the highest argument position.
      * @since Validator 1.1
      */
-    protected Map[] args = new Map[10];
+    protected Map[] args = new Map[0];
 
     /**
      * @deprecated This variable is no longer used, use args instead.
@@ -360,6 +361,23 @@ public class Field implements Cloneable, Serializable {
         }
 
         return (arg == null) ? this.getArg(position) : arg;
+    }
+    
+    /**
+     * Retrieves the Args for the given validator name.
+     * @param key The validator's args to retrieve.
+     * @return An Arg[] sorted by the Args' positions (i.e. the Arg at index 0
+     * has a position of 0). 
+     * @since Validator 1.1.1
+     */
+    public Arg[] getArgs(String key){
+        Arg[] args = new Arg[this.args.length];
+        
+        for (int i = 0; i < this.args.length; i++) {
+		  args[i] = this.getArg(key, i);	
+		}
+        
+        return args;
     }
 
     /**
