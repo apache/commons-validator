@@ -90,14 +90,34 @@ public class Validator implements Serializable {
    */
    protected static Log log = LogSource.getInstance(Validator.class.getName());
 
-   public static String SERVLET_CONTEXT_KEY = "javax.servlet.ServletContext";
-   public static String HTTP_SERVLET_REQUEST_KEY = "javax.servlet.http.HttpServletRequest";
-   public static String MESSAGE_RESOURCES_KEY = "org.apache.struts.util.MessageResources";
-   public static String LOCALE_KEY = "java.util.Locale";
+   /**
+    * Resources key the JavaBean is stored to perform validation on.
+   */
    public static String BEAN_KEY = "java.lang.Object";
-   public static String ACTION_ERRORS_KEY = "org.apache.struts.action.ActionErrors";
+
+   /**
+    * Resources key the <code>ValidatorAction</code> is stored under.  
+    * This will be automatically passed into a validation method 
+    * with the current <code>ValidatorAction</code> if it is 
+    * specified in the method signature.
+   */
    public static String VALIDATOR_ACTION_KEY = "org.apache.commons.validator.ValidatorAction";
+
+   /**
+    * Resources key the <code>Field</code> is stored under.  
+    * This will be automatically passed into a validation method 
+    * with the current <code>Field</code> if it is 
+    * specified in the method signature.
+   */
    public static String FIELD_KEY = "org.apache.commons.validator.Field";
+
+   /**
+    * Resources key the <code>Locale</code> is stored.
+    * This will be used to retrieve the appropriate 
+    * <code>FormSet</code> and <code>Form</code> to be 
+    * processed.
+   */
+   public static String LOCALE_KEY = "java.util.Locale";
    
    protected ValidatorResources resources = null;
    protected String formName = null;
@@ -210,8 +230,8 @@ public class Validator implements Serializable {
     *		of the <code>Field</code> for the key and the value 
     *		is the number of error the field had.
    */ 
-   public Map validate() throws ValidatorException {
-      Map hResults = new HashMap();
+   public ValidatorResults validate() throws ValidatorException {
+      ValidatorResults results = new ValidatorResults();
       Locale locale = null;
       
       if (hResources.containsKey(LOCALE_KEY)) {
@@ -254,7 +274,7 @@ public class Validator implements Serializable {
                   Object o = hActionsRun.get(depend);
       
                   if (log.isDebugEnabled()) {
-      	             log.debug("Validator::validate - ValidatorAction name=" + va.getName() + "  depends=" + va.getDepends());
+      	             log.debug("ValidatorAction name=" + va.getName() + "  depends=" + va.getDepends());
       	          }
       	                       
                   if (o == null) {
@@ -266,7 +286,7 @@ public class Validator implements Serializable {
                      boolean bContinue = ((Boolean)o).booleanValue();
 
                      if (log.isDebugEnabled()) {
-      	                log.debug("Validator::validate - ValidatorAction name=" + va.getName() + "  depend=" + depend + "  bContinue=" + bContinue);
+      	                log.debug("ValidatorAction name=" + va.getName() + "  depend=" + depend + "  bContinue=" + bContinue);
       	             }
                      
                      if (!bContinue) {
@@ -283,7 +303,7 @@ public class Validator implements Serializable {
 
             if (log.isDebugEnabled()) {
                StringBuffer sbLog = new StringBuffer();
-      	       sbLog.append("Validator::validate - Order \n");
+      	       sbLog.append("Order \n");
                
                for (Iterator actions = lActions.iterator(); actions.hasNext(); ) {
                   ValidatorAction tmp = (ValidatorAction)actions.next();
@@ -339,7 +359,7 @@ public class Validator implements Serializable {
                                  va.setClassnameInstance(c.newInstance());
                               }
                            } catch (Exception ex) {
-                              log.error("Validator::validate - Couldn't load instance " +
+                              log.error("Couldn't load instance " +
                                         "of class " + va.getClassname() + ".  " + ex.getMessage());
                            }
                         }
@@ -366,39 +386,21 @@ public class Validator implements Serializable {
                               paramValue[fieldIndexPos] = indexedField;
                               
                               result = m.invoke(va.getClassnameInstance(), paramValue);
-      
-                              int iCount = getErrorCount(result);
-                              
-                              if (iCount != 0) {
-                                 iErrorCount += iCount;
-                                 
-                                 if (hResults.containsKey(field.getKey())) {
-                                    Integer currentCount = (Integer)hResults.get(field.getKey());
-                                    hResults.put(field.getKey(), new Integer(currentCount.intValue() + iCount));	
-                                 } else {
-                                    hResults.put(field.getKey(), new Integer(iCount));	
-                                 }
-                              }
                            }
                         } else {
                            result = m.invoke(va.getClassnameInstance(), paramValue);
-
-                           int iCount = getErrorCount(result);
-                           
-                           if (iCount != 0) {
-                              iErrorCount += iCount;
-                              
-                              if (hResults.containsKey(field.getKey())) {
-                                 Integer currentCount = (Integer)hResults.get(field.getKey());
-                                 hResults.put(field.getKey(), new Integer(currentCount.intValue() + iCount));	
-                              } else {
-                                 hResults.put(field.getKey(), new Integer(iCount));	
-                              }
-                           }
                         }
+                        
+                        if (!isValid(result)) {
+                           iErrorCount++;
+                        }
+                         
+                        results.add(field, va.getName(), isValid(result));
       	       } catch (Exception e) {
       	          bErrors = true;
-      	          log.error("Validator::validate - reflection: " + e.getMessage(), e);
+      	          log.error("reflection: " + e.getMessage(), e);
+      	          
+      	          results.add(field, va.getName(), false);
       	          
       	          if (e instanceof ValidatorException) {
       	             throw ((ValidatorException)e);
@@ -415,7 +417,7 @@ public class Validator implements Serializable {
                }
                
                if (log.isDebugEnabled()) {
-                  log.debug("Validator::validate - name=" + va.getName() + "  size=" + lActions.size());
+                  log.debug("name=" + va.getName() + "  size=" + lActions.size());
                }
                   
                if (lActions.size() > 0) {
@@ -423,7 +425,7 @@ public class Validator implements Serializable {
                }
                
                if (log.isDebugEnabled()) {
-                  log.debug("Validator::validate - after remove - name=" + va.getName() + "  size=" + lActions.size());
+                  log.debug("after remove - name=" + va.getName() + "  size=" + lActions.size());
                }
             }
             
@@ -433,29 +435,28 @@ public class Validator implements Serializable {
          }
       }
       
-      return hResults;
+      return results;
    }
 
    /**
-    * Returns the error count for the validation loop.  If the 
-    * result object is <code>Boolean</code>, then it will increment 
-    * the error count if the value is <code>false</code>.  If the 
-    * result object isn't <code>Boolean</code>, then it will increment 
-    * the error count if the result object is <code>null</code>.
+    * Returns if the result if valid.  If the 
+    * result object is <code>Boolean</code>, then it will 
+    * the value.  If the result object isn't <code>Boolean</code>, 
+    * then it will return <code>false</code> if the result 
+    * object is <code>null</code> and <code>true</code> if it 
+    * isn't.
    */
-   private int getErrorCount(Object result) {
-      int iResult = 0;
+   private boolean isValid(Object result) {
+      boolean bValid = false;
       
       if (result instanceof Boolean) {
          Boolean valid = (Boolean)result;
-         if (!valid.booleanValue())
-            iResult++;
+         bValid = valid.booleanValue();
       } else {
-         if (result == null)
-            iResult++;
+         bValid = (result != null);
       }
       
-      return iResult;
+      return bValid;
    }
 
    /**
