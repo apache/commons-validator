@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.31 2004/01/11 23:30:20 dgraham Exp $
- * $Revision: 1.31 $
- * $Date: 2004/01/11 23:30:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.32 2004/01/17 21:37:20 dgraham Exp $
+ * $Revision: 1.32 $
+ * $Date: 2004/01/17 21:37:20 $
  *
  * ====================================================================
  *
@@ -396,7 +396,8 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Executes the given ValidatorAction and all ValidatorActions that it depends on.
+     * Executes the given ValidatorAction and all ValidatorActions that it 
+     * depends on.
      * @return true if the validation succeeded.
      */
     private boolean validateFieldForRule(
@@ -465,8 +466,8 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Dynamically runs the validation method for this validator and returns true if the
-     * data is valid.
+     * Dynamically runs the validation method for this validator and returns 
+     * true if the data is valid.
      * @param field
      * @param va
      * @param results
@@ -474,27 +475,36 @@ public class Validator implements Serializable {
      * @throws ValidatorException
      */
     private boolean executeValidationMethod(
-            Field field,
-            ValidatorAction va,
-            ValidatorResults results,
-            int pos)
-            throws ValidatorException {
+        Field field,
+        ValidatorAction va,
+        ValidatorResults results,
+        int pos)
+        throws ValidatorException {
+
+        // Add these two Objects to the resources since they reference
+        // the current validator action and field
+        this.setParameter(VALIDATOR_ACTION_PARAM, va);
+        this.setParameter(FIELD_PARAM, field);
 
         try {
-            // Add these two Objects to the resources since they reference
-            // the current validator action and field
-            this.setParameter(VALIDATOR_ACTION_PARAM, va);
-            this.setParameter(FIELD_PARAM, field);
-
-            Class validationClass = getClassLoader().loadClass(va.getClassname());
+            Class validationClass;
+            try {
+                validationClass = getClassLoader().loadClass(va.getClassname());
+            } catch (ClassNotFoundException e) {
+                throw new ValidatorException(e.getMessage());
+            }
 
             List params = va.getMethodParamsList();
 
             Class[] paramClass = this.getParameterClasses(params);
             Object[] paramValue = this.getParameterValues(params);
 
-            Method validationMethod =
-                    validationClass.getMethod(va.getMethod(), paramClass);
+            Method validationMethod;
+            try {
+                validationMethod = validationClass.getMethod(va.getMethod(), paramClass);
+            } catch (NoSuchMethodException e) {
+                throw new ValidatorException(e.getMessage());
+            }
 
             // If the method is static, we don't need an instance of the class
             // to call the method.
@@ -506,8 +516,22 @@ public class Validator implements Serializable {
                 this.handleIndexedField(field, pos, params, paramValue);
             }
 
-            Object result =
-                    validationMethod.invoke(va.getClassnameInstance(), paramValue);
+            Object result = null;
+            try {
+                result = validationMethod.invoke(va.getClassnameInstance(), paramValue);
+            } catch (IllegalArgumentException e) {
+                throw new ValidatorException(e.getMessage());
+            } catch (IllegalAccessException e) {
+                throw new ValidatorException(e.getMessage());
+            } catch (InvocationTargetException e) {
+                
+                if (e.getTargetException() instanceof Exception) {
+                    throw (Exception) e.getTargetException();
+                
+                } else if (e.getTargetException() instanceof Error) {
+                    throw (Error) e.getTargetException();
+                }
+            }
 
             boolean valid = this.isValid(result);
             if (!valid || (valid && !this.onlyReturnErrors)) {
@@ -518,14 +542,18 @@ public class Validator implements Serializable {
                 return false;
             }
 
-        } catch(Exception e) {
-            log.error("reflection: " + e.getMessage(), e);
-
-            results.add(field, va.getName(), false);
-
+        // TODO This catch block remains for backward compatibility.  Remove
+        // this for Validator 2.0 when exception scheme changes.
+        } catch (Exception e) {
             if (e instanceof ValidatorException) {
                 throw (ValidatorException) e;
             }
+            
+            log.error(
+                "Unhandled exception thrown during validation: " + e.getMessage(),
+                e);
+
+            results.add(field, va.getName(), false);
             return false;
         }
 
@@ -535,13 +563,13 @@ public class Validator implements Serializable {
     /**
      * Converts a List of parameter class names into their Class objects.
      * @param paramNames
-     * @return An array containing the Class object for each parameter.  This array
-     * is in the same order as the given List and is suitable for passing to the validation
-     * method.
-     * @throws ClassNotFoundException
+     * @return An array containing the Class object for each parameter.  This 
+     * array is in the same order as the given List and is suitable for passing 
+     * to the validation method.
+     * @throws ValidatorException if a class cannot be loaded.
      */
     private Class[] getParameterClasses(List paramNames)
-            throws ClassNotFoundException {
+        throws ValidatorException {
 
         Class[] paramClass = new Class[paramNames.size()];
 
@@ -549,19 +577,23 @@ public class Validator implements Serializable {
             String paramClassName = (String) paramNames.get(i);
 
             // There were problems calling getClass on paramValue[]
-            paramClass[i] = this.getClassLoader().loadClass(paramClassName);
+            try {
+                paramClass[i] = this.getClassLoader().loadClass(paramClassName);
+            } catch (ClassNotFoundException e) {
+                throw new ValidatorException(e.getMessage());
+            }
         }
 
         return paramClass;
     }
 
     /**
-     * Converts a List of parameter class names into their values contained in the
-     * parameters Map.
+     * Converts a List of parameter class names into their values contained in 
+     * the parameters Map.
      * @param paramNames
-     * @return An array containing the value object for each parameter.  This array
-     * is in the same order as the given List and is suitable for passing to the validation
-     * method.
+     * @return An array containing the value object for each parameter.  This 
+     * array is in the same order as the given List and is suitable for passing 
+     * to the validation method.
      */
     private Object[] getParameterValues(List paramNames) {
 
@@ -576,8 +608,8 @@ public class Validator implements Serializable {
     }
 
     /**
-     * If the given action doesn't already have an instance of the class, store a new
-     * instance in the action.
+     * If the given action doesn't already have an instance of the class, 
+     * store a new instance in the action.
      * @param validationClass The pluggable validation class to store.
      * @param va The ValidatorAction to store the object in.
      */
@@ -633,11 +665,12 @@ public class Validator implements Serializable {
 
     /**
      * Run the validations on a given field, modifying the passed
-     * ValidatorResults to add in any new errors found.  Run all the validations in
-     * the depends clause over each item in turn, returning when the first one fails.
+     * ValidatorResults to add in any new errors found.  Run all the 
+     * validations in the depends clause over each item in turn, returning 
+     * when the first one fails.
      */
     private void validateField(Field field, ValidatorResults allResults)
-            throws ValidatorException {
+        throws ValidatorException {
 
         int numberOfFieldsToValidate =
                 field.isIndexed() ? this.getIndexedProperty(field).length : 1;
