@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.31.2.1 2004/06/22 02:24:38 husted Exp $
- * $Revision: 1.31.2.1 $
- * $Date: 2004/06/22 02:24:38 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.31.2.2 2004/11/11 12:17:32 niallp Exp $
+ * $Revision: 1.31.2.2 $
+ * $Date: 2004/11/11 12:17:32 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -239,14 +239,30 @@ public class Field implements Cloneable, Serializable {
      * Add a <code>Msg</code> to the <code>Field</code>.
      */
     public void addMsg(Msg msg) {
-        hMsgs.put(msg.getName(), msg.getKey());
+        hMsgs.put(msg.getName(), msg);
     }
 
     /**
      * Retrieve a message value.
      */
     public String getMsg(String key) {
-        return (String) hMsgs.get(key);
+        Msg msg = getMsgObject(key);
+        return (msg == null) ? null : msg.getKey();
+    }
+
+    /**
+     * Retrieve a message object.
+     */
+    public Msg getMsgObject(String key) {
+        return (Msg)hMsgs.get(key);
+    }
+
+    /**
+     * The <code>Field</code>'s messages are returned as an
+     * unmodifiable <code>Map</code>.
+     */
+    public Map getMsgs() {
+        return Collections.unmodifiableMap(hMsgs);
     }
 
     /**
@@ -627,11 +643,9 @@ public class Field implements Cloneable, Serializable {
         String varKey = TOKEN_START + TOKEN_VAR;
         // Process Messages
         if (key != null && !key.startsWith(varKey)) {
-            for (Iterator i = hMsgs.keySet().iterator(); i.hasNext();) {
-                String msgKey = (String) i.next();
-                String value = this.getMsg(msgKey);
-
-                hMsgs.put(msgKey, ValidatorUtils.replace(value, key, replaceValue));
+            for (Iterator i = hMsgs.values().iterator(); i.hasNext();) {
+                Msg msg = (Msg) i.next();
+                msg.setKey(ValidatorUtils.replace(msg.getKey(), key, replaceValue));
             }
         }
 
