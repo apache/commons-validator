@@ -3,7 +3,7 @@
 
 <!--
         "Validator" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.22 2003/05/05 04:07:02 rleland Exp $
+        $Id: build.xml,v 1.23 2003/05/18 21:25:16 rleland Exp $
 -->
 
 
@@ -68,6 +68,9 @@
 
   <!-- The base directory for component sources -->
   <property name="source.home"             value="src/share"/>
+
+  <!-- The base directory for javascript sources -->
+  <property name="javascript.home"             value="src/javascript"/>
 
   <!-- The base directory for unit test sources -->
   <property name="test.home"               value="src/test"/>
@@ -191,6 +194,12 @@
               file="${conf.home}/validator_1_0.dtd"/>
     <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
               file="${conf.home}/validator_1_0_1.dtd"/>
+    <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
+              file="${conf.home}/validator_1_1.dtd"/>
+    <copy    todir="${build.home}/classes/">
+      <fileset dir="${javascript.home}"
+          includes="**/*.js"/>
+    </copy>
   </target>
 
 
