@@ -4,21 +4,25 @@
   <extend>../project.xml</extend>
   <name>Validator</name>
   <id>commons-validator</id>
-  <currentVersion>1.1.0</currentVersion>
+  <currentVersion>1.1.0-dev</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <gumpRepositoryId>jakarta</gumpRepositoryId>
+  <package>org.apache.commons.validator.*</package>
+
   <shortDescription>Commons Validator</shortDescription>
   <logo>/images/logo.gif</logo>
 
   <description>
-    Commons Validator component.
+    Commons Validator provides the building blocks for both client side validation
+    and server side data validation. It may be used standalone on with a framework like
+    Struts.
   </description>
   
   <url>http://jakarta.apache.org/commons/validator/</url>
   <issueTrackingUrl>http://nagoya.apache.org/bugzilla/</issueTrackingUrl>
   <siteAddress>jakarta.apache.org</siteAddress>
   <siteDirectory>/www/jakarta.apache.org/commons/validator/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/validator/</distributionDirectory>
+  <distributionDirectory>http://jakarta.apache.org/site/binindex.cgi</distributionDirectory>
 
   <developers>
     <developer>
@@ -87,7 +91,7 @@
 
     <dependency>
       <id>commons-logging</id>
-      <version>1.0.2</version>
+      <version>1.0.3</version>
     </dependency>
     
     <dependency>
