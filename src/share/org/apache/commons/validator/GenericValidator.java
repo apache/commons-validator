@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.12 2003/03/13 02:28:34 dgraham Exp $
- * $Revision: 1.12 $
- * $Date: 2003/03/13 02:28:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.13 2003/03/15 23:18:12 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/03/15 23:18:12 $
  *
  * ====================================================================
  *
@@ -74,7 +74,7 @@ import org.apache.oro.text.perl.Perl5Util;
  *
  * @author David Winterfeldt
  * @author James Turner
- * @version $Revision: 1.12 $ $Date: 2003/03/13 02:28:34 $
+ * @version $Revision: 1.13 $ $Date: 2003/03/15 23:18:12 $
  */
 public class GenericValidator implements Serializable {
 
@@ -309,10 +309,10 @@ public class GenericValidator implements Serializable {
     */
     protected static boolean validateCreditCardLuhnCheck(String cardNumber) {
         // number must be validated as 0..9 numeric first!!
-        int no_digit = cardNumber.length();
-        int oddoeven = no_digit & 1;
+        int digits = cardNumber.length();
+        int oddoeven = digits & 1;
         long sum = 0;
-        for (int count = 0; count < no_digit; count++) {
+        for (int count = 0; count < digits; count++) {
             int digit = 0;
             try {
                 digit = Integer.parseInt(String.valueOf(cardNumber.charAt(count)));
