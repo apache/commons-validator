@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.6 2002/03/30 04:33:17 dwinterfeldt Exp $
- * $Revision: 1.6 $
- * $Date: 2002/03/30 04:33:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.7 2002/10/12 18:28:05 martinc Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/10/12 18:28:05 $
  *
  * ====================================================================
  *
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogSource;
  * <p>Maps an xml file to <code>ValidatorResources</code>.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2002/03/30 04:33:17 $
+ * @version $Revision: 1.7 $ $Date: 2002/10/12 18:28:05 $
 */
 public class ValidatorResourcesInitializer {
 
@@ -141,6 +141,7 @@ public class ValidatorResourcesInitializer {
       digester.push(resources);
       digester.setNamespaceAware(true);
       digester.setValidating(false);
+      digester.setUseContextClassLoader(true);
       
       // Create Global Constant objects
       digester.addCallMethod("form-validation/global/constant",
