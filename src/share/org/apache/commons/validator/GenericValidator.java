@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.23 2003/05/02 23:39:31 dgraham Exp $
- * $Revision: 1.23 $
- * $Date: 2003/05/02 23:39:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.24 2003/06/07 19:13:21 dgraham Exp $
+ * $Revision: 1.24 $
+ * $Date: 2003/06/07 19:13:21 $
  *
  * ====================================================================
  *
@@ -74,7 +74,7 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
  * @author Robert Leland
- * @version $Revision: 1.23 $ $Date: 2003/05/02 23:39:31 $
+ * @version $Revision: 1.24 $ $Date: 2003/06/07 19:13:21 $
  */
 public class GenericValidator implements Serializable {
 
@@ -85,9 +85,15 @@ public class GenericValidator implements Serializable {
    public final static String REGEXP_DELIM = ValidatorUtil.REGEXP_DELIMITER;
 
    /**
-    * UrlValidator used in wrapper method, lazy initialization.
+    * UrlValidator used in wrapper method.
     */
-   private static UrlValidator urlValidator = null;
+   private static final UrlValidator urlValidator = new UrlValidator();
+   
+   /**
+    * CreditCardValidator used in wrapper method.
+    */
+    private static final CreditCardValidator creditCardValidator =
+    	new CreditCardValidator();
    
    /**
     * <p>Checks if the field isn't null and length of the field is greater than zero not
@@ -246,33 +252,30 @@ public class GenericValidator implements Serializable {
 
    /**
     * Checks if the field is a valid credit card number.
-    *
     * @param value The value validation is being performed on.
     */
    public static boolean isCreditCard(String value) {
-      return CreditCardValidator.getInstance().isValid(value);
+      return creditCardValidator.isValid(value);
    }
 
    /**
     * Checks for a valid credit card number.
     *
     * @param cardNumber Credit Card Number.
-    * @deprecated Use CreditCardValidator.validateCreditCardLuhnCheck() instead.
+    * @deprecated This functionality has moved to CreditCardValidator.
     */
    protected static boolean validateCreditCardLuhnCheck(String cardNumber) {
-      return CreditCardValidator.getInstance().validateCreditCardLuhnCheck(
-            cardNumber);
+        return (new CreditCardValidator()).luhnCheck(cardNumber);
    }
 
    /**
     * Checks for a valid credit card number.
     *
     * @param cardNumber Credit Card Number.
-    * @deprecated Use CreditCardValidator.validateCreditCardPrefixCheck() instead.
+    * @deprecated This functionality has move to CreditCardValidator.
     */
    protected boolean validateCreditCardPrefixCheck(String cardNumber) {
-      return CreditCardValidator.getInstance().validateCreditCardPrefixCheck(
-            cardNumber);
+	   return (new CreditCardValidator()).isValidPrefix(cardNumber);
    }
 
    /**
@@ -292,9 +295,6 @@ public class GenericValidator implements Serializable {
     * @param value The value validation is being performed on.
     */
    public static boolean isUrl(String value) {
-      if (urlValidator == null) {
-         urlValidator = new UrlValidator();
-      }
       return urlValidator.isValid(value);
    }
 
