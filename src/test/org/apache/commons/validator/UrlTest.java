@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/UrlTest.java,v 1.1 2003/04/30 18:47:33 rleland Exp $
- * $Revision: 1.1 $
- * $Date: 2003/04/30 18:47:33 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/UrlTest.java,v 1.2 2003/05/01 02:40:22 dgraham Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/05/01 02:40:22 $
  *
  * ====================================================================
  *
@@ -70,7 +70,7 @@ import junit.framework.TestSuite;
  * <p>Performs Validation Test for url validations.</p>
  *
  * @author Robert Leland
- * @version $Revision: 1.1 $ $Date: 2003/04/30 18:47:33 $
+ * @version $Revision: 1.2 $ $Date: 2003/05/01 02:40:22 $
  */
 public class UrlTest extends TestCase {
    class TestPair {
@@ -123,15 +123,15 @@ public class UrlTest extends TestCase {
          }
          String url = testBuffer.toString();
          boolean result = urlVal.isValid(url);
-         System.out.print(testPartsIndextoString());
+         //System.out.print(testPartsIndextoString());
          assertEquals(url, expected, result);
          printed++;
          if (printed == statusPerLine) {
-            System.out.println();
+            //System.out.println();
             printed = 0;
          }
       } while (incrementTestPartsIndex(testPartsIndex, testObjects));
-      System.out.println();
+      //System.out.println();
    }
 
    static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
