@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.4 2002/04/02 03:55:02 dwinterfeldt Exp $
- * $Revision: 1.4 $
- * $Date: 2002/04/02 03:55:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.5 2002/10/11 01:16:36 turner Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/10/11 01:16:36 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import java.text.ParseException;
  * validation performed.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.4 $ $Date: 2002/04/02 03:55:02 $
+ * @version $Revision: 1.5 $ $Date: 2002/10/11 01:16:36 $
 */
 public class GenericTypeValidator implements Serializable {
     
@@ -183,7 +183,7 @@ public class GenericTypeValidator implements Serializable {
      * is set to <code>false</code> for all.</p>
      *
      * @param 	value 		The value validation is being performed on.
-     * @param 	datePattern	The pattern passed to <code>SimpleDateFormat</code>.
+     * @param 	Locale        	The Locale to use to parse the date (system default if null)
     */
     public static Date formatDate(String value, Locale locale) {
 	Date date = null;

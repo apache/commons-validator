@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.6 2002/09/19 17:25:27 turner Exp $
- * $Revision: 1.6 $
- * $Date: 2002/09/19 17:25:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.7 2002/10/11 01:16:37 turner Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/10/11 01:16:37 $
  *
  * ====================================================================
  *
@@ -76,7 +76,7 @@ import org.apache.oro.text.perl.Perl5Util;
  *
  * @author David Winterfeldt
  * @author James Turner
- * @version $Revision: 1.6 $ $Date: 2002/09/19 17:25:27 $
+ * @version $Revision: 1.7 $ $Date: 2002/10/11 01:16:37 $
 */
 public class GenericValidator implements Serializable {
 
@@ -174,7 +174,7 @@ public class GenericValidator implements Serializable {
      * is set to <code>false</code> for all.</p>
      *
      * @param 	value 		The value validation is being performed on.
-     * @param 	datePattern	The pattern passed to <code>SimpleDateFormat</code>.
+     * @param 	Locale	        The locale to use for the date format, defaults to the default system default if null.
     */
     public static boolean isDate(String value, Locale locale) {
 	boolean bValid = true;
@@ -190,7 +190,7 @@ public class GenericValidator implements Serializable {
 	         
               formatter.setLenient(false);
               
-              Date date = formatter.parse(value);
+              formatter.parse(value);
     	   } catch (ParseException e) {
     	      bValid = false;
            }
@@ -221,7 +221,7 @@ public class GenericValidator implements Serializable {
               SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
               formatter.setLenient(false);
               
-              Date date = formatter.parse(value);
+              formatter.parse(value);
               
               if (strict) {
                  if (datePattern.length() != value.length()) {
