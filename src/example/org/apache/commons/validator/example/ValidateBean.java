@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/Attic/ValidateBean.java,v 1.1 2002/10/10 23:44:32 turner Exp $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateBean.java,v 1.1 2002/10/11 20:17:50 turner Exp $
  * $Revision: 1.1 $
- * $Date: 2002/10/10 23:44:32 $
+ * $Date: 2002/10/11 20:17:50 $
  *
  * ====================================================================
  *
@@ -60,14 +60,14 @@
  */
 
 
-package org.apache.commons.validator;
+package org.apache.commons.validator.example;
 
 
 /**                                                       
  * <p>A simple bean to use with the Validator Example.</p> 
  *
  * @author James Turner
- * @version $Revision: 1.1 $ $Date: 2002/10/10 23:44:32 $
+ * @version $Revision: 1.1 $ $Date: 2002/10/11 20:17:50 $
 */                                                       
 
 public class ValidateBean extends Object {

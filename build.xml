@@ -127,7 +127,7 @@
       </copy>
    </target>
    <target name="example" depends="build-example" description="runs example">
-      <java fork="yes" classname="org.apache.commons.validator.ValidateExample" 
+      <java fork="yes" classname="org.apache.commons.validator.example.ValidateExample" 
           taskname="main" failonerror="true">
           <classpath refid="example.classpath" />
       </java>

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/Attic/ValidateExample.java,v 1.1 2002/10/10 23:44:32 turner Exp $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.1 2002/10/11 20:17:50 turner Exp $
  * $Revision: 1.1 $
- * $Date: 2002/10/10 23:44:32 $
+ * $Date: 2002/10/11 20:17:50 $
  *
  * ====================================================================
  *
@@ -60,7 +60,7 @@
  */
 
 
-package org.apache.commons.validator;
+package org.apache.commons.validator.example;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,12 +69,13 @@ import java.util.Map;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import org.apache.commons.validator.*;
 
 /**                                                       
  * <p>A simple example of setting up and using the Validator.</p> 
  *
  * @author James Turner
- * @version $Revision: 1.1 $ $Date: 2002/10/10 23:44:32 $
+ * @version $Revision: 1.1 $ $Date: 2002/10/11 20:17:50 $
  *
  * This simple example shows all the steps needed to set up and use
  * the Validator.  Note that in most cases, some kind of framework
