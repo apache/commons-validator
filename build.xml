@@ -3,7 +3,7 @@
 
 <!--
         "Validator" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.19 2003/04/17 03:20:10 martinc Exp $
+        $Id: build.xml,v 1.20 2003/04/30 17:13:51 rleland Exp $
 -->
 
 
@@ -124,6 +124,7 @@
     <pathelement location="${commons-logging.jar}"/>
     <pathelement location="${oro.jar}"/>
     <pathelement location="${junit.jar}"/>
+    <pathelement location="${xerces.jar}"/>
   </path>
 
   <!-- Should all tests fail if one does? -->
