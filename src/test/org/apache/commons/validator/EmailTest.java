@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.5 2003/01/20 06:28:37 turner Exp $
- * $Revision: 1.5 $
- * $Date: 2003/01/20 06:28:37 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.6 2003/01/20 06:50:26 turner Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/01/20 06:50:26 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Performs Validation Test for e-mail validations.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2003/01/20 06:28:37 $
+ * @version $Revision: 1.6 $ $Date: 2003/01/20 06:50:26 $
 */                                                       
 public class EmailTest extends TestCase {            
    
@@ -208,6 +208,19 @@ public class EmailTest extends TestCase {
       ValueBean info = new ValueBean();
 
       info.setValue("andy.noble@data-workshop.com.");
+      valueTest(info, false);
+
+   }
+
+   /**
+    * <p>Tests the e-mail validation with an RCS-noncompliant character in 
+    * the address.</p>
+   */
+   public void testEmailWithBogusCharacter() throws ValidatorException {
+      // Create bean to run test on.
+      ValueBean info = new ValueBean();
+
+      info.setValue("andy.noble@\u008fdata-workshop.com");
       valueTest(info, false);
 
    }

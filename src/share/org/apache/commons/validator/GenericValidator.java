@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.9 2003/01/20 06:28:37 turner Exp $
- * $Revision: 1.9 $
- * $Date: 2003/01/20 06:28:37 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.10 2003/01/20 06:50:26 turner Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/01/20 06:50:26 $
  *
  * ====================================================================
  *
@@ -75,7 +75,7 @@ import org.apache.oro.text.perl.Perl5Util;
  *
  * @author David Winterfeldt
  * @author James Turner
- * @version $Revision: 1.9 $ $Date: 2003/01/20 06:28:37 $
+ * @version $Revision: 1.10 $ $Date: 2003/01/20 06:50:26 $
 */
 public class GenericValidator implements Serializable {
 
@@ -406,6 +406,7 @@ public class GenericValidator implements Serializable {
            String word = "(" + atom + "|" + quotedUser + ")";
 
            // Each pattern must be surrounded by /
+	   String legalAsciiPat = getDelimittedRegexp("^[\\000-\\177]+$");
            String emailPat = getDelimittedRegexp("^(.+)@(.+)$");
            String ipDomainPat = getDelimittedRegexp("^(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})$");
            String userPat = getDelimittedRegexp("^" + word + "(\\." + word + ")*$");
@@ -417,10 +418,15 @@ public class GenericValidator implements Serializable {
            Perl5Util matchIPPat = new Perl5Util();
            Perl5Util matchDomainPat = new Perl5Util();
            Perl5Util matchAtomPat = new Perl5Util();
+           Perl5Util matchAsciiPat = new Perl5Util();
          
            boolean ipAddress = false;
            boolean symbolic = false;
          
+	   if (!matchAsciiPat.match(legalAsciiPat, value)) {
+	       return false;
+	   }
+
            // Check the whole email address structure
            bValid = matchEmailPat.match(emailPat, value);
 
