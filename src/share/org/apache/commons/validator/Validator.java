@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.12 2003/03/12 05:58:57 dgraham Exp $
- * $Revision: 1.12 $
- * $Date: 2003/03/12 05:58:57 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.13 2003/03/12 06:00:52 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/03/12 06:00:52 $
  *
  * ====================================================================
  *
@@ -84,7 +84,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author James Turner 
- * @version $Revision: 1.12 $ $Date: 2003/03/12 05:58:57 $
+ * @version $Revision: 1.13 $ $Date: 2003/03/12 06:00:52 $
  */
 public class Validator implements Serializable {
 
@@ -575,11 +575,12 @@ public class Validator implements Serializable {
             locale = Locale.getDefault();
         }
 
-        Form form = null;
         if (resources == null) {
             throw new ValidatorException("Resources not defined for Validator");
         }
-        if ((form = resources.get(locale, formName)) != null) {
+
+        Form form = resources.get(locale, formName);
+        if (form != null) {
             for (Iterator i = form.getFields().iterator(); i.hasNext();) {
                 Field field = (Field) i.next();
                 if (field.getPage() <= page) {
