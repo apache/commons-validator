@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.10 2003/05/22 05:03:03 dgraham Exp $
- * $Revision: 1.10 $
- * $Date: 2003/05/22 05:03:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.11 2003/05/24 19:07:36 dgraham Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/05/24 19:07:36 $
  *
  * ====================================================================
  *
@@ -61,16 +61,16 @@
 
 package org.apache.commons.validator;
 
-import java.io.Serializable;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import org.apache.commons.collections.FastHashMap;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.10 $ $Date: 2003/05/22 05:03:03 $
+ * @version $Revision: 1.11 $ $Date: 2003/05/24 19:07:36 $
  */
 public class ValidatorAction implements Serializable {
 
@@ -165,10 +165,13 @@ public class ValidatorAction implements Serializable {
     private static final Log log = LogFactory.getLog(ValidatorAction.class);
 
 	/**
-	 * A <code>FastHashMap</code> of the other 
-	 * <code>ValidatorAction</code>s this one depends on (if any).
+	 * An internal List representation of the other <code>ValidatorAction</code>s 
+     * this one depends on (if any).  This List gets updated
+     * whenever setDepends() gets called.  This is synchronized so a call to 
+     * setDepends() (which clears the List) won't interfere with a call to 
+     * isDependency().
 	 */
-	private FastHashMap dependencies = new FastHashMap();
+	private List dependencyList = Collections.synchronizedList(new ArrayList());
 
 	/**
 	 * A list of all the validation method's parameters.
@@ -248,9 +251,20 @@ public class ValidatorAction implements Serializable {
 	/**
 	 * Sets the dependencies of the validator action.
 	 */
-	public void setDepends(String depends) {
-		this.depends = depends;
-	}
+    public void setDepends(String depends) {
+        this.depends = depends;
+
+        this.dependencyList.clear();
+
+        StringTokenizer st = new StringTokenizer(depends, ",");
+        while (st.hasMoreTokens()) {
+            String depend = st.nextToken().trim();
+
+            if (depend != null && depend.length() > 0) {
+                this.dependencyList.add(depend);
+            }
+        }
+    }
 
 	/**
 	 * Gets the message associated with the validator action.
@@ -480,25 +494,6 @@ public class ValidatorAction implements Serializable {
 	 * based on depends.
 	 */
 	public synchronized void process(Map globalConstants) {
-		// Create FastHashMap for isDependency method
-		if (getDepends() != null) {
-			if (dependencies == null) {
-				dependencies = new FastHashMap();
-			}
-
-			StringTokenizer st = new StringTokenizer(getDepends(), ",");
-			String value = "";
-			while (st.hasMoreTokens()) {
-				String depend = st.nextToken().trim();
-
-				if (depend != null && depend.length() > 0) {
-					dependencies.put(depend, value);
-				}
-
-			}
-
-			dependencies.setFast(true);
-		}
 
 		// Create List for methodParams
 		if (getMethodParams() != null) {
@@ -521,28 +516,31 @@ public class ValidatorAction implements Serializable {
 	/**
 	 * Checks whether or not the value passed in is in the depends field.
 	 */
-	public boolean isDependency(String key) {
-		if (dependencies != null) {
-			return dependencies.containsKey(key);
-		} else {
-			return false;
-		}
+	public boolean isDependency(String validatorName) {
+        return this.dependencyList.contains(validatorName);
 	}
 
 	/**
 	 * Gets the dependencies as a <code>Collection</code>.
+     * @deprecated Use getDependencyList() instead.
 	 */
 	public Collection getDependencies() {
-		return Collections.unmodifiableMap(dependencies).keySet();
+		return this.getDependencyList();
 	}
+    
+    /**
+     * Returns the dependent validator names as an unmodifiable 
+     * <code>List</code>.
+     */
+    public List getDependencyList() {
+        return Collections.unmodifiableList(this.dependencyList);
+    }
 
 	/**
 	 * Returns a string representation of the object.
 	 */
 	public String toString() {
-		StringBuffer results = new StringBuffer();
-
-		results.append("ValidatorAction: ");
+		StringBuffer results = new StringBuffer("ValidatorAction: ");
 		results.append(name);
 		results.append("\n");
 
