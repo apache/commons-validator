@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.3 2002/04/02 03:28:52 dwinterfeldt Exp $
- * $Revision: 1.3 $
- * $Date: 2002/04/02 03:28:52 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.4 2002/04/02 03:55:02 dwinterfeldt Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/04/02 03:55:02 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import java.text.ParseException;
  * validation performed.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.3 $ $Date: 2002/04/02 03:28:52 $
+ * @version $Revision: 1.4 $ $Date: 2002/04/02 03:55:02 $
 */
 public class GenericTypeValidator implements Serializable {
     
@@ -247,12 +247,12 @@ public class GenericTypeValidator implements Serializable {
      *
      * @param 	value 		The value validation is being performed on.
     */
-    public static Integer formatCreditCard(String value) {
-       Integer result = null;
+    public static Long formatCreditCard(String value) {
+       Long result = null;
        
        try {
           if (GenericValidator.validateCreditCardLuhnCheck(value) && GenericValidator.validateCreditCardPrefixCheck(value)) {
-             result = new Integer(value);
+             result = new Long(value);
           }
        } catch (Exception e) {
        }
