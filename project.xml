@@ -59,6 +59,15 @@
     </developer>
   </developers>
   
+  <contributors>
+    <contributor>
+      <name>David Neuer</name>
+      <id></id>
+      <email>DavidNeuer@nascopgh.com</email>
+      <organization></organization>
+    </contributor>
+  </contributors>
+  
   <dependencies>
 
     <dependency>
