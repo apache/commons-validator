@@ -65,7 +65,7 @@ The <action> type attribute can be add,update,fix,remove.
       </action>
     </release>
   
-    <release version="1.1.4" date="2004-11-12">
+    <release version="1.1.4-alpha" date="2004-11-12">
       <action dev="niallp" type="add">
         Added getMessage(key) and getMessages() methods to Field (PR# 29452)
       </action>
