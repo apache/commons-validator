@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.11 2003/03/20 01:11:18 dgraham Exp $
- * $Revision: 1.11 $
- * $Date: 2003/03/20 01:11:18 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.12 2003/03/20 02:09:12 dgraham Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/03/20 02:09:12 $
  *
  * ====================================================================
  *
@@ -62,12 +62,12 @@
 package org.apache.commons.validator;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Vector;
 
 import org.apache.commons.collections.FastHashMap;
 import org.apache.commons.logging.Log;
@@ -82,50 +82,51 @@ import org.apache.commons.logging.LogFactory;
  * application server environments.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.11 $ $Date: 2003/03/20 01:11:18 $
-*/
+ * @author David Graham
+ * @version $Revision: 1.12 $ $Date: 2003/03/20 02:09:12 $
+ */
 public class ValidatorResources implements Serializable {
 
     /**
      * Logger.
-    */
+     */
     protected static Log log = LogFactory.getLog(ValidatorResources.class);
 
     /**
      * <code>FastHashMap</code> of <code>FormSet</code>s stored under 
      * a <code>Locale</code> key.
-    */
+     */
     protected FastHashMap hFormSets = new FastHashMap();
 
     /**
      * <code>FastHashMap</code> of global constant values with 
      * the name of the constant as the key.
-    */
+     */
     protected FastHashMap hConstants = new FastHashMap();
 
     /**
      * <code>FastHashMap</code> of <code>ValidatorAction</code>s with 
      * the name of the <code>ValidatorAction</code> as the key.
-    */
+     */
     protected FastHashMap hActions = new FastHashMap();
 
     /**
      * The default locale on our server.
-    */
+     */
     protected static Locale defaultLocale = Locale.getDefault();
 
     /**
      * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
      * object.  It will be associated with the <code>Locale</code> of the 
      * <code>FormSet</code>.
-    */
+     */
     public void put(FormSet fs) {
         if (fs != null) {
             String key = buildKey(fs);
             if (hFormSets.get(key) == null) {
-                hFormSets.put(key, new Vector());
+                hFormSets.put(key, new ArrayList());
             }
-            Vector formsets = (Vector) hFormSets.get(key);
+            List formsets = (List) hFormSets.get(key);
             if (!formsets.contains(fs)) {
                 formsets.add(fs);
             }
@@ -138,14 +139,14 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Add a global constant to the resource.
-    */
+     */
     public void addConstant(Constant c) {
         if (c != null
             && c.getName() != null
             && c.getName().length() > 0
             && c.getValue() != null
             && c.getValue().length() > 0) {
-                
+
             hConstants.put(c.getName(), c.getValue());
         }
 
@@ -156,12 +157,13 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Add a global constant to the resource.
-    */
+     */
     public void addConstantParam(String name, String value) {
         if (name != null
             && name.length() > 0
             && value != null
             && value.length() > 0) {
+
             hConstants.put(name, value);
         }
 
@@ -174,7 +176,7 @@ public class ValidatorResources implements Serializable {
      * <p>Add a <code>ValidatorAction</code> to the resource.  It also creates an instance 
      * of the class based on the <code>ValidatorAction</code>s classname and retrieves 
      * the <code>Method</code> instance and sets them in the <code>ValidatorAction</code>.</p>
-    */
+     */
     public void addValidatorAction(ValidatorAction va) {
         if (va != null
             && va.getName() != null
@@ -200,14 +202,14 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Get a <code>ValidatorAction</code> based on it's name.
-    */
+     */
     public ValidatorAction getValidatorAction(String key) {
         return (ValidatorAction) hActions.get(key);
     }
 
     /**
      * Get an unmodifiable <code>Map</code> of the <code>ValidatorAction</code>s.
-    */
+     */
     public Map getValidatorActions() {
         return Collections.unmodifiableMap(hActions);
     }
@@ -215,18 +217,15 @@ public class ValidatorResources implements Serializable {
     /**
      * Builds a key to store the <code>FormSet</code> under based on it's language, country, 
      * and variant values.
-    */
+     */
     protected String buildKey(FormSet fs) {
-        String key =
-            ((fs.getLanguage() != null && fs.getLanguage().length() > 0)
-                ? fs.getLanguage()
-                : "")
-                + ((fs.getCountry() != null && fs.getCountry().length() > 0)
-                    ? "_" + fs.getCountry()
-                    : "")
-                + ((fs.getVariant() != null && fs.getVariant().length() > 0)
-                    ? "_" + fs.getVariant()
-                    : "");
+        String lang = fs.getLanguage();
+        String country = fs.getCountry();
+        String variant = fs.getVariant();
+
+        String key = ((lang != null && lang.length() > 0) ? lang : "");
+        key += ((country != null && country.length() > 0) ? "_" + country : "");
+        key += ((variant != null && variant.length() > 0) ? "_" + variant : "");
 
         if (key.length() == 0) {
             key = defaultLocale.toString();
@@ -264,55 +263,49 @@ public class ValidatorResources implements Serializable {
      *    <li>language</li>
      *    <li>default locale</li>
      * </ol>
-    */
+     */
     public Form get(
         String language,
         String country,
         String variant,
         Object formKey) {
-            
-        FormSet fs = null;
-        Form f = null;
+
         String key = null;
-        Object o = null;
 
-        key =
-            ((language != null && language.length() > 0) ? language : "")
-                + ((country != null && country.length() > 0) ? "_" + country : "")
-                + ((variant != null && variant.length() > 0) ? "_" + variant : "");
+        key = ((language != null && language.length() > 0) ? language : "");
+        key += ((country != null && country.length() > 0) ? "_" + country : "");
+        key += ((variant != null && variant.length() > 0) ? "_" + variant : "");
 
-        Vector v = (Vector) hFormSets.get(key);
+        List v = (List) hFormSets.get(key);
 
         if (v == null) {
-            key =
-                ((language != null && language.length() > 0) ? language : "")
-                    + ((country != null && country.length() > 0) ? "_" + country : "");
-            v = (Vector) hFormSets.get(key);
+            key = ((language != null && language.length() > 0) ? language : "");
+            key += ((country != null && country.length() > 0) ? "_" + country : "");
+            v = (List) hFormSets.get(key);
         }
 
         if (v == null) {
             key = ((language != null && language.length() > 0) ? language : "");
-            v = (Vector) hFormSets.get(key);
+            v = (List) hFormSets.get(key);
         }
 
         if (v == null) {
             key = defaultLocale.toString();
-            v = (Vector) hFormSets.get(key);
+            v = (List) hFormSets.get(key);
         }
 
         if (v == null) {
             return null;
         }
 
-        Enumeration formsets = v.elements();
-        while (formsets.hasMoreElements()) {
-            o = formsets.nextElement();
-            if (o != null) {
-                fs = (FormSet) o;
-                if ((fs != null) && (fs.getForm(formKey) != null)) {
-                    return fs.getForm(formKey);
-                }
+        Iterator formsets = v.iterator();
+        while (formsets.hasNext()) {
+            FormSet set = (FormSet) formsets.next();
+
+            if ((set != null) && (set.getForm(formKey) != null)) {
+                return set.getForm(formKey);
             }
+
         }
         return null;
     }
@@ -322,7 +315,7 @@ public class ValidatorResources implements Serializable {
      *
      * <p>Currently sets the <code>FastHashMap</code>s to the 'fast' 
      * mode and call the processes all other resources.</p>
-    */
+     */
     public void process() {
         hFormSets.setFast(true);
         hConstants.setFast(true);
@@ -335,7 +328,7 @@ public class ValidatorResources implements Serializable {
      * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s 
      * that don't exist in a <code>FormSet</code> compared to the default 
      * <code>FormSet</code>.</p>
-    */
+     */
     public void processForms() {
         //hFormSets.put(buildKey(fs), fs);
         String defaultKey = defaultLocale.toString();
@@ -347,10 +340,10 @@ public class ValidatorResources implements Serializable {
             if (key.equals(defaultKey)) {
                 continue;
             }
-            Vector formsets = (Vector) hFormSets.get(key);
-            Enumeration formsets_en = formsets.elements();
-            while (formsets_en.hasMoreElements()) {
-                FormSet fs = (FormSet) formsets_en.nextElement();
+            List formsets = (List) hFormSets.get(key);
+            Iterator formsetsIterator = formsets.iterator();
+            while (formsetsIterator.hasNext()) {
+                FormSet fs = (FormSet) formsetsIterator.next();
 
                 // Loop through Forms and copy/clone fields from default locale
                 for (Iterator x = fs.getForms().keySet().iterator(); x.hasNext();) {
@@ -387,10 +380,10 @@ public class ValidatorResources implements Serializable {
         }
         // Process Fully Constructed FormSets
         for (Iterator i = hFormSets.values().iterator(); i.hasNext();) {
-            Vector formsets = (Vector) i.next();
-            Enumeration formsets_en = formsets.elements();
-            while (formsets_en.hasMoreElements()) {
-                FormSet fs = (FormSet) formsets_en.nextElement();
+            List formsets = (List) i.next();
+            Iterator formsetsIterator = formsets.iterator();
+            while (formsetsIterator.hasNext()) {
+                FormSet fs = (FormSet) formsetsIterator.next();
 
                 if (!fs.isProcessed()) {
                     fs.process(hConstants);
@@ -409,7 +402,7 @@ public class ValidatorResources implements Serializable {
         FormSet fs,
         String formKey,
         String fieldKey) {
-            
+
         Field field = null;
         String language = fs.getLanguage();
         String country = fs.getCountry();
@@ -418,7 +411,7 @@ public class ValidatorResources implements Serializable {
         if (!GenericValidator.isBlankOrNull(language)
             && !GenericValidator.isBlankOrNull(country)
             && !GenericValidator.isBlankOrNull(variant)) {
-                
+
             Form form = get(language, country, variant, formKey);
 
             if (form.getFieldMap().containsKey(fieldKey)) {
@@ -429,7 +422,7 @@ public class ValidatorResources implements Serializable {
         if (field == null) {
             if (!GenericValidator.isBlankOrNull(language)
                 && !GenericValidator.isBlankOrNull(country)) {
-                    
+
                 Form form = get(language, country, null, formKey);
 
                 if (form.getFieldMap().containsKey(fieldKey)) {
