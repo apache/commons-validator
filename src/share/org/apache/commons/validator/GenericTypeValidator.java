@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.1 2002/03/30 04:25:59 dwinterfeldt Exp $
- * $Revision: 1.1 $
- * $Date: 2002/03/30 04:25:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.2 2002/04/02 01:59:11 dwinterfeldt Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/04/02 01:59:11 $
  *
  * ====================================================================
  *
@@ -68,8 +68,6 @@ import java.util.Locale;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
-import org.apache.regexp.RE;
-import org.apache.regexp.RESyntaxException;
 
 
 /**
@@ -79,7 +77,7 @@ import org.apache.regexp.RESyntaxException;
  * validation performed.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.1 $ $Date: 2002/03/30 04:25:59 $
+ * @version $Revision: 1.2 $ $Date: 2002/04/02 01:59:11 $
 */
 public class GenericTypeValidator implements Serializable {
     

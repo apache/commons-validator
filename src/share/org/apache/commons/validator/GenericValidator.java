@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.4 2002/03/30 04:25:59 dwinterfeldt Exp $
- * $Revision: 1.4 $
- * $Date: 2002/03/30 04:25:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.5 2002/04/02 01:59:11 dwinterfeldt Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/04/02 01:59:11 $
  *
  * ====================================================================
  *
@@ -68,18 +68,22 @@ import java.util.Locale;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
-import org.apache.regexp.RE;
-import org.apache.regexp.RESyntaxException;
-
+import org.apache.oro.text.perl.Perl5Util;
 
 /**
  * <p>This class contains basic methods for 
  * performing validations.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.4 $ $Date: 2002/03/30 04:25:59 $
+ * @version $Revision: 1.5 $ $Date: 2002/04/02 01:59:11 $
 */
 public class GenericValidator implements Serializable {
+
+    /**
+     * Delimiter to put around a regular expression 
+     * following Perl 5 syntax.
+    */
+    public final static String REGEXP_DELIM = "/";
 
     /**
      * <p>Checks if the field isn't null and length of the field is greater than zero not 
@@ -97,13 +101,15 @@ public class GenericValidator implements Serializable {
      * @param 	value 		The value validation is being performed on.
      * @param 	regexp		The regular expression.
     */
-    public static boolean matchRegexp(String value, String regexp) throws RESyntaxException {
+    public static boolean matchRegexp(String value, String regexp) {
+       boolean match = false;
+       
        if (regexp != null && regexp.length() > 0) {
-          RE r = new RE(regexp);
-          return (r.match(value));
-       } else {
-       	  return false;
+          Perl5Util r = new Perl5Util();
+          match = r.match(getDelimittedRegexp(regexp), value);
        }
+       
+       return match;
     }        
     
 
@@ -357,103 +363,102 @@ public class GenericValidator implements Serializable {
        boolean bValid = true;
        
        try {
-          RE emailPat = new RE("^(.+)@(.+)$");
-          String specialChars = "\\(\\)<>@,;:\\\\\\\"\\.\\[\\]";
-          // ??? '/' character was removed before '[' and ']'
-          // I'm not sure if that was the right thing to do.
-          String validChars = "[^\\s" + specialChars + "]";
-          String quotedUser = "(\"[^\"]*\")";
-          //RE ipDomainPat = new RE("^\\[(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\]$");
-          RE ipDomainPat = new RE("^(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})$");
-          String atom = validChars + '+';
-          String word = "(" + atom + "|" + quotedUser + ")";
-          RE userPat = new RE("^" + word + "(\\." + word + ")*$");
-          RE domainPat = new RE("^" + atom + "(\\." + atom +")*$");
+           String specialChars = "\\(\\)<>@,;:\\\\\\\"\\.\\[\\]";
+           String validChars = "[^\\s" + specialChars + "]";
+           String quotedUser = "(\"[^\"]*\")";
+           String atom = validChars + '+';
+           String word = "(" + atom + "|" + quotedUser + ")";
 
-	  boolean matchEmailPat = emailPat.match(value);
-	  	      
-          if (!matchEmailPat) {
-             bValid = false;
-          }
+           // Each pattern must be surrounded by /
+           String emailPat = getDelimittedRegexp("^(.+)@(.+)$");
+           String ipDomainPat = getDelimittedRegexp("^(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})$");
+           String userPat = getDelimittedRegexp("^" + word + "(\\." + word + ")*$");
+           String domainPat = getDelimittedRegexp("^" + atom + "(\\." + atom +")*$");
+           String atomPat = getDelimittedRegexp("(" + atom + ")");
+         
+           Perl5Util matchEmailPat = new Perl5Util();
+           Perl5Util matchUserPat = new Perl5Util();
+           Perl5Util matchIPPat = new Perl5Util();
+           Perl5Util matchDomainPat = new Perl5Util();
+           Perl5Util matchAtomPat = new Perl5Util();
+         
+           boolean ipAddress = false;
+           boolean symbolic = false;
+         
+           // Check the whole email address structure
+           bValid = matchEmailPat.match(emailPat, value);
 
-          if (bValid) {
-             if (matchEmailPat) {
-                String user = emailPat.getParen(1);
-                
-                // See if "user" is valid 
-                if (!userPat.match(user)) {
-                   bValid = false;
-                }
-             } else {
-                bValid = false;
-             }
-          }
-          
-          String domain = emailPat.getParen(2);
-          
-          if (bValid) {
-             if (ipDomainPat.match(domain)) {
-                 // this is an IP address
+           // Check the user component of the email address
+           if (bValid) {
+              String user = matchEmailPat.group(1);
+              
+              // See if "user" is valid 
+              bValid = matchUserPat.match(userPat, user);
+           }
+         
+           // Check the domain component of the email address
+           if (bValid) {
+              String domain = matchEmailPat.group(2);
+         
+              // check if domain is IP address or symbolic
+              ipAddress = matchIPPat.match(ipDomainPat, domain);
+             
+              if (ipAddress) {
+                 // this is an IP address so check components
                  for (int i = 1; i <= 4; i++) {
-                    String ipSegment = ipDomainPat.getParen(i);
-                    
-                    if (ipSegment != null && ipSegment.length() > 0) {
-                       int iIpSegment = 0;
-                       
-                       try {
-                       	  iIpSegment = Integer.parseInt(ipSegment);
-                       } catch (Exception e) {
-                          bValid = false;
-                       }
-                       
-                       if (iIpSegment > 255) {
-                          bValid = false;
-                       }
-                    } else {
-                       bValid = false;
+                     String ipSegment = matchIPPat.group(i);
+                     if (ipSegment != null && ipSegment.length() > 0) {
+                         int iIpSegment = 0;
+                         try {
+                            iIpSegment = Integer.parseInt(ipSegment);
+                         } catch (Exception e) {
+                            bValid = false;
+                         }
+                     
+                         if (iIpSegment > 255) {
+                            bValid = false;
+                         }
+                     } else {
+                        bValid = false;
+                     }
+                 }
+              } else {    
+                 // Domain is symbolic name
+                 symbolic = matchDomainPat.match(domainPat, domain);
+              }
+              
+              if (symbolic) {
+                 // this is a symbolic domain so check components
+                 String[] domainSegment = new String[10];
+                 boolean match = true;
+                 int i = 0;
+                 int l = 0;
+                 
+                 while (match) {
+                    match = matchAtomPat.match(atomPat, domain);
+                    if (match) {
+                       domainSegment[i] = matchAtomPat.group(1);
+                       l = domainSegment[i].length() + 1;
+                       domain = (l >= domain.length())? "" : domain.substring(l);
+                       i++;
                     }
                  }
-             } else {
-               if (bValid) {
-                  // Domain is symbolic name
-                  if (!domainPat.match(domain)) {
+                 
+                 int len = i;
+                 if (domainSegment[len - 1].length() < 2 || domainSegment[len - 1].length() > 4) {
                      bValid = false;
-                  }
-               }
-               if (bValid) {
-                  RE atomPat = new RE("(" + atom + ")");
-                  boolean match = true;
-                  int pos = 0;
-                  int i = 0;
-                  String[] domainSegment = new String[10];
-                  
-                  while (match) {
-                     match = atomPat.match(domain, pos);
-                     if (match) {
-                        domainSegment[i] = atomPat.getParen(1);
-                        pos += domainSegment[i].length() + 1;
-                        i++;
-                     } else {
-                     }
-                  }
-                  int len = i;
-                  if (domainSegment[len - 1].length() < 2 || domainSegment[len - 1].length() > 3) {
-                     bValid = false;
-                  }
-               
-                  // Make sure there's a host name preceding the domain.
-                  if (len < 2) {
-                     bValid = false;
-                  }
-               }               	
-	     }
-          }
-       } catch (RESyntaxException e) {
-          bValid = false;
+                 }
+
+                 // Make sure there's a host name preceding the domain.
+                 if (len < 2) {
+                    bValid = false;
+                 }
+              }               	
+	   }
        } catch (Exception e) {
           bValid = false;
        }
-       
+
        return bValid;
     }
 
@@ -477,4 +482,11 @@ public class GenericValidator implements Serializable {
        return (value.length() >= min);
     } 
 
+
+    /**
+     * Adds a '/' on either side of the regular expression.
+    */
+    protected static String getDelimittedRegexp(String regexp) {
+       return (REGEXP_DELIM + regexp + REGEXP_DELIM);
+    }
 }

@@ -20,7 +20,9 @@ commons-digester.jar=d:/java/lib/commons-digester.jar
 # from the Jakarta Commons project.
 commons-logging.jar=e:/software/commons-logging/commons-logging.jar
 
-regexp.jar=e:/software/regexp/jakarta-regexp-1.2.jar
+# The JAR file containing version 2.06 (or later) of 
+# the the Jakarta ORO project.
+oro.jar = e:/software/jakarta-oro/jakarta-oro.jar
 
 # The JAR file containing version 3.7 (or later) of
 # JUnit Unit Testing (http://www.junit.org)
