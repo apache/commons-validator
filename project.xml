@@ -269,29 +269,11 @@
     </dependency>
     
     <dependency>
-      <id>commons-jxpath</id>
-      <version>1.1</version>
-      <url>http://jakarta.apache.org/commons/jxpath.html</url>
-    </dependency>
-
-    <dependency>
       <id>oro</id>
       <version>2.0.8</version>
       <url>http://jakarta.apache.org/oro/</url>
     </dependency>
 
-    <dependency>
-      <id>bsf</id>
-      <version>2.3.0</version>
-      <url>http://jakarta.apache.org/bsf/index.html</url>
-    </dependency>
-    
-    <dependency>
-      <id>bsh</id>
-      <version>2.0b1</version>
-      <url>http://www.beanshell.org/index.html</url>
-    </dependency>
- 
     <dependency>
       <id>xml-apis</id>
       <version>2.0.2</version>

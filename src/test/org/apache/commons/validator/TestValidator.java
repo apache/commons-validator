@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.14 2004/02/21 17:10:30 rleland Exp $
- * $Revision: 1.14 $
- * $Date: 2004/02/21 17:10:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.15 2004/06/08 16:19:20 husted Exp $
+ * $Revision: 1.15 $
+ * $Date: 2004/06/08 16:19:20 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -33,8 +33,7 @@ public class TestValidator {
      * an exception if the value of the argument is "CHECKED", and a 
      * ValidatorException otherwise.
      * 
-     * @param value string which selects type of exception to generate
-     * @throws RuntimeException with "RUNTIME-EXCEPTION as message" 
+     * @throws RuntimeException with "RUNTIME-EXCEPTION as message"
      * if value is "RUNTIME"
      * @throws Exception with "CHECKED-EXCEPTION" as message 
      * if value is "CHECKED"
@@ -63,8 +62,7 @@ public class TestValidator {
    /**
     * Checks if the field is required.
     *
-    * @param value The value validation is being performed on.
-    * @return boolean If the field isn't <code>null</code> and 
+    * @return boolean If the field isn't <code>null</code> and
     * has a length greater than zero, <code>true</code> is returned.  
     * Otherwise <code>false</code>.
     */
