@@ -1,4 +1,9 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.2 2002/03/30 04:31:29 dwinterfeldt Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/03/30 04:31:29 $
+ *
+ * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
@@ -67,6 +72,7 @@ import junit.framework.TestSuite;
  * package.
  *
  * @author David Winterfeldt
+ * @version $Revision: 1.2 $ $Date: 2002/03/30 04:31:29 $
 */                                                       
 public class ValidatorTestSuite extends TestCase {            
                                                           
@@ -78,6 +84,13 @@ public class ValidatorTestSuite extends TestCase {
        TestSuite suite = new TestSuite();
 
        suite.addTest(RequiredNameTest.suite()); 
+       suite.addTest(ByteTest.suite()); 
+       suite.addTest(ShortTest.suite()); 
+       suite.addTest(IntegerTest.suite()); 
+       suite.addTest(LongTest.suite()); 
+       suite.addTest(FloatTest.suite()); 
+       suite.addTest(DoubleTest.suite()); 
+       suite.addTest(TypeTest.suite()); 
        suite.addTest(ValidatorTest.suite()); 
 
        return suite;
