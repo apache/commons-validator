@@ -1,10 +1,10 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/LICENSE.txt,v 1.4 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.4 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/LICENSE.txt,v 1.5 2004/02/21 23:04:08 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2004/02/21 23:04:08 $
  *
  * ====================================================================
- * Copyright [yyyy] [name of copyright owner]
+ * Copyright 2000-2004 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
