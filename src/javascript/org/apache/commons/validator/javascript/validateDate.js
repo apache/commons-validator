@@ -1,6 +1,6 @@
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateDate.js,v 1.2 2003/08/15 20:20:40 rleland Exp $
-  //$Revision: 1.2 $
-  //$Date: 2003/08/15 20:20:40 $
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateDate.js,v 1.3 2003/09/26 17:03:22 rleland Exp $
+  //$Revision: 1.3 $
+  //$Date: 2003/09/26 17:03:22 $
 
 
     function validateDate(form) {
@@ -12,6 +12,9 @@
        for (x in oDate) {
            var value = form[oDate[x][0]].value;
            var datePattern = oDate[x][2]("datePatternStrict");
+           // try loose pattern
+           if (datePattern == null)
+               datePattern = oDate[x][2]("datePattern");
            if ((form[oDate[x][0]].type == 'text' || form[oDate[x][0]].type == 'textarea') &&
                (value.length > 0) && (datePattern.length > 0)) {
              var MONTH = "MM";
