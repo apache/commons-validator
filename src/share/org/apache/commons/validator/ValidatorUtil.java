@@ -114,7 +114,7 @@ public class ValidatorUtil  {
       try {
          value = PropertyUtils.getProperty(bean, property);	
       } catch (Exception e) {
-         log.error("ValidatorUtil::getValueAsString - " + e.getMessage(), e);
+         log.error(e.getMessage(), e);
       }
    	
       return (value != null ? value.toString() : null);    	
