@@ -22,7 +22,8 @@ commons-logging.jar=e:/software/commons-logging/commons-logging.jar
 
 regexp.jar=e:/software/regexp/jakarta-regexp-1.2.jar
 
-# Unit Testing
+# The JAR file containing version 3.7 (or later) of
+# JUnit Unit Testing (http://www.junit.org)
 junit.jar=e:/software/junit3.5/junit.jar
 
 # Just needed for building the Javadocs
