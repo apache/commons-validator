@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>Proposal for Validator Library Package</title>
+</head>
+<body bgcolor="white">
+
+<div align="center">
+<h1>Proposal for <em>Validator</em> Package</h1>
+</div>
+
+<h3>(0) Rationale</h3>
+
+<p>There is a need for the validation of JavaBeans to validate 
+user input from forms and validate business rules.  There is also a 
+need to define different validation rules and error messages based on 
+the user's locale.
+</p>
+
+<p>The Validator package will provide the capability to configure 
+validators (validation methods) with different method signatures.  
+So the basic framework can have an interface built on it to deal 
+with validations on web layers, ejb layers, etc.
+</p>
+
+<h3>(1) Scope of the Package</h3>
+
+<p>The package shall create and maintain a package that provides 
+basic validation functionality.
+</p>
+
+<p>
+The package should :
+<ul>
+<li>Provide in an easy way to define validations for fields</li>
+<li>Provide internationalization support for validation rules and error messages.</li>
+<li>Provide an easy way to define validators</li>
+<li>Provide a way to store information in a validator definition so JavaScript client 
+    side validation can be auto-generated matching the server side validation.</li>
+</ul>
+</p>
+
+<p>
+Non-goals:
+<ul>
+<li>This package does not auto-generate JavaScript client side code.</li>
+</ul>
+</p>
+
+<h3>(1.5) Interaction With Other Packages</h3>
+
+<p><em>Validator</em> relies on:
+</p>
+
+<ul>
+  <li>Jakarta Regexp</li>
+</ul>
+
+<h3>(2) Required Jakarta-Commons Resources</h3>
+
+<ul>
+  <li>Commons BeanUtils</li>
+  <li>Commons Collections</li>
+  <li>Commons Digester</li>
+</ul>
+
+<ul>
+<li>CVS Repository - New directory <code>validator</code> in the 
+<code>jakarta-commons</code> CVS repository.</li>
+
+<li>Initial Committers - The list is provided below. </li>
+
+<li>Mailing List - Discussions will take place on the general
+<em>commons-dev@jakarta.apache.org</em> mailing list. To help list
+subscribers identify messages of interest, it is suggested that the
+message subject of messages about this component be prefixed with
+[Validator].</li>
+
+<li>Bugzilla - New component "Validator" under the "Commons" product
+category, with appropriate version identifiers as needed.</li>
+
+<li>Jyve FAQ - New category "commons-validator" (when available).</li>
+</ul>
+
+
+<h3>(4) Initial Committers</h3>
+
+<p>The initial committers on the Validator component shall be:</p>
+
+<ul>
+   <li><a href="mailto:dwinterfeldt@apache.org">David Winterfeldt</a></li>
+</ul>
+
+<br><br>
+
+</body>
+</html>
