@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.4 2003/05/01 02:15:16 dgraham Exp $
- * $Revision: 1.4 $
- * $Date: 2003/05/01 02:15:16 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.5 2003/06/07 18:31:18 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/06/07 18:31:18 $
  *
  * ====================================================================
  *
@@ -73,14 +73,14 @@ package org.apache.commons.validator;
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.4 $ $Date: 2003/05/01 02:15:16 $
+ * @version $Revision: 1.5 $ $Date: 2003/06/07 18:31:18 $
  */
 public class CreditCardValidator {
 
-	private static final String AX_PREFIX = "34,37,";
-	private static final String VS_PREFIX = "4";
-	private static final String MC_PREFIX = "51,52,53,54,55,";
-	private static final String DS_PREFIX = "6011";
+	private static final String AMEX_PREFIX = "34,37,";
+	private static final String VISA_PREFIX = "4";
+	private static final String MASTERCARD_PREFIX = "51,52,53,54,55,";
+	private static final String DISCOVER_PREFIX = "6011";
 
 	/**
 	 * Singleton instance of this class.
@@ -104,13 +104,26 @@ public class CreditCardValidator {
 
 	/**
 	 * Checks if the field is a valid credit card number.
-	 *
-	 * @param value The value validation is being performed on.
+	 * @param card The card number to validate.
 	 */
-	public boolean isValid(String value) {
-		return (
-			this.validateCreditCardLuhnCheck(value)
-				&& this.validateCreditCardPrefixCheck(value));
+	public boolean isValid(String card) {
+		if (card.length() < 13) {
+			return false;
+		}
+
+		if (!this.luhnCheck(card)) {
+			return false;
+		}
+
+		if (this.isVisa(card)
+			|| this.isAmex(card)
+			|| this.isMastercard(card)
+			|| this.isDiscover(card)) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -118,7 +131,7 @@ public class CreditCardValidator {
 	 *
 	 * @param cardNumber Credit Card Number.
 	 */
-	protected boolean validateCreditCardLuhnCheck(String cardNumber) {
+	protected boolean luhnCheck(String cardNumber) {
 		// number must be validated as 0..9 numeric first!!
 		int digits = cardNumber.length();
 		int oddoeven = digits & 1;
@@ -131,6 +144,7 @@ public class CreditCardValidator {
 			} catch (NumberFormatException e) {
 				return false;
 			}
+
 			if (((count & 1) ^ oddoeven) == 0) { // not
 				digit *= 2;
 				if (digit > 9) {
@@ -139,6 +153,7 @@ public class CreditCardValidator {
 			}
 			sum += digit;
 		}
+
 		if (sum == 0) {
 			return false;
 		}
@@ -152,47 +167,58 @@ public class CreditCardValidator {
 
 	/**
 	 * Checks for a valid credit card number.
-	 *
-	 * @param cardNumber Credit Card Number.
+	 * @param card Credit Card Number.
+	 * @deprecated This will be removed in a future release.
 	 */
-	protected boolean validateCreditCardPrefixCheck(String cardNumber) {
+	protected boolean isValidPrefix(String card) {
 
-		int length = cardNumber.length();
-		if (length < 13) {
+		if (card.length() < 13) {
 			return false;
 		}
 
-		int cardType = 0;
+		return (
+			this.isVisa(card)
+				|| this.isAmex(card)
+				|| this.isMastercard(card)
+				|| this.isDiscover(card));
+	}
 
-		final String prefix2 = cardNumber.substring(0, 2) + ",";
+	/**
+	 * Returns true if the card is American Express.
+	 */
+	private boolean isAmex(String card) {
+		String prefix2 = card.substring(0, 2) + ",";
 
-		if (AX_PREFIX.indexOf(prefix2) != -1) {
-			cardType = 3;
-		} 
-		if (cardNumber.substring(0, 1).equals(VS_PREFIX)) {
-			cardType = 4;
-		}
-		if (MC_PREFIX.indexOf(prefix2) != -1) {
-			cardType = 5;
-		}
-		if (cardNumber.substring(0, 4).equals(DS_PREFIX)) {
-			cardType = 6;
-		}
+		return ((AMEX_PREFIX.indexOf(prefix2) != -1) && (card.length() == 15));
+	}
 
-		if ((cardType == 3) && (length == 15)) {
-			return true;
-		}
-		if ((cardType == 4) && ((length == 13) || (length == 16))) {
-			return true;
-		}
-		if ((cardType == 5) && (length == 16)) {
-			return true;
-		}
-		if ((cardType == 6) && (length == 16)) {
-			return true;
-		}
+	/**
+	 * Returns true if the card is Visa.
+	 */
+	private boolean isVisa(String card) {
+		return (
+			card.substring(0, 1).equals(VISA_PREFIX)
+				&& (card.length() == 13 || card.length() == 16));
+	}
 
-		return false;
+	/**
+	 * Returns true if the card is Mastercard.
+	 */
+	private boolean isMastercard(String card) {
+		String prefix2 = card.substring(0, 2) + ",";
+
+		return (
+			(MASTERCARD_PREFIX.indexOf(prefix2) != -1)
+				&& (card.length() == 16));
+	}
+
+	/**
+	 * Returns true if the card is Discover.
+	 */
+	private boolean isDiscover(String card) {
+		return (
+			card.substring(0, 4).equals(DISCOVER_PREFIX)
+				&& (card.length() == 16));
 	}
 
 }
