@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.5 2003/05/22 03:28:05 dgraham Exp $
- * $Revision: 1.5 $
- * $Date: 2003/05/22 03:28:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.6 2003/05/25 18:18:31 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/05/25 18:18:31 $
  *
  * ====================================================================
  *
@@ -72,7 +72,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2003/05/22 03:28:05 $
+ * @version $Revision: 1.6 $ $Date: 2003/05/25 18:18:31 $
  */
 public class Msg implements Cloneable, Serializable {
     
@@ -119,17 +119,8 @@ public class Msg implements Cloneable, Serializable {
      */
     public Object clone() {
        try {
-           Msg msg = (Msg)super.clone();
-           
-           if (key != null) {
-              msg.setName(new String(name));
-           }
-           
-           if (key != null) {
-              msg.setKey(new String(key));
-           }
+           return super.clone();
 
-           return msg;
        } catch (CloneNotSupportedException e) {
           throw new InternalError(e.toString());
        }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/ValidatorUtils.java,v 1.1 2003/05/02 23:39:31 dgraham Exp $
- * $Revision: 1.1 $
- * $Date: 2003/05/02 23:39:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/ValidatorUtils.java,v 1.2 2003/05/25 18:18:31 dgraham Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/05/25 18:18:31 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.commons.validator.Var;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.1 $ $Date: 2003/05/02 23:39:31 $
+ * @version $Revision: 1.2 $ $Date: 2003/05/25 18:18:31 $
 */
 public class ValidatorUtils {
 
@@ -148,7 +148,7 @@ public class ValidatorUtils {
 
 	/**
 	 * Makes a deep copy of a <code>FastHashMap</code> if the values 
-	 * are <code>String</code>, <code>Msg</code>, <code>Arg</code>, 
+	 * are <code>Msg</code>, <code>Arg</code>, 
 	 * or <code>Var</code>.  Otherwise it is a shallow copy.
 	 * 
 	 * @param map <code>FastHashMap</code> to copy.
@@ -163,11 +163,7 @@ public class ValidatorUtils {
 			String key = (String) i.next();
 			Object value = map.get(key);
 
-			// TODO I don't think Strings need to be copied and do we really need to cast
-			// before cloning?
-			if (value instanceof String) {
-				results.put(key, new String((String) value));
-			} else if (value instanceof Msg) {
+			if (value instanceof Msg) {
 				results.put(key, ((Msg) value).clone());
 			} else if (value instanceof Arg) {
 				results.put(key, ((Arg) value).clone());
