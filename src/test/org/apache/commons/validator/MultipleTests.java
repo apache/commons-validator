@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleTests.java,v 1.11 2003/08/26 15:18:56 rleland Exp $
- * $Revision: 1.11 $
- * $Date: 2003/08/26 15:18:56 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleTests.java,v 1.12 2003/08/26 16:12:47 rleland Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/08/26 16:12:47 $
  *
  * ====================================================================
  *
@@ -78,7 +78,7 @@ import org.xml.sax.SAXException;
  *
  * @author James Turner
  * @author Arun Mammen Thomas
- * @version $Revision: 1.11 $ $Date: 2003/08/26 15:18:56 $
+ * @version $Revision: 1.12 $ $Date: 2003/08/26 16:12:47 $
 */
 public class MultipleTests extends TestCase {
 
@@ -308,7 +308,7 @@ public class MultipleTests extends TestCase {
        Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
-       validator.addResource(Validator.BEAN_KEY, name);
+       validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
        ValidatorResults results = null;
@@ -346,7 +346,7 @@ public class MultipleTests extends TestCase {
        Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
-       validator.addResource(Validator.BEAN_KEY, name);
+       validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
        ValidatorResults results = null;
@@ -384,7 +384,7 @@ public class MultipleTests extends TestCase {
        Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
-       validator.addResource(Validator.BEAN_KEY, name);
+       validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
        ValidatorResults results = null;
@@ -423,7 +423,7 @@ public class MultipleTests extends TestCase {
        Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
-       validator.addResource(Validator.BEAN_KEY, name);
+       validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
        ValidatorResults results = null;
