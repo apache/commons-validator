@@ -9,11 +9,9 @@
      "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0.1//EN"
      "http://jakarta.apache.org/commons/dtds/validator_1_0_1.dtd">
 
-    $Id: validator_1_1.dtd,v 1.1 2003/05/18 21:27:17 rleland Exp $
+    $Id: validator_1_1.dtd,v 1.2 2003/05/24 18:55:13 dgraham Exp $
 -->
 
-
-<!-- =================================================== Top Level Elements -->
 
 
 <!--
@@ -36,14 +34,14 @@
      the fields referenced by the formset elements.
 -->
 <!ELEMENT validator (javascript?)>
-<!ATTLIST validator name           CDATA #REQUIRED
-                    classname      CDATA #REQUIRED
-                    method         CDATA #REQUIRED
-                    methodParams   CDATA #REQUIRED
-                    msg            CDATA #REQUIRED
-                    depends        CDATA #IMPLIED
-                    jsFunctionName CDATA #IMPLIED
-                    jsFunction     CDATA #IMPLIED>
+<!ATTLIST validator name CDATA #REQUIRED>
+<!ATTLIST validator classname CDATA #REQUIRED>
+<!ATTLIST validator method CDATA #REQUIRED>
+<!ATTLIST validator methodParams CDATA #REQUIRED>
+<!ATTLIST validator msg CDATA #REQUIRED>
+<!ATTLIST validator depends CDATA #IMPLIED>
+<!ATTLIST validator jsFunctionName CDATA #IMPLIED>
+<!ATTLIST validator jsFunction CDATA #IMPLIED>
 
 
 <!--
@@ -71,24 +69,24 @@
       language, or just the country, or both.
 -->
 <!ELEMENT formset (constant*, form+)>
-<!ATTLIST formset language     CDATA #IMPLIED
-                  country      CDATA #IMPLIED 
-                  variant      CDATA #IMPLIED >
+<!ATTLIST formset language CDATA #IMPLIED>
+<!ATTLIST formset country CDATA #IMPLIED>
+<!ATTLIST formset variant CDATA #IMPLIED>
 
 
 <!--
      The "form" element defines a set of fields to be validated. The name
      corresponds to the identifer the application assigns to the form. 
 -->
-<!ELEMENT form    (field+ )>
-<!ATTLIST form    name         CDATA #REQUIRED>
+<!ELEMENT form (field+)>
+<!ATTLIST form name CDATA #REQUIRED>
 
 
 <!--
      The "field" element defines the properties to be validated. In a
      web application, a field would also correspond to a control on
      a HTML form. To validate the properties, the validator works through
-     a JavaBean representation. The field element can accept up to 4 
+     a JavaBean representation. The field element accepts these 
      attributes:
 
      property        The property on the JavaBean corresponding to this
@@ -113,11 +111,11 @@
                      validations for this field.
 
 -->
-<!ELEMENT field   (msg|arg0|arg1|arg2|arg3|var)*>
-<!ATTLIST field   property CDATA #REQUIRED
-                  depends  CDATA #IMPLIED
-                  page     CDATA #IMPLIED
-                  indexedListProperty CDATA #IMPLIED >
+<!ELEMENT field (msg|arg0|arg1|arg2|arg3|var)*>
+<!ATTLIST field property CDATA #REQUIRED>
+<!ATTLIST field depends CDATA #IMPLIED>
+<!ATTLIST field page CDATA #IMPLIED>
+<!ATTLIST field indexedListProperty CDATA #IMPLIED>
 
 
 <!--
@@ -125,7 +123,7 @@
      validators for this field fails. Each validator has a default message
      property that is used when a corresonding field msg is not specified.
      Each validator applied to a field may have its own msg element.
-     The msg element accepts up to three attributes.
+     The msg element accepts these attributes.
 
       name        The name of the validator corresponding to this msg.
 
@@ -136,16 +134,16 @@
                   value rather than a bundle key.
                   [true]
 -->
-<!ELEMENT msg     EMPTY>
-<!ATTLIST msg     name     CDATA #IMPLIED
-                  key      CDATA #IMPLIED
-                  resource CDATA #IMPLIED >
+<!ELEMENT msg EMPTY>
+<!ATTLIST msg name CDATA #IMPLIED>
+<!ATTLIST msg key CDATA #IMPLIED>
+<!ATTLIST msg resource CDATA #IMPLIED>
 
 
 <!--
      The "arg0" element defines the first replacement value to use with the
      message template for this validator or this field.
-     The arg0 element accepts up to three attributes.
+     The arg0 element accepts these attributes.
 
       name        The name of the validator corresponding to this msg.
 
@@ -156,16 +154,16 @@
                   value rather than a bundle key.
                   [true]
 -->
-<!ELEMENT arg0    EMPTY>
-<!ATTLIST arg0    name     CDATA #IMPLIED
-                  key      CDATA #IMPLIED
-                  resource CDATA #IMPLIED >
+<!ELEMENT arg0 EMPTY>
+<!ATTLIST arg0 name CDATA #IMPLIED>
+<!ATTLIST arg0 key CDATA #IMPLIED>
+<!ATTLIST arg0 resource CDATA #IMPLIED>
 
 
 <!--
      The "arg1" element defines the second replacement value to use with the
      message template for this validator or this field.
-     The arg1 element accepts up to three attributes.
+     The arg1 element accepts these attributes.
 
       name        The name of the validator corresponding to this msg.
 
@@ -176,16 +174,16 @@
                   value rather than a bundle key.
                   [true]
 -->
-<!ELEMENT arg1    EMPTY>
-<!ATTLIST arg1    name     CDATA #IMPLIED
-                  key      CDATA #IMPLIED
-                  resource CDATA #IMPLIED >
+<!ELEMENT arg1 EMPTY>
+<!ATTLIST arg1 name CDATA #IMPLIED>
+<!ATTLIST arg1 key CDATA #IMPLIED>
+<!ATTLIST arg1 resource CDATA #IMPLIED>
 
 
 <!--
      The "arg2" element defines the third replacement value to use with the
      message template for this validator or this field.
-     The arg2 element accepts up to three attributes.
+     The arg2 element accepts these attributes.
 
       name        The name of the validator corresponding to this msg.
 
@@ -196,15 +194,15 @@
                   value rather than a bundle key.
                   [true]
 -->
-<!ELEMENT arg2    EMPTY>
-<!ATTLIST arg2    name     CDATA #IMPLIED
-                  key      CDATA #IMPLIED
-                  resource CDATA #IMPLIED >
+<!ELEMENT arg2 EMPTY>
+<!ATTLIST arg2 name CDATA #IMPLIED>
+<!ATTLIST arg2 key CDATA #IMPLIED>
+<!ATTLIST arg2 resource CDATA #IMPLIED>
 
 <!--
      The "arg3" element defines the fourth replacement value to use with the
      message template for this validator or this field.
-     The arg0 element accepts up to three attributes.
+     The arg0 element accepts these attributes.
 
       name        The name of the validator corresponding to this msg.
 
@@ -215,10 +213,10 @@
                   value rather than a bundle key.
                   [true]
 -->
-<!ELEMENT arg3    EMPTY>
-<!ATTLIST arg3    name     CDATA #IMPLIED
-                  key      CDATA #IMPLIED
-                  resource CDATA #IMPLIED >
+<!ELEMENT arg3 EMPTY>
+<!ATTLIST arg3 name CDATA #IMPLIED>
+<!ATTLIST arg3 key CDATA #IMPLIED>
+<!ATTLIST arg3 resource CDATA #IMPLIED>
 
 
 <!--
@@ -243,4 +241,4 @@
 -->
 <!ELEMENT var-value (#PCDATA)>
 
-<!-- eof -->
+
