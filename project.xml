@@ -11,7 +11,7 @@
   <package>org.apache.commons.validator</package>
 
   <shortDescription>Commons Validator</shortDescription>
-  <logo>/images/logo.gif</logo>
+  <logo>/images/Validatorlogo.gif</logo>
 
   <description>
     Commons Validator provides the building blocks for both client side validation
