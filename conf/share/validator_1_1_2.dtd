@@ -9,7 +9,7 @@
      "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.2//EN"
      "http://jakarta.apache.org/commons/dtds/validator_1_1_2.dtd">
 
-    $Id: validator_1_1_2.dtd,v 1.1 2004/02/03 00:38:16 rleland Exp $
+    $Id: validator_1_1_2.dtd,v 1.2 2004/03/31 04:45:51 rleland Exp $
 -->
 
 
@@ -44,11 +44,6 @@
                          It can be overridden by the 'msg' element for a specific field.
          depends         The comma-delimited list of validator that are called before this validator.
                          For this validation to succeed, all the listed validators must succeed.
-         disable         Disable validation on client, server, or both. possible values: {|client|server}.
-                         The default is for validation to occur on both the client and server.
-                         A comma must be used to separate the list e.g. "client,server" if both client
-                         and server validation is disabled. If this validation is listed in the depends
-                         of another validation the disabled validation will be treated as if it passed.
          jsFunctionName  The name of the javascript function which returns all fields of a certain type.
          jsFunction      The name of the javascript function which is passed the form for validation.
 
@@ -60,7 +55,6 @@
 <!ATTLIST validator methodParams CDATA #REQUIRED>
 <!ATTLIST validator msg CDATA #REQUIRED>
 <!ATTLIST validator depends CDATA #IMPLIED>
-<!ATTLIST validator disable CDATA #IMPLIED>
 <!ATTLIST validator jsFunctionName CDATA #IMPLIED>
 <!ATTLIST validator jsFunction CDATA #IMPLIED>
 
