@@ -1,0 +1,41 @@
+<form-validation>
+   <global>
+      <validator name="int"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateInt"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg="errors.int"/>
+
+      <validator name="required"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateRequired"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg="errors.required"/>
+   </global>
+   <formset>
+      <form name="ValidateBean">
+         <field property="firstName"  depends="required">
+         	   <arg0 key="nameForm.firstname.displayname"/>
+         </field>    
+         <field  property="lastName" depends="required">
+         	     <arg0 key="nameForm.lastname.displayname"/>
+         </field>
+         <field  property="street1" depends="required">
+         	     <arg0 key="nameForm.street1.displayname"/>
+         </field>
+         <field  property="state" depends="required">
+         	     <arg0 key="nameForm.city.displayname"/>
+         </field>
+         <field  property="state" depends="required">
+         	     <arg0 key="nameForm.state.displayname"/>
+         </field>
+         <field  property="postalCode" depends="required">
+         	     <arg0 key="nameForm.postalCode.displayname"/>
+         </field>
+         <field  property="age" depends="required,int">
+         	     <arg0 key="nameForm.age.displayname"/>
+         </field>
+
+      </form>
+   </formset>   
+</form-validation>
