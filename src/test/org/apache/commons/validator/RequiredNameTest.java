@@ -1,0 +1,305 @@
+/*
+ *
+ * The Apache Software License, Version 1.1
+ *
+ * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materials provided with the
+ *    distribution.
+ *
+ * 3. The end-user documentation included with the redistribution, if
+ *    any, must include the following acknowlegement:
+ *       "This product includes software developed by the
+ *        Apache Software Foundation (http://www.apache.org/)."
+ *    Alternately, this acknowlegement may appear in the software itself,
+ *    if and wherever such third-party acknowlegements normally appear.
+ *
+ * 4. The names "The Jakarta Project", "Commons", and "Apache Software
+ *    Foundation" must not be used to endorse or promote products derived
+ *    from this software without prior written permission. For written
+ *    permission, please contact apache@apache.org.
+ *
+ * 5. Products derived from this software may not be called "Apache"
+ *    nor may "Apache" appear in their names without prior written
+ *    permission of the Apache Group.
+ *
+ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED.  IN NO EVENT SHALL THE APACHE SOFTWARE FOUNDATION OR
+ * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+ * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+ * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ * ====================================================================
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals on behalf of the Apache Software Foundation.  For more
+ * information on the Apache Software Foundation, please see
+ * <http://www.apache.org/>.
+ *
+ */
+
+
+package org.apache.commons.validator;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+import junit.framework.Test;                           
+import junit.framework.TestCase;                          
+import junit.framework.TestSuite;
+import junit.framework.AssertionFailedError;              
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogSource;
+
+                                                          
+/**                                                       
+ * <p>Performs Validation Test.</p> 
+ *
+ * @author David Winterfeldt
+*/                                                       
+public class RequiredNameTest extends TestCase {            
+   
+   /**
+    * The key used to retrieve the set of validation 
+    * rules from the xml file.
+   */
+   protected static String FORM_KEY = "nameForm";   
+   
+   /**
+    * Commons Logging instance.
+   */
+   private Log log = LogSource.getInstance(this.getClass().getName());
+   
+   /**
+    * Resources used for validation tests.
+   */
+   private ValidatorResources resources = null;
+   
+   public RequiredNameTest(String name) {                  
+       super(name);                                      
+   }                                                     
+
+   /**
+    * Start the tests.
+    *
+    * @param theArgs the arguments. Not used
+    */
+   public static void main(String[] theArgs) {
+       junit.awtui.TestRunner.main(new String[] {RequiredNameTest.class.getName()});
+   }
+
+   /**
+    * @return a test suite (<code>TestSuite</code>) that includes all methods
+    *         starting with "test"
+    */
+   public static Test suite() {
+       // All methods starting with "test" will be executed in the test suite.
+       return new TestSuite(RequiredNameTest.class);
+   }
+
+   /**
+    * Load <code>ValidatorResources</code> from 
+    * validator-name-required.xml.
+   */
+   protected void setUp() throws IOException {
+      // Load resources
+      InputStream in = null;
+      resources = new ValidatorResources();
+      
+      try {
+         in = this.getClass().getResourceAsStream("validator-name-required.xml");
+         ValidatorResourcesInitializer.initialize(resources, in);
+      } catch (IOException e) {
+         log.error(e.getMessage(), e);
+         throw e;
+      } finally {
+         if (in != null) {
+            try { in.close(); } catch (Exception e) {}	
+         }
+      }
+   }
+
+   protected void tearDown() {
+   }
+
+   /**
+    * Tests the required validation failure.
+   */
+   public void testRequired() throws ValidatorException {
+      // Create bean to run test on.
+      Name name = new Name();
+
+      // Construct validator based on the loaded resources 
+      // and the form key
+      Validator validator = new Validator(resources, FORM_KEY);
+      // add the name bean to the validator as a resource 
+      // for the validations to be performed on.
+      validator.addResource(Validator.BEAN_KEY, name);
+
+      // Get results of the validation.
+      Map hResults = null;
+      
+      // throws ValidatorException, 
+      // but we aren't catching for testing 
+      // since no validation methods we use 
+      // throw this
+      hResults = validator.validate();
+      
+      assertNotNull("Results are null.", hResults);
+      assertNull("First Name should have passed no validations.", hResults.get("firstName"));
+      assertNull("Last Name should have passed no validations.", hResults.get("lastName"));
+
+   }
+
+   /**
+    * Tests the required validation for first name if it is blank.
+   */
+   public void testRequiredFirstNameBlank() throws ValidatorException {
+      // Create bean to run test on.
+      Name name = new Name();
+      name.setFirstName("");
+      
+      // Construct validator based on the loaded resources 
+      // and the form key
+      Validator validator = new Validator(resources, FORM_KEY);
+      // add the name bean to the validator as a resource 
+      // for the validations to be performed on.
+      validator.addResource(Validator.BEAN_KEY, name);
+
+      // Get results of the validation.
+      Map hResults = null;
+      
+      hResults = validator.validate();
+      
+      assertNotNull("Results are null.", hResults);
+      assertNull("First Name should have passed no validations.", hResults.get("firstName"));
+      assertNull("Last Name should have passed no validations.", hResults.get("lastName"));
+
+   }
+
+   /**
+    * Tests the required validation for first name.
+   */
+   public void testRequiredFirstName() throws ValidatorException {
+      // Create bean to run test on.
+      Name name = new Name();
+      name.setFirstName("Joe");
+      
+      // Construct validator based on the loaded resources 
+      // and the form key
+      Validator validator = new Validator(resources, FORM_KEY);
+      // add the name bean to the validator as a resource 
+      // for the validations to be performed on.
+      validator.addResource(Validator.BEAN_KEY, name);
+
+      // Get results of the validation.
+      Map hResults = null;
+      
+      hResults = validator.validate();
+      
+      assertNotNull("Results are null.", hResults);
+      assertNotNull("First Name result should not be null.", hResults.get("firstName"));
+      assertEquals("First Name should have passed one validation.", 1, ((Integer)hResults.get("firstName")).intValue());
+      assertNull("Last Name should have passed no validations.", hResults.get("lastName"));
+
+   }
+
+   /**
+    * Tests the required validation for last name if it is blank.
+   */
+   public void testRequiredLastNameBlank() throws ValidatorException {
+      // Create bean to run test on.
+      Name name = new Name();
+      name.setLastName("");
+      
+      // Construct validator based on the loaded resources 
+      // and the form key
+      Validator validator = new Validator(resources, FORM_KEY);
+      // add the name bean to the validator as a resource 
+      // for the validations to be performed on.
+      validator.addResource(Validator.BEAN_KEY, name);
+
+      // Get results of the validation.
+      Map hResults = null;
+      
+      hResults = validator.validate();
+      
+      assertNotNull("Results are null.", hResults);
+      assertNull("First Name should have passed no validations.", hResults.get("firstName"));
+      assertNull("Last Name should have passed no validations.", hResults.get("lastName"));
+
+   }
+
+   /**
+    * Tests the required validation for last name.
+   */
+   public void testRequiredLastName() throws ValidatorException {
+      // Create bean to run test on.
+      Name name = new Name();
+      name.setLastName("Smith");
+      
+      // Construct validator based on the loaded resources 
+      // and the form key
+      Validator validator = new Validator(resources, FORM_KEY);
+      // add the name bean to the validator as a resource 
+      // for the validations to be performed on.
+      validator.addResource(Validator.BEAN_KEY, name);
+
+      // Get results of the validation.
+      Map hResults = null;
+      
+      hResults = validator.validate();
+      
+      assertNotNull("Results are null.", hResults);
+      assertNull("First Name should have passed no validations.", hResults.get("firstName"));
+      assertNotNull("Last Name result should not be null.", hResults.get("lastName"));
+      assertEquals("Last Name should have passed one validation.", 1, ((Integer)hResults.get("lastName")).intValue());
+
+   }
+
+   /**
+    * Tests the required validation for first and last name.
+   */
+   public void testRequiredName() throws ValidatorException {
+      // Create bean to run test on.
+      Name name = new Name();
+      name.setFirstName("Joe");
+      name.setLastName("Smith");
+      
+      // Construct validator based on the loaded resources 
+      // and the form key
+      Validator validator = new Validator(resources, FORM_KEY);
+      // add the name bean to the validator as a resource 
+      // for the validations to be performed on.
+      validator.addResource(Validator.BEAN_KEY, name);
+
+      // Get results of the validation.
+      Map hResults = null;
+      
+      hResults = validator.validate();
+      
+      assertNotNull("Results are null.", hResults);
+      assertNotNull("First Name result should not be null.", hResults.get("firstName"));
+      assertEquals("First Name should have passed one validation.", 1, ((Integer)hResults.get("firstName")).intValue());
+      assertNotNull("Last Name result should not be null.", hResults.get("lastName"));
+      assertEquals("Last Name should have passed one validation.", 1, ((Integer)hResults.get("lastName")).intValue());
+
+   }
+   
+}                                                         

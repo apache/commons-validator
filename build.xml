@@ -32,6 +32,11 @@
    <path id="test.classpath">
       <path refid="base.classpath"/>
       <pathelement path="${junit.jar}"/>
+      <pathelement location="${xerces.jar}"/>
+      <pathelement path="${commons-beanutils.jar}"/>
+      <pathelement path="${commons-collections.jar}"/>
+      <pathelement path="${commons-digester.jar}"/>
+      <pathelement path="${commons-logging.jar}"/>
       <pathelement path="${dist}/${validator.jar}" />
       <pathelement path="${build}/${test}" />
    </path>
@@ -107,13 +112,19 @@
              destdir="${build}/${test}">
          <classpath refid="test.classpath" />
       </javac>
+
+      <copy todir="${build}/${test}" >
+         <fileset dir="${src}/${test}"
+                  excludes="**/*.java" 
+         />
+      </copy>
    </target>
 
    <!-- Run JUnit Tests -->
    <target name="test" depends="build-test" description="runs junit tests">
       <java fork="yes" classname="junit.textui.TestRunner" 
           taskname="junit" failonerror="true">
-          <arg value="org.apache.commons.validator.ValidatorTest"/>
+          <arg value="org.apache.commons.validator.ValidatorTestSuite"/>
           <classpath refid="test.classpath" />
       </java>
    </target>
