@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.6 2002/03/30 04:33:17 dwinterfeldt Exp $
- * $Revision: 1.6 $
- * $Date: 2002/03/30 04:33:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.7 2002/10/16 18:48:08 turner Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/10/16 18:48:08 $
  *
  * ====================================================================
  *
@@ -65,6 +65,8 @@ package org.apache.commons.validator;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Enumeration;
+import java.util.Vector;
 import java.util.Locale;
 import java.util.Map;
 import org.apache.commons.collections.FastHashMap;    
@@ -81,7 +83,7 @@ import org.apache.commons.logging.LogSource;
  * application server environments.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2002/03/30 04:33:17 $
+ * @version $Revision: 1.7 $ $Date: 2002/10/16 18:48:08 $
 */
 public class ValidatorResources implements Serializable {
 
@@ -120,7 +122,14 @@ public class ValidatorResources implements Serializable {
    */
    public void put(FormSet fs) {
    	if (fs != null) {
-   	   hFormSets.put(buildKey(fs), fs);
+	    String key = buildKey(fs);
+	    if (hFormSets.get(key) == null) {
+		hFormSets.put(key, new Vector());
+	    }
+	    Vector formsets = (Vector) hFormSets.get(key);
+	    if (!formsets.contains(fs)) {
+		formsets.add(fs);
+	    }
 
           if (log.isInfoEnabled()) {
 	      log.info("Adding FormSet '" + fs.toString() + "'.");
@@ -234,61 +243,67 @@ public class ValidatorResources implements Serializable {
     *    <li>default locale</li>
     * </ol>
    */
-   public Form get(String language, String country, String variant, Object formKey) {
-      FormSet fs = null;
-      Form f = null;
-      String key = null;
-      Object o = null;
+    public Form get(String language, String country, String variant, Object formKey) {
+	FormSet fs = null;
+	Form f = null;
+	String key = null;
+	Object o = null;
 
-      key = ((language != null && language.length() > 0) ? language : "") + 
+	key = ((language != null && language.length() > 0) ? language : "") + 
             ((country != null && country.length() > 0) ? "_" + country : "") + 
             ((variant != null && variant.length() > 0) ? "_" + variant : "");
       
-      o = hFormSets.get(key);
-      if (o != null) {
-         fs = (FormSet)o;
-         if (fs != null)
-            f = fs.getForm(formKey);
-      }
+	Vector v = (Vector) hFormSets.get(key);
 
-      if (f == null) {
-         key = ((language != null && language.length() > 0) ? language : "") + 
-               ((country != null && country.length() > 0) ? "_" + country : "");
-         
-         o = hFormSets.get(key);
-         if (o != null) {
-            fs = (FormSet)o;
-            if (fs != null)
-               f = fs.getForm(formKey);
-         }
+	if (v == null) return f;
 
-      }
-
-      if (f == null) {
-         key = ((language != null && language.length() > 0) ? language : "");
+	Enumeration formsets = v.elements();
+	while (formsets.hasMoreElements()) {
+	    o = formsets.nextElement();
+	    if (o != null) {
+		fs = (FormSet)o;
+		if ((fs != null) && (fs.getForm(formKey) != null)) {
+		    return fs.getForm(formKey);
+		}
+	    }
+	}
+	key = ((language != null && language.length() > 0) ? language : "") + 
+	    ((country != null && country.length() > 0) ? "_" + country : "");
          
-         o = hFormSets.get(key);
-         if (o != null) {
-            fs = (FormSet)o;
-            if (fs != null)
-               f = fs.getForm(formKey);
-	  }
-      }
-      
-      if (f == null) {
-         key = defaultLocale.toString();
-         
-         o = hFormSets.get(key);
-         if (o != null) {
-            fs = (FormSet)o;
-            if (fs != null)
-               f = fs.getForm(formKey);
-	  }
-      }
-      
-      
-      return f;	
-   }
+	formsets = v.elements();
+	while (formsets.hasMoreElements()) {
+	    o = formsets.nextElement();
+	    if (o != null) {
+		fs = (FormSet)o;
+		if ((fs != null) && (fs.getForm(formKey) != null)) {
+		    return fs.getForm(formKey);
+		}
+	    }
+	}
+	key = ((language != null && language.length() > 0) ? language : "");
+	formsets = v.elements();
+	while (formsets.hasMoreElements()) {
+	    o = formsets.nextElement();
+	    if (o != null) {
+		fs = (FormSet)o;
+		if ((fs != null) && (fs.getForm(formKey) != null)) {
+		    return fs.getForm(formKey);
+		}
+	    }
+	}
+	key = defaultLocale.toString();
+	formsets = v.elements();
+	while (formsets.hasMoreElements()) {
+	    o = formsets.nextElement();
+	    if (o != null) {
+		fs = (FormSet)o;
+		if ((fs != null) && (fs.getForm(formKey) != null)) {
+		    return fs.getForm(formKey);
+		}
+	    }
+	}
+	return null;	
+    }
 
    /**
     * <p>Process the <code>ValidatorResources</code> object.  </p>
@@ -309,58 +324,63 @@ public class ValidatorResources implements Serializable {
     * that don't exist in a <code>FormSet</code> compared to the default 
     * <code>FormSet</code>.</p>
    */
-   public void processForms() {
-      //hFormSets.put(buildKey(fs), fs);
-      String defaultKey = defaultLocale.toString();
+    public void processForms() {
+	//hFormSets.put(buildKey(fs), fs);
+	String defaultKey = defaultLocale.toString();
       
-      // Loop through FormSets
-      for (Iterator i = hFormSets.keySet().iterator(); i.hasNext(); ) {
-         String key = (String)i.next();
-         FormSet fs = (FormSet)hFormSets.get(key);
-
-         // Skip default FormSet
-         if (key.equals(defaultKey))
-            continue;
+	// Loop through FormSets
+	for (Iterator i = hFormSets.keySet().iterator(); i.hasNext(); ) {
+	    String key = (String)i.next();
+	    // Skip default FormSet
+	    if (key.equals(defaultKey))
+		continue;
+	    Vector formsets = (Vector)hFormSets.get(key);
+	    Enumeration formsets_en = formsets.elements();
+	    while (formsets_en.hasMoreElements()) {
+		FormSet fs = (FormSet) formsets_en.nextElement();
          
-         // Loop through Forms and copy/clone fields from default locale
-         for (Iterator x = fs.getForms().keySet().iterator(); x.hasNext(); ) {
-            String formKey = (String)x.next();
-            Form form = (Form)fs.getForms().get(formKey);
-            // Create a new Form object so the order from the default is 
-            // maintained (very noticable in the JavaScript).
-            Form newForm = new Form();
-            newForm.setName(form.getName());
+		// Loop through Forms and copy/clone fields from default locale
+		for (Iterator x = fs.getForms().keySet().iterator(); x.hasNext(); ) {
+		    String formKey = (String)x.next();
+		    Form form = (Form)fs.getForms().get(formKey);
+		    // Create a new Form object so the order from the default is 
+		    // maintained (very noticable in the JavaScript).
+		    Form newForm = new Form();
+		    newForm.setName(form.getName());
 
-            // Loop through the default locale form's fields
-            // If they don't exist in the current locale's form, then clone them.
-            Form defaultForm = get(defaultLocale, formKey);
+		    // Loop through the default locale form's fields
+		    // If they don't exist in the current locale's form, then clone them.
+		    Form defaultForm = get(defaultLocale, formKey);
 
-            for (Iterator defaultFields = defaultForm.getFields().iterator(); defaultFields.hasNext(); ) {
-               Field defaultField = (Field)defaultFields.next();
-               String fieldKey = defaultField.getKey();
+		    for (Iterator defaultFields = defaultForm.getFields().iterator(); defaultFields.hasNext(); ) {
+			Field defaultField = (Field)defaultFields.next();
+			String fieldKey = defaultField.getKey();
 
-               if (form.getFieldMap().containsKey(fieldKey)) {
-                  newForm.addField((Field)form.getFieldMap().get(fieldKey));
-               } else {
-                  Field field = getClosestLocaleField(fs, formKey, fieldKey);
-                  newForm.addField((Field)field.clone());   
-               }
-            }
+			if (form.getFieldMap().containsKey(fieldKey)) {
+			    newForm.addField((Field)form.getFieldMap().get(fieldKey));
+			} else {
+			    Field field = getClosestLocaleField(fs, formKey, fieldKey);
+			    newForm.addField((Field)field.clone());   
+			}
+		    }
             
-            fs.addForm(newForm);
-         }
-      }
-
-      // Process Fully Constructed FormSets
-      for (Iterator i = hFormSets.values().iterator(); i.hasNext(); ) {
-      	  FormSet fs = (FormSet)i.next();
- 
-         if (!fs.isProcessed()) {
-            fs.process(hConstants);
-         }
-      }
- 
-   }
+		    fs.addForm(newForm);
+		}
+	    }
+	}
+	// Process Fully Constructed FormSets
+	for (Iterator i = hFormSets.values().iterator(); i.hasNext(); ) {
+	    Vector formsets = (Vector)i.next();
+	    Enumeration formsets_en = formsets.elements();
+	    while (formsets_en.hasMoreElements()) {
+		FormSet fs = (FormSet)formsets_en.nextElement();
+	      
+		if (!fs.isProcessed()) {
+		    fs.process(hConstants);
+		}
+	    }
+	}
+    }
 
    /**
     * Retrieves the closest matching <code>Field</code> based 
