@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestCommon.java,v 1.2 2003/09/06 05:22:47 rleland Exp $
- * $Revision: 1.2 $
- * $Date: 2003/09/06 05:22:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestCommon.java,v 1.3 2003/09/28 19:26:17 dgraham Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/09/28 19:26:17 $
  *
  * ====================================================================
  *
@@ -70,13 +70,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Consolidates reading in xml config file into parent class.
+ * Consolidates reading in XML config file into parent class.
  */
 abstract public class TestCommon extends TestCase {
+    
     /**
      * Resources used for validation tests.
      */
     protected ValidatorResources resources = null;
+    
     /**
      * Commons Logging instance.
      */
@@ -97,14 +99,17 @@ abstract public class TestCommon extends TestCase {
         try {
             in = this.getClass().getResourceAsStream(file);
             resources = new ValidatorResources(in);
+            
         } catch (IOException e) {
             log.error(e.getMessage(), e);
             throw e;
+            
         } finally {
             if (in != null) {
                 try {
                     in.close();
-                } catch (Exception e) {
+                } catch (IOException e) {
+                    log.error(e.getMessage(), e);
                 }
             }
         }
