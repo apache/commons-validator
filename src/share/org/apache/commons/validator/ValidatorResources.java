@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.30 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.30 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.30.2.1 2004/04/13 05:50:11 rleland Exp $
+ * $Revision: 1.30.2.1 $
+ * $Date: 2004/04/13 05:50:11 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -64,7 +64,9 @@ public class ValidatorResources implements Serializable {
         "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0.1//EN",
         "/org/apache/commons/validator/resources/validator_1_0_1.dtd",
         "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN",
-        "/org/apache/commons/validator/resources/validator_1_1.dtd"
+        "/org/apache/commons/validator/resources/validator_1_1.dtd",
+        "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN",
+        "/org/apache/commons/validator/resources/validator_1_1_3.dtd"
     };
 
     /**
