@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.6 2003/05/22 02:29:47 dgraham Exp $
- * $Revision: 1.6 $
- * $Date: 2003/05/22 02:29:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.7 2003/05/22 03:12:18 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/05/22 03:12:18 $
  *
  * ====================================================================
  *
@@ -75,7 +75,6 @@ import org.apache.commons.validator.Validator;
 import org.apache.commons.validator.ValidatorAction;
 import org.apache.commons.validator.ValidatorException;
 import org.apache.commons.validator.ValidatorResources;
-import org.apache.commons.validator.ValidatorResourcesInitializer;
 import org.apache.commons.validator.ValidatorResult;
 import org.apache.commons.validator.ValidatorResults;
 
@@ -83,7 +82,7 @@ import org.apache.commons.validator.ValidatorResults;
  * <p>A simple example of setting up and using the Validator.</p> 
  *
  * @author James Turner
- * @version $Revision: 1.6 $ $Date: 2003/05/22 02:29:47 $
+ * @version $Revision: 1.7 $ $Date: 2003/05/22 03:12:18 $
  *
  * This simple example shows all the steps needed to set up and use
  * the Validator.  Note that in most cases, some kind of framework
@@ -109,65 +108,62 @@ public class ValidateExample extends Object {
      *
      */
     public static void main(String[] args) throws IOException, ValidatorException {
-
         InputStream in = null;
-
+        ValidatorResources resources = null;
+        
         try {
-
+        
             // Create a new instance of a ValidatorResource, then get a stream
             // handle on the XML file with the actions in it, and initialize the
             // resources from it.  This would normally be done by a servlet
             // run during JSP initialization or some other application-startup
             // routine.
-
-            ValidatorResources resources = new ValidatorResources();
             in = ValidateExample.class.getResourceAsStream("validator-example.xml");
-            ValidatorResourcesInitializer.initialize(resources, in);
-
-            // Create a test bean to validate against.
-            ValidateBean bean = new ValidateBean();
-
-            // Create a validator with the ValidateBean actions for the bean
-            // we're interested in.
-            Validator validator = new Validator(resources, "ValidateBean");
-
-            // Tell the validator which bean to validate against.
-            validator.addParameter(Validator.BEAN_KEY, bean);
-
-            ValidatorResults results = null;
-
-            // Run the validation actions against the bean.  Since all of the properties
-            // are null, we expect them all to error out except for street2, which has
-            // no validations (it's an optional property)
-
-            results = validator.validate();
-            printResults(bean, results, resources);
-
-            // Now set all the required properties, but make the age a non-integer.
-            // You'll notice that age will pass the required test, but fail the int
-            // test.
-            bean.setLastName("Tester");
-            bean.setFirstName("John");
-            bean.setStreet1("1 Test Street");
-            bean.setCity("Testville");
-            bean.setState("TE");
-            bean.setPostalCode("12345");
-            bean.setAge("Too Old");
-            results = validator.validate();
-            printResults(bean, results, resources);
-
-            // Now everything should pass.
-            bean.setAge("123");
-            results = validator.validate();
-            printResults(bean, results, resources);
-
+            resources = new ValidatorResources(in);
+            
         } finally {
-            // Make sure we close the input stream if it was left open.
+            // Make sure we close the input stream.
             if (in != null) {
                 in.close();
             }
         }
-
+        
+        // Create a test bean to validate against.
+        ValidateBean bean = new ValidateBean();
+        
+        // Create a validator with the ValidateBean actions for the bean
+        // we're interested in.
+        Validator validator = new Validator(resources, "ValidateBean");
+        
+        // Tell the validator which bean to validate against.
+        validator.addParameter(Validator.BEAN_KEY, bean);
+        
+        ValidatorResults results = null;
+        
+        // Run the validation actions against the bean.  Since all of the properties
+        // are null, we expect them all to error out except for street2, which has
+        // no validations (it's an optional property)
+        
+        results = validator.validate();
+        printResults(bean, results, resources);
+        
+        // Now set all the required properties, but make the age a non-integer.
+        // You'll notice that age will pass the required test, but fail the int
+        // test.
+        bean.setLastName("Tester");
+        bean.setFirstName("John");
+        bean.setStreet1("1 Test Street");
+        bean.setCity("Testville");
+        bean.setState("TE");
+        bean.setPostalCode("12345");
+        bean.setAge("Too Old");
+        results = validator.validate();
+        printResults(bean, results, resources);
+        
+        // Now everything should pass.
+        bean.setAge("123");
+        results = validator.validate();
+        printResults(bean, results, resources);
     }
 
     /**

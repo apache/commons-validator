@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.10 2003/05/22 02:29:46 dgraham Exp $
- * $Revision: 1.10 $
- * $Date: 2003/05/22 02:29:46 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.11 2003/05/22 03:12:18 dgraham Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/05/22 03:12:18 $
  *
  * ====================================================================
  *
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.10 $ $Date: 2003/05/22 02:29:46 $
+ * @version $Revision: 1.11 $ $Date: 2003/05/22 03:12:18 $
 */                                                       
 public class EmailTest extends TestCase {            
    
@@ -131,11 +131,10 @@ public class EmailTest extends TestCase {
    protected void setUp() throws IOException {
       // Load resources
       InputStream in = null;
-      resources = new ValidatorResources();
       
       try {
          in = this.getClass().getResourceAsStream("validator-regexp.xml");
-         ValidatorResourcesInitializer.initialize(resources, in);
+         resources = new ValidatorResources(in);
       } catch (IOException e) {
          log.error(e.getMessage(), e);
          throw e;

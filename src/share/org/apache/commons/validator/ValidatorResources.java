@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.15 2003/05/21 02:53:41 dgraham Exp $
- * $Revision: 1.15 $
- * $Date: 2003/05/21 02:53:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.16 2003/05/22 03:12:18 dgraham Exp $
+ * $Revision: 1.16 $
+ * $Date: 2003/05/22 03:12:18 $
  *
  * ====================================================================
  *
@@ -61,7 +61,10 @@
 
 package org.apache.commons.validator;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -70,8 +73,11 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.collections.FastHashMap;
+import org.apache.commons.digester.Digester;
+import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.xml.sax.SAXException;
 
 /**
  * <p>General purpose class for storing <code>FormSet</code> objects based 
@@ -83,9 +89,23 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.15 $ $Date: 2003/05/21 02:53:41 $
+ * @version $Revision: 1.16 $ $Date: 2003/05/22 03:12:18 $
  */
 public class ValidatorResources implements Serializable {
+
+    /**
+     * The set of public identifiers, and corresponding resource names, for
+     * the versions of the configuration file DTDs that we know about.  There
+     * <strong>MUST</strong> be an even number of Strings in this list!
+     */
+    private static final String registrations[] = {
+        "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN",
+        "/org/apache/commons/validator/resources/validator_1_0.dtd",
+        "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0.1//EN",
+        "/org/apache/commons/validator/resources/validator_1_0_1.dtd",
+        "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN",
+        "/org/apache/commons/validator/resources/validator_1_1.dtd"
+   };
 
     /**
      * Logger.
@@ -114,6 +134,61 @@ public class ValidatorResources implements Serializable {
      * The default locale on our server.
      */
     protected static Locale defaultLocale = Locale.getDefault();
+
+    /**
+     * Create an empty ValidatorResources object.
+     */
+    public ValidatorResources() {
+        super();
+    }
+    
+    /**
+     * Create a ValidatorResources object from an InputStream.
+     * 
+     * @param in InputStream to a validation.xml configuration file.  It's the client's 
+     * responsibility to close this stream.
+     */
+    public ValidatorResources(InputStream in) throws IOException {
+        this(new InputStream[] { in });
+    }
+    
+    /**
+     * Create a ValidatorResources object from an InputStream.
+     * 
+     * @param streams An array of InputStreams to several validation.xml 
+     * configuration files that will be read in order and merged into this object.  
+     * It's the client's responsibility to close these streams.
+     */
+    public ValidatorResources(InputStream[] streams) throws IOException {
+        super();
+        
+        URL rulesUrl = this.getClass().getResource("digester-rules.xml");
+        Digester digester = DigesterLoader.createDigester(rulesUrl);
+        digester.setNamespaceAware(true);
+        digester.setValidating(false);
+        digester.setUseContextClassLoader(true);
+
+        // register DTDs
+        for (int i = 0; i < registrations.length; i += 2) {
+            URL url = this.getClass().getResource(registrations[i + 1]);
+            if (url != null) {
+                digester.register(registrations[i], url.toString());
+            }
+        }
+
+        for (int i = 0; i < streams.length; i++) {
+            digester.push(this);
+
+            try {
+                digester.parse(streams[i]);
+
+            } catch (SAXException e) {
+                log.error(e.getMessage(), e);
+            }
+        }
+        
+        this.process();
+    }
 
     /**
      * Add a <code>FormSet</code> to this <code>ValidatorResources</code>

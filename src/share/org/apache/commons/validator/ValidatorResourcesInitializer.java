@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.16 2003/05/22 00:26:52 dgraham Exp $
- * $Revision: 1.16 $
- * $Date: 2003/05/22 00:26:52 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.17 2003/05/22 03:12:18 dgraham Exp $
+ * $Revision: 1.17 $
+ * $Date: 2003/05/22 03:12:18 $
  *
  * ====================================================================
  *
@@ -78,7 +78,8 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author Dave Derry
- * @version $Revision: 1.16 $ $Date: 2003/05/22 00:26:52 $
+ * @version $Revision: 1.17 $ $Date: 2003/05/22 03:12:18 $
+ * @deprecated ValidatorResources knows how to initialize itself now.
  */
 public class ValidatorResourcesInitializer {
 

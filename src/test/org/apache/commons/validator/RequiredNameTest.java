@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredNameTest.java,v 1.7 2003/05/22 02:29:46 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2003/05/22 02:29:46 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredNameTest.java,v 1.8 2003/05/22 03:12:18 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/05/22 03:12:18 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.commons.logging.LogFactory;
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2003/05/22 02:29:46 $
+ * @version $Revision: 1.8 $ $Date: 2003/05/22 03:12:18 $
 */                                                       
 public class RequiredNameTest extends TestCase {            
    
@@ -132,11 +132,10 @@ public class RequiredNameTest extends TestCase {
    protected void setUp() throws IOException {
       // Load resources
       InputStream in = null;
-      resources = new ValidatorResources();
       
       try {
          in = this.getClass().getResourceAsStream("validator-name-required.xml");
-         ValidatorResourcesInitializer.initialize(resources, in);
+         resources = new ValidatorResources(in);
       } catch (IOException e) {
          log.error(e.getMessage(), e);
          throw e;
