@@ -22,31 +22,33 @@
    <body>
       <section name="Releases">
          
-         <p><strong>Latest Release</strong></p>
+         <p><strong>Latest Stable Release</strong></p>
          <ul>
            <li><a href="http://jakarta.apache.org/site/binindex.cgi#commons-validator">1.0.2 Binary</a></li>
            <li><a href="http://jakarta.apache.org/site/sourceindex.cgi#commons-validator">1.0.2 Source</a></li>
          </ul>
-         
-         <br/>
-         
-         <!--
-         <p>
-            <strong>Archived Releases</strong>
-            <br/>
-            Older releases are retained by the Apache Software Foundation but are 
-            moved into a
-            <a href="http://archive.apache.org/dist/jakarta/commons/validator/">
-            special archive area</a>.
-         </p>
-         
-         <br/>
-         -->
-         
+
+          <p><strong>Latest Development Release</strong></p>
+          <ul>
+            <li><a href="http://www.apache.org/~martinc/validator/v1.1.2/commons-validator-1.1.2.zip">1.1.2 Binary</a></li>
+            <li><a href="http://www.apache.org/~martinc/validator/v1.1.2/commons-validator-1.1.2-src.zip">1.1.2 Source</a></li>
+          </ul>
+
          <p><strong>Nightly Builds</strong></p>
          <ul>
             <li><a href="http://cvs.apache.org/builds/jakarta-commons/nightly/commons-validator/">Binary/Source</a></li>
          </ul>
+
+          <!--
+          <p>
+             <strong>Archived Releases</strong>
+             <br/>
+             Older releases are retained by the Apache Software Foundation but are
+             moved into a
+             <a href="http://archive.apache.org/dist/jakarta/commons/validator/">
+             special archive area</a>.
+          </p>
+          -->
 
       </section>
 
