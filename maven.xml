@@ -33,7 +33,7 @@
     </copy>
 
     <copy todir="${maven.build.dir}/classes/">
-      <fileset dir="${javascript.home}"
+      <fileset dir="src/javascript"
           includes="**/*.js"/>
     </copy>
 
