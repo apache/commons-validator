@@ -1,0 +1,66 @@
+<form-validation>
+   <global>
+      <validator name="byte"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateByte"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+
+      <validator name="short"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateShort"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+
+      <validator name="int"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateInt"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+
+      <validator name="long"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateLong"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+
+      <validator name="float"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateFloat"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+
+      <validator name="double"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateDouble"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+
+   </global>
+   <formset>
+      <form    name="byteForm">
+         <field    property="value"
+         	   depends="byte">
+         </field>    
+      </form>
+      <form    name="shortForm">
+         <field    property="value"
+         	   depends="short">
+         </field>    
+      </form>
+      <form    name="intForm">
+         <field    property="value"
+         	   depends="int">
+         </field>    
+      </form>
+      <form    name="longForm">
+         <field    property="value"
+         	   depends="long">
+         </field>    
+      </form>
+      <form    name="floatForm">
+         <field    property="value"
+         	   depends="float">
+         </field>    
+      </form>
+      <form    name="doubleForm">
+         <field    property="value"
+         	   depends="double">
+         </field>    
+      </form>
+   </formset>   
+</form-validation>

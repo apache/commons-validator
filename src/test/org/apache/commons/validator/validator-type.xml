@@ -1,0 +1,56 @@
+<form-validation>
+   <global>
+      <validator name="byte"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateByte"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+
+      <validator name="short"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateShort"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+
+      <validator name="int"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateInt"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+
+      <validator name="long"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateLong"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+
+      <validator name="float"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateFloat"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+
+      <validator name="double"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateDouble"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"/>
+
+   </global>
+   <formset>
+      <form    name="typeForm">
+         <field    property="byte"
+         	   depends="byte">
+         </field>    
+         <field    property="short"
+         	   depends="short">
+         </field>    
+         <field    property="int"
+         	   depends="int">
+         </field>    
+         <field    property="long"
+         	   depends="long">
+         </field>    
+         <field    property="float"
+         	   depends="float">
+         </field>    
+         <field    property="double"
+         	   depends="double">
+         </field>    
+      </form>
+   </formset>   
+</form-validation>
