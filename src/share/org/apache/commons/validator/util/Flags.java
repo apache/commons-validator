@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/Flags.java,v 1.6 2004/01/17 17:32:28 dgraham Exp $
- * $Revision: 1.6 $
- * $Date: 2004/01/17 17:32:28 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/Flags.java,v 1.7 2004/02/01 02:40:22 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2004/02/01 02:40:22 $
  *
  * ====================================================================
  *
@@ -69,7 +69,13 @@ import java.io.Serializable;
  * Flag 1 = 1<br/>
  * Flag 2 = 2<br/>
  * Flag 3 = 4<br/>
- * Flag 4 = 8<br/>
+ * Flag 4 = 8<br/><br/>
+ * or using shift operator to make numbering easier:<br/>
+ * Flag 1 = 1 &lt;&lt; 0<br/>
+ * Flag 2 = 1 &lt;&lt; 1<br/>
+ * Flag 3 = 1 &lt;&lt; 2<br/>
+ * Flag 4 = 1 &lt;&lt; 3<br/>
+ * 
  * <p>
  * There cannot be a flag with a value of 3 because that represents Flag 1 
  * and Flag 2 both being on/true.
