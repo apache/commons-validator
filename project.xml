@@ -45,6 +45,18 @@
       <email>martinc@apache.org</email>
       <organization></organization>
     </developer>
+    <developer>
+      <name>David Graham</name>
+      <id>dgraham</id>
+      <email>dgraham@apache.org</email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>Rob Leland</name>
+      <id>rleland</id>
+      <email>rleland@apache.org</email>
+      <organization></organization>
+    </developer>
   </developers>
   
   <dependencies>
@@ -61,7 +73,7 @@
 
     <dependency>
       <id>commons-digester</id>
-      <version>1.3</version>
+      <version>1.5</version>
     </dependency>
 
     <dependency>
@@ -96,7 +108,24 @@
       <includes>
         <include>**/*Test.java</include>
       </includes>
+      <resources>
+        <resource>
+          <directory>${pom.build.unitTestSourceDirectory}</directory>
+          <includes>
+            <include>**/*.xml</include>
+          </includes>
+        </resource>
+      </resources>
     </unitTest>
+
+    <resources>
+      <resource>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+
 
   </build>
 

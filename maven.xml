@@ -2,12 +2,25 @@
 
   <postGoal name="java:compile">
     
-    <copy todir="${maven.build.dir}/test-classes/org/apache/commons/validator">
-      <fileset dir="src/test/org/apache/commons/validator">
-        <include name="*.xml"/>
-      </fileset>
+    <copy    todir="${maven.build.dir}/classes/">
+      <fileset dir="${pom.build.sourceDirectory}"
+          excludes="**/*.java"/>
     </copy>
-    
+
+    <copy    todir="${maven.build.dir}/classes/org/apache/commons/validator/resources/"
+              file="${basedir}/conf/share/validator_1_0.dtd"/>
+
+    <copy    todir="${maven.build.dir}/classes/org/apache/commons/validator/resources/"
+              file="${basedir}/conf/share/validator_1_0_1.dtd"/>
+
+    <copy    todir="${maven.build.dir}/classes/org/apache/commons/validator/resources/"
+              file="${basedir}/conf/share/validator_1_1.dtd"/>
+
+    <copy    todir="${maven.build.dir}/classes/">
+      <fileset dir="${javascript.home}"
+          includes="**/*.js"/>
+    </copy>
+
   </postGoal>
 
 </project>
