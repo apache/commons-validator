@@ -1,4 +1,9 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredNameTest.java,v 1.3 2002/03/30 04:30:56 dwinterfeldt Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/03/30 04:30:56 $
+ *
+ * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
@@ -72,6 +77,7 @@ import org.apache.commons.logging.LogSource;
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
+ * @version $Revision: 1.3 $ $Date: 2002/03/30 04:30:56 $
 */                                                       
 public class RequiredNameTest extends TestCase {            
    
@@ -149,7 +155,7 @@ public class RequiredNameTest extends TestCase {
    */
    public void testRequired() throws ValidatorException {
       // Create bean to run test on.
-      Name name = new Name();
+      NameBean name = new NameBean();
       
       // Construct validator based on the loaded resources 
       // and the form key
@@ -186,7 +192,7 @@ public class RequiredNameTest extends TestCase {
    */
    public void testRequiredFirstNameBlank() throws ValidatorException {
       // Create bean to run test on.
-      Name name = new Name();
+      NameBean name = new NameBean();
       name.setFirstName("");
       
       // Construct validator based on the loaded resources 
@@ -220,7 +226,7 @@ public class RequiredNameTest extends TestCase {
    */
    public void testRequiredFirstName() throws ValidatorException {
       // Create bean to run test on.
-      Name name = new Name();
+      NameBean name = new NameBean();
       name.setFirstName("Joe");
       
       // Construct validator based on the loaded resources 
@@ -254,7 +260,7 @@ public class RequiredNameTest extends TestCase {
    */
    public void testRequiredLastNameBlank() throws ValidatorException {
       // Create bean to run test on.
-      Name name = new Name();
+      NameBean name = new NameBean();
       name.setLastName("");
       
       // Construct validator based on the loaded resources 
@@ -288,7 +294,7 @@ public class RequiredNameTest extends TestCase {
    */
    public void testRequiredLastName() throws ValidatorException {
       // Create bean to run test on.
-      Name name = new Name();
+      NameBean name = new NameBean();
       name.setLastName("Smith");
       
       // Construct validator based on the loaded resources 
@@ -323,7 +329,7 @@ public class RequiredNameTest extends TestCase {
    */
    public void testRequiredName() throws ValidatorException {
       // Create bean to run test on.
-      Name name = new Name();
+      NameBean name = new NameBean();
       name.setFirstName("Joe");
       name.setLastName("Smith");
       
