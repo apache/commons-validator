@@ -57,15 +57,18 @@
 
 package org.apache.commons.validator;
 
+import java.io.Serializable;
+
 
 /**
- * <p>This class can be used to supply an alternative message for a pluggable validator.</p>
- *
- * <ul><li>See /WEB-INF/validation.xml for validation rules.</li></ul>
+ * <p>An alternative message can be associated with a <code>Field</code> 
+ * and a pluggable validator instead of using the default message 
+ * stored in the <code>ValidatorAction</code> (aka pluggable validator).</p>
  *
  * @author David Winterfeldt
 */
-public class Msg implements Cloneable, java.io.Serializable {
+public class Msg implements Cloneable, Serializable {
+    
     /**
      * The name dependency that this argument goes with (optional).
     */
@@ -104,16 +107,19 @@ public class Msg implements Cloneable, java.io.Serializable {
        this.key = key;	
     }
 
+    /**
+     * Creates and returns a copy of this object.
+    */
     public Object clone() {
        try {
            Msg msg = (Msg)super.clone();
            
            if (key != null) {
-              msg.name = new String(name);
+              msg.setName(new String(name));
            }
            
            if (key != null) {
-              msg.key = new String(key);
+              msg.setKey(new String(key));
            }
 
            return msg;
@@ -121,7 +127,10 @@ public class Msg implements Cloneable, java.io.Serializable {
           throw new InternalError(e.toString());
        }
     }  
-        
+
+    /**
+     * Returns a string representation of the object.
+    */
     public String toString() {
        StringBuffer results = new StringBuffer();
        

@@ -57,32 +57,32 @@
 
 package org.apache.commons.validator;
 
+import java.io.Serializable;
+
 
 /**
- * <p>Used in the Validation framework for creating a variable.  A variable 
- * can be used to pass in values on a field level for a validation method.</p>
- *
- * <ul><li>See /WEB-INF/validation.xml for validation rules.</li></ul>
+ * <p>A variable can be associate with a <code>Field</code> for 
+ * passing in information to a pluggable validator.</p>
  *
  * @author David Winterfeldt
 */
-public class Var implements Cloneable, java.io.Serializable {
+public class Var implements Cloneable, Serializable {
 
     /**
-     * Int Constant for JavaScript type.  This is used when generating the JavaScript objects 
-     * for use in client side validation.
+     * Int Constant for JavaScript type.  This can be used 
+     * when auto-generating JavaScript.
     */
     public final static String JSTYPE_INT = "int";
 
     /**
-     * String Constant for JavaScript type.  This is used when generating the JavaScript objects 
-     * for use in client side validation.
+     * String Constant for JavaScript type.  This can be used 
+     * when auto-generating JavaScript.
     */
     public final static String JSTYPE_STRING = "string";
 
     /**
-     * Regular Expression Constant for JavaScript type.  This is used when generating the JavaScript objects 
-     * for use in client side validation.
+     * Regular Expression Constant for JavaScript type.  This can be used 
+     * when auto-generating JavaScript.
     */
     public final static String JSTYPE_REGEXP = "regexp";
     
@@ -97,7 +97,7 @@ public class Var implements Cloneable, java.io.Serializable {
     private String value = null;
 
     /**
-     * The JavaScript type of the variable.
+     * The optional JavaScript type of the variable.
     */
     private String jsType = null;
     
@@ -151,20 +151,23 @@ public class Var implements Cloneable, java.io.Serializable {
        this.jsType = jsType;	
     }
 
+    /**
+     * Creates and returns a copy of this object.
+    */
     public Object clone() {
        try {
            Var var = (Var)super.clone();
            
            if (name != null) {
-              var.name = new String(name);
+              var.setName(new String(name));
            }
            
            if (value != null) {
-              var.value = new String(value);
+              var.setValue(new String(value));
            }
            
            if (jsType != null) {
-              var.jsType = new String(jsType);
+              var.setJsType(new String(jsType));
            }
            
            return var;
@@ -172,7 +175,10 @@ public class Var implements Cloneable, java.io.Serializable {
           throw new InternalError(e.toString());
        }
     }  
-           
+
+    /**
+     * Returns a string representation of the object.
+    */
     public String toString() {
        StringBuffer results = new StringBuffer();
        

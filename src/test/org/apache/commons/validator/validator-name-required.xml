@@ -9,11 +9,11 @@
       <form    name="nameForm">
          <field    property="firstName"
          	   depends="required">
-         	     <arg0 key="registrationForm.firstname.displayname"/>
+         	     <arg0 key="nameForm.firstname.displayname"/>
          </field>    
          <field    property="lastName"
          	   depends="required">
-         	     <arg0 key="registrationForm.lastname.displayname"/>
+         	     <arg0 key="nameForm.lastname.displayname"/>
          </field>
       </form>
    </formset>   

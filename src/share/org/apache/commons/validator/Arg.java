@@ -57,15 +57,26 @@
 
 package org.apache.commons.validator;
 
+import java.io.Serializable;
+
 
 /**
- * <p>This class stores the replacement arguments for a message resource.</p>
- *
- * <ul><li>See /WEB-INF/validation.xml for validation rules.</li></ul>
+ * <p>An default argument or an argument for a 
+ * specific validator definition (ex: required) 
+ * can be stored to pass into a message as
+ * as parameters.  This can be used in a 
+ * pluggable validator for constructing locale 
+ * sensitive messages by using <code>java.text.MessageFormat</code> 
+ * or an equivalent class.  The resource field can be 
+ * used to determine if the value stored in the argument 
+ * is a value to be retrieved from a locale sensitive 
+ * message retrieval system like <code>java.util.PropertyResourceBundle</code>.
+ * The resource field defaults to 'true'.</p>
  *
  * @author David Winterfeldt
 */
-public class Arg implements Cloneable, java.io.Serializable {
+public class Arg implements Cloneable, Serializable {
+
     /**
      * The name dependency that this argument goes with (optional).
     */
@@ -80,7 +91,7 @@ public class Arg implements Cloneable, java.io.Serializable {
      * Whether or not the key is a message resource (optional).  Defaults to true.  
      * If it is 'true', the value will try to be resolved as a message resource.
     */
-    protected String resource = "true";
+    protected boolean resource = true;
 
 
     /**
@@ -114,39 +125,43 @@ public class Arg implements Cloneable, java.io.Serializable {
     /**
      * Gets whether or not the key is a resource.
     */
-    public String getResource() {
+    public boolean getResource() {
        return resource;	
     }
 
     /**
      * Sets whether or not the key is a resource.
     */
-    public void setResource(String resource) {
+    public void setResource(boolean resource) {
        this.resource = resource;	
     }
 
+    /**
+     * Creates and returns a copy of this object.
+    */
     public Object clone() {
        try {
            Arg arg = (Arg)super.clone();
 
            if (name != null) {
-              arg.name = new String(name);
+              arg.setName(new String(name));
            }
               
            if (key != null) {
-              arg.key = new String(key);
+              arg.setKey(new String(key));
            }
            
-           if (resource != null) {
-              arg.resource = new String(resource);
-           }
+           arg.setResource(resource);
 
            return arg;
        } catch (CloneNotSupportedException e) {
           throw new InternalError(e.toString());
        }
     }  
-          
+    
+    /**
+     * Returns a string representation of the object.
+    */
     public String toString() {
        StringBuffer results = new StringBuffer();
        

@@ -67,21 +67,25 @@ import org.apache.commons.collections.FastHashMap;
 
 
 /**
- * <p>Used in the Validation framework.</p>
- *
- * <ul><li>See /WEB-INF/validation.xml for validation rules.</li></ul>
+ * <p>This contains a set of validation rules for a 
+ * form/JavaBean.  The information is contained in a 
+ * list of <code>Field</code> objects.</p>
  *
  * @author David Winterfeldt
 */
 public class Form implements Serializable {
+
     /**
-     * The name of the form should match the form name in the action configuration 
-     * in the struts-config.xml file.
+     * The name/key the set of validation rules is 
+     * stored under.
     */
     protected String name = null;
 
     /**
-     * List of <code>Field</code>s.  Used to maintain the order they were added in.
+     * List of <code>Field</code>s.  Used to maintain 
+     * the order they were added in although individual 
+     * <code>Field</code>s can be retrieved using 
+     * <code>Map</code> of <code>Field</code>s.
     */
     protected List lFields = new ArrayList();
     
@@ -91,16 +95,14 @@ public class Form implements Serializable {
     protected FastHashMap hFields = new FastHashMap();
 
     /**
-     * Gets the name of the form.  It should match the form name in 
-     * the action configuration in the struts-config.xml file.
+     * Gets the name/key of the set of validation rules.
     */
     public String getName() {
        return name;	
     }
 
     /**
-     * Sets the name of the form.  It should match the form name in 
-     * the action configuration in the struts-config.xml file.
+     * Sets the name/key of the set of validation rules.
     */
     public void setName(String name) {
        this.name = name;	
@@ -144,7 +146,10 @@ public class Form implements Serializable {
        	  f.process(globalConstants, constants);
        }
     }
-    
+
+    /**
+     * Returns a string representation of the object.
+    */    
     public String toString() {
        StringBuffer results = new StringBuffer();
        

@@ -76,8 +76,10 @@ import org.apache.commons.logging.LogSource;
 
 
 /**
- * <p>This class performs validations.  The methods are can be configured to be 
- * used in the framework in the validation.xml file.  (See example webapp)</p>
+ * <p>Validations are processed by the validate method.  
+ * An instance of <code>ValidatorResources</code> is 
+ * used to define the validators (validation methods) 
+ * and the validation rules for a JavaBean.</p>
  *
  * @author David Winterfeldt
 */
@@ -101,24 +103,106 @@ public class Validator implements Serializable {
    protected String formName = null;
    protected HashMap hResources = new HashMap();
    protected int page = 0;   
-   
+
+   /**
+    * Construct a <code>Validator</code> that will 
+    * use the <code>ValidatorResources</code> 
+    * passed in to retrieve pluggable validators 
+    * the different sets of validation rules.
+    *
+    * @param	resources	<code>ValidatorResources</code> 
+    *				to use during validation.
+   */
+   public Validator(ValidatorResources resources) {
+      this.resources = resources;
+   }
+
+   /**
+    * Construct a <code>Validator</code> that will 
+    * use the <code>ValidatorResources</code> 
+    * passed in to retrieve pluggable validators 
+    * the different sets of validation rules.
+    *
+    * @param	resources	<code>ValidatorResources</code> 
+    *				to use during validation.
+    * @param	formName	Key used for retrieving the set of 
+    *				validation rules.
+   */
    public Validator(ValidatorResources resources, String formName) {
       this.resources = resources;
       this.formName = formName;
    }
    
+   /**
+    * Add a resource to be used during the processing 
+    * of validations.
+    *
+    * @param	key		The full class name of the parameter 
+    *				of the validation method that 
+    *				corresponds to the value/instance 
+    *				passed in with it.
+    * @param	value		The instance that will be passed 
+    *				into the validation method.
+   */
    public void addResource(String key, Object value) {
       hResources.put(key, value);
    }
+
+   /**
+    * Gets the form name which is the key 
+    * to a set of validation rules.
+   */
+   public String getFormName() {
+      return formName;	
+   }
    
-   public void setPage(int page) {
-      this.page = page;	
+   /**
+    * Sets the form name which is the key 
+    * to a set of validation rules.
+   */
+   public void setFormName(String formName) {
+      this.formName = formName;	
    }
 
+   /**
+    * Gets the page.  This in conjunction with 
+    * the page property of a <code>Field<code> 
+    * can control the processing of fields.  
+    * If the field's page is less than or equal 
+    * to this page value, it will be processed.
+   */
    public int getPage() {
       return page;	
    }
    
+   /**
+    * Sets the page.  This in conjunction with 
+    * the page property of a <code>Field<code> 
+    * can control the processing of fields.  
+    * If the field's page is less than or equal 
+    * to this page value, it will be processed.
+   */
+   public void setPage(int page) {
+      this.page = page;	
+   }
+
+   /**
+    * Clears the form name, resources that were added, 
+    * and the page that was set (if any).  This can 
+    * be called to reinitialize the Validator instance 
+    * so it can be reused.  The form name (key to 
+    * set of validation rules) and any resources needed, 
+    * like the JavaBean being validated, will need to 
+    * set and/or added to this instance again.  The 
+    * <code>ValidatorResources</code> will not be removed 
+    * since it can be used again and is thread safe.
+   */
+   public void clear() {
+      formName = null;
+      hResources = new HashMap();
+      page = 0;   
+   }
+      
    /**
     * Performs validations based on the configured resources.  
     * 
@@ -130,11 +214,13 @@ public class Validator implements Serializable {
       Map hResults = new HashMap();
       Locale locale = null;
       
-      if (hResources.containsKey(LOCALE_KEY))
+      if (hResources.containsKey(LOCALE_KEY)) {
          locale = (Locale)hResources.get(LOCALE_KEY);
+      }
       
-      if (locale == null)
+      if (locale == null) {
          locale = Locale.getDefault();
+      }
          
       Form form = null;
       if ((form = resources.get(locale, formName)) != null) {	    

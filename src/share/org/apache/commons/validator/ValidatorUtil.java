@@ -57,14 +57,16 @@
 
 package org.apache.commons.validator;
 
+import java.util.Iterator;
+import java.util.Map;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.FastHashMap; 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogSource;
 
 
 /**
- * <p>This class helps provides some useful methods for retrieving objects 
- * from different scopes of the application.</p>
+ * <p>Basic utility methods.</p>
  *
  * @author David Winterfeldt
 */
@@ -116,6 +118,40 @@ public class ValidatorUtil  {
       }
    	
       return (value != null ? value.toString() : null);    	
+   }
+
+   /**
+    * Makes a deep copy of a <code>FastHashMap</code> if the values 
+    * are <code>String</code>, <code>Msg</code>, <code>Arg</code>, 
+    * or <code>Var</code>.  Otherwise it is a shallow copy.
+    * 
+    * @param	map		<code>FastHashMap</code> to copy.
+    * @return 	FastHashMap	A copy of the <code>FastHashMap</code> 
+    *				that was passed in.
+   */
+   public static FastHashMap copyFastHashMap(FastHashMap map) {
+      FastHashMap hResults = new FastHashMap();
+      
+      for (Iterator i = map.keySet().iterator(); i.hasNext(); ) {
+         String key = (String)i.next();
+         Object value = map.get(key);
+
+      	  if (value instanceof String) {
+      	     hResults.put(key, new String((String)value));
+      	  } else if (value instanceof Msg) {
+      	     hResults.put(key, ((Msg)value).clone());
+      	  } else if (value instanceof Arg) {
+      	     hResults.put(key, ((Arg)value).clone());
+      	  } else if (value instanceof Var) {
+      	     hResults.put(key, ((Var)value).clone());
+         } else {
+            hResults.put(key, value);	
+         }
+      }
+      
+      hResults.setFast(true);
+      
+      return hResults;
    }
    
 }

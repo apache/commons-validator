@@ -68,7 +68,8 @@ import org.apache.regexp.RESyntaxException;
 
 
 /**
- * <p>This class performs validations.</p>
+ * <p>This class contains basic methods for 
+ * performing validations.</p>
  *
  * @author David Winterfeldt
 */

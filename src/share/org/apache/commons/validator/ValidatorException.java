@@ -61,14 +61,26 @@ import java.io.Serializable;
 
 
 /**
- * <p>Exception for the Validator Framework.</p>
+ * <p>Exception for the Validator Framework.  All other 
+ * <code>Exception</code>s thrown while the 
+ * <code>Validator</code>'s validate method is being 
+ * called will be considered errors.  A 
+ * <code>ValidatorException</code> will be thrown.</p>
  *
  * @author David Winterfeldt
 */
 public class ValidatorException extends Exception implements Serializable{
 
+   /**
+    * Constructs an Exception with no specified detail message.
+   */
    public ValidatorException() {}
    
+   /**
+    * Constructs an Exception with the specified detail message.
+    * 
+    * @param	message		The error message.
+   */
    public ValidatorException(String message) {
       super(message);	
    }

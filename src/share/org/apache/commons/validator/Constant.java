@@ -57,19 +57,24 @@
 
 package org.apache.commons.validator;
 
+import java.io.Serializable;
+
 
 /**
- * <p>Used in the Validation framework for creating a constant.  A constant can be 
- * used to define a global or locale level constant that can be used to replace 
- * some values in the <code>Field</code> class.<BR>
- * &nbsp;&nbsp;&nbsp;ex: &lt;constant name="zip" value="^\d{5}$" /&gt;<BR>
+ * <p>A constant can be used to define a global or 
+ * locale level constant that can be used to replace 
+ * values in certain fields.  The <code>Field</code>'s 
+ * property field, the <code>Var</code>'s value field, 
+ * the <code>Msg</code>'s key field, and the <code>Arg</code>'s 
+ * key field can all contain constants reference for replacement.
+ * <br>
+ * &nbsp;&nbsp;&nbsp;ex: &lt;constant name="zip" value="^\d{5}$" /&gt;<br>
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mask="${zip}" </p>
- *
- * <ul><li>See /WEB-INF/validation.xml for validation rules.</li></ul>
  *
  * @author David Winterfeldt
 */
-public class Constant implements java.io.Serializable {
+public class Constant implements Serializable {
+
     /**
      * The name of the constant.
     */
@@ -107,7 +112,10 @@ public class Constant implements java.io.Serializable {
     public void setValue(String value) {
        this.value = value;	
     }
-       
+
+    /**
+     * Returns a string representation of the object.
+    */       
     public String toString() {
        StringBuffer results = new StringBuffer();
     	

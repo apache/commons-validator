@@ -224,8 +224,6 @@ public class ValidatorResources implements Serializable {
             ((country != null && country.length() > 0) ? "_" + country : "") + 
             ((variant != null && variant.length() > 0) ? "_" + variant : "");
       
-      //System.out.println("ValidatorResources::get #1 - locale=" + locale.toString() + "  key=" + key);
-      
       o = hFormSets.get(key);
       if (o != null) {
          fs = (FormSet)o;
@@ -236,8 +234,6 @@ public class ValidatorResources implements Serializable {
       if (f == null) {
          key = ((language != null && language.length() > 0) ? language : "") + 
                ((country != null && country.length() > 0) ? "_" + country : "");
-         
-         //System.out.println("ValidatorResources::get #2 - locale=" + locale.toString() + "  key=" + key);
          
          o = hFormSets.get(key);
          if (o != null) {
@@ -251,8 +247,6 @@ public class ValidatorResources implements Serializable {
       if (f == null) {
          key = ((language != null && language.length() > 0) ? language : "");
          
-         //System.out.println("ValidatorResources::get #3 - locale=" + locale.toString() + "  key=" + key);
-         
          o = hFormSets.get(key);
          if (o != null) {
             fs = (FormSet)o;
@@ -262,9 +256,7 @@ public class ValidatorResources implements Serializable {
       }
       
       if (f == null) {
-         key = Locale.getDefault().toString();
-         
-         //System.out.println("ValidatorResources::get #4 - locale=" + locale.toString() + "  key=" + key);
+         key = defaultLocale.toString();
          
          o = hFormSets.get(key);
          if (o != null) {
@@ -342,12 +334,19 @@ public class ValidatorResources implements Serializable {
       for (Iterator i = hFormSets.values().iterator(); i.hasNext(); ) {
       	  FormSet fs = (FormSet)i.next();
  
-         if (!fs.isProcessed())
+         if (!fs.isProcessed()) {
             fs.process(hConstants);
+         }
       }
  
    }
 
+   /**
+    * Retrieves the closest matching <code>Field</code> based 
+    * on <code>FormSet</code>'s locale.  This is used when 
+    * constructing a clone, field by field, of partial 
+    * <code>FormSet</code>.
+   */
    protected Field getClosestLocaleField(FormSet fs, String formKey, String fieldKey) {
       Field field = null;
       String language = fs.getLanguage();

@@ -65,14 +65,14 @@ import org.apache.commons.collections.FastHashMap;
 
 
 /**
- * <p>Used in the Validation framework.  It holds a set of <code>Form</code>s 
- * stored associated with a <code>Locale</code>.</p>
- *
- * <ul><li>See /WEB-INF/validation.xml for validation rules.</li></ul>
+ * <p>Holds a set of <code>Form</code>s 
+ * stored associated with a <code>Locale</code> based 
+ * on the country, language, and variant specified.</p>
  *
  * @author David Winterfeldt
 */
 public class FormSet implements Serializable {
+    
     /**
      * Whether or not the this <code>FormSet</code> was processed 
      * for replacing variables in strings with their values.
@@ -94,10 +94,15 @@ public class FormSet implements Serializable {
     */
     private String variant = null;
     
+    /**
+     * A <code>FastHashMap</code> of <code>Form</code>s 
+     * using the name field of the <code>Form</code> as the key.
+    */
     private FastHashMap hForms = new FastHashMap();
 
     /**
-     * Constants
+     * A <code>FastHashMap</code> of <code>Constant</code>s 
+     * using the name field of the <code>Constant</code> as the key.
     */
     private FastHashMap hConstants = new FastHashMap();
 
@@ -205,7 +210,10 @@ public class FormSet implements Serializable {
        
        bProcessed = true;
     }
-    
+
+    /**
+     * Returns a string representation of the object.
+    */    
     public String toString() {
        StringBuffer results = new StringBuffer();
     

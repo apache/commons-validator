@@ -67,20 +67,24 @@ import org.apache.commons.collections.FastHashMap;
 
 
 /**
- * <p>Used in the Validation framework.</p>
- *
- * <ul><li>See /WEB-INF/validation.xml for validation rules.</li></ul>
+ * <p>This contains the list of pluggable validators to 
+ * run on a field and any message information and variables
+ * to perform the validations and generate error messages.</p>
  *
  * @author David Winterfeldt
  * @see org.apache.commons.validator.Form
 */
 public class Field implements Cloneable, Serializable {
+
     /**
      * This is the value that will be used as a key if the <code>Arg</code> 
      * name field has no value.
     */
     public final static String ARG_DEFAULT = "org.apache.commons.validator.Field.DEFAULT";
     
+    /**
+     * This indicates an indexed property is being referenced.
+    */
     public final static String TOKEN_INDEXED = "[]";
     
     protected final static String TOKEN_START = "${";
@@ -560,6 +564,9 @@ public class Field implements Cloneable, Serializable {
        return Collections.unmodifiableMap(hDependencies).keySet();
     }
 
+    /**
+     * Creates and returns a copy of this object.
+    */
     public Object clone() {
        try {
            Field field = (Field)super.clone();
@@ -586,50 +593,23 @@ public class Field implements Cloneable, Serializable {
 
            // page & fieldOrder should be taken care of by clone method
            
-           field.hDependencies = copyFastHashMap(hDependencies);
-           field.hVars = copyFastHashMap(hVars);
-           field.hMsgs = copyFastHashMap(hMsgs);
-           field.hArg0 = copyFastHashMap(hArg0);
-           field.hArg1 = copyFastHashMap(hArg1);
-           field.hArg2 = copyFastHashMap(hArg2);
-           field.hArg3 = copyFastHashMap(hArg3);
+           field.hDependencies = ValidatorUtil.copyFastHashMap(hDependencies);
+           field.hVars = ValidatorUtil.copyFastHashMap(hVars);
+           field.hMsgs = ValidatorUtil.copyFastHashMap(hMsgs);
+           field.hArg0 = ValidatorUtil.copyFastHashMap(hArg0);
+           field.hArg1 = ValidatorUtil.copyFastHashMap(hArg1);
+           field.hArg2 = ValidatorUtil.copyFastHashMap(hArg2);
+           field.hArg3 = ValidatorUtil.copyFastHashMap(hArg3);
     
            return field;
        } catch (CloneNotSupportedException e) {
           throw new InternalError(e.toString());
        }
     }    
-    
-    /**
-     * Makes a deep copy of a <code>FastHashMap</code> if the values 
-     * are <code>String</code>, <code>Msg</code>, <code>Arg</code>, 
-     * or <code>Var</code>.  Otherwise it is a shallow copy.
-    */
-    public FastHashMap copyFastHashMap(FastHashMap map) {
-       FastHashMap hResults = new FastHashMap();
-       
-       for (Iterator i = map.keySet().iterator(); i.hasNext(); ) {
-          String key = (String)i.next();
-          Object value = map.get(key);
 
-       	  if (value instanceof String) {
-       	     hResults.put(key, new String((String)value));
-       	  } else if (value instanceof Msg) {
-       	     hResults.put(key, ((Msg)value).clone());
-       	  } else if (value instanceof Arg) {
-       	     hResults.put(key, ((Arg)value).clone());
-       	  } else if (value instanceof Var) {
-       	     hResults.put(key, ((Var)value).clone());
-          } else {
-             hResults.put(key, value);	
-          }
-       }
-       
-       hResults.setFast(true);
-       
-       return hResults;
-    }
-    
+    /**
+     * Returns a string representation of the object.
+    */       
     public String toString() {
        StringBuffer results = new StringBuffer();
        
