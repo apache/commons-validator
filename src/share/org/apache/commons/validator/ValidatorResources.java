@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.9 2002/12/15 21:46:41 martinc Exp $
- * $Revision: 1.9 $
- * $Date: 2002/12/15 21:46:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.10 2003/01/20 06:15:06 turner Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/01/20 06:15:06 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  * application server environments.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.9 $ $Date: 2002/12/15 21:46:41 $
+ * @version $Revision: 1.10 $ $Date: 2003/01/20 06:15:06 $
 */
 public class ValidatorResources implements Serializable {
 
@@ -131,8 +131,8 @@ public class ValidatorResources implements Serializable {
 		formsets.add(fs);
 	    }
 
-          if (log.isInfoEnabled()) {
-	      log.info("Adding FormSet '" + fs.toString() + "'.");
+          if (log.isDebugEnabled()) {
+	      log.debug("Adding FormSet '" + fs.toString() + "'.");
 	   }
    	}
    }
@@ -147,8 +147,8 @@ public class ValidatorResources implements Serializable {
          hConstants.put(c.getName(), c.getValue());
       }
       
-      if (log.isInfoEnabled()) {
-         log.info("Add Global Constant: " + c.getName() + "," + c.getValue());
+      if (log.isDebugEnabled()) {
+         log.debug("Add Global Constant: " + c.getName() + "," + c.getValue());
       }
    }
 
@@ -161,8 +161,8 @@ public class ValidatorResources implements Serializable {
          hConstants.put(name, value);
       }
       
-      if (log.isInfoEnabled()) {
-         log.info("Add Global Constant: " + name + "," + value);
+      if (log.isDebugEnabled()) {
+         log.debug("Add Global Constant: " + name + "," + value);
       }
    }
     
@@ -181,8 +181,8 @@ public class ValidatorResources implements Serializable {
 
          hActions.put(va.getName(), va);
          
-         if (log.isInfoEnabled()) {
-            log.info("Add ValidatorAction: " + va.getName() + "," + va.getClassname());   
+         if (log.isDebugEnabled()) {
+            log.debug("Add ValidatorAction: " + va.getName() + "," + va.getClassname());   
          }
       }
    }
@@ -378,7 +378,7 @@ public class ValidatorResources implements Serializable {
       if (!GenericValidator.isBlankOrNull(language) && 
           !GenericValidator.isBlankOrNull(country) && 
           !GenericValidator.isBlankOrNull(variant)) {
-         Form form = get(language, country, null, formKey);
+         Form form = get(language, country, variant, formKey);
 
          if (form.getFieldMap().containsKey(fieldKey)) {
             field = (Field)form.getFieldMap().get(fieldKey);
@@ -388,6 +388,16 @@ public class ValidatorResources implements Serializable {
       if (field == null) {
          if (!GenericValidator.isBlankOrNull(language) && 
              !GenericValidator.isBlankOrNull(country)) {
+            Form form = get(language, country, null, formKey);
+         
+            if (form.getFieldMap().containsKey(fieldKey)) {
+               field = (Field)form.getFieldMap().get(fieldKey);
+            }
+         }
+      }  
+
+      if (field == null) {
+         if (!GenericValidator.isBlankOrNull(language)) {
             Form form = get(language, null, null, formKey);
          
             if (form.getFieldMap().containsKey(fieldKey)) {

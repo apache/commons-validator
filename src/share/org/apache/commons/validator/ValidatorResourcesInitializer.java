@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.10 2002/12/15 21:46:41 martinc Exp $
- * $Revision: 1.10 $
- * $Date: 2002/12/15 21:46:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.11 2003/01/20 06:15:06 turner Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/01/20 06:15:06 $
  *
  * ====================================================================
  *
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author Dave Derry
- * @version $Revision: 1.10 $ $Date: 2002/12/15 21:46:41 $
+ * @version $Revision: 1.11 $ $Date: 2003/01/20 06:15:06 $
 */
 public class ValidatorResourcesInitializer {
 
@@ -94,8 +94,8 @@ public class ValidatorResourcesInitializer {
      * <strong>MUST</strong> be an even number of Strings in this list!
      */
     protected static String registrations[] = {
-        "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN",
-	"/org/apache/commons/validator/resources/validator_1_0.dtd"
+        "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0.1//EN",
+	"/org/apache/commons/validator/resources/validator_1_0_1.dtd"
    };
 
 
