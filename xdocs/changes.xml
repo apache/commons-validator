@@ -40,8 +40,39 @@ The <action> type attribute can be add,update,fix,remove.
 
     <release version="1.1.2 (alpha)" date="in CVS">
       <action dev="rleland" type="update">
-
-      </action>              
+        Allow multiple forms to be on the same page by 
+        generating a unique variable name based on form name.
+        PR# 17667
+      </action>
+      <action dev="rleland" type="add">
+        Validate file extensions for file uploads. PR# 26585
+      </action>
+      <action dev="rleland" type="add">
+        Add Support for hidden fields in javascript 
+        validations. PR# 26584
+      </action>
+      <action dev="dgraham" type="update">
+        The framework will convert checked exceptions into 
+        ValidatorExceptions so any ValidatorException thrown out 
+        of the framework indicates a 'system' exception that 
+        stops validation processing. If a pluggable validation 
+        method throws a ValidatorException it will be rethrown 
+        and passed out of the framework. Any other exception from 
+        a pluggable validation method is still considered a validation 
+        failure rather than a system exception to maintain backwards 
+        compatibility. PR# 24369
+      </action>
+      <action dev="dgraham" type="add">
+        Added a more flexible card validation system that doesn't 
+        require CreditCardValidator to support every brand of 
+        credit card. PR# 25869
+      </action>
+      <action dev="dgraham" type="update">
+        Throw RuntimeException if clone fails instead of InternalError.
+      </action>
+      <action dev="dgraham" type="add">
+         Added Flags.clear().
+      </action>
     </release>
     
     <release version="1.1.1 (alpha)" date="2003-12-15">
