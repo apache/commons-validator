@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.12 2004/01/11 23:30:20 dgraham Exp $
- * $Revision: 1.12 $
- * $Date: 2004/01/11 23:30:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.13 2004/01/17 18:10:49 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2004/01/17 18:10:49 $
  *
  * ====================================================================
  *
@@ -179,8 +179,7 @@ public class CreditCardValidator {
         for (int count = 0; count < digits; count++) {
             int digit = 0;
             try {
-                digit =
-                        Integer.parseInt(String.valueOf(cardNumber.charAt(count)));
+                digit = Integer.parseInt(cardNumber.charAt(count) + "");
             } catch(NumberFormatException e) {
                 return false;
             }
@@ -194,11 +193,7 @@ public class CreditCardValidator {
             sum += digit;
         }
 
-        if (sum == 0) {
-            return false;
-        }
-
-        return (sum % 10 == 0);
+        return (sum == 0) ? false : (sum % 10 == 0);
     }
 
     /**
