@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/Flags.java,v 1.5 2004/01/11 23:30:21 dgraham Exp $
- * $Revision: 1.5 $
- * $Date: 2004/01/11 23:30:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/Flags.java,v 1.6 2004/01/17 17:32:28 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2004/01/17 17:32:28 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,19 +64,15 @@ package org.apache.commons.validator.util;
 import java.io.Serializable;
 
 /**
- * Represents a collection of 64 boolean (on/off) flags.  Individual flags are
- * represented by powers of 2.  For example,<br/>
+ * Represents a collection of 64 boolean (on/off) flags.  Individual flags 
+ * are represented by powers of 2.  For example,<br/>
  * Flag 1 = 1<br/>
  * Flag 2 = 2<br/>
  * Flag 3 = 4<br/>
  * Flag 4 = 8<br/>
  * <p>
- * There cannot be a flag with a value of 3 because that represents Flag 1 and Flag
- * 2 both being on/true.
- * </p>
- * <p>
- * Typically this class will be used in support of another class with constants
- * and not directly by clients.
+ * There cannot be a flag with a value of 3 because that represents Flag 1 
+ * and Flag 2 both being on/true.
  * </p>
  */
 public class Flags implements Serializable {
@@ -109,16 +105,16 @@ public class Flags implements Serializable {
     }
 
     /**
-     * Tests whether the given flag is on.  If the flag is not a power of 2 (ie. 3) this
-     * tests whether the combination of flags is on.
+     * Tests whether the given flag is on.  If the flag is not a power of 2 
+     * (ie. 3) this tests whether the combination of flags is on.
      */
     public boolean isOn(long flag) {
         return (this.flags & flag) > 0;
     }
 
     /**
-     * Tests whether the given flag is off.  If the flag is not a power of 2 (ie. 3) this
-     * tests whether the combination of flags is off.
+     * Tests whether the given flag is off.  If the flag is not a power of 2 
+     * (ie. 3) this tests whether the combination of flags is off.
      */
     public boolean isOff(long flag) {
         return (this.flags & flag) == 0;
@@ -146,9 +142,17 @@ public class Flags implements Serializable {
     public void turnOffAll() {
         this.flags = 0;
     }
+    
+    /**
+     * Turn off all flags.  This is a synonym for <code>turnOffAll()</code>.
+     * @since Validator 1.1.1
+     */
+    public void clear() {
+        this.flags = 0;
+    }
 
     /**
-     * Turn on all 32 flags.
+     * Turn on all 64 flags.
      */
     public void turnOnAll() {
         this.flags = Long.MAX_VALUE;
@@ -162,7 +166,7 @@ public class Flags implements Serializable {
         try {
             return super.clone();
         } catch(CloneNotSupportedException e) {
-            throw new InternalError("Couldn't clone Flags object.");
+            throw new RuntimeException("Couldn't clone Flags object.");
         }
     }
 
@@ -194,8 +198,9 @@ public class Flags implements Serializable {
     }
 
     /**
-     * Returns a 64 length String with the first flag on the right and the 64th flag on
-     * the left.  A 1 indicates the flag is on, a 0 means it's off.
+     * Returns a 64 length String with the first flag on the right and the 
+     * 64th flag on the left.  A 1 indicates the flag is on, a 0 means it's 
+     * off.
      */
     public String toString() {
         StringBuffer bin = new StringBuffer(Long.toBinaryString(this.flags));

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/util/FlagsTest.java,v 1.3 2004/01/11 23:30:22 dgraham Exp $
- * $Revision: 1.3 $
- * $Date: 2004/01/11 23:30:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/util/FlagsTest.java,v 1.4 2004/01/17 17:32:28 dgraham Exp $
+ * $Revision: 1.4 $
+ * $Date: 2004/01/17 17:32:28 $
  *
  * ====================================================================
  *
@@ -77,10 +77,9 @@ public class FlagsTest extends TestCase {
 
 	/**
 	 * Constructor for FlagsTest.
-	 * @param arg0
 	 */
-	public FlagsTest(String arg0) {
-		super(arg0);
+	public FlagsTest(String name) {
+		super(name);
 	}
 
 	public void testHashCode() {
@@ -117,6 +116,12 @@ public class FlagsTest extends TestCase {
 		f.turnOffAll();
 		assertEquals(0, f.getFlags());
 	}
+    
+    public void testClear() {
+        Flags f = new Flags(98432);
+        f.clear();
+        assertEquals(0, f.getFlags());
+    }
 
 	public void testTurnOnAll() {
 		Flags f = new Flags();
