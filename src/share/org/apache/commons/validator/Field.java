@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.5 2002/03/30 04:33:17 dwinterfeldt Exp $
- * $Revision: 1.5 $
- * $Date: 2002/03/30 04:33:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.6 2002/10/11 01:49:33 turner Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/10/11 01:49:33 $
  *
  * ====================================================================
  *
@@ -77,7 +77,7 @@ import org.apache.commons.collections.FastHashMap;
  * to perform the validations and generate error messages.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2002/03/30 04:33:17 $
+ * @version $Revision: 1.6 $ $Date: 2002/10/11 01:49:33 $
  * @see org.apache.commons.validator.Form
 */
 public class Field implements Cloneable, Serializable {
@@ -439,7 +439,7 @@ public class Field implements Cloneable, Serializable {
      * to create the dependency <code>Map</code>.
     */
     public void process(Map globalConstants, Map constants) {
-       hMsgs.setFast(true);
+       hMsgs.setFast(false);
        hArg0.setFast(true);
        hArg1.setFast(true);
        hArg2.setFast(true);
