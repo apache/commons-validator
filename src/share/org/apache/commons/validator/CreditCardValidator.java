@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.16 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.16 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.17 2004/04/08 23:29:31 dgraham Exp $
+ * $Revision: 1.17 $
+ * $Date: 2004/04/08 23:29:31 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -181,23 +181,6 @@ public class CreditCardValidator {
         }
 
         return (sum == 0) ? false : (sum % 10 == 0);
-    }
-
-    /**
-     * Checks for a valid credit card number.
-     * @param card Credit Card Number.
-     * @deprecated This will be removed in a future release.
-     */
-    protected boolean isValidPrefix(String card) {
-
-        if (card.length() < 13) {
-            return false;
-        }
-        
-        return new Visa().matches(card)
-            || new Amex().matches(card)
-            || new Mastercard().matches(card)
-            || new Discover().matches(card);
     }
     
     /**

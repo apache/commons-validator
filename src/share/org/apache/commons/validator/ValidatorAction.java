@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.20 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.20 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.21 2004/04/08 23:29:31 dgraham Exp $
+ * $Revision: 1.21 $
+ * $Date: 2004/04/08 23:29:31 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -28,7 +28,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -226,14 +225,6 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Gets the method parameters for the method as an unmodifiable List.
-     * @deprecated This will be removed after Validator 1.1.2
-     */
-    public List getMethodParamsList() {
-        return Collections.unmodifiableList(this.methodParameterList);
-    }
-
-    /**
      * Gets the dependencies of the validator action as a comma separated list 
      * of validator names.
      */
@@ -343,22 +334,6 @@ public class ValidatorAction implements Serializable {
         }
 
         this.javascript = javascript;
-    }
-
-    /**
-     * Gets an instance based on the validator action's classname.
-     * @deprecated This will be removed after Validator 1.1.2
-     */
-    public Object getClassnameInstance() {
-        return instance;
-    }
-
-    /**
-     * Sets an instance based on the validator action's classname.
-     * @deprecated This will be removed after Validator 1.1.2
-     */
-    public void setClassnameInstance(Object instance) {
-        this.instance = instance;
     }
 
     /**
@@ -492,28 +467,10 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Creates a <code>FastHashMap</code> for the isDependency method
-     * based on depends.
-     * @deprecated This functionality has been moved to other methods.  It's no 
-     * longer required to call this method to initialize this object.
-     */
-    public synchronized void process(Map globalConstants) {
-        // do nothing
-    }
-
-    /**
      * Checks whether or not the value passed in is in the depends field.
      */
     public boolean isDependency(String validatorName) {
         return this.dependencyList.contains(validatorName);
-    }
-
-    /**
-     * Gets the dependencies as a <code>Collection</code>.
-     * @deprecated Use getDependencyList() instead.
-     */
-    public Collection getDependencies() {
-        return this.getDependencyList();
     }
 
     /**
