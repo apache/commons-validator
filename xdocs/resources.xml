@@ -10,13 +10,11 @@
 
   <section name="Struts Console">
     <p>
-     The Struts Console is a FREE standalone Java Swing application for managing 
-     Struts-related configuration files, including Commons Validator config files.
-     The Struts Console also "plugs" into mulitple, popular Java IDEs for seamless
+     <a href='http://www.jamesholmes.com/struts/'>Struts Console</a> is a free 
+     standalone Java Swing application for managing 
+     Struts related configuration files, including Commons Validator config files.
+     Struts Console also plugs into several popular Java IDEs for seamless
      management of config files from one central development tool.
-
-     <a href='http://www.jamesholmes.com/struts/'>Struts Console</a>
-
     </p>
 
   </section>
