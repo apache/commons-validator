@@ -5,6 +5,7 @@
   <name>Validator</name>
   <id>commons-validator</id>
   <currentVersion>1.1.0-dev</currentVersion>
+  
   <inceptionYear>2002</inceptionYear>
   <gumpRepositoryId>jakarta</gumpRepositoryId>
   <package>org.apache.commons.validator.*</package>
@@ -17,12 +18,26 @@
     and server side data validation. It may be used standalone on with a framework like
     Struts.
   </description>
-  
   <url>http://jakarta.apache.org/commons/validator/</url>
+ 
   <issueTrackingUrl>http://nagoya.apache.org/bugzilla/</issueTrackingUrl>
   <siteAddress>jakarta.apache.org</siteAddress>
   <siteDirectory>/www/jakarta.apache.org/commons/validator/</siteDirectory>
   <distributionDirectory>http://jakarta.apache.org/site/binindex.cgi</distributionDirectory>
+  <mailingLists>
+    <mailingList>
+      <name>Commons Dev List</name>
+      <subscribe>commons-dev-subscribe@jakarta.apache.org</subscribe>
+      <unsubscribe>commons-dev-unsubscribe@jakarta.apache.org</unsubscribe>
+      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-dev@jakarta.apache.org</archive>
+    </mailingList>
+    <mailingList>
+      <name>Commons User List</name>
+      <subscribe>commons-user-subscribe@jakarta.apache.org</subscribe>
+      <unsubscribe>commons-user-unsubscribe@jakarta.apache.org</unsubscribe>
+      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-user@jakarta.apache.org</archive>
+    </mailingList>
+  </mailingLists>
 
   <developers>
     <developer>
@@ -73,40 +88,47 @@
   </contributors>
   
   <dependencies>
+    
+    <dependency>
+      <id>commons-logging</id>
+      <version>1.0.3</version>
+      <url>http://jakarta.apache.org/commons/logging.html</url>
+    </dependency>
 
     <dependency>
       <id>commons-beanutils</id>
       <version>1.6.1</version>
+      <url>http://jakarta.apache.org/commons/beanutils.html</url>
     </dependency>
 
     <dependency>
       <id>commons-collections</id>
       <version>2.1</version>
+      <url>http://jakarta.apache.org/commons/collections.html</url>
     </dependency>
 
     <dependency>
       <id>commons-digester</id>
       <version>1.5</version>
+      <url>http://jakarta.apache.org/commons/digester.html</url>
     </dependency>
 
     <dependency>
-      <id>commons-logging</id>
-      <version>1.0.3</version>
-    </dependency>
-    
-    <dependency>
       <id>oro</id>
       <version>2.0.6</version>
+      <url>http://jakarta.apache.org/oro/</url>
     </dependency>
 
     <dependency>
       <id>xml-apis</id>
       <version>2.0.2</version>
+      <url>http://xml.apache.org/commons/</url>
     </dependency>
 
     <dependency>
       <id>junit</id>
       <version>3.8.1</version>
+      <url>http://www.junit.org</url>
     </dependency>
 
   </dependencies>

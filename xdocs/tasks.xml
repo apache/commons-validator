@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<document>
+  <properties>
+    <title>TODO</title>
+    <author email="rleland@apache.org">Robert Leland</author>
+  </properties>
+
+  <body>
+    <section name="TODO list">
+      <p>
+        The following is a list of items that need to be completed in
+        Validator.  Contributions are welcome! 
+      </p>
+    
+    <subsection name="High priority"> 
+      <ul>
+       </ul>
+    </subsection>
+    
+    <subsection name="Medium priority"> 
+      <ul>
+      </ul>
+    </subsection>
+    
+    <subsection name="Low priority"> 
+      <ul>
+       </ul>
+    </subsection>
+</section>
+<section name='Completed'>
+    <subsection name='Since 1.0.2 Release'>
+        <ul>
+         </ul>
+    </subsection>
+</section>
+<section name='Deprecated'>
+    <subsection name='Since 1.0.2 Release'>
+        <ul>
+        </ul>
+    </subsection>
+</section>
+<section name='Backwards Incompatible Changes'>
+    <subsection name='Since 1.0.2 Release'>
+        <ul>
+        </ul>
+    </subsection>
+</section>
+<section name='Symantic Changes'>
+    <subsection name='Since 1.0.2 Release'>
+        <ul>	
+        </ul>
+    </subsection>
+</section>
+</body>
+</document>
+

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<document>
+  <properties>
+    <title>Community</title>
+    <author email="rleland@apache.org">Robert Leland</author>
+  </properties>
+
+  <body>
+    <section name="On The Apache Wiki">
+        <p>
+           The Apache Wiki is a Wiki run by Apache for the Apache community. The Validator Wiki home page is
+           <a href='http://nagoya.apache.org/wiki/apachewiki.cgi?ValidatorProjectPages'>here</a>.
+        </p>
+        <p>
+          Anyone is welcome to create new content about Validator providing that they 
+          observe the usual rules of netiquette.
+        </p>
+        </section>
+  </body>
+</document>
+

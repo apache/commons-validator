@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Validator">
+
+  <title>Validator</title>
+  <organizationLogo href="/images/jakarta-logo-blue.gif">Jakarta</organizationLogo>
+
+  <body>
+    <menu name="Validator">
+      <item name="Overview"                href="/index.html"/>
+      <item name="FAQ"                     href="/faq.html"/>
+      <item name="Community"               href="/community.html"/>
+      <item name="To Do List"              href="/tasks.html"/>
+      <item name="Resources"               href="/resources.html"/>
+    </menu>
+  </body>
+</project>

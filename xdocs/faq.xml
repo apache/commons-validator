@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>Validator FAQ</title>
+  </properties>
+
+  <body>
+
+  <section name="Frequently Asked Questions">
+    <p>
+      This document will be derived from the FAQ maintained in the 
+      <a href='http://nagoya.apache.org/wiki/apachewiki.cgi?ValidatorProjectPages'>
+      Validator Wiki</a>.So these questions and answers are user provided.
+      and should be searched before posting to the mailing lists.  
+    </p>
+
+    <p><strong>Building Validator</strong></p>
+    <ol>
+      <li>
+        <a href="#how-to-build">
+          How do I build Validator?
+        </a>
+      </li>
+    </ol>
+
+
+    <subsection name="Building Validator">
+      <dl>
+        <dt>
+          <a name="how-to-build">
+            How do I build Validator?
+          </a>
+        </dt>
+        <dd>
+          Validator uses Maven for its build system. So you should be able to build Validator just like
+          any other Maven enabled project. By typing'maven' Please see the 
+          <a href="http://maven.apache.org/start/index.html">Maven</a> 
+          documentation for details.
+        </dd>
+      </dl>
+    </subsection>
+  </section>
+</body>
+</document>
