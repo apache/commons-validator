@@ -35,6 +35,20 @@
                     isValid = false;
                 }
             }
+            // For fields that are actually object arrays, like radio button banks,
+            // iterate through the array and make sure something is checked
+            if (field.length > 0) {
+                isChecked=-1;
+                for (loop=0;loop < field.length;loop++) {
+                    if (field[loop].checked) {
+                        isChecked=loop;
+                    }
+                }
+                if (isChecked < 0) {
+                    fields[i++] = oRequired[x][1]
+                    isValid=false;
+                }
+            }
         }
         if (fields.length > 0) {
            focusField.focus();
