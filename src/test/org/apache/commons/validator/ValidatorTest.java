@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.13 2003/05/28 04:28:00 dgraham Exp $
- * $Revision: 1.13 $
- * $Date: 2003/05/28 04:28:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.14 2003/06/08 07:11:24 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/06/08 07:11:24 $
  *
  * ====================================================================
  *
@@ -80,7 +80,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.13 $ $Date: 2003/05/28 04:28:00 $
+ * @version $Revision: 1.14 $ $Date: 2003/06/08 07:11:24 $
 */                                                       
 public class ValidatorTest extends TestCase {            
                                                           
@@ -117,31 +117,11 @@ public class ValidatorTest extends TestCase {
     * method being tested returns an object (<code>null</code> will be considered an error).
    */
    public void testManualObject() {
-      // property name of the method we are validating
-      String property = "date";
-      // name of ValidatorAction
-      String action = "date";
-      
-      ValidatorResources resources = new ValidatorResources();
-
-      ValidatorAction va = new ValidatorAction();
-      va.setName(action);
-      va.setClassname("org.apache.commons.validator.ValidatorTest");
-      va.setMethod("formatDate");
-      va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field");
-      
-      FormSet fs = new FormSet();
-      Form form = new Form();
-      form.setName("testForm");
-      Field field = new Field();
-      field.setProperty(property);
-      field.setDepends(action);
-      form.addField(field);
-      fs.addForm(form);
-      
-      resources.addValidatorAction(va);
-      resources.addFormSet(fs);
-      resources.process();
+		//     property name of the method we are validating
+		String property = "date";
+		// name of ValidatorAction
+		String action = "date";
+        ValidatorResources resources = setupDateResources(property, action);
 
       TestBean bean = new TestBean();  
       bean.setDate("2/3/1999");
@@ -183,8 +163,59 @@ public class ValidatorTest extends TestCase {
          fail("An exception was thrown while calling Validator.validate()");
       }
 
-
    }
+   
+   public void testOnlyReturnErrors() throws ValidatorException {
+    	//     property name of the method we are validating
+    	String property = "date";
+    	// name of ValidatorAction
+    	String action = "date";
+    	ValidatorResources resources = setupDateResources(property, action);
+    
+    	TestBean bean = new TestBean();
+    	bean.setDate("2/3/1999");
+    
+    	Validator validator = new Validator(resources, "testForm");
+    	validator.setParameter(Validator.BEAN_PARAM, bean);
+    
+    	ValidatorResults results = validator.validate();
+    
+    	assertNotNull(results);
+    
+        // Field passed and should be in results
+    	assertTrue(results.getPropertyNames().contains(property));
+        
+        // Field passed but should not be in results
+        validator.setOnlyReturnErrors(true);
+        results = validator.validate();
+        assertFalse(results.getPropertyNames().contains(property));    
+   }
+   
+    private ValidatorResources setupDateResources(String property, String action) {
+    
+    	ValidatorResources resources = new ValidatorResources();
+    
+    	ValidatorAction va = new ValidatorAction();
+    	va.setName(action);
+    	va.setClassname("org.apache.commons.validator.ValidatorTest");
+    	va.setMethod("formatDate");
+    	va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field");
+    
+    	FormSet fs = new FormSet();
+    	Form form = new Form();
+    	form.setName("testForm");
+    	Field field = new Field();
+    	field.setProperty(property);
+    	field.setDepends(action);
+    	form.addField(field);
+    	fs.addForm(form);
+    
+    	resources.addValidatorAction(va);
+    	resources.addFormSet(fs);
+    	resources.process();
+    
+    	return resources;
+    }
                                                           
    /**
     * Verify that one value generates an error and the other passes.  The validation 

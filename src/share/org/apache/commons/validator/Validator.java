@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.25 2003/05/28 04:30:58 dgraham Exp $
- * $Revision: 1.25 $
- * $Date: 2003/05/28 04:30:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.26 2003/06/08 07:11:25 dgraham Exp $
+ * $Revision: 1.26 $
+ * $Date: 2003/06/08 07:11:25 $
  *
  * ====================================================================
  *
@@ -86,7 +86,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.25 $ $Date: 2003/05/28 04:30:58 $
+ * @version $Revision: 1.26 $ $Date: 2003/06/08 07:11:25 $
  */
 public class Validator implements Serializable {
 
@@ -209,6 +209,11 @@ public class Validator implements Serializable {
      * for instantiating new objects.  Default is <code>false</code>.
      */
     protected boolean useContextClassLoader = false;
+    
+    /**
+     * Set this to true to not return Fields that pass validation.  Only return failures.
+     */
+    protected boolean onlyReturnErrors = false;
 
     /**
      * Construct a <code>Validator</code> that will
@@ -508,11 +513,14 @@ public class Validator implements Serializable {
             Object result =
                 validationMethod.invoke(va.getClassnameInstance(), paramValue);
                 
-            results.add(field, va.getName(), isValid(result), result);
+			boolean valid = this.isValid(result);
+			if (!valid || (valid && !this.onlyReturnErrors)) {
+				results.add(field, va.getName(), valid, result);
+			}
             
-            if (!this.isValid(result)) {
-                return false;
-            }
+			if (!valid) {
+				return false;
+			}
             
         } catch (Exception e) {
             log.error("reflection: " + e.getMessage(), e);
@@ -763,4 +771,20 @@ public class Validator implements Serializable {
 
     }
     
+	/**
+	 * Returns true if the Validator is only returning Fields that fail validation.
+	 */
+	public boolean getOnlyReturnErrors() {
+		return onlyReturnErrors;
+	}
+
+	/**
+     * Configures which Fields the Validator returns from the validate() method.  Set this
+     * to true to only return Fields that failed validation.  By default, validate() returns 
+     * all fields.
+	 */
+	public void setOnlyReturnErrors(boolean onlyReturnErrors) {
+		this.onlyReturnErrors = onlyReturnErrors;
+	}
+
 }
