@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.21 2003/05/22 02:29:47 dgraham Exp $
- * $Revision: 1.21 $
- * $Date: 2003/05/22 02:29:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.22 2003/05/24 19:40:12 dgraham Exp $
+ * $Revision: 1.22 $
+ * $Date: 2003/05/24 19:40:12 $
  *
  * ====================================================================
  *
@@ -86,7 +86,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.21 $ $Date: 2003/05/22 02:29:47 $
+ * @version $Revision: 1.22 $ $Date: 2003/05/24 19:40:12 $
  */
 public class Validator implements Serializable {
 
@@ -176,7 +176,7 @@ public class Validator implements Serializable {
      * @param resources <code>ValidatorResources</code> to use during validation.
      */
     public Validator(ValidatorResources resources) {
-        this.resources = resources;
+        this(resources, null);
     }
 
     /**
@@ -202,15 +202,14 @@ public class Validator implements Serializable {
      * 
      * @param parameterValue The instance that will be passed into the 
      * validation method.
-     * @deprecated Use addParameter(String, Object) instead.
+     * @deprecated Use setParameter(String, Object) instead.
      */
     public void addResource(String parameterClassName, Object parameterValue) {
-        this.addParameter(parameterClassName, parameterValue);
+        this.setParameter(parameterClassName, parameterValue);
     }
     
     /**
-     * Add a resource to be used during the processing
-     * of validations.
+     * Set a parameter of a pluggable validation method.
      *
      * @param parameterClassName The full class name of the parameter of the 
      * validation method that corresponds to the value/instance passed in with it.
@@ -218,7 +217,7 @@ public class Validator implements Serializable {
      * @param parameterValue The instance that will be passed into the 
      * validation method.
      */
-    public void addParameter(String parameterClassName, Object parameterValue) {
+    public void setParameter(String parameterClassName, Object parameterValue) {
         this.parameters.put(parameterClassName, parameterValue);
     }
 
@@ -436,8 +435,8 @@ public class Validator implements Serializable {
         try {
             // Add these two Objects to the resources since they reference
             // the current validator action and field
-            this.parameters.put(VALIDATOR_ACTION_KEY, va);
-            this.parameters.put(FIELD_KEY, field);
+            this.setParameter(VALIDATOR_ACTION_KEY, va);
+            this.setParameter(FIELD_KEY, field);
         
             Class validationClass = getClassLoader().loadClass(va.getClassname());
         
@@ -519,7 +518,7 @@ public class Validator implements Serializable {
 
         for (int i = 0; i < paramNames.size(); i++) {
             String paramClassName = (String) paramNames.get(i);
-            paramValue[i] = this.parameters.get(paramClassName);
+            paramValue[i] = this.getParameterValue(paramClassName);
         }
 
         return paramValue;
@@ -569,7 +568,7 @@ public class Validator implements Serializable {
         
         Object oIndexed =
             PropertyUtils.getProperty(
-                this.parameters.get(BEAN_KEY),
+                this.getParameterValue(BEAN_KEY),
                 field.getIndexedListProperty());
                 
         Object indexedList[] = new Object[0];
@@ -612,7 +611,7 @@ public class Validator implements Serializable {
             try {
                 oIndexed =
                     PropertyUtils.getProperty(
-                        this.parameters.get(BEAN_KEY),
+                        this.getParameterValue(BEAN_KEY),
                         field.getIndexedListProperty());
         
             } catch (Exception e) {
@@ -686,13 +685,13 @@ public class Validator implements Serializable {
      */
     public ValidatorResults validate() throws ValidatorException {
         ValidatorResults results = new ValidatorResults();
-        Locale locale = (Locale) this.parameters.get(LOCALE_KEY);
+        Locale locale = (Locale) this.getParameterValue(LOCALE_KEY);
 
         if (locale == null) {
             locale = Locale.getDefault();
         }
         
-        this.parameters.put(VALIDATOR_KEY, this);
+        this.setParameter(VALIDATOR_KEY, this);
 
         if (this.resources == null) {
             throw new ValidatorException("Resources not defined for Validator");
