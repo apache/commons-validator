@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.7 2002/10/12 18:28:05 martinc Exp $
- * $Revision: 1.7 $
- * $Date: 2002/10/12 18:28:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.8 2002/10/16 23:00:21 turner Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/10/16 23:00:21 $
  *
  * ====================================================================
  *
@@ -66,6 +66,7 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import org.apache.commons.digester.Digester;
 import org.xml.sax.SAXException;
 import org.apache.commons.logging.Log;
@@ -76,7 +77,8 @@ import org.apache.commons.logging.LogSource;
  * <p>Maps an xml file to <code>ValidatorResources</code>.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2002/10/12 18:28:05 $
+ * @author Dave Derry
+ * @version $Revision: 1.8 $ $Date: 2002/10/16 23:00:21 $
 */
 public class ValidatorResourcesInitializer {
 
@@ -85,6 +87,18 @@ public class ValidatorResourcesInitializer {
    */
    protected static Log log = LogSource.getInstance(ValidatorResourcesInitializer.class.getName());
    
+
+    /**
+     * The set of public identifiers, and corresponding resource names, for
+     * the versions of the configuration file DTDs that we know about.  There
+     * <strong>MUST</strong> be an even number of Strings in this list!
+     */
+    protected static String registrations[] = {
+        "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN",
+	"/org/apache/commons/resources/validator_1_0.dtd"
+   };
+
+
    /**
     * Initializes a <code>ValidatorResources</code> based on a
     * file path and automatically process the resources.
@@ -141,6 +155,13 @@ public class ValidatorResourcesInitializer {
       digester.push(resources);
       digester.setNamespaceAware(true);
       digester.setValidating(false);
+      // register DTDs
+      for (int i = 0; i < registrations.length; i += 2) {
+          URL url = ValidatorResourcesInitializer.class.getResource(registrations[i+1]);
+          if (url != null)
+              digester.register(registrations[i], url.toString());
+      }
+      
       digester.setUseContextClassLoader(true);
       
       // Create Global Constant objects
