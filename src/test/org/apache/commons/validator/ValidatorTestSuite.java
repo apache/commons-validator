@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.12 2003/10/05 16:47:27 dgraham Exp $
- * $Revision: 1.12 $
- * $Date: 2003/10/05 16:47:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTestSuite.java,v 1.13 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2000-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,12 +70,7 @@ import org.apache.commons.validator.util.FlagsTest;
 /**
  * Test suite for <code>org.apache.commons.validator</code>
  * package.
- *
- * @author David Winterfeldt
- * @author James Turner
- * @author David Graham
- * @version $Revision: 1.12 $ $Date: 2003/10/05 16:47:27 $
-*/
+ */
 public class ValidatorTestSuite extends TestCase {
 
     public ValidatorTestSuite(String name) {

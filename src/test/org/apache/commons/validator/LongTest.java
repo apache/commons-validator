@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LongTest.java,v 1.13 2003/10/05 16:47:27 dgraham Exp $
- * $Revision: 1.13 $
- * $Date: 2003/10/05 16:47:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LongTest.java,v 1.14 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,10 +65,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**                                                       
- * <p>Performs Validation Test for <code>long</code> validations.</p> 
- *
- * @author David Winterfeldt
- * @version $Revision: 1.13 $ $Date: 2003/10/05 16:47:27 $
+ * Performs Validation Test for <code>long</code> validations.
  */
 public class LongTest extends TestNumber {
 

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Var.java,v 1.8 2003/08/21 21:43:06 rleland Exp $
- * $Revision: 1.8 $
- * $Date: 2003/08/21 21:43:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Var.java,v 1.9 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,14 +64,9 @@ package org.apache.commons.validator;
 import java.io.Serializable;
 
 /**
- * <p>
  * A variable that can be associated with a <code>Field</code> for
  * passing in information to a pluggable validator.  Instances of this class are
  * configured with a &lt;var&gt; xml element.
- * </p>
- *
- * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2003/08/21 21:43:06 $
  */
 public class Var implements Cloneable, Serializable {
 

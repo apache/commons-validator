@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.16 2003/11/17 03:34:50 rleland Exp $
- * $Revision: 1.16 $
- * $Date: 2003/11/17 03:34:50 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.17 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.17 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -80,10 +80,6 @@ import org.apache.commons.logging.LogFactory;
  * defined in an xml file with the &lt;validator&gt; element.</p>
  *
  * <strong>Note</strong>: The validation method is assumed to be thread safe.
- *
- * @author David Winterfeldt
- * @author David Graham
- * @version $Revision: 1.16 $ $Date: 2003/11/17 03:34:50 $
  */
 public class ValidatorAction implements Serializable {
 

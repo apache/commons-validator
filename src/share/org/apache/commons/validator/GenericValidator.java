@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.27 2003/08/26 16:11:01 rleland Exp $
- * $Revision: 1.27 $
- * $Date: 2003/08/26 16:11:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.28 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.28 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -67,14 +67,7 @@ import java.util.Locale;
 import org.apache.oro.text.perl.Perl5Util;
 
 /**
- * <p>This class contains basic methods for performing validations.</p>
- *
- * @author David Winterfeldt
- * @author James Turner
- * @author <a href="mailto:husted@apache.org">Ted Husted</a>
- * @author David Graham
- * @author Robert Leland
- * @version $Revision: 1.27 $ $Date: 2003/08/26 16:11:01 $
+ * This class contains basic methods for performing validations.
  */
 public class GenericValidator implements Serializable {
 

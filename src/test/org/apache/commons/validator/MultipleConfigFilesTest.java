@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleConfigFilesTest.java,v 1.8 2003/10/05 16:47:27 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/10/05 16:47:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleConfigFilesTest.java,v 1.9 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,9 +69,8 @@ import junit.framework.TestCase;
 import org.xml.sax.SAXException;
 
 /**
- * Tests that validator rules split between 2 different XML files get merged properly.
- * 
- * @author David Graham
+ * Tests that validator rules split between 2 different XML files get 
+ * merged properly.
  */
 public class MultipleConfigFilesTest extends TestCase {
 

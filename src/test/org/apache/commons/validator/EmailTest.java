@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.21 2003/10/05 16:41:09 dgraham Exp $
- * $Revision: 1.21 $
- * $Date: 2003/10/05 16:41:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.22 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.22 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,24 +69,19 @@ import junit.framework.TestSuite;
 import org.xml.sax.SAXException;
 
 /**                                                       
- * <p>Performs Validation Test for e-mail validations.</p> 
- *
- * @author David Winterfeldt
- * @author David Graham
- * @author Rob Leland
- * @version $Revision: 1.21 $ $Date: 2003/10/05 16:41:09 $
-*/                                                       
+ * Performs Validation Test for e-mail validations.
+ */                                                       
 public class EmailTest extends TestCommon {
    
    /**
     * The key used to retrieve the set of validation 
     * rules from the xml file.
-   */
+    */
    protected static String FORM_KEY = "emailForm";   
 
    /**
     * The key used to retrieve the validator action.
-   */
+    */
    protected static String ACTION = "email";
 
 
@@ -115,7 +110,7 @@ public class EmailTest extends TestCommon {
    /**
     * Load <code>ValidatorResources</code> from 
     * validator-regexp.xml.
-   */
+    */
    protected void setUp() throws IOException, SAXException {
       loadResources("validator-regexp.xml");
    }
@@ -125,7 +120,7 @@ public class EmailTest extends TestCommon {
 
    /**
     * Tests the e-mail validation.
-   */
+    */
    public void testEmail() throws ValidatorException {
       // Create bean to run test on.
       ValueBean info = new ValueBean();
@@ -166,7 +161,7 @@ public class EmailTest extends TestCommon {
    /**
     * <p>Tests the e-mail validation with a dash in 
     * the address.</p>
-   */
+    */
    public void testEmailWithDash() throws ValidatorException {
       // Create bean to run test on.
       ValueBean info = new ValueBean();
@@ -187,7 +182,7 @@ public class EmailTest extends TestCommon {
    /**
     * <p>Tests the e-mail validation with a dot at the end of 
     * the address.</p>
-   */
+    */
    public void testEmailWithDotEnd() throws ValidatorException {
       // Create bean to run test on.
       ValueBean info = new ValueBean();
@@ -219,7 +214,6 @@ public class EmailTest extends TestCommon {
    /**
     * Tests the email validation with commas.
     */
-
     public void testEmailWithCommas() throws ValidatorException {
        ValueBean info = new ValueBean();
        info.setValue("joeblow@apa,che.org");
@@ -234,7 +228,6 @@ public class EmailTest extends TestCommon {
     /**
      * Write this test according to parts of RFC, as opposed to the type of character
      * that is being tested.
-
      * @throws ValidatorException
      */
     public void testEmailUserName() throws ValidatorException {
@@ -312,9 +305,9 @@ public class EmailTest extends TestCommon {
    /**
     * Utlity class to run a test on a value.
     *
-    * @param	info	Value to run test on.
-    * @param	passed	Whether or not the test is expected to pass.
-   */
+    * @param info	Value to run test on.
+    * @param passed	Whether or not the test is expected to pass.
+    */
    private void valueTest(ValueBean info, boolean passed) throws ValidatorException {
       // Construct validator based on the loaded resources 
       // and the form key

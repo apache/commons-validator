@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.11 2003/08/22 02:31:50 rleland Exp $
- * $Revision: 1.11 $
- * $Date: 2003/08/22 02:31:50 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.12 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.12 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -71,13 +71,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * <p>This class contains basic methods for performing validations that return the
- * correctly typed class based on the validation performed.</p>
- *
- * @author David Winterfeldt
- * @author <a href="mailto:husted@apache.org">Ted Husted</a>
- * @author David Graham
- * @version $Revision: 1.11 $ $Date: 2003/08/22 02:31:50 $
+ * This class contains basic methods for performing validations that return the
+ * correctly typed class based on the validation performed.
  */
 public class GenericTypeValidator implements Serializable {
     /*

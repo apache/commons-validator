@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/FieldTest.java,v 1.1 2003/09/28 20:39:57 dgraham Exp $
- * $Revision: 1.1 $
- * $Date: 2003/09/28 20:39:57 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/FieldTest.java,v 1.2 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.2 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,8 +65,6 @@ import junit.framework.TestCase;
 
 /**
  * Test <code>Field</code> objects.
- * 
- * @author David Graham
  */
 public class FieldTest extends TestCase {
 

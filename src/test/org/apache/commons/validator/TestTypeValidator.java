@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestTypeValidator.java,v 1.4 2003/08/23 02:24:07 rleland Exp $
- * $Revision: 1.4 $
- * $Date: 2003/08/23 02:24:07 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestTypeValidator.java,v 1.5 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,28 +59,23 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import org.apache.commons.validator.util.ValidatorUtils;
                                                           
 /**                                                       
- * <p>Contains validation methods for different 
- * unit tests.</p> 
- *
- * @author David Winterfeldt
- * @version $Revision: 1.4 $ $Date: 2003/08/23 02:24:07 $
-*/                                                       
+ * Contains validation methods for different unit tests.
+ */                                                       
 public class TestTypeValidator {
 
    /**
     * Checks if the field can be successfully converted to a <code>byte</code>.
     *
-    * @param 	value 		The value validation is being performed on.
-    * @return	boolean		If the field can be successfully converted 
-    *                           to a <code>byte</code> <code>true</code> is returned.  
-    *                           Otherwise <code>false</code>.
-   */
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>byte</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
    public static Byte validateByte(Object bean, Field field) {
       String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
@@ -90,11 +85,11 @@ public class TestTypeValidator {
    /**
     * Checks if the field can be successfully converted to a <code>short</code>.
     *
-    * @param 	value 		The value validation is being performed on.
-    * @return	boolean		If the field can be successfully converted 
-    *                           to a <code>short</code> <code>true</code> is returned.  
-    *                           Otherwise <code>false</code>.
-   */
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>short</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
    public static Short validateShort(Object bean, Field field) {
       String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
@@ -104,11 +99,11 @@ public class TestTypeValidator {
    /**
     * Checks if the field can be successfully converted to a <code>int</code>.
     *
-    * @param 	value 		The value validation is being performed on.
-    * @return	boolean		If the field can be successfully converted 
-    *                           to a <code>int</code> <code>true</code> is returned.  
-    *                           Otherwise <code>false</code>.
-   */
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>int</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
    public static Integer validateInt(Object bean, Field field) {
       String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
@@ -118,11 +113,11 @@ public class TestTypeValidator {
    /**
     * Checks if the field can be successfully converted to a <code>long</code>.
     *
-    * @param 	value 		The value validation is being performed on.
-    * @return	boolean		If the field can be successfully converted 
-    *                           to a <code>long</code> <code>true</code> is returned.  
-    *                           Otherwise <code>false</code>.
-   */
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>long</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
    public static Long validateLong(Object bean, Field field) {
       String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
@@ -132,11 +127,11 @@ public class TestTypeValidator {
    /**
     * Checks if the field can be successfully converted to a <code>float</code>.
     *
-    * @param 	value 		The value validation is being performed on.
-    * @return	boolean		If the field can be successfully converted 
-    *                           to a <code>float</code> <code>true</code> is returned.  
-    *                           Otherwise <code>false</code>.
-   */
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>float</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
    public static Float validateFloat(Object bean, Field field) {
       String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
@@ -146,11 +141,11 @@ public class TestTypeValidator {
    /**
     * Checks if the field can be successfully converted to a <code>double</code>.
     *
-    * @param 	value 		The value validation is being performed on.
-    * @return	boolean		If the field can be successfully converted 
-    *                           to a <code>double</code> <code>true</code> is returned.  
-    *                           Otherwise <code>false</code>.
-   */
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>double</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
    public static Double validateDouble(Object bean, Field field) {
       String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 

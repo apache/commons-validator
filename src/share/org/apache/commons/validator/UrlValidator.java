@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.16 2003/08/21 21:43:05 rleland Exp $
- * $Revision: 1.16 $
- * $Date: 2003/08/21 21:43:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.17 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.17 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -112,10 +112,7 @@ import org.apache.oro.text.perl.Perl5Util;
  *  Uniform Resource Identifiers (URI): Generic Syntax
  * </a>
  *
- * @author Robert Leland
- * @author David Graham
  * @since Validator 1.1
- * @version $Revision: 1.16 $ $Date: 2003/08/21 21:43:05 $
  */
 public class UrlValidator implements Serializable {
 

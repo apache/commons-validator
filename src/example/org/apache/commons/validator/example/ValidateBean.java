@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateBean.java,v 1.2 2003/10/05 16:47:28 dgraham Exp $
- * $Revision: 1.2 $
- * $Date: 2003/10/05 16:47:28 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateBean.java,v 1.3 2004/01/11 23:30:22 dgraham Exp $
+ * $Revision: 1.3 $
+ * $Date: 2004/01/11 23:30:22 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2000-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,10 +62,7 @@
 package org.apache.commons.validator.example;
 
 /**                                                       
- * <p>A simple bean to use with the Validator Example.</p> 
- *
- * @author James Turner
- * @version $Revision: 1.2 $ $Date: 2003/10/05 16:47:28 $
+ * A simple bean to use with the Validator Example.
  */
 public class ValidateBean extends Object {
 

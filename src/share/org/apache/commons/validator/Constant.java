@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/Constant.java,v 1.8 2003/08/21 21:43:05 rleland Exp $
- * $Revision: 1.8 $
- * $Date: 2003/08/21 21:43:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/Constant.java,v 1.9 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -75,8 +75,6 @@ import java.io.Serializable;
  * <br>
  * ex: &lt;constant name="zip" value="^\d{5}$" /&gt; mask="${zip}" </p>
  *
- * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2003/08/21 21:43:05 $
  * @deprecated This class is no longer needed.
  */
 public class Constant implements Serializable {

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.15 2003/10/05 16:47:28 dgraham Exp $
- * $Revision: 1.15 $
- * $Date: 2003/10/05 16:47:28 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/example/org/apache/commons/validator/example/ValidateExample.java,v 1.16 2004/01/11 23:30:22 dgraham Exp $
+ * $Revision: 1.16 $
+ * $Date: 2004/01/11 23:30:22 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2000-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -88,9 +88,6 @@ import org.xml.sax.SAXException;
  * the Struts Validator Framework.  However, should you wish to use
  * the Validator against raw Beans in a pure Java application, you
  * can see everything you need to know to get it working here.
- * 
- * @author James Turner
- * @version $Revision: 1.15 $ $Date: 2003/10/05 16:47:28 $
  */
 public class ValidateExample extends Object {
 

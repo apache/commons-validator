@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/ValidatorUtils.java,v 1.5 2003/08/21 21:43:06 rleland Exp $
- * $Revision: 1.5 $
- * $Date: 2003/08/21 21:43:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/ValidatorUtils.java,v 1.6 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -74,11 +74,7 @@ import org.apache.commons.validator.Msg;
 import org.apache.commons.validator.Var;
 
 /**
- * <p>Basic utility methods.</p>
- *
- * @author David Winterfeldt
- * @author David Graham
- * @version $Revision: 1.5 $ $Date: 2003/08/21 21:43:06 $
+ * Basic utility methods.
  */
 public class ValidatorUtils {
 
@@ -90,9 +86,9 @@ public class ValidatorUtils {
     /**
      * <p>Replace part of a <code>String</code> with another value.</p>
      *
-     * @param    value        <code>String</code> to perform the replacement on.
-     * @param    key        The name of the constant.
-     * @param    replaceValue    The value of the constant.
+     * @param value <code>String</code> to perform the replacement on.
+     * @param key The name of the constant.
+     * @param replaceValue The value of the constant.
      */
     public static String replace(
             String value,

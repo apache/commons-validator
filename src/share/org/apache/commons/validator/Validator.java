@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.30 2003/08/26 16:11:48 rleland Exp $
- * $Revision: 1.30 $
- * $Date: 2003/08/26 16:11:48 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.31 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.31 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -79,14 +79,9 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.util.ValidatorUtils;
 
 /**
- * <p>Validations are processed by the validate method. An instance of
+ * Validations are processed by the validate method. An instance of
  * <code>ValidatorResources</code> is used to define the validators
- * (validation methods) and the validation rules for a JavaBean.</p>
- *
- * @author David Winterfeldt
- * @author James Turner
- * @author David Graham
- * @version $Revision: 1.30 $ $Date: 2003/08/26 16:11:48 $
+ * (validation methods) and the validation rules for a JavaBean.
  */
 public class Validator implements Serializable {
 

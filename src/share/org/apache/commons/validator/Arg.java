@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.14 2003/11/29 19:05:30 dgraham Exp $
- * $Revision: 1.14 $
- * $Date: 2003/11/29 19:05:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.15 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.15 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -77,10 +77,6 @@ import java.io.Serializable;
  * The resource field defaults to 'true'.
  * </p>
  * <p>Instances of this class are configured with an &lt;arg&gt; xml element.</p>
- *
- * @author David Winterfeldt
- * @author David Graham
- * @version $Revision: 1.14 $ $Date: 2003/11/29 19:05:30 $
  */
 public class Arg implements Cloneable, Serializable {
 

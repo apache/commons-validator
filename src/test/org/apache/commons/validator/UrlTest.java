@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/UrlTest.java,v 1.6 2003/10/05 16:41:09 dgraham Exp $
- * $Revision: 1.6 $
- * $Date: 2003/10/05 16:41:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/UrlTest.java,v 1.7 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,6 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import junit.framework.Test;
@@ -67,10 +66,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * <p>Performs Validation Test for url validations.</p>
- *
- * @author Robert Leland
- * @version $Revision: 1.6 $ $Date: 2003/10/05 16:41:09 $
+ * Performs Validation Test for url validations.
  */
 public class UrlTest extends TestCase {
    class TestPair {

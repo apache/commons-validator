@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorException.java,v 1.6 2003/08/21 21:43:05 rleland Exp $
- * $Revision: 1.6 $
- * $Date: 2003/08/21 21:43:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorException.java,v 1.7 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,14 +62,9 @@
 package org.apache.commons.validator;
 
 /**
- * <p>Exception for the Validator Framework.  All other
- * <code>Exception</code>s thrown while the
- * <code>Validator</code>'s validate method is being
- * called will be considered errors.  A
- * <code>ValidatorException</code> will be thrown.</p>
- *
- * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2003/08/21 21:43:05 $
+ * The base exception for the Validator Framework.  All other 
+ * <code>Exception</code>s thrown during calls to 
+ * <code>Validator.validate()</code> are considered errors.
  */
 public class ValidatorException extends Exception {
 

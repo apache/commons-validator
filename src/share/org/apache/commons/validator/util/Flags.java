@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/Flags.java,v 1.4 2003/08/21 21:43:06 rleland Exp $
- * $Revision: 1.4 $
- * $Date: 2003/08/21 21:43:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/Flags.java,v 1.5 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -78,8 +78,6 @@ import java.io.Serializable;
  * Typically this class will be used in support of another class with constants
  * and not directly by clients.
  * </p>
- *
- * @author David Graham
  */
 public class Flags implements Serializable {
 

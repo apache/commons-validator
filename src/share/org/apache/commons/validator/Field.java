@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.27 2003/11/17 03:35:30 rleland Exp $
- * $Revision: 1.27 $
- * $Date: 2003/11/17 03:35:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.28 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.28 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -82,9 +82,6 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * &lt;field&gt; xml element.
  * </p>
  *
- * @author David Winterfeldt
- * @author David Graham
- * @version $Revision: 1.27 $ $Date: 2003/11/17 03:35:30 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.20 2003/08/22 02:30:59 rleland Exp $
- * $Revision: 1.20 $
- * $Date: 2003/08/22 02:30:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorResourcesInitializer.java,v 1.21 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.21 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -77,9 +77,6 @@ import org.xml.sax.SAXException;
 /**
  * <p>Maps an xml file to <code>ValidatorResources</code>.</p>
  *
- * @author David Winterfeldt
- * @author Dave Derry
- * @version $Revision: 1.20 $ $Date: 2003/08/22 02:30:59 $
  * @deprecated ValidatorResources knows how to initialize itself now.
  */
 public class ValidatorResourcesInitializer {

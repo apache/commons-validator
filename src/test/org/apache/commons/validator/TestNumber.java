@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestNumber.java,v 1.2 2003/09/06 05:22:47 rleland Exp $
- * $Revision: 1.2 $
- * $Date: 2003/09/06 05:22:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestNumber.java,v 1.3 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.3 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,23 +58,24 @@
  * <http://www.apache.org/>.
  *
  */
+ 
 package org.apache.commons.validator;
-
 
 import java.io.IOException;
 
 import org.xml.sax.SAXException;
 
 /**
- *
  * Abstracts number unit tests methods.
  */
 abstract public class TestNumber extends TestCommon {
+    
     /**
      * The key used to retrieve the set of validation
      * rules from the xml file.
      */
     protected String FORM_KEY;
+    
     /**
      * The key used to retrieve the validator action.
      */

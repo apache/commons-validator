@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResult.java,v 1.9 2003/08/21 21:43:06 rleland Exp $
- * $Revision: 1.9 $
- * $Date: 2003/08/21 21:43:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResult.java,v 1.10 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.10 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -67,11 +67,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>This contains the results of a set of
- * validation rules processed on JavaBean.</p>
- *
- * @author David Winterfeldt
- * @version $Revision: 1.9 $ $Date: 2003/08/21 21:43:06 $
+ * This contains the results of a set of validation rules processed 
+ * on a JavaBean.
  */
 public class ValidatorResult implements Serializable {
 

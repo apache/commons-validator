@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TypeTest.java,v 1.14 2003/10/05 16:41:09 dgraham Exp $
- * $Revision: 1.14 $
- * $Date: 2003/10/05 16:41:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TypeTest.java,v 1.15 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.15 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,6 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.io.IOException;
@@ -70,25 +69,21 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.xml.sax.SAXException;
-
                                                           
 /**                                                       
- * <p>Performs Validation Test for type validations.</p> 
- *
- * @author David Winterfeldt
- * @version $Revision: 1.14 $ $Date: 2003/10/05 16:41:09 $
-*/                                                       
+ * Performs Validation Test for type validations.
+ */                                                       
 public class TypeTest extends TestCommon {
    
    /**
     * The key used to retrieve the set of validation 
     * rules from the xml file.
-   */
+    */
    protected static String FORM_KEY = "typeForm";   
 
    /**
     * The key used to retrieve the validator action.
-   */
+    */
    protected static String ACTION = "byte";
 
    public TypeTest(String name) {                  
@@ -116,7 +111,7 @@ public class TypeTest extends TestCommon {
    /**
     * Load <code>ValidatorResources</code> from 
     * validator-type.xml.
-   */
+    */
    protected void setUp() throws IOException, SAXException {
       // Load resources
       loadResources("validator-type.xml");
@@ -127,7 +122,7 @@ public class TypeTest extends TestCommon {
 
    /**
     * Tests the byte validation.
-   */
+    */
    public void testType() throws ValidatorException {
       // Create bean to run test on.
       TypeBean info = new TypeBean();

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.12 2003/08/21 21:43:05 rleland Exp $
- * $Revision: 1.12 $
- * $Date: 2003/08/21 21:43:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/FormSet.java,v 1.13 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,14 +70,9 @@ import org.apache.commons.collections.FastHashMap;
 
 
 /**
- * <p>
  * Holds a set of <code>Form</code>s stored associated with a
  * <code>Locale</code> based on the country, language, and variant specified.
  * Instances of this class are configured with a &lt;formset&gt; xml element.
- * </p>
- *
- * @author David Winterfeldt
- * @version $Revision: 1.12 $ $Date: 2003/08/21 21:43:05 $
  */
 public class FormSet implements Serializable {
 

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredNameTest.java,v 1.14 2003/10/05 16:41:09 dgraham Exp $
- * $Revision: 1.14 $
- * $Date: 2003/10/05 16:41:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredNameTest.java,v 1.15 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.15 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -71,22 +71,19 @@ import org.xml.sax.SAXException;
 
                                                           
 /**                                                       
- * <p>Performs Validation Test.</p> 
- *
- * @author David Winterfeldt
- * @version $Revision: 1.14 $ $Date: 2003/10/05 16:41:09 $
-*/                                                       
+ * Performs Validation Test.
+ */                                                       
 public class RequiredNameTest extends TestCommon {
    
    /**
     * The key used to retrieve the set of validation 
     * rules from the xml file.
-   */
+    */
    protected static String FORM_KEY = "nameForm";   
 
    /**
     * The key used to retrieve the validator action.
-   */
+    */
    protected static String ACTION = "required";
 
    public RequiredNameTest(String name) {                  
@@ -114,7 +111,7 @@ public class RequiredNameTest extends TestCommon {
    /**
     * Load <code>ValidatorResources</code> from 
     * validator-name-required.xml.
-   */
+    */
    protected void setUp() throws IOException, SAXException {
       // Load resources
       loadResources("validator-name-required.xml");
@@ -125,7 +122,7 @@ public class RequiredNameTest extends TestCommon {
 
    /**
     * Tests the required validation failure.
-   */
+    */
    public void testRequired() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -162,7 +159,7 @@ public class RequiredNameTest extends TestCommon {
 
    /**
     * Tests the required validation for first name if it is blank.
-   */
+    */
    public void testRequiredFirstNameBlank() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -196,7 +193,7 @@ public class RequiredNameTest extends TestCommon {
 
    /**
     * Tests the required validation for first name.
-   */
+    */
    public void testRequiredFirstName() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -230,7 +227,7 @@ public class RequiredNameTest extends TestCommon {
 
    /**
     * Tests the required validation for last name if it is blank.
-   */
+    */
    public void testRequiredLastNameBlank() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -264,7 +261,7 @@ public class RequiredNameTest extends TestCommon {
 
    /**
     * Tests the required validation for last name.
-   */
+    */
    public void testRequiredLastName() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -299,7 +296,7 @@ public class RequiredNameTest extends TestCommon {
 
    /**
     * Tests the required validation for first and last name.
-   */
+    */
    public void testRequiredName() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.12 2003/08/21 21:43:06 rleland Exp $
- * $Revision: 1.12 $
- * $Date: 2003/08/21 21:43:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.13 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -66,11 +66,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * <p>Basic utility methods.</p>
+ * Basic utility methods.
  *
- * @author David Winterfeldt
- * @author David Graham
- * @version $Revision: 1.12 $ $Date: 2003/08/21 21:43:06 $
  * @deprecated This class has moved to the org.apache.commons.validator.util
  * package.
  */

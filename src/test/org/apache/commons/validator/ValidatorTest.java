@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.15 2003/10/05 16:47:27 dgraham Exp $
- * $Revision: 1.15 $
- * $Date: 2003/10/05 16:47:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.16 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.16 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2000-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -75,10 +75,7 @@ import junit.framework.TestSuite;
 import org.apache.commons.validator.util.ValidatorUtils;
                                                           
 /**                                                       
- * <p>Performs Validation Test.</p> 
- *
- * @author David Winterfeldt
- * @version $Revision: 1.15 $ $Date: 2003/10/05 16:47:27 $
+ * Performs Validation Test.
  */                                                       
 public class ValidatorTest extends TestCase {            
                                                           
@@ -113,7 +110,7 @@ public class ValidatorTest extends TestCase {
    /**
     * Verify that one value generates an error and the other passes.  The validation 
     * method being tested returns an object (<code>null</code> will be considered an error).
-   */
+    */
    public void testManualObject() {
 		//     property name of the method we are validating
 		String property = "date";
@@ -218,7 +215,7 @@ public class ValidatorTest extends TestCase {
    /**
     * Verify that one value generates an error and the other passes.  The validation 
     * method being tested returns a <code>boolean</code> value.
-   */
+    */
    public void testManualBoolean() {
       ValidatorResources resources = new ValidatorResources();
 
@@ -272,7 +269,7 @@ public class ValidatorTest extends TestCase {
 
    /**
     * Checks if the field is one upper case letter between 'A' and 'Z'.
-   */
+    */
    public static boolean isCapLetter(Object bean, Field field, List l) {
       String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 

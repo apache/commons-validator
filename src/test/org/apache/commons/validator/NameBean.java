@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/NameBean.java,v 1.4 2003/08/26 15:18:56 rleland Exp $
- * $Revision: 1.4 $
- * $Date: 2003/08/26 15:18:56 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/NameBean.java,v 1.5 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,65 +59,41 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 /**                                                       
- * <p>Value object that contains a 
- * first name and last name.</p> 
- *
- * @author David Winterfeldt
- * @version $Revision: 1.4 $ $Date: 2003/08/26 15:18:56 $
-*/                                                       
+ * Value object that contains a first name and last name. 
+ */
 public class NameBean {
-   
-   protected String firstName = null;
-   
-   protected String middleName = null;
-   
-   protected String lastName = null;
-                                                             
-   /**
-    * Gets the first name.
-   */
-   public String getFirstName() {
-      return firstName;	
-   }
 
-   /**
-    * Sets the first name.
-   */
-   public void setFirstName(String firstName) {
-      this.firstName = firstName;	
-   }
+    protected String firstName = null;
 
-      
-   /**
-    * @return
-    */
-   public String getMiddleName() {
-       return middleName;
-   }
+    protected String middleName = null;
 
-   /**
-    * @param string
-    */
-   public void setMiddleName(String middleName) {
-       this.middleName = middleName;
-   }
+    protected String lastName = null;
 
-   /**
-    * Gets the last name.
-   */
-   public String getLastName() {
-      return lastName;	
-   }
+    public String getFirstName() {
+        return firstName;
+    }
 
-   /**
-    * Sets the last name.
-   */
-   public void setLastName(String lastName) {
-      this.lastName = lastName;
-   }
-      
-}                                                         
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+}

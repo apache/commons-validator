@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LocaleTest.java,v 1.11 2003/10/05 16:41:09 dgraham Exp $
- * $Revision: 1.11 $
- * $Date: 2003/10/05 16:41:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/LocaleTest.java,v 1.12 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.12 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -71,22 +71,19 @@ import junit.framework.TestSuite;
 import org.xml.sax.SAXException;
                                                           
 /**                                                       
- * <p>Performs Validation Test for <code>long</code> validations.</p> 
- *
- * @author David Winterfeldt
- * @version $Revision: 1.11 $ $Date: 2003/10/05 16:41:09 $
-*/                                                       
+ * Performs Validation Test for <code>long</code> validations.
+ */                                                       
 public class LocaleTest extends TestCommon {
    
    /**
     * The key used to retrieve the set of validation 
     * rules from the xml file.
-   */
+    */
    protected static String FORM_KEY = "nameForm";   
 
    /**
     * The key used to retrieve the validator action.
-   */
+    */
    protected static String ACTION = "required";
 
 
@@ -115,7 +112,7 @@ public class LocaleTest extends TestCommon {
    /**
     * Load <code>ValidatorResources</code> from 
     * validator-locale.xml.
-   */
+    */
    protected void setUp() throws IOException, SAXException {
       // Load resources
       loadResources("validator-locale.xml");
@@ -126,7 +123,7 @@ public class LocaleTest extends TestCommon {
 
    /**
     * See what happens when we try to validate with a Locale, Country and variant
-   */
+    */
    public void testLocale1() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -138,7 +135,7 @@ public class LocaleTest extends TestCommon {
 
    /**
     * See what happens when we try to validate with a Locale, Country and variant
-   */
+    */
    public void testLocale2() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -150,7 +147,7 @@ public class LocaleTest extends TestCommon {
 
    /**
     * See what happens when we try to validate with a Locale, Country and variant
-   */
+    */
    public void testLocale3() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -163,40 +160,43 @@ public class LocaleTest extends TestCommon {
    /**
     * Utlity class to run a test on a value.
     *
-    * @param	info	Value to run test on.
-    * @param	passed	Whether or not the test is expected to pass.
-   */
-   private void valueTest(Object name, Locale loc, boolean firstGood, boolean lastGood) throws ValidatorException {
-      // Construct validator based on the loaded resources 
-      // and the form key
-      Validator validator = new Validator(resources, FORM_KEY);
-      // add the name bean to the validator as a resource 
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, name);
-      validator.setParameter(Validator.LOCALE_PARAM, loc);
-      // Get results of the validation.
-      ValidatorResults results = null;
-      
-      // throws ValidatorException, 
-      // but we aren't catching for testing 
-      // since no validation methods we use 
-      // throw this
-      results = validator.validate();
-      
-      assertNotNull("Results are null.", results);
-      
-      ValidatorResult resultlast = results.getValidatorResult("lastName");
-      ValidatorResult resultfirst = results.getValidatorResult("firstName");
-
-      if (firstGood) {
-	  assertNull(ACTION + " firstName ValidatorResult should be null.", resultfirst);
-      } else {
-	  assertNotNull(ACTION + " firstName ValidatorResult should not be null.", resultfirst);
-      }
-      if (lastGood) {
-	  assertNull(ACTION + " lastName ValidatorResult should be null.", resultlast);
-      } else {
-	  assertNotNull(ACTION + " lastName ValidatorResult should not be null.", resultlast);
-      }
-   }
+    * @param info	Value to run test on.
+    * @param passed	Whether or not the test is expected to pass.
+    */
+    private void valueTest(Object name, Locale loc, boolean firstGood, boolean lastGood)
+        throws ValidatorException {
+            
+        // Construct validator based on the loaded resources 
+        // and the form key
+        Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource 
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
+        validator.setParameter(Validator.LOCALE_PARAM, loc);
+        // Get results of the validation.
+        ValidatorResults results = null;
+    
+        // throws ValidatorException, 
+        // but we aren't catching for testing 
+        // since no validation methods we use 
+        // throw this
+        results = validator.validate();
+    
+        assertNotNull("Results are null.", results);
+    
+        ValidatorResult resultlast = results.getValidatorResult("lastName");
+        ValidatorResult resultfirst = results.getValidatorResult("firstName");
+    
+        if (firstGood) {
+            assertNull(resultfirst);
+        } else {
+            assertNotNull(resultfirst);
+        }
+        
+        if (lastGood) {
+            assertNull(resultlast);
+        } else {
+            assertNotNull(resultlast);
+        }
+    }
 }

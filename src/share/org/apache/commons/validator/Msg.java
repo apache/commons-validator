@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.9 2003/08/21 21:43:05 rleland Exp $
- * $Revision: 1.9 $
- * $Date: 2003/08/21 21:43:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Msg.java,v 1.10 2004/01/11 23:30:20 dgraham Exp $
+ * $Revision: 1.10 $
+ * $Date: 2004/01/11 23:30:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,15 +64,10 @@ package org.apache.commons.validator;
 import java.io.Serializable;
 
 /**
- * <p>
  * An alternative message can be associated with a <code>Field</code>
  * and a pluggable validator instead of using the default message
  * stored in the <code>ValidatorAction</code> (aka pluggable validator).
  * Instances of this class are configured with a &lt;msg&gt; xml element.
- * </p>
- *
- * @author David Winterfeldt
- * @version $Revision: 1.9 $ $Date: 2003/08/21 21:43:05 $
  */
 public class Msg implements Cloneable, Serializable {
 

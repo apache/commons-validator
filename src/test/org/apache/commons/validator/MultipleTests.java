@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleTests.java,v 1.13 2003/09/06 05:17:59 rleland Exp $
- * $Revision: 1.13 $
- * $Date: 2003/09/06 05:17:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/MultipleTests.java,v 1.14 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,23 +70,19 @@ import junit.framework.TestSuite;
 import org.xml.sax.SAXException;
 
 /**
- * <p>Performs Validation Test.</p>
- *
- * @author James Turner
- * @author Arun Mammen Thomas
- * @version $Revision: 1.13 $ $Date: 2003/09/06 05:17:59 $
-*/
+ * Performs Validation Test.
+ */
 public class MultipleTests extends TestCommon {
 
    /**
     * The key used to retrieve the set of validation
     * rules from the xml file.
-   */
+    */
    protected static String FORM_KEY = "nameForm";
 
    /**
     * The key used to retrieve the validator action.
-   */
+    */
    protected static String ACTION = "required";
 
 
@@ -116,7 +112,7 @@ public class MultipleTests extends TestCommon {
    /**
     * Load <code>ValidatorResources</code> from
     * validator-multipletest.xml.
-   */
+    */
    protected void setUp() throws IOException, SAXException {
       // Load resources
       loadResources("validator-multipletest.xml");
@@ -127,7 +123,7 @@ public class MultipleTests extends TestCommon {
 
    /**
     * With nothing provided, we should fail both because both are required.
-   */
+    */
    public void testBothBlank() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -165,7 +161,7 @@ public class MultipleTests extends TestCommon {
 
    /**
     * If the first name fails required, and the second test fails int, we should get two errors.
-   */
+    */
    public void testRequiredFirstNameBlankLastNameShort() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -200,7 +196,7 @@ public class MultipleTests extends TestCommon {
 
    /**
     * If the first name is there, and the last name fails int, we should get one error.
-   */
+    */
    public void testRequiredLastNameShort() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -235,7 +231,7 @@ public class MultipleTests extends TestCommon {
 
    /**
     * If first name is ok and last name is ok and is an int, no errors.
-   */
+    */
    public void testRequiredLastNameLong() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();

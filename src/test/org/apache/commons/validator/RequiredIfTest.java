@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredIfTest.java,v 1.11 2003/09/06 05:17:59 rleland Exp $
- * $Revision: 1.11 $
- * $Date: 2003/09/06 05:17:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/RequiredIfTest.java,v 1.12 2004/01/11 23:30:21 dgraham Exp $
+ * $Revision: 1.12 $
+ * $Date: 2004/01/11 23:30:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2001-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,22 +70,19 @@ import junit.framework.TestSuite;
 import org.xml.sax.SAXException;
                                                           
 /**                                                       
- * <p>Performs Validation Test.</p> 
- *
- * @author James Turner
- * @version $Revision: 1.11 $ $Date: 2003/09/06 05:17:59 $
-*/                                                       
+ * Performs Validation Test.
+ */                                                       
 public class RequiredIfTest extends TestCommon {
    
    /**
     * The key used to retrieve the set of validation 
     * rules from the xml file.
-   */
+    */
    protected static String FORM_KEY = "nameForm";   
 
    /**
     * The key used to retrieve the validator action.
-   */
+    */
    protected static String ACTION = "requiredif";
 
    public RequiredIfTest(String name) {                  
@@ -113,7 +110,7 @@ public class RequiredIfTest extends TestCommon {
    /**
     * Load <code>ValidatorResources</code> from 
     * validator-requiredif.xml.
-   */
+    */
    protected void setUp() throws IOException, SAXException {
       // Load resources
       loadResources("validator-requiredif.xml");
@@ -125,7 +122,7 @@ public class RequiredIfTest extends TestCommon {
    /**
     * With nothing provided, we should pass since the fields only fail on
     * null if the other field is non-blank.
-   */
+    */
    public void testRequired() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -162,7 +159,7 @@ public class RequiredIfTest extends TestCommon {
 
    /**
     * Tests the required validation for first name if it is blank.
-   */
+    */
    public void testRequiredFirstNameBlank() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -197,7 +194,7 @@ public class RequiredIfTest extends TestCommon {
 
    /**
     * Tests the required validation for last name.
-   */
+    */
    public void testRequiredFirstName() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -232,7 +229,7 @@ public class RequiredIfTest extends TestCommon {
 
    /**
     * Tests the required validation for last name if it is blank.
-   */
+    */
    public void testRequiredLastNameBlank() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
@@ -267,7 +264,7 @@ public class RequiredIfTest extends TestCommon {
 
    /**
     * Tests the required validation for last name.
-   */
+    */
    public void testRequiredLastName() throws ValidatorException {
       // Create bean to run test on.
       NameBean name = new NameBean();
