@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.17 2003/08/17 04:21:05 rleland Exp $
- * $Revision: 1.17 $
- * $Date: 2003/08/17 04:21:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.18 2003/08/22 04:22:42 rleland Exp $
+ * $Revision: 1.18 $
+ * $Date: 2003/08/22 04:22:42 $
  *
  * ====================================================================
  *
@@ -78,7 +78,7 @@ import org.xml.sax.SAXException;
  * @author David Winterfeldt
  * @author David Graham
  * @author Rob Leland
- * @version $Revision: 1.17 $ $Date: 2003/08/17 04:21:05 $
+ * @version $Revision: 1.18 $ $Date: 2003/08/22 04:22:42 $
 */                                                       
 public class EmailTest extends TestCase {            
    
@@ -202,9 +202,9 @@ public class EmailTest extends TestCase {
       valueTest(info, true);
 
       info.setValue("andy-noble@data-workshop.-com");
-       valueTest(info, false);
+       valueTest(info, true);
        info.setValue("andy-noble@data-workshop.c-om");
-       valueTest(info, false);
+       valueTest(info,true);
        info.setValue("andy-noble@data-workshop.co-m");
        valueTest(info, true);
 
@@ -261,8 +261,6 @@ public class EmailTest extends TestCase {
     /**
      * Write this test according to parts of RFC, as opposed to the type of character
      * that is being tested.
-     * According to RFC 1738 a user name can be composed of the following :
-     *  *[alpha | digit | "$" | "-" | "_" | "." | "+"  | "!" | "*" | "'" | "(" | ")" | "," | "%" hex hex | ";" | "?" | "&" | "=" ]
 
      * @throws ValidatorException
      */
@@ -276,32 +274,64 @@ public class EmailTest extends TestCase {
         valueTest(info, true);
         info.setValue("joe_@apache.org");
         valueTest(info, true);
+
+        //UnQuoted Special characters are invalid
+
         info.setValue("joe.@apache.org");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joe+@apache.org");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joe!@apache.org");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joe*@apache.org");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joe'@apache.org");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joe(@apache.org");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joe)@apache.org");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joe,@apache.org");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joe%45@apache.org");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joe;@apache.org");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joe?@apache.org");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joe&@apache.org");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joe=@apache.org");
+        valueTest(info, false);
+
+        //Quoted Special characters are valid
+        info.setValue("\"joe.\"@apache.org");
         valueTest(info, true);
+        info.setValue("\"joe+\"@apache.org");
+        valueTest(info, true);
+        info.setValue("\"joe!\"@apache.org");
+        valueTest(info, true);
+        info.setValue("\"joe*\"@apache.org");
+        valueTest(info, true);
+        info.setValue("\"joe'\"@apache.org");
+        valueTest(info, true);
+        info.setValue("\"joe(\"@apache.org");
+        valueTest(info, true);
+        info.setValue("\"joe)\"@apache.org");
+        valueTest(info, true);
+        info.setValue("\"joe,\"@apache.org");
+        valueTest(info, true);
+        info.setValue("\"joe%45\"@apache.org");
+        valueTest(info, true);
+        info.setValue("\"joe;\"@apache.org");
+        valueTest(info, true);
+        info.setValue("\"joe?\"@apache.org");
+        valueTest(info, true);
+        info.setValue("\"joe&\"@apache.org");
+        valueTest(info, true);
+        info.setValue("\"joe=\"@apache.org");
+        valueTest(info, true);
+
 
     }
 
@@ -313,7 +343,7 @@ public class EmailTest extends TestCase {
     * @param	info	Value to run test on.
     * @param	passed	Whether or not the test is expected to pass.
    */
-   private void valueTest(Object info, boolean passed) throws ValidatorException {
+   private void valueTest(ValueBean info, boolean passed) throws ValidatorException {
       // Construct validator based on the loaded resources 
       // and the form key
       Validator validator = new Validator(resources, FORM_KEY);
@@ -335,7 +365,7 @@ public class EmailTest extends TestCase {
       ValidatorResult result = results.getValidatorResult("value");
 
       assertNotNull(ACTION + " value ValidatorResult should not be null.", result);
-      assertTrue("ValidatorResult should contain the '" + ACTION +"' action.", result.containsAction(ACTION));
-      assertTrue("ValidatorResult for the '" + ACTION +"' action should have " + (passed ? "passed" : "failed") + ".", (passed ? result.isValid(ACTION) : !result.isValid(ACTION)));
+      assertTrue("Value "+info.getValue()+" ValidatorResult should contain the '" + ACTION +"' action.", result.containsAction(ACTION));
+      assertTrue("Value "+info.getValue()+"ValidatorResult for the '" + ACTION +"' action should have " + (passed ? "passed" : "failed") + ".", (passed ? result.isValid(ACTION) : !result.isValid(ACTION)));
    }
 }                                                         
