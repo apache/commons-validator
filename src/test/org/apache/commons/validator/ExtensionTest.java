@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ExtensionTest.java,v 1.1 2004/04/04 13:53:25 rleland Exp $
- * $Revision: 1.1 $
- * $Date: 2004/04/04 13:53:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ExtensionTest.java,v 1.2 2004/11/26 21:35:19 dgraham Exp $
+ * $Revision: 1.2 $
+ * $Date: 2004/11/26 21:35:19 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -26,9 +26,6 @@ import java.io.InputStream;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>Performs tests for extension in form definitions. Performs the same tests
@@ -60,12 +57,6 @@ public class ExtensionTest extends TestCase {
      * The key used to retrieve the validator action.
     */
     protected static String ACTION = "required";
-
-
-    /**
-     * Commons Logging instance.
-    */
-    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Resources used for validation tests.
@@ -103,21 +94,18 @@ public class ExtensionTest extends TestCase {
      * validator-extension.xml.
     */
     protected void setUp() throws Exception {
-       // Load resources
-       InputStream in = null;
+		// Load resources
+		InputStream in = null;
 
-       try {
-          in = this.getClass().getResourceAsStream("validator-extension.xml");
-          resources = new ValidatorResources(in);
-       } catch (Exception e) {
-          log.error(e.getMessage(), e);
-          throw e;
-       } finally {
-          if (in != null) {
-             try { in.close(); } catch (Exception e) {}
-          }
-       }
-    }
+		try {
+			in = this.getClass().getResourceAsStream("validator-extension.xml");
+			resources = new ValidatorResources(in);
+		} finally {
+			if (in != null) {
+				in.close();
+			}
+		}
+	}
 
     protected void tearDown() {
     }
@@ -369,7 +357,7 @@ public class ExtensionTest extends TestCase {
      * Tests if the order is mantained when extending a form. Parent form fields should
      * preceed self form fields, except if we override the rules.
     */
-    public void testOrder() throws ValidatorException {
+    public void testOrder() {
 
        Form form = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY);
        Form form2 = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY2);

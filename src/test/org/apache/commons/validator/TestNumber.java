@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestNumber.java,v 1.4 2004/02/21 17:10:30 rleland Exp $
- * $Revision: 1.4 $
- * $Date: 2004/02/21 17:10:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestNumber.java,v 1.5 2004/11/26 21:35:19 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2004/11/26 21:35:19 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -18,7 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package org.apache.commons.validator;
 
 import java.io.IOException;
@@ -65,9 +65,6 @@ abstract public class TestNumber extends TestCommon {
         // Create bean to run test on.
         ValueBean info = new ValueBean();
         info.setValue("0");
-        if (log.isDebugEnabled()) {
-            log.debug("testNumberFailure Action=" + ACTION + ", FORM_KEY=" + FORM_KEY);
-        }
         valueTest(info, true);
     }
 
@@ -77,9 +74,6 @@ abstract public class TestNumber extends TestCommon {
     public void testNumberFailure() throws ValidatorException {
         // Create bean to run test on.
         ValueBean info = new ValueBean();
-        if (log.isDebugEnabled()) {
-            log.debug("testNumberFailure Action=" + ACTION + ", FORM_KEY=" + FORM_KEY);
-        }
         valueTest(info, false);
     }
 

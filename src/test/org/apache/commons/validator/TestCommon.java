@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestCommon.java,v 1.6 2004/02/21 17:10:30 rleland Exp $
- * $Revision: 1.6 $
- * $Date: 2004/02/21 17:10:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestCommon.java,v 1.7 2004/11/26 21:35:19 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2004/11/26 21:35:19 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -25,8 +25,6 @@ import java.io.InputStream;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
 
 /**
@@ -38,11 +36,6 @@ abstract public class TestCommon extends TestCase {
      * Resources used for validation tests.
      */
     protected ValidatorResources resources = null;
-    
-    /**
-     * Commons Logging instance.
-     */
-    protected Log log = LogFactory.getLog(this.getClass());
 
     public TestCommon(String string) {
         super(string);
@@ -59,19 +52,10 @@ abstract public class TestCommon extends TestCase {
         try {
             in = this.getClass().getResourceAsStream(file);
             resources = new ValidatorResources(in);
-            
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-            throw e;
-            
         } finally {
             if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    log.error(e.getMessage(), e);
-                }
-            }
+				in.close();
+			}
         }
     }
 }
