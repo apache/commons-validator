@@ -27,15 +27,6 @@
         Validator.  Contributions are welcome! 
       </p>
     
-    <subsection name="High priority"> 
-      <ul>
-      	<li>
-      		Remove functionality deprecated in 1.1.0 release in 1.2.0 release.
-      	</li>
-       </ul>
-    </subsection>
-    
-    <subsection name="Medium priority"> 
       <ul>
         <li>
             Integrate the creation of javascript javadocs into the maven build. What will need to happen
@@ -92,12 +83,7 @@
       	    conditions.
       	</li>
       </ul>
-    </subsection>
-    
-    <subsection name="Low priority"> 
-      <ul>
-       </ul>
-    </subsection>
+
 </section>
 </body>
 </document>
