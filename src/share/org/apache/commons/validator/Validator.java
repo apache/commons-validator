@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.13 2003/03/12 06:00:52 dgraham Exp $
- * $Revision: 1.13 $
- * $Date: 2003/03/12 06:00:52 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.14 2003/03/12 06:22:23 dgraham Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/03/12 06:22:23 $
  *
  * ====================================================================
  *
@@ -83,8 +83,9 @@ import org.apache.commons.logging.LogFactory;
  * and the validation rules for a JavaBean.</p>
  *
  * @author David Winterfeldt
- * @author James Turner 
- * @version $Revision: 1.13 $ $Date: 2003/03/12 06:00:52 $
+ * @author James Turner
+ * @author David Graham
+ * @version $Revision: 1.14 $ $Date: 2003/03/12 06:22:23 $
  */
 public class Validator implements Serializable {
 
@@ -583,7 +584,7 @@ public class Validator implements Serializable {
         if (form != null) {
             for (Iterator i = form.getFields().iterator(); i.hasNext();) {
                 Field field = (Field) i.next();
-                if (field.getPage() <= page) {
+                if ((field.getPage() <= page) && (field.getDepends() != null)) {
                     validateField(field, results);
                 }
             }
