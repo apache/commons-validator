@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.9 2003/05/22 03:28:05 dgraham Exp $
- * $Revision: 1.9 $
- * $Date: 2003/05/22 03:28:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.10 2003/05/22 05:03:03 dgraham Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/05/22 05:03:03 $
  *
  * ====================================================================
  *
@@ -82,7 +82,8 @@ import org.apache.commons.logging.LogFactory;
  * <strong>Note</strong>: The validation method is assumed to be thread safe.
  *
  * @author David Winterfeldt
- * @version $Revision: 1.9 $ $Date: 2003/05/22 03:28:05 $
+ * @author David Graham
+ * @version $Revision: 1.10 $ $Date: 2003/05/22 05:03:03 $
  */
 public class ValidatorAction implements Serializable {
 
@@ -161,7 +162,7 @@ public class ValidatorAction implements Serializable {
     /**
      * Logger.
      */
-    private static Log log = LogFactory.getLog(ValidatorAction.class);
+    private static final Log log = LogFactory.getLog(ValidatorAction.class);
 
 	/**
 	 * A <code>FastHashMap</code> of the other 
@@ -330,6 +331,7 @@ public class ValidatorAction implements Serializable {
         if (jsFunction != null) {
             throw new IllegalStateException("Cannot call setJavascript() after calling setJsFunction()");
         }
+        
 		this.javascript = javascript;
 	}
 
@@ -350,8 +352,8 @@ public class ValidatorAction implements Serializable {
     /**
      * Initialize based on set.
      */
-    void init() {
-        loadFunction();
+    protected void init() {
+        this.loadJavascriptFunction();
     }
 
     /**
@@ -364,10 +366,9 @@ public class ValidatorAction implements Serializable {
       * If this fails then it will attempt to treat the path as a file path.
       * It is assumed the script ends with a '.js'.
       */
-     protected synchronized void loadFunction() {
+     protected synchronized void loadJavascriptFunction() {
 
-        // Have we already loaded the javascript for this action?
-        if (javascript != null) {
+        if (this.javascriptAlreadyLoaded()) {
             return;
         }
 
@@ -375,68 +376,89 @@ public class ValidatorAction implements Serializable {
             log.trace("  Loading function begun");
         }
 
-         // Have we already attempted to load the javascript for this action?
-         if (javascript != null) {
-             return;
+         if (this.jsFunction == null) {
+             this.jsFunction = this.generateJsFunction();
          }
 
-         if (jsFunction == null) {
-             jsFunction = generateJsFunction();
-         }
-
-         String name;
-         // Set up to load the javascript function, if we can
-         if (jsFunction.charAt(0) != '/') {
-            name = jsFunction.replace('.', '/');
-            name += ".js";
-         } else {
-             name = jsFunction.substring(1);
-         }
-         InputStream is = null;
-
-         // Load the specified javascript function
-         if (log.isTraceEnabled()) {
-             log.trace("  Loading js function '" + name + "'");
-         }
-
-         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-         if (classLoader == null) {
-             classLoader = this.getClass().getClassLoader();
-         }
-
-         is = classLoader.getResourceAsStream(name);
-         if (is == null) {
-             is = this.getClass().getResourceAsStream(name);
-         }
-
-         if (is != null) {
-             try {
-                 int bufferSize = is.available();
-                 StringBuffer function = new StringBuffer();
-                 while (bufferSize > 0) {
-                    byte[] buffer = new byte[bufferSize];
-                    is.read(buffer,0,bufferSize);
-                    String functionPart = new String(buffer);
-                    function.append(functionPart);
-                    bufferSize = is.available();
-                 }
-                 javascript = function.toString();
-             } catch (IOException e) {
-                 log.error("loadFunction()", e);
-
-             } finally {
-                 try {
-                     is.close();
-                 } catch (IOException e) {
-                     log.error("loadFunction()", e);
-                 }
-             }
-         }
+         String javascriptFileName = this.formatJavascriptFileName();
 
          if (log.isTraceEnabled()) {
-             log.trace("  Loading function completed");
+             log.trace("  Loading js function '" + javascriptFileName + "'");
          }
 
+        this.javascript = this.readJavascriptFile(javascriptFileName);
+
+         if (log.isTraceEnabled()) {
+             log.trace("  Loading javascript function completed");
+         }
+
+    }
+
+    /**
+     * Read a javascript function from a file.
+     * @param javascriptFileName The file containing the javascript.
+     * @return The javascript function or null if it could not be loaded.
+     */
+    private String readJavascriptFile(String javascriptFileName) {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        if (classLoader == null) {
+            classLoader = this.getClass().getClassLoader();
+        }
+
+        InputStream is = classLoader.getResourceAsStream(javascriptFileName);
+        if (is == null) {
+            is = this.getClass().getResourceAsStream(javascriptFileName);
+        }
+
+        if (is == null) {
+            return null;
+        }
+        
+        StringBuffer function = new StringBuffer();
+        try {
+            int bufferSize = is.available();
+
+            while (bufferSize > 0) {
+                byte[] buffer = new byte[bufferSize];
+                is.read(buffer, 0, bufferSize);
+                String functionPart = new String(buffer);
+                function.append(functionPart);
+                bufferSize = is.available();
+            }
+
+        } catch (IOException e) {
+            log.error("readJavascriptFile()", e);
+
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                log.error("readJavascriptFile()", e);
+            }
+        }
+
+        return function.toString().equals("") ? null : function.toString();
+    }
+
+    /**
+     * @return A filename suitable for passing to a ClassLoader.getResourceAsStream()
+     * method.
+     */
+    private String formatJavascriptFileName() {
+        String name = this.jsFunction.substring(1);
+
+         if (!this.jsFunction.startsWith("/")) {
+            name = jsFunction.replace('.', '/') + ".js";
+         } 
+         
+        return name;
+    }
+    
+    /**
+     * @return true if the javascript for this action has already been loaded.
+     */
+    private boolean javascriptAlreadyLoaded() {
+        return (this.javascript != null);
     }
 
     /**
