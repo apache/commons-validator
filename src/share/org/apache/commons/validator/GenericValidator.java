@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.21 2003/05/01 02:15:16 dgraham Exp $
- * $Revision: 1.21 $
- * $Date: 2003/05/01 02:15:16 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.22 2003/05/01 02:42:30 dgraham Exp $
+ * $Revision: 1.22 $
+ * $Date: 2003/05/01 02:42:30 $
  *
  * ====================================================================
  *
@@ -63,9 +63,6 @@ package org.apache.commons.validator;
 
 import java.io.Serializable;
 import java.util.Locale;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
 
 import org.apache.oro.text.perl.Perl5Util;
 
@@ -77,7 +74,7 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
  * @author Robert Leland
- * @version $Revision: 1.21 $ $Date: 2003/05/01 02:15:16 $
+ * @version $Revision: 1.22 $ $Date: 2003/05/01 02:42:30 $
  */
 public class GenericValidator implements Serializable {
 
@@ -91,6 +88,7 @@ public class GenericValidator implements Serializable {
     * UrlValidator used in wrapper method, lazy initialization.
     */
    private static UrlValidator urlValidator = null;
+   
    /**
     * <p>Checks if the field isn't null and length of the field is greater than zero not
     * including whitespace.</p>
@@ -104,18 +102,17 @@ public class GenericValidator implements Serializable {
    /**
     * <p>Checks if the value matches the regular expression.</p>
     *
-    * @param 	value 		The value validation is being performed on.
-    * @param 	regexp		The regular expression.
+    * @param value The value validation is being performed on.
+    * @param regexp The regular expression.
     */
    public static boolean matchRegexp(String value, String regexp) {
-      boolean match = false;
 
-      if (regexp != null && regexp.length() > 0) {
-         Perl5Util r = new Perl5Util();
-         match = r.match( ValidatorUtil.getDelimitedRegExp(regexp), value);
+      if (regexp == null || regexp.length() <= 0) {
+         return false;
       }
-
-      return match;
+      
+      Perl5Util matcher = new Perl5Util();
+      return matcher.match(ValidatorUtil.getDelimitedRegExp(regexp), value);
    }
 
    /**
@@ -148,7 +145,7 @@ public class GenericValidator implements Serializable {
    /**
     * <p>Checks if the value can safely be converted to a long primitive.</p>
     *
-    * @param 	value 		The value validation is being performed on.
+    * @param value The value validation is being performed on.
     */
    public static boolean isLong(String value) {
       return (GenericTypeValidator.formatLong(value) != null);
@@ -157,7 +154,7 @@ public class GenericValidator implements Serializable {
    /**
     * <p>Checks if the value can safely be converted to a float primitive.</p>
     *
-    * @param 	value 		The value validation is being performed on.
+    * @param value The value validation is being performed on.
     */
    public static boolean isFloat(String value) {
       return (GenericTypeValidator.formatFloat(value) != null);
@@ -166,47 +163,24 @@ public class GenericValidator implements Serializable {
    /**
     * <p>Checks if the value can safely be converted to a double primitive.</p>
     *
-    * @param 	value 		The value validation is being performed on.
+    * @param value The value validation is being performed on.
     */
    public static boolean isDouble(String value) {
       return (GenericTypeValidator.formatDouble(value) != null);
    }
 
-   /**
-    * <p>Checks if the field is a valid date.  The <code>Locale</code> is
-    * used with <code>java.text.DateFormat</code>.  The setLenient method
-    * is set to <code>false</code> for all.</p>
-    *
-    * @param 	value 		The value validation is being performed on.
-    * @param 	locale	        The locale to use for the date format, defaults to the default system default if null.
-    */
-   public static boolean isDate(String value, Locale locale) {
-      boolean bValid = true;
-
-      if (value != null) {
-         try {
-            DateFormat formatter = null;
-            if (locale != null) {
-               formatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-            } else {
-               formatter =
-                     DateFormat.getDateInstance(
-                           DateFormat.SHORT,
-                           Locale.getDefault());
-            }
-
-            formatter.setLenient(false);
-
-            formatter.parse(value);
-         } catch (ParseException e) {
-            bValid = false;
-         }
-      } else {
-         bValid = false;
-      }
-
-      return bValid;
-   }
+    /**
+     * <p>Checks if the field is a valid date.  The <code>Locale</code> is
+     * used with <code>java.text.DateFormat</code>.  The setLenient method
+     * is set to <code>false</code> for all.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param locale The locale to use for the date format, defaults to the default 
+     * system default if null.
+     */
+    public static boolean isDate(String value, Locale locale) {
+    	return DateValidator.getInstance().isValid(value, locale);
+    }
 
    /**
     * <p>Checks if the field is a valid date.  The pattern is used with
@@ -215,35 +189,12 @@ public class GenericValidator implements Serializable {
     * the format 'MM/dd/yyyy' because the month isn't two digits.
     * The setLenient method is set to <code>false</code> for all.</p>
     *
-    * @param 	value 		The value validation is being performed on.
-    * @param 	datePattern	The pattern passed to <code>SimpleDateFormat</code>.
-    * @param 	strict	        Whether or not to have an exact match of the datePattern.
+    * @param value The value validation is being performed on.
+    * @param datePattern The pattern passed to <code>SimpleDateFormat</code>.
+    * @param strict Whether or not to have an exact match of the datePattern.
     */
    public static boolean isDate(String value, String datePattern, boolean strict) {
-
-      boolean bValid = true;
-
-      if (value != null && datePattern != null && datePattern.length() > 0) {
-         try {
-            SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
-            formatter.setLenient(false);
-
-            formatter.parse(value);
-
-            if (strict) {
-               if (datePattern.length() != value.length()) {
-                  bValid = false;
-               }
-            }
-
-         } catch (ParseException e) {
-            bValid = false;
-         }
-      } else {
-         bValid = false;
-      }
-
-      return bValid;
+        return DateValidator.getInstance().isValid(value, datePattern, strict);
    }
 
    /**
@@ -342,16 +293,17 @@ public class GenericValidator implements Serializable {
     * @param value The value validation is being performed on.
     */
    public static boolean isUrl(String value) {
-      if (urlValidator == null)
+      if (urlValidator == null) {
          urlValidator = new UrlValidator();
-      return (urlValidator.isValid(value));
+      }
+      return urlValidator.isValid(value);
    }
 
    /**
     * <p>Checks if the value's length is less than or equal to the max.</p>
     *
-    * @param 	value 		The value validation is being performed on.
-    * @param 	max		The maximum length.
+    * @param value The value validation is being performed on.
+    * @param max The maximum length.
     */
    public static boolean maxLength(String value, int max) {
       return (value.length() <= max);
