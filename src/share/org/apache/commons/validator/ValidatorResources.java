@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.7 2002/10/16 18:48:08 turner Exp $
- * $Revision: 1.7 $
- * $Date: 2002/10/16 18:48:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.8 2002/12/04 21:24:01 turner Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/12/04 21:24:01 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogSource;
  * application server environments.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2002/10/16 18:48:08 $
+ * @version $Revision: 1.8 $ $Date: 2002/12/04 21:24:01 $
 */
 public class ValidatorResources implements Serializable {
 
@@ -255,44 +255,25 @@ public class ValidatorResources implements Serializable {
       
 	Vector v = (Vector) hFormSets.get(key);
 
-	if (v == null) return f;
+	if (v == null) {
+	    key = ((language != null && language.length() > 0) ? language : "") + 
+		((country != null && country.length() > 0) ? "_" + country : "");
+	    v = (Vector) hFormSets.get(key);
+	}
+
+	if (v == null) {
+	    key = ((language != null && language.length() > 0) ? language : "");
+	    v = (Vector) hFormSets.get(key);
+	}
+
+	if (v == null) {
+	    key = defaultLocale.toString();
+	    v = (Vector) hFormSets.get(key);
+	}
+
+	if (v == null) return null;
 
 	Enumeration formsets = v.elements();
-	while (formsets.hasMoreElements()) {
-	    o = formsets.nextElement();
-	    if (o != null) {
-		fs = (FormSet)o;
-		if ((fs != null) && (fs.getForm(formKey) != null)) {
-		    return fs.getForm(formKey);
-		}
-	    }
-	}
-	key = ((language != null && language.length() > 0) ? language : "") + 
-	    ((country != null && country.length() > 0) ? "_" + country : "");
-         
-	formsets = v.elements();
-	while (formsets.hasMoreElements()) {
-	    o = formsets.nextElement();
-	    if (o != null) {
-		fs = (FormSet)o;
-		if ((fs != null) && (fs.getForm(formKey) != null)) {
-		    return fs.getForm(formKey);
-		}
-	    }
-	}
-	key = ((language != null && language.length() > 0) ? language : "");
-	formsets = v.elements();
-	while (formsets.hasMoreElements()) {
-	    o = formsets.nextElement();
-	    if (o != null) {
-		fs = (FormSet)o;
-		if ((fs != null) && (fs.getForm(formKey) != null)) {
-		    return fs.getForm(formKey);
-		}
-	    }
-	}
-	key = defaultLocale.toString();
-	formsets = v.elements();
 	while (formsets.hasMoreElements()) {
 	    o = formsets.nextElement();
 	    if (o != null) {
