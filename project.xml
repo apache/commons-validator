@@ -271,19 +271,19 @@
     <dependency>
       <id>commons-beanutils</id>
       <version>1.7.0</version>
-      <url>http://jakarta.apache.org/commons/beanutils.html</url>
+      <url>http://jakarta.apache.org/commons/beanutils/</url>
     </dependency>
 
     <dependency>
       <id>commons-digester</id>
       <version>1.6</version>
-      <url>http://jakarta.apache.org/commons/digester.html</url>
+      <url>http://jakarta.apache.org/commons/digester/</url>
     </dependency>
 
     <dependency>
       <id>commons-logging</id>
       <version>1.0.4</version>
-      <url>http://jakarta.apache.org/commons/logging.html</url>
+      <url>http://jakarta.apache.org/commons/logging/</url>
     </dependency>
     
     <dependency>
@@ -302,7 +302,7 @@
     <dependency>
       <id>junit</id>
       <version>3.8.1</version>
-      <url>http://www.junit.org</url>
+      <url>http://www.junit.org/</url>
     </dependency>
 
   </dependencies>
