@@ -2,6 +2,11 @@
 <html>
 <head>
   <title>Validator JavaScript package</title>
+  <style type="text/css">
+<!--
+.style1 {color: #0000A0}
+-->
+  </style>
 </head>
 <body>
 <p> The validator javascript package provides a series of functions to
@@ -9,7 +14,7 @@ validate <code>form input data</code>.</p>
 <br>
 <h2>Package Specification</h2>
 <br>
-<table cellpadding="2" cellspacing="2" border="1"
+<table cellpadding="2" cellspacing="2" border="1" bordercolor="#000000"
  style="text-align: left; width: 100%; height: 310px;"
  title="Input fields and their validations">
 
@@ -120,19 +125,20 @@ Short<br>
       </td>
       <td style="vertical-align: top;"><br>
       </td>
-      <td style="vertical-align: top;"><br>
+      <td style="vertical-align: top;"><img align="MIDDLE" alt="Yes" src="doc-files/sm-yes.gif"
+ style="width: 15px; height: 15px;"> <span class="style1">1</span><br>
       </td>
       <td style="vertical-align: top;"><br>
       </td>
       <td style="vertical-align: top;"><br>
       </td>
-      <td style="vertical-align: top;"><img src="doc-files/sm-yes.gif"
- alt="Yes" style="width: 15px; height: 15px;"></td>
+      <td style="vertical-align: top;"><img align="MIDDLE"
+ alt="Yes" src="doc-files/sm-yes.gif" style="width: 15px; height: 15px;"></td>
       <td style="vertical-align: top;"><br>
       </td>
     </tr>
     <tr>
-      <td style="vertical-align: top;">hidden</td>
+      <td style="vertical-align: top;">hidden <span class="style1">2</span> </td>
       <td style="vertical-align: top;"><img
  style="width: 15px; height: 15px;" alt="Yes" src="doc-files/sm-yes.gif"></td>
       <td style="vertical-align: top;">&nbsp;</td>
@@ -339,11 +345,21 @@ Short<br>
     </tr>
   </tbody>
 </table>
-<br>
-<ul>
-  <li><a href="">##### REFER TO ANY FRAMEMAKER SPECIFICATION HERE #####</a>
-  </li>
-</ul>
+<p>Notes</p>
+<table width="1215" border="0">
+  <tr>
+    <th width="17" scope="row">1)</th>
+    <td width="8">&nbsp;</td>
+    <td width="1176"><p>Since few browser support the 'accept' attribute for file upload input fields, a mask can be used to validate the uploaded file extension.</p>
+      <p></p></td>
+  </tr>
+  <tr>
+    <th scope="row">2)</th>
+    <td>&nbsp;</td>
+    <td> Hidden fields can be used with complicated HTML interface. like cascading inter-dependent menus. The menus themselves don't represent real data fields, but are used with javascript to set the value of a hidden field. </td>
+  </tr>
+</table>
+<p>&nbsp;</p>
 <h2>Related Documentation</h2>
 For overviews, tutorials, examples, guides, and tool documentation,
 please see:
