@@ -56,9 +56,38 @@
     </subsection>
 </section>
 <section name='Completed'>
-    <subsection name='Since 1.0.2 Release'>
+    <subsection name='Since 1.1.0 Release'>
         <ul>
         	<li>
+        	   Add javadoc to javascript, and use             
+                  <a href="http://jsdoc.sf.net"> jsdoc</a> to process it.
+        	</li>
+        	<li>
+        	   Ignore validation criteria when field is disabled for all field types.
+        	</li>
+        	<li>
+        	  Add required check for single checkbox.
+        	</li>
+        	<li>
+        	  Let max/min length also cover passwords fields. Don't use these for checking login pages,
+        	  only when the user is modifying the password.
+        	</li>
+        	<li>
+        	  Added Field.getArgs(String) to make it easier to retrieve all of the Args for a given validator.
+        	</li>
+        	<li>
+              Modify javascript to honor datapattern option.
+        	</li>
+        	<li>
+        	  Add ability of required to handle checkboxes, radio,select-one, and select-multiple field types.
+        	</li>
+        	<li>
+        	  Add ability to use required condition on array types like checkboxes.
+        	</li>
+    </subsection>
+    <subsection name='Since 1.0.2 Release'>
+        <ul>
+         	<li>
         		Move Digester rule configuration to XML file and remove ValidatorResourcesInitializer.
         		ValidatorResources now knows how to initialize itself.
         	</li>

@@ -3,7 +3,7 @@
 
 <!--
         "Validator" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.28 2003/12/15 02:56:57 rleland Exp $
+        $Id: build.xml,v 1.29 2003/12/15 06:10:51 rleland Exp $
 -->
 
 
@@ -52,7 +52,7 @@
   <property name="component.title"         value="Validator"/>
 
   <!-- The current version number of this component -->
-  <property name="component.version"       value="1.1.1-dev"/>
+  <property name="component.version"       value="1.1.1"/>
 
   <!-- The base directory for compilation targets -->
   <property name="build.home"              value="target"/>
@@ -228,8 +228,11 @@
                 version="true"
                doctitle="&lt;h1&gt;${component.title} (Version ${component.version})&lt;/h1&gt;"
             windowtitle="${component.title} (Version ${component.version})"
-                 bottom="Copyright (c) 2001-2002 - Apache Software Foundation"
+                 bottom="Copyright (c) 2001-2004  Apache Software Foundation"
            classpathref="compile.classpath" />
+    <exec  executable="bash" failifexecutionfails="false">
+         <arg line="-c 'etc/jsdoc.sh ${jsdoc.home} ${javascript.home} ${dist.home}/docs/api ' "/>
+    </exec>
   </target>
   
   <target name="change-log" >
@@ -247,6 +250,8 @@
    description="Create binary distribution">
     <mkdir      dir="${dist.home}"/>
     <copy      file="LICENSE.txt"
+              todir="${dist.home}"/>
+    <copy      file="RELEASE-NOTES.readme"
               todir="${dist.home}"/>
     <mkdir      dir="${build.home}/classes/META-INF"/>
     <copy      file="LICENSE.txt"

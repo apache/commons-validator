@@ -1,6 +1,6 @@
-# $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/build.properties.sample,v 1.9 2003/10/15 04:15:40 rleland Exp $
-# $Revision: 1.9 $
-# $Date: 2003/10/15 04:15:40 $
+# $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/build.properties.sample,v 1.10 2003/12/15 06:10:51 rleland Exp $
+# $Revision: 1.10 $
+# $Date: 2003/12/15 06:10:51 $
 # -----------------------------------------------------------------------------
 # This is an example "build.properties" file.  Make any changes you need, 
 # and rename this file to "build.properties" in the same directory that 
@@ -31,8 +31,12 @@ oro.jar=${apache.dir}/jakarta-oro-2.0.7/jakarta-oro-2.0.7.jar
 # JUnit Unit Testing (http://www.junit.org)
 junit.jar=D:/java/Lib/junit3.8.1/junit.jar
 
-# Just needed for building the Javadocs
+# Needed for building the Javadocs
 xerces.jar=${apache.dir}/xerces-1_4_2/xerces.jar
+
+# jsdoc 1.5.2 or Newer is needed for building the Javascript Javadocs
+jsdoc.home=/cygdrive/d/Projects/Sourceforge/JsDoc/JSDoc-1.5.2
+
 #############################Maven Variables #######################################
 # CVS Start Change Log date
 maven.changelog.range=2000
@@ -40,4 +44,11 @@ maven.changelog.range=2000
 
 # If you are using ssh tunneling & have a .cvspass file setup
 cvs.developer.host=localhost
+# Maven deploy user
 cvs.developer.id=rleland
+
+######## Maven Variables located in your $HOME/build.properties ####
+# maven.username=rleland
+# maven.mode.online=true
+# maven.debugOn=true
+
