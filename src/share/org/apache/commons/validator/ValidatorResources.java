@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.12 2003/03/20 02:09:12 dgraham Exp $
- * $Revision: 1.12 $
- * $Date: 2003/03/20 02:09:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.13 2003/03/20 02:33:34 dgraham Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/03/20 02:33:34 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.12 $ $Date: 2003/03/20 02:09:12 $
+ * @version $Revision: 1.13 $ $Date: 2003/03/20 02:33:34 $
  */
 public class ValidatorResources implements Serializable {
 
@@ -123,16 +123,18 @@ public class ValidatorResources implements Serializable {
     public void put(FormSet fs) {
         if (fs != null) {
             String key = buildKey(fs);
-            if (hFormSets.get(key) == null) {
-                hFormSets.put(key, new ArrayList());
-            }
             List formsets = (List) hFormSets.get(key);
-            if (!formsets.contains(fs)) {
-                formsets.add(fs);
+
+            if (formsets == null) {
+                formsets = new ArrayList();
+                hFormSets.put(key, formsets);
             }
 
-            if (log.isDebugEnabled()) {
-                log.debug("Adding FormSet '" + fs.toString() + "'.");
+            if (!formsets.contains(fs)) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Adding FormSet '" + fs.toString() + "'.");
+                }
+                formsets.add(fs);
             }
         }
     }
@@ -147,11 +149,12 @@ public class ValidatorResources implements Serializable {
             && c.getValue() != null
             && c.getValue().length() > 0) {
 
-            hConstants.put(c.getName(), c.getValue());
-        }
+            if (log.isDebugEnabled()) {
+                log.debug(
+                    "Adding Global Constant: " + c.getName() + "," + c.getValue());
+            }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Add Global Constant: " + c.getName() + "," + c.getValue());
+            hConstants.put(c.getName(), c.getValue());
         }
     }
 
@@ -164,11 +167,11 @@ public class ValidatorResources implements Serializable {
             && value != null
             && value.length() > 0) {
 
-            hConstants.put(name, value);
-        }
+            if (log.isDebugEnabled()) {
+                log.debug("Adding Global Constant: " + name + "," + value);
+            }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Add Global Constant: " + name + "," + value);
+            hConstants.put(name, value);
         }
     }
 
