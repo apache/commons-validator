@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.6 2003/04/29 02:47:53 dgraham Exp $
- * $Revision: 1.6 $
- * $Date: 2003/04/29 02:47:53 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.7 2003/05/18 21:31:06 rleland Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/05/18 21:31:06 $
  *
  * ====================================================================
  *
@@ -62,6 +62,8 @@
 package org.apache.commons.validator;
 
 import java.io.Serializable;
+import java.io.InputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -69,6 +71,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import org.apache.commons.collections.FastHashMap;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>Contains the information to dynamically instantiate  and run a validation 
@@ -78,7 +82,7 @@ import org.apache.commons.collections.FastHashMap;
  * <strong>Note</strong>: The validation method is assumed to be thread safe.
  *
  * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2003/04/29 02:47:53 $
+ * @version $Revision: 1.7 $ $Date: 2003/05/18 21:31:06 $
  */
 public class ValidatorAction implements Serializable {
 
@@ -137,6 +141,12 @@ public class ValidatorAction implements Serializable {
 	 */
 	private String jsFunctionName = null;
 
+    /**
+     * An optional field to contain the class path to be
+     * used to retrieve the JavaScript function.
+     */
+    private String jsFunction = null;
+
 	/**
 	 * An optional field to containing a JavaScript representation of the 
 	 * java method assocated with this action.
@@ -148,6 +158,12 @@ public class ValidatorAction implements Serializable {
 	 * stored in the action.  This assumes the method is thread safe.
 	 */
 	private Object instance = null;
+
+
+    /**
+     * Logger
+    */
+    private static Log log = LogFactory.getLog(ValidatorAction.class);
 
 	/**
 	 * A <code>FastHashMap</code> of the other 
@@ -269,6 +285,38 @@ public class ValidatorAction implements Serializable {
 		this.jsFunctionName = jsFunctionName;
 	}
 
+    /**
+     * Sets the fully qualified class path of the Javascript function.
+     * <p>
+     * This is optional and can be used <strong>instead</strong> of the setJavascript().
+     * Attempting to call both <code>setJsFunction</code> and <code>setJavascript</code>
+     * will result in an <code>IllegalStateException</code> being thrown. </p><p>
+     * If <strong>neither</strong> setJsFunction or setJavascript is set then validator will attempt
+     * to load the default javascript definition.   </p>
+     * <pre>
+     * <b>Examples</b>
+     *   If in the validator.xml :
+     * #1:
+     *      &lt;validator name="tire"
+     *            jsFunction="com.yourcompany.project.tireFuncion"&gt;
+     *     Validator will attempt to load com.yourcompany.project.validateTireFunction.js from
+     *     its class path.
+     * #2:
+     *    &lt;validator name="tire"&gt;
+     *      Validator will use the name attribute to try and load
+     *         org.apache.commons.validator.javascript.validateTire.js
+     *      which is the default javascript definition.
+     * </pre>
+     */
+    public void setJsFunction(String jsFunction) {
+        if (javascript != null) {
+            throw new IllegalStateException("Cannot call setJsFunction() after calling setJavascript()");
+        }
+
+        this.jsFunction = jsFunction;
+    }
+
+
 	/**
 	 * Gets the Javascript equivalent of the java class and method 
 	 * associated with this action.
@@ -282,6 +330,9 @@ public class ValidatorAction implements Serializable {
 	 * associated with this action.
 	 */
 	public void setJavascript(String javascript) {
+        if (jsFunction != null) {
+            throw new IllegalStateException("Cannot call setJavascript() after calling setJsFunction()");
+        }
 		this.javascript = javascript;
 	}
 
@@ -299,6 +350,110 @@ public class ValidatorAction implements Serializable {
 		this.instance = instance;
 	}
 
+    /**
+     * Initialize based on set.
+     */
+    void init() {
+        loadFunction();
+    }
+
+    /**
+      * Load the javascript function specified by the given path.  For this
+      * implementation, the <code>jsFunction</code> property should contain a fully
+      * qualified package and script name, separated by periods, to be loaded from
+      * the class loader that created this instance.
+     *
+     *  @TODO if the path begins with a '/' the path will be intepreted as absolute, and remain unchanged.
+      * If this fails then it will attempt to treat the path as a file path.
+      * It is assumed the script ends with a '.js'.
+      */
+     protected synchronized void loadFunction() {
+
+        // Have we already loaded the javascript for this action?
+        if (javascript != null) {
+            return;
+        }
+
+        if (log.isTraceEnabled()) {
+            log.trace("  Loading function begun");
+        }
+
+         // Have we already attempted to load the javascript for this action?
+         if (javascript != null) {
+             return;
+         }
+
+         if (jsFunction == null) {
+             jsFunction = generateJsFunction();
+         }
+
+         String name;
+         // Set up to load the javascript function, if we can
+         if (jsFunction.charAt(0) != '/') {
+            name = jsFunction.replace('.', '/');
+            name += ".js";
+         } else {
+             name = jsFunction.substring(1);
+         }
+         InputStream is = null;
+
+         // Load the specified javascript function
+         if (log.isTraceEnabled()) {
+             log.trace("  Loading js function '" + name + "'");
+         }
+
+         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+         if (classLoader == null) {
+             classLoader = this.getClass().getClassLoader();
+         }
+
+         is = classLoader.getResourceAsStream(name);
+         if (is == null) {
+             is = this.getClass().getResourceAsStream(name);
+         }
+
+         if (is != null) {
+             try {
+                 int bufferSize = is.available();
+                 StringBuffer function = new StringBuffer();
+                 while (bufferSize > 0) {
+                    byte[] buffer = new byte[bufferSize];
+                    is.read(buffer,0,bufferSize);
+                    String functionPart = new String(buffer);
+                    function.append(functionPart);
+                    bufferSize = is.available();
+                 }
+                 javascript = function.toString();
+             } catch (IOException e) {
+                 log.error("loadFunction()", e);
+
+             } finally {
+                 try {
+                     is.close();
+                 } catch (IOException e) {
+                     log.error("loadFunction()", e);
+                 }
+             }
+         }
+
+         if (log.isTraceEnabled()) {
+             log.trace("  Loading function completed");
+         }
+
+    }
+
+    /**
+     * Used to generate the javascript name when it is not specified.
+     * @return
+     */
+    private String generateJsFunction() {
+        StringBuffer jsName = new StringBuffer("org.apache.commons.validator.javascript");
+            jsName.append(".validate");
+            jsName.append(name.substring(0,1).toUpperCase());
+        jsName.append(name.substring(1,name.length()));
+        return jsName.toString();
+
+    }
 	/**
 	 * Creates a <code>FastHashMap</code> for the isDependency method 
 	 * based on depends.
