@@ -1,32 +1,35 @@
+# $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/build.properties.sample,v 1.7 2003/08/21 21:49:31 rleland Exp $
+# $Revision: 1.7 $
+# $Date: 2003/08/21 21:49:31 $
 # -----------------------------------------------------------------------------
 # This is an example "build.properties" file.  Make any changes you need, 
 # and rename this file to "build.properties" in the same directory that 
 # contains the "build.xml" file.
 # -----------------------------------------------------------------------------
-
+apache.dir=D:/Java/Programs/Apache
 # The JAR file containing version 1.0 (or later) of the Beanutils package
 # from the Jakarta Commons project.
-commons-beanutils.jar=d:/java/lib/commons-beanutils.jar
+commons-beanutils.jar=../beanutils/dist/commons-beanutils.jar
 
 # The JAR file containing version 1.0 (or later) of the Collections package
 # from the Jakarta Commons project.
-commons-collections.jar=d:/java/lib/commons-collections.jar
+commons-collections.jar=../collections/dist/commons-collections.jar
 
 # The JAR file containing version 1.0 (or later) of the Digester package
 # from the Jakarta Commons project.
-commons-digester.jar=d:/java/lib/commons-digester.jar
+commons-digester.jar=../digester/dist/commons-digester.jar
 
 # The JAR file containing version 1.0 (or later) of the Logging package
 # from the Jakarta Commons project.
-commons-logging.jar=e:/software/commons-logging/commons-logging.jar
+commons-logging.jar=../logging/dist/commons-logging.jar
 
 # The JAR file containing version 2.06 (or later) of 
 # the the Jakarta ORO project.
-oro.jar=e:/software/jakarta-oro/jakarta-oro.jar
+oro.jar=${apache.dir}/jakarta-oro-2.0.6/jakarta-oro-2.0.6.jar
 
-# The JAR file containing version 3.7 (or later) of
+# The JAR file containing version 3.8.1 (or later) of
 # JUnit Unit Testing (http://www.junit.org)
-junit.jar=e:/software/junit3.5/junit.jar
+junit.jar=D:/java/Lib/junit3.8.1/junit.jar
 
 # Just needed for building the Javadocs
-xerces.jar=e:/software/xerces/xerces.jar
+xerces.jar=${apache.dir}/xerces-1_4_2/xerces.jar
