@@ -16,6 +16,9 @@
     
     <subsection name="High priority"> 
       <ul>
+      	<li>
+      		Remove deprecated functionality after 1.1.1 release.
+      	</li>
        </ul>
     </subsection>
     
@@ -46,18 +49,168 @@
 <section name='Completed'>
     <subsection name='Since 1.0.2 Release'>
         <ul>
+        	<li>
+        		Move Digester rule configuration to XML file and remove ValidatorResourcesInitializer.
+        		ValidatorResources now knows how to initialize itself.
+        	</li>
+        	<li>
+        		Clean up scopes of methods and variables.
+        	</li>
+        	<li>
+        		Make Arg system more flexible to allow any number of args in a message.
+        	</li>
+        	<li>
+        		Validate vaildation.xml files while initializing a Validator to alert developers to configuration
+        		errors.
+        	</li>
          </ul>
     </subsection>
 </section>
 <section name='Deprecated'>
     <subsection name='Since 1.0.2 Release'>
+    	<p>See the javadoc for details and replacements.</p>
         <ul>
+            <li>
+        	     The &lt;arg0-3&gt; elements have been replaced with a single &lt;arg&gt; element
+        	     with a new <code>position</code> attribute.  Setting position to 0 is the equivalent
+        	     of an &lt;arg0&gt; element.  
+        	</li>
+        	<li>
+        	     <code>Arg.getResource()</code>
+        	</li>
+        	<li>
+        	     <code>CreditCardValidator.isValidPrefix()</code>
+        	</li>
+        	<li>
+        	     <code>Field.ARG_DEFAULT</code>
+        	</li>
+        	<li>
+        	     <code>Field.hDependencies</code>
+        	</li>
+        	<li>
+        	     <code>Field.hArg0 - Field.hArg3</code>
+        	</li>
+        	<li>
+        	     <code>Field.addArg0() - Field.addArg3()</code>
+        	</li>
+        	<li>
+        	     <code>Field.getArg0() - Field.getArg3()</code>
+        	</li>
+        	<li>
+        	     <code>Field.addVarParam()</code>
+        	</li>
+        	<li>
+        	     <code>Field.process()</code>
+        	</li>
+        	<li>
+        	     <code>Field.processMessageComponents()</code>
+        	</li>
+        	<li>
+        	     <code>Field.getDependencies()</code>
+        	</li>
+        	<li>
+        	     <code>Form.getFieldMap()</code>
+        	</li>
+        	<li>
+        	     <code>Form.process()</code>
+        	</li>
+        	<li>
+        	     <code>FormSet.addConstant()</code>
+        	</li>
+        	<li>
+        	     <code>FormSet.addConstantParam()</code>
+        	</li>
+        	<li>
+        	     <code>FormSet.getForm(Object)</code>
+        	</li>
+        	<li>
+        	     <code>FormSet.process()</code>
+        	</li>
+        	<li>
+        	     <code>GenericValidator.REGEXP_DELIM</code>
+        	</li>
+        	<li>
+        	     <code>GenericValidator.validateCreditCardLuhnCheck()</code>
+        	</li>
+        	<li>
+        	     <code>GenericValidator.validateCreditCardPrefixCheck()</code>
+        	</li>
+        	<li>
+        	     <code>GenericValidator.getDelimittedRegExp()</code>
+        	</li>
+        	<li>
+        	     <code>Validator.BEAN_KEY</code>
+        	</li>
+        	<li>
+        	     <code>Validator.VALIDATOR_ACTION_KEY</code>
+        	</li>
+        	<li>
+        	     <code>Validator.FIELD_KEY</code>
+        	</li>
+        	<li>
+        	     <code>Validator.VALIDATOR_KEY</code>
+        	</li>
+        	<li>
+        	     <code>Validator.LOCALE_KEY</code>
+        	</li>
+        	<li>
+        	     <code>Validator.hResources</code>
+        	</li>
+        	<li>
+        	     <code>Validator.addResource()</code>
+        	</li>
+        	<li>
+        	     <code>Validator.getResource()</code>
+        	</li>
+        	<li>
+        	     <code>ValidatorAction.process()</code>
+        	</li>
+        	<li>
+        	     <code>ValidatorAction.getDependencies()</code>
+        	</li>
+        	<li>
+        	     <code>ValidatorResources.put()</code>
+        	</li>
+        	<li>
+        	     <code>ValidatorResources.addConstant()</code>
+        	</li>
+        	<li>
+        	     <code>ValidatorResources.addConstantParam()</code>
+        	</li>
+        	<li>
+        	     <code>ValidatorResources.get()</code>
+        	</li>
+        	<li>
+        	     <code>ValidatorResources.processForms()</code>
+        	</li>
+        	<li>
+        	     <code>ValidatorResourcesInitializer</code>
+        	</li>
+        	<li>
+        	     <code>ValidatorResult.getValid()</code>
+        	</li>
+        	<li>
+        	     <code>ValidatorResults.empty()</code>
+        	</li>
+        	<li>
+        	     <code>ValidatorResults.get()</code>
+        	</li>
+        	<li>
+        	     <code>ValidatorResults.properties()</code>
+        	</li>
+        	<li>
+        	     <code>ValidatorUtil</code>
+        	</li>
         </ul>
     </subsection>
 </section>
 <section name='Backwards Incompatible Changes'>
     <subsection name='Since 1.0.2 Release'>
         <ul>
+        	<li>
+        		&lt;msg&gt;'s name and key attributes are now required.  The Validator code was
+        		enforcing this constraint so now it's formally defined in the DTD.
+        	</li>
         </ul>
     </subsection>
 </section>
