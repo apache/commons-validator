@@ -1,7 +1,7 @@
 
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateMinLength.js,v 1.5 2003/10/22 07:20:57 rleland Exp $
-  //$Revision: 1.5 $
-  //$Date: 2003/10/22 07:20:57 $
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateMinLength.js,v 1.6 2003/11/17 04:57:50 rleland Exp $
+  //$Revision: 1.6 $
+  //$Date: 2003/11/17 04:57:50 $
 
     function validateMinLength(form) {
         var isValid = true;
@@ -12,9 +12,10 @@
         for (x in oMinLength) {
             var field = form[oMinLength[x][0]];
 
-            if (field.type == 'text' ||
+            if ((field.type == 'text' ||
                 field.type == 'password' ||
-                field.type == 'textarea') {
+                field.type == 'textarea') &&
+                field.disabled == false) {
 
                 var iMin = parseInt(oMinLength[x][2]("minlength"));
                 if ((trim(field.value).length > 0) && (field.value.length < iMin)) {

@@ -1,7 +1,7 @@
 
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateEmail.js,v 1.3 2003/10/22 07:20:57 rleland Exp $
-  //$Revision: 1.3 $
-  //$Date: 2003/10/22 07:20:57 $
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateEmail.js,v 1.4 2003/11/17 04:57:50 rleland Exp $
+  //$Revision: 1.4 $
+  //$Date: 2003/11/17 04:57:50 $
 
 
     function validateEmail(form) {
@@ -13,7 +13,8 @@
         for (x in oEmail) {
             if ((form[oEmail[x][0]].type == 'text' ||
                  form[oEmail[x][0]].type == 'textarea') &&
-                (form[oEmail[x][0]].value.length > 0)) {
+                (form[oEmail[x][0]].value.length > 0) &&
+                form[oEmail[x][0]].disabled == false) {
                 if (!checkEmail(form[oEmail[x][0]].value)) {
                     if (i == 0) {
                         focusField = form[oEmail[x][0]];

@@ -1,7 +1,7 @@
 
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateShort.js,v 1.3 2003/10/22 07:20:57 rleland Exp $
-  //$Revision: 1.3 $
-  //$Date: 2003/10/22 07:20:57 $
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateShort.js,v 1.4 2003/11/17 04:57:50 rleland Exp $
+  //$Revision: 1.4 $
+  //$Date: 2003/11/17 04:57:50 $
 
     function validateShort(form) {
         var bValid = true;
@@ -12,10 +12,11 @@
         for (x in oShort) {
             var field = form[oShort[x][0]];
 
-            if (field.type == 'text' ||
+            if ((field.type == 'text' ||
                 field.type == 'textarea' ||
                 field.type == 'select-one' ||
-                field.type == 'radio') {
+                field.type == 'radio')  &&
+                field.disabled == false) {
 
                 var value = '';
                 // get field's value

@@ -1,7 +1,7 @@
 
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateCreditCard.js,v 1.3 2003/10/22 07:20:57 rleland Exp $
-  //$Revision: 1.3 $
-  //$Date: 2003/10/22 07:20:57 $
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateCreditCard.js,v 1.4 2003/11/17 04:57:50 rleland Exp $
+  //$Revision: 1.4 $
+  //$Date: 2003/11/17 04:57:50 $
 
     function validateCreditCard(form) {
         var bValid = true;
@@ -12,7 +12,8 @@
         for (x in oCreditCard) {
             if ((form[oCreditCard[x][0]].type == 'text' ||
                  form[oCreditCard[x][0]].type == 'textarea') &&
-                (form[oCreditCard[x][0]].value.length > 0)) {
+                (form[oCreditCard[x][0]].value.length > 0)  &&
+                 form[oCreditCard[x][0]].disabled == false) {
                 if (!luhnCheck(form[oCreditCard[x][0]].value)) {
                     if (i == 0) {
                         focusField = form[oCreditCard[x][0]];

@@ -1,7 +1,7 @@
 
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateRequired.js,v 1.7 2003/10/31 06:20:34 rleland Exp $
-  //$Revision: 1.7 $
-  //$Date: 2003/10/31 06:20:34 $
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateRequired.js,v 1.8 2003/11/17 04:57:50 rleland Exp $
+  //$Revision: 1.8 $
+  //$Date: 2003/11/17 04:57:50 $
 
     function validateRequired(form) {
         var isValid = true;
@@ -13,12 +13,13 @@
         for (x in oRequired) {
             var field = form[oRequired[x][0]];
 
-            if (field.type == 'text' ||
+            if ((field.type == 'text' ||
                 field.type == 'textarea' ||
                 field.type == 'file' ||
                 field.type == 'checkbox' ||
                 field.type == 'select-one' ||
-                field.type == 'password') {
+                field.type == 'password') &&
+                field.disabled == false) {
 
                 var value = '';
                 // get field's value

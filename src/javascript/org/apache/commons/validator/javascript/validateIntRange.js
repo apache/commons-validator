@@ -1,7 +1,7 @@
 
-  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateIntRange.js,v 1.4 2003/10/22 07:20:57 rleland Exp $
-  //$Revision: 1.4 $
-  //$Date: 2003/10/22 07:20:57 $
+  //$Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/javascript/org/apache/commons/validator/javascript/validateIntRange.js,v 1.5 2003/11/17 04:57:50 rleland Exp $
+  //$Revision: 1.5 $
+  //$Date: 2003/11/17 04:57:50 $
 
     function validateIntRange(form) {
         var isValid = true;
@@ -11,27 +11,29 @@
         oRange = new intRange();
         for (x in oRange) {
             var field = form[oRange[x][0]];
-            var value = '';
-            if (field.type == 'text' || field.type == 'textarea' ||
-                field.type == 'radio' ) {
-                value = field.value;
-            }
-            if (field.type == 'select-one') {
-                var si = field.selectedIndex;
-                if (si >= 0) {
-                    value = field.options[si].value;
+            if (field.disabled == false)  {
+                var value = '';
+                if (field.type == 'text' || field.type == 'textarea' ||
+                    field.type == 'radio' ) {
+                    value = field.value;
                 }
-            }
-            if (value.length > 0) {
-                var iMin = parseInt(oRange[x][2]("min"));
-                var iMax = parseInt(oRange[x][2]("max"));
-                var iValue = parseInt(value);
-                if (!(iValue >= iMin && iValue <= iMax)) {
-                    if (i == 0) {
-                        focusField = field;
+                if (field.type == 'select-one') {
+                    var si = field.selectedIndex;
+                    if (si >= 0) {
+                        value = field.options[si].value;
                     }
-                    fields[i++] = oRange[x][1];
-                    isValid = false;
+                }
+                if (value.length > 0) {
+                    var iMin = parseInt(oRange[x][2]("min"));
+                    var iMax = parseInt(oRange[x][2]("max"));
+                    var iValue = parseInt(value);
+                    if (!(iValue >= iMin && iValue <= iMax)) {
+                        if (i == 0) {
+                            focusField = field;
+                        }
+                        fields[i++] = oRange[x][1];
+                        isValid = false;
+                    }
                 }
             }
         }
