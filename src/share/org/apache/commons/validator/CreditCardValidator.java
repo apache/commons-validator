@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.6 2003/06/07 19:13:21 dgraham Exp $
- * $Revision: 1.6 $
- * $Date: 2003/06/07 19:13:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/CreditCardValidator.java,v 1.7 2003/06/08 21:32:29 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/06/08 21:32:29 $
  *
  * ====================================================================
  *
@@ -72,13 +72,14 @@ import org.apache.commons.validator.util.Flags;
  * configures the validator to only pass American Express and Visa cards. 
  * </p>
  * Reference Sean M. Burke's 
- * <a href="http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl">script</a>.
+ * <a href="http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl">script</a>.  More information
+ * also available <a href="http://www.merriampark.com/anatomycc.htm">here</a>.
  *
  * @author David Winterfeldt
  * @author James Turner
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.6 $ $Date: 2003/06/07 19:13:21 $
+ * @version $Revision: 1.7 $ $Date: 2003/06/08 21:32:29 $
  */
 public class CreditCardValidator {
 
@@ -141,7 +142,7 @@ public class CreditCardValidator {
 	 * @param card The card number to validate.
 	 */
 	public boolean isValid(String card) {
-		if (card.length() < 13) {
+		if ((card == null) || (card.length() < 13) || (card.length() > 19)) {
 			return false;
 		}
 
@@ -170,7 +171,6 @@ public class CreditCardValidator {
 
 	/**
 	 * Checks for a valid credit card number.
-	 *
 	 * @param cardNumber Credit Card Number.
 	 */
 	protected boolean luhnCheck(String cardNumber) {
