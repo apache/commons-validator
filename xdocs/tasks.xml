@@ -4,6 +4,7 @@
   <properties>
     <title>TODO</title>
     <author email="rleland@apache.org">Robert Leland</author>
+    <author email="dgraham@apache.org">David Graham</author>
   </properties>
 
   <body>
@@ -20,6 +21,20 @@
     
     <subsection name="Medium priority"> 
       <ul>
+      	<li>
+      		Change the validation.xml file semantics to match a more general "bean" validation usage.
+      		Currently, the &lt;form-validation&gt;, &lt;formset&gt;, &lt;form&gt;, and &lt;field&gt; elements
+      		require a form-centric view of validations.  Changing these to &lt;bean-validation&gt;, &lt;beans&gt;,
+      		&lt;bean&gt;, and &lt;property&gt; respectively would allow Validator to be used more easily in
+      		non-form based environments.
+      	</li>
+      	<li>
+      		Replace the Jakarta ORO regex engine with the standard Java 1.4 engine.  Preliminary tests show a 
+      		50% speed improvement using the standard engine.  This will remove the ORO dependency and
+      		bring Validator in line with standard Java regular expressions.  However, this requires a move
+      		to Java 1.4 as the base required Java version.  A good time for this move may be Validator 2.0 when
+      		we also change the configuration file semantics.
+      	</li>
       </ul>
     </subsection>
     
@@ -46,7 +61,7 @@
         </ul>
     </subsection>
 </section>
-<section name='Symantic Changes'>
+<section name='Semantic Changes'>
     <subsection name='Since 1.0.2 Release'>
         <ul>	
         </ul>
