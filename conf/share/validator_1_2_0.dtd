@@ -9,7 +9,7 @@
      "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.2.0//EN"
      "http://jakarta.apache.org/commons/dtds/validator_1_2_0.dtd">
 
-    $Id: validator_1_2_0.dtd,v 1.3 2004/04/06 00:48:12 rleland Exp $
+    $Id: validator_1_2_0.dtd,v 1.4 2004/04/06 22:19:58 rleland Exp $
 -->
 
 
@@ -291,7 +291,7 @@
      range validation. These parameters may also be referenced by one of the
      arg? elements using a shell syntax: ${var:var-name}.
 -->
-<!ELEMENT var (var-name, var-value, var-jstype)>
+<!ELEMENT var (var-name, var-value, var-jstype?)>
 
 
 
@@ -308,8 +308,7 @@
 <!ELEMENT var-value (#PCDATA)>
 
 <!--
-     The java script type, int, string, or regexp. TODO: LIMIT options to these 3.
-    <!ELEMENT var-jstype (int|string|regexp)>    would this work ?
+     The java script type, Possible Values [int| string | regexp] 
 
 -->
 <!ELEMENT var-jstype (#PCDATA)>
