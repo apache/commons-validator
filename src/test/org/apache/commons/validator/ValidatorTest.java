@@ -1,4 +1,9 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.4 2002/03/30 04:33:18 dwinterfeldt Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/03/30 04:33:18 $
+ *
+ * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
@@ -73,6 +78,7 @@ import junit.framework.AssertionFailedError;
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
+ * @version $Revision: 1.4 $ $Date: 2002/03/30 04:33:18 $
 */                                                       
 public class ValidatorTest extends TestCase {            
                                                           

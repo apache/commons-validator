@@ -1,4 +1,9 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.5 2002/03/30 04:33:17 dwinterfeldt Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/03/30 04:33:17 $
+ *
+ * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
@@ -69,6 +74,7 @@ import org.apache.commons.logging.LogSource;
  * <p>Basic utility methods.</p>
  *
  * @author David Winterfeldt
+ * @version $Revision: 1.5 $ $Date: 2002/03/30 04:33:17 $
 */
 public class ValidatorUtil  {
 

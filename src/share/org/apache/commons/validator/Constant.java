@@ -1,4 +1,9 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/Constant.java,v 1.3 2002/03/30 04:33:17 dwinterfeldt Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/03/30 04:33:17 $
+ *
+ * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
@@ -72,6 +77,7 @@ import java.io.Serializable;
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mask="${zip}" </p>
  *
  * @author David Winterfeldt
+ * @version $Revision: 1.3 $ $Date: 2002/03/30 04:33:17 $
 */
 public class Constant implements Serializable {
 

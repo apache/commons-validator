@@ -1,4 +1,9 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.5 2002/03/30 04:33:17 dwinterfeldt Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/03/30 04:33:17 $
+ *
+ * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
@@ -72,6 +77,7 @@ import org.apache.commons.collections.FastHashMap;
  * to perform the validations and generate error messages.</p>
  *
  * @author David Winterfeldt
+ * @version $Revision: 1.5 $ $Date: 2002/03/30 04:33:17 $
  * @see org.apache.commons.validator.Form
 */
 public class Field implements Cloneable, Serializable {
