@@ -1,5 +1,23 @@
 #!/bin/sh
-cmdpath=$1
+#  $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/etc/jsdoc.sh,v 1.3 2004/02/21 17:10:29 rleland Exp $
+#  $Revision: 1.3 $
+#  $Date: 2004/02/21 17:10:29 $
+# 
+#  ====================================================================
+#  Copyright  2004 The Apache Software Foundation
+# 
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+ #
 dirtoprocess=$2
 outputto=$3
 package=/org/apache/commons/validator/javascript
