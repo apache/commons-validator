@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/ValidatorUtils.java,v 1.7 2004/02/21 17:10:30 rleland Exp $
- * $Revision: 1.7 $
- * $Date: 2004/02/21 17:10:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/ValidatorUtils.java,v 1.8 2004/06/08 17:17:44 husted Exp $
+ * $Revision: 1.8 $
+ * $Date: 2004/06/08 17:17:44 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -26,7 +26,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.FastHashMap;
+import org.apache.commons.collections.FastHashMap; // DEPRECATED
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.Arg;
@@ -35,6 +35,9 @@ import org.apache.commons.validator.Var;
 
 /**
  * Basic utility methods.
+ *
+ * The use of FastHashMap is deprecated and will be replaced in a future
+ * release.
  */
 public class ValidatorUtils {
 

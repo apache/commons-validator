@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.32 2004/04/08 23:05:39 dgraham Exp $
- * $Revision: 1.32 $
- * $Date: 2004/04/08 23:05:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.33 2004/06/08 17:17:44 husted Exp $
+ * $Revision: 1.33 $
+ * $Date: 2004/06/08 17:17:44 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.commons.collections.FastHashMap;
+import org.apache.commons.collections.FastHashMap; // DEPRECATED
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.logging.Log;
@@ -50,6 +50,11 @@ import org.xml.sax.SAXException;
  * <p><strong>Note</strong> - Classes that extend this class
  * must be Serializable so that instances may be used in distributable
  * application server environments.</p>
+ *
+ * <p>
+ * The use of FastHashMap is deprecated and will be replaced in a future
+ * release.
+ * </p>
  */
 public class ValidatorResources implements Serializable {
 

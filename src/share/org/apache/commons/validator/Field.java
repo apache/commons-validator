@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.32 2004/04/08 23:22:03 dgraham Exp $
- * $Revision: 1.32 $
- * $Date: 2004/04/08 23:22:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.33 2004/06/08 17:17:44 husted Exp $
+ * $Revision: 1.33 $
+ * $Date: 2004/06/08 17:17:44 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.FastHashMap;
+import org.apache.commons.collections.FastHashMap; // DEPRECATED
 import org.apache.commons.validator.util.ValidatorUtils;
 
 /**
@@ -41,6 +41,9 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * message information and variables to perform the validations and generate 
  * error messages.  Instances of this class are configured with a 
  * &lt;field&gt; xml element.
+ *
+ * The use of FastHashMap is deprecated and will be replaced in a future
+ * release.
  *
  * @see org.apache.commons.validator.Form
  */
