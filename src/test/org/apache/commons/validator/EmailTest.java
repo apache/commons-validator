@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.16 2003/08/12 00:29:34 dgraham Exp $
- * $Revision: 1.16 $
- * $Date: 2003/08/12 00:29:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/EmailTest.java,v 1.17 2003/08/17 04:21:05 rleland Exp $
+ * $Revision: 1.17 $
+ * $Date: 2003/08/17 04:21:05 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2000-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
- *    permission of the Apache Group.
+ *    permission of the Apache Software Foundation.
  *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
@@ -77,7 +77,8 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.16 $ $Date: 2003/08/12 00:29:34 $
+ * @author Rob Leland
+ * @version $Revision: 1.17 $ $Date: 2003/08/17 04:21:05 $
 */                                                       
 public class EmailTest extends TestCase {            
    
@@ -200,8 +201,12 @@ public class EmailTest extends TestCase {
       info.setValue("andy.noble@data-workshop.com");
       valueTest(info, true);
 
-      info.setValue("andy-noble@data-workshop.com");
-      valueTest(info, true);
+      info.setValue("andy-noble@data-workshop.-com");
+       valueTest(info, false);
+       info.setValue("andy-noble@data-workshop.c-om");
+       valueTest(info, false);
+       info.setValue("andy-noble@data-workshop.co-m");
+       valueTest(info, true);
 
 
    }
@@ -241,15 +246,66 @@ public class EmailTest extends TestCase {
    /**
     * Tests the email validation with commas.
     */
-   public void testEmailWithCommas() throws ValidatorException {
-      ValueBean info = new ValueBean();
-      info.setValue("joe,blow@apache.org");
-      valueTest(info, false);
-      info.setValue("joeblow@apa,che.org");
-      valueTest(info, false);
-      info.setValue("joeblow@apache.o,rg");
-      valueTest(info, false);
-   }
+
+    public void testEmailWithCommas() throws ValidatorException {
+       ValueBean info = new ValueBean();
+       info.setValue("joeblow@apa,che.org");
+       valueTest(info, false);
+       info.setValue("joeblow@apache.o,rg");
+       valueTest(info, false);
+        info.setValue("joeblow@apache,org");
+        valueTest(info, false);
+
+    }
+
+    /**
+     * Write this test according to parts of RFC, as opposed to the type of character
+     * that is being tested.
+     * According to RFC 1738 a user name can be composed of the following :
+     *  *[alpha | digit | "$" | "-" | "_" | "." | "+"  | "!" | "*" | "'" | "(" | ")" | "," | "%" hex hex | ";" | "?" | "&" | "=" ]
+
+     * @throws ValidatorException
+     */
+    public void testEmailUserName() throws ValidatorException {
+       ValueBean info = new ValueBean();
+       info.setValue("joe1blow@apache.org");
+       valueTest(info, true);
+        info.setValue("joe$blow@apache.org");
+        valueTest(info, true);
+        info.setValue("joe-@apache.org");
+        valueTest(info, true);
+        info.setValue("joe_@apache.org");
+        valueTest(info, true);
+        info.setValue("joe.@apache.org");
+        valueTest(info, true);
+        info.setValue("joe+@apache.org");
+        valueTest(info, true);
+        info.setValue("joe!@apache.org");
+        valueTest(info, true);
+        info.setValue("joe*@apache.org");
+        valueTest(info, true);
+        info.setValue("joe'@apache.org");
+        valueTest(info, true);
+        info.setValue("joe(@apache.org");
+        valueTest(info, true);
+        info.setValue("joe)@apache.org");
+        valueTest(info, true);
+        info.setValue("joe,@apache.org");
+        valueTest(info, true);
+        info.setValue("joe%45@apache.org");
+        valueTest(info, true);
+        info.setValue("joe;@apache.org");
+        valueTest(info, true);
+        info.setValue("joe?@apache.org");
+        valueTest(info, true);
+        info.setValue("joe&@apache.org");
+        valueTest(info, true);
+        info.setValue("joe=@apache.org");
+        valueTest(info, true);
+
+    }
+
+
 
    /**
     * Utlity class to run a test on a value.
