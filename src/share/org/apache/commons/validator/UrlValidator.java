@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.19 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.19 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.20 2004/11/01 03:28:25 dgraham Exp $
+ * $Revision: 1.20 $
+ * $Date: 2004/11/01 03:28:25 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -77,8 +77,8 @@ import org.apache.oro.text.perl.Perl5Util;
 public class UrlValidator implements Serializable {
 
     /**
-     * Allows all validly formatted schemes to pass validation instead of supplying a
-     * set of valid schemes.
+     * Allows all validly formatted schemes to pass validation instead of 
+     * supplying a set of valid schemes.
      */
     public static final int ALLOW_ALL_SCHEMES = 1 << 0;
 
@@ -148,8 +148,7 @@ public class UrlValidator implements Serializable {
      */
     private static final int PARSE_AUTHORITY_EXTRA = 3;
 
-    private static final String PATH_PATTERN =
-            "/^(/[-a-zA-Z0-9_:@&?=+,.!/~*'%$]*)$/";
+    private static final String PATH_PATTERN = "/^(/[-\\w:@&?=+,.!/~*'%$]*)$/";
 
     private static final String QUERY_PATTERN = "/^(.*)$/";
 
