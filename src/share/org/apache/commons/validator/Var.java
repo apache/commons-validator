@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Var.java,v 1.5 2003/05/22 03:28:05 dgraham Exp $
- * $Revision: 1.5 $
- * $Date: 2003/05/22 03:28:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Var.java,v 1.6 2003/05/24 18:27:50 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/05/24 18:27:50 $
  *
  * ====================================================================
  *
@@ -71,7 +71,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2003/05/22 03:28:05 $
+ * @version $Revision: 1.6 $ $Date: 2003/05/24 18:27:50 $
  */
 public class Var implements Cloneable, Serializable {
 
@@ -79,19 +79,19 @@ public class Var implements Cloneable, Serializable {
      * Int Constant for JavaScript type.  This can be used 
      * when auto-generating JavaScript.
      */
-    public final static String JSTYPE_INT = "int";
+    public static final String JSTYPE_INT = "int";
 
     /**
      * String Constant for JavaScript type.  This can be used 
      * when auto-generating JavaScript.
      */
-    public final static String JSTYPE_STRING = "string";
+    public static final String JSTYPE_STRING = "string";
 
     /**
      * Regular Expression Constant for JavaScript type.  This can be used 
      * when auto-generating JavaScript.
      */
-    public final static String JSTYPE_REGEXP = "regexp";
+    public static final String JSTYPE_REGEXP = "regexp";
     
     /**
      * The name of the variable.
@@ -122,7 +122,7 @@ public class Var implements Cloneable, Serializable {
      * Gets the name of the variable.
      */
     public String getName() {
-       return name;	
+       return this.name;	
     }
 
     /**
@@ -136,7 +136,7 @@ public class Var implements Cloneable, Serializable {
      * Gets the value of the variable.
      */
     public String getValue() {
-       return value;	
+       return this.value;	
     }
 
     /**
@@ -150,7 +150,7 @@ public class Var implements Cloneable, Serializable {
      * Gets the JavaScript type of the variable.
      */
     public String getJsType() {
-       return jsType;	
+       return this.jsType;	
     }
 
     /**
@@ -165,21 +165,8 @@ public class Var implements Cloneable, Serializable {
      */
     public Object clone() {
        try {
-           Var var = (Var)super.clone();
+           return super.clone();
            
-           if (name != null) {
-              var.setName(new String(name));
-           }
-           
-           if (value != null) {
-              var.setValue(new String(value));
-           }
-           
-           if (jsType != null) {
-              var.setJsType(new String(jsType));
-           }
-           
-           return var;
        } catch (CloneNotSupportedException e) {
           throw new InternalError(e.toString());
        }
