@@ -8,7 +8,7 @@
   
   <inceptionYear>2002</inceptionYear>
   <gumpRepositoryId>jakarta</gumpRepositoryId>
-  <package>org.apache.commons.validator.*</package>
+  <package>org.apache.commons.validator</package>
 
   <shortDescription>Commons Validator</shortDescription>
   <logo>/images/logo.gif</logo>
@@ -190,7 +190,7 @@
     <report>maven-pmd-plugin</report>
     <report>maven-simian-plugin</report>
     <report>maven-faq-plugin</report>
-    <report>maven-multiproject-plugin</report>
+  <!--  <report>maven-html2xdoc-plugin</report> -->
   </reports>
 
 </project>
