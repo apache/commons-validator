@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestCommon.java,v 1.1 2003/09/06 05:17:59 rleland Exp $
- * $Revision: 1.1 $
- * $Date: 2003/09/06 05:17:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestCommon.java,v 1.2 2003/09/06 05:22:47 rleland Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/09/06 05:22:47 $
  *
  * ====================================================================
  *
@@ -72,7 +72,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Consolidates reading in xml config file into parent class.
  */
-public class TestCommon extends TestCase {
+abstract public class TestCommon extends TestCase {
     /**
      * Resources used for validation tests.
      */

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestNumber.java,v 1.1 2003/09/06 05:17:59 rleland Exp $
- * $Revision: 1.1 $
- * $Date: 2003/09/06 05:17:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestNumber.java,v 1.2 2003/09/06 05:22:47 rleland Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/09/06 05:22:47 $
  *
  * ====================================================================
  *
@@ -69,7 +69,7 @@ import org.xml.sax.SAXException;
  *
  * Abstracts number unit tests methods.
  */
-public class TestNumber extends TestCommon {
+abstract public class TestNumber extends TestCommon {
     /**
      * The key used to retrieve the set of validation
      * rules from the xml file.
