@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.14 2004/04/09 00:16:39 dgraham Exp $
- * $Revision: 1.14 $
- * $Date: 2004/04/09 00:16:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.15 2004/11/26 21:25:12 dgraham Exp $
+ * $Revision: 1.15 $
+ * $Date: 2004/11/26 21:25:12 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -36,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GenericTypeValidator implements Serializable {
    
-   private static Log log = LogFactory.getLog(GenericTypeValidator.class);
+	private static final Log log = LogFactory.getLog(GenericTypeValidator.class);
 
     /**
      * Checks if the value can safely be converted to a byte primitive.

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/ValidatorUtils.java,v 1.8 2004/06/08 17:17:44 husted Exp $
- * $Revision: 1.8 $
- * $Date: 2004/06/08 17:17:44 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/ValidatorUtils.java,v 1.9 2004/11/26 21:25:12 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2004/11/26 21:25:12 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -41,10 +41,7 @@ import org.apache.commons.validator.Var;
  */
 public class ValidatorUtils {
 
-    /**
-     * Logger.
-     */
-    private static Log log = LogFactory.getLog(ValidatorUtils.class);
+    private static final Log log = LogFactory.getLog(ValidatorUtils.class);
 
     /**
      * <p>Replace part of a <code>String</code> with another value.</p>
@@ -53,10 +50,7 @@ public class ValidatorUtils {
      * @param key The name of the constant.
      * @param replaceValue The value of the constant.
      */
-    public static String replace(
-            String value,
-            String key,
-            String replaceValue) {
+    public static String replace(String value, String key, String replaceValue) {
 
         if (value == null || key == null || replaceValue == null) {
             return value;
