@@ -1,7 +1,7 @@
 #!/bin/sh
-#  $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/etc/jsdoc.sh,v 1.3 2004/02/21 17:10:29 rleland Exp $
-#  $Revision: 1.3 $
-#  $Date: 2004/02/21 17:10:29 $
+#  $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/etc/jsdoc.sh,v 1.4 2004/05/21 14:28:12 rleland Exp $
+#  $Revision: 1.4 $
+#  $Date: 2004/05/21 14:28:12 $
 # 
 #  ====================================================================
 #  Copyright  2004 The Apache Software Foundation
@@ -17,7 +17,13 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
- #
+#
+
+# jsdoc is a perl script for generating javadoc for javascript.
+# The latest version can be downloaded from :
+#      http://sourceforge.net/projects/jsdoc/
+#
+
 dirtoprocess=$2
 outputto=$3
 package=/org/apache/commons/validator/javascript
