@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.6 2003/04/29 01:14:29 dgraham Exp $
- * $Revision: 1.6 $
- * $Date: 2003/04/29 01:14:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericTypeValidator.java,v 1.7 2003/05/24 17:15:25 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/05/24 17:15:25 $
  *
  * ====================================================================
  *
@@ -59,7 +59,6 @@
  *
  */
 
-
 package org.apache.commons.validator;
 
 import java.io.Serializable;
@@ -76,14 +75,14 @@ import java.text.ParseException;
  * @author David Winterfeldt
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
- * @version $Revision: 1.6 $ $Date: 2003/04/29 01:14:29 $
+ * @version $Revision: 1.7 $ $Date: 2003/05/24 17:15:25 $
  */
 public class GenericTypeValidator implements Serializable {
     
     /**
-     * <p>Checks if the value can safely be converted to a byte primitive.</p>
+     * Checks if the value can safely be converted to a byte primitive.
      *
-     * @param 	value 		The value validation is being performed on.
+     * @param value The value validation is being performed on.
      */
     public static Byte formatByte(String value) {
        Byte result = null;
@@ -98,9 +97,9 @@ public class GenericTypeValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value can safely be converted to a short primitive.</p>
+     * Checks if the value can safely be converted to a short primitive.
      *
-     * @param 	value 		The value validation is being performed on.
+     * @param value The value validation is being performed on.
      */
     public static Short formatShort(String value) {
        Short result = null;
@@ -115,9 +114,9 @@ public class GenericTypeValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value can safely be converted to a int primitive.</p>
+     * Checks if the value can safely be converted to a int primitive.
      *
-     * @param 	value 		The value validation is being performed on.
+     * @param value The value validation is being performed on.
      */
 	public static Integer formatInt(String value) {
 		Integer result = null;
@@ -132,9 +131,9 @@ public class GenericTypeValidator implements Serializable {
 	}
 
     /**
-     * <p>Checks if the value can safely be converted to a long primitive.</p>
+     * Checks if the value can safely be converted to a long primitive.
      *
-     * @param 	value 		The value validation is being performed on.
+     * @param value The value validation is being performed on.
      */
     public static Long formatLong(String value) {
        Long result = null;
@@ -149,9 +148,9 @@ public class GenericTypeValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value can safely be converted to a float primitive.</p>
+     * Checks if the value can safely be converted to a float primitive.
      *
-     * @param 	value 		The value validation is being performed on.
+     * @param value The value validation is being performed on.
      */
     public static Float formatFloat(String value) {
        Float result = null;
@@ -166,9 +165,9 @@ public class GenericTypeValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value can safely be converted to a double primitive.</p>
+     * Checks if the value can safely be converted to a double primitive.
      *
-     * @param 	value 		The value validation is being performed on.
+     * @param value The value validation is being performed on.
      */
     public static Double formatDouble(String value) {
        Double result = null;
@@ -187,8 +186,8 @@ public class GenericTypeValidator implements Serializable {
      * used with <code>java.text.DateFormat</code>.  The setLenient method 
      * is set to <code>false</code> for all.</p>
      *
-     * @param 	value 		The value validation is being performed on.
-     * @param 	Locale        	The Locale to use to parse the date (system default if null)
+     * @param value The value validation is being performed on.
+     * @param Locale The Locale to use to parse the date (system default if null)
      */
     public static Date formatDate(String value, Locale locale) {
 		Date date = null;
@@ -227,9 +226,9 @@ public class GenericTypeValidator implements Serializable {
      * the format 'MM/dd/yyyy' because the month isn't two digits. 
      * The setLenient method is set to <code>false</code> for all.</p>
      *
-     * @param 	value 		The value validation is being performed on.
-     * @param 	datePattern	The pattern passed to <code>SimpleDateFormat</code>.
-     * @param 	strict	        Whether or not to have an exact match of the datePattern.
+     * @param value The value validation is being performed on.
+     * @param datePattern The pattern passed to <code>SimpleDateFormat</code>.
+     * @param strict Whether or not to have an exact match of the datePattern.
      */
     public static Date formatDate(String value, String datePattern, boolean strict) {
 		Date date = null;
@@ -261,18 +260,13 @@ public class GenericTypeValidator implements Serializable {
 
     /**
      * <p>Checks if the field is a valid credit card number.</p>
-     * Reference Sean M. Burke's script at http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl</p>
+     * <p>Reference Sean M. Burke's 
+     * <a href="http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl">script</a>.</p>
      *
      * @param value The value validation is being performed on.
      */
     public static Long formatCreditCard(String value) {
-    	Long result = null;
-    
-    	if (GenericValidator.isCreditCard(value)) {
-    		result = new Long(value);
-    	}
-    
-    	return result;
+        return GenericValidator.isCreditCard(value) ? new Long(value) : null;
     }
 
 }
