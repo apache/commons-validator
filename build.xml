@@ -5,6 +5,8 @@
 <project name="Commons Validator" default="jar" basedir=".">
    <!-- set global properties for this build -->
    <property file="build.properties"/>
+   <property file="../build.properties"/>
+   <property file="${user.home}/build.properties"/>
    
    <property name="title" value="Commons Validator" />
    <property name="name" value="validator" />
@@ -89,6 +91,13 @@
       <copy todir="${dist}" file="../LICENSE"/>
    </target>
       
+   <!-- Clean build and dist directories -->
+   <target name="clean"
+    description="Clean build and distribution directories">
+      <delete dir="${build}"/>
+      <delete dir="${dist}"/>
+   </target>
+
    <!-- Compile JUnit Tests -->
    <target name="build-test" depends="jar" description="builds binaries for testing">
       <mkdir dir="${build}/${test}"/>
