@@ -18,8 +18,8 @@
 <document>
 
   <properties>
-    <title>Home</title>
-    <author email="martinc@apache.org">Martin Cooper</author>
+    <title>Commons</title>
+    <author email="commons-dev@jakarta.apache.org">Commons Documentation Team</author>
   </properties>
 
   <body>
@@ -62,6 +62,14 @@
         For more information, see the <a href="apidocs/index.html">JavaDocs</a>.
       </p>
 
+    </section>
+    <section name="Releases">
+	 <ul>
+	   <li>Version 1.0.2 (from mirror) - 4 Apr 2003
+	     <a href="http://jakarta.apache.org/site/binindex.cgi">binary</a>
+	     <a href="http://jakarta.apache.org/site/sourceindex.cgi">source</a> (latest)
+	   </li>
+	 </ul>
     </section>
 
   </body>
