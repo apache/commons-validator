@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.20 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.20 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorAction.java,v 1.20.2.1 2004/04/13 05:49:22 rleland Exp $
+ * $Revision: 1.20.2.1 $
+ * $Date: 2004/04/13 05:49:22 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -21,8 +21,10 @@
 
 package org.apache.commons.validator;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -428,32 +430,27 @@ public class ValidatorAction implements Serializable {
             return null;
         }
 
-        StringBuffer function = new StringBuffer();
+        StringBuffer buffer = new StringBuffer();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         try {
-            int bufferSize = is.available();
-            int bytesRead;
-            while (bufferSize > 0) {
-                byte[] buffer = new byte[bufferSize];
-                bytesRead = is.read(buffer, 0, bufferSize);
-                if (bytesRead > 0) {
-                    String functionPart = new String(buffer,0,bytesRead);
-                    function.append(functionPart);
-                }
-                bufferSize = is.available();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line + "\n");
             }
 
         } catch(IOException e) {
-            log.error("readJavascriptFile()", e);
+            log.error("Error reading javascript file.", e);
 
         } finally {
             try {
-                is.close();
+                reader.close();
             } catch(IOException e) {
-                log.error("readJavascriptFile()", e);
+                log.error("Error closing stream to javascript file.", e);
             }
         }
-        String strFunction = function.toString();
-        return strFunction.equals("") ? null : strFunction;
+        
+        String function = buffer.toString();
+        return function.equals("") ? null : function;
     }
 
     /**
