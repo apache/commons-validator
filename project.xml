@@ -8,6 +8,7 @@
   <inceptionYear>2002</inceptionYear>
   <gumpRepositoryId>jakarta</gumpRepositoryId>
   <shortDescription>Commons Validator</shortDescription>
+  <logo>/images/logo.gif</logo>
 
   <description>
     Commons Validator component.
