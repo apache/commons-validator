@@ -12,9 +12,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-# $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/build.properties.sample,v 1.12 2004/04/04 13:53:25 rleland Exp $
-# $Revision: 1.12 $
-# $Date: 2004/04/04 13:53:25 $
+# $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/build.properties.sample,v 1.13 2004/09/24 16:04:41 rwinston Exp $
+# $Revision: 1.13 $
+# $Date: 2004/09/24 16:04:41 $
 # -----------------------------------------------------------------------------
 # This is an example "build.properties" file.  Make any changes you need, 
 # and rename this file to "build.properties" in the same directory that 
@@ -65,4 +65,3 @@ cvs.developer.id=rleland
 # maven.username=rleland
 # maven.mode.online=true
 # maven.debugOn=true
-
