@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.7 2003/04/29 00:43:10 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2003/04/29 00:43:10 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.8 2003/04/29 00:59:54 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/04/29 00:59:54 $
  *
  * ====================================================================
  *
@@ -78,7 +78,7 @@ import junit.framework.TestSuite;
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2003/04/29 00:43:10 $
+ * @version $Revision: 1.8 $ $Date: 2003/04/29 00:59:54 $
 */                                                       
 public class ValidatorTest extends TestCase {            
                                                           
@@ -262,7 +262,7 @@ public class ValidatorTest extends TestCase {
     * Formats a <code>String</code> to a <code>Date</code>.  
     * The <code>Validator</code> will interpret a <code>null</code> 
     * as validation having failed.
-   */
+    */
    public static Date formatDate(Object bean, Field field) {
       String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
       Date date = null;
@@ -275,7 +275,7 @@ public class ValidatorTest extends TestCase {
              
          date = formatter.parse(value);
       } catch (ParseException e) {
-         System.out.println("ValidatorTest::formatDate - " + e.getMessage());
+         System.out.println("ValidatorTest.formatDate() - " + e.getMessage());
       }
    
       return date;
