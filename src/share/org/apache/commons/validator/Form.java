@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.6 2003/05/28 04:14:32 dgraham Exp $
- * $Revision: 1.6 $
- * $Date: 2003/05/28 04:14:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.7 2003/05/29 03:03:56 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/05/29 03:03:56 $
  *
  * ====================================================================
  *
@@ -78,7 +78,7 @@ import org.apache.commons.collections.FastHashMap;
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2003/05/28 04:14:32 $
+ * @version $Revision: 1.7 $ $Date: 2003/05/29 03:03:56 $
  */
 public class Form implements Serializable {
 
@@ -140,6 +140,8 @@ public class Form implements Serializable {
 
     /**
      * Processes all of the <code>Form</code>'s <code>Field</code>s.
+     * @deprecated This method is called by the framework.  It will be made protected
+     * in a future release.  TODO
      */
     public void process(Map globalConstants, Map constants) {
     	hFields.setFast(true);
