@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.31 2004/04/04 13:53:25 rleland Exp $
- * $Revision: 1.31 $
- * $Date: 2004/04/04 13:53:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.32 2004/04/08 23:05:39 dgraham Exp $
+ * $Revision: 1.32 $
+ * $Date: 2004/04/08 23:05:39 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -71,9 +71,8 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Logger.
-     * @deprecated Subclasses should use their own logging instance.
-      */
-    protected static Log log = LogFactory.getLog(ValidatorResources.class);
+     */
+    private static final Log log = LogFactory.getLog(ValidatorResources.class);
 
     /**
      * <code>FastHashMap</code> of <code>FormSet</code>s stored under
@@ -161,16 +160,6 @@ public class ValidatorResources implements Serializable {
      * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
      * object.  It will be associated with the <code>Locale</code> of the
      * <code>FormSet</code>.
-     * @deprecated Use addFormSet() instead.
-     */
-    public void put(FormSet fs) {
-        this.addFormSet(fs);
-    }
-
-    /**
-     * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
-     * object.  It will be associated with the <code>Locale</code> of the
-     * <code>FormSet</code>.
      * @since Validator 1.1
      */
     public void addFormSet(FormSet fs) {
@@ -187,32 +176,6 @@ public class ValidatorResources implements Serializable {
                 log.debug("Adding FormSet '" + fs.toString() + "'.");
             }
             formsets.add(fs);
-        }
-    }
-
-    /**
-     * Add a global constant to the resource.
-     * @deprecated Use addConstant(String, String) instead.
-     */
-    public void addConstant(Constant c) {
-        this.addConstantParam(c.getName(), c.getValue());
-    }
-
-    /**
-     * Add a global constant to the resource.
-     * @deprecated Use addConstant(String, String) instead.
-     */
-    public void addConstantParam(String name, String value) {
-        if (name != null
-                && name.length() > 0
-                && value != null
-                && value.length() > 0) {
-
-            if (log.isDebugEnabled()) {
-                log.debug("Adding Global Constant: " + name + "," + value);
-            }
-
-            this.hConstants.put(name, value);
         }
     }
 
@@ -283,23 +246,6 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * <p>Gets a <code>Form</code> based on the name of the form and the <code>Locale</code> that
-     * most closely matches the <code>Locale</code> passed in.  The order of <code>Locale</code>
-     * matching is:</p>
-     * <ol>
-     *    <li>language + country + variant</li>
-     *    <li>language + country</li>
-     *    <li>language</li>
-     *    <li>default locale</li>
-     * </ol>
-     * @deprecated Use getForm() instead.
-     */
-    public Form get(Locale locale, Object formKey) {
-        String key = (formKey == null) ? null : formKey.toString();
-        return this.getForm(locale, key);
-    }
-
-    /**
      * <p>Gets a <code>Form</code> based on the name of the form and the
      * <code>Locale</code> that most closely matches the <code>Locale</code>
      * passed in.  The order of <code>Locale</code> matching is:</p>
@@ -317,28 +263,6 @@ public class ValidatorResources implements Serializable {
                 locale.getCountry(),
                 locale.getVariant(),
                 formKey);
-    }
-
-    /**
-     * <p>Gets a <code>Form</code> based on the name of the form and the
-     * <code>Locale</code> that most closely matches the <code>Locale</code>
-     * passed in.  The order of <code>Locale</code> matching is:</p>
-     * <ol>
-     *    <li>language + country + variant</li>
-     *    <li>language + country</li>
-     *    <li>language</li>
-     *    <li>default locale</li>
-     * </ol>
-     * @deprecated Use getForm() instead.
-     */
-    public Form get(
-            String language,
-            String country,
-            String variant,
-            Object formKey) {
-
-        String key = (formKey == null) ? null : formKey.toString();
-        return this.getForm(language, country, variant, key);
     }
 
     /**
@@ -407,27 +331,15 @@ public class ValidatorResources implements Serializable {
         hConstants.setFast(true);
         hActions.setFast(true);
 
-        this.internalProcessForms();
+        this.processForms();
     }
 
     /**
      * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s
      * that don't exist in a <code>FormSet</code> compared to the default
      * <code>FormSet</code>.</p>
-     * @deprecated This is an internal method that client classes need not call directly.
      */
-    public void processForms() {
-        this.internalProcessForms();
-    }
-
-    /**
-     * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s
-     * that don't exist in a <code>FormSet</code> compared to the default
-     * <code>FormSet</code>.</p>
-     * TODO When processForms() is removed from the public interface, rename this
-     * private method back to "processForms".
-     */
-    private void internalProcessForms() {
+    private void processForms() {
         //hFormSets.put(buildKey(fs), fs);
         String defaultKey = defaultLocale.toString();
 
@@ -454,7 +366,7 @@ public class ValidatorResources implements Serializable {
 
                     // Loop through the default locale form's fields
                     // If they don't exist in the current locale's form, then clone them.
-                    Form defaultForm = get(defaultLocale, formKey);
+                    Form defaultForm = this.getForm(defaultLocale, formKey);
 
                     Iterator defaultFields = defaultForm.getFields().iterator();
                     while (defaultFields.hasNext()) {

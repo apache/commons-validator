@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.17 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.17 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.18 2004/04/08 23:05:39 dgraham Exp $
+ * $Revision: 1.18 $
+ * $Date: 2004/04/08 23:05:39 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -114,15 +114,6 @@ public class Arg implements Cloneable, Serializable {
      */
     public int getPosition() {
         return this.position;
-    }
-
-    /**
-     * Gets whether or not the key is a resource.
-     * @return Returns true if key is a resource.
-     * @deprecated Use isResource() instead.
-     */
-    public boolean getResource() {
-        return this.isResource();
     }
 
     /**

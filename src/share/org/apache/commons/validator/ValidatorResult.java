@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResult.java,v 1.11 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.11 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResult.java,v 1.12 2004/04/08 23:05:39 dgraham Exp $
+ * $Revision: 1.12 $
+ * $Date: 2004/04/08 23:05:39 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -96,14 +96,6 @@ public class ValidatorResult implements Serializable {
         public ResultStatus(boolean valid, Object result) {
             this.valid = valid;
             this.result = result;
-        }
-
-        /**
-         * Gets whether or not the validation passed.
-         * @deprecated Use isValid() instead.
-         */
-        public boolean getValid() {
-            return valid;
         }
 
         /**

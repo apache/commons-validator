@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResults.java,v 1.10 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.10 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResults.java,v 1.11 2004/04/08 23:05:39 dgraham Exp $
+ * $Revision: 1.11 $
+ * $Date: 2004/04/08 23:05:39 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -82,15 +82,6 @@ public class ValidatorResults implements Serializable {
     /**
      * Return <code>true</code> if there are no messages recorded
      * in this collection, or <code>false</code> otherwise.
-     * @deprecated Use isEmpty() instead.
-     */
-    public boolean empty() {
-        return this.isEmpty();
-    }
-
-    /**
-     * Return <code>true</code> if there are no messages recorded
-     * in this collection, or <code>false</code> otherwise.
      */
     public boolean isEmpty() {
         return this.hResults.isEmpty();
@@ -106,32 +97,6 @@ public class ValidatorResults implements Serializable {
      */
     public ValidatorResult getValidatorResult(String key) {
         return (ValidatorResult) this.hResults.get(key);
-    }
-
-    /**
-     * Return the set of all recorded messages, without distinction
-     * by which property the messages are associated with.  If there are
-     * no messages recorded, an empty enumeration is returned.
-     * @deprecated Use getPropertyNames() instead.
-     */
-    public Iterator get() {
-        if (hResults.isEmpty()) {
-            return Collections.EMPTY_LIST.iterator();
-        }
-
-        return hResults.keySet().iterator();
-    }
-
-    /**
-     * Return the set of property names for which at least one message has
-     * been recorded.  If there are no messages, an empty Iterator is returned.
-     * If you have recorded global messages, the String value of
-     * <code>ActionMessages.GLOBAL_MESSAGE</code> will be one of the returned
-     * property names.
-     * @deprecated Use getPropertyNames() instead.
-     */
-    public Iterator properties() {
-        return hResults.keySet().iterator();
     }
 
     /**

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.34 2004/02/21 17:10:29 rleland Exp $
- * $Revision: 1.34 $
- * $Date: 2004/02/21 17:10:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.35 2004/04/08 23:05:39 dgraham Exp $
+ * $Revision: 1.35 $
+ * $Date: 2004/04/08 23:05:39 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -26,9 +26,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * Validations are processed by the validate method. An instance of
  * <code>ValidatorResources</code> is used to define the validators
@@ -37,21 +34,9 @@ import org.apache.commons.logging.LogFactory;
 public class Validator implements Serializable {
 
     /**
-     * Logger.
-     * @deprecated Subclasses should use their own logging instance.
-     */
-    protected static Log log = LogFactory.getLog(Validator.class);
-
-    /**
      * Resources key the JavaBean is stored to perform validation on.
      */
     public static final String BEAN_PARAM = "java.lang.Object";
-
-    /**
-     * Resources key the JavaBean is stored to perform validation on.
-     * @deprecated Use BEAN_PARAM instead.
-     */
-    public static final String BEAN_KEY = BEAN_PARAM;
 
     /**
      * Resources key the <code>ValidatorAction</code> is stored under.
@@ -63,30 +48,12 @@ public class Validator implements Serializable {
             "org.apache.commons.validator.ValidatorAction";
 
     /**
-     * Resources key the <code>ValidatorAction</code> is stored under.
-     * This will be automatically passed into a validation method
-     * with the current <code>ValidatorAction</code> if it is
-     * specified in the method signature.
-     * @deprecated Use VALIDATOR_ACTION_PARAM instead.
-     */
-    public static final String VALIDATOR_ACTION_KEY = VALIDATOR_ACTION_PARAM;
-
-    /**
      * Resources key the <code>Field</code> is stored under.
      * This will be automatically passed into a validation method
      * with the current <code>Field</code> if it is
      * specified in the method signature.
      */
     public static final String FIELD_PARAM = "org.apache.commons.validator.Field";
-
-    /**
-     * Resources key the <code>Field</code> is stored under.
-     * This will be automatically passed into a validation method
-     * with the current <code>Field</code> if it is
-     * specified in the method signature.
-     * @deprecated Use FIELD_PARAM instead.
-     */
-    public static final String FIELD_KEY = FIELD_PARAM;
 
     /**
      * Resources key the <code>Validator</code> is stored under.
@@ -98,30 +65,12 @@ public class Validator implements Serializable {
             "org.apache.commons.validator.Validator";
 
     /**
-     * Resources key the <code>Validator</code> is stored under.
-     * This will be automatically passed into a validation method
-     * with the current <code>Validator</code> if it is
-     * specified in the method signature.
-     * @deprecated Use VALIDATOR_PARAM instead.
-     */
-    public static final String VALIDATOR_KEY = VALIDATOR_PARAM;
-
-    /**
      * Resources key the <code>Locale</code> is stored.
      * This will be used to retrieve the appropriate
      * <code>FormSet</code> and <code>Form</code> to be
      * processed.
      */
     public static final String LOCALE_PARAM = "java.util.Locale";
-
-    /**
-     * Resources key the <code>Locale</code> is stored.
-     * This will be used to retrieve the appropriate
-     * <code>FormSet</code> and <code>Form</code> to be
-     * processed.
-     * @deprecated Use LOCALE_PARAM instead.
-     */
-    public static final String LOCALE_KEY = LOCALE_PARAM;
 
     protected ValidatorResources resources = null;
 
@@ -132,11 +81,6 @@ public class Validator implements Serializable {
      * into the method.
      */
     protected Map parameters = new HashMap();
-
-    /**
-     * @deprecated Use parameters instead.
-     */
-    protected HashMap hResources = (HashMap) this.parameters;
 
     /**
      * The current page number to validate.
@@ -193,21 +137,6 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Add a resource to be used during the processing
-     * of validations.
-     *
-     * @param parameterClassName The full class name of the parameter of the
-     * validation method that corresponds to the value/instance passed in with it.
-     *
-     * @param parameterValue The instance that will be passed into the
-     * validation method.
-     * @deprecated Use setParameter(String, Object) instead.
-     */
-    public void addResource(String parameterClassName, Object parameterValue) {
-        this.setParameter(parameterClassName, parameterValue);
-    }
-
-    /**
      * Set a parameter of a pluggable validation method.
      *
      * @param parameterClassName The full class name of the parameter of the
@@ -218,17 +147,6 @@ public class Validator implements Serializable {
      */
     public void setParameter(String parameterClassName, Object parameterValue) {
         this.parameters.put(parameterClassName, parameterValue);
-    }
-
-    /**
-     * Get a resource to be used during the processing of validations.
-     *
-     * @param parameterClassName The full class name of the parameter of the
-     * validation method that corresponds to the value/instance passed in with it.
-     * @deprecated Use getParameterValue(String) instead.
-     */
-    public Object getResource(String parameterClassName) {
-        return this.getParameterValue(parameterClassName);
     }
 
     /**
@@ -286,7 +204,6 @@ public class Validator implements Serializable {
     public void clear() {
         this.formName = null;
         this.parameters = new HashMap();
-        this.hResources = (HashMap) this.parameters;
         this.page = 0;
     }
 
