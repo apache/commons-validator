@@ -117,7 +117,7 @@ public class ValidatorResources implements Serializable {
    	   hFormSets.put(buildKey(fs), fs);
 
           if (log.isInfoEnabled()) {
-	      log.info("ValidatorResources::put - " + fs.toString());	
+	      log.info("Adding FormSet '" + fs.toString() + "'.");
 	   }
    	}
    }
@@ -133,10 +133,24 @@ public class ValidatorResources implements Serializable {
       }
       
       if (log.isInfoEnabled()) {
-         log.info("ValidatorResources::addConstant - Add Global Constant: " + c.getName() + "," + c.getValue());
+         log.info("Add Global Constant: " + c.getName() + "," + c.getValue());
       }
    }
 
+   /**
+    * Add a global constant to the resource.
+   */
+   public void addConstantParam(String name, String value) {
+      if (name != null && name.length() > 0 &&
+          value != null && value.length() > 0) {
+         hConstants.put(name, value);
+      }
+      
+      if (log.isInfoEnabled()) {
+         log.info("Add Global Constant: " + name + "," + value);
+      }
+   }
+    
    /**
     * <p>Add a <code>ValidatorAction</code> to the resource.  It also creates an instance 
     * of the class based on the <code>ValidatorAction</code>s classname and retrieves 
@@ -153,7 +167,7 @@ public class ValidatorResources implements Serializable {
          hActions.put(va.getName(), va);
          
          if (log.isInfoEnabled()) {
-            log.info("ValidatorResources::addValidatorAction - Add ValidatorAction: " + va.getName() + "," + va.getClassname());   
+            log.info("Add ValidatorAction: " + va.getName() + "," + va.getClassname());   
          }
       }
    }
@@ -273,7 +287,8 @@ public class ValidatorResources implements Serializable {
    /**
     * <p>Process the <code>ValidatorResources</code> object.  </p>
     *
-    * <p>Currently sets the <code>FastHashMap</code>s to the 'fast' mode.</p>
+    * <p>Currently sets the <code>FastHashMap</code>s to the 'fast' 
+    * mode and call the processes all other resources.</p>
    */
    public void process() {
       hFormSets.setFast(true);	

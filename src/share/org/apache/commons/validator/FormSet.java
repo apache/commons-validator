@@ -167,6 +167,16 @@ public class FormSet implements Serializable {
     }
 
     /**
+     * Add a <code>Constant</code> to the locale level.
+    */
+    public void addConstantParam(String name, String value) {
+       if (name != null && name.length() > 0 &&
+           value != null && value.length() > 0) {
+          hConstants.put(name, value);
+       }
+    }
+   
+    /**
      * Add a <code>Form</code> to the <code>FormSet</code>.
     */    
     public void addForm(Form f) {
