@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.13 2003/03/20 02:33:34 dgraham Exp $
- * $Revision: 1.13 $
- * $Date: 2003/03/20 02:33:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.14 2003/05/18 21:29:36 rleland Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/05/18 21:29:36 $
  *
  * ====================================================================
  *
@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.13 $ $Date: 2003/03/20 02:33:34 $
+ * @version $Revision: 1.14 $ $Date: 2003/05/18 21:29:36 $
  */
 public class ValidatorResources implements Serializable {
 
@@ -189,6 +189,7 @@ public class ValidatorResources implements Serializable {
             && va.getMethod() != null
             && va.getMethod().length() > 0) {
 
+            va.init();
             va.process(hConstants);
 
             hActions.put(va.getName(), va);
