@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.21 2003/05/29 03:03:02 dgraham Exp $
- * $Revision: 1.21 $
- * $Date: 2003/05/29 03:03:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/ValidatorResources.java,v 1.22 2003/05/29 03:34:35 dgraham Exp $
+ * $Revision: 1.22 $
+ * $Date: 2003/05/29 03:34:35 $
  *
  * ====================================================================
  *
@@ -92,7 +92,7 @@ import org.xml.sax.SAXException;
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.21 $ $Date: 2003/05/29 03:03:02 $
+ * @version $Revision: 1.22 $ $Date: 2003/05/29 03:34:35 $
  */
 public class ValidatorResources implements Serializable {
 
@@ -492,9 +492,8 @@ public class ValidatorResources implements Serializable {
                         Field defaultField = (Field) defaultFields.next();
                         String fieldKey = defaultField.getKey();
 
-                        if (form.getFieldMap().containsKey(fieldKey)) {
-                            newForm.addField(
-                                (Field) form.getFieldMap().get(fieldKey));
+                        if (form.containsField(fieldKey)) {
+                            newForm.addField(form.getField(fieldKey));
                                 
                         } else {
                             Field field =
@@ -544,7 +543,7 @@ public class ValidatorResources implements Serializable {
             && !GenericValidator.isBlankOrNull(variant)) {
 
             Form form = this.getForm(language, country, variant, formKey);
-            field = (Field) form.getFieldMap().get(fieldKey);
+            field = form.getField(fieldKey);
         }
 
         if (field == null) {
@@ -552,20 +551,20 @@ public class ValidatorResources implements Serializable {
                 && !GenericValidator.isBlankOrNull(country)) {
 
                 Form form = this.getForm(language, country, null, formKey);
-                field = (Field) form.getFieldMap().get(fieldKey);
+                field = form.getField(fieldKey);
             }
         }
 
         if (field == null) {
             if (!GenericValidator.isBlankOrNull(language)) {
                 Form form = this.getForm(language, null, null, formKey);
-                field = (Field) form.getFieldMap().get(fieldKey);
+                field = form.getField(fieldKey);
             }
         }
 
         if (field == null) {
             Form form = this.getForm(defaultLocale, formKey);
-            field = (Field) form.getFieldMap().get(fieldKey);            
+            field = form.getField(fieldKey);            
         }
 
         return field;

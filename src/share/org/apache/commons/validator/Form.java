@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.7 2003/05/29 03:03:56 dgraham Exp $
- * $Revision: 1.7 $
- * $Date: 2003/05/29 03:03:56 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Form.java,v 1.8 2003/05/29 03:34:35 dgraham Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/05/29 03:34:35 $
  *
  * ====================================================================
  *
@@ -78,7 +78,7 @@ import org.apache.commons.collections.FastHashMap;
  * </p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.7 $ $Date: 2003/05/29 03:03:56 $
+ * @version $Revision: 1.8 $ $Date: 2003/05/29 03:34:35 $
  */
 public class Form implements Serializable {
 
@@ -133,9 +133,24 @@ public class Form implements Serializable {
     
     /**
      * The <code>Field</code>s are returned as an unmodifiable <code>Map</code>.
+     * @deprecated Use containsField(String) and getField(String) instead.
      */
     public Map getFieldMap() {
     	return Collections.unmodifiableMap(hFields);
+    }
+    
+    /**
+     * Returns the Field with the given name or null if this Form has no such field
+     */
+    public Field getField(String fieldName) {
+        return (Field) this.hFields.get(fieldName);
+    }
+    
+    /**
+     * Returns true if this Form contains a Field with the given name.
+     */
+    public boolean containsField(String fieldName){
+        return this.hFields.containsKey(fieldName);
     }
 
     /**
