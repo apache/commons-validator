@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/UrlTest.java,v 1.3 2003/05/02 18:28:19 rleland Exp $
- * $Revision: 1.3 $
- * $Date: 2003/05/02 18:28:19 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/UrlTest.java,v 1.4 2003/05/03 20:22:43 dgraham Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/05/03 20:22:43 $
  *
  * ====================================================================
  *
@@ -70,7 +70,7 @@ import junit.framework.TestSuite;
  * <p>Performs Validation Test for url validations.</p>
  *
  * @author Robert Leland
- * @version $Revision: 1.3 $ $Date: 2003/05/02 18:28:19 $
+ * @version $Revision: 1.4 $ $Date: 2003/05/03 20:22:43 $
  */
 public class UrlTest extends TestCase {
    class TestPair {
@@ -104,10 +104,15 @@ public class UrlTest extends TestCase {
    }
 
    public void testIsValid() {
-      testIsValid(testUrlParts, true,false,false);
-      System.out.println("\nTesting options ....");
-      setUp();
-      testIsValid(testUrlPartsOptions, true,true,true);
+    	testIsValid(testUrlParts, UrlValidator.ALLOW_ALL_SCHEMES);
+    	System.out.println("\nTesting options ....");
+    	setUp();
+    	int options =
+    		UrlValidator.ALLOW_2_SLASHES
+    			+ UrlValidator.ALLOW_ALL_SCHEMES
+    			+ UrlValidator.NO_FRAGMENTS;
+    
+    	testIsValid(testUrlPartsOptions, options);
    }
 
    public void testIsValidScheme() {
@@ -115,7 +120,8 @@ public class UrlTest extends TestCase {
          System.out.print("\n testIsValidScheme() ");
       }
       String[] schemes = {"http", "gopher"};
-      UrlValidator urlVal = new UrlValidator(schemes,false,false,false);
+      //UrlValidator urlVal = new UrlValidator(schemes,false,false,false);
+      UrlValidator urlVal = new UrlValidator(schemes, 0);
       for (int sIndex = 0; sIndex < testScheme.length; sIndex++) {
          TestPair testPair = testScheme[sIndex];
          boolean result = urlVal.isValidScheme(testPair.item);
@@ -140,8 +146,8 @@ public class UrlTest extends TestCase {
     *
     * @param testObjects Used to create a url.
     */
-   public void testIsValid(Object[] testObjects, boolean allow2Slash, boolean noFragment,boolean allScheme) {
-      UrlValidator urlVal = new UrlValidator(null, allow2Slash,noFragment,allScheme);
+   public void testIsValid(Object[] testObjects, int options) {
+      UrlValidator urlVal = new UrlValidator(null, options);
       int statusPerLine = 60;
       int printed = 0;
       if (printIndex)  {

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.9 2003/05/03 15:53:53 dgraham Exp $
- * $Revision: 1.9 $
- * $Date: 2003/05/03 15:53:53 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.10 2003/05/03 20:22:43 dgraham Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/05/03 20:22:43 $
  *
  * ====================================================================
  *
@@ -62,8 +62,11 @@
 package org.apache.commons.validator;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
+import org.apache.commons.validator.util.Flags;
 import org.apache.oro.text.perl.Perl5Util;
 
 /**
@@ -106,9 +109,26 @@ import org.apache.oro.text.perl.Perl5Util;
  *
  * @author Robert Leland
  * @author David Graham
- * @version $Revision: 1.9 $ $Date: 2003/05/03 15:53:53 $
+ * @version $Revision: 1.10 $ $Date: 2003/05/03 20:22:43 $
  */
 public class UrlValidator implements Serializable {
+    
+    /**
+     * Allows all validly formatted schemes to pass validation instead of supplying a 
+     * set of valid schemes.
+     */
+    public static final int ALLOW_ALL_SCHEMES = 1;
+    
+    /**
+     * Allow two slashes in the path component of the URL.
+     */
+    public static final int ALLOW_2_SLASHES = 2;
+    
+    /**
+     * Enabling this options disallows any URL fragments.
+     */
+    public static final int NO_FRAGMENTS = 4;
+    
 	private static final String ALPHA_CHARS = "a-zA-Z";
     
 	private static final String ALPHA_NUMERIC_CHARS = ALPHA_CHARS + "\\d";
@@ -183,13 +203,21 @@ public class UrlValidator implements Serializable {
 	private static final String ATOM_PATTERN = "/(" + ATOM + ")/";
     
 	private static final String ALPHA_PATTERN = "/^[" + ALPHA_CHARS + "]/";
+    
+    /**
+     * Holds the set of current validation options.
+     */
+    private Flags options = null;
 
-	// Non static fields
-	private boolean allow2Slash = false;
-	private boolean allowAllScheme = false;
-	private boolean noFragment = false;
-	private HashSet allowedSchemeSet;
-	protected String[] defaultSchemeSet = { "http", "https", "ftp" };
+    /**
+     * The set of schemes that are allowed to be in a URL.
+     */
+	private Set allowedSchemes = null;
+    
+    /**
+     * If no schemes are provided, default to this set.
+     */
+	protected String[] defaultSchemes = { "http", "https", "ftp" };
 
 	/**
 	 * Create a UrlValidator with default properties.
@@ -199,48 +227,46 @@ public class UrlValidator implements Serializable {
 	}
 
 	/**
-	 * Behavour of validation is modified by passing in several strings options:
-	 * @param schemes Pass in one or more url scheme to consider valid, passing in
+	 * Behavior of validation is modified by passing in several strings options:
+	 * @param schemes Pass in one or more url schemes to consider valid, passing in
 	 *        a null will default to "http,https,ftp" being valid.
 	 *        If a non-null schemes is specified then all valid schemes must
-	 *        be specified. Setting the allowAllScheme option to true will
+	 *        be specified. Setting the ALLOW_ALL_SCHEMES option will
 	 *        ignore the contents of schemes.
 	 */
 	public UrlValidator(String[] schemes) {
-		this(schemes, false, false, false);
+		this(schemes, 0);
 	}
+    
+    /**
+     * Initialize a UrlValidator with the given validation options.
+     * @param options The options should be set using the public constants declared in
+     * this class.  To set multiple options you simply add them together.  For example, 
+     * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options. 
+     */
+    public UrlValidator(int options) {
+        this(null, options);
+    }
 
 	/**
 	 * Behavour of validation is modified by passing in options:
-	 *   @param allowAllScheme If true, allows all validly formatted schemes. [false]
-	 *   @param allow2Slash If true, allows double '/' characters in the path  component, [false]
-	 *   @param noFragment If true, fragments are flagged as illegal.[false]
+     * @param schemes The set of valid schemes.
+	 * @param options The options should be set using the public constants declared in
+     * this class.  To set multiple options you simply add them together.  For example, 
+     * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options. 
 	 */
-	public UrlValidator(
-		String[] schemes,
-		boolean allowAllScheme,
-		boolean allow2Slash,
-		boolean noFragment) {
-            
-		this.allowAllScheme = allowAllScheme;
-		this.allow2Slash = allow2Slash;
-		this.noFragment = noFragment;
+	public UrlValidator(String[] schemes, int options) {
+		this.options = new Flags(options);
 
-		if (!this.allowAllScheme) {
-			if (schemes == null) {
-				this.allowedSchemeSet = new HashSet(defaultSchemeSet.length);
-				for (int sIndex = 0;
-					sIndex < defaultSchemeSet.length;
-					sIndex++) {
-					this.allowedSchemeSet.add(defaultSchemeSet[sIndex]);
-				}
+		if (this.options.isOn(ALLOW_ALL_SCHEMES)) {
+			return;
+		}
 
-			} else if (schemes != null) {
-				this.allowedSchemeSet = new HashSet(schemes.length);
-				for (int sIndex = 0; sIndex < schemes.length; sIndex++) {
-					this.allowedSchemeSet.add(schemes[sIndex]);
-				}
-			}
+		if (schemes == null) {
+			this.allowedSchemes =
+				new HashSet(Arrays.asList(this.defaultSchemes));
+		} else {
+			this.allowedSchemes = new HashSet(Arrays.asList(schemes));
 		}
 
 	}
@@ -304,8 +330,8 @@ public class UrlValidator implements Serializable {
 		Perl5Util matchSchemePat = new Perl5Util();
 		boolean bValid = matchSchemePat.match(SCHEME_PATTERN, scheme);
 		if (bValid) {
-			if (allowedSchemeSet != null) {
-				bValid = allowedSchemeSet.contains(scheme);
+			if (allowedSchemes != null) {
+				bValid = allowedSchemes.contains(scheme);
 			}
 		}
 		return bValid;
@@ -422,7 +448,8 @@ public class UrlValidator implements Serializable {
 
 		if (bValid) {
 			int slash2Count = countToken("//", path);
-			if (!allow2Slash) {
+
+			if (this.options.isOff(ALLOW_2_SLASHES)) {
 				bValid = (slash2Count == 0);
 			}
 
@@ -457,7 +484,7 @@ public class UrlValidator implements Serializable {
 			return true;
 		}
 
-		return (noFragment == false);
+        return this.options.isOff(NO_FRAGMENTS);
 	}
 
 	/**
