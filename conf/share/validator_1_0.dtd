@@ -9,7 +9,7 @@
      "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN"
      "http://jakarta.apache.org/commons/dtds/validator_1_0.dtd">
 
-    $Id: validator_1_0.dtd,v 1.3 2002/10/22 19:59:40 turner Exp $
+    $Id: validator_1_0.dtd,v 1.4 2002/10/23 01:32:01 turner Exp $
 -->
 
 
@@ -73,8 +73,7 @@
 -->
 <!ELEMENT formset (constant*, form+)>
 <!ATTLIST formset language     CDATA #IMPLIED
-                  country      CDATA #IMPLIED 
-                  resource     CDATA #IMPLIED >
+                  country      CDATA #IMPLIED >
 
 
 <!--
@@ -82,8 +81,7 @@
      corresponds to the identifer the application assigns to the form. 
 -->
 <!ELEMENT form    (field+ )>
-<!ATTLIST form    name         CDATA #REQUIRED
-                  resource     CDATA #IMPLIED>
+<!ATTLIST form    name         CDATA #REQUIRED>
 
 
 <!--
@@ -119,8 +117,7 @@
 <!ATTLIST field   property CDATA #REQUIRED
                   depends  CDATA #IMPLIED
                   page     CDATA #IMPLIED
-                  indexedListProperty CDATA #IMPLIED 
-                  resource     CDATE #IMPLIED >
+                  indexedListProperty CDATA #IMPLIED >
 
 
 <!--
