@@ -9,7 +9,7 @@
      "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.2.0//EN"
      "http://jakarta.apache.org/commons/dtds/validator_1_2_0.dtd">
 
-    $Id: validator_1_2_0.dtd,v 1.6 2004/04/11 16:53:15 dgraham Exp $
+    $Id: validator_1_2_0.dtd,v 1.7 2004/04/11 17:16:17 dgraham Exp $
 -->
 
 
@@ -30,7 +30,7 @@
 
 
 <!--
-     The "validator" element defines what validator objects can be used with
+     Defines what validator objects can be used with
      the fields referenced by the formset elements.
      elements:
        validator         Defines a new validatior
@@ -61,14 +61,14 @@
 
 
 <!--
-     The "javascript" element defines a JavaScript that can be used to perform
+     Defines a JavaScript that can be used to perform
      client-side validators.
 -->
 <!ELEMENT javascript (#PCDATA)>
 
 
 <!--
-     The "constant" element defines a static value that can be used as
+     Defines a static value that can be used as
      replacement parameters within "field" elements. The "constant-name" and
      "constant-value" elements define the constant's reference id and replacement
      value.
@@ -79,7 +79,7 @@
 
 
 <!--
-      The "formset" element defines a set of forms for a locale. Formsets for
+      Defines a set of forms for a locale. Formsets for
       specific locales can override only those fields that change. The
       localization is properly scoped, so that a formset can override just the
       language, or just the country, or both.
@@ -91,17 +91,17 @@
 
 
 <!--
-     The "form" element defines a set of fields to be validated. The name
+     Defines a set of fields to be validated. The name
      corresponds to the identifier the application assigns to the form. 
 -->
 <!ELEMENT form (field+)>
-<!ATTLIST form name CDATA #REQUIRED
-            extends CDATA #IMPLIED>
+<!ATTLIST form name CDATA #REQUIRED>
+<!ATTLIST form extends CDATA #IMPLIED>
  
 
 
 <!--
-     The "field" element defines the properties to be validated. In a
+     Defines the properties to be validated. In a
      web application, a field would also correspond to a control on
      a HTML form. To validate the properties, the validator works through
      a JavaBean representation. The field element accepts these 
@@ -137,7 +137,7 @@
 
 
 <!--
-     The "msg" element defines a custom message key to use when one of the
+     Defines a custom message key to use when one of the
      validators for this field fails. Each validator has a default message
      property that is used when a corresponding field msg is not specified.
      Each validator applied to a field may have its own msg element.
@@ -163,7 +163,7 @@
 
 
 <!--
-     The "arg" element defines a replacement value to use with the
+     Defines a replacement value to use with the
      message template for this validator or this field.
      The arg element accepts these attributes.
 
@@ -214,8 +214,7 @@
 <!ELEMENT var-value (#PCDATA)>
 
 <!--
-     The java script type, Possible Values [int| string | regexp] 
-
+     The javascript type. Possible Values [int|string|regexp] 
 -->
 <!ELEMENT var-jstype (#PCDATA)>
 
