@@ -133,7 +133,6 @@ public class ValidatorResourcesInitializer {
        	
       Digester digester = new Digester();
       digester.push(resources);
-      digester.setDebug(1);
       digester.setNamespaceAware(true);
       digester.setValidating(false);
       
