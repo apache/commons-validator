@@ -125,6 +125,20 @@ public class Validator implements Serializable {
    protected int page = 0;   
 
    /**
+    * The class loader to use for instantiating application objects.
+    * If not specified, the context class loader, or the class loader
+    * used to load Digester itself, is used, based on the value of the
+    * <code>useContextClassLoader</code> variable.
+   */
+   protected ClassLoader classLoader = null;
+
+   /**
+    * Do we want to use the Context ClassLoader when loading classes
+    * for instantiating new objects?  Default is <code>false</code>.
+   */
+   protected boolean useContextClassLoader = false;
+
+   /**
     * Construct a <code>Validator</code> that will 
     * use the <code>ValidatorResources</code> 
     * passed in to retrieve pluggable validators 
@@ -221,6 +235,69 @@ public class Validator implements Serializable {
       formName = null;
       hResources = new HashMap();
       page = 0;   
+   }
+
+   /**
+    * Return the boolean as to whether the context classloader should be used.
+    */
+   public boolean getUseContextClassLoader() {
+
+       return useContextClassLoader;
+
+   }
+
+   /**
+    * Determine whether to use the Context ClassLoader (the one found by
+    * calling <code>Thread.currentThread().getContextClassLoader()</code>)
+    * to resolve/load classes that are defined in various rules.  If not
+    * using Context ClassLoader, then the class-loading defaults to
+    * using the calling-class' ClassLoader.
+    *
+    * @param boolean determines whether to use Context ClassLoader.
+   */
+   public void setUseContextClassLoader(boolean use) {
+
+       useContextClassLoader = use;
+
+   }
+
+   /**
+    * Return the class loader to be used for instantiating application objects
+    * when required.  This is determined based upon the following rules:
+    * <ul>
+    * <li>The class loader set by <code>setClassLoader()</code>, if any</li>
+    * <li>The thread context class loader, if it exists and the
+    *     <code>useContextClassLoader</code> property is set to true</li>
+    * <li>The class loader used to load the Digester class itself.
+    * </ul>
+   */
+   public ClassLoader getClassLoader() {
+      if (this.classLoader != null) {
+         return (this.classLoader);
+      }
+      
+      if (this.useContextClassLoader) {
+         ClassLoader classLoader =
+                 Thread.currentThread().getContextClassLoader();
+         if (classLoader != null) {
+             return (classLoader);
+         }
+      }
+      
+      return (this.getClass().getClassLoader());
+   }
+
+   /**
+    * Set the class loader to be used for instantiating application objects
+    * when required.
+    *
+    * @param classLoader The new class loader to use, or <code>null</code>
+    *  to revert to the standard rules
+   */
+   public void setClassLoader(ClassLoader classLoader) {
+
+       this.classLoader = classLoader;
+
    }
       
    /**
@@ -324,8 +401,8 @@ public class Validator implements Serializable {
                      	  hResources.put(VALIDATOR_ACTION_KEY, va);
                      	  hResources.put(FIELD_KEY, field);
       
-                     	  Class c = Class.forName(va.getClassname(), true, this.getClass().getClassLoader());
-                     	  
+                     	  Class c = getClassLoader().loadClass(va.getClassname());
+
                      	  List lParams = va.getMethodParamsList();
                      	  int size = lParams.size();
                      	  int beanIndexPos = -1;
@@ -345,7 +422,8 @@ public class Validator implements Serializable {
              	             }
              	             
                      	     // There were problems calling getClass on paramValue[]
-                     	     paramClass[x] = Class.forName(paramKey, true, this.getClass().getClassLoader());
+                     	     paramClass[x] = getClassLoader().loadClass(paramKey);
+
                      	     paramValue[x] = hResources.get(paramKey);
                      	  }
       
@@ -370,10 +448,11 @@ public class Validator implements Serializable {
                            Object oIndexed = PropertyUtils.getProperty(hResources.get(BEAN_KEY), field.getIndexedListProperty());
                            Object indexedList[] = new Object[0];
                            
-                           if (oIndexed instanceof Collection)
+                           if (oIndexed instanceof Collection) {
                               indexedList = ((Collection)oIndexed).toArray();
-                           else if(oIndexed.getClass().isArray())
+                           } else if(oIndexed.getClass().isArray()) {
                               indexedList = (Object[])oIndexed;
+                           }
                            
                            for (int pos = 0; pos < indexedList.length; pos++) {
                               // Set current iteration object to the parameter array
