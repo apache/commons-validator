@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestTypeValidator.java,v 1.2 2002/12/15 20:58:57 martinc Exp $
- * $Revision: 1.2 $
- * $Date: 2002/12/15 20:58:57 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestTypeValidator.java,v 1.3 2003/05/02 23:39:30 dgraham Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/05/02 23:39:30 $
  *
  * ====================================================================
  *
@@ -61,13 +61,15 @@
 
 
 package org.apache.commons.validator;
+
+import org.apache.commons.validator.util.ValidatorUtils;
                                                           
 /**                                                       
  * <p>Contains validation methods for different 
  * unit tests.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.2 $ $Date: 2002/12/15 20:58:57 $
+ * @version $Revision: 1.3 $ $Date: 2003/05/02 23:39:30 $
 */                                                       
 public class TestTypeValidator {
 
@@ -80,7 +82,7 @@ public class TestTypeValidator {
     *                           Otherwise <code>false</code>.
    */
    public static Byte validateByte(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatByte(value);
    }
@@ -94,7 +96,7 @@ public class TestTypeValidator {
     *                           Otherwise <code>false</code>.
    */
    public static Short validateShort(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatShort(value);
    }
@@ -108,7 +110,7 @@ public class TestTypeValidator {
     *                           Otherwise <code>false</code>.
    */
    public static Integer validateInt(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatInt(value);
    }
@@ -122,7 +124,7 @@ public class TestTypeValidator {
     *                           Otherwise <code>false</code>.
    */
    public static Long validateLong(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatLong(value);
    }
@@ -136,7 +138,7 @@ public class TestTypeValidator {
     *                           Otherwise <code>false</code>.
    */
    public static Float validateFloat(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatFloat(value);
    }
@@ -150,7 +152,7 @@ public class TestTypeValidator {
     *                           Otherwise <code>false</code>.
    */
    public static Double validateDouble(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatDouble(value);
    }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.5 2003/05/02 23:18:17 dgraham Exp $
- * $Revision: 1.5 $
- * $Date: 2003/05/02 23:18:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.6 2003/05/02 23:39:31 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/05/02 23:39:31 $
  *
  * ====================================================================
  *
@@ -105,7 +105,7 @@ import org.apache.oro.text.perl.Perl5Util;
  *  </a>
  *
  * @author Robert Leland
- * @version $Revision: 1.5 $ $Date: 2003/05/02 23:18:17 $
+ * @version $Revision: 1.6 $ $Date: 2003/05/02 23:39:31 $
  */
 public class UrlValidator implements Serializable {
    private static final String alphaChars = "a-zA-Z"; 
@@ -136,7 +136,7 @@ public class UrlValidator implements Serializable {
     * Protocol (ie. http:, ftp:,https:).
     */
    private static final String schemePat = "/^[" + schemeChars + "]/";
-   private static final String authorityPat = ValidatorUtil.getDelimitedRegExp("^([" + authorityChars + "]*)(:\\d*)?(.*)?");
+   private static final String authorityPat = "/^([" + authorityChars + "]*)(:\\d*)?(.*)?/";
    //                                                                            1                          2  3       4
    private static final int PARSE_AUTHORITY_HOST_IP = 1;
    private static final int PARSE_AUTHORITY_PORT = 2;

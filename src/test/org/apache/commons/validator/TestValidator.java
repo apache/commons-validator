@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.6 2003/03/15 22:28:20 dgraham Exp $
- * $Revision: 1.6 $
- * $Date: 2003/03/15 22:28:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.7 2003/05/02 23:39:30 dgraham Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/05/02 23:39:30 $
  *
  * ====================================================================
  *
@@ -61,13 +61,15 @@
 
 
 package org.apache.commons.validator;
+
+import org.apache.commons.validator.util.ValidatorUtils;
                                                           
 /**                                                       
  * <p>Contains validation methods for different 
  * unit tests.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.6 $ $Date: 2003/03/15 22:28:20 $
+ * @version $Revision: 1.7 $ $Date: 2003/05/02 23:39:30 $
 */                                                       
 public class TestValidator {
                                                           
@@ -81,7 +83,7 @@ public class TestValidator {
     *                           Otherwise <code>false</code>.
    */
    public static boolean validateRequired(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return !GenericValidator.isBlankOrNull(value);
    }
@@ -95,7 +97,7 @@ public class TestValidator {
     *                           Otherwise <code>false</code>.
    */
    public static boolean validateByte(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isByte(value);
    }
@@ -109,7 +111,7 @@ public class TestValidator {
     *                           Otherwise <code>false</code>.
    */
    public static boolean validateShort(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isShort(value);
    }
@@ -123,7 +125,7 @@ public class TestValidator {
     *                           Otherwise <code>false</code>.
    */
    public static boolean validateInt(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isInt(value);
    }
@@ -137,7 +139,7 @@ public class TestValidator {
     *                           Otherwise <code>false</code>.
    */
    public static boolean validateLong(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isLong(value);
    }
@@ -151,7 +153,7 @@ public class TestValidator {
     *                           Otherwise <code>false</code>.
    */
    public static boolean validateFloat(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isFloat(value);
    }
@@ -165,7 +167,7 @@ public class TestValidator {
     *                           Otherwise <code>false</code>.
    */
    public static boolean validateDouble(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isDouble(value);
    }
@@ -179,7 +181,7 @@ public class TestValidator {
     *                           Otherwise <code>false</code>.
    */
    public static boolean validateEmail(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isEmail(value);
    }
@@ -197,7 +199,7 @@ public class TestValidator {
     if (isString(bean)) {
       value = (String) bean;
     } else {
-      value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      value = ValidatorUtils.getValueAsString(bean, field.getProperty());
     }
     int i = 0;
     String fieldJoin = "AND";
@@ -223,7 +225,7 @@ public class TestValidator {
           dependProp = ind + dependProp;
         }
       }
-      dependVal = ValidatorUtil.getValueAsString(form, dependProp);
+      dependVal = ValidatorUtils.getValueAsString(form, dependProp);
       if (dependTest.equals(FIELD_TEST_NULL)) {
         if ((dependVal != null ) && (dependVal.length() > 0)) {
           this_required =  false;

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Attic/ValidatorUtil.java,v 1.10 2003/05/02 23:39:30 dgraham Exp $
- * $Revision: 1.10 $
- * $Date: 2003/05/02 23:39:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/util/ValidatorUtils.java,v 1.1 2003/05/02 23:39:31 dgraham Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/05/02 23:39:31 $
  *
  * ====================================================================
  *
@@ -59,34 +59,32 @@
  *
  */
 
-package org.apache.commons.validator;
+package org.apache.commons.validator.util;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Iterator;
+
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.FastHashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.validator.Arg;
+import org.apache.commons.validator.Msg;
+import org.apache.commons.validator.Var;
 
 /**
  * <p>Basic utility methods.</p>
  *
  * @author David Winterfeldt
  * @author David Graham
- * @version $Revision: 1.10 $ $Date: 2003/05/02 23:39:30 $
- * @deprecated This class has moved to the org.apache.commons.validator.util
- * package.
+ * @version $Revision: 1.1 $ $Date: 2003/05/02 23:39:31 $
 */
-public class ValidatorUtil {
-
-	/**
-	 * Delimiter to put around a regular expression following Perl 5 syntax.
-     * @deprecated Use "/" directly.
-	 */
-	public final static String REGEXP_DELIMITER = "/";
+public class ValidatorUtils {
 
 	/**
 	 * Logger.
-     * @deprecated Subclasses should use their own logging instance.
 	 */
-	protected static Log log = LogFactory.getLog(ValidatorUtil.class);
+	private static Log log = LogFactory.getLog(ValidatorUtils.class);
 
 	/**
 	 * <p>Replace part of a <code>String</code> with another value.</p>
@@ -99,8 +97,32 @@ public class ValidatorUtil {
 		String value,
 		String key,
 		String replaceValue) {
-            
-        return org.apache.commons.validator.util.ValidatorUtils.replace(value, key, replaceValue);
+		if (value == null || key == null || replaceValue == null) {
+			return value;
+		}
+
+		int pos = value.indexOf(key);
+
+		if (pos < 0) {
+			return value;
+		}
+
+		int length = value.length();
+		int start = pos;
+		int end = pos + key.length();
+
+		if (length == key.length()) {
+			value = replaceValue;
+		} else if (end == length) {
+			value = value.substring(0, start) + replaceValue;
+		} else {
+			value =
+				value.substring(0, start)
+					+ replaceValue
+					+ replace(value.substring(end), key, replaceValue);
+		}
+
+		return value;
 	}
 
 	/**
@@ -108,7 +130,20 @@ public class ValidatorUtil {
 	 * <code>String</code>.
 	 */
 	public static String getValueAsString(Object bean, String property) {
-		return org.apache.commons.validator.util.ValidatorUtils.getValueAsString(bean, property);
+		Object value = null;
+
+		try {
+			value = PropertyUtils.getProperty(bean, property);
+
+		} catch (IllegalAccessException e) {
+			log.error(e.getMessage(), e);
+		} catch (InvocationTargetException e) {
+			log.error(e.getMessage(), e);
+		} catch (NoSuchMethodException e) {
+			log.error(e.getMessage(), e);
+		}
+
+		return (value != null ? value.toString() : null);
 	}
 
 	/**
@@ -121,15 +156,31 @@ public class ValidatorUtil {
 	 * passed in.
 	 */
 	public static FastHashMap copyFastHashMap(FastHashMap map) {
-        return org.apache.commons.validator.util.ValidatorUtils.copyFastHashMap(map);
-	}
+		FastHashMap results = new FastHashMap();
 
-	/**
-	 * Adds a '/' on either side of the regular expression.
-     * @deprecated Use "/" directly.
-	 */
-	public static String getDelimitedRegExp(String regexp) {
-		return (REGEXP_DELIMITER + regexp + REGEXP_DELIMITER);
+		Iterator i = map.keySet().iterator();
+		while (i.hasNext()) {
+			String key = (String) i.next();
+			Object value = map.get(key);
+
+			// TODO I don't think Strings need to be copied and do we really need to cast
+			// before cloning?
+			if (value instanceof String) {
+				results.put(key, new String((String) value));
+			} else if (value instanceof Msg) {
+				results.put(key, ((Msg) value).clone());
+			} else if (value instanceof Arg) {
+				results.put(key, ((Arg) value).clone());
+			} else if (value instanceof Var) {
+				results.put(key, ((Var) value).clone());
+			} else {
+				results.put(key, value);
+			}
+		}
+
+		results.setFast(true);
+
+		return results;
 	}
 
 }

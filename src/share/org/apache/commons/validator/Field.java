@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.8 2003/04/29 02:38:49 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/04/29 02:38:49 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.9 2003/05/02 23:39:31 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/05/02 23:39:31 $
  *
  * ====================================================================
  *
@@ -68,7 +68,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
-import org.apache.commons.collections.FastHashMap; 
+
+import org.apache.commons.collections.FastHashMap;
+import org.apache.commons.validator.util.ValidatorUtils;
 
 
 /**
@@ -77,7 +79,7 @@ import org.apache.commons.collections.FastHashMap;
  * to perform the validations and generate error messages.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2003/04/29 02:38:49 $
+ * @version $Revision: 1.9 $ $Date: 2003/05/02 23:39:31 $
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {
@@ -460,7 +462,7 @@ public class Field implements Cloneable, Serializable {
     		String key2 = TOKEN_START + key + TOKEN_END;
     		String replaceValue = (String) constants.get(key);
     
-    		property = ValidatorUtil.replace(property, key2, replaceValue);
+    		property = ValidatorUtils.replace(property, key2, replaceValue);
     
     		processVars(key2, replaceValue);
     
@@ -473,7 +475,7 @@ public class Field implements Cloneable, Serializable {
     		String key2 = TOKEN_START + key + TOKEN_END;
     		String replaceValue = (String) globalConstants.get(key);
     
-    		property = ValidatorUtil.replace(property, key2, replaceValue);
+    		property = ValidatorUtils.replace(property, key2, replaceValue);
     
     		processVars(key2, replaceValue);
     
@@ -516,7 +518,7 @@ public class Field implements Cloneable, Serializable {
     		String varKey = (String) i.next();
     		Var var = (Var) hVars.get(varKey);
     
-    		var.setValue(ValidatorUtil.replace(var.getValue(), key, replaceValue));
+    		var.setValue(ValidatorUtils.replace(var.getValue(), key, replaceValue));
     	}
        
     }
@@ -532,7 +534,7 @@ public class Field implements Cloneable, Serializable {
     			String msgKey = (String) i.next();
     			String value = (String) hMsgs.get(msgKey);
     
-    			hMsgs.put(msgKey, ValidatorUtil.replace(value, key, replaceValue));
+    			hMsgs.put(msgKey, ValidatorUtils.replace(value, key, replaceValue));
     		}
        }
        
@@ -551,7 +553,7 @@ public class Field implements Cloneable, Serializable {
         	Arg arg = (Arg) i.next();
         
         	if (arg != null) {
-        		arg.setKey(ValidatorUtil.replace(arg.getKey(), key, replaceValue));
+        		arg.setKey(ValidatorUtils.replace(arg.getKey(), key, replaceValue));
         	}
         }
     }
@@ -603,13 +605,13 @@ public class Field implements Cloneable, Serializable {
 
            // page & fieldOrder should be taken care of by clone method
            
-           field.hDependencies = ValidatorUtil.copyFastHashMap(hDependencies);
-           field.hVars = ValidatorUtil.copyFastHashMap(hVars);
-           field.hMsgs = ValidatorUtil.copyFastHashMap(hMsgs);
-           field.hArg0 = ValidatorUtil.copyFastHashMap(hArg0);
-           field.hArg1 = ValidatorUtil.copyFastHashMap(hArg1);
-           field.hArg2 = ValidatorUtil.copyFastHashMap(hArg2);
-           field.hArg3 = ValidatorUtil.copyFastHashMap(hArg3);
+           field.hDependencies = ValidatorUtils.copyFastHashMap(hDependencies);
+           field.hVars = ValidatorUtils.copyFastHashMap(hVars);
+           field.hMsgs = ValidatorUtils.copyFastHashMap(hMsgs);
+           field.hArg0 = ValidatorUtils.copyFastHashMap(hArg0);
+           field.hArg1 = ValidatorUtils.copyFastHashMap(hArg1);
+           field.hArg2 = ValidatorUtils.copyFastHashMap(hArg2);
+           field.hArg3 = ValidatorUtils.copyFastHashMap(hArg3);
     
            return field;
        } catch (CloneNotSupportedException e) {

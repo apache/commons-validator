@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.8 2003/04/29 00:59:54 dgraham Exp $
- * $Revision: 1.8 $
- * $Date: 2003/04/29 00:59:54 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/ValidatorTest.java,v 1.9 2003/05/02 23:39:30 dgraham Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/05/02 23:39:30 $
  *
  * ====================================================================
  *
@@ -71,14 +71,16 @@ import java.util.Locale;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;              
+import junit.framework.TestSuite;
+
+import org.apache.commons.validator.util.ValidatorUtils;
 
                                                           
 /**                                                       
  * <p>Performs Validation Test.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.8 $ $Date: 2003/04/29 00:59:54 $
+ * @version $Revision: 1.9 $ $Date: 2003/05/02 23:39:30 $
 */                                                       
 public class ValidatorTest extends TestCase {            
                                                           
@@ -243,7 +245,7 @@ public class ValidatorTest extends TestCase {
     * Checks if the field is one upper case letter between 'A' and 'Z'.
    */
    public static boolean isCapLetter(Object bean, Field field, List l) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       if (value != null && value.length() == 1) {
          if (value.charAt(0) >= 'A' && value.charAt(0) <= 'Z') {
@@ -264,7 +266,7 @@ public class ValidatorTest extends TestCase {
     * as validation having failed.
     */
    public static Date formatDate(Object bean, Field field) {
-      String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
       Date date = null;
       
       try {

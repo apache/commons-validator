@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.22 2003/05/01 02:42:30 dgraham Exp $
- * $Revision: 1.22 $
- * $Date: 2003/05/01 02:42:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/GenericValidator.java,v 1.23 2003/05/02 23:39:31 dgraham Exp $
+ * $Revision: 1.23 $
+ * $Date: 2003/05/02 23:39:31 $
  *
  * ====================================================================
  *
@@ -74,13 +74,13 @@ import org.apache.oro.text.perl.Perl5Util;
  * @author <a href="mailto:husted@apache.org">Ted Husted</a>
  * @author David Graham
  * @author Robert Leland
- * @version $Revision: 1.22 $ $Date: 2003/05/01 02:42:30 $
+ * @version $Revision: 1.23 $ $Date: 2003/05/02 23:39:31 $
  */
 public class GenericValidator implements Serializable {
 
    /**
     * Delimiter to put around a regular expression following Perl 5 syntax.
-    * @deprecated Use ValidatorUtil.REGEXP_DELIMITER instead.
+    * @deprecated Use ValidatorUtils.REGEXP_DELIMITER instead.
     */
    public final static String REGEXP_DELIM = ValidatorUtil.REGEXP_DELIMITER;
 
@@ -106,13 +106,12 @@ public class GenericValidator implements Serializable {
     * @param regexp The regular expression.
     */
    public static boolean matchRegexp(String value, String regexp) {
-
-      if (regexp == null || regexp.length() <= 0) {
-         return false;
-      }
-      
-      Perl5Util matcher = new Perl5Util();
-      return matcher.match(ValidatorUtil.getDelimitedRegExp(regexp), value);
+        if (regexp == null || regexp.length() <= 0) {
+        	return false;
+        }
+        
+        Perl5Util matcher = new Perl5Util();
+        return matcher.match("/" + regexp + "/", value);
    }
 
    /**
@@ -321,7 +320,7 @@ public class GenericValidator implements Serializable {
 
    /**
     * Adds a '/' on either side of the regular expression.
-    * @deprecated use ValidatorUtil.getDelimitedRegExp() instead.
+    * @deprecated use ValidatorUtils.getDelimitedRegExp() instead.
     */
    protected static String getDelimittedRegexp(String regexp) {
       return ValidatorUtil.getDelimitedRegExp(regexp);

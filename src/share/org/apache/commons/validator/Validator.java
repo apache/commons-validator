@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.16 2003/04/30 21:51:05 rleland Exp $
- * $Revision: 1.16 $
- * $Date: 2003/04/30 21:51:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Validator.java,v 1.17 2003/05/02 23:39:31 dgraham Exp $
+ * $Revision: 1.17 $
+ * $Date: 2003/05/02 23:39:31 $
  *
  * ====================================================================
  *
@@ -75,6 +75,7 @@ import java.util.StringTokenizer;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.validator.util.ValidatorUtils;
 
 /**
  * <p>Validations are processed by the validate method.
@@ -85,7 +86,7 @@ import org.apache.commons.logging.LogFactory;
  * @author David Winterfeldt
  * @author James Turner
  * @author David Graham
- * @version $Revision: 1.16 $ $Date: 2003/04/30 21:51:05 $
+ * @version $Revision: 1.17 $ $Date: 2003/05/02 23:39:31 $
  */
 public class Validator implements Serializable {
 
@@ -439,7 +440,7 @@ public class Validator implements Serializable {
                 // the current field
                 Field indexedField = (Field) field.clone();
                 indexedField.setKey(
-                    ValidatorUtil.replace(
+                    ValidatorUtils.replace(
                         indexedField.getKey(),
                         Field.TOKEN_INDEXED,
                         "[" + pos + "]"));
