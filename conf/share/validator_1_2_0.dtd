@@ -9,7 +9,7 @@
      "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.2.0//EN"
      "http://jakarta.apache.org/commons/dtds/validator_1_2_0.dtd">
 
-    $Id: validator_1_2_0.dtd,v 1.5 2004/04/08 23:20:52 dgraham Exp $
+    $Id: validator_1_2_0.dtd,v 1.6 2004/04/11 16:53:15 dgraham Exp $
 -->
 
 
@@ -129,7 +129,7 @@
                      validations for this field.
 
 -->
-<!ELEMENT field (msg|arg|arg0|arg1|arg2|arg3|var)*>
+<!ELEMENT field (msg|arg|var)*>
 <!ATTLIST field property CDATA #REQUIRED>
 <!ATTLIST field depends CDATA #IMPLIED>
 <!ATTLIST field page CDATA #IMPLIED>
