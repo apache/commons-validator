@@ -9,7 +9,7 @@
      "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.2.0//EN"
      "http://jakarta.apache.org/commons/dtds/validator_1_2_0.dtd">
 
-    $Id: validator_1_2_0.dtd,v 1.7 2004/04/11 17:16:17 dgraham Exp $
+    $Id: validator_1_2_0.dtd,v 1.8 2004/11/12 16:02:52 niallp Exp $
 -->
 
 
@@ -181,8 +181,14 @@
                   [true]
 
       position    The position of this replacement parameter in the message.
-      			  For example, position="0" will set the first argument.
-      			  [0]
+                  For example, position="0" will set the first argument.
+
+             N.B. Since 1.2.0 position is ignored for 'default' arguments
+                  (i.e. those with no 'name' supplied) - it is calculated
+                  automatically from the order the arguments are added in.
+                  For 'overriden' arguments (i.e. those with a 'name')
+                  it is optional. If 'position' is not supplied it will
+                  use the position of the 'default' argument it follows.
 -->
 <!ELEMENT arg EMPTY>
 <!ATTLIST arg key CDATA #REQUIRED>

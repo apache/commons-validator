@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.18 2004/04/08 23:05:39 dgraham Exp $
- * $Revision: 1.18 $
- * $Date: 2004/04/08 23:05:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.19 2004/11/12 16:02:52 niallp Exp $
+ * $Revision: 1.19 $
+ * $Date: 2004/11/12 16:02:52 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -62,7 +62,7 @@ public class Arg implements Cloneable, Serializable {
      * make a replacement in this string: "some msg {0}".
      * @since Validator 1.1
      */
-    protected int position = 0;
+    protected int position = -1;
 
     /**
      * Whether or not the key is a message resource (optional).  Defaults to
@@ -176,6 +176,10 @@ public class Arg implements Cloneable, Serializable {
         results.append(name);
         results.append("  key=");
         results.append(key);
+        results.append("  position=");
+        results.append(position);
+        results.append("  bundle=");
+        results.append(bundle);
         results.append("  resource=");
         results.append(resource);
         results.append("\n");

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.35 2004/11/11 15:32:49 niallp Exp $
- * $Revision: 1.35 $
- * $Date: 2004/11/11 15:32:49 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Field.java,v 1.36 2004/11/12 16:02:52 niallp Exp $
+ * $Revision: 1.36 $
+ * $Date: 2004/11/12 16:02:52 $
  *
  * ====================================================================
  * Copyright 2001-2004 The Apache Software Foundation
@@ -50,13 +50,6 @@ import org.apache.commons.validator.util.ValidatorUtils;
 public class Field implements Cloneable, Serializable {
 
     /**
-     * This is the value that will be used as a key if the <code>Arg</code>
-     * name field has no value.
-     */
-    private static final String DEFAULT_ARG =
-            "org.apache.commons.validator.Field.DEFAULT";
-
-    /**
      * This indicates an indexed property is being referenced.
      */
     public static final String TOKEN_INDEXED = "[]";
@@ -92,12 +85,16 @@ public class Field implements Cloneable, Serializable {
     protected FastHashMap hMsgs = new FastHashMap();
 
     /**
-     * Holds Maps of arguments.  args[0] returns the Map for the first 
-     * replacement argument.  Start with a 0 length array so that it will
-     * only grow to the size of the highest argument position.
-     * @since Validator 1.1
+     * List containing the 'default' arguments
+     * @since Validator 1.2.0
      */
-    protected Map[] args = new Map[0];
+    protected List defaultArgs;
+
+    /**
+     * Map containing the 'overriden' arguments.
+     * @since Validator 1.2.0
+     */
+    protected Map overridenArgs;
 
     /**
      * Gets the page value that the Field is associated with for
@@ -193,12 +190,14 @@ public class Field implements Cloneable, Serializable {
 
         this.dependencyList.clear();
 
-        StringTokenizer st = new StringTokenizer(depends, ",");
-        while (st.hasMoreTokens()) {
-            String depend = st.nextToken().trim();
+        if (this.depends != null) {
+            StringTokenizer st = new StringTokenizer(depends, ",");
+            while (st.hasMoreTokens()) {
+                String depend = st.nextToken().trim();
 
-            if (depend != null && depend.length() > 0) {
-                this.dependencyList.add(depend);
+                if (depend != null && depend.length() > 0) {
+                    this.dependencyList.add(depend);
+                }
             }
         }
     }
@@ -240,38 +239,31 @@ public class Field implements Cloneable, Serializable {
      * @since Validator 1.1
      */
     public void addArg(Arg arg) {
-        // TODO this first if check can go away after arg0, etc. are removed from dtd
-        if (arg == null || arg.getKey() == null || arg.getKey().length() == 0) {
-            return;
-        }
 
-        this.ensureArgsCapacity(arg);
+        // Determine if 'default' or 'overriden'
+        boolean isDefaultArg = arg.getName() == null;
 
-        Map argMap = this.args[arg.getPosition()];
-        if (argMap == null) {
-            argMap = new HashMap();
-            this.args[arg.getPosition()] = argMap;
-        }
+        if (isDefaultArg) {
 
-        if (arg.getName() == null) {
-            argMap.put(DEFAULT_ARG, arg);
+            if (defaultArgs == null) {
+                defaultArgs = new ArrayList();
+            }
+            int pos = defaultArgs.size();
+            arg.setPosition(pos);
+            defaultArgs.add(arg);
+
         } else {
-            argMap.put(arg.getName(), arg);
-        }
 
-    }
+            if (overridenArgs == null) {
+                overridenArgs = new HashMap();
+            }
+            int position = arg.getPosition();
+            if (position < 0) {
+                position = defaultArgs ==  null ? 0 : defaultArgs.size() - 1;
+                arg.setPosition(position);
+            }
+            overridenArgs.put(arg.getName() + position, arg);
 
-    /**
-     * Ensures that the args array can hold the given arg.  Resizes the array as
-     * necessary.
-     * @param arg Determine if the args array is long enough to store this arg's
-     * position.
-     */
-    private void ensureArgsCapacity(Arg arg) {
-        if (arg.getPosition() >= this.args.length) {
-            Map[] newArgs = new Map[arg.getPosition() + 1];
-            System.arraycopy(this.args, 0, newArgs, 0, this.args.length);
-            this.args = newArgs;
         }
     }
 
@@ -281,7 +273,16 @@ public class Field implements Cloneable, Serializable {
      * @since Validator 1.1
      */
     public Arg getArg(int position) {
-        return this.getArg(DEFAULT_ARG, position);
+
+        if (position < 0) {
+            return null;
+        }
+
+        Arg arg = null; 
+        if (defaultArgs != null && position < defaultArgs.size()) {
+            arg = (Arg)defaultArgs.get(position);
+        }
+        return arg;
     }
 
     /**
@@ -295,19 +296,22 @@ public class Field implements Cloneable, Serializable {
      * @since Validator 1.1
      */
     public Arg getArg(String key, int position) {
-        if ((position >= this.args.length) || (this.args[position] == null)) {
+
+        if (position < 0) {
             return null;
         }
 
-        Arg arg = (Arg) args[position].get(key);
-
-        // Didn't find default arg so exit, otherwise we would get into 
-        // infinite recursion
-        if ((arg == null) && key.equals(DEFAULT_ARG)) {
-            return null;
+        Arg arg = null; 
+        if (overridenArgs != null) {
+            arg = (Arg)overridenArgs.get(key + position);
         }
 
-        return (arg == null) ? this.getArg(position) : arg;
+        if (arg == null) {
+            arg = getArg(position);
+        }
+
+        return arg;
+
     }
     
     /**
@@ -318,11 +322,15 @@ public class Field implements Cloneable, Serializable {
      * @since Validator 1.1.1
      */
     public Arg[] getArgs(String key){
-        Arg[] args = new Arg[this.args.length];
-        
-        for (int i = 0; i < this.args.length; i++) {
-		  args[i] = this.getArg(key, i);	
-		}
+
+        if (defaultArgs == null) {
+           return new Arg[0];
+        }
+
+        Arg[] args = new Arg[defaultArgs.size()];
+        for (int i = 0; i < defaultArgs.size(); i++) {
+            args[i] = getArg(key, i);
+        }
         
         return args;
     }
@@ -501,21 +509,19 @@ public class Field implements Cloneable, Serializable {
      * pairs passed in.
      */
     private void processArg(String key, String replaceValue) {
-        for (int i = 0; i < this.args.length; i++) {
 
-            Map argMap = this.args[i];
-            if (argMap == null) {
-                continue;
+        if (defaultArgs != null) {
+            for (int i = 0; i < defaultArgs.size(); i++) {
+                Arg arg = getArg(i);
+                arg.setKey(ValidatorUtils.replace(arg.getKey(), key, replaceValue));
             }
+        }
 
-            Iterator iter = argMap.values().iterator();
+        if (overridenArgs != null) {
+            Iterator iter = overridenArgs.values().iterator();
             while (iter.hasNext()) {
-                Arg arg = (Arg) iter.next();
-
-                if (arg != null) {
-                    arg.setKey(
-                            ValidatorUtils.replace(arg.getKey(), key, replaceValue));
-                }
+                Arg arg = (Arg)iter.next();
+                arg.setKey(ValidatorUtils.replace(arg.getKey(), key, replaceValue));
             }
         }
     }
@@ -539,27 +545,29 @@ public class Field implements Cloneable, Serializable {
      * Creates and returns a copy of this object.
      */
     public Object clone() {
-        Field field = null;
-        try {
-            field = (Field) super.clone();
-        } catch(CloneNotSupportedException e) {
-            throw new RuntimeException(e.toString());
+
+        Field field = new Field();
+        field.setDepends(depends);
+        field.setFieldOrder(fieldOrder);
+        field.setIndexedListProperty(indexedListProperty);
+        field.setIndexedProperty(indexedProperty);
+        field.setKey(key);
+        field.setPage(page);
+        field.setProperty(property);
+
+        if (defaultArgs != null) {
+            for (int i = 0; i < defaultArgs.size(); i++) {
+                Arg arg = getArg(i);
+                field.addArg((Arg)arg.clone());
+            }
         }
 
-        field.args = new Map[this.args.length];
-        for (int i = 0; i < this.args.length; i++) {
-            if (this.args[i] == null) {
-                continue;
-            }
-
-            Map argMap = new HashMap(this.args[i]);
-            Iterator iter = argMap.keySet().iterator();
+        if (overridenArgs != null) {
+            Iterator iter = overridenArgs.values().iterator();
             while (iter.hasNext()) {
-                String validatorName = (String) iter.next();
-                Arg arg = (Arg) argMap.get(validatorName);
-                argMap.put(validatorName, arg.clone());
+                Arg arg = (Arg)iter.next();
+                field.addArg((Arg)arg.clone());
             }
-            field.args[i] = argMap;
         }
 
         field.hVars = ValidatorUtils.copyFastHashMap(hVars);
