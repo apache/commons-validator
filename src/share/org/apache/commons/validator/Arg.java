@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.4 2002/03/30 04:33:17 dwinterfeldt Exp $
- * $Revision: 1.4 $
- * $Date: 2002/03/30 04:33:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/Arg.java,v 1.5 2003/03/16 00:23:15 dgraham Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/03/16 00:23:15 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -66,10 +66,9 @@ import java.io.Serializable;
 
 
 /**
- * <p>An default argument or an argument for a 
+ * <p>A default argument or an argument for a 
  * specific validator definition (ex: required) 
- * can be stored to pass into a message as
- * as parameters.  This can be used in a 
+ * can be stored to pass into a message as parameters.  This can be used in a 
  * pluggable validator for constructing locale 
  * sensitive messages by using <code>java.text.MessageFormat</code> 
  * or an equivalent class.  The resource field can be 
@@ -79,7 +78,7 @@ import java.io.Serializable;
  * The resource field defaults to 'true'.</p>
  *
  * @author David Winterfeldt
- * @version $Revision: 1.4 $ $Date: 2002/03/30 04:33:17 $
+ * @version $Revision: 1.5 $ $Date: 2003/03/16 00:23:15 $
 */
 public class Arg implements Cloneable, Serializable {
 
