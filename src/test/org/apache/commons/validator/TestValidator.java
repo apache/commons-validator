@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.5 2002/09/19 17:11:46 turner Exp $
- * $Revision: 1.5 $
- * $Date: 2002/09/19 17:11:46 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/TestValidator.java,v 1.6 2003/03/15 22:28:20 dgraham Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/03/15 22:28:20 $
  *
  * ====================================================================
  *
@@ -67,7 +67,7 @@ package org.apache.commons.validator;
  * unit tests.</p> 
  *
  * @author David Winterfeldt
- * @version $Revision: 1.5 $ $Date: 2002/09/19 17:11:46 $
+ * @version $Revision: 1.6 $ $Date: 2003/03/15 22:28:20 $
 */                                                       
 public class TestValidator {
                                                           
@@ -201,17 +201,17 @@ public class TestValidator {
     }
     int i = 0;
     String fieldJoin = "AND";
-    if (!GenericValidator.isBlankOrNull(field.getVarValue("field-join"))) {
-      fieldJoin = field.getVarValue("field-join");
+    if (!GenericValidator.isBlankOrNull(field.getVarValue("fieldJoin"))) {
+      fieldJoin = field.getVarValue("fieldJoin");
     }
     if (fieldJoin.equalsIgnoreCase("AND")) {
       required = true;
     }
     while (!GenericValidator.isBlankOrNull(field.getVarValue("field[" + i + "]"))) {
       String dependProp = field.getVarValue("field[" + i + "]");
-      String dependTest = field.getVarValue("field-test[" + i + "]");
-      String dependTestValue = field.getVarValue("field-value[" + i + "]");
-      String dependIndexed = field.getVarValue("field-indexed[" + i + "]");
+      String dependTest = field.getVarValue("fieldTest[" + i + "]");
+      String dependTestValue = field.getVarValue("fieldValue[" + i + "]");
+      String dependIndexed = field.getVarValue("fieldIndexed[" + i + "]");
       if (dependIndexed == null) dependIndexed="false";
       String dependVal = null;
       boolean this_required = false;
