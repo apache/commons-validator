@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.3 2003/04/30 21:51:05 rleland Exp $
- * $Revision: 1.3 $
- * $Date: 2003/04/30 21:51:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/share/org/apache/commons/validator/UrlValidator.java,v 1.4 2003/05/02 18:28:18 rleland Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/05/02 18:28:18 $
  *
  * ====================================================================
  *
@@ -62,6 +62,7 @@
 package org.apache.commons.validator;
 
 import java.io.Serializable;
+import java.util.HashSet;
 
 import org.apache.oro.text.perl.Perl5Util;
 
@@ -74,13 +75,37 @@ import org.apache.oro.text.perl.Perl5Util;
  * <p>Originally based in on php script by Debbie Dyer, validation.php v1.2b, Date: 03/07/02,
  * http://javascript.internet.com. However, this validation now bears little resemblance
  * to the PHP original.</p>
+ * <pre>
+ *   Example of usage:
+ *   Construct a UrlValidator with valid schemes of "http", and "https".
+ *
+ *    String[] schemes = {"http","https"}.
+ *    Urlvalidator urlValidator = new Urlvalidator(schemes);
+ *    if (urlValidator.isValid("ftp")) {
+ *       System.out.println("url is valid");
+ *    } else {
+ *       System.out.println("url is invalid");
+ *    }
+ *
+ *    prints "url is invalid"
+ *   If instead the default constructor is used.
+ *
+ *    Urlvalidator urlValidator = new Urlvalidator();
+ *    if (urlValidator.isValid("ftp")) {
+ *       System.out.println("url is valid");
+ *    } else {
+ *       System.out.println("url is invalid");
+ *    }
+ *
+ *   prints out "url is valid"
+ *  </pre>
  * @see
  *   <a href='http://www.ietf.org/rfc/rfc2396.txt' >
  *  Uniform Resource Identifiers (URI): Generic Syntax
  *  </a>
  *
  * @author Robert Leland
- * @version $Revision: 1.3 $ $Date: 2003/04/30 21:51:05 $
+ * @version $Revision: 1.4 $ $Date: 2003/05/02 18:28:18 $
  */
 public class UrlValidator implements Serializable {
    private static final String alphaChars = "a-zA-Z"; //used
@@ -118,59 +143,55 @@ public class UrlValidator implements Serializable {
    private static final String atomPat = ValidatorUtil.getDelimitedRegExp("(" + atom + ")");
    private static final String alphaPat = ValidatorUtil.getDelimitedRegExp("^[" + alphaChars + "]");
 
-   /**
-    * Allow a double slash in the path componet such that
-    * path//file is treated as path/file.
-    */
-   public static final String OPTION_ALLOW_2_SLASH = "allow2Slash";
-   /**
-    * Don't allow a fragment in a url. A fragment is usually indicated
-    * by a '#' character and follows a query.
-    */
-   public static final String OPTION_NO_FRAGMENT = "noFragment";
-
    // Non static fields
    private boolean allow2Slash = false;
+   private boolean allowAllScheme = false;
    private boolean noFragment = false;
+   private HashSet allowedSchemeSet;
+   protected String[] defaultSchemeSet = {"http", "https", "ftp"};
 
    /**
-    * Construct a UrlValidator with default behaviour.
     */
    public UrlValidator() {
-
+      this(null);
    }
 
    /**
     * Behavour of validation is modified by passing in several strings options:
-    * @param options Pass in one or more of the OPTION_XXXX predefined strings
-    *   to change the validation behavour.
-    *   allow2Slash - Allows double '/' characters in the path  component
-    *   noFragment - If the noFragment option is included then fragments are flagged as illegal.
+    * @param schemes Pass in one or more url scheme to consider valid, passing in
+    *        a null will default to "http,https,ftp" being valid.
+    *        If a non-null schemes is specified then all valid schemes must
+    *        be specified. Setting the allowAllScheme option to true will
+    *        ignore the contents of schemes.
     **/
-   public UrlValidator(String[] options) {
-      int optionsIndex = 0;
-      while ((options != null) && (optionsIndex < options.length)) {
-         String option = options[optionsIndex];
-         if ((option != null) && (option.equals(OPTION_ALLOW_2_SLASH))) {
-            allow2Slash = true;
-         }
-         if ((option != null) && (option.equals(OPTION_NO_FRAGMENT))) {
-            noFragment = true;
-         }
-         optionsIndex++;
-      }
-
+   public UrlValidator(String[] schemes) {
+      this(schemes, false, false, false);
    }
 
    /**
     * Behavour of validation is modified by passing in options:
-    *   @param allow2Slash If True, allows double '/' characters in the path  component
-    *   @param noFragment If true, fragments are flagged as illegal.
+    *   @param allowAllScheme If true, allows all validly formatted schemes. [false]
+    *   @param allow2Slash If true, allows double '/' characters in the path  component, [false]
+    *   @param noFragment If true, fragments are flagged as illegal.[false]
     **/
-
-   public UrlValidator(boolean allow2Slash, boolean noFragment) {
+   public UrlValidator(String[] schemes, boolean allowAllScheme, boolean allow2Slash, boolean noFragment) {
+      this.allowAllScheme = allowAllScheme;
       this.allow2Slash = allow2Slash;
       this.noFragment = noFragment;
+      if (!this.allowAllScheme) {
+         if (schemes == null) {
+            this.allowedSchemeSet = new HashSet(defaultSchemeSet.length);
+            for (int sIndex = 0; sIndex < defaultSchemeSet.length; sIndex++) {
+               this.allowedSchemeSet.add(defaultSchemeSet[sIndex]);
+            }
+
+         } else if (schemes != null) {
+            this.allowedSchemeSet = new HashSet(schemes.length);
+            for (int sIndex = 0; sIndex < schemes.length; sIndex++) {
+               this.allowedSchemeSet.add(schemes[sIndex]);
+            }
+         }
+      }
 
    }
 
@@ -184,13 +205,7 @@ public class UrlValidator implements Serializable {
    public boolean isValid(String value) {
       boolean bValid = true;
       try {
-
-
          Perl5Util matchUrlPat = new Perl5Util();
-         Perl5Util matchSchemePat = new Perl5Util();
-
-         Perl5Util matchPathPat = new Perl5Util();
-         Perl5Util matchQueryPat = new Perl5Util();
          Perl5Util matchAsciiPat = new Perl5Util();
 
          if (!matchAsciiPat.match(legalAsciiPat, value)) {
@@ -200,69 +215,32 @@ public class UrlValidator implements Serializable {
          // Check the whole url address structure
          bValid = matchUrlPat.match(urlPat, value);
 
-         if (value.endsWith(".")) {
-            bValid = false;
-         }
-
          // Check the scheme component of the url address
          if (bValid) {
-
-            String scheme = matchUrlPat.group(PARSE_URL_SCHEME);
-
-            // See if "scheme" is valid
-            bValid = matchSchemePat.match(schemePat, scheme);
+            bValid = isValidScheme(matchUrlPat.group(PARSE_URL_SCHEME));
          }
 
          // Check the domain component of the url address
          if (bValid) {
             // Check the whole url address structure
             bValid = isValidAuthority(matchUrlPat.group(PARSE_URL_AUTHORITY));
-
-            if (bValid) {
-
-               // Check the path component of the url address
-               if (bValid) {
-
-                  String path = matchUrlPat.group(PARSE_URL_PATH);
-                  // See if "path" is valid
-                  bValid = matchPathPat.match(pathPat, path);
-                  if (bValid) {  //Shouldn't end with a '/'
-                     bValid = (path.lastIndexOf("/") < (path.length() - 1));
-                  }
-                  if (bValid) {
-                     int slash2Count = countToken("//", path);
-                     if (!allow2Slash) {
-                        bValid = (slash2Count == 0);
-                     }
-                     if (bValid) {
-                        int slashCount = countToken("/", path);
-                        int dot2Count = countToken("..", path);
-                        if (dot2Count > 0) {
-                           bValid = ((slashCount - slash2Count - 1) > dot2Count);
-                        }
-                     }
-                  }
-
-               }
-            }
-            // Check the query component of the url address
-            if (bValid) {
-
-               String query = matchUrlPat.group(PARSE_URL_QUERY);
-               if (null != query) {
-                  // See if "query" is valid
-                  bValid = matchQueryPat.match(queryPat, query);
-               }
-            }
-            // Check the fragment component of the url address
-            if (bValid) {
-               String fragment = matchUrlPat.group(PARSE_URL_FRAGMENT);
-               if (null != fragment) {
-                  bValid = (noFragment == false);
-               }
-            }
-
          }
+
+         // Check the path component of the url address
+         if (bValid) {
+            bValid = isValidPath(matchUrlPat.group(PARSE_URL_PATH));
+         }
+
+         // Check the query component of the url address
+         if (bValid) {
+            bValid = isValidQuery(matchUrlPat.group(PARSE_URL_QUERY));
+         }
+
+         // Check the fragment component of the url address
+         if (bValid) {
+            bValid = isValidFragment(matchUrlPat.group(PARSE_URL_FRAGMENT));
+         }
+
       } catch (Exception e) {
          bValid = false;
       }
@@ -270,7 +248,26 @@ public class UrlValidator implements Serializable {
       return bValid;
    }
 
-   boolean isValidAuthority(String authority) {
+   /**
+    * Validate scheme. If schemes[] was initialized to a non null,
+    * then only those scheme's are allowed.  Note this is slightly different
+    * than for the Constructor.
+    * @param scheme The scheme to validate.
+    * @return   true is valid.
+    */
+   protected boolean isValidScheme(String scheme) {
+      Perl5Util matchSchemePat = new Perl5Util();
+      // See if "scheme" is valid
+      boolean bValid = matchSchemePat.match(schemePat, scheme);
+      if (bValid) {
+         if (allowedSchemeSet != null) {
+            bValid = allowedSchemeSet.contains(scheme);
+         }
+      }
+      return bValid;
+   }
+
+   protected boolean isValidAuthority(String authority) {
       boolean bValid = true;
       Perl5Util matchAuthorityPat = new Perl5Util();
       Perl5Util matchIPV4Pat = new Perl5Util();
@@ -368,6 +365,49 @@ public class UrlValidator implements Serializable {
       }
       return bValid;
    }
+
+   protected boolean isValidPath(String path) {
+      Perl5Util matchPathPat = new Perl5Util();
+      boolean bValid = true;
+      // See if "path" is bValid
+      bValid = matchPathPat.match(pathPat, path);
+      if (bValid) {  //Shouldn't end with a '/'
+         bValid = (path.lastIndexOf("/") < (path.length() - 1));
+      }
+      if (bValid) {
+         int slash2Count = countToken("//", path);
+         if (!allow2Slash) {
+            bValid = (slash2Count == 0);
+         }
+         if (bValid) {
+            int slashCount = countToken("/", path);
+            int dot2Count = countToken("..", path);
+            if (dot2Count > 0) {
+               bValid = ((slashCount - slash2Count - 1) > dot2Count);
+            }
+         }
+      }
+      return bValid;
+   }
+
+   protected boolean isValidQuery(String query) {
+      Perl5Util matchQueryPat = new Perl5Util();
+      boolean bValid = true;
+      if (null != query) {
+         // See if "query" is bValid
+         bValid = matchQueryPat.match(queryPat, query);
+      }
+      return bValid;
+   }
+
+   protected boolean isValidFragment(String fragment) {
+      boolean bValid = true;
+      if (null != fragment) {
+         bValid = (noFragment == false);
+      }
+      return bValid;
+   }
+
 
    protected static int countToken(String token, String target) {
       int tokenIndex = 0;

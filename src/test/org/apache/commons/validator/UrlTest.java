@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/UrlTest.java,v 1.2 2003/05/01 02:40:22 dgraham Exp $
- * $Revision: 1.2 $
- * $Date: 2003/05/01 02:40:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//validator/src/test/org/apache/commons/validator/UrlTest.java,v 1.3 2003/05/02 18:28:19 rleland Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/05/02 18:28:19 $
  *
  * ====================================================================
  *
@@ -70,7 +70,7 @@ import junit.framework.TestSuite;
  * <p>Performs Validation Test for url validations.</p>
  *
  * @author Robert Leland
- * @version $Revision: 1.2 $ $Date: 2003/05/01 02:40:22 $
+ * @version $Revision: 1.3 $ $Date: 2003/05/02 18:28:19 $
  */
 public class UrlTest extends TestCase {
    class TestPair {
@@ -82,6 +82,9 @@ public class UrlTest extends TestCase {
          this.valid = valid;  //Weather the individual part of url is valid.
       }
    }
+
+   private boolean printStatus = false;
+   private boolean printIndex = false;//print index that indicates current scheme,host,port,path, query test were using.
 
    public UrlTest(String testName) {
       super(testName);
@@ -101,17 +104,49 @@ public class UrlTest extends TestCase {
    }
 
    public void testIsValid() {
-      testIsValid(testParts,null);
+      testIsValid(testUrlParts, true,false,false);
       System.out.println("\nTesting options ....");
-      String[] options = {UrlValidator.OPTION_ALLOW_2_SLASH,UrlValidator.OPTION_NO_FRAGMENT};
       setUp();
-      testIsValid(testPartsOptions,options);
+      testIsValid(testUrlPartsOptions, true,true,true);
    }
 
-   public void testIsValid(Object[] testObjects,String[] options) {
-      UrlValidator urlVal = new UrlValidator(options);
-      final int statusPerLine = 6;
+   public void testIsValidScheme() {
+      if (printStatus) {
+         System.out.print("\n testIsValidScheme() ");
+      }
+      String[] schemes = {"http", "gopher"};
+      UrlValidator urlVal = new UrlValidator(schemes,false,false,false);
+      for (int sIndex = 0; sIndex < testScheme.length; sIndex++) {
+         TestPair testPair = testScheme[sIndex];
+         boolean result = urlVal.isValidScheme(testPair.item);
+         assertEquals(testPair.item, testPair.valid, result);
+         if (printStatus) {
+            if (result == testPair.valid) {
+               System.out.print('.');
+            } else {
+               System.out.print('X');
+            }
+         }
+      }
+      if (printStatus) {
+         System.out.println();
+      }
+
+   }
+
+   /**
+    * Create set of tests by taking the testUrlXXX arrays and
+    * running through all possible permutations of their combinations.
+    *
+    * @param testObjects Used to create a url.
+    */
+   public void testIsValid(Object[] testObjects, boolean allow2Slash, boolean noFragment,boolean allScheme) {
+      UrlValidator urlVal = new UrlValidator(null, allow2Slash,noFragment,allScheme);
+      int statusPerLine = 60;
       int printed = 0;
+      if (printIndex)  {
+         statusPerLine = 6;
+      }
       do {
          StringBuffer testBuffer = new StringBuffer();
          boolean expected = true;
@@ -123,15 +158,27 @@ public class UrlTest extends TestCase {
          }
          String url = testBuffer.toString();
          boolean result = urlVal.isValid(url);
-         //System.out.print(testPartsIndextoString());
          assertEquals(url, expected, result);
-         printed++;
-         if (printed == statusPerLine) {
-            //System.out.println();
-            printed = 0;
+         if (printStatus) {
+            if (printIndex) {
+               System.out.print(testPartsIndextoString());
+            } else {
+               if (result == expected) {
+                  System.out.print('.');
+               } else {
+                  System.out.print('X');
+               }
+            }
+            printed++;
+            if (printed == statusPerLine) {
+               System.out.println();
+               printed = 0;
+            }
          }
       } while (incrementTestPartsIndex(testPartsIndex, testObjects));
-      //System.out.println();
+      if (printStatus) {
+         System.out.println();
+      }
    }
 
    static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
@@ -184,8 +231,9 @@ public class UrlTest extends TestCase {
       UrlTest fct = new UrlTest("url test");
       fct.setUp();
       fct.testIsValid();
+      fct.testIsValidScheme();
    }
-
+   //-------------------- Test data for creating a composite URL
    /**
     * The data given below approximates the 4 parts of a URL
     * <scheme>://<authority><path>?<query> except that the port number
@@ -194,40 +242,42 @@ public class UrlTest extends TestCase {
     * all of which must be individually valid for the entire URL to be considered
     * valid.
     */
-   TestPair[] testScheme = {new TestPair("http://", true),
-                            new TestPair("ftp://", true),
-                            new TestPair("h3t://", true),
-                            new TestPair("3ht://", false),
-                            new TestPair("http:/", false),
-                            new TestPair("http:", false),
-                            new TestPair("http/", false),
-                            new TestPair("", true)};
-   TestPair[] testAuthority = {new TestPair("www.google.com", true),
-                               new TestPair("go.com", true),
-                               new TestPair("go.au", true),
-                               new TestPair("0.0.0.0", true),
-                               new TestPair("255.255.255.255", true),
-                               new TestPair("256.256.256.256", false),
-                               new TestPair("255.com", true),
-                               new TestPair("1.2.3.4.5", false),
-                               new TestPair("1.2.3.4.", false),
-                               new TestPair("1.2.3", false),
-                               new TestPair(".1.2.3.4", false),
-                               new TestPair("go.a", false),
-                               new TestPair("go.a1a", true),
-                               new TestPair("go.1aa", false),
-                               new TestPair("aaa.", false),
-                               new TestPair(".aaa", false),
-                               new TestPair("aaa", false),
-                               new TestPair("", false)
+   TestPair[] testUrlScheme = {new TestPair("http://", true),
+                               new TestPair("ftp://", true),
+                               new TestPair("h3t://", true),
+                               new TestPair("3ht://", false),
+                               new TestPair("http:/", false),
+                               new TestPair("http:", false),
+                               new TestPair("http/", false),
+                               new TestPair("://", false),
+                               new TestPair("", true)};
+
+   TestPair[] testUrlAuthority = {new TestPair("www.google.com", true),
+                                  new TestPair("go.com", true),
+                                  new TestPair("go.au", true),
+                                  new TestPair("0.0.0.0", true),
+                                  new TestPair("255.255.255.255", true),
+                                  new TestPair("256.256.256.256", false),
+                                  new TestPair("255.com", true),
+                                  new TestPair("1.2.3.4.5", false),
+                                  new TestPair("1.2.3.4.", false),
+                                  new TestPair("1.2.3", false),
+                                  new TestPair(".1.2.3.4", false),
+                                  new TestPair("go.a", false),
+                                  new TestPair("go.a1a", true),
+                                  new TestPair("go.1aa", false),
+                                  new TestPair("aaa.", false),
+                                  new TestPair(".aaa", false),
+                                  new TestPair("aaa", false),
+                                  new TestPair("", false)
    };
-   TestPair[] testPort = {new TestPair(":80", true),
-                          new TestPair(":65535", true),
-                          new TestPair(":0", true),
-                          new TestPair("", true),
-                          new TestPair(":-1", false),
-                          new TestPair(":65636", true),
-                          new TestPair(":65a", false)
+   TestPair[] testUrlPort = {new TestPair(":80", true),
+                             new TestPair(":65535", true),
+                             new TestPair(":0", true),
+                             new TestPair("", true),
+                             new TestPair(":-1", false),
+                             new TestPair(":65636", true),
+                             new TestPair(":65a", false)
    };
    TestPair[] testPath = {new TestPair("/test1", true),
                           new TestPair("/t123", true),
@@ -241,29 +291,37 @@ public class UrlTest extends TestCase {
                           new TestPair("/test1//file", false)
    };
    //Test allow2slash, noFragment
-   TestPair[] testPathOptions = {new TestPair("/test1", true),
-                                 new TestPair("/t123", true),
-                                 new TestPair("/$23", true),
-                                 new TestPair("/..", false),
-                                 new TestPair("/../", false),
-                                 new TestPair("/test1/",false),
-                                 new TestPair("/#", false),
-                                 new TestPair("", false),
-                                 new TestPair("/test1/file", true),
-                                 new TestPair("/t123/file", true),
-                                 new TestPair("/$23/file", true),
-                                 new TestPair("/../file", false),
-                                 new TestPair("/..//file", false),
-                                 new TestPair("/test1//file", true),
-                                 new TestPair("/#/file", false)
+   TestPair[] testUrlPathOptions = {new TestPair("/test1", true),
+                                    new TestPair("/t123", true),
+                                    new TestPair("/$23", true),
+                                    new TestPair("/..", false),
+                                    new TestPair("/../", false),
+                                    new TestPair("/test1/", false),
+                                    new TestPair("/#", false),
+                                    new TestPair("", false),
+                                    new TestPair("/test1/file", true),
+                                    new TestPair("/t123/file", true),
+                                    new TestPair("/$23/file", true),
+                                    new TestPair("/../file", false),
+                                    new TestPair("/..//file", false),
+                                    new TestPair("/test1//file", true),
+                                    new TestPair("/#/file", false)
    };
 
-   TestPair[] testQuery = {new TestPair("?action=view", true),
-                           new TestPair("?action=edit&mode=up", true),
-                           new TestPair("", true)
+   TestPair[] testUrlQuery = {new TestPair("?action=view", true),
+                              new TestPair("?action=edit&mode=up", true),
+                              new TestPair("", true)
    };
 
-   Object[] testParts = {testScheme, testAuthority, testPort, testPath, testQuery};
-   Object[] testPartsOptions = {testScheme, testAuthority, testPort, testPathOptions, testQuery};
+   Object[] testUrlParts = {testUrlScheme, testUrlAuthority, testUrlPort, testPath, testUrlQuery};
+   Object[] testUrlPartsOptions = {testUrlScheme, testUrlAuthority, testUrlPort, testUrlPathOptions, testUrlQuery};
    int[] testPartsIndex = {0, 0, 0, 0, 0};
+
+   //---------------- Test data for individual url parts ----------------
+   TestPair[] testScheme = {new TestPair("http", true),
+                            new TestPair("ftp", false),
+                            new TestPair("httpd", false),
+                            new TestPair("telnet", false)};
+
+
 }
