@@ -23,6 +23,7 @@ package org.apache.commons.validator;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 
 import junit.framework.Test;
@@ -133,6 +134,80 @@ public class TypeTest extends TestCommon {
       //assertTrue(ACTION + " value ValidatorResult should contain the '" + ACTION +"' action.", result.containsAction(ACTION));
       //assertTrue(ACTION + " value ValidatorResult for the '" + ACTION +"' action should have " + (passed ? "passed" : "failed") + ".", (passed ? result.isValid(ACTION) : !result.isValid(ACTION)));
 
+   }
+   
+   /**
+    * Tests the us locale
+    */
+   public void testUSLocale() throws ValidatorException {
+      // Create bean to run test on.
+      TypeBean info = new TypeBean();
+      info.setByte("12");
+      info.setShort("129");
+      info.setInteger("-144");
+      info.setLong("88000");
+      info.setFloat("12.1555");
+      info.setDouble("129.1551511111");
+      localeTest(info, Locale.US);
+   }
+
+   /**
+    * Tests the fr locale.
+    */
+   public void testFRLocale() throws ValidatorException {
+      // Create bean to run test on.
+      TypeBean info = new TypeBean();
+      info.setByte("12");
+      info.setShort("-129");
+      info.setInteger("1443");
+      info.setLong("88000");
+      info.setFloat("12,1555");
+      info.setDouble("129,1551511111");
+      Map map = localeTest(info, Locale.FRENCH);
+      assertTrue("float value not correct", ((Float)map.get("float")).intValue() == 12);
+      assertTrue("double value not correct", ((Double)map.get("double")).intValue() == 129);
+  }
+
+  /**
+    * Tests the locale.
+    */
+   private Map localeTest(TypeBean info, Locale locale) throws ValidatorException {
+     
+      // Construct validator based on the loaded resources 
+      // and the form key
+      Validator validator = new Validator(resources, "typeLocaleForm");
+      // add the name bean to the validator as a resource 
+      // for the validations to be performed on.
+      validator.setParameter(Validator.BEAN_PARAM, info);
+      validator.setParameter("java.util.Locale", locale);
+
+      // Get results of the validation.
+      ValidatorResults results = null;
+      
+      // throws ValidatorException, 
+      // but we aren't catching for testing 
+      // since no validation methods we use 
+      // throw this
+      results = validator.validate();
+      
+      assertNotNull("Results are null.", results);
+      
+      Map hResultValues = results.getResultValueMap();
+
+      assertTrue("Expecting byte result to be an instance of Byte for locale: "+locale, (hResultValues.get("byte") instanceof Byte));
+      assertTrue("Expecting short result to be an instance of Short for locale: "+locale, (hResultValues.get("short") instanceof Short));
+      assertTrue("Expecting integer result to be an instance of Integer for locale: "+locale, (hResultValues.get("integer") instanceof Integer));
+      assertTrue("Expecting long result to be an instance of Long for locale: "+locale, (hResultValues.get("long") instanceof Long));
+      assertTrue("Expecting float result to be an instance of Float for locale: "+locale, (hResultValues.get("float") instanceof Float));
+      assertTrue("Expecting double result to be an instance of Double for locale: "+locale, (hResultValues.get("double") instanceof Double));
+      
+      for (Iterator i = hResultValues.keySet().iterator(); i.hasNext(); ) {
+         String key = (String)i.next();
+         Object value = hResultValues.get(key);
+         
+         assertNotNull("value ValidatorResults.getResultValueMap() should not be null for locale: "+locale, value);
+      }
+      return hResultValues;
    }
 
 }                                                         

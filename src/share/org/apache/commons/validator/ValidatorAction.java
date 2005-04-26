@@ -581,7 +581,8 @@ public class ValidatorAction implements Serializable {
                 this.validationClass.getMethod(this.method, this.parameterClasses);
      
         } catch (NoSuchMethodException e) {
-            throw new ValidatorException(e.getMessage());
+            throw new ValidatorException("No such validation method: " + 
+                e.getMessage());
         }
     }
     

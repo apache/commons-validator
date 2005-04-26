@@ -10,10 +10,22 @@
                  methodParams="java.lang.Object,org.apache.commons.validator.Field"
                  msg=""/>
 
+      <validator name="byteLocale"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateByte"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale"
+                 msg=""/>
+
       <validator name="short"
                  classname="org.apache.commons.validator.TestTypeValidator"
                  method="validateShort"
                  methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+
+      <validator name="shortLocale"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateShort"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale"
                  msg=""/>
 
       <validator name="int"
@@ -22,10 +34,22 @@
                  methodParams="java.lang.Object,org.apache.commons.validator.Field"
                  msg=""/>
 
+      <validator name="intLocale"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateInt"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale"
+                 msg=""/>
+
       <validator name="long"
                  classname="org.apache.commons.validator.TestTypeValidator"
                  method="validateLong"
                  methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+ 
+      <validator name="longLocale"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateLong"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale "
                  msg=""/>
 
       <validator name="float"
@@ -34,10 +58,22 @@
                  methodParams="java.lang.Object,org.apache.commons.validator.Field"
                  msg=""/>
 
+      <validator name="floatLocale"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateFloat"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale"
+                 msg=""/>
+
       <validator name="double"
                  classname="org.apache.commons.validator.TestTypeValidator"
                  method="validateDouble"
                  methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+
+      <validator name="doubleLocale"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateDouble"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale"
                  msg=""/>
 
    </global>
@@ -49,6 +85,14 @@
          <field property="long" depends="long"/>    
          <field property="float" depends="float"/>    
          <field property="double" depends="double"/>
+      </form>
+      <form name="typeLocaleForm">
+         <field property="byte" depends="byteLocale"/>    
+         <field property="short" depends="shortLocale"/>    
+         <field property="integer" depends="intLocale"/>
+         <field property="long" depends="longLocale"/>    
+         <field property="float" depends="floatLocale"/>    
+         <field property="double" depends="doubleLocale"/>
       </form>
    </formset>   
 </form-validation>

@@ -21,6 +21,8 @@
 
 package org.apache.commons.validator;
 
+import java.util.Locale;
+
 import org.apache.commons.validator.util.ValidatorUtils;
                                                           
 /**                                                       
@@ -43,6 +45,20 @@ public class TestTypeValidator {
    }
 
    /**
+    * Checks if the field can be successfully converted to a <code>byte</code>.
+    *
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>byte</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
+   public static Byte validateByte(Object bean, Field field, Locale locale) {
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+      return GenericTypeValidator.formatByte(value, locale);
+   }
+
+   /**
     * Checks if the field can be successfully converted to a <code>short</code>.
     *
     * @param value The value validation is being performed on.
@@ -54,6 +70,20 @@ public class TestTypeValidator {
       String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatShort(value);
+   }
+
+   /**
+    * Checks if the field can be successfully converted to a <code>short</code>.
+    *
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>short</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
+   public static Short validateShort(Object bean, Field field, Locale locale) {
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+      return GenericTypeValidator.formatShort(value, locale);
    }
 
    /**
@@ -71,6 +101,20 @@ public class TestTypeValidator {
    }
 
    /**
+    * Checks if the field can be successfully converted to a <code>int</code>.
+    *
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>int</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
+   public static Integer validateInt(Object bean, Field field, Locale locale) {
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+      return GenericTypeValidator.formatInt(value, locale);
+   }
+
+   /**
     * Checks if the field can be successfully converted to a <code>long</code>.
     *
     * @param value The value validation is being performed on.
@@ -82,6 +126,20 @@ public class TestTypeValidator {
       String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatLong(value);
+   }
+
+   /**
+    * Checks if the field can be successfully converted to a <code>long</code>.
+    *
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>long</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
+   public static Long validateLong(Object bean, Field field, Locale locale) {
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+      return GenericTypeValidator.formatLong(value, locale);
    }
 
    /**
@@ -99,6 +157,20 @@ public class TestTypeValidator {
    }
    
    /**
+    * Checks if the field can be successfully converted to a <code>float</code>.
+    *
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>float</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
+   public static Float validateFloat(Object bean, Field field, Locale locale) {
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+      return GenericTypeValidator.formatFloat(value, locale);
+   }
+   
+   /**
     * Checks if the field can be successfully converted to a <code>double</code>.
     *
     * @param value The value validation is being performed on.
@@ -111,5 +183,18 @@ public class TestTypeValidator {
 
       return GenericTypeValidator.formatDouble(value);
    }
-      
+   
+   /**
+    * Checks if the field can be successfully converted to a <code>double</code>.
+    *
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>double</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
+   public static Double validateDouble(Object bean, Field field, Locale locale) {
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+      return GenericTypeValidator.formatDouble(value, locale);
+   }  
 }                                                         
