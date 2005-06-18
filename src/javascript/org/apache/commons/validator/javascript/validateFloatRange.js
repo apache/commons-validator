@@ -12,7 +12,9 @@
         var i = 0;
         var fields = new Array();
         var formName = form.getAttributeNode("name"); 
-
+        if (formName == null) {
+            formName = form.getAttributeNode("id");
+        } 
         oRange = eval('new ' + formName.value + '_floatRange()');
         for (x in oRange) {
             var field = form[oRange[x][0]];

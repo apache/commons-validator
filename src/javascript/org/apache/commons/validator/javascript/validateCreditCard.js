@@ -12,7 +12,10 @@
         var i = 0;
         var fields = new Array();
         var formName = form.getAttributeNode("name");
-
+        if (formName == null) {
+            formName = form.getAttributeNode("id");
+        } 
+ 
         oCreditCard = eval('new ' + formName.value + '_creditCard()');
 
         for (x in oCreditCard) {

@@ -12,6 +12,9 @@
         var i = 0;
         var fields = new Array();
         var formName = form.getAttributeNode("name"); 
+        if (formName == null) {
+            formName = form.getAttributeNode("id");
+        } 
         oByte = eval('new ' + formName.value + '_ByteValidations()');
 
         for (x in oByte) {

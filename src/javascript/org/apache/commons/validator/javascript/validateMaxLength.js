@@ -15,7 +15,10 @@
         var i = 0;
         var fields = new Array();
         var formName = form.getAttributeNode("name"); 
-
+        if (formName == null) {
+            formName = form.getAttributeNode("id");
+        } 
+ 
         oMaxLength = eval('new ' + formName.value + '_maxlength()');        
         for (x in oMaxLength) {
             var field = form[oMaxLength[x][0]];

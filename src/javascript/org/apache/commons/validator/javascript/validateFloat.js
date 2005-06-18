@@ -11,8 +11,11 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-         var formName = form.getAttributeNode("name");
-
+        var formName = form.getAttributeNode("name");
+        if (formName == null) {
+            formName = form.getAttributeNode("id");
+        } 
+ 
         oFloat = eval('new ' + formName.value + '_FloatValidations()');
         for (x in oFloat) {
         	var field = form[oFloat[x][0]];

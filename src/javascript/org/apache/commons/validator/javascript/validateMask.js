@@ -12,7 +12,10 @@
         var i = 0;
         var fields = new Array();
         var formName = form.getAttributeNode("name"); 
-
+        if (formName == null) {
+            formName = form.getAttributeNode("id");
+        } 
+ 
         oMasked = eval('new ' + formName.value + '_mask()');      
         for (x in oMasked) {
             var field = form[oMasked[x][0]];

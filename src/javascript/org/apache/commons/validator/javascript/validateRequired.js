@@ -13,6 +13,9 @@
         var i = 0;
         var fields = new Array();
         var formName = form.getAttributeNode("name");
+        if (formName == null) {
+            formName = form.getAttributeNode("id");
+        }    
 
         oRequired = eval('new ' + formName.value + '_required()');
 

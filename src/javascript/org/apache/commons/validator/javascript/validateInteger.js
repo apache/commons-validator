@@ -12,7 +12,10 @@
         var i = 0;
         var fields = new Array();
         var formName = form.getAttributeNode("name"); 
-
+        if (formName == null) {
+            formName = form.getAttributeNode("id");
+        } 
+ 
         oInteger = eval('new ' + formName.value + '_IntegerValidations()');
         for (x in oInteger) {
             var field = form[oInteger[x][0]];

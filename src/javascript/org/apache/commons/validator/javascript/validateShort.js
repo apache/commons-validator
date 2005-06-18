@@ -12,7 +12,10 @@
         var i = 0;
         var fields = new Array();
         var formName = form.getAttributeNode("name");
-
+        if (formName == null) {
+            formName = form.getAttributeNode("id");
+        } 
+ 
         oShort = eval('new ' + formName.value + '_ShortValidations()');
 
         for (x in oShort) {
