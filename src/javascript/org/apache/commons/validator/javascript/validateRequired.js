@@ -22,7 +22,10 @@
         for (x in oRequired) {
             var field = form[oRequired[x][0]];
 
-            if ((field.type == 'hidden' ||
+            if (field == null) {
+                fields[i++] = oRequired[x][1];
+                isValid=false;
+            } else if ((field.type == 'hidden' ||
                 field.type == 'text' ||
                 field.type == 'textarea' ||
                 field.type == 'file' ||
@@ -86,10 +89,12 @@
                     fields[i++] = oRequired[x][1];
                     isValid=false;
                 }
-            }
+            }   
         }
         if (fields.length > 0) {
-           focusField.focus();
+           if (focusField != null) {
+               focusField.focus();
+           }     
            alert(fields.join('\n'));
         }
         return isValid;
