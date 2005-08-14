@@ -29,6 +29,7 @@ import junit.framework.TestCase;
 public class CreditCardValidatorTest extends TestCase {
     
     private static final String VALID_VISA = "4417123456789113";
+    private static final String VALID_VISA_OTHER = "5817550003933609";
     private static final String VALID_SHORT_VISA = "4222222222222";
     private static final String VALID_AMEX = "378282246310005";
     private static final String VALID_MASTERCARD = "5105105105105100";
@@ -52,6 +53,7 @@ public class CreditCardValidatorTest extends TestCase {
         assertFalse(ccv.isValid("4417123456789112"));
         assertFalse(ccv.isValid("4417q23456w89113"));
         assertTrue(ccv.isValid(VALID_VISA));
+        assertTrue(ccv.isValid(VALID_VISA_OTHER));
         assertTrue(ccv.isValid(VALID_SHORT_VISA));
         assertTrue(ccv.isValid(VALID_AMEX));
         assertTrue(ccv.isValid(VALID_MASTERCARD));

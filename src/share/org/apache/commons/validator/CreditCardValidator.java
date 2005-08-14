@@ -205,15 +205,19 @@ public class CreditCardValidator {
         
     }
     
+    /**
+     *  Augmented to support Visa Carte Blue used in France
+     */
     private class Visa implements CreditCardType {
-        private static final String PREFIX = "4";
+        private static final String PREFIX = "4,5,";
         public boolean matches(String card) {
-            return (
-                card.substring(0, 1).equals(PREFIX)
-                    && (card.length() == 13 || card.length() == 16));
+            
+        String prefix2 = card.substring(0, 1) + ",";
+        return ((PREFIX.indexOf(prefix2) != -1)
+            && (card.length() == 13 || card.length() == 16));
         }
-    }
-    
+    }    
+            
     private class Amex implements CreditCardType {
         private static final String PREFIX = "34,37,";
         public boolean matches(String card) {
