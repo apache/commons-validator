@@ -148,7 +148,7 @@ public class UrlValidator implements Serializable {
      */
     private static final int PARSE_AUTHORITY_EXTRA = 3;
 
-    private static final String PATH_PATTERN = "/^(/[-\\w:@&?=+,.!/~*'%$]*)$/";
+    private static final String PATH_PATTERN = "/^(/[-\\w:@&?=+,.!/~*'%$]*)?$/";
 
     private static final String QUERY_PATTERN = "/^(.*)$/";
 
@@ -420,10 +420,6 @@ public class UrlValidator implements Serializable {
         Perl5Util pathMatcher = new Perl5Util();
 
         if (!pathMatcher.match(PATH_PATTERN, path)) {
-            return false;
-        }
-
-        if (path.endsWith("/")) {
             return false;
         }
 

@@ -95,6 +95,8 @@ public class UrlTest extends TestCase {
     */
    public void testIsValid(Object[] testObjects, int options) {
       UrlValidator urlVal = new UrlValidator(null, options);
+      assertTrue(urlVal.isValid("http://www.google.com"));
+      assertTrue(urlVal.isValid("http://www.google.com/"));
       int statusPerLine = 60;
       int printed = 0;
       if (printIndex)  {
@@ -237,8 +239,8 @@ public class UrlTest extends TestCase {
                           new TestPair("/$23", true),
                           new TestPair("/..", false),
                           new TestPair("/../", false),
-                          new TestPair("/test1/", false),
-                          new TestPair("", false),
+                          new TestPair("/test1/", true),
+                          new TestPair("", true),
                           new TestPair("/test1/file", true),
                           new TestPair("/..//file", false),
                           new TestPair("/test1//file", false)
@@ -249,9 +251,9 @@ public class UrlTest extends TestCase {
                                     new TestPair("/$23", true),
                                     new TestPair("/..", false),
                                     new TestPair("/../", false),
-                                    new TestPair("/test1/", false),
+                                    new TestPair("/test1/", true),
                                     new TestPair("/#", false),
-                                    new TestPair("", false),
+                                    new TestPair("", true),
                                     new TestPair("/test1/file", true),
                                     new TestPair("/t123/file", true),
                                     new TestPair("/$23/file", true),
