@@ -11,12 +11,8 @@
        var focusField = null;
        var i = 0;
        var fields = new Array();
-       var formName = form.getAttributeNode("name"); 
-       if (formName == null) {
-           formName = form.getAttributeNode("id");
-       } 
  
-       oDate = eval('new ' + formName.value + '_DateValidations()');
+       oDate = eval('new ' + retrieveFormName(form) +  '_DateValidations()');
 
        for (x in oDate) {
            var field = form[oDate[x][0]];

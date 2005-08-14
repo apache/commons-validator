@@ -12,12 +12,8 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        var formName = form.getAttributeNode("name");
-        if (formName == null) {
-            formName = form.getAttributeNode("id");
-        }    
 
-        oRequired = eval('new ' + formName.value + '_required()');
+        oRequired = eval('new ' + retrieveFormName(form) +  '_required()');
 
         for (x in oRequired) {
             var field = form[oRequired[x][0]];

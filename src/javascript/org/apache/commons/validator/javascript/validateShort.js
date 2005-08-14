@@ -11,12 +11,8 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        var formName = form.getAttributeNode("name");
-        if (formName == null) {
-            formName = form.getAttributeNode("id");
-        } 
  
-        oShort = eval('new ' + formName.value + '_ShortValidations()');
+        oShort = eval('new ' + retrieveFormName(form) +  '_ShortValidations()');
 
         for (x in oShort) {
             var field = form[oShort[x][0]];

@@ -11,13 +11,8 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        var formName = form.getAttributeNode("name");
-        if (formName == null) {
-            formName = form.getAttributeNode("id");
-        }  
- 
 
-        oEmail = eval('new ' + formName.value + '_email()');
+        oEmail = eval('new ' + retrieveFormName(form) +  '_email()');
 
         for (x in oEmail) {
             var field = form[oEmail[x][0]];

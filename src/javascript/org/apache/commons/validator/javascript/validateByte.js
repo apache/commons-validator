@@ -11,11 +11,8 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        var formName = form.getAttributeNode("name"); 
-        if (formName == null) {
-            formName = form.getAttributeNode("id");
-        } 
-        oByte = eval('new ' + formName.value + '_ByteValidations()');
+        
+        oByte = eval('new ' + retrieveFormName(form) + '_ByteValidations()');
 
         for (x in oByte) {
             var field = form[oByte[x][0]];

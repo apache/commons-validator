@@ -11,12 +11,8 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        var formName = form.getAttributeNode("name"); 
-        if (formName == null) {
-            formName = form.getAttributeNode("id");
-        } 
  
-        oMasked = eval('new ' + formName.value + '_mask()');      
+        oMasked = eval('new ' + retrieveFormName(form) +  '_mask()');      
         for (x in oMasked) {
             var field = form[oMasked[x][0]];
 

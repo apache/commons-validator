@@ -14,13 +14,8 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        var formName = form.getAttributeNode("name");
-        if (formName == null) {
-            formName = form.getAttributeNode("id");
-        } 
- 
 
-        oMinLength = eval('new ' + formName.value + '_minlength()');
+        oMinLength = eval('new ' + retrieveFormName(form) +  '_minlength()');
 
         for (x in oMinLength) {
             var field = form[oMinLength[x][0]];

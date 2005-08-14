@@ -11,12 +11,8 @@
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        var formName = form.getAttributeNode("name");
-        if (formName == null) {
-            formName = form.getAttributeNode("id");
-        } 
  
-        oCreditCard = eval('new ' + formName.value + '_creditCard()');
+        oCreditCard = eval('new ' + retrieveFormName(form) +  '_creditCard()');
 
         for (x in oCreditCard) {
             if ((form[oCreditCard[x][0]].type == 'text' ||
