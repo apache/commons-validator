@@ -45,7 +45,7 @@
                     }
                     var noZeroString = joinedString.substring(zeroIndex,joinedString.length);
 
-                    if (!isAllDigits(noZeroString)) {
+                    if (!isAllDigits(noZeroString) || tempArray.length > 2) {
                         bValid = false;
                         if (i == 0) {
                             focusField = field;
