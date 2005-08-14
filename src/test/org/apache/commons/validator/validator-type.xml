@@ -75,6 +75,13 @@
                  method="validateDouble"
                  methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale"
                  msg=""/>
+                 
+      <validator name="date"
+                 classname="org.apache.commons.validator.TestTypeValidator"
+                 method="validateDate"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale"
+                 msg=""/>
+           
 
    </global>
    <formset>
@@ -93,6 +100,7 @@
          <field property="long" depends="longLocale"/>    
          <field property="float" depends="floatLocale"/>    
          <field property="double" depends="doubleLocale"/>
+         <field property="date" depends="date" />
       </form>
    </formset>   
 </form-validation>

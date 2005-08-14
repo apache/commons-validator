@@ -40,6 +40,7 @@ public class ValidatorTestSuite extends TestCase {
     public static Test suite() {
        TestSuite suite = new TestSuite();
 
+       suite.addTest(DateTest.suite());
        suite.addTest(RequiredNameTest.suite());
        suite.addTest(RequiredIfTest.suite());
        suite.addTest(MultipleTests.suite());

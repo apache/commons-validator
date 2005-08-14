@@ -21,7 +21,7 @@
 
 package org.apache.commons.validator;
 
-import java.util.Locale;
+import java.util.*;
 
 import org.apache.commons.validator.util.ValidatorUtils;
                                                           
@@ -196,5 +196,42 @@ public class TestTypeValidator {
       String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatDouble(value, locale);
-   }  
+   }
+   
+   /**
+    * Checks if the field can be successfully converted to a <code>date</code>.
+    *
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>date</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
+   public static Date validateDate(Object bean, Field field, Locale locale) {
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+      return GenericTypeValidator.formatDate(value, locale);
+   }
+   
+   /**
+    * Checks if the field can be successfully converted to a <code>date</code>.
+    *
+    * @param value The value validation is being performed on.
+    * @return boolean If the field can be successfully converted 
+    * to a <code>date</code> <code>true</code> is returned.  
+    * Otherwise <code>false</code>.
+    */
+   public static Date validateDate(Object bean, Field field) {
+      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+      String datePattern = field.getVarValue("datePattern");
+      String datePatternStrict = field.getVarValue("datePatternStrict");
+      
+      Date result = null;
+      if (datePattern != null && datePattern.length() > 0) {
+            result = GenericTypeValidator.formatDate(value, datePattern, false);
+        } else if (datePatternStrict != null && datePatternStrict.length() > 0) {
+            result = GenericTypeValidator.formatDate(value, datePatternStrict, true);
+        } 
+
+      return result;
+   }
 }                                                         
