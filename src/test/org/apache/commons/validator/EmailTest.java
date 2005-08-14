@@ -119,13 +119,16 @@ public class EmailTest extends TestCommon {
         info.setValue("jsmith@apache.info");
         valueTest(info, true);
 
-        info.setValue("jsmith@apache.infoo");
-        valueTest(info, false);
-
         info.setValue("jsmith@apache.");
         valueTest(info, false);
 
         info.setValue("jsmith@apache.c");
+        valueTest(info, false);
+        
+        info.setValue("someone@yahoo.museum");
+        valueTest(info, true);
+        
+        info.setValue("someone@yahoo.mu-seum");
         valueTest(info, false);
     }
 
@@ -141,11 +144,11 @@ public class EmailTest extends TestCommon {
       valueTest(info, true);
 
       info.setValue("andy-noble@data-workshop.-com");
-       valueTest(info, true);
+       valueTest(info, false);
        info.setValue("andy-noble@data-workshop.c-om");
-       valueTest(info,true);
+       valueTest(info,false);
        info.setValue("andy-noble@data-workshop.co-m");
-       valueTest(info, true);
+       valueTest(info, false);
 
 
    }

@@ -34,8 +34,8 @@ import org.apache.oro.text.perl.Perl5Util;
  * </p>
  * <p>
  * This implementation is not guaranteed to catch all possible errors in an email address.
- * For example, an address like nobody@noplace.d- will pass validator, even though there
- * is no TLD "d-"
+ * For example, an address like nobody@noplace.somedog will pass validator, even though there
+ * is no TLD "somedog"
  * </p>.
  * @since Validator 1.1
  */
@@ -52,7 +52,8 @@ public class EmailValidator {
     private static final String EMAIL_PATTERN = "/^(.+)@(.+)$/";
     private static final String IP_DOMAIN_PATTERN =
             "/^\\[(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})\\]$/";
-
+    private static final String TLD_PATTERN = "/^([a-zA-Z]+)$/";
+            
     private static final String USER_PATTERN = "/^\\s*" + WORD + "(\\." + WORD + ")*\\s*$/";
     private static final String DOMAIN_PATTERN = "/^\\s*" + ATOM + "(\\." + ATOM + ")*\\s*$/";
     private static final String ATOM_PATTERN = "/(" + ATOM + ")/";
@@ -206,14 +207,21 @@ public class EmailValidator {
         }
 
         int len = i;
-        if (domainSegment[len - 1].length() < 2
-                || domainSegment[len - 1].length() > 4) {
-
-            return false;
-        }
-
+        
         // Make sure there's a host name preceding the domain.
         if (len < 2) {
+            return false;
+        }
+        
+        // TODO: the tld should be checked against some sort of configurable 
+        // list
+        String tld = domainSegment[len - 1];
+        if (tld.length() > 1) {
+            Perl5Util matchTldPat = new Perl5Util();
+            if (!matchTldPat.match(TLD_PATTERN, tld)) {
+                return false;
+            }
+        } else {
             return false;
         }
 
