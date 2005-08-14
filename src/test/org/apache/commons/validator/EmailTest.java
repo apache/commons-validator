@@ -174,9 +174,13 @@ public class EmailTest extends TestCommon {
         info.setValue("andy.noble@\u008fdata-workshop.com");
         valueTest(info, false);
     
-        // The ' character is valid in an email address.
+        // The ' character is valid in an email username.
         info.setValue("andy.o'reilly@data-workshop.com");
         valueTest(info, true);
+        
+        // But not in the domain name.
+        info.setValue("andy@o'reilly.data-workshop.com");
+        valueTest(info, false);
 
         info.setValue("foo+bar@i.am.not.in.us.example.com");
         valueTest(info, true);

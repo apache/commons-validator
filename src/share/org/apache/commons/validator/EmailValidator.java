@@ -41,11 +41,11 @@ import org.apache.oro.text.perl.Perl5Util;
  */
 public class EmailValidator {
 
-    private static final String SPECIAL_CHARS = "\\(\\)<>@,;:\\\\\\\"\\.\\[\\]";
+    private static final String SPECIAL_CHARS = "\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
     private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
     private static final String QUOTED_USER = "(\"[^\"]*\")";
     private static final String ATOM = VALID_CHARS + '+';
-    private static final String WORD = "(" + ATOM + "|" + QUOTED_USER + ")";
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
     // Each pattern must be surrounded by /
     private static final String LEGAL_ASCII_PATTERN = "/^[\\000-\\177]+$/";
