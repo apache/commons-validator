@@ -755,7 +755,7 @@ public class Field implements Cloneable, Serializable {
      * @return A ValidatorResults object containing validation messages for 
      * this field.
      */
-    ValidatorResults validate(Map params, Map actions)
+    public ValidatorResults validate(Map params, Map actions)
         throws ValidatorException {
         
         if (this.getDepends() == null) {
