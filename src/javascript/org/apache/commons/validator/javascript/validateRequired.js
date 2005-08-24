@@ -25,6 +25,7 @@
                 field.type == 'text' ||
                 field.type == 'textarea' ||
                 field.type == 'file' ||
+                field.type == 'radio' ||
                 field.type == 'checkbox' ||
                 field.type == 'select-one' ||
                 field.type == 'password') &&
@@ -37,7 +38,7 @@
                     if (si >= 0) {
                         value = field.options[si].value;
                     }
-                } else if (field.type == 'checkbox') {
+                } else if (field.type == 'radio' || field.type == 'checkbox') {
                     if (field.checked) {
                         value = field.value;
                     }
@@ -47,7 +48,7 @@
 
                 if (trim(value).length == 0) {
 
-                    if (i == 0) {
+                    if ((i == 0) && (field.type != 'hidden')) {
                         focusField = field;
                     }
                     fields[i++] = oRequired[x][1];
