@@ -17,10 +17,13 @@
        for (x in oDate) {
            var field = form[oDate[x][0]];
            var value = field.value;
+           var isStrict = true;
            var datePattern = oDate[x][2]("datePatternStrict");
            // try loose pattern
-           if (datePattern == null)
+           if (datePattern == null) {
                datePattern = oDate[x][2]("datePattern");
+               isStrict = false;
+           }    
            if ((field.type == 'hidden' ||
                 field.type == 'text' ||
                 field.type == 'textarea') &&
@@ -38,13 +41,21 @@
                      var delim1 = datePattern.substring(iDelim1, iDelim1 + 1);
                      var delim2 = datePattern.substring(iDelim2, iDelim2 + 1);
                      if (iDelim1 == orderDay && iDelim2 == orderYear) {
-                        dateRegexp = new RegExp("^(\\d{2})(\\d{2})(\\d{4})$");
+                        dateRegexp = isStrict 
+                             ? new RegExp("^(\\d{2})(\\d{2})(\\d{4})$") 
+                             : new RegExp("^(\\d{1,2})(\\d{1,2})(\\d{4})$");
                      } else if (iDelim1 == orderDay) {
-                        dateRegexp = new RegExp("^(\\d{2})(\\d{2})[" + delim2 + "](\\d{4})$");
+                        dateRegexp = isStrict 
+                             ? new RegExp("^(\\d{2})(\\d{2})[" + delim2 + "](\\d{4})$")
+                             : new RegExp("^(\\d{1,2})(\\d{1,2})[" + delim2 + "](\\d{4})$");
                      } else if (iDelim2 == orderYear) {
-                        dateRegexp = new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})(\\d{4})$");
+                        dateRegexp = isStrict
+                             ? new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})(\\d{4})$")
+                             : new RegExp("^(\\d{1,2})[" + delim1 + "](\\d{1,2})(\\d{4})$");
                      } else {
-                        dateRegexp = new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})[" + delim2 + "](\\d{4})$");
+                        dateRegexp = isStrict
+                             ? new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})[" + delim2 + "](\\d{4})$")
+                             : new RegExp("^(\\d{1,2})[" + delim1 + "](\\d{1,2})[" + delim2 + "](\\d{4})$");
                      }
                      var matched = dateRegexp.exec(value);
                      if(matched != null) {
@@ -68,19 +79,27 @@
                      var delim1 = datePattern.substring(iDelim1, iDelim1 + 1);
                      var delim2 = datePattern.substring(iDelim2, iDelim2 + 1);
                      if (iDelim1 == orderMonth && iDelim2 == orderYear) {
-                         dateRegexp = new RegExp("^(\\d{2})(\\d{2})(\\d{4})$");
+                         dateRegexp = isStrict 
+                            ? new RegExp("^(\\d{2})(\\d{2})(\\d{4})$")
+                            : new RegExp("^(\\d{1,2})(\\d{1,2})(\\d{4})$");
                      } else if (iDelim1 == orderMonth) {
-                         dateRegexp = new RegExp("^(\\d{2})(\\d{2})[" + delim2 + "](\\d{4})$");
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{2})(\\d{2})[" + delim2 + "](\\d{4})$")
+                            : new RegExp("^(\\d{1,2})(\\d{1,2})[" + delim2 + "](\\d{4})$");
                      } else if (iDelim2 == orderYear) {
-                         dateRegexp = new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})(\\d{4})$");
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})(\\d{4})$")
+                            : new RegExp("^(\\d{1,2})[" + delim1 + "](\\d{1,2})(\\d{4})$");
                      } else {
-                         dateRegexp = new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})[" + delim2 + "](\\d{4})$");
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})[" + delim2 + "](\\d{4})$")
+                            : new RegExp("^(\\d{1,2})[" + delim1 + "](\\d{1,2})[" + delim2 + "](\\d{4})$");
                      }
                      var matched = dateRegexp.exec(value);
                      if(matched != null) {
                          if (!isValidDate(matched[1], matched[2], matched[3])) {
                              if (i == 0) {
-                         focusField = field;
+                                  focusField = field;
                              }
                              fields[i++] = oDate[x][1];
                              bValid =  false;
@@ -98,13 +117,21 @@
                      var delim1 = datePattern.substring(iDelim1, iDelim1 + 1);
                      var delim2 = datePattern.substring(iDelim2, iDelim2 + 1);
                      if (iDelim1 == orderMonth && iDelim2 == orderDay) {
-                         dateRegexp = new RegExp("^(\\d{4})(\\d{2})(\\d{2})$");
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{4})(\\d{2})(\\d{2})$")
+                            : new RegExp("^(\\d{4})(\\d{1,2})(\\d{1,2})$");
                      } else if (iDelim1 == orderMonth) {
-                         dateRegexp = new RegExp("^(\\d{4})(\\d{2})[" + delim2 + "](\\d{2})$");
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{4})(\\d{2})[" + delim2 + "](\\d{2})$")
+                            : new RegExp("^(\\d{4})(\\d{1,2})[" + delim2 + "](\\d{1,2})$");
                      } else if (iDelim2 == orderDay) {
-                         dateRegexp = new RegExp("^(\\d{4})[" + delim1 + "](\\d{2})(\\d{2})$");
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{4})[" + delim1 + "](\\d{2})(\\d{2})$")
+                            : new RegExp("^(\\d{4})[" + delim1 + "](\\d{1,2})(\\d{1,2})$");
                      } else {
-                         dateRegexp = new RegExp("^(\\d{4})[" + delim1 + "](\\d{2})[" + delim2 + "](\\d{2})$");
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{4})[" + delim1 + "](\\d{2})[" + delim2 + "](\\d{2})$")
+                            : new RegExp("^(\\d{4})[" + delim1 + "](\\d{1,2})[" + delim2 + "](\\d{1,2})$");
                      }
                      var matched = dateRegexp.exec(value);
                      if(matched != null) {
