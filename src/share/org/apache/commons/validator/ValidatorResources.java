@@ -158,7 +158,7 @@ public class ValidatorResources implements Serializable {
      * @throws IOException
      * @throws SAXException if the validation XML files are not valid or well
      * formed.
-     * @since Validator 1.1
+     * @since Validator 1.2
      */
     public ValidatorResources(String url) throws IOException, SAXException {
         this(new String[]{url});
@@ -172,7 +172,7 @@ public class ValidatorResources implements Serializable {
      * @throws IOException
      * @throws SAXException if the validation XML files are not valid or well
      * formed.
-     * @since Validator 1.1
+     * @since Validator 1.2
      */
     public ValidatorResources(String[] uris)
             throws IOException, SAXException {
