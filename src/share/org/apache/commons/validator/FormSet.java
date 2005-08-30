@@ -18,7 +18,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.validator;
 
 import java.io.Serializable;
@@ -28,48 +27,143 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Holds a set of <code>Form</code>s stored associated with a
- * <code>Locale</code> based on the country, language, and variant specified.
- * Instances of this class are configured with a &lt;formset&gt; xml element.
+ * Holds a set of <code>Form</code>s stored associated with a <code>Locale</code>
+ * based on the country, language, and variant specified. Instances of this
+ * class are configured with a &lt;formset&gt; xml element.
  */
 public class FormSet implements Serializable {
 
     /**
-     * Whether or not the this <code>FormSet</code> was processed
-     * for replacing variables in strings with their values.
+     * Whether or not the this <code>FormSet</code> was processed for replacing
+     * variables in strings with their values.
      */
     private boolean processed = false;
 
-    /**
-     * Language component of <code>Locale</code> (required).
-     */
+    /** Language component of <code>Locale</code> (required). */
     private String language = null;
 
-    /**
-     * Country component of <code>Locale</code> (optional).
-     */
+    /** Country component of <code>Locale</code> (optional). */
     private String country = null;
 
-    /**
-     * Variant component of <code>Locale</code> (optional).
-     */
+    /** Variant component of <code>Locale</code> (optional). */
     private String variant = null;
 
     /**
-     * A <code>Map</code> of <code>Form</code>s
-     * using the name field of the <code>Form</code> as the key.
+     * A <code>Map</code> of <code>Form</code>s using the name field of the
+     * <code>Form</code> as the key.
      */
     private Map forms = new HashMap();
 
     /**
-     * A <code>Map</code> of <code>Constant</code>s
-     * using the name field of the <code>Constant</code> as the key.
+     * A <code>Map</code> of <code>Constant</code>s using the name field of the
+     * <code>Constant</code> as the key.
      */
     private Map constants = new HashMap();
 
     /**
-     * Whether or not the this <code>FormSet</code> was processed
-     * for replacing variables in strings with their values.
+     * This is the type of <code>FormSet</code>s where no locale is specified.
+     */
+    protected final static int GLOBAL_FORMSET = 1;
+
+    /**
+     * This is the type of <code>FormSet</code>s where only language locale is
+     * specified.
+     */
+    protected final static int LANGUAGE_FORMSET = 2;
+
+    /**
+     * This is the type of <code>FormSet</code>s where only language and country
+     * locale are specified.
+     */
+    protected final static int COUNTRY_FORMSET = 3;
+
+    /**
+     * This is the type of <code>FormSet</code>s where full locale has been set.
+     */
+    protected final static int VARIANT_FORMSET = 4;
+
+    /**
+     * Flag indicating if this formSet has been merged with its parent (higher
+     * rank in Locale hierarchy).
+     */
+    private boolean merged;
+
+    /**
+     * Has this formSet been merged?
+     *
+     * @return   true if it has been merged
+     * @since    Validator 1.2.0
+     */
+    protected boolean isMerged() {
+        return merged;
+    }
+
+    /**
+     * Returns the type of <code>FormSet</code>:<code>GLOBAL_FORMSET</code>,
+     * <code>LANGUAGE_FORMSET</code>,<code>COUNTRY_FORMSET</code> or <code>VARIANT_FORMSET</code>
+     * .
+     *
+     * @return                       The type value
+     * @since                        Validator 1.2.0
+     * @throws NullPointerException  if there is inconsistency in the locale
+     *      definition (not sure about this)
+     */
+    protected int getType() {
+        if (getVariant() != null) {
+            if (getLanguage() == null || getCountry() == null) {
+                throw new NullPointerException(
+                    "When variant is specified, country and language must be specified.");
+            }
+            return VARIANT_FORMSET;
+        }
+        else if (getCountry() != null) {
+            if (getLanguage() == null) {
+                throw new NullPointerException(
+                    "When country is specified, language must be specified.");
+            }
+            return COUNTRY_FORMSET;
+        }
+        else if (getLanguage() != null) {
+            return LANGUAGE_FORMSET;
+        }
+        else {
+            return GLOBAL_FORMSET;
+        }
+    }
+
+    /**
+     * Merges the given <code>FormSet</code> into this one. If any of <code>depends</code>
+     * s <code>Forms</code> are not in this <code>FormSet</code> then, include
+     * them, else merge both <code>Forms</code>. Theoretically we should only
+     * merge a "parent" formSet.
+     *
+     * @param depends  FormSet to be merged
+     * @since          Validator 1.2.0
+     */
+    protected void merge(FormSet depends) {
+        if (depends != null) {
+            Map pForms = getForms();
+            Map dForms = depends.getForms();
+            for (Iterator it = dForms.keySet().iterator(); it.hasNext(); ) {
+                Object key = it.next();
+                Form pForm = (Form) pForms.get(key);
+                if (pForm != null) {//merge, but principal 'rules', don't overwrite
+                    // anything
+                    pForm.merge((Form) dForms.get(key));
+                }
+                else {//just add
+                    addForm((Form) dForms.get(key));
+                }
+            }
+        }
+        merged = true;
+    }
+
+    /**
+     * Whether or not the this <code>FormSet</code> was processed for replacing
+     * variables in strings with their values.
+     *
+     * @return   The processed value
      */
     public boolean isProcessed() {
         return processed;
@@ -77,6 +171,8 @@ public class FormSet implements Serializable {
 
     /**
      * Gets the equivalent of the language component of <code>Locale</code>.
+     *
+     * @return   The language value
      */
     public String getLanguage() {
         return language;
@@ -84,6 +180,8 @@ public class FormSet implements Serializable {
 
     /**
      * Sets the equivalent of the language component of <code>Locale</code>.
+     *
+     * @param language  The new language value
      */
     public void setLanguage(String language) {
         this.language = language;
@@ -91,6 +189,8 @@ public class FormSet implements Serializable {
 
     /**
      * Gets the equivalent of the country component of <code>Locale</code>.
+     *
+     * @return   The country value
      */
     public String getCountry() {
         return country;
@@ -98,6 +198,8 @@ public class FormSet implements Serializable {
 
     /**
      * Sets the equivalent of the country component of <code>Locale</code>.
+     *
+     * @param country  The new country value
      */
     public void setCountry(String country) {
         this.country = country;
@@ -105,6 +207,8 @@ public class FormSet implements Serializable {
 
     /**
      * Gets the equivalent of the variant component of <code>Locale</code>.
+     *
+     * @return   The variant value
      */
     public String getVariant() {
         return variant;
@@ -112,6 +216,8 @@ public class FormSet implements Serializable {
 
     /**
      * Sets the equivalent of the variant component of <code>Locale</code>.
+     *
+     * @param variant  The new variant value
      */
     public void setVariant(String variant) {
         this.variant = variant;
@@ -119,6 +225,9 @@ public class FormSet implements Serializable {
 
     /**
      * Add a <code>Constant</code> to the locale level.
+     *
+     * @param name   The constant name
+     * @param value  The constant value
      */
     public void addConstant(String name, String value) {
         this.constants.put(name, value);
@@ -126,6 +235,8 @@ public class FormSet implements Serializable {
 
     /**
      * Add a <code>Form</code> to the <code>FormSet</code>.
+     *
+     * @param f  The form
      */
     public void addForm(Form f) {
         forms.put(f.getName(), f);
@@ -133,14 +244,19 @@ public class FormSet implements Serializable {
 
     /**
      * Retrieve a <code>Form</code> based on the form name.
+     *
+     * @param formName  The form name
+     * @return          The form
      */
     public Form getForm(String formName) {
         return (Form) this.forms.get(formName);
     }
 
     /**
-     * A <code>Map</code> of <code>Form</code>s is returned as an
-     * unmodifiable <code>Map</code> with the key based on the form name.
+     * A <code>Map</code> of <code>Form</code>s is returned as an unmodifiable
+     * <code>Map</code> with the key based on the form name.
+     *
+     * @return   The forms map
      */
     public Map getForms() {
         return Collections.unmodifiableMap(forms);
@@ -148,9 +264,11 @@ public class FormSet implements Serializable {
 
     /**
      * Processes all of the <code>Form</code>s.
+     *
+     * @param globalConstants  Global constants
      */
     synchronized void process(Map globalConstants) {
-        for (Iterator i = forms.values().iterator(); i.hasNext();) {
+        for (Iterator i = forms.values().iterator(); i.hasNext(); ) {
             Form f = (Form) i.next();
             f.process(globalConstants, constants, forms);
         }
@@ -160,6 +278,8 @@ public class FormSet implements Serializable {
 
     /**
      * Returns a string representation of the object.
+     *
+     * @return   A string representation
      */
     public String toString() {
         StringBuffer results = new StringBuffer();
@@ -172,7 +292,7 @@ public class FormSet implements Serializable {
         results.append(variant);
         results.append("\n");
 
-        for (Iterator i = getForms().values().iterator(); i.hasNext();) {
+        for (Iterator i = getForms().values().iterator(); i.hasNext(); ) {
             results.append("   ");
             results.append(i.next());
             results.append("\n");

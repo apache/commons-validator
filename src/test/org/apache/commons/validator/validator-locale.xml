@@ -28,6 +28,9 @@
          <field property="lastName" depends="required">
              <arg key="nameForm.lastname.displayname"/>
          </field>
+         <field property="middleName" depends="required">
+             <arg key="nameForm.lastname.displayname"/>
+         </field>
       </form>
    </formset>   
    <formset language="en" country="US" variant="TEST2">
@@ -36,14 +39,14 @@
              <arg key="nameForm.firstname.displayname"/>
          </field>    
          <field property="lastName" depends="required">
-         	 <arg key="nameForm.lastname.displayname"/>
+           <arg key="nameForm.lastname.displayname"/>
          </field>
       </form>
    </formset>   
    <formset language="en" country="UK">
       <form name="nameForm">
          <field property="firstName" depends="required">
-         	 <arg key="nameForm.firstname.displayname"/>
+           <arg key="nameForm.firstname.displayname"/>
          </field>    
          <field property="lastName" depends="">
              <arg key="nameForm.lastname.displayname"/>
