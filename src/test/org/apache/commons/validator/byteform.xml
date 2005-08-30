@@ -1,0 +1,3 @@
+<form name="byteForm">
+ <field property="byte" depends="byte"/>    
+</form>

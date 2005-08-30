@@ -142,6 +142,56 @@ public class ValidatorResources implements Serializable {
 
         super();
 
+        Digester digester = initDigester();
+        for (int i = 0; i < streams.length; i++) {
+            digester.push(this);
+            digester.parse(streams[i]);
+        }
+
+        this.process();
+    }
+    
+    /**
+     * Create a ValidatorResources object from an uri
+     *
+     * @param uri The location of a validation.xml configuration file. 
+     * @throws IOException
+     * @throws SAXException if the validation XML files are not valid or well
+     * formed.
+     * @since Validator 1.1
+     */
+    public ValidatorResources(String url) throws IOException, SAXException {
+        this(new String[]{url});
+    }
+
+    /**
+     * Create a ValidatorResources object from several uris
+     *
+     * @param uris An array of uris to several validation.xml
+     * configuration files that will be read in order and merged into this object.
+     * @throws IOException
+     * @throws SAXException if the validation XML files are not valid or well
+     * formed.
+     * @since Validator 1.1
+     */
+    public ValidatorResources(String[] uris)
+            throws IOException, SAXException {
+
+        super();
+
+        Digester digester = initDigester();
+        for (int i = 0; i < uris.length; i++) {
+            digester.push(this);
+            digester.parse(uris[i]);
+        }
+
+        this.process();
+    }    
+    
+    /**
+     *  Initialize the digester.
+     */
+    private Digester initDigester() {
         URL rulesUrl = this.getClass().getResource("digester-rules.xml");
         Digester digester = DigesterLoader.createDigester(rulesUrl);
         digester.setNamespaceAware(true);
@@ -155,13 +205,7 @@ public class ValidatorResources implements Serializable {
                 digester.register(registrations[i], url.toString());
             }
         }
-
-        for (int i = 0; i < streams.length; i++) {
-            digester.push(this);
-            digester.parse(streams[i]);
-        }
-
-        this.process();
+        return digester;
     }
 
     /**
@@ -324,7 +368,7 @@ public class ValidatorResources implements Serializable {
 
         this.processForms();
     }
-
+    
     /**
      * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s
      * that don't exist in a <code>FormSet</code> compared to its parent
