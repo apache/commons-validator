@@ -27,7 +27,7 @@
       <item name="Downloads"               href="/downloads.html"/>
       <item name="To Do List"              href="/tasks.html"/>
       <item name="Javadoc" href="apidocs/index.html"/>
-      <item name="Javascript Javadoc"      href="/javascript/org/apache/commons/validator/javascript/allclasses-summary.html"/>
+      <item name="Javascript Javadoc"      href="/javascript/org/apache/commons/validator/javascript/index.html"/>
     </menu>
     
     &common-menus;

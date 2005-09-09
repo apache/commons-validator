@@ -76,7 +76,7 @@
   <property name="conf.home"               value="conf/share"/>
 
   <!-- The base directory for distribution targets -->
-  <property name="dist.home"               value="dist"/>
+  <property name="dist.home"               value="m-target"/>
 
   <!-- The base directory for release targets -->
   <property name="release.home"            value="release" />
@@ -230,11 +230,23 @@
    description="Clean and compile all components"/>
 
 
-  <target name="javadoc" depends="compile"
-   description="Create component Javadoc documentation">
+  <target name="javadoc.init" 
+   description="Initializes Javadoc directories">
     <mkdir      dir="${dist.home}"/>
     <mkdir      dir="${dist.home}/docs"/>
     <mkdir      dir="${dist.home}/docs/api"/>
+    <mkdir      dir="${dist.home}/docs/javascript"/>
+  </target>  
+
+  <target name="javadoc.js" depends="javadoc.init"
+   description="Create Javascript Javadoc documentation">
+    <exec  executable="bash" failifexecutionfails="false">
+         <arg line="-c 'etc/jsdoc.sh ${jsdoc.home} ${javascript.home} ${dist.home}/docs/javascript' "/>
+    </exec>
+  </target>
+
+  <target name="javadoc" depends="compile, javadoc.js"
+   description="Create component Javadoc documentation">
     <javadoc sourcepath="${source.home}"
                 destdir="${dist.home}/docs/api"
            packagenames="org.apache.commons.*"
@@ -245,11 +257,10 @@
             windowtitle="${component.title} (Version ${component.version})"
                  bottom="Copyright (c) 2001-2004  Apache Software Foundation"
            classpathref="compile.classpath" />
-    <exec  executable="bash" failifexecutionfails="false">
-         <arg line="-c 'etc/jsdoc.sh ${jsdoc.home} ${javascript.home} ${dist.home}/docs/api ' "/>
-    </exec>
   </target>
-  
+
+
+
   <target name="change-log" >
    	<cvschangelog destfile="changelog.xml" start="${cvs.start}" />
      <style in="changelog.xml" out="changelog.html" style="${ant.home}/etc/changelog.xsl">
