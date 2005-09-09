@@ -91,7 +91,16 @@ public class Validator implements Serializable {
 
     protected ValidatorResources resources = null;
 
+    /**
+     * The name of the form to validate
+     */
     protected String formName = null;
+    
+    /**
+     * The name of the field on the form to validate
+     * @since 1.2.0
+     */
+    protected String fieldName = null;
 
     /**
      * Maps validation method parameter class names to the objects to be passed
@@ -152,6 +161,27 @@ public class Validator implements Serializable {
         this.resources = resources;
         this.formName = formName;
     }
+    
+    /**
+     * Construct a <code>Validator</code> that will
+     * use the <code>ValidatorResources</code>
+     * passed in to retrieve pluggable validators
+     * the different sets of validation rules.
+     *
+     * @param resources <code>ValidatorResources</code> to use during validation.
+     * @param formName Key used for retrieving the set of validation rules.
+     * @param fieldName Key used for retrieving the set of validation rules for a field
+     * @since 1.2.0
+     */
+    public Validator(ValidatorResources resources, String formName, String fieldName) {
+        if (resources == null) {
+            throw new IllegalArgumentException("Resources cannot be null.");
+        }
+
+        this.resources = resources;
+        this.formName = formName;
+        this.fieldName = fieldName;
+    }
 
     /**
      * Set a parameter of a pluggable validation method.
@@ -190,6 +220,16 @@ public class Validator implements Serializable {
     public void setFormName(String formName) {
         this.formName = formName;
     }
+    
+    /**
+     * Sets the name of the field to validate in a form (optional)
+     *
+     * @param fieldName The name of the field in a form set
+     * @since 1.2.0
+     */
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
+    }
 
     /**
      * Gets the page.  This in conjunction with the page property of
@@ -220,6 +260,7 @@ public class Validator implements Serializable {
      */
     public void clear() {
         this.formName = null;
+        this.fieldName = null;
         this.parameters = new HashMap();
         this.page = 0;
     }
@@ -302,7 +343,8 @@ public class Validator implements Serializable {
             return form.validate(
                 this.parameters,
                 this.resources.getValidatorActions(),
-                this.page);
+                this.page,
+                this.fieldName);
         }
 
         return new ValidatorResults();

@@ -146,6 +146,28 @@ public class ValidatorTest extends TestCase {
         assertFalse(results.getPropertyNames().contains(property));    
    }
    
+   public void testOnlyValidateField() throws ValidatorException {
+    	//     property name of the method we are validating
+    	String property = "date";
+    	// name of ValidatorAction
+    	String action = "date";
+    	ValidatorResources resources = setupDateResources(property, action);
+    
+    	TestBean bean = new TestBean();
+    	bean.setDate("2/3/1999");
+    
+    	Validator validator = new Validator(resources, "testForm", property);
+    	validator.setParameter(Validator.BEAN_PARAM, bean);
+    
+    	ValidatorResults results = validator.validate();
+    
+    	assertNotNull(results);
+    
+        // Field passed and should be in results
+    	assertTrue(results.getPropertyNames().contains(property));
+   }
+   
+   
     private ValidatorResources setupDateResources(String property, String action) {
     
     	ValidatorResources resources = new ValidatorResources();

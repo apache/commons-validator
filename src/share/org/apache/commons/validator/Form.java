@@ -244,18 +244,51 @@ public class Form implements Serializable {
      */
     ValidatorResults validate(Map params, Map actions, int page)
         throws ValidatorException {
+        return validate(params, actions, page, null);
+    }
+    
+    /**
+     * Validate all Fields in this Form on the given page and below.
+     *
+     * @param params               A Map of parameter class names to parameter
+     *      values to pass into validation methods.
+     * @param actions              A Map of validator names to ValidatorAction
+     *      objects.
+     * @param page                 Fields on pages higher than this will not be
+     *      validated.
+     * @return                     A ValidatorResults object containing all
+     *      validation messages.
+     * @throws ValidatorException
+     * @since 1.2.0
+     */
+    ValidatorResults validate(Map params, Map actions, int page, String fieldName)
+        throws ValidatorException {
 
         ValidatorResults results = new ValidatorResults();
         params.put(Validator.VALIDATOR_RESULTS_PARAM, results);
 
-        Iterator fields = this.lFields.iterator();
-        while (fields.hasNext()) {
-            Field field = (Field) fields.next();
-
+        // Only validate a single field if specified
+        if (fieldName != null) {
+            Field field = (Field) this.hFields.get(fieldName);
+            
+            if (field == null) {
+               throw new ValidatorException("Unknown field "+fieldName+" in form "+getName());
+            }
             params.put(Validator.FIELD_PARAM, field);
-
+            
             if (field.getPage() <= page) {
-                results.merge(field.validate(params, actions));
+               results.merge(field.validate(params, actions));
+            }
+        } else {
+            Iterator fields = this.lFields.iterator();
+            while (fields.hasNext()) {
+                Field field = (Field) fields.next();
+    
+                params.put(Validator.FIELD_PARAM, field);
+    
+                if (field.getPage() <= page) {
+                    results.merge(field.validate(params, actions));
+                }
             }
         }
 
