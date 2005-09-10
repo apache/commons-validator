@@ -51,7 +51,7 @@ The <action> type attribute can be add,update,fix,remove.
         Allow validators to register errors for multiple fields. 
         PR# 29151
       </action>
-      <action dev="husted" type="add">
+      <action dev="husted" type="fix">
         Fixed EmailValidator failing on valid email addresses.
         PR# 23990
       </action>
@@ -62,6 +62,69 @@ The <action> type attribute can be add,update,fix,remove.
       <action dev="niallp" type="add">
         Remove the need to specify an Arguement's position.
         PR# 31194
+      </action>
+      <action dev="dgraham" type="add">
+        Deprecated all FastHashMap usage and provided protected get
+        methods that return generic Maps to be used by subclasses.
+        (fixes PR# 29815 Request public methods to access constants
+        in ValidatorResources.)
+      </action>
+      <action dev="mrdon" type="fix">
+        Handling of float and double should use the locale object.
+        PR# 34198 and PR#21282 
+      </action>
+      <action dev="mrdon" type="fix">
+        Client-side required validation inconsistent with server-side.
+        PR# 15912
+      </action>
+      <action dev="mrdon" type="fix">
+        EmailValidator allows apostrophes in domain name.
+        PR# 29541
+      </action>
+      <action dev="mrdon" type="fix">
+        Changing the strategy for locating form name/id, now use a common utility
+        function which works in both IE and Firefox.
+        PR# 35127 and PR# 32760
+      </action>
+      <action dev="mrdon" type="fix">
+        Validation fails when "name" attribute in form not specified.
+        PR# 35294 and PR# 31534
+      </action>
+      <action dev="mrdon" type="fix">
+        UrlValidator fails http://www.google.com.
+        PR# 30686
+      </action>
+      <action dev="mrdon" type="fix">
+        Email: inexisting dashes and TLD erroneously accepted.
+        PR# 33409 and PR# 31644
+      </action>
+      <action dev="mrdon" type="fix">
+        Float validator can't validate the string with several dot.
+        PR# 32351
+      </action>
+      <action dev="mrdon" type="fix">
+        CreditValidator does not handle Visa correctly.
+        PR# 35926
+      </action>
+      <action dev="mrdon" type="fix">
+        datePattern not supported by JavaScript.
+        PR# 22384
+      </action>
+      <action dev="mrdon" type="fix">
+        validateRequired on a single radio button.
+        PR# 33047
+      </action>
+      <action dev="mrdon" type="fix">
+        Field.validate() cannot be invoked from user-defined code.
+        PR# 35508
+      </action>
+      <action dev="mrdon" type="fix">
+        Locale validation doesn't validate all fields.
+        PR# 30955 and PR# 16920
+      </action>
+      <action dev="mrdon" type="fix">
+        XML file included into validation.xml via entity reference not found.
+        PR# 27258
       </action>
     </release>
   
