@@ -387,7 +387,7 @@ public class GenericTypeValidator implements Serializable {
             date = formatter.parse(value);
         } catch (ParseException e) {
             // Bad date so return null
-            log.warn(value, e);
+            log.debug("formatDate('" + value + "', '" + locale + "') " + e);
         }
 
         return date;
@@ -429,7 +429,8 @@ public class GenericTypeValidator implements Serializable {
             }
         } catch (ParseException e) {
             // Bad date so return null
-            log.warn(value, e);
+            log.debug("formatDate('" + value + "', '" + datePattern 
+                                + "', '" + strict+ "') " + e);
         }
 
         return date;
