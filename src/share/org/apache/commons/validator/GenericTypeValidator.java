@@ -387,7 +387,10 @@ public class GenericTypeValidator implements Serializable {
             date = formatter.parse(value);
         } catch (ParseException e) {
             // Bad date so return null
-            log.debug("formatDate('" + value + "', '" + locale + "') " + e);
+            if (log.isDebugEnabled()) {
+                log.debug("Date parse failed value=[" + value  + "], " +
+                                           "locale=[" + locale + "] "  + e);
+            }
         }
 
         return date;
@@ -429,8 +432,11 @@ public class GenericTypeValidator implements Serializable {
             }
         } catch (ParseException e) {
             // Bad date so return null
-            log.debug("formatDate('" + value + "', '" + datePattern 
-                                + "', '" + strict+ "') " + e);
+            if (log.isDebugEnabled()) {
+                log.debug("Date parse failed value=[" + value       + "], " +
+                                          "pattern=[" + datePattern + "], " +
+                                           "strict=[" + strict      + "] "  + e);
+            }
         }
 
         return date;
