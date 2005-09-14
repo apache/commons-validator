@@ -76,7 +76,7 @@
   <property name="conf.home"               value="conf/share"/>
 
   <!-- The base directory for distribution targets -->
-  <property name="dist.home"               value="m-target"/>
+  <property name="dist.home"               value="dist"/>
 
   <!-- The base directory for release targets -->
   <property name="release.home"            value="release" />
@@ -364,9 +364,9 @@
         <copy todir="${stage.src.dir}/${upload.file.base}-src">
             <fileset dir=".">
                 <exclude name="build.properties"/>
-                <exclude name="target/**"/>
-                <exclude name="dist/**"/>
-                <exclude name="release/**"/>
+                <exclude name="${build.home}/**"/>
+                <exclude name="${dist.home}/**"/>
+                <exclude name="${build.home}/**"/>
             </fileset>
         </copy>
         <mkdir dir="${upload.dir}"/>
