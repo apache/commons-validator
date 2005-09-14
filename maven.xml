@@ -56,5 +56,25 @@
 
   </postGoal>
 
+  <!-- ================================================================== -->
+  <!-- Copy into the source distribution                                  -->
+  <!-- ================================================================== -->
+  <postGoal name="dist:prepare-src-filesystem">
+
+    <!-- Copy xdoc files -->
+    <copy todir="${maven.dist.src.assembly.dir}/xdocs">
+      <fileset dir="./xdocs"/>
+    </copy>
+
+    <!-- Copy configuration files -->
+    <copy todir="${maven.dist.src.assembly.dir}/conf/share">
+      <fileset dir="./conf/share">
+        <include name="*.xml"/>
+        <include name="*.dtd"/>
+      </fileset>
+    </copy>
+
+  </postGoal>
+
 </project>
 

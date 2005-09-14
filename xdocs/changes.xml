@@ -126,6 +126,10 @@ The <action> type attribute can be add,update,fix,remove.
         XML file included into validation.xml via entity reference not found.
         PR# 27258
       </action>
+      <action dev="niallp" type="update">
+        Update maven build to Include DTDs and xdocs in the source distribution.
+        PR# 31094
+      </action>
     </release>
   
     <release version="1.1.4" date="2004-11-12">
