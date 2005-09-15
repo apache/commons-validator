@@ -305,6 +305,14 @@
       <url>http://www.junit.org/</url>
     </dependency>
 
+    <dependency>
+      <groupId>maven</groupId>
+      <artifactId>maven-xdoc-plugin</artifactId>
+      <version>1.9.2</version>
+      <url>http://maven.apache.org/reference/plugins/xdoc/</url>
+      <type>plugin</type>
+    </dependency>
+
   </dependencies>
 
   <build>
