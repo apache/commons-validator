@@ -71,6 +71,7 @@
       <fileset dir="./conf/share">
         <include name="*.xml"/>
         <include name="*.dtd"/>
+        <include name="*.txt"/>
       </fileset>
     </copy>
 
