@@ -57,9 +57,27 @@
   </postGoal>
 
   <!-- ================================================================== -->
+  <!-- Copy into the binary distribution                                  -->
+  <!-- ================================================================== -->
+  <postGoal name="dist:prepare-bin-filesystem">
+
+    <!-- Copy the NOTICE -->
+    <copy todir="${maven.dist.bin.assembly.dir}">
+      <fileset file='${basedir}/NOTICE.txt'/>
+    </copy>
+
+  </postGoal>
+
+
+  <!-- ================================================================== -->
   <!-- Copy into the source distribution                                  -->
   <!-- ================================================================== -->
   <postGoal name="dist:prepare-src-filesystem">
+
+    <!-- Copy the NOTICE -->
+    <copy todir="${maven.dist.src.assembly.dir}">
+      <fileset file='${basedir}/NOTICE.txt'/>
+    </copy>
 
     <!-- Copy xdoc files -->
     <copy todir="${maven.dist.src.assembly.dir}/xdocs">
