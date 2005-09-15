@@ -47,6 +47,7 @@ public class ValidatorResult implements Serializable {
     /**
      * Constructs a <code>ValidatorResult</code> with the associated field being
      * validated.
+     * @param field Field that was validated.
      */
     public ValidatorResult(Field field) {
         this.field = field;
@@ -54,6 +55,8 @@ public class ValidatorResult implements Serializable {
 
     /**
      * Add the result of a validator action.
+     * @param validatorName Name of the validator.
+     * @param result Whether the validation passed or failed.
      */
     public void add(String validatorName, boolean result) {
         this.add(validatorName, result, null);
@@ -61,26 +64,44 @@ public class ValidatorResult implements Serializable {
 
     /**
      * Add the result of a validator action.
+     * @param validatorName Name of the validator.
+     * @param result Whether the validation passed or failed.
+     * @param value Value returned by the validator.
      */
     public void add(String validatorName, boolean result, Object value) {
         hAction.put(validatorName, new ResultStatus(result, value));
     }
 
+    /**
+     * Indicate whether a specified validator is in the Result.
+     * @param validatorName Name of the validator.
+     * @return true if the validator is in the result.
+     */
     public boolean containsAction(String validatorName) {
         return hAction.containsKey(validatorName);
     }
 
+    /**
+     * Indicate whether a specified validation passed.
+     * @param validatorName Name of the validator.
+     * @return true if the validation passed.
+     */
     public boolean isValid(String validatorName) {
         ResultStatus status = (ResultStatus) hAction.get(validatorName);
         return (status == null) ? false : status.isValid();
     }
 
+    /**
+     * Return a Map of the validator actions in this Result.
+     * @return Map of validator actions.
+     */
     public Map getActionMap() {
         return Collections.unmodifiableMap(hAction);
     }
 
     /**
      * Returns the Field that was validated.
+     * @return The Field associated with this result.
      */
     public Field getField() {
         return this.field;
@@ -93,6 +114,11 @@ public class ValidatorResult implements Serializable {
         private boolean valid = false;
         private Object result = null;
 
+       /**
+        * Construct a Result status.
+         * @param valid Whether the validator passed or failed.
+         * @param result Value returned by the validator.
+        */
         public ResultStatus(boolean valid, Object result) {
             this.valid = valid;
             this.result = result;
@@ -100,6 +126,7 @@ public class ValidatorResult implements Serializable {
 
         /**
          * Tests whether or not the validation passed.
+         * @return true if the result was good.
          */
         public boolean isValid() {
             return valid;
@@ -107,6 +134,7 @@ public class ValidatorResult implements Serializable {
 
         /**
          * Sets whether or not the validation passed.
+         * @param valid Whether the validation passed.
          */
         public void setValid(boolean valid) {
             this.valid = valid;
@@ -116,6 +144,7 @@ public class ValidatorResult implements Serializable {
          * Gets the result returned by a validation method.
          * This can be used to retrieve to the correctly
          * typed value of a date validation for example.
+         * @return The value returned by the validation.
          */
         public Object getResult() {
             return result;
@@ -125,6 +154,7 @@ public class ValidatorResult implements Serializable {
          * Sets the result returned by a validation method.
          * This can be used to retrieve to the correctly
          * typed value of a date validation for example.
+         * @param result The value returned by the validation.
          */
         public void setResult(Object result) {
             this.result = result;

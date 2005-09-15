@@ -89,6 +89,9 @@ public class Validator implements Serializable {
      */
     public static final String LOCALE_PARAM = "java.util.Locale";
 
+    /**
+     * The Validator Resources.
+     */
     protected ValidatorResources resources = null;
 
     /**
@@ -202,6 +205,7 @@ public class Validator implements Serializable {
      *
      * @param parameterClassName The full class name of the parameter of the
      * validation method that corresponds to the value/instance passed in with it.
+     * @return value of the specified parameter.
      */
     public Object getParameterValue(String parameterClassName) {
         return this.parameters.get(parameterClassName);
@@ -209,6 +213,7 @@ public class Validator implements Serializable {
 
     /**
      * Gets the form name which is the key to a set of validation rules.
+     * @return the name of the form.
      */
     public String getFormName() {
         return formName;
@@ -216,6 +221,7 @@ public class Validator implements Serializable {
 
     /**
      * Sets the form name which is the key to a set of validation rules.
+     * @param formName the name of the form.
      */
     public void setFormName(String formName) {
         this.formName = formName;
@@ -235,6 +241,7 @@ public class Validator implements Serializable {
      * Gets the page.  This in conjunction with the page property of
      * a <code>Field<code> can control the processing of fields. If the field's
      * page is less than or equal to this page value, it will be processed.
+     * @return the page number.
      */
     public int getPage() {
         return page;
@@ -244,6 +251,7 @@ public class Validator implements Serializable {
      * Sets the page.  This in conjunction with the page property of
      * a <code>Field<code> can control the processing of fields. If the field's page
      * is less than or equal to this page value, it will be processed.
+     * @param page the page number.
      */
     public void setPage(int page) {
         this.page = page;
@@ -267,6 +275,7 @@ public class Validator implements Serializable {
 
     /**
      * Return the boolean as to whether the context classloader should be used.
+     * @return whether the context classloader should be used.
      */
     public boolean getUseContextClassLoader() {
         return this.useContextClassLoader;
@@ -294,6 +303,7 @@ public class Validator implements Serializable {
      *     <code>useContextClassLoader</code> property is set to true</li>
      * <li>The class loader used to load the Digester class itself.
      * </ul>
+     * @return the class loader.
      */
     public ClassLoader getClassLoader() {
         if (this.classLoader != null) {
@@ -352,6 +362,7 @@ public class Validator implements Serializable {
 
     /**
      * Returns true if the Validator is only returning Fields that fail validation.
+     * @return whether only failed fields are returned.
      */
     public boolean getOnlyReturnErrors() {
         return onlyReturnErrors;
@@ -361,6 +372,7 @@ public class Validator implements Serializable {
      * Configures which Fields the Validator returns from the validate() method.  Set this
      * to true to only return Fields that failed validation.  By default, validate() returns
      * all fields.
+     * @param onlyReturnErrors whether only failed fields are returned.
      */
     public void setOnlyReturnErrors(boolean onlyReturnErrors) {
         this.onlyReturnErrors = onlyReturnErrors;

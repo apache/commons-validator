@@ -41,6 +41,8 @@ public class ValidatorResults implements Serializable {
 
     /**
      * Merge another ValidatorResults into mine.
+     *
+     * @param results ValidatorResults to merge.
      */
     public void merge(ValidatorResults results) {
         this.hResults.putAll(results.hResults);
@@ -48,6 +50,10 @@ public class ValidatorResults implements Serializable {
 
     /**
      * Add a the result of a validator action.
+     *
+     * @param field The field validated.
+     * @param validatorName The name of the validator.
+     * @param result The result of the validation.
      */
     public void add(Field field, String validatorName, boolean result) {
         this.add(field, validatorName, result, null);
@@ -55,6 +61,11 @@ public class ValidatorResults implements Serializable {
 
     /**
      * Add a the result of a validator action.
+     *
+     * @param field The field validated.
+     * @param validatorName The name of the validator.
+     * @param result The result of the validation.
+     * @param value The value returned by the validator.
      */
     public void add(
             Field field,
@@ -82,6 +93,8 @@ public class ValidatorResults implements Serializable {
     /**
      * Return <code>true</code> if there are no messages recorded
      * in this collection, or <code>false</code> otherwise.
+     *
+     * @return Whether these results are empty.
      */
     public boolean isEmpty() {
         return this.hResults.isEmpty();
@@ -94,6 +107,8 @@ public class ValidatorResults implements Serializable {
      *
      * @param key The key generated from <code>Field</code> (this is often just
      * the field name).
+     *
+     * @return The result of a specified key.
      */
     public ValidatorResult getValidatorResult(String key) {
         return (ValidatorResult) this.hResults.get(key);
@@ -111,6 +126,8 @@ public class ValidatorResults implements Serializable {
     /**
      * Get a <code>Map</code> of any <code>Object</code>s returned from
      * validation routines.
+     *
+     * @return Map of objections returned by validators.
      */
     public Map getResultValueMap() {
         Map results = new HashMap();

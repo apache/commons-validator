@@ -61,13 +61,39 @@ public class Field implements Cloneable, Serializable {
      */
     public static final String TOKEN_INDEXED = "[]";
 
+    /**
+     * The start of a token.
+     */
     protected static final String TOKEN_START = "${";
+
+    /**
+     * The end of a token.
+     */
     protected static final String TOKEN_END = "}";
+
+    /**
+     * A Vriable token.
+     */
     protected static final String TOKEN_VAR = "var:";
 
+    /**
+     * The Field's property name.
+     */
     protected String property = null;
+
+    /**
+     * The Field's indexed property name.
+     */
     protected String indexedProperty = null;
+
+    /**
+     * The Field's indexed list property name.
+     */
     protected String indexedListProperty = null;
+
+    /**
+     * The Field's unique key.
+     */
     protected String key = null;
 
     /**
@@ -75,8 +101,14 @@ public class Field implements Cloneable, Serializable {
      */
     protected String depends = null;
 
+    /**
+     * The Page Number
+     */
     protected int page = 0;
     
+    /**
+     * The order of the Field in the Form.
+     */
     protected int fieldOrder = 0;
 
     /**
@@ -108,6 +140,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Gets the page value that the Field is associated with for
      * validation.
+     * @return The page number.
      */
     public int getPage() {
         return this.page;
@@ -116,6 +149,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Sets the page value that the Field is associated with for
      * validation.
+     * @param page The page number.
      */
     public void setPage(int page) {
         this.page = page;
@@ -123,6 +157,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Gets the position of the <code>Field</code> in the validation list.
+     * @return The field position.
      */
     public int getFieldOrder() {
         return this.fieldOrder;
@@ -130,6 +165,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Sets the position of the <code>Field</code> in the validation list.
+     * @param fieldOrder The field position.
      */
     public void setFieldOrder(int fieldOrder) {
         this.fieldOrder = fieldOrder;
@@ -137,6 +173,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Gets the property name of the field.
+     * @return The field's property name.
      */
     public String getProperty() {
         return this.property;
@@ -144,6 +181,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Sets the property name of the field.
+     * @param property The field's property name.
      */
     public void setProperty(String property) {
         this.property = property;
@@ -153,6 +191,7 @@ public class Field implements Cloneable, Serializable {
      * Gets the indexed property name of the field.  This
      * is the method name that can take an <code>int</code> as
      * a parameter for indexed property value retrieval.
+     * @return The field's indexed property name.
      */
     public String getIndexedProperty() {
         return this.indexedProperty;
@@ -160,6 +199,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Sets the indexed property name of the field.
+     * @param indexedProperty The field's indexed property name.
      */
     public void setIndexedProperty(String indexedProperty) {
         this.indexedProperty = indexedProperty;
@@ -171,6 +211,7 @@ public class Field implements Cloneable, Serializable {
      * <code>Collection</code> used to retrieve the
      * list and then loop through the list performing the specified
      * validations.
+     * @return The field's indexed List property name.
      */
     public String getIndexedListProperty() {
         return this.indexedListProperty;
@@ -178,6 +219,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Sets the indexed property name of the field.
+     * @param indexedListProperty The field's indexed List property name.
      */
     public void setIndexedListProperty(String indexedListProperty) {
         this.indexedListProperty = indexedListProperty;
@@ -185,6 +227,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Gets the validation rules for this field as a comma separated list.
+     * @return A comma separated list of validator names.
      */
     public String getDepends() {
         return this.depends;
@@ -211,6 +254,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Add a <code>Msg</code> to the <code>Field</code>.
+     * @param msg A validation message.
      */
     public void addMsg(Msg msg) {
         hMsgs.put(msg.getName(), msg);
@@ -218,6 +262,8 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Retrieve a message value.
+     * @param key Validation key.
+     * @return A validation message for a specified validator.
      */
     public String getMsg(String key) {
         Msg msg = getMessage(key);
@@ -227,6 +273,8 @@ public class Field implements Cloneable, Serializable {
     /**
      * Retrieve a message object.
      * @since Validator 1.1.4
+     * @param key Validation key.
+     * @return A validation message for a specified validator.
      */
     public Msg getMessage(String key) {
         return (Msg) hMsgs.get(key);
@@ -236,6 +284,7 @@ public class Field implements Cloneable, Serializable {
      * The <code>Field</code>'s messages are returned as an
      * unmodifiable <code>Map</code>.
      * @since Validator 1.1.4
+     * @return Map of validation messages for the field.
      */
     public Map getMessages() {
         return Collections.unmodifiableMap(hMsgs);
@@ -244,6 +293,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Add an <code>Arg</code> to the replacement argument list.
      * @since Validator 1.1
+     * @param arg Validation message's argument.
      */
     public void addArg(Arg arg) {
         // TODO this first if check can go away after arg0, etc. are removed from dtd
@@ -325,6 +375,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Gets the default <code>Arg</code> object at the given position.
+     * @param position Validation message argument's position.
      * @return The default Arg or null if not found.
      * @since Validator 1.1
      */
@@ -369,14 +420,15 @@ public class Field implements Cloneable, Serializable {
         Arg[] args = new Arg[this.args.length];
         
         for (int i = 0; i < this.args.length; i++) {
-		  args[i] = this.getArg(key, i);	
-		}
+            args[i] = this.getArg(key, i);
+        }
         
         return args;
     }
 
     /**
      * Add a <code>Var</code> to the <code>Field</code>.
+     * @param v The Validator Argument.
      */
     public void addVar(Var v) {
         this.hVars.put(v.getName(), v);
@@ -385,9 +437,9 @@ public class Field implements Cloneable, Serializable {
     /**
      * Add a <code>Var</code>, based on the values passed in, to the
      * <code>Field</code>.
-     * @param name
-     * @param value
-     * @param jsType
+     * @param name Name of the validation.
+     * @param value The Argument's value.
+     * @param jsType The Javascript type.
      */
     public void addVar(String name, String value, String jsType) {
         this.addVar(new Var(name, value, jsType));
@@ -395,7 +447,8 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Retrieve a variable.
-     * @param mainKey
+     * @param mainKey The Variable's key
+     * @return the Variable
      */
     public Var getVar(String mainKey) {
         return (Var) hVars.get(mainKey);
@@ -403,7 +456,8 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Retrieve a variable's value.
-     * @param mainKey
+     * @param mainKey The Variable's key
+     * @return the Variable's value
      */
     public String getVarValue(String mainKey) {
         String value = null;
@@ -420,6 +474,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * The <code>Field</code>'s variables are returned as an
      * unmodifiable <code>Map</code>.
+     * @return the Map of Variable's for a Field.
      */
     public Map getVars() {
         return Collections.unmodifiableMap(hVars);
@@ -427,6 +482,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Gets a unique key based on the property and indexedProperty fields.
+     * @return a unique key for the field.
      */
     public String getKey() {
         if (this.key == null) {
@@ -439,7 +495,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Sets a unique key for the field.  This can be used to change
      * the key temporarily to have a unique key for an indexed field.
-     * @param key
+     * @param key a unique key for the field
      */
     public void setKey(String key) {
         this.key = key;
@@ -449,6 +505,7 @@ public class Field implements Cloneable, Serializable {
      * If there is a value specified for the indexedProperty field then
      * <code>true</code> will be returned.  Otherwise it will be 
      * <code>false</code>.
+     * @return Whether the Field is indexed.
      */
     public boolean isIndexed() {
         return ((indexedListProperty != null && indexedListProperty.length() > 0));
@@ -570,6 +627,8 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Checks if the validator is listed as a dependency.
+     * @param validatorName Name of the validator to check.
+     * @return Whether the field is dependant on a validator.
      */
     public boolean isDependency(String validatorName) {
         return this.dependencyList.contains(validatorName);
@@ -578,6 +637,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Gets an unmodifiable <code>List</code> of the dependencies in the same 
      * order they were defined in parameter passed to the setDepends() method.
+     * @return A list of the Field's dependancies.
      */
     public List getDependencyList() {
         return Collections.unmodifiableList(this.dependencyList);
@@ -585,6 +645,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Creates and returns a copy of this object.
+     * @return A copy of the Field.
      */
     public Object clone() {
         Field field = null;
@@ -618,6 +679,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Returns a string representation of the object.
+     * @return A string representation of the object.
      */
     public String toString() {
         StringBuffer results = new StringBuffer();
@@ -712,7 +774,7 @@ public class Field implements Cloneable, Serializable {
      * @param actions
      * @param pos
      * @return true if all of the dependent validations passed.
-     * @throws ValidatorException
+     * @throws ValidatorException If there's an error running a validator
      */
     private boolean runDependentValidators(
         ValidatorAction va,
@@ -808,6 +870,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Returns a Map of String Msg names to Msg objects.
      * @since Validator 1.2.0
+     * @return A Map of the Field's messages.
      */
     protected Map getMsgMap() {
         return hMsgs;
@@ -816,6 +879,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Returns a Map of String Var names to Var objects.
      * @since Validator 1.2.0
+     * @return A Map of the Field's variables.
      */
     protected Map getVarMap() {
         return hVars;

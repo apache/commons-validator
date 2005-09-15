@@ -65,6 +65,7 @@ public class EmailValidator {
 
     /**
      * Returns the Singleton instance of this validator.
+     * @return singleton instance of this validator.
      */
     public static EmailValidator getInstance() {
         return instance;
@@ -82,6 +83,7 @@ public class EmailValidator {
      *
      * @param email The value validation is being performed on.  A <code>null</code>
      * value is considered invalid.
+     * @return true if the email address is valid.
      */
     public boolean isValid(String email) {
         if (email == null) {
@@ -119,6 +121,7 @@ public class EmailValidator {
     /**
      * Returns true if the domain component of an email address is valid.
      * @param domain being validatied.
+     * @return true if the email address's domain is valid.
      */
     protected boolean isValidDomain(String domain) {
         boolean symbolic = false;
@@ -150,6 +153,7 @@ public class EmailValidator {
     /**
      * Returns true if the user component of an email address is valid.
      * @param user being validated
+     * @return true if the user name is valid.
      */
     protected boolean isValidUser(String user) {
         Perl5Util userMatcher = new Perl5Util();
@@ -159,6 +163,7 @@ public class EmailValidator {
     /**
      * Validates an IP address. Returns true if valid.
      * @param ipAddressMatcher Pattren matcher
+     * @return true if the ip address is valid.
      */
     protected boolean isValidIpAddress(Perl5Util ipAddressMatcher) {
         for (int i = 1; i <= 4; i++) {
@@ -186,6 +191,7 @@ public class EmailValidator {
     /**
      * Validates a symbolic domain name.  Returns true if it's valid.
      * @param domain symbolic domain name
+     * @return true if the symbolic domain name is valid.
      */
     protected boolean isValidSymbolicDomain(String domain) {
         String[] domainSegment = new String[10];
@@ -232,6 +238,8 @@ public class EmailValidator {
      *   regexps in the Email Addressing FAQ are imperfect - they will miss escaped
      *   chars in atoms, for example.
      *   Derived From    Mail::RFC822::Address
+     * @param emailStr The email address
+     * @return address with comments removed.
     */
     protected String stripComments(String emailStr)  {
      String input = emailStr;

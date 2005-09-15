@@ -52,6 +52,8 @@ public class ValidatorUtils {
      * @param value <code>String</code> to perform the replacement on.
      * @param key The name of the constant.
      * @param replaceValue The value of the constant.
+     *
+     * @return The modified value.
      */
     public static String replace(String value, String key, String replaceValue) {
 
@@ -92,6 +94,11 @@ public class ValidatorUtils {
      * "" is returned.  Otherwise, property.toString() is returned.  This method
      * may return <code>null</code> if there was an error retrieving the
      * property.
+     *
+     * @param bean The bean object.
+     * @param property The name of the property to access.
+     *
+     * @return The value of the property.
      */
     public static String getValueAsString(Object bean, String property) {
         Object value = null;
@@ -162,6 +169,8 @@ public class ValidatorUtils {
      * Makes a deep copy of a <code>Map</code> if the values are 
      * <code>Msg</code>, <code>Arg</code>, or <code>Var</code>.  Otherwise, 
      * it is a shallow copy.
+     *
+     * @param map The source Map to copy.
      *
      * @return A copy of the <code>Map</code> that was passed in.
      */

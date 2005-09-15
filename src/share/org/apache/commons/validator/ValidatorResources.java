@@ -162,8 +162,8 @@ public class ValidatorResources implements Serializable {
      * formed.
      * @since Validator 1.2
      */
-    public ValidatorResources(String url) throws IOException, SAXException {
-        this(new String[]{url});
+    public ValidatorResources(String uri) throws IOException, SAXException {
+        this(new String[]{uri});
     }
 
     /**
@@ -214,6 +214,7 @@ public class ValidatorResources implements Serializable {
      * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
      * object.  It will be associated with the <code>Locale</code> of the
      * <code>FormSet</code>.
+     * @param fs The form set to add.
      * @since Validator 1.1
      */
     public void addFormSet(FormSet fs) {
@@ -242,6 +243,8 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Add a global constant to the resource.
+     * @param name The constant name.
+     * @param value The constant value.
      */
     public void addConstant(String name, String value) {
         if (log.isDebugEnabled()) {
@@ -256,6 +259,7 @@ public class ValidatorResources implements Serializable {
      * instance of the class based on the <code>ValidatorAction</code>s
      * classname and retrieves the <code>Method</code> instance and sets them
      * in the <code>ValidatorAction</code>.
+     * @param va The validator action.
      */
     public void addValidatorAction(ValidatorAction va) {
         va.init();
@@ -269,6 +273,8 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Get a <code>ValidatorAction</code> based on it's name.
+     * @param key The validator action key.
+     * @return The validator action.
      */
     public ValidatorAction getValidatorAction(String key) {
         return (ValidatorAction) hActions.get(key);
@@ -276,6 +282,7 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Get an unmodifiable <code>Map</code> of the <code>ValidatorAction</code>s.
+     * @return Map of validator actions.
      */
     public Map getValidatorActions() {
         return Collections.unmodifiableMap(hActions);
@@ -284,6 +291,8 @@ public class ValidatorResources implements Serializable {
     /**
      * Builds a key to store the <code>FormSet</code> under based on it's
      * language, country, and variant values.
+     * @param fs The Form Set.
+     * @return generated key for a formset.
      */
     protected String buildKey(FormSet fs) {
         return
@@ -310,6 +319,9 @@ public class ValidatorResources implements Serializable {
      *    <li>language</li>
      *    <li>default locale</li>
      * </ol>
+     * @param locale The Locale.
+     * @param formKey The key for the Form.
+     * @return The validator Form.
      * @since Validator 1.1
      */
     public Form getForm(Locale locale, String formKey) {
@@ -327,6 +339,11 @@ public class ValidatorResources implements Serializable {
      *    <li>language</li>
      *    <li>default locale</li>
      * </ol>
+     * @param language The locale's language.
+     * @param country The locale's country.
+     * @param variant The locale's language variant.
+     * @param formKey The key for the Form.
+     * @return The validator Form.
      * @since Validator 1.1
      */
     public Form getForm(String language, String country, String variant,
@@ -435,6 +452,7 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Returns a Map of String locale keys to Lists of their FormSets.
+     * @return Map of Form sets
      * @since Validator 1.2.0
      */
     protected Map getFormSets() {
@@ -443,6 +461,7 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Returns a Map of String constant names to their String values.
+     * @return Map of Constants
      * @since Validator 1.2.0
      */
     protected Map getConstants() {
@@ -451,6 +470,7 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Returns a Map of String ValidatorAction names to their ValidatorAction.
+     * @return Map of Validator Actions
      * @since Validator 1.2.0
      */
     protected Map getActions() {

@@ -47,6 +47,7 @@ public class GenericValidator implements Serializable {
      * than zero not including whitespace.</p>
      *
      * @param value The value validation is being performed on.
+     * @return true if blank or null.
      */
     public static boolean isBlankOrNull(String value) {
         return ((value == null) || (value.trim().length() == 0));
@@ -57,6 +58,7 @@ public class GenericValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param regexp The regular expression.
+     * @return true if matches the regular expression.
      */
     public static boolean matchRegexp(String value, String regexp) {
         if (regexp == null || regexp.length() <= 0) {
@@ -71,6 +73,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a byte primitive.</p>
      *
      * @param value The value validation is being performed on.
+     * @return true if the value can be converted to a Byte.
      */
     public static boolean isByte(String value) {
         return (GenericTypeValidator.formatByte(value) != null);
@@ -80,6 +83,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a short primitive.</p>
      *
      * @param value The value validation is being performed on.
+     * @return true if the value can be converted to a Short.
      */
     public static boolean isShort(String value) {
         return (GenericTypeValidator.formatShort(value) != null);
@@ -89,6 +93,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a int primitive.</p>
      *
      * @param value The value validation is being performed on.
+     * @return true if the value can be converted to an Integer.
      */
     public static boolean isInt(String value) {
         return (GenericTypeValidator.formatInt(value) != null);
@@ -98,6 +103,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a long primitive.</p>
      *
      * @param value The value validation is being performed on.
+     * @return true if the value can be converted to a Long.
      */
     public static boolean isLong(String value) {
         return (GenericTypeValidator.formatLong(value) != null);
@@ -107,6 +113,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a float primitive.</p>
      *
      * @param value The value validation is being performed on.
+     * @return true if the value can be converted to a Float.
      */
     public static boolean isFloat(String value) {
         return (GenericTypeValidator.formatFloat(value) != null);
@@ -116,6 +123,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if the value can safely be converted to a double primitive.</p>
      *
      * @param value The value validation is being performed on.
+     * @return true if the value can be converted to a Double.
      */
     public static boolean isDouble(String value) {
         return (GenericTypeValidator.formatDouble(value) != null);
@@ -129,6 +137,7 @@ public class GenericValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the date format, defaults to the 
      * system default if null.
+     * @return true if the value can be converted to a Date.
      */
     public static boolean isDate(String value, Locale locale) {
         return DateValidator.getInstance().isValid(value, locale);
@@ -144,6 +153,7 @@ public class GenericValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @param datePattern The pattern passed to <code>SimpleDateFormat</code>.
      * @param strict Whether or not to have an exact match of the datePattern.
+     * @return true if the value can be converted to a Date.
      */
     public static boolean isDate(String value, String datePattern, boolean strict) {
         return DateValidator.getInstance().isValid(value, datePattern, strict);
@@ -156,6 +166,7 @@ public class GenericValidator implements Serializable {
     * @param value The value validation is being performed on.
     * @param min The minimum value of the range.
     * @param max The maximum value of the range.
+     * @return true if the value is in the specified range.
     */
     public static boolean isInRange(byte value, byte min, byte max) {
         return ((value >= min) && (value <= max));
@@ -168,6 +179,7 @@ public class GenericValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @param min The minimum value of the range.
      * @param max The maximum value of the range.
+     * @return true if the value is in the specified range.
      */
     public static boolean isInRange(int value, int min, int max) {
         return ((value >= min) && (value <= max));
@@ -180,6 +192,7 @@ public class GenericValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @param min The minimum value of the range.
      * @param max The maximum value of the range.
+     * @return true if the value is in the specified range.
      */
     public static boolean isInRange(float value, float min, float max) {
         return ((value >= min) && (value <= max));
@@ -192,6 +205,7 @@ public class GenericValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @param min The minimum value of the range.
      * @param max The maximum value of the range.
+     * @return true if the value is in the specified range.
      */
     public static boolean isInRange(short value, short min, short max) {
         return ((value >= min) && (value <= max));
@@ -204,6 +218,7 @@ public class GenericValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @param min The minimum value of the range.
      * @param max The maximum value of the range.
+     * @return true if the value is in the specified range.
      */
     public static boolean isInRange(long value, long min, long max) {
         return ((value >= min) && (value <= max));
@@ -216,6 +231,7 @@ public class GenericValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @param min The minimum value of the range.
      * @param max The maximum value of the range.
+     * @return true if the value is in the specified range.
      */
     public static boolean isInRange(double value, double min, double max) {
         return ((value >= min) && (value <= max));
@@ -224,6 +240,7 @@ public class GenericValidator implements Serializable {
     /**
      * Checks if the field is a valid credit card number.
      * @param value The value validation is being performed on.
+     * @return true if the value is valid Credit Card Number.
      */
     public static boolean isCreditCard(String value) {
         return creditCardValidator.isValid(value);
@@ -233,6 +250,7 @@ public class GenericValidator implements Serializable {
      * <p>Checks if a field has a valid e-mail address.</p>
      *
      * @param value The value validation is being performed on.
+     * @return true if the value is valid Email Address.
      */
     public static boolean isEmail(String value) {
         return EmailValidator.getInstance().isValid(value);
@@ -244,6 +262,7 @@ public class GenericValidator implements Serializable {
      * consider using the UrlValidator directly.
      *
      * @param value The value validation is being performed on.
+     * @return true if the value is valid Url.
      */
     public static boolean isUrl(String value) {
         return urlValidator.isValid(value);
@@ -254,6 +273,7 @@ public class GenericValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param max The maximum length.
+     * @return true if the value's length is less than the specified maximum.
      */
     public static boolean maxLength(String value, int max) {
         return (value.length() <= max);
@@ -264,6 +284,7 @@ public class GenericValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param min The minimum length.
+     * @return true if the value's length is more than the specified minimum.
      */
     public static boolean minLength(String value, int min) {
         return (value.length() >= min);
@@ -276,6 +297,7 @@ public class GenericValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param min The minimum numeric value.
+     * @return true if the value is &gt;= the specified minimum.
      */
     public static boolean minValue(int value, int min) {
         return (value >= min);
@@ -286,6 +308,7 @@ public class GenericValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param min The minimum numeric value.
+     * @return true if the value is &gt;= the specified minimum.
      */
     public static boolean minValue(long value, long min) {
         return (value >= min);
@@ -296,6 +319,7 @@ public class GenericValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param min The minimum numeric value.
+     * @return true if the value is &gt;= the specified minimum.
      */
     public static boolean minValue(double value, double min) {
         return (value >= min);
@@ -306,6 +330,7 @@ public class GenericValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param min The minimum numeric value.
+     * @return true if the value is &gt;= the specified minimum.
      */
     public static boolean minValue(float value, float min) {
         return (value >= min);
@@ -316,6 +341,7 @@ public class GenericValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param max The maximum numeric value.
+     * @return true if the value is &lt;= the specified maximum.
      */
     public static boolean maxValue(int value, int max) {
         return (value <= max);
@@ -326,6 +352,7 @@ public class GenericValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param max The maximum numeric value.
+     * @return true if the value is &lt;= the specified maximum.
      */
     public static boolean maxValue(long value, long max) {
         return (value <= max);
@@ -336,6 +363,7 @@ public class GenericValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param max The maximum numeric value.
+     * @return true if the value is &lt;= the specified maximum.
      */
     public static boolean maxValue(double value, double max) {
         return (value <= max);
@@ -346,6 +374,7 @@ public class GenericValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param max The maximum numeric value.
+     * @return true if the value is &lt;= the specified maximum.
      */
     public static boolean maxValue(float value, float max) {
         return (value <= max);

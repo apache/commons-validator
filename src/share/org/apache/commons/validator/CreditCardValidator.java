@@ -123,6 +123,7 @@ public class CreditCardValidator {
     /**
      * Checks if the field is a valid credit card number.
      * @param card The card number to validate.
+     * @return Whether the card number is valid.
      */
     public boolean isValid(String card) {
         if ((card == null) || (card.length() < 13) || (card.length() > 19)) {
@@ -157,6 +158,7 @@ public class CreditCardValidator {
     /**
      * Checks for a valid credit card number.
      * @param cardNumber Credit Card Number.
+     * @return Whether the card number passes the luhnCheck.
      */
     protected boolean luhnCheck(String cardNumber) {
         // number must be validated as 0..9 numeric first!!

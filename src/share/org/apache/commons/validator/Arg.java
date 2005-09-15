@@ -86,6 +86,7 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Returns the resource bundle name.
+     * @return the bundle name.
      * @since Validator 1.1
      */
     public String getBundle() {

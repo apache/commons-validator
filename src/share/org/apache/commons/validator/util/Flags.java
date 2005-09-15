@@ -57,6 +57,8 @@ public class Flags implements Serializable {
 
     /**
      * Initialize a new Flags object with the given flags.
+     *
+     * @param flags collection of boolean flags to represent.
      */
     public Flags(long flags) {
         super();
@@ -65,6 +67,8 @@ public class Flags implements Serializable {
 
     /**
      * Returns the current flags.
+     *
+     * @return collection of boolean flags represented.
      */
     public long getFlags() {
         return this.flags;
@@ -73,6 +77,10 @@ public class Flags implements Serializable {
     /**
      * Tests whether the given flag is on.  If the flag is not a power of 2 
      * (ie. 3) this tests whether the combination of flags is on.
+     *
+     * @param flag Flag value to check.
+     *
+     * @return whether the specified flag value is on.
      */
     public boolean isOn(long flag) {
         return (this.flags & flag) > 0;
@@ -81,6 +89,10 @@ public class Flags implements Serializable {
     /**
      * Tests whether the given flag is off.  If the flag is not a power of 2 
      * (ie. 3) this tests whether the combination of flags is off.
+     *
+     * @param flag Flag value to check.
+     *
+     * @return whether the specified flag value is off.
      */
     public boolean isOff(long flag) {
         return (this.flags & flag) == 0;
@@ -89,6 +101,8 @@ public class Flags implements Serializable {
     /**
      * Turns on the given flag.  If the flag is not a power of 2 (ie. 3) this
      * turns on multiple flags.
+     *
+     * @param flag Flag value to turn on.
      */
     public void turnOn(long flag) {
         this.flags |= flag;
@@ -97,6 +111,8 @@ public class Flags implements Serializable {
     /**
      * Turns off the given flag.  If the flag is not a power of 2 (ie. 3) this
      * turns off multiple flags.
+     *
+     * @param flag Flag value to turn off.
      */
     public void turnOff(long flag) {
         this.flags &= ~flag;
@@ -126,6 +142,8 @@ public class Flags implements Serializable {
 
     /**
      * Clone this Flags object.
+     *
+     * @return a copy of this object.
      * @see java.lang.Object#clone()
      */
     public Object clone() {
@@ -140,6 +158,8 @@ public class Flags implements Serializable {
      * Tests if two Flags objects are in the same state.
      * @param obj object being tested
      * @see java.lang.Object#equals(java.lang.Object)
+     *
+     * @return whether the objects are equal.
      */
     public boolean equals(Object obj) {
         if (!(obj instanceof Flags)) {
@@ -158,6 +178,8 @@ public class Flags implements Serializable {
     /**
      * The hash code is based on the current state of the flags.
      * @see java.lang.Object#hashCode()
+     *
+     * @return the hash code for this object.
      */
     public int hashCode() {
         return (int) this.flags;
@@ -167,6 +189,8 @@ public class Flags implements Serializable {
      * Returns a 64 length String with the first flag on the right and the 
      * 64th flag on the left.  A 1 indicates the flag is on, a 0 means it's 
      * off.
+     *
+     * @return string representation of this object.
      */
     public String toString() {
         StringBuffer bin = new StringBuffer(Long.toBinaryString(this.flags));

@@ -309,6 +309,8 @@ public class UrlValidator implements Serializable {
     /**
      * Returns true if the authority is properly formatted.  An authority is the combination
      * of hostname and port.  A <code>null</code> authority value is considered invalid.
+     * @param authority Authority value to validate.
+     * @return true if authority (hostname and port) is valid.
      */
     protected boolean isValidAuthority(String authority) {
         if (authority == null) {
@@ -411,6 +413,8 @@ public class UrlValidator implements Serializable {
 
     /**
      * Returns true if the path is valid.  A <code>null</code> value is considered invalid.
+     * @param path Path value to validate.
+     * @return true if path is valid.
      */
     protected boolean isValidPath(String path) {
         if (path == null) {
@@ -441,6 +445,8 @@ public class UrlValidator implements Serializable {
 
     /**
      * Returns true if the query is null or it's a properly formatted query string.
+     * @param query Query value to validate.
+     * @return true if query is valid.
      */
     protected boolean isValidQuery(String query) {
         if (query == null) {
@@ -453,6 +459,8 @@ public class UrlValidator implements Serializable {
 
     /**
      * Returns true if the given fragment is null or fragments are allowed.
+     * @param fragment Fragment value to validate.
+     * @return true if fragment is valid.
      */
     protected boolean isValidFragment(String fragment) {
         if (fragment == null) {
@@ -464,6 +472,9 @@ public class UrlValidator implements Serializable {
 
     /**
      * Returns the number of times the token appears in the target.
+     * @param token Token value to be counted.
+     * @param target Target value to count tokens in.
+     * @return the number of tokens.
      */
     protected int countToken(String token, String target) {
         int tokenIndex = 0;

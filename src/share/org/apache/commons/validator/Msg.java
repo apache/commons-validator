@@ -58,6 +58,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Returns the resource bundle name.
+     * @return The bundle name.
      * @since Validator 1.1
      */
     public String getBundle() {
@@ -75,6 +76,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Gets the name of the dependency.
+     * @return The dependency name.
      */
     public String getName() {
         return name;
@@ -82,6 +84,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Sets the name of the dependency.
+     * @param name The dependency name.
      */
     public void setName(String name) {
         this.name = name;
@@ -89,6 +92,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Gets the key/value.
+     * @return The message key/value.
      */
     public String getKey() {
         return key;
@@ -96,6 +100,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Sets the key/value.
+     * @param key The message key/value.
      */
     public void setKey(String key) {
         this.key = key;
@@ -121,6 +126,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Creates and returns a copy of this object.
+     * @return A copy of the Msg.
      */
     public Object clone() {
         try {
@@ -133,6 +139,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Returns a string representation of the object.
+     * @return Msg String representation.
      */
     public String toString() {
         StringBuffer results = new StringBuffer();

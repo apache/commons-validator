@@ -160,6 +160,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Gets the name of the validator action.
+     * @return Validator Action name.
      */
     public String getName() {
         return name;
@@ -167,6 +168,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Sets the name of the validator action.
+     * @param name Validator Action name.
      */
     public void setName(String name) {
         this.name = name;
@@ -174,6 +176,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Gets the class of the validator action.
+     * @return Class name of the validator Action.
      */
     public String getClassname() {
         return classname;
@@ -181,6 +184,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Sets the class of the validator action.
+     * @param classname Class name of the validator Action.
      */
     public void setClassname(String classname) {
         this.classname = classname;
@@ -188,6 +192,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Gets the name of method being called for the validator action.
+     * @return The method name.
      */
     public String getMethod() {
         return method;
@@ -195,6 +200,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Sets the name of method being called for the validator action.
+     * @param method The method name.
      */
     public void setMethod(String method) {
         this.method = method;
@@ -202,6 +208,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Gets the method parameters for the method.
+     * @return Method's parameters.
      */
     public String getMethodParams() {
         return methodParams;
@@ -229,6 +236,7 @@ public class ValidatorAction implements Serializable {
     /**
      * Gets the dependencies of the validator action as a comma separated list 
      * of validator names.
+     * @return The validator action's dependencies.
      */
     public String getDepends() {
         return this.depends;
@@ -255,6 +263,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Gets the message associated with the validator action.
+     * @return The message for the validator action.
      */
     public String getMsg() {
         return msg;
@@ -262,6 +271,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Sets the message associated with the validator action.
+     * @param msg The message for the validator action.
      */
     public void setMsg(String msg) {
         this.msg = msg;
@@ -271,6 +281,7 @@ public class ValidatorAction implements Serializable {
      * Gets the Javascript function name.  This is optional and can
      * be used instead of validator action name for the name of the
      * Javascript function/object.
+     * @return The Javascript function name.
      */
     public String getJsFunctionName() {
         return jsFunctionName;
@@ -280,6 +291,7 @@ public class ValidatorAction implements Serializable {
      * Sets the Javascript function name.  This is optional and can
      * be used instead of validator action name for the name of the
      * Javascript function/object.
+     * @param jsFunctionName The Javascript function name.
      */
     public void setJsFunctionName(String jsFunctionName) {
         this.jsFunctionName = jsFunctionName;
@@ -309,6 +321,7 @@ public class ValidatorAction implements Serializable {
      *         org.apache.commons.validator.javascript.validateTire.js
      *      which is the default javascript definition.
      * </pre>
+     * @param jsFunction The Javascript function's fully qualified class path.
      */
     public void setJsFunction(String jsFunction) {
         if (javascript != null) {
@@ -321,6 +334,7 @@ public class ValidatorAction implements Serializable {
     /**
      * Gets the Javascript equivalent of the java class and method
      * associated with this action.
+     * @return The Javascript validation.
      */
     public String getJavascript() {
         return javascript;
@@ -329,6 +343,7 @@ public class ValidatorAction implements Serializable {
     /**
      * Sets the Javascript equivalent of the java class and method
      * associated with this action.
+     * @param javascript The Javascript validation.
      */
     public void setJavascript(String javascript) {
         if (jsFunction != null) {
@@ -465,6 +480,8 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Checks whether or not the value passed in is in the depends field.
+     * @param validatorName Name of the dependency to check.
+     * @return Whether the named validator is a dependant.
      */
     public boolean isDependency(String validatorName) {
         return this.dependencyList.contains(validatorName);
@@ -473,6 +490,7 @@ public class ValidatorAction implements Serializable {
     /**
      * Returns the dependent validator names as an unmodifiable
      * <code>List</code>.
+     * @return List of the validator action's depedents.
      */
     public List getDependencyList() {
         return Collections.unmodifiableList(this.dependencyList);
@@ -480,6 +498,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Returns a string representation of the object.
+     * @return a string representation.
      */
     public String toString() {
         StringBuffer results = new StringBuffer("ValidatorAction: ");

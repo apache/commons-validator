@@ -44,6 +44,7 @@ public class DateValidator {
 
     /**
      * Returns the Singleton instance of this validator.
+     * @return A singleton instance of the DateValidator.
      */
     public static DateValidator getInstance() {
         return instance;
@@ -66,6 +67,7 @@ public class DateValidator {
      * @param value The value validation is being performed on.
      * @param datePattern The pattern passed to <code>SimpleDateFormat</code>.
      * @param strict Whether or not to have an exact match of the datePattern.
+     * @return true if the date is valid.
      */
     public boolean isValid(String value, String datePattern, boolean strict) {
 
@@ -100,6 +102,7 @@ public class DateValidator {
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the date format, defaults to the default
      * system default if null.
+     * @return true if the date is valid.
      */
     public boolean isValid(String value, Locale locale) {
 

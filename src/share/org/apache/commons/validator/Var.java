@@ -63,10 +63,20 @@ public class Var implements Cloneable, Serializable {
      */
     private String jsType = null;
 
+    /**
+     * Default Constructor.
+     */
     public Var() {
         super();
     }
 
+    /**
+     * Constructs a variable with a specified name, value
+     * and Javascript type.
+     * @param Variable name.
+     * @param Variable value.
+     * @param Variable Javascript type.
+     */
     public Var(String name, String value, String jsType) {
         this.name = name;
         this.value = value;
@@ -75,6 +85,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Gets the name of the variable.
+     * @return The name of the variable.
      */
     public String getName() {
         return this.name;
@@ -82,6 +93,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Sets the name of the variable.
+     * @param name The name of the variable.
      */
     public void setName(String name) {
         this.name = name;
@@ -89,6 +101,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Gets the value of the variable.
+     * @return The value of the variable.
      */
     public String getValue() {
         return this.value;
@@ -96,6 +109,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Sets the value of the variable.
+     * @param value The value of the variable.
      */
     public void setValue(String value) {
         this.value = value;
@@ -103,6 +117,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Gets the JavaScript type of the variable.
+     * @return The Javascript type of the variable.
      */
     public String getJsType() {
         return this.jsType;
@@ -110,6 +125,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Sets the JavaScript type of the variable.
+     * @param jsType The Javascript type of the variable.
      */
     public void setJsType(String jsType) {
         this.jsType = jsType;
@@ -117,6 +133,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Creates and returns a copy of this object.
+     * @return A copy of the variable.
      */
     public Object clone() {
         try {
@@ -129,6 +146,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Returns a string representation of the object.
+     * @return A string representation of the variable.
      */
     public String toString() {
         StringBuffer results = new StringBuffer();

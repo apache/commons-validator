@@ -47,6 +47,9 @@ public class ISBNValidator {
     private static final String ISBN_PATTERN =
         "/^" + GROUP + SEP + PUBLISHER + SEP + TITLE + SEP + CHECK + "$/";
 
+    /**
+     * Default Constructor.
+     */
     public ISBNValidator() {
         super();
     }

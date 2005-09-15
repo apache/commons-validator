@@ -211,7 +211,7 @@ public class Form implements Serializable {
     /**
      * Returns a string representation of the object.
      *
-     * @return
+     * @return string representation
      */
     public String toString() {
         StringBuffer results = new StringBuffer();
