@@ -73,6 +73,10 @@ The <action> type attribute can be add,update,fix,remove.
         Handling of float and double should use the locale object.
         PR# 34198 and PR#21282 
       </action>
+      <action dev="mrdon" type="update">
+        More informative Exception message when validation method not found.
+        PR# 27471
+      </action>
       <action dev="mrdon" type="fix">
         Client-side required validation inconsistent with server-side.
         PR# 15912
@@ -141,6 +145,9 @@ The <action> type attribute can be add,update,fix,remove.
       </action>
       <action dev="niallp" type="add">
         Add 'resource' and 'bundle' elements to the 1.2.0 DTD. PR #32522.
+      </action>
+      <action dev="niallp" type="add">
+        Provide access to the result object in ValidatorResult. PR #27671.
       </action>
     </release>
   
