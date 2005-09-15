@@ -73,9 +73,9 @@ public class Var implements Cloneable, Serializable {
     /**
      * Constructs a variable with a specified name, value
      * and Javascript type.
-     * @param Variable name.
-     * @param Variable value.
-     * @param Variable Javascript type.
+     * @param name Variable name.
+     * @param value Variable value.
+     * @param jsType Variable Javascript type.
      */
     public Var(String name, String value, String jsType) {
         this.name = name;
