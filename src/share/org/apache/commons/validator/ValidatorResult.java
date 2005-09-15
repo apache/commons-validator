@@ -92,6 +92,16 @@ public class ValidatorResult implements Serializable {
     }
 
     /**
+     * Return the result of a validation.
+     * @param validatorName Name of the validator.
+     * @return The validation result.
+     */
+    public Object getResult(String validatorName) {
+        ResultStatus status = (ResultStatus) hAction.get(validatorName);
+        return (status == null) ? null : status.getResult();
+    }
+
+    /**
      * Return a Map of the validator actions in this Result.
      * @return Map of validator actions.
      */
