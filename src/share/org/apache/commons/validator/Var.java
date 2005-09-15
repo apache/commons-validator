@@ -54,7 +54,7 @@ public class Var implements Cloneable, Serializable {
     private String name = null;
 
     /**
-     * The name of the value.
+     * The key or value the variable.
      */
     private String value = null;
 
@@ -62,6 +62,16 @@ public class Var implements Cloneable, Serializable {
      * The optional JavaScript type of the variable.
      */
     private String jsType = null;
+
+    /**
+     * Whether the variable is a resource [false]
+     */
+    private boolean resource = false;
+
+    /**
+     * The bundle for a variable (when resource = 'true').
+     */
+    private String bundle = null;
 
     /**
      * Default Constructor.
@@ -116,6 +126,42 @@ public class Var implements Cloneable, Serializable {
     }
 
     /**
+     * Tests whether or not the value is a resource key or literal value.
+     * @return <code>true</code> if value is a resource key.
+     * @since Validator 1.2.0
+     */
+    public boolean isResource() {
+        return this.resource;
+    }
+
+    /**
+     * Sets whether or not the value is a resource.
+     * @param resource If true indicates the value is a resource.
+     * @since Validator 1.2.0
+     */
+    public void setResource(boolean resource) {
+        this.resource = resource;
+    }
+
+    /**
+     * Returns the resource bundle name.
+     * @return The bundle name.
+     * @since Validator 1.2.0
+     */
+    public String getBundle() {
+        return this.bundle;
+    }
+
+    /**
+     * Sets the resource bundle name.
+     * @param bundle The new bundle name.
+     * @since Validator 1.2.0
+     */
+    public void setBundle(String bundle) {
+        this.bundle = bundle;
+    }
+
+    /**
      * Gets the JavaScript type of the variable.
      * @return The Javascript type of the variable.
      */
@@ -155,6 +201,12 @@ public class Var implements Cloneable, Serializable {
         results.append(name);
         results.append("  value=");
         results.append(value);
+        results.append("  resource=");
+        results.append(resource);
+        if (resource) {
+            results.append("  bundle=");
+            results.append(bundle);
+        }
         results.append("  jsType=");
         results.append(jsType);
         results.append("\n");

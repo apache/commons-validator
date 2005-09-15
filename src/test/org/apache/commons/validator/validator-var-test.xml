@@ -1,0 +1,36 @@
+<!DOCTYPE form-validation PUBLIC
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.2.0//EN"
+     "http://jakarta.apache.org/commons/dtds/validator_1_2_0.dtd">
+     
+<form-validation>
+   <global>
+      <validator name="byte"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateByte"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+   </global>
+
+   <formset>
+      <form name="testForm">
+         <field property="field-1" depends="byte">
+             <var>
+                 <var-name>var-1-1</var-name>
+                 <var-value>value-1-1</var-value>
+                 <var-jstype>jstype-1-1</var-jstype>
+             </var>
+         </field>
+         <field property="field-2" depends="byte">
+             <var resource="true" bundle="bundle-2-1">
+                 <var-name>var-2-1</var-name>
+                 <var-value>value-2-1</var-value>
+                 <var-jstype>jstype-2-1</var-jstype>
+             </var>
+             <var resource="false" bundle="bundle-2-2">
+                 <var-name>var-2-2</var-name>
+                 <var-value>value-2-2</var-value>
+             </var>
+         </field>
+      </form>
+   </formset>   
+</form-validation>

@@ -53,10 +53,18 @@
 				<set-next-rule methodname="addField" paramtype="org.apache.commons.validator.Field" />
 				
 				<pattern value="var">
-					<call-method-rule methodname="addVar" paramcount="3" />
-					<call-param-rule pattern="var-name" paramnumber="0" />
-					<call-param-rule pattern="var-value" paramnumber="1" />
-					<call-param-rule pattern="var-jstype" paramnumber="2" />
+					<object-create-rule classname="org.apache.commons.validator.Var" />
+					<set-properties-rule/>
+					<pattern value="var-name">
+						<call-method-rule methodname="setName" paramcount="0" />
+					</pattern>
+					<pattern value="var-value">
+						<call-method-rule methodname="setValue" paramcount="0" />
+					</pattern>
+					<pattern value="var-jstype">
+						<call-method-rule methodname="setJsType" paramcount="0" />
+					</pattern>
+					<set-next-rule methodname="addVar" paramtype="org.apache.commons.validator.Var" />
 				</pattern>
 				
 				<pattern value="msg">
