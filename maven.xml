@@ -96,9 +96,9 @@
   </postGoal>
 
   <postGoal name="maven-javadoc-plugin:report"> 
-    <mkdir dir="${maven.build.dir}/javascript/org/apache/commons/validator" /> 
+    <mkdir dir="${maven.build.dir}/docs/javascript/org/apache/commons/validator" /> 
     <exec  executable="bash" failifexecutionfails="false">
-         <arg line="-c 'etc/jsdoc.sh ${jsdoc.home} ${javascript.home} ${maven.build.dir}/javascript' "/>
+         <arg line="-c 'etc/jsdoc.sh ${jsdoc.home} ${javascript.home} ${maven.build.dir}/docs/javascript' "/>
     </exec>
   </postGoal>
 
