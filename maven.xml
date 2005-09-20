@@ -77,6 +77,7 @@
     <!-- Copy the NOTICE -->
     <copy todir="${maven.dist.src.assembly.dir}">
       <fileset file='${basedir}/NOTICE.txt'/>
+      <fileset file="${basedir}/RELEASE-NOTES.readme"/>
     </copy>
 
     <!-- Copy xdoc files -->
@@ -90,6 +91,7 @@
         <include name="*.xml"/>
         <include name="*.dtd"/>
         <include name="*.txt"/>
+        <include name="*.MF"/>
       </fileset>
     </copy>
 
