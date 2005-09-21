@@ -85,6 +85,14 @@
       <fileset dir="./xdocs"/>
     </copy>
 
+    <!-- Copy etc files -->
+    <copy todir="${maven.dist.src.assembly.dir}/etc">
+      <fileset dir="./etc">
+        <include name="*.bat"/>
+        <include name="*.sh"/>
+      </fileset>
+    </copy>
+
     <!-- Copy configuration files -->
     <copy todir="${maven.dist.src.assembly.dir}/conf/share">
       <fileset dir="./conf/share">
@@ -99,10 +107,29 @@
 
   <postGoal name="maven-javadoc-plugin:report"> 
     <mkdir dir="${maven.build.dir}/docs/javascript/org/apache/commons/validator" /> 
+    <attainGoal name="javadoc.js.unix"/>
+    <attainGoal name="javadoc.js.windows"/>
+
+    <mkdir dir="${maven.build.dir}/docs/javascript/doc-files" /> 
+    <copy todir="${maven.build.dir}/docs/javascript/doc-files">
+      <fileset dir="${javascript.home}/org/apache/commons/validator/javascript/doc-files" includes="*.gif"/>
+    </copy>
+
+  </postGoal>
+
+  <goal name="javadoc.js.unix">
     <exec  executable="bash" failifexecutionfails="false">
          <arg line="-c 'etc/jsdoc.sh ${jsdoc.home} ${javascript.home} ${maven.build.dir}/docs/javascript' "/>
     </exec>
-  </postGoal>
+  </goal>
+
+  <goal name="javadoc.js.windows">
+    <exec  executable="etc/jsdoc.bat" failifexecutionfails="false">
+         <arg line="${jsdoc.home} ${javascript.home} ${maven.build.dir}/docs/javascript"/>
+    </exec>
+  </goal>
+
+
 
 </project>
 

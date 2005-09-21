@@ -238,10 +238,27 @@
     <mkdir      dir="${dist.home}/docs/javascript"/>
   </target>  
 
-  <target name="javadoc.js" depends="javadoc.init"
+  <target name="javadoc.js" depends="javadoc.js.unix,javadoc.js.windows"
+   description="Create Javascript Javadoc documentation">
+
+    <mkdir      dir="${dist.home}/docs/javascript/doc-files"/>
+    <copy todir="${dist.home}/docs/javascript/doc-files">
+      <fileset dir="${javascript.home}/org/apache/commons/validator/javascript/doc-files" includes="*.gif"/>
+    </copy>
+
+  </target>
+
+  <target name="javadoc.js.unix" depends="javadoc.init"
    description="Create Javascript Javadoc documentation">
     <exec  executable="bash" failifexecutionfails="false">
          <arg line="-c 'etc/jsdoc.sh ${jsdoc.home} ${javascript.home} ${dist.home}/docs/javascript' "/>
+    </exec>
+  </target>
+
+  <target name="javadoc.js.windows" depends="javadoc.init"
+   description="Windows Create Javascript Javadoc documentation">
+    <exec  executable="etc/jsdoc.bat" failifexecutionfails="false">
+         <arg line="${jsdoc.home} ${javascript.home} ${dist.home}/docs/javascript"/>
     </exec>
   </target>
 
