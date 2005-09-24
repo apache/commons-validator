@@ -162,7 +162,7 @@ public class LocaleTest extends TestCommon {
         name.setFirstName("");
         name.setLastName("");
 
-        valueTest(name, new Locale("en"), false, false, true);
+        valueTest(name, new Locale("en", ""), false, false, true);
     }
 
     /**

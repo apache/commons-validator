@@ -72,10 +72,11 @@ public class GenericTypeValidator implements Serializable {
         if (value != null) {
             NumberFormat formatter = null;
             if (locale != null) {
-                formatter = NumberFormat.getIntegerInstance(locale);
+                formatter = NumberFormat.getNumberInstance(locale);
             } else {
-                formatter = NumberFormat.getIntegerInstance(Locale.getDefault());
+                formatter = NumberFormat.getNumberInstance(Locale.getDefault());
             }
+            formatter.setParseIntegerOnly(true);
             ParsePosition pos = new ParsePosition(0);
             Number num = formatter.parse(value, pos);
 
@@ -124,10 +125,11 @@ public class GenericTypeValidator implements Serializable {
         if (value != null) {
             NumberFormat formatter = null;
             if (locale != null) {
-                formatter = NumberFormat.getIntegerInstance(locale);
+                formatter = NumberFormat.getNumberInstance(locale);
             } else {
-                formatter = NumberFormat.getIntegerInstance(Locale.getDefault());
+                formatter = NumberFormat.getNumberInstance(Locale.getDefault());
             }
+            formatter.setParseIntegerOnly(true);
             ParsePosition pos = new ParsePosition(0);
             Number num = formatter.parse(value, pos);
 
@@ -176,10 +178,11 @@ public class GenericTypeValidator implements Serializable {
         if (value != null) {
             NumberFormat formatter = null;
             if (locale != null) {
-                formatter = NumberFormat.getIntegerInstance(locale);
+                formatter = NumberFormat.getNumberInstance(locale);
             } else {
-                formatter = NumberFormat.getIntegerInstance(Locale.getDefault());
+                formatter = NumberFormat.getNumberInstance(Locale.getDefault());
             }
+            formatter.setParseIntegerOnly(true);
             ParsePosition pos = new ParsePosition(0);
             Number num = formatter.parse(value, pos);
 
@@ -228,10 +231,11 @@ public class GenericTypeValidator implements Serializable {
         if (value != null) {
             NumberFormat formatter = null;
             if (locale != null) {
-                formatter = NumberFormat.getIntegerInstance(locale);
+                formatter = NumberFormat.getNumberInstance(locale);
             } else {
-                formatter = NumberFormat.getIntegerInstance(Locale.getDefault());
+                formatter = NumberFormat.getNumberInstance(Locale.getDefault());
             }
+            formatter.setParseIntegerOnly(true);
             ParsePosition pos = new ParsePosition(0);
             Number num = formatter.parse(value, pos);
 

@@ -242,7 +242,7 @@ public class ValidatorResources implements Serializable {
                 }
 
                 // Add the arg to the parent field
-                ((Field)digester.peek(0)).addArg(arg);
+                ((Field)getDigester().peek(0)).addArg(arg);
             }
         };
 
