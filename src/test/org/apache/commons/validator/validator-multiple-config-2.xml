@@ -7,6 +7,12 @@
 -->
 <form-validation>
    <formset>
+
+      <constant>
+         <constant-name>testConstName2</constant-name>
+         <constant-value>testConstValue2</constant-value>
+      </constant>
+
       <form name="nameForm">
          <field property="firstName" depends="required">
              <arg key="nameForm.firstname.displayname"/>
@@ -15,5 +21,42 @@
              <arg key="nameForm.lastname.displayname"/>
          </field>
       </form>
+
+      <form name="testForm2">
+         <field property="testProperty2" depends="required">
+             <var>
+                 <var-name>var21</var-name>
+                 <var-value>${testConstName1}</var-value>
+             </var>
+             <var>
+                 <var-name>var22</var-name>
+                 <var-value>${testConstName2}</var-value>
+             </var>
+         </field>    
+      </form>
+
    </formset>   
+
+   <formset language="fr">
+
+      <constant>
+         <constant-name>testConstName2_fr</constant-name>
+         <constant-value>testConstValue2_fr</constant-value>
+      </constant>
+
+      <form name="testForm2_fr">
+         <field property="testProperty2_fr" depends="required">
+             <var>
+                 <var-name>var21_fr</var-name>
+                 <var-value>${testConstName1_fr}</var-value>
+             </var>
+             <var>
+                 <var-name>var22_fr</var-name>
+                 <var-value>${testConstName2_fr}</var-value>
+             </var>
+         </field>    
+      </form>
+
+   </formset>   
+
 </form-validation>

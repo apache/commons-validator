@@ -76,6 +76,53 @@ public class MultipleConfigFilesTest extends TestCase {
         }
     }
 
+   /**
+    * Check the forms and constants from different config files have
+    * been merged into the same FormSet.
+    */
+    public void testMergedConfig() throws ValidatorException {
+
+        // *********** Default Locale *******************
+
+        // Check the form from the first config file exists
+        Form form1 = resources.getForm("", "", "", "testForm1");
+        assertNotNull("Form 'testForm1' not found", form1);
+
+        // Check the form from the second config file exists
+        Form form2 = resources.getForm("", "", "", "testForm2");
+        assertNotNull("Form 'testForm2' not found", form2);
+
+        // Check the Constants  for the form from the first config file
+        Field field1 = form1.getField("testProperty1");
+        assertEquals("testProperty1 - const 1", "testConstValue1", field1.getVarValue("var11"));
+        assertEquals("testProperty1 - const 2", "testConstValue2", field1.getVarValue("var12"));
+
+        // Check the Constants  for the form from the second config file
+        Field field2 = form2.getField("testProperty2");
+        assertEquals("testProperty2 - const 1", "testConstValue1", field2.getVarValue("var21"));
+        assertEquals("testProperty2 - const 2", "testConstValue2", field2.getVarValue("var22"));
+ 
+        // *********** 'fr' locale *******************
+
+        // Check the form from the first config file exists
+        Form form1_fr = resources.getForm("fr", "", "", "testForm1_fr");
+        assertNotNull("Form 'testForm1_fr' not found", form1_fr);
+
+        // Check the form from the second config file exists
+        Form form2_fr = resources.getForm("fr", "", "", "testForm2_fr");
+        assertNotNull("Form 'testForm2_fr' not found", form2_fr);
+
+        // Check the Constants  for the form from the first config file
+        Field field1_fr = form1_fr.getField("testProperty1_fr");
+        assertEquals("testProperty1_fr - const 1", "testConstValue1_fr", field1_fr.getVarValue("var11_fr"));
+        assertEquals("testProperty1_fr - const 2", "testConstValue2_fr", field1_fr.getVarValue("var12_fr"));
+
+        // Check the Constants  for the form from the second config file
+        Field field2_fr = form2_fr.getField("testProperty2_fr");
+        assertEquals("testProperty2_fr - const 1", "testConstValue1_fr", field2_fr.getVarValue("var21_fr"));
+        assertEquals("testProperty2_fr - const 2", "testConstValue2_fr", field2_fr.getVarValue("var22_fr"));
+    }
+
     /**
     * With nothing provided, we should fail both because both are required.
     */

@@ -20,4 +20,49 @@
                  methodParams="java.lang.Object,org.apache.commons.validator.Field"
                  msg=""/>
    </global>  
+
+   <formset>
+
+      <constant>
+         <constant-name>testConstName1</constant-name>
+         <constant-value>testConstValue1</constant-value>
+      </constant>
+
+      <form name="testForm1">
+         <field property="testProperty1" depends="required">
+             <var>
+                 <var-name>var11</var-name>
+                 <var-value>${testConstName1}</var-value>
+             </var>
+             <var>
+                 <var-name>var12</var-name>
+                 <var-value>${testConstName2}</var-value>
+             </var>
+         </field>    
+      </form>
+
+   </formset>
+
+   <formset language="fr">
+
+      <constant>
+         <constant-name>testConstName1_fr</constant-name>
+         <constant-value>testConstValue1_fr</constant-value>
+      </constant>
+
+      <form name="testForm1_fr">
+         <field property="testProperty1_fr" depends="required">
+             <var>
+                 <var-name>var11_fr</var-name>
+                 <var-value>${testConstName1_fr}</var-value>
+             </var>
+             <var>
+                 <var-name>var12_fr</var-name>
+                 <var-value>${testConstName2_fr}</var-value>
+             </var>
+         </field>    
+      </form>
+
+   </formset>
+
 </form-validation>
