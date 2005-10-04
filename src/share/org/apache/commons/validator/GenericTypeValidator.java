@@ -293,7 +293,7 @@ public class GenericTypeValidator implements Serializable {
 
             // If there was no error      and we used the whole string
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length()) {
-                if (num.doubleValue() >= (Float.MIN_VALUE * -1) &&
+                if (num.doubleValue() >= (Float.MAX_VALUE * -1) &&
                     num.doubleValue() <= Float.MAX_VALUE) {
                     result = new Float(num.floatValue());
                 }
@@ -345,7 +345,7 @@ public class GenericTypeValidator implements Serializable {
 
             // If there was no error      and we used the whole string
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length()) {
-                if (num.doubleValue() >= (Double.MIN_VALUE * -1) &&
+                if (num.doubleValue() >= (Double.MAX_VALUE * -1) &&
                     num.doubleValue() <= Double.MAX_VALUE) {
                     result = new Double(num.doubleValue());
                 }
