@@ -32,9 +32,8 @@
 	
 	
 	<pattern value="form-validation/formset">
-		<object-create-rule classname="org.apache.commons.validator.FormSet" />
-		<set-properties-rule/>
-		<set-next-rule methodname="addFormSet" paramtype="org.apache.commons.validator.FormSet" />
+
+		<factory-create-rule classname="org.apache.commons.validator.FormSetFactory" />
 		
 		<pattern value="constant">
 			<call-method-rule methodname="addConstant" paramcount="2" />

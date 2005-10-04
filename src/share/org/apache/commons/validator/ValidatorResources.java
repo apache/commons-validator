@@ -495,6 +495,26 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
+     * <p>Gets a <code>FormSet</code> based on the language, country
+     *    and variant.</p>
+     * @param language The locale's language.
+     * @param country The locale's country.
+     * @param variant The locale's language variant.
+     * @return The FormSet for a locale.
+     * @since Validator 1.2
+     */
+    FormSet getFormSet(String language, String country, String variant) {
+
+        String key = buildLocale(language, country, variant);
+
+        if (key.length() == 0) {
+            return defaultFormSet;
+        }
+
+        return (FormSet)hFormSets.get(key);
+    }
+
+    /**
      * Returns a Map of String locale keys to Lists of their FormSets.
      * @return Map of Form sets
      * @since Validator 1.2.0

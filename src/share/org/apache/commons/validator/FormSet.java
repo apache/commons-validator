@@ -25,6 +25,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Holds a set of <code>Form</code>s stored associated with a <code>Locale</code>
@@ -32,6 +34,9 @@ import java.util.Map;
  * class are configured with a &lt;formset&gt; xml element.
  */
 public class FormSet implements Serializable {
+
+    /** Logging */
+    private static final Log log = LogFactory.getLog(FormSet.class);
 
     /**
      * Whether or not the this <code>FormSet</code> was processed for replacing
@@ -230,7 +235,15 @@ public class FormSet implements Serializable {
      * @param value  The constant value
      */
     public void addConstant(String name, String value) {
-        this.constants.put(name, value);
+
+        if (constants.containsKey(name)) {
+            log.error("Constant '" + name +  "' already exists in FormSet["
+                      + this.displayKey() + "] - ignoring.");
+                       
+        } else {
+            constants.put(name, value);
+        }
+
     }
 
     /**
@@ -239,7 +252,16 @@ public class FormSet implements Serializable {
      * @param f  The form
      */
     public void addForm(Form f) {
-        forms.put(f.getName(), f);
+
+        String formName = f.getName();
+        if (forms.containsKey(formName)) {
+            log.error("Form '" + formName + "' already exists in FormSet[" 
+                      + this.displayKey() + "] - ignoring.");
+                       
+        } else {
+            forms.put(f.getName(), f);
+        }
+
     }
 
     /**
@@ -274,6 +296,38 @@ public class FormSet implements Serializable {
         }
 
         processed = true;
+    }
+
+    /**
+     * Returns a string representation of the object's key.
+     *
+     * @return   A string representation of the key
+     */
+    public String displayKey() {
+        StringBuffer results = new StringBuffer();
+        if (language != null && language.length() > 0) {
+            results.append("language=");
+            results.append(language);
+        }
+        if (country != null && country.length() > 0) {
+            if (results.length() > 0) {
+               results.append(", ");
+            }
+            results.append("country=");
+            results.append(country);
+        }
+        if (variant != null && variant.length() > 0) {
+            if (results.length() > 0) {
+               results.append(", ");
+            }
+            results.append("variant=");
+            results.append(variant );
+        }
+        if (results.length() == 0) {
+           results.append("default");
+        }
+
+        return results.toString();
     }
 
     /**
