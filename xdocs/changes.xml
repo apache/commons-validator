@@ -41,98 +41,103 @@ The <action> type attribute can be add,update,fix,remove.
     <release version="1.2.0 (alpha)" date="in CVS">
       <action dev="dgraham" type="add">
         Added ISBNValidator for validating book numbers.
-        PR# 31489
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=31489">PR# 31489</a>
       </action>
       <action dev="husted" type="add">
         Add support for min or max numeric values.
-        PR# 29015
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=29015">PR# 29015</a>
       </action>
       <action dev="husted" type="add">
         Allow validators to register errors for multiple fields. 
-        PR# 29151
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=29151">PR# 29151</a>
       </action>
       <action dev="husted" type="fix">
         Fixed EmailValidator failing on valid email addresses.
-        PR# 23990
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=23990">PR# 23990</a>
       </action>
       <action dev="rleland" type="add">
         Allow forms to inherit validation rules from other forms.
-        PR# 27870
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=27870">PR# 27870</a>
       </action>
       <action dev="niallp" type="add">
         Remove the need to specify an Arguement's position.
-        PR# 31194
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=31194">PR# 31194</a>
       </action>
       <action dev="dgraham" type="add">
         Deprecated all FastHashMap usage and provided protected get
         methods that return generic Maps to be used by subclasses.
-        (fixes PR# 29815 Request public methods to access constants
-        in ValidatorResources.)
+        (fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=29815">PR# 29815</a>
+         Request public methods to access constants in ValidatorResources.)
       </action>
       <action dev="mrdon" type="fix">
         Handling of float and double should use the locale object.
-        PR# 34198 and PR#21282 
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=34198">PR# 34198</a> and
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=21282">PR# 21282</a>
       </action>
       <action dev="mrdon" type="update">
         More informative Exception message when validation method not found.
-        PR# 27471
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=27471">PR# 27471</a>
       </action>
       <action dev="mrdon" type="fix">
         Client-side required validation inconsistent with server-side.
-        PR# 15912
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=15912">PR# 15912</a>
       </action>
       <action dev="mrdon" type="fix">
         EmailValidator allows apostrophes in domain name.
-        PR# 29541
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=29541">PR# 29541</a>
       </action>
       <action dev="mrdon" type="fix">
         Changing the strategy for locating form name/id, now use a common utility
         function which works in both IE and Firefox.
-        PR# 35127 and PR# 32760
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=35127">PR# 35127</a> and
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=32760">PR# 32760</a>
       </action>
       <action dev="mrdon" type="fix">
         Validation fails when "name" attribute in form not specified.
-        PR# 35294 and PR# 31534
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=35294">PR# 35294</a> and
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=31534">PR# 31534</a>
       </action>
       <action dev="mrdon" type="fix">
         UrlValidator fails http://www.google.com.
-        PR# 30686
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=30686">PR# 30686</a>
       </action>
       <action dev="mrdon" type="fix">
         Email: inexisting dashes and TLD erroneously accepted.
-        PR# 33409 and PR# 31644
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=33409">PR# 33409</a> and
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=31644">PR# 31644</a>
       </action>
       <action dev="mrdon" type="fix">
         Float validator can't validate the string with several dot.
-        PR# 32351
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=32351">PR# 32351</a>
       </action>
       <action dev="mrdon" type="fix">
         CreditValidator does not handle Visa correctly.
-        PR# 35926
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=35926">PR# 35926</a>
       </action>
       <action dev="mrdon" type="fix">
         datePattern not supported by JavaScript.
-        PR# 22384
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=22384">PR# 22384</a>
       </action>
       <action dev="mrdon" type="fix">
         validateRequired on a single radio button.
-        PR# 33047
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=33047">PR# 33047</a>
       </action>
       <action dev="mrdon" type="fix">
         Field.validate() cannot be invoked from user-defined code.
-        PR# 35508
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=35508">PR# 35508</a>
       </action>
       <action dev="mrdon" type="fix">
         Locale validation doesn't validate all fields.
-        PR# 30955 and PR# 16920
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=30955">PR# 30955</a> and
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=16920">PR# 16920</a>
       </action>
       <action dev="mrdon" type="fix">
         XML file included into validation.xml via entity reference not found.
-        PR# 27258
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=27258">PR# 27258</a>
       </action>
       <action dev="niallp" type="fix">
         Update maven build to Include DTDs and xdocs in the source distribution.
-        PR# 31094
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=31094">PR# 31094</a>
       </action>
       <action dev="niallp" type="fix">
         Remove logging of exceptions when the Date validation fails (correctly) with
@@ -144,10 +149,20 @@ The <action> type attribute can be add,update,fix,remove.
         versions of the DTD prior to 1.2.0.
       </action>
       <action dev="niallp" type="add">
-        Add 'resource' and 'bundle' elements to the 1.2.0 DTD. PR #32522.
+        Add 'resource' and 'bundle' elements to the 1.2.0 DTD.
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=32522">PR# 32522</a>
       </action>
       <action dev="niallp" type="add">
-        Provide access to the result object in ValidatorResult. PR #27671.
+        Provide access to the result object in ValidatorResult.
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=27671">PR# 27671</a>
+      </action>
+      <action dev="niallp" type="fix">
+        Validation breaks on multiple validation.xml (eg. with Struts 1.3).
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=36899">PR# 36899</a>
+      </action>
+      <action dev="niallp" type="fix">
+        GenericTypeValidator does not accept negative Floats/Doubles.
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=36878">PR# 36878</a>
       </action>
     </release>
   
