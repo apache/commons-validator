@@ -20,7 +20,7 @@
   
   <name>Validator</name>
   <id>commons-validator</id>
-  <currentVersion>1.2.0-dev</currentVersion>
+  <currentVersion>1.2.0-rc1</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons Validator</shortDescription>
   <description>
