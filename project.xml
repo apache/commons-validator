@@ -19,8 +19,9 @@
   <pomVersion>3</pomVersion>
   
   <name>Validator</name>
-  <id>commons-validator</id>
-  <currentVersion>1.2.0-dev</currentVersion>
+  <groupId>commons-validator</groupId>
+  <artifactId>commons-validator</artifactId>
+  <currentVersion>1.2.0-SNAPSHOT</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons Validator</shortDescription>
   <description>
@@ -269,13 +270,15 @@
   <dependencies>
     
     <dependency>
-      <id>commons-beanutils</id>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
       <version>1.7.0</version>
       <url>http://jakarta.apache.org/commons/beanutils/</url>
     </dependency>
 
     <dependency>
-      <id>commons-digester</id>
+      <groupId>commons-digester</groupId>
+      <artifactId>commons-digester</artifactId>
       <version>1.6</version>
       <url>http://jakarta.apache.org/commons/digester/</url>
       <properties>
@@ -286,19 +289,22 @@
     </dependency>
 
     <dependency>
-      <id>commons-logging</id>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
       <version>1.0.4</version>
       <url>http://jakarta.apache.org/commons/logging/</url>
     </dependency>
     
     <dependency>
-      <id>oro</id>
+      <groupId>oro</groupId>
+      <artifactId>oro</artifactId>
       <version>2.0.8</version>
       <url>http://jakarta.apache.org/oro/</url>
     </dependency>
 
     <dependency>
-      <id>xml-apis</id>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
       <version>2.0.2</version>
       <url>http://xml.apache.org/commons/</url>
       <properties>
@@ -312,10 +318,12 @@
 
 	<!-- for unit tests -->
     <dependency>
-      <id>junit</id>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <url>http://www.junit.org/</url>
       <properties>
+          <scope>test</scope>
           <comment>
               &lt;strong&gt;Test Only&lt;/strong&gt; - required only for
               running the Validator unit tests.
