@@ -47,8 +47,8 @@ import org.apache.oro.text.perl.Perl5Util;
  *   Construct a UrlValidator with valid schemes of "http", and "https".
  *
  *    String[] schemes = {"http","https"}.
- *    Urlvalidator urlValidator = new Urlvalidator(schemes);
- *    if (urlValidator.isValid("ftp")) {
+ *    UrlValidator urlValidator = new UrlValidator(schemes);
+ *    if (urlValidator.isValid("ftp://foo.bar.com/")) {
  *       System.out.println("url is valid");
  *    } else {
  *       System.out.println("url is invalid");
@@ -57,8 +57,8 @@ import org.apache.oro.text.perl.Perl5Util;
  *    prints "url is invalid"
  *   If instead the default constructor is used.
  *
- *    Urlvalidator urlValidator = new Urlvalidator();
- *    if (urlValidator.isValid("ftp")) {
+ *    UrlValidator urlValidator = new UrlValidator();
+ *    if (urlValidator.isValid("ftp://foo.bar.com/")) {
  *       System.out.println("url is valid");
  *    } else {
  *       System.out.println("url is invalid");
