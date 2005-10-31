@@ -1,0 +1,141 @@
+<!DOCTYPE form-validation PUBLIC
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN"
+     "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+     
+<!--
+	Each of the form's in this test config has a field with a property name of
+      "testProperty" which has a variable named "localeVar" which has the value of
+      the locale for the Form.
+
+      The "localeVar" is used to check that the form is retrieved from the expected
+      formset.
+-->
+<form-validation>
+   <global>
+      <validator name="required"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateRequired"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+   </global>  
+
+   <!-- default formset -->
+   <formset>
+
+      <form name="testForm_default">
+         <field property="testProperty" depends="required">
+             <var><var-name>localeVar</var-name>
+                  <var-value>default</var-value>
+             </var>
+         </field>
+      </form>
+
+      <form name="testForm_language">
+         <field property="testProperty" depends="required">
+             <var><var-name>localeVar</var-name>
+                  <var-value>default</var-value>
+             </var>
+         </field>
+      </form>
+
+      <form name="testForm_language_country">
+         <field property="testProperty" depends="required">
+             <var><var-name>localeVar</var-name>
+                  <var-value>default</var-value>
+             </var>
+         </field>
+      </form>
+
+      <form name="testForm_language_country_variant">
+         <field property="testProperty" depends="required">
+             <var><var-name>localeVar</var-name>
+                  <var-value>default</var-value>
+             </var>
+         </field>
+      </form>
+
+   </formset>
+
+   <!-- French formset -->
+   <formset language="fr">
+
+      <form name="testForm_language">
+         <field property="testProperty" depends="required">
+             <var><var-name>localeVar</var-name>
+                  <var-value>fr</var-value>
+             </var>
+         </field>
+      </form>
+
+      <form name="testForm_language_country">
+         <field property="testProperty" depends="required">
+             <var><var-name>localeVar</var-name>
+                  <var-value>fr</var-value>
+             </var>
+         </field>
+      </form>
+
+      <form name="testForm_language_country_variant">
+         <field property="testProperty" depends="required">
+             <var><var-name>localeVar</var-name>
+                  <var-value>fr</var-value>
+             </var>
+         </field>
+      </form>
+
+   </formset>
+
+   <!-- French formset -->
+   <formset language="fr" country="FR">
+
+      <form name="testForm_language_country">
+         <field property="testProperty" depends="required">
+             <var><var-name>localeVar</var-name>
+                  <var-value>fr_FR</var-value>
+             </var>
+         </field>
+      </form>
+
+      <form name="testForm_language_country_variant">
+         <field property="testProperty" depends="required">
+             <var><var-name>localeVar</var-name>
+                  <var-value>fr_FR</var-value>
+             </var>
+         </field>
+      </form>
+
+   </formset>
+
+   <!-- Canadian French formset -->
+   <formset language="fr" country="CA">
+      <form name="testForm_language_country">
+         <field property="testProperty" depends="required">
+             <var><var-name>localeVar</var-name>
+                  <var-value>fr_CA</var-value>
+             </var>
+         </field>
+      </form>
+
+      <form name="testForm_language_country_variant">
+         <field property="testProperty" depends="required">
+             <var><var-name>localeVar</var-name>
+                  <var-value>fr_CA</var-value>
+             </var>
+         </field>
+      </form>
+   </formset>
+
+   <!-- Candaian French Variant formset -->
+   <formset language="fr" country="CA" variant="XXX">
+
+      <form name="testForm_language_country_variant">
+         <field property="testProperty" depends="required">
+             <var><var-name>localeVar</var-name>
+                  <var-value>fr_CA_XXX</var-value>
+             </var>
+         </field>
+      </form>
+
+   </formset>
+
+</form-validation>

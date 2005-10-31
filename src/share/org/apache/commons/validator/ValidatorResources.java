@@ -393,27 +393,61 @@ public class ValidatorResources implements Serializable {
     public Form getForm(String language, String country, String variant,
             String formKey) {
 
+        Form form = null;
+
+        // Try language/country/variant
         String key = this.buildLocale(language, country, variant);
-        if (key.length() == 0) {
-            return defaultFormSet.getForm(formKey);
+        if (key.length() > 0) {
+            FormSet formSet = (FormSet)hFormSets.get(key);
+            if (formSet != null) {
+                form = formSet.getForm(formKey);
+            }
         }
+        String localeKey  = key;
 
-        FormSet formSet = (FormSet) hFormSets.get(key);
 
-        if (formSet == null) {
+        // Try language/country
+        if (form == null) {
             key = buildLocale(language, country, null);
-            formSet = (FormSet) hFormSets.get(key);
+            if (key.length() > 0) {
+                FormSet formSet = (FormSet)hFormSets.get(key);
+                if (formSet != null) {
+                    form = formSet.getForm(formKey);
+                }
+            }
         }
 
-        if (formSet == null) {
+        // Try language
+        if (form == null) {
             key = buildLocale(language, null, null);
-            formSet = (FormSet) hFormSets.get(key);
+            if (key.length() > 0) {
+                FormSet formSet = (FormSet)hFormSets.get(key);
+                if (formSet != null) {
+                    form = formSet.getForm(formKey);
+                }
+            }
         }
 
-        if (formSet == null) {
-            formSet = defaultFormSet;
+        // Try default formset
+        if (form == null) {
+            form = defaultFormSet.getForm(formKey);
+            key = "default";
         }
-        return formSet.getForm(formKey);
+
+        if (form == null) {
+            if (log.isWarnEnabled()) {
+                log.warn("Form '" + formKey + "' not found for locale '" +
+                         localeKey + "'");
+            }
+        } else {
+            if (log.isDebugEnabled()) {
+                log.debug("Form '" + formKey + "' found in formset '" +
+                          key + "' for locale '" + localeKey + "'");
+            }
+        }
+
+        return form;
+
     }
 
     /**
