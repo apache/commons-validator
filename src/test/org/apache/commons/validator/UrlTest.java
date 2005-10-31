@@ -52,7 +52,6 @@ public class UrlTest extends TestCase {
 
    public void testIsValid() {
     	testIsValid(testUrlParts, UrlValidator.ALLOW_ALL_SCHEMES);
-    	System.out.println("\nTesting options ....");
     	setUp();
     	int options =
     		UrlValidator.ALLOW_2_SLASHES

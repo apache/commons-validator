@@ -73,7 +73,7 @@ public class RequiredIfTest extends TestCommon {
     */
    protected void setUp() throws IOException, SAXException {
       // Load resources
-      loadResources("validator-requiredif.xml");
+      loadResources("RequiredIfTest-config.xml");
    }
 
    protected void tearDown() {

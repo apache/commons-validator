@@ -75,7 +75,7 @@ public class VarTest extends TestCommon {
     */
    protected void setUp() throws IOException, SAXException {
       // Load resources
-      loadResources("validator-var-test.xml");
+      loadResources("VarTest-config.xml");
    }
 
    protected void tearDown() {

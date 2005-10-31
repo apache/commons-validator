@@ -52,7 +52,7 @@ abstract public class TestNumber extends TestCommon {
      */
     protected void setUp() throws IOException, SAXException {
         // Load resources
-        loadResources("validator-numeric.xml");
+        loadResources("TestNumber-config.xml");
     }
 
     protected void tearDown() {

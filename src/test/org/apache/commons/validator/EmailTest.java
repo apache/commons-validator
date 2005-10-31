@@ -72,7 +72,7 @@ public class EmailTest extends TestCommon {
     * validator-regexp.xml.
     */
    protected void setUp() throws IOException, SAXException {
-      loadResources("validator-regexp.xml");
+      loadResources("EmailTest-config.xml");
    }
 
    protected void tearDown() {

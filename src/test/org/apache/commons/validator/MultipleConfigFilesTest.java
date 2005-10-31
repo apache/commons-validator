@@ -65,9 +65,9 @@ public class MultipleConfigFilesTest extends TestCase {
         InputStream[] streams =
             new InputStream[] {
                 this.getClass().getResourceAsStream(
-                    "validator-multiple-config-1.xml"),
+                    "MultipleConfigFilesTest-1-config.xml"),
                 this.getClass().getResourceAsStream(
-                    "validator-multiple-config-2.xml")};
+                    "MultipleConfigFilesTest-2-config.xml")};
 
         this.resources = new ValidatorResources(streams);
 

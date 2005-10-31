@@ -74,7 +74,7 @@ public class RequiredNameTest extends TestCommon {
     */
    protected void setUp() throws IOException, SAXException {
       // Load resources
-      loadResources("validator-name-required.xml");
+      loadResources("RequiredNameTest-config.xml");
    }
 
    protected void tearDown() {

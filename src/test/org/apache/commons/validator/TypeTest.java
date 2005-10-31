@@ -75,7 +75,7 @@ public class TypeTest extends TestCommon {
     */
    protected void setUp() throws IOException, SAXException {
       // Load resources
-      loadResources("validator-type.xml");
+      loadResources("TypeTest-config.xml");
    }
 
    protected void tearDown() {

@@ -78,7 +78,7 @@ public class LocaleTest extends TestCommon {
     protected void setUp()
         throws IOException, SAXException {
         // Load resources
-        loadResources("validator-locale.xml");
+        loadResources("LocaleTest-config.xml");
     }
 
     /** The teardown method for JUnit */

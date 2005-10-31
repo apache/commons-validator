@@ -50,7 +50,7 @@ public class ExceptionTest extends TestCommon {
      * validator-exception.xml.
      */
     protected void setUp() throws IOException, SAXException {
-        loadResources("validator-exception.xml");
+        loadResources("ExceptionTest-config.xml");
     }
 
     /**

@@ -98,7 +98,7 @@ public class ExtensionTest extends TestCase {
 		InputStream in = null;
 
 		try {
-			in = this.getClass().getResourceAsStream("validator-extension.xml");
+			in = this.getClass().getResourceAsStream("ExtensionTest-config.xml");
 			resources = new ValidatorResources(in);
 		} finally {
 			if (in != null) {

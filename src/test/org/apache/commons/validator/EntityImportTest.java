@@ -61,7 +61,7 @@ public class EntityImportTest extends TestCommon {
      * Tests the entity import loading the <code>byteForm</code> form.
      */
     public void testEntityImport() throws Exception {
-        URL url = getClass().getResource("validator-import.xml");
+        URL url = getClass().getResource("EntityImportTest-config.xml");
         ValidatorResources resources = new ValidatorResources(url.toExternalForm());
         assertNotNull("Form should be found", resources.getForm(Locale.getDefault(), "byteForm"));
     }  

@@ -65,7 +65,7 @@ public class DateTest extends TestCommon {
      */
     protected void setUp() throws IOException, SAXException {
         // Load resources
-        loadResources("validator-date.xml");
+        loadResources("DateTest-config.xml");
     }
 
     protected void tearDown() {

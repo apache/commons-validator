@@ -40,31 +40,32 @@ public class ValidatorTestSuite extends TestCase {
     public static Test suite() {
        TestSuite suite = new TestSuite();
 
-       suite.addTest(EntityImportTest.suite());
-       suite.addTest(DateTest.suite());
-       suite.addTest(RequiredNameTest.suite());
-       suite.addTest(RequiredIfTest.suite());
-       suite.addTest(MultipleTests.suite());
-       suite.addTestSuite(MultipleConfigFilesTest.class);
-       suite.addTest(ByteTest.suite());
-       suite.addTest(ShortTest.suite());
-       suite.addTest(IntegerTest.suite());
-       suite.addTest(LongTest.suite());
-       suite.addTest(FloatTest.suite());
-       suite.addTest(DoubleTest.suite());
-       suite.addTest(TypeTest.suite());
-       suite.addTest(ExtensionTest.suite());        
-       suite.addTest(EmailTest.suite());
-       suite.addTestSuite(CreditCardValidatorTest.class);
-       suite.addTestSuite(ISBNValidatorTest.class);
-       suite.addTest(ValidatorTest.suite());
-       suite.addTest(LocaleTest.suite());
-       suite.addTestSuite(FieldTest.class);
-       suite.addTestSuite(FlagsTest.class);
        suite.addTestSuite(ExceptionTest.class);
-       suite.addTest(UrlTest.suite());
-       suite.addTest(VarTest.suite());
+
+       suite.addTest(ByteTest.suite());
+       suite.addTestSuite(CreditCardValidatorTest.class);
+       suite.addTest(DateTest.suite());
+       suite.addTest(DoubleTest.suite());
+       suite.addTest(EmailTest.suite());
+       suite.addTest(EntityImportTest.suite());
+       suite.addTest(ExtensionTest.suite());        
+       suite.addTestSuite(FlagsTest.class);
+       suite.addTestSuite(FieldTest.class);
+       suite.addTest(FloatTest.suite());
+       suite.addTest(IntegerTest.suite());
+       suite.addTestSuite(ISBNValidatorTest.class);
+       suite.addTest(LocaleTest.suite());
+       suite.addTest(LongTest.suite());
+       suite.addTestSuite(MultipleConfigFilesTest.class);
+       suite.addTest(MultipleTests.suite());
+       suite.addTest(RequiredIfTest.suite());
+       suite.addTest(RequiredNameTest.suite());
        suite.addTest(RetrieveFormTest.suite());
+       suite.addTest(ShortTest.suite());
+       suite.addTest(TypeTest.suite());
+       suite.addTest(UrlTest.suite());
+       suite.addTest(ValidatorTest.suite());
+       suite.addTest(VarTest.suite());
 
        return suite;
     }

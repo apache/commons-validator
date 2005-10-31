@@ -75,7 +75,7 @@ public class MultipleTests extends TestCommon {
     */
    protected void setUp() throws IOException, SAXException {
       // Load resources
-      loadResources("validator-multipletest.xml");
+      loadResources("MultipleTests-config.xml");
    }
 
    protected void tearDown() {
