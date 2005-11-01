@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   Copyright 2004 The Apache Software Foundation
+   Copyright 2004-2005 The Apache Software Foundation
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-    <release version="1.2.0 (alpha)" date="in SVN">
+    <release version="1.2.0 (RC2)" date="2005-10-31">
       <action dev="dgraham" type="add">
         Added ISBNValidator for validating book numbers.
         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=31489">PR# 31489</a>
