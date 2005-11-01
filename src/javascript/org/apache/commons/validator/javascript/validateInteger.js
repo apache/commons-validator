@@ -44,7 +44,7 @@
                         fields[i++] = oInteger[x][1];
 
                     } else {
-                        var iValue = parseInt(value);
+                        var iValue = parseInt(value, 10);
                         if (isNaN(iValue) || !(iValue >= -2147483648 && iValue <= 2147483647)) {
                             if (i == 0) {
                                 focusField = field;

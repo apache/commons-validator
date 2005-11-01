@@ -45,7 +45,7 @@
 
                     } else {
 
-                        var iValue = parseInt(value);
+                        var iValue = parseInt(value, 10);
                         if (isNaN(iValue) || !(iValue >= -128 && iValue <= 127)) {
                             if (i == 0) {
                                 focusField = field;

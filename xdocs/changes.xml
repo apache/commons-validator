@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   Copyright 2004 The Apache Software Foundation
+   Copyright 2004-2005 The Apache Software Foundation
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -171,6 +171,10 @@ The <action> type attribute can be add,update,fix,remove.
       <action dev="niallp" type="add">
         Search the locale 'hierarchy' of formsets for a Form.
         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37310">PR# 37310</a>
+      </action>
+      <action dev="niallp" type="fix">
+         Int validation in Java and Javascript have different semantics.
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37300">PR# 37300</a>
       </action>
     </release>
   

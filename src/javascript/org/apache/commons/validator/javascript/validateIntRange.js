@@ -31,7 +31,7 @@
                 if (value.length > 0) {
                     var iMin = parseInt(oRange[x][2]("min"));
                     var iMax = parseInt(oRange[x][2]("max"));
-                    var iValue = parseInt(value);
+                    var iValue = parseInt(value, 10);
                     if (!(iValue >= iMin && iValue <= iMax)) {
                         if (i == 0) {
                             focusField = field;
