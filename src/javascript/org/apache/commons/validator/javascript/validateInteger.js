@@ -62,23 +62,3 @@
         }
         return bValid;
     }
-
-    function isAllDigits(argvalue) {
-        argvalue = argvalue.toString();
-        var validChars = "0123456789";
-        var startFrom = 0;
-        if (argvalue.substring(0, 2) == "0x") {
-           validChars = "0123456789abcdefABCDEF";
-           startFrom = 2;
-        } else if (argvalue.charAt(0) == "0") {
-           validChars = "01234567";
-           startFrom = 1;
-        } else if (argvalue.charAt(0) == "-") {
-            startFrom = 1;
-        }
-
-        for (var n = startFrom; n < argvalue.length; n++) {
-            if (validChars.indexOf(argvalue.substring(n, n+1)) == -1) return false;
-        }
-        return true;
-    }
