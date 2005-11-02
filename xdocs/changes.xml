@@ -176,6 +176,10 @@ The <action> type attribute can be add,update,fix,remove.
          Int validation in Java and Javascript have different semantics.
         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37300">PR# 37300</a>
       </action>
+      <action dev="niallp" type="fix">
+         Javascript Validation currently uses unsupported DOM method getAttributeNode().
+        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=37315">PR# 37315</a>
+      </action>
     </release>
   
     <release version="1.1.4" date="2004-11-12">

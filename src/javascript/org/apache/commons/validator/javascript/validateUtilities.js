@@ -10,9 +10,28 @@
    * @param form The form validation is taking place on.
    */
   function retrieveFormName(form) {
-      // if id is available, then use it (for xhtml)
-      // otherwise, use the value of the name attribute
-      var formName = form.id ? form.id :
-          form.getAttributeNode("name").value;
-      return formName;
+
+      // Please refer to Bugs 31534, 35127, 35294 & 37315
+      // for the history of the following code
+
+      if (form.getAttributeNode) {
+          if (form.getAttributeNode("id") && form.getAttributeNode("id").value) {
+              return form.getAttributeNode("id").value;
+          } else {
+              return form.getAttributeNode("name").value;
+          }
+      } else if (form.getAttribute) {
+          if (form.getAttribute("id")) {
+              return form.getAttribute("id");
+          } else {
+              form.attributes["name"];
+          }
+      } else {
+          if (form.id) {
+              return form.id;
+          } else {
+              return form.name;
+          }
+      }
+
   }  
