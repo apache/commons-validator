@@ -59,3 +59,22 @@
       }
       return true;
   }
+
+  /**
+   * Check a value only contains valid decimal digits
+   * @param argvalue The value to check.
+   */
+  function isDecimalDigits(argvalue) {
+      argvalue = argvalue.toString();
+      var validChars = "0123456789";
+
+      var startFrom = 0;
+      if (argvalue.charAt(0) == "-") {
+          startFrom = 1;
+      }
+
+      for (var n = startFrom; n < argvalue.length; n++) {
+          if (validChars.indexOf(argvalue.substring(n, n+1)) == -1) return false;
+      }
+      return true;
+  }

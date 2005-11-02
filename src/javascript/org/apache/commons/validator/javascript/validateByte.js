@@ -36,7 +36,7 @@
                 }
 
                 if (value.length > 0) {
-                    if (!isAllDigits(value)) {
+                    if (!isDecimalDigits(value)) {
                         bValid = false;
                         if (i == 0) {
                             focusField = field;
