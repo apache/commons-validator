@@ -18,20 +18,30 @@
  -->
 
 <document>
-   <properties>
-      <title key="template.cvs_usage.title"
-             bundle="plugin-resources.templates.templates" >
-         <message key="template.cvs_usage.title"
-                  bundle="plugin-resources.templates.templates" />
-      </title>
-   </properties>
-   <body>
-      <section key="template.cvs_usage.section2.title"
-               bundle="plugin-resources.templates.templates"
-               name="Web Access">
-          <p>
-             <a href="http://svn.apache.org/repos/asf/jakarta/commons/proper/validator/trunk">http://svn.apache.org/repos/asf/jakarta/commons/proper/validator/trunk</a>
-          </p>
-      </section>
-   </body>
+ <properties>
+  <title>Source repository</title>
+  <author email="commons-dev@jakarta.apache.org">Commons Documentation Team</author>
+ </properties>
+ <body>
+<!-- ================================================== -->
+<section name="Source repository">
+<p>
+  Jakarta Commons Validator is hosted on the Apache
+  <a href="http://subversion.tigris.org/">subversion</a> repository.
+</p>
+<p>
+  The project URL is:<br />
+  <code>http://svn.apache.org/repos/asf/jakarta/commons/proper/validator/trunk</code>
+</p>
+<p>
+  The best way to view the repository is via the
+  <a href="http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/validator/trunk/">subversion viewer</a>.
+</p>
+<p>
+  The alternative is to use the
+  <a href="http://svn.apache.org/repos/asf/jakarta/commons/proper/validator/trunk/">native subversion</a> display.
+</p>
+</section>
+<!-- ================================================== -->
+</body>
 </document>

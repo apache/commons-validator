@@ -20,34 +20,35 @@
    </properties>
 
    <body>
-      <section name="Releases">
+      <section name="Download Validator">
          
-         <p><strong>Latest Stable Release</strong></p>
-         <ul>
-           <li><a href="http://jakarta.apache.org/site/binindex.cgi#commons-validator">1.1.4 Binary</a></li>
-           <li><a href="http://jakarta.apache.org/site/sourceindex.cgi#commons-validator">1.1.4 Source</a></li>
-         </ul>
+         <subsection name="Releases">
+            <p>Download the <a href="http://jakarta.apache.org/site/downloads/downloads_commons-validator.cgi">Latest Release</a>
+               of Commons Validator.
+            </p>
+            <p>For details of whats new in each version see the <a href="changes-report.html">Release History</a>.</p>
+            <p>For a more descriptive explanation see the  
+               <a href="http://wiki.apache.org/jakarta-commons/ValidatorReleaseNotes">Release Notes</a> maintained on
+               the <a href="http://wiki.apache.org/jakarta-commons/">Jakarta Commons Wiki</a>.
+            </p>
+         </subsection>
 
-          <p><strong>Latest Development Release</strong></p>
-          <ul>
-            <li>None currently</li>
-          </ul>
+         <subsection name="Nightly Builds">
+            <p>
+               <a href="http://cvs.apache.org/builds/jakarta-commons/nightly/commons-validator/">Nightly Builds</a>
+               are built once a day from the current SVN HEAD. This is (nearly) the latest code and so should
+               be treated with caution.
+            </p>
+         </subsection>
 
-         <p><strong>Nightly Builds</strong></p>
-         <ul>
-            <li><a href="http://cvs.apache.org/builds/jakarta-commons/nightly/commons-validator/">Binary/Source</a></li>
-         </ul>
-
-          <!--
-          <p>
-             <strong>Archived Releases</strong>
-             <br/>
-             Older releases are retained by the Apache Software Foundation but are
-             moved into a
-             <a href="http://archive.apache.org/dist/jakarta/commons/validator/">
+         <subsection name="Archived Releases">
+            <p>
+               Older releases are retained by the Apache Software Foundation but are
+               moved into a
+               <a href="http://archive.apache.org/dist/jakarta/commons/validator/">
              special archive area</a>.
-          </p>
-          -->
+            </p>
+         </subsection>
 
       </section>
 

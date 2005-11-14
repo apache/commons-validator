@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE org.apache.commons.menus SYSTEM '../../commons-build/menus/menus.dtd'>
 <!--
-   Copyright 2003-2004 The Apache Software Foundation
+   Copyright 2003-2005 The Apache Software Foundation
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -21,6 +21,13 @@
   <organizationLogo href="/images/jakarta-logo-blue.gif">Jakarta</organizationLogo>
 
   <body>
+    <links>
+      <item name="Jakarta"                   
+            href="http://jakarta.apache.org"/>
+      <item name="Jakarta Commons"                   
+            href="http://jakarta.apache.org/commons/"/>
+    </links>
+
     <menu name="Validator">
       <item name="Overview"                href="/index.html"/>
       <item name="Community"               href="/community.html"/>

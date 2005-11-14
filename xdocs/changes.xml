@@ -38,10 +38,20 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-    <release version="1.2.0 (alpha)" date="in SVN">
+    <release version="1.2.0 (RC3)" date="2005-11-02">
       <action dev="dgraham" type="add">
         Added ISBNValidator for validating book numbers.
         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=31489">PR# 31489</a>
+      </action>
+      <action dev="dgraham" type="update">
+        Upgrade dependency versions to
+        <a href="http://jakarta.apache.org/commons/beanutils/">Commons BeanUtils</a> 1.7.0, 
+        <a href="http://jakarta.apache.org/commons/digester/">Commons Digester</a> 1.6 
+        and <a href="http://jakarta.apache.org/commons/logging/">Commons Logging</a> 1.0.4. 
+        Remove dependency on 
+        <a href="http://jakarta.apache.org/commons/beanutils/">Commons Collections</a> 
+        (BeanUtils 1.7.0 has removed its dependency on Collections by including the
+         few Collections classes required in its distribution).
       </action>
       <action dev="husted" type="add">
         Add support for min or max numeric values.

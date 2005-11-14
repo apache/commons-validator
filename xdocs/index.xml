@@ -18,12 +18,12 @@
 <document>
 
   <properties>
-    <title>Commons</title>
+    <title>Commons Validator</title>
   </properties>
 
   <body>
 
-    <section name="Introduction">
+    <section name="Commons Validator">
 
       <p>
         A common issue when receiving data either electronically or from 
@@ -34,36 +34,21 @@
         This package addresses some of these issues to
         speed development and maintenance of validation rules.
       </p>
-
-      <p>
-        In order to use the Validator, the following basic steps are required:
-        <ul>
-          <li>
-            Create a new instance of the
-            <code>org.apache.commons.validator.Validator</code> class. Currently
-            Validator instances may be safely reused if the current
-            ValidatorResources are the same, as long as you have completed any
-            previous validation, and you do not try to utilize a particular
-            Validator instance from more than one thread at a time.
-          </li>
-          <li>
-            Add any resources needed to perform the validations, such as the
-            JavaBean to validate.
-          </li>
-          <li>
-            Call the validate method on
-            <code>org.apache.commons.validator.Validator</code>.
-          </li>
-        </ul>
-      </p>
-
-      <p>
-        For more information, see the <a href="apidocs/index.html">JavaDocs</a>.
-      </p>
-
     </section>
-    
-    <section name="Features">
+
+    <section name="Releases">
+        <p>See the <a href="downloads.html">Downloads</a> page for current/previous 
+           releases.
+        </p>
+        <p>For details of whats new in each version see the <a href="changes-report.html">Release History</a>.</p>
+        <p>For a more descriptive explanation see the  
+           <a href="http://wiki.apache.org/jakarta-commons/ValidatorReleaseNotes">Release Notes</a> maintained on
+           the <a href="http://wiki.apache.org/jakarta-commons/">Jakarta Commons Wiki</a>.
+        </p>
+    </section>
+
+    <section name="Overview">
+      <subsection name="Features">
         <p>Validator provides two distinct sets of functionality:</p>
         <ol>
             <li>A configurable (typically XML) validation engine</li>
@@ -78,6 +63,65 @@
         However, it does have a set of common validation methods 
         (email addresses, dates, URLs, etc.) that help in creating 
         pluggable actions.    
+        </p>
+      </subsection>
+
+      <subsection name="Usage">
+        <p>
+           In order to use the Validator, the following basic steps are required:
+           <ul>
+             <li>
+               Create a new instance of the
+               <code>org.apache.commons.validator.Validator</code> class. Currently
+               Validator instances may be safely reused if the current
+               ValidatorResources are the same, as long as you have completed any
+               previous validation, and you do not try to utilize a particular
+               Validator instance from more than one thread at a time.
+             </li>
+             <li>
+               Add any resources needed to perform the validations, such as the
+               JavaBean to validate.
+             </li>
+             <li>
+               Call the validate method on
+               <code>org.apache.commons.validator.Validator</code>.
+             </li>
+           </ul>
+         </p>
+      </subsection>
+
+    </section>
+    
+    <section name="Documentation">
+        <p>
+        The JavaDoc API documents are available online:
+        </p>
+        <ul>
+            <li>The <a href="api-release/index.html">Current Release</a></li>
+            <li>The <a href="api-1.1.4/index.html">Version 1.1.4</a></li>
+            <li>The <a href="api-1.0.2/index.html">Version 1.0.2</a></li>
+            <li>The <a href="apidocs/index.html">latest SVN</a></li>
+        </ul>
+
+        <p>
+        The <a href="cvs-usage.html">subversion repository</a> can be
+        <a href="http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/validator/trunk/">browsed</a>.
+        </p>
+    </section>
+
+    <section name="Support">
+        <p>
+        The <a href="mail-lists.html">commons mailing lists</a> act as the main support forum.
+        The user list is suitable for most library usage queries.
+        The dev list is intended for the development discussion.
+        Please remember that the lists are shared between all commons components,
+        so prefix your email by [validator].
+        </p>
+
+        <p>
+        Issues may be reported via <a href="issue-tracking.html">ASF Bugzilla</a>.
+        Please remember that Bugzilla is shared between all commons components,
+        so prefix your issue by [validator].
         </p>
     </section>
 
