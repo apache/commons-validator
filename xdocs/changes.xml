@@ -38,7 +38,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-    <release version="1.2.0 (RC3)" date="2005-11-02">
+    <release version="1.2.0" date="2005-11-15">
       <action dev="dgraham" type="add">
         Added ISBNValidator for validating book numbers.
         <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=31489">PR# 31489</a>
