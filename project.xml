@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
    Copyright 2003-2005 The Apache Software Foundation
 
@@ -21,7 +21,7 @@
   <name>Validator</name>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <currentVersion>1.2.0</currentVersion>
+  <currentVersion>1.2.1-SNAPSHOT</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons Validator</shortDescription>
   <description>
@@ -171,7 +171,7 @@
       <name>Greg Ludington</name>
     </contributor>
    <contributor>
-      <name>Björn-H. Moritz</name>
+      <name>Bjorn-H. Moritz</name>
     </contributor>
      <contributor>
       <name>David Neuer</name>

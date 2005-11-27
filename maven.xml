@@ -14,7 +14,8 @@
    limitations under the License.
 -->
 
-<project default="java:jar">
+<project default="java:jar"
+  xmlns:ant="jelly:ant">
 
   <!-- ================================================================== -->
   <!-- START : C O M M O N S - B U I L D                                  -->
@@ -129,6 +130,37 @@
   </goal>
 
 
+    <!-- ================================================================== -->
+    <!-- Create MD5 Check Sums                                              -->
+    <!-- ================================================================== -->
+    <postGoal name="dist">
+
+         <!-- create checksum for jar -->
+         <ant:checksum file="${maven.build.dir}/${pom.artifactId}-${pom.currentVersion}.jar" property="md5"/>
+         <ant:echo message="${md5} *${pom.artifactId}-${pom.currentVersion}.jar" 
+                   file="${maven.build.dir}/${pom.artifactId}-${pom.currentVersion}.jar.md5" />
+
+         <!-- create checksum for binary zip -->
+         <ant:checksum file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}.zip" property="md5"/>
+         <ant:echo message="${md5} *${pom.artifactId}-${pom.currentVersion}.zip" 
+                   file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}.zip.md5" />
+
+         <!-- create checksum for binary tar.gz -->
+         <ant:checksum file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}.tar.gz" property="md5"/>
+         <ant:echo message="${md5} *${pom.artifactId}-${pom.currentVersion}.tar.gz" 
+                   file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}.tar.gz.md5" />
+
+         <!-- create checksum for source zip -->
+         <ant:checksum file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}-src.zip" property="md5"/>
+         <ant:echo message="${md5} *${pom.artifactId}-${pom.currentVersion}-src.zip" 
+                   file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}-src.zip.md5" />
+
+         <!-- create checksum for source tar.gz -->
+         <ant:checksum file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}-src.tar.gz" property="md5"/>
+         <ant:echo message="${md5} *${pom.artifactId}-${pom.currentVersion}-src.tar.gz" 
+                   file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}-src.tar.gz.md5" />
+
+    </postGoal>
 
 </project>
 
