@@ -11,28 +11,32 @@
    */
   function retrieveFormName(form) {
 
-      // Please refer to Bugs 31534, 35127, 35294 & 37315
+      // Please refer to Bugs 31534, 35127, 35294, 37315 & 38159
       // for the history of the following code
+
+      var formName;
 
       if (form.getAttributeNode) {
           if (form.getAttributeNode("id") && form.getAttributeNode("id").value) {
-              return form.getAttributeNode("id").value;
+              formName = form.getAttributeNode("id").value;
           } else {
-              return form.getAttributeNode("name").value;
+              formName = form.getAttributeNode("name").value;
           }
       } else if (form.getAttribute) {
           if (form.getAttribute("id")) {
-              return form.getAttribute("id");
+              formName = form.getAttribute("id");
           } else {
-              form.attributes["name"];
+              formName = form.attributes["name"];
           }
       } else {
           if (form.id) {
-              return form.id;
+              formName = form.id;
           } else {
-              return form.name;
+              formName = form.name;
           }
       }
+
+      return formName;
 
   }  
 
