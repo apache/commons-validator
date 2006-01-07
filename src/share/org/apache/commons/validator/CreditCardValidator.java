@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -208,17 +208,17 @@ public class CreditCardValidator {
     }
     
     /**
-     *  Augmented to support Visa Carte Blue used in France
+     *  Change to support Visa Carte Blue used in France
+     *  has been removed - see Bug 35926
      */
     private class Visa implements CreditCardType {
-        private static final String PREFIX = "4,5,";
+        private static final String PREFIX = "4";
         public boolean matches(String card) {
-            
-        String prefix2 = card.substring(0, 1) + ",";
-        return ((PREFIX.indexOf(prefix2) != -1)
-            && (card.length() == 13 || card.length() == 16));
+            return (
+                card.substring(0, 1).equals(PREFIX)
+                    && (card.length() == 13 || card.length() == 16));
         }
-    }    
+    }
             
     private class Amex implements CreditCardType {
         private static final String PREFIX = "34,37,";

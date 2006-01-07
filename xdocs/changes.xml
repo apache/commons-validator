@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-   Copyright 2004-2005 The Apache Software Foundation
+   Copyright 2004-2006 The Apache Software Foundation
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -37,6 +37,15 @@ The <action> type attribute can be add,update,fix,remove.
     <title>Release Notes</title>
   </properties>
   <body>
+
+    <release version="1.2.1 (alpha)" date="in SVN">
+      <action dev="niallp" type="fix" issue="35926">
+         Reverse change for to Credit Card Validator for visa card blue in France.
+      </action>
+      <action dev="niallp" type="fix" issue="38159" due-to="Kristian L. Petersen">
+         Fix JavaScript validation for Internet Explorer 5.0.
+      </action>
+    </release>
 
     <release version="1.2.0" date="2005-11-15">
       <action dev="dgraham" type="add">
