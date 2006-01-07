@@ -306,6 +306,20 @@
 
     <dependency>
       <groupId>maven</groupId>
+      <artifactId>maven-changes-plugin</artifactId>
+      <version>1.6</version>
+      <url>http://maven.apache.org/reference/plugins/changes/</url>
+      <type>plugin</type>
+      <properties>
+          <comment>
+              &lt;strong&gt;Site Only&lt;/strong&gt; - v1.6 (minimum)
+              required for building the Validator Site documentation.
+          </comment>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>maven</groupId>
       <artifactId>maven-file-activity-plugin</artifactId>
       <version>1.5.2</version>
       <url>http://maven.apache.org/reference/plugins/file-activity/</url>

@@ -48,6 +48,11 @@ The <action> type attribute can be add,update,fix,remove.
     </release>
 
     <release version="1.2.0" date="2005-11-15">
+      <description>
+          Validator 1.2.0 General Availability release - see
+          <a href="http://wiki.apache.org/jakarta-commons/ValidatorVersion120">
+          Version 1.2.0 Wiki Notes</a> for more details.
+      </description>
       <action dev="dgraham" type="add" issue="31489">
         Added ISBNValidator for validating book numbers.
       </action>
@@ -82,8 +87,8 @@ The <action> type attribute can be add,update,fix,remove.
       </action>
       <action dev="mrdon" type="fix">
         Handling of float and double should use the locale object.
-        Fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=34198">34198</a> and 
-        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=21282">21282</a>
+        <fixes issue="34198"/> 
+        <fixes issue="21282"/> 
       </action>
       <action dev="mrdon" type="update" issue="27471">
         More informative Exception message when validation method not found.
@@ -97,21 +102,21 @@ The <action> type attribute can be add,update,fix,remove.
       <action dev="mrdon" type="fix">
         Changing the strategy for locating form name/id, now use a common utility
         function which works in both IE and Firefox.
-        Fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=35127">35127</a> and 
-        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=32760">32760</a>
+        <fixes issue="35127"/> 
+        <fixes issue="32760"/> 
       </action>
       <action dev="mrdon" type="fix">
         Validation fails when "name" attribute in form not specified.
-        Fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=35294">35294</a> and 
-        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=31534">31534</a>
+        <fixes issue="35294"/> 
+        <fixes issue="31534"/> 
       </action>
       <action dev="mrdon" type="fix" issue="30686">
         UrlValidator fails http://www.google.com.
       </action>
       <action dev="mrdon" type="fix">
         Email: inexisting dashes and TLD erroneously accepted.
-        Fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=33409">33409</a> and 
-        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=31644">31644</a>
+        <fixes issue="33409"/> 
+        <fixes issue="31644"/> 
       </action>
       <action dev="mrdon" type="fix" issue="32351">
         Float validator can't validate the string with several dot.
@@ -130,8 +135,8 @@ The <action> type attribute can be add,update,fix,remove.
       </action>
       <action dev="mrdon" type="fix">
         Locale validation doesn't validate all fields.
-        Fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=30955">30955</a> and 
-        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=16920">16920</a>
+        <fixes issue="30955"/> 
+        <fixes issue="16920"/> 
       </action>
       <action dev="mrdon" type="fix" issue="27258">
         XML file included into validation.xml via entity reference not found.
