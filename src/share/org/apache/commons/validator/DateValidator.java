@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,14 +40,14 @@ public class DateValidator {
     /**
      * Singleton instance of this class.
      */
-    private static final DateValidator instance = new DateValidator();
+    private static final DateValidator DATE_VALIDATOR = new DateValidator();
 
     /**
      * Returns the Singleton instance of this validator.
      * @return A singleton instance of the DateValidator.
      */
     public static DateValidator getInstance() {
-        return instance;
+        return DATE_VALIDATOR;
     }
 
     /**

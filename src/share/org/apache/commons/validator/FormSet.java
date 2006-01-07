@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
 public class FormSet implements Serializable {
 
     /** Logging */
-    private static final Log log = LogFactory.getLog(FormSet.class);
+    private transient Log log = LogFactory.getLog(FormSet.class);
 
     /**
      * Whether or not the this <code>FormSet</code> was processed for replacing
@@ -237,7 +237,7 @@ public class FormSet implements Serializable {
     public void addConstant(String name, String value) {
 
         if (constants.containsKey(name)) {
-            log.error("Constant '" + name +  "' already exists in FormSet["
+            getLog().error("Constant '" + name +  "' already exists in FormSet["
                       + this.displayKey() + "] - ignoring.");
                        
         } else {
@@ -255,7 +255,7 @@ public class FormSet implements Serializable {
 
         String formName = f.getName();
         if (forms.containsKey(formName)) {
-            log.error("Form '" + formName + "' already exists in FormSet[" 
+            getLog().error("Form '" + formName + "' already exists in FormSet[" 
                       + this.displayKey() + "] - ignoring.");
                        
         } else {
@@ -355,4 +355,20 @@ public class FormSet implements Serializable {
         return results.toString();
     }
 
+    /**
+     * Accessor method for Log instance.
+     *
+     * The Log instance variable is transient and
+     * accessing it through this method ensures it
+     * is re-initialized when this instance is
+     * de-serialized.
+     *
+     * @return The Log instance.
+     */
+    private Log getLog() {
+        if (log == null) {
+            log =  LogFactory.getLog(FormSet.class);
+        }
+        return log;
+    }
 }

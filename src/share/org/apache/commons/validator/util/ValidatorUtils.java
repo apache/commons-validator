@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ import org.apache.commons.validator.Var;
  */
 public class ValidatorUtils {
 
-    private static final Log log = LogFactory.getLog(ValidatorUtils.class);
+    private static final Log LOG = LogFactory.getLog(ValidatorUtils.class);
 
     /**
      * <p>Replace part of a <code>String</code> with another value.</p>
@@ -107,11 +107,11 @@ public class ValidatorUtils {
             value = PropertyUtils.getProperty(bean, property);
 
         } catch(IllegalAccessException e) {
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } catch(InvocationTargetException e) {
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } catch(NoSuchMethodException e) {
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         }
 
         if (value == null) {

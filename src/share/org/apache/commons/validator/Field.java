@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -816,6 +816,7 @@ public class Field implements Cloneable, Serializable {
      * @param actions A Map of validator names to ValidatorAction objects.
      * @return A ValidatorResults object containing validation messages for 
      * this field.
+     * @throws ValidatorException If an error occurs during validation.
      */
     public ValidatorResults validate(Map params, Map actions)
         throws ValidatorException {

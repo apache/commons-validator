@@ -43,7 +43,9 @@
     <module name="EqualsHashCode"/>
 
     <!-- Item 12 - Make all fields private -->
+    <!--
     <module name="VisibilityModifier"/>
+    -->
 
     <!-- Item 15 - Design and document for inheritance or else prohibit it -->
     <!-- the module actually implements a very strict rule, it would be
@@ -52,9 +54,11 @@
          i.e. if you get error messages from this check you should be
          able to name a good reason to implement your code the way you do it,
          especially if you are designing a library and not an application. -->
+    <!--
     <module name="DesignForExtension">
       <property name="severity" value="warning"/>
     </module>
+    -->
 
     <!-- Item 17 - Use interfaces only to define types -->
     <module name="InterfaceIsType"/>
@@ -62,7 +66,7 @@
     <!-- Item 25 - Design method signatures carefully -->
     <!-- Avoid long parameter lists -->
     <module name="ParameterNumber">
-      <property name="max" value="3"/>
+      <property name="max" value="4"/>
     </module>
 
     <!-- Item 26 - Use overloading judiciously -->
@@ -77,6 +81,7 @@
     </module>
     <module name="JavadocMethod"> <!-- also covers Item 44 -->
       <property name="scope" value="protected"/>
+      <property name="allowUndeclaredRTE" value="true"/>
     </module>
     <module name="JavadocVariable">
       <property name="scope" value="protected"/>

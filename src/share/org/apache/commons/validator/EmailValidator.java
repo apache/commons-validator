@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,14 +61,14 @@ public class EmailValidator {
     /**
      * Singleton instance of this class.
      */
-    private static final EmailValidator instance = new EmailValidator();
+    private static final EmailValidator EMAIL_VALIDATOR = new EmailValidator();
 
     /**
      * Returns the Singleton instance of this validator.
      * @return singleton instance of this validator.
      */
     public static EmailValidator getInstance() {
-        return instance;
+        return EMAIL_VALIDATOR;
     }
 
     /**

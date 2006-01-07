@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ public class ValidatorResources implements Serializable {
      * the versions of the configuration file DTDs that we know about.  There
      * <strong>MUST</strong> be an even number of Strings in this list!
      */
-    private static final String registrations[] = {
+    private static final String REGISTRATIONS[] = {
         "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN",
         "/org/apache/commons/validator/resources/validator_1_0.dtd",
         "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0.1//EN",
@@ -75,7 +75,7 @@ public class ValidatorResources implements Serializable {
         "/org/apache/commons/validator/resources/validator_1_2_0.dtd"
     };
 
-    private static final Log log = LogFactory.getLog(ValidatorResources.class);
+    private transient Log log = LogFactory.getLog(ValidatorResources.class);
 
     /**
      * <code>Map</code> of <code>FormSet</code>s stored under
@@ -124,6 +124,7 @@ public class ValidatorResources implements Serializable {
      * @throws IOException
      * @throws SAXException if the validation XML files are not valid or well
      * formed.
+     * @throws IOException  if an I/O error occurs processing the XML files
      * @since Validator 1.1
      */
     public ValidatorResources(InputStream in) throws IOException, SAXException {
@@ -139,6 +140,7 @@ public class ValidatorResources implements Serializable {
      * @throws IOException
      * @throws SAXException if the validation XML files are not valid or well
      * formed.
+     * @throws IOException  if an I/O error occurs processing the XML files
      * @since Validator 1.1
      */
     public ValidatorResources(InputStream[] streams)
@@ -162,6 +164,7 @@ public class ValidatorResources implements Serializable {
      * @throws IOException
      * @throws SAXException if the validation XML files are not valid or well
      * formed.
+     * @throws IOException  if an I/O error occurs processing the XML files
      * @since Validator 1.2
      */
     public ValidatorResources(String uri) throws IOException, SAXException {
@@ -176,6 +179,7 @@ public class ValidatorResources implements Serializable {
      * @throws IOException
      * @throws SAXException if the validation XML files are not valid or well
      * formed.
+     * @throws IOException  if an I/O error occurs processing the XML files
      * @since Validator 1.2
      */
     public ValidatorResources(String[] uris)
@@ -206,16 +210,16 @@ public class ValidatorResources implements Serializable {
         addOldArgRules(digester);
 
         // register DTDs
-        for (int i = 0; i < registrations.length; i += 2) {
-            URL url = this.getClass().getResource(registrations[i + 1]);
+        for (int i = 0; i < REGISTRATIONS.length; i += 2) {
+            URL url = this.getClass().getResource(REGISTRATIONS[i + 1]);
             if (url != null) {
-                digester.register(registrations[i], url.toString());
+                digester.register(REGISTRATIONS[i], url.toString());
             }
         }
         return digester;
     }
 
-    private static final String argsPattern 
+    private static final String ARGS_PATTERN 
                = "form-validation/formset/form/field/arg";
 
     /**
@@ -237,7 +241,7 @@ public class ValidatorResources implements Serializable {
                 try {
                     arg.setPosition(Integer.parseInt(name.substring(3)));
                 } catch (Exception ex) {
-                    log.error("Error parsing Arg position: " 
+                    getLog().error("Error parsing Arg position: " 
                                + name + " " + arg + " " + ex);
                 }
 
@@ -247,10 +251,10 @@ public class ValidatorResources implements Serializable {
         };
 
         // Add the rule for each of the arg elements
-        digester.addRule(argsPattern + "0", rule);
-        digester.addRule(argsPattern + "1", rule);
-        digester.addRule(argsPattern + "2", rule);
-        digester.addRule(argsPattern + "3", rule);
+        digester.addRule(ARGS_PATTERN + "0", rule);
+        digester.addRule(ARGS_PATTERN + "1", rule);
+        digester.addRule(ARGS_PATTERN + "2", rule);
+        digester.addRule(ARGS_PATTERN + "3", rule);
 
     }
 
@@ -264,20 +268,20 @@ public class ValidatorResources implements Serializable {
     public void addFormSet(FormSet fs) {
         String key = this.buildKey(fs);
         if (key.length() == 0) {// there can only be one default formset
-            if (log.isWarnEnabled() && defaultFormSet != null) {
+            if (getLog().isWarnEnabled() && defaultFormSet != null) {
                 // warn the user he might not get the expected results
-                log.warn("Overriding default FormSet definition.");
+                getLog().warn("Overriding default FormSet definition.");
             }
             defaultFormSet = fs;
         } else {
             FormSet formset = (FormSet) hFormSets.get(key);
             if (formset == null) {// it hasn't been included yet
-                if (log.isDebugEnabled()) {
-                    log.debug("Adding FormSet '" + fs.toString() + "'.");
+                if (getLog().isDebugEnabled()) {
+                    getLog().debug("Adding FormSet '" + fs.toString() + "'.");
                 }
-            } else if (log.isWarnEnabled()) {// warn the user he might not
+            } else if (getLog().isWarnEnabled()) {// warn the user he might not
                                                 // get the expected results
-                log
+                getLog()
                         .warn("Overriding FormSet definition. Duplicate for locale: "
                                 + key);
             }
@@ -291,8 +295,8 @@ public class ValidatorResources implements Serializable {
      * @param value The constant value.
      */
     public void addConstant(String name, String value) {
-        if (log.isDebugEnabled()) {
-            log.debug("Adding Global Constant: " + name + "," + value);
+        if (getLog().isDebugEnabled()) {
+            getLog().debug("Adding Global Constant: " + name + "," + value);
         }
 
         this.hConstants.put(name, value);
@@ -310,8 +314,8 @@ public class ValidatorResources implements Serializable {
 
         this.hActions.put(va.getName(), va);
 
-        if (log.isDebugEnabled()) {
-            log.debug("Add ValidatorAction: " + va.getName() + "," + va.getClassname());
+        if (getLog().isDebugEnabled()) {
+            getLog().debug("Add ValidatorAction: " + va.getName() + "," + va.getClassname());
         }
     }
 
@@ -435,13 +439,13 @@ public class ValidatorResources implements Serializable {
         }
 
         if (form == null) {
-            if (log.isWarnEnabled()) {
-                log.warn("Form '" + formKey + "' not found for locale '" +
+            if (getLog().isWarnEnabled()) {
+                getLog().warn("Form '" + formKey + "' not found for locale '" +
                          localeKey + "'");
             }
         } else {
-            if (log.isDebugEnabled()) {
-                log.debug("Form '" + formKey + "' found in formset '" +
+            if (getLog().isDebugEnabled()) {
+                getLog().debug("Form '" + formKey + "' found in formset '" +
                           key + "' for locale '" + localeKey + "'");
             }
         }
@@ -573,6 +577,23 @@ public class ValidatorResources implements Serializable {
      */
     protected Map getActions() {
         return hActions;
+    }
+
+    /**
+     * Accessor method for Log instance.
+     *
+     * The Log instance variable is transient and
+     * accessing it through this method ensures it
+     * is re-initialized when this instance is
+     * de-serialized.
+     *
+     * @return The Log instance.
+     */
+    private Log getLog() {
+        if (log == null) {
+            log =  LogFactory.getLog(ValidatorResources.class);
+        }
+        return log;
     }
 
 }

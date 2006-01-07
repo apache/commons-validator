@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -337,6 +337,7 @@ public class Validator implements Serializable {
      * @return The <code>Map</code> returned uses the property of the
      * <code>Field</code> for the key and the value is the number of error the
      * field had.
+     * @throws ValidatorException If an error occurs during validation
      */
     public ValidatorResults validate() throws ValidatorException {
         Locale locale = (Locale) this.getParameterValue(LOCALE_PARAM);

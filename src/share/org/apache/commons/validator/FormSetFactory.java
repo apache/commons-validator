@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2005 The Apache Software Foundation
+ * Copyright 2005-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
 public class FormSetFactory extends AbstractObjectCreationFactory {
 
     /** Logging */
-    private static final Log log = LogFactory.getLog(ValidatorResources.class);
+    private transient Log log = LogFactory.getLog(FormSetFactory.class);
 
     /**
      * <p>Create or retrieve a <code>FormSet</code> for the specified
@@ -41,6 +41,7 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
      *
      * @param attributes The sax attributes for the formset element.
      * @return The FormSet for a locale.
+     * @throws Exception If an error occurs creating the FormSet.
      */
     public Object createObject(Attributes attributes) throws Exception {
 
@@ -73,8 +74,8 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
         // Retrieve existing FormSet for the language/country/variant
         FormSet formSet = resources.getFormSet(language, country, variant);
         if (formSet != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("FormSet[" + formSet.displayKey() + "] found - merging.");
+            if (getLog().isDebugEnabled()) {
+                getLog().debug("FormSet[" + formSet.displayKey() + "] found - merging.");
             }
             return formSet;
         }
@@ -88,12 +89,29 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
         // Add the FormSet to the validator resources
         resources.addFormSet(formSet);
 
-        if (log.isDebugEnabled()) {
-            log.debug("FormSet[" + formSet.displayKey() + "] created.");
+        if (getLog().isDebugEnabled()) {
+            getLog().debug("FormSet[" + formSet.displayKey() + "] created.");
         }
 
         return formSet;
 
+    }
+
+    /**
+     * Accessor method for Log instance.
+     *
+     * The Log instance variable is transient and
+     * accessing it through this method ensures it
+     * is re-initialized when this instance is
+     * de-serialized.
+     *
+     * @return The Log instance.
+     */
+    private Log getLog() {
+        if (log == null) {
+            log =  LogFactory.getLog(FormSetFactory.class);
+        }
+        return log;
     }
 
 }

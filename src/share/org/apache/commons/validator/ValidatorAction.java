@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ public class ValidatorAction implements Serializable {
     /**
      * Logger.
      */
-    private static final Log log = LogFactory.getLog(ValidatorAction.class);
+    private transient Log log = LogFactory.getLog(ValidatorAction.class);
 
     /**
      * The name of the validation.
@@ -377,8 +377,8 @@ public class ValidatorAction implements Serializable {
             return;
         }
 
-        if (log.isTraceEnabled()) {
-            log.trace("  Loading function begun");
+        if (getLog().isTraceEnabled()) {
+            getLog().trace("  Loading function begun");
         }
 
         if (this.jsFunction == null) {
@@ -387,14 +387,14 @@ public class ValidatorAction implements Serializable {
 
         String javascriptFileName = this.formatJavascriptFileName();
 
-        if (log.isTraceEnabled()) {
-            log.trace("  Loading js function '" + javascriptFileName + "'");
+        if (getLog().isTraceEnabled()) {
+            getLog().trace("  Loading js function '" + javascriptFileName + "'");
         }
 
         this.javascript = this.readJavascriptFile(javascriptFileName);
 
-        if (log.isTraceEnabled()) {
-            log.trace("  Loading javascript function completed");
+        if (getLog().isTraceEnabled()) {
+            getLog().trace("  Loading javascript function completed");
         }
 
     }
@@ -416,7 +416,7 @@ public class ValidatorAction implements Serializable {
         }
 
         if (is == null) {
-            log.debug("  Unable to read javascript name "+javascriptFileName);
+            getLog().debug("  Unable to read javascript name "+javascriptFileName);
             return null;
         }
 
@@ -429,13 +429,13 @@ public class ValidatorAction implements Serializable {
             }
 
         } catch(IOException e) {
-            log.error("Error reading javascript file.", e);
+            getLog().error("Error reading javascript file.", e);
 
         } finally {
             try {
                 reader.close();
             } catch(IOException e) {
-                log.error("Error closing stream to javascript file.", e);
+                getLog().error("Error closing stream to javascript file.", e);
             }
         }
         
@@ -575,7 +575,7 @@ public class ValidatorAction implements Serializable {
                 throw (ValidatorException) e;
             }
 
-            log.error(
+            getLog().error(
                 "Unhandled exception thrown during validation: " + e.getMessage(),
                 e);
 
@@ -770,4 +770,20 @@ public class ValidatorAction implements Serializable {
         return v.getOnlyReturnErrors();
     }
 
+    /**
+     * Accessor method for Log instance.
+     *
+     * The Log instance variable is transient and
+     * accessing it through this method ensures it
+     * is re-initialized when this instance is
+     * de-serialized.
+     *
+     * @return The Log instance.
+     */
+    private Log getLog() {
+        if (log == null) {
+            log =  LogFactory.getLog(ValidatorAction.class);
+        }
+        return log;
+    }
 }

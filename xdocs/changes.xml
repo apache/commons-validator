@@ -47,12 +47,8 @@ The <action> type attribute can be add,update,fix,remove.
       </action>
     </release>
 
-    <release version="1.2.0" date="2005-11-15">
-      <description>
-          Validator 1.2.0 General Availability release - see
-          <a href="http://wiki.apache.org/jakarta-commons/ValidatorVersion120">
-          Version 1.2.0 Wiki Notes</a> for more details.
-      </description>
+    <release version="1.2.0" date="2005-11-15" 
+       description="see http://wiki.apache.org/jakarta-commons/ValidatorVersion120">
       <action dev="dgraham" type="add" issue="31489">
         Added ISBNValidator for validating book numbers.
       </action>
@@ -179,7 +175,7 @@ The <action> type attribute can be add,update,fix,remove.
       </action>
     </release>
   
-    <release version="1.1.4" date="2004-11-12">
+    <release version="1.1.4" date="2004-11-12" description="Minor maintenance release.">
       <action dev="niallp" type="add" issue="29452">
         Added getMessage(key) and getMessages() methods to Field
       </action>

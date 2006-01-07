@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GenericTypeValidator implements Serializable {
 
-    private final static Log log = LogFactory.getLog(GenericTypeValidator.class);
+    private final static Log LOG = LogFactory.getLog(GenericTypeValidator.class);
 
     /**
      *  Checks if the value can safely be converted to a byte primitive.
@@ -391,8 +391,8 @@ public class GenericTypeValidator implements Serializable {
             date = formatter.parse(value);
         } catch (ParseException e) {
             // Bad date so return null
-            if (log.isDebugEnabled()) {
-                log.debug("Date parse failed value=[" + value  + "], " +
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Date parse failed value=[" + value  + "], " +
                                            "locale=[" + locale + "] "  + e);
             }
         }
@@ -436,8 +436,8 @@ public class GenericTypeValidator implements Serializable {
             }
         } catch (ParseException e) {
             // Bad date so return null
-            if (log.isDebugEnabled()) {
-                log.debug("Date parse failed value=[" + value       + "], " +
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Date parse failed value=[" + value       + "], " +
                                           "pattern=[" + datePattern + "], " +
                                            "strict=[" + strict      + "] "  + e);
             }

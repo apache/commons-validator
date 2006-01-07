@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,12 +34,12 @@ public class GenericValidator implements Serializable {
     /**
      * UrlValidator used in wrapper method.
      */
-    private static final UrlValidator urlValidator = new UrlValidator();
+    private static final UrlValidator URL_VALIDATOR = new UrlValidator();
 
     /**
      * CreditCardValidator used in wrapper method.
      */
-    private static final CreditCardValidator creditCardValidator =
+    private static final CreditCardValidator CREDIT_CARD_VALIDATOR =
         new CreditCardValidator();
 
     /**
@@ -243,7 +243,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is valid Credit Card Number.
      */
     public static boolean isCreditCard(String value) {
-        return creditCardValidator.isValid(value);
+        return CREDIT_CARD_VALIDATOR.isValid(value);
     }
 
     /**
@@ -265,7 +265,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is valid Url.
      */
     public static boolean isUrl(String value) {
-        return urlValidator.isValid(value);
+        return URL_VALIDATOR.isValid(value);
     }
 
     /**
