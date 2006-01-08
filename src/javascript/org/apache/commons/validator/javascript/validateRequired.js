@@ -89,10 +89,7 @@
             }   
         }
         if (fields.length > 0) {
-           if (focusField != null) {
-               focusField.focus();
-           }     
-           alert(fields.join('\n'));
+           jcv_handleErrors(fields, focusField);
         }
         return isValid;
     }

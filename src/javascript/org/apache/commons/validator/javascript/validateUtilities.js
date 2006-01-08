@@ -41,6 +41,30 @@
   }  
 
   /**
+   * Handle error messages.
+   * @param messages Array of error messages.
+   * @param focusField Field to set focus on.
+   */
+  function jcv_handleErrors(messages, focusField) {
+      if (focusField && focusField != null) {
+          var doFocus = true;
+          if (focusField.disabled || focusField.type == 'hidden') {
+              doFocus = false;
+          }
+          if (doFocus && 
+              focusField.style && 
+              focusField.style.visibility &&
+              focusField.style.visibility == 'hidden') {
+              doFocus = false;
+          }
+          if (doFocus) {
+              focusField.focus();
+          }
+      }
+      alert(messages.join('\n'));
+  }
+
+  /**
    * Check a value only contains valid numeric digits
    * @param argvalue The value to check.
    */

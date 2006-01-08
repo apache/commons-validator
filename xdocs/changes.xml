@@ -39,6 +39,14 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
     <release version="1.2.1 (alpha)" date="in SVN">
+      <action dev="niallp" type="fix">
+         Re-factor JavaScript error handling into a common method and only
+         set focus on fields which are not 'hidden' type or hidden by CSS.
+        <fixes issue="21043"/> 
+        <fixes issue="32476"/>
+        <dueto name="Matt Bathje"/>
+        <dueto name="Paul Benedict"/>
+      </action>
       <action dev="niallp" type="fix" issue="35926">
          Reverse change for to Credit Card Validator for visa card blue in France.
       </action>
