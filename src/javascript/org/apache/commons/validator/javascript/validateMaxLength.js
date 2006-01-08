@@ -15,8 +15,11 @@
         var i = 0;
         var fields = new Array();
  
-        oMaxLength = eval('new ' + retrieveFormName(form) +  '_maxlength()');        
-        for (x in oMaxLength) {
+        var oMaxLength = eval('new ' + retrieveFormName(form) +  '_maxlength()');        
+        for (var x in oMaxLength) {
+            if (!jcv_verifyArrayElement(x, oMaxLength[x])) {
+                continue;
+            }
             var field = form[oMaxLength[x][0]];
 
             if ((field.type == 'hidden' ||

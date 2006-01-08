@@ -15,9 +15,12 @@
         var i = 0;
         var fields = new Array();
 
-        oMinLength = eval('new ' + retrieveFormName(form) +  '_minlength()');
+        var oMinLength = eval('new ' + retrieveFormName(form) +  '_minlength()');
 
-        for (x in oMinLength) {
+        for (var x in oMinLength) {
+            if (!jcv_verifyArrayElement(x, oMinLength[x])) {
+                continue;
+            }
             var field = form[oMinLength[x][0]];
 
             if ((field.type == 'hidden' ||

@@ -12,8 +12,11 @@
         var i = 0;
         var fields = new Array();
  
-        oMasked = eval('new ' + retrieveFormName(form) +  '_mask()');      
-        for (x in oMasked) {
+        var oMasked = eval('new ' + retrieveFormName(form) +  '_mask()');      
+        for (var x in oMasked) {
+            if (!jcv_verifyArrayElement(x, oMasked[x])) {
+                continue;
+            }
             var field = form[oMasked[x][0]];
 
             if ((field.type == 'hidden' ||

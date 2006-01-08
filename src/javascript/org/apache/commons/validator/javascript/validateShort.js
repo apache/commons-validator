@@ -12,9 +12,12 @@
         var i = 0;
         var fields = new Array();
  
-        oShort = eval('new ' + retrieveFormName(form) +  '_ShortValidations()');
+        var oShort = eval('new ' + retrieveFormName(form) +  '_ShortValidations()');
 
-        for (x in oShort) {
+        for (var x in oShort) {
+            if (!jcv_verifyArrayElement(x, oShort[x])) {
+                continue;
+            }
             var field = form[oShort[x][0]];
 
             if ((field.type == 'hidden' ||

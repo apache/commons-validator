@@ -65,6 +65,23 @@
   }
 
   /**
+   * Checks that the array element is a valid
+   * Commons Validator element and not one inserted by
+   * other JavaScript libraries (for example the
+   * prototype library inserts an "extends" into
+   * all objects, including Arrays).
+   * @param name The element name.
+   * @param value The element value.
+   */
+  function jcv_verifyArrayElement(name, element) {
+      if (element && element.length && element.length == 3) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+
+  /**
    * Check a value only contains valid numeric digits
    * @param argvalue The value to check.
    */

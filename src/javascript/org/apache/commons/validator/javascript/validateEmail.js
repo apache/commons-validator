@@ -12,9 +12,12 @@
         var i = 0;
         var fields = new Array();
 
-        oEmail = eval('new ' + retrieveFormName(form) +  '_email()');
+        var oEmail = eval('new ' + retrieveFormName(form) +  '_email()');
 
-        for (x in oEmail) {
+        for (var x in oEmail) {
+            if (!jcv_verifyArrayElement(x, oEmail[x])) {
+                continue;
+            }
             var field = form[oEmail[x][0]];
             if ((field.type == 'hidden' || 
                  field.type == 'text' ||

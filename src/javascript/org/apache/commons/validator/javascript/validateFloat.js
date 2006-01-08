@@ -12,8 +12,11 @@
         var i = 0;
         var fields = new Array();
  
-        oFloat = eval('new ' + retrieveFormName(form) +  '_FloatValidations()');
-        for (x in oFloat) {
+        var oFloat = eval('new ' + retrieveFormName(form) +  '_FloatValidations()');
+        for (var x in oFloat) {
+            if (!jcv_verifyArrayElement(x, oFloat[x])) {
+                continue;
+            }
         	var field = form[oFloat[x][0]];
         	
             if ((field.type == 'hidden' ||

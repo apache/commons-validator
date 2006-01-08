@@ -12,8 +12,11 @@
         var i = 0;
         var fields = new Array();
  
-        oInteger = eval('new ' + retrieveFormName(form) +  '_IntegerValidations()');
-        for (x in oInteger) {
+        var oInteger = eval('new ' + retrieveFormName(form) +  '_IntegerValidations()');
+        for (var x in oInteger) {
+            if (!jcv_verifyArrayElement(x, oInteger[x])) {
+                continue;
+            }
             var field = form[oInteger[x][0]];
 
             if ((field.type == 'hidden' ||

@@ -12,8 +12,11 @@
         var i = 0;
         var fields = new Array();
  
-        oRange = eval('new ' + retrieveFormName(form) +  '_intRange()');        
-        for (x in oRange) {
+        var oRange = eval('new ' + retrieveFormName(form) +  '_intRange()');        
+        for (var x in oRange) {
+            if (!jcv_verifyArrayElement(x, oRange[x])) {
+                continue;
+            }
             var field = form[oRange[x][0]];
             if (field.disabled == false)  {
                 var value = '';

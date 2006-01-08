@@ -12,9 +12,12 @@
        var i = 0;
        var fields = new Array();
  
-       oDate = eval('new ' + retrieveFormName(form) +  '_DateValidations()');
+       var oDate = eval('new ' + retrieveFormName(form) +  '_DateValidations()');
 
-       for (x in oDate) {
+       for (var x in oDate) {
+            if (!jcv_verifyArrayElement(x, oDate[x])) {
+                continue;
+            }
            var field = form[oDate[x][0]];
            var value = field.value;
            var isStrict = true;

@@ -12,9 +12,12 @@
         var i = 0;
         var fields = new Array();
  
-        oCreditCard = eval('new ' + retrieveFormName(form) +  '_creditCard()');
+        var oCreditCard = eval('new ' + retrieveFormName(form) +  '_creditCard()');
 
-        for (x in oCreditCard) {
+        for (var x in oCreditCard) {
+            if (!jcv_verifyArrayElement(x, oCreditCard[x])) {
+                continue;
+            }
             if ((form[oCreditCard[x][0]].type == 'text' ||
                  form[oCreditCard[x][0]].type == 'textarea') &&
                 (form[oCreditCard[x][0]].value.length > 0)  &&

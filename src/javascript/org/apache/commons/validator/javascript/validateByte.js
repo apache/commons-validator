@@ -12,9 +12,12 @@
         var i = 0;
         var fields = new Array();
         
-        oByte = eval('new ' + retrieveFormName(form) + '_ByteValidations()');
+        var oByte = eval('new ' + retrieveFormName(form) + '_ByteValidations()');
 
-        for (x in oByte) {
+        for (var x in oByte) {
+            if (!jcv_verifyArrayElement(x, oByte[x])) {
+                continue;
+            }
             var field = form[oByte[x][0]];
 
             if ((field.type == 'hidden' ||
