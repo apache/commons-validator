@@ -39,6 +39,10 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
     <release version="1.2.1 (alpha)" date="in SVN">
+      <action dev="niallp" type="fix" issue="38051" due-to="Stephanie Codron">
+         Fix email validator to not allow spaces at the end of the user
+         component or start of the domain component.
+      </action>
       <action dev="niallp" type="add" issue="37975" due-to="Neale">
          Added validator_1_2_1.dtd and changed form rules so that a minimum
          of one field is no longer required (i.e. changed (field+) to (field*)

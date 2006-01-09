@@ -54,8 +54,8 @@ public class EmailValidator {
             "/^\\[(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})\\]$/";
     private static final String TLD_PATTERN = "/^([a-zA-Z]+)$/";
             
-    private static final String USER_PATTERN = "/^\\s*" + WORD + "(\\." + WORD + ")*\\s*$/";
-    private static final String DOMAIN_PATTERN = "/^\\s*" + ATOM + "(\\." + ATOM + ")*\\s*$/";
+    private static final String USER_PATTERN = "/^\\s*" + WORD + "(\\." + WORD + ")*$/";
+    private static final String DOMAIN_PATTERN = "/^" + ATOM + "(\\." + ATOM + ")*\\s*$/";
     private static final String ATOM_PATTERN = "/(" + ATOM + ")/";
 
     /**

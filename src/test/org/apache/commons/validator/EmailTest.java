@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -199,6 +199,26 @@ public class EmailTest extends TestCommon {
         info.setValue("joeblow@apache.o,rg");
         valueTest(info, false);
         info.setValue("joeblow@apache,org");
+        valueTest(info, false);
+
+    }
+   
+   /**
+    * Tests the email validation with spaces.
+    */
+    public void testEmailWithSpaces() throws ValidatorException {
+        ValueBean info = new ValueBean();
+        info.setValue("joeblow @apache.org");
+        valueTest(info, false);
+        info.setValue("joeblow@ apache.org");
+        valueTest(info, false);
+        info.setValue(" joeblow@apache.org");
+        valueTest(info, true);
+        info.setValue("joeblow@apache.org ");
+        valueTest(info, true);
+        info.setValue("joe blow@apache.org ");
+        valueTest(info, false);
+        info.setValue("joeblow@apa che.org ");
         valueTest(info, false);
 
     }
