@@ -304,10 +304,11 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value's length is greater than or equal to the min.</p>
+     * <p>Checks if the value's adjusted length is greater than or equal to the min.</p>
      *
      * @param value The value validation is being performed on.
      * @param min The minimum length.
+     * @param lineEndLength The length to use for line endings.
      * @return true if the value's length is more than the specified minimum.
      */
     public static boolean minLength(String value, int min, int lineEndLength) {
