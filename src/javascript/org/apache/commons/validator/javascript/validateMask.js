@@ -12,7 +12,7 @@
         var i = 0;
         var fields = new Array();
  
-        var oMasked = eval('new ' + retrieveFormName(form) +  '_mask()');      
+        var oMasked = eval('new ' + jcv_retrieveFormName(form) +  '_mask()');      
         for (var x in oMasked) {
             if (!jcv_verifyArrayElement(x, oMasked[x])) {
                 continue;
@@ -29,7 +29,7 @@
                  (field.value.length > 0) &&
                  field.disabled == false) {
 
-                if (!matchPattern(field.value, oMasked[x][2]("mask"))) {
+                if (!jcv_matchPattern(field.value, oMasked[x][2]("mask"))) {
                     if (i == 0) {
                         focusField = field;
                     }
@@ -45,6 +45,6 @@
         return isValid;
     }
 
-    function matchPattern(value, mask) {
+    function jcv_matchPattern(value, mask) {
        return mask.exec(value);
     }

@@ -12,7 +12,7 @@
         var i = 0;
         var fields = new Array();
         
-        var oRange = eval('new ' + retrieveFormName(form) +  '_floatRange()');
+        var oRange = eval('new ' + jcv_retrieveFormName(form) +  '_floatRange()');
         for (var x in oRange) {
             if (!jcv_verifyArrayElement(x, oRange[x])) {
                 continue;

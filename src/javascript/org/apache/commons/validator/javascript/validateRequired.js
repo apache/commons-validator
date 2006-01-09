@@ -13,7 +13,7 @@
         var i = 0;
         var fields = new Array();
 
-        var oRequired = eval('new ' + retrieveFormName(form) +  '_required()');
+        var oRequired = eval('new ' + jcv_retrieveFormName(form) +  '_required()');
 
         for (var x in oRequired) {
             if (!jcv_verifyArrayElement(x, oRequired[x])) {

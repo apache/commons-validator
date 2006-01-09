@@ -12,7 +12,7 @@
         var i = 0;
         var fields = new Array();
  
-        var oShort = eval('new ' + retrieveFormName(form) +  '_ShortValidations()');
+        var oShort = eval('new ' + jcv_retrieveFormName(form) +  '_ShortValidations()');
 
         for (var x in oShort) {
             if (!jcv_verifyArrayElement(x, oShort[x])) {
@@ -42,7 +42,7 @@
                 }
 
                 if (value.length > 0) {
-                    if (!isDecimalDigits(value)) {
+                    if (!jcv_isDecimalDigits(value)) {
                         bValid = false;
                         if (i == 0) {
                             focusField = field;

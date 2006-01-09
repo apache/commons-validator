@@ -12,7 +12,7 @@
         var i = 0;
         var fields = new Array();
  
-        var oInteger = eval('new ' + retrieveFormName(form) +  '_IntegerValidations()');
+        var oInteger = eval('new ' + jcv_retrieveFormName(form) +  '_IntegerValidations()');
         for (var x in oInteger) {
             if (!jcv_verifyArrayElement(x, oInteger[x])) {
                 continue;
@@ -42,7 +42,7 @@
 
                 if (value.length > 0) {
 
-                    if (!isDecimalDigits(value)) {
+                    if (!jcv_isDecimalDigits(value)) {
                         bValid = false;
                         if (i == 0) {
                             focusField = field;

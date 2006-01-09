@@ -12,7 +12,7 @@
        var i = 0;
        var fields = new Array();
  
-       var oDate = eval('new ' + retrieveFormName(form) +  '_DateValidations()');
+       var oDate = eval('new ' + jcv_retrieveFormName(form) +  '_DateValidations()');
 
        for (var x in oDate) {
             if (!jcv_verifyArrayElement(x, oDate[x])) {
@@ -65,7 +65,7 @@
                      }
                      var matched = dateRegexp.exec(value);
                      if(matched != null) {
-                        if (!isValidDate(matched[2], matched[1], matched[3])) {
+                        if (!jcv_isValidDate(matched[2], matched[1], matched[3])) {
                            if (i == 0) {
                                focusField = field;
                            }
@@ -103,7 +103,7 @@
                      }
                      var matched = dateRegexp.exec(value);
                      if(matched != null) {
-                         if (!isValidDate(matched[1], matched[2], matched[3])) {
+                         if (!jcv_isValidDate(matched[1], matched[2], matched[3])) {
                              if (i == 0) {
                                   focusField = field;
                              }
@@ -141,7 +141,7 @@
                      }
                      var matched = dateRegexp.exec(value);
                      if(matched != null) {
-                         if (!isValidDate(matched[3], matched[2], matched[1])) {
+                         if (!jcv_isValidDate(matched[3], matched[2], matched[1])) {
                              if (i == 0) {
                                  focusField = field;
                              }
@@ -170,7 +170,7 @@
        return bValid;
     }
     
-    function isValidDate(day, month, year) {
+    function jcv_isValidDate(day, month, year) {
 	    if (month < 1 || month > 12) {
             return false;
         }

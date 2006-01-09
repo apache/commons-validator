@@ -12,7 +12,7 @@
         var i = 0;
         var fields = new Array();
  
-        var oFloat = eval('new ' + retrieveFormName(form) +  '_FloatValidations()');
+        var oFloat = eval('new ' + jcv_retrieveFormName(form) +  '_FloatValidations()');
         for (var x in oFloat) {
             if (!jcv_verifyArrayElement(x, oFloat[x])) {
                 continue;
@@ -51,7 +51,7 @@
                     }
                     var noZeroString = joinedString.substring(zeroIndex,joinedString.length);
 
-                    if (!isAllDigits(noZeroString) || tempArray.length > 2) {
+                    if (!jcv_isAllDigits(noZeroString) || tempArray.length > 2) {
                         bValid = false;
                         if (i == 0) {
                             focusField = field;

@@ -15,7 +15,7 @@
         var i = 0;
         var fields = new Array();
  
-        var oMaxLength = eval('new ' + retrieveFormName(form) +  '_maxlength()');        
+        var oMaxLength = eval('new ' + jcv_retrieveFormName(form) +  '_maxlength()');        
         for (var x in oMaxLength) {
             if (!jcv_verifyArrayElement(x, oMaxLength[x])) {
                 continue;

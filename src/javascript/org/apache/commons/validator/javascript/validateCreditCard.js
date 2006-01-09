@@ -12,7 +12,7 @@
         var i = 0;
         var fields = new Array();
  
-        var oCreditCard = eval('new ' + retrieveFormName(form) +  '_creditCard()');
+        var oCreditCard = eval('new ' + jcv_retrieveFormName(form) +  '_creditCard()');
 
         for (var x in oCreditCard) {
             if (!jcv_verifyArrayElement(x, oCreditCard[x])) {
@@ -26,7 +26,7 @@
                  field.type == 'textarea') &&
                 (field.value.length > 0)  &&
                  field.disabled == false) {
-                if (!luhnCheck(field.value)) {
+                if (!jcv_luhnCheck(field.value)) {
                     if (i == 0) {
                         focusField = field;
                     }
@@ -46,8 +46,8 @@
      * This allows you to spot most randomly made-up or garbled credit card numbers immediately.
      * Reference: http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html
      */
-    function luhnCheck(cardNumber) {
-        if (isLuhnNum(cardNumber)) {
+    function jcv_luhnCheck(cardNumber) {
+        if (jcv_isLuhnNum(cardNumber)) {
             var no_digit = cardNumber.length;
             var oddoeven = no_digit & 1;
             var sum = 0;
@@ -65,7 +65,7 @@
         return false;
     }
 
-    function isLuhnNum(argvalue) {
+    function jcv_isLuhnNum(argvalue) {
         argvalue = argvalue.toString();
         if (argvalue.length == 0) {
             return false;

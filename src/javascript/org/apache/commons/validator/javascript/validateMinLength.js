@@ -15,7 +15,7 @@
         var i = 0;
         var fields = new Array();
 
-        var oMinLength = eval('new ' + retrieveFormName(form) +  '_minlength()');
+        var oMinLength = eval('new ' + jcv_retrieveFormName(form) +  '_minlength()');
 
         for (var x in oMinLength) {
             if (!jcv_verifyArrayElement(x, oMinLength[x])) {

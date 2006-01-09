@@ -12,7 +12,7 @@
         var i = 0;
         var fields = new Array();
         
-        var oByte = eval('new ' + retrieveFormName(form) + '_ByteValidations()');
+        var oByte = eval('new ' + jcv_retrieveFormName(form) + '_ByteValidations()');
 
         for (var x in oByte) {
             if (!jcv_verifyArrayElement(x, oByte[x])) {
@@ -42,7 +42,7 @@
                 }
 
                 if (value.length > 0) {
-                    if (!isDecimalDigits(value)) {
+                    if (!jcv_isDecimalDigits(value)) {
                         bValid = false;
                         if (i == 0) {
                             focusField = field;

@@ -9,7 +9,7 @@
    * Retreive the name of the form
    * @param form The form validation is taking place on.
    */
-  function retrieveFormName(form) {
+  function jcv_retrieveFormName(form) {
 
       // Please refer to Bugs 31534, 35127, 35294, 37315 & 38159
       // for the history of the following code
@@ -93,7 +93,7 @@
    * Check a value only contains valid numeric digits
    * @param argvalue The value to check.
    */
-  function isAllDigits(argvalue) {
+  function jcv_isAllDigits(argvalue) {
       argvalue = argvalue.toString();
       var validChars = "0123456789";
       var startFrom = 0;
@@ -117,7 +117,7 @@
    * Check a value only contains valid decimal digits
    * @param argvalue The value to check.
    */
-  function isDecimalDigits(argvalue) {
+  function jcv_isDecimalDigits(argvalue) {
       argvalue = argvalue.toString();
       var validChars = "0123456789";
 

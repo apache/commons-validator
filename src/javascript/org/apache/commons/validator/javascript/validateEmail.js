@@ -12,7 +12,7 @@
         var i = 0;
         var fields = new Array();
 
-        var oEmail = eval('new ' + retrieveFormName(form) +  '_email()');
+        var oEmail = eval('new ' + jcv_retrieveFormName(form) +  '_email()');
 
         for (var x in oEmail) {
             if (!jcv_verifyArrayElement(x, oEmail[x])) {
@@ -27,7 +27,7 @@
                  field.type == 'textarea') &&
                 (field.value.length > 0) &&
                 field.disabled == false) {
-                if (!checkEmail(field.value)) {
+                if (!jcv_checkEmail(field.value)) {
                     if (i == 0) {
                         focusField = field;
                     }
@@ -46,7 +46,7 @@
      * Reference: Sandeep V. Tamhankar (stamhankar@hotmail.com),
      * http://javascript.internet.com
      */
-    function checkEmail(emailStr) {
+    function jcv_checkEmail(emailStr) {
         if (emailStr.length == 0) {
             return true;
         }
