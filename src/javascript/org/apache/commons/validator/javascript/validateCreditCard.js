@@ -18,13 +18,17 @@
             if (!jcv_verifyArrayElement(x, oCreditCard[x])) {
                 continue;
             }
-            if ((form[oCreditCard[x][0]].type == 'text' ||
-                 form[oCreditCard[x][0]].type == 'textarea') &&
-                (form[oCreditCard[x][0]].value.length > 0)  &&
-                 form[oCreditCard[x][0]].disabled == false) {
-                if (!luhnCheck(form[oCreditCard[x][0]].value)) {
+            var field = form[oCreditCard[x][0]];
+            if (!jcv_isFieldPresent(field)) {
+              continue;
+            }
+            if ((field.type == 'text' ||
+                 field.type == 'textarea') &&
+                (field.value.length > 0)  &&
+                 field.disabled == false) {
+                if (!luhnCheck(field.value)) {
                     if (i == 0) {
-                        focusField = form[oCreditCard[x][0]];
+                        focusField = field;
                     }
                     fields[i++] = oCreditCard[x][1];
                     bValid = false;

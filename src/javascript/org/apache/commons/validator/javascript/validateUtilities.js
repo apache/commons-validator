@@ -82,6 +82,14 @@
   }
 
   /**
+   * Checks whether the field is present on the form.
+   * @param field The form field.
+   */
+  function jcv_isFieldPresent(field) {
+      return !(field == null || field == undefined);
+  }
+
+  /**
    * Check a value only contains valid numeric digits
    * @param argvalue The value to check.
    */

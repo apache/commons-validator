@@ -18,6 +18,9 @@
                 continue;
             }
         	var field = form[oFloat[x][0]];
+            if (!jcv_isFieldPresent(field)) {
+              continue;
+            }
         	
             if ((field.type == 'hidden' ||
                 field.type == 'text' ||

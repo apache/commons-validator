@@ -21,6 +21,9 @@
                 continue;
             }
             var field = form[oMaxLength[x][0]];
+            if (!jcv_isFieldPresent(field)) {
+              continue;
+            }
 
             if ((field.type == 'hidden' ||
                 field.type == 'text' ||

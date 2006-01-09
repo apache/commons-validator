@@ -19,6 +19,9 @@
                 continue;
             }
            var field = form[oDate[x][0]];
+           if (!jcv_isFieldPresent(field)) {
+             continue;
+           }
            var value = field.value;
            var isStrict = true;
            var datePattern = oDate[x][2]("datePatternStrict");

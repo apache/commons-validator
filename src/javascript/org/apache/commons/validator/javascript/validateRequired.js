@@ -21,7 +21,7 @@
             }
             var field = form[oRequired[x][0]];
 
-            if (field == null) {
+            if (!jcv_isFieldPresent(field)) {
                 fields[i++] = oRequired[x][1];
                 isValid=false;
             } else if ((field.type == 'hidden' ||

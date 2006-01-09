@@ -39,6 +39,12 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
     <release version="1.2.1 (alpha)" date="in SVN">
+      <action dev="niallp" type="fix" issue="14471">
+         Change JavaScript validators so that they don't fail when the
+         field is not present on the form.
+        <dueto name="Andrew Berridge"/>
+        <dueto name="Paul Benedict"/>
+      </action>
       <action dev="niallp" type="fix" issue="37962" due-to="Alan Olmanson">
          Fix min/max length validation for different line endings.
       </action>
