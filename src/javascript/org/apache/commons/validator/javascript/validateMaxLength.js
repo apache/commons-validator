@@ -28,8 +28,29 @@
                 field.type == 'textarea') &&
                 field.disabled == false) {
 
+                /* Adjust length for carriage returns - see Bug 37962 */
+                var lineEndLength = oMaxLength[x][2]("lineEndLength");
+                var adjustAmount = 0;
+                if (lineEndLength) {
+                    var rCount = 0;
+                    var nCount = 0;
+                    var crPos = 0;
+                    while (crPos < field.value.length) {
+                        var currChar = field.value.charAt(crPos);
+                        if (currChar == '\r') {
+                            rCount++;
+                        }
+                        if (currChar == '\n') {
+                            nCount++;
+                        }
+                        crPos++;
+                    }
+                    var endLength = parseInt(lineEndLength);
+                    adjustAmount = (nCount * endLength) - (rCount + nCount);
+                }
+
                 var iMax = parseInt(oMaxLength[x][2]("maxlength"));
-                if (field.value.length > iMax) {
+                if ((field.value.length + adjustAmount)  > iMax) {
                     if (i == 0) {
                         focusField = field;
                     }

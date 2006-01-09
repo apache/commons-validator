@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2000-2005 The Apache Software Foundation
+ * Copyright 2000-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,6 +66,7 @@ public class ValidatorTestSuite extends TestCase {
        suite.addTest(UrlTest.suite());
        suite.addTest(ValidatorTest.suite());
        suite.addTest(VarTest.suite());
+       suite.addTestSuite(GenericValidatorTest.class);
 
        return suite;
     }

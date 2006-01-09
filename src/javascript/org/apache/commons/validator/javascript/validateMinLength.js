@@ -29,8 +29,29 @@
                 field.type == 'textarea') &&
                 field.disabled == false) {
 
+                /* Adjust length for carriage returns - see Bug 37962 */
+                var lineEndLength = oMinLength[x][2]("lineEndLength");
+                var adjustAmount = 0;
+                if (lineEndLength) {
+                    var rCount = 0;
+                    var nCount = 0;
+                    var crPos = 0;
+                    while (crPos < field.value.length) {
+                        var currChar = field.value.charAt(crPos);
+                        if (currChar == '\r') {
+                            rCount++;
+                        }
+                        if (currChar == '\n') {
+                            nCount++;
+                        }
+                        crPos++;
+                    }
+                    var endLength = parseInt(lineEndLength);
+                    adjustAmount = (nCount * endLength) - (rCount + nCount);
+                }
+
                 var iMin = parseInt(oMinLength[x][2]("minlength"));
-                if ((trim(field.value).length > 0) && (field.value.length < iMin)) {
+                if ((trim(field.value).length > 0) && ((field.value.length + adjustAmount) < iMin)) {
                     if (i == 0) {
                         focusField = field;
                     }

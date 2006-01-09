@@ -39,6 +39,9 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
     <release version="1.2.1 (alpha)" date="in SVN">
+      <action dev="niallp" type="fix" issue="37962" due-to="Alan Olmanson">
+         Fix min/max length validation for different line endings.
+      </action>
       <action dev="niallp" type="fix" issue="38051" due-to="Stephanie Codron">
          Fix email validator to not allow spaces at the end of the user
          component or start of the domain component.

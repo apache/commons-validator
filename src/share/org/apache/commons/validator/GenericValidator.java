@@ -280,6 +280,19 @@ public class GenericValidator implements Serializable {
     }
 
     /**
+     * <p>Checks if the value's adjusted length is less than or equal to the max.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max The maximum length.
+     * @param lineEndLength The length to use for line endings.
+     * @return true if the value's length is less than the specified maximum.
+     */
+    public static boolean maxLength(String value, int max, int lineEndLength) {
+        int adjustAmount = adjustForLineEnding(value, lineEndLength);
+        return ((value.length() + adjustAmount) <= max);
+    }
+
+    /**
      * <p>Checks if the value's length is greater than or equal to the min.</p>
      *
      * @param value The value validation is being performed on.
@@ -288,6 +301,41 @@ public class GenericValidator implements Serializable {
      */
     public static boolean minLength(String value, int min) {
         return (value.length() >= min);
+    }
+
+    /**
+     * <p>Checks if the value's length is greater than or equal to the min.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum length.
+     * @return true if the value's length is more than the specified minimum.
+     */
+    public static boolean minLength(String value, int min, int lineEndLength) {
+        int adjustAmount = adjustForLineEnding(value, lineEndLength);
+        return ((value.length() + adjustAmount) >= min);
+    }
+
+    /**
+     * Calculate an adjustment amount for line endings.
+     *
+     * See Bug 37962 for the rational behind this.
+     *
+     * @param value The value validation is being performed on.
+     * @param lineEndLength The length to use for line endings.
+     * @return the adjustment amount.
+     */
+    private static int adjustForLineEnding(String value, int lineEndLength) {
+        int nCount = 0;
+        int rCount = 0;
+        for (int i = 0; i < value.length(); i++) {
+            if (value.charAt(i) == '\n') {
+                nCount++;
+            }
+            if (value.charAt(i) == '\r') {
+                rCount++;
+            }
+        }
+        return ((nCount * lineEndLength) - (rCount + nCount));
     }
     
     // See http://issues.apache.org/bugzilla/show_bug.cgi?id=29015 WRT the "value" methods
