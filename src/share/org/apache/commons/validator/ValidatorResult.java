@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Iterator;
 
 /**
  * This contains the results of a set of validation rules processed 
@@ -102,8 +103,20 @@ public class ValidatorResult implements Serializable {
     }
 
     /**
+     * Return an Iterator of the action names contained in this Result.
+     * @return The set of action names.
+     */
+    public Iterator getActions() {
+        return Collections.unmodifiableMap(hAction).keySet().iterator();
+    }
+
+    /**
      * Return a Map of the validator actions in this Result.
      * @return Map of validator actions.
+     * @deprecated Use getActions() to return the set of actions
+     *             the isValid(name) and getResult(name) methods
+     *             to determine the contents of ResultStatus.
+     *
      */
     public Map getActionMap() {
         return Collections.unmodifiableMap(hAction);

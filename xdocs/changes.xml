@@ -39,6 +39,10 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
     <release version="1.2.1 (alpha)" date="in SVN">
+      <action dev="niallp" type="add" issue="37704">
+         Deprecate ValidatorResult's getActionMap() and add getActions()
+         method to provide an Iterator of the set of action names.
+      </action>
       <action dev="niallp" type="add" issue="37580" due-to="Michael Rush">
          Use the Dojo/Rhino JavaScript compressor to created compressed
          versions of the static JavaScript files. Additionally create single
