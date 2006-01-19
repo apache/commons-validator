@@ -356,6 +356,7 @@
     <unitTest>
       <includes>
         <include>**/ValidatorTestSuite.java</include>
+        <include>**/RoutinesTestSuite.java</include>
       </includes>
       <resources>
         <resource>

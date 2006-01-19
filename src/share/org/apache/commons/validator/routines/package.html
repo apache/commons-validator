@@ -1,0 +1,80 @@
+<html>
+<head>
+<title>Package Documentation for org.apache.commons.validator.routines Package</title>
+</head>
+<body bgcolor="white">
+    <p>This package contains <i>independant</i> validation routines.</p>
+    <h1>Purpose</h1>
+    <p>
+       Commons Validator serves two purposes:
+    </p>
+        <ul>
+           <li>To provide standard, independant validation routines/functions.</li>
+           <li>To provide a <i>mini</i> framework for Validation.</li>
+        </ul>
+    <p>
+       This package has been created, since version 1.2.1, in an attempt to clearly
+       separate these two concerns and is the location for the standard, independant
+       validation routines/functions in <em>Commons Validator</em>.
+    </p>
+
+    <p>
+       The contents of this package have no dependencies on the framework aspect of
+       Commons Validator and can be used on their own.
+    </p>
+
+    <h1>Date and Time Validators</h1>
+    <p>
+       The date and time validators either validate according to a specified <i>format</i>
+       or use a standard <i>format</i> for a specified <code>Locale</code>.
+    </p>
+        <ul>
+           <li><a href="DateValidator.html">Date Validator</a> - validates dates
+               converting to a <code>java.util.Date</code> type. Also provides functions
+               to compare dates.</li>
+           <li><a href="CalendarValidator.html">Calendar Validator</a> - validates dates
+               converting to a <code>java.util.Calendar</code> type. Also provides functions
+               to compare dates.</li>
+           <li><a href="TimeValidator.html">Time Validator</a> - validates times
+               converting to a <code>java.util.Calendar</code> type. Also provides functions
+               to compare times.</li>
+        </ul>
+    <h1>Numeric Validators</h1>
+    <p>
+       The numeric validators either validate according to a specified <i>format</i>
+       or use a standard <i>format</i> for a specified <code>Locale</code>.
+    </p>
+        <ul>
+           <li><a href="ByteValidator.html">Byte Validator</a> - validates numbers
+               converting to a <code>java.lang.Byte</code> type. Also provides functions
+               for minimum, maximum and range checks.</li>
+           <li><a href="ShortValidator.html">Short Validator</a> - validates numbers
+               converting to a <code>java.lang.Short</code> type. Also provides functions
+               for minimum, maximum and range checks.</li>
+           <li><a href="IntegerValidator.html">Integer Validator</a> - validates numbers
+               converting to a <code>java.lang.Integer</code> type. Also provides functions
+               for minimum, maximum and range checks.</li>
+           <li><a href="LongValidator.html">Long Validator</a> - validates numbers
+               converting to a <code>java.lang.Long</code> type. Also provides functions
+               for minimum, maximum and range checks.</li>
+           <li><a href="FloatValidator.html">Float Validator</a> - validates numbers
+               converting to a <code>java.lang.Float</code> type. Also provides functions
+               for minimum, maximum and range checks.</li>
+           <li><a href="DoubleValidator.html">Double Validator</a> - validates numbers
+               converting to a <code>java.lang.Integer</code> type. Also provides functions
+               for minimum, maximum and range checks.</li>
+           <li><a href="BigIntegerValidator.html">BigInteger Validator</a> - validates numbers
+               converting to a <code>java.math.BigInteger</code> type. Also provides functions
+               for minimum, maximum and range checks.</li>
+           <li><a href="BigDecimalValidator.html">BigDecimal Validator</a> - validates numbers
+               converting to a <code>java.math.BigDecimal</code> type. Also provides functions
+               for minimum, maximum and range checks.</li>
+           <li><a href="CurrencyValidator.html">Currency Validator</a> - validates numbers
+               in using the <i>currency</i> format for a specified <code>Locale</code>.
+               Validated values are converted to a <code>java.math.BigDecimal</code> type.</li>
+           <li><a href="PercentValidator.html">Percent Validator</a> - validates numbers
+               in using the <i>percentage</i> format for a specified <code>Locale</code>.
+               Validated values are converted to a <code>java.math.BigDecimal</code> type.</li>
+        </ul>
+</body>
+</html>
