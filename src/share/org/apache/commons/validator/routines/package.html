@@ -22,6 +22,8 @@
     <li>3.2 <a href="#numeric.validate">Validating a Numeric Value</a></li>
     <li>3.3 <a href="#numeric.format">Formatting</a></li>
     <li>3.4 <a href="#numeric.compare">Comparing Numbers</a></li>
+    <li>3.5 <a href="#numeric.currency">Currency Validation</a></li>
+    <li>3.6 <a href="#numeric.percent">Percent Validation</a></li>
     </ul></li>
 </ul>
 
@@ -154,10 +156,24 @@
    components of a date:
 </p>
 <pre>
-      // Check the date is in the current month
-      int compare = validator.compareMonths{fooDate, new Date(), null);
-      if (compare != 0) {
-          // error...not in current month
+      // Check if the date is in the current month 
+      int compare = validator.compareMonths(fooDate, new Date(), null); 
+      if (compare == 0) { 
+          // do current month processing
+          return;
+      }
+
+      // Check if the date is in the previous quarter
+      compare = validator.compareQuarters(fooDate, new Date(), null);
+      if (compare < 0) {
+          // do previous quarter processing
+          return;
+      }
+
+      // Check if the date is in the next year
+      compare = validator.compareYears(fooDate, new Date(), null);
+      if (compare > 0) {
+          // do next year processing
           return;
       }
 </pre>
@@ -190,12 +206,6 @@
         converting to a <code>java.math.BigInteger</code> type.</li>
     <li><a href="BigDecimalValidator.html">BigDecimal Validator</a> - validates numbers
         converting to a <code>java.math.BigDecimal</code> type.</li>
-    <li><a href="CurrencyValidator.html">Currency Validator</a> - validates numbers 
-        in a <i>currency</i> format, converting to a <code>java.math.BigDecimal</code> 
-        type.</li>
-    <li><a href="PercentValidator.html">Percent Validator</a> - validates numbers in 
-        a <i>percentage</i> format converting to a <code>java.math.BigDecimal</code> 
-        type.</li>
 </ul>
 
 <a name="numeric.validate"></a>
@@ -261,16 +271,118 @@
 <h3>3.4 Comparing Numbers</h3>
 <p>
    As well as validating that a value is a valid number, these validators
-   also provide functions for validating the <i>minimum</i>, <i>minimum</i> 
+   also provide functions for validating the <i>minimum</i>, <i>maximum</i> 
    and <i>range</i> of a value.
 </p>
 <pre>
       // Check the number is between 25 and 75
-      int compare = validator.compareMonths{fooDate, new Date(), null);
       if (validator.isInRange(fooInteger, 25, 75) {
           // valid...in the specified range
           return;
       }
 </pre>
+
+<a name="numeric.currency"></a>
+<h3>3.5 Currency Validation</h3>
+<p>
+   A default <a href="CurrencyValidator.html">Currency Validator</a> 
+   implementation is provided, although all the <i>numeric</i> validators
+   support currency validation. The default implementation converts
+   currency amounts to a <code>java.math.BigDecimal</code> and additionally
+   it provides <i>lenient</i> currency symbol validation. That is, currency
+   amounts are valid with <i>or</i> without the currency symbol.
+</p>
+<pre>
+      BigDecimalValidator validator = CurrencyValidator.getInstance();
+
+      BigDecimal fooAmount = validator.validate("$12,500.00", Locale.US);
+      if (fooAmount == null) {
+          // error...not a valid currency amount
+          return;
+      }
+
+      // Check the amount is a minimum of $1,000
+      if (validator.minValue(fooAmount, 1000) {
+          // valid...in the specified range
+          return;
+      }
+</pre>
+
+<p>
+   If, for example, you want to use the <a href="IntegerValidator.html">Integer
+   Validator</a> to validate a currency, then you can simply create a 
+   new instance with the appropriate <i>format style</i>. Note that
+   the other validators do not support the <i>lenient</i> currency symbol
+   validation.
+</p>
+
+<pre>
+      IntegerValidator validator = 
+          new IntegerValidator(true, IntegerValidator.CURRENCY_FORMAT);
+
+      String pattern = "#,###" + '\u00A4' + '\u00A4';  // Use international symbol
+
+      Integer fooAmount = validator.validate("10.100EUR", pattern, Locale.GERMAN);
+      if (fooAmount == null) {
+          // error...not a valid currency amount
+          return;
+      }
+</pre>
+
+<a name="numeric.percent"></a>
+<h3>3.6 Percent Validation</h3>
+<p>
+   A default <a href="PercentValidator.html">Percent Validator</a> 
+   implementation is provided, although the <i>Float</i>,
+   <i>Double</i> and <i>BigDecimal</i> validators also support
+   percent validation. The default implementation converts
+   percent amounts to a <code>java.math.BigDecimal</code> and additionally
+   it provides <i>lenient</i> percent symbol validation. That is, percent 
+   amounts are valid with <i>or</i> without the percent symbol.
+</p>
+
+<pre>
+      BigDecimalValidator validator = PercentValidator.getInstance();
+
+      BigDecimal fooPercent = validator.validate("20%", Locale.US);
+      if (fooPercent == null) {
+          // error...not a valid percent
+          return;
+      }
+
+      // Check the percent is between 10% and 90%
+      if (validator.isInRange(fooPercent, 0.1, 0.9) {
+          // valid...in the specified range
+          return;
+      }
+</pre>
+
+<p>
+   If, for example, you want to use the <a href="FloatValidator.html">Float
+   Validator</a> to validate a percent, then you can simply create a 
+   new instance with the appropriate <i>format style</i>. Note that
+   the other validators do not support the <i>lenient</i> percent symbol
+   validation.
+</p>
+
+<pre>
+      FloatValidator validator = 
+          new FloatValidator(true, FloatValidator.PERCENT_FORMAT);
+
+      Float fooPercent = validator.validate("20%", "###%");
+      if (fooPercent == null) {
+          // error...not a valid percent
+          return;
+      }
+
+</pre>
+<p>
+   <strong>Note</strong>: in theory the other numeric validators besides
+   <i>Float</i>, <i>Double</i> and <i>BigDecimal</i> (i.e. <i>Byte</i>, 
+   <i>Short</i>, <i>Integer</i>, <i>Long</i> and <i>BigInteger</i>)
+   also support percent validation. However, since they don't allow fractions
+   they will only work with percentages greater than 100%.
+</p>
+
 </body>
 </html>
