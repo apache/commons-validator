@@ -20,26 +20,38 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.text.DecimalFormat;
 import java.text.Format;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 /**
  * <p><b>Currency Validation</b> and Conversion routines (<code>java.math.BigDecimal</code>).</p>
  * 
- * <p>This validator is a variation of the <code>BigDecimal</code> Validator
- *    that uses the <i>currency</i> format when validating using
- *    a <code>Locale</code>.</p>
+ * <p>This is one implementation of a currency validator that has the following features:</p>
+ *    <ul>
+ *       <li>It is <i>lenient</i> about the the presence of the <i>currency symbol</i></li>
+ *       <li>It converts the currency to a <code>java.math.BigDecimal</code></li>
+ *    </ul>
  * 
- * <p>Otherwise it provides the same functionality as the <code>BigDecimal</code>
- *    with converted values being returned as a  <code>BigDecimal</code>.</p>
+ * <p>However any of the <i>number</i> validators can be used for <i>currency</i> validation.
+ *    For example, if you wanted a <i>currency</i> validator that converts to a
+ *    <code>java.lang.Integer</code> then you can simply instantiate an
+ *    <code>IntegerValidator</code> with the appropriate <i>format type</i>:</p>
+ *    
+ *    <p><code>... = new IntegerValidator(false, IntegerValidator.CURRENCY_FORMAT);</code></p>
  *
+ * <p>Pick the appropriate validator, depending on the type (e.g Float, Double, Integer, Long etc)
+ *    you want the currency converted to. One thing to note - only the CurrencyValidator
+ *    implements <i>lenient</i> behaviour regarding the currency symbol.</p>
+ * 
  * @version $Revision$ $Date$
  * @since Validator 1.2.1
  */
 public class CurrencyValidator extends BigDecimalValidator {
 
     private static final CurrencyValidator VALIDATOR = new CurrencyValidator();
+
+    /** DecimalFormat's currency symbol */
+    private static final char CURRENCY_SYMBOL = '\u00A4';
 
     /**
      * Return a singleton instance of this validator.
@@ -53,7 +65,7 @@ public class CurrencyValidator extends BigDecimalValidator {
      * Construct a <i>strict</i> instance.
      */
     public CurrencyValidator() {
-        this(true);
+        this(true, true);
     }
 
     /**
@@ -61,26 +73,47 @@ public class CurrencyValidator extends BigDecimalValidator {
      * 
      * @param strict <code>true</code> if strict 
      *        <code>Format</code> parsing should be used.
+     * @param allowFractions <code>true</code> if fractions are
+     *        allowed or <code>false</code> if integers only.
      */
-    public CurrencyValidator(boolean strict) {
-        super(strict);
+    public CurrencyValidator(boolean strict, boolean allowFractions) {
+        super(strict, CURRENCY_FORMAT, allowFractions);
     }
 
     /**
-     * <p>Returns a currency <code>NumberFormat</code> for the specified Locale.</p>
+     * <p>Parse the value with the specified <code>Format</code>.</p>
      * 
-     * @param locale The locale a currency <code>NumberFormat</code> is required
-     *        for, defaults to the default.
-     * @return The currency <code>NumberFormat</code> to created.
+     * <p>This implementation is lenient whether the currency symbol
+     *    is present or not. The default <code>NumberFormat</code>
+     *    behaviour is for the parsing to "fail" if the currency
+     *    symbol is missing. This method re-parses with a format
+     *    without the currency symbol if it fails initially.</p>
+     * 
+     * @param value The value to be parsed.
+     * @param formatter The Format to parse the value with.
+     * @return The parsed value if valid or <code>null</code> if invalid.
      */
-    public Format getFormat(Locale locale) {
+    protected Object parse(String value, Format formatter) {
 
-        if (locale == null) {
-            locale = Locale.getDefault();
+        // Initial parse of the value
+        Object parsedValue = super.parse(value, formatter);
+        if (parsedValue != null || !(formatter instanceof DecimalFormat)) {
+            return parsedValue;
         }
 
-        return NumberFormat.getCurrencyInstance(locale);
-
+        // Re-parse using a pattern without the currency symbol
+        DecimalFormat decimalFormat = (DecimalFormat)formatter;
+        String pattern = decimalFormat.toPattern();
+        if (pattern.indexOf(CURRENCY_SYMBOL) >= 0) {
+            StringBuffer buffer = new StringBuffer(pattern.length());
+            for (int i = 0; i < pattern.length(); i++) {
+                if (pattern.charAt(i) != CURRENCY_SYMBOL) {
+                    buffer.append(pattern.charAt(i));
+                }
+            }
+            decimalFormat.applyPattern(buffer.toString());
+            parsedValue = super.parse(value, decimalFormat);
+        }
+        return parsedValue;
     }
-
 }

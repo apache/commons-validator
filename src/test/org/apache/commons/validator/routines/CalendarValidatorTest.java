@@ -20,6 +20,8 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.text.Format;
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -35,7 +37,7 @@ public class CalendarValidatorTest extends BaseCalendarValidatorTest {
     private static final int DATE_2005_11_23 = 20051123;
     private static final int TIME_12_03_45   = 120345;
 
-    private CalendarValidator calendarValidator;
+    private CalendarValidator calValidator;
 
     /**
      * Main
@@ -55,8 +57,8 @@ public class CalendarValidatorTest extends BaseCalendarValidatorTest {
 
     protected void setUp() throws Exception {
         super.setUp();
-        calendarValidator = new CalendarValidator();
-        validator         = calendarValidator;
+        calValidator = new CalendarValidator();
+        validator         = calValidator;
     }
 
     /**
@@ -67,6 +69,8 @@ public class CalendarValidatorTest extends BaseCalendarValidatorTest {
         Locale locale     = Locale.GERMAN;
         String pattern    = "yyyy-MM-dd";
         String patternVal = "2005-12-31";
+        String germanVal     = "31 Dez 2005";
+        String germanPattern = "dd MMM yyyy";
         String localeVal  = "31.12.2005";
         String defaultVal = "12/31/05";
         String XXXX    = "XXXX"; 
@@ -74,18 +78,22 @@ public class CalendarValidatorTest extends BaseCalendarValidatorTest {
         assertEquals("validate(A) default", expected, CalendarValidator.getInstance().validate(defaultVal).getTime());
         assertEquals("validate(A) locale ", expected, CalendarValidator.getInstance().validate(localeVal, locale).getTime());
         assertEquals("validate(A) pattern", expected, CalendarValidator.getInstance().validate(patternVal, pattern).getTime());
+        assertEquals("validate(A) both",    expected, CalendarValidator.getInstance().validate(germanVal, germanPattern, Locale.GERMAN).getTime());
 
         assertTrue("isValid(A) default", CalendarValidator.getInstance().isValid(defaultVal));
         assertTrue("isValid(A) locale ", CalendarValidator.getInstance().isValid(localeVal, locale));
         assertTrue("isValid(A) pattern", CalendarValidator.getInstance().isValid(patternVal, pattern));
+        assertTrue("isValid(A) both",    CalendarValidator.getInstance().isValid(germanVal, germanPattern, Locale.GERMAN));
 
         assertNull("validate(B) default", CalendarValidator.getInstance().validate(XXXX));
         assertNull("validate(B) locale ", CalendarValidator.getInstance().validate(XXXX, locale));
         assertNull("validate(B) pattern", CalendarValidator.getInstance().validate(XXXX, pattern));
+        assertNull("validate(B) both",    CalendarValidator.getInstance().validate("31 Dec 2005", germanPattern, Locale.GERMAN));
 
         assertFalse("isValid(B) default", CalendarValidator.getInstance().isValid(XXXX));
         assertFalse("isValid(B) locale ", CalendarValidator.getInstance().isValid(XXXX, locale));
         assertFalse("isValid(B) pattern", CalendarValidator.getInstance().isValid(XXXX, pattern));
+        assertFalse("isValid(B) both",    CalendarValidator.getInstance().isValid("31 Dec 2005", germanPattern, Locale.GERMAN));
 
         // Test Time Zone
         TimeZone zone = (TimeZone.getDefault().getRawOffset() == EET.getRawOffset() ? EST : EET); 
@@ -95,6 +103,7 @@ public class CalendarValidatorTest extends BaseCalendarValidatorTest {
         assertEquals("validate(C) default", expectedZone, CalendarValidator.getInstance().validate(defaultVal, zone).getTime());
         assertEquals("validate(C) locale ", expectedZone, CalendarValidator.getInstance().validate(localeVal, locale, zone).getTime());
         assertEquals("validate(C) pattern", expectedZone, CalendarValidator.getInstance().validate(patternVal, pattern, zone).getTime());
+        assertEquals("validate(C) both",    expectedZone, CalendarValidator.getInstance().validate(germanVal, germanPattern, Locale.GERMAN, zone).getTime());
     }
 
     /**
@@ -127,46 +136,104 @@ public class CalendarValidatorTest extends BaseCalendarValidatorTest {
         Calendar cal20050101 = createCalendar(GMT, 20050101, sameTime);   // same year
         Calendar cal20041231 = createCalendar(GMT, 20041231, sameTime);   // -1 year
 
-        assertEquals("hour GT", 1, calendarValidator.compare(value, diffHour, Calendar.HOUR_OF_DAY));
-        assertEquals("hour EQ", 0, calendarValidator.compare(value, diffMin,  Calendar.HOUR_OF_DAY));
-        assertEquals("mins GT", 1, calendarValidator.compare(value, diffMin,  Calendar.MINUTE));
-        assertEquals("mins EQ", 0, calendarValidator.compare(value, diffSec,  Calendar.MINUTE));
-        assertEquals("secs GT", 1, calendarValidator.compare(value, diffSec,  Calendar.SECOND));
+        assertEquals("hour GT", 1, calValidator.compare(value, diffHour, Calendar.HOUR_OF_DAY));
+        assertEquals("hour EQ", 0, calValidator.compare(value, diffMin,  Calendar.HOUR_OF_DAY));
+        assertEquals("mins GT", 1, calValidator.compare(value, diffMin,  Calendar.MINUTE));
+        assertEquals("mins EQ", 0, calValidator.compare(value, diffSec,  Calendar.MINUTE));
+        assertEquals("secs GT", 1, calValidator.compare(value, diffSec,  Calendar.SECOND));
 
-        assertEquals("date LT", -1, calendarValidator.compareDates(value, cal20050824)); // +1 day
-        assertEquals("date EQ", 0,  calendarValidator.compareDates(value, diffHour));    // same day, diff hour
-        assertEquals("date GT", 1,  calendarValidator.compareDates(value, cal20050822)); // -1 day
+        assertEquals("date LT", -1, calValidator.compareDates(value, cal20050824)); // +1 day
+        assertEquals("date EQ", 0,  calValidator.compareDates(value, diffHour));    // same day, diff hour
+        assertEquals("date(B)", 0,  calValidator.compare(value, diffHour, Calendar.DAY_OF_YEAR));    // same day, diff hour
+        assertEquals("date GT", 1,  calValidator.compareDates(value, cal20050822)); // -1 day
 
-        assertEquals("week LT", -1, calendarValidator.compareWeeks(value, cal20050830)); // +1 week 
-        assertEquals("week =1", 0,  calendarValidator.compareWeeks(value, cal20050824)); // +1 day
-        assertEquals("week =2", 0,  calendarValidator.compareWeeks(value, cal20050822)); // same week
-        assertEquals("week =3", 0,  calendarValidator.compareWeeks(value, cal20050822)); // -1 day
-        assertEquals("week GT", 1,  calendarValidator.compareWeeks(value, cal20050816)); // -1 week
+        assertEquals("week LT", -1, calValidator.compareWeeks(value, cal20050830)); // +1 week 
+        assertEquals("week =1", 0,  calValidator.compareWeeks(value, cal20050824)); // +1 day
+        assertEquals("week =2", 0,  calValidator.compareWeeks(value, cal20050822)); // same week
+        assertEquals("week =3", 0,  calValidator.compare(value, cal20050822, Calendar.WEEK_OF_MONTH)); // same week
+        assertEquals("week =4", 0,  calValidator.compareWeeks(value, cal20050822)); // -1 day
+        assertEquals("week GT", 1,  calValidator.compareWeeks(value, cal20050816)); // -1 week
 
-        assertEquals("mnth LT", -1, calendarValidator.compareMonths(value, cal20050901)); // +1 month 
-        assertEquals("mnth =1", 0,  calendarValidator.compareMonths(value, cal20050830)); // +1 week 
-        assertEquals("mnth =2", 0,  calendarValidator.compareMonths(value, cal20050801)); // same month
-        assertEquals("mnth =3", 0,  calendarValidator.compareMonths(value, cal20050816)); // -1 week
-        assertEquals("mnth GT", 1,  calendarValidator.compareMonths(value, cal20050731)); // -1 month
+        assertEquals("mnth LT", -1, calValidator.compareMonths(value, cal20050901)); // +1 month 
+        assertEquals("mnth =1", 0,  calValidator.compareMonths(value, cal20050830)); // +1 week 
+        assertEquals("mnth =2", 0,  calValidator.compareMonths(value, cal20050801)); // same month
+        assertEquals("mnth =3", 0,  calValidator.compareMonths(value, cal20050816)); // -1 week
+        assertEquals("mnth GT", 1,  calValidator.compareMonths(value, cal20050731)); // -1 month
 
-        assertEquals("qtrA <1", -1, calendarValidator.compareQuarters(value, cal20051101)); // +1 quarter (Feb) 
-        assertEquals("qtrA <2", -1, calendarValidator.compareQuarters(value, cal20051001)); // +1 quarter 
-        assertEquals("qtrA =1", 0,  calendarValidator.compareQuarters(value, cal20050901)); // +1 month 
-        assertEquals("qtrA =2", 0,  calendarValidator.compareQuarters(value, cal20050701)); // same quarter
-        assertEquals("qtrA =3", 0,  calendarValidator.compareQuarters(value, cal20050731)); // -1 month
-        assertEquals("qtrA GT", 1,  calendarValidator.compareQuarters(value, cal20050630)); // -1 quarter
+        assertEquals("qtrA <1", -1, calValidator.compareQuarters(value, cal20051101)); // +1 quarter (Feb) 
+        assertEquals("qtrA <2", -1, calValidator.compareQuarters(value, cal20051001)); // +1 quarter 
+        assertEquals("qtrA =1", 0,  calValidator.compareQuarters(value, cal20050901)); // +1 month 
+        assertEquals("qtrA =2", 0,  calValidator.compareQuarters(value, cal20050701)); // same quarter
+        assertEquals("qtrA =3", 0,  calValidator.compareQuarters(value, cal20050731)); // -1 month
+        assertEquals("qtrA GT", 1,  calValidator.compareQuarters(value, cal20050630)); // -1 quarter
 
         // Change quarter 1 to start in Feb
-        assertEquals("qtrB LT", -1, calendarValidator.compareQuarters(value, cal20051101, 2)); // +1 quarter (Feb) 
-        assertEquals("qtrB =1", 0,  calendarValidator.compareQuarters(value, cal20051001, 2));  // same quarter 
-        assertEquals("qtrB =2", 0,  calendarValidator.compareQuarters(value, cal20050901, 2)); // +1 month 
-        assertEquals("qtrB =3", 1,  calendarValidator.compareQuarters(value, cal20050701, 2)); // same quarter
-        assertEquals("qtrB =4", 1,  calendarValidator.compareQuarters(value, cal20050731, 2)); // -1 month
-        assertEquals("qtrB GT", 1,  calendarValidator.compareQuarters(value, cal20050630, 2)); // -1 quarter
+        assertEquals("qtrB LT", -1, calValidator.compareQuarters(value, cal20051101, 2)); // +1 quarter (Feb) 
+        assertEquals("qtrB =1", 0,  calValidator.compareQuarters(value, cal20051001, 2));  // same quarter 
+        assertEquals("qtrB =2", 0,  calValidator.compareQuarters(value, cal20050901, 2)); // +1 month 
+        assertEquals("qtrB =3", 1,  calValidator.compareQuarters(value, cal20050701, 2)); // same quarter
+        assertEquals("qtrB =4", 1,  calValidator.compareQuarters(value, cal20050731, 2)); // -1 month
+        assertEquals("qtrB GT", 1,  calValidator.compareQuarters(value, cal20050630, 2)); // -1 quarter
 
-        assertEquals("year LT", -1, calendarValidator.compareYears(value, cal20060101)); // +1 year 
-        assertEquals("year EQ", 0,  calendarValidator.compareYears(value, cal20050101)); // same year
-        assertEquals("year GT", 1,  calendarValidator.compareYears(value, cal20041231)); // -1 year
+        assertEquals("year LT", -1, calValidator.compareYears(value, cal20060101)); // +1 year 
+        assertEquals("year EQ", 0,  calValidator.compareYears(value, cal20050101)); // same year
+        assertEquals("year GT", 1,  calValidator.compareYears(value, cal20041231)); // -1 year
+
+        // invalid compare
+        try {
+            calValidator.compare(value, value,  -1);
+            fail("Invalid Compare field - expected IllegalArgumentException to be thrown");
+        } catch (IllegalArgumentException e) {
+            assertEquals("check message", "Invalid field: -1", e.getMessage());
+        }
+    }
+
+    /**
+     * Test Date/Time style Validator (there isn't an implementation for this)
+     */
+    public void testDateTimeStyle() {
+        // Set the default Locale
+        Locale origDefault = Locale.getDefault();
+        Locale.setDefault(Locale.UK);
+
+        AbstractCalendarValidator dateTimeValidator = 
+               new AbstractCalendarValidator(true, DateFormat.SHORT, DateFormat.SHORT) {
+            protected Object processParsedValue(Object value, Format formatter) {
+                return value;
+            }
+        };
+        assertTrue("validate(A) default", dateTimeValidator.isValid("31/12/05 14:23"));
+        assertTrue("validate(A) locale ", dateTimeValidator.isValid("12/31/05 2:23 PM", Locale.US));
+
+        // Restore the original default
+        Locale.setDefault(origDefault);
+    }
+
+    /**
+     * Test format methods
+     */
+    public void testFormat() {
+        // Set the default Locale
+        Locale origDefault = Locale.getDefault();
+        Locale.setDefault(Locale.UK);
+
+        Calendar cal20050101 = createCalendar(GMT, 20051231, 11500);
+        assertNull("null", calValidator.format(null));
+        assertEquals("default",  "31/12/05",         calValidator.format(cal20050101));
+        assertEquals("locale",   "12/31/05",         calValidator.format(cal20050101, Locale.US));
+        assertEquals("patternA", "2005-12-31 01:15", calValidator.format(cal20050101, "yyyy-MM-dd HH:mm"));
+        assertEquals("patternB", "2005-12-31 GMT",   calValidator.format(cal20050101, "yyyy-MM-dd z"));
+        assertEquals("both",     "31 Dez 2005",      calValidator.format(cal20050101, "dd MMM yyyy", Locale.GERMAN));
+
+        // EST Time Zone
+        assertEquals("EST default",  "30/12/05",         calValidator.format(cal20050101, EST));
+        assertEquals("EST locale",   "12/30/05",         calValidator.format(cal20050101, Locale.US, EST));
+        assertEquals("EST patternA", "2005-12-30 20:15", calValidator.format(cal20050101, "yyyy-MM-dd HH:mm", EST));
+        assertEquals("EST patternB", "2005-12-30 EST",   calValidator.format(cal20050101, "yyyy-MM-dd z", EST));
+        assertEquals("EST both",     "30 Dez 2005",      calValidator.format(cal20050101, "dd MMM yyyy", Locale.GERMAN, EST));
+
+        // Restore the original default
+        Locale.setDefault(origDefault);
     }
 
     /**
@@ -204,5 +271,16 @@ public class CalendarValidatorTest extends BaseCalendarValidatorTest {
         assertEquals("back to CET", dateCET, calCET.getTime());
         assertFalse("Check CET != GMT", dateGMT == calCET.getTime());
 
+        // Adjust to TimeZone with Same rules
+        Calendar calUTC = createCalendar(UTC, DATE_2005_11_23, TIME_12_03_45);
+        assertTrue("SAME: UTC = GMT",  UTC.hasSameRules(GMT));
+        assertEquals("SAME: Check time (A)", calUTC.getTime(), calGMT.getTime());
+        assertFalse("SAME: Check GMT(A)", GMT.equals(calUTC.getTimeZone()));
+        assertTrue("SAME: Check UTC(A)",  UTC.equals(calUTC.getTimeZone()));
+        CalendarValidator.adjustToTimeZone(calUTC, GMT);
+        assertEquals("SAME: Check time (B)", calUTC.getTime(), calGMT.getTime());
+        assertTrue("SAME: Check GMT(B)", GMT.equals(calUTC.getTimeZone()));
+        assertFalse("SAME: Check UTC(B)",  UTC.equals(calUTC.getTimeZone()));
     }
+    
 }

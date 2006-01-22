@@ -20,6 +20,7 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.text.DecimalFormatSymbols;
 import java.text.Format;
 import java.text.NumberFormat;
 import java.text.DecimalFormat;
@@ -35,16 +36,18 @@ import java.util.Locale;
  * @since Validator 1.2.1
  */
 public abstract class AbstractNumberValidator extends AbstractFormatValidator {
+    
+    /** Standard <code>NumberFormat</code> type */
+    public static final int STANDARD_FORMAT = 0;
 
-    private boolean decimal;
+    /** Currency <code>NumberFormat</code> type */
+    public static final int CURRENCY_FORMAT = 1;
 
-    /**
-     * Construct a <i>strict</i> instance for <i>decimal</i>
-     * formats.
-     */
-    public AbstractNumberValidator() {
-        this(true, true);
-    }
+    /** Percent <code>NumberFormat</code> type */
+    public static final int PERCENT_FORMAT  = 2;
+
+    private boolean allowFractions;
+    private int     formatType;
 
     /**
      * Construct an instance with specified <i>strict</i>
@@ -52,12 +55,50 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * 
      * @param strict <code>true</code> if strict 
      *        <code>Format</code> parsing should be used.
-     * @param decimal Set whether this validator handlers decimal
-     * values (or only integer numbers).
+     * @param formatType The <code>NumberFormat</code> type to
+     *        create for validation, default is STANDARD_FORMAT.
+     * @param allowFractions <code>true</code> if fractions are
+     *        allowed or <code>false</code> if integers only.
      */
-    public AbstractNumberValidator(boolean strict, boolean decimal) {
+    public AbstractNumberValidator(boolean strict, int formatType, boolean allowFractions) {
         super(strict);
-        this.decimal = decimal;
+        this.allowFractions = allowFractions;
+        this.formatType = formatType;
+    }
+
+    /**
+     * <p>Indicates whether the number being validated is
+     *    a decimal or integer.</p>
+     * 
+     * @return <code>true</code> if decimals are allowed
+     *       or <code>false</code> if the number is an integer.
+     */
+    public boolean isAllowFractions() {
+        return allowFractions;
+    }
+
+    /**
+     * <p>Indicates the type of <code>NumberFormat</code> created
+     *    by this validator instance.</p>
+     * 
+     * @return the format type created.
+     */
+    public int getFormatType() {
+        return formatType;
+    }
+
+    /**
+     * <p>Validate using the specified <code>Locale</code>.</p>
+     * 
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
+     * @param locale The locale to use for the date format, system default if null.
+     * @return <code>true</code> if the value is valid.
+     */
+    public boolean isValid(String value, String pattern, Locale locale) {
+        Object parsedValue = parse(value, pattern, locale);
+        return (parsedValue == null ? false : true);
     }
 
     /**
@@ -82,7 +123,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      *         or equal to the minimum.
      */
     public boolean minValue(Number value, Number min) {
-        if (decimal) {
+        if (isAllowFractions()) {
             return (value.doubleValue() >= min.doubleValue());
         } else {
             return (value.longValue() >= min.longValue());
@@ -98,7 +139,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      *         or equal to the maximum.
      */
     public boolean maxValue(Number value, Number max) {
-        if (decimal) {
+        if (isAllowFractions()) {
             return (value.doubleValue() <= max.doubleValue());
         } else {
             return (value.longValue() <= max.longValue());
@@ -106,79 +147,129 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Creates a <code>DecimalFormat</code> for the specified
-     *    pattern.</p>
+     * <p>Parse the value using the specified pattern.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
+     * @param locale The locale to use for the date format, system default if null.
+     * @return The parsed value if valid or <code>null</code> if invalid.
+     */
+    protected Object parse(String value, String pattern, Locale locale) {
+
+        value = (value == null ? null : value.trim());
+        if (value == null || value.length() == 0) {
+            return null;
+        }
+        Format formatter = getFormat(pattern, locale);
+        return parse(value, formatter);
+
+    }
+
+    /**
+     * <p>Process the parsed value, performing any further validation 
+     *    and type conversion required.</p>
      * 
-     * <p>If no pattern is specified the default Locale is used
-     *    to determine the <code>NumberFormat</code>.
+     * @param value The parsed object created.
+     * @param formatter The Format used to parse the value with.
+     * @return The parsed value converted to the appropriate type
+     *         if valid or <code>null</code> if invalid.
+     */
+    protected abstract Object processParsedValue(Object value, Format formatter);
+
+    /**
+     * <p>Returns a <code>NumberFormat</code> for the specified <i>pattern</i>
+     *    and/or <code>Locale</code>.</p>
      * 
-     * @param pattern The pattern of the required the <code>DecimalFormat</code>.
+     * @param pattern The pattern used to validate the value against or
+     *        <code>null</code> to use the default for the <code>Locale</code>.
+     * @param locale The locale to use for the currency format, system default if null.
      * @return The <code>NumberFormat</code> to created.
      */
-    protected Format getFormat(String pattern) {
+    protected Format getFormat(String pattern, Locale locale) {
 
         NumberFormat formatter = null;
-        if (pattern == null || pattern.length() == 0) {
-            formatter = (NumberFormat)getFormat(Locale.getDefault());
+        boolean usePattern = (pattern != null && pattern.length() > 0);
+        if (!usePattern) {
+            formatter = (NumberFormat)getFormat(locale);
+        } else if (locale == null) {
+            formatter =  new DecimalFormat(pattern);
         } else {
-            formatter = new DecimalFormat(pattern);
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
+            formatter = new DecimalFormat(pattern, symbols);
         }
-        if (isStrict() && !decimal) {
+
+        if (determineScale(formatter) == 0) {
             formatter.setParseIntegerOnly(true);
         }
         return formatter;
+    }
 
+    /**
+     * <p>Returns the <i>multiplier</i> of the <code>NumberFormat</code>.</p>
+     * 
+     * @param format The <code>NumberFormat</code> to determine the 
+     *        multiplier of.
+     * @return The multiplying factor for the format..
+     */
+    protected int determineScale(NumberFormat format) {
+        if (!isStrict()) {
+            return -1;
+        }
+        if (!isAllowFractions() || format.isParseIntegerOnly()) {
+            return 0;
+        }
+        int minimumFraction = format.getMinimumFractionDigits();
+        int maximumFraction = format.getMaximumFractionDigits();
+        if (minimumFraction != maximumFraction) {
+            return -1;
+        }
+        int scale = minimumFraction;
+        if (format instanceof DecimalFormat) {
+            int multiplier = ((DecimalFormat)format).getMultiplier();
+            if (multiplier == 100) {
+                scale += 2;
+            } else if (multiplier == 1000) {
+                scale += 3;
+            }
+        } else if (formatType == PERCENT_FORMAT) {
+            scale += 2;
+        }
+        return scale;
     }
 
     /**
      * <p>Returns a <code>NumberFormat</code> for the specified Locale.</p>
      * 
-     * @param locale The locale a <code>NumberFormat</code> is required
-     *        for, defaults to the default.
+     * @param locale The locale a <code>NumberFormat</code> is required for,
+     *   system default if null.
      * @return The <code>NumberFormat</code> to created.
      */
     protected Format getFormat(Locale locale) {
-
-        if (locale == null) {
-            locale = Locale.getDefault();
+        NumberFormat formatter = null;
+        switch (formatType) {
+        case CURRENCY_FORMAT:
+            if (locale == null) {
+                formatter = NumberFormat.getCurrencyInstance();
+            } else {
+                formatter = NumberFormat.getCurrencyInstance(locale);
+            }
+            break;
+        case PERCENT_FORMAT:
+            if (locale == null) {
+                formatter = NumberFormat.getPercentInstance();
+            } else {
+                formatter = NumberFormat.getPercentInstance(locale);
+            }
+            break;
+        default:
+            if (locale == null) {
+                formatter = NumberFormat.getInstance();
+            } else {
+                formatter = NumberFormat.getInstance(locale);
+            }
+            break;
         }
-
-        NumberFormat formatter = NumberFormat.getInstance(locale);
-        if (isStrict() && !decimal) {
-            formatter.setParseIntegerOnly(true);
-        }
-
         return formatter;
-
     }
-
-    /**
-     * <p>Parse the value with the specified <code>NumberFormat</code>.</p>
-     * 
-     * @param value The value to be parsed.
-     * @param formatter The Format to parse the value with.
-     * @return The parsed value if valid or <code>null</code> if invalid.
-     */
-    protected Object parse(String value, Format formatter) {
-
-        Number number = (Number)super.parse(value, formatter);
-        if (number == null) {
-            return null;
-        }
-
-        // Process the parsed Number
-        return processNumber(number);
-
-    }
-
-    /**
-     * <p>Perform further validation and convert the <code>Number</code> to
-     * the appropriate type.</p>
-     * 
-     * @param number The number object created from the parsed value.
-     * @return The validated/converted <code>Number</code> value if valid 
-     * or <code>null</code> if invalid.
-     */
-    protected abstract Object processNumber(Number number);
-
 }

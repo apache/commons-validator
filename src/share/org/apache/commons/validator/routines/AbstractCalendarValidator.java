@@ -20,6 +20,7 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.text.DateFormatSymbols;
 import java.text.Format;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -43,14 +44,6 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     private int timeStyle = -1;
 
     /**
-     * Construct a <i>strict</i> instance with <i>short</i>
-     * date style.
-     */
-    public AbstractCalendarValidator() {
-        this(true, DateFormat.SHORT, -1);
-    }
-
-    /**
      * Construct an instance with the specified <i>strict</i>, 
      * <i>time</i> and <i>date</i> style parameters.
      * 
@@ -66,26 +59,166 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Creates a <code>SimpleDateFormat</code> for the specified
-     *    pattern.</p>
+     * <p>Validate using the specified <code>Locale</code>. 
      * 
-     * <p>If no pattern is specified the default Locale is used
-     *    to determine the <code>DateFormat</code>.
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to format the value.
+     * @param locale The locale to use for the Format, defaults to the default
+     * @return <code>true</code> if the value is valid.
+     */
+    public boolean isValid(String value, String pattern, Locale locale) {
+        Object parsedValue = parse(value, pattern, locale, (TimeZone)null);
+        return (parsedValue == null ? false : true);
+    }
+
+    /**
+     * <p>Format an object into a <code>String</code> using
+     * the default Locale.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param timeZone The Time Zone used to format the date,
+     *  system default if null (unless value is a <code>Calendar</code>.
+     * @return The value formatted as a <code>String</code>.
+     */
+    public String format(Object value, TimeZone timeZone) {
+        return format(value, (String)null, (Locale)null, timeZone);
+    }
+
+    /**
+     * <p>Format an object into a <code>String</code> using
+     * the specified pattern.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to format the value.
+     * @param timeZone The Time Zone used to format the date,
+     *  system default if null (unless value is a <code>Calendar</code>.
+     * @return The value formatted as a <code>String</code>.
+     */
+    public String format(Object value, String pattern, TimeZone timeZone) {
+        return format(value, pattern, (Locale)null, timeZone);
+    }
+
+    /**
+     * <p>Format an object into a <code>String</code> using
+     * the specified Locale.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param locale The locale to use for the Format.
+     * @param timeZone The Time Zone used to format the date,
+     *  system default if null (unless value is a <code>Calendar</code>.
+     * @return The value formatted as a <code>String</code>.
+     */
+    public String format(Object value, Locale locale, TimeZone timeZone) {
+        return format(value, (String)null, locale, timeZone);
+    }
+
+    /**
+     * <p>Format an object using the specified pattern and/or 
+     *    <code>Locale</code>. 
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to format the value.
+     * @param locale The locale to use for the Format.
+     * @return The value formatted as a <code>String</code>.
+     */
+    public String format(Object value, String pattern, Locale locale) {
+        return format(value, pattern, locale, (TimeZone)null);
+    }
+
+    /**
+     * <p>Format an object using the specified pattern and/or 
+     *    <code>Locale</code>. 
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to format the value.
+     * @param locale The locale to use for the Format.
+     * @param timeZone The Time Zone used to format the date,
+     *  system default if null (unless value is a <code>Calendar</code>.
+     * @return The value formatted as a <code>String</code>.
+     */
+    public String format(Object value, String pattern, Locale locale, TimeZone timeZone) {
+        DateFormat formatter = (DateFormat)getFormat(pattern, locale);
+        if (timeZone != null) {
+            formatter.setTimeZone(timeZone);
+        } else if (value instanceof Calendar) {
+            formatter.setTimeZone(((Calendar)value).getTimeZone());
+        }
+        return format(value, formatter);
+    }
+
+    /**
+     * <p>Format a value with the specified <code>DateFormat</code>.</p>
      * 
-     * @param pattern The pattern of the required the <code>DateFormat</code>.
+     * @param value The value to be formatted.
+     * @param formatter The Format to use.
+     * @return The formatted value.
+     */
+    protected String format(Object value, Format formatter) {
+        if (value == null) {
+            return null;
+        } else if (value instanceof Calendar) {
+            value = ((Calendar)value).getTime(); 
+        }
+        return formatter.format(value);
+    }
+
+    /**
+     * <p>Checks if the value is valid against a specified pattern.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
+     * @param locale The locale to use for the date format, system default if null.
+     * @param timeZone The Time Zone used to parse the date, system default if null.
+     * @return The parsed value if valid or <code>null</code> if invalid.
+     */
+    protected Object parse(String value, String pattern, Locale locale, TimeZone timeZone) {
+
+        value = (value == null ? null : value.trim());
+        if (value == null || value.length() == 0) {
+            return null;
+        }
+        DateFormat formatter = (DateFormat)getFormat(pattern, locale);
+        if (timeZone != null) {
+            formatter.setTimeZone(timeZone);
+        }
+        return parse(value, formatter);
+
+    }
+
+    /**
+     * <p>Process the parsed value, performing any further validation 
+     *    and type conversion required.</p>
+     * 
+     * @param value The parsed object created.
+     * @param formatter The Format used to parse the value with.
+     * @return The parsed value converted to the appropriate type
+     *         if valid or <code>null</code> if invalid.
+     */
+    protected abstract Object processParsedValue(Object value, Format formatter);
+
+    /**
+     * <p>Returns a <code>DateFormat</code> for the specified <i>pattern</i>
+     *    and/or <code>Locale</code>.</p>
+     * 
+     * @param pattern The pattern used to validate the value against or
+     *        <code>null</code> to use the default for the <code>Locale</code>.
+     * @param locale The locale to use for the currency format, system default if null.
      * @return The <code>DateFormat</code> to created.
      */
-    protected Format getFormat(String pattern) {
-
-        DateFormat formatter = null; 
-        if (pattern == null || pattern.length() == 0) {
-            formatter = (DateFormat)getFormat(Locale.getDefault());
-        } else {
+    protected Format getFormat(String pattern, Locale locale) {
+        DateFormat formatter = null;
+        boolean usePattern = (pattern != null && pattern.length() > 0);
+        if (!usePattern) {
+            formatter = (DateFormat)getFormat(locale);
+        } else if (locale == null) {
             formatter = new SimpleDateFormat(pattern);
+        } else {
+            DateFormatSymbols symbols = new DateFormatSymbols(locale);
+            formatter = new SimpleDateFormat(pattern, symbols);
         }
         formatter.setLenient(false);
         return formatter;
-
     }
 
     /**
@@ -97,131 +230,30 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      */
     protected Format getFormat(Locale locale) {
 
-        if (locale == null) {
-            locale = Locale.getDefault();
-        }
-
         DateFormat formatter = null; 
         if (dateStyle >= 0 && timeStyle >= 0) {
-            formatter = DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale);
+            if (locale == null) {
+                formatter = DateFormat.getDateTimeInstance(dateStyle, timeStyle);
+            } else {
+                formatter = DateFormat.getDateTimeInstance(dateStyle, timeStyle, locale);
+            }
         } else if (timeStyle >= 0) {
-            formatter = DateFormat.getTimeInstance(timeStyle, locale);
-        } else if (dateStyle >= 0) {
-            formatter = DateFormat.getDateInstance(dateStyle, locale);
+            if (locale == null) {
+                formatter = DateFormat.getTimeInstance(timeStyle);
+            } else {
+                formatter = DateFormat.getTimeInstance(timeStyle, locale);
+            }
         } else {
-            formatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+            int useDateStyle = dateStyle >= 0 ? dateStyle : DateFormat.SHORT;
+            if (locale == null) {
+                formatter = DateFormat.getDateInstance(useDateStyle);
+            } else {
+                formatter = DateFormat.getDateInstance(useDateStyle, locale);
+            }
         }
         formatter.setLenient(false);
         return formatter;
 
-    }
-
-    /**
-     * <p>Checks if the value is valid against a specified pattern.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
-     * @return The parsed value if valid or <code>null</code> if invalid.
-     */
-    protected Object validateObj(String value, String pattern) {
-        return validateObj(value, pattern, (TimeZone)null);
-    }
-
-    /**
-     * <p>Checks if the value is valid against a specified pattern.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
-     * @param timeZone The Time Zone used to parse the date, system default if null.
-     * @return The parsed value if valid or <code>null</code> if invalid.
-     */
-    protected Object validateObj(String value, String pattern, TimeZone timeZone) {
-
-        if (value == null || value.length() == 0) {
-            return null;
-        }
-        DateFormat formatter = (DateFormat)getFormat(pattern);
-        if (timeZone != null) {
-            formatter.setTimeZone(timeZone);
-        }
-        return parse(value, formatter);
-
-    }
-
-    /**
-     * <p>Checks if the value is valid for a specified <code>Locale</code>.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param locale The locale to use for the date format, system default if null.
-     * @return The parsed value if valid or <code>null</code> if invalid.
-     */
-    protected Object validateObj(String value, Locale locale) {
-        return validateObj(value, locale, (TimeZone)null);
-    }
-
-    /**
-     * <p>Checks if the value is valid for a specified <code>Locale</code>.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param locale The locale to use for the date format, system default if null.
-     * @param timeZone The Time Zone used to parse the date, system default if null.
-     * @return The parsed value if valid or <code>null</code> if invalid.
-     */
-    protected Object validateObj(String value, Locale locale, TimeZone timeZone) {
-
-        if (value == null || value.length() == 0) {
-            return null;
-        }
-        DateFormat formatter = (DateFormat)getFormat(locale);
-        if (timeZone != null) {
-            formatter.setTimeZone(timeZone);
-        }
-        return parse(value, formatter);
-
-    }
-
-    /**
-     * <p>Parse the value with the specified <code>Format</code>.</p>
-     * 
-     * @param value The value to be parsed.
-     * @param formatter The Format to parse the value with.
-     * @return The parsed value if valid or <code>null</code> if invalid.
-     */
-    protected Object parse(String value, Format formatter) {
-
-        Object parsedValue = super.parse(value, formatter);
-        if (parsedValue == null) {
-            return null;
-        }
-
-        // Process the Calendar, not the parsed Date object
-        Calendar calendar = ((DateFormat)formatter).getCalendar();
-        return processCalendar(calendar);
-
-    }
-
-    /**
-     * <p>Perform further validation and convert the <code>Calendar</code> to
-     * the appropriate type.</p>
-     * 
-     * @param calendar The calendar object create from the parsed value.
-     * @return The validated/converted <code>Calendar</code> value if valid 
-     * or <code>null</code> if invalid.
-     */
-    protected abstract Object processCalendar(Calendar calendar);
-
-    /**
-     * <p>Format a value with the specified <code>DateFormat</code>.</p>
-     * 
-     * @param value The value to be formatted.
-     * @param formatter The Format to use.
-     * @return The formatted value.
-     */
-    protected String format(Object value, Format formatter) {
-        if (value instanceof Calendar) {
-            value = ((Calendar)value).getTime(); 
-        }
-        return formatter.format(value);
     }
 
     /**

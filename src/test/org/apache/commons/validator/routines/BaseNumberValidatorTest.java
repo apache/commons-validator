@@ -84,15 +84,23 @@ public class BaseNumberValidatorTest extends TestCase {
     }
 
     /**
+     * Test Format Type
+     */
+    public void testFormatType() {
+        assertEquals("Format Type A", 0, validator.getFormatType());
+        assertEquals("Format Type B", AbstractNumberValidator.STANDARD_FORMAT, validator.getFormatType());
+    }
+
+    /**
      * Test Min/Max values allowed
      */
     public void testValidateMinMax() {
         DecimalFormat fmt = new DecimalFormat("#");
         if (max != null) {
-            assertEquals("Test Max",   max, validator.validateObj(fmt.format(max)));
-            assertNull("Test Max + 1",      validator.validateObj(fmt.format(maxPlusOne)));
-            assertEquals("Test Min",   min, validator.validateObj(fmt.format(min)));
-            assertNull("Test min - 1",      validator.validateObj(fmt.format(minMinusOne)));
+            assertEquals("Test Max",   max, validator.parse(fmt.format(max), "#", null));
+            assertNull("Test Max + 1",      validator.parse(fmt.format(maxPlusOne), "#", null));
+            assertEquals("Test Min",   min, validator.parse(fmt.format(min), "#", null));
+            assertNull("Test min - 1",      validator.parse(fmt.format(minMinusOne), "#", null));
         }
     }
 
@@ -102,10 +110,10 @@ public class BaseNumberValidatorTest extends TestCase {
     public void testInvalidStrict() {
         for (int i = 0; i < invalidStrict.length; i++) {
             String text = "idx=["+i+"] value=[" + invalidStrict[i] + "]";
-            assertNull("(A) "  + text, strictValidator.validateObj(invalidStrict[i], Locale.US));
-            assertFalse("(B) " + text, strictValidator.isValid(invalidStrict[i], Locale.US));
-            assertNull("(C) "  + text, strictValidator.validateObj(invalidStrict[i], testPattern));
-            assertFalse("(D) " + text, strictValidator.isValid(invalidStrict[i], testPattern));
+            assertNull("(A) "  + text, strictValidator.parse(invalidStrict[i], null, Locale.US));
+            assertFalse("(B) " + text, strictValidator.isValid(invalidStrict[i], null, Locale.US));
+            assertNull("(C) "  + text, strictValidator.parse(invalidStrict[i], testPattern, null));
+            assertFalse("(D) " + text, strictValidator.isValid(invalidStrict[i], testPattern, null));
         }
     }
 
@@ -115,10 +123,10 @@ public class BaseNumberValidatorTest extends TestCase {
     public void testInvalidNotStrict() {
         for (int i = 0; i < invalid.length; i++) {
             String text = "idx=["+i+"] value=[" + invalid[i] + "]";
-            assertNull("(A) "  + text, validator.validateObj(invalid[i], Locale.US));
-            assertFalse("(B) " + text, validator.isValid(invalid[i], Locale.US));
-            assertNull("(C) "  + text, validator.validateObj(invalid[i], testPattern));
-            assertFalse("(D) " + text, validator.isValid(invalid[i], testPattern));
+            assertNull("(A) "  + text, validator.parse(invalid[i], null, Locale.US));
+            assertFalse("(B) " + text, validator.isValid(invalid[i], null, Locale.US));
+            assertNull("(C) "  + text, validator.parse(invalid[i], testPattern, null));
+            assertFalse("(D) " + text, validator.isValid(invalid[i], testPattern, null));
         }
     }
 
@@ -128,10 +136,10 @@ public class BaseNumberValidatorTest extends TestCase {
     public void testValidStrict() {
         for (int i = 0; i < validStrict.length; i++) {
             String text = "idx=["+i+"] value=[" + validStrictCompare[i] + "]";
-            assertEquals("(A) "  + text, validStrictCompare[i], strictValidator.validateObj(validStrict[i], Locale.US));
-            assertTrue("(B) "    + text,                        strictValidator.isValid(validStrict[i], Locale.US));
-            assertEquals("(C) "  + text, validStrictCompare[i], strictValidator.validateObj(validStrict[i], testPattern));
-            assertTrue("(D) "    + text,                        strictValidator.isValid(validStrict[i], testPattern));
+            assertEquals("(A) "  + text, validStrictCompare[i], strictValidator.parse(validStrict[i], null, Locale.US));
+            assertTrue("(B) "    + text,                        strictValidator.isValid(validStrict[i], null, Locale.US));
+            assertEquals("(C) "  + text, validStrictCompare[i], strictValidator.parse(validStrict[i], testPattern, null));
+            assertTrue("(D) "    + text,                        strictValidator.isValid(validStrict[i], testPattern, null));
         }
     }
 
@@ -141,10 +149,10 @@ public class BaseNumberValidatorTest extends TestCase {
     public void testValidNotStrict() {
         for (int i = 0; i < valid.length; i++) {
             String text = "idx=["+i+"] value=[" + validCompare[i] + "]";
-            assertEquals("(A) "  + text, validCompare[i], validator.validateObj(valid[i], Locale.US));
-            assertTrue("(B) "    + text,                  validator.isValid(valid[i], Locale.US));
-            assertEquals("(C) "  + text, validCompare[i], validator.validateObj(valid[i], testPattern));
-            assertTrue("(D) "    + text,                  validator.isValid(valid[i], testPattern));
+            assertEquals("(A) "  + text, validCompare[i], validator.parse(valid[i], null, Locale.US));
+            assertTrue("(B) "    + text,                  validator.isValid(valid[i], null, Locale.US));
+            assertEquals("(C) "  + text, validCompare[i], validator.parse(valid[i], testPattern, null));
+            assertTrue("(D) "    + text,                  validator.isValid(valid[i], testPattern, null));
         }
     }
 
@@ -153,16 +161,16 @@ public class BaseNumberValidatorTest extends TestCase {
      */
     public void testValidateLocale() {
 
-        assertEquals("US Locale, US Format", testNumber, strictValidator.validateObj(testStringUS, Locale.US));
-        assertNull("US Locale, DE Format", strictValidator.validateObj(testStringDE, Locale.US));
+        assertEquals("US Locale, US Format", testNumber, strictValidator.parse(testStringUS, null, Locale.US));
+        assertNull("US Locale, DE Format", strictValidator.parse(testStringDE, null, Locale.US));
 
         // Default German Locale
-        assertEquals("DE Locale, DE Format", testNumber, strictValidator.validateObj(testStringDE, Locale.GERMAN));
-        assertNull("DE Locale, US Format", strictValidator.validateObj(testStringUS, Locale.GERMAN));
+        assertEquals("DE Locale, DE Format", testNumber, strictValidator.parse(testStringDE, null, Locale.GERMAN));
+        assertNull("DE Locale, US Format", strictValidator.parse(testStringUS, null, Locale.GERMAN));
 
         // Default Locale has been set to Locale.US in setup()
-        assertEquals("Default Locale, US Format", testNumber, strictValidator.validateObj(testStringUS));
-        assertNull("Default Locale, DE Format", strictValidator.validateObj(testStringDE));
+        assertEquals("Default Locale, US Format", testNumber, strictValidator.parse(testStringUS, null, null));
+        assertNull("Default Locale, DE Format", strictValidator.parse(testStringDE, null, null));
     }
 
     /**

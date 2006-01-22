@@ -49,8 +49,8 @@ public class BigIntegerValidatorTest extends BaseNumberValidatorTest {
     protected void setUp() throws Exception {
         super.setUp();
 
-        validator       = new BigIntegerValidator(false);
-        strictValidator = new BigIntegerValidator(true);
+        validator       = new BigIntegerValidator(false, 0);
+        strictValidator = new BigIntegerValidator();
 
         testPattern = "#,###";
 
@@ -92,6 +92,7 @@ public class BigIntegerValidatorTest extends BaseNumberValidatorTest {
         Locale locale     = Locale.GERMAN;
         String pattern    = "0,00,00";
         String patternVal = "1,23,45";
+        String germanPatternVal = "1.23.45";
         String localeVal  = "12.345";
         String defaultVal = "12,345";
         String XXXX    = "XXXX"; 
@@ -99,18 +100,22 @@ public class BigIntegerValidatorTest extends BaseNumberValidatorTest {
         assertEquals("validate(A) default", expected, BigIntegerValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, BigIntegerValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, BigIntegerValidator.getInstance().validate(patternVal, pattern));
+        assertEquals("validate(A) both",    expected, BigIntegerValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN));
 
         assertTrue("isValid(A) default", BigIntegerValidator.getInstance().isValid(defaultVal));
         assertTrue("isValid(A) locale ", BigIntegerValidator.getInstance().isValid(localeVal, locale));
         assertTrue("isValid(A) pattern", BigIntegerValidator.getInstance().isValid(patternVal, pattern));
+        assertTrue("isValid(A) both",    BigIntegerValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN));
 
         assertNull("validate(B) default", BigIntegerValidator.getInstance().validate(XXXX));
         assertNull("validate(B) locale ", BigIntegerValidator.getInstance().validate(XXXX, locale));
         assertNull("validate(B) pattern", BigIntegerValidator.getInstance().validate(XXXX, pattern));
+        assertNull("validate(B) both",    BigIntegerValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN));
 
         assertFalse("isValid(B) default", BigIntegerValidator.getInstance().isValid(XXXX));
         assertFalse("isValid(B) locale ", BigIntegerValidator.getInstance().isValid(XXXX, locale));
         assertFalse("isValid(B) pattern", BigIntegerValidator.getInstance().isValid(XXXX, pattern));
+        assertFalse("isValid(B) both",    BigIntegerValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
     }
 
     /**

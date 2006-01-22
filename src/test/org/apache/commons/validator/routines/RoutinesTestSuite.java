@@ -31,10 +31,18 @@ import junit.framework.TestSuite;
  */
 public class RoutinesTestSuite extends TestCase {
 
+    /** 
+     * Construct an instance with the specified name
+     * @param name name of the test
+     */
     public RoutinesTestSuite(String name) {
         super(name);
     }
 
+    /** 
+     * Create a Test Suite
+     * @return the test suite.
+     */
     public static Test suite() {
        TestSuite suite = new TestSuite();
 
@@ -55,6 +63,10 @@ public class RoutinesTestSuite extends TestCase {
        return suite;
     }
 
+    /** 
+     * Static main.
+     * @param args arguments
+     */
     public static void main(String args[]) {
         junit.textui.TestRunner.run(suite());
     }

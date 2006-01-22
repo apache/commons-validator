@@ -48,8 +48,8 @@ public class ByteValidatorTest extends BaseNumberValidatorTest {
     protected void setUp() throws Exception {
         super.setUp();
 
-        validator       = new ByteValidator(false);
-        strictValidator = new ByteValidator(true);
+        validator       = new ByteValidator(false, 0);
+        strictValidator = new ByteValidator();
 
         testPattern = "#,###";
 
@@ -91,6 +91,7 @@ public class ByteValidatorTest extends BaseNumberValidatorTest {
         Locale locale     = Locale.GERMAN;
         String pattern    = "0,00";
         String patternVal = "1,23";
+        String germanPatternVal = "1.23";
         String localeVal  = ".123";
         String defaultVal = ",123";
         String XXXX    = "XXXX"; 
@@ -98,18 +99,22 @@ public class ByteValidatorTest extends BaseNumberValidatorTest {
         assertEquals("validate(A) default", expected, ByteValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, ByteValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, ByteValidator.getInstance().validate(patternVal, pattern));
+        assertEquals("validate(A) both",    expected, ByteValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN));
 
         assertTrue("isValid(A) default", ByteValidator.getInstance().isValid(defaultVal));
         assertTrue("isValid(A) locale ", ByteValidator.getInstance().isValid(localeVal, locale));
         assertTrue("isValid(A) pattern", ByteValidator.getInstance().isValid(patternVal, pattern));
+        assertTrue("isValid(A) both",    ByteValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN));
 
         assertNull("validate(B) default", ByteValidator.getInstance().validate(XXXX));
         assertNull("validate(B) locale ", ByteValidator.getInstance().validate(XXXX, locale));
         assertNull("validate(B) pattern", ByteValidator.getInstance().validate(XXXX, pattern));
+        assertNull("validate(B) both",    ByteValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN));
 
         assertFalse("isValid(B) default", ByteValidator.getInstance().isValid(XXXX));
         assertFalse("isValid(B) locale ", ByteValidator.getInstance().isValid(XXXX, locale));
         assertFalse("isValid(B) pattern", ByteValidator.getInstance().isValid(XXXX, pattern));
+        assertFalse("isValid(B) both",    ByteValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
     }
 
     /**

@@ -50,7 +50,7 @@ public class BigDecimalValidatorTest extends BaseNumberValidatorTest {
         super.setUp();
 
         validator       = new BigDecimalValidator(false);
-        strictValidator = new BigDecimalValidator(true);
+        strictValidator = new BigDecimalValidator();
 
         testPattern = "#,###.###";
 
@@ -91,57 +91,65 @@ public class BigDecimalValidatorTest extends BaseNumberValidatorTest {
      * Test BigDecimalValidator validate Methods
      */
     public void testBigDecimalValidatorMethods() {
-        Locale locale     = Locale.GERMAN;
-        String pattern    = "0,00,00";
-        String patternVal = "1,23,45";
-        String localeVal  = "12.345";
-        String defaultVal = "12,345";
-        String XXXX    = "XXXX"; 
+        Locale locale           = Locale.GERMAN;
+        String pattern          = "0,00,00";
+        String patternVal       = "1,23,45";
+        String germanPatternVal = "1.23.45";
+        String localeVal        = "12.345";
+        String defaultVal       = "12,345";
+        String XXXX             = "XXXX"; 
         BigDecimal expected = new BigDecimal(12345);
         assertEquals("validate(A) default", expected, BigDecimalValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, BigDecimalValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, BigDecimalValidator.getInstance().validate(patternVal, pattern));
+        assertEquals("validate(A) both",    expected, BigDecimalValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN));
 
         assertTrue("isValid(A) default", BigDecimalValidator.getInstance().isValid(defaultVal));
         assertTrue("isValid(A) locale ", BigDecimalValidator.getInstance().isValid(localeVal, locale));
         assertTrue("isValid(A) pattern", BigDecimalValidator.getInstance().isValid(patternVal, pattern));
+        assertTrue("isValid(A) both",    BigDecimalValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN));
 
         assertNull("validate(B) default", BigDecimalValidator.getInstance().validate(XXXX));
         assertNull("validate(B) locale ", BigDecimalValidator.getInstance().validate(XXXX, locale));
         assertNull("validate(B) pattern", BigDecimalValidator.getInstance().validate(XXXX, pattern));
+        assertNull("validate(B) both",    BigDecimalValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN));
 
         assertFalse("isValid(B) default", BigDecimalValidator.getInstance().isValid(XXXX));
         assertFalse("isValid(B) locale ", BigDecimalValidator.getInstance().isValid(XXXX, locale));
         assertFalse("isValid(B) pattern", BigDecimalValidator.getInstance().isValid(XXXX, pattern));
+        assertFalse("isValid(B) both",    BigDecimalValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
     }
 
     /**
      * Test BigDecimal Range/Min/Max
      */
     public void testBigDecimalRangeMinMax() {
-        BigDecimalValidator validator = (BigDecimalValidator)strictValidator;
-        BigDecimal number9  = validator.validate("9", "#");
-        BigDecimal number10 = validator.validate("10", "#");
-        BigDecimal number11 = validator.validate("11", "#");
-        BigDecimal number19 = validator.validate("19", "#");
-        BigDecimal number20 = validator.validate("20", "#");
-        BigDecimal number21 = validator.validate("21", "#");
+        BigDecimalValidator validator = new BigDecimalValidator(true, AbstractNumberValidator.STANDARD_FORMAT, true);
+        BigDecimal number9  = new BigDecimal("9");
+        BigDecimal number10 = new BigDecimal("10");
+        BigDecimal number11 = new BigDecimal("11");
+        BigDecimal number19 = new BigDecimal("19");
+        BigDecimal number20 = new BigDecimal("20");
+        BigDecimal number21 = new BigDecimal("21");
+        
+        float min = (float)10;
+        float max = (float)20;
 
         // Test isInRange()
-        assertFalse("isInRange() < min",   validator.isInRange(number9,  10, 20));
-        assertTrue("isInRange() = min",    validator.isInRange(number10, 10, 20));
-        assertTrue("isInRange() in range", validator.isInRange(number11, 10, 20));
-        assertTrue("isInRange() = max",    validator.isInRange(number20, 10, 20));
-        assertFalse("isInRange() > max",   validator.isInRange(number21, 10, 20));
+        assertFalse("isInRange(A) < min",   validator.isInRange(number9,  min, max));
+        assertTrue("isInRange(A) = min",    validator.isInRange(number10, min, max));
+        assertTrue("isInRange(A) in range", validator.isInRange(number11, min, max));
+        assertTrue("isInRange(A) = max",    validator.isInRange(number20, min, max));
+        assertFalse("isInRange(A) > max",   validator.isInRange(number21, min, max));
 
         // Test minValue()
-        assertFalse("minValue() < min",    validator.minValue(number9,  10));
-        assertTrue("minValue() = min",     validator.minValue(number10, 10));
-        assertTrue("minValue() > min",     validator.minValue(number11, 10));
+        assertFalse("minValue(A) < min",    validator.minValue(number9,  min));
+        assertTrue("minValue(A) = min",     validator.minValue(number10, min));
+        assertTrue("minValue(A) > min",     validator.minValue(number11, min));
 
         // Test minValue()
-        assertTrue("maxValue() < max",     validator.maxValue(number19, 20));
-        assertTrue("maxValue() = max",     validator.maxValue(number20, 20));
-        assertFalse("maxValue() > max",    validator.maxValue(number21, 20));
+        assertTrue("maxValue(A) < max",     validator.maxValue(number19, max));
+        assertTrue("maxValue(A) = max",     validator.maxValue(number20, max));
+        assertFalse("maxValue(A) > max",    validator.maxValue(number21, max));
     }
 }

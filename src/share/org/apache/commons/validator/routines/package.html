@@ -4,77 +4,273 @@
 </head>
 <body bgcolor="white">
     <p>This package contains <i>independant</i> validation routines.</p>
-    <h1>Purpose</h1>
-    <p>
-       Commons Validator serves two purposes:
-    </p>
-        <ul>
-           <li>To provide standard, independant validation routines/functions.</li>
-           <li>To provide a <i>mini</i> framework for Validation.</li>
-        </ul>
-    <p>
-       This package has been created, since version 1.2.1, in an attempt to clearly
-       separate these two concerns and is the location for the standard, independant
-       validation routines/functions in <em>Commons Validator</em>.
-    </p>
+<h1>Table of Contents</h1>
 
-    <p>
-       The contents of this package have no dependencies on the framework aspect of
-       Commons Validator and can be used on their own.
-    </p>
+<ul>
+<li>1. <a href="#overview">Overview</a>
+<li>2. <a href="#date">Date and Time Validators</a>
+    <ul>
+    <li>2.1 <a href="#date.overview">Overview</a></li>
+    <li>2.2 <a href="#date.validate">Validating a Date Value</a></li>
+    <li>2.3 <a href="#date.format">Formatting</a></li>
+    <li>2.4 <a href="#date.timezone">Time Zones</a></li>
+    <li>2.5 <a href="#date.compare">Comparing Dates and Times</a></li>
+    </ul></li>
+<li>2. <a href="#numeric">Numeric Validators</a>
+    <ul>
+    <li>3.1 <a href="#numeric.overview">Overview</a></li>
+    <li>3.2 <a href="#numeric.validate">Validating a Numeric Value</a></li>
+    <li>3.3 <a href="#numeric.format">Formatting</a></li>
+    <li>3.4 <a href="#numeric.compare">Comparing Numbers</a></li>
+    </ul></li>
+</ul>
 
-    <h1>Date and Time Validators</h1>
-    <p>
-       The date and time validators either validate according to a specified <i>format</i>
-       or use a standard <i>format</i> for a specified <code>Locale</code>.
-    </p>
-        <ul>
-           <li><a href="DateValidator.html">Date Validator</a> - validates dates
-               converting to a <code>java.util.Date</code> type. Also provides functions
-               to compare dates.</li>
-           <li><a href="CalendarValidator.html">Calendar Validator</a> - validates dates
-               converting to a <code>java.util.Calendar</code> type. Also provides functions
-               to compare dates.</li>
-           <li><a href="TimeValidator.html">Time Validator</a> - validates times
-               converting to a <code>java.util.Calendar</code> type. Also provides functions
-               to compare times.</li>
-        </ul>
-    <h1>Numeric Validators</h1>
-    <p>
-       The numeric validators either validate according to a specified <i>format</i>
-       or use a standard <i>format</i> for a specified <code>Locale</code>.
-    </p>
-        <ul>
-           <li><a href="ByteValidator.html">Byte Validator</a> - validates numbers
-               converting to a <code>java.lang.Byte</code> type. Also provides functions
-               for minimum, maximum and range checks.</li>
-           <li><a href="ShortValidator.html">Short Validator</a> - validates numbers
-               converting to a <code>java.lang.Short</code> type. Also provides functions
-               for minimum, maximum and range checks.</li>
-           <li><a href="IntegerValidator.html">Integer Validator</a> - validates numbers
-               converting to a <code>java.lang.Integer</code> type. Also provides functions
-               for minimum, maximum and range checks.</li>
-           <li><a href="LongValidator.html">Long Validator</a> - validates numbers
-               converting to a <code>java.lang.Long</code> type. Also provides functions
-               for minimum, maximum and range checks.</li>
-           <li><a href="FloatValidator.html">Float Validator</a> - validates numbers
-               converting to a <code>java.lang.Float</code> type. Also provides functions
-               for minimum, maximum and range checks.</li>
-           <li><a href="DoubleValidator.html">Double Validator</a> - validates numbers
-               converting to a <code>java.lang.Integer</code> type. Also provides functions
-               for minimum, maximum and range checks.</li>
-           <li><a href="BigIntegerValidator.html">BigInteger Validator</a> - validates numbers
-               converting to a <code>java.math.BigInteger</code> type. Also provides functions
-               for minimum, maximum and range checks.</li>
-           <li><a href="BigDecimalValidator.html">BigDecimal Validator</a> - validates numbers
-               converting to a <code>java.math.BigDecimal</code> type. Also provides functions
-               for minimum, maximum and range checks.</li>
-           <li><a href="CurrencyValidator.html">Currency Validator</a> - validates numbers
-               in using the <i>currency</i> format for a specified <code>Locale</code>.
-               Validated values are converted to a <code>java.math.BigDecimal</code> type.</li>
-           <li><a href="PercentValidator.html">Percent Validator</a> - validates numbers
-               in using the <i>percentage</i> format for a specified <code>Locale</code>.
-               Validated values are converted to a <code>java.math.BigDecimal</code> type.</li>
-        </ul>
+<a name="overview"></a>
+<h1>1. Overview</h1>
+<p>
+   Commons Validator serves two purposes:
+</p>
+    <ul>
+       <li>To provide standard, independant validation routines/functions.</li>
+       <li>To provide a <i>mini</i> framework for Validation.</li>
+    </ul>
+<p>
+   This package has been created, since version 1.2.1, in an attempt to clearly
+   separate these two concerns and is the location for the standard, independant
+   validation routines/functions in <em>Commons Validator</em>.
+</p>
+
+<p>
+   The contents of this package have no dependencies on the framework aspect of
+   Commons Validator and can be used on their own.
+</p>
+
+<a name="date"></a>
+<h1>2. Date and Time Validators</h1>
+
+<a name="date.overview"></a>
+<h3>2.1 Overview</h3>
+<p>
+   The date and time validators either validate according to a specified <i>format</i>
+   or use a standard <i>format</i> for a specified <code>Locale</code>.
+</p>
+<ul>
+   <li><a href="DateValidator.html">Date Validator</a> - validates dates
+       converting to a <code>java.util.Date</code> type.</li>
+   <li><a href="CalendarValidator.html">Calendar Validator</a> - validates dates
+       converting to a <code>java.util.Calendar</code> type.</li>
+   <li><a href="TimeValidator.html">Time Validator</a> - validates times
+       converting to a <code>java.util.Calendar</code> type.</li>
+</ul>
+
+<a name="date.validate"></a>
+<h3>2.2 Validating a Date Value</h3>
+<p>
+   You can either use one of the <code>isValid()</code> methods to just determine
+   if a date is valid, or use one of the <code>validate()</code> methods to
+   validate a date and convert it to a <code>java.util.Date</code>...
+</p>
+<pre>
+      // Get the Date validator
+      DateValidator validator = DateValidator.getInstance();
+
+      // Validate/Convert the date
+      Date fooDate = validator.validate(fooString, "dd/MM/yyyy");
+      if (fooDate == null) {
+          // error...not a valid date
+          return;
+      }
+</pre>
+
+<p>The following methods are provided to validate a date/time (return a boolean result):
+</p>
+<ul>
+    <li><code>isValid(<i>value</i>)</code></li>
+    <li><code>isValid(<i>value</i>, <i>pattern</i>)</code></li>
+    <li><code>isValid(<i>value</i>, Locale)</code></li>
+    <li><code>isValid(<i>value</i>, <i>pattern</i>, Locale)</code></li>
+</ul>
+<p>The following methods are provided to validate a date/time and convert it to either a 
+   <code>java.util.Date</code> or <code>java.util.Calendar</code>:
+</p>
+<ul>
+    <li><code>validate(<i>value</i>)</code></li>
+    <li><code>validate(<i>value</i>, <i>pattern</i>)</code></li>
+    <li><code>validate(<i>value</i>, Locale)</code></li>
+    <li><code>validate(<i>value</i>, <i>pattern</i>, Locale)</code></li>
+</ul>
+
+<a name="date.format"></a>
+<h3>2.3 Formatting</h3>
+<p>
+   Formatting and validating are two sides of the same coin. Typically
+   <i>input</i> values which are converted from Strings according to a
+   specified <i>format</i> also have to be rendered for <i>output</i> in
+   the same format. These validators provide the mechanism for formatting from
+   date/time objects to Strings. The following methods are provided to format
+   date/time values as Strings:
+</p>
+<ul>
+    <li><code>format(<i>number</i>)</code></li>
+    <li><code>format(<i>number</i>, <i>pattern</i>)</code></li>
+    <li><code>format(<i>number</i>, Locale)</code></li>
+    <li><code>format(<i>number</i>, <i>pattern</i>, Locale)</code></li>
+</ul>
+
+<a name="date.timezone"></a>
+<h3>2.4 Time Zones</h3>
+<p>
+   If the date being parsed relates to a different time zone than the
+   system default, you can specify the <code>TimeZone</code> to use when
+   validating/converting:
+</p>
+<pre>
+      // Get the GMT time zone
+      TimeZone GMT = TimeZone.getInstance("GMT");
+
+      // Validate/Convert the date using GMT
+      Date fooDate = validator.validate(fooString, "dd/MM/yyyy", GMT);
+</pre>
+
+<p>The followng Time Zone <i>flavours</i> of the Validation/Conversion methods
+   are provided:</p>
+<ul>
+    <li><code>validate(<i>value</i>, TimeZone)</code></li>
+    <li><code>validate(<i>value</i>, <i>pattern</i>, TimeZone)</code></li>
+    <li><code>validate(<i>value</i>, Locale, TimeZone)</code></li>
+    <li><code>validate(<i>value</i>, <i>pattern</i>, Locale, TimeZone)</code></li>
+</ul>
+
+<a name="date.compare"></a>
+<h3>2.5 Comparing Dates and Times</h3>
+<p>
+   As well as validating that a value is a valid date or time, these validators
+   also provide <i>date comparison</i> functions. The <code>DateValidator</code>
+   and <code>CalendarValidator</code> provide functions for comparing years,
+   quarters, months, weeks and dates and the <code>TimeValidator</code> provides
+   functions for comparing hours, minutes, seconds and milliseconds.
+   For example, to check that a date is in the current month, you could use
+   the <code>compareMonths()</code> method, which compares the year and month
+   components of a date:
+</p>
+<pre>
+      // Check the date is in the current month
+      int compare = validator.compareMonths{fooDate, new Date(), null);
+      if (compare != 0) {
+          // error...not in current month
+          return;
+      }
+</pre>
+
+
+<a name="numeric"></a>
+<h1>3 Numeric Validators</h1>
+
+<a name="numeric.overview"></a>
+<h3>3.1 Overview</h3>
+<p>
+   The numeric validators either validate according to a specified <i>format</i>
+   or use a standard <i>format</i> for a specified <code>Locale</code> or use
+   a <i>custom</i> format for a specified <code>Locale</code>.
+</p>
+<ul>
+    <li><a href="ByteValidator.html">Byte Validator</a> - validates numbers
+        converting to a <code>java.lang.Byte</code> type.</li>
+    <li><a href="ShortValidator.html">Short Validator</a> - validates numbers
+        converting to a <code>java.lang.Short</code> type.</li>
+    <li><a href="IntegerValidator.html">Integer Validator</a> - validates numbers
+        converting to a <code>java.lang.Integer</code> type.</li>
+    <li><a href="LongValidator.html">Long Validator</a> - validates numbers
+        converting to a <code>java.lang.Long</code> type.</li>
+    <li><a href="FloatValidator.html">Float Validator</a> - validates numbers
+        converting to a <code>java.lang.Float</code> type.</li>
+    <li><a href="DoubleValidator.html">Double Validator</a> - validates numbers
+        converting to a <code>java.lang.Double</code> type.</li>
+    <li><a href="BigIntegerValidator.html">BigInteger Validator</a> - validates numbers
+        converting to a <code>java.math.BigInteger</code> type.</li>
+    <li><a href="BigDecimalValidator.html">BigDecimal Validator</a> - validates numbers
+        converting to a <code>java.math.BigDecimal</code> type.</li>
+    <li><a href="CurrencyValidator.html">Currency Validator</a> - validates numbers 
+        in a <i>currency</i> format, converting to a <code>java.math.BigDecimal</code> 
+        type.</li>
+    <li><a href="PercentValidator.html">Percent Validator</a> - validates numbers in 
+        a <i>percentage</i> format converting to a <code>java.math.BigDecimal</code> 
+        type.</li>
+</ul>
+
+<a name="numeric.validate"></a>
+<h3>3.2 Validating a Numeric Value</h3>
+<p>
+   You can either use one of the <code>isValid()</code> methods to just determine
+   if a number is valid, or use one of the <code>validate()</code> methods to
+   validate a number and convert it to an appropriate type.
+</p>
+<p>
+   The following example validates an integer against a custom pattern
+   for the <i>German</i> locale. Please note the format is specified using
+   the standard symbols for </code>java.text.DecimalFormat</code> so although
+   the decimal separator is indicated as a period (".") in the format, the
+   validator will check using the German decimal separator - which is a comma (",").
+</p>
+<pre>
+      // Get the Integer validator
+      IntegerValidator validator = IntegerValidator.getInstance();
+
+      // Validate/Convert the number
+      Integer fooInteger = validator.validate(fooString, "#,##0.00", Locale.GERMAN);
+      if (fooInteger == null) {
+          // error...not a valid date
+          return;
+      }
+</pre>
+<p>The following methods are provided to validate a number (return a boolean result):</p>
+<ul>
+    <li><code>isValid(<i>value</i>)</code></li>
+    <li><code>isValid(<i>value</i>, <i>pattern</i>)</code></li>
+    <li><code>isValid(<i>value</i>, Locale)</code></li>
+    <li><code>isValid(<i>value</i>, <i>pattern</i>, Locale)</code></li>
+</ul>
+
+<p>The following methods are provided to validate a date/time and convert it one of 
+   the <code>java.lang.Number</code> implementations:</p>
+<ul>
+    <li><code>validate(<i>value</i>)</code></li>
+    <li><code>validate(<i>value</i>, <i>pattern</i>)</code></li>
+    <li><code>validate(<i>value</i>, Locale)</code></li>
+    <li><code>validate(<i>value</i>, <i>pattern</i>, Locale)</code></li>
+</ul>
+
+<a name="numeric.format"></a>
+<h3>3.3 Formatting</h3>
+<p>
+   Formatting and validating are two sides of the same coin. Typically
+   <i>input</i> values which are converted from Strings according to a
+   specified <i>format</i> also have to be rendered for <i>output</i> in
+   the same format. These validators provide the mechanism for formatting from
+   numeric objects to Strings. The following methods are provided to format
+   numeric values as Strings:
+</p>
+<ul>
+    <li><code>format(<i>number</i>)</code></li>
+    <li><code>format(<i>number</i>, <i>pattern</i>)</code></li>
+    <li><code>format(<i>number</i>, Locale)</code></li>
+    <li><code>format(<i>number</i>, <i>pattern</i>, Locale)</code></li>
+</ul>
+
+<a name="numeric.compare"></a>
+<h3>3.4 Comparing Numbers</h3>
+<p>
+   As well as validating that a value is a valid number, these validators
+   also provide functions for validating the <i>minimum</i>, <i>minimum</i> 
+   and <i>range</i> of a value.
+</p>
+<pre>
+      // Check the number is between 25 and 75
+      int compare = validator.compareMonths{fooDate, new Date(), null);
+      if (validator.isInRange(fooInteger, 25, 75) {
+          // valid...in the specified range
+          return;
+      }
+</pre>
 </body>
 </html>

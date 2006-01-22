@@ -20,6 +20,7 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.text.DecimalFormat;
 import java.util.Locale;
 
 /**
@@ -48,8 +49,8 @@ public class FloatValidatorTest extends BaseNumberValidatorTest {
     protected void setUp() throws Exception {
         super.setUp();
 
-        validator       = new FloatValidator(false);
-        strictValidator = new FloatValidator(true);
+        validator       = new FloatValidator(false, 0);
+        strictValidator = new FloatValidator();
 
         testPattern = "#,###.#";
 
@@ -92,24 +93,58 @@ public class FloatValidatorTest extends BaseNumberValidatorTest {
         String pattern    = "0,00,00";
         String patternVal = "1,23,45";
         String localeVal  = "12.345";
+        String germanPatternVal = "1.23.45";
         String defaultVal = "12,345";
         String XXXX    = "XXXX"; 
         Float expected = new Float(12345);
         assertEquals("validate(A) default", expected, FloatValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, FloatValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, FloatValidator.getInstance().validate(patternVal, pattern));
+        assertEquals("validate(A) both",    expected, FloatValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN));
 
         assertTrue("isValid(A) default", FloatValidator.getInstance().isValid(defaultVal));
         assertTrue("isValid(A) locale ", FloatValidator.getInstance().isValid(localeVal, locale));
         assertTrue("isValid(A) pattern", FloatValidator.getInstance().isValid(patternVal, pattern));
+        assertTrue("isValid(A) both",    FloatValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN));
 
         assertNull("validate(B) default", FloatValidator.getInstance().validate(XXXX));
         assertNull("validate(B) locale ", FloatValidator.getInstance().validate(XXXX, locale));
         assertNull("validate(B) pattern", FloatValidator.getInstance().validate(XXXX, pattern));
+        assertNull("validate(B) both",    FloatValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN));
 
         assertFalse("isValid(B) default", FloatValidator.getInstance().isValid(XXXX));
         assertFalse("isValid(B) locale ", FloatValidator.getInstance().isValid(XXXX, locale));
         assertFalse("isValid(B) pattern", FloatValidator.getInstance().isValid(XXXX, pattern));
+        assertFalse("isValid(B) both",    FloatValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
+    }
+
+    /**
+     * Test Float validation for values too small to handle.
+     * (slightly different from max/min which are the largest +ve/-ve
+     */
+    public void testFloatSmallestValues() {
+        String pattern = "#.#################################################################";
+        DecimalFormat fmt = new DecimalFormat(pattern);
+
+        // Validate Smallest +ve value
+        Float smallestPositive  = new Float(Float.MIN_VALUE);
+        String strSmallestPositive = fmt.format(smallestPositive);
+        assertEquals("Smallest +ve", smallestPositive, FloatValidator.getInstance().validate(strSmallestPositive, pattern));
+
+        // Validate Smallest -ve value
+        Float smallestNegative  = new Float(Float.MIN_VALUE * -1);
+        String strSmallestNegative = fmt.format(smallestNegative);
+        assertEquals("Smallest -ve", smallestNegative, FloatValidator.getInstance().validate(strSmallestNegative, pattern));
+
+        // Validate Too Small +ve
+        Double tooSmallPositive = new Double(((double)Float.MIN_VALUE / (double)10)); 
+        String strTooSmallPositive = fmt.format(tooSmallPositive);
+        assertFalse("Too small +ve", FloatValidator.getInstance().isValid(strTooSmallPositive, pattern));
+
+        // Validate Too Small -ve
+        Double tooSmallNegative = new Double(tooSmallPositive.doubleValue() * (double)-1);
+        String strTooSmallNegative = fmt.format(tooSmallNegative);
+        assertFalse("Too small -ve", FloatValidator.getInstance().isValid(strTooSmallNegative, pattern));
     }
 
     /**

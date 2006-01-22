@@ -48,8 +48,8 @@ public class LongValidatorTest extends BaseNumberValidatorTest {
     protected void setUp() throws Exception {
         super.setUp();
 
-        validator       = new LongValidator(false);
-        strictValidator = new LongValidator(true);
+        validator       = new LongValidator(false, 0);
+        strictValidator = new LongValidator();
 
         testPattern = "#,###";
 
@@ -91,6 +91,7 @@ public class LongValidatorTest extends BaseNumberValidatorTest {
         Locale locale     = Locale.GERMAN;
         String pattern    = "0,00,00";
         String patternVal = "1,23,45";
+        String germanPatternVal = "1.23.45";
         String localeVal  = "12.345";
         String defaultVal = "12,345";
         String XXXX    = "XXXX"; 
@@ -98,18 +99,22 @@ public class LongValidatorTest extends BaseNumberValidatorTest {
         assertEquals("validate(A) default", expected, LongValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, LongValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, LongValidator.getInstance().validate(patternVal, pattern));
+        assertEquals("validate(A) both",    expected, LongValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN));
 
         assertTrue("isValid(A) default", LongValidator.getInstance().isValid(defaultVal));
         assertTrue("isValid(A) locale ", LongValidator.getInstance().isValid(localeVal, locale));
         assertTrue("isValid(A) pattern", LongValidator.getInstance().isValid(patternVal, pattern));
+        assertTrue("isValid(A) both",    LongValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN));
 
         assertNull("validate(B) default", LongValidator.getInstance().validate(XXXX));
         assertNull("validate(B) locale ", LongValidator.getInstance().validate(XXXX, locale));
         assertNull("validate(B) pattern", LongValidator.getInstance().validate(XXXX, pattern));
+        assertNull("validate(B) both",    LongValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN));
 
         assertFalse("isValid(B) default", LongValidator.getInstance().isValid(XXXX));
         assertFalse("isValid(B) locale ", LongValidator.getInstance().isValid(XXXX, locale));
         assertFalse("isValid(B) pattern", LongValidator.getInstance().isValid(XXXX, pattern));
+        assertFalse("isValid(B) both",    LongValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
     }
 
     /**

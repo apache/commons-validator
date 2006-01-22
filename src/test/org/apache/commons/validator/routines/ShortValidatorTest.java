@@ -48,8 +48,8 @@ public class ShortValidatorTest extends BaseNumberValidatorTest {
     protected void setUp() throws Exception {
         super.setUp();
 
-        validator       = new ShortValidator(false);
-        strictValidator = new ShortValidator(true);
+        validator       = new ShortValidator(false, 0);
+        strictValidator = new ShortValidator();
 
         testPattern = "#,###";
 
@@ -91,6 +91,7 @@ public class ShortValidatorTest extends BaseNumberValidatorTest {
         Locale locale     = Locale.GERMAN;
         String pattern    = "0,00,00";
         String patternVal = "1,23,45";
+        String germanPatternVal = "1.23.45";
         String localeVal  = "12.345";
         String defaultVal = "12,345";
         String XXXX    = "XXXX"; 
@@ -98,18 +99,22 @@ public class ShortValidatorTest extends BaseNumberValidatorTest {
         assertEquals("validate(A) default", expected, ShortValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, ShortValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, ShortValidator.getInstance().validate(patternVal, pattern));
+        assertEquals("validate(A) both",    expected, ShortValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN));
 
         assertTrue("isValid(A) default", ShortValidator.getInstance().isValid(defaultVal));
         assertTrue("isValid(A) locale ", ShortValidator.getInstance().isValid(localeVal, locale));
         assertTrue("isValid(A) pattern", ShortValidator.getInstance().isValid(patternVal, pattern));
+        assertTrue("isValid(A) both",    ShortValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN));
 
         assertNull("validate(B) default", ShortValidator.getInstance().validate(XXXX));
         assertNull("validate(B) locale ", ShortValidator.getInstance().validate(XXXX, locale));
         assertNull("validate(B) pattern", ShortValidator.getInstance().validate(XXXX, pattern));
+        assertNull("validate(B) both",    ShortValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN));
 
         assertFalse("isValid(B) default", ShortValidator.getInstance().isValid(XXXX));
         assertFalse("isValid(B) locale ", ShortValidator.getInstance().isValid(XXXX, locale));
         assertFalse("isValid(B) pattern", ShortValidator.getInstance().isValid(XXXX, pattern));
+        assertFalse("isValid(B) both",    ShortValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
     }
 
     /**

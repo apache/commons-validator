@@ -21,6 +21,8 @@
 package org.apache.commons.validator.routines;
 
 import java.math.BigDecimal;
+import java.text.Format;
+import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
@@ -31,14 +33,17 @@ import java.util.Locale;
  *    a <code>BigDecimal</code> using <code>java.text.NumberFormat</code>
  *    to parse either:</p>
  *    <ul>
- *       <li>using a specified pattern</li>
- *       <li>using the format for a specified <code>Locale</code></li>
- *       <li>using the format for the <i>default</i> <code>Locale</code></li>
+ *       <li>using the default format for the default <code>Locale</code></li>
+ *       <li>using a specified pattern with the default <code>Locale</code></li>
+ *       <li>using the default format for a specified <code>Locale</code></li>
+ *       <li>using a specified pattern with a specified <code>Locale</code></li>
  *    </ul>
  *    
  * <p>Use one of the <code>isValid()</code> methods to just validate or
  *    one of the <code>validate()</code> methods to validate and receive a
  *    <i>converted</i> <code>BigDecimal</code> value.</p>
+ * 
+ * <p>Fraction/decimal values are automatically trimmed to the appropriate length.</p>
  * 
  * <p>Once a value has been sucessfully converted the following
  *    methods can be used to perform minimum, maximum and range checks:</p>
@@ -56,9 +61,10 @@ import java.util.Locale;
  *    <code>format()</code> methods are also provided. That is you can 
  *    format either:</p>
  *    <ul>
- *       <li>using a specified pattern</li>
- *       <li>using the format for a specified <code>Locale</code></li>
- *       <li>using the format for the <i>default</i> <code>Locale</code></li>
+ *       <li>using the default format for the default <code>Locale</code></li>
+ *       <li>using a specified pattern with the default <code>Locale</code></li>
+ *       <li>using the default format for a specified <code>Locale</code></li>
+ *       <li>using a specified pattern with a specified <code>Locale</code></li>
  *    </ul>
  * 
  * @version $Revision$ $Date$
@@ -84,13 +90,41 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Construct an instance with the specified strict setting.
+     * <p>Construct an instance with the specified strict setting.</p>
      * 
      * @param strict <code>true</code> if strict 
      *        <code>Format</code> parsing should be used.
      */
     public BigDecimalValidator(boolean strict) {
-        super(strict, true);
+        this(strict, STANDARD_FORMAT, true);
+    }
+
+    /**
+     * <p>Construct an instance with the specified strict setting
+     *    and format type.</p>
+     *    
+     * <p>The <code>formatType</code> specified what type of
+     *    <code>NumberFormat</code> is created - valid types
+     *    are:</p>
+     *    <ul>
+     *       <li>AbstractNumberValidator.STANDARD_FORMAT -to create
+     *           <i>standard</i> number formats (the default).</li>
+     *       <li>AbstractNumberValidator.CURRENCY_FORMAT -to create
+     *           <i>currency</i> number formats.</li>
+     *       <li>AbstractNumberValidator.PERCENT_FORMAT -to create
+     *           <i>percent</i> number formats (the default).</li>
+     *    </ul>
+     * 
+     * @param strict <code>true</code> if strict 
+     *        <code>Format</code> parsing should be used.
+     * @param formatType The <code>NumberFormat</code> type to
+     *        create for validation, default is STANDARD_FORMAT.
+     * @param allowFractions <code>true</code> if fractions are
+     *        allowed or <code>false</code> if integers only.
+     */
+    protected BigDecimalValidator(boolean strict, int formatType, 
+            boolean allowFractions) {
+        super(strict, formatType, allowFractions);
     }
 
     /**
@@ -102,7 +136,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      *  if invalid.
      */
     public BigDecimal validate(String value) {
-        return (BigDecimal)validateObj(value);
+        return (BigDecimal)parse(value, (String)null, (Locale)null);
     }
 
     /**
@@ -110,11 +144,12 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      *    specified <i>pattern</i>. 
      *
      * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
      * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
      */
     public BigDecimal validate(String value, String pattern) {
-        return (BigDecimal)validateObj(value, pattern);
+        return (BigDecimal)parse(value, pattern, (Locale)null);
     }
 
     /**
@@ -122,12 +157,25 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      *    specified <code>Locale</code>. 
      *
      * @param value The value validation is being performed on.
-     * @param locale The locale to use for the date format, defaults to the default
-     * system default if null.
+     * @param locale The locale to use for the number format, system default if null.
      * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
      */
     public BigDecimal validate(String value, Locale locale) {
-        return (BigDecimal)validateObj(value, locale);
+        return (BigDecimal)parse(value, (String)null, locale);
+    }
+
+    /**
+     * <p>Validate/convert a <code>BigDecimal</code> using the
+     *    specified pattern and/ or <code>Locale</code>. 
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
+     * @param locale The locale to use for the date format, system default if null.
+     * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
+     */
+    public BigDecimal validate(String value, String pattern, Locale locale) {
+        return (BigDecimal)parse(value, pattern, locale);
     }
 
     /**
@@ -168,17 +216,26 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Returns the parsed number un-changed.
+     * Convert the parsed value to a <code>BigDecimal</code>.
      * 
-     * @param number The number validation is being performed on.
-     * @return The validated/converted <code>BigDecimal</code> value if valid 
-     * or <code>null</code> if invalid.
+     * @param value The parsed <code>Number</code> object created.
+     * @param formatter The Format used to parse the value with.
+     * @return The parsed <code>Number</code> converted to a 
+     *         <code>BigDecimal</code>.
      */
-    protected Object processNumber(Number number) {
-        if (number instanceof Long) {
-            return BigDecimal.valueOf(number.longValue());
+    protected Object processParsedValue(Object value, Format formatter) {
+        BigDecimal decimal = null;
+        if (value instanceof Long) {
+            decimal = BigDecimal.valueOf(((Long)value).longValue());
         } else {
-            return new BigDecimal(number.toString());
+            decimal = new BigDecimal(value.toString());
         }
+
+        int scale = determineScale((NumberFormat)formatter);
+        if (scale >= 0) {
+            decimal = decimal.setScale(scale, BigDecimal.ROUND_DOWN);
+        }
+
+        return decimal;
     }
 }

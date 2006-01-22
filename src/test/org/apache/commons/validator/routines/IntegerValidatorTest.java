@@ -48,8 +48,8 @@ public class IntegerValidatorTest extends BaseNumberValidatorTest {
     protected void setUp() throws Exception {
         super.setUp();
 
-        validator       = new IntegerValidator(false);
-        strictValidator = new IntegerValidator(true);
+        validator       = new IntegerValidator(false, 0);
+        strictValidator = new IntegerValidator();
 
         testPattern = "#,###";
 
@@ -90,6 +90,7 @@ public class IntegerValidatorTest extends BaseNumberValidatorTest {
         Locale locale     = Locale.GERMAN;
         String pattern    = "0,00,00";
         String patternVal = "1,23,45";
+        String germanPatternVal = "1.23.45";
         String localeVal  = "12.345";
         String defaultVal = "12,345";
         String XXXX    = "XXXX"; 
@@ -97,18 +98,22 @@ public class IntegerValidatorTest extends BaseNumberValidatorTest {
         assertEquals("validate(A) default", expected, IntegerValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, IntegerValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, IntegerValidator.getInstance().validate(patternVal, pattern));
+        assertEquals("validate(A) both",    expected, IntegerValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN));
 
         assertTrue("isValid(A) default", IntegerValidator.getInstance().isValid(defaultVal));
         assertTrue("isValid(A) locale ", IntegerValidator.getInstance().isValid(localeVal, locale));
         assertTrue("isValid(A) pattern", IntegerValidator.getInstance().isValid(patternVal, pattern));
+        assertTrue("isValid(A) both",    IntegerValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN));
 
         assertNull("validate(B) default", IntegerValidator.getInstance().validate(XXXX));
         assertNull("validate(B) locale ", IntegerValidator.getInstance().validate(XXXX, locale));
         assertNull("validate(B) pattern", IntegerValidator.getInstance().validate(XXXX, pattern));
+        assertNull("validate(B) both",    IntegerValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN));
 
         assertFalse("isValid(B) default", IntegerValidator.getInstance().isValid(XXXX));
         assertFalse("isValid(B) locale ", IntegerValidator.getInstance().isValid(XXXX, locale));
         assertFalse("isValid(B) pattern", IntegerValidator.getInstance().isValid(XXXX, pattern));
+        assertFalse("isValid(B) both",    IntegerValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
     }
 
     /**

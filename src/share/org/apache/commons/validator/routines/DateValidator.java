@@ -21,6 +21,7 @@
 package org.apache.commons.validator.routines;
 
 import java.text.DateFormat;
+import java.text.Format;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -29,15 +30,20 @@ import java.util.TimeZone;
 /**
  * <p><b>Date Validation</b> and Conversion routines (<code>java.util.Date</code>).</p>
  *
- * <p>This validator provides a number of methods for
- *    validating/converting a <code>String</code> value to
- *    a <code>Date</code> using <code>java.text.DateFormat</code>
- *    to parse either:</p>
+ * <p>This validator provides a number of methods for validating/converting
+ *    a <code>String</code> date value to a <code>java.util.Date</code> using 
+ *    <code>java.text.DateFormat</code> to parse either:</p>
  *    <ul>
- *       <li>using a specified pattern</li>
- *       <li>using the format for a specified <code>Locale</code></li>
- *       <li>using the format for the <i>default</i> <code>Locale</code></li>
+ *       <li>using the default format for the default <code>Locale</code></li>
+ *       <li>using a specified pattern with the default <code>Locale</code></li>
+ *       <li>using the default format for a specified <code>Locale</code></li>
+ *       <li>using a specified pattern with a specified <code>Locale</code></li>
  *    </ul>
+ *    
+ * <p>For each of the above mechanisms, conversion method (i.e the  
+ *    <code>validate</code> methods) implementations are provided which
+ *    either use the default <code>TimeZone</code> or allow the 
+ *    <code>TimeZone</code> to be specified.</p>
  *    
  * <p>Use one of the <code>isValid()</code> methods to just validate or
  *    one of the <code>validate()</code> methods to validate and receive a
@@ -121,7 +127,7 @@ public class DateValidator extends AbstractCalendarValidator {
      *  if invalid.
      */
     public Date validate(String value) {
-        return (Date)validateObj(value);
+        return (Date)parse(value, (String)null, (Locale)null, (TimeZone)null);
     }
 
     /**
@@ -133,7 +139,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
      */
     public Date validate(String value, TimeZone timeZone) {
-        return (Date)validateObj(value, Locale.getDefault(), timeZone);
+        return (Date)parse(value, (String)null, (Locale)null, timeZone);
     }
 
     /**
@@ -141,11 +147,12 @@ public class DateValidator extends AbstractCalendarValidator {
      *    <i>pattern</i> and default <code>TimeZone</code>.
      *
      * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
      * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
      */
     public Date validate(String value, String pattern) {
-        return (Date)validateObj(value, pattern);
+        return (Date)parse(value, pattern, (Locale)null, (TimeZone)null);
     }
 
     /**
@@ -153,12 +160,13 @@ public class DateValidator extends AbstractCalendarValidator {
      *    <i>pattern</i> and <code>TimeZone</code>.
      *
      * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
      * @param timeZone The Time Zone used to parse the date, system default if null.
      * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
      */
     public Date validate(String value, String pattern, TimeZone timeZone) {
-        return (Date)validateObj(value, pattern, timeZone);
+        return (Date)parse(value, pattern, (Locale)null, timeZone);
     }
 
     /**
@@ -170,7 +178,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
      */
     public Date validate(String value, Locale locale) {
-        return (Date)validateObj(value, locale);
+        return (Date)parse(value, (String)null, locale, (TimeZone)null);
     }
 
     /**
@@ -183,7 +191,36 @@ public class DateValidator extends AbstractCalendarValidator {
      * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
      */
     public Date validate(String value, Locale locale, TimeZone timeZone) {
-        return (Date)validateObj(value, locale, timeZone);
+        return (Date)parse(value, (String)null, locale, timeZone);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Date</code> using the specified pattern
+     *    and <code>Locale</code> and the default <code>TimeZone</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
+     * @param locale The locale to use for the date format, system default if null.
+     * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
+     */
+    public Date validate(String value, String pattern, Locale locale) {
+        return (Date)parse(value, pattern, locale, (TimeZone)null);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Date</code> using the specified
+     *    pattern, and <code>Locale</code> and <code>TimeZone</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
+     * @param locale The locale to use for the date format, system default if null.
+     * @param timeZone The Time Zone used to parse the date, system default if null.
+     * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
+     */
+    public Date validate(String value, String pattern, Locale locale, TimeZone timeZone) {
+        return (Date)parse(value, pattern, locale, timeZone);
     }
 
     /**
@@ -282,14 +319,14 @@ public class DateValidator extends AbstractCalendarValidator {
     }
 
     /**
-     * <p>Convert the <code>Calendar</code> to a <code>Date</code></p>
+     * <p>Returns the parsed <code>Date</code> unchanged.</p>
      * 
-     * @param calendar The calendar object create from the parsed value.
-     * @return The validated/converted <code>Calendar</code> value if valid 
-     * or <code>null</code> if invalid.
+     * @param value The parsed <code>Date</code> object created.
+     * @param formatter The Format used to parse the value with.
+     * @return The parsed value converted to a <code>Calendar</code>.
      */
-    protected Object processCalendar(Calendar calendar) {
-        return calendar.getTime();
+    protected Object processParsedValue(Object value, Format formatter) {
+        return value;
     }
 
     /**

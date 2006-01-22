@@ -20,19 +20,31 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.text.DecimalFormat;
 import java.text.Format;
-import java.text.NumberFormat;
-import java.util.Locale;
+import java.math.BigDecimal;
 
 /**
  * <p><b>Percentage Validation</b> and Conversion routines (<code>java.math.BigDecimal</code>).</p>
  * 
- * <p>This validator is a variation of the <code>BigDecimal</code> Validator
- *    that uses the <i>percentage</code> format when validating using
- *    a <code>Locale</i>.</p>
+ * <p>This is one implementation of a percent validator that has the following features:</p>
+ *    <ul>
+ *       <li>It is <i>lenient</i> about the the presence of the <i>percent symbol</i></li>
+ *       <li>It converts the percent to a <code>java.math.BigDecimal</code></li>
+ *    </ul>
  * 
- * <p>Otherwise it provides the same functionality as the <code>BigDecimal</code>
- *    with converted values being returned as a  <code>BigDecimal</code>.</p>
+ * <p>However any of the <i>number</i> validators can be used for <i>percent</i> validation.
+ *    For example, if you wanted a <i>percent</i> validator that converts to a
+ *    <code>java.lang.Float</code> then you can simply instantiate an
+ *    <code>FloatValidator</code> with the appropriate <i>format type</i>:</p>
+ *    
+ *    <p><code>... = new FloatValidator(false, FloatValidator.PERCENT_FORMAT);</code></p>
+ *
+ * <p>Pick the appropriate validator, depending on the type (i.e Float, Double or BigDecimal)
+ *    you want the percent converted to. Please note, it makes no sense to use
+ *    one of the validators that doesn't handle fractions (i.e. byte, short, integer, long
+ *    and BigInteger) since percentages are converted to fractions (i.e <code>50%</code> is
+ *    converted to <code>0.5</code>).</p>
  *
  * @version $Revision$ $Date$
  * @since Validator 1.2.1
@@ -41,11 +53,16 @@ public class PercentValidator extends BigDecimalValidator {
 
     private static final PercentValidator VALIDATOR = new PercentValidator();
 
+    /** DecimalFormat's percent (thousand multiplier) symbol */
+    private static final char PERCENT_SYMBOL = '%';
+
+    private static final BigDecimal POINT_ZERO_ONE = new BigDecimal("0.01");
+
     /**
      * Return a singleton instance of this validator.
      * @return A singleton instance of the PercentValidator.
      */
-    public static BigDecimalValidator getPercentInstance() {
+    public static BigDecimalValidator getInstance() {
         return VALIDATOR;
     }
 
@@ -63,22 +80,49 @@ public class PercentValidator extends BigDecimalValidator {
      *        <code>Format</code> parsing should be used.
      */
     public PercentValidator(boolean strict) {
-        super(strict);
+        super(strict, PERCENT_FORMAT, true);
     }
 
     /**
-     * <p>Returns a percentage <code>NumberFormat</code> for the specified Locale.</p>
+     * <p>Parse the value with the specified <code>Format</code>.</p>
      * 
-     * @param locale The locale a percentage <code>NumberFormat</code> is required
-     *        for, defaults to the default.
-     * @return The percentage <code>NumberFormat</code> to created.
+     * <p>This implementation is lenient whether the currency symbol
+     *    is present or not. The default <code>NumberFormat</code>
+     *    behaviour is for the parsing to "fail" if the currency
+     *    symbol is missing. This method re-parses with a format
+     *    without the currency symbol if it fails initially.</p>
+     * 
+     * @param value The value to be parsed.
+     * @param formatter The Format to parse the value with.
+     * @return The parsed value if valid or <code>null</code> if invalid.
      */
-    public Format getFormat(Locale locale) {
+    protected Object parse(String value, Format formatter) {
 
-        if (locale == null) {
-            locale = Locale.getDefault();
+        // Initial parse of the value
+        BigDecimal parsedValue = (BigDecimal)super.parse(value, formatter);
+        if (parsedValue != null || !(formatter instanceof DecimalFormat)) {
+            return parsedValue;
         }
-        return NumberFormat.getPercentInstance(locale);
 
+        // Re-parse using a pattern without the percent symbol
+        DecimalFormat decimalFormat = (DecimalFormat)formatter;
+        String pattern = decimalFormat.toPattern();
+        if (pattern.indexOf(PERCENT_SYMBOL) >= 0) {
+            StringBuffer buffer = new StringBuffer(pattern.length());
+            for (int i = 0; i < pattern.length(); i++) {
+                if (pattern.charAt(i) != PERCENT_SYMBOL) {
+                    buffer.append(pattern.charAt(i));
+                }
+            }
+            decimalFormat.applyPattern(buffer.toString());
+            parsedValue = (BigDecimal)super.parse(value, decimalFormat);
+            
+            // If parsed OK, divide by 100 to get percent
+            if (parsedValue != null) {
+                parsedValue = parsedValue.multiply(POINT_ZERO_ONE);
+            }
+            
+        }
+        return parsedValue;
     }
 }

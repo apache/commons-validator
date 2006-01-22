@@ -20,6 +20,7 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.text.Format;
 import java.util.Locale;
 
 /**
@@ -30,9 +31,10 @@ import java.util.Locale;
  *    a <code>Double</code> using <code>java.text.NumberFormat</code>
  *    to parse either:</p>
  *    <ul>
- *       <li>using a specified pattern</li>
- *       <li>using the format for a specified <code>Locale</code></li>
- *       <li>using the format for the <i>default</i> <code>Locale</code></li>
+ *       <li>using the default format for the default <code>Locale</code></li>
+ *       <li>using a specified pattern with the default <code>Locale</code></li>
+ *       <li>using the default format for a specified <code>Locale</code></li>
+ *       <li>using a specified pattern with a specified <code>Locale</code></li>
  *    </ul>
  *    
  * <p>Use one of the <code>isValid()</code> methods to just validate or
@@ -55,9 +57,10 @@ import java.util.Locale;
  *    <code>format()</code> methods are also provided. That is you can 
  *    format either:</p>
  *    <ul>
- *       <li>using a specified pattern</li>
- *       <li>using the format for a specified <code>Locale</code></li>
- *       <li>using the format for the <i>default</i> <code>Locale</code></li>
+ *       <li>using the default format for the default <code>Locale</code></li>
+ *       <li>using a specified pattern with the default <code>Locale</code></li>
+ *       <li>using the default format for a specified <code>Locale</code></li>
+ *       <li>using a specified pattern with a specified <code>Locale</code></li>
  *    </ul>
  *
  * @version $Revision$ $Date$
@@ -79,17 +82,32 @@ public class DoubleValidator extends AbstractNumberValidator {
      * Construct a <i>strict</i> instance.
      */
     public DoubleValidator() {
-        this(true);
+        this(true, STANDARD_FORMAT);
     }
 
     /**
-     * Construct an instance with the specified strict setting.
+     * <p>Construct an instance with the specified strict setting
+     *    and format type.</p>
+     *    
+     * <p>The <code>formatType</code> specified what type of
+     *    <code>NumberFormat</code> is created - valid types
+     *    are:</p>
+     *    <ul>
+     *       <li>AbstractNumberValidator.STANDARD_FORMAT -to create
+     *           <i>standard</i> number formats (the default).</li>
+     *       <li>AbstractNumberValidator.CURRENCY_FORMAT -to create
+     *           <i>currency</i> number formats.</li>
+     *       <li>AbstractNumberValidator.PERCENT_FORMAT -to create
+     *           <i>percent</i> number formats (the default).</li>
+     *    </ul>
      * 
      * @param strict <code>true</code> if strict 
      *        <code>Format</code> parsing should be used.
+     * @param formatType The <code>NumberFormat</code> type to
+     *        create for validation, default is STANDARD_FORMAT.
      */
-    public DoubleValidator(boolean strict) {
-        super(strict, true);
+    public DoubleValidator(boolean strict, int formatType) {
+        super(strict, formatType, true);
     }
 
     /**
@@ -101,7 +119,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      *  if invalid.
      */
     public Double validate(String value) {
-        return (Double)validateObj(value);
+        return (Double)parse(value, (String)null, (Locale)null);
     }
 
     /**
@@ -113,7 +131,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
      */
     public Double validate(String value, String pattern) {
-        return (Double)validateObj(value, pattern);
+        return (Double)parse(value, pattern, (Locale)null);
     }
 
     /**
@@ -121,12 +139,25 @@ public class DoubleValidator extends AbstractNumberValidator {
      *    specified <code>Locale</code>. 
      *
      * @param value The value validation is being performed on.
-     * @param locale The locale to use for the date format, defaults to the default
-     * system default if null.
+     * @param locale The locale to use for the number format, system default if null.
      * @return The parsed <code>Double</code> if valid or <code>null</code> if invalid.
      */
     public Double validate(String value, Locale locale) {
-        return (Double)validateObj(value, locale);
+        return (Double)parse(value, (String)null, locale);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Double</code> using the
+     *    specified pattern and/ or <code>Locale</code>. 
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
+     * @param locale The locale to use for the date format, system default if null.
+     * @return The parsed <code>Double</code> if valid or <code>null</code> if invalid.
+     */
+    public Double validate(String value, String pattern, Locale locale) {
+        return (Double)parse(value, pattern, locale);
     }
 
     /**
@@ -204,19 +235,19 @@ public class DoubleValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Perform further validation and convert the <code>Number</code> to
-     * a <code>Double</code>.</p>
+     * Convert the parsed value to a <code>Double</code>.
      * 
-     * @param number The number validation is being performed on.
+     * @param value The parsed <code>Number</code> object created.
+     * @param formatter The Format used to parse the value with.
      * @return The validated/converted <code>Double</code> value if valid 
      * or <code>null</code> if invalid.
      */
-    protected Object processNumber(Number number) {
+    protected Object processParsedValue(Object value, Format formatter) {
 
-        if (number instanceof Double) {
-            return number;
+        if (value instanceof Double) {
+            return value;
         } else {
-            return new Double(number.doubleValue());
+            return new Double(((Number)value).doubleValue());
         }
 
     }
