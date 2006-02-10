@@ -39,6 +39,10 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
     <release version="1.2.1 (alpha)" date="in SVN">
+      <action dev="niallp" type="fix" issue="38581" due-to="Yugandhar">
+         Change JavaScript validators to cater for <i>disabled</i> being 
+         <i>undefined</i> (an issue in Netscape 4.7).
+      </action>
       <action dev="niallp" type="add">
          <p>Add new routines package containing standard validations - first
             step in the process of clearly separating standard validation 
