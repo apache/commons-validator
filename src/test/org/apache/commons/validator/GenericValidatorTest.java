@@ -36,7 +36,7 @@ public class GenericValidatorTest extends TestCase {
     }
 
     public void testMinLength() {
-System.out.println("NIALL");
+
         // Use 0 for line end length
         assertTrue("Min=5 End=0",  GenericValidator.minLength("12345\n\r", 5, 0));
         assertFalse("Min=6 End=0", GenericValidator.minLength("12345\n\r", 6, 0));
