@@ -113,10 +113,10 @@
    date/time values as Strings:
 </p>
 <ul>
-    <li><code>format(<i>number</i>)</code></li>
-    <li><code>format(<i>number</i>, <i>pattern</i>)</code></li>
-    <li><code>format(<i>number</i>, Locale)</code></li>
-    <li><code>format(<i>number</i>, <i>pattern</i>, Locale)</code></li>
+    <li><code>format(<i>date/calendar</i>)</code></li>
+    <li><code>format(<i>date/calendar</i>, <i>pattern</i>)</code></li>
+    <li><code>format(<i>date/calendar</i>, Locale)</code></li>
+    <li><code>format(<i>date/calendar</i>, <i>pattern</i>, Locale)</code></li>
 </ul>
 
 <a name="date.timezone"></a>
@@ -229,7 +229,7 @@
       // Validate/Convert the number
       Integer fooInteger = validator.validate(fooString, "#,##0.00", Locale.GERMAN);
       if (fooInteger == null) {
-          // error...not a valid date
+          // error...not a valid Integer
           return;
       }
 </pre>
@@ -241,7 +241,7 @@
     <li><code>isValid(<i>value</i>, <i>pattern</i>, Locale)</code></li>
 </ul>
 
-<p>The following methods are provided to validate a date/time and convert it one of 
+<p>The following methods are provided to validate a number and convert it one of 
    the <code>java.lang.Number</code> implementations:</p>
 <ul>
     <li><code>validate(<i>value</i>)</code></li>
