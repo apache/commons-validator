@@ -33,8 +33,7 @@
            if ((field.type == 'hidden' ||
                 field.type == 'text' ||
                 field.type == 'textarea') &&
-               (value.length > 0) && (datePattern.length > 0) &&
-                field.disabled == false) {
+               (value.length > 0) && (datePattern.length > 0)) {
                  var MONTH = "MM";
                  var DAY = "dd";
                  var YEAR = "yyyy";

@@ -24,8 +24,7 @@
             }
             if ((field.type == 'text' ||
                  field.type == 'textarea') &&
-                (field.value.length > 0)  &&
-                 field.disabled == false) {
+                (field.value.length > 0)) {
                 if (!jcv_luhnCheck(field.value)) {
                     if (i == 0) {
                         focusField = field;

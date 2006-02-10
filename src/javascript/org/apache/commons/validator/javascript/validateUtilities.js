@@ -86,7 +86,15 @@
    * @param field The form field.
    */
   function jcv_isFieldPresent(field) {
-      return !(field == null || field == undefined);
+      var fieldPresent = true;
+      if (field == null || field == undefined) {
+          fieldPresent = false;
+      } else {
+          if (field.disabled) {
+              fieldPresent = false;
+          }
+      }
+      return fieldPresent;
   }
 
   /**

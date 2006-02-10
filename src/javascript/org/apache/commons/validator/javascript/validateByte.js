@@ -27,8 +27,7 @@
                 field.type == 'text' ||
                 field.type == 'textarea' ||
                 field.type == 'select-one' ||
-                field.type == 'radio')  &&
-                field.disabled == false) {
+                field.type == 'radio')) {
 
                 var value = '';
                 // get field's value

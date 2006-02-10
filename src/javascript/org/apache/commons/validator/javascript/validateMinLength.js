@@ -29,8 +29,7 @@
             if ((field.type == 'hidden' ||
                 field.type == 'text' ||
                 field.type == 'password' ||
-                field.type == 'textarea') &&
-                field.disabled == false) {
+                field.type == 'textarea')) {
 
                 /* Adjust length for carriage returns - see Bug 37962 */
                 var lineEndLength = oMinLength[x][2]("lineEndLength");

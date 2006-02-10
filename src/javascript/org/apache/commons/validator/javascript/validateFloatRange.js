@@ -24,8 +24,7 @@
             
             if ((field.type == 'hidden' ||
                 field.type == 'text' || field.type == 'textarea') &&
-                (field.value.length > 0)  &&
-                 field.disabled == false) {
+                (field.value.length > 0)) {
         
                 var fMin = parseFloat(oRange[x][2]("min"));
                 var fMax = parseFloat(oRange[x][2]("max"));

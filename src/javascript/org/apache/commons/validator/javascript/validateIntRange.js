@@ -18,10 +18,7 @@
                 continue;
             }
             var field = form[oRange[x][0]];
-            if (!jcv_isFieldPresent(field)) {
-              continue;
-            }
-            if (field.disabled == false)  {
+            if (jcv_isFieldPresent(field)) {
                 var value = '';
                 if (field.type == 'hidden' ||
                     field.type == 'text' || field.type == 'textarea' ||

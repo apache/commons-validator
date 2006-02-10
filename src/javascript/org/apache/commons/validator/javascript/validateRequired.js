@@ -31,8 +31,7 @@
                 field.type == 'radio' ||
                 field.type == 'checkbox' ||
                 field.type == 'select-one' ||
-                field.type == 'password') &&
-                field.disabled == false) {
+                field.type == 'password')) {
 
                 var value = '';
                 // get field's value

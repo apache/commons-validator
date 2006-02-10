@@ -25,8 +25,7 @@
             if ((field.type == 'hidden' || 
                  field.type == 'text' ||
                  field.type == 'textarea') &&
-                (field.value.length > 0) &&
-                field.disabled == false) {
+                (field.value.length > 0)) {
                 if (!jcv_checkEmail(field.value)) {
                     if (i == 0) {
                         focusField = field;
