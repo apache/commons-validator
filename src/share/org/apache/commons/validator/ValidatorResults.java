@@ -4,7 +4,7 @@
  * $Date$
  *
  * ====================================================================
- * Copyright 2001-2005 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -136,18 +136,12 @@ public class ValidatorResults implements Serializable {
             String propertyKey = (String) i.next();
             ValidatorResult vr = this.getValidatorResult(propertyKey);
 
-            Map actions = vr.getActionMap();
-            for (Iterator x = actions.keySet().iterator(); x.hasNext();) {
-                String actionKey = (String) x.next();
-                ValidatorResult.ResultStatus rs =
-                        (ValidatorResult.ResultStatus) actions.get(actionKey);
+            for (Iterator x = vr.getActions(); x.hasNext();) {
+                String actionKey = (String)x.next();
+                Object result = vr.getResult(actionKey);
 
-                if (rs != null) {
-                    Object result = rs.getResult();
-
-                    if (result != null && !(result instanceof Boolean)) {
-                        results.put(propertyKey, result);
-                    }
+                if (result != null && !(result instanceof Boolean)) {
+                    results.put(propertyKey, result);
                 }
             }
         }
