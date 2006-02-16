@@ -48,6 +48,10 @@ limitations under the License.
   </ul>
 </p>
 <p>
+  For more information on subversion and creating patches see the
+  <a href="http://www.apache.org/dev/contributors.html">Apache Contributors Guide</a>.
+</p>
+<p>
   You may also find these links useful:
   <ul>
   <li><a href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=UNCONFIRMED&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;bug_status=NEEDINFO&amp;product=Commons&amp;component=Validator">All Open Validator bugs</a></li>

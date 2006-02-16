@@ -41,6 +41,10 @@
   The alternative is to use the
   <a href="http://svn.apache.org/repos/asf/jakarta/commons/proper/validator/trunk/">native subversion</a> display.
 </p>
+<p>
+  For more information on subversion and creating patches see the
+  <a href="http://www.apache.org/dev/contributors.html">Apache Contributors Guide</a>.
+</p>
 </section>
 <!-- ================================================== -->
 </body>

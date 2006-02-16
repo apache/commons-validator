@@ -22,19 +22,22 @@
 
   <body>
     <links>
+      <item name="Apache"                   
+            href="http://www.apache.org"/>
       <item name="Jakarta"                   
             href="http://jakarta.apache.org"/>
-      <item name="Jakarta Commons"                   
+      <item name="Commons"                   
             href="http://jakarta.apache.org/commons/"/>
     </links>
 
     <menu name="Validator">
       <item name="Overview"                href="/index.html"/>
-      <item name="Community"               href="/community.html"/>
       <item name="Downloads"               href="/downloads.html"/>
-      <item name="To Do List"              href="/tasks.html"/>
-      <item name="Javadoc" href="apidocs/index.html"/>
+      <item name="Issue Tracking"          href="/issue-tracking.html"/>
+      <item name="Javadoc"                 href="apidocs/index.html"/>
       <item name="Javascript Javadoc"      href="/javascript/org/apache/commons/validator/javascript/index.html"/>
+      <item name="Validator Wiki"          href="http://wiki.apache.org/jakarta-commons/Validator"/>
+      <item name="To Do List"              href="/tasks.html"/>
     </menu>
     
     &common-menus;
