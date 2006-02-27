@@ -240,6 +240,9 @@ public class ValidatorResources implements Serializable {
                 Arg arg = new Arg();
                 arg.setKey(attributes.getValue("key"));
                 arg.setName(attributes.getValue("name"));
+                if ("false".equalsIgnoreCase(attributes.getValue("resource"))) {
+                    arg.setResource(false);
+                }
                 try {
                     arg.setPosition(Integer.parseInt(name.substring(3)));
                 } catch (Exception ex) {
