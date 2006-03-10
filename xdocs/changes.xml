@@ -38,7 +38,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-    <release version="1.2.1 (alpha)" date="in SVN">
+    <release version="1.2.1 (RC1)" date="2006-03-10">
       <action dev="niallp" type="fix" issue="38678" due-to="bart vandendriessche">
          ValidatorResult only contains last run dependency for the field.
       </action>
