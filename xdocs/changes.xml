@@ -39,6 +39,9 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
     <release version="1.2.1 (alpha)" date="in SVN">
+      <action dev="niallp" type="fix" issue="38678" due-to="bart vandendriessche">
+         ValidatorResult only contains last run dependency for the field.
+      </action>
       <action dev="niallp" type="fix" issue="38798" due-to="Rostislav Palivoda">
          Validator argument - resource="false" ignored for arg0 - arg3.
       </action>
@@ -102,6 +105,12 @@ The <action> type attribute can be add,update,fix,remove.
         <fixes issue="32476"/>
         <dueto name="Matt Bathje"/>
         <dueto name="Paul Benedict"/>
+      </action>
+      <action dev="niallp" type="fix">
+         Remove static Log instances to avoid problems if deployed via a shared
+         classloader in a container. See
+         <a href="http://wiki.apache.org/jakarta-commons/Logging/StaticLog">here</a>
+         for more details.
       </action>
       <action dev="niallp" type="fix" issue="35926">
          Reverse change for to Credit Card Validator for visa card blue in France.
