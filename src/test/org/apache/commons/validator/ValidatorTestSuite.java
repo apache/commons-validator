@@ -67,6 +67,7 @@ public class ValidatorTestSuite extends TestCase {
        suite.addTest(ValidatorTest.suite());
        suite.addTest(VarTest.suite());
        suite.addTestSuite(GenericValidatorTest.class);
+       suite.addTest(ValidatorResultsTest.suite());
 
        return suite;
     }

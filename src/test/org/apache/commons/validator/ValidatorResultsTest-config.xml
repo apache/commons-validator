@@ -1,0 +1,39 @@
+<!DOCTYPE form-validation PUBLIC
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.2.0//EN"
+     "http://jakarta.apache.org/commons/dtds/validator_1_2_0.dtd">
+     
+<form-validation>
+   <global>
+      <validator name="int"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateInt"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+                 
+      <validator name="required"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validateRequired"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+      <validator name="positive"
+                 classname="org.apache.commons.validator.TestValidator"
+                 method="validatePositive"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 depends="int" 
+                 msg=""/>
+   </global>
+   
+   <formset>
+      <form name="nameForm">
+         <field property="firstName" depends="required">
+             <arg key="nameForm.firstname.displayname"/>
+         </field>
+         <field property="middleName" depends="required,positive">
+             <arg key="nameForm.middlename.displayname"/> 
+         </field>
+         <field property="lastName" depends="required,int">
+             <arg key="nameForm.lastname.displayname"/>
+         </field>
+      </form>
+   </formset>   
+</form-validation>
