@@ -37,8 +37,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GenericTypeValidator implements Serializable {
 
-    private final static Log LOG = LogFactory.getLog(GenericTypeValidator.class);
-
     /**
      *  Checks if the value can safely be converted to a byte primitive.
      *
@@ -391,8 +389,9 @@ public class GenericTypeValidator implements Serializable {
             date = formatter.parse(value);
         } catch (ParseException e) {
             // Bad date so return null
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Date parse failed value=[" + value  + "], " +
+            Log log = LogFactory.getLog(GenericTypeValidator.class);
+            if (log.isDebugEnabled()) {
+                log.debug("Date parse failed value=[" + value  + "], " +
                                            "locale=[" + locale + "] "  + e);
             }
         }
@@ -436,8 +435,9 @@ public class GenericTypeValidator implements Serializable {
             }
         } catch (ParseException e) {
             // Bad date so return null
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Date parse failed value=[" + value       + "], " +
+            Log log = LogFactory.getLog(GenericTypeValidator.class);
+            if (log.isDebugEnabled()) {
+                log.debug("Date parse failed value=[" + value       + "], " +
                                           "pattern=[" + datePattern + "], " +
                                            "strict=[" + strict      + "] "  + e);
             }
