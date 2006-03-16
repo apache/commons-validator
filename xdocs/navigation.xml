@@ -34,12 +34,20 @@
 
     <menu name="Validator">
       <item name="Overview"                href="/index.html"/>
-      <item name="Downloads"               href="/downloads.html"/>
+      <item name="Download"                href="/downloads.html"/>
       <item name="Issue Tracking"          href="/issue-tracking.html"/>
       <item name="Javadoc"                 href="apidocs/index.html"/>
       <item name="Javascript Javadoc"      href="/javascript/org/apache/commons/validator/javascript/index.html"/>
       <item name="Validator Wiki"          href="http://wiki.apache.org/jakarta-commons/Validator"/>
-      <item name="To Do List"              href="/tasks.html"/>
+    </menu>
+    
+    <menu name="Development">
+      <item name="Building"                href="/building.html"/>
+      <item name="Mailing Lists"           href="/mail-lists.html"/>
+      <item name="Team"                    href="/team-list.html"/>
+      <item name="Tasks"                   href="/tasks.html"/>
+      <item name="SVN Repository"          href="/cvs-usage.html"/>
+      <item name="Javadoc (SVN latest)"    href="http://jakarta.apache.org/commons/validator/apidocs/"/>
     </menu>
     
     &bottom-menus;
