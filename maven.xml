@@ -26,9 +26,9 @@
   <!-- ================================================================== -->
   <postGoal name="xdoc:copy-resources">  
     <copy todir="${maven.build.dir}/docs/style/" failonerror="false">
-      <fileset dir="${basedir}/../commons-build/xdocs/style">
-      	<include name='**/*'/>
-      	<exclude name='**/CVS/**'/>
+      <fileset dir="${basedir}/shared-build">
+      	<include name="**/*.CSS"/>
+      	<include name="**/*.css"/>
       </fileset>
     </copy>
   </postGoal>
@@ -139,6 +139,13 @@
         <include name="*.dtd"/>
         <include name="*.txt"/>
         <include name="*.MF"/>
+      </fileset>
+    </copy>
+
+    <!-- Copy shared build -->
+    <copy todir="${maven.dist.src.assembly.dir}/shared-build" failonerror="false">
+      <fileset dir="${basedir}/shared-build">
+      	<include name="**/*"/>
       </fileset>
     </copy>
 
