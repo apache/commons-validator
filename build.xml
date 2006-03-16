@@ -294,6 +294,15 @@
   <target name="dist" depends="compile,javadoc"
    description="Create binary distribution">
     <mkdir      dir="${dist.home}"/>
+
+    <!-- Create Single file of static JavaScript -->
+    <concat destfile="${dist.home}/commons-${component.name}-${component.version}.js">
+      <fileset dir="${javascript.home}/org/apache/commons/validator/javascript" includes="*.js"/>
+    </concat>
+
+    <!-- Create compressed javascript versions -->
+    <antcall target="compress.javascript"/> 
+
     <copy      file="LICENSE.txt"
               todir="${dist.home}"/>
     <copy      file="NOTICE.txt"
@@ -305,11 +314,68 @@
              tofile="${build.home}/classes/META-INF/LICENSE.txt"/>
     <copy      file="NOTICE.txt"
              tofile="${build.home}/classes/META-INF/NOTICE.txt"/>
-    <jar    jarfile="${dist.home}/commons-${component.name}.jar"
+    <jar    jarfile="${dist.home}/commons-${component.name}-${component.version}.jar"
             basedir="${build.home}/classes"
            manifest="${build.home}/conf/MANIFEST.MF"/>
   </target>
 
+  <target name="compress.javascript" if="dojo_custom_rhino.jar">
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${dist.home}/commons-${component.name}-${component.version}"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateByte"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateCreditCard"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateDate"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateEmail"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateFloat"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateFloatRange"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateInteger"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateIntRange"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateMask"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateMaxLength"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateMinLength"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateRequired"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateShort"/> 
+    </antcall>
+    <antcall target="dojo.compress"> 
+        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateUtilities"/> 
+    </antcall>
+
+  </target>
+
+  <target name="dojo.compress">
+
+    <java jar="${dojo_custom_rhino.jar}" fork="true"
+              output="${jsfilename}-compress.js">
+        <arg value="-c"/> 
+        <arg value="${jsfilename}.js"/> 
+    </java>
+  </target>
 
 <!-- ========== Unit Test Targets ========================================= -->
 
