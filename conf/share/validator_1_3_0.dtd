@@ -1,13 +1,13 @@
 <!--
-    DTD for the Validator Rules Configuration File, Version 1.2.1
+    DTD for the Validator Rules Configuration File, Version 1.3.0
 
     To allow for XML validation of your rules configuration
     file, include the following DOCTYPE element at the beginning (after
     the "xml" declaration):
 
     <!DOCTYPE form-validation PUBLIC
-     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.2.1//EN"
-     "http://jakarta.apache.org/commons/dtds/validator_1_2_1.dtd">
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.3.0//EN"
+     "http://jakarta.apache.org/commons/dtds/validator_1_3_0.dtd">
 
     $Id$
 -->

@@ -212,7 +212,7 @@
     <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
               file="${conf.home}/validator_1_2_0.dtd"/>
     <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
-              file="${conf.home}/validator_1_2_1.dtd"/>
+              file="${conf.home}/validator_1_3_0.dtd"/>
     <copy    todir="${build.home}/classes/">
       <fileset dir="${javascript.home}"
           includes="**/*.js"/>

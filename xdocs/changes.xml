@@ -90,7 +90,7 @@ The <action> type attribute can be add,update,fix,remove.
          component or start of the domain component.
       </action>
       <action dev="niallp" type="add" issue="37975" due-to="Neale">
-         Added validator_1_2_1.dtd and changed form rules so that a minimum
+         Added validator_1_3_0.dtd and changed form rules so that a minimum
          of one field is no longer required (i.e. changed (field+) to (field*)
          for a form).
       </action>

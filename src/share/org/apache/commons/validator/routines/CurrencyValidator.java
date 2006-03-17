@@ -44,7 +44,7 @@ import java.text.Format;
  *    implements <i>lenient</i> behaviour regarding the currency symbol.</p>
  * 
  * @version $Revision$ $Date$
- * @since Validator 1.2.1
+ * @since Validator 1.3.0
  */
 public class CurrencyValidator extends BigDecimalValidator {
 

@@ -33,7 +33,7 @@ import java.util.Locale;
  *    Validators using format parsing.</p>
  *    
  * @version $Revision$ $Date$
- * @since Validator 1.2.1
+ * @since Validator 1.3.0
  */
 public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     

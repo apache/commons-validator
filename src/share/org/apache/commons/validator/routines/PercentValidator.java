@@ -47,7 +47,7 @@ import java.math.BigDecimal;
  *    converted to <code>0.5</code>).</p>
  *
  * @version $Revision$ $Date$
- * @since Validator 1.2.1
+ * @since Validator 1.3.0
  */
 public class PercentValidator extends BigDecimalValidator {
 
