@@ -355,9 +355,12 @@
 
     <unitTest>
       <includes>
-        <include>**/ValidatorTestSuite.java</include>
-        <include>**/RoutinesTestSuite.java</include>
+        <include>**/*Test.java</include>
       </includes>
+      <excludes>
+        <exclude>**/routines/BaseCalendarValidatorTest.java</exclude>
+        <exclude>**/routines/BaseNumberValidatorTest.java</exclude>
+      </excludes>
       <resources>
         <resource>
           <directory>${pom.build.unitTestSourceDirectory}</directory>

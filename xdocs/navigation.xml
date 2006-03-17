@@ -34,6 +34,7 @@
       <item name="Overview"                href="/index.html"/>
       <item name="Download"                href="/downloads.html"/>
       <item name="Issue Tracking"          href="/issue-tracking.html"/>
+      <item name="Routines Docs"           href="apidocs/org/apache/commons/validator/routines/package-summary.html#package_description"/>
       <item name="JavaDoc"                 href="apidocs/index.html"/>
       <item name="JavaScript Doc"          href="/javascript/org/apache/commons/validator/javascript/index.html"/>
       <item name="Validator Wiki"          href="http://wiki.apache.org/jakarta-commons/Validator"/>
