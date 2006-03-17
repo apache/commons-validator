@@ -19,23 +19,6 @@
   xmlns:j="jelly:core"
   xmlns:util="jelly:util">
 
-  <!-- ================================================================== -->
-  <!-- START : C O M M O N S - B U I L D                                  -->
-  <!-- ================================================================== -->
-  <!-- Required: Look and Feel for documentation within distributions     -->
-  <!-- ================================================================== -->
-  <postGoal name="xdoc:copy-resources">  
-    <copy todir="${maven.build.dir}/docs/style/" failonerror="false">
-      <fileset dir="${basedir}/shared-build">
-      	<include name="**/*.CSS"/>
-      	<include name="**/*.css"/>
-      </fileset>
-    </copy>
-  </postGoal>
-  <!-- ================================================================== -->
-  <!-- END: C O M M O N S - B U I L D                                     -->
-  <!-- ================================================================== -->
-
   <preGoal name="xdoc:jelly-transform">
     <attainGoal name="html2xdoc"/>
   </preGoal>
@@ -139,13 +122,6 @@
         <include name="*.dtd"/>
         <include name="*.txt"/>
         <include name="*.MF"/>
-      </fileset>
-    </copy>
-
-    <!-- Copy shared build -->
-    <copy todir="${maven.dist.src.assembly.dir}/shared-build" failonerror="false">
-      <fileset dir="${basedir}/shared-build">
-      	<include name="**/*"/>
       </fileset>
     </copy>
 

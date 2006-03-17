@@ -21,7 +21,7 @@
   <name>Validator</name>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <currentVersion>1.2.1-SNAPSHOT</currentVersion>
+  <currentVersion>1.3.0-SNAPSHOT</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons Validator</shortDescription>
   <description>
@@ -37,7 +37,7 @@
   <organization>
     <name>The Apache Software Foundation</name>
     <url>http://jakarta.apache.org</url>
-    <logo>http://jakarta.apache.org/images/jakarta-logo.gif</logo>
+    <logo>http://jakarta.apache.org/images/original-jakarta-logo.gif</logo>
   </organization>
 
   <licenses>

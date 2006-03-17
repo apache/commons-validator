@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE org.apache.commons.menus SYSTEM '../shared-build/menus.dtd'>
+<!DOCTYPE org.apache.commons.menus SYSTEM 'http://jakarta.apache.org/commons/build/maven-build.dtd'>
 <!--
    Copyright 2003-2005 The Apache Software Foundation
 
@@ -30,8 +30,6 @@
             href="http://jakarta.apache.org/commons/"/>
     </links>
 
-    &top-menus;
-
     <menu name="Validator">
       <item name="Overview"                href="/index.html"/>
       <item name="Download"                href="/downloads.html"/>
@@ -41,16 +39,23 @@
       <item name="Validator Wiki"          href="http://wiki.apache.org/jakarta-commons/Validator"/>
     </menu>
     
+    <menu name="JavaDocs">
+      <item name="SVN latest"              href="http://jakarta.apache.org/commons/validator/apidocs/"/>
+      <item name="Current Release"         href="http://jakarta.apache.org/commons/validator/api-release/"/>
+      <item name="1.2.0 Release"           href="http://jakarta.apache.org/commons/validator/api-1.2.0/"/>
+      <item name="1.1.4 Release"           href="http://jakarta.apache.org/commons/validator/api-1.1.4/"/>
+      <item name="1.0.4 Release"           href="http://jakarta.apache.org/commons/validator/api-1.0.2/"/>
+    </menu>
+    
     <menu name="Development">
       <item name="Building"                href="/building.html"/>
       <item name="Mailing Lists"           href="/mail-lists.html"/>
       <item name="Team"                    href="/team-list.html"/>
       <item name="Tasks"                   href="/tasks.html"/>
       <item name="SVN Repository"          href="/cvs-usage.html"/>
-      <item name="Javadoc (SVN latest)"    href="http://jakarta.apache.org/commons/validator/apidocs/"/>
     </menu>
     
-    &bottom-menus;
+    &commons;
     
   </body>
 </project>
