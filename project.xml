@@ -21,7 +21,7 @@
   <name>Validator</name>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <currentVersion>1.3.0-SNAPSHOT</currentVersion>
+  <currentVersion>1.3.0-RC1</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons Validator</shortDescription>
   <description>
