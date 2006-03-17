@@ -34,13 +34,13 @@
       <item name="Overview"                href="/index.html"/>
       <item name="Download"                href="/downloads.html"/>
       <item name="Issue Tracking"          href="/issue-tracking.html"/>
-      <item name="Javadoc"                 href="apidocs/index.html"/>
-      <item name="Javascript Javadoc"      href="/javascript/org/apache/commons/validator/javascript/index.html"/>
+      <item name="JavaDoc"                 href="apidocs/index.html"/>
+      <item name="JavaScript Doc"          href="/javascript/org/apache/commons/validator/javascript/index.html"/>
       <item name="Validator Wiki"          href="http://wiki.apache.org/jakarta-commons/Validator"/>
     </menu>
     
     <menu name="JavaDocs">
-      <item name="SVN latest"              href="http://jakarta.apache.org/commons/validator/apidocs/"/>
+      <item name="SVN Latest"              href="http://jakarta.apache.org/commons/validator/apidocs/"/>
       <item name="Current Release"         href="http://jakarta.apache.org/commons/validator/api-release/"/>
       <item name="1.2.0 Release"           href="http://jakarta.apache.org/commons/validator/api-1.2.0/"/>
       <item name="1.1.4 Release"           href="http://jakarta.apache.org/commons/validator/api-1.1.4/"/>
