@@ -385,7 +385,7 @@
   </build>
 
   <reports>
-    <report>maven-jdepend-plugin</report>
+    <!-- report>maven-jdepend-plugin</report -->
     <report>maven-checkstyle-plugin</report>
     <report>maven-changes-plugin</report>
     <report>maven-changelog-plugin</report>

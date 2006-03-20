@@ -105,6 +105,8 @@
   <!-- Base file name for upload files -->
   <property name="upload.file.base"        value="${component.name}-${component.version}"/>
 
+  <!-- Download lib dir -->
+  <property name="download.lib.dir"        value="lib"/>
 
 <!-- ========== Compiler Defaults ========================================= -->
 
@@ -125,8 +127,17 @@
     <pathelement location="${commons-digester.jar}"/>
     <pathelement location="${commons-logging.jar}"/>
     <pathelement location="${oro.jar}"/>
+    <path refid="downloaded.lib.classpath"/>
   </path>
 
+  <!-- Construct compile classpath -->
+  <path id="downloaded.lib.classpath">
+    <pathelement location="${download.lib.dir}/commons-beanutils.jar"/>
+    <pathelement location="${download.lib.dir}/commons-digester.jar"/>
+    <pathelement location="${download.lib.dir}/commons-logging.jar"/>
+    <pathelement location="${download.lib.dir}/oro.jar"/>
+    <pathelement location="${download.lib.dir}/junit.jar"/>
+  </path>
 
 <!-- ========== Test Execution Defaults =================================== -->
 
@@ -141,6 +152,7 @@
     <pathelement location="${oro.jar}"/>
     <pathelement location="${junit.jar}"/>
     <pathelement location="${xerces.jar}"/>
+    <path refid="downloaded.lib.classpath"/>
   </path>
 
   <!-- Should all tests fail if one does? -->
@@ -169,10 +181,12 @@
     <filter  token="name"                  value="${component.name}"/>
     <filter  token="package"               value="${component.package}"/>
     <filter  token="version"               value="${component.version}"/>
+    <available property="jsdoc.found" type="file" file="${jsdoc.home}/jsdoc.pl"/>
+    <available file="${dojo_custom_rhino.jar}" property="dojo.found"/>
   </target>
 
 
-  <target name="prepare" depends="init"
+  <target name="prepare" depends="init,download-dependencies"
    description="Prepare build directory">
     <mkdir dir="${build.home}"/>
     <mkdir dir="${build.home}/classes"/>
@@ -236,7 +250,7 @@
    description="Initializes Javadoc directories">
     <mkdir      dir="${dist.home}"/>
     <mkdir      dir="${dist.home}/docs"/>
-    <mkdir      dir="${dist.home}/docs/api"/>
+    <mkdir      dir="${dist.home}/docs/apidocs"/>
     <mkdir      dir="${dist.home}/docs/javascript"/>
     <mkdir      dir="${dist.home}/docs/javascript/org/apache/commons/validator/javascript/doc-files"/>
   </target>  
@@ -250,14 +264,14 @@
 
   </target>
 
-  <target name="javadoc.js.unix" depends="javadoc.init"
+  <target name="javadoc.js.unix" depends="javadoc.init" if="jsdoc.found"
    description="Create Javascript Javadoc documentation">
     <exec  executable="bash" failifexecutionfails="false">
          <arg line="-c 'etc/jsdoc.sh ${jsdoc.home} ${javascript.home} ${dist.home}/docs/javascript' "/>
     </exec>
   </target>
 
-  <target name="javadoc.js.windows" depends="javadoc.init"
+  <target name="javadoc.js.windows" depends="javadoc.init" if="jsdoc.found"
    description="Windows Create Javascript Javadoc documentation">
     <exec  executable="etc/jsdoc.bat" failifexecutionfails="false">
          <arg line="${jsdoc.home} ${javascript.home} ${dist.home}/docs/javascript"/>
@@ -267,7 +281,7 @@
   <target name="javadoc" depends="compile, javadoc.js"
    description="Create component Javadoc documentation">
     <javadoc sourcepath="${source.home}"
-                destdir="${dist.home}/docs/api"
+                destdir="${dist.home}/docs/apidocs"
            packagenames="org.apache.commons.*"
                  author="true"
                 private="true"
@@ -307,7 +321,7 @@
               todir="${dist.home}"/>
     <copy      file="NOTICE.txt"
               todir="${dist.home}"/>
-    <copy      file="RELEASE-NOTES.readme"
+    <copy      file="RELEASE-NOTES.html"
               todir="${dist.home}"/>
     <mkdir      dir="${build.home}/classes/META-INF"/>
     <copy      file="LICENSE.txt"
@@ -488,6 +502,83 @@
               zipfile="${upload.dir}/${upload.file.base}-src.tar.gz"/>
     </target>
 
+
+<!-- ========== Download Dependencies =========================================== -->
+
+    <target name="download-dependencies" 
+           depends="check-availability, check-dojo-lib" unless="skip.download">
+        <echo message="doing download-dependencies..." />
+        <antcall target="download-beanutils" />
+        <antcall target="download-digester" />
+        <antcall target="download-logging" />
+        <antcall target="download-oro" />
+        <antcall target="download-junit" />
+        <antcall target="download-dojo-compress" />
+    </target>
+
+    <target name="check-availability">
+        <echo message="doing check-availability..." />
+        <available file="${commons-beanutils.jar}" property="beanutils.found"/> 
+        <available file="${commons-digester.jar}"  property="digester.found"/> 
+        <available file="${commons-logging.jar}"   property="logging.found"/> 
+        <available file="${oro.jar}"               property="oro.found"/>
+        <available file="${junit.jar}"             property="junit.found"/>
+        <available file="${dojo_custom_rhino.jar}" property="dojo.found"/>
+    </target>
+
+    <target name="check-dojo-lib" unless="dojo.found">
+        <echo message="doing check-dojo-lib..." />
+        <available file="${download.lib.dir}/custom_rhino.jar" property="dojo.found"/>
+        <property name="dojo_custom_rhino.jar" value="${download.lib.dir}/custom_rhino.jar"/>
+    </target>
+
+    <target name="download-beanutils" unless="beanutils.found">
+        <echo message="Downloading beanutils..."/>
+        <mkdir dir="${download.lib.dir}" />
+        <get dest="${download.lib.dir}/commons-beanutils.jar"
+            usetimestamp="true" ignoreerrors="true"
+            src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.7.0.jar"/>
+    </target>
+
+    <target name="download-digester" unless="digester.found">
+        <echo message="Downloading digester..."/>
+        <mkdir dir="${download.lib.dir}" />
+        <get dest="${download.lib.dir}/commons-digester.jar"
+            usetimestamp="true" ignoreerrors="true"
+            src="http://www.ibiblio.org/maven/commons-digester/jars/commons-digester-1.6.jar"/>
+    </target>
+
+    <target name="download-logging" unless="logging.found">
+        <echo message="Downloading logging..."/>
+        <mkdir dir="${download.lib.dir}" />
+        <get dest="${download.lib.dir}/commons-logging.jar"
+            usetimestamp="true" ignoreerrors="true"
+            src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.3.jar"/>
+    </target>
+
+    <target name="download-oro" unless="oro.found">
+        <echo message="Downloading oro..."/>
+        <mkdir dir="${download.lib.dir}" />
+        <get dest="${download.lib.dir}/oro.jar"
+            usetimestamp="true" ignoreerrors="true"
+            src="http://www.ibiblio.org/maven/oro/jars/oro-2.0.8.jar"/>
+    </target>
+
+    <target name="download-junit" unless="junit.found">
+        <echo message="Downloading junit..."/>
+        <mkdir dir="${download.lib.dir}" />
+        <get dest="${download.lib.dir}/junit.jar"
+            usetimestamp="true" ignoreerrors="true"
+            src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar"/>
+    </target>
+
+    <target name="download-dojo-compress" unless="dojo.found">
+        <mkdir dir="${download.lib.dir}" />
+        <echo message="Downloading dojo compress...."/>
+        <get dest="${download.lib.dir}/custom_rhino.jar"
+            usetimestamp="true" ignoreerrors="true"
+            src="http://dojotoolkit.org/svn/dojo/trunk/buildscripts/lib/custom_rhino.jar"/>
+    </target>
       
 </project>
 

@@ -39,11 +39,15 @@
       <fileset dir="src/javascript"
           includes="**/*.js"/>
     </copy>
- 
-    <!-- Use Dojo/Rhino to create compressed JavaScript files -->
-    <attainGoal name="dojo.compress.files"/>
-
   </postGoal>
+
+  <preGoal name="jar:jar">
+    <!-- Use Dojo/Rhino to create compressed JavaScript files -->
+    <ant:available property="dojoPresent" type="file" file="${dojo_custom_rhino.jar}"/>
+    <j:if test="${dojoPresent}">
+        <attainGoal name="dojo.compress.files"/>
+    </j:if>
+  </preGoal>
 
   <!-- ================================================================== -->
   <!-- Copy into the binary distribution                                  -->
@@ -53,6 +57,7 @@
     <!-- Copy the NOTICE -->
     <copy todir="${maven.dist.bin.assembly.dir}">
       <fileset file='${basedir}/NOTICE.txt'/>
+      <fileset file="${basedir}/RELEASE-NOTES.html"/>
     </copy>
 
     <!-- Create Single file of static JavaScript -->
@@ -61,7 +66,10 @@
     </ant:concat>
 
     <!-- Use Dojo/Rhino to create single compressed JavaScript file -->
-    <attainGoal name="dojo.compress.single"/>
+    <ant:available property="dojoPresent"  type="file" file="${dojo_custom_rhino.jar}"/>
+    <j:if test="${dojoPresent}">
+        <attainGoal name="dojo.compress.single"/>
+    </j:if>
 
   </postGoal>
 
@@ -99,7 +107,8 @@
     <!-- Copy the NOTICE -->
     <copy todir="${maven.dist.src.assembly.dir}">
       <fileset file='${basedir}/NOTICE.txt'/>
-      <fileset file="${basedir}/RELEASE-NOTES.readme"/>
+      <fileset file="${basedir}/RELEASE-NOTES.html"/>
+      <fileset file="${basedir}/build.properties.sample"/>
     </copy>
 
     <!-- Copy xdoc files -->
@@ -129,8 +138,12 @@
 
   <postGoal name="maven-javadoc-plugin:report"> 
     <mkdir dir="${maven.build.dir}/docs/javascript/org/apache/commons/validator/javascript/doc-files" /> 
-    <attainGoal name="javadoc.js.unix"/>
-    <attainGoal name="javadoc.js.windows"/>
+
+    <ant:available property="jsdocPresent" type="file" file="${jsdoc.home}/jsdoc.pl"/>
+    <j:if test="${jsdocPresent}">
+      <attainGoal name="javadoc.js.unix"/>
+      <attainGoal name="javadoc.js.windows"/>
+    </j:if>
 
     <copy todir="${maven.build.dir}/docs/javascript/org/apache/commons/validator/javascript/doc-files">
       <fileset dir="${javascript.home}/org/apache/commons/validator/javascript/doc-files" includes="*.gif"/>
@@ -157,28 +170,28 @@
     <postGoal name="dist">
 
          <!-- create checksum for jar -->
-         <ant:checksum file="${maven.build.dir}/${pom.artifactId}-${pom.currentVersion}.jar" property="md5"/>
-         <ant:echo message="${md5} *${pom.artifactId}-${pom.currentVersion}.jar" 
+         <ant:checksum file="${maven.build.dir}/${pom.artifactId}-${pom.currentVersion}.jar" property="jar.md5"/>
+         <ant:echo message="${jar.md5} *${pom.artifactId}-${pom.currentVersion}.jar" 
                    file="${maven.build.dir}/${pom.artifactId}-${pom.currentVersion}.jar.md5" />
 
          <!-- create checksum for binary zip -->
-         <ant:checksum file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}.zip" property="md5"/>
-         <ant:echo message="${md5} *${pom.artifactId}-${pom.currentVersion}.zip" 
+         <ant:checksum file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}.zip" property="zip.md5"/>
+         <ant:echo message="${zip.md5} *${pom.artifactId}-${pom.currentVersion}.zip" 
                    file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}.zip.md5" />
 
          <!-- create checksum for binary tar.gz -->
-         <ant:checksum file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}.tar.gz" property="md5"/>
-         <ant:echo message="${md5} *${pom.artifactId}-${pom.currentVersion}.tar.gz" 
+         <ant:checksum file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}.tar.gz" property="tar.gz.md5"/>
+         <ant:echo message="${tar.gz.md5} *${pom.artifactId}-${pom.currentVersion}.tar.gz" 
                    file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}.tar.gz.md5" />
 
          <!-- create checksum for source zip -->
-         <ant:checksum file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}-src.zip" property="md5"/>
-         <ant:echo message="${md5} *${pom.artifactId}-${pom.currentVersion}-src.zip" 
+         <ant:checksum file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}-src.zip" property="src.zip.md5"/>
+         <ant:echo message="${src.zip.md5} *${pom.artifactId}-${pom.currentVersion}-src.zip" 
                    file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}-src.zip.md5" />
 
          <!-- create checksum for source tar.gz -->
-         <ant:checksum file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}-src.tar.gz" property="md5"/>
-         <ant:echo message="${md5} *${pom.artifactId}-${pom.currentVersion}-src.tar.gz" 
+         <ant:checksum file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}-src.tar.gz" property="src.tar.gz.md5"/>
+         <ant:echo message="${src.tar.gz.md5} *${pom.artifactId}-${pom.currentVersion}-src.tar.gz" 
                    file="${maven.dist.dir}/${pom.artifactId}-${pom.currentVersion}-src.tar.gz.md5" />
 
     </postGoal>
