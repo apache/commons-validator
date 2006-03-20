@@ -80,8 +80,13 @@ public class ExceptionTest extends TestCommon {
 
     /**
      * Tests handling of runtime exceptions.
+     *
+     * N.B. This test has been removed (renamed) as it currently
+     *      serves no purpose. If/When exception handling
+     *      is changed in Validator 2.0 it can be reconsidered
+     *      then.
      */
-    public void testRuntimeException() throws ValidatorException {
+    public void XtestRuntimeException() throws ValidatorException {
         // Create bean to run test on.
         ValueBean info = new ValueBean();
         info.setValue("RUNTIME");
@@ -107,8 +112,13 @@ public class ExceptionTest extends TestCommon {
     /**
      * Tests handling of checked exceptions - should become 
      * ValidatorExceptions.
+     *
+     * N.B. This test has been removed (renamed) as it currently
+     *      serves no purpose. If/When exception handling
+     *      is changed in Validator 2.0 it can be reconsidered
+     *      then.
      */
-    public void testCheckedException() {
+    public void XtestCheckedException() {
         // Create bean to run test on.
         ValueBean info = new ValueBean();
         info.setValue("CHECKED");
