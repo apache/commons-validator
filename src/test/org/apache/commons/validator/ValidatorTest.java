@@ -279,7 +279,7 @@ public class ValidatorTest extends TestCase {
       
       try {
          DateFormat formatter = null;
-         formatter = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
+         formatter = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
             
          formatter.setLenient(false);
              
