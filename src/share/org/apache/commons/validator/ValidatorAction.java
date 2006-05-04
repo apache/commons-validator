@@ -527,10 +527,14 @@ public class ValidatorAction implements Serializable {
         params.put(Validator.VALIDATOR_ACTION_PARAM, this);
 
         try {
-            ClassLoader loader = this.getClassLoader(params);
-            this.loadValidationClass(loader);
-            this.loadParameterClasses(loader);
-            this.loadValidationMethod();
+            if (this.validationMethod == null) {
+                synchronized(this) {
+                    ClassLoader loader = this.getClassLoader(params);
+                    this.loadValidationClass(loader);
+                    this.loadParameterClasses(loader);
+                    this.loadValidationMethod();
+                }
+            }
 
             Object[] paramValues = this.getParameterValues(params);
             
@@ -638,18 +642,20 @@ public class ValidatorAction implements Serializable {
             return;
         }
         
-        this.parameterClasses = new Class[this.methodParameterList.size()];
+        Class[] parameterClasses = new Class[this.methodParameterList.size()];
 
         for (int i = 0; i < this.methodParameterList.size(); i++) {
             String paramClassName = (String) this.methodParameterList.get(i);
 
             try {
-                this.parameterClasses[i] = loader.loadClass(paramClassName);
+                parameterClasses[i] = loader.loadClass(paramClassName);
                     
             } catch (ClassNotFoundException e) {
                 throw new ValidatorException(e.getMessage());
             }
         }
+
+        this.parameterClasses = parameterClasses;
     }
     
     /**
