@@ -35,7 +35,7 @@
 
          <subsection name="Nightly Builds">
             <p>
-               <a href="http://cvs.apache.org/builds/jakarta-commons/nightly/commons-validator/">Nightly Builds</a>
+               <a href="http://people.apache.org/builds/jakarta-commons/nightly/commons-validator/">Nightly Builds</a>
                are built once a day from the current SVN HEAD. This is (nearly) the latest code and so should
                be treated with caution.
             </p>
