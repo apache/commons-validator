@@ -740,6 +740,39 @@ public class Field implements Cloneable, Serializable {
         }
 
     }
+    /**
+     * Returns the size of an indexed property from the object we're validating.
+     *
+     * @param bean The bean to extract the indexed values from.
+     * @throws ValidatorException If there's an error looking up the property 
+     * or, the property found is not indexed.
+     */
+    private int getIndexedPropertySize(Object bean) throws ValidatorException {
+        Object indexedProperty = null;
+
+        try {
+            indexedProperty =
+                PropertyUtils.getProperty(bean, this.getIndexedListProperty());
+
+        } catch(IllegalAccessException e) {
+            throw new ValidatorException(e.getMessage());
+        } catch(InvocationTargetException e) {
+            throw new ValidatorException(e.getMessage());
+        } catch(NoSuchMethodException e) {
+            throw new ValidatorException(e.getMessage());
+        }
+
+        if (indexedProperty == null) {
+            return 0;
+        } else if (indexedProperty instanceof Collection) {
+            return ((Collection)indexedProperty).size();
+        } else if (indexedProperty.getClass().isArray()) {
+            return ((Object[])indexedProperty).length;
+        } else {
+            throw new ValidatorException(this.getKey() + " is not indexed");
+        }
+
+    }
     
     /**
      * Executes the given ValidatorAction and all ValidatorActions that it 
@@ -829,7 +862,7 @@ public class Field implements Cloneable, Serializable {
 
         Object bean = params.get(Validator.BEAN_PARAM);
         int numberOfFieldsToValidate =
-            this.isIndexed() ? this.getIndexedProperty(bean).length : 1;
+            this.isIndexed() ? this.getIndexedPropertySize(bean) : 1;
 
         for (int fieldNumber = 0; fieldNumber < numberOfFieldsToValidate; fieldNumber++) {
             
