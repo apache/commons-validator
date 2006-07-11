@@ -61,7 +61,7 @@
     </copy>
 
     <!-- Create Single file of static JavaScript -->
-    <ant:concat destfile="${maven.dist.bin.assembly.dir}/${pom.artifactId}-${pom.currentVersion}.js">
+    <ant:concat destfile="${maven.dist.bin.assembly.dir}/${maven.final.name}.js">
       <fileset dir="${basedir}/src/javascript/org/apache/commons/validator/javascript" includes="*.js"/>
     </ant:concat>
 
@@ -81,9 +81,9 @@
   <!-- ================================================================== -->
   <goal name="dojo.compress.single">
     <ant:java jar="${dojo_custom_rhino.jar}" fork="true"
-              output="${maven.dist.bin.assembly.dir}/${pom.artifactId}-${pom.currentVersion}-compress.js">
+              output="${maven.dist.bin.assembly.dir}/${maven.final.name}-compress.js">
         <ant:arg value="-c"/> 
-        <ant:arg value="${maven.dist.bin.assembly.dir}/${pom.artifactId}-${pom.currentVersion}.js"/> 
+        <ant:arg value="${maven.dist.bin.assembly.dir}/${maven.final.name}.js"/> 
     </ant:java>
   </goal>
 
