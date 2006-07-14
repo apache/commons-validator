@@ -2,14 +2,16 @@
 <rdf:RDF xmlns="http://usefulinc.com/ns/doap#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:asfext="http://projects.apache.org/ns/asfext#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:doap="http://usefulinc.com/ns/doap#" xml:lang="en">
   <Project rdf:about="http://jakarta.apache.org/commons/validator/">
     <name>Apache Jakarta Commons Validator</name>
+    <shortname>Commons Validator</shortname>
     <homepage rdf:resource="http://jakarta.apache.org/commons/validator/"/>
+    <wiki rdf:resource="http://wiki.apache.org/jakarta-commons/Validator"/>
     <programming-language>Java</programming-language>
     <category rdf:resource="http://projects.apache.org/category/library"/>
     <license rdf:resource="http://usefulinc.com/doap/licenses/asl20"/>
-    <bug-database rdf:resource="http://issues.apache.org/bugzilla/buglist.cgi?product=Commons&amp;component=validator"/>
-    <download-page rdf:resource="http://jakarta.apache.org/site/downloads/downloads_commons-validator.cgi"/>
+    <bug-database rdf:resource="http://jakarta.apache.org/commons/validator/issue-tracking.html"/>
+    <download-page rdf:resource="http://jakarta.apache.org/commons/validator/downloads.html"/>
     <asfext:pmc rdf:resource="http://jakarta.apache.org/"/>
-    <shortdesc xml:lang="en">Commons Validator</shortdesc>
+    <shortdesc xml:lang="en">Validation Framework and Routines</shortdesc>
     <description xml:lang="en">
     Commons Validator provides the building blocks for both client side validation
     and server side data validation. It may be used standalone or with a framework like
@@ -17,15 +19,30 @@
   </description>
     <repository>
       <SVNRepository>
-        <browse rdf:resource="http://svn.apache.org/viewcvs.cgi"/>
+        <browse rdf:resource="http://svn.apache.org/viewvc/jakarta/commons/proper/validator/"/>
         <location rdf:resource="http://svn.apache.org/repos/asf/jakarta/commons/proper/validator"/>
       </SVNRepository>
     </repository>
     <release>
       <revision>
-        <name>commons-validator</name>
+        <name>Validator</name>
+        <created>2004-08-25</created>
+        <version>1.1.3</version>
+      </revision>
+      <revision>
+        <name>Validator</name>
+        <created>2004-11-12</created>
+        <version>1.1.4</version>
+      </revision>
+      <revision>
+        <name>Validator</name>
         <created>2005-11-15</created>
         <version>1.2.0</version>
+      </revision>
+      <revision>
+        <name>Validator</name>
+        <created>2006-03-24</created>
+        <version>1.3.0</version>
       </revision>
     </release>
     <mailing-list rdf:resource="http://jakarta.apache.org/site/mail2.html#Commons"/>
