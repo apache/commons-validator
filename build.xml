@@ -457,7 +457,7 @@
   </target>
 
 
-   <target name="example" depends="compile.example"
+   <target name="example" depends="compile.example,compile.tests"
     description="Run example application">
       <java fork="yes"
        classname="org.apache.commons.validator.example.ValidateExample" 

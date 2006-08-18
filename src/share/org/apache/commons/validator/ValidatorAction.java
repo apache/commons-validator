@@ -624,7 +624,7 @@ public class ValidatorAction implements Serializable {
         try {
             this.validationClass = loader.loadClass(this.classname);
         } catch (ClassNotFoundException e) {
-            throw new ValidatorException(e.getMessage());
+            throw new ValidatorException(e.toString());
         }
     }
     

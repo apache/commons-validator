@@ -39,6 +39,9 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
     <release version="1.3.1" date="Pending">
+      <action dev="niallp" type="fix" issue="VALIDATOR-198" due-to="Matthias Fischer">
+        Example does not compile using ant build script.
+      </action>
       <action dev="niallp" type="fix" issue="VALIDATOR-189" due-to="Thomas Bailey">
         Validating indexed properties fails when <code>null</code>.
       </action>
