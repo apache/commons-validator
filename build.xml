@@ -224,6 +224,8 @@
     <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
               file="${conf.home}/validator_1_1.dtd"/>
     <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
+              file="${conf.home}/validator_1_1_3.dtd"/>
+    <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
               file="${conf.home}/validator_1_2_0.dtd"/>
     <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
               file="${conf.home}/validator_1_3_0.dtd"/>
