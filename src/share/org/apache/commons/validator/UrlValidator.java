@@ -148,7 +148,7 @@ public class UrlValidator implements Serializable {
      */
     private static final int PARSE_AUTHORITY_EXTRA = 3;
 
-    private static final String PATH_PATTERN = "/^(/[-\\w:@&?=+,.!/~*'%$]*)?$/";
+    private static final String PATH_PATTERN = "/^(/[-\\w:@&?=+,.!/~*'%$_;]*)?$/";
 
     private static final String QUERY_PATTERN = "/^(.*)$/";
 
