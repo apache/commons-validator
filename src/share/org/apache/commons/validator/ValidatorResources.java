@@ -54,6 +54,9 @@ import org.xml.sax.Attributes;
  */
 public class ValidatorResources implements Serializable {
 
+    /** Name of the digester validator rules file */
+    private static final String VALIDATOR_RULES = "digester-rules.xml";
+
     /**
      * The set of public identifiers, and corresponding resource names, for
      * the versions of the configuration file DTDs that we know about.  There
@@ -199,7 +202,14 @@ public class ValidatorResources implements Serializable {
      *  Initialize the digester.
      */
     private Digester initDigester() {
-        URL rulesUrl = this.getClass().getResource("digester-rules.xml");
+        URL rulesUrl = this.getClass().getResource(VALIDATOR_RULES);
+        if (rulesUrl == null) {
+            // Fix for Issue# VALIDATOR-195
+            rulesUrl = ValidatorResources.class.getResource(VALIDATOR_RULES);
+        }
+        if (getLog().isDebugEnabled()) {
+            getLog().debug("Loading rules from '" + rulesUrl + "'");
+        }
         Digester digester = DigesterLoader.createDigester(rulesUrl);
         digester.setNamespaceAware(true);
         digester.setValidating(true);
