@@ -80,37 +80,31 @@
       <name>Don Brown</name>
       <id>mrdon</id>
       <email>mrdon@apache.org</email>
-      <organization></organization>
     </developer>
     <developer>
       <name>Martin Cooper</name>
       <id>martinc</id>
       <email>martinc@apache.org</email>
-      <organization></organization>
     </developer>
     <developer>
       <name>David Graham</name>
       <id>dgraham</id>
       <email>dgraham@apache.org</email>
-      <organization></organization>
     </developer>
     <developer>
       <name>Ted Husted</name>
       <id>husted</id>
       <email>husted@apache.org</email>
-      <organization></organization>
     </developer>
     <developer>
       <name>Rob Leland</name>
       <id>rleland</id>
       <email>rleland at apache.org</email>
-      <organization></organization>
     </developer>
     <developer>
       <name>Craig McClanahan</name>
       <id>craigmcc</id>
       <email>craigmcc@apache.org</email>
-      <organization></organization>
     </developer>
     <developer>
       <name>James Mitchell</name>
@@ -121,20 +115,20 @@
     <developer>
       <name>Niall Pemberton</name>
       <id>niallp</id>
-      <email>niallp NOSPAM apache.org</email>
-      <organization></organization>
     </developer>
     <developer>
       <name>James Turner</name>
       <id>turner</id>
       <email>turner@apache.org</email>
-      <organization></organization>
     </developer>
     <developer>
       <name>David Winterfeldt</name>
       <id>dwinterfeldt</id>
       <email>dwinterfeldt@apache.org</email>
-      <organization></organization>
+    </developer>
+    <developer>
+      <name>Henri Yandell</name>
+      <id>bayard</id>
     </developer>
    </developers>
   
