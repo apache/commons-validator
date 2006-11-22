@@ -347,7 +347,7 @@ public class Validator implements Serializable {
 
         Form form = this.resources.getForm(locale, this.formName);
         if (form != null) {
-            this.setParameter(FORM_PARAM, this);
+            this.setParameter(FORM_PARAM, form);
             return form.validate(
                 this.parameters,
                 this.resources.getValidatorActions(),
