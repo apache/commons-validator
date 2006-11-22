@@ -1,16 +1,12 @@
 /*
- * $Header: /home/cvs/jakarta-commons/validator/src/test/org/apache/commons/validator/ByteTest.java,v 1.14 2004/02/21 17:10:30 rleland Exp $
- * $Revision: 1.14 $
- * $Date: 2004/02/21 17:10:30 $
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- * ====================================================================
- * Copyright 2001-2004 The Apache Software Foundation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package org.apache.commons.validator;
 
 import junit.framework.Test;
@@ -32,6 +26,8 @@ import java.net.URL;
 
 /**                                                       
  * Tests entity imports.
+ *
+ * @version $Revision$ $Date$
  */
 public class EntityImportTest extends TestCommon {
 
