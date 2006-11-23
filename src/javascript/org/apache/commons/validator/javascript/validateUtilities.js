@@ -87,7 +87,7 @@
    */
   function jcv_isFieldPresent(field) {
       var fieldPresent = true;
-      if (field == null || field == undefined) {
+      if (field == null || (typeof field == 'undefined')) {
           fieldPresent = false;
       } else {
           if (field.disabled) {
