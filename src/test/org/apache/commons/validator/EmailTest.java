@@ -221,6 +221,18 @@ public class EmailTest extends TestCommon {
 
     }
 
+   /**
+    * Tests the email validation with ascii control characters.
+    * (i.e. Ascii chars 0 - 31 and 127)
+    */
+    public void testEmailWithControlChars() throws ValidatorException {
+        EmailValidator validator = new EmailValidator();
+        for (char c = 0; c < 32; c++) {
+            assertFalse("Test control char " + ((int)c), validator.isValid("foo" + c + "bar@domain.com"));
+        }
+        assertFalse("Test control char 127", validator.isValid("foo" + ((char)127) + "bar@domain.com"));
+    }
+
     /**
      * Write this test according to parts of RFC, as opposed to the type of character
      * that is being tested.
