@@ -27,18 +27,9 @@
             <p>Download the <a href="http://jakarta.apache.org/site/downloads/downloads_commons-validator.cgi">Latest Release</a>
                of Commons Validator.
             </p>
-            <p>For details of whats new in each version see the <a href="changes-report.html">Release History</a>.</p>
-            <p>For a more descriptive explanation see the  
-               <a href="http://wiki.apache.org/jakarta-commons/ValidatorReleaseNotes">Release Notes</a> maintained on
-               the <a href="http://wiki.apache.org/jakarta-commons/">Jakarta Commons Wiki</a>.
-            </p>
-         </subsection>
-
-         <subsection name="Nightly Builds">
-            <p>
-               <a href="http://people.apache.org/builds/jakarta-commons/nightly/commons-validator/">Nightly Builds</a>
-               are built once a day from the current SVN HEAD. This is (nearly) the latest code and so should
-               be treated with caution.
+            <p>For details of whats new in each version see the <a href="changes-report.html">Release Notes</a>.</p>
+            <p><a href="http://wiki.apache.org/jakarta-commons/ValidatorReleaseNotes">Community Notes</a> on
+               release are maintained on the <a href="http://wiki.apache.org/jakarta-commons/">Jakarta Commons Wiki</a>.
             </p>
          </subsection>
 

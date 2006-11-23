@@ -1,0 +1,31 @@
+$Id$
+
+                 Commons Validator Package
+                     Version 1.3.1
+                     Release Notes
+
+Bug fixes from 1.3.0
+--------------------
+
+    * [VALIDATOR-19]  - The Form cannot be used for the validator's
+                        method parameter.
+    * [VALIDATOR-89]  - ValidatorAction needs to be thread-safe
+    * [VALIDATOR-189] - Validating array integers fails
+    * [VALIDATOR-190] - EmailValidator allows control characters (ASCII 0-31)
+    * [VALIDATOR-195] - Loading of Digester Rules for classes extending
+                        ValidatorResources does not work
+    * [VALIDATOR-198] - Example does not compile
+    * [VALIDATOR-199] - Commons Validator 1.3.0 source distribution's build.xml
+                        neglects to include validator_1_1_3.dtd in JAR
+    * [VALIDATOR-202] - URL Validator isValid method fails with ArrayIndexOutOfBoundsException
+    * [VALIDATOR-204] - isValid return false for a valid URL
+    * [VALIDATOR-208] - jcv_isFieldPresent function causes error in IE5
+    * [VALIDATOR-210] - Generated JavaScript Causes HTML Page to Contain Illegal HTML
+
+
+
+Improvements from 1.3.0
+-----------------------
+
+    * [VALIDATOR-209] - Additional constructor for ValidatorResources that takes
+                        URL[] instead of String[]

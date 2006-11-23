@@ -28,7 +28,7 @@
     
     <copy todir="${maven.build.dir}/classes/">
       <fileset dir="${pom.build.sourceDirectory}"
-          excludes="**/*.java"/>
+          excludes="**/*.java,**/*.html"/>
     </copy>
 
     <copy todir="${maven.build.dir}/classes/org/apache/commons/validator/resources/">
@@ -58,7 +58,7 @@
     <!-- Copy the NOTICE -->
     <copy todir="${maven.dist.bin.assembly.dir}">
       <fileset file='${basedir}/NOTICE.txt'/>
-      <fileset file="${basedir}/RELEASE-NOTES.html"/>
+      <fileset file="${basedir}/RELEASE-NOTES.txt"/>
     </copy>
 
     <!-- Create Single file of static JavaScript -->
@@ -108,7 +108,7 @@
     <!-- Copy the NOTICE -->
     <copy todir="${maven.dist.src.assembly.dir}">
       <fileset file='${basedir}/NOTICE.txt'/>
-      <fileset file="${basedir}/RELEASE-NOTES.html"/>
+      <fileset file="${basedir}/RELEASE-NOTES.txt"/>
       <fileset file="${basedir}/build.properties.sample"/>
     </copy>
 

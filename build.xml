@@ -111,6 +111,12 @@
 <!-- ========== Compiler Defaults ========================================= -->
 
 
+  <!-- source JDK version (should be same as maven.compile.source) -->
+  <property name="compile.source"          value="1.3"/>
+
+  <!-- target JDK version (should be same as maven.compile.target) -->
+  <property name="compile.target"          value="1.3"/>
+
   <!-- Should Java compilations set the 'debug' compiler option? -->
   <property name="compile.debug"           value="true"/>
 
@@ -181,6 +187,8 @@
     <filter  token="name"                  value="${component.name}"/>
     <filter  token="package"               value="${component.package}"/>
     <filter  token="version"               value="${component.version}"/>
+    <filter  token="compilesource"         value="${compile.source}"/>
+    <filter  token="compiletarget"         value="${compile.target}"/>
     <available property="jsdoc.found" type="file" file="${jsdoc.home}/jsdoc.pl"/>
     <available file="${dojo_custom_rhino.jar}" property="dojo.found"/>
   </target>
@@ -208,6 +216,8 @@
    description="Compile shareable components">
     <javac  srcdir="${source.home}"
            destdir="${build.home}/classes"
+             source="${compile.source}"
+             target="${compile.target}"
              debug="${compile.debug}"
        deprecation="${compile.deprecation}"
           optimize="${compile.optimize}">
@@ -323,7 +333,7 @@
               todir="${dist.home}"/>
     <copy      file="NOTICE.txt"
               todir="${dist.home}"/>
-    <copy      file="RELEASE-NOTES.html"
+    <copy      file="RELEASE-NOTES.txt"
               todir="${dist.home}"/>
     <mkdir      dir="${build.home}/classes/META-INF"/>
     <copy      file="LICENSE.txt"

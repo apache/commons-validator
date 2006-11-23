@@ -39,7 +39,7 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
-    <release version="1.3.1" date="Pending">
+    <release version="1.3.1" date="Pending" description="Maintenance release.">
       <action dev="niallp" type="fix" issue="VALIDATOR-208" due-to="Leo Asanov">
         JavaScript function jcv_isFieldPresent() causes error in IE5 using "undefined".
       </action>
@@ -81,7 +81,7 @@ The <action> type attribute can be add,update,fix,remove.
       </action>
     </release>
 
-    <release version="1.3.0" date="2006-03-24" description="see http://wiki.apache.org/jakarta-commons/ValidatorVersion130">
+    <release version="1.3.0" date="2006-03-24" description="Mainly bug fixes plus new 'routines' package.">
       <action dev="niallp" type="fix" issue="VALIDATOR-49" due-to="bart vandendriessche">
          ValidatorResult only contains last run dependency for the field.
       </action>
