@@ -41,6 +41,7 @@ public class ValidatorTestSuite extends TestCase {
 
        suite.addTest(ByteTest.suite());
        suite.addTestSuite(CreditCardValidatorTest.class);
+       suite.addTest(CustomValidatorResourcesTest.suite());
        suite.addTest(DateTest.suite());
        suite.addTest(DoubleTest.suite());
        suite.addTest(EmailTest.suite());
@@ -49,22 +50,23 @@ public class ValidatorTestSuite extends TestCase {
        suite.addTestSuite(FlagsTest.class);
        suite.addTestSuite(FieldTest.class);
        suite.addTest(FloatTest.suite());
+       suite.addTestSuite(GenericValidatorTest.class);
        suite.addTest(IntegerTest.suite());
        suite.addTestSuite(ISBNValidatorTest.class);
        suite.addTest(LocaleTest.suite());
        suite.addTest(LongTest.suite());
        suite.addTestSuite(MultipleConfigFilesTest.class);
        suite.addTest(MultipleTests.suite());
+       suite.addTest(ParameterTest.suite());
        suite.addTest(RequiredIfTest.suite());
        suite.addTest(RequiredNameTest.suite());
        suite.addTest(RetrieveFormTest.suite());
        suite.addTest(ShortTest.suite());
        suite.addTest(TypeTest.suite());
        suite.addTest(UrlTest.suite());
+       suite.addTest(ValidatorResultsTest.suite());
        suite.addTest(ValidatorTest.suite());
        suite.addTest(VarTest.suite());
-       suite.addTestSuite(GenericValidatorTest.class);
-       suite.addTest(ValidatorResultsTest.suite());
 
        return suite;
     }
