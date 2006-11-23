@@ -197,7 +197,63 @@ public class ValidatorResources implements Serializable {
 
         this.process();
     }    
-    
+
+    /**
+     * Create a ValidatorResources object from a URL.
+     *
+     * @param url The URL for the validation.xml
+     * configuration file that will be read into this object.
+     * @throws IOException
+     * @throws SAXException if the validation XML file are not valid or well
+     * formed.
+     * @throws IOException  if an I/O error occurs processing the XML files
+     * @since Validator 1.3.1
+     */
+    public ValidatorResources(URL url)
+            throws IOException, SAXException {
+        this(new URL[]{url});
+    }
+
+    /**
+     * Create a ValidatorResources object from several URL.
+     *
+     * @param urls An array of URL to several validation.xml
+     * configuration files that will be read in order and merged into this object.
+     * @throws IOException
+     * @throws SAXException if the validation XML files are not valid or well
+     * formed.
+     * @throws IOException  if an I/O error occurs processing the XML files
+     * @since Validator 1.3.1
+     */
+    public ValidatorResources(URL[] urls)
+            throws IOException, SAXException {
+
+        super();
+
+        Digester digester = initDigester();
+        for (int i = 0; i < urls.length; i++) {
+            digester.push(this);
+            InputStream stream = null;
+            try {
+                stream = urls[i].openStream();
+                org.xml.sax.InputSource source = 
+                     new org.xml.sax.InputSource(urls[i].toExternalForm());
+                source.setByteStream(stream);
+                digester.parse(source);
+            } finally {
+                if (stream != null) {
+                    try {
+                        stream.close();
+                    } catch (IOException e) {
+                        // ignore problem closing
+                    }
+                }
+            } 
+        }
+
+        this.process();
+    }
+
     /**
      *  Initialize the digester.
      */

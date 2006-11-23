@@ -61,4 +61,13 @@ public class EntityImportTest extends TestCommon {
         ValidatorResources resources = new ValidatorResources(url.toExternalForm());
         assertNotNull("Form should be found", resources.getForm(Locale.getDefault(), "byteForm"));
     }  
-}                                                         
+
+    /**
+     * Tests loading ValidatorResources from a URL
+     */
+    public void testParseURL() throws Exception {
+        URL url = getClass().getResource("EntityImportTest-config.xml");
+        ValidatorResources resources = new ValidatorResources(url);
+        assertNotNull("Form should be found", resources.getForm(Locale.getDefault(), "byteForm"));
+    }
+}
