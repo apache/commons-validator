@@ -3,10 +3,10 @@
     /**
     * A field is considered valid if less than the specified maximum.
     * Fields are not checked if they are disabled.
-    * <p>
-    * <strong>Caution:</strong> Using <code>validateMaxLength</code> on a password field in a 
+    *
+    *  Caution: Using validateMaxLength() on a password field in a 
     *  login page gives unnecessary information away to hackers. While it only slightly
-    *  weakens security, we suggest using it only when modifying a password.</p>
+    *  weakens security, we suggest using it only when modifying a password.
     * @param form The form validation is taking place on.
     */
     function validateMaxLength(form) {

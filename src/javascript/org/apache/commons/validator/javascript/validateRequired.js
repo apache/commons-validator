@@ -3,7 +3,7 @@
     /**
     *  Check to see if fields must contain a value.
     * Fields are not checked if they are disabled.
-    * <p>
+    *
     * @param form The form validation is taking place on.
     */
 

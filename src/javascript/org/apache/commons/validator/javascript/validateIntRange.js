@@ -3,7 +3,6 @@
     /**
     * Check to see if fields is in a valid integer range.
     * Fields are not checked if they are disabled.
-    * <p>
     * @param form The form validation is taking place on.
     */
     function validateIntRange(form) {

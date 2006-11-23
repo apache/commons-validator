@@ -3,7 +3,6 @@
     /**
     * Check to see if fields are a valid creditcard number based on Luhn checksum.
     * Fields are not checked if they are disabled.
-    * <p>
     * @param form The form validation is taking place on.
     */
     function validateCreditCard(form) {

@@ -3,7 +3,6 @@
     /**
     * Check to see if fields are in a valid float range.
     * Fields are not checked if they are disabled.
-    * <p>
     * @param form The form validation is taking place on.
     */
     function validateFloatRange(form) {
