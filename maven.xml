@@ -170,6 +170,14 @@
     <!-- ================================================================== -->
     <postGoal name="dist">
 
+       <!-- Create a versioned pom -->
+       <copy file="${basedir}/project.xml" tofile="${maven.dist.dir}/${maven.final.name}.pom"/>
+
+       <!-- create checksum for pom -->
+       <ant:checksum file="${maven.dist.dir}/${maven.final.name}.pom" property="pom.md5"/>
+       <ant:echo message="${pom.md5} *${maven.final.name}.pom" 
+                 file="${maven.dist.dir}/${maven.final.name}.pom.md5" />
+
          <!-- create checksum for jar -->
          <ant:checksum file="${maven.build.dir}/${maven.final.name}.jar" property="jar.md5"/>
          <ant:echo message="${jar.md5} *${maven.final.name}.jar" 
