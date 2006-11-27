@@ -41,14 +41,9 @@
     </repository>
     <release>
       <Version>
-        <name>1.1.3</name>
-        <created>2004-08-25</created>
-        <revision>1.1.3</revision>
-      </Version>
-      <Version>
-        <name>1.1.4</name>
-        <created>2004-11-12</created>
-        <revision>1.1.4</revision>
+        <name>Latest Stable Release</name>
+        <created>2006-03-24</created>
+        <revision>1.3.0</revision>
       </Version>
       <Version>
         <name>1.2.0</name>
@@ -56,9 +51,44 @@
         <revision>1.2.0</revision>
       </Version>
       <Version>
-        <name>Latest Stable Release</name>
-        <created>2006-03-24</created>
-        <revision>1.3.0</revision>
+        <name>1.1.4</name>
+        <created>2004-11-12</created>
+        <revision>1.1.4</revision>
+      </Version>
+      <Version>
+        <name>1.1.3</name>
+        <created>2004-08-25</created>
+        <revision>1.1.3</revision>
+      </Version>
+      <Version>
+        <name>1.1.2 (alpha)</name>
+        <created>2004-04-03</created>
+        <revision>1.1.2</revision>
+      </Version>
+      <Version>
+        <name>1.1.1 (alpha)</name>
+        <created>2003-12-15</created>
+        <revision>1.1.1</revision>
+      </Version>
+      <Version>
+        <name>1.1.0 (alpha)</name>
+        <created>2003-08-26</created>
+        <revision>1.1.0</revision>
+      </Version>
+      <Version>
+        <name>1.0.2</name>
+        <created>2003-04-17</created>
+        <revision>1.0.2</revision>
+      </Version>
+      <Version>
+        <name>1.0.1</name>
+        <created>2002-12-16</created>
+        <revision>1.0.1</revision>
+      </Version>
+      <Version>
+        <name>1.0</name>
+        <created>2002-11-01</created>
+        <revision>1.0</revision>
       </Version>
     </release>
     <mailing-list rdf:resource="http://jakarta.apache.org/site/mail2.html#Commons"/>
