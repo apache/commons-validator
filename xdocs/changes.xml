@@ -39,6 +39,12 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
 
+    <release version="1.4-SNAPSHOT" date="in SVN" description="In progress">
+      <action dev="niallp" type="update" issue="VALIDATOR-211">
+          Upgrade to Digester 1.8
+      </action>
+    </release>
+
     <release version="1.3.1" date="2006-11-28" description="1.3 Maintenance Release.">
       <action dev="niallp" type="update">
         <p>
