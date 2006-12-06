@@ -233,22 +233,7 @@ public class ValidatorResources implements Serializable {
         Digester digester = initDigester();
         for (int i = 0; i < urls.length; i++) {
             digester.push(this);
-            InputStream stream = null;
-            try {
-                stream = urls[i].openStream();
-                org.xml.sax.InputSource source = 
-                     new org.xml.sax.InputSource(urls[i].toExternalForm());
-                source.setByteStream(stream);
-                digester.parse(source);
-            } finally {
-                if (stream != null) {
-                    try {
-                        stream.close();
-                    } catch (IOException e) {
-                        // ignore problem closing
-                    }
-                }
-            } 
+            digester.parse(urls[i]);
         }
 
         this.process();

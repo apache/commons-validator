@@ -247,7 +247,7 @@
     <dependency>
       <groupId>commons-digester</groupId>
       <artifactId>commons-digester</artifactId>
-      <version>1.6</version>
+      <version>1.8</version>
       <url>http://jakarta.apache.org/commons/digester/</url>
       <properties>
           <comment>
