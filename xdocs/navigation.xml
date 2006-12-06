@@ -30,16 +30,16 @@
 
     <menu name="Validator">
       <item name="Overview"                href="/index.html"/>
-      <item name="Download"                href="/downloads.html"/>
-
-      <item name="Documentation">
-        <item name="Release Notes"         href="/changes-report.html"/>
-        <item name="Dependencies"          href="/dependencies.html"/>
-        <item name="License"               href="/license.html"/>
-        <item name="Framework"             href="apidocs/org/apache/commons/validator/package-summary.html#package_description"/>
-        <item name="Routines"              href="apidocs/org/apache/commons/validator/routines/package-summary.html#package_description"/>
-        <item name="Wiki"                  href="http://wiki.apache.org/jakarta-commons/Validator"/>
-      </item>
+      <item name="Download"                href="http://jakarta.apache.org/site/downloads/downloads_commons-validator.cgi"/>
+      <item name="Release Notes"           href="/changes-report.html"/>
+      <item name="Dependencies"            href="/dependencies.html"/>
+      <item name="License"                 href="/license.html"/>
+    </menu>
+    
+    <menu name="Documentation">
+      <item name="Framework"               href="apidocs/org/apache/commons/validator/package-summary.html#package_description"/>
+      <item name="Routines"                href="apidocs/org/apache/commons/validator/routines/package-summary.html#package_description"/>
+      <item name="Wiki"                    href="http://wiki.apache.org/jakarta-commons/Validator"/>
 
       <item name="JavaDocs">
         <item name="Current Release"       href="http://jakarta.apache.org/commons/validator/api-release/"/>
