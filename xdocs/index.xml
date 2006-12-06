@@ -40,9 +40,8 @@
     <section name="Releases">
         <p>See the <a href="downloads.html">Downloads</a> page for current/previous 
            releases.
-        </p>
-        <p>For details of whats new in each version see the <a href="changes-report.html">Release Notes</a>.</p>
-        <p><a href="http://wiki.apache.org/jakarta-commons/ValidatorReleaseNotes">Community Notes</a> on
+           For details of whats new in each version see the <a href="changes-report.html">Release Notes</a>.
+           <a href="http://wiki.apache.org/jakarta-commons/ValidatorReleaseNotes">Community Notes</a> on
            release are maintained on the <a href="http://wiki.apache.org/jakarta-commons/">Jakarta Commons Wiki</a>.
         </p>
     </section>
@@ -89,10 +88,8 @@
            </ul>
          </p>
       </subsection>
-
-    </section>
     
-    <section name="Documentation">
+      <subsection name="Documentation">
         <p>
         The package JavaDoc has useful information:
         </p>
@@ -101,21 +98,10 @@
             <li><a href="apidocs/org/apache/commons/validator/routines/package-summary.html#package_description">Routines package</a></li>
         </ul>
         <p>
-        The following versions of the JavaDoc API documents are available online:
+        See the <a href="cvs-usage.html">subversion repository</a> for the latest source code.
         </p>
-        <ul>
-            <li>The <a href="http://jakarta.apache.org/commons/validator/api-release/">Current Release</a></li>
-            <li>The <a href="http://jakarta.apache.org/commons/validator/api-1.3.0/">Version 1.3.0</a></li>
-            <li>The <a href="http://jakarta.apache.org/commons/validator/api-1.2.0/">Version 1.2.0</a></li>
-            <li>The <a href="http://jakarta.apache.org/commons/validator/api-1.1.4/">Version 1.1.4</a></li>
-            <li>The <a href="http://jakarta.apache.org/commons/validator/api-1.0.2/">Version 1.0.2</a></li>
-            <li>The <a href="http://jakarta.apache.org/commons/validator/apidocs/">latest SVN</a></li>
-        </ul>
+      </subsection>
 
-        <p>
-        The <a href="cvs-usage.html">subversion repository</a> can be
-        <a href="http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/validator/trunk/">browsed</a>.
-        </p>
     </section>
 
     <section name="Support">
