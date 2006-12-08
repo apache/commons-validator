@@ -1,0 +1,98 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.validator.routines.checkdigit;
+
+import java.io.Serializable;
+
+/**
+ * Combined <b>ISBN-10</b>/<b>ISBN-13</b> Check Digit calculation/validation.
+ * <p>
+ * This implementation validates/calculates ISBN check digits
+ * based on the length of the code passed to it - delegating
+ * either to the {@link CheckDigit#ISBN10} or the
+ * {@link CheckDigit#ISBN13} routines to perform the actual
+ * validation/calculation.
+ * 
+ * @version $Revision$ $Date$
+ * @since Validator 1.4
+ */
+public final class ISBNCheckDigit implements CheckDigit, Serializable {
+
+    /** Static ISBN-10 check digit instance */
+    public static final CheckDigit ISBN10 = ISBN10CheckDigit.INSTANCE;
+
+    /** Static ISBN-13 Check Digit instance */
+    public static final CheckDigit ISBN13 = EAN13CheckDigit.INSTANCE;
+
+    /** Combined static ISBN-10/ISBN-13 check digit instance */
+    public static final CheckDigit ISBN   = new ISBNCheckDigit();
+
+    /**
+     * Calculate an ISBN-10 or ISBN-13 check digit, depending
+     * on the length of the code.
+     * <p>
+     * If the length of the code is 9, it is treated as an ISBN-10
+     * code or if the length of the code is 12, it is treated as an ISBN-13
+     * code.
+     *
+     * @param code The ISBN code to validate (should have a length of
+     * 9 or 12)
+     * @return The ISBN-10 check digit if the length is 9 or an ISBN-13
+     * check digit if the length is 12.
+     * @throws CheckDigitException if the code is missing, or an invalid
+     * length (i.e. not 9 or 12) or if there is an error calculating the
+     * check digit.
+     */
+    public char calculate(String code) throws CheckDigitException {
+        if (code == null || code.length() == 0) {
+            throw new CheckDigitException("ISBN Code is missing");
+        } else if (code.length() == 9) {
+            return ISBN10.calculate(code);
+        } else if (code.length() == 12) {
+            return ISBN13.calculate(code);
+        } else {
+            throw new CheckDigitException("Invalid ISBN Length = " + code.length());
+        }
+    }
+
+    /**
+     * <p>Validate an ISBN-10 or ISBN-13 check digit, depending
+     * on the length of the code.</p>
+     * <p>
+     * If the length of the code is 10, it is treated as an ISBN-10
+     * code or ff the length of the code is 13, it is treated as an ISBN-13
+     * code.
+     *
+     * @param code The ISBN code to validate (should have a length of
+     * 10 or 13)
+     * @return <code>true</code> if the code has a length of 10 and is
+     * a valid ISBN-10 check digit or the code has a length of 13 and is
+     * a valid ISBN-13 check digit - otherwise <code>false</code>.
+     */
+    public boolean isValid(String code) {
+        if (code == null) {
+            return false;
+        } else if (code.length() == 10) {
+            return ISBN10.isValid(code);
+        } else if (code.length() == 13) {
+            return ISBN13.isValid(code);
+        } else {
+            return false;
+        }
+    }
+
+}
