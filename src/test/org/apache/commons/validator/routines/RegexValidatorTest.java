@@ -29,7 +29,7 @@ import junit.framework.TestCase;
 public class RegexValidatorTest extends TestCase {
 
     private static final String MISSING_REGEX = "Regular Expression is missing";
-    private static final String REGEX         = "^([abc]*)(?:\\-)([DEF]*)(?:\\-)([123])*$";
+    private static final String REGEX         = "^([abc]*)(?:\\-)([DEF]*)(?:\\-)([123]*)$";
 
     private static final String COMPONENT_1 = "([abc]{3})";
     private static final String COMPONENT_2 = "([DEF]{3})";
@@ -193,6 +193,15 @@ public class RegexValidatorTest extends TestCase {
         assertEquals("isValid() Invalid",  false, multiple.isValid(value));
         assertEquals("validate() Invalid", null,  multiple.validate(value));
         assertEquals("match() Multiple",   null,  multiple.match(value));
+    }
+
+    /**
+     * Test instance methods with multiple regular expressions.
+     */
+    public void testMatchOneGroup() {
+
+        assertEquals("validate()",   "ABC",                  RegexValidator.validate("ABC", "^([A-Z]*)$"));
+        checkArray("match()",         new String[] {"ABC"},  RegexValidator.match("ABC", "^([A-Z]*)$"));
     }
 
     /**

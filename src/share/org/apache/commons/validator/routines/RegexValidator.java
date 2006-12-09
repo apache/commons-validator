@@ -427,11 +427,15 @@ public final class RegexValidator implements Serializable {
         Matcher matcher = pattern.matcher(value);
         if (matcher.matches()) {
             int count = matcher.groupCount();
-            StringBuffer buffer = new StringBuffer();
-            for (int i = 0; i < count; i++) {
-                buffer.append(matcher.group(i+1));
+            if (count == 1) {
+                return matcher.group(1);
+            } else {
+                StringBuffer buffer = new StringBuffer();
+                for (int i = 0; i < count; i++) {
+                    buffer.append(matcher.group(i+1));
+                }
+                return buffer.toString();
             }
-            return buffer.toString();
         } else {
             return null;
         }
