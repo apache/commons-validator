@@ -44,6 +44,7 @@ public class CheckDigitException extends Exception {
      * the underlying cause.
      *
      * @param msg The error message.
+     * @param cause The underlying cause of the error
      */
     public CheckDigitException(String msg, Throwable cause) {
         super(msg, cause);

@@ -23,8 +23,8 @@ import java.io.Serializable;
  * <p>
  * This implementation validates/calculates ISBN check digits
  * based on the length of the code passed to it - delegating
- * either to the {@link CheckDigit#ISBN10} or the
- * {@link CheckDigit#ISBN13} routines to perform the actual
+ * either to the {@link ISBNCheckDigit#ISBN10} or the
+ * {@link ISBNCheckDigit#ISBN13} routines to perform the actual
  * validation/calculation.
  * 
  * @version $Revision$ $Date$
