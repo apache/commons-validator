@@ -21,12 +21,12 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 /**
- * Regular Expression validator (using JDK 1.4+ regex support).
+ * <b>Regular Expression</b> validation (using JDK 1.4+ regex support).
  * <p>
  * This validator provides convenient regular expression validation
  * in one of two ways:
  *
- * <h4>1. One Off validation using the static methods<h4>
+ * <h4>1. One Off validation using the static methods</h4>
  * <ul>
  *   <li>Validate <code>true</code> or <code>false</code>:</li>
  *   <ul>
@@ -45,11 +45,11 @@ import java.util.regex.Matcher;
  *   </ul>
  * </ul>
  *
- * <h4>2. Re-using cached instances validating against one or more regular expression<h4>
+ * <h4>2. Re-using cached instances validating against one or more regular expression</h4>
  * Construct the validator either for a single regular expression or a set (array) of 
  * regular expressions. By default validation is <i>case sensitive</i> but constructors
  * are provided to allow  <i>case in-sensitive</i> validation. For example to create
- * a validator which does <i><i>case in-sensitive</i> validation for a set of regular
+ * a validator which does <i>case in-sensitive</i> validation for a set of regular
  * expressions:
  * <pre>
  *         String[] regexs = new String[] {...};

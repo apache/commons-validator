@@ -41,6 +41,12 @@
     <li>3.5 <a href="#numeric.currency">Currency Validation</a></li>
     <li>3.6 <a href="#numeric.percent">Percent Validation</a></li>
     </ul></li>
+<li>2. <a href="#other">Other Validators</a>
+    <ul>
+    <li>4.1 <a href="#other.overview">Overview</a></li>
+    <li>4.2 <a href="#other.regex">Regular Expression validation</a></li>
+    <li>4.3 <a href="#other.checkdigit">Check Digit Validation/Calculation</a></li>
+    </ul></li>
 </ul>
 
 <a name="overview"></a>
@@ -399,6 +405,176 @@
    also support percent validation. However, since they don't allow fractions
    they will only work with percentages greater than 100%.
 </p>
+
+<a name="other"></a>
+<h1>4. Other Validators</h1>
+
+<a name="other.overview"></a>
+<h3>4.1 Overview</h3>
+<p>
+   This section lists other available validators.
+</p>
+<ul>
+   <li><a href="#other.regex">Regular Expressions</a> - validates
+       using Java 1.4+ regular expression support</li>
+   <li><a href="#other.checkdigit">Check Digit</a> - validates/calculates
+       check digits (i.e. EAN/UPC, credit card, ISBN).</li>
+</ul>
+
+<a name="other.regex"></a>
+<h3>4.2 Regular Expression Validation</h3>
+<p>
+   Regular expression validation can be done either by using the <i>static</i>
+   methods provied by <a href="RegexValidator.html">RegexValidator</a> or
+   by creating a new instance, which caches and re-uses compiled Patterns.
+</p>
+<ul>
+   <li><b>Method Flavours</b> - three <i>flavours</i> of validation metods are provided:</li>
+    <ul>
+        <li><code>isValid()</code> methods return true/false to indicate
+            whether validation was successful.</li>
+        <li><code>validate()</code> methods return a <code>String</code>
+            value of the matched <i>groups</i> aggregated together or
+            <code>null</code> if invalid.</li>
+        <li><code>match()</code> methods return a <code>String</code> array
+            of the matched <i>groups</i> or <code>null</code> if invalid.</li>
+    </ul>
+   <li><b>Case Sensitivity</b> - matching can be done in either a <i>case
+       sensitive</i> or <i>case in-sensitive</i> way.</li>
+   <li><b>Multiple Expressions</b> - instances of the
+       <a href="RegexValidator.html">RegexValidator</a>
+       can be created to either match against a single regular expression
+       or set (String array) of regular expressions.</li>
+</ul>
+<p>
+   Below is an example of using one of the static methods to validate,
+   matching in a <i>case insensitive</i> manner and returning a String
+   of the matched groups (which doesn't include the hyphen).
+</p>
+<pre>
+      // set up the parameters
+      boolean caseSensitive   = false;
+      String regex            = "^([A-Z]*)(?:\\-)([A-Z]*)$";
+
+      // validate - result should be a String of value "abcdef"
+      String result = RegexValidator.validate("abc-def", regex, caseSensitive);
+
+</pre>
+
+<p>The following static methods are provided for regular expression validation:
+</p>
+<ul>
+    <li><code>isValid(<i>value</i>, <i>regex</i>)</code></li>
+    <li><code>isValid(<i>value</i>, <i>regex</i>, <i>caseSensitive</i>)</code></li>
+    <li><code>validate(<i>value</i>, <i>regex</i>)</code></li>
+    <li><code>validate(<i>value</i>, <i>regex</i>, <i>caseSensitive</i>)</code></li>
+    <li><code>match(<i>value</i>, <i>regex</i>)</code></li>
+    <li><code>match(<i>value</i>, <i>regex</i>, <i>caseSensitive</i>)</code></li>
+</ul>
+<p>
+   Below is an example of creating an instance of
+   <a href="RegexValidator.html">RegexValidator</a> matching in a <i>case insensitive</i>
+   manner against a set of regular expressions:
+</p>
+<pre>
+      // set up the parameters
+      boolean caseSensitive = false;
+      String regex1   = "^([A-Z]*)(?:\\-)([A-Z]*)*$"
+      String regex2   = "^([A-Z]*)$";
+      String[] regexs = new String[] {regex1, regex1};
+
+      // Create the validator
+      RegexValidator validator = new RegexValidator(regexs, caseSensitive);
+
+      // Validate true/false
+      boolean valid = validator.isValid("abc-def");
+
+      // Validate and return a String
+      String result = validator.validate("abc-def");
+
+      // Validate and return a String[]
+      String[] groups = validator.match("abc-def");
+
+</pre>
+<p>See the
+   <a href="RegexValidator.html">RegexValidator</a> javadoc for a full list
+   of the available constructors.
+</p>
+
+<a name="other.checkdigit"></a>
+<h3>4.3 Check Digit validation/calculation</h3>
+<p>
+   <a href="checkdigit/CheckDigit.html">CheckDigit</a> defines a new
+   type for the calculation and validation of check digits with the 
+   following methods:
+</p>
+<ul>
+    <li><code>isValid(<i>code</i>)</code> - validates the check digit of a code,
+        returning <code>true</code> or <code>false</code>.</li>
+    <li><code>calculate(<i>code</i>)</code> - calulates the check digit for a code
+        returning the check digit character.</li>
+</ul>
+<p>
+   The following implementations are provided:
+</p>
+<ul>
+    <li><a href="checkdigit/ModulusCheckDigit.html">ModulusCheckDigit</a>
+        - <b>abstract</b> class for custom <b>modulus</b> check digit
+        implementations.</li>
+    <li><a href="checkdigit/LuhnCheckDigit.html">LuhnCheckDigit</a>
+        for <b>Luhn</b> check digit calculation - used by <b>credit cards</b>.</li>
+    <li><a href="checkdigit/EAN13CheckDigit.html">EAN13CheckDigit</a>
+        for <b>EAN-13</b>, <b>UPC</b>, <b>ISBN-13</b> check digit calculation.</li>
+    <li><a href="checkdigit/ISBNCheckDigit.html">ISBNCheckDigit</a>
+        for <b>ISBN-10</b> and <b>ISBN-13</b> check digit calculation.</li>
+    <li><a href="checkdigit/ISBN10CheckDigit.html">ISBN10CheckDigit</a>
+        for <b>ISBN-10</b> check digit calculation.</li>
+</ul>
+<p>
+   The following examples show validating the check digit of a code:
+</p>
+<pre>
+
+      // Luhn check digit validation
+      boolean valid = LuhnCheckDigit.INSTANCE.isValid(code);
+
+      // EAN / UPC / ISBN-13 check digit validation
+      boolean valid = EAN13CheckDigit.INSTANCE.isValid(code);
+
+      // ISBN-10 check digit validation
+      boolean valid = ISBNCheckDigit.ISBN10.isValid(code);
+      boolean valid = ISBN10CheckDigit.INSTANCE.isValid(code);
+
+      // ISBN-13 check digit validation
+      boolean valid = ISBNCheckDigit.ISBN13.isValid(code);
+
+      // ISBN-10 or ISBN-13 check digit validation
+      boolean valid = ISBNCheckDigit.ISBN.isValid(code);
+
+</pre>
+<p>
+   The following examples show calulating the check digit of a code:
+</p>
+<pre>
+
+      // Luhn check digit validation
+      char checkdigit = LuhnCheckDigit.INSTANCE.calculate(code);
+
+      // EAN / UPC / ISBN-13 check digit validation
+      char checkdigit = EAN13CheckDigit.INSTANCE.calculate(code);
+
+      // ISBN-10 check digit validation
+      char checkdigit = ISBNCheckDigit.ISBN10.isValid(code);
+      char checkdigit = ISBN10CheckDigit.INSTANCE.calculate(code);
+
+      // ISBN-13 check digit validation
+      char checkdigit = ISBNCheckDigit.ISBN13.calculate(code);
+
+      // ISBN-10 or ISBN-13 check digit validation
+      char checkdigit = ISBNCheckDigit.ISBN.calculate(code);
+
+</pre>
+
 
 </body>
 </html>

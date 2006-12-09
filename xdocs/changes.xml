@@ -40,6 +40,15 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
     <release version="1.4-SNAPSHOT" date="in SVN" description="In progress">
+      <action dev="niallp" type="add" issue="VALIDATOR-214">
+          New Regular Expression validator using JDK 1.4's Regex - see
+          <a href="apidocs/org/apache/commons/validator/routines/RegexValidator.html">RegexValidator</a>.
+      </action>
+      <action dev="niallp" type="add" issue="VALIDATOR-213">
+          Factor out Check Digit logic into separate implementations. A
+          new <a href="apidocs/org/apache/commons/validator/routines/checkdigit/CheckDigit.html">CheckDigit</a> type has been added with a number
+          of <a href="apidocs/org/apache/commons/validator/routines/checkdigit/package-summary.html">implementations</a>.
+      </action>
       <action dev="niallp" type="update" issue="VALIDATOR-211">
           Upgrade to Digester 1.8
       </action>
