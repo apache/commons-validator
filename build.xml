@@ -422,7 +422,7 @@
   </target>
 
 
-  <target name="test"  depends="compile.tests,test.main,test.routines"
+  <target name="test"  depends="compile.tests,test.main,test.checkdigit,test.routines"
    description="Run all unit test cases">
   </target>
 
@@ -432,6 +432,16 @@
     <java classname="${test.runner}" fork="yes"
         failonerror="${test.failonerror}">
       <arg value="org.apache.commons.validator.ValidatorTestSuite"/>
+      <classpath refid="test.classpath"/>
+    </java>
+  </target>
+
+  <target name="test.checkdigit"  depends="compile.tests"
+   description="Run checkdigit unit test cases">
+    <echo message="Running checkdigit tests ..."/>
+    <java classname="${test.runner}" fork="yes"
+        failonerror="${test.failonerror}">
+      <arg value="org.apache.commons.validator.routines.checkdigit.CheckDigitTestSuite"/>
       <classpath refid="test.classpath"/>
     </java>
   </target>
@@ -558,7 +568,7 @@
         <mkdir dir="${download.lib.dir}" />
         <get dest="${download.lib.dir}/commons-digester.jar"
             usetimestamp="true" ignoreerrors="true"
-            src="http://www.ibiblio.org/maven/commons-digester/jars/commons-digester-1.6.jar"/>
+            src="http://www.ibiblio.org/maven/commons-digester/jars/commons-digester-1.8.jar"/>
     </target>
 
     <target name="download-logging" unless="logging.found">
@@ -566,7 +576,7 @@
         <mkdir dir="${download.lib.dir}" />
         <get dest="${download.lib.dir}/commons-logging.jar"
             usetimestamp="true" ignoreerrors="true"
-            src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.3.jar"/>
+            src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.4.jar"/>
     </target>
 
     <target name="download-oro" unless="oro.found">
