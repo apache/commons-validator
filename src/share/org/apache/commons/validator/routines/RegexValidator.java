@@ -432,7 +432,10 @@ public final class RegexValidator implements Serializable {
             } else {
                 StringBuffer buffer = new StringBuffer();
                 for (int i = 0; i < count; i++) {
-                    buffer.append(matcher.group(i+1));
+                    String component = matcher.group(i+1);
+                    if (component != null) {
+                        buffer.append(component);
+                    }
                 }
                 return buffer.toString();
             }
@@ -447,7 +450,7 @@ public final class RegexValidator implements Serializable {
      */
     public String toString() {
         if (pattern != null) {
-            return "RegexValidator{" + pattern.toString() + "}";
+            return "RegexValidator{" + pattern.pattern() + "}";
         } else {
             return "RegexValidator[" + patterns.length + "]";
         }
