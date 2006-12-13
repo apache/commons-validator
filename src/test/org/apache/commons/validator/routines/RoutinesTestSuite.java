@@ -49,6 +49,7 @@ public class RoutinesTestSuite extends TestCase {
        suite.addTestSuite(DateValidatorTest.class);
        suite.addTestSuite(DoubleValidatorTest.class);
        suite.addTestSuite(FloatValidatorTest.class);
+       suite.addTestSuite(ISBNValidatorTest.class);
        suite.addTestSuite(IntegerValidatorTest.class);
        suite.addTestSuite(LongValidatorTest.class);
        suite.addTestSuite(PercentValidatorTest.class);

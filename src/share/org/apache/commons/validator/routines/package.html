@@ -47,6 +47,7 @@
     <li>4.2 <a href="#other.regex">Regular Expression validation</a></li>
     <li>4.3 <a href="#other.checkdigit">Check Digit Validation/Calculation</a></li>
     <li>4.4 <a href="#other.code">General Code Validation</a></li>
+    <li>4.5 <a href="#other.isbn">ISBN Validation</a></li>
     </ul></li>
 </ul>
 
@@ -422,6 +423,8 @@
        check digits (i.e. EAN/UPC, credit card, ISBN).</li>
    <li><a href="#other.code">Code Validation</a> - provides generic
      code validation - format, minimum/maximum length and check digit.</li>
+   <li><a href="#other.isbn">ISBN Validation</a> - provides ISBN-10
+       and ISBN-13 validation.</li>
 </ul>
 
 <a name="other.regex"></a>
@@ -609,6 +612,56 @@
       if (!validator.isValid(code)) {
           ... // invalid
       }
+
+</pre>
+
+<a name="other.isbn"></a>
+<h3>4.5 ISBN validation</h3>
+<p>
+   <a href="ISBNValidator.html">ISBNValidator</a> provides ISBN-10
+   and ISBN-13 validation and can <i>optionally</i> convert
+   ISBN-10 codes to ISBN-13.
+</p>
+<ul>
+    <li><b>ISBN-10</b> - validates using a
+        <a href="CodeValidator.html">CodeValidator</a> with the
+        <a href="checkdigit/ISBN10CheckDigit.html">ISBN10CheckDigit</a>
+        routine.</li>
+        <ul>
+            <li><code>isValidISBN10(<i>value</i>)</code> - returns a boolean</li>
+            <li><code>validateISBN10(<i>value</i>)</code> - returns a reformatted ISBN-10 code</li>
+        </ul>
+    <li><b>ISBN-13</b> - validates using a
+        <a href="CodeValidator.html">CodeValidator</a> with the
+        <a href="checkdigit/EAN13CheckDigit.html">EAN13CheckDigit</a>
+        routine.</li>
+        <ul>
+            <li><code>isValidISBN13(<i>value</i>)</code> - returns a boolean</li>
+            <li><code>validateISBN13(<i>value</i>)</code> - returns a reformatted ISBN-13 code</li>
+        </ul>
+    <li><b>ISBN-10</b> and <b>ISBN-13</b> - validates codes are either
+        valid ISBN-10 or valid ISBN-13 - optionally can convert ISBN-10 codes to ISBN-13.</li>
+        <ul>
+            <li><code>isValid(<i>value</i>)</code> - returns a boolean</li>
+            <li><code>validate(<i>value</i>)</code> - returns a reformatted ISBN code
+                (converts ISBN-10 to ISBN-13 if the <i>convert</i> option is <code>true</code>).</li>
+        </ul>
+</ul>
+<p>
+   For example to validate
+</p>
+<pre>
+
+      // Validate an ISBN-10 or ISBN-13 code
+      if (!ISBNValidator.getInstance().isValid(code)) {
+          ... // invalid
+      }
+
+      // Validate an ISBN-10 or ISBN-13 code (converting to ISBN-13)
+      String code = ISBNValidator.getInstance().validate(code);
+
+      // Validate an ISBN-10 or ISBN-13 code (not converting)
+      String code = ISBNValidator.getInstance(false).validate(code);
 
 </pre>
 
