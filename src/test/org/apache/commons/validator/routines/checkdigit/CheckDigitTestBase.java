@@ -71,11 +71,11 @@ public class CheckDigitTestBase extends TestCase {
     }
 
     /**
-     * Test method for {@link CheckDigit#isValid(java.lang.String)}.
+     * Test isValid() for valid values.
      */
-    public void testIsValid() {
+    public void testIsValidTrue() {
         if (log.isDebugEnabled()) {
-            log.debug("testIsValid() for " + routine.getClass().getName());
+            log.debug("testIsValidTrue() for " + routine.getClass().getName());
         }
 
         // test valid values
@@ -84,6 +84,15 @@ public class CheckDigitTestBase extends TestCase {
                 log.debug("   " + i + " Testing Valid Code=[" + valid[i] + "]");
             }
             assertTrue("valid[" + i +"]: " + valid[i], routine.isValid(valid[i]));
+        }
+    }
+
+    /**
+     * Test isValid() for invalid values.
+     */
+    public void testIsValidFalse() {
+        if (log.isDebugEnabled()) {
+            log.debug("testIsValidFalse() for " + routine.getClass().getName());
         }
 
         // test invalid code values
@@ -110,16 +119,18 @@ public class CheckDigitTestBase extends TestCase {
         assertFalse("Test Zero Length", routine.isValid(""));
         
         // test zero sum
-        assertFalse("Test Zero Sum", routine.isValid(zeroSum));
+        if (zeroSum != null) {
+            assertFalse("Test Zero Sum", routine.isValid(zeroSum));
+        }
 
     }
 
     /**
-     * Test method for {@link CheckDigit#calculate(java.lang.String)}.
+     * Test calculate() for valid values.
      */
-    public void testCalculate() {
+    public void testCalculateValid() {
         if (log.isDebugEnabled()) {
-            log.debug("testCalculate() for " + routine.getClass().getName());
+            log.debug("testCalculateValid() for " + routine.getClass().getName());
         }
 
         // test valid values
@@ -134,6 +145,17 @@ public class CheckDigitTestBase extends TestCase {
             } catch (Exception e) {
                 fail("valid[" + i +"] threw " + e);
             }
+        }
+
+    }
+
+    /**
+     * Test calculate() for invalid values.
+     */
+    public void testCalculateInvalid() {
+
+        if (log.isDebugEnabled()) {
+            log.debug("testCalculateInvalid() for " + routine.getClass().getName());
         }
 
         // test null
@@ -159,19 +181,22 @@ public class CheckDigitTestBase extends TestCase {
                     log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + invalid[i] + "]");
                 }
                 routine.calculate(invalid[i]);
-                fail("Invalid Characters[" + i + "] - expected exception");
+                fail("Invalid Characters[" + i + "]=" +  invalid[i] + " - expected exception");
             } catch (Exception e) {
                 assertTrue("Invalid Character[" +i +"]", e.getMessage().startsWith("Invalid Character["));
             }
         }
 
         // test zero sum
-        try {
-            routine.calculate(zeroSum);
-            fail("Zero Sum - expected exception");
-        } catch (Exception e) {
-            assertEquals("Zero Length",  "Invalid code, sum is zero", e.getMessage());
+        if (zeroSum != null) {
+            try {
+                routine.calculate(zeroSum);
+                fail("Zero Sum - expected exception");
+            } catch (Exception e) {
+                assertEquals("Zero Length",  "Invalid code, sum is zero", e.getMessage());
+            }
         }
+
     }
 
     /**
