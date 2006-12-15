@@ -55,7 +55,7 @@ public abstract class ModulusCheckDigit implements CheckDigit {
     }
 
     /**
-     * Validate a modulus check digit for the code.
+     * Validate a modulus check digit for a code.
      *
      * @param code The code to validate
      * @return <code>true</code> if the check digit is valid, otherwise
@@ -159,7 +159,7 @@ public abstract class ModulusCheckDigit implements CheckDigit {
     }
 
     /**
-     * Convert an integer value to a character at a specified position.
+     * Convert an integer value to a check digit.
      * <p>
      * <b>Note:</b> this implementation only handles numeric values
      * For non-numeric characters, override this method to provide
@@ -173,7 +173,7 @@ public abstract class ModulusCheckDigit implements CheckDigit {
     protected String toCheckDigit(int charValue)
             throws CheckDigitException {
         if (charValue >= 0 && charValue <= 9) {
-            return "" + Character.forDigit(charValue, 10);
+            return Integer.toString(charValue);
         } else {
             throw new CheckDigitException("Invalid Check Digit Value =" + 
                     + charValue);
