@@ -19,6 +19,8 @@ package org.apache.commons.validator.routines.checkdigit;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import junit.framework.TestCase;
 
@@ -29,6 +31,9 @@ import junit.framework.TestCase;
  * @since Validator 1.4
  */
 public class CheckDigitTestBase extends TestCase {
+
+    /** logging instance */
+    protected Log log = LogFactory.getLog(getClass());
 
     /** Check digit routine being tested */
     protected int checkDigitLth = 1;
@@ -69,20 +74,32 @@ public class CheckDigitTestBase extends TestCase {
      * Test method for {@link CheckDigit#isValid(java.lang.String)}.
      */
     public void testIsValid() {
+        if (log.isDebugEnabled()) {
+            log.debug("testIsValid() for " + routine.getClass().getName());
+        }
 
         // test valid values
         for (int i = 0; i < valid.length; i++) {
+            if (log.isDebugEnabled()) {
+                log.debug("   " + i + " Testing Valid Code=[" + valid[i] + "]");
+            }
             assertTrue("valid[" + i +"]: " + valid[i], routine.isValid(valid[i]));
         }
 
         // test invalid code values
         for (int i = 0; i < invalid.length; i++) {
+            if (log.isDebugEnabled()) {
+                log.debug("   " + i + " Testing Invalid Code=[" + invalid[i] + "]");
+            }
             assertFalse("invalid[" + i +"]: " + invalid[i], routine.isValid(invalid[i]));
         }
 
         // test invalid check digit values
         String[] invalidCheckDigits = createInvalidCodes(valid);
         for (int i = 0; i < invalidCheckDigits.length; i++) {
+            if (log.isDebugEnabled()) {
+                log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "]");
+            }
             assertFalse("invalid check digit[" + i +"]: " + invalidCheckDigits[i], routine.isValid(invalidCheckDigits[i]));
         }
 
@@ -101,12 +118,18 @@ public class CheckDigitTestBase extends TestCase {
      * Test method for {@link CheckDigit#calculate(java.lang.String)}.
      */
     public void testCalculate() {
+        if (log.isDebugEnabled()) {
+            log.debug("testCalculate() for " + routine.getClass().getName());
+        }
 
         // test valid values
         for (int i = 0; i < valid.length; i++) {
             String code = removeCheckDigit(valid[i]);
             String expected = checkDigit(valid[i]);
             try {
+                if (log.isDebugEnabled()) {
+                    log.debug("   " + i + " Testing Valid Check Digit, Code=[" + code + "] expected=[" + expected + "]");
+                }
                 assertEquals("valid[" + i +"]: " + valid[i], expected, routine.calculate(code));
             } catch (Exception e) {
                 fail("valid[" + i +"] threw " + e);
@@ -132,6 +155,9 @@ public class CheckDigitTestBase extends TestCase {
         // test invalid code values
         for (int i = 0; i < invalid.length; i++) {
             try {
+                if (log.isDebugEnabled()) {
+                    log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + invalid[i] + "]");
+                }
                 routine.calculate(invalid[i]);
                 fail("Invalid Characters[" + i + "] - expected exception");
             } catch (Exception e) {
