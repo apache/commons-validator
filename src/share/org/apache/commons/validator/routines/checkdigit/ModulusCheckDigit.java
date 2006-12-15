@@ -45,6 +45,16 @@ public abstract class ModulusCheckDigit implements CheckDigit {
     }
 
     /**
+     * Return the modulus value this check digit routine is based on.
+     *
+     * @param code The code to validate
+     * @return The modulus value this check digit routine is based on
+     */
+    public int getModulus() {
+        return modulus;
+    }
+
+    /**
      * Validate a modulus check digit for the code.
      *
      * @param code The code to validate
@@ -71,13 +81,13 @@ public abstract class ModulusCheckDigit implements CheckDigit {
      * @throws CheckDigitException if an error occurs calculating
      * the check digit for the specified code
      */
-    public char calculate(String code) throws CheckDigitException {
+    public String calculate(String code) throws CheckDigitException {
         if (code == null || code.length() == 0) {
             throw new CheckDigitException("Code is missing");
         }
         int remainder = mod(code, false);
         int charValue = (remainder == 0) ? 0 : (modulus - remainder);
-        return toChar(charValue, 1);
+        return toCheckDigit(charValue);
     }
 
     /**
@@ -89,13 +99,14 @@ public abstract class ModulusCheckDigit implements CheckDigit {
      * @throws CheckDigitException if an error occurs calculating the modulus
      * for the specified code
      */
-    private int mod(String code, boolean includesCheckDigit) throws CheckDigitException {
+    protected int mod(String code, boolean includesCheckDigit) throws CheckDigitException {
         int total = 0;
         for (int i = 0; i < code.length(); i++) {
-            int position  = i + (includesCheckDigit ? 1 : 2);
-            int idx = code.length() - (i + 1);
-            int charValue = toInt(code.charAt(idx), position);
-            total += weightedValue(charValue, position);
+            int lth = code.length() + (includesCheckDigit ? 0 : 1);
+            int leftPos  = i + 1;
+            int rightPos = lth - i;
+            int charValue = toInt(code.charAt(i), leftPos, rightPos);
+            total += weightedValue(charValue, leftPos, rightPos);
         }
         if (total == 0) {
             throw new CheckDigitException("Invalid code, sum is zero");
@@ -114,12 +125,13 @@ public abstract class ModulusCheckDigit implements CheckDigit {
      * required by overriding this method.
      *
      * @param charValue The numeric value of the character
-     * @param position The position of a character in the code
+     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character
      * @throws CheckDigitException if an error occurs calculating
      * the weighted value
      */
-    protected abstract int weightedValue(int charValue, int position)
+    protected abstract int weightedValue(int charValue, int leftPos, int rightPos)
             throws CheckDigitException;
 
 
@@ -131,17 +143,18 @@ public abstract class ModulusCheckDigit implements CheckDigit {
      * character-->integer conversion.
      *
      * @param character The character to convert
-     * @param position The position of a character in the code
+     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param rightPos The positionof the character in the code, counting from right to left
      * @return The integer value of the character
      * @throws CheckDigitException if character is non-numeric
      */
-    protected int toInt(char character, int position)
+    protected int toInt(char character, int leftPos, int rightPos)
             throws CheckDigitException {
         if (Character.isDigit(character)) {
             return Character.getNumericValue(character);
         } else {
             throw new CheckDigitException("Invalid Character[" + 
-                    position + "] = '" + character + "'");
+                    leftPos + "] = '" + character + "'");
         }
     }
 
@@ -153,18 +166,17 @@ public abstract class ModulusCheckDigit implements CheckDigit {
      * integer-->character conversion.
      *
      * @param charValue The integer value of the character
-     * @param position The position of a character in the code
      * @return The converted character
      * @throws CheckDigitException if integer character value
      * doesn't represent a numeric character
      */
-    protected char toChar(int charValue, int position)
+    protected String toCheckDigit(int charValue)
             throws CheckDigitException {
         if (charValue >= 0 && charValue <= 9) {
-            return Character.forDigit(charValue, 10);
+            return "" + Character.forDigit(charValue, 10);
         } else {
-            throw new CheckDigitException("Invalid Value[" + 
-                    position + "] = " + charValue);
+            throw new CheckDigitException("Invalid Check Digit Value =" + 
+                    + charValue);
         }
     }
 

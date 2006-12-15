@@ -73,11 +73,12 @@ public final class EAN13CheckDigit extends ModulusCheckDigit implements Serializ
      * of <b>three</b>.</p>
      *
      * @param charValue The numeric value of the character.
-     * @param position The position of a character in the code.
+     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character.
      */
-    protected int weightedValue(int charValue, int position) {
-        boolean oddPosition = (position % 2 == 1);
+    protected int weightedValue(int charValue, int leftPos, int rightPos) {
+        boolean oddPosition = (rightPos % 2 == 1);
         int weight = (oddPosition  ? ODD_WEIGHT : EVEN_WEIGHT);
         return (charValue * weight);
     }

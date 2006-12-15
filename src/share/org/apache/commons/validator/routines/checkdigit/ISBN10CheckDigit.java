@@ -66,11 +66,12 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit implements Seriali
      * by their position.</p>
      *
      * @param charValue The numeric value of the character.
-     * @param position The position of a character in the code.
+     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character.
      */
-    protected int weightedValue(int charValue, int position) {
-        return (charValue * position);
+    protected int weightedValue(int charValue, int leftPos, int rightPos) {
+        return (charValue * rightPos);
     }
 
     /**
@@ -80,16 +81,17 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit implements Seriali
      * <p>Character 'X' check digit converted to 10.</p>
      *
      * @param character The character to convert.
-     * @param position The position of a character in the code.
+     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param rightPos The positionof the character in the code, counting from right to left
      * @return The integer value of the character.
      * @throws CheckDigitException if an error occurs.
      */
-    protected int toInt(char character, int position)
+    protected int toInt(char character, int leftPos, int rightPos)
             throws CheckDigitException {
-        if (position == 1 && character == 'X') {
+        if (rightPos == 1 && character == 'X') {
             return 10;
         } else {
-            return super.toInt(character, position);
+            return super.toInt(character, leftPos, rightPos);
         }
     }
 
@@ -99,16 +101,15 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit implements Seriali
      * <p>Value '10' for position 1 (check digit) converted to 'X'.</p>
      *
      * @param charValue The integer value of the character.
-     * @param position The position of a character in the code.
      * @return The converted character.
      * @throws CheckDigitException if an error occurs.
      */
-    protected char toChar(int charValue, int position)
+    protected String toCheckDigit(int charValue)
             throws CheckDigitException {
-        if (position == 1 && charValue == 10) {
-            return 'X';
+        if (charValue == 10) {
+            return "X";
         } else {
-            return super.toChar(charValue, position);
+            return super.toCheckDigit(charValue);
         }
     }
 

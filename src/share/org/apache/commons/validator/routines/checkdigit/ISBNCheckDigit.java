@@ -57,7 +57,7 @@ public final class ISBNCheckDigit implements CheckDigit, Serializable {
      * length (i.e. not 9 or 12) or if there is an error calculating the
      * check digit.
      */
-    public char calculate(String code) throws CheckDigitException {
+    public String calculate(String code) throws CheckDigitException {
         if (code == null || code.length() == 0) {
             throw new CheckDigitException("ISBN Code is missing");
         } else if (code.length() == 9) {

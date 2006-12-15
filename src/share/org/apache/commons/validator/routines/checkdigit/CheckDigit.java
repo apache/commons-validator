@@ -63,7 +63,7 @@ public interface CheckDigit {
      * @return The calculated Check Digit
      * @throws CheckDigitException if an error occurs.
      */
-    public char calculate(String code) throws CheckDigitException;
+    public String calculate(String code) throws CheckDigitException;
 
     /**
      * Validate the check digit for the code.

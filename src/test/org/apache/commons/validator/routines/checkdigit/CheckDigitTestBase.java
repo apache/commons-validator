@@ -31,6 +31,9 @@ import junit.framework.TestCase;
 public class CheckDigitTestBase extends TestCase {
 
     /** Check digit routine being tested */
+    protected int checkDigitLth = 1;
+
+    /** Check digit routine being tested */
     protected CheckDigit routine;
 
     /** Array of valid code values */
@@ -102,7 +105,7 @@ public class CheckDigitTestBase extends TestCase {
         // test valid values
         for (int i = 0; i < valid.length; i++) {
             String code = removeCheckDigit(valid[i]);
-            char expected = checkDigit(valid[i]);
+            String expected = checkDigit(valid[i]);
             try {
                 assertEquals("valid[" + i +"]: " + valid[i], expected, routine.calculate(code));
             } catch (Exception e) {
@@ -157,10 +160,10 @@ public class CheckDigitTestBase extends TestCase {
         // create invalid check digit values
         for (int i = 0; i < codes.length; i++) {
             String code = removeCheckDigit(codes[i]);
-            char check  = checkDigit(codes[i]);
+            String check  = checkDigit(codes[i]);
             for (int j = 0; j < 10; j++) {
-                char curr =  Character.forDigit(j, 10);
-                if (curr != check) {
+                String curr =  "" + Character.forDigit(j, 10);
+                if (!curr.equals(check)) {
                     list.add(code + curr);
                 }
             }
@@ -176,10 +179,10 @@ public class CheckDigitTestBase extends TestCase {
      * @return The code without the check digit
      */
     protected String removeCheckDigit(String code) {
-        if (code == null || code.length() <= 1) {
+        if (code == null || code.length() <= checkDigitLth) {
             return null;
         }
-        return code.substring(0, code.length() -1);
+        return code.substring(0, code.length() - checkDigitLth);
     }
 
     /**
@@ -188,11 +191,12 @@ public class CheckDigitTestBase extends TestCase {
      * @param code The code
      * @return The check digit
      */
-    protected char checkDigit(String code) {
-        if (code == null || code.length() <= 1) {
-            return '?';
+    protected String checkDigit(String code) {
+        if (code == null || code.length() <= checkDigitLth) {
+            return "";
         }
-        return code.charAt(code.length() -1);
+        int start = code.length() - checkDigitLth;
+        return code.substring(start);
     }
 
 }

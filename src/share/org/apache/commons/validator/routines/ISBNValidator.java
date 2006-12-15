@@ -244,7 +244,7 @@ public class ISBNValidator implements Serializable {
         // Calculate the new ISBN-13 code
         String isbn13 = "978" + input.substring(0, 9);
         try {
-            char checkDigit = isbn13Validator.getCheckDigit().calculate(isbn13);
+            String checkDigit = isbn13Validator.getCheckDigit().calculate(isbn13);
             isbn13 += checkDigit;
             return isbn13;
         } catch (CheckDigitException e) {
