@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import org.apache.commons.validator.ISBNValidator;
-
 /**
  * <b>Check Digit</b> calculation and validation.
  * <p>
