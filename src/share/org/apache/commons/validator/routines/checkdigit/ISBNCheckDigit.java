@@ -19,14 +19,18 @@ package org.apache.commons.validator.routines.checkdigit;
 import java.io.Serializable;
 
 /**
- * Combined <b>ISBN-10</b>/<b>ISBN-13</b> Check Digit calculation/validation.
+ * Combined <b>ISBN-10</b> / <b>ISBN-13</b> Check Digit calculation/validation.
  * <p>
  * This implementation validates/calculates ISBN check digits
  * based on the length of the code passed to it - delegating
  * either to the {@link ISBNCheckDigit#ISBN10} or the
  * {@link ISBNCheckDigit#ISBN13} routines to perform the actual
  * validation/calculation.
- * 
+ * <p>
+ * <b>N.B.</b> From 1st January 2007 the book industry will start to use a new 13 digit
+ * ISBN number (rather than this 10 digit ISBN number) which uses the EAN-13 / UPC
+ * standard.
+ *
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */

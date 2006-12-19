@@ -22,20 +22,15 @@ import java.io.Serializable;
 /**
  * Modulus 10 <b>Luhn</b> Check Digit calculation/validation.
  * <p>
- * Luhn check digits are used, for example, by credit card numbers. See
- * <a href="http://en.wikipedia.org/wiki/Luhn_algorithm">Wikipedia - Luhn
- * algorithm</a> for details.
- * <p>
- * Calculation based on the following criteria:
- * <p>
- *
+ * Luhn check digits are used, for example, by:
  * <ul>
- *   <li>Modulus 10.</li>
- *   <li>Odd digits weighted by one (right to left)</li>
- *   <li>Even digits weighted by two (right to left)</li>
- *   <li>Weighted values > 9 have 9 subtracted.</li>
+ *    <li><a href="http://en.wikipedia.org/wiki/Credit_card">Credit Card Numbers</a></li>
+ *    <li><a href="http://en.wikipedia.org/wiki/IMEI">IMEI Numbers</a> - International
+ *        Mobile Equipment Identity Numbers</li>
  * </ul>
- *
+ * Check digit calculation is based on <i>modulus 10</i> with digits in
+ * an <i>odd</i> position (from right to left) being weighted 1 and <i>even</i>
+ * position digits being weighted 2 (weighted values greater than 9 have 9 subtracted).
  * <p>
  * See <a href="http://en.wikipedia.org/wiki/Luhn_algorithm">Wikipedia</a>
  * for more details.
@@ -48,8 +43,8 @@ public final class LuhnCheckDigit extends ModulusCheckDigit implements Serializa
     /** Static Luhn Check Digit instance */
     public static final CheckDigit INSTANCE = new LuhnCheckDigit();
 
-    private static final int ODD_WEIGHT  = 1;
-    private static final int EVEN_WEIGHT = 2;
+    /** weighting given to digits depending on their right position */
+    private static final int[] POSITION_WEIGHT = new int[] {2, 1};
 
     /**
      * Construct a modulus 10 Luhn Check Digit routine.
@@ -72,8 +67,7 @@ public final class LuhnCheckDigit extends ModulusCheckDigit implements Serializa
      * @return The weighted value of the character.
      */
     protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        boolean oddPosition = (rightPos % 2 == 1);
-        int weight = (oddPosition  ? ODD_WEIGHT : EVEN_WEIGHT);
+        int weight = POSITION_WEIGHT[rightPos % 2];
         int weightedValue = (charValue * weight);
         return (weightedValue > 9 ? (weightedValue - 9) : weightedValue);
     }

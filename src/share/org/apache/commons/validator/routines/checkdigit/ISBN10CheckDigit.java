@@ -21,19 +21,17 @@ import java.io.Serializable;
 /**
  * Modulus 11 <b>ISBN-10</b> Check Digit calculation/validation.
  * <p>
- * Calculation of the <b>ISBN-10</b> Check Digit is based on the
- * following criteria:
+ * ISBN-10 Numbers are a numeric code except for the last (check) digit
+ * which can have a value of "X".
  * <p>
- * <ul>
- *   <li>Modulus 11.</li>
- *   <li>Digits weight by their position (right to left)</li>
- *   <li>If checkdigit value is 10 --> Character 'X'</li>
- * </ul>
- *
+ * Check digit calculation is based on <i>modulus 11</i> with digits being weighted
+ * based by their position, from right to left  with the first digit being weighted
+ * 1, the second 2 and so on. If the check digit is calculated as "10" it is converted
+ * to "X".
  * <p>
  * <b>N.B.</b> From 1st January 2007 the book industry will start to use a new 13 digit
- * ISBN number (rather than this 10 digit ISBN number) which uses the EAN-13
- * (see {@link EAN13CheckDigit}) standard. For more information see:
+ * ISBN number (rather than this 10 digit ISBN number) which uses the EAN-13 / UPC
+ * (see {@link EAN13CheckDigit}) standard.
  * <p>
  * For further information see:
  * <ul>

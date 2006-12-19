@@ -19,16 +19,12 @@ package org.apache.commons.validator.routines.checkdigit;
 import java.io.Serializable;
 
 /**
- * Modulus 10 <b>EAN-13</b>/<b>UPC</b>/<b>ISBN-13</b> Check Digit
+ * Modulus 10 <b>EAN-13</b> / <b>UPC</b> / <b>ISBN-13</b> Check Digit
  * calculation/validation.
  * <p>
- * The calculation based on the following criteria:
- *
- * <ul>
- *   <li>Modulus 10.</li>
- *   <li>Odd digits weighted by one (right to left)</li>
- *   <li>Even digits weighted by three (right to left)</li>
- * </ul>
+ * Check digit calculation is based on <i>modulus 10</i> with digits in
+ * an <i>odd</i> position (from right to left) being weighted 1 and <i>even</i>
+ * position digits being weighted 3.
  * <p>
  * For further information see:
  * <ul>
@@ -51,11 +47,8 @@ public final class EAN13CheckDigit extends ModulusCheckDigit implements Serializ
     /** Static EAN-13 Check Digit instance */
     public static final CheckDigit INSTANCE = new EAN13CheckDigit();
 
-    /** weighting given to the 'odd' digits in EAN-13 check digit calculation */
-    private static final int ODD_WEIGHT  = 1;
-
-    /** weighting given to the 'even' digits in EAN-13 check digit calculation */
-    private static final int EVEN_WEIGHT = 3;
+    /** weighting given to digits depending on their right position */
+    private static final int[] POSITION_WEIGHT = new int[] {3, 1};
 
     /**
      * Construct a modulus 10 Check Digit routine for EAN/UPC.
@@ -78,8 +71,7 @@ public final class EAN13CheckDigit extends ModulusCheckDigit implements Serializ
      * @return The weighted value of the character.
      */
     protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        boolean oddPosition = (rightPos % 2 == 1);
-        int weight = (oddPosition  ? ODD_WEIGHT : EVEN_WEIGHT);
+        int weight = POSITION_WEIGHT[rightPos % 2];
         return (charValue * weight);
     }
 }

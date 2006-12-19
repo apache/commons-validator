@@ -39,7 +39,11 @@ public class EAN13CheckDigitTest extends CheckDigitTestBase {
     protected void setUp() throws Exception {
         super.setUp();
         routine = EAN13CheckDigit.INSTANCE;
-        valid = new String[] {"9780072129519", "9780764558313"};
+        valid = new String[] {
+                "9780072129519",
+                "9780764558313",
+                "4025515373438",
+                "0095673400332"};
     }
 
 }

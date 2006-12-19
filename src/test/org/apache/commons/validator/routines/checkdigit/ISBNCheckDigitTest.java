@@ -39,8 +39,15 @@ public class ISBNCheckDigitTest extends CheckDigitTestBase {
     protected void setUp() throws Exception {
         super.setUp();
         routine = ISBNCheckDigit.ISBN;
-        valid = new String[] {"9780072129519", "9780764558313", "1930110995", "020163385X"};
-        msgPrefix = "ISBN ";
+        valid = new String[] {
+                "9780072129519",
+                "9780764558313",
+                "1930110995",
+                "020163385X",
+                "1590596277",    // ISBN-10 Ubuntu Book
+                "9781590596272"  // ISBN-13 Ubuntu Book
+                };
+        missingMessage = "ISBN Code is missing";
         zeroSum = "000000000000";
     }
 

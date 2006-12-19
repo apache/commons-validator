@@ -51,7 +51,7 @@ public class CheckDigitTestBase extends TestCase {
     protected String zeroSum = "0000000000";
 
     /** Prefix for error messages */
-    protected String msgPrefix = "";
+    protected String missingMessage = "Code is missing";
 
     /**
      * Constructor
@@ -111,18 +111,6 @@ public class CheckDigitTestBase extends TestCase {
             }
             assertFalse("invalid check digit[" + i +"]: " + invalidCheckDigits[i], routine.isValid(invalidCheckDigits[i]));
         }
-
-        // test null
-        assertFalse("Test Null", routine.isValid(null));
-
-        // test zero length
-        assertFalse("Test Zero Length", routine.isValid(""));
-        
-        // test zero sum
-        if (zeroSum != null) {
-            assertFalse("Test Zero Sum", routine.isValid(zeroSum));
-        }
-
     }
 
     /**
@@ -158,22 +146,6 @@ public class CheckDigitTestBase extends TestCase {
             log.debug("testCalculateInvalid() for " + routine.getClass().getName());
         }
 
-        // test null
-        try {
-            routine.calculate(null);
-            fail("Null - expected exception");
-        } catch (Exception e) {
-            assertEquals("Null Test", msgPrefix +"Code is missing", e.getMessage());
-        }
-
-        // test zero length
-        try {
-            routine.calculate("");
-            fail("Zero Length - expected exception");
-        } catch (Exception e) {
-            assertEquals("Zero Length",  msgPrefix +"Code is missing", e.getMessage());
-        }
-
         // test invalid code values
         for (int i = 0; i < invalid.length; i++) {
             try {
@@ -183,18 +155,51 @@ public class CheckDigitTestBase extends TestCase {
                 routine.calculate(invalid[i]);
                 fail("Invalid Characters[" + i + "]=" +  invalid[i] + " - expected exception");
             } catch (Exception e) {
-                assertTrue("Invalid Character[" +i +"]", e.getMessage().startsWith("Invalid Character["));
+                assertTrue("Invalid Character[" +i +"]=" +  e.getMessage(), e.getMessage().startsWith("Invalid Character["));
             }
         }
+    }
 
-        // test zero sum
-        if (zeroSum != null) {
-            try {
-                routine.calculate(zeroSum);
-                fail("Zero Sum - expected exception");
-            } catch (Exception e) {
-                assertEquals("Zero Length",  "Invalid code, sum is zero", e.getMessage());
-            }
+    /**
+     * Test missing code
+     */
+    public void testMissingCode() {
+
+        // isValid() null
+        assertFalse("isValid() Null", routine.isValid(null));
+
+        // isValid() zero length
+        assertFalse("isValid() Zero Length", routine.isValid(""));
+
+        // calculate() null
+        try {
+            routine.calculate(null);
+            fail("calculate() Null - expected exception");
+        } catch (Exception e) {
+            assertEquals("calculate() Null", missingMessage, e.getMessage());
+        }
+
+        // calculate() zero length
+        try {
+            routine.calculate("");
+            fail("calculate() Zero Length - expected exception");
+        } catch (Exception e) {
+            assertEquals("calculate() Zero Length",  missingMessage, e.getMessage());
+        }
+    }
+
+    /**
+     * Test zero sum
+     */
+    public void testZeroSum() {
+        
+        assertFalse("isValid() Zero Sum", routine.isValid(zeroSum));
+
+        try {
+            routine.calculate(zeroSum);
+            fail("Zero Sum - expected exception");
+        } catch (Exception e) {
+            assertEquals("isValid() Zero Sum",  "Invalid code, sum is zero", e.getMessage());
         }
 
     }

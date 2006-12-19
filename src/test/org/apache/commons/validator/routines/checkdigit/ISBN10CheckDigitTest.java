@@ -39,7 +39,12 @@ public class ISBN10CheckDigitTest extends CheckDigitTestBase {
     protected void setUp() throws Exception {
         super.setUp();
         routine = ISBN10CheckDigit.INSTANCE;
-        valid = new String[] {"1930110995", "020163385X"};
+        valid = new String[] {
+                "1930110995",
+                "020163385X",
+                "1932394354",
+                "1590596277"
+                };
     }
 
 }

@@ -27,7 +27,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * will need to implement/override the <code>toInt()</code> and
  * <code>toChar()</code> methods.
  * <p>
- *    
+ *
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
@@ -47,7 +47,6 @@ public abstract class ModulusCheckDigit implements CheckDigit {
     /**
      * Return the modulus value this check digit routine is based on.
      *
-     * @param code The code to validate
      * @return The modulus value this check digit routine is based on
      */
     public int getModulus() {
@@ -66,7 +65,7 @@ public abstract class ModulusCheckDigit implements CheckDigit {
             return false;
         }
         try {       
-            int remainder = mod(code, true);
+            int remainder = calculateModulus(code, true);
             return (remainder == 0);
         } catch (CheckDigitException  ex) {
             return false;
@@ -85,8 +84,8 @@ public abstract class ModulusCheckDigit implements CheckDigit {
         if (code == null || code.length() == 0) {
             throw new CheckDigitException("Code is missing");
         }
-        int remainder = mod(code, false);
-        int charValue = (remainder == 0) ? 0 : (modulus - remainder);
+        int modulusResult = calculateModulus(code, false);
+        int charValue = (modulus - modulusResult) % modulus;
         return toCheckDigit(charValue);
     }
 
@@ -99,7 +98,7 @@ public abstract class ModulusCheckDigit implements CheckDigit {
      * @throws CheckDigitException if an error occurs calculating the modulus
      * for the specified code
      */
-    protected int mod(String code, boolean includesCheckDigit) throws CheckDigitException {
+    protected int calculateModulus(String code, boolean includesCheckDigit) throws CheckDigitException {
         int total = 0;
         for (int i = 0; i < code.length(); i++) {
             int lth = code.length() + (includesCheckDigit ? 0 : 1);
@@ -178,6 +177,22 @@ public abstract class ModulusCheckDigit implements CheckDigit {
             throw new CheckDigitException("Invalid Check Digit Value =" + 
                     + charValue);
         }
+    }
+
+    /**
+     * Add together the individual digits in a number.
+     *
+     * @param number The number whose digits are to be added
+     * @return The sum of the digits
+     */
+    public static int sumDigits(int number) {
+        int total = 0;
+        int todo = number;
+        while (todo > 0) {
+            total += todo % 10;
+            todo  = todo / 10;
+        }
+        return total;
     }
 
 }
