@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import java.io.Serializable;
+
 /**
  * <b>Verhoeff</b> (Dihedral) Check Digit calculation/validation.
  * <p>
@@ -29,7 +31,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
-public class VerhoeffCheckDigit implements CheckDigit {
+public class VerhoeffCheckDigit implements CheckDigit, Serializable {
 
     /** Static Verhoeff check digit instance */
     public static final CheckDigit INSTANCE = new VerhoeffCheckDigit();
