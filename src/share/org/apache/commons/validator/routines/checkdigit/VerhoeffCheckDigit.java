@@ -31,9 +31,9 @@ import java.io.Serializable;
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
-public class VerhoeffCheckDigit implements CheckDigit, Serializable {
+public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
 
-    /** Static Verhoeff check digit instance */
+    /** Singleton Verhoeff Check Digit instance */
     public static final CheckDigit INSTANCE = new VerhoeffCheckDigit();
 
     /** D - multiplication table */

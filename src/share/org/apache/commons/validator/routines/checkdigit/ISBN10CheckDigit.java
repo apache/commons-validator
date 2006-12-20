@@ -46,7 +46,7 @@ import java.io.Serializable;
  */
 public final class ISBN10CheckDigit extends ModulusCheckDigit implements Serializable {
 
-    /** Static ISBN-10 check digit instance */
+    /** Singleton ISBN-10 Check Digit instance */
     public static final CheckDigit INSTANCE = new ISBN10CheckDigit();
 
     /**

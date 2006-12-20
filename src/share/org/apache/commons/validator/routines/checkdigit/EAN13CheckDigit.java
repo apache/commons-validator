@@ -44,7 +44,7 @@ import java.io.Serializable;
  */
 public final class EAN13CheckDigit extends ModulusCheckDigit implements Serializable {
 
-    /** Static EAN-13 Check Digit instance */
+    /** Singleton EAN-13 Check Digit instance */
     public static final CheckDigit INSTANCE = new EAN13CheckDigit();
 
     /** weighting given to digits depending on their right position */

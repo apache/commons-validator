@@ -36,13 +36,13 @@ import java.io.Serializable;
  */
 public final class ISBNCheckDigit implements CheckDigit, Serializable {
 
-    /** Static ISBN-10 check digit instance */
+    /** Singleton ISBN-10 Check Digit instance */
     public static final CheckDigit ISBN10 = ISBN10CheckDigit.INSTANCE;
 
-    /** Static ISBN-13 Check Digit instance */
+    /** Singleton ISBN-13 Check Digit instance */
     public static final CheckDigit ISBN13 = EAN13CheckDigit.INSTANCE;
 
-    /** Combined static ISBN-10/ISBN-13 check digit instance */
+    /** Singleton combined ISBN-10 / ISBN-13 Check Digit instance */
     public static final CheckDigit ISBN   = new ISBNCheckDigit();
 
     /**

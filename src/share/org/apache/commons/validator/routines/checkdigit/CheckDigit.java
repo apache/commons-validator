@@ -33,22 +33,15 @@ package org.apache.commons.validator.routines.checkdigit;
  * of this feature by providing the facility to validate ISBN-10 codes
  * and then convert them to the new ISBN-13 standard.
  * <p>
+ * {@link CheckDigit} is used by the new generic
+ * <a href="..\CodeValidator.html">CodeValidator</a> implementation.
+ * <p>
  * <h3>Implementations</h3>
- * The following check digit implementations are provided as standard:
- * <ul>
- *   <li>{@link ModulusCheckDigit} - an abstract class which provides the logic
- *       for <i>modulus</i> check digit calculation/validation.</li>
- *   <li>{@link EAN13CheckDigit} - check digit calculation/validation for
- *       numeric EAN codes (based on the standard EAN-13).</li>
- *   <li>{@link ISBN10CheckDigit} - check digit calculation/validation for
- *       numeric ISBN-10 codes (the new ISBN-13 code is actually an EAN-13
- *       code and uses the same check digit calculation).</li>
- *   <li>{@link ISBNCheckDigit} - check digit calculation/validation for
- *       both ISBN-10 and ISBN-13 codes.</li>
- *   <li>{@link LuhnCheckDigit} - Luhn check digit calculation/validation
- *       commonly used by credit card numbers.</li>
- * </ul>
+ * See the 
+ * <a href="package-summary.html">Package Summary</a> for a full
+ * list of implementations provided within Commons Validator.
  *
+ * @see org.apache.commons.validator.routines.CodeValidator
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */

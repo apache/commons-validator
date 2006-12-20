@@ -40,7 +40,7 @@ import java.io.Serializable;
  */
 public final class LuhnCheckDigit extends ModulusCheckDigit implements Serializable {
 
-    /** Static Luhn Check Digit instance */
+    /** Singleton Luhn Check Digit instance */
     public static final CheckDigit INSTANCE = new LuhnCheckDigit();
 
     /** weighting given to digits depending on their right position */
