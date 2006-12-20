@@ -65,8 +65,8 @@ public abstract class ModulusCheckDigit implements CheckDigit {
             return false;
         }
         try {       
-            int remainder = calculateModulus(code, true);
-            return (remainder == 0);
+            int modulusResult = calculateModulus(code, true);
+            return (modulusResult == 0);
         } catch (CheckDigitException  ex) {
             return false;
         }
