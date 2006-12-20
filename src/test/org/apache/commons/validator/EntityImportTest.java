@@ -18,8 +18,6 @@ package org.apache.commons.validator;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
-import java.io.IOException;
-import org.xml.sax.SAXException;
 import java.util.Locale;
 import java.net.URL;
 

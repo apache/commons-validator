@@ -17,7 +17,6 @@
 package org.apache.commons.validator;
 
 import java.io.IOException;
-import java.util.Iterator;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
