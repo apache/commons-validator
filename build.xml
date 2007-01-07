@@ -191,7 +191,6 @@
     <filter  token="compilesource"         value="${compile.source}"/>
     <filter  token="compiletarget"         value="${compile.target}"/>
     <available property="jsdoc.found" type="file" file="${jsdoc.home}/jsdoc.pl"/>
-    <available file="${dojo_custom_rhino.jar}" property="dojo.found"/>
   </target>
 
 
@@ -322,13 +321,12 @@
    description="Create binary distribution">
     <mkdir      dir="${dist.home}"/>
 
-    <!-- Create Single file of static JavaScript -->
-    <concat destfile="${dist.home}/commons-${component.name}-${component.version}.js">
-      <fileset dir="${javascript.home}/org/apache/commons/validator/javascript" includes="*.js"/>
-    </concat>
-
-    <!-- Create compressed javascript versions -->
-    <antcall target="compress.javascript"/> 
+    <ant antfile="build-javascript.xml" target="compress">
+        <property name="source.dir" value="${javascript.home}"/>
+        <property name="dist.dir"   value="${dist.home}"/>
+        <property name="build.dir"  value="${build.home}"/>
+        <property name="final.name" value="commons-${component.name}-${component.version}"/>
+    </ant>
 
     <copy      file="LICENSE.txt"
               todir="${dist.home}"/>
@@ -344,64 +342,6 @@
     <jar    jarfile="${dist.home}/commons-${component.name}-${component.version}.jar"
             basedir="${build.home}/classes"
            manifest="${build.home}/conf/MANIFEST.MF"/>
-  </target>
-
-  <target name="compress.javascript" if="dojo_custom_rhino.jar">
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${dist.home}/commons-${component.name}-${component.version}"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateByte"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateCreditCard"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateDate"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateEmail"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateFloat"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateFloatRange"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateInteger"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateIntRange"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateMask"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateMaxLength"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateMinLength"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateRequired"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateShort"/> 
-    </antcall>
-    <antcall target="dojo.compress"> 
-        <param name="jsfilename" value="${build.home}/classes/org/apache/commons/validator/javascript/validateUtilities"/> 
-    </antcall>
-
-  </target>
-
-  <target name="dojo.compress">
-
-    <java jar="${dojo_custom_rhino.jar}" fork="true"
-              output="${jsfilename}-compress.js">
-        <arg value="-c"/> 
-        <arg value="${jsfilename}.js"/> 
-    </java>
   </target>
 
 <!-- ========== Unit Test Targets ========================================= -->
@@ -529,14 +469,13 @@
 <!-- ========== Download Dependencies =========================================== -->
 
     <target name="download-dependencies" 
-           depends="check-availability, check-dojo-lib" unless="skip.download">
+           depends="check-availability" unless="skip.download">
         <echo message="doing download-dependencies..." />
         <antcall target="download-beanutils" />
         <antcall target="download-digester" />
         <antcall target="download-logging" />
         <antcall target="download-oro" />
         <antcall target="download-junit" />
-        <antcall target="download-dojo-compress" />
     </target>
 
     <target name="check-availability">
@@ -546,13 +485,6 @@
         <available file="${commons-logging.jar}"   property="logging.found"/> 
         <available file="${oro.jar}"               property="oro.found"/>
         <available file="${junit.jar}"             property="junit.found"/>
-        <available file="${dojo_custom_rhino.jar}" property="dojo.found"/>
-    </target>
-
-    <target name="check-dojo-lib" unless="dojo.found">
-        <echo message="doing check-dojo-lib..." />
-        <available file="${download.lib.dir}/custom_rhino.jar" property="dojo.found"/>
-        <property name="dojo_custom_rhino.jar" value="${download.lib.dir}/custom_rhino.jar"/>
     </target>
 
     <target name="download-beanutils" unless="beanutils.found">
@@ -593,14 +525,6 @@
         <get dest="${download.lib.dir}/junit.jar"
             usetimestamp="true" ignoreerrors="true"
             src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar"/>
-    </target>
-
-    <target name="download-dojo-compress" unless="dojo.found">
-        <mkdir dir="${download.lib.dir}" />
-        <echo message="Downloading dojo compress...."/>
-        <get dest="${download.lib.dir}/custom_rhino.jar"
-            usetimestamp="true" ignoreerrors="true"
-            src="http://dojotoolkit.org/svn/dojo/trunk/buildscripts/lib/custom_rhino.jar"/>
     </target>
       
 </project>

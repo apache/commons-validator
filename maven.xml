@@ -43,11 +43,10 @@
   </postGoal>
 
   <preGoal name="jar:jar">
-    <!-- Use Dojo/Rhino to create compressed JavaScript files -->
-    <ant:available property="dojoPresent" type="file" file="${dojo_custom_rhino.jar}"/>
-    <j:if test="${dojoPresent}">
-        <attainGoal name="dojo.compress.files"/>
-    </j:if>
+    <ant:ant antfile="build-javascript.xml" target="compress">
+      <property name="build.dir"  value="${maven.build.dir}"/>
+      <property name="final.name" value="${maven.final.name}"/>
+    </ant:ant>
   </preGoal>
 
   <!-- ================================================================== -->
@@ -59,46 +58,10 @@
     <copy todir="${maven.dist.bin.assembly.dir}">
       <fileset file='${basedir}/NOTICE.txt'/>
       <fileset file="${basedir}/RELEASE-NOTES.txt"/>
+      <fileset file='${maven.build.dir}/*.js'/>
     </copy>
 
-    <!-- Create Single file of static JavaScript -->
-    <ant:concat destfile="${maven.dist.bin.assembly.dir}/${maven.final.name}.js">
-      <fileset dir="${basedir}/src/javascript/org/apache/commons/validator/javascript" includes="*.js"/>
-    </ant:concat>
-
-    <!-- Use Dojo/Rhino to create single compressed JavaScript file -->
-    <ant:available property="dojoPresent"  type="file" file="${dojo_custom_rhino.jar}"/>
-    <j:if test="${dojoPresent}">
-        <attainGoal name="dojo.compress.single"/>
-    </j:if>
-
   </postGoal>
-
-  <!-- ================================================================== -->
-  <!-- Uses Dojo/Rhino to created compressed JavaScript files             -->
-  <!-- 1) Download Dojo/Rhino jar from:                                   -->
-  <!--         http://dojotoolkit.org/docs/compressor_system.html         -->
-  <!-- 2) set dojo_custom_rhino.jar in build.properties to jar location   -->
-  <!-- ================================================================== -->
-  <goal name="dojo.compress.single">
-    <ant:java jar="${dojo_custom_rhino.jar}" fork="true"
-              output="${maven.dist.bin.assembly.dir}/${maven.final.name}-compress.js">
-        <ant:arg value="-c"/> 
-        <ant:arg value="${maven.dist.bin.assembly.dir}/${maven.final.name}.js"/> 
-    </ant:java>
-  </goal>
-
-  <goal name="dojo.compress.files">
-    <j:set var="scriptDir" value="${maven.build.dir}/classes/org/apache/commons/validator/javascript" />
-    <util:tokenize var="scriptFiles" delim=",">${validator.script.files}</util:tokenize>
-    <j:forEach items="${scriptFiles}" var="scriptFile">
-        <ant:java jar="${dojo_custom_rhino.jar}" fork="true"
-              output="${scriptDir}/${scriptFile}-compress.js">
-            <ant:arg value="-c"/> 
-            <ant:arg value="${scriptDir}/${scriptFile}.js"/> 
-        </ant:java>
-    </j:forEach> 
-  </goal>
 
   <!-- ================================================================== -->
   <!-- Copy into the source distribution                                  -->
