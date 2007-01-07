@@ -23,12 +23,6 @@
 # -----------------------------------------------------------------------------
 apache.dir=D:/Java/Programs/Apache
 
-# The JAR file containing the Dojo Custom Rhino jar for compressing JavaScript files
-# See Bug 37580 and http://dojotoolkit.org/docs/compressor_system.html
-# 
-# N.B. This jar needs to be downloaded
-dojo_custom_rhino.jar=/dojo-0.1.0/custom_rhino.jar
-
 
 # The JAR file containing version 1.7.0 (or later) of the Beanutils package
 # from the Jakarta Commons project.
