@@ -38,8 +38,8 @@
     </section>
 
     <section name="Releases">
-        <p>See the <a href="downloads.html">Downloads</a> page for current/previous 
-           releases.
+        <p>See the <a href="http://jakarta.apache.org/site/downloads/downloads_commons-validator.cgi">Downloads</a>
+           page for current/previous releases.
            For details of whats new in each version see the <a href="changes-report.html">Release Notes</a>.
            <a href="http://wiki.apache.org/jakarta-commons/ValidatorReleaseNotes">Community Notes</a> on
            release are maintained on the <a href="http://wiki.apache.org/jakarta-commons/">Jakarta Commons Wiki</a>.
