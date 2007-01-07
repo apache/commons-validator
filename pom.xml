@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-parent</artifactId>
+        <version>2-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>commons-validator</groupId>
+    <artifactId>commons-validator</artifactId>
+    <version>1.4-SNAPSHOT</version>
+    <name>Validator</name>
+    <description>
+        Commons Validator provides the building blocks for both client side validation
+        and server side data validation. It may be used standalone or with a framework like
+        Struts.
+    </description>
+    <url>http://jakarta.apache.org/commons/validator/</url>
+    <issueManagement>
+        <system>jira</system>
+        <url>http://issues.apache.org/jira/browse/VALIDATOR</url>
+    </issueManagement>
+    <inceptionYear>2002</inceptionYear>
+
+    <developers>
+        <developer>
+            <name>Don Brown</name>
+            <id>mrdon</id>
+            <email>mrdon@apache.org</email>
+        </developer>
+        <developer>
+            <name>Martin Cooper</name>
+            <id>martinc</id>
+            <email>martinc@apache.org</email>
+        </developer>
+        <developer>
+            <name>David Graham</name>
+            <id>dgraham</id>
+            <email>dgraham@apache.org</email>
+        </developer>
+        <developer>
+            <name>Ted Husted</name>
+            <id>husted</id>
+            <email>husted@apache.org</email>
+        </developer>
+        <developer>
+            <name>Rob Leland</name>
+            <id>rleland</id>
+            <email>rleland at apache.org</email>
+        </developer>
+        <developer>
+            <name>Craig McClanahan</name>
+            <id>craigmcc</id>
+            <email>craigmcc@apache.org</email>
+        </developer>
+        <developer>
+            <name>James Mitchell</name>
+            <id>jmitchell</id>
+            <email>jmitchell NOSPAM apache.org</email>
+            <organization>EdgeTech, Inc</organization>
+        </developer>
+        <developer>
+            <name>Niall Pemberton</name>
+            <id>niallp</id>
+        </developer>
+        <developer>
+            <name>James Turner</name>
+            <id>turner</id>
+            <email>turner@apache.org</email>
+        </developer>
+        <developer>
+            <name>David Winterfeldt</name>
+            <id>dwinterfeldt</id>
+            <email>dwinterfeldt@apache.org</email>
+        </developer>
+        <developer>
+            <name>Henri Yandell</name>
+            <id>bayard</id>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/validator/trunk/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/validator/trunk/</developerConnection>
+        <url>http://svn.apache.org/viewvc/jakarta/commons/proper/validator/trunk/</url>
+    </scm>
+
+    <properties>
+        <maven.compile.source>1.4</maven.compile.source>
+        <maven.compile.target>1.4</maven.compile.target>
+    </properties> 
+
+    <build>
+        <sourceDirectory>src/share</sourceDirectory>
+        <testSourceDirectory>src/test</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>${basedir}</directory>
+                <targetPath>META-INF</targetPath>
+                <includes>
+                    <include>LICENSE.txt</include>
+                    <include>NOTICE.txt</include>
+                </includes>
+            </resource>
+            <resource>
+                <targetPath>org/apache/commons/validator/resources</targetPath>
+                <directory>conf/share</directory>
+                <includes>
+                    <include>**/*.dtd</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/share</directory>
+                <includes>
+                    <include>**/digester-rules.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/javascript</directory>
+                <includes>
+                    <include>**/*.js</include>
+                </includes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/routines/BaseCalendarValidatorTest.java</exclude>
+                        <exclude>**/routines/BaseNumberValidatorTest.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <tasks>
+                                <ant antfile="build-javascript.xml" target="compress">
+                                    <property name="proj"  value="${project.directory}"/>
+                                    <property name="base"  value="${basedir}"/>
+                                    <property name="build.dir"  value="${project.build.directory}"/>
+                                    <property name="output.dir" value="${project.build.outputDirectory}"/>
+                                    <property name="final.name" value="${project.build.finalName}"/>
+                                </ant>
+                           </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/bin.xml</descriptor>
+                        <descriptor>src/main/assembly/src.xml</descriptor>
+                    </descriptors>
+                    <tarLongFileMode>gnu</tarLongFileMode>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>1.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>oro</groupId>
+            <artifactId>oro</artifactId>
+            <version>2.0.8</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <reporting>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+                <configuration>
+                    <xmlPath>${basedir}/xdocs/changes.xml</xmlPath>
+                    <issueLinkTemplate>%URL%/%ISSUE%</issueLinkTemplate>
+                    <resolutionIds>Fixed</resolutionIds>
+                    <statusIds>Resolved,Closed</statusIds>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>changes-report</report>
+                            <report>jira-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>conf/share/ValidatorCheckStyle.xml</configLocation>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <moduleExcludes>
+                        <xdoc>**/navigation.xml</xdoc>
+                    </moduleExcludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <rulesets>
+                        <ruleset>conf/share/ValidatorCheckStyle.xml</ruleset>
+                    </rulesets>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>
