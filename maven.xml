@@ -48,6 +48,12 @@
     </ant:ant>
   </preGoal>
 
+  <preGoal name="site">
+    <copy todir="${maven.build.dir}/docs/images">
+      <fileset dir="${basedir}/src/site/resources/images"/>
+    </copy>
+  </preGoal>
+
   <!-- ================================================================== -->
   <!-- Copy into the binary distribution                                  -->
   <!-- ================================================================== -->
