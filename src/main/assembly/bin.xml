@@ -24,15 +24,9 @@
     <fileSets>
         <fileSet>
             <includes>
-                <include>RELEASE-NOTES.txt</include>
-            </includes>
-        </fileSet>
-        <fileSet>
-            <directory>src/main/resources</directory>
-            <outputDirectory></outputDirectory>
-            <includes>
                 <include>LICENSE.txt</include>
                 <include>NOTICE.txt</include>
+                <include>RELEASE-NOTES.txt</include>
             </includes>
         </fileSet>
         <fileSet>

@@ -315,16 +315,16 @@
         <property name="final.name" value="commons-${component.name}-${component.version}"/>
     </ant>
 
-    <copy      file="${resources.home}/LICENSE.txt"
+    <copy      file="LICENSE.txt"
               todir="${dist.home}"/>
-    <copy      file="${resources.home}/NOTICE.txt"
+    <copy      file="NOTICE.txt"
               todir="${dist.home}"/>
     <copy      file="RELEASE-NOTES.txt"
               todir="${dist.home}"/>
     <mkdir      dir="${build.home}/classes/META-INF"/>
-    <copy      file="${resources.home}/LICENSE.txt"
+    <copy      file="LICENSE.txt"
              tofile="${build.home}/classes/META-INF/LICENSE.txt"/>
-    <copy      file="${resources.home}/NOTICE.txt"
+    <copy      file="NOTICE.txt"
              tofile="${build.home}/classes/META-INF/NOTICE.txt"/>
 
     <manifest file="${build.home}/MANIFEST.MF">

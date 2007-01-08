@@ -24,13 +24,6 @@
     <attainGoal name="html2xdoc"/>
   </preGoal>
 
-  <preGoal name="site">
-    <!-- keep site generation & checkstyle happy -->
-    <copy todir="${basedir}">
-      <fileset file="${basedir}/src/main/resources/LICENSE.txt"/>
-    </copy>
-  </preGoal>
-
   <postGoal name="java:compile">
 
     <copy todir="${maven.build.dir}/classes/">
@@ -62,8 +55,7 @@
 
     <!-- Copy the NOTICE -->
     <copy todir="${maven.dist.bin.assembly.dir}">
-      <fileset file="${basedir}/src/main/resources/LICENSE.txt"/>
-      <fileset file="${basedir}/src/main/resources/NOTICE.txt"/>
+      <fileset file="${basedir}/NOTICE.txt"/>
       <fileset file="${basedir}/RELEASE-NOTES.txt"/>
       <fileset file="${maven.build.dir}/*.js"/>
     </copy>
@@ -77,8 +69,7 @@
 
     <!-- Copy the NOTICE -->
     <copy todir="${maven.dist.src.assembly.dir}">
-      <fileset file="${basedir}/src/main/resources/LICENSE.txt"/>
-      <fileset file='${basedir}/src/main/resources/NOTICE.txt'/>
+      <fileset file="${basedir}/NOTICE.txt"/>
       <fileset file="${basedir}/RELEASE-NOTES.txt"/>
       <fileset file="${basedir}/build.properties.sample"/>
     </copy>

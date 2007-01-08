@@ -25,22 +25,16 @@
  -->
     <fileSets>
         <fileSet>
-            <directory>src/main/resources</directory>
-            <outputDirectory></outputDirectory>
-            <includes>
-                <include>LICENSE.txt</include>
-                <include>NOTICE.txt</include>
-            </includes>
-        </fileSet>
-        <fileSet>
             <includes>
                 <include>build.properties.sample</include>
                 <include>build.xml</include>
                 <include>build-javascript.xml</include>
                 <include>doap_validator.rdf</include>
                 <include>checkstyle.xml</include>
+                <include>LICENSE.txt</include>
                 <include>license-header.txt</include>
                 <include>maven.xml</include>
+                <include>NOTICE.txt</include>
                 <include>pom.xml</include>
                 <include>project.properties</include>
                 <include>project.xml</include>
