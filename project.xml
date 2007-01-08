@@ -373,20 +373,19 @@
 
   <build>
     <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
-    <sourceDirectory>src/share</sourceDirectory>
-    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
 
     <unitTest>
       <includes>
         <include>**/*Test.java</include>
       </includes>
       <excludes>
-        <exclude>**/routines/BaseCalendarValidatorTest.java</exclude>
-        <exclude>**/routines/BaseNumberValidatorTest.java</exclude>
+        <exclude>**/Abstract*.java</exclude>
       </excludes>
       <resources>
         <resource>
-          <directory>${pom.build.unitTestSourceDirectory}</directory>
+          <directory>src/test/resources</directory>
           <includes>
             <include>**/*.xml</include>
           </includes>
@@ -396,9 +395,10 @@
 
     <resources>
     <resource>
-      <directory>${basedir}</directory>
-      <targetPath>META-INF</targetPath>
+      <directory>src/main/resources</directory>
+      <targetPath></targetPath>
       <includes>
+        <include>LICENSE.txt</include>
         <include>NOTICE.txt</include>
       </includes>
     </resource>

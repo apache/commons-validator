@@ -65,7 +65,7 @@
   <property name="component.package"       value="org.apache.commons.validator"/>
 
   <!-- The title of this component -->
-  <property name="component.title"         value="Validator"/>
+  <property name="component.title"         value="Commons Validator"/>
 
   <!-- The current version number of this component -->
   <property name="component.version"       value="1.4-SNAPSHOT"/>
@@ -73,8 +73,8 @@
   <!-- The base directory for compilation targets -->
   <property name="build.home"              value="target"/>
 
-  <!-- The base directory for component configuration files -->
-  <property name="conf.home"               value="conf/share"/>
+  <!-- The base directory for component resources -->
+  <property name="resources.home"          value="src/main/resources"/>
 
   <!-- The base directory for distribution targets -->
   <property name="dist.home"               value="dist"/>
@@ -83,7 +83,7 @@
   <property name="release.home"            value="release" />
 
   <!-- The base directory for component sources -->
-  <property name="source.home"             value="src/share"/>
+  <property name="source.home"             value="src/main/java"/>
 
   <!-- The base directory for javascript sources -->
   <property name="javascript.home"             value="src/javascript"/>
@@ -113,10 +113,10 @@
 
 
   <!-- source JDK version (should be same as maven.compile.source) -->
-  <property name="compile.source"          value="1.3"/>
+  <property name="compile.source"          value="1.4"/>
 
   <!-- target JDK version (should be same as maven.compile.target) -->
-  <property name="compile.target"          value="1.3"/>
+  <property name="compile.target"          value="1.4"/>
 
   <!-- Should Java compilations set the 'debug' compiler option? -->
   <property name="compile.debug"           value="true"/>
@@ -198,7 +198,6 @@
    description="Prepare build directory">
     <mkdir dir="${build.home}"/>
     <mkdir dir="${build.home}/classes"/>
-    <mkdir dir="${build.home}/conf"/>
     <mkdir dir="${build.home}/tests"/>
   </target>
 
@@ -206,9 +205,6 @@
   <target name="static" depends="prepare"
    description="Copy static files to build directory">
     <tstamp/>
-    <copy  todir="${build.home}/conf" filtering="on">
-      <fileset dir="${conf.home}" includes="*.MF"/>
-    </copy>
   </target>
 
 
@@ -227,18 +223,9 @@
       <fileset dir="${source.home}"
           excludes="**/*.java"/>
     </copy>
-    <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
-              file="${conf.home}/validator_1_0.dtd"/>
-    <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
-              file="${conf.home}/validator_1_0_1.dtd"/>
-    <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
-              file="${conf.home}/validator_1_1.dtd"/>
-    <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
-              file="${conf.home}/validator_1_1_3.dtd"/>
-    <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
-              file="${conf.home}/validator_1_2_0.dtd"/>
-    <copy    todir="${build.home}/classes/org/apache/commons/validator/resources/"
-              file="${conf.home}/validator_1_3_0.dtd"/>
+    <copy    todir="${build.home}/classes">
+      <fileset dir="${resources.home}" includes="**/*.dtd,**/*.xml"/>
+    </copy>
     <copy    todir="${build.home}/classes/">
       <fileset dir="${javascript.home}"
           includes="**/*.js"/>
@@ -328,20 +315,33 @@
         <property name="final.name" value="commons-${component.name}-${component.version}"/>
     </ant>
 
-    <copy      file="LICENSE.txt"
+    <copy      file="${resources.home}/LICENSE.txt"
               todir="${dist.home}"/>
-    <copy      file="NOTICE.txt"
+    <copy      file="${resources.home}/NOTICE.txt"
               todir="${dist.home}"/>
     <copy      file="RELEASE-NOTES.txt"
               todir="${dist.home}"/>
     <mkdir      dir="${build.home}/classes/META-INF"/>
-    <copy      file="LICENSE.txt"
+    <copy      file="${resources.home}/LICENSE.txt"
              tofile="${build.home}/classes/META-INF/LICENSE.txt"/>
-    <copy      file="NOTICE.txt"
+    <copy      file="${resources.home}/NOTICE.txt"
              tofile="${build.home}/classes/META-INF/NOTICE.txt"/>
+
+    <manifest file="${build.home}/MANIFEST.MF">
+        <attribute name="Specification-Title"      value="${component.title}"/>
+        <attribute name="Specification-Version"    value="${component.version}"/>
+        <attribute name="Specification-Vendor"     value="Apache Software Foundation"/>
+        <attribute name="Implementation-Title"     value="${component.title}"/>
+        <attribute name="Implementation-Version"   value="${component.version}"/> 
+        <attribute name="Implementation-Vendor"    value="Apache Software Foundation"/>
+        <attribute name="Implementation-Vendor-Id" value="org.apache"/>
+        <attribute name="X-Compile-Source-JDK"     value="${compile.source}"/>
+        <attribute name="X-Compile-Target-JDK"     value="${compile.target}"/>
+    </manifest>
+
     <jar    jarfile="${dist.home}/commons-${component.name}-${component.version}.jar"
             basedir="${build.home}/classes"
-           manifest="${build.home}/conf/MANIFEST.MF"/>
+           manifest="${build.home}/MANIFEST.MF"/>
   </target>
 
 <!-- ========== Unit Test Targets ========================================= -->
@@ -349,7 +349,7 @@
 
   <target name="compile.tests" depends="compile"
    description="Compile unit test cases">
-    <javac  srcdir="${test.home}"
+    <javac  srcdir="${test.home}/java"
            destdir="${build.home}/tests"
              debug="${compile.debug}"
        deprecation="${compile.deprecation}"
@@ -357,7 +357,7 @@
       <classpath refid="test.classpath"/>
     </javac>
     <copy    todir="${build.home}/tests" filtering="on">
-      <fileset dir="${test.home}" excludes="**/*.java"/>
+      <fileset dir="${test.home}/resources"/>
     </copy>
   </target>
 

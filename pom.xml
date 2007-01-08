@@ -110,29 +110,9 @@
     </properties> 
 
     <build>
-        <sourceDirectory>src/share</sourceDirectory>
-        <testSourceDirectory>src/test</testSourceDirectory>
         <resources>
             <resource>
-                <directory>${basedir}</directory>
-                <targetPath>META-INF</targetPath>
-                <includes>
-                    <include>LICENSE.txt</include>
-                    <include>NOTICE.txt</include>
-                </includes>
-            </resource>
-            <resource>
-                <targetPath>org/apache/commons/validator/resources</targetPath>
-                <directory>conf/share</directory>
-                <includes>
-                    <include>**/*.dtd</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/share</directory>
-                <includes>
-                    <include>**/digester-rules.xml</include>
-                </includes>
+                <directory>src/main/resources</directory>
             </resource>
             <resource>
                 <directory>src/javascript</directory>
@@ -141,27 +121,7 @@
                 </includes>
             </resource>
         </resources>
-        <testResources>
-            <testResource>
-                <directory>src/test</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </testResource>
-        </testResources>
         <plugins>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
-                    <excludes>
-                        <exclude>**/routines/BaseCalendarValidatorTest.java</exclude>
-                        <exclude>**/routines/BaseNumberValidatorTest.java</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -247,14 +207,11 @@
                 <configuration>
                     <xmlPath>${basedir}/xdocs/changes.xml</xmlPath>
                     <issueLinkTemplate>%URL%/%ISSUE%</issueLinkTemplate>
-                    <resolutionIds>Fixed</resolutionIds>
-                    <statusIds>Resolved,Closed</statusIds>
                 </configuration>
                 <reportSets>
                     <reportSet>
                         <reports>
                             <report>changes-report</report>
-                            <report>jira-report</report>
                         </reports>
                     </reportSet>
                 </reportSets>
@@ -264,7 +221,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
-                    <configLocation>conf/share/ValidatorCheckStyle.xml</configLocation>
+                    <configLocation>checkstyle.xml</configLocation>
                 </configuration>
             </plugin>
 
@@ -293,7 +250,7 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
                     <rulesets>
-                        <ruleset>conf/share/ValidatorCheckStyle.xml</ruleset>
+                        <ruleset>checkstyle.xml</ruleset>
                     </rulesets>
                 </configuration>
             </plugin>
