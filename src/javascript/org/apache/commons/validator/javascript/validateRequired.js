@@ -110,8 +110,3 @@
         }
         return isValid;
     }
-    
-    // Trim whitespace from left and right sides of s.
-    function trim(s) {
-        return s.replace( /^\s*/, "" ).replace( /\s*$/, "" );
-    }
