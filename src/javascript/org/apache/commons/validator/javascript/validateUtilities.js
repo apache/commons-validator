@@ -51,6 +51,9 @@
           }
       }
 
+      /* fix for VALIDATOR-224 */
+      formName = formName.replace(/:/gi, "_");
+
       return formName;
 
   }  
