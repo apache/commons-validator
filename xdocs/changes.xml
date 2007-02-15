@@ -40,6 +40,12 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
     <release version="1.4-SNAPSHOT" date="in SVN" description="JDK 1.4 (minimum)">
+      <action dev="niallp" type="update" issue="VALIDATOR-224" due-to="Hasan Turksoy">
+          validatorUtilities.js - replace colon characters in the function name (JSF/Shale)
+      </action>
+      <action dev="niallp" type="update" issue="VALIDATOR-223" due-to="Hasan Turksoy">
+          Move the trim() function from validateRequired.js to validateUtilities.js
+      </action>
       <action dev="niallp" type="update">
           <a href="apidocs/org/apache/commons/validator/routines/ISBNValidator.html">ISBN Validator</a>
           <ul>
