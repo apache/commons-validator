@@ -152,6 +152,9 @@ public class ValidatorResources implements Serializable {
 
         Digester digester = initDigester();
         for (int i = 0; i < streams.length; i++) {
+            if (streams[i] == null) {
+                throw new IllegalArgumentException("Stream[" + i + "] is null");
+            }
             digester.push(this);
             digester.parse(streams[i]);
         }
