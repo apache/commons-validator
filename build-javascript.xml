@@ -35,8 +35,10 @@
     <property name="source.dir"          value="src/javascript"/>
     <property name="javascript.input"    value="${source.dir}/org/apache/commons/validator/javascript"/>
     <property name="javascript.output"   value="${output.dir}/org/apache/commons/validator/javascript"/>
-    <property name="compressor.lib"      value="${build.dir}/compressor"/>
-    <property name="download.jar"        value="custom_rhino.jar"/>
+    <property name="compressor.lib"      value="lib"/>
+    <property name="customrhino.version" value="0.4.3"/>
+    <property name="download.location"   value="http://repo1.maven.org/maven2/org/dojotoolkit/custom_rhino/${customrhino.version}"/>
+    <property name="download.jar"        value="custom_rhino-${customrhino.version}.jar"/>
     <property name="final.name"          value="commons-validator"/>
     
     <!-- ======================================================================== -->
@@ -66,7 +68,7 @@
         <echo message="Downloading JavaScript Compressor...."/>
         <get dest="${compressor.jar}"
             usetimestamp="true" ignoreerrors="true"
-            src="http://dojotoolkit.org/svn/dojo/trunk/buildscripts/lib/${download.jar}"/>
+            src="${download.location}/${download.jar}"/>
     </target>
 
     <!-- ======================================================================== -->
