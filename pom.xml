@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-parent</artifactId>
-        <version>2-SNAPSHOT</version>
+        <version>3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>commons-validator</groupId>
@@ -111,6 +111,14 @@
 
     <build>
         <resources>
+            <resource>
+                <directory>${basedir}</directory>
+                <targetPath>META-INF</targetPath>
+                <includes>
+                    <include>NOTICE.txt</include>
+                    <include>LICENSE.txt</include>
+                </includes>
+             </resource>
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
