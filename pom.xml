@@ -34,7 +34,7 @@
         and server side data validation. It may be used standalone or with a framework like
         Struts.
     </description>
-    <url>http://jakarta.apache.org/commons/validator/</url>
+    <url>http://commons.apache.org/validator/</url>
     <issueManagement>
         <system>jira</system>
         <url>http://issues.apache.org/jira/browse/VALIDATOR</url>
@@ -99,9 +99,9 @@
     </developers>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/validator/trunk/</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/validator/trunk/</developerConnection>
-        <url>http://svn.apache.org/viewvc/jakarta/commons/proper/validator/trunk/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/validator/trunk/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/validator/trunk/</developerConnection>
+        <url>http://svn.apache.org/viewvc/commons/proper/validator/trunk/</url>
     </scm>
 
     <properties>
