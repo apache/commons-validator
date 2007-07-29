@@ -16,17 +16,17 @@
  limitations under the License.
 -->
 <rdf:RDF xmlns="http://usefulinc.com/ns/doap#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:asfext="http://projects.apache.org/ns/asfext#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:doap="http://usefulinc.com/ns/doap#" xml:lang="en">
-  <Project rdf:about="http://jakarta.apache.org/commons/validator/">
-    <name>Apache Jakarta Commons Validator</name>
+  <Project rdf:about="http://commons.apache.org/validator/">
+    <name>Apache Apache Commons Validator</name>
     <shortname>Commons Validator</shortname>
-    <homepage rdf:resource="http://jakarta.apache.org/commons/validator/"/>
+    <homepage rdf:resource="http://commons.apache.org/validator/"/>
     <wiki rdf:resource="http://wiki.apache.org/jakarta-commons/Validator"/>
     <programming-language>Java</programming-language>
     <category rdf:resource="http://projects.apache.org/category/library"/>
     <license rdf:resource="http://usefulinc.com/doap/licenses/asl20"/>
-    <bug-database rdf:resource="http://jakarta.apache.org/commons/validator/issue-tracking.html"/>
-    <download-page rdf:resource="http://jakarta.apache.org/commons/validator/downloads.html"/>
-    <asfext:pmc rdf:resource="http://jakarta.apache.org/"/>
+    <bug-database rdf:resource="http://commons.apache.org/validator/issue-tracking.html"/>
+    <download-page rdf:resource="http://commons.apache.org/validator/downloads.html"/>
+    <asfext:pmc rdf:resource="http://commons.apache.org/"/>
     <shortdesc xml:lang="en">Validation Framework and Routines</shortdesc>
     <description xml:lang="en">
     Commons Validator provides the building blocks for both client side validation
@@ -96,6 +96,6 @@
         <revision>1.0</revision>
       </Version>
     </release>
-    <mailing-list rdf:resource="http://jakarta.apache.org/site/mail2.html#Commons"/>
+    <mailing-list rdf:resource="http://commons.apache.org/mail-lists.html"/>
   </Project>
 </rdf:RDF>
