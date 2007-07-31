@@ -240,11 +240,11 @@ The <action> type attribute can be add,update,fix,remove.
       </action>
       <action dev="dgraham" type="update">
         Upgrade dependency versions to
-        <a href="http://jakarta.apache.org/commons/beanutils/">Commons BeanUtils</a> 1.7.0, 
-        <a href="http://jakarta.apache.org/commons/digester/">Commons Digester</a> 1.6 
-        and <a href="http://jakarta.apache.org/commons/logging/">Commons Logging</a> 1.0.4. 
+        <a href="http://commons.apache.org/beanutils/">Commons BeanUtils</a> 1.7.0, 
+        <a href="http://commons.apache.org/digester/">Commons Digester</a> 1.6 
+        and <a href="http://commons.apache.org/logging/">Commons Logging</a> 1.0.4. 
         Remove dependency on 
-        <a href="http://jakarta.apache.org/commons/beanutils/">Commons Collections</a> 
+        <a href="http://commons.apache.org/beanutils/">Commons Collections</a> 
         (BeanUtils 1.7.0 has removed its dependency on Collections by including the
          few Collections classes required in its distribution).
       </action>
