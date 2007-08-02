@@ -74,7 +74,9 @@ public class ValidatorResources implements Serializable {
         "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.2.0//EN",
         "/org/apache/commons/validator/resources/validator_1_2_0.dtd",
         "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.3.0//EN",
-        "/org/apache/commons/validator/resources/validator_1_3_0.dtd"
+        "/org/apache/commons/validator/resources/validator_1_3_0.dtd",
+        "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.4.0//EN",
+        "/org/apache/commons/validator/resources/validator_1_4_0.dtd"
     };
 
     private transient Log log = LogFactory.getLog(ValidatorResources.class);
