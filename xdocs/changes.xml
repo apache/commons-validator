@@ -222,7 +222,7 @@ The <action> type attribute can be add,update,fix,remove.
       <action dev="niallp" type="fix">
          Remove static Log instances to avoid problems if deployed via a shared
          classloader in a container. See
-         <a href="http://wiki.apache.org/jakarta-commons/Logging/StaticLog">here</a>
+         <a href="http://wiki.apache.org/commons/Logging/StaticLog">here</a>
          for more details.
       </action>
       <action dev="niallp" type="fix" issue="VALIDATOR-39">
@@ -234,7 +234,7 @@ The <action> type attribute can be add,update,fix,remove.
     </release>
 
     <release version="1.2.0" date="2005-11-15" 
-       description="1.2 Release - see http://wiki.apache.org/jakarta-commons/ValidatorVersion120">
+       description="1.2 Release - see http://wiki.apache.org/commons/ValidatorVersion120">
       <action dev="dgraham" type="add" issue="VALIDATOR-145">
         Added ISBNValidator for validating book numbers.
       </action>
