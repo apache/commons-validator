@@ -28,7 +28,7 @@
     <groupId>commons-validator</groupId>
     <artifactId>commons-validator</artifactId>
     <version>1.4-SNAPSHOT</version>
-    <name>Validator</name>
+    <name>Commons Validator</name>
     <description>
         Commons Validator provides the building blocks for both client side validation
         and server side data validation. It may be used standalone or with a framework like
