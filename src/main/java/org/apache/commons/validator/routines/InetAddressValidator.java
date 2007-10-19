@@ -73,7 +73,6 @@ public class InetAddressValidator implements Serializable {
         if (groups == null) return false;
 
         // verify that address subgroups are legal
-        int addrAccumulator = 0;
         for (int i = 0; i <= 3; i++) {
             String ipSegment = groups[i];
             if (ipSegment == null || ipSegment.length() <= 0) {
@@ -88,16 +87,11 @@ public class InetAddressValidator implements Serializable {
                 return false;
             }
 
-            addrAccumulator += iIpSegment;
-
             if (iIpSegment > 255) {
                 return false;
             }
 
         }
-
-        // verify that at least one bit of the address was set
-        if (addrAccumulator == 0) return false;
 
         return true;
     }

@@ -84,8 +84,6 @@ public class InetAddressValidatorTest extends TestCase {
     public void testReservedInetAddresses() {
         assertTrue("localhost IP should be valid",            validator.isValid("127.0.0.1"));
         assertTrue("broadcast IP should be valid",            validator.isValid("255.255.255.255"));
-
-        assertFalse("empty IP shouldn't be valid",            validator.isValid("0.0.0.0"));
     }
 
     /**
