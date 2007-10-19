@@ -16,7 +16,11 @@
  */
 package org.apache.commons.validator;
 
+import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.oro.text.perl.Perl5Util;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <p>Perform email validations.</p>
@@ -47,8 +51,7 @@ public class EmailValidator {
     // Each pattern must be surrounded by /
     private static final String LEGAL_ASCII_PATTERN = "/^[\\000-\\177]+$/";
     private static final String EMAIL_PATTERN = "/^(.+)@(.+)$/";
-    private static final String IP_DOMAIN_PATTERN =
-            "/^\\[(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})\\]$/";
+    private static final String IP_DOMAIN_PATTERN = "^\\[(.*)\\]$";
     private static final String TLD_PATTERN = "/^([a-zA-Z]+)$/";
             
     private static final String USER_PATTERN = "/^\\s*" + WORD + "(\\." + WORD + ")*$/";
@@ -117,17 +120,20 @@ public class EmailValidator {
 
     /**
      * Returns true if the domain component of an email address is valid.
-     * @param domain being validatied.
+     * @param domain being validated.
      * @return true if the email address's domain is valid.
      */
     protected boolean isValidDomain(String domain) {
         boolean symbolic = false;
-        Perl5Util ipAddressMatcher = new Perl5Util();
 
-        if (ipAddressMatcher.match(IP_DOMAIN_PATTERN, domain)) {
-            if (!isValidIpAddress(ipAddressMatcher)) {
-                return false;
-            } else {
+        // see if domain is an IP address in brackets
+        Pattern ipDomainPattern = Pattern.compile(IP_DOMAIN_PATTERN);
+        Matcher ipDomainMatcher = ipDomainPattern.matcher(domain);
+
+        if (ipDomainMatcher.matches()) {
+            InetAddressValidator inetAddressValidator =
+                    InetAddressValidator.getInstance();
+            if (inetAddressValidator.isValid(ipDomainMatcher.group(1))) {
                 return true;
             }
         } else {
