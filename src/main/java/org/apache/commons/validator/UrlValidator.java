@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.commons.validator.util.Flags;
 import org.apache.oro.text.perl.Perl5Util;
 
@@ -149,9 +150,6 @@ public class UrlValidator implements Serializable {
     private static final String QUERY_PATTERN = "/^(.*)$/";
 
     private static final String LEGAL_ASCII_PATTERN = "/^[\\000-\\177]+$/";
-
-    private static final String IP_V4_DOMAIN_PATTERN =
-            "/^(\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})[.](\\d{1,3})$/";
 
     private static final String DOMAIN_PATTERN =
             "/^" + ATOM + "(\\." + ATOM + ")*$/";
@@ -314,42 +312,25 @@ public class UrlValidator implements Serializable {
         }
 
         Perl5Util authorityMatcher = new Perl5Util();
-        Perl5Util matchIPV4Pat = new Perl5Util();
+        InetAddressValidator inetAddressValidator =
+                InetAddressValidator.getInstance();
 
         if (!authorityMatcher.match(AUTHORITY_PATTERN, authority)) {
             return false;
         }
 
-        boolean ipV4Address = false;
         boolean hostname = false;
-// check if authority is IP address or hostname
+        // check if authority is IP address or hostname
         String hostIP = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
-        ipV4Address = matchIPV4Pat.match(IP_V4_DOMAIN_PATTERN, hostIP);
+        boolean ipV4Address = inetAddressValidator.isValid(hostIP);
 
-        if (ipV4Address) {
-            // this is an IP address so check components
-            for (int i = 1; i <= 4; i++) {
-                String ipSegment = matchIPV4Pat.group(i);
-                if (ipSegment == null || ipSegment.length() <= 0) {
-                    return false;
-                }
-
-                try {
-                    if (Integer.parseInt(ipSegment) > 255) {
-                        return false;
-                    }
-                } catch(NumberFormatException e) {
-                    return false;
-                }
-
-            }
-        } else {
+        if (!ipV4Address) {
             // Domain is hostname name
             Perl5Util domainMatcher = new Perl5Util();
             hostname = domainMatcher.match(DOMAIN_PATTERN, hostIP);
         }
 
-//rightmost hostname will never start with a digit.
+        //rightmost hostname will never start with a digit.
         if (hostname) {
             // LOW-TECH FIX FOR VALIDATOR-202
             // TODO: Rewrite to use ArrayList and .add semantics: see VALIDATOR-203
