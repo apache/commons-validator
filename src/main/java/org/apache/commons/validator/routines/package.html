@@ -48,6 +48,7 @@
     <li>4.3 <a href="#other.checkdigit">Check Digit Validation/Calculation</a></li>
     <li>4.4 <a href="#other.code">General Code Validation</a></li>
     <li>4.5 <a href="#other.isbn">ISBN Validation</a></li>
+    <li>4.6 <a href="#other.inet">IP Address Validation</a></li>
     </ul></li>
 </ul>
 
@@ -665,5 +666,26 @@
 
 </pre>
 
+<a name="other.inet"></a>
+<h3>4.6 IP Address Validation</h3>
+
+<p>
+    <a href="InetAddressValidator.html">InetAddressValidator</a> provides
+    IPv4 address validation.
+</p>
+<p>
+    For example:
+</p>
+<pre>
+
+      // Get an InetAddressValidator
+      InetAddressValidator validator = InetAddressValidator.getInstance();
+
+      // Validate an IPv4 address
+      if (!validator.isValid(candidateInetAddress)) {
+          ... // invalid
+      }
+
+</pre>
 </body>
 </html>
