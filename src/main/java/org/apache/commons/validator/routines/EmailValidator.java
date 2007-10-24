@@ -14,9 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.validator;
+package org.apache.commons.validator.routines;
 
-import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.oro.text.perl.Perl5Util;
 
 import java.util.regex.Matcher;
@@ -37,10 +36,8 @@ import java.util.regex.Pattern;
  * is no TLD "somedog"
  * </p>.
  *
- * @version $Revision$ $Date$
- * @since Validator 1.1
- * @deprecated Use the new EmailValidator in the routines package. This class
- * will be removed in a future release.
+ * @version $Revision: 586637 $ $Date: 2007-10-19 15:56:56 -0700 (Fri, 19 Oct 2007) $
+ * @since Validator 1.4
  */
 public class EmailValidator {
 
@@ -55,7 +52,7 @@ public class EmailValidator {
     private static final String EMAIL_PATTERN = "/^(.+)@(.+)$/";
     private static final String IP_DOMAIN_PATTERN = "^\\[(.*)\\]$";
     private static final String TLD_PATTERN = "/^([a-zA-Z]+)$/";
-            
+
     private static final String USER_PATTERN = "/^\\s*" + WORD + "(\\." + WORD + ")*$/";
     private static final String DOMAIN_PATTERN = "/^" + ATOM + "(\\." + ATOM + ")*\\s*$/";
     private static final String ATOM_PATTERN = "/(" + ATOM + ")/";
@@ -166,34 +163,6 @@ public class EmailValidator {
     }
 
     /**
-     * Validates an IP address. Returns true if valid.
-     * @param ipAddressMatcher Pattren matcher
-     * @return true if the ip address is valid.
-     */
-    protected boolean isValidIpAddress(Perl5Util ipAddressMatcher) {
-        for (int i = 1; i <= 4; i++) {
-            String ipSegment = ipAddressMatcher.group(i);
-            if (ipSegment == null || ipSegment.length() <= 0) {
-                return false;
-            }
-
-            int iIpSegment = 0;
-
-            try {
-                iIpSegment = Integer.parseInt(ipSegment);
-            } catch(NumberFormatException e) {
-                return false;
-            }
-
-            if (iIpSegment > 255) {
-                return false;
-            }
-
-        }
-        return true;
-    }
-
-    /**
      * Validates a symbolic domain name.  Returns true if it's valid.
      * @param domain symbolic domain name
      * @return true if the symbolic domain name is valid.
@@ -214,17 +183,17 @@ public class EmailValidator {
                         : domain.substring(l);
 
                 i++;
-            } 
+            }
         }
 
         int len = i;
-        
+
         // Make sure there's a host name preceding the domain.
         if (len < 2) {
             return false;
         }
-        
-        // TODO: the tld should be checked against some sort of configurable 
+
+        // TODO: the tld should be checked against some sort of configurable
         // list
         String tld = domainSegment[len - 1];
         if (tld.length() > 1) {

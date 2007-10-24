@@ -14,16 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.validator;
+package org.apache.commons.validator.routines;
+
+import org.apache.commons.validator.GenericValidator;
+import org.apache.commons.validator.util.Flags;
+import org.apache.oro.text.perl.Perl5Util;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.apache.commons.validator.routines.InetAddressValidator;
-import org.apache.commons.validator.util.Flags;
-import org.apache.oro.text.perl.Perl5Util;
 
 /**
  * <p>Validates URLs.</p>
@@ -68,15 +68,13 @@ import org.apache.oro.text.perl.Perl5Util;
  *  Uniform Resource Identifiers (URI): Generic Syntax
  * </a>
  *
- * @version $Revision$ $Date$
- * @since Validator 1.1
- * @deprecated Use the new UrlValidator in the routines package. This class
- * will be removed in a future release.
+ * @version $Revision: 586645 $ $Date: 2007-10-19 17:01:09 -0700 (Fri, 19 Oct 2007) $
+ * @since Validator 1.4
  */
 public class UrlValidator implements Serializable {
 
     /**
-     * Allows all validly formatted schemes to pass validation instead of 
+     * Allows all validly formatted schemes to pass validation instead of
      * supplying a set of valid schemes.
      */
     public static final int ALLOW_ALL_SCHEMES = 1 << 0;
