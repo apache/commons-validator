@@ -52,7 +52,7 @@ public class EmailValidator implements Serializable {
     private static final String LEGAL_ASCII_PATTERN = "^\\p{ASCII}+$";
     private static final String EMAIL_PATTERN = "^(.+)@(.+)$";
     private static final String IP_DOMAIN_PATTERN = "^\\[(.*)\\]$";
-    private static final String TLD_PATTERN = "/^([a-zA-Z]+)$/";
+    private static final String TLD_PATTERN = "^\\p{Alpha}+$";
 
     private static final String USER_PATTERN = "/^\\s*" + WORD + "(\\." + WORD + ")*$/";
     private static final String DOMAIN_PATTERN = "/^" + ATOM + "(\\." + ATOM + ")*\\s*$/";
@@ -200,8 +200,7 @@ public class EmailValidator implements Serializable {
         // list
         String tld = domainSegment[len - 1];
         if (tld.length() > 1) {
-            Perl5Util matchTldPat = new Perl5Util();
-            if (!matchTldPat.match(TLD_PATTERN, tld)) {
+            if (!Pattern.matches(TLD_PATTERN, tld)) {
                 return false;
             }
         } else {
