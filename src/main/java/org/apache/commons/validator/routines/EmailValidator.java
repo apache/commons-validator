@@ -50,7 +50,7 @@ public class EmailValidator implements Serializable {
 
     // Each pattern must be surrounded by /
     private static final String LEGAL_ASCII_PATTERN = "^[\\0000-\\0177]+$";
-    private static final String EMAIL_PATTERN = "/^(.+)@(.+)$/";
+    private static final String EMAIL_PATTERN = "^(.+)@(.+)$";
     private static final String IP_DOMAIN_PATTERN = "^\\[(.*)\\]$";
     private static final String TLD_PATTERN = "/^([a-zA-Z]+)$/";
 
@@ -99,8 +99,9 @@ public class EmailValidator implements Serializable {
         email = stripComments(email);
 
         // Check the whole email address structure
-        Perl5Util emailMatcher = new Perl5Util();
-        if (!emailMatcher.match(EMAIL_PATTERN, email)) {
+        Pattern emailPattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher emailMatcher = emailPattern.matcher(email);
+        if (!emailMatcher.matches()) {
             return false;
         }
 
