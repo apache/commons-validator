@@ -18,6 +18,7 @@ package org.apache.commons.validator.routines;
 
 import org.apache.oro.text.perl.Perl5Util;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,7 +40,7 @@ import java.util.regex.Pattern;
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
-public class EmailValidator {
+public class EmailValidator implements Serializable {
 
     private static final String SPECIAL_CHARS = "\\000-\\037\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]\\177";
     private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
