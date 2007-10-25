@@ -176,6 +176,19 @@ public class UrlValidator implements Serializable {
     protected String[] defaultSchemes = {"http", "https", "ftp"};
 
     /**
+     * Singleton instance of this class with default schemes and options.
+     */
+    private static final UrlValidator DEFAULT_URL_VALIDATOR = new UrlValidator();
+
+    /**
+     * Returns the singleton instance of this class with default schemes and options.
+     * @return singleton instance with default schemes and options
+     */
+    public static UrlValidator getInstance() {
+        return DEFAULT_URL_VALIDATOR;    
+    }
+
+    /**
      * Create a UrlValidator with default properties.
      */
     public UrlValidator() {
