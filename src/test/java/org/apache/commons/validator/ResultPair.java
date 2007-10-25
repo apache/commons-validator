@@ -21,7 +21,7 @@
  *
  * @version $Revision$ $Date$
  */
- class ResultPair {
+ public class ResultPair {
       public String item;
       public boolean valid;
 
