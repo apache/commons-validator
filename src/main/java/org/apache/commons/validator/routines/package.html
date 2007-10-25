@@ -49,6 +49,8 @@
     <li>4.4 <a href="#other.code">General Code Validation</a></li>
     <li>4.5 <a href="#other.isbn">ISBN Validation</a></li>
     <li>4.6 <a href="#other.inet">IP Address Validation</a></li>
+    <li>4.7 <a href="#other.email">Email Address Validation</a></li>
+    <li>4.8 <a href="#other.url">URL Validation</a></li>
     </ul></li>
 </ul>
 
@@ -243,7 +245,7 @@
 <p>
    The following example validates an integer against a custom pattern
    for the <i>German</i> locale. Please note the format is specified using
-   the standard symbols for </code>java.text.DecimalFormat</code> so although
+   the standard symbols for <code>java.text.DecimalFormat</code> so although
    the decimal separator is indicated as a period (".") in the format, the
    validator will check using the German decimal separator - which is a comma (",").
 </p>
@@ -426,6 +428,12 @@
      code validation - format, minimum/maximum length and check digit.</li>
    <li><a href="#other.isbn">ISBN Validation</a> - provides ISBN-10
        and ISBN-13 validation.</li>
+   <li><a href="#other.inet">IP Address Validation</a> - provides IPv4 address
+       validation.</li>
+   <li><a href="#other.email">Email Address Validation</a> - provides email
+       address validation according to RFC 822 standards.</li>
+   <li><a href="#other.url">URL Validation</a> - provides URL validation on
+       scheme, domain, and authority.</li>
 </ul>
 
 <a name="other.regex"></a>
@@ -686,6 +694,71 @@
           ... // invalid
       }
 
+</pre>
+
+<a name="other.email"></a>
+<h3>4.7 Email Address Validation</h3>
+
+<p>
+    <a href="EmailValidator.html">EmailValidator</a> provides email address
+    validation according to RFC 822 standards.
+</p>
+<p>
+    For example:
+</p>
+<pre>
+      // Get an EmailValidator
+      EmailValidator validator = EmailValidator.getInstance();
+
+      // Validate an email address
+      boolean isAddressValid = validator.isValid("user@apache.org");
+
+      // Validate a variable containing an email address
+      if (!validator.isValid(addressFromUserForm)) {
+          webController.sendRedirect(ERROR_REDIRECT, "Email address isn't valid");
+          // etc.
+      }
+</pre>
+
+<a name="other.url"></a>
+<h3>4.8 URL Validation</h3>
+
+<p>
+    <a href="UrlValidator.html">UrlValidator</a> provides URL validation by
+    checking the scheme, authority, path, query, and fragment in turn. Clients
+    may specify valid schemes to be used in validating in addition to or instead of
+    the default values (HTTP, HTTPS, FTP). The UrlValidator also supports options
+    that change the parsing rules; for example, the ALLOW_2_SLASHES option instructs
+    the Validator to allow consecutive slash characters in the path component, which
+    is considered an error by default.
+
+    For more information on the available options, see the UrlValidator documentation.
+</p>
+<p>
+    For example:
+</p>
+<pre>
+      // Get an UrlValidator
+      UrlValidator defaultValidator = new UrlValidator(); // default schemes
+      if (defaultValidator.isValid("http://www.apache.org")) {
+          ... // valid
+      }
+      if (!defaultValidator.isValid("http//www.oops.com")) {
+          ... // invalid
+      }
+
+      // Get an UrlValidator with custom schemes
+      String[] customSchemes = { "sftp", "scp", "https" };
+      UrlValidator customValidator = new UrlValidator(customSchemes);
+      if (!customValidator.isValid("http://www.apache.org")) {
+          ... // invalid due to insecure protocol
+      }
+
+      // Get an UrlValidator that allows double slashes in the path
+      UrlValidator doubleSlashValidator = new UrlValidator(UrlValidator.ALLOW_2_SLASHES);
+      if (doubleSlashValidator.isValid("http://www.apache.org//projects")) {
+          ... // valid only in this Validator instance
+      }
 </pre>
 </body>
 </html>
