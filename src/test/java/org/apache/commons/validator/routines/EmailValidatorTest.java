@@ -17,11 +17,10 @@
 package org.apache.commons.validator.routines;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.apache.commons.validator.*;
-import org.xml.sax.SAXException;
 
-import java.io.IOException;
+import org.apache.commons.validator.ResultPair;
 
 /**
  * Performs Validation Test for e-mail validations.
@@ -29,7 +28,7 @@ import java.io.IOException;
  *
  * @version $Revision: 493905 $ $Date: 2007-01-07 18:11:38 -0800 (Sun, 07 Jan 2007) $
  */
-public class EmailValidatorTest extends AbstractCommonTest {
+public class EmailValidatorTest extends TestCase {
 
     /**
      * The key used to retrieve the set of validation
@@ -42,6 +41,7 @@ public class EmailValidatorTest extends AbstractCommonTest {
     */
    protected static String ACTION = "email";
 
+    private EmailValidator validator;
 
    public EmailValidatorTest(String name) {
        super(name);
@@ -65,12 +65,8 @@ public class EmailValidatorTest extends AbstractCommonTest {
        return new TestSuite(EmailValidatorTest.class);
    }
 
-   /**
-    * Load <code>ValidatorResources</code> from
-    * validator-regexp.xml.
-    */
-   protected void setUp() throws IOException, SAXException {
-      loadResources("EmailValidatorTest-config.xml");
+   protected void setUp() {
+        validator = EmailValidator.getInstance();
    }
 
    protected void tearDown() {
@@ -79,145 +75,106 @@ public class EmailValidatorTest extends AbstractCommonTest {
    /**
     * Tests the e-mail validation.
     */
-   public void testEmail() throws ValidatorException {
-      // Create bean to run test on.
-      ValueBean info = new ValueBean();
-
-      info.setValue("jsmith@apache.org");
-      valueTest(info, true);
+   public void testEmail()  {
+      assertTrue(validator.isValid("jsmith@apache.org"));
    }
 
    /**
     * Tests the email validation with numeric domains.
     */
-    public void testEmailWithNumericAddress() throws ValidatorException {
-        ValueBean info = new ValueBean();
-        info.setValue("someone@[216.109.118.76]");
-        valueTest(info, true);
-        info.setValue("someone@yahoo.com");
-        valueTest(info, true);
+    public void testEmailWithNumericAddress()  {
+        assertTrue(validator.isValid("someone@[216.109.118.76]"));
+        assertTrue(validator.isValid("someone@yahoo.com"));
     }
 
     /**
      * Tests the e-mail validation.
      */
-    public void testEmailExtension() throws ValidatorException {
-        // Create bean to run test on.
-        ValueBean info = new ValueBean();
+    public void testEmailExtension()  {
+        assertTrue(validator.isValid("jsmith@apache.org"));
 
-        info.setValue("jsmith@apache.org");
-        valueTest(info, true);
+        assertTrue(validator.isValid("jsmith@apache.com"));
 
-        info.setValue("jsmith@apache.com");
-        valueTest(info, true);
+        assertTrue(validator.isValid("jsmith@apache.net"));
 
-        info.setValue("jsmith@apache.net");
-        valueTest(info, true);
+        assertTrue(validator.isValid("jsmith@apache.info"));
 
-        info.setValue("jsmith@apache.info");
-        valueTest(info, true);
+        assertFalse(validator.isValid("jsmith@apache."));
 
-        info.setValue("jsmith@apache.");
-        valueTest(info, false);
+        assertFalse(validator.isValid("jsmith@apache.c"));
 
-        info.setValue("jsmith@apache.c");
-        valueTest(info, false);
+        assertTrue(validator.isValid("someone@yahoo.museum"));
 
-        info.setValue("someone@yahoo.museum");
-        valueTest(info, true);
-
-        info.setValue("someone@yahoo.mu-seum");
-        valueTest(info, false);
+        assertFalse(validator.isValid("someone@yahoo.mu-seum"));
     }
 
    /**
     * <p>Tests the e-mail validation with a dash in
     * the address.</p>
     */
-   public void testEmailWithDash() throws ValidatorException {
-      // Create bean to run test on.
-      ValueBean info = new ValueBean();
+   public void testEmailWithDash()  {
+       assertTrue(validator.isValid("andy.noble@data-workshop.com"));
 
-      info.setValue("andy.noble@data-workshop.com");
-      valueTest(info, true);
+       assertFalse(validator.isValid("andy-noble@data-workshop.-com"));
 
-      info.setValue("andy-noble@data-workshop.-com");
-       valueTest(info, false);
-       info.setValue("andy-noble@data-workshop.c-om");
-       valueTest(info,false);
-       info.setValue("andy-noble@data-workshop.co-m");
-       valueTest(info, false);
+       assertFalse(validator.isValid("andy-noble@data-workshop.c-om"));
 
-
+       assertFalse(validator.isValid("andy-noble@data-workshop.co-m"));
    }
 
    /**
     * Tests the e-mail validation with a dot at the end of
     * the address.
     */
-   public void testEmailWithDotEnd() throws ValidatorException {
-      // Create bean to run test on.
-      ValueBean info = new ValueBean();
-
-      info.setValue("andy.noble@data-workshop.com.");
-      valueTest(info, false);
-
+   public void testEmailWithDotEnd()  {
+      assertFalse(validator.isValid("andy.noble@data-workshop.com."));
    }
 
     /**
      * Tests the e-mail validation with an RCS-noncompliant character in
      * the address.
      */
-    public void testEmailWithBogusCharacter() throws ValidatorException {
-        // Create bean to run test on.
-        ValueBean info = new ValueBean();
+    public void testEmailWithBogusCharacter()  {
 
-        info.setValue("andy.noble@\u008fdata-workshop.com");
-        valueTest(info, false);
+        assertFalse(validator.isValid("andy.noble@\u008fdata-workshop.com"));
 
         // The ' character is valid in an email username.
-        info.setValue("andy.o'reilly@data-workshop.com");
-        valueTest(info, true);
+        assertTrue(validator.isValid("andy.o'reilly@data-workshop.com"));
 
         // But not in the domain name.
-        info.setValue("andy@o'reilly.data-workshop.com");
-        valueTest(info, false);
+        assertFalse(validator.isValid("andy@o'reilly.data-workshop.com"));
 
-        info.setValue("foo+bar@i.am.not.in.us.example.com");
-        valueTest(info, true);
+        assertTrue(validator.isValid("foo+bar@i.am.not.in.us.example.com"));
+
     }
 
    /**
     * Tests the email validation with commas.
     */
-    public void testEmailWithCommas() throws ValidatorException {
-        ValueBean info = new ValueBean();
-        info.setValue("joeblow@apa,che.org");
-        valueTest(info, false);
-        info.setValue("joeblow@apache.o,rg");
-        valueTest(info, false);
-        info.setValue("joeblow@apache,org");
-        valueTest(info, false);
+    public void testEmailWithCommas()  {
+        assertFalse(validator.isValid("joeblow@apa,che.org"));
+
+        assertFalse(validator.isValid("joeblow@apache.o,rg"));
+
+        assertFalse(validator.isValid("joeblow@apache,org"));
 
     }
 
    /**
     * Tests the email validation with spaces.
     */
-    public void testEmailWithSpaces() throws ValidatorException {
-        ValueBean info = new ValueBean();
-        info.setValue("joeblow @apache.org");
-        valueTest(info, false);
-        info.setValue("joeblow@ apache.org");
-        valueTest(info, false);
-        info.setValue(" joeblow@apache.org");
-        valueTest(info, true);
-        info.setValue("joeblow@apache.org ");
-        valueTest(info, true);
-        info.setValue("joe blow@apache.org ");
-        valueTest(info, false);
-        info.setValue("joeblow@apa che.org ");
-        valueTest(info, false);
+    public void testEmailWithSpaces()  {
+        assertFalse(validator.isValid("joeblow @apache.org"));
+
+        assertFalse(validator.isValid("joeblow@ apache.org"));
+
+        assertTrue(validator.isValid(" joeblow@apache.org"));
+
+        assertTrue(validator.isValid("joeblow@apache.org "));
+
+        assertFalse(validator.isValid("joe blow@apache.org "));
+
+        assertFalse(validator.isValid("joeblow@apa che.org "));
 
     }
 
@@ -225,8 +182,7 @@ public class EmailValidatorTest extends AbstractCommonTest {
     * Tests the email validation with ascii control characters.
     * (i.e. Ascii chars 0 - 31 and 127)
     */
-    public void testEmailWithControlChars() throws ValidatorException {
-        EmailValidator validator = new EmailValidator();
+    public void testEmailWithControlChars()  {
         for (char c = 0; c < 32; c++) {
             assertFalse("Test control char " + ((int)c), validator.isValid("foo" + c + "bar@domain.com"));
         }
@@ -240,75 +196,75 @@ public class EmailValidatorTest extends AbstractCommonTest {
      * <p><b>FIXME</b>: This test fails so disable it with a leading _ for 1.1.4 release.
      * The real solution is to fix the email parsing.
      *
-     * @throws ValidatorException
+     * @
      */
-    public void _testEmailUserName() throws ValidatorException {
-        ValueBean info = new ValueBean();
-        info.setValue("joe1blow@apache.org");
-        valueTest(info, true);
-        info.setValue("joe$blow@apache.org");
-        valueTest(info, true);
-        info.setValue("joe-@apache.org");
-        valueTest(info, true);
-        info.setValue("joe_@apache.org");
-        valueTest(info, true);
+    public void _testEmailUserName()  {
+
+        assertTrue(validator.isValid("joe1blow@apache.org"));
+
+        assertTrue(validator.isValid("joe$blow@apache.org"));
+
+        assertTrue(validator.isValid("joe-@apache.org"));
+
+        assertTrue(validator.isValid("joe_@apache.org"));
+
 
         //UnQuoted Special characters are invalid
 
-        info.setValue("joe.@apache.org");
-        valueTest(info, false);
-        info.setValue("joe+@apache.org");
-        valueTest(info, false);
-        info.setValue("joe!@apache.org");
-        valueTest(info, false);
-        info.setValue("joe*@apache.org");
-        valueTest(info, false);
-        info.setValue("joe'@apache.org");
-        valueTest(info, false);
-        info.setValue("joe(@apache.org");
-        valueTest(info, false);
-        info.setValue("joe)@apache.org");
-        valueTest(info, false);
-        info.setValue("joe,@apache.org");
-        valueTest(info, false);
-        info.setValue("joe%45@apache.org");
-        valueTest(info, false);
-        info.setValue("joe;@apache.org");
-        valueTest(info, false);
-        info.setValue("joe?@apache.org");
-        valueTest(info, false);
-        info.setValue("joe&@apache.org");
-        valueTest(info, false);
-        info.setValue("joe=@apache.org");
-        valueTest(info, false);
+        assertFalse(validator.isValid("joe.@apache.org"));
+
+        assertFalse(validator.isValid("joe+@apache.org"));
+
+        assertFalse(validator.isValid("joe!@apache.org"));
+
+        assertFalse(validator.isValid("joe*@apache.org"));
+
+        assertFalse(validator.isValid("joe'@apache.org"));
+
+        assertFalse(validator.isValid("joe(@apache.org"));
+
+        assertFalse(validator.isValid("joe)@apache.org"));
+
+        assertFalse(validator.isValid("joe,@apache.org"));
+
+        assertFalse(validator.isValid("joe%45@apache.org"));
+
+        assertFalse(validator.isValid("joe;@apache.org"));
+
+        assertFalse(validator.isValid("joe?@apache.org"));
+
+        assertFalse(validator.isValid("joe&@apache.org"));
+
+        assertFalse(validator.isValid("joe=@apache.org"));
+
 
         //Quoted Special characters are valid
-        info.setValue("\"joe.\"@apache.org");
-        valueTest(info, true);
-        info.setValue("\"joe+\"@apache.org");
-        valueTest(info, true);
-        info.setValue("\"joe!\"@apache.org");
-        valueTest(info, true);
-        info.setValue("\"joe*\"@apache.org");
-        valueTest(info, true);
-        info.setValue("\"joe'\"@apache.org");
-        valueTest(info, true);
-        info.setValue("\"joe(\"@apache.org");
-        valueTest(info, true);
-        info.setValue("\"joe)\"@apache.org");
-        valueTest(info, true);
-        info.setValue("\"joe,\"@apache.org");
-        valueTest(info, true);
-        info.setValue("\"joe%45\"@apache.org");
-        valueTest(info, true);
-        info.setValue("\"joe;\"@apache.org");
-        valueTest(info, true);
-        info.setValue("\"joe?\"@apache.org");
-        valueTest(info, true);
-        info.setValue("\"joe&\"@apache.org");
-        valueTest(info, true);
-        info.setValue("\"joe=\"@apache.org");
-        valueTest(info, true);
+        assertTrue(validator.isValid("\"joe.\"@apache.org"));
+
+        assertTrue(validator.isValid("\"joe+\"@apache.org"));
+
+        assertTrue(validator.isValid("\"joe!\"@apache.org"));
+
+        assertTrue(validator.isValid("\"joe*\"@apache.org"));
+
+        assertTrue(validator.isValid("\"joe'\"@apache.org"));
+
+        assertTrue(validator.isValid("\"joe(\"@apache.org"));
+
+        assertTrue(validator.isValid("\"joe)\"@apache.org"));
+
+        assertTrue(validator.isValid("\"joe,\"@apache.org"));
+
+        assertTrue(validator.isValid("\"joe%45\"@apache.org"));
+
+        assertTrue(validator.isValid("\"joe;\"@apache.org"));
+
+        assertTrue(validator.isValid("\"joe?\"@apache.org"));
+
+        assertTrue(validator.isValid("\"joe&\"@apache.org"));
+
+        assertTrue(validator.isValid("\"joe=\"@apache.org"));
+
 
     }
 
@@ -392,48 +348,19 @@ public class EmailValidatorTest extends AbstractCommonTest {
      * Write this test based on perl Mail::RFC822::Address
      * which takes its example email address directly from RFC822
      *
-     * @throws ValidatorException
+     * @
      *
      * FIXME This test fails so disable it with a leading _ for 1.1.4 release.
      * The real solution is to fix the email parsing.
      */
-    public void _testEmailFromPerl() throws ValidatorException {
-        ValueBean info = new ValueBean();
+    public void _testEmailFromPerl()  {
         for (int index = 0; index < testEmailFromPerl.length; index++) {
-            info.setValue(testEmailFromPerl[index].item);
-            valueTest(info, testEmailFromPerl[index].valid);
+            if (testEmailFromPerl[index].valid) {
+                assertTrue(validator.isValid(testEmailFromPerl[index].item));
+            } else {
+                assertFalse(validator.isValid(testEmailFromPerl[index].item));
+            }
         }
     }
 
-   /**
-    * Utlity class to run a test on a value.
-    *
-    * @param info	Value to run test on.
-    * @param passed	Whether or not the test is expected to pass.
-    */
-   private void valueTest(ValueBean info, boolean passed) throws ValidatorException {
-      // Construct validator based on the loaded resources
-      // and the form key
-      Validator validator = new Validator(resources, FORM_KEY);
-      // add the name bean to the validator as a resource
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, info);
-
-      // Get results of the validation.
-      ValidatorResults results = null;
-
-      // throws ValidatorException,
-      // but we aren't catching for testing
-      // since no validation methods we use
-      // throw this
-      results = validator.validate();
-
-      assertNotNull("Results are null.", results);
-
-      ValidatorResult result = results.getValidatorResult("value");
-
-      assertNotNull(ACTION + " value ValidatorResult should not be null.", result);
-      assertTrue("Value "+info.getValue()+" ValidatorResult should contain the '" + ACTION +"' action.", result.containsAction(ACTION));
-      assertTrue("Value "+info.getValue()+"ValidatorResult for the '" + ACTION +"' action should have " + (passed ? "passed" : "failed") + ".", (passed ? result.isValid(ACTION) : !result.isValid(ACTION)));
-    }
 }
