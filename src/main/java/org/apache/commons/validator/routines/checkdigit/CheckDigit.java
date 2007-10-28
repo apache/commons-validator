@@ -29,8 +29,8 @@ package org.apache.commons.validator.routines.checkdigit;
  * Although Commons Validator is primarily concerned with validation,
  * {@link CheckDigit} also defines behaviour for calculating/generating check
  * digits, since it makes sense that users will want to (re-)use the
- * same logic for both. The {@link ISBNValidator} makes specific use
- * of this feature by providing the facility to validate ISBN-10 codes
+ * same logic for both. The {@link org.apache.commons.validator.routines.ISBNValidator}
+ * makes specific use of this feature by providing the facility to validate ISBN-10 codes
  * and then convert them to the new ISBN-13 standard.
  * <p>
  * {@link CheckDigit} is used by the new generic
