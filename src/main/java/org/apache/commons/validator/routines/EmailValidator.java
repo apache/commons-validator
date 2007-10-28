@@ -71,7 +71,7 @@ public class EmailValidator implements Serializable {
         return EMAIL_VALIDATOR;
     }
 
-    /**
+    /**                                       l
      * Protected constructor for subclasses to use.
      */
     protected EmailValidator() {
@@ -95,6 +95,8 @@ public class EmailValidator implements Serializable {
         if (!asciiMatcher.matches()) {
             return false;
         }
+
+        email = stripComments(email);
 
         // Check the whole email address structure
         Pattern emailPattern = Pattern.compile(EMAIL_PATTERN);
