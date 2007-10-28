@@ -64,6 +64,7 @@ public class EmailValidator implements Serializable {
 
     /**
      * Returns the Singleton instance of this validator.
+     *
      * @return singleton instance of this validator.
      */
     public static EmailValidator getInstance() {
@@ -81,7 +82,7 @@ public class EmailValidator implements Serializable {
      * <p>Checks if a field has a valid e-mail address.</p>
      *
      * @param email The value validation is being performed on.  A <code>null</code>
-     * value is considered invalid.
+     *              value is considered invalid.
      * @return true if the email address is valid.
      */
     public boolean isValid(String email) {
@@ -95,8 +96,6 @@ public class EmailValidator implements Serializable {
             return false;
         }
 
-
-        
         // Check the whole email address structure
         Pattern emailPattern = Pattern.compile(EMAIL_PATTERN);
         Matcher emailMatcher = emailPattern.matcher(email);
@@ -121,6 +120,7 @@ public class EmailValidator implements Serializable {
 
     /**
      * Returns true if the domain component of an email address is valid.
+     *
      * @param domain being validated.
      * @return true if the email address's domain is valid.
      */
@@ -155,6 +155,7 @@ public class EmailValidator implements Serializable {
 
     /**
      * Returns true if the user component of an email address is valid.
+     *
      * @param user being validated
      * @return true if the user name is valid.
      */
@@ -164,6 +165,7 @@ public class EmailValidator implements Serializable {
 
     /**
      * Validates a symbolic domain name.  Returns true if it's valid.
+     *
      * @param domain symbolic domain name
      * @return true if the symbolic domain name is valid.
      */
@@ -205,26 +207,28 @@ public class EmailValidator implements Serializable {
 
         return true;
     }
+
     /**
-     *   Recursively remove comments, and replace with a single space.  The simpler
-     *   regexps in the Email Addressing FAQ are imperfect - they will miss escaped
-     *   chars in atoms, for example.
-     *   Derived From    Mail::RFC822::Address
+     * Recursively remove comments, and replace with a single space.  The simpler
+     * regexps in the Email Addressing FAQ are imperfect - they will miss escaped
+     * chars in atoms, for example.
+     * Derived From    Mail::RFC822::Address
+     *
      * @param emailStr The email address
      * @return address with comments removed.
-    */
-    protected String stripComments(String emailStr)  {
-     String input = emailStr;
-     String result = emailStr;
-     String commentPat = "s/^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/$1 /osx";
-     Perl5Util commentMatcher = new Perl5Util();
-     result = commentMatcher.substitute(commentPat,input);
-     // This really needs to be =~ or Perl5Matcher comparison
-     while (!result.equals(input)) {
-        input = result;
-        result = commentMatcher.substitute(commentPat,input);
-     }
-     return result;
+     */
+    protected String stripComments(String emailStr) {
+        String input = emailStr;
+        String result = emailStr;
+        String commentPat = "s/^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/$1 /osx";
+        Perl5Util commentMatcher = new Perl5Util();
+        result = commentMatcher.substitute(commentPat, input);
+        // This really needs to be =~ or Perl5Matcher comparison
+        while (!result.equals(input)) {
+            input = result;
+            result = commentMatcher.substitute(commentPat, input);
+        }
+        return result;
 
     }
 }
