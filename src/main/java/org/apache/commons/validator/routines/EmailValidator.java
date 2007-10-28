@@ -42,21 +42,20 @@ import java.util.regex.Pattern;
  */
 public class EmailValidator implements Serializable {
 
-    private static final String SPECIAL_CHARS = "\\000-\\037\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]\\177";
+    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
     private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
     private static final String QUOTED_USER = "(\"[^\"]*\")";
     private static final String ATOM = VALID_CHARS + '+';
     private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
-    // Each pattern must be surrounded by /
     private static final String LEGAL_ASCII_PATTERN = "^\\p{ASCII}+$";
     private static final String EMAIL_PATTERN = "^(.+)@(.+)$";
     private static final String IP_DOMAIN_PATTERN = "^\\[(.*)\\]$";
     private static final String TLD_PATTERN = "^\\p{Alpha}+$";
 
-    private static final String USER_PATTERN = "/^\\s*" + WORD + "(\\." + WORD + ")*$/";
-    private static final String DOMAIN_PATTERN = "/^" + ATOM + "(\\." + ATOM + ")*\\s*$/";
-    private static final String ATOM_PATTERN = "/(" + ATOM + ")/";
+    private static final String USER_PATTERN = "^\\s*" + WORD + "(\\." + WORD + ")*$";
+    private static final String DOMAIN_PATTERN = "^" + ATOM + "(\\." + ATOM + ")*\\s*$";
+    private static final String ATOM_PATTERN = "(" + ATOM + ")";
 
     /**
      * Singleton instance of this class.
@@ -96,8 +95,8 @@ public class EmailValidator implements Serializable {
             return false;
         }
 
-        email = stripComments(email);
 
+        
         // Check the whole email address structure
         Pattern emailPattern = Pattern.compile(EMAIL_PATTERN);
         Matcher emailMatcher = emailPattern.matcher(email);
@@ -140,8 +139,7 @@ public class EmailValidator implements Serializable {
             }
         } else {
             // Domain is symbolic name
-            Perl5Util domainMatcher = new Perl5Util();
-            symbolic = domainMatcher.match(DOMAIN_PATTERN, domain);
+            symbolic = Pattern.matches(DOMAIN_PATTERN, domain);
         }
 
         if (symbolic) {
@@ -161,8 +159,7 @@ public class EmailValidator implements Serializable {
      * @return true if the user name is valid.
      */
     protected boolean isValidUser(String user) {
-        Perl5Util userMatcher = new Perl5Util();
-        return userMatcher.match(USER_PATTERN, user);
+        return Pattern.matches(USER_PATTERN, user);
     }
 
     /**
@@ -174,17 +171,16 @@ public class EmailValidator implements Serializable {
         String[] domainSegment = new String[10];
         boolean match = true;
         int i = 0;
-        Perl5Util atomMatcher = new Perl5Util();
+
+        // Iterate through the domain, checking that it's composed
+        // of valid atoms in between the dots.
+        // FIXME: This should be cleaned up some more; it's still a bit dodgy.
+        Pattern atomPattern = Pattern.compile(ATOM_PATTERN);
+        Matcher atomMatcher = atomPattern.matcher(domain);
         while (match) {
-            match = atomMatcher.match(ATOM_PATTERN, domain);
+            match = atomMatcher.find();
             if (match) {
                 domainSegment[i] = atomMatcher.group(1);
-                int l = domainSegment[i].length() + 1;
-                domain =
-                        (l >= domain.length())
-                        ? ""
-                        : domain.substring(l);
-
                 i++;
             }
         }
