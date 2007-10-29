@@ -51,6 +51,7 @@
     <li>4.6 <a href="#other.inet">IP Address Validation</a></li>
     <li>4.7 <a href="#other.email">Email Address Validation</a></li>
     <li>4.8 <a href="#other.url">URL Validation</a></li>
+    <li>4.9 <a href="#other.domain">Domain Name Validation</a></li>
     </ul></li>
 </ul>
 
@@ -434,6 +435,8 @@
        address validation according to RFC 822 standards.</li>
    <li><a href="#other.url">URL Validation</a> - provides URL validation on
        scheme, domain, and authority.</li>
+   <li><a href="#other.domain">Domain Name Validation</a> - provides domain
+       name and IANA TLD validation.</li>
 </ul>
 
 <a name="other.regex"></a>
@@ -758,6 +761,53 @@
       UrlValidator doubleSlashValidator = new UrlValidator(UrlValidator.ALLOW_2_SLASHES);
       if (doubleSlashValidator.isValid("http://www.apache.org//projects")) {
           ... // valid only in this Validator instance
+      }
+</pre>
+
+<a name="other.domain"></a>
+<h3>4.9 Domain Name Validation</h3>
+
+<p>
+    <a href="DomainValidator.html">DomainValidator</a> provides validation of Internet
+    domain names as specified by RFC1034/RFC1123 and according to the IANA-recognized
+    list of top-level domains (TLDs). Clients may validate an entire domain name, a
+    TLD of any category, or a TLD within a specific category.
+</p>
+<p>
+    For example:
+</p>
+<pre>
+      // Get a DomainValidator
+      DomainValidator validator = DomainValidator.getInstance();
+
+      // Validate a domain name
+      if (validator.isValid("www.apache.org")) {
+          ... // valid
+      }
+      if (!validator.isValid("www.apache.wrong")) {
+          ... // invalid
+      }
+
+      // Validate a TLD
+      if (validator.isValidTld(".com")) {
+          ... // valid
+      }
+      if (validator.isValidTld("org")) {
+          ... // valid, the leading dot is optional
+      }
+      if (validator.isValidTld(".us")) {
+          ... // valid, country code TLDs are also accepted
+      }
+
+      // Validate TLDs in categories
+      if (validator.isValidGenericTld(".name")) {
+          ... // valid
+      }
+      if (!validator.isValidGenericTld(".uk")) {
+          ... // invalid, .uk is a country code TLD
+      }
+      if (!validator.isValidCountryCodeTld(".info")) {
+          ... // invalid, .info is a generic TLD
       }
 </pre>
 </body>
