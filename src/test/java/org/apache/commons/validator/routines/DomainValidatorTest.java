@@ -37,6 +37,8 @@ public class DomainValidatorTest extends TestCase {
 
         assertTrue("test-domain.com should validate", validator.isValid("test-domain.com"));
         assertTrue("two-letter domain label should validate", validator.isValid("as.uk"));
+
+        assertTrue("case-insensitive ApAchE.Org should validate", validator.isValid("ApAchE.Org"));
     }
 
     public void testInvalidDomains() {
@@ -63,6 +65,10 @@ public class DomainValidatorTest extends TestCase {
         // country code TLDs
         assertTrue(".uk should validate as ccTLD", validator.isValidCountryCodeTld(".uk"));
         assertFalse(".org shouldn't validate as ccTLD", validator.isValidCountryCodeTld(".org"));
+
+        // case-insensitive
+        assertTrue(".COM should validate as TLD", validator.isValidTld(".COM"));
+        assertTrue(".BiZ should validate as TLD", validator.isValidTld(".BiZ"));
 
         // corner cases
         assertFalse("invalid TLD shouldn't validate", validator.isValid(".nope"));

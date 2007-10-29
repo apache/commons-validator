@@ -127,7 +127,7 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is an infrastructure TLD
      */
     public boolean isValidInfrastructureTld(String iTld) {
-        return INFRASTRUCTURE_TLD_LIST.contains(chompLeadingDot(iTld));
+        return INFRASTRUCTURE_TLD_LIST.contains(chompLeadingDot(iTld.toLowerCase()));
     }
 
     /**
@@ -138,7 +138,7 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is a generic TLD
      */
     public boolean isValidGenericTld(String gTld) {
-        return GENERIC_TLD_LIST.contains(chompLeadingDot(gTld));
+        return GENERIC_TLD_LIST.contains(chompLeadingDot(gTld.toLowerCase()));
     }
 
     /**
@@ -149,7 +149,7 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is a country code TLD
      */
     public boolean isValidCountryCodeTld(String ccTld) {
-        return COUNTRY_CODE_TLD_LIST.contains(chompLeadingDot(ccTld));
+        return COUNTRY_CODE_TLD_LIST.contains(chompLeadingDot(ccTld.toLowerCase()));
     }
 
     private String chompLeadingDot(String str) {
