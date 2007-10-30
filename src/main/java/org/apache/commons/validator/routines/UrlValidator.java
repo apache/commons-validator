@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -103,7 +104,7 @@ public class UrlValidator implements Serializable {
      * This expression derived/taken from the BNF for URI (RFC2396).
      */
     private static final String URL_PATTERN =
-            "/^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?/";
+            "^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?";
     //                                                                      12            3  4          5       6   7        8 9
 
     /**
@@ -238,35 +239,35 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        Perl5Util matchUrlPat = new Perl5Util();
         Pattern matchAsciiPat = Pattern.compile(LEGAL_ASCII_PATTERN);
-
         if (!matchAsciiPat.matcher(value).matches()) {
             return false;
-        }
+        }        
 
+        Pattern matchUrlPat = Pattern.compile(URL_PATTERN);
         // Check the whole url address structure
-        if (!matchUrlPat.match(URL_PATTERN, value)) {
+        Matcher urlMatcher = matchUrlPat.matcher(value);
+        if (!urlMatcher.matches()) {
             return false;
         }
 
-        if (!isValidScheme(matchUrlPat.group(PARSE_URL_SCHEME))) {
+        if (!isValidScheme(urlMatcher.group(PARSE_URL_SCHEME))) {
             return false;
         }
 
-        if (!isValidAuthority(matchUrlPat.group(PARSE_URL_AUTHORITY))) {
+        if (!isValidAuthority(urlMatcher.group(PARSE_URL_AUTHORITY))) {
             return false;
         }
 
-        if (!isValidPath(matchUrlPat.group(PARSE_URL_PATH))) {
+        if (!isValidPath(urlMatcher.group(PARSE_URL_PATH))) {
             return false;
         }
 
-        if (!isValidQuery(matchUrlPat.group(PARSE_URL_QUERY))) {
+        if (!isValidQuery(urlMatcher.group(PARSE_URL_QUERY))) {
             return false;
         }
 
-        if (!isValidFragment(matchUrlPat.group(PARSE_URL_FRAGMENT))) {
+        if (!isValidFragment(urlMatcher.group(PARSE_URL_FRAGMENT))) {
             return false;
         }
 
