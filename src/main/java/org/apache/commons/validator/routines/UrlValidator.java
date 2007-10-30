@@ -93,16 +93,10 @@ public class UrlValidator implements Serializable {
 
     private static final String ALPHA_NUMERIC_CHARS = ALPHA_CHARS + "\\d";
 
-    private static final String SPECIAL_CHARS = ";/@&=,.?:+$";
-
-    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
-
     private static final String SCHEME_CHARS = ALPHA_CHARS;
 
     // Drop numeric, and  "+-." for now
     private static final String AUTHORITY_CHARS = ALPHA_NUMERIC_CHARS + "\\-\\.";
-
-    private static final String ATOM = VALID_CHARS + '+';
 
     /**
      * This expression derived/taken from the BNF for URI (RFC2396).
@@ -151,14 +145,7 @@ public class UrlValidator implements Serializable {
 
     private static final String LEGAL_ASCII_PATTERN = "/^[\\000-\\177]+$/";
 
-    private static final String DOMAIN_PATTERN =
-            "/^" + ATOM + "(\\." + ATOM + ")*$/";
-
     private static final String PORT_PATTERN = "/^:(\\d{1,5})$/";
-
-    private static final String ATOM_PATTERN = "/(" + ATOM + ")/";
-
-    private static final String ALPHA_PATTERN = "/^[" + ALPHA_CHARS + "]/";
 
     /**
      * Holds the set of current validation options.
@@ -325,26 +312,22 @@ public class UrlValidator implements Serializable {
         }
 
         Perl5Util authorityMatcher = new Perl5Util();
-        InetAddressValidator inetAddressValidator =
-                InetAddressValidator.getInstance();
-
         if (!authorityMatcher.match(AUTHORITY_PATTERN, authority)) {
             return false;
         }
 
-        boolean hostname = false;
-        // check if authority is IP address or hostname
-        String hostIP = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
-        boolean ipV4Address = inetAddressValidator.isValid(hostIP);
-
-        if (!ipV4Address) {
-            // Domain is hostname name
-            DomainValidator validator = DomainValidator.getInstance();
-            hostname = validator.isValid(hostIP);
-        }
-
-        if (!hostname && !ipV4Address) {
-            return false;
+        String hostLocation = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
+        // check if authority is hostname or IP address:
+        // try a hostname first since that's much more likely
+        DomainValidator domainValidator = DomainValidator.getInstance();
+        if (!domainValidator.isValid(hostLocation)) {
+            // try an IP address
+            InetAddressValidator inetAddressValidator =
+                InetAddressValidator.getInstance();
+            if (!inetAddressValidator.isValid(hostLocation)) {
+                // isn't either one, so the URL is invalid
+                return false;
+            }
         }
 
         String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
