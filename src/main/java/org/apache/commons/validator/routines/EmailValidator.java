@@ -45,17 +45,13 @@ public class EmailValidator implements Serializable {
     private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
     private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
     private static final String QUOTED_USER = "(\"[^\"]*\")";
-    private static final String ATOM = VALID_CHARS + '+';
     private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
     private static final String LEGAL_ASCII_PATTERN = "^\\p{ASCII}+$";
-    private static final String EMAIL_PATTERN = "^(.+)@(.+)$";
+    private static final String EMAIL_PATTERN = "^\\s*?(.+)@(.+?)\\s*$";
     private static final String IP_DOMAIN_PATTERN = "^\\[(.*)\\]$";
-    private static final String TLD_PATTERN = "^\\p{Alpha}+$";
 
     private static final String USER_PATTERN = "^\\s*" + WORD + "(\\." + WORD + ")*$";
-    private static final String DOMAIN_PATTERN = "^" + ATOM + "(\\." + ATOM + ")*\\s*$";
-    private static final String ATOM_PATTERN = "(" + ATOM + ")";
 
     /**
      * Singleton instance of this class.
@@ -71,7 +67,7 @@ public class EmailValidator implements Serializable {
         return EMAIL_VALIDATOR;
     }
 
-    /**                                       l
+    /**                                       
      * Protected constructor for subclasses to use.
      */
     protected EmailValidator() {
@@ -127,8 +123,6 @@ public class EmailValidator implements Serializable {
      * @return true if the email address's domain is valid.
      */
     protected boolean isValidDomain(String domain) {
-        boolean symbolic = false;
-
         // see if domain is an IP address in brackets
         Pattern ipDomainPattern = Pattern.compile(IP_DOMAIN_PATTERN);
         Matcher ipDomainMatcher = ipDomainPattern.matcher(domain);
@@ -136,23 +130,13 @@ public class EmailValidator implements Serializable {
         if (ipDomainMatcher.matches()) {
             InetAddressValidator inetAddressValidator =
                     InetAddressValidator.getInstance();
-            if (inetAddressValidator.isValid(ipDomainMatcher.group(1))) {
-                return true;
-            }
+            return inetAddressValidator.isValid(ipDomainMatcher.group(1));
         } else {
             // Domain is symbolic name
-            symbolic = Pattern.matches(DOMAIN_PATTERN, domain);
+            DomainValidator domainValidator =
+                    DomainValidator.getInstance();
+            return domainValidator.isValid(domain);
         }
-
-        if (symbolic) {
-            if (!isValidSymbolicDomain(domain)) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -163,51 +147,6 @@ public class EmailValidator implements Serializable {
      */
     protected boolean isValidUser(String user) {
         return Pattern.matches(USER_PATTERN, user);
-    }
-
-    /**
-     * Validates a symbolic domain name.  Returns true if it's valid.
-     *
-     * @param domain symbolic domain name
-     * @return true if the symbolic domain name is valid.
-     */
-    protected boolean isValidSymbolicDomain(String domain) {
-        String[] domainSegment = new String[10];
-        boolean match = true;
-        int i = 0;
-
-        // Iterate through the domain, checking that it's composed
-        // of valid atoms in between the dots.
-        // FIXME: This should be cleaned up some more; it's still a bit dodgy.
-        Pattern atomPattern = Pattern.compile(ATOM_PATTERN);
-        Matcher atomMatcher = atomPattern.matcher(domain);
-        while (match) {
-            match = atomMatcher.find();
-            if (match) {
-                domainSegment[i] = atomMatcher.group(1);
-                i++;
-            }
-        }
-
-        int len = i;
-
-        // Make sure there's a host name preceding the domain.
-        if (len < 2) {
-            return false;
-        }
-
-        // TODO: the tld should be checked against some sort of configurable
-        // list
-        String tld = domainSegment[len - 1];
-        if (tld.length() > 1) {
-            if (!Pattern.matches(TLD_PATTERN, tld)) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-
-        return true;
     }
 
     /**
