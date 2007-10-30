@@ -339,55 +339,8 @@ public class UrlValidator implements Serializable {
 
         if (!ipV4Address) {
             // Domain is hostname name
-            Perl5Util domainMatcher = new Perl5Util();
-            hostname = domainMatcher.match(DOMAIN_PATTERN, hostIP);
-        }
-
-        //rightmost hostname will never start with a digit.
-        if (hostname) {
-            // LOW-TECH FIX FOR VALIDATOR-202
-            // TODO: Rewrite to use ArrayList and .add semantics: see VALIDATOR-203
-            char[] chars = hostIP.toCharArray();
-            int size = 1;
-            for(int i=0; i<chars.length; i++) {
-                if(chars[i] == '.') {
-                    size++;
-                }
-            }
-            String[] domainSegment = new String[size];
-            boolean match = true;
-            int segmentCount = 0;
-            int segmentLength = 0;
-            Perl5Util atomMatcher = new Perl5Util();
-
-            while (match) {
-                match = atomMatcher.match(ATOM_PATTERN, hostIP);
-                if (match) {
-                    domainSegment[segmentCount] = atomMatcher.group(1);
-                    segmentLength = domainSegment[segmentCount].length() + 1;
-                    hostIP =
-                            (segmentLength >= hostIP.length())
-                            ? ""
-                            : hostIP.substring(segmentLength);
-
-                    segmentCount++;
-                }
-            }
-            String topLevel = domainSegment[segmentCount - 1];
-            if (topLevel.length() < 2 || topLevel.length() > 4) {
-                return false;
-            }
-
-            // First letter of top level must be a alpha
-            Perl5Util alphaMatcher = new Perl5Util();
-            if (!alphaMatcher.match(ALPHA_PATTERN, topLevel.substring(0, 1))) {
-                return false;
-            }
-
-            // Make sure there's a host name preceding the authority.
-            if (segmentCount < 2) {
-                return false;
-            }
+            DomainValidator validator = DomainValidator.getInstance();
+            hostname = validator.isValid(hostIP);
         }
 
         if (!hostname && !ipV4Address) {
