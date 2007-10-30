@@ -147,7 +147,7 @@ public class UrlValidator implements Serializable {
 
     private static final String LEGAL_ASCII_PATTERN = "^\\p{ASCII}+$";
 
-    private static final String PORT_PATTERN = "/^:(\\d{1,5})$/";
+    private static final String PORT_PATTERN = "^:(\\d{1,5})$";
 
     /**
      * Holds the set of current validation options.
@@ -334,8 +334,8 @@ public class UrlValidator implements Serializable {
 
         String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
         if (port != null) {
-            Perl5Util portMatcher = new Perl5Util();
-            if (!portMatcher.match(PORT_PATTERN, port)) {
+            Pattern portPattern = Pattern.compile(PORT_PATTERN);
+            if (!portPattern.matcher(port).matches()) {
                 return false;
             }
         }
