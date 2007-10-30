@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * <p>Validates URLs.</p>
@@ -143,7 +144,7 @@ public class UrlValidator implements Serializable {
 
     private static final String QUERY_PATTERN = "/^(.*)$/";
 
-    private static final String LEGAL_ASCII_PATTERN = "/^[\\000-\\177]+$/";
+    private static final String LEGAL_ASCII_PATTERN = "^\\p{ASCII}+$";
 
     private static final String PORT_PATTERN = "/^:(\\d{1,5})$/";
 
@@ -238,9 +239,9 @@ public class UrlValidator implements Serializable {
         }
 
         Perl5Util matchUrlPat = new Perl5Util();
-        Perl5Util matchAsciiPat = new Perl5Util();
+        Pattern matchAsciiPat = Pattern.compile(LEGAL_ASCII_PATTERN);
 
-        if (!matchAsciiPat.match(LEGAL_ASCII_PATTERN, value)) {
+        if (!matchAsciiPat.matcher(value).matches()) {
             return false;
         }
 
