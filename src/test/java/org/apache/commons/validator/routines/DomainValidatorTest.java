@@ -36,9 +36,15 @@ public class DomainValidatorTest extends TestCase {
         assertTrue("www.google.com should validate", validator.isValid("www.google.com"));
 
         assertTrue("test-domain.com should validate", validator.isValid("test-domain.com"));
+        assertTrue("test---domain.com should validate", validator.isValid("test---domain.com"));
+        assertTrue("test-d-o-m-ain.com should validate", validator.isValid("test-d-o-m-ain.com"));
         assertTrue("two-letter domain label should validate", validator.isValid("as.uk"));
 
         assertTrue("case-insensitive ApAchE.Org should validate", validator.isValid("ApAchE.Org"));
+
+        assertTrue("single-character domain label should validate", validator.isValid("z.com"));
+
+        assertTrue("i.have.an-example.domain.name should validate", validator.isValid("i.have.an-example.domain.name"));
     }
 
     public void testInvalidDomains() {
@@ -46,6 +52,9 @@ public class DomainValidatorTest extends TestCase {
         assertFalse("domain name with spaces shouldn't validate", validator.isValid(" apache.org "));
         assertFalse("domain name containing spaces shouldn't validate", validator.isValid("apa che.org"));
         assertFalse("domain name starting with dash shouldn't validate", validator.isValid("-testdomain.name"));
+        assertFalse("domain name ending with dash shouldn't validate", validator.isValid("testdomain-.name"));
+        assertFalse("domain name starting with multiple dashes shouldn't validate", validator.isValid("---c.com"));
+        assertFalse("domain name ending with multiple dashes shouldn't validate", validator.isValid("c--.com"));
         assertFalse("domain name with invalid TLD shouldn't validate", validator.isValid("apache.rog"));
 
         assertFalse("URL shouldn't validate", validator.isValid("http://www.apache.org"));
