@@ -313,7 +313,6 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        //Perl5Util authorityMatcher = new Perl5Util();
         Pattern authorityPattern = Pattern.compile(AUTHORITY_PATTERN);
         Matcher authorityMatcher = authorityPattern.matcher(authority);
         if (!authorityMatcher.matches()) {
