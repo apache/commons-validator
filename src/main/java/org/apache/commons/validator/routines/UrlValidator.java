@@ -129,7 +129,7 @@ public class UrlValidator implements Serializable {
     private static final String SCHEME_PATTERN = "/^[" + SCHEME_CHARS + "]/";
 
     private static final String AUTHORITY_PATTERN =
-            "/^([" + AUTHORITY_CHARS + "]*)(:\\d*)?(.*)?/";
+            "^([" + AUTHORITY_CHARS + "]*)(:\\d*)?(.*)?";
     //                                                                            1                          2  3       4
 
     private static final int PARSE_AUTHORITY_HOST_IP = 1;
@@ -313,8 +313,10 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        Perl5Util authorityMatcher = new Perl5Util();
-        if (!authorityMatcher.match(AUTHORITY_PATTERN, authority)) {
+        //Perl5Util authorityMatcher = new Perl5Util();
+        Pattern authorityPattern = Pattern.compile(AUTHORITY_PATTERN);
+        Matcher authorityMatcher = authorityPattern.matcher(authority);
+        if (!authorityMatcher.matches()) {
             return false;
         }
 
