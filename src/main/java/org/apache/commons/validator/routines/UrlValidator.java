@@ -95,8 +95,6 @@ public class UrlValidator implements Serializable {
 
     private static final String ALPHA_NUMERIC_CHARS = ALPHA_CHARS + "\\d";
 
-    private static final String SCHEME_CHARS = ALPHA_CHARS;
-
     // Drop numeric, and  "+-." for now
     private static final String AUTHORITY_CHARS = ALPHA_NUMERIC_CHARS + "\\-\\.";
 
@@ -126,7 +124,7 @@ public class UrlValidator implements Serializable {
     /**
      * Protocol (ie. http:, ftp:,https:).
      */
-    private static final String SCHEME_PATTERN = "/^[" + SCHEME_CHARS + "]/";
+    private static final String SCHEME_PATTERN = "^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*";
 
     private static final String AUTHORITY_PATTERN =
             "^([" + AUTHORITY_CHARS + "]*)(:\\d*)?(.*)?";
@@ -287,8 +285,8 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        Perl5Util schemeMatcher = new Perl5Util();
-        if (!schemeMatcher.match(SCHEME_PATTERN, scheme)) {
+        Pattern schemePattern = Pattern.compile(SCHEME_PATTERN);
+        if (!schemePattern.matcher(scheme).matches()) {
             return false;
         }
 
