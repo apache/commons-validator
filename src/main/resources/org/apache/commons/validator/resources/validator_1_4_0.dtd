@@ -144,7 +144,8 @@
                      list and then loop through the list performing the
                      validations for this field.
 
-     scripting       If set to "false", the client is directed not to generate 
+     clientValidation
+                     If set to "false", the client is directed not to generate
                      any scripting for client-side validation.
                      [true]
 -->
