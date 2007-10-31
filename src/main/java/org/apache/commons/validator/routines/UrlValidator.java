@@ -18,7 +18,6 @@ package org.apache.commons.validator.routines;
 
 import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.util.Flags;
-import org.apache.oro.text.perl.Perl5Util;
 
 import java.io.Serializable;
 import java.util.Arrays;
