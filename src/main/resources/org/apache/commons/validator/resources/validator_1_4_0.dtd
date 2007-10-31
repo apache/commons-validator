@@ -144,13 +144,16 @@
                      list and then loop through the list performing the
                      validations for this field.
 
+     scripting       If set to "false", the client is directed not to generate 
+                     any scripting for client-side validation.
+                     [true]
 -->
 <!ELEMENT field (msg|arg|var)*>
 <!ATTLIST field property CDATA #REQUIRED>
 <!ATTLIST field depends CDATA #IMPLIED>
 <!ATTLIST field page CDATA #IMPLIED>
 <!ATTLIST field indexedListProperty CDATA #IMPLIED>
-
+<!ATTLIST field clientValidation CDATA #IMPLIED>
 
 <!--
      Defines a custom message key to use when one of the

@@ -104,6 +104,13 @@ public class Field implements Cloneable, Serializable {
     protected int page = 0;
     
     /**
+     * The flag that indicates whether scripting should be generated
+     * by the client for client-side validation.
+     * @since Validator 1.4
+     */
+    protected boolean clientValidation = true;
+    
+    /**
      * The order of the Field in the Form.
      */
     protected int fieldOrder = 0;
@@ -285,6 +292,28 @@ public class Field implements Cloneable, Serializable {
      */
     public Map getMessages() {
         return Collections.unmodifiableMap(hMsgs);
+    }
+
+    /**
+     * Determines whether client-side scripting should be generated
+     * for this field. The default is <code>true</code>
+     * @return <code>true</code> for scripting; otherwise false
+     * @see #setClientValidation(boolean)
+     * @since Validator 1.4
+     */
+    public boolean isClientValidation() {
+        return this.clientValidation;
+    }
+
+    /**
+     * Sets the flag that determines whether client-side scripting should 
+     * be generated for this field. 
+     * @param scripting the scripting flag
+     * @see #isClientValidation()
+     * @since Validator 1.4
+     */
+    public void setClientValidation(boolean clientValidation) {
+        this.clientValidation = clientValidation;
     }
 
     /**
@@ -915,6 +944,5 @@ public class Field implements Cloneable, Serializable {
     protected Map getVarMap() {
         return hVars;
     }
-
 }
 
