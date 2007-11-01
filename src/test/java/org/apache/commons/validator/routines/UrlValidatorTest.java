@@ -146,6 +146,12 @@ public class UrlValidatorTest extends TestCase {
        assertTrue(urlValidator.isValid("http://tech.yahoo.com/rc/desktops/102;_ylt=Ao8yevQHlZ4On0O3ZJGXLEQFLZA5"));
    }
 
+   public void testValidator218() {
+       UrlValidator validator = new UrlValidator(UrlValidator.ALLOW_2_SLASHES);
+       assertTrue("parentheses should be valid in URLs",
+               validator.isValid("http://somewhere.com/pathxyz/file(1).html"));
+   }
+
    static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
       boolean carry = true;  //add 1 to lowest order part.
       boolean maxIndex = true;
