@@ -18,8 +18,7 @@ package org.apache.commons.validator;
 
 import java.io.Serializable;
 import java.util.Locale;
-
-import org.apache.oro.text.perl.Perl5Util;
+import java.util.regex.Pattern;
 
 /**
  * This class contains basic methods for performing validations.
@@ -62,8 +61,7 @@ public class GenericValidator implements Serializable {
             return false;
         }
 
-        Perl5Util matcher = new Perl5Util();
-        return matcher.match("/" + regexp + "/", value);
+        return Pattern.matches(regexp, value);
     }
 
     /**
