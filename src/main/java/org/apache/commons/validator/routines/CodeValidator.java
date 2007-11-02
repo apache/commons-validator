@@ -50,16 +50,10 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  */
 public final class CodeValidator implements Serializable {
 
-    private RegexValidator regexValidator;
-    private int minLength = -1;
-    private int maxLength = -1;
-    private CheckDigit checkdigit;
-
-    /**
-     * Default Constructor.
-     */
-    public CodeValidator() {
-    }
+    private final RegexValidator regexValidator;
+    private final int minLength;
+    private final int maxLength;
+    private final CheckDigit checkdigit;
 
     /**
      * Construct a code validator with a specified regular
@@ -96,10 +90,14 @@ public final class CodeValidator implements Serializable {
      */
     public CodeValidator(String regex, int minLength, int maxLength,
             CheckDigit checkdigit) {
-        setRegex(regex);
-        setMinLength(minLength);
-        setMaxLength(maxLength);
-        setCheckDigit(checkdigit);
+        if (regex != null && regex.length() > 0) {
+            this.regexValidator = new RegexValidator(regex);
+        } else {
+            this.regexValidator = null;
+        }
+        this.minLength = minLength;
+        this.maxLength = maxLength;
+        this.checkdigit = checkdigit;
     }
 
     /**
@@ -137,10 +135,10 @@ public final class CodeValidator implements Serializable {
      */
     public CodeValidator(RegexValidator regexValidator, int minLength, int maxLength,
             CheckDigit checkdigit) {
-        setRegexValidator(regexValidator);
-        setMinLength(minLength);
-        setMaxLength(maxLength);
-        setCheckDigit(checkdigit);
+        this.regexValidator = regexValidator;
+        this.minLength = minLength;
+        this.maxLength = maxLength;
+        this.checkdigit = checkdigit;
     }
 
     /**
@@ -153,29 +151,6 @@ public final class CodeValidator implements Serializable {
      */
     public CheckDigit getCheckDigit() {
         return checkdigit;
-    }
-
-    /**
-     * Set the check digit validation routine.
-     * <p>
-     * <b>N.B.</b> Optional, if not set no Check Digit
-     * validation will be performed on the code.
-     *
-     * @param checkdigit The check digit validation routine
-     */
-    public void setCheckDigit(CheckDigit checkdigit) {
-        this.checkdigit = checkdigit;
-    }
-
-    /**
-     * Convenience method that sets the minimum and
-     * maximum length to the same value.
-     *
-     * @param length The length of the code
-     */
-    public void setLength(int length) {
-        setMinLength(length);
-        setMaxLength(length);
     }
 
     /**
@@ -192,19 +167,6 @@ public final class CodeValidator implements Serializable {
     }
 
     /**
-     * Set the minimum length of the code.
-     * <p>
-     * <b>N.B.</b> Optional, if less than zero the
-     * minimum length will not be checked.
-     *
-     * @param minLength The minimum length of the code or
-     * <code>-1</code> if the code has no minimum length
-     */
-    public void setMinLength(int minLength) {
-        this.minLength = minLength;
-    }
-
-    /**
      * Return the maximum length of the code.
      * <p>
      * <b>N.B.</b> Optional, if less than zero the
@@ -218,19 +180,6 @@ public final class CodeValidator implements Serializable {
     }
 
     /**
-     * Set the maximum length of the code.
-     * <p>
-     * <b>N.B.</b> Optional, if less than zero the
-     * maximum length will not be checked.
-     *
-     * @param maxLength The maximum length of the code or
-     * <code>-1</code> if the code has no maximum length
-     */
-    public void setMaxLength(int maxLength) {
-        this.maxLength = maxLength;
-    }
-
-    /**
      * Return the <i>regular expression</i> validator.
      * <p>
      * <b>N.B.</b> Optional, if not set no regular
@@ -240,39 +189,6 @@ public final class CodeValidator implements Serializable {
      */
     public RegexValidator getRegexValidator() {
         return regexValidator;
-    }
-
-    /**
-     * Set the <i>regular expression</i> used to validate
-     * the <i>format</i> of the code.
-     * <p>
-     * This is a convenience method which creates a
-     * {@link RegexValidator} with the specified regular
-     * expression.
-     * <p>
-     * <b>N.B.</b> Optional, if not set no regular
-     * expression validation will be performed on the code.
-     *
-     * @param regex The format regular expression.
-     */
-    public void setRegex(String regex) {
-        if (regex != null && regex.length() > 0) {
-            setRegexValidator(new RegexValidator(regex));
-        } else {
-            setRegexValidator(null);
-        }
-    }
-
-    /**
-     * Set the <i>regular expression</i> validator.
-     * <p>
-     * <b>N.B.</b> Optional, if not set no regular
-     * expression validation will be performed on the code.
-     *
-     * @param regexValidator The regular expression validator
-     */
-    public void setRegexValidator(RegexValidator regexValidator) {
-        this.regexValidator = regexValidator;
     }
 
     /**
