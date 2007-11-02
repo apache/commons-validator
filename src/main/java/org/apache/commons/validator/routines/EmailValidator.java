@@ -95,8 +95,6 @@ public class EmailValidator implements Serializable {
             return false;
         }
 
-        email = stripComments(email);
-
         // Check the whole email address structure
         Matcher emailMatcher = EMAIL_PATTERN.matcher(email);
         if (!emailMatcher.matches()) {
@@ -150,27 +148,4 @@ public class EmailValidator implements Serializable {
         return USER_PATTERN.matcher(user).matches();
     }
 
-    /**
-     * Recursively remove comments, and replace with a single space.  The simpler
-     * regexps in the Email Addressing FAQ are imperfect - they will miss escaped
-     * chars in atoms, for example.
-     * Derived From    Mail::RFC822::Address
-     *
-     * @param emailStr The email address
-     * @return address with comments removed.
-     */
-    protected String stripComments(String emailStr) {
-        String input = emailStr;
-        String result = emailStr;
-        String commentPat = "s/^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/$1 /osx";
-        Perl5Util commentMatcher = new Perl5Util();
-        result = commentMatcher.substitute(commentPat, input);
-        // This really needs to be =~ or Perl5Matcher comparison
-        while (!result.equals(input)) {
-            input = result;
-            result = commentMatcher.substitute(commentPat, input);
-        }
-        return result;
-
-    }
 }
