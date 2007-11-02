@@ -47,11 +47,15 @@ public class EmailValidator implements Serializable {
     private static final String QUOTED_USER = "(\"[^\"]*\")";
     private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
-    private static final String LEGAL_ASCII_PATTERN = "^\\p{ASCII}+$";
-    private static final String EMAIL_PATTERN = "^\\s*?(.+)@(.+?)\\s*$";
-    private static final String IP_DOMAIN_PATTERN = "^\\[(.*)\\]$";
+    private static final String LEGAL_ASCII_REGEX = "^\\p{ASCII}+$";
+    private static final String EMAIL_REGEX = "^\\s*?(.+)@(.+?)\\s*$";
+    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
+    private static final String USER_REGEX = "^\\s*" + WORD + "(\\." + WORD + ")*$";
 
-    private static final String USER_PATTERN = "^\\s*" + WORD + "(\\." + WORD + ")*$";
+    private static final Pattern MATCH_ASCII_PATTERN = Pattern.compile(LEGAL_ASCII_REGEX);
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+    private static final Pattern IP_DOMAIN_PATTERN = Pattern.compile(IP_DOMAIN_REGEX);
+    private static final Pattern USER_PATTERN = Pattern.compile(USER_REGEX);
 
     /**
      * Singleton instance of this class.
@@ -86,8 +90,7 @@ public class EmailValidator implements Serializable {
             return false;
         }
 
-        Pattern matchAsciiPattern = Pattern.compile(LEGAL_ASCII_PATTERN);
-        Matcher asciiMatcher = matchAsciiPattern.matcher(email);
+        Matcher asciiMatcher = MATCH_ASCII_PATTERN.matcher(email);
         if (!asciiMatcher.matches()) {
             return false;
         }
@@ -95,8 +98,7 @@ public class EmailValidator implements Serializable {
         email = stripComments(email);
 
         // Check the whole email address structure
-        Pattern emailPattern = Pattern.compile(EMAIL_PATTERN);
-        Matcher emailMatcher = emailPattern.matcher(email);
+        Matcher emailMatcher = EMAIL_PATTERN.matcher(email);
         if (!emailMatcher.matches()) {
             return false;
         }
@@ -124,8 +126,7 @@ public class EmailValidator implements Serializable {
      */
     protected boolean isValidDomain(String domain) {
         // see if domain is an IP address in brackets
-        Pattern ipDomainPattern = Pattern.compile(IP_DOMAIN_PATTERN);
-        Matcher ipDomainMatcher = ipDomainPattern.matcher(domain);
+        Matcher ipDomainMatcher = IP_DOMAIN_PATTERN.matcher(domain);
 
         if (ipDomainMatcher.matches()) {
             InetAddressValidator inetAddressValidator =
@@ -146,7 +147,7 @@ public class EmailValidator implements Serializable {
      * @return true if the user name is valid.
      */
     protected boolean isValidUser(String user) {
-        return Pattern.matches(USER_PATTERN, user);
+        return USER_PATTERN.matcher(user).matches();
     }
 
     /**
