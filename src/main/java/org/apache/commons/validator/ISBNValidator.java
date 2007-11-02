@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator;
 
-import org.apache.oro.text.perl.Perl5Util;
-
 /**
  * A class for validating 10 digit ISBN codes.
  * Based on this 
