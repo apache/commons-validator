@@ -90,19 +90,16 @@ public class UrlValidator implements Serializable {
      */
     public static final int NO_FRAGMENTS = 1 << 2;
 
-    private static final String ALPHA_CHARS = "a-zA-Z";
-
-    private static final String ALPHA_NUMERIC_CHARS = ALPHA_CHARS + "\\d";
-
     // Drop numeric, and  "+-." for now
-    private static final String AUTHORITY_CHARS = ALPHA_NUMERIC_CHARS + "\\-\\.";
+    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
 
     /**
      * This expression derived/taken from the BNF for URI (RFC2396).
      */
-    private static final String URL_PATTERN =
+    private static final String URL_REGEX =
             "^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?";
     //                                                                      12            3  4          5       6   7        8 9
+    private static final Pattern URL_PATTERN = Pattern.compile(URL_REGEX);
 
     /**
      * Schema/Protocol (ie. http:, ftp:, file:, etc).
@@ -123,11 +120,13 @@ public class UrlValidator implements Serializable {
     /**
      * Protocol (ie. http:, ftp:,https:).
      */
-    private static final String SCHEME_PATTERN = "^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*";
+    private static final String SCHEME_REGEX = "^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*";
+    private static final Pattern SCHEME_PATTERN = Pattern.compile(SCHEME_REGEX);
 
-    private static final String AUTHORITY_PATTERN =
-            "^([" + AUTHORITY_CHARS + "]*)(:\\d*)?(.*)?";
+    private static final String AUTHORITY_REGEX =
+            "^([" + AUTHORITY_CHARS_REGEX + "]*)(:\\d*)?(.*)?";
     //                                                                            1                          2  3       4
+    private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
 
     private static final int PARSE_AUTHORITY_HOST_IP = 1;
 
@@ -138,13 +137,17 @@ public class UrlValidator implements Serializable {
      */
     private static final int PARSE_AUTHORITY_EXTRA = 3;
 
-    private static final String PATH_PATTERN = "^(/[-\\w:@&?=+,.!/~*'%$_;\\(\\)]*)?$";
+    private static final String PATH_REGEX = "^(/[-\\w:@&?=+,.!/~*'%$_;\\(\\)]*)?$";
+    private static final Pattern PATH_PATTERN = Pattern.compile(PATH_REGEX);
 
-    private static final String QUERY_PATTERN = "^(.*)$";
+    private static final String QUERY_REGEX = "^(.*)$";
+    private static final Pattern QUERY_PATTERN = Pattern.compile(QUERY_REGEX);
 
-    private static final String LEGAL_ASCII_PATTERN = "^\\p{ASCII}+$";
+    private static final String LEGAL_ASCII_REGEX = "^\\p{ASCII}+$";
+    private static final Pattern ASCII_PATTERN = Pattern.compile(LEGAL_ASCII_REGEX);
 
-    private static final String PORT_PATTERN = "^:(\\d{1,5})$";
+    private static final String PORT_REGEX = "^:(\\d{1,5})$";
+    private static final Pattern PORT_PATTERN = Pattern.compile(PORT_REGEX);
 
     /**
      * Holds the set of current validation options.
@@ -236,14 +239,12 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        Pattern matchAsciiPat = Pattern.compile(LEGAL_ASCII_PATTERN);
-        if (!matchAsciiPat.matcher(value).matches()) {
+        if (!ASCII_PATTERN.matcher(value).matches()) {
             return false;
-        }        
+        }
 
-        Pattern matchUrlPat = Pattern.compile(URL_PATTERN);
         // Check the whole url address structure
-        Matcher urlMatcher = matchUrlPat.matcher(value);
+        Matcher urlMatcher = URL_PATTERN.matcher(value);
         if (!urlMatcher.matches()) {
             return false;
         }
@@ -284,8 +285,7 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        Pattern schemePattern = Pattern.compile(SCHEME_PATTERN);
-        if (!schemePattern.matcher(scheme).matches()) {
+        if (!SCHEME_PATTERN.matcher(scheme).matches()) {
             return false;
         }
 
@@ -310,8 +310,7 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        Pattern authorityPattern = Pattern.compile(AUTHORITY_PATTERN);
-        Matcher authorityMatcher = authorityPattern.matcher(authority);
+        Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authority);
         if (!authorityMatcher.matches()) {
             return false;
         }
@@ -332,8 +331,7 @@ public class UrlValidator implements Serializable {
 
         String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
         if (port != null) {
-            Pattern portPattern = Pattern.compile(PORT_PATTERN);
-            if (!portPattern.matcher(port).matches()) {
+            if (!PORT_PATTERN.matcher(port).matches()) {
                 return false;
             }
         }
@@ -356,8 +354,7 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        Pattern pathPattern = Pattern.compile(PATH_PATTERN);
-        if (!pathPattern.matcher(path).matches()) {
+        if (!PATH_PATTERN.matcher(path).matches()) {
             return false;
         }
 
@@ -387,7 +384,7 @@ public class UrlValidator implements Serializable {
             return true;
         }
 
-        return Pattern.matches(QUERY_PATTERN, query);
+        return QUERY_PATTERN.matcher(query).matches();
     }
 
     /**
