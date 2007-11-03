@@ -32,14 +32,14 @@ public class CreditCardValidatorTest extends TestCase {
     private static final String VALID_DISCOVER = "6011000990139424";
     private static final String VALID_DINERS = "30569309025904";
 
-	/**
-	 * Constructor for CreditCardValidatorTest.
-	 */
-	public CreditCardValidatorTest(String name) {
-		super(name);
-	}
+    /**
+     * Constructor for CreditCardValidatorTest.
+     */
+    public CreditCardValidatorTest(String name) {
+        super(name);
+    }
 
-	public void testIsValid() {
+    public void testIsValid() {
         CreditCardValidator ccv = new CreditCardValidator();
         
         assertFalse(ccv.isValid(null));
@@ -57,7 +57,7 @@ public class CreditCardValidatorTest extends TestCase {
         // disallow Visa so it should fail even with good number
         ccv = new CreditCardValidator(CreditCardValidator.AMEX);
         assertFalse(ccv.isValid("4417123456789113"));
-	}
+    }
     
     public void testAddAllowedCardType() {
         CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.NONE);
