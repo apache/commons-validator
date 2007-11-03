@@ -308,7 +308,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Sets the flag that determines whether client-side scripting should 
      * be generated for this field. 
-     * @param scripting the scripting flag
+     * @param clientValidation the scripting flag
      * @see #isClientValidation()
      * @since Validator 1.4
      */
