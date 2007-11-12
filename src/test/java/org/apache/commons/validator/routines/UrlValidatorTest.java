@@ -92,7 +92,7 @@ public class UrlValidatorTest extends TestCase {
     * @param testObjects Used to create a url.
     */
    public void testIsValid(Object[] testObjects, int options) {
-      UrlValidator urlVal = new UrlValidator(null, options);
+      UrlValidator urlVal = new UrlValidator(null, null, options);
       assertTrue(urlVal.isValid("http://www.google.com"));
       assertTrue(urlVal.isValid("http://www.google.com/"));
       int statusPerLine = 60;
@@ -151,6 +151,28 @@ public class UrlValidatorTest extends TestCase {
        assertTrue("parentheses should be valid in URLs",
                validator.isValid("http://somewhere.com/pathxyz/file(1).html"));
    }
+
+    public void testValidator248() {
+        RegexValidator[] regex = new RegexValidator[] {
+            new RegexValidator("localhost"),
+            new RegexValidator(".*\\.my-testing")
+        };
+        UrlValidator validator = new UrlValidator(regex, UrlValidator.MANUAL_AUTHORITY_VALIDATION);
+
+        assertTrue("localhost URL should validate",
+                validator.isValid("http://localhost/test/index.html"));
+        assertTrue("first.my-testing should validate",
+                validator.isValid("http://first.my-testing/test/index.html"));
+        assertTrue("sup3r.my-testing should validate",
+                validator.isValid("http://sup3r.my-testing/test/index.html"));
+
+        assertFalse("broke.my-test should not validate",
+                validator.isValid("http://broke.my-test/test/index.html"));
+
+        assertTrue("www.apache.org should still validate",
+                validator.isValid("http://www.apache.org/test/index.html"));
+
+    }
 
    static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
       boolean carry = true;  //add 1 to lowest order part.

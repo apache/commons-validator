@@ -27,14 +27,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * <p>Validates URLs.</p>
- * Behavour of validation is modified by passing in options:
+ * <p><b>URL Validation</b> routines.</p>
+ * Behavior of validation is modified by passing in options:
  * <li>ALLOW_2_SLASHES - [FALSE]  Allows double '/' characters in the path
  * component.</li>
  * <li>NO_FRAGMENT- [FALSE]  By default fragments are allowed, if this option is
  * included then fragments are flagged as illegal.</li>
  * <li>ALLOW_ALL_SCHEMES - [FALSE] By default only http, https, and ftp are
  * considered valid schemes.  Enabling this option will let any scheme pass validation.</li>
+ * <li>MANUAL_AUTHORITY_VALIDATION - [FALSE] By default, URL authorities must be IANA-defined
+ * domain names. Enabling this option and providing an array of authority validators
+ * will validate the URL's authority against the regexes; if it matches, the authority
+ * validation will succeed. If no match is found, domain name validation is used.</li>
  *
  * <p>Originally based in on php script by Debbie Dyer, validation.php v1.2b, Date: 03/07/02,
  * http://javascript.internet.com. However, this validation now bears little resemblance
@@ -89,6 +93,12 @@ public class UrlValidator implements Serializable {
      * Enabling this options disallows any URL fragments.
      */
     public static final int NO_FRAGMENTS = 1 << 2;
+
+    /**
+     * If enabled, consults a provided list of RegexValidators when validating
+     * the URL authority. This allows names like "localhost", "test-machine", etc.
+     */
+    public static final int MANUAL_AUTHORITY_VALIDATION = 1 << 3;
 
     // Drop numeric, and  "+-." for now
     private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
@@ -160,6 +170,12 @@ public class UrlValidator implements Serializable {
     private Set allowedSchemes = new HashSet();
 
     /**
+     * Regular expressions used to manually validate authorities if IANA
+     * domain name validation isn't desired.
+     */
+    private RegexValidator[] authorityValidators;
+
+    /**
      * If no schemes are provided, default to this set.
      */
     protected String[] defaultSchemes = {"http", "https", "ftp"};
@@ -203,17 +219,43 @@ public class UrlValidator implements Serializable {
      * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
      */
     public UrlValidator(int options) {
-        this(null, options);
+        this(null, null, options);
     }
 
     /**
-     * Behavour of validation is modified by passing in options:
+     * Behavior of validation is modified by passing in options:
      * @param schemes The set of valid schemes.
      * @param options The options should be set using the public constants declared in
      * this class.  To set multiple options you simply add them together.  For example,
      * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
      */
     public UrlValidator(String[] schemes, int options) {
+        this(schemes, null, options);
+    }
+
+    /**
+     * Initialize a UrlValidator with the given validation options.
+     * @param authorityValidators regexes used to validate the authority part;
+     * see {@link #MANUAL_AUTHORITY_VALIDATION}
+     * @param options Validation options. Set using the public constants of this class.
+     * To set multiple options, simply add them together:
+     * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
+     * enables both of those options.
+     */
+    public UrlValidator(RegexValidator[] authorityValidators, int options) {
+        this(null, authorityValidators, options);
+    }
+
+    /**
+     * Customizable constructor. Validation behavior is modifed by passing in options.
+     * @param schemes the set of valid schemes
+     * @param authorityValidators the set of regexes to manually validate the scheme against
+     * @param options Validation options. Set using the public constants of this class.
+     * To set multiple options, simply add them together:
+     * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
+     * enables both of those options.
+     */
+    public UrlValidator(String[] schemes, RegexValidator[] authorityValidators, int options) {
         this.options = new Flags(options);
 
         if (this.options.isOn(ALLOW_ALL_SCHEMES)) {
@@ -222,6 +264,10 @@ public class UrlValidator implements Serializable {
 
         if (schemes == null) {
             schemes = this.defaultSchemes;
+        }
+
+        if (this.options.isOn(MANUAL_AUTHORITY_VALIDATION)) {
+            this.authorityValidators = authorityValidators;
         }
 
         this.allowedSchemes.addAll(Arrays.asList(schemes));
@@ -308,6 +354,20 @@ public class UrlValidator implements Serializable {
     protected boolean isValidAuthority(String authority) {
         if (authority == null) {
             return false;
+        }
+
+        // check manual authority validation if specified
+        if (this.options.isOn(MANUAL_AUTHORITY_VALIDATION)) {
+            if (authorityValidators == null) {
+                throw new IllegalStateException(
+                        "manual authority validation enabled, but no authority validators specified");
+            }
+
+            for (int i = 0; i < authorityValidators.length; i++) {
+                if (authorityValidators[i].isValid(authority)) {
+                    return true;
+                }
+            }
         }
 
         Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authority);
