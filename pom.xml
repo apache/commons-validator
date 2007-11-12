@@ -96,6 +96,10 @@
             <name>Henri Yandell</name>
             <id>bayard</id>
         </developer>
+        <developer>
+            <name>Ben Speakmon</name>
+            <id>bspeakmon</id>
+        </developer>
     </developers>
 
     <scm>
