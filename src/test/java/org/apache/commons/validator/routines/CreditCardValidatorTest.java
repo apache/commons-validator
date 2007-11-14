@@ -36,6 +36,8 @@ public class CreditCardValidatorTest extends TestCase {
     private static final String ERROR_MASTERCARD = "5105105105105105";
     private static final String VALID_DISCOVER = "6011000990139424";
     private static final String ERROR_DISCOVER = "6011000990139421";
+    private static final String VALID_DISCOVER65 = "6534567890123458"; // FIXME need verified test data for Discover with "65" prefix
+    private static final String ERROR_DISCOVER65 = "6534567890123450"; // FIXME need verified test data for Discover with "65" prefix
     private static final String VALID_DINERS = "30569309025904";
     private static final String ERROR_DINERS = "30569309025901";
 
@@ -60,12 +62,14 @@ public class CreditCardValidatorTest extends TestCase {
         assertTrue(ccv.isValid(VALID_AMEX));
         assertTrue(ccv.isValid(VALID_MASTERCARD));
         assertTrue(ccv.isValid(VALID_DISCOVER));
+        assertTrue(ccv.isValid(VALID_DISCOVER65));
 
         assertFalse(ccv.isValid(ERROR_VISA));
         assertFalse(ccv.isValid(ERROR_SHORT_VISA));
         assertFalse(ccv.isValid(ERROR_AMEX));
         assertFalse(ccv.isValid(ERROR_MASTERCARD));
         assertFalse(ccv.isValid(ERROR_DISCOVER));
+        assertFalse(ccv.isValid(ERROR_DISCOVER65));
         
         // disallow Visa so it should fail even with good number
         ccv = new CreditCardValidator(CreditCardValidator.AMEX);
@@ -247,14 +251,21 @@ public class CreditCardValidatorTest extends TestCase {
         RegexValidator regex    = validator.getRegexValidator();
 
         // ****** Test Regular Expression ******
-        // length 16 and start with "6011"
-        assertFalse("Length 12",      regex.isValid("601156789012"));
-        assertFalse("Length 13",      regex.isValid("6011567890123"));
-        assertFalse("Length 14",      regex.isValid("60115678901234"));
-        assertFalse("Length 15",      regex.isValid("601156789012345"));
-        assertTrue("Length 16",       regex.isValid("6011567890123456"));
-        assertFalse("Length 17",      regex.isValid("60115678901234567"));
-        assertFalse("Length 18",      regex.isValid("601156789012345678"));
+        // length 16 and start with either "6011" or "65"
+        assertFalse("Length 12-6011", regex.isValid("601156789012"));
+        assertFalse("Length 12-65",   regex.isValid("653456789012"));
+        assertFalse("Length 13-6011", regex.isValid("6011567890123"));
+        assertFalse("Length 13-65",   regex.isValid("6534567890123"));
+        assertFalse("Length 14-6011", regex.isValid("60115678901234"));
+        assertFalse("Length 14-65",   regex.isValid("65345678901234"));
+        assertFalse("Length 15-6011", regex.isValid("601156789012345"));
+        assertFalse("Length 15-65",   regex.isValid("653456789012345"));
+        assertTrue("Length 16-6011",  regex.isValid("6011567890123456"));
+        assertTrue("Length 16-65",    regex.isValid("6534567890123456"));
+        assertFalse("Length 17-6011", regex.isValid("60115678901234567"));
+        assertFalse("Length 17-65",   regex.isValid("65345678901234567"));
+        assertFalse("Length 18-6011", regex.isValid("601156789012345678"));
+        assertFalse("Length 18-65",   regex.isValid("653456789012345678"));
 
         assertFalse("Prefix 64",      regex.isValid("6434567890123456"));
         assertFalse("Prefix 6010",    regex.isValid("6010567890123456"));
@@ -263,13 +274,17 @@ public class CreditCardValidatorTest extends TestCase {
 
         // *********** Test Validator **********
         assertTrue("Valid regex",     regex.isValid(ERROR_DISCOVER));
+        assertTrue("Valid regex65",   regex.isValid(ERROR_DISCOVER65));
         assertFalse("Invalid",        validator.isValid(ERROR_DISCOVER));
+        assertFalse("Invalid65",      validator.isValid(ERROR_DISCOVER65));
         assertNull("validate()",      validator.validate(ERROR_DISCOVER));
         assertEquals(VALID_DISCOVER,  validator.validate(VALID_DISCOVER));
+        assertEquals(VALID_DISCOVER65, validator.validate(VALID_DISCOVER65));
 
         assertFalse("Amex",           validator.isValid(VALID_AMEX));
         assertFalse("Diners",         validator.isValid(VALID_DINERS));
         assertTrue("Discover",        validator.isValid(VALID_DISCOVER));
+        assertTrue("Discover",        validator.isValid(VALID_DISCOVER65));
         assertFalse("Mastercard",     validator.isValid(VALID_MASTERCARD));
         assertFalse("Visa",           validator.isValid(VALID_VISA));
         assertFalse("Visa Short",     validator.isValid(VALID_SHORT_VISA));
@@ -286,12 +301,15 @@ public class CreditCardValidatorTest extends TestCase {
     public void testDiscoverOption() {
         CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.DISCOVER);
         assertFalse("Invalid",        validator.isValid(ERROR_DISCOVER));
+        assertFalse("Invalid65",      validator.isValid(ERROR_DISCOVER65));
         assertNull("validate()",      validator.validate(ERROR_DISCOVER));
         assertEquals(VALID_DISCOVER,  validator.validate(VALID_DISCOVER));
+        assertEquals(VALID_DISCOVER65, validator.validate(VALID_DISCOVER65));
 
         assertFalse("Amex",           validator.isValid(VALID_AMEX));
         assertFalse("Diners",         validator.isValid(VALID_DINERS));
         assertTrue("Discover",        validator.isValid(VALID_DISCOVER));
+        assertTrue("Discover",        validator.isValid(VALID_DISCOVER65));
         assertFalse("Mastercard",     validator.isValid(VALID_MASTERCARD));
         assertFalse("Visa",           validator.isValid(VALID_VISA));
         assertFalse("Visa Short",     validator.isValid(VALID_SHORT_VISA));

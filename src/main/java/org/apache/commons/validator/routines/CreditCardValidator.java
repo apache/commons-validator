@@ -99,8 +99,11 @@ public class CreditCardValidator implements Serializable {
     /** Diners Card Validator */
     public static final CodeValidator DINERS_VALIDATOR = new CodeValidator("^(30[0-5]\\d{11}|36\\d{12})$", LUHN_VALIDATOR);
 
+    /** Discover Card regular expressions */
+    private static RegexValidator DISCOVER_REGEX = new RegexValidator(new String[] {"^(6011\\d{12})$", "^(65\\d{14})$"});
+
     /** Discover Card Validator */
-    public static final CodeValidator DISCOVER_VALIDATOR = new CodeValidator("^(6011\\d{12})$", LUHN_VALIDATOR);
+    public static final CodeValidator DISCOVER_VALIDATOR = new CodeValidator(DISCOVER_REGEX, LUHN_VALIDATOR);
 
     /** Mastercard Card Validator */
     public static final CodeValidator MASTERCARD_VALIDATOR = new CodeValidator("^(5[1-5]\\d{14})$", LUHN_VALIDATOR);
