@@ -153,11 +153,8 @@ public class UrlValidatorTest extends TestCase {
    }
 
     public void testValidator248() {
-        RegexValidator[] regex = new RegexValidator[] {
-            new RegexValidator("localhost"),
-            new RegexValidator(".*\\.my-testing")
-        };
-        UrlValidator validator = new UrlValidator(regex, UrlValidator.MANUAL_AUTHORITY_VALIDATION);
+        RegexValidator regex = new RegexValidator(new String[] {"localhost", ".*\\.my-testing"});
+        UrlValidator validator = new UrlValidator(regex, 0);
 
         assertTrue("localhost URL should validate",
                 validator.isValid("http://localhost/test/index.html"));

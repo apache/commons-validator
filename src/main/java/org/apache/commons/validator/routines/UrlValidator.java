@@ -33,10 +33,6 @@ import java.util.regex.Pattern;
  * included then fragments are flagged as illegal.</li>
  * <li>ALLOW_ALL_SCHEMES - [FALSE] By default only http, https, and ftp are
  * considered valid schemes.  Enabling this option will let any scheme pass validation.</li>
- * <li>MANUAL_AUTHORITY_VALIDATION - [FALSE] By default, URL authorities must be IANA-defined
- * domain names. Enabling this option and providing an array of authority validators
- * will validate the URL's authority against the regexes; if it matches, the authority
- * validation will succeed. If no match is found, domain name validation is used.</li>
  *
  * <p>Originally based in on php script by Debbie Dyer, validation.php v1.2b, Date: 03/07/02,
  * http://javascript.internet.com. However, this validation now bears little resemblance
@@ -91,12 +87,6 @@ public class UrlValidator implements Serializable {
      * Enabling this options disallows any URL fragments.
      */
     public static final long NO_FRAGMENTS = 1 << 2;
-
-    /**
-     * If enabled, consults a provided list of RegexValidators when validating
-     * the URL authority. This allows names like "localhost", "test-machine", etc.
-     */
-    public static final long MANUAL_AUTHORITY_VALIDATION = 1 << 3;
 
     // Drop numeric, and  "+-." for now
     private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
@@ -171,7 +161,7 @@ public class UrlValidator implements Serializable {
      * Regular expressions used to manually validate authorities if IANA
      * domain name validation isn't desired.
      */
-    private final RegexValidator[] authorityValidators;
+    private final RegexValidator authorityValidator;
 
     /**
      * If no schemes are provided, default to this set.
@@ -233,27 +223,26 @@ public class UrlValidator implements Serializable {
 
     /**
      * Initialize a UrlValidator with the given validation options.
-     * @param authorityValidators regexes used to validate the authority part;
-     * see {@link #MANUAL_AUTHORITY_VALIDATION}
+     * @param authorityValidator Regular expression validator used to validate the authority part
      * @param options Validation options. Set using the public constants of this class.
      * To set multiple options, simply add them together:
      * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
      * enables both of those options.
      */
-    public UrlValidator(RegexValidator[] authorityValidators, long options) {
-        this(null, authorityValidators, options);
+    public UrlValidator(RegexValidator authorityValidator, long options) {
+        this(null, authorityValidator, options);
     }
 
     /**
      * Customizable constructor. Validation behavior is modifed by passing in options.
      * @param schemes the set of valid schemes
-     * @param authorityValidators the set of regexes to manually validate the scheme against
+     * @param authorityValidator Regular expression validator used to validate the authority part
      * @param options Validation options. Set using the public constants of this class.
      * To set multiple options, simply add them together:
      * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
      * enables both of those options.
      */
-    public UrlValidator(String[] schemes, RegexValidator[] authorityValidators, long options) {
+    public UrlValidator(String[] schemes, RegexValidator authorityValidator, long options) {
         this.options = options;
 
         if (isOn(ALLOW_ALL_SCHEMES)) {
@@ -266,11 +255,7 @@ public class UrlValidator implements Serializable {
             this.allowedSchemes.addAll(Arrays.asList(schemes));
         }
 
-        if (isOn(MANUAL_AUTHORITY_VALIDATION)) {
-            this.authorityValidators = authorityValidators;
-        } else {
-            this.authorityValidators = null;
-        }
+        this.authorityValidator = authorityValidator;
 
     }
 
@@ -358,16 +343,9 @@ public class UrlValidator implements Serializable {
         }
 
         // check manual authority validation if specified
-        if (isOn(MANUAL_AUTHORITY_VALIDATION)) {
-            if (authorityValidators == null) {
-                throw new IllegalStateException(
-                        "manual authority validation enabled, but no authority validators specified");
-            }
-
-            for (int i = 0; i < authorityValidators.length; i++) {
-                if (authorityValidators[i].isValid(authority)) {
-                    return true;
-                }
+        if (authorityValidator != null) {
+            if (authorityValidator.isValid(authority)) {
+                return true;
             }
         }
 
