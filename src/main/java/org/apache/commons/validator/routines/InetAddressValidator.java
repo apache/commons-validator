@@ -42,7 +42,7 @@ public class InetAddressValidator implements Serializable {
     private static final InetAddressValidator VALIDATOR = new InetAddressValidator();
 
     /** IPv4 RegexValidator */
-    private RegexValidator ipv4Validator = new RegexValidator(IPV4_REGEX);
+    private final RegexValidator ipv4Validator = new RegexValidator(IPV4_REGEX);
 
     /**
      * Returns the singleton instance of this validator.

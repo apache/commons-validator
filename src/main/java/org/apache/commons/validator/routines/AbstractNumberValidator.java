@@ -42,8 +42,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     /** Percent <code>NumberFormat</code> type */
     public static final int PERCENT_FORMAT  = 2;
 
-    private boolean allowFractions;
-    private int     formatType;
+    private final boolean allowFractions;
+    private final int     formatType;
 
     /**
      * Construct an instance with specified <i>strict</i>

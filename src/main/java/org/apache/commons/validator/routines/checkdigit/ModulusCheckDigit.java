@@ -33,7 +33,7 @@ package org.apache.commons.validator.routines.checkdigit;
  */
 public abstract class ModulusCheckDigit implements CheckDigit {
 
-    private int modulus;
+    private final int modulus;
 
     /**
      * Construct a {@link CheckDigit} routine for a specified modulus.

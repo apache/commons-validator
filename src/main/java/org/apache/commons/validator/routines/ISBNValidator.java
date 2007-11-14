@@ -89,7 +89,7 @@ public class ISBNValidator implements Serializable {
     /** ISBN-13 Code Validator */
     private CodeValidator isbn13Validator = new CodeValidator(ISBN13_REGEX, 13, EAN13CheckDigit.INSTANCE);
 
-    private boolean convert = true;
+    private final boolean convert;
 
     /**
      * Return a singleton instance of the ISBN validator which

@@ -80,8 +80,8 @@ import java.util.regex.Matcher;
 public final class RegexValidator implements Serializable {
 
     private static final String MISSING_REGEX = "Regular Expression is missing";
-    private Pattern   pattern;
-    private Pattern[] patterns;
+    private final Pattern   pattern;
+    private final Pattern[] patterns;
 
     /**
      * Construct a <i>case sensitive</i> validator for a single
@@ -119,7 +119,8 @@ public final class RegexValidator implements Serializable {
         if (regex == null || regex.length() == 0) {
             throw new IllegalArgumentException(MISSING_REGEX);
         }
-        pattern = Pattern.compile(regex, flags);
+        this.pattern = Pattern.compile(regex, flags);
+        this.patterns = null;
     }
 
     /**
@@ -165,6 +166,7 @@ public final class RegexValidator implements Serializable {
             }
             patterns[i] =  Pattern.compile(regexs[i], flags);
         }
+        this.pattern = null;
     }
 
     /**

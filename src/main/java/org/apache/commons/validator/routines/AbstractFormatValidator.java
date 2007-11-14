@@ -32,7 +32,7 @@ import java.io.Serializable;
  */
 public abstract class AbstractFormatValidator implements Serializable {
 
-    private boolean strict = true;
+    private final boolean strict;
 
     /**
      * Construct an instance with the specified strict setting.

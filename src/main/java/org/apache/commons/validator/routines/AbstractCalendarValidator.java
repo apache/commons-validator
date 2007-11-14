@@ -35,9 +35,9 @@ import java.util.TimeZone;
  */
 public abstract class AbstractCalendarValidator extends AbstractFormatValidator {
 
-    private int dateStyle = -1;
+    private final int dateStyle;
 
-    private int timeStyle = -1;
+    private final int timeStyle;
 
     /**
      * Construct an instance with the specified <i>strict</i>, 
