@@ -18,6 +18,7 @@ package org.apache.commons.validator.routines;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -164,18 +165,18 @@ public class UrlValidator implements Serializable {
     /**
      * The set of schemes that are allowed to be in a URL.
      */
-    private Set allowedSchemes = new HashSet();
+    private final Set allowedSchemes;
 
     /**
      * Regular expressions used to manually validate authorities if IANA
      * domain name validation isn't desired.
      */
-    private RegexValidator[] authorityValidators;
+    private final RegexValidator[] authorityValidators;
 
     /**
      * If no schemes are provided, default to this set.
      */
-    protected String[] defaultSchemes = {"http", "https", "ftp"};
+    private static final String[] DEFAULT_SCHEMES = {"http", "https", "ftp"};
 
     /**
      * Singleton instance of this class with default schemes and options.
@@ -256,18 +257,21 @@ public class UrlValidator implements Serializable {
         this.options = options;
 
         if (isOn(ALLOW_ALL_SCHEMES)) {
-            return;
-        }
-
-        if (schemes == null) {
-            schemes = this.defaultSchemes;
+            this.allowedSchemes = Collections.EMPTY_SET;
+        } else {
+            if (schemes == null) {
+                schemes = DEFAULT_SCHEMES;
+            }
+            this.allowedSchemes = new HashSet();
+            this.allowedSchemes.addAll(Arrays.asList(schemes));
         }
 
         if (isOn(MANUAL_AUTHORITY_VALIDATION)) {
             this.authorityValidators = authorityValidators;
+        } else {
+            this.authorityValidators = null;
         }
 
-        this.allowedSchemes.addAll(Arrays.asList(schemes));
     }
 
     /**
