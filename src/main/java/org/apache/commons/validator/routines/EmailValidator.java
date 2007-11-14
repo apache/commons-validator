@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines;
 
-import org.apache.oro.text.perl.Perl5Util;
-
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
