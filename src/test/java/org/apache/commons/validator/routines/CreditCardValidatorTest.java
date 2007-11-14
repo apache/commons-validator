@@ -51,6 +51,8 @@ public class CreditCardValidatorTest extends TestCase {
     public void testIsValid() {
         CreditCardValidator ccv = new CreditCardValidator();
         
+        assertNull(ccv.validate(null));
+
         assertFalse(ccv.isValid(null));
         assertFalse(ccv.isValid(""));
         assertFalse(ccv.isValid("123456789012"));   // too short
@@ -104,6 +106,13 @@ public class CreditCardValidatorTest extends TestCase {
         assertFalse(ccv.isValid(ERROR_AMEX));
         assertFalse(ccv.isValid(ERROR_MASTERCARD));
         assertFalse(ccv.isValid(ERROR_DISCOVER));
+
+        try {
+            new CreditCardValidator((CodeValidator[]) null);
+            fail("Expected IllegalArgumentException");
+        } catch(IllegalArgumentException iae) {
+            // expected result
+        }
     }
 
     /**
