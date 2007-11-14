@@ -16,7 +16,6 @@
  */
 package org.apache.commons.validator.routines;
 
-import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.util.Flags;
 
 import java.io.Serializable;
@@ -397,7 +396,7 @@ public class UrlValidator implements Serializable {
         }
 
         String extra = authorityMatcher.group(PARSE_AUTHORITY_EXTRA);
-        if (!GenericValidator.isBlankOrNull(extra)) {
+        if (extra== null) || extra.trim().length() == 0){
             return false;
         }
 
