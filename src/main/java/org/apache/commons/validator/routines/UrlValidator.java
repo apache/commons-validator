@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines;
 
-import org.apache.commons.validator.util.Flags;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -81,23 +79,23 @@ public class UrlValidator implements Serializable {
      * Allows all validly formatted schemes to pass validation instead of
      * supplying a set of valid schemes.
      */
-    public static final int ALLOW_ALL_SCHEMES = 1 << 0;
+    public static final long ALLOW_ALL_SCHEMES = 1 << 0;
 
     /**
      * Allow two slashes in the path component of the URL.
      */
-    public static final int ALLOW_2_SLASHES = 1 << 1;
+    public static final long ALLOW_2_SLASHES = 1 << 1;
 
     /**
      * Enabling this options disallows any URL fragments.
      */
-    public static final int NO_FRAGMENTS = 1 << 2;
+    public static final long NO_FRAGMENTS = 1 << 2;
 
     /**
      * If enabled, consults a provided list of RegexValidators when validating
      * the URL authority. This allows names like "localhost", "test-machine", etc.
      */
-    public static final int MANUAL_AUTHORITY_VALIDATION = 1 << 3;
+    public static final long MANUAL_AUTHORITY_VALIDATION = 1 << 3;
 
     // Drop numeric, and  "+-." for now
     private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
@@ -161,7 +159,7 @@ public class UrlValidator implements Serializable {
     /**
      * Holds the set of current validation options.
      */
-    private Flags options = null;
+    private final long options;
 
     /**
      * The set of schemes that are allowed to be in a URL.
@@ -208,7 +206,7 @@ public class UrlValidator implements Serializable {
      *        ignore the contents of schemes.
      */
     public UrlValidator(String[] schemes) {
-        this(schemes, 0);
+        this(schemes, (long)0);
     }
 
     /**
@@ -217,7 +215,7 @@ public class UrlValidator implements Serializable {
      * this class.  To set multiple options you simply add them together.  For example,
      * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
      */
-    public UrlValidator(int options) {
+    public UrlValidator(long options) {
         this(null, null, options);
     }
 
@@ -228,7 +226,7 @@ public class UrlValidator implements Serializable {
      * this class.  To set multiple options you simply add them together.  For example,
      * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
      */
-    public UrlValidator(String[] schemes, int options) {
+    public UrlValidator(String[] schemes, long options) {
         this(schemes, null, options);
     }
 
@@ -241,7 +239,7 @@ public class UrlValidator implements Serializable {
      * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
      * enables both of those options.
      */
-    public UrlValidator(RegexValidator[] authorityValidators, int options) {
+    public UrlValidator(RegexValidator[] authorityValidators, long options) {
         this(null, authorityValidators, options);
     }
 
@@ -254,10 +252,10 @@ public class UrlValidator implements Serializable {
      * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
      * enables both of those options.
      */
-    public UrlValidator(String[] schemes, RegexValidator[] authorityValidators, int options) {
-        this.options = new Flags(options);
+    public UrlValidator(String[] schemes, RegexValidator[] authorityValidators, long options) {
+        this.options = options;
 
-        if (this.options.isOn(ALLOW_ALL_SCHEMES)) {
+        if (isOn(ALLOW_ALL_SCHEMES)) {
             return;
         }
 
@@ -265,7 +263,7 @@ public class UrlValidator implements Serializable {
             schemes = this.defaultSchemes;
         }
 
-        if (this.options.isOn(MANUAL_AUTHORITY_VALIDATION)) {
+        if (isOn(MANUAL_AUTHORITY_VALIDATION)) {
             this.authorityValidators = authorityValidators;
         }
 
@@ -334,7 +332,7 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        if (this.options.isOff(ALLOW_ALL_SCHEMES)) {
+        if (isOff(ALLOW_ALL_SCHEMES)) {
 
             if (!this.allowedSchemes.contains(scheme)) {
                 return false;
@@ -356,7 +354,7 @@ public class UrlValidator implements Serializable {
         }
 
         // check manual authority validation if specified
-        if (this.options.isOn(MANUAL_AUTHORITY_VALIDATION)) {
+        if (isOn(MANUAL_AUTHORITY_VALIDATION)) {
             if (authorityValidators == null) {
                 throw new IllegalStateException(
                         "manual authority validation enabled, but no authority validators specified");
@@ -396,7 +394,7 @@ public class UrlValidator implements Serializable {
         }
 
         String extra = authorityMatcher.group(PARSE_AUTHORITY_EXTRA);
-        if (extra== null) || extra.trim().length() == 0){
+        if (extra != null && extra.trim().length() > 0){
             return false;
         }
 
@@ -418,7 +416,7 @@ public class UrlValidator implements Serializable {
         }
 
         int slash2Count = countToken("//", path);
-        if (this.options.isOff(ALLOW_2_SLASHES) && (slash2Count > 0)) {
+        if (isOff(ALLOW_2_SLASHES) && (slash2Count > 0)) {
             return false;
         }
 
@@ -456,7 +454,7 @@ public class UrlValidator implements Serializable {
             return true;
         }
 
-        return this.options.isOff(NO_FRAGMENTS);
+        return isOff(NO_FRAGMENTS);
     }
 
     /**
@@ -476,5 +474,29 @@ public class UrlValidator implements Serializable {
             }
         }
         return count;
+    }
+
+    /**
+     * Tests whether the given flag is on.  If the flag is not a power of 2 
+     * (ie. 3) this tests whether the combination of flags is on.
+     *
+     * @param flag Flag value to check.
+     *
+     * @return whether the specified flag value is on.
+     */
+    private boolean isOn(long flag) {
+        return (this.options & flag) > 0;
+    }
+
+    /**
+     * Tests whether the given flag is off.  If the flag is not a power of 2 
+     * (ie. 3) this tests whether the combination of flags is off.
+     *
+     * @param flag Flag value to check.
+     *
+     * @return whether the specified flag value is off.
+     */
+    private boolean isOff(long flag) {
+        return (this.options & flag) == 0;
     }
 }

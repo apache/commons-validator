@@ -52,7 +52,7 @@ public class UrlValidatorTest extends TestCase {
    public void testIsValid() {
     	testIsValid(testUrlParts, UrlValidator.ALLOW_ALL_SCHEMES);
     	setUp();
-    	int options =
+    	long options =
     		UrlValidator.ALLOW_2_SLASHES
     			+ UrlValidator.ALLOW_ALL_SCHEMES
     			+ UrlValidator.NO_FRAGMENTS;
@@ -91,7 +91,7 @@ public class UrlValidatorTest extends TestCase {
     *
     * @param testObjects Used to create a url.
     */
-   public void testIsValid(Object[] testObjects, int options) {
+   public void testIsValid(Object[] testObjects, long options) {
       UrlValidator urlVal = new UrlValidator(null, null, options);
       assertTrue(urlVal.isValid("http://www.google.com"));
       assertTrue(urlVal.isValid("http://www.google.com/"));
