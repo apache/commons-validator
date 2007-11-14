@@ -77,6 +77,11 @@ public class CreditCardValidator implements Serializable {
      * Option specifying that Discover cards are allowed.
      */
     public static final int DISCOVER = 1 << 3;
+
+    /**
+     * Option specifying that Diners cards are allowed.
+     */
+    public static final int DINERS = 1 << 4;
     
     /**
      * The CreditCardTypes that are allowed to pass validation.
@@ -90,6 +95,9 @@ public class CreditCardValidator implements Serializable {
 
     /** American Express (Amex) Card Validator */
     public static final CodeValidator AMEX_VALIDATOR = new CodeValidator("^(3[47]\\d{13})$", LUHN_VALIDATOR);
+
+    /** Diners Card Validator */
+    public static final CodeValidator DINERS_VALIDATOR = new CodeValidator("^(30[0-5]\\d{11}|36\\d{12})$", LUHN_VALIDATOR);
 
     /** Discover Card Validator */
     public static final CodeValidator DISCOVER_VALIDATOR = new CodeValidator("^(6011\\d{12})$", LUHN_VALIDATOR);
@@ -131,6 +139,10 @@ public class CreditCardValidator implements Serializable {
 
         if (f.isOn(DISCOVER)) {
             this.cardTypes.add(DISCOVER_VALIDATOR);
+        }
+
+        if (f.isOn(DINERS)) {
+            this.cardTypes.add(DINERS_VALIDATOR);
         }
     }
 

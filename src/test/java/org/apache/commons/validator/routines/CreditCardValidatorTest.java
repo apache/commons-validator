@@ -164,6 +164,81 @@ public class CreditCardValidatorTest extends TestCase {
     }
 
     /**
+     * Test the Diners Card validator
+     */    
+    public void testDinersValidator() {
+
+        CodeValidator validator = CreditCardValidator.DINERS_VALIDATOR;
+        RegexValidator regex    = validator.getRegexValidator();
+
+        // ****** Test Regular Expression ******
+        // length 14 and start with a "300-305" or "36"
+        assertFalse("Length 12-300",  regex.isValid("300456789012"));
+        assertFalse("Length 12-36",   regex.isValid("363456789012"));
+        assertFalse("Length 13-300",  regex.isValid("3004567890123"));
+        assertFalse("Length 13-36",   regex.isValid("3634567890123"));
+        assertTrue("Length 14-300",   regex.isValid("30045678901234"));
+        assertTrue("Length 14-36",    regex.isValid("36345678901234"));
+        assertFalse("Length 15-300",  regex.isValid("300456789012345"));
+        assertFalse("Length 15-36",   regex.isValid("363456789012345"));
+        assertFalse("Length 16-300",  regex.isValid("3004567890123456"));
+        assertFalse("Length 16-36",   regex.isValid("3634567890123456"));
+        assertFalse("Length 17-300",  regex.isValid("30045678901234567"));
+        assertFalse("Length 17-36",   regex.isValid("36345678901234567"));
+        assertFalse("Length 18-300",  regex.isValid("300456789012345678"));
+        assertFalse("Length 18-36",   regex.isValid("363456789012345678"));
+
+        assertTrue("Prefix 300",      regex.isValid("30045678901234"));
+        assertTrue("Prefix 301",      regex.isValid("30145678901234"));
+        assertTrue("Prefix 302",      regex.isValid("30245678901234"));
+        assertTrue("Prefix 303",      regex.isValid("30345678901234"));
+        assertTrue("Prefix 304",      regex.isValid("30445678901234"));
+        assertTrue("Prefix 305",      regex.isValid("30545678901234"));
+        assertFalse("Prefix 306",     regex.isValid("30645678901234"));
+        assertFalse("Prefix 35",      regex.isValid("35345678901234"));
+        assertTrue("Prefix 36",       regex.isValid("36345678901234"));
+        assertFalse("Prefix 37",      regex.isValid("37345678901234"));
+
+        assertFalse("Invalid Char-A", regex.isValid("3004567x901234"));
+        assertFalse("Invalid Char-B", regex.isValid("3634567x901234"));
+
+        // *********** Test Validator **********
+        assertTrue("Valid regex",     regex.isValid(ERROR_DINERS));
+        assertFalse("Invalid",        validator.isValid(ERROR_DINERS));
+        assertNull("validate()",      validator.validate(ERROR_DINERS));
+        assertEquals(VALID_DINERS,    validator.validate(VALID_DINERS));
+
+        assertFalse("Amex",           validator.isValid(VALID_AMEX));
+        assertTrue("Diners",          validator.isValid(VALID_DINERS));
+        assertFalse("Discover",       validator.isValid(VALID_DISCOVER));
+        assertFalse("Mastercard",     validator.isValid(VALID_MASTERCARD));
+        assertFalse("Visa",           validator.isValid(VALID_VISA));
+        assertFalse("Visa Short",     validator.isValid(VALID_SHORT_VISA));
+        
+        assertTrue("Valid-A",         validator.isValid("30000000000004"));
+        assertTrue("Valid-B",         validator.isValid("30123456789019"));
+        assertTrue("Valid-C",         validator.isValid("36432685260294"));
+
+    }
+
+    /**
+     * Test the Diners Card option
+     */    
+    public void testDinersOption() {
+        CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.DINERS);
+        assertFalse("Invalid",        validator.isValid(ERROR_DINERS));
+        assertNull("validate()",      validator.validate(ERROR_DINERS));
+        assertEquals(VALID_DINERS,    validator.validate(VALID_DINERS));
+
+        assertFalse("Amex",           validator.isValid(VALID_AMEX));
+        assertTrue("Diners",          validator.isValid(VALID_DINERS));
+        assertFalse("Discover",       validator.isValid(VALID_DISCOVER));
+        assertFalse("Mastercard",     validator.isValid(VALID_MASTERCARD));
+        assertFalse("Visa",           validator.isValid(VALID_VISA));
+        assertFalse("Visa Short",     validator.isValid(VALID_SHORT_VISA));
+    }
+
+    /**
      * Test the Discover Card validator
      */    
     public void testDiscoverValidator() {
