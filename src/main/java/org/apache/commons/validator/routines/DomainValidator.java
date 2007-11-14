@@ -301,7 +301,7 @@ public class DomainValidator implements Serializable {
         "io",                 // British Indian Ocean Territory
         "iq",                 // Iraq
         "ir",                 // Iran
-        "is",                 // Iceland (Ísland)
+        "is",                 // Iceland
         "it",                 // Italy
         "je",                 // Jersey
         "jm",                 // Jamaica
