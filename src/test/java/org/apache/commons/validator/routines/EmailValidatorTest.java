@@ -26,7 +26,7 @@ import org.apache.commons.validator.ResultPair;
  * Performs Validation Test for e-mail validations.
  *
  *
- * @version $Revision: 493905 $ $Date: 2007-01-07 18:11:38 -0800 (Sun, 07 Jan 2007) $
+ * @version $Revision$ $Date$
  */
 public class EmailValidatorTest extends TestCase {
 
