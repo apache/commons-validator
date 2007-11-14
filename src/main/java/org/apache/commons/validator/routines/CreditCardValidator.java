@@ -18,11 +18,9 @@ package org.apache.commons.validator.routines;
 
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
-import org.apache.commons.validator.util.Flags;
 import java.io.Serializable;
+import java.util.List;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * <p>Perform credit card validations.</p>
@@ -86,7 +84,7 @@ public class CreditCardValidator implements Serializable {
     /**
      * The CreditCardTypes that are allowed to pass validation.
      */
-    private Collection cardTypes = new ArrayList();
+    private final List cardTypes = new ArrayList();
 
     /**
      * Luhn checkdigit validator for the card numbers.
@@ -100,7 +98,7 @@ public class CreditCardValidator implements Serializable {
     public static final CodeValidator DINERS_VALIDATOR = new CodeValidator("^(30[0-5]\\d{11}|36\\d{12})$", LUHN_VALIDATOR);
 
     /** Discover Card regular expressions */
-    private static RegexValidator DISCOVER_REGEX = new RegexValidator(new String[] {"^(6011\\d{12})$", "^(65\\d{14})$"});
+    private static final RegexValidator DISCOVER_REGEX = new RegexValidator(new String[] {"^(6011\\d{12})$", "^(65\\d{14})$"});
 
     /** Discover Card Validator */
     public static final CodeValidator DISCOVER_VALIDATOR = new CodeValidator(DISCOVER_REGEX, LUHN_VALIDATOR);
@@ -127,24 +125,23 @@ public class CreditCardValidator implements Serializable {
     public CreditCardValidator(int options) {
         super();
 
-        Flags f = new Flags(options);
-        if (f.isOn(VISA)) {
+        if (isOn(options, VISA)) {
             this.cardTypes.add(VISA_VALIDATOR);
         }
 
-        if (f.isOn(AMEX)) {
+        if (isOn(options, AMEX)) {
             this.cardTypes.add(AMEX_VALIDATOR);
         }
 
-        if (f.isOn(MASTERCARD)) {
+        if (isOn(options, MASTERCARD)) {
             this.cardTypes.add(MASTERCARD_VALIDATOR);
         }
 
-        if (f.isOn(DISCOVER)) {
+        if (isOn(options, DISCOVER)) {
             this.cardTypes.add(DISCOVER_VALIDATOR);
         }
 
-        if (f.isOn(DINERS)) {
+        if (isOn(options, DINERS)) {
             this.cardTypes.add(DINERS_VALIDATOR);
         }
     }
@@ -171,9 +168,8 @@ public class CreditCardValidator implements Serializable {
         if (card == null || card.length() == 0) {
             return false;
         }
-        Iterator types = this.cardTypes.iterator();
-        while (types.hasNext()) {
-            CodeValidator type = (CodeValidator)types.next();
+        for (int i = 0; i < cardTypes.size(); i++) {
+            CodeValidator type = (CodeValidator)cardTypes.get(i);
             if (type.isValid(card)) {
                 return true;
             }
@@ -192,9 +188,8 @@ public class CreditCardValidator implements Serializable {
             return null;
         }
         Object result = null;
-        Iterator types = this.cardTypes.iterator();
-        while (types.hasNext()) {
-            CodeValidator type = (CodeValidator)types.next();
+        for (int i = 0; i < cardTypes.size(); i++) {
+            CodeValidator type = (CodeValidator)cardTypes.get(i);
             result = type.validate(card);
             if (result != null) {
                 return result ;
@@ -202,6 +197,18 @@ public class CreditCardValidator implements Serializable {
         }
         return null;
 
+    }
+    /**
+     * Tests whether the given flag is on.  If the flag is not a power of 2 
+     * (ie. 3) this tests whether the combination of flags is on.
+     *
+     * @param options The options specified.
+     * @param flag Flag value to check.
+     *
+     * @return whether the specified flag value is on.
+     */
+    private boolean isOn(int options, int flag) {
+        return (options & flag) > 0;
     }
 
 }
