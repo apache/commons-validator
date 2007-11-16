@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-parent</artifactId>
-        <version>5-SNAPSHOT</version>
+        <version>5</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>commons-validator</groupId>
@@ -208,11 +208,6 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-changes-plugin</artifactId>
                 <configuration>
                     <xmlPath>${basedir}/xdocs/changes.xml</xmlPath>
@@ -234,16 +229,6 @@
                     <configLocation>checkstyle.xml</configLocation>
                     <enableRulesSummary>false</enableRulesSummary>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
             </plugin>
 
             <plugin>
