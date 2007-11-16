@@ -88,36 +88,7 @@ public class EmailValidator {
      * @return true if the email address is valid.
      */
     public boolean isValid(String email) {
-        if (email == null) {
-            return false;
-        }
-
-        Perl5Util matchAsciiPat = new Perl5Util();
-        if (!matchAsciiPat.match(LEGAL_ASCII_PATTERN, email)) {
-            return false;
-        }
-
-        email = stripComments(email);
-
-        // Check the whole email address structure
-        Perl5Util emailMatcher = new Perl5Util();
-        if (!emailMatcher.match(EMAIL_PATTERN, email)) {
-            return false;
-        }
-
-        if (email.endsWith(".")) {
-            return false;
-        }
-
-        if (!isValidUser(emailMatcher.group(1))) {
-            return false;
-        }
-
-        if (!isValidDomain(emailMatcher.group(2))) {
-            return false;
-        }
-
-        return true;
+	return org.apache.commons.validator.routines.EmailValidator.getInstance().isValid(email);
     }
 
     /**
