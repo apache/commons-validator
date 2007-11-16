@@ -154,9 +154,10 @@ public class CreditCardValidatorTest extends TestCase {
         assertFalse("Visa",           validator.isValid(VALID_VISA));
         assertFalse("Visa Short",     validator.isValid(VALID_SHORT_VISA));
         
-        assertTrue("Valid-A",         validator.isValid("378282246310005"));
+        assertTrue("Valid-A",         validator.isValid("371449635398431"));
         assertTrue("Valid-B",         validator.isValid("340000000000009"));
         assertTrue("Valid-C",         validator.isValid("370000000000002"));
+        assertTrue("Valid-D",         validator.isValid("378734493671000"));
     }
 
     /**
@@ -369,6 +370,7 @@ public class CreditCardValidatorTest extends TestCase {
         assertTrue("Valid-B",         validator.isValid("5424000000000015"));
         assertTrue("Valid-C",         validator.isValid("5301250070000191"));
         assertTrue("Valid-D",         validator.isValid("5123456789012346"));
+        assertTrue("Valid-E",         validator.isValid("5555555555554444"));
     }
 
     /**
@@ -430,6 +432,7 @@ public class CreditCardValidatorTest extends TestCase {
         assertTrue("Valid-C",         validator.isValid("4543059999999982"));
         assertTrue("Valid-B",         validator.isValid("4462000000000003"));
         assertTrue("Valid-D",         validator.isValid("4508750000000009")); // Electron
+        assertTrue("Valid-E",         validator.isValid("4012888888881881"));
     }
 
     /**
