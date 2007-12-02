@@ -101,6 +101,11 @@
             <id>bspeakmon</id>
         </developer>
     </developers>
+    <contributors>
+        <contributor>
+            <name>Makoto Uchino</name>
+        </contributor>
+    </contributors>
 
     <scm>
         <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/validator/trunk/</connection>
