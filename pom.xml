@@ -30,9 +30,7 @@
     <version>1.4-SNAPSHOT</version>
     <name>Commons Validator</name>
     <description>
-        Commons Validator provides the building blocks for both client side validation
-        and server side data validation. It may be used standalone or with a framework like
-        Struts.
+        Commons Validator provides the building blocks for both client side validation and server side data validation. It may be used standalone or with a framework like Struts.
     </description>
     <url>http://commons.apache.org/validator/</url>
     <issueManagement>
@@ -143,6 +141,7 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>javascript.compress</id>
                         <phase>generate-sources</phase>
                         <configuration>
                             <tasks>
@@ -236,15 +235,6 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <rulesets>
-                        <ruleset>checkstyle.xml</ruleset>
-                    </rulesets>
-                </configuration>
-            </plugin>
         </plugins>
     </reporting>
 
