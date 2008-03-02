@@ -26,7 +26,7 @@ import java.math.BigDecimal;
  * 
  * @version $Revision$ $Date$
  */
-public class AbstractNumberValidatorTest extends TestCase {
+public abstract class AbstractNumberValidatorTest extends TestCase {
 
     protected AbstractNumberValidator validator;
     protected AbstractNumberValidator strictValidator;

@@ -30,7 +30,7 @@ import junit.framework.TestCase;
  * @version $Revision$
  * @since Validator 1.4
  */
-public class AbstractCheckDigitTest extends TestCase {
+public abstract class AbstractCheckDigitTest extends TestCase {
 
     /** logging instance */
     protected Log log = LogFactory.getLog(getClass());
