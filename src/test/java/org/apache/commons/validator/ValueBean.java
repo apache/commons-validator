@@ -29,14 +29,14 @@ public class ValueBean {
     * Gets the value.
     */
    public String getValue() {
-      return value;	
+      return value;
    }
 
    /**
     * Sets the value.
     */
    public void setValue(String value) {
-      this.value = value;	
+      this.value = value;
    }
       
 }                                                         

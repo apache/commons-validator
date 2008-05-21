@@ -91,18 +91,18 @@ public class ExtensionTest extends TestCase {
      * validator-extension.xml.
     */
     protected void setUp() throws Exception {
-		// Load resources
-		InputStream in = null;
+        // Load resources
+        InputStream in = null;
 
-		try {
-			in = this.getClass().getResourceAsStream("ExtensionTest-config.xml");
-			resources = new ValidatorResources(in);
-		} finally {
-			if (in != null) {
-				in.close();
-			}
-		}
-	}
+        try {
+            in = this.getClass().getResourceAsStream("ExtensionTest-config.xml");
+            resources = new ValidatorResources(in);
+        } finally {
+            if (in != null) {
+                in.close();
+            }
+        }
+    }
 
     protected void tearDown() {
     }

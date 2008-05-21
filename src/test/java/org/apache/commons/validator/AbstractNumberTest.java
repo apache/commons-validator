@@ -77,8 +77,8 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
     /**
      * Utlity class to run a test on a value.
      *
-     * @param	info	Value to run test on.
-     * @param	passed	Whether or not the test is expected to pass.
+     * @param    info    Value to run test on.
+     * @param    passed    Whether or not the test is expected to pass.
      */
     protected void valueTest(Object info, boolean passed) throws ValidatorException {
         // Construct validator based on the loaded resources

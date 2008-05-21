@@ -69,10 +69,10 @@ public class ValidatorTest extends TestCase {
     * method being tested returns an object (<code>null</code> will be considered an error).
     */
    public void testManualObject() {
-		//     property name of the method we are validating
-		String property = "date";
-		// name of ValidatorAction
-		String action = "date";
+        //     property name of the method we are validating
+        String property = "date";
+        // name of ValidatorAction
+        String action = "date";
         ValidatorResources resources = setupDateResources(property, action);
 
       TestBean bean = new TestBean();  
@@ -118,24 +118,24 @@ public class ValidatorTest extends TestCase {
    }
    
    public void testOnlyReturnErrors() throws ValidatorException {
-    	//     property name of the method we are validating
-    	String property = "date";
-    	// name of ValidatorAction
-    	String action = "date";
-    	ValidatorResources resources = setupDateResources(property, action);
+        //     property name of the method we are validating
+        String property = "date";
+        // name of ValidatorAction
+        String action = "date";
+        ValidatorResources resources = setupDateResources(property, action);
     
-    	TestBean bean = new TestBean();
-    	bean.setDate("2/3/1999");
+        TestBean bean = new TestBean();
+        bean.setDate("2/3/1999");
     
-    	Validator validator = new Validator(resources, "testForm");
-    	validator.setParameter(Validator.BEAN_PARAM, bean);
+        Validator validator = new Validator(resources, "testForm");
+        validator.setParameter(Validator.BEAN_PARAM, bean);
     
-    	ValidatorResults results = validator.validate();
+        ValidatorResults results = validator.validate();
     
-    	assertNotNull(results);
+        assertNotNull(results);
     
         // Field passed and should be in results
-    	assertTrue(results.getPropertyNames().contains(property));
+        assertTrue(results.getPropertyNames().contains(property));
         
         // Field passed but should not be in results
         validator.setOnlyReturnErrors(true);
@@ -144,51 +144,51 @@ public class ValidatorTest extends TestCase {
    }
    
    public void testOnlyValidateField() throws ValidatorException {
-    	//     property name of the method we are validating
-    	String property = "date";
-    	// name of ValidatorAction
-    	String action = "date";
-    	ValidatorResources resources = setupDateResources(property, action);
+        //     property name of the method we are validating
+        String property = "date";
+        // name of ValidatorAction
+        String action = "date";
+        ValidatorResources resources = setupDateResources(property, action);
     
-    	TestBean bean = new TestBean();
-    	bean.setDate("2/3/1999");
+        TestBean bean = new TestBean();
+        bean.setDate("2/3/1999");
     
-    	Validator validator = new Validator(resources, "testForm", property);
-    	validator.setParameter(Validator.BEAN_PARAM, bean);
+        Validator validator = new Validator(resources, "testForm", property);
+        validator.setParameter(Validator.BEAN_PARAM, bean);
     
-    	ValidatorResults results = validator.validate();
+        ValidatorResults results = validator.validate();
     
-    	assertNotNull(results);
+        assertNotNull(results);
     
         // Field passed and should be in results
-    	assertTrue(results.getPropertyNames().contains(property));
+        assertTrue(results.getPropertyNames().contains(property));
    }
    
    
     private ValidatorResources setupDateResources(String property, String action) {
     
-    	ValidatorResources resources = new ValidatorResources();
+        ValidatorResources resources = new ValidatorResources();
     
-    	ValidatorAction va = new ValidatorAction();
-    	va.setName(action);
-    	va.setClassname("org.apache.commons.validator.ValidatorTest");
-    	va.setMethod("formatDate");
-    	va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field");
+        ValidatorAction va = new ValidatorAction();
+        va.setName(action);
+        va.setClassname("org.apache.commons.validator.ValidatorTest");
+        va.setMethod("formatDate");
+        va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field");
     
-    	FormSet fs = new FormSet();
-    	Form form = new Form();
-    	form.setName("testForm");
-    	Field field = new Field();
-    	field.setProperty(property);
-    	field.setDepends(action);
-    	form.addField(field);
-    	fs.addForm(form);
+        FormSet fs = new FormSet();
+        Form form = new Form();
+        form.setName("testForm");
+        Field field = new Field();
+        field.setProperty(property);
+        field.setDepends(action);
+        form.addField(field);
+        fs.addForm(form);
     
-    	resources.addValidatorAction(va);
-    	resources.addFormSet(fs);
-    	resources.process();
+        resources.addValidatorAction(va);
+        resources.addFormSet(fs);
+        resources.process();
     
-    	return resources;
+        return resources;
     }
                                                           
    /**
@@ -286,7 +286,7 @@ public class ValidatorTest extends TestCase {
       }
    
       return date;
-   }	
+   }
        
    public class TestBean {
       private String letter = null;
@@ -297,7 +297,7 @@ public class ValidatorTest extends TestCase {
       }
       
       public void setLetter(String letter) {
-         this.letter = letter;	
+         this.letter = letter;
       }
 
       public String getDate() {
@@ -305,7 +305,7 @@ public class ValidatorTest extends TestCase {
       }
       
       public void setDate(String date) {
-         this.date = date;	
+         this.date = date;
       }
    }
 

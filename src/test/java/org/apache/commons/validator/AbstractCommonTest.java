@@ -52,8 +52,8 @@ abstract public class AbstractCommonTest extends TestCase {
             resources = new ValidatorResources(in);
         } finally {
             if (in != null) {
-				in.close();
-			}
+                in.close();
+            }
         }
     }
 }

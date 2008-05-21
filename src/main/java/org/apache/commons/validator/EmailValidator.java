@@ -88,7 +88,7 @@ public class EmailValidator {
      * @return true if the email address is valid.
      */
     public boolean isValid(String email) {
-	return org.apache.commons.validator.routines.EmailValidator.getInstance().isValid(email);
+        return org.apache.commons.validator.routines.EmailValidator.getInstance().isValid(email);
     }
 
     /**

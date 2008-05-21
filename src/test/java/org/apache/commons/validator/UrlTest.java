@@ -48,14 +48,14 @@ public class UrlTest extends TestCase {
    }
 
    public void testIsValid() {
-    	testIsValid(testUrlParts, UrlValidator.ALLOW_ALL_SCHEMES);
-    	setUp();
-    	int options =
-    		UrlValidator.ALLOW_2_SLASHES
-    			+ UrlValidator.ALLOW_ALL_SCHEMES
-    			+ UrlValidator.NO_FRAGMENTS;
+        testIsValid(testUrlParts, UrlValidator.ALLOW_ALL_SCHEMES);
+        setUp();
+        int options =
+            UrlValidator.ALLOW_2_SLASHES
+                + UrlValidator.ALLOW_ALL_SCHEMES
+                + UrlValidator.NO_FRAGMENTS;
     
-    	testIsValid(testUrlPartsOptions, options);
+        testIsValid(testUrlPartsOptions, options);
    }
 
    public void testIsValidScheme() {

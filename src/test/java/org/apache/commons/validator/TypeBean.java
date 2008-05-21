@@ -34,67 +34,67 @@ public class TypeBean {
     private String sCreditCard = null;
 
     public String getByte() {
-       return sByte;	
+        return sByte;
     }
     
     public void setByte(String sByte) {
-       	this.sByte = sByte;
+        this.sByte = sByte;
     }
     
     public String getShort() {
-       return sShort;	
+        return sShort;
     }
     
     public void setShort(String sShort) {
-       	this.sShort = sShort;
+        this.sShort = sShort;
     }
 
     public String getInteger() {
-       return sInteger;	
+        return sInteger;
     }
     
     public void setInteger(String sInteger) {
-       	this.sInteger = sInteger;
+        this.sInteger = sInteger;
     }
 
     public String getLong() {
-       return sLong;	
+        return sLong;
     }
     
     public void setLong(String sLong) {
-       	this.sLong = sLong;
+        this.sLong = sLong;
     }
 
     public String getFloat() {
-       return sFloat;	
+        return sFloat;
     }
     
     public void setFloat(String sFloat) {
-       	this.sFloat = sFloat;
+        this.sFloat = sFloat;
     }
 
     public String getDouble() {
-       return sDouble;	
+        return sDouble;
     }
     
     public void setDouble(String sDouble) {
-       	this.sDouble = sDouble;
+        this.sDouble = sDouble;
     }
 
     public String getDate() {
-       return sDate;	
+        return sDate;
     }
     
     public void setDate(String sDate) {
-       	this.sDate = sDate;
+        this.sDate = sDate;
     }
 
     public String getCreditCard() {
-       return sCreditCard;	
+        return sCreditCard;
     }
     
     public void setCreditCard(String sCreditCard) {
-       	this.sCreditCard = sCreditCard;
+        this.sCreditCard = sCreditCard;
     }
-      
-}                                                         
+
+}
