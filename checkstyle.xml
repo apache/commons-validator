@@ -139,7 +139,7 @@
 
     <!-- enforce License Header -->
     <module name="Header">
-      <property name="headerFile" value="LICENSE-header.txt"/>
+      <property name="headerFile" value="${checkstyle.header.file}"/>
     </module>
 
   </module>
