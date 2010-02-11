@@ -16,6 +16,10 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -202,6 +206,35 @@ public abstract class AbstractCheckDigitTest extends TestCase {
             assertEquals("isValid() Zero Sum",  "Invalid code, sum is zero", e.getMessage());
         }
 
+    }
+
+    /**
+     * Test check digit serialization.
+     */
+    public void testSerialization() {
+        // Serialize the check digit routine
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(routine);
+            oos.flush();
+            oos.close();
+        } catch (Exception e) {
+            fail(routine.getClass().getName() + " error during serialization: " + e);
+        }
+
+        // Deserialize the test object
+        Object result = null;
+        try {
+            ByteArrayInputStream bais =
+                new ByteArrayInputStream(baos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            result = ois.readObject();
+            bais.close();
+        } catch (Exception e) {
+            fail(routine.getClass().getName() + " error during deserialization: " + e);
+        }
+        assertNotNull(result);
     }
 
     /**

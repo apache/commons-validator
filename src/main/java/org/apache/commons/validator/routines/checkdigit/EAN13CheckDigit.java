@@ -42,7 +42,7 @@ import java.io.Serializable;
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
-public final class EAN13CheckDigit extends ModulusCheckDigit implements Serializable {
+public final class EAN13CheckDigit extends ModulusCheckDigit {
 
     /** Singleton EAN-13 Check Digit instance */
     public static final CheckDigit INSTANCE = new EAN13CheckDigit();

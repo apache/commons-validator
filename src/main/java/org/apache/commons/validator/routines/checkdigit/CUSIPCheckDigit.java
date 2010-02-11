@@ -39,7 +39,7 @@ import java.io.Serializable;
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
-public final class CUSIPCheckDigit extends ModulusCheckDigit implements Serializable {
+public final class CUSIPCheckDigit extends ModulusCheckDigit {
 
     /** Singleton CUSIP Check Digit instance */
     public static final CheckDigit INSTANCE = new CUSIPCheckDigit();

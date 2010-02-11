@@ -38,7 +38,7 @@ import java.io.Serializable;
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
-public final class SedolCheckDigit extends ModulusCheckDigit implements Serializable {
+public final class SedolCheckDigit extends ModulusCheckDigit {
 
     /** Singleton ISBN-10 check digit instance */
     public static final CheckDigit INSTANCE = new SedolCheckDigit();

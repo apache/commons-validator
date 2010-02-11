@@ -37,7 +37,7 @@ import java.io.Serializable;
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
-public final class ISINCheckDigit extends ModulusCheckDigit implements Serializable {
+public final class ISINCheckDigit extends ModulusCheckDigit {
 
     /** Singleton ISIN Check Digit instance */
     public static final CheckDigit INSTANCE = new ISINCheckDigit();

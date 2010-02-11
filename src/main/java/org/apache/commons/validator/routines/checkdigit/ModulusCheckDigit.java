@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import java.io.Serializable;
+
 /**
  * Abstract <b>Modulus</b> Check digit calculation/validation.
  * <p>
@@ -31,7 +33,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
-public abstract class ModulusCheckDigit implements CheckDigit {
+public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
 
     private final int modulus;
 

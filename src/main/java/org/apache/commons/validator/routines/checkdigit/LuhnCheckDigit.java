@@ -38,7 +38,7 @@ import java.io.Serializable;
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
-public final class LuhnCheckDigit extends ModulusCheckDigit implements Serializable {
+public final class LuhnCheckDigit extends ModulusCheckDigit {
 
     /** Singleton Luhn Check Digit instance */
     public static final CheckDigit INSTANCE = new LuhnCheckDigit();

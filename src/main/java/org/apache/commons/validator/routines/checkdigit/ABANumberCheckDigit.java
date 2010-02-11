@@ -41,7 +41,7 @@ import java.io.Serializable;
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
-public final class ABANumberCheckDigit extends ModulusCheckDigit implements Serializable {
+public final class ABANumberCheckDigit extends ModulusCheckDigit {
 
     /** Singleton Routing Transit Number Check Digit instance */
     public static final CheckDigit INSTANCE = new ABANumberCheckDigit();

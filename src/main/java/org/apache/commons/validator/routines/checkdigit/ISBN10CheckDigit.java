@@ -44,7 +44,7 @@ import java.io.Serializable;
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
-public final class ISBN10CheckDigit extends ModulusCheckDigit implements Serializable {
+public final class ISBN10CheckDigit extends ModulusCheckDigit {
 
     /** Singleton ISBN-10 Check Digit instance */
     public static final CheckDigit INSTANCE = new ISBN10CheckDigit();
