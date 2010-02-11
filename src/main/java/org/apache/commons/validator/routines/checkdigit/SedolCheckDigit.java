@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import java.io.Serializable;
-
 /**
  * Modulus 10 <b>SEDOL</b> (UK Securities) Check Digit calculation/validation.
  * <p>

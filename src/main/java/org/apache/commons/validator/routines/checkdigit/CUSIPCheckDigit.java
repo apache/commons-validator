@@ -16,9 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import java.io.Serializable;
-
-
 /**
  * Modulus 10 <b>CUSIP</b> (North American Securities)
  * Check Digit calculation/validation.

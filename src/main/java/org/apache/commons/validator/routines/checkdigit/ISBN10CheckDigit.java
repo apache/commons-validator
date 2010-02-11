@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import java.io.Serializable;
-
 /**
  * Modulus 11 <b>ISBN-10</b> Check Digit calculation/validation.
  * <p>
