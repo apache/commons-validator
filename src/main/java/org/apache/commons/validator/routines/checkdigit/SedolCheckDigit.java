@@ -38,7 +38,7 @@ package org.apache.commons.validator.routines.checkdigit;
  */
 public final class SedolCheckDigit extends ModulusCheckDigit {
 
-    /** Singleton ISBN-10 check digit instance */
+    /** Singleton SEDOL check digit instance */
     public static final CheckDigit SEDOL_CHECK_DIGIT = new SedolCheckDigit();
 
     /** weighting given to digits depending on their right position */
