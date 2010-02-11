@@ -20,6 +20,10 @@ import junit.framework.TestCase;
 
 import java.util.Locale;
 import java.text.DecimalFormat;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 /**
  * Base Number Test Case.
@@ -206,6 +210,35 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
         assertTrue("maxValue() < max",     strictValidator.maxValue(number19 , number20));
         assertTrue("maxValue() = max",     strictValidator.maxValue(number20 , number20));
         assertFalse("maxValue() > max",    strictValidator.maxValue(number21 , number20));
+    }
+
+    /**
+     * Test validator serialization.
+     */
+    public void testSerialization() {
+        // Serialize the check digit routine
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(validator);
+            oos.flush();
+            oos.close();
+        } catch (Exception e) {
+            fail(validator.getClass().getName() + " error during serialization: " + e);
+        }
+
+        // Deserialize the test object
+        Object result = null;
+        try {
+            ByteArrayInputStream bais =
+                new ByteArrayInputStream(baos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            result = ois.readObject();
+            bais.close();
+        } catch (Exception e) {
+            fail(validator.getClass().getName() + " error during deserialization: " + e);
+        }
+        assertNotNull(result);
     }
 
 }

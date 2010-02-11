@@ -17,6 +17,11 @@
 package org.apache.commons.validator.routines;
 
 import junit.framework.TestCase;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.Locale;
@@ -180,6 +185,35 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
         assertNotNull("Test Date ", test);
         assertEquals("Format pattern", "28.11.05", validator.format(test, "dd.MM.yy"));
         assertEquals("Format locale",  "11/28/05", validator.format(test, Locale.US));
+    }
+
+    /**
+     * Test validator serialization.
+     */
+    public void testSerialization() {
+        // Serialize the check digit routine
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(validator);
+            oos.flush();
+            oos.close();
+        } catch (Exception e) {
+            fail(validator.getClass().getName() + " error during serialization: " + e);
+        }
+
+        // Deserialize the test object
+        Object result = null;
+        try {
+            ByteArrayInputStream bais =
+                new ByteArrayInputStream(baos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            result = ois.readObject();
+            bais.close();
+        } catch (Exception e) {
+            fail(validator.getClass().getName() + " error during deserialization: " + e);
+        }
+        assertNotNull(result);
     }
 
     /**
