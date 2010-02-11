@@ -39,7 +39,7 @@ package org.apache.commons.validator.routines.checkdigit;
 public final class CUSIPCheckDigit extends ModulusCheckDigit {
 
     /** Singleton CUSIP Check Digit instance */
-    public static final CheckDigit INSTANCE = new CUSIPCheckDigit();
+    public static final CheckDigit CUSIP_CHECK_DIGIT = new CUSIPCheckDigit();
 
     /** weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = new int[] {2, 1};

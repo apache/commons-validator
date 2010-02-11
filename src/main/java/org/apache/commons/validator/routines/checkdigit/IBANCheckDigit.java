@@ -41,7 +41,7 @@ import java.io.Serializable;
 public final class IBANCheckDigit implements CheckDigit, Serializable {
 
     /** Singleton IBAN Number Check Digit instance */
-    public static final CheckDigit INSTANCE = new IBANCheckDigit();
+    public static final CheckDigit IBAN_CHECK_DIGIT = new IBANCheckDigit();
 
     private static final long MAX = 999999999; 
 

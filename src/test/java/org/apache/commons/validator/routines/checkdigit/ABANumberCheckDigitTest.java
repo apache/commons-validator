@@ -38,7 +38,7 @@ public class ABANumberCheckDigitTest extends AbstractCheckDigitTest {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        routine = ABANumberCheckDigit.INSTANCE;
+        routine = ABANumberCheckDigit.ABAN_CHECK_DIGIT;
         valid = new String[] {
                 "123456780",
                 "123123123",

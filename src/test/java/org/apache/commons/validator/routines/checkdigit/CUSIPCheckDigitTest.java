@@ -38,7 +38,7 @@ public class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        routine = CUSIPCheckDigit.INSTANCE;
+        routine = CUSIPCheckDigit.CUSIP_CHECK_DIGIT;
         valid = new String[] {"037833100",
                               "931142103",
                               "837649128",

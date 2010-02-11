@@ -46,7 +46,7 @@ public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
     protected void setUp() throws Exception {
         super.setUp();
 
-        routine = LuhnCheckDigit.INSTANCE;
+        routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
 
         valid = new String[] {
                 VALID_VISA,

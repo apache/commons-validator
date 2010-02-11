@@ -37,7 +37,7 @@ public class VerhoeffCheckDigitTest extends AbstractCheckDigitTest {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        routine = VerhoeffCheckDigit.INSTANCE;
+        routine = VerhoeffCheckDigit.VERHOEFF_CHECK_DIGIT;
         valid = new String[] {
                 "15",
                 "1428570",

@@ -37,7 +37,7 @@ package org.apache.commons.validator.routines.checkdigit;
 public final class ISINCheckDigit extends ModulusCheckDigit {
 
     /** Singleton ISIN Check Digit instance */
-    public static final CheckDigit INSTANCE = new ISINCheckDigit();
+    public static final CheckDigit ISIN_CHECK_DIGIT = new ISINCheckDigit();
 
     /** weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = new int[] {2, 1};

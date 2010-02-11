@@ -89,7 +89,7 @@ public class CreditCardValidator implements Serializable {
     /**
      * Luhn checkdigit validator for the card numbers.
      */
-    private static final CheckDigit LUHN_VALIDATOR = LuhnCheckDigit.INSTANCE;
+    private static final CheckDigit LUHN_VALIDATOR = LuhnCheckDigit.LUHN_CHECK_DIGIT;
 
     /** American Express (Amex) Card Validator */
     public static final CodeValidator AMEX_VALIDATOR = new CodeValidator("^(3[47]\\d{13})$", LUHN_VALIDATOR);

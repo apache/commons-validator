@@ -38,7 +38,7 @@ public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        routine = ISBNCheckDigit.ISBN;
+        routine = ISBNCheckDigit.ISBN_CHECK_DIGIT;
         valid = new String[] {
                 "9780072129519",
                 "9780764558313",

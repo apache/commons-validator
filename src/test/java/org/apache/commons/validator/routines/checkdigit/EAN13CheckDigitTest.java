@@ -38,7 +38,7 @@ public class EAN13CheckDigitTest extends AbstractCheckDigitTest {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        routine = EAN13CheckDigit.INSTANCE;
+        routine = EAN13CheckDigit.EAN13_CHECK_DIGIT;
         valid = new String[] {
                 "9780072129519",
                 "9780764558313",

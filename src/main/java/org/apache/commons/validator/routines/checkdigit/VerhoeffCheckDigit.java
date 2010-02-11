@@ -34,7 +34,7 @@ import java.io.Serializable;
 public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
 
     /** Singleton Verhoeff Check Digit instance */
-    public static final CheckDigit INSTANCE = new VerhoeffCheckDigit();
+    public static final CheckDigit VERHOEFF_CHECK_DIGIT = new VerhoeffCheckDigit();
 
     /** D - multiplication table */
     private static final int[][] D_TABLE = new int[][] {

@@ -43,7 +43,7 @@ package org.apache.commons.validator.routines.checkdigit;
 public final class EAN13CheckDigit extends ModulusCheckDigit {
 
     /** Singleton EAN-13 Check Digit instance */
-    public static final CheckDigit INSTANCE = new EAN13CheckDigit();
+    public static final CheckDigit EAN13_CHECK_DIGIT = new EAN13CheckDigit();
 
     /** weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = new int[] {3, 1};

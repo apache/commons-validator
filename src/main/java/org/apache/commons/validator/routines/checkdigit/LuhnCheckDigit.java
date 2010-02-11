@@ -38,7 +38,7 @@ package org.apache.commons.validator.routines.checkdigit;
 public final class LuhnCheckDigit extends ModulusCheckDigit {
 
     /** Singleton Luhn Check Digit instance */
-    public static final CheckDigit INSTANCE = new LuhnCheckDigit();
+    public static final CheckDigit LUHN_CHECK_DIGIT = new LuhnCheckDigit();
 
     /** weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = new int[] {2, 1};

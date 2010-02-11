@@ -42,7 +42,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        routine = IBANCheckDigit.INSTANCE;
+        routine = IBANCheckDigit.IBAN_CHECK_DIGIT;
         valid  = new String[]  {
                 "AD1200012030200359100100",
                 "AT611904300234573201",

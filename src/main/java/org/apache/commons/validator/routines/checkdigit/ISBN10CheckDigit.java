@@ -45,7 +45,7 @@ package org.apache.commons.validator.routines.checkdigit;
 public final class ISBN10CheckDigit extends ModulusCheckDigit {
 
     /** Singleton ISBN-10 Check Digit instance */
-    public static final CheckDigit INSTANCE = new ISBN10CheckDigit();
+    public static final CheckDigit ISBN10_CHECK_DIGIT = new ISBN10CheckDigit();
 
     /**
      * Construct a modulus 11 Check Digit routine for ISBN-10.

@@ -23,8 +23,8 @@ import java.io.Serializable;
  * <p>
  * This implementation validates/calculates ISBN check digits
  * based on the length of the code passed to it - delegating
- * either to the {@link ISBNCheckDigit#ISBN10} or the
- * {@link ISBNCheckDigit#ISBN13} routines to perform the actual
+ * either to the {@link ISBNCheckDigit#ISBN10_CHECK_DIGIT} or the
+ * {@link ISBNCheckDigit#ISBN13_CHECK_DIGIT} routines to perform the actual
  * validation/calculation.
  * <p>
  * <b>N.B.</b> From 1st January 2007 the book industry will start to use a new 13 digit
@@ -37,13 +37,13 @@ import java.io.Serializable;
 public final class ISBNCheckDigit implements CheckDigit, Serializable {
 
     /** Singleton ISBN-10 Check Digit instance */
-    public static final CheckDigit ISBN10 = ISBN10CheckDigit.INSTANCE;
+    public static final CheckDigit ISBN10_CHECK_DIGIT = ISBN10CheckDigit.ISBN10_CHECK_DIGIT;
 
     /** Singleton ISBN-13 Check Digit instance */
-    public static final CheckDigit ISBN13 = EAN13CheckDigit.INSTANCE;
+    public static final CheckDigit ISBN13_CHECK_DIGIT = EAN13CheckDigit.EAN13_CHECK_DIGIT;
 
     /** Singleton combined ISBN-10 / ISBN-13 Check Digit instance */
-    public static final CheckDigit ISBN   = new ISBNCheckDigit();
+    public static final CheckDigit ISBN_CHECK_DIGIT   = new ISBNCheckDigit();
 
     /**
      * Calculate an ISBN-10 or ISBN-13 check digit, depending
@@ -65,9 +65,9 @@ public final class ISBNCheckDigit implements CheckDigit, Serializable {
         if (code == null || code.length() == 0) {
             throw new CheckDigitException("ISBN Code is missing");
         } else if (code.length() == 9) {
-            return ISBN10.calculate(code);
+            return ISBN10_CHECK_DIGIT.calculate(code);
         } else if (code.length() == 12) {
-            return ISBN13.calculate(code);
+            return ISBN13_CHECK_DIGIT.calculate(code);
         } else {
             throw new CheckDigitException("Invalid ISBN Length = " + code.length());
         }
@@ -91,9 +91,9 @@ public final class ISBNCheckDigit implements CheckDigit, Serializable {
         if (code == null) {
             return false;
         } else if (code.length() == 10) {
-            return ISBN10.isValid(code);
+            return ISBN10_CHECK_DIGIT.isValid(code);
         } else if (code.length() == 13) {
-            return ISBN13.isValid(code);
+            return ISBN13_CHECK_DIGIT.isValid(code);
         } else {
             return false;
         }
