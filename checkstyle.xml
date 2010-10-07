@@ -48,13 +48,6 @@
       <property name="classes" value="java.lang.Boolean, java.lang.String"/>
     </module>
 
-    <!-- Item 6 - Avoid finalizers -->
-    <!-- this will not find violations that contain linebreaks -->
-    <module name="GenericIllegalRegexp">
-      <property name="format"
-                value="((public)|(protected))\s+void\s+finalize\(\s*\)"/>
-    </module>
-
     <!-- Item 8 - Always override hashCode when you override equals -->
     <module name="EqualsHashCode"/>
 
@@ -133,18 +126,30 @@
 
     <!-- Item 57 - Provide a readResolve method when necessary -->
     <!-- no rfe yet -->
-    
-    <!-- don't allow tabs -->
-    <module name="TabCharacter"/>
-
-    <!-- enforce License Header -->
-    <module name="Header">
-      <property name="headerFile" value="${checkstyle.header.file}"/>
-    </module>
 
   </module>
 
   <!-- enforce package documentation -->
-  <module name="PackageHtml"/>
+  <module name="JavadocPackage">
+    <!-- setting allowLegacy means it will check for package.html instead of just package-info.java -->
+    <property name="allowLegacy" value="true"/>
+  </module>
   
+  <!-- Item 6 - Avoid finalizers -->
+  <!-- this will not find violations that contain linebreaks -->
+  <module name="RegexpSingleline">
+    <property name="format" value="((public)|(protected))\s+void\s+finalize\(\s*\)"/>
+     <property name="message" value="Avoid finalizers."/>
+  </module>
+    
+  <!-- don't allow tabs -->
+  <module name="FileTabCharacter">
+    <property name="fileExtensions" value="java,xml"/>
+  </module>
+
+  <!-- enforce License Header -->
+  <module name="Header">
+    <property name="headerFile" value="${checkstyle.header.file}"/>
+  </module>
+
 </module>
