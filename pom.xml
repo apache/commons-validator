@@ -147,7 +147,7 @@
                 <executions>
                     <execution>
                         <id>javascript.compress</id>
-                        <phase>generate-sources</phase>
+                        <phase>prepare-package</phase>
                         <configuration>
                             <tasks>
                                 <ant antfile="build-javascript.xml" target="compress">
