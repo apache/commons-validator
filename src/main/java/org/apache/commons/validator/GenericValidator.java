@@ -20,6 +20,11 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import org.apache.commons.validator.routines.UrlValidator;
+import org.apache.commons.validator.routines.CreditCardValidator;
+import org.apache.commons.validator.routines.DateValidator;
+import org.apache.commons.validator.routines.EmailValidator;
+
 /**
  * This class contains basic methods for performing validations.
  *
@@ -151,7 +156,8 @@ public class GenericValidator implements Serializable {
      * @return true if the value can be converted to a Date.
      */
     public static boolean isDate(String value, String datePattern, boolean strict) {
-        return DateValidator.getInstance().isValid(value, datePattern, strict);
+        // TODO not yet supported in routines version
+        return org.apache.commons.validator.DateValidator.getInstance().isValid(value, datePattern, strict);
     }
 
     /**
