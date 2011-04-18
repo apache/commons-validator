@@ -130,7 +130,7 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
         assertFalse("Too small +ve", FloatValidator.getInstance().isValid(strTooSmallPositive, pattern));
 
         // Validate Too Small -ve
-        Double tooSmallNegative = new Double(tooSmallPositive.doubleValue() * (double)-1);
+        Double tooSmallNegative = new Double(tooSmallPositive.doubleValue() * -1);
         String strTooSmallNegative = fmt.format(tooSmallNegative);
         assertFalse("Too small -ve", FloatValidator.getInstance().isValid(strTooSmallNegative, pattern));
     }

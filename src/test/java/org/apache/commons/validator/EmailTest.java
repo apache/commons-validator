@@ -201,7 +201,7 @@ public class EmailTest extends AbstractCommonTest {
     * Tests the email validation with ascii control characters.
     * (i.e. Ascii chars 0 - 31 and 127)
     */
-    public void testEmailWithControlChars() throws ValidatorException {
+    public void testEmailWithControlChars() {
         EmailValidator validator = new EmailValidator();
         for (char c = 0; c < 32; c++) {
             assertFalse("Test control char " + ((int)c), validator.isValid("foo" + c + "bar@domain.com"));

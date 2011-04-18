@@ -30,12 +30,6 @@ public class ParameterTest extends AbstractCommonTest {
 
     private static final String FORM_KEY = "nameForm";
 
-    private static final String firstNameField = "firstName";
-
-    private static final String middleNameField = "middleName";
-
-    private static final String lastNameField = "lastName";
-
     private String firstName;
 
     private String middleName;
@@ -70,7 +64,7 @@ public class ParameterTest extends AbstractCommonTest {
     /**
      * Test all validations ran and passed.
      */
-    public void testAllValid() throws ValidatorException {
+    public void testAllValid() {
 
         // Create bean to run test on.
         NameBean bean = createNameBean();
@@ -83,9 +77,8 @@ public class ParameterTest extends AbstractCommonTest {
         validator.setParameter(Validator.LOCALE_PARAM, Locale.getDefault());
 
         // Get results of the validation.
-        ValidatorResults results = null;
         try {
-            results = validator.validate();
+            validator.validate();
         } catch(Exception e) {
             fail("Validator.validate() threw " + e);
         }

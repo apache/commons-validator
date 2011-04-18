@@ -120,8 +120,8 @@ public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
         BigDecimal number20 = new BigDecimal("20");
         BigDecimal number21 = new BigDecimal("21");
         
-        float min = (float)10;
-        float max = (float)20;
+        float min = 10;
+        float max = 20;
 
         // Test isInRange()
         assertFalse("isInRange(A) < min",   validator.isInRange(number9,  min, max));

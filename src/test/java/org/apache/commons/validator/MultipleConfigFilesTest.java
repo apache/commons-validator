@@ -77,7 +77,7 @@ public class MultipleConfigFilesTest extends TestCase {
     * Check the forms and constants from different config files have
     * been merged into the same FormSet.
     */
-    public void testMergedConfig() throws ValidatorException {
+    public void testMergedConfig() {
 
         // *********** Default Locale *******************
 

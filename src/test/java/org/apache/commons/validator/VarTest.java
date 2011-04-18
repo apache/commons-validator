@@ -61,7 +61,7 @@ public class VarTest extends AbstractCommonTest {
    /**
     * With nothing provided, we should fail both because both are required.
     */
-   public void testVars() throws ValidatorException {
+   public void testVars() {
 
        Form form = resources.getForm(Locale.getDefault(), FORM_KEY);
 

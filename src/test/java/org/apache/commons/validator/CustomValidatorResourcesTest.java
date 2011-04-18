@@ -20,8 +20,6 @@ import java.io.InputStream;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.validator.custom.CustomValidatorResources;
-
 /**
  * Test custom ValidatorResources.
  *
@@ -55,11 +53,8 @@ public class CustomValidatorResourcesTest extends TestCase {
     public void testCustomResources() {
         // Load resources
         InputStream in = null;
-        ValidatorResources resources = null;
-
         try {
             in = this.getClass().getResourceAsStream("TestNumber-config.xml");
-            resources = new CustomValidatorResources(in);
         } catch(Exception e) {
             fail("Error loading resources: " + e);
         } finally {
