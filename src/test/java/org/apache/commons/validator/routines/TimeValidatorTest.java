@@ -95,14 +95,6 @@ public class TimeValidatorTest extends TestCase {
                         ,"10:1:"};  // invalid pattern
 
     /**
-     * Main
-     * @param args arguments
-     */
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TimeValidatorTest.class);
-    }
-
-    /**
      * Constructor
      * @param name test name
      */

@@ -16,9 +16,7 @@
  */
 package org.apache.commons.validator.routines;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 import org.apache.commons.validator.ResultPair;
 
@@ -36,17 +34,10 @@ public class UrlValidatorTest extends TestCase {
       super(testName);
    }
 
-   public static Test suite() {
-      return new TestSuite(UrlValidatorTest.class);
-   }
-
    protected void setUp() {
       for (int index = 0; index < testPartsIndex.length - 1; index++) {
          testPartsIndex[index] = 0;
       }
-   }
-
-   protected void tearDown() {
    }
 
    public void testIsValid() {

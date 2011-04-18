@@ -35,14 +35,6 @@ public class CurrencyValidatorTest extends TestCase {
     private String UK_POUND;
 
     /**
-     * Main
-     * @param args arguments
-     */
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(CurrencyValidatorTest.class);
-    }
-    
-    /**
      * Constructor
      * @param name test name
      */

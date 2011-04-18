@@ -36,14 +36,6 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     private CalendarValidator calValidator;
 
     /**
-     * Main
-     * @param args arguments
-     */
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(CalendarValidatorTest.class);
-    }
-
-    /**
      * Constructor
      * @param name test name
      */

@@ -17,9 +17,9 @@
 package org.apache.commons.validator;
 
 import java.io.InputStream;
-import junit.framework.Test;
+
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
 import org.apache.commons.validator.custom.CustomValidatorResources;
 
 /**
@@ -36,24 +36,6 @@ public class CustomValidatorResourcesTest extends TestCase {
     public CustomValidatorResourcesTest(String name) {
         super(name);
     }
-
-   /**
-    * Start the tests.
-    *
-    * @param theArgs the arguments. Not used
-    */
-   public static void main(String[] theArgs) {
-       junit.awtui.TestRunner.main(new String[] {ValidatorResultsTest.class.getName()});
-   }
-
-   /**
-    * Create a Test Suite
-    * @return a test suite (<code>TestSuite</code>) that includes all methods
-    *         starting with "test"
-    */
-   public static Test suite() {
-       return new TestSuite(CustomValidatorResourcesTest.class);
-   }
 
     /**
      * Set up.

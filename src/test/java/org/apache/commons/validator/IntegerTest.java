@@ -17,8 +17,6 @@
 package org.apache.commons.validator;
 
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 
 /**                                                       
@@ -33,24 +31,6 @@ public class IntegerTest extends AbstractNumberTest {
         super(name);
         FORM_KEY = "intForm";
         ACTION = "int";
-    }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs) {
-        junit.awtui.TestRunner.main(new String[]{IntegerTest.class.getName()});
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite() {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(IntegerTest.class);
     }
 
     /**

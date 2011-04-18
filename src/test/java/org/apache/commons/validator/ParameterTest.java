@@ -19,9 +19,6 @@ package org.apache.commons.validator;
 import java.io.IOException;
 import java.util.Locale;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.xml.sax.SAXException;
 
 /**
@@ -50,26 +47,6 @@ public class ParameterTest extends AbstractCommonTest {
      */
     public ParameterTest(String name) {
         super(name);
-    }
-
-    /**
-     * Start the tests.
-     * 
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs) {
-        junit.awtui.TestRunner.main(new String[] {
-            ParameterTest.class.getName()
-        });
-    }
-
-    /**
-     * Create a Test Suite
-     * @return a test suite (<code>TestSuite</code>) that includes all
-     *         methods starting with "test"
-     */
-    public static Test suite() {
-        return new TestSuite(ParameterTest.class);
     }
 
     /**

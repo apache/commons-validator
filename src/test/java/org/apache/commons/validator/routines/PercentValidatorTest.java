@@ -30,14 +30,6 @@ public class PercentValidatorTest extends TestCase {
     protected PercentValidator validator;
 
     /**
-     * Main
-     * @param args arguments
-     */
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(PercentValidatorTest.class);
-    }
-
-    /**
      * Constructor
      * @param name test name
      */

@@ -16,10 +16,9 @@
  */
 package org.apache.commons.validator;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import java.util.Locale;
 import java.io.IOException;
+import java.util.Locale;
+
 import org.xml.sax.SAXException;
 
 /**                                                       
@@ -45,24 +44,6 @@ public class VarTest extends AbstractCommonTest {
 
    public VarTest(String name) {
        super(name);
-   }
-
-   /**
-    * Start the tests.
-    *
-    * @param theArgs the arguments. Not used
-    */
-   public static void main(String[] theArgs) {
-       junit.awtui.TestRunner.main(new String[] {VarTest.class.getName()});
-   }
-
-   /**
-    * @return a test suite (<code>TestSuite</code>) that includes all methods
-    *         starting with "test"
-    */
-   public static Test suite() {
-       // All methods starting with "test" will be executed in the test suite.
-       return new TestSuite(VarTest.class);
    }
 
    /**

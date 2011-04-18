@@ -26,14 +26,6 @@ import java.util.Locale;
 public class DoubleValidatorTest extends AbstractNumberValidatorTest {
 
     /**
-     * Main
-     * @param args arguments
-     */
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(DoubleValidatorTest.class);
-    }
-
-    /**
      * Constructor
      * @param name test name
      */

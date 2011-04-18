@@ -21,9 +21,6 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.xml.sax.SAXException;
                                                           
 /**                                                       
@@ -47,24 +44,6 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
    public GenericTypeValidatorTest(String name) {                  
        super(name);                                      
    }                                                     
-
-   /**
-    * Start the tests.
-    *
-    * @param theArgs the arguments. Not used
-    */
-   public static void main(String[] theArgs) {
-       junit.awtui.TestRunner.main(new String[] {GenericTypeValidatorTest.class.getName()});
-   }
-
-   /**
-    * @return a test suite (<code>TestSuite</code>) that includes all methods
-    *         starting with "test"
-    */
-   public static Test suite() {
-       // All methods starting with "test" will be executed in the test suite.
-       return new TestSuite(GenericTypeValidatorTest.class);
-   }
 
    /**
     * Load <code>ValidatorResources</code> from 

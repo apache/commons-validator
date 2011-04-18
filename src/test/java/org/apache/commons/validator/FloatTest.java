@@ -16,9 +16,6 @@
  */
 package org.apache.commons.validator;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 
 /**                                                       
  * Performs Validation Test for <code>float</code> validations.
@@ -32,25 +29,6 @@ public class FloatTest extends AbstractNumberTest {
         ACTION = "float";
         FORM_KEY = "floatForm";
     }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs) {
-        junit.awtui.TestRunner.main(new String[]{FloatTest.class.getName()});
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite() {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(FloatTest.class);
-    }
-
 
     /**
      * Tests the float validation.

@@ -29,14 +29,6 @@ public class InetAddressValidatorTest extends TestCase {
     private InetAddressValidator validator;
 
     /**
-     * Command-line test method.
-     * @param args
-     */
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(InetAddressValidatorTest.class);
-    }
-
-    /**
      * Constructor.
      * @param name
      */

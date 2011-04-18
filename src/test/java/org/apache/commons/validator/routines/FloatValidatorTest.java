@@ -27,14 +27,6 @@ import java.util.Locale;
 public class FloatValidatorTest extends AbstractNumberValidatorTest {
 
     /**
-     * Main
-     * @param args arguments
-     */
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(FloatValidatorTest.class);
-    }
-
-    /**
      * Constructor
      * @param name test name
      */

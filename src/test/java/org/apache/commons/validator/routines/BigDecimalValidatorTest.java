@@ -27,14 +27,6 @@ import java.util.Locale;
 public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
 
     /**
-     * Main
-     * @param args arguments
-     */
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(BigDecimalValidatorTest.class);
-    }
-
-    /**
      * Constructor
      * @param name test name
      */

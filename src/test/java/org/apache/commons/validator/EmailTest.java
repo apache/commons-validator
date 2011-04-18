@@ -48,32 +48,11 @@ public class EmailTest extends AbstractCommonTest {
    }                                                     
 
    /**
-    * Start the tests.
-    *
-    * @param theArgs the arguments. Not used
-    */
-   public static void main(String[] theArgs) {
-       junit.awtui.TestRunner.main(new String[] {EmailTest.class.getName()});
-   }
-
-   /**
-    * @return a test suite (<code>TestSuite</code>) that includes all methods
-    *         starting with "test"
-    */
-   public static Test suite() {
-       // All methods starting with "test" will be executed in the test suite.
-       return new TestSuite(EmailTest.class);
-   }
-
-   /**
     * Load <code>ValidatorResources</code> from 
     * validator-regexp.xml.
     */
    protected void setUp() throws IOException, SAXException {
       loadResources("EmailTest-config.xml");
-   }
-
-   protected void tearDown() {
    }
 
    /**

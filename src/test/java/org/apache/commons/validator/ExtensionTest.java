@@ -18,9 +18,7 @@ package org.apache.commons.validator;
 
 import java.io.InputStream;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * <p>Performs tests for extension in form definitions. Performs the same tests
@@ -66,24 +64,6 @@ public class ExtensionTest extends TestCase {
      */
     public ExtensionTest(String arg0) {
         super(arg0);
-    }
-
-    /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs) {
-        junit.awtui.TestRunner.main(new String[] {RequiredNameTest.class.getName()});
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite() {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(ExtensionTest.class);
     }
 
     /**

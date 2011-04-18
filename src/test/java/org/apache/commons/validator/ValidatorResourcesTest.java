@@ -36,34 +36,6 @@ public class ValidatorResourcesTest extends TestCase {
     }
 
     /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs) {
-        junit.awtui.TestRunner.main(new String[] {ValidatorResourcesTest.class.getName()});
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite() {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(ValidatorResourcesTest.class);
-    }
-
-    /**
-     * Load <code>ValidatorResources</code> from
-     * ValidatorResultsTest-config.xml.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    protected void tearDown() {
-    }
-
-    /**
      * Test null Input Stream for Validator Resources.
      */
     public void testNullInputStream() throws Exception {

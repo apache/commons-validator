@@ -17,10 +17,7 @@
 package org.apache.commons.validator;
 
 import java.io.IOException;
-import java.util.*;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import java.util.Locale;
 
 import org.xml.sax.SAXException;
 
@@ -48,33 +45,12 @@ public class DateTest extends AbstractCommonTest {
     }
     
     /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs) {
-        junit.awtui.TestRunner.main(new String[]{DateTest.class.getName()});
-    }
-
-    /**
      * Load <code>ValidatorResources</code> from 
      * validator-numeric.xml.
      */
     protected void setUp() throws IOException, SAXException {
         // Load resources
         loadResources("DateTest-config.xml");
-    }
-
-    protected void tearDown() {
-    }
-    
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite() {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(DateTest.class);
     }
 
     /**

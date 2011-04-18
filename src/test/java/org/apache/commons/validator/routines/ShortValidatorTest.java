@@ -26,14 +26,6 @@ import java.util.Locale;
 public class ShortValidatorTest extends AbstractNumberValidatorTest {
 
     /**
-     * Main
-     * @param args arguments
-     */
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(ShortValidatorTest.class);
-    }
-
-    /**
      * Constructor
      * @param name test name
      */

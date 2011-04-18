@@ -34,25 +34,6 @@ public class ByteTest extends AbstractNumberTest {
     }
 
     /**
-     * Start the tests.
-     *
-     * @param theArgs the arguments. Not used
-     */
-    public static void main(String[] theArgs) {
-        junit.awtui.TestRunner.main(new String[]{ByteTest.class.getName()});
-    }
-
-    /**
-     * @return a test suite (<code>TestSuite</code>) that includes all methods
-     *         starting with "test"
-     */
-    public static Test suite() {
-        // All methods starting with "test" will be executed in the test suite.
-        return new TestSuite(ByteTest.class);
-    }
-
-
-    /**
      * Tests the byte validation.
      */
     public void testByte() throws ValidatorException {
