@@ -195,6 +195,18 @@ public class CodeValidatorTest extends TestCase {
         assertEquals("Trimmed",      "A",  validator.validate(" A  "));
     }
 
+    public void testValidator294_1() {
+        CodeValidator validator = new CodeValidator((String)null, 0, -1, (CheckDigit)null);
+        assertEquals("Null",         null, validator.validate(null));
+        validator = new CodeValidator((String)null, -1, 0, (CheckDigit)null);
+        assertEquals("Null",         null, validator.validate(null));
+    }
+
+    public void testValidator294_2() {
+        CodeValidator validator = new CodeValidator((String)null, -1, 0, (CheckDigit)null);
+        assertEquals("Null",         null, validator.validate(null));
+    }
+
     /**
      * Test Regular Expression.
      */

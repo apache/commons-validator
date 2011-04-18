@@ -213,8 +213,12 @@ public final class CodeValidator implements Serializable {
      */
     public Object validate(String input) {
 
-        String code = (input == null ? null : input.trim());
-        if (code != null && code.length() == 0) {
+        if (input == null) {
+            return null;
+        }
+
+        String code = input.trim();
+        if (code.length() == 0) {
             return null;
         }
 
