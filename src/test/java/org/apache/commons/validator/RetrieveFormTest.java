@@ -19,9 +19,7 @@ package org.apache.commons.validator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import org.xml.sax.SAXException;
 
 /**
@@ -45,15 +43,6 @@ public class RetrieveFormTest extends TestCase {
      * Prefix for the forms.
      */
     private static final Locale CANADA_FRENCH_XXX = new Locale("fr", "CA", "XXX");
-
-   /**
-    * @return a test suite (<code>TestSuite</code>) that includes all methods
-    *         starting with "test"
-    */
-   public static Test suite() {
-       // All methods starting with "test" will be executed in the test suite.
-       return new TestSuite(RetrieveFormTest.class);
-   }
 
     /**
      * Constructor for FormTest.
@@ -82,7 +71,7 @@ public class RetrieveFormTest extends TestCase {
    /**
     * Test a form defined only in the "default" formset.
     */
-    public void testDefaultForm() throws ValidatorException {
+    public void testDefaultForm() {
 
         String formKey = FORM_PREFIX + "default";
 
@@ -110,7 +99,7 @@ public class RetrieveFormTest extends TestCase {
     * Test a form defined in the "default" formset and formsets
     * where just the "language" is specified.
     */
-    public void testLanguageForm() throws ValidatorException {
+    public void testLanguageForm() {
 
         String formKey = FORM_PREFIX + "language";
 
@@ -139,7 +128,7 @@ public class RetrieveFormTest extends TestCase {
     * where just the "language" is specified and formset where
     * the language and country are specified.
     */
-    public void testLanguageCountryForm() throws ValidatorException {
+    public void testLanguageCountryForm() {
 
         String formKey = FORM_PREFIX + "language_country";
 
@@ -166,7 +155,7 @@ public class RetrieveFormTest extends TestCase {
    /**
     * Test a form defined in all the formsets
     */
-    public void testLanguageCountryVariantForm() throws ValidatorException {
+    public void testLanguageCountryVariantForm() {
 
         String formKey = FORM_PREFIX + "language_country_variant";
 
@@ -193,7 +182,7 @@ public class RetrieveFormTest extends TestCase {
    /**
     * Test a form not defined
     */
-    public void testFormNotFound() throws ValidatorException {
+    public void testFormNotFound() {
 
         String formKey = "INVALID_NAME";
 
@@ -226,7 +215,7 @@ public class RetrieveFormTest extends TestCase {
 
         // Validate the expected Form is retrieved by checking the "localeVar"
         // value of the field.
-        Field testField = (Field)testForm.getField("testProperty");
+        Field testField = testForm.getField("testProperty");
         assertEquals("Incorrect Form '"   + formKey  + "' for locale '" + locale + "'",
                      expectedVarValue, 
                      testField.getVarValue("localeVar"));
