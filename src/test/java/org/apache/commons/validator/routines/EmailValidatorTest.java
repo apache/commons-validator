@@ -192,10 +192,6 @@ public class EmailValidatorTest extends TestCase {
     /**
      * Write this test according to parts of RFC, as opposed to the type of character
      * that is being tested.
-     *
-     * <p><b>FIXME</b>: This test fails so disable it with a leading _ for 1.1.4 release.
-     * The real solution is to fix the email parsing.
-     *
      */
     public void testEmailUserName()  {
 
@@ -317,7 +313,7 @@ public class EmailValidatorTest extends TestCase {
      * Mail::RFC822::Address & RFC::RFC822::Address perl test.pl
      * For traceability don't combine these test values with other tests.
      */
-    ResultPair[] testEmailFromPerl = {
+    private static final ResultPair[] testEmailFromPerl = {
         new ResultPair("abigail@example.com", true),
         new ResultPair("abigail@example.com ", true),
         new ResultPair(" abigail@example.com", true),
