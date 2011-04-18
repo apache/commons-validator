@@ -25,6 +25,7 @@ import org.xml.sax.SAXException;
  *
  *
  * @version $Revision$ $Date$
+ * @deprecated to be removed when target class is removed
  */
 public class EmailTest extends AbstractCommonTest {
 
