@@ -63,7 +63,7 @@ import java.util.regex.Pattern;
  *  </pre>
  *
  * @see
- * <a href='http://www.ietf.org/rfc/rfc2396.txt' >
+ * <a href="http://www.ietf.org/rfc/rfc2396.txt">
  *  Uniform Resource Identifiers (URI): Generic Syntax
  * </a>
  *
@@ -197,7 +197,7 @@ public class UrlValidator implements Serializable {
      *        ignore the contents of schemes.
      */
     public UrlValidator(String[] schemes) {
-        this(schemes, (long)0);
+        this(schemes, 0L);
     }
 
     /**
