@@ -18,9 +18,6 @@ package org.apache.commons.validator;
 
 import java.io.IOException;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.xml.sax.SAXException;
 
 /**                                                       

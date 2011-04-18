@@ -17,8 +17,7 @@
 package org.apache.commons.validator;
 
 import java.io.InputStream;
-import junit.framework.Test;
-import junit.framework.TestSuite;
+
 import junit.framework.TestCase;
 
 /**

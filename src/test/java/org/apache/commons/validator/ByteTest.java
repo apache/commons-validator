@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 
 /**                                                       
