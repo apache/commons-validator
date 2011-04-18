@@ -64,7 +64,7 @@ import org.apache.oro.text.perl.Perl5Util;
  *  </pre>
  *
  * @see
- * <a href='http://www.ietf.org/rfc/rfc2396.txt' >
+ * <a href="http://www.ietf.org/rfc/rfc2396.txt">
  *  Uniform Resource Identifiers (URI): Generic Syntax
  * </a>
  *
