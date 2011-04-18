@@ -627,7 +627,7 @@ public class ValidatorAction implements Serializable {
     
     /**
      * Converts a List of parameter class names into their Class objects.
-     * @return An array containing the Class object for each parameter.  This 
+     * Stores the output in {@link parameterClasses}.  This 
      * array is in the same order as the given List and is suitable for passing 
      * to the validation method.
      * @throws ValidatorException if a class cannot be loaded.
