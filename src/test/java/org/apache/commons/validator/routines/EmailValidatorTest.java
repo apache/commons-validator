@@ -164,11 +164,11 @@ public class EmailValidatorTest extends TestCase {
     * Tests the email validation with spaces.
     */
     public void testEmailWithSpaces()  {
-        assertFalse(validator.isValid("joeblow @apache.org"));
+        assertFalse(validator.isValid("joeblow @apache.org")); // TODO - this should be valid?
 
         assertFalse(validator.isValid("joeblow@ apache.org"));
 
-        assertTrue(validator.isValid(" joeblow@apache.org"));
+        assertTrue(validator.isValid(" joeblow@apache.org")); // TODO - this should be valid?
 
         assertTrue(validator.isValid("joeblow@apache.org "));
 
@@ -402,4 +402,11 @@ public class EmailValidatorTest extends TestCase {
         }
     }
 
+    public void testValidator293(){
+        assertTrue(validator.isValid("abc-@abc.com"));
+        assertTrue(validator.isValid("abc_@abc.com"));
+        assertTrue(validator.isValid("abc-def@abc.com"));
+        assertTrue(validator.isValid("abc_def@abc.com"));
+        assertFalse(validator.isValid("abc@abc_def.com"));
+    }
 }
