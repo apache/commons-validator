@@ -30,7 +30,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>byte</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>byte</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
@@ -44,7 +45,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>byte</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>byte</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
@@ -58,7 +60,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>short</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>short</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
@@ -72,7 +75,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>short</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>short</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
@@ -86,7 +90,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>int</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>int</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
@@ -100,7 +105,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>int</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>int</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
@@ -114,7 +120,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>long</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>long</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
@@ -128,7 +135,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>long</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>long</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
@@ -142,7 +150,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>float</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>float</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
@@ -156,7 +165,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>float</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>float</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
@@ -170,7 +180,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>double</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>double</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
@@ -184,7 +195,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>double</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>double</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
@@ -198,7 +210,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>date</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>date</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
@@ -212,7 +225,8 @@ public class GenericTypeValidatorImpl {
    /**
     * Checks if the field can be successfully converted to a <code>date</code>.
     *
-    * @param value The value validation is being performed on.
+    * @param bean The value validation is being performed on.
+    * @param field the field to use
     * @return boolean If the field can be successfully converted 
     * to a <code>date</code> <code>true</code> is returned.  
     * Otherwise <code>false</code>.
