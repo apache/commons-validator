@@ -196,9 +196,8 @@ public class EmailValidatorTest extends TestCase {
      * <p><b>FIXME</b>: This test fails so disable it with a leading _ for 1.1.4 release.
      * The real solution is to fix the email parsing.
      *
-     * @
      */
-    public void _testEmailUserName()  {
+    public void testEmailUserName()  {
 
         assertTrue(validator.isValid("joe1blow@apache.org"));
 
@@ -208,18 +207,68 @@ public class EmailValidatorTest extends TestCase {
 
         assertTrue(validator.isValid("joe_@apache.org"));
 
+        assertTrue(validator.isValid("joe+@apache.org")); // + is valid unquoted
+
+        assertTrue(validator.isValid("joe!@apache.org")); // ! is valid unquoted
+
+        assertTrue(validator.isValid("joe*@apache.org")); // * is valid unquoted
+
+        assertTrue(validator.isValid("joe'@apache.org")); // ' is valid unquoted
+
+        assertTrue(validator.isValid("joe%45@apache.org")); // % is valid unquoted
+
+        assertTrue(validator.isValid("joe?@apache.org")); // ? is valid unquoted
+
+        assertTrue(validator.isValid("joe&@apache.org")); // & ditto
+
+        assertTrue(validator.isValid("joe=@apache.org")); // = ditto
+
+        assertTrue(validator.isValid("+joe@apache.org")); // + is valid unquoted
+
+        assertTrue(validator.isValid("!joe@apache.org")); // ! is valid unquoted
+
+        assertTrue(validator.isValid("*joe@apache.org")); // * is valid unquoted
+
+        assertTrue(validator.isValid("'joe@apache.org")); // ' is valid unquoted
+
+        assertTrue(validator.isValid("%joe45@apache.org")); // % is valid unquoted
+
+        assertTrue(validator.isValid("?joe@apache.org")); // ? is valid unquoted
+
+        assertTrue(validator.isValid("&joe@apache.org")); // & ditto
+
+        assertTrue(validator.isValid("=joe@apache.org")); // = ditto
+
+        assertTrue(validator.isValid("+@apache.org")); // + is valid unquoted
+
+        assertTrue(validator.isValid("!@apache.org")); // ! is valid unquoted
+
+        assertTrue(validator.isValid("*@apache.org")); // * is valid unquoted
+
+        assertTrue(validator.isValid("'@apache.org")); // ' is valid unquoted
+
+        assertTrue(validator.isValid("%@apache.org")); // % is valid unquoted
+
+        assertTrue(validator.isValid("?@apache.org")); // ? is valid unquoted
+
+        assertTrue(validator.isValid("&@apache.org")); // & ditto
+
+        assertTrue(validator.isValid("=@apache.org")); // = ditto
+
 
         //UnQuoted Special characters are invalid
 
-        assertFalse(validator.isValid("joe.@apache.org"));
+        assertFalse(validator.isValid("joe.@apache.org")); // . not allowed at end of local part
 
-        assertFalse(validator.isValid("joe+@apache.org"));
+        assertFalse(validator.isValid(".joe@apache.org")); // . not allowed at start of local part
 
-        assertFalse(validator.isValid("joe!@apache.org"));
+        assertFalse(validator.isValid(".@apache.org")); // . not allowed alone
 
-        assertFalse(validator.isValid("joe*@apache.org"));
+        assertTrue(validator.isValid("joe.ok@apache.org")); // . allowed embedded
 
-        assertFalse(validator.isValid("joe'@apache.org"));
+        assertFalse(validator.isValid("joe..ok@apache.org")); // .. not allowed embedded
+
+        assertFalse(validator.isValid("..@apache.org")); // .. not allowed alone
 
         assertFalse(validator.isValid("joe(@apache.org"));
 
@@ -227,19 +276,13 @@ public class EmailValidatorTest extends TestCase {
 
         assertFalse(validator.isValid("joe,@apache.org"));
 
-        assertFalse(validator.isValid("joe%45@apache.org"));
-
         assertFalse(validator.isValid("joe;@apache.org"));
-
-        assertFalse(validator.isValid("joe?@apache.org"));
-
-        assertFalse(validator.isValid("joe&@apache.org"));
-
-        assertFalse(validator.isValid("joe=@apache.org"));
 
 
         //Quoted Special characters are valid
         assertTrue(validator.isValid("\"joe.\"@apache.org"));
+
+        assertTrue(validator.isValid("\".joe\"@apache.org"));
 
         assertTrue(validator.isValid("\"joe+\"@apache.org"));
 
@@ -265,6 +308,7 @@ public class EmailValidatorTest extends TestCase {
 
         assertTrue(validator.isValid("\"joe=\"@apache.org"));
 
+        assertTrue(validator.isValid("\"..\"@apache.org"));
 
     }
 
@@ -348,17 +392,16 @@ public class EmailValidatorTest extends TestCase {
      * Write this test based on perl Mail::RFC822::Address
      * which takes its example email address directly from RFC822
      *
-     * @
-     *
      * FIXME This test fails so disable it with a leading _ for 1.1.4 release.
      * The real solution is to fix the email parsing.
      */
     public void _testEmailFromPerl()  {
         for (int index = 0; index < testEmailFromPerl.length; index++) {
+            String item = testEmailFromPerl[index].item;
             if (testEmailFromPerl[index].valid) {
-                assertTrue(validator.isValid(testEmailFromPerl[index].item));
+                assertTrue("Should be OK: "+item, validator.isValid(item));
             } else {
-                assertFalse(validator.isValid(testEmailFromPerl[index].item));
+                assertFalse("Should fail: "+item, validator.isValid(item));
             }
         }
     }
