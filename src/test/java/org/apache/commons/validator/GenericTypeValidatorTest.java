@@ -17,6 +17,7 @@
 package org.apache.commons.validator;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
@@ -124,6 +125,7 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
       info.setLong("88000");
       info.setFloat("12.1555");
       info.setDouble("129.1551511111");
+      info.setDate("12/21/2010");
       localeTest(info, Locale.US);
    }
 
@@ -139,6 +141,7 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
       info.setLong("88000");
       info.setFloat("12,1555");
       info.setDouble("129,1551511111");
+      info.setDate("21/12/2010");
       Map map = localeTest(info, Locale.FRENCH);
       assertTrue("float value not correct", ((Float)map.get("float")).intValue() == 12);
       assertTrue("double value not correct", ((Double)map.get("double")).intValue() == 129);
@@ -176,6 +179,7 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
       assertTrue("Expecting long result to be an instance of Long for locale: "+locale, (hResultValues.get("long") instanceof Long));
       assertTrue("Expecting float result to be an instance of Float for locale: "+locale, (hResultValues.get("float") instanceof Float));
       assertTrue("Expecting double result to be an instance of Double for locale: "+locale, (hResultValues.get("double") instanceof Double));
+      assertTrue("Expecting date result to be an instance of Date for locale: "+locale, (hResultValues.get("date") instanceof Date));
       
       for (Iterator i = hResultValues.keySet().iterator(); i.hasNext(); ) {
          String key = (String)i.next();

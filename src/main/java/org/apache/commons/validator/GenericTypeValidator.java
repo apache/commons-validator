@@ -371,22 +371,38 @@ public class GenericTypeValidator implements Serializable {
         }
 
         try {
-            DateFormat formatter = null;
+            // Get the formatters to check against
+            DateFormat formatterShort = null;
+            DateFormat formatterDefault = null;
             if (locale != null) {
-                formatter =
-                    DateFormat.getDateInstance(DateFormat.SHORT, locale);
+                formatterShort = 
+                   DateFormat.getDateInstance(DateFormat.SHORT, locale);
+                formatterDefault = 
+                   DateFormat.getDateInstance(DateFormat.DEFAULT, locale);
             } else {
-                formatter =
+                formatterShort =
                     DateFormat.getDateInstance(
                     DateFormat.SHORT,
                     Locale.getDefault());
+                formatterDefault =
+                   DateFormat.getDateInstance(
+                   DateFormat.DEFAULT,
+                   Locale.getDefault());
             }
 
-            formatter.setLenient(false);
+            // Turn off lenient parsing
+            formatterShort.setLenient(false);
+            formatterDefault.setLenient(false);
 
-            date = formatter.parse(value);
+            // Firstly, try with the short form
+            try {
+               date = formatterShort.parse(value);
+            } catch (ParseException e) {
+               // Fall back on the default one
+               date = formatterDefault.parse(value);
+            }
         } catch (ParseException e) {
-            // Bad date so return null
+            // Bad date, so log and return null
             Log log = LogFactory.getLog(GenericTypeValidator.class);
             if (log.isDebugEnabled()) {
                 log.debug("Date parse failed value=[" + value  + "], " +
