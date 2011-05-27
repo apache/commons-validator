@@ -127,6 +127,10 @@ public class EmailValidatorTest extends TestCase {
 
         assertTrue(validator.isValid("foo+bar@i.am.not.in.us.example.com"));
 
+        // Domains with only special characters aren't allowed (VALIDATOR-286) 
+        assertFalse(validator.isValid("test@%*.com"));
+        assertFalse(validator.isValid("test@^&#.com"));
+
     }
 
    /**
