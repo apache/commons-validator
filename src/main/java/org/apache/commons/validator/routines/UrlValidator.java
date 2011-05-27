@@ -286,12 +286,19 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        if (!isValidScheme(urlMatcher.group(PARSE_URL_SCHEME))) {
+        String scheme = urlMatcher.group(PARSE_URL_SCHEME);
+        if (!isValidScheme(scheme)) {
             return false;
         }
 
-        if (!isValidAuthority(urlMatcher.group(PARSE_URL_AUTHORITY))) {
-            return false;
+        String authority = urlMatcher.group(PARSE_URL_AUTHORITY); 
+        if ("file".equals(scheme) && "".equals(authority)) {
+           // Special case - file: allows an empty authority
+        } else {
+           // Validate the authority
+           if (!isValidAuthority(authority)) {
+               return false;
+            }
         }
 
         if (!isValidPath(urlMatcher.group(PARSE_URL_PATH))) {
