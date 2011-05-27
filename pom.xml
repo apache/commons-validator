@@ -98,6 +98,10 @@
             <name>Ben Speakmon</name>
             <id>bspeakmon</id>
         </developer>
+        <developer>
+            <name>Nick Burch</name>
+            <id>nick</id>
+        </developer>
     </developers>
     <contributors>
         <contributor>
