@@ -20,10 +20,11 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.commons.validator.util.Flags;
-import org.apache.oro.text.perl.Perl5Util;
 
 /**
  * <p>Validates URLs.</p>
@@ -99,19 +100,18 @@ public class UrlValidator implements Serializable {
 
     private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
 
-    private static final String SCHEME_CHARS = ALPHA_CHARS;
-
     // Drop numeric, and  "+-." for now
-    private static final String AUTHORITY_CHARS = ALPHA_NUMERIC_CHARS + "\\-\\.";
+    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
 
     private static final String ATOM = VALID_CHARS + '+';
 
     /**
      * This expression derived/taken from the BNF for URI (RFC2396).
      */
-    private static final String URL_PATTERN =
-            "/^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?/";
+    private static final String URL_REGEX =
+            "^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?";
     //                                                                      12            3  4          5       6   7        8 9
+    private static final Pattern URL_PATTERN = Pattern.compile(URL_REGEX);
 
     /**
      * Schema/Protocol (ie. http:, ftp:, file:, etc).
@@ -132,11 +132,12 @@ public class UrlValidator implements Serializable {
     /**
      * Protocol (ie. http:, ftp:,https:).
      */
-    private static final String SCHEME_PATTERN = "/^[" + SCHEME_CHARS + "]/";
+    private static final Pattern SCHEME_PATTERN = Pattern.compile("^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*");
 
-    private static final String AUTHORITY_PATTERN =
-            "/^([" + AUTHORITY_CHARS + "]*)(:\\d*)?(.*)?/";
+    private static final String AUTHORITY_REGEX =
+       "^([" + AUTHORITY_CHARS_REGEX + "]*)(:\\d*)?(.*)?";
     //                                                                            1                          2  3       4
+    private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
 
     private static final int PARSE_AUTHORITY_HOST_IP = 1;
 
@@ -147,20 +148,20 @@ public class UrlValidator implements Serializable {
      */
     private static final int PARSE_AUTHORITY_EXTRA = 3;
 
-    private static final String PATH_PATTERN = "/^(/[-\\w:@&?=+,.!/~*'%$_;]*)?$/";
+    private static final Pattern PATH_PATTERN = Pattern.compile("^(/[-\\w:@&?=+,.!/~*'%$_;]*)?$");
 
-    private static final String QUERY_PATTERN = "/^(.*)$/";
+    private static final Pattern QUERY_PATTERN = Pattern.compile("^(.*)$");
 
-    private static final String LEGAL_ASCII_PATTERN = "/^[\\000-\\177]+$/";
+    private static final Pattern LEGAL_ASCII_PATTERN = Pattern.compile("^\\p{ASCII}+$");
 
-    private static final String DOMAIN_PATTERN =
-            "/^" + ATOM + "(\\." + ATOM + ")*$/";
+    private static final Pattern DOMAIN_PATTERN =
+            Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*$");
 
-    private static final String PORT_PATTERN = "/^:(\\d{1,5})$/";
+    private static final Pattern PORT_PATTERN = Pattern.compile("^:(\\d{1,5})$");
 
-    private static final String ATOM_PATTERN = "/(" + ATOM + ")/";
+    private static final Pattern ATOM_PATTERN = Pattern.compile("^(" + ATOM + ").*?$");
 
-    private static final String ALPHA_PATTERN = "/^[" + ALPHA_CHARS + "]/";
+    private static final Pattern ALPHA_PATTERN = Pattern.compile("^[" + ALPHA_CHARS + "]");
 
     /**
      * Holds the set of current validation options.
@@ -238,36 +239,33 @@ public class UrlValidator implements Serializable {
         if (value == null) {
             return false;
         }
-
-        Perl5Util matchUrlPat = new Perl5Util();
-        Perl5Util matchAsciiPat = new Perl5Util();
-
-        if (!matchAsciiPat.match(LEGAL_ASCII_PATTERN, value)) {
-            return false;
+        if (!LEGAL_ASCII_PATTERN.matcher(value).matches()) {
+           return false;
         }
 
         // Check the whole url address structure
-        if (!matchUrlPat.match(URL_PATTERN, value)) {
+        Matcher urlMatcher = URL_PATTERN.matcher(value);
+        if (!urlMatcher.matches()) {
             return false;
         }
 
-        if (!isValidScheme(matchUrlPat.group(PARSE_URL_SCHEME))) {
+        if (!isValidScheme(urlMatcher.group(PARSE_URL_SCHEME))) {
             return false;
         }
 
-        if (!isValidAuthority(matchUrlPat.group(PARSE_URL_AUTHORITY))) {
+        if (!isValidAuthority(urlMatcher.group(PARSE_URL_AUTHORITY))) {
             return false;
         }
 
-        if (!isValidPath(matchUrlPat.group(PARSE_URL_PATH))) {
+        if (!isValidPath(urlMatcher.group(PARSE_URL_PATH))) {
             return false;
         }
 
-        if (!isValidQuery(matchUrlPat.group(PARSE_URL_QUERY))) {
+        if (!isValidQuery(urlMatcher.group(PARSE_URL_QUERY))) {
             return false;
         }
 
-        if (!isValidFragment(matchUrlPat.group(PARSE_URL_FRAGMENT))) {
+        if (!isValidFragment(urlMatcher.group(PARSE_URL_FRAGMENT))) {
             return false;
         }
 
@@ -287,8 +285,7 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        Perl5Util schemeMatcher = new Perl5Util();
-        if (!schemeMatcher.match(SCHEME_PATTERN, scheme)) {
+        if (!SCHEME_PATTERN.matcher(scheme).matches()) {
             return false;
         }
 
@@ -313,11 +310,11 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        Perl5Util authorityMatcher = new Perl5Util();
         InetAddressValidator inetAddressValidator =
                 InetAddressValidator.getInstance();
 
-        if (!authorityMatcher.match(AUTHORITY_PATTERN, authority)) {
+        Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authority); 
+        if (!authorityMatcher.matches()) {
             return false;
         }
 
@@ -328,8 +325,7 @@ public class UrlValidator implements Serializable {
 
         if (!ipV4Address) {
             // Domain is hostname name
-            Perl5Util domainMatcher = new Perl5Util();
-            hostname = domainMatcher.match(DOMAIN_PATTERN, hostIP);
+            hostname = DOMAIN_PATTERN.matcher(hostIP).matches();
         }
 
         //rightmost hostname will never start with a digit.
@@ -347,10 +343,10 @@ public class UrlValidator implements Serializable {
             boolean match = true;
             int segmentCount = 0;
             int segmentLength = 0;
-            Perl5Util atomMatcher = new Perl5Util();
 
             while (match) {
-                match = atomMatcher.match(ATOM_PATTERN, hostIP);
+                Matcher atomMatcher = ATOM_PATTERN.matcher(hostIP);
+                match = atomMatcher.matches();
                 if (match) {
                     domainSegment[segmentCount] = atomMatcher.group(1);
                     segmentLength = domainSegment[segmentCount].length() + 1;
@@ -368,8 +364,7 @@ public class UrlValidator implements Serializable {
             }
 
             // First letter of top level must be a alpha
-            Perl5Util alphaMatcher = new Perl5Util();
-            if (!alphaMatcher.match(ALPHA_PATTERN, topLevel.substring(0, 1))) {
+            if (!ALPHA_PATTERN.matcher(topLevel.substring(0, 1)).matches()) {
                 return false;
             }
 
@@ -385,8 +380,7 @@ public class UrlValidator implements Serializable {
 
         String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
         if (port != null) {
-            Perl5Util portMatcher = new Perl5Util();
-            if (!portMatcher.match(PORT_PATTERN, port)) {
+            if (!PORT_PATTERN.matcher(port).matches()) {
                 return false;
             }
         }
@@ -409,9 +403,7 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        Perl5Util pathMatcher = new Perl5Util();
-
-        if (!pathMatcher.match(PATH_PATTERN, path)) {
+        if (!PATH_PATTERN.matcher(path).matches()) {
             return false;
         }
 
@@ -441,8 +433,7 @@ public class UrlValidator implements Serializable {
             return true;
         }
 
-        Perl5Util queryMatcher = new Perl5Util();
-        return queryMatcher.match(QUERY_PATTERN, query);
+        return QUERY_PATTERN.matcher(query).matches();
     }
 
     /**
