@@ -17,7 +17,6 @@
 package org.apache.commons.validator;
 
 import org.apache.commons.validator.routines.InetAddressValidator;
-import org.apache.oro.text.perl.Perl5Util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,21 +43,20 @@ import java.util.regex.Pattern;
  */
 public class EmailValidator {
 
-    private static final String SPECIAL_CHARS = "\\000-\\037\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]\\177";
+    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
     private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
     private static final String QUOTED_USER = "(\"[^\"]*\")";
     private static final String ATOM = VALID_CHARS + '+';
     private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
-    // Each pattern must be surrounded by /
-    private static final String LEGAL_ASCII_PATTERN = "/^[\\000-\\177]+$/";
-    private static final String EMAIL_PATTERN = "/^(.+)@(.+)$/";
-    private static final String IP_DOMAIN_PATTERN = "^\\[(.*)\\]$";
-    private static final String TLD_PATTERN = "/^([a-zA-Z]+)$/";
+    private static final Pattern LEGAL_ASCII_PATTERN = Pattern.compile("^\\p{ASCII}+$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^(.+)@(.+)$");
+    private static final Pattern IP_DOMAIN_PATTERN = Pattern.compile("^\\[(.*)\\]$");
+    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
             
-    private static final String USER_PATTERN = "/^\\s*" + WORD + "(\\." + WORD + ")*$/";
-    private static final String DOMAIN_PATTERN = "/^" + ATOM + "(\\." + ATOM + ")*\\s*$/";
-    private static final String ATOM_PATTERN = "/(" + ATOM + ")/";
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
 
     /**
      * Singleton instance of this class.
@@ -100,8 +98,7 @@ public class EmailValidator {
         boolean symbolic = false;
 
         // see if domain is an IP address in brackets
-        Pattern ipDomainPattern = Pattern.compile(IP_DOMAIN_PATTERN);
-        Matcher ipDomainMatcher = ipDomainPattern.matcher(domain);
+        Matcher ipDomainMatcher = IP_DOMAIN_PATTERN.matcher(domain);
 
         if (ipDomainMatcher.matches()) {
             InetAddressValidator inetAddressValidator =
@@ -111,8 +108,7 @@ public class EmailValidator {
             }
         } else {
             // Domain is symbolic name
-            Perl5Util domainMatcher = new Perl5Util();
-            symbolic = domainMatcher.match(DOMAIN_PATTERN, domain);
+            symbolic = DOMAIN_PATTERN.matcher(domain).matches();
         }
 
         if (symbolic) {
@@ -132,16 +128,16 @@ public class EmailValidator {
      * @return true if the user name is valid.
      */
     protected boolean isValidUser(String user) {
-        Perl5Util userMatcher = new Perl5Util();
-        return userMatcher.match(USER_PATTERN, user);
+        return USER_PATTERN.matcher(user).matches(); 
     }
 
     /**
      * Validates an IP address. Returns true if valid.
-     * @param ipAddressMatcher Pattren matcher
+     * @param ipAddress IP address
      * @return true if the ip address is valid.
      */
-    protected boolean isValidIpAddress(Perl5Util ipAddressMatcher) {
+    protected boolean isValidIpAddress(String ipAddress) {
+        Matcher ipAddressMatcher = IP_DOMAIN_PATTERN.matcher(ipAddress);
         for (int i = 1; i <= 4; i++) {
             String ipSegment = ipAddressMatcher.group(i);
             if (ipSegment == null || ipSegment.length() <= 0) {
@@ -173,9 +169,9 @@ public class EmailValidator {
         String[] domainSegment = new String[10];
         boolean match = true;
         int i = 0;
-        Perl5Util atomMatcher = new Perl5Util();
+        Matcher atomMatcher = ATOM_PATTERN.matcher(domain);
         while (match) {
-            match = atomMatcher.match(ATOM_PATTERN, domain);
+            match = atomMatcher.matches();
             if (match) {
                 domainSegment[i] = atomMatcher.group(1);
                 int l = domainSegment[i].length() + 1;
@@ -199,8 +195,7 @@ public class EmailValidator {
         // list
         String tld = domainSegment[len - 1];
         if (tld.length() > 1) {
-            Perl5Util matchTldPat = new Perl5Util();
-            if (!matchTldPat.match(TLD_PATTERN, tld)) {
+            if (! TLD_PATTERN.matcher(tld).matches()) {
                 return false;
             }
         } else {
@@ -218,17 +213,13 @@ public class EmailValidator {
      * @return address with comments removed.
     */
     protected String stripComments(String emailStr)  {
-     String input = emailStr;
      String result = emailStr;
-     String commentPat = "s/^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/$1 /osx";
-     Perl5Util commentMatcher = new Perl5Util();
-     result = commentMatcher.substitute(commentPat,input);
-     // This really needs to be =~ or Perl5Matcher comparison
-     while (!result.equals(input)) {
-        input = result;
-        result = commentMatcher.substitute(commentPat,input);
+     String commentPat = "^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/";
+     Pattern commentMatcher = Pattern.compile(commentPat);
+     
+     while (commentMatcher.matcher(result).matches()) {
+        result.replaceFirst(commentPat, "\1 ");
      }
      return result;
-
     }
 }
