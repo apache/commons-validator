@@ -182,7 +182,7 @@ public class EmailValidatorTest extends TestCase {
      * Test that @localhost and @localhost.localdomain
      *  addresses are declared as valid when requested. 
      */
-    public void testEmailLocalhost() throws ValidatorException {
+    public void testEmailLocalhost() {
        // Check the default is not to allow
        EmailValidator noLocal = EmailValidator.getInstance(false);
        EmailValidator allowLocal = EmailValidator.getInstance(true);
