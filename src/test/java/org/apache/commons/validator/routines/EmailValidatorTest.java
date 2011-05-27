@@ -19,6 +19,7 @@ package org.apache.commons.validator.routines;
 import junit.framework.TestCase;
 
 import org.apache.commons.validator.ResultPair;
+import org.apache.commons.validator.ValidatorException;
 
 /**
  * Performs Validation Test for e-mail validations.
@@ -167,6 +168,36 @@ public class EmailValidatorTest extends TestCase {
             assertFalse("Test control char " + ((int)c), validator.isValid("foo" + c + "bar@domain.com"));
         }
         assertFalse("Test control char 127", validator.isValid("foo" + ((char)127) + "bar@domain.com"));
+    }
+    
+    /**
+     * Test that @localhost and @localhost.localdomain
+     *  addresses are declared as valid when requested. 
+     */
+    public void testEmailLocalhost() throws ValidatorException {
+       // Check the default is not to allow
+       EmailValidator noLocal = EmailValidator.getInstance(false);
+       EmailValidator allowLocal = EmailValidator.getInstance(true);
+       assertEquals(validator, noLocal);
+       
+       // Depends on the validator
+       assertTrue(
+             "@localhost.localdomain should be accepted but wasn't",
+             allowLocal.isValid("joe@localhost.localdomain")
+       );
+       assertTrue(
+             "@localhost should be accepted but wasn't",
+             allowLocal.isValid("joe@localhost")
+       );
+       
+       assertFalse(
+             "@localhost.localdomain should be accepted but wasn't",
+             noLocal.isValid("joe@localhost.localdomain")
+       );
+       assertFalse(
+             "@localhost should be accepted but wasn't",
+             noLocal.isValid("joe@localhost")
+       );
     }
 
     /**

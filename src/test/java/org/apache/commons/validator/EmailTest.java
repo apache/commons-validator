@@ -211,6 +211,18 @@ public class EmailTest extends AbstractCommonTest {
     }
 
     /**
+     * Test that @localhost and @localhost.localdomain
+     *  addresses aren't declared valid by default 
+     */
+    public void testEmailLocalhost() throws ValidatorException {
+       ValueBean info = new ValueBean();
+       info.setValue("joe@localhost");
+       valueTest(info, false);
+       info.setValue("joe@localhost.localdomain");
+       valueTest(info, false);
+    }
+
+    /**
      * Write this test according to parts of RFC, as opposed to the type of character
      * that is being tested.
      *

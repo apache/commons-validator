@@ -68,10 +68,19 @@ public class DomainValidator implements Serializable {
     private static final String DOMAIN_NAME_REGEX =
             "^(?:" + DOMAIN_LABEL_REGEX + "\\.)+" + "(" + TOP_LABEL_REGEX + ")$";
 
+    private final boolean allowLocal;
+    
     /**
-     * Singleton instance of this validator.
+     * Singleton instance of this validator, which
+     *  doesn't consider local addresses as valid.
      */
-    private static final DomainValidator DOMAIN_VALIDATOR = new DomainValidator();
+    private static final DomainValidator DOMAIN_VALIDATOR = new DomainValidator(false);
+    
+    /**
+     * Singleton instance of this validator, which does
+     *  consider local addresses valid.
+     */
+    private static final DomainValidator DOMAIN_VALIDATOR_WITH_LOCAL = new DomainValidator(true);
 
     /**
      * RegexValidator for matching domains.
@@ -80,15 +89,30 @@ public class DomainValidator implements Serializable {
             new RegexValidator(DOMAIN_NAME_REGEX);
 
     /**
-     * Returns the singleton instance of this validator.
+     * Returns the singleton instance of this validator. It
+     *  will not consider local addresses as valid.
      * @return the singleton instance of this validator
      */
     public static DomainValidator getInstance() {
         return DOMAIN_VALIDATOR;
     }
+    
+    /**
+     * Returns the singleton instance of this validator,
+     *  with local validation as required.
+     * @param allowLocal Should local addresses be considered valid?
+     */
+    public static DomainValidator getInstance(boolean allowLocal) {
+       if(allowLocal) {
+          return DOMAIN_VALIDATOR_WITH_LOCAL;
+       }
+       return DOMAIN_VALIDATOR;
+    }
 
     /** Private constructor. */
-    private DomainValidator() {}
+    private DomainValidator(boolean allowLocal) {
+       this.allowLocal = allowLocal;
+    }
 
     /**
      * Returns true if the specified <code>String</code> parses
@@ -101,9 +125,12 @@ public class DomainValidator implements Serializable {
         String[] groups = domainRegex.match(domain);
         if (groups != null && groups.length > 0) {
             return isValidTld(groups[0]);
-        } else {
-            return false;
+        } else if(allowLocal) {
+            if ("localhost".equals(domain)) {
+               return true;
+            }
         }
+        return false;
     }
 
     /**
@@ -114,6 +141,9 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is a TLD
      */
     public boolean isValidTld(String tld) {
+        if(allowLocal && isValidLocalTld(tld)) {
+           return true;
+        }
         return isValidInfrastructureTld(tld)
                 || isValidGenericTld(tld)
                 || isValidCountryCodeTld(tld);
@@ -150,6 +180,17 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidCountryCodeTld(String ccTld) {
         return COUNTRY_CODE_TLD_LIST.contains(chompLeadingDot(ccTld.toLowerCase()));
+    }
+
+    /**
+     * Returns true if the specified <code>String</code> matches any
+     * widely used "local" domains (localhost or localdomain). Leading dots are
+     *  ignored if present. The search is case-sensitive.
+     * @param iTld the parameter to check for local TLD status
+     * @return true if the parameter is an local TLD
+     */
+    public boolean isValidLocalTld(String iTld) {
+        return LOCAL_TLD_LIST.contains(chompLeadingDot(iTld.toLowerCase()));
     }
 
     private String chompLeadingDot(String str) {
@@ -445,7 +486,13 @@ public class DomainValidator implements Serializable {
         "zw",                 // Zimbabwe
     };
 
+    private static final String[] LOCAL_TLDS = new String[] {
+       "localhost",           // RFC2606 defined
+       "localdomain"          // Also widely used as localhost.localdomain
+   };
+
     private static final List INFRASTRUCTURE_TLD_LIST = Arrays.asList(INFRASTRUCTURE_TLDS);
     private static final List GENERIC_TLD_LIST = Arrays.asList(GENERIC_TLDS);
     private static final List COUNTRY_CODE_TLD_LIST = Arrays.asList(COUNTRY_CODE_TLDS);
+    private static final List LOCAL_TLD_LIST = Arrays.asList(LOCAL_TLDS);
 }

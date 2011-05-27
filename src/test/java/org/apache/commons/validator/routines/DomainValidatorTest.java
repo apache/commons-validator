@@ -84,4 +84,24 @@ public class DomainValidatorTest extends TestCase {
         assertFalse("empty string shouldn't validate as TLD", validator.isValid(""));
         assertFalse("null shouldn't validate as TLD", validator.isValid(null));
     }
+    
+    public void testAllowLocal() {
+       DomainValidator noLocal = DomainValidator.getInstance(false);
+       DomainValidator allowLocal = DomainValidator.getInstance(true);
+       
+       // Default is false, and should use singletons
+       assertEquals(noLocal, validator);
+       
+       // Default won't allow local
+       assertFalse("localhost.localdomain should validate", noLocal.isValid("localhost.localdomain"));
+       assertFalse("localhost should validate", noLocal.isValid("localhost"));
+       
+       // But it may be requested
+       assertTrue("localhost.localdomain should validate", allowLocal.isValid("localhost.localdomain"));
+       assertTrue("localhost should validate", allowLocal.isValid("localhost"));
+       
+       // Check the localhost one with a few others
+       assertTrue("apache.org should validate", allowLocal.isValid("apache.org"));
+       assertFalse("domain name with spaces shouldn't validate", allowLocal.isValid(" apache.org "));
+    }
 }
