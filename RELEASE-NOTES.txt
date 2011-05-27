@@ -1,5 +1,3 @@
-$Id$
-
                  Commons Validator Package
                      Version 1.4.0 beta1
                      Release Notes
@@ -11,28 +9,71 @@ release, in that the Jakarta ORO dependency has been removed.
 (See http://commons.apache.org/validator/dependencies.html)
 
 
-Bug fixes from 1.3.0
+Bug fixes from 1.3.1
 --------------------
 
-    * [VALIDATOR-19]  - The Form cannot be used for the validator's
-                        method parameter.
-    * [VALIDATOR-89]  - ValidatorAction needs to be thread-safe
-    * [VALIDATOR-189] - Validating array integers fails
-    * [VALIDATOR-190] - EmailValidator allows control characters (ASCII 0-31)
-    * [VALIDATOR-195] - Loading of Digester Rules for classes extending
-                        ValidatorResources does not work
-    * [VALIDATOR-198] - Example does not compile
-    * [VALIDATOR-199] - Commons Validator 1.3.0 source distribution's build.xml
-                        neglects to include validator_1_1_3.dtd in JAR
-    * [VALIDATOR-202] - URL Validator isValid method fails with ArrayIndexOutOfBoundsException
-    * [VALIDATOR-204] - isValid return false for a valid URL
-    * [VALIDATOR-208] - jcv_isFieldPresent function causes error in IE5
-    * [VALIDATOR-210] - Generated JavaScript Causes HTML Page to Contain Illegal HTML
+   * [VALIDATOR-216] - UrlValidator rejects top-level domains (TLDs) with 
+                       more than 4 characters 
+   * [VALIDATOR-218] - UrlValidator fail when path contains "(" / ")" 
+   * [VALIDATOR-220] - EmailValidator fails with ArrayIndexOutOfBoundsException
+                       on domain names longer than 10 segments 
+   * [VALIDATOR-223] - Move the trim() function from validateRequired.js to 
+                       validateUtilities.js 
+   * [VALIDATOR-271] - gmail testing addresses do not validate 
+   * [VALIDATOR-276] - isValidURL call returns false for file scheme/protocol 
+                       when URL is correct 
+   * [VALIDATOR-282] - formatDate(String value, Locale locale) in 
+                       GenericTypeValidator uses DateFormat.SHORT instead of 
+                       DateFormat.DEFAULT 
+   * [VALIDATOR-286] - isValid method for EmailValidator should return false 
+                       for domain with special characters only 
+   * [VALIDATOR-289] - UrlValidator.isValid does not properly validate *.travel
+                       domains 
+   * [VALIDATOR-292] - @localhost and @localhost.localdomain email addresses 
+                       aren't correctly detected as valid 
+   * [VALIDATOR-293] - Email validation fails with dash or hyphen at end of 
+                       local address 
 
 
-
-Improvements from 1.3.0
+Improvements from 1.3.1
 -----------------------
 
-    * [VALIDATOR-209] - Additional constructor for ValidatorResources that takes
-                        URL[] instead of String[]
+   * [VALIDATOR-188] - Extend ISBN validator to support smooth transition to 
+                       ISBN-13 / EAN-13 standard 
+   * [VALIDATOR-191] - Remove the dependency on Jakarta ORO (move to JDK 1.4 
+                       regular expression support) 
+   * [VALIDATOR-192] - Adding ISBNValidator to GenericValidator 
+   * [VALIDATOR-193] - Removing ORO dep. from GenericValidator 
+   * [VALIDATOR-203] - Refactor UrlValidator - especially the line 370-ish TODO. 
+   * [VALIDATOR-211] - Upgrade to Digester 1.8 
+   * [VALIDATOR-213] - Factor out Check Digit logic into separate 
+                       implementations 
+   * [VALIDATOR-214] - New Regular Expression validator using JDK 1.4's Regex 
+   * [VALIDATOR-215] - New generic CodeValidator that validates format, length 
+                       and Check Digit for a code 
+   * [VALIDATOR-224] - validatorUtilities.js - replace colon characters in the 
+                       function name (JSF/Shale) 
+   * [VALIDATOR-226] - Null-Stream input to ValidatorResources leads to 
+                       MalformedURLExceptions 
+   * [VALIDATOR-232] - Add script attribute to control script generation 
+   * [VALIDATOR-233] - Switch to using Version 0.4.3 of the Dojo Compressor 
+                       from the maven repo 
+   * [VALIDATOR-234] - Create 1.4 DTD 
+   * [VALIDATOR-240] - Support the 65 prefix for Discover Card 
+   * [VALIDATOR-241] - New InetAdress Validator implementation 
+   * [VALIDATOR-242] - Move EmailValidator to routines package 
+   * [VALIDATOR-247] - Move CreditCardValidator to routines package and 
+                       refactor to use new CodeValidator 
+   * [VALIDATOR-248] - Add an option to allow 'localhost' as a valid hostname 
+                       part in the URL 
+   * [VALIDATOR-249] - Add Diners card validation to CreditCardValidator 
+   * [VALIDATOR-250] - Banking CheckDigit implementations: ABA, CUSIP, IBAN, 
+                       ISIN and Sedol 
+   * [VALIDATOR-251] - url with brackets is not validated thru URLvalidator 
+                       class. 
+   * [VALIDATOR-252] - Performance improvement of DomainValidator by change 
+                       the regular expression 
+   * [VALIDATOR-275] - EmailValidator.isValid(String) follows RFC822 but 
+                       violates RFC1034 
+   * [VALIDATOR-288] - UrlValidator does not validate URL with simple domains 
+                       (eg: http://hostname ) 
