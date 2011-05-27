@@ -160,8 +160,54 @@ public class UrlValidatorTest extends TestCase {
         assertTrue("www.apache.org should still validate",
                 validator.isValid("http://www.apache.org/test/index.html"));
 
+        // Now check using options
+        validator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
+        
+        assertTrue("localhost URL should validate",
+              validator.isValid("http://localhost/test/index.html"));
+        
+        assertTrue("machinename URL should validate",
+              validator.isValid("http://machinename/test/index.html"));
+        
+        assertTrue("www.apache.org should still validate",
+              validator.isValid("http://www.apache.org/test/index.html"));
     }
 
+    public void testValidator288() {
+        UrlValidator validator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
+
+        assertTrue("hostname should validate",
+                validator.isValid("http://hostname"));
+
+        assertTrue("hostname with path should validate",
+                validator.isValid("http://hostname/test/index.html"));
+        
+        assertTrue("localhost URL should validate",
+                validator.isValid("http://localhost/test/index.html"));
+        
+        assertFalse("first.my-testing should not validate",
+                validator.isValid("http://first.my-testing/test/index.html"));
+
+        assertFalse("broke.hostname should not validate",
+                validator.isValid("http://broke.hostname/test/index.html"));
+
+        assertTrue("www.apache.org should still validate",
+                validator.isValid("http://www.apache.org/test/index.html"));
+
+        // Turn it off, and check
+        validator = new UrlValidator(0);
+
+        assertFalse("hostname should no longer validate",
+                validator.isValid("http://hostname"));
+
+        assertFalse("localhost URL should no longer validate",
+                validator.isValid("http://localhost/test/index.html"));
+        
+        assertTrue("www.apache.org should still validate",
+                validator.isValid("http://www.apache.org/test/index.html"));
+    }
+
+    
    static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
       boolean carry = true;  //add 1 to lowest order part.
       boolean maxIndex = true;

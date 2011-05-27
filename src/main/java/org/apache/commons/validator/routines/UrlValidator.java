@@ -87,6 +87,11 @@ public class UrlValidator implements Serializable {
      * Enabling this options disallows any URL fragments.
      */
     public static final long NO_FRAGMENTS = 1 << 2;
+    
+    /**
+     * Allow local URLs, such as http://localhost/ or http://machine/ 
+     */
+    public static final long ALLOW_LOCAL_URLS = 1 << 3;
 
     // Drop numeric, and  "+-." for now
     private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
@@ -357,7 +362,7 @@ public class UrlValidator implements Serializable {
         String hostLocation = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
         // check if authority is hostname or IP address:
         // try a hostname first since that's much more likely
-        DomainValidator domainValidator = DomainValidator.getInstance();
+        DomainValidator domainValidator = DomainValidator.getInstance(isOn(ALLOW_LOCAL_URLS));
         if (!domainValidator.isValid(hostLocation)) {
             // try an IP address
             InetAddressValidator inetAddressValidator =
