@@ -106,6 +106,7 @@ public class DomainValidator implements Serializable {
      * Returns the singleton instance of this validator,
      *  with local validation as required.
      * @param allowLocal Should local addresses be considered valid?
+     * @return the singleton instance of this validator
      */
     public static DomainValidator getInstance(boolean allowLocal) {
        if(allowLocal) {

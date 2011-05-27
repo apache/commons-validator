@@ -81,7 +81,9 @@ public class EmailValidator implements Serializable {
     /**
      * Returns the Singleton instance of this validator,
      *  with local validation as required.
+     *  
      * @param allowLocal Should local addresses be considered valid?
+     * @return singleton instance of this validator
      */
     public static EmailValidator getInstance(boolean allowLocal) {
         if(allowLocal) {
@@ -92,6 +94,8 @@ public class EmailValidator implements Serializable {
 
     /**                                       
      * Protected constructor for subclasses to use.
+     *  
+     * @param allowLocal Should local addresses be considered valid?
      */
     protected EmailValidator(boolean allowLocal) {
         super();
