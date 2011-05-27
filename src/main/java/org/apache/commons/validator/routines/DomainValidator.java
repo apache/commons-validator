@@ -87,6 +87,11 @@ public class DomainValidator implements Serializable {
      */
     private final RegexValidator domainRegex =
             new RegexValidator(DOMAIN_NAME_REGEX);
+    /**
+     * RegexValidator for matching the a local hostname
+     */
+    private final RegexValidator hostnameRegex =
+            new RegexValidator(DOMAIN_LABEL_REGEX);
 
     /**
      * Returns the singleton instance of this validator. It
@@ -126,7 +131,7 @@ public class DomainValidator implements Serializable {
         if (groups != null && groups.length > 0) {
             return isValidTld(groups[0]);
         } else if(allowLocal) {
-            if ("localhost".equals(domain)) {
+            if (hostnameRegex.isValid(domain)) {
                return true;
             }
         }

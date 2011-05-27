@@ -99,6 +99,8 @@ public class DomainValidatorTest extends TestCase {
        // But it may be requested
        assertTrue("localhost.localdomain should validate", allowLocal.isValid("localhost.localdomain"));
        assertTrue("localhost should validate", allowLocal.isValid("localhost"));
+       assertTrue("hostname should validate", allowLocal.isValid("hostname"));
+       assertTrue("machinename should validate", allowLocal.isValid("machinename"));
        
        // Check the localhost one with a few others
        assertTrue("apache.org should validate", allowLocal.isValid("apache.org"));
