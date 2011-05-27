@@ -89,7 +89,10 @@ public class UrlValidator implements Serializable {
     public static final long NO_FRAGMENTS = 1 << 2;
     
     /**
-     * Allow local URLs, such as http://localhost/ or http://machine/ 
+     * Allow local URLs, such as http://localhost/ or http://machine/ .
+     * This enables a broad-brush check, for complex local machine name 
+     *  validation requirements you should create your validator with
+     *  a {@link RegexValidator} instead ({@link #UrlValidator(RegexValidator, long)})  
      */
     public static final long ALLOW_LOCAL_URLS = 1 << 3;
 
