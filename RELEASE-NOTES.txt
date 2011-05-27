@@ -1,17 +1,14 @@
 $Id$
 
                  Commons Validator Package
-                     Version 1.3.1
+                     Version 1.4.0 beta1
                      Release Notes
 
 Dependencies
 ------------
-The dependencies for Validator 1.3.1 are unchanged since the 1.3.0 release.
+The dependencies for Validator 1.4 have only one change since the 1.3.1 
+release, in that the Jakarta ORO dependency has been removed.
 (See http://commons.apache.org/validator/dependencies.html)
-
-N.B. Jakarta ORO (http://jakarta.apache.org/oro/) has now been marked as
-     an optional dependency in the project.xml as it is only required
-     by the Email, URL and Regular Expression validations.
 
 
 Bug fixes from 1.3.0
