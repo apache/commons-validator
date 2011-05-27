@@ -106,4 +106,8 @@ public class DomainValidatorTest extends TestCase {
        assertTrue("apache.org should validate", allowLocal.isValid("apache.org"));
        assertFalse("domain name with spaces shouldn't validate", allowLocal.isValid(" apache.org "));
     }
+    
+    public void testIDN() {
+       assertTrue("bücher.ch in IDN should validate", validator.isValid("www.xn--bcher-kva.ch"));
+    }
 }
