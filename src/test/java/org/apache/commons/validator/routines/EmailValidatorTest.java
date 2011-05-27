@@ -19,7 +19,6 @@ package org.apache.commons.validator.routines;
 import junit.framework.TestCase;
 
 import org.apache.commons.validator.ResultPair;
-import org.apache.commons.validator.ValidatorException;
 
 /**
  * Performs Validation Test for e-mail validations.
