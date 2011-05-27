@@ -108,6 +108,6 @@ public class DomainValidatorTest extends TestCase {
     }
     
     public void testIDN() {
-       assertTrue("bücher.ch in IDN should validate", validator.isValid("www.xn--bcher-kva.ch"));
+       assertTrue("b\u00fccher.ch in IDN should validate", validator.isValid("www.xn--bcher-kva.ch"));
     }
 }
