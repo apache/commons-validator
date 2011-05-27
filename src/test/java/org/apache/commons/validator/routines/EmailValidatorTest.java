@@ -125,7 +125,11 @@ public class EmailValidatorTest extends TestCase {
         // But not in the domain name.
         assertFalse(validator.isValid("andy@o'reilly.data-workshop.com"));
 
+        // The + character is valid in an email username.
         assertTrue(validator.isValid("foo+bar@i.am.not.in.us.example.com"));
+
+        // But not in the domain name
+        assertFalse(validator.isValid("foo+bar@example+3.com"));
 
         // Domains with only special characters aren't allowed (VALIDATOR-286) 
         assertFalse(validator.isValid("test@%*.com"));
