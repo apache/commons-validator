@@ -422,7 +422,7 @@ public class ValidatorAction implements Serializable {
         try {
             String line = null;
             while ((line = reader.readLine()) != null) {
-                buffer.append(line + "\n");
+                buffer.append(line).append("\n");
             }
 
         } catch(IOException e) {
