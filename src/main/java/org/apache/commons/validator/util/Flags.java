@@ -38,7 +38,7 @@ import java.io.Serializable;
  *
  * @version $Revision$ $Date$
  */
-public class Flags implements Serializable {
+public class Flags implements Serializable, Cloneable {
 
     /**
      * Represents the current flag state.
