@@ -298,7 +298,6 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
         // Compare Date
         result = calculateCompareResult(value, compare, Calendar.DATE);
         if (result != 0 || (field == Calendar.DATE || 
-                          field == Calendar.DAY_OF_MONTH ||
                           field == Calendar.DAY_OF_WEEK ||
                           field == Calendar.DAY_OF_WEEK_IN_MONTH)) {
             return result;
