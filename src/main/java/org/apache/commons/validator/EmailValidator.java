@@ -218,7 +218,7 @@ public class EmailValidator {
      Pattern commentMatcher = Pattern.compile(commentPat);
      
      while (commentMatcher.matcher(result).matches()) {
-        result.replaceFirst(commentPat, "\1 ");
+        result = result.replaceFirst(commentPat, "\1 ");
      }
      return result;
     }
