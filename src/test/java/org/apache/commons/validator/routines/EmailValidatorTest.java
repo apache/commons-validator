@@ -206,6 +206,25 @@ public class EmailValidatorTest extends TestCase {
              noLocal.isValid("joe@localhost")
        );
     }
+    
+    /**
+     * VALIDATOR-296 - A / or a ! is valid in the user part,
+     *  but not in the domain part 
+     */
+    public void testEmailWithSlashes() {
+       assertTrue(
+             "/ and ! valid in username",
+             validator.isValid("joe!/blow@apache.org")
+       );
+       assertFalse(
+             "/ not valid in domain",
+             validator.isValid("joe@ap/ache.org")
+       );
+       assertFalse(
+             "! not valid in domain",
+             validator.isValid("joe@apac!he.org")
+       );
+    }
 
     /**
      * Write this test according to parts of RFC, as opposed to the type of character
