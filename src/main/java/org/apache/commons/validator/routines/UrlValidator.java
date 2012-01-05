@@ -72,6 +72,8 @@ import java.util.regex.Pattern;
  */
 public class UrlValidator implements Serializable {
 
+    private static final long serialVersionUID = 7557161713937335013L;
+
     /**
      * Allows all validly formatted schemes to pass validation instead of
      * supplying a set of valid schemes.
@@ -87,12 +89,12 @@ public class UrlValidator implements Serializable {
      * Enabling this options disallows any URL fragments.
      */
     public static final long NO_FRAGMENTS = 1 << 2;
-    
+
     /**
      * Allow local URLs, such as http://localhost/ or http://machine/ .
-     * This enables a broad-brush check, for complex local machine name 
+     * This enables a broad-brush check, for complex local machine name
      *  validation requirements you should create your validator with
-     *  a {@link RegexValidator} instead ({@link #UrlValidator(RegexValidator, long)})  
+     *  a {@link RegexValidator} instead ({@link #UrlValidator(RegexValidator, long)})
      */
     public static final long ALLOW_LOCAL_URLS = 1 << 3;
 
@@ -186,7 +188,7 @@ public class UrlValidator implements Serializable {
      * @return singleton instance with default schemes and options
      */
     public static UrlValidator getInstance() {
-        return DEFAULT_URL_VALIDATOR;    
+        return DEFAULT_URL_VALIDATOR;
     }
 
     /**
@@ -294,7 +296,7 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        String authority = urlMatcher.group(PARSE_URL_AUTHORITY); 
+        String authority = urlMatcher.group(PARSE_URL_AUTHORITY);
         if ("file".equals(scheme) && "".equals(authority)) {
            // Special case - file: allows an empty authority
         } else {
@@ -474,7 +476,7 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Tests whether the given flag is on.  If the flag is not a power of 2 
+     * Tests whether the given flag is on.  If the flag is not a power of 2
      * (ie. 3) this tests whether the combination of flags is on.
      *
      * @param flag Flag value to check.
@@ -486,7 +488,7 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Tests whether the given flag is off.  If the flag is not a power of 2 
+     * Tests whether the given flag is off.  If the flag is not a power of 2
      * (ie. 3) this tests whether the combination of flags is off.
      *
      * @param flag Flag value to check.

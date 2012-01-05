@@ -62,6 +62,8 @@ import java.util.List;
  */
 public class DomainValidator implements Serializable {
 
+    private static final long serialVersionUID = -4407125112880174009L;
+
     // Regular expression strings for hostnames (derived from RFC2396 and RFC 1123)
     private static final String DOMAIN_LABEL_REGEX = "\\p{Alnum}(?>[\\p{Alnum}-]*\\p{Alnum})*";
     private static final String TOP_LABEL_REGEX = "\\p{Alpha}{2,}";
@@ -69,13 +71,13 @@ public class DomainValidator implements Serializable {
             "^(?:" + DOMAIN_LABEL_REGEX + "\\.)+" + "(" + TOP_LABEL_REGEX + ")$";
 
     private final boolean allowLocal;
-    
+
     /**
      * Singleton instance of this validator, which
      *  doesn't consider local addresses as valid.
      */
     private static final DomainValidator DOMAIN_VALIDATOR = new DomainValidator(false);
-    
+
     /**
      * Singleton instance of this validator, which does
      *  consider local addresses valid.
@@ -101,7 +103,7 @@ public class DomainValidator implements Serializable {
     public static DomainValidator getInstance() {
         return DOMAIN_VALIDATOR;
     }
-    
+
     /**
      * Returns the singleton instance of this validator,
      *  with local validation as required.
@@ -249,7 +251,7 @@ public class DomainValidator implements Serializable {
         "ai",                 // Anguilla
         "al",                 // Albania
         "am",                 // Armenia
-        "an",                 // Netherlands Antilles  
+        "an",                 // Netherlands Antilles
         "ao",                 // Angola
         "aq",                 // Antarctica
         "ar",                 // Argentina

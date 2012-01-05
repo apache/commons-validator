@@ -37,6 +37,8 @@ import java.io.Serializable;
  */
 public class Arg implements Cloneable, Serializable {
 
+    private static final long serialVersionUID = -8922606779669839294L;
+
     /**
      * The resource bundle name that this Arg's <code>key</code> should be
      * resolved in (optional).

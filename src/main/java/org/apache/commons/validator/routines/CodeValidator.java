@@ -50,6 +50,8 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  */
 public final class CodeValidator implements Serializable {
 
+    private static final long serialVersionUID = 446960910870938233L;
+
     private final RegexValidator regexValidator;
     private final int minLength;
     private final int maxLength;

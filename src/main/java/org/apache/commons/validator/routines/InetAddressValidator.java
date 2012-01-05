@@ -33,6 +33,8 @@ import java.io.Serializable;
  */
 public class InetAddressValidator implements Serializable {
 
+    private static final long serialVersionUID = -919201640201914789L;
+
     private static final String IPV4_REGEX =
             "^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$";
 

@@ -36,6 +36,8 @@ import java.io.Serializable;
  */
 public final class ISBNCheckDigit implements CheckDigit, Serializable {
 
+    private static final long serialVersionUID = 1391849166205184558L;
+
     /** Singleton ISBN-10 Check Digit instance */
     public static final CheckDigit ISBN10_CHECK_DIGIT = ISBN10CheckDigit.ISBN10_CHECK_DIGIT;
 

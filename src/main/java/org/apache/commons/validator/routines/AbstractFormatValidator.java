@@ -26,18 +26,20 @@ import java.io.Serializable;
  *
  * <p>This is a <i>base</i> class for building Date and Number
  *    Validators using format parsing.</p>
- * 
+ *
  * @version $Revision$ $Date$
  * @since Validator 1.3.0
  */
 public abstract class AbstractFormatValidator implements Serializable {
 
+    private static final long serialVersionUID = -4690687565200568258L;
+
     private final boolean strict;
 
     /**
      * Construct an instance with the specified strict setting.
-     * 
-     * @param strict <code>true</code> if strict 
+     *
+     * @param strict <code>true</code> if strict
      *        <code>Format</code> parsing should be used.
      */
     public AbstractFormatValidator(boolean strict) {
@@ -47,7 +49,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     /**
      * <p>Indicates whether validated values should adhere
      *    strictly to the <code>Format</code> used.</p>
-     * 
+     *
      * <p>Typically implementations of <code>Format</code>
      *    ignore invalid characters at the end of the value
      *    and just stop parsing. For example parsing a date
@@ -57,7 +59,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      *    to <code>false</code>, whereas setting <code>strict</code>
      *    to <code>true</code> will cause this value to fail
      *    validation.</p>
-     * 
+     *
      * @return <code>true</code> if strict <code>Format</code>
      *         parsing should be used.
      */
@@ -66,8 +68,8 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Validate using the default <code>Locale</code>. 
-     * 
+     * <p>Validate using the default <code>Locale</code>.
+     *
      * @param value The value validation is being performed on.
      * @return <code>true</code> if the value is valid.
      */
@@ -76,8 +78,8 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Validate using the specified <i>pattern</i>. 
-     * 
+     * <p>Validate using the specified <i>pattern</i>.
+     *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against.
      * @return <code>true</code> if the value is valid.
@@ -87,8 +89,8 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Validate using the specified <code>Locale</code>. 
-     * 
+     * <p>Validate using the specified <code>Locale</code>.
+     *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the Format, defaults to the default
      * @return <code>true</code> if the value is valid.
@@ -98,8 +100,8 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Validate using the specified pattern and/or <code>Locale</code>. 
-     * 
+     * <p>Validate using the specified pattern and/or <code>Locale</code>.
+     *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
      * @param locale The locale to use for the Format, defaults to the default
@@ -143,8 +145,8 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Format an object using the specified pattern and/or 
-     *    <code>Locale</code>. 
+     * <p>Format an object using the specified pattern and/or
+     *    <code>Locale</code>.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
@@ -158,7 +160,7 @@ public abstract class AbstractFormatValidator implements Serializable {
 
     /**
      * <p>Format a value with the specified <code>Format</code>.</p>
-     * 
+     *
      * @param value The value to be formatted.
      * @param formatter The Format to use.
      * @return The formatted value.
@@ -169,7 +171,7 @@ public abstract class AbstractFormatValidator implements Serializable {
 
     /**
      * <p>Parse the value with the specified <code>Format</code>.</p>
-     * 
+     *
      * @param value The value to be parsed.
      * @param formatter The Format to parse the value with.
      * @return The parsed value if valid or <code>null</code> if invalid.
@@ -195,9 +197,9 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Process the parsed value, performing any further validation 
+     * <p>Process the parsed value, performing any further validation
      *    and type conversion required.</p>
-     * 
+     *
      * @param value The parsed object created.
      * @param formatter The Format used to parse the value with.
      * @return The parsed value converted to the appropriate type
@@ -208,7 +210,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     /**
      * <p>Returns a <code>Format</code> for the specified <i>pattern</i>
      *    and/or <code>Locale</code>.</p>
-     * 
+     *
      * @param pattern The pattern used to validate the value against or
      *        <code>null</code> to use the default for the <code>Locale</code>.
      * @param locale The locale to use for the currency format, system default if null.

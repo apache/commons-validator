@@ -26,7 +26,7 @@ import java.util.TimeZone;
  * <p><b>Calendar Validation</b> and Conversion routines (<code>java.util.Calendar</code>).</p>
  *
  * <p>This validator provides a number of methods for validating/converting
- *    a <code>String</code> date value to a <code>java.util.Calendar</code> using 
+ *    a <code>String</code> date value to a <code>java.util.Calendar</code> using
  *    <code>java.text.DateFormat</code> to parse either:</p>
  *    <ul>
  *       <li>using the default format for the default <code>Locale</code></li>
@@ -34,10 +34,10 @@ import java.util.TimeZone;
  *       <li>using the default format for a specified <code>Locale</code></li>
  *       <li>using a specified pattern with a specified <code>Locale</code></li>
  *    </ul>
- *    
- * <p>For each of the above mechanisms, conversion method (i.e the  
+ *
+ * <p>For each of the above mechanisms, conversion method (i.e the
  *    <code>validate</code> methods) implementations are provided which
- *    either use the default <code>TimeZone</code> or allow the 
+ *    either use the default <code>TimeZone</code> or allow the
  *    <code>TimeZone</code> to be specified.</p>
  *
  * <p>Use one of the <code>isValid()</code> methods to just validate or
@@ -47,18 +47,18 @@ import java.util.TimeZone;
  * <p>Implementations of the <code>validate()</code> method are provided
  *    to create <code>Calendar</code> objects for different <i>time zones</i>
  *    if the system default is not appropriate.</p>
- *    
+ *
  * <p>Alternatively the CalendarValidator's <code>adjustToTimeZone()</code> method
  *    can be used to adjust the <code>TimeZone</code> of the <code>Calendar</code>
- *    object afterwards.</p> 
- * 
+ *    object afterwards.</p>
+ *
  * <p>Once a value has been sucessfully converted the following
  *    methods can be used to perform various date comparison checks:</p>
  *    <ul>
  *       <li><code>compareDates()</code> compares the day, month and
  *           year of two calendars, returing 0, -1 or +1 indicating
  *           whether the first date is equal, before or after the second.</li>
- *       <li><code>compareWeeks()</code> compares the week and 
+ *       <li><code>compareWeeks()</code> compares the week and
  *           year of two calendars, returing 0, -1 or +1 indicating
  *           whether the first week is equal, before or after the second.</li>
  *       <li><code>compareMonths()</code> compares the month and
@@ -67,25 +67,27 @@ import java.util.TimeZone;
  *       <li><code>compareQuarters()</code> compares the quarter and
  *           year of two calendars, returing 0, -1 or +1 indicating
  *           whether the first quarter is equal, before or after the second.</li>
- *       <li><code>compareYears()</code> compares the 
+ *       <li><code>compareYears()</code> compares the
  *           year of two calendars, returing 0, -1 or +1 indicating
  *           whether the first year is equal, before or after the second.</li>
  *    </ul>
- * 
- * <p>So that the same mechanism used for parsing an <i>input</i> value 
+ *
+ * <p>So that the same mechanism used for parsing an <i>input</i> value
  *    for validation can be used to format <i>output</i>, corresponding
- *    <code>format()</code> methods are also provided. That is you can 
+ *    <code>format()</code> methods are also provided. That is you can
  *    format either:</p>
  *    <ul>
  *       <li>using a specified pattern</li>
  *       <li>using the format for a specified <code>Locale</code></li>
  *       <li>using the format for the <i>default</i> <code>Locale</code></li>
  *    </ul>
- * 
+ *
  * @version $Revision$ $Date$
  * @since Validator 1.3.0
  */
 public class CalendarValidator extends AbstractCalendarValidator {
+
+    private static final long serialVersionUID = 9109652318762134167L;
 
     private static final CalendarValidator VALIDATOR = new CalendarValidator();
 
@@ -108,8 +110,8 @@ public class CalendarValidator extends AbstractCalendarValidator {
     /**
      * Construct an instance with the specified <i>strict</i>
      * and <i>date style</i> parameters.
-     * 
-     * @param strict <code>true</code> if strict 
+     *
+     * @param strict <code>true</code> if strict
      *        <code>Format</code> parsing should be used.
      * @param dateStyle the date style to use for Locale validation.
      */
@@ -119,7 +121,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Validate/convert a <code>Calendar</code> using the default
-     *    <code>Locale</code> and <code>TimeZone</code>. 
+     *    <code>Locale</code> and <code>TimeZone</code>.
      *
      * @param value The value validation is being performed on.
      * @return The parsed <code>Calendar</code> if valid or <code>null</code>
@@ -223,7 +225,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Adjusts a Calendar's value to a different TimeZone.</p>
-     * 
+     *
      * @param value The value to adjust.
      * @param timeZone The new time zone to use to adjust the Calendar to.
      */
@@ -243,7 +245,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Compare Dates (day, month and year - not time).</p>
-     * 
+     *
      * @param value The <code>Calendar</code> value to check.
      * @param compare The <code>Calendar</code> to compare the value to.
      * @return Zero if the dates are equal, -1 if first
@@ -256,7 +258,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Compare Weeks (week and year).</p>
-     * 
+     *
      * @param value The <code>Calendar</code> value to check.
      * @param compare The <code>Calendar</code> to compare the value to.
      * @return Zero if the weeks are equal, -1 if first
@@ -269,7 +271,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Compare Months (month and year).</p>
-     * 
+     *
      * @param value The <code>Calendar</code> value to check.
      * @param compare The <code>Calendar</code> to compare the value to.
      * @return Zero if the months are equal, -1 if first
@@ -282,7 +284,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Compare Quarters (quarter and year).</p>
-     * 
+     *
      * @param value The <code>Calendar</code> value to check.
      * @param compare The <code>Calendar</code> to check the value against.
      * @return Zero if the quarters are equal, -1 if first
@@ -295,7 +297,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Compare Quarters (quarter and year).</p>
-     * 
+     *
      * @param value The <code>Calendar</code> value to check.
      * @param compare The <code>Calendar</code> to compare the value to.
      * @param monthOfFirstQuarter The  month that the first quarter starts.
@@ -309,7 +311,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Compare Years.</p>
-     * 
+     *
      * @param value The <code>Calendar</code> value to check.
      * @param compare The <code>Calendar</code> to compare the value to.
      * @return Zero if the years are equal, -1 if first
@@ -322,7 +324,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Convert the parsed <code>Date</code> to a <code>Calendar</code>.</p>
-     * 
+     *
      * @param value The parsed <code>Date</code> object created.
      * @param formatter The Format used to parse the value with.
      * @return The parsed value converted to a <code>Calendar</code>.

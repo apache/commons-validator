@@ -32,7 +32,7 @@ import java.io.Serializable;
  *  <code>CC00nnnnnnn</code> in this example.
  * <p>
  * For further information see
- *  <a href="http://en.wikipedia.org/wiki/International_Bank_Account_Number">Wikipedia - 
+ *  <a href="http://en.wikipedia.org/wiki/International_Bank_Account_Number">Wikipedia -
  *  IBAN number</a>.
  *
  * @version $Revision$ $Date$
@@ -40,12 +40,14 @@ import java.io.Serializable;
  */
 public final class IBANCheckDigit implements CheckDigit, Serializable {
 
+    private static final long serialVersionUID = -3600191725934382801L;
+
     /** Singleton IBAN Number Check Digit instance */
     public static final CheckDigit IBAN_CHECK_DIGIT = new IBANCheckDigit();
 
-    private static final long MAX = 999999999; 
+    private static final long MAX = 999999999;
 
-    private static final long MODULUS = 97; 
+    private static final long MODULUS = 97;
 
     /**
      * Construct Check Digit routine for IBAN Numbers.
@@ -64,7 +66,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
         if (code == null || code.length() < 5) {
             return false;
         }
-        try {       
+        try {
             int modulusResult = calculateModulus(code);
             return (modulusResult == 1);
         } catch (CheckDigitException  ex) {
@@ -108,7 +110,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
         for (int i = 0; i < reformattedCode.length(); i++) {
             int charValue = Character.getNumericValue(reformattedCode.charAt(i));
             if (charValue < 0 || charValue > 35) {
-                throw new CheckDigitException("Invalid Character[" + 
+                throw new CheckDigitException("Invalid Character[" +
                         i + "] = '" + charValue + "'");
             }
             total = (charValue > 9 ? total * 100 : total * 10) + charValue;

@@ -40,6 +40,8 @@ import java.util.regex.Pattern;
  */
 public class EmailValidator implements Serializable {
 
+    private static final long serialVersionUID = 1705927040799295880L;
+
     private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
     private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
     private static final String QUOTED_USER = "(\"[^\"]*\")";
@@ -56,13 +58,13 @@ public class EmailValidator implements Serializable {
     private static final Pattern USER_PATTERN = Pattern.compile(USER_REGEX);
 
     private final boolean allowLocal;
-    
+
     /**
      * Singleton instance of this class, which
      *  doesn't consider local addresses as valid.
      */
     private static final EmailValidator EMAIL_VALIDATOR = new EmailValidator(false);
-    
+
     /**
      * Singleton instance of this class, which does
      *  consider local addresses valid.
@@ -81,7 +83,7 @@ public class EmailValidator implements Serializable {
     /**
      * Returns the Singleton instance of this validator,
      *  with local validation as required.
-     *  
+     *
      * @param allowLocal Should local addresses be considered valid?
      * @return singleton instance of this validator
      */
@@ -92,9 +94,9 @@ public class EmailValidator implements Serializable {
         return EMAIL_VALIDATOR;
     }
 
-    /**                                       
+    /**
      * Protected constructor for subclasses to use.
-     *  
+     *
      * @param allowLocal Should local addresses be considered valid?
      */
     protected EmailValidator(boolean allowLocal) {

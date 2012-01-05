@@ -30,6 +30,8 @@ import java.util.Iterator;
  */
 public class ValidatorResult implements Serializable {
 
+    private static final long serialVersionUID = -3713364681647250531L;
+
     /**
      * Map of results.  The key is the name of the <code>ValidatorAction</code>
      * and the value is whether or not this field passed or not.
@@ -131,6 +133,9 @@ public class ValidatorResult implements Serializable {
      * Contains the status of the validation.
      */
     protected static class ResultStatus implements Serializable {
+
+        private static final long serialVersionUID = 4076665918535320007L;
+
         private boolean valid = false;
         private Object result = null;
 

@@ -30,6 +30,8 @@ import java.util.Map;
  */
 public class Validator implements Serializable {
 
+    private static final long serialVersionUID = -7119418755208731611L;
+
     /**
      * Resources key the JavaBean is stored to perform validation on.
      */

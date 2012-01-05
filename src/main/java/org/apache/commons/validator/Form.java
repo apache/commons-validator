@@ -39,6 +39,8 @@ import org.apache.commons.collections.FastHashMap;// DEPRECATED
  */
 public class Form implements Serializable {
 
+    private static final long serialVersionUID = 6445211789563796371L;
+
     /** The name/key the set of validation rules is stored under. */
     protected String name = null;
 
@@ -244,7 +246,7 @@ public class Form implements Serializable {
         throws ValidatorException {
         return validate(params, actions, page, null);
     }
-    
+
     /**
      * Validate all Fields in this Form on the given page and below.
      *
@@ -268,12 +270,12 @@ public class Form implements Serializable {
         // Only validate a single field if specified
         if (fieldName != null) {
             Field field = (Field) this.hFields.get(fieldName);
-            
+
             if (field == null) {
                throw new ValidatorException("Unknown field "+fieldName+" in form "+getName());
             }
             params.put(Validator.FIELD_PARAM, field);
-            
+
             if (field.getPage() <= page) {
                results.merge(field.validate(params, actions));
             }
@@ -281,9 +283,9 @@ public class Form implements Serializable {
             Iterator fields = this.lFields.iterator();
             while (fields.hasNext()) {
                 Field field = (Field) fields.next();
-    
+
                 params.put(Validator.FIELD_PARAM, field);
-    
+
                 if (field.getPage() <= page) {
                     results.merge(field.validate(params, actions));
                 }

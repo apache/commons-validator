@@ -21,28 +21,30 @@ import java.text.Format;
 
 /**
  * <p><b>Currency Validation</b> and Conversion routines (<code>java.math.BigDecimal</code>).</p>
- * 
+ *
  * <p>This is one implementation of a currency validator that has the following features:</p>
  *    <ul>
  *       <li>It is <i>lenient</i> about the the presence of the <i>currency symbol</i></li>
  *       <li>It converts the currency to a <code>java.math.BigDecimal</code></li>
  *    </ul>
- * 
+ *
  * <p>However any of the <i>number</i> validators can be used for <i>currency</i> validation.
  *    For example, if you wanted a <i>currency</i> validator that converts to a
  *    <code>java.lang.Integer</code> then you can simply instantiate an
  *    <code>IntegerValidator</code> with the appropriate <i>format type</i>:</p>
- *    
+ *
  *    <p><code>... = new IntegerValidator(false, IntegerValidator.CURRENCY_FORMAT);</code></p>
  *
  * <p>Pick the appropriate validator, depending on the type (e.g Float, Double, Integer, Long etc)
  *    you want the currency converted to. One thing to note - only the CurrencyValidator
  *    implements <i>lenient</i> behaviour regarding the currency symbol.</p>
- * 
+ *
  * @version $Revision$ $Date$
  * @since Validator 1.3.0
  */
 public class CurrencyValidator extends BigDecimalValidator {
+
+    private static final long serialVersionUID = -4201640771171486514L;
 
     private static final CurrencyValidator VALIDATOR = new CurrencyValidator();
 
@@ -66,8 +68,8 @@ public class CurrencyValidator extends BigDecimalValidator {
 
     /**
      * Construct an instance with the specified strict setting.
-     * 
-     * @param strict <code>true</code> if strict 
+     *
+     * @param strict <code>true</code> if strict
      *        <code>Format</code> parsing should be used.
      * @param allowFractions <code>true</code> if fractions are
      *        allowed or <code>false</code> if integers only.
@@ -78,13 +80,13 @@ public class CurrencyValidator extends BigDecimalValidator {
 
     /**
      * <p>Parse the value with the specified <code>Format</code>.</p>
-     * 
+     *
      * <p>This implementation is lenient whether the currency symbol
      *    is present or not. The default <code>NumberFormat</code>
      *    behaviour is for the parsing to "fail" if the currency
      *    symbol is missing. This method re-parses with a format
      *    without the currency symbol if it fails initially.</p>
-     * 
+     *
      * @param value The value to be parsed.
      * @param formatter The Format to parse the value with.
      * @return The parsed value if valid or <code>null</code> if invalid.

@@ -33,13 +33,15 @@ package org.apache.commons.validator.routines.checkdigit;
  * </ul>
  * <p>
  * For further information see
- *  <a href="http://en.wikipedia.org/wiki/Routing_transit_number">Wikipedia - 
+ *  <a href="http://en.wikipedia.org/wiki/Routing_transit_number">Wikipedia -
  *  Routing transit number</a>.
- *    
+ *
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
 public final class ABANumberCheckDigit extends ModulusCheckDigit {
+
+    private static final long serialVersionUID = -8255937433810380145L;
 
     /** Singleton Routing Transit Number Check Digit instance */
     public static final CheckDigit ABAN_CHECK_DIGIT = new ABANumberCheckDigit();
@@ -65,7 +67,7 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
      * </code></pre>
      *
      * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character.
      */

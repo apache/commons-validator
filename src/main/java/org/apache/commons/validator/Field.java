@@ -47,6 +47,8 @@ import org.apache.commons.validator.util.ValidatorUtils;
  */
 public class Field implements Cloneable, Serializable {
 
+    private static final long serialVersionUID = -8502647722530192185L;
+
     /**
      * This is the value that will be used as a key if the <code>Arg</code>
      * name field has no value.

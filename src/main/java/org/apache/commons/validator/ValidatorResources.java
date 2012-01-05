@@ -54,6 +54,8 @@ import org.xml.sax.Attributes;
  */
 public class ValidatorResources implements Serializable {
 
+    private static final long serialVersionUID = -8203745881446239554L;
+
     /** Name of the digester validator rules file */
     private static final String VALIDATOR_RULES = "digester-rules.xml";
 
@@ -113,13 +115,13 @@ public class ValidatorResources implements Serializable {
     public ValidatorResources() {
         super();
     }
-    
+
     /**
      * This is the default <code>FormSet</code> (without locale). (We probably don't need
      * the defaultLocale anymore.)
      */
     protected FormSet defaultFormSet;
-    
+
     /**
      * Create a ValidatorResources object from an InputStream.
      *
@@ -163,11 +165,11 @@ public class ValidatorResources implements Serializable {
 
         this.process();
     }
-    
+
     /**
      * Create a ValidatorResources object from an uri
      *
-     * @param uri The location of a validation.xml configuration file. 
+     * @param uri The location of a validation.xml configuration file.
      * @throws IOException
      * @throws SAXException if the validation XML files are not valid or well
      * formed.
@@ -201,7 +203,7 @@ public class ValidatorResources implements Serializable {
         }
 
         this.process();
-    }    
+    }
 
     /**
      * Create a ValidatorResources object from a URL.
@@ -274,7 +276,7 @@ public class ValidatorResources implements Serializable {
         return digester;
     }
 
-    private static final String ARGS_PATTERN 
+    private static final String ARGS_PATTERN
                = "form-validation/formset/form/field/arg";
 
     /**
@@ -287,7 +289,7 @@ public class ValidatorResources implements Serializable {
 
         // Create a new rule to process args elements
         Rule rule = new Rule() {
-            public void begin(String namespace, String name, 
+            public void begin(String namespace, String name,
                                Attributes attributes) throws Exception {
                 // Create the Arg
                 Arg arg = new Arg();
@@ -299,7 +301,7 @@ public class ValidatorResources implements Serializable {
                 try {
                     arg.setPosition(Integer.parseInt(name.substring(3)));
                 } catch (Exception ex) {
-                    getLog().error("Error parsing Arg position: " 
+                    getLog().error("Error parsing Arg position: "
                                + name + " " + arg + " " + ex);
                 }
 
@@ -527,7 +529,7 @@ public class ValidatorResources implements Serializable {
 
         this.processForms();
     }
-    
+
     /**
      * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s
      * that don't exist in a <code>FormSet</code> compared to its parent
@@ -560,7 +562,7 @@ public class ValidatorResources implements Serializable {
      * has a direct parent in the formSet with locale en_UK. If it doesn't
      * exist, find the formSet with locale en, if no found get the
      * defaultFormSet.
-     * 
+     *
      * @param fs
      *            the formSet we want to get the parent from
      * @return fs's parent

@@ -26,13 +26,13 @@ package org.apache.commons.validator.routines.checkdigit;
  * <p>
  * For further information see:
  * <ul>
- *   <li>EAN-13 - see 
- *       <a href="http://en.wikipedia.org/wiki/European_Article_Number">Wikipedia - 
+ *   <li>EAN-13 - see
+ *       <a href="http://en.wikipedia.org/wiki/European_Article_Number">Wikipedia -
  *       European Article Number</a>.</li>
  *   <li>UPC - see
  *       <a href="http://en.wikipedia.org/wiki/Universal_Product_Code">Wikipedia -
  *       Universal Product Code</a>.</li>
- *   <li>ISBN-13 - see 
+ *   <li>ISBN-13 - see
  *       <a href="http://en.wikipedia.org/wiki/ISBN">Wikipedia - International
  *       Standard Book Number (ISBN)</a>.</li>
  * </ul>
@@ -41,6 +41,8 @@ package org.apache.commons.validator.routines.checkdigit;
  * @since Validator 1.4
  */
 public final class EAN13CheckDigit extends ModulusCheckDigit {
+
+    private static final long serialVersionUID = 1726347093230424107L;
 
     /** Singleton EAN-13 Check Digit instance */
     public static final CheckDigit EAN13_CHECK_DIGIT = new EAN13CheckDigit();
@@ -64,7 +66,7 @@ public final class EAN13CheckDigit extends ModulusCheckDigit {
      * of <b>three</b>.</p>
      *
      * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character.
      */

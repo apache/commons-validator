@@ -19,7 +19,7 @@ package org.apache.commons.validator.util;
 import java.io.Serializable;
 
 /**
- * Represents a collection of 64 boolean (on/off) flags.  Individual flags 
+ * Represents a collection of 64 boolean (on/off) flags.  Individual flags
  * are represented by powers of 2.  For example,<br/>
  * Flag 1 = 1<br/>
  * Flag 2 = 2<br/>
@@ -30,15 +30,17 @@ import java.io.Serializable;
  * Flag 2 = 1 &lt;&lt; 1<br/>
  * Flag 3 = 1 &lt;&lt; 2<br/>
  * Flag 4 = 1 &lt;&lt; 3<br/>
- * 
+ *
  * <p>
- * There cannot be a flag with a value of 3 because that represents Flag 1 
+ * There cannot be a flag with a value of 3 because that represents Flag 1
  * and Flag 2 both being on/true.
  * </p>
  *
  * @version $Revision$ $Date$
  */
 public class Flags implements Serializable, Cloneable {
+
+    private static final long serialVersionUID = 8481587558770237995L;
 
     /**
      * Represents the current flag state.
@@ -72,7 +74,7 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Tests whether the given flag is on.  If the flag is not a power of 2 
+     * Tests whether the given flag is on.  If the flag is not a power of 2
      * (ie. 3) this tests whether the combination of flags is on.
      *
      * @param flag Flag value to check.
@@ -84,7 +86,7 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Tests whether the given flag is off.  If the flag is not a power of 2 
+     * Tests whether the given flag is off.  If the flag is not a power of 2
      * (ie. 3) this tests whether the combination of flags is off.
      *
      * @param flag Flag value to check.
@@ -121,7 +123,7 @@ public class Flags implements Serializable, Cloneable {
     public void turnOffAll() {
         this.flags = 0;
     }
-    
+
     /**
      * Turn off all flags.  This is a synonym for <code>turnOffAll()</code>.
      * @since Validator 1.1.1
@@ -183,8 +185,8 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a 64 length String with the first flag on the right and the 
-     * 64th flag on the left.  A 1 indicates the flag is on, a 0 means it's 
+     * Returns a 64 length String with the first flag on the right and the
+     * 64th flag on the left.  A 1 indicates the flag is on, a 0 means it's
      * off.
      *
      * @return string representation of this object.

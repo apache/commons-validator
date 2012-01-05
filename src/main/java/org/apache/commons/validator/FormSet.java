@@ -35,6 +35,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public class FormSet implements Serializable {
 
+    private static final long serialVersionUID = -8936513232763306055L;
+
     /** Logging */
     private transient Log log = LogFactory.getLog(FormSet.class);
 

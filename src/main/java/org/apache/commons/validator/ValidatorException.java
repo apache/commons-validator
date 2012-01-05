@@ -17,13 +17,15 @@
 package org.apache.commons.validator;
 
 /**
- * The base exception for the Validator Framework.  All other 
- * <code>Exception</code>s thrown during calls to 
+ * The base exception for the Validator Framework.  All other
+ * <code>Exception</code>s thrown during calls to
  * <code>Validator.validate()</code> are considered errors.
  *
  * @version $Revision$ $Date$
  */
 public class ValidatorException extends Exception {
+
+    private static final long serialVersionUID = 1025759372615616964L;
 
     /**
      * Constructs an Exception with no specified detail message.

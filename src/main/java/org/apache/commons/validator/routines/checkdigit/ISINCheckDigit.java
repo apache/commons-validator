@@ -36,6 +36,8 @@ package org.apache.commons.validator.routines.checkdigit;
  */
 public final class ISINCheckDigit extends ModulusCheckDigit {
 
+    private static final long serialVersionUID = -1239211208101323599L;
+
     /** Singleton ISIN Check Digit instance */
     public static final CheckDigit ISIN_CHECK_DIGIT = new ISINCheckDigit();
 
@@ -63,7 +65,7 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
         for (int i = 0; i < code.length(); i++) {
             int charValue = Character.getNumericValue(code.charAt(i));
             if (charValue < 0 || charValue > 35) {
-                throw new CheckDigitException("Invalid Character[" + 
+                throw new CheckDigitException("Invalid Character[" +
                         (i + 1) + "] = '" + charValue + "'");
             }
             transformed.append(charValue);
@@ -80,7 +82,7 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      * of <b>two</b>. Weighted values > 9, have 9 subtracted</p>
      *
      * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character.
      */

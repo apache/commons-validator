@@ -35,6 +35,8 @@ import java.io.Serializable;
  */
 public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
 
+    private static final long serialVersionUID = 2948962251251528941L;
+
     private final int modulus;
 
     /**
@@ -66,7 +68,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
         if (code == null || code.length() == 0) {
             return false;
         }
-        try {       
+        try {
             int modulusResult = calculateModulus(code, true);
             return (modulusResult == 0);
         } catch (CheckDigitException  ex) {
@@ -126,7 +128,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
      * required by overriding this method.
      *
      * @param charValue The numeric value of the character
-     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character
      * @throws CheckDigitException if an error occurs calculating
@@ -144,7 +146,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
      * character-->integer conversion.
      *
      * @param character The character to convert
-     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The integer value of the character
      * @throws CheckDigitException if character is non-numeric
@@ -154,7 +156,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
         if (Character.isDigit(character)) {
             return Character.getNumericValue(character);
         } else {
-            throw new CheckDigitException("Invalid Character[" + 
+            throw new CheckDigitException("Invalid Character[" +
                     leftPos + "] = '" + character + "'");
         }
     }
@@ -176,7 +178,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
         if (charValue >= 0 && charValue <= 9) {
             return Integer.toString(charValue);
         } else {
-            throw new CheckDigitException("Invalid Check Digit Value =" + 
+            throw new CheckDigitException("Invalid Check Digit Value =" +
                     + charValue);
         }
     }

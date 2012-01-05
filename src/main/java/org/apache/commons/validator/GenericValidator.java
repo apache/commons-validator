@@ -32,6 +32,8 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class GenericValidator implements Serializable {
 
+    private static final long serialVersionUID = -7212095066891517618L;
+
     /**
      * UrlValidator used in wrapper method.
      */
@@ -44,7 +46,7 @@ public class GenericValidator implements Serializable {
         new CreditCardValidator();
 
     /**
-     * <p>Checks if the field isn't null and length of the field is greater 
+     * <p>Checks if the field isn't null and length of the field is greater
      * than zero not including whitespace.</p>
      *
      * @param value The value validation is being performed on.
@@ -135,7 +137,7 @@ public class GenericValidator implements Serializable {
      * is set to <code>false</code> for all.</p>
      *
      * @param value The value validation is being performed on.
-     * @param locale The locale to use for the date format, defaults to the 
+     * @param locale The locale to use for the date format, defaults to the
      * system default if null.
      * @return true if the value can be converted to a Date.
      */
@@ -339,7 +341,7 @@ public class GenericValidator implements Serializable {
         }
         return ((nCount * lineEndLength) - (rCount + nCount));
     }
-    
+
     // See http://issues.apache.org/bugzilla/show_bug.cgi?id=29015 WRT the "value" methods
 
     /**

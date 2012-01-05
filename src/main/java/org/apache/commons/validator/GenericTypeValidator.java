@@ -35,6 +35,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GenericTypeValidator implements Serializable {
 
+    private static final long serialVersionUID = 5487162314134261703L;
+
     /**
      *  Checks if the value can safely be converted to a byte primitive.
      *
@@ -375,9 +377,9 @@ public class GenericTypeValidator implements Serializable {
             DateFormat formatterShort = null;
             DateFormat formatterDefault = null;
             if (locale != null) {
-                formatterShort = 
+                formatterShort =
                    DateFormat.getDateInstance(DateFormat.SHORT, locale);
-                formatterDefault = 
+                formatterDefault =
                    DateFormat.getDateInstance(DateFormat.DEFAULT, locale);
             } else {
                 formatterShort =

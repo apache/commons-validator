@@ -37,6 +37,8 @@ package org.apache.commons.validator.routines.checkdigit;
  */
 public final class LuhnCheckDigit extends ModulusCheckDigit {
 
+    private static final long serialVersionUID = -2976900113942875999L;
+
     /** Singleton Luhn Check Digit instance */
     public static final CheckDigit LUHN_CHECK_DIGIT = new LuhnCheckDigit();
 
@@ -59,7 +61,7 @@ public final class LuhnCheckDigit extends ModulusCheckDigit {
      * of <b>two</b>. Weighted values > 9, have 9 subtracted</p>
      *
      * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character.
      */

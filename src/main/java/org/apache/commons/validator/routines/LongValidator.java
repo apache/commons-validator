@@ -32,11 +32,11 @@ import java.util.Locale;
  *       <li>using the default format for a specified <code>Locale</code></li>
  *       <li>using a specified pattern with a specified <code>Locale</code></li>
  *    </ul>
- *    
+ *
  * <p>Use one of the <code>isValid()</code> methods to just validate or
  *    one of the <code>validate()</code> methods to validate and receive a
  *    <i>converted</i> <code>Long</code> value.</p>
- * 
+ *
  * <p>Once a value has been sucessfully converted the following
  *    methods can be used to perform minimum, maximum and range checks:</p>
  *    <ul>
@@ -47,10 +47,10 @@ import java.util.Locale;
  *       <li><code>isInRange()</code> checks whether the value is within
  *           a specified range of values.</li>
  *    </ul>
- * 
- * <p>So that the same mechanism used for parsing an <i>input</i> value 
+ *
+ * <p>So that the same mechanism used for parsing an <i>input</i> value
  *    for validation can be used to format <i>output</i>, corresponding
- *    <code>format()</code> methods are also provided. That is you can 
+ *    <code>format()</code> methods are also provided. That is you can
  *    format either:</p>
  *    <ul>
  *       <li>using a specified pattern</li>
@@ -62,6 +62,8 @@ import java.util.Locale;
  * @since Validator 1.3.0
  */
 public class LongValidator extends AbstractNumberValidator {
+
+    private static final long serialVersionUID = -5117231731027866098L;
 
     private static final LongValidator VALIDATOR = new LongValidator();
 
@@ -83,7 +85,7 @@ public class LongValidator extends AbstractNumberValidator {
     /**
      * <p>Construct an instance with the specified strict setting
      *    and format type.</p>
-     *    
+     *
      * <p>The <code>formatType</code> specified what type of
      *    <code>NumberFormat</code> is created - valid types
      *    are:</p>
@@ -95,8 +97,8 @@ public class LongValidator extends AbstractNumberValidator {
      *       <li>AbstractNumberValidator.PERCENT_FORMAT -to create
      *           <i>percent</i> number formats (the default).</li>
      *    </ul>
-     * 
-     * @param strict <code>true</code> if strict 
+     *
+     * @param strict <code>true</code> if strict
      *        <code>Format</code> parsing should be used.
      * @param formatType The <code>NumberFormat</code> type to
      *        create for validation, default is STANDARD_FORMAT.
@@ -107,7 +109,7 @@ public class LongValidator extends AbstractNumberValidator {
 
     /**
      * <p>Validate/convert a <code>Long</code> using the default
-     *    <code>Locale</code>. 
+     *    <code>Locale</code>.
      *
      * @param value The value validation is being performed on.
      * @return The parsed <code>Long</code> if valid or <code>null</code>
@@ -119,7 +121,7 @@ public class LongValidator extends AbstractNumberValidator {
 
     /**
      * <p>Validate/convert a <code>Long</code> using the
-     *    specified <i>pattern</i>. 
+     *    specified <i>pattern</i>.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against.
@@ -131,7 +133,7 @@ public class LongValidator extends AbstractNumberValidator {
 
     /**
      * <p>Validate/convert a <code>Long</code> using the
-     *    specified <code>Locale</code>. 
+     *    specified <code>Locale</code>.
      *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the number format, system default if null.
@@ -143,7 +145,7 @@ public class LongValidator extends AbstractNumberValidator {
 
     /**
      * <p>Validate/convert a <code>Long</code> using the
-     *    specified pattern and/ or <code>Locale</code>. 
+     *    specified pattern and/ or <code>Locale</code>.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
@@ -157,7 +159,7 @@ public class LongValidator extends AbstractNumberValidator {
 
     /**
      * Check if the value is within a specified range.
-     * 
+     *
      * @param value The <code>Number</code> value to check.
      * @param min The minimum value of the range.
      * @param max The maximum value of the range.
@@ -170,7 +172,7 @@ public class LongValidator extends AbstractNumberValidator {
 
     /**
      * Check if the value is within a specified range.
-     * 
+     *
      * @param value The <code>Number</code> value to check.
      * @param min The minimum value of the range.
      * @param max The maximum value of the range.
@@ -183,7 +185,7 @@ public class LongValidator extends AbstractNumberValidator {
 
     /**
      * Check if the value is greater than or equal to a minimum.
-     * 
+     *
      * @param value The value validation is being performed on.
      * @param min The minimum value.
      * @return <code>true</code> if the value is greater than
@@ -195,7 +197,7 @@ public class LongValidator extends AbstractNumberValidator {
 
     /**
      * Check if the value is greater than or equal to a minimum.
-     * 
+     *
      * @param value The value validation is being performed on.
      * @param min The minimum value.
      * @return <code>true</code> if the value is greater than
@@ -207,7 +209,7 @@ public class LongValidator extends AbstractNumberValidator {
 
     /**
      * Check if the value is less than or equal to a maximum.
-     * 
+     *
      * @param value The value validation is being performed on.
      * @param max The maximum value.
      * @return <code>true</code> if the value is less than
@@ -219,7 +221,7 @@ public class LongValidator extends AbstractNumberValidator {
 
     /**
      * Check if the value is less than or equal to a maximum.
-     * 
+     *
      * @param value The value validation is being performed on.
      * @param max The maximum value.
      * @return <code>true</code> if the value is less than
@@ -231,10 +233,10 @@ public class LongValidator extends AbstractNumberValidator {
 
     /**
      * Convert the parsed value to a <code>Long</code>.
-     * 
+     *
      * @param value The parsed <code>Number</code> object created.
      * @param formatter The Format used to parse the value with.
-     * @return The parsed <code>Number</code> converted to a 
+     * @return The parsed <code>Number</code> converted to a
      *         <code>Long</code>.
      */
     protected Object processParsedValue(Object value, Format formatter) {

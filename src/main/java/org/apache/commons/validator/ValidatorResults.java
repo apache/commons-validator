@@ -24,12 +24,14 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * This contains the results of a set of validation rules processed 
+ * This contains the results of a set of validation rules processed
  * on a JavaBean.
  *
  * @version $Revision$ $Date$
  */
 public class ValidatorResults implements Serializable {
+
+    private static final long serialVersionUID = -2709911078904924839L;
 
     /**
      * Map of validation results.

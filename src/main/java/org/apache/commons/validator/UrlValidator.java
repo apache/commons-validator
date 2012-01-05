@@ -76,8 +76,10 @@ import org.apache.commons.validator.util.Flags;
  */
 public class UrlValidator implements Serializable {
 
+    private static final long serialVersionUID = 24137157400029593L;
+
     /**
-     * Allows all validly formatted schemes to pass validation instead of 
+     * Allows all validly formatted schemes to pass validation instead of
      * supplying a set of valid schemes.
      */
     public static final int ALLOW_ALL_SCHEMES = 1 << 0;
@@ -313,7 +315,7 @@ public class UrlValidator implements Serializable {
         InetAddressValidator inetAddressValidator =
                 InetAddressValidator.getInstance();
 
-        Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authority); 
+        Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authority);
         if (!authorityMatcher.matches()) {
             return false;
         }

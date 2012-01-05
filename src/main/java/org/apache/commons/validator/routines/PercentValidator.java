@@ -22,18 +22,18 @@ import java.math.BigDecimal;
 
 /**
  * <p><b>Percentage Validation</b> and Conversion routines (<code>java.math.BigDecimal</code>).</p>
- * 
+ *
  * <p>This is one implementation of a percent validator that has the following features:</p>
  *    <ul>
  *       <li>It is <i>lenient</i> about the the presence of the <i>percent symbol</i></li>
  *       <li>It converts the percent to a <code>java.math.BigDecimal</code></li>
  *    </ul>
- * 
+ *
  * <p>However any of the <i>number</i> validators can be used for <i>percent</i> validation.
  *    For example, if you wanted a <i>percent</i> validator that converts to a
  *    <code>java.lang.Float</code> then you can simply instantiate an
  *    <code>FloatValidator</code> with the appropriate <i>format type</i>:</p>
- *    
+ *
  *    <p><code>... = new FloatValidator(false, FloatValidator.PERCENT_FORMAT);</code></p>
  *
  * <p>Pick the appropriate validator, depending on the type (i.e Float, Double or BigDecimal)
@@ -46,6 +46,8 @@ import java.math.BigDecimal;
  * @since Validator 1.3.0
  */
 public class PercentValidator extends BigDecimalValidator {
+
+    private static final long serialVersionUID = -3508241924961535772L;
 
     private static final PercentValidator VALIDATOR = new PercentValidator();
 
@@ -71,8 +73,8 @@ public class PercentValidator extends BigDecimalValidator {
 
     /**
      * Construct an instance with the specified strict setting.
-     * 
-     * @param strict <code>true</code> if strict 
+     *
+     * @param strict <code>true</code> if strict
      *        <code>Format</code> parsing should be used.
      */
     public PercentValidator(boolean strict) {
@@ -81,13 +83,13 @@ public class PercentValidator extends BigDecimalValidator {
 
     /**
      * <p>Parse the value with the specified <code>Format</code>.</p>
-     * 
+     *
      * <p>This implementation is lenient whether the currency symbol
      *    is present or not. The default <code>NumberFormat</code>
      *    behaviour is for the parsing to "fail" if the currency
      *    symbol is missing. This method re-parses with a format
      *    without the currency symbol if it fails initially.</p>
-     * 
+     *
      * @param value The value to be parsed.
      * @param formatter The Format to parse the value with.
      * @return The parsed value if valid or <code>null</code> if invalid.
@@ -112,12 +114,12 @@ public class PercentValidator extends BigDecimalValidator {
             }
             decimalFormat.applyPattern(buffer.toString());
             parsedValue = (BigDecimal)super.parse(value, decimalFormat);
-            
+
             // If parsed OK, divide by 100 to get percent
             if (parsedValue != null) {
                 parsedValue = parsedValue.multiply(POINT_ZERO_ONE);
             }
-            
+
         }
         return parsedValue;
     }

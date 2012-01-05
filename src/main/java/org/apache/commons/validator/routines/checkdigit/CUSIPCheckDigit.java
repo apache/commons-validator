@@ -38,6 +38,8 @@ package org.apache.commons.validator.routines.checkdigit;
  */
 public final class CUSIPCheckDigit extends ModulusCheckDigit {
 
+    private static final long serialVersionUID = 666941918490152456L;
+
     /** Singleton CUSIP Check Digit instance */
     public static final CheckDigit CUSIP_CHECK_DIGIT = new CUSIPCheckDigit();
 
@@ -55,7 +57,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      * Convert a character at a specified position to an integer value.
      *
      * @param character The character to convert
-     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The integer value of the character
      * @throws CheckDigitException if character is not alphanumeric
@@ -64,7 +66,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
             throws CheckDigitException {
         int charValue = Character.getNumericValue(character);
         if (charValue < 0 || charValue > 35) {
-            throw new CheckDigitException("Invalid Character[" + 
+            throw new CheckDigitException("Invalid Character[" +
                     leftPos + "] = '" + charValue + "'");
         }
         return charValue;
@@ -79,7 +81,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      * of <b>two</b>. Weighted values > 9, have 9 subtracted</p>
      *
      * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character.
      */

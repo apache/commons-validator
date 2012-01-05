@@ -25,12 +25,12 @@ import java.util.ArrayList;
 /**
  * <p>Perform credit card validations.</p>
  * <p>
- * By default, all supported card types are allowed.  You can specify which 
- * cards should pass validation by configuring the validation options.  For 
+ * By default, all supported card types are allowed.  You can specify which
+ * cards should pass validation by configuring the validation options.  For
  * example,<br/><code>CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.AMEX + CreditCardValidator.VISA);</code>
  * configures the validator to only pass American Express and Visa cards.
  * If a card type is not directly supported by this class, you can implement
- * the CreditCardType interface and pass an instance into the 
+ * the CreditCardType interface and pass an instance into the
  * <code>addAllowedCardType</code> method.
  * </p>
  * For a similar implementation in Perl, reference Sean M. Burke's
@@ -42,6 +42,8 @@ import java.util.ArrayList;
  * @since Validator 1.4
  */
 public class CreditCardValidator implements Serializable {
+
+    private static final long serialVersionUID = 5955978921148959496L;
 
     /**
      * Option specifying that no cards are allowed.  This is useful if
@@ -80,7 +82,7 @@ public class CreditCardValidator implements Serializable {
      * Option specifying that Diners cards are allowed.
      */
     public static final long DINERS = 1 << 4;
-    
+
     /**
      * The CreditCardTypes that are allowed to pass validation.
      */
@@ -119,7 +121,7 @@ public class CreditCardValidator implements Serializable {
     /**
      * Create a new CreditCardValidator with the specified options.
      * @param options Pass in
-     * CreditCardValidator.VISA + CreditCardValidator.AMEX to specify that 
+     * CreditCardValidator.VISA + CreditCardValidator.AMEX to specify that
      * those are the only valid card types.
      */
     public CreditCardValidator(long options) {
@@ -199,7 +201,7 @@ public class CreditCardValidator implements Serializable {
 
     }
     /**
-     * Tests whether the given flag is on.  If the flag is not a power of 2 
+     * Tests whether the given flag is on.  If the flag is not a power of 2
      * (ie. 3) this tests whether the combination of flags is on.
      *
      * @param options The options specified.

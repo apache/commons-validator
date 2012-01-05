@@ -27,12 +27,14 @@ import java.util.Locale;
  *
  * <p>This is a <i>base</i> class for building Number
  *    Validators using format parsing.</p>
- *    
+ *
  * @version $Revision$ $Date$
  * @since Validator 1.3.0
  */
 public abstract class AbstractNumberValidator extends AbstractFormatValidator {
-    
+
+    private static final long serialVersionUID = -3088817875906765463L;
+
     /** Standard <code>NumberFormat</code> type */
     public static final int STANDARD_FORMAT = 0;
 
@@ -48,8 +50,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     /**
      * Construct an instance with specified <i>strict</i>
      * and <i>decimal</i> parameters.
-     * 
-     * @param strict <code>true</code> if strict 
+     *
+     * @param strict <code>true</code> if strict
      *        <code>Format</code> parsing should be used.
      * @param formatType The <code>NumberFormat</code> type to
      *        create for validation, default is STANDARD_FORMAT.
@@ -65,7 +67,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     /**
      * <p>Indicates whether the number being validated is
      *    a decimal or integer.</p>
-     * 
+     *
      * @return <code>true</code> if decimals are allowed
      *       or <code>false</code> if the number is an integer.
      */
@@ -76,7 +78,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     /**
      * <p>Indicates the type of <code>NumberFormat</code> created
      *    by this validator instance.</p>
-     * 
+     *
      * @return the format type created.
      */
     public int getFormatType() {
@@ -85,7 +87,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
 
     /**
      * <p>Validate using the specified <code>Locale</code>.</p>
-     * 
+     *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
      *        default for the <code>Locale</code> if <code>null</code>.
@@ -99,7 +101,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
 
     /**
      * Check if the value is within a specified range.
-     * 
+     *
      * @param value The value validation is being performed on.
      * @param min The minimum value of the range.
      * @param max The maximum value of the range.
@@ -112,7 +114,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
 
     /**
      * Check if the value is greater than or equal to a minimum.
-     * 
+     *
      * @param value The value validation is being performed on.
      * @param min The minimum value.
      * @return <code>true</code> if the value is greater than
@@ -128,7 +130,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
 
     /**
      * Check if the value is less than or equal to a maximum.
-     * 
+     *
      * @param value The value validation is being performed on.
      * @param max The maximum value.
      * @return <code>true</code> if the value is less than
@@ -163,9 +165,9 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Process the parsed value, performing any further validation 
+     * <p>Process the parsed value, performing any further validation
      *    and type conversion required.</p>
-     * 
+     *
      * @param value The parsed object created.
      * @param formatter The Format used to parse the value with.
      * @return The parsed value converted to the appropriate type
@@ -176,7 +178,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     /**
      * <p>Returns a <code>NumberFormat</code> for the specified <i>pattern</i>
      *    and/or <code>Locale</code>.</p>
-     * 
+     *
      * @param pattern The pattern used to validate the value against or
      *        <code>null</code> to use the default for the <code>Locale</code>.
      * @param locale The locale to use for the currency format, system default if null.
@@ -203,8 +205,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
 
     /**
      * <p>Returns the <i>multiplier</i> of the <code>NumberFormat</code>.</p>
-     * 
-     * @param format The <code>NumberFormat</code> to determine the 
+     *
+     * @param format The <code>NumberFormat</code> to determine the
      *        multiplier of.
      * @return The multiplying factor for the format..
      */
@@ -236,7 +238,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
 
     /**
      * <p>Returns a <code>NumberFormat</code> for the specified Locale.</p>
-     * 
+     *
      * @param locale The locale a <code>NumberFormat</code> is required for,
      *   system default if null.
      * @return The <code>NumberFormat</code> to created.

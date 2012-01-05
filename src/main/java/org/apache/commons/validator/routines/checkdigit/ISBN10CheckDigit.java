@@ -44,6 +44,8 @@ package org.apache.commons.validator.routines.checkdigit;
  */
 public final class ISBN10CheckDigit extends ModulusCheckDigit {
 
+    private static final long serialVersionUID = 8000855044504864964L;
+
     /** Singleton ISBN-10 Check Digit instance */
     public static final CheckDigit ISBN10_CHECK_DIGIT = new ISBN10CheckDigit();
 
@@ -62,7 +64,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
      * by their position.</p>
      *
      * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character.
      */
@@ -77,7 +79,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
      * <p>Character 'X' check digit converted to 10.</p>
      *
      * @param character The character to convert.
-     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The integer value of the character.
      * @throws CheckDigitException if an error occurs.

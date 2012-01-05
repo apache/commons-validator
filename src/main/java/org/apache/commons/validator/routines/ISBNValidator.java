@@ -24,7 +24,7 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigitException;
 /**
  * <b>ISBN-10</b> and <b>ISBN-13</b> Code Validation.
  * <p>
- * This validator validates the code is either a valid ISBN-10 
+ * This validator validates the code is either a valid ISBN-10
  * (using a {@link CodeValidator} with the {@link ISBN10CheckDigit})
  * or a valid ISBN-13 code (using a {@link CodeValidator} with the
  * the {@link EAN13CheckDigit} routine).
@@ -43,17 +43,19 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigitException;
  * <ul>
  *   <li><a href="http://en.wikipedia.org/wiki/ISBN">Wikipedia - International
  *       Standard Book Number (ISBN)</a>.</li>
- *   <li>EAN - see 
- *       <a href="http://en.wikipedia.org/wiki/European_Article_Number">Wikipedia - 
+ *   <li>EAN - see
+ *       <a href="http://en.wikipedia.org/wiki/European_Article_Number">Wikipedia -
  *       European Article Number</a>.</li>
  *   <li><a href="http://www.isbn.org/standards/home/isbn/transition.asp">ISBN-13
  *       Transition details</a>.</li>
  * </ul>
- * 
+ *
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
 public class ISBNValidator implements Serializable {
+
+    private static final long serialVersionUID = 4319515687976420405L;
 
     private static final String SEP = "(?:\\-|\\s)";
     private static final String GROUP = "(\\d{1,5})";
@@ -65,15 +67,15 @@ public class ISBNValidator implements Serializable {
      * or spaces.  The first group is 1-5 characters, second 1-7, third 1-6,
      * and fourth is 1 digit or an X.
      */
-    static final String ISBN10_REGEX     = 
+    static final String ISBN10_REGEX     =
                   "^(?:(\\d{9}[0-9X])|(?:" + GROUP + SEP + PUBLISHER + SEP + TITLE + SEP + "([0-9X])))$";
 
     /**
      * ISBN-13 consists of 5 groups of numbers separated by either dashes (-)
-     * or spaces.  The first group is 978 or 979, the second group is 
+     * or spaces.  The first group is 978 or 979, the second group is
      * 1-5 characters, third 1-7, fourth 1-6, and fifth is 1 digit.
      */
-    static final String ISBN13_REGEX     = 
+    static final String ISBN13_REGEX     =
         "^(978|979)(?:(\\d{10})|(?:" + SEP + GROUP + SEP + PUBLISHER + SEP + TITLE + SEP + "([0-9])))$";
 
     /** ISBN Code Validator (which converts ISBN-10 codes to ISBN-13 */
@@ -100,7 +102,7 @@ public class ISBNValidator implements Serializable {
     public static ISBNValidator getInstance() {
         return ISBN_VALIDATOR;
     }
-    
+
     /**
      * Return a singleton instance of the ISBN validator specifying
      * whether ISBN-10 codes should be converted to ISBN-13.
@@ -138,7 +140,7 @@ public class ISBNValidator implements Serializable {
      * Check the code is either a valid ISBN-10 or ISBN-13 code.
      *
      * @param code The code to validate.
-     * @return <code>true</code> if a valid ISBN-10 or 
+     * @return <code>true</code> if a valid ISBN-10 or
      * ISBN-13 code, otherwise <code>false</code>.
      */
     public boolean isValid(String code) {
@@ -149,7 +151,7 @@ public class ISBNValidator implements Serializable {
      * Check the code is a valid ISBN-10 code.
      *
      * @param code The code to validate.
-     * @return <code>true</code> if a valid ISBN-10 
+     * @return <code>true</code> if a valid ISBN-10
      * code, otherwise <code>false</code>.
      */
     public boolean isValidISBN10(String code) {
@@ -160,7 +162,7 @@ public class ISBNValidator implements Serializable {
      * Check the code is a valid ISBN-13 code.
      *
      * @param code The code to validate.
-     * @return <code>true</code> if a valid ISBN-13 
+     * @return <code>true</code> if a valid ISBN-13
      * code, otherwise <code>false</code>.
      */
     public boolean isValidISBN13(String code) {
@@ -173,7 +175,7 @@ public class ISBNValidator implements Serializable {
      * If valid, this method returns the ISBN code with
      * formatting characters removed (i.e. space or hyphen).
      * <p>
-     * Converts an ISBN-10 codes to ISBN-13 if 
+     * Converts an ISBN-10 codes to ISBN-13 if
      * <code>convertToISBN13</code> is <code>true</code>.
      *
      * @param code The code to validate.

@@ -26,7 +26,7 @@ import java.util.TimeZone;
  * <p><b>Time Validation</b> and Conversion routines (<code>java.util.Calendar</code>).</p>
  *
  * <p>This validator provides a number of methods for validating/converting
- *    a <code>String</code> time value to a <code>java.util.Calendar</code> using 
+ *    a <code>String</code> time value to a <code>java.util.Calendar</code> using
  *    <code>java.text.DateFormat</code> to parse either:</p>
  *    <ul>
  *       <li>using the default format for the default <code>Locale</code></li>
@@ -34,12 +34,12 @@ import java.util.TimeZone;
  *       <li>using the default format for a specified <code>Locale</code></li>
  *       <li>using a specified pattern with a specified <code>Locale</code></li>
  *    </ul>
- *    
- * <p>For each of the above mechanisms, conversion method (i.e the  
+ *
+ * <p>For each of the above mechanisms, conversion method (i.e the
  *    <code>validate</code> methods) implementations are provided which
- *    either use the default <code>TimeZone</code> or allow the 
+ *    either use the default <code>TimeZone</code> or allow the
  *    <code>TimeZone</code> to be specified.</p>
- *    
+ *
  * <p>Use one of the <code>isValid()</code> methods to just validate or
  *    one of the <code>validate()</code> methods to validate and receive a
  *    <i>converted</i> <code>Calendar</code> value for the time.</p>
@@ -47,11 +47,11 @@ import java.util.TimeZone;
  * <p>Implementations of the <code>validate()</code> method are provided
  *    to create <code>Calendar</code> objects for different <i>time zones</i>
  *    if the system default is not appropriate.</p>
- *    
+ *
  * <p>Alternatively the CalendarValidator's <code>adjustToTimeZone()</code> method
  *    can be used to adjust the <code>TimeZone</code> of the <code>Calendar</code>
- *    object afterwards.</p> 
- * 
+ *    object afterwards.</p>
+ *
  * <p>Once a value has been sucessfully converted the following
  *    methods can be used to perform various time comparison checks:</p>
  *    <ul>
@@ -68,10 +68,10 @@ import java.util.TimeZone;
  *           of two times, returing 0, -1 or +1 indicating
  *           whether the first is equal to, before or after the second.</li>
  *    </ul>
- * 
- * <p>So that the same mechanism used for parsing an <i>input</i> value 
+ *
+ * <p>So that the same mechanism used for parsing an <i>input</i> value
  *    for validation can be used to format <i>output</i>, corresponding
- *    <code>format()</code> methods are also provided. That is you can 
+ *    <code>format()</code> methods are also provided. That is you can
  *    format either:</p>
  *    <ul>
  *       <li>using a specified pattern</li>
@@ -83,6 +83,8 @@ import java.util.TimeZone;
  * @since Validator 1.3.0
  */
 public class TimeValidator extends AbstractCalendarValidator {
+
+    private static final long serialVersionUID = 3494007492269691581L;
 
     private static final TimeValidator VALIDATOR = new TimeValidator();
 
@@ -105,8 +107,8 @@ public class TimeValidator extends AbstractCalendarValidator {
     /**
      * Construct an instance with the specified <i>strict</i>
      * and <i>time style</i> parameters.
-     * 
-     * @param strict <code>true</code> if strict 
+     *
+     * @param strict <code>true</code> if strict
      *        <code>Format</code> parsing should be used.
      * @param timeStyle the time style to use for Locale validation.
      */
@@ -116,7 +118,7 @@ public class TimeValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Validate/convert a time using the default <code>Locale</code>
-     *    and <code>TimeZone</code>. 
+     *    and <code>TimeZone</code>.
      *
      * @param value The value validation is being performed on.
      * @return The parsed <code>Calendar</code> if valid or <code>null</code>
@@ -219,7 +221,7 @@ public class TimeValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Compare Times (hour, minute, second and millisecond - not date).</p>
-     * 
+     *
      * @param value The <code>Calendar</code> value to check.
      * @param compare The <code>Calendar</code> to compare the value to.
      * @return Zero if the hours are equal, -1 if first
@@ -232,7 +234,7 @@ public class TimeValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Compare Seconds (hours, minutes and seconds).</p>
-     * 
+     *
      * @param value The <code>Calendar</code> value to check.
      * @param compare The <code>Calendar</code> to compare the value to.
      * @return Zero if the hours are equal, -1 if first
@@ -245,7 +247,7 @@ public class TimeValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Compare Minutes (hours and minutes).</p>
-     * 
+     *
      * @param value The <code>Calendar</code> value to check.
      * @param compare The <code>Calendar</code> to compare the value to.
      * @return Zero if the hours are equal, -1 if first
@@ -258,7 +260,7 @@ public class TimeValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Compare Hours.</p>
-     * 
+     *
      * @param value The <code>Calendar</code> value to check.
      * @param compare The <code>Calendar</code> to compare the value to.
      * @return Zero if the hours are equal, -1 if first
@@ -271,7 +273,7 @@ public class TimeValidator extends AbstractCalendarValidator {
 
     /**
      * <p>Convert the parsed <code>Date</code> to a <code>Calendar</code>.</p>
-     * 
+     *
      * @param value The parsed <code>Date</code> object created.
      * @param formatter The Format used to parse the value with.
      * @return The parsed value converted to a <code>Calendar</code>.

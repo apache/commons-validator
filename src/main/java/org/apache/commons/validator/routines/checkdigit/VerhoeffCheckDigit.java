@@ -27,18 +27,20 @@ import java.io.Serializable;
  * <p>
  * See <a href="http://en.wikipedia.org/wiki/Verhoeff_algorithm">Wikipedia
  *  - Verhoeff algorithm</a> for more details.
- *    
+ *
  * @version $Revision$ $Date$
  * @since Validator 1.4
  */
 public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
+
+    private static final long serialVersionUID = 4138993995483695178L;
 
     /** Singleton Verhoeff Check Digit instance */
     public static final CheckDigit VERHOEFF_CHECK_DIGIT = new VerhoeffCheckDigit();
 
     /** D - multiplication table */
     private static final int[][] D_TABLE = new int[][] {
-        {0,  1,  2,  3,  4,  5,  6,  7,  8,  9}, 
+        {0,  1,  2,  3,  4,  5,  6,  7,  8,  9},
         {1,  2,  3,  4,  0,  6,  7,  8,  9,  5},
         {2,  3,  4,  0,  1,  7,  8,  9,  5,  6},
         {3,  4,  0,  1,  2,  8,  9,  5,  6,  7},
@@ -110,10 +112,10 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
     private int calculateChecksum(String code, boolean includesCheckDigit) throws CheckDigitException {
         int checksum = 0;
         for (int i = 0; i < code.length(); i++) {
-            int idx = code.length() - (i + 1); 
+            int idx = code.length() - (i + 1);
             int num = Character.getNumericValue(code.charAt(idx));
             if (num < 0 || num > 9) {
-                throw new CheckDigitException("Invalid Character[" + 
+                throw new CheckDigitException("Invalid Character[" +
                         i + "] = '" + ((int)code.charAt(idx)) + "'");
             }
             int pos = includesCheckDigit ? i : i + 1;

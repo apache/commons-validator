@@ -38,6 +38,8 @@ package org.apache.commons.validator.routines.checkdigit;
  */
 public final class SedolCheckDigit extends ModulusCheckDigit {
 
+    private static final long serialVersionUID = -8976881621148878443L;
+
     /** Singleton SEDOL check digit instance */
     public static final CheckDigit SEDOL_CHECK_DIGIT = new SedolCheckDigit();
 
@@ -72,7 +74,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * code at a specified position.
      *
      * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character.
      */
@@ -84,7 +86,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * Convert a character at a specified position to an integer value.
      *
      * @param character The character to convert
-     * @param leftPos The position of the character in the code, counting from left to right 
+     * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The integer value of the character
      * @throws CheckDigitException if character is not alphanumeric
@@ -93,7 +95,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
             throws CheckDigitException {
         int charValue = Character.getNumericValue(character);
         if (charValue < 0 || charValue > 35) {
-            throw new CheckDigitException("Invalid Character[" + 
+            throw new CheckDigitException("Invalid Character[" +
                     leftPos + "] = '" + charValue + "'");
         }
         return charValue;
