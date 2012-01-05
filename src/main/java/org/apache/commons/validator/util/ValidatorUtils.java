@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.FastHashMap;
@@ -143,10 +144,11 @@ public class ValidatorUtils {
     public static FastHashMap copyFastHashMap(FastHashMap map) {
         FastHashMap results = new FastHashMap();
 
-        Iterator i = map.keySet().iterator();
+        Iterator i = map.entrySet().iterator();
         while (i.hasNext()) {
-            String key = (String) i.next();
-            Object value = map.get(key);
+            Entry entry = (Entry) i.next();
+            String key = (String) entry.getKey();
+            Object value = entry.getValue();
 
             if (value instanceof Msg) {
                 results.put(key, ((Msg) value).clone());
@@ -162,10 +164,10 @@ public class ValidatorUtils {
         results.setFast(true);
         return results;
     }
-    
+
     /**
-     * Makes a deep copy of a <code>Map</code> if the values are 
-     * <code>Msg</code>, <code>Arg</code>, or <code>Var</code>.  Otherwise, 
+     * Makes a deep copy of a <code>Map</code> if the values are
+     * <code>Msg</code>, <code>Arg</code>, or <code>Var</code>.  Otherwise,
      * it is a shallow copy.
      *
      * @param map The source Map to copy.
@@ -175,10 +177,11 @@ public class ValidatorUtils {
     public static Map copyMap(Map map) {
         Map results = new HashMap();
 
-        Iterator iter = map.keySet().iterator();
-        while (iter.hasNext()) {
-            String key = (String) iter.next();
-            Object value = map.get(key);
+        Iterator i = map.entrySet().iterator();
+        while (i.hasNext()) {
+            Entry entry = (Entry) i.next();
+            String key = (String) entry.getKey();
+            Object value = entry.getValue();
 
             if (value instanceof Msg) {
                 results.put(key, ((Msg) value).clone());
