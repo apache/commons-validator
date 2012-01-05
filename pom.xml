@@ -143,10 +143,10 @@
         </includes>
        </resource>
       <resource>
-        <directory>src/main/resources</directory>
+        <directory>${basedir}/src/main/resources</directory>
       </resource>
       <resource>
-        <directory>src/javascript</directory>
+        <directory>${basedir}/src/javascript</directory>
         <includes>
           <include>**/*.js</include>
         </includes>
