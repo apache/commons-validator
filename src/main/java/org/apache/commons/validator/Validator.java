@@ -43,7 +43,7 @@ public class Validator implements Serializable {
      */
     public static final String VALIDATOR_ACTION_PARAM =
             "org.apache.commons.validator.ValidatorAction";
-            
+
     /**
      * Resources key the <code>ValidatorResults</code> is stored under.
      * This will be automatically passed into a validation method
@@ -51,7 +51,7 @@ public class Validator implements Serializable {
      * specified in the method signature.
      */
     public static final String VALIDATOR_RESULTS_PARAM =
-            "org.apache.commons.validator.ValidatorResults";        
+            "org.apache.commons.validator.ValidatorResults";
 
     /**
      * Resources key the <code>Form</code> is stored under.
@@ -60,7 +60,7 @@ public class Validator implements Serializable {
      * specified in the method signature.
      */
     public static final String FORM_PARAM = "org.apache.commons.validator.Form";
-            
+
     /**
      * Resources key the <code>Field</code> is stored under.
      * This will be automatically passed into a validation method
@@ -77,7 +77,7 @@ public class Validator implements Serializable {
      */
     public static final String VALIDATOR_PARAM =
             "org.apache.commons.validator.Validator";
-            
+
     /**
      * Resources key the <code>Locale</code> is stored.
      * This will be used to retrieve the appropriate
@@ -95,7 +95,7 @@ public class Validator implements Serializable {
      * The name of the form to validate
      */
     protected String formName = null;
-    
+
     /**
      * The name of the field on the form to validate
      * @since 1.2.0
@@ -119,7 +119,7 @@ public class Validator implements Serializable {
      * used to load Digester itself, is used, based on the value of the
      * <code>useContextClassLoader</code> variable.
      */
-    protected ClassLoader classLoader = null;
+    protected transient ClassLoader classLoader = null;
 
     /**
      * Whether or not to use the Context ClassLoader when loading classes
@@ -161,7 +161,7 @@ public class Validator implements Serializable {
         this.resources = resources;
         this.formName = formName;
     }
-    
+
     /**
      * Construct a <code>Validator</code> that will
      * use the <code>ValidatorResources</code>
@@ -223,7 +223,7 @@ public class Validator implements Serializable {
     public void setFormName(String formName) {
         this.formName = formName;
     }
-    
+
     /**
      * Sets the name of the field to validate in a form (optional)
      *
