@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -147,15 +149,16 @@ public class FormSet implements Serializable {
         if (depends != null) {
             Map pForms = getForms();
             Map dForms = depends.getForms();
-            for (Iterator it = dForms.keySet().iterator(); it.hasNext(); ) {
-                Object key = it.next();
+            for (Iterator it = dForms.entrySet().iterator(); it.hasNext(); ) {
+                Entry entry = (Entry) it.next();
+                Object key = entry.getKey();
                 Form pForm = (Form) pForms.get(key);
                 if (pForm != null) {//merge, but principal 'rules', don't overwrite
                     // anything
-                    pForm.merge((Form) dForms.get(key));
+                    pForm.merge((Form) entry.getValue());
                 }
                 else {//just add
-                    addForm((Form) dForms.get(key));
+                    addForm((Form) entry.getValue());
                 }
             }
         }
@@ -237,7 +240,7 @@ public class FormSet implements Serializable {
         if (constants.containsKey(name)) {
             getLog().error("Constant '" + name +  "' already exists in FormSet["
                       + this.displayKey() + "] - ignoring.");
-                       
+
         } else {
             constants.put(name, value);
         }
@@ -253,9 +256,9 @@ public class FormSet implements Serializable {
 
         String formName = f.getName();
         if (forms.containsKey(formName)) {
-            getLog().error("Form '" + formName + "' already exists in FormSet[" 
+            getLog().error("Form '" + formName + "' already exists in FormSet["
                       + this.displayKey() + "] - ignoring.");
-                       
+
         } else {
             forms.put(f.getName(), f);
         }
