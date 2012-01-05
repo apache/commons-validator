@@ -290,4 +290,29 @@
     </plugins>
   </reporting>
 
+  <profiles>
+    <profile>
+      <id>rc</id>
+      <distributionManagement>
+        <!-- Cannot define in parent ATM, see COMMONSSITE-26 -->
+        <site>
+          <id>apache.website</id>
+          <name>Apache Commons Release Candidate Staging Site</name>
+          <url>${commons.deployment.protocol}://people.apache.org/www/people.apache.org/builds/commons/${commons.componentid}/${commons.release.version}/${commons.rc.version}/site</url>
+        </site>
+      </distributionManagement>
+    </profile>
+    <profile>
+      <id>release</id>
+      <distributionManagement>
+        <!-- Cannot define in parent ATM, see COMMONSSITE-26 -->
+        <site>
+          <id>apache.website</id>
+          <name>Apache Commons Release Site</name>
+          <url>${commons.deployment.protocol}://people.apache.org/www/commons.apache.org/validator/</url>
+        </site>
+      </distributionManagement>
+    </profile>
+  </profiles>
+
 </project>
