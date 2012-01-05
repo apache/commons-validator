@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.Iterator;
 
 /**
- * This contains the results of a set of validation rules processed 
+ * This contains the results of a set of validation rules processed
  * on a JavaBean.
  *
  * @version $Revision$ $Date$
@@ -130,7 +130,7 @@ public class ValidatorResult implements Serializable {
     /**
      * Contains the status of the validation.
      */
-    protected class ResultStatus implements Serializable {
+    protected static class ResultStatus implements Serializable {
         private boolean valid = false;
         private Object result = null;
 
