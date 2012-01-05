@@ -25,12 +25,12 @@ import org.apache.commons.validator.util.Flags;
 /**
  * <p>Perform credit card validations.</p>
  * <p>
- * By default, all supported card types are allowed.  You can specify which 
- * cards should pass validation by configuring the validation options.  For 
+ * By default, all supported card types are allowed.  You can specify which
+ * cards should pass validation by configuring the validation options.  For
  * example,<br/><code>CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.AMEX + CreditCardValidator.VISA);</code>
  * configures the validator to only pass American Express and Visa cards.
  * If a card type is not directly supported by this class, you can implement
- * the CreditCardType interface and pass an instance into the 
+ * the CreditCardType interface and pass an instance into the
  * <code>addAllowedCardType</code> method.
  * </p>
  * For a similar implementation in Perl, reference Sean M. Burke's
@@ -78,7 +78,7 @@ public class CreditCardValidator {
      * Option specifying that Discover cards are allowed.
      */
     public static final int DISCOVER = 1 << 3;
-    
+
     /**
      * The CreditCardTypes that are allowed to pass validation.
      */
@@ -94,7 +94,7 @@ public class CreditCardValidator {
     /**
      * Create a new CreditCardValidator with the specified options.
      * @param options Pass in
-     * CreditCardValidator.VISA + CreditCardValidator.AMEX to specify that 
+     * CreditCardValidator.VISA + CreditCardValidator.AMEX to specify that
      * those are the only valid card types.
      */
     public CreditCardValidator(int options) {
@@ -131,7 +131,7 @@ public class CreditCardValidator {
         if (!this.luhnCheck(card)) {
             return false;
         }
-        
+
         Iterator types = this.cardTypes.iterator();
         while (types.hasNext()) {
             CreditCardType type = (CreditCardType) types.next();
@@ -142,9 +142,9 @@ public class CreditCardValidator {
 
         return false;
     }
-    
+
     /**
-     * Add an allowed CreditCardType that participates in the card 
+     * Add an allowed CreditCardType that participates in the card
      * validation algorithm.
      * @param type The type that is now allowed to pass validation.
      * @since Validator 1.1.2
@@ -182,34 +182,34 @@ public class CreditCardValidator {
 
         return (sum == 0) ? false : (sum % 10 == 0);
     }
-    
+
     /**
      * CreditCardType implementations define how validation is performed
      * for one type/brand of credit card.
      * @since Validator 1.1.2
      */
     public interface CreditCardType {
-        
+
         /**
          * Returns true if the card number matches this type of credit
          * card.  Note that this method is <strong>not</strong> responsible
-         * for analyzing the general form of the card number because 
-         * <code>CreditCardValidator</code> performs those checks before 
+         * for analyzing the general form of the card number because
+         * <code>CreditCardValidator</code> performs those checks before
          * calling this method.  It is generally only required to valid the
-         * length and prefix of the number to determine if it's the correct 
-         * type. 
+         * length and prefix of the number to determine if it's the correct
+         * type.
          * @param card The card number, never null.
          * @return true if the number matches.
          */
         boolean matches(String card);
-        
+
     }
-    
+
     /**
      *  Change to support Visa Carte Blue used in France
      *  has been removed - see Bug 35926
      */
-    private class Visa implements CreditCardType {
+    private static class Visa implements CreditCardType {
         private static final String PREFIX = "4";
         public boolean matches(String card) {
             return (
@@ -217,23 +217,23 @@ public class CreditCardValidator {
                     && (card.length() == 13 || card.length() == 16));
         }
     }
-            
-    private class Amex implements CreditCardType {
+
+    private static class Amex implements CreditCardType {
         private static final String PREFIX = "34,37,";
         public boolean matches(String card) {
             String prefix2 = card.substring(0, 2) + ",";
             return ((PREFIX.indexOf(prefix2) != -1) && (card.length() == 15));
         }
     }
-    
-    private class Discover implements CreditCardType {
+
+    private static class Discover implements CreditCardType {
         private static final String PREFIX = "6011";
         public boolean matches(String card) {
             return (card.substring(0, 4).equals(PREFIX) && (card.length() == 16));
         }
     }
-    
-    private class Mastercard implements CreditCardType {
+
+    private static class Mastercard implements CreditCardType {
         private static final String PREFIX = "51,52,53,54,55,";
         public boolean matches(String card) {
             String prefix2 = card.substring(0, 2) + ",";
