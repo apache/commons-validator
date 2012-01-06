@@ -43,6 +43,8 @@
 
    <module name="TreeWalker">
 
+    <property name="cacheFile" value="${checkstyle.cache.file}"/>
+
     <!-- Item 4 - Avoid creating duplicate objects -->
     <module name="IllegalInstantiation">
       <property name="classes" value="java.lang.Boolean, java.lang.String"/>
