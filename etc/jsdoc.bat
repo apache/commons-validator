@@ -37,5 +37,5 @@ set _PACKAGE=/org/apache/commons/validator/javascript
 set _JSDOC_HOME=%1
 set _JAVASCRIPT_DIR=%2%_PACKAGE%
 set _OUTPUT_DIR=%3%_PACKAGE%
-set _COPYRIGHT="Copyright © 2000-2005 - Apache Software Foundation"
+set _COPYRIGHT="Copyright © 2000-2012 - Apache Software Foundation"
 perl %_JSDOC_HOME%/jsdoc.pl --project-summary %_JAVASCRIPT_DIR%/package.html --project-name "Package %_PACKAGE%" --page-footer %_COPYRIGHT% -d %_OUTPUT_DIR% %_JAVASCRIPT_DIR% 
