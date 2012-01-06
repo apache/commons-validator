@@ -27,25 +27,25 @@
   <body>
     <menu name="Validator">
       <item name="Overview"          href="/index.html"/>
-      <item name="Download"          href="http://commons.apache.org/validator/download_validator.cgi"/>
+      <item name="Download"          href="/download_validator.cgi"/>
       <item name="Release Notes"     href="/changes-report.html"/>
       <item name="Dependencies"      href="/dependencies.html"/>
       <item name="License"           href="/license.html"/>
     </menu>
 
     <menu name="Documentation">
-      <item name="Framework"         href="apidocs/org/apache/commons/validator/package-summary.html#package_description"/>
-      <item name="Routines"          href="apidocs/org/apache/commons/validator/routines/package-summary.html#package_description"/>
+      <item name="Framework"         href="/apidocs/org/apache/commons/validator/package-summary.html#package_description"/>
+      <item name="Routines"          href="/apidocs/org/apache/commons/validator/routines/package-summary.html#package_description"/>
       <item name="Wiki"              href="http://wiki.apache.org/commons/Validator"/>
+    </menu>
 
-      <item name="JavaDocs">
-        <item name="1.4.0 Release"   href="http://commons.apache.org/validator/api-1.4.0/"/>
-        <item name="1.3.1 Release"   href="http://commons.apache.org/validator/api-1.3.1/"/>
-        <item name="1.3.0 Release"   href="http://commons.apache.org/validator/api-1.3.0/"/>
-        <item name="1.2.0 Release"   href="http://commons.apache.org/validator/api-1.2.0/"/>
-        <item name="1.1.4 Release"   href="http://commons.apache.org/validator/api-1.1.4/"/>
-        <item name="1.0.2 Release"   href="http://commons.apache.org/validator/api-1.0.2/"/>
-      </item>
+    <menu name="JavaDocs">
+      <item name="1.4.0 Release"   href="/api-1.4.0/"/>
+      <item name="1.3.1 Release"   href="/api-1.3.1/"/>
+      <item name="1.3.0 Release"   href="/api-1.3.0/"/>
+      <item name="1.2.0 Release"   href="/api-1.2.0/"/>
+      <item name="1.1.4 Release"   href="/api-1.1.4/"/>
+      <item name="1.0.2 Release"   href="/api-1.0.2/"/>
     </menu>
 
     <menu name="Development">
