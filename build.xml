@@ -133,7 +133,6 @@
     <pathelement location="${commons-beanutils.jar}"/>
     <pathelement location="${commons-digester.jar}"/>
     <pathelement location="${commons-logging.jar}"/>
-    <pathelement location="${oro.jar}"/>
     <path refid="downloaded.lib.classpath"/>
   </path>
 
@@ -142,7 +141,6 @@
     <pathelement location="${download.lib.dir}/commons-beanutils.jar"/>
     <pathelement location="${download.lib.dir}/commons-digester.jar"/>
     <pathelement location="${download.lib.dir}/commons-logging.jar"/>
-    <pathelement location="${download.lib.dir}/oro.jar"/>
     <pathelement location="${download.lib.dir}/junit.jar"/>
   </path>
 
@@ -156,7 +154,6 @@
     <pathelement location="${commons-beanutils.jar}"/>
     <pathelement location="${commons-digester.jar}"/>
     <pathelement location="${commons-logging.jar}"/>
-    <pathelement location="${oro.jar}"/>
     <pathelement location="${junit.jar}"/>
     <pathelement location="${xerces.jar}"/>
     <path refid="downloaded.lib.classpath"/>
@@ -279,7 +276,7 @@
 
   <target name="javadoc" depends="compile, javadoc.js"
    description="Create component Javadoc documentation">
-    <javadoc sourcepath="${source.home}"
+    <!--javadoc sourcepath="${source.home}"
                 destdir="${dist.home}/docs/apidocs"
            packagenames="org.apache.commons.*"
                  author="true"
@@ -288,7 +285,7 @@
                doctitle="&lt;h1&gt;${component.title} (Version ${component.version})&lt;/h1&gt;"
             windowtitle="${component.title} (Version ${component.version})"
                  bottom="Copyright (c) 2001-2004  Apache Software Foundation"
-           classpathref="compile.classpath" />
+           classpathref="compile.classpath" / -->
   </target>
 
 
@@ -474,7 +471,6 @@
         <antcall target="download-beanutils" />
         <antcall target="download-digester" />
         <antcall target="download-logging" />
-        <antcall target="download-oro" />
         <antcall target="download-junit" />
     </target>
 
@@ -483,7 +479,6 @@
         <available file="${commons-beanutils.jar}" property="beanutils.found"/> 
         <available file="${commons-digester.jar}"  property="digester.found"/> 
         <available file="${commons-logging.jar}"   property="logging.found"/> 
-        <available file="${oro.jar}"               property="oro.found"/>
         <available file="${junit.jar}"             property="junit.found"/>
     </target>
 
@@ -509,14 +504,6 @@
         <get dest="${download.lib.dir}/commons-logging.jar"
             usetimestamp="true" ignoreerrors="true"
             src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.4.jar"/>
-    </target>
-
-    <target name="download-oro" unless="oro.found">
-        <echo message="Downloading oro..."/>
-        <mkdir dir="${download.lib.dir}" />
-        <get dest="${download.lib.dir}/oro.jar"
-            usetimestamp="true" ignoreerrors="true"
-            src="http://www.ibiblio.org/maven/oro/jars/oro-2.0.8.jar"/>
     </target>
 
     <target name="download-junit" unless="junit.found">

@@ -37,8 +37,10 @@ DEPENDENCIES
 =============
 
 The dependencies for Validator 1.4 have only one change since the 1.3.1 
-release, in that the Jakarta ORO dependency has been removed.
-(See http://commons.apache.org/validator/dependencies.html)
+release, in that the Jakarta ORO dependency has been removed (VALIDATOR-193).
+
+For the current list of dependencies, please see
+http://commons.apache.org/validator/dependencies.html
 
 BUGS FROM PREVIOUS RELEASE
 ===========================
@@ -111,10 +113,20 @@ IMPROVEMENTS OVER PREVIOUS RELEASE
 DEPRECATIONS
 ============
 
- * NONE
+ * Most of the org.apache.commons.validator classes have been deprecated,
+   in favour of the new org.apache.commons.validator.routines classes.
 
 OTHER NOTES
 ============
 
- * NONE
+Users should be aware of the following potential issues with migration:
+
+ * The protected method validator.EmailValidator.isValidIpAddress() previously 
+   exposed a Jakarta ORO class via its signature.  The signature has been 
+   modified to accept a a java.lang.String and is not therefore not compatible.
+   However, this class is deprecated and clients should use the equivalent 
+   class in the validator.routines package. 
+
+* Invocations of the method GenericValidator.matchRegexp() should be inspected 
+  for semantic differences between Jakarta ORO and Java regular expressions.
  

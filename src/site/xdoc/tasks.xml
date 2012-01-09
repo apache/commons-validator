@@ -51,29 +51,6 @@
             to use configuration semantics specific to their domain.
         </li>
         <li>
-            Examine the need for all dependencies.  Validator has many dependencies that are very lightly used
-            and could be removed.  Two likely candidates for removal are commons-collections and ORO.  The first
-            because Validator only uses one class in a very large jar and backward incompatible changes in recent 
-            versions.  The second because it can easily be replaced with the faster and standard Java 1.4 regex
-            engine.
-        </li>
-        <li>
-            Scenario one:
-          Replace the Jakarta ORO regex engine with the standard Java 1.4 engine.  Preliminary tests show a 
-          50% speed improvement using the standard engine.  This will remove the ORO dependency and
-          bring Validator in line with standard Java regular expressions.  However, this requires a move
-          to Java 1.4 as the base required Java version.  A good time for this move may be Validator 2.0 when
-          we also change the configuration file semantics.
-        </li>
-        <li>
-          Scenario two:
-          ORO provides a much richer interface to regular expressions, such that we don't have
-          to worry about bit twiddling, this includes a pluggable regex engine. Jeffrey E Friedl states
-          in Mastering Regular Expressions 2ed, says that in speaking to the ORO developers that they
-          will likely develop an adapter to the Java 1.4 regex, See page 378. So we get use of ORO and the speed of 
-          Java 1.4 Regex engine. 
-        </li>
-        <li>
             ValidatorException is only thrown to indicate configuration and programmer errors
             yet is a checked exception.  ValidatorException should be converted to a RuntimeException to match its
             real purpose.  Furthermore, the exception handling for pluggable validations (ValidatorActions)
