@@ -41,33 +41,33 @@
   <inceptionYear>2002</inceptionYear>
 
   <developers>
-  <developer>
-    <name>Don Brown</name>
-    <id>mrdon</id>
-    <email>mrdon@apache.org</email>
-  </developer>
-  <developer>
-    <name>Martin Cooper</name>
-    <id>martinc</id>
-    <email>martinc@apache.org</email>
-  </developer>
-  <developer>
-    <name>David Graham</name>
-    <id>dgraham</id>
-    <email>dgraham@apache.org</email>
-  </developer>
-  <developer>
-    <name>Ted Husted</name>
-    <id>husted</id>
-    <email>husted@apache.org</email>
-  </developer>
-  <developer>
-    <name>Rob Leland</name>
-    <id>rleland</id>
-    <email>rleland at apache.org</email>
-  </developer>
-  <developer>
-    <name>Craig McClanahan</name>
+    <developer>
+      <name>Don Brown</name>
+      <id>mrdon</id>
+      <email>mrdon@apache.org</email>
+    </developer>
+    <developer>
+      <name>Martin Cooper</name>
+      <id>martinc</id>
+      <email>martinc@apache.org</email>
+    </developer>
+    <developer>
+      <name>David Graham</name>
+      <id>dgraham</id>
+      <email>dgraham@apache.org</email>
+    </developer>
+    <developer>
+      <name>Ted Husted</name>
+      <id>husted</id>
+      <email>husted@apache.org</email>
+    </developer>
+    <developer>
+      <name>Rob Leland</name>
+      <id>rleland</id>
+      <email>rleland at apache.org</email>
+    </developer>
+    <developer>
+      <name>Craig McClanahan</name>
       <id>craigmcc</id>
       <email>craigmcc@apache.org</email>
     </developer>
