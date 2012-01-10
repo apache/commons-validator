@@ -43,6 +43,12 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.4.0" date="in SVN" description="JDK 1.4 (minimum)">
+    <action dev="simonetripodi" type="fix" issue="VALIDATOR-301" due-to="Jacob Zwiers">
+      CheckStyle and FindBug Issues - inner classes and key sets
+    </action>
+    <action dev="nick" type="fix" issue="VALIDATOR-300" due-to="Jacob Zwiers">
+      clirr Report - EmailValidator.isValidIpAddress() argument type change
+    </action>
     <action dev="niallp" type="fix" issue="VALIDATOR-226" due-to="Lian Ort">
       Null-Stream input to ValidatorResources leads to MalformedURLExceptions
     </action>

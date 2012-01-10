@@ -109,6 +109,9 @@ IMPROVEMENTS OVER PREVIOUS RELEASE
                      violates RFC1034 
  * [VALIDATOR-288] - UrlValidator does not validate URL with simple domains 
                      (eg: http://hostname ) 
+ * [VALIDATOR-300] - clirr Report - EmailValidator.isValidIpAddress() argument
+                     type change
+ * [VALIDATOR-301] - CheckStyle and FindBug Issues - inner classes and key sets
 
 DEPRECATIONS
 ============
