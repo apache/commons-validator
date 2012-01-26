@@ -58,23 +58,6 @@ The <action> type attribute can be add,update,fix,remove.
     <action dev="niallp" type="update" issue="VALIDATOR-223" due-to="Hasan Turksoy">
       Move the trim() function from validateRequired.js to validateUtilities.js
     </action>
-    <action dev="niallp" type="update">
-      <a href="apidocs/org/apache/commons/validator/routines/ISBNValidator.html">ISBN Validator</a>
-      <ul>
-       <li>Moved to the new 
-         <a href="apidocs/org/apache/commons/validator/routines/package-summary.html">routines</a> package.</li>
-       <li>Re-written to use the new 
-        <a href="apidocs/org/apache/commons/validator/routines/CodeValidator.html">CodeValidator</a> and
-        <a href="apidocs/org/apache/commons/validator/routines/checkdigit/package-summary.html">Check Digit</a> routines.</li>
-       <li>Enhanced for the new <a href="http://issues.apache.org/jira/browse/VALIDATOR-188">ISBN-13 format</a>.</li>
-       <li><a href="http://jakarta.apache.org/oro/">Jakarta ORO</a> dependency removed.</li>
-      </ul>
-    <fixes issue="VALIDATOR-197"/>
-    <fixes issue="VALIDATOR-188"/>
-    <fixes issue="VALIDATOR-191"/>
-    <dueto name="Gabriel Belingueres"/>
-    <dueto name="Matthias Wessendorf"/>
-    </action>
     <action dev="niallp" type="add" issue="VALIDATOR-215">
       <a href="apidocs/org/apache/commons/validator/routines/CodeValidator.html">Code Validator</a>
        - new generic code validator that validates:
@@ -99,6 +82,15 @@ The <action> type attribute can be add,update,fix,remove.
     </action>
     <action dev="niallp" type="update" issue="VALIDATOR-211">
       Upgrade to Digester 1.8
+    </action>
+    <action dev="niallp" type="update" issue="VALIDATOR-197">
+      Copy remaining Validation Routines to the new routines package
+    </action>
+    <action dev="niallp" type="update" issue="VALIDATOR-191" due-to="Matthias Wessendorf">
+      Remove the dependency on Jakarta ORO (move to JDK 1.4 regular expression support)
+    </action>
+    <action dev="niallp" type="update" issue="VALIDATOR-188" due-to="Gabriel Belingueres">
+      Extend ISBN validator to support smooth transition to ISBN-13 / EAN-13 standard
     </action>
     <action dev="niallp" type="update">
       <b>JDK 1.4</b> - change minimum dependency for validator to be JDK 1.4 (was 1.3). Primary reason
