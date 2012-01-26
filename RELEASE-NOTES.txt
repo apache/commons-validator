@@ -76,7 +76,7 @@ IMPROVEMENTS OVER PREVIOUS RELEASE
                      regular expression support)
  * [VALIDATOR-192] - Adding ISBNValidator to GenericValidator
  * [VALIDATOR-193] - Removing ORO dep. from GenericValidator
- * [VALIDATOR-203] - Refactor UrlValidator - especially the line 370-ish TODO.
+ * [VALIDATOR-203] - Refactor UrlValidator - especially the line 370-ish.
  * [VALIDATOR-211] - Upgrade to Digester 1.8
  * [VALIDATOR-213] - Factor out Check Digit logic into separate
                      implementations
