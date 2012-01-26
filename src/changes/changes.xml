@@ -80,9 +80,9 @@ The <action> type attribute can be add,update,fix,remove.
       Extend ISBN validator to support smooth transition to ISBN-13 / EAN-13 standard
     </action>
     <action dev="niallp" type="update">
-      <b>JDK 1.4</b> - change minimum dependency for validator to be JDK 1.4 (was 1.3). Primary reason
+      JDK 1.4 - change minimum dependency for validator to be JDK 1.4 (was 1.3). Primary reason
       for this is to use JDK 1.4+ built in <i>regular expression</i> support and remove the dependency
-      on <a href="http://jakarta.apache.org/oro/">Jakarta ORO</a>.
+      on Jakarta ORO.
     </action>
   </release>
 
