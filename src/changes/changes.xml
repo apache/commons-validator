@@ -46,6 +46,48 @@ The <action> type attribute can be add,update,fix,remove.
     <action dev="simonetripodi" type="fix" issue="VALIDATOR-301" due-to="Jacob Zwiers">
       CheckStyle and FindBug Issues - inner classes and key sets
     </action>
+    <action dev="niallp" type="update" issue="VALIDATOR-288" due-to="feroze daud">
+      UrlValidator does not validate URL with simple domains (eg: http://hostname )
+    </action>
+    <action dev="niallp" type="update" issue="VALIDATOR-275" due-to="Adam Gordon">
+      EmailValidator.isValid(String) follows RFC822 but violates RFC1034
+    </action>
+    <action dev="bspeakmon" type="update" issue="VALIDATOR-252" due-to="Makoto Uchino">
+      Performance improvement of DomainValidator by change the regular expression
+    </action>
+    <action dev="niallp" type="update" issue="VALIDATOR-251" due-to="Meenal Gupta">
+      url with brackets is not validated thru URLvalidator class.
+    </action>
+    <action dev="niallp" type="update" issue="VALIDATOR-250">
+      Banking CheckDigit implementations: ABA, CUSIP, IBAN, ISIN and Sedol
+    </action>
+    <action dev="niallp" type="update" issue="VALIDATOR-249">
+      Add Diners card validation to CreditCardValidator
+    </action>
+    <action dev="bspeakmon" type="update" issue="VALIDATOR-248" due-to="Sergey Nebolsin">
+      Add an option to allow 'localhost' as a valid hostname part in the URL
+    </action>
+    <action dev="niallp" type="update" issue="VALIDATOR-247" due-to="bspeakmon">
+      Move CreditCardValidator to routines package and refactor to use new CodeValidator
+    </action>
+    <action dev="bspeakmon" type="update" issue="VALIDATOR-242">
+      Move EmailValidator to routines package
+    </action>
+    <action dev="bspeakmon" type="update" issue="VALIDATOR-241" due-to="niallp">
+      New InetAdress Validator implementation
+    </action>
+    <action dev="niallp" type="update" issue="VALIDATOR-240" due-to="Webb Morris">
+      Support the 65 prefix for Discover Card
+    </action>
+    <action dev="niallp" type="update" issue="VALIDATOR-234" due-to="Paul Benedict">
+      Create 1.4 DTD
+    </action>
+    <action dev="niallp" type="update" issue="VALIDATOR-233" due-to="Paul Benedict">
+      Switch to using Version 0.4.3 of the Dojo Compressor from the maven repo
+    </action>
+    <action dev="bspeakmon" type="update" issue="VALIDATOR-232" due-to="Paul Benedict">
+      Add script attribute to control script generation
+    </action>
     <action dev="nick" type="fix" issue="VALIDATOR-300" due-to="Jacob Zwiers">
       clirr Report - EmailValidator.isValidIpAddress() argument type change
     </action>
@@ -70,8 +112,17 @@ The <action> type attribute can be add,update,fix,remove.
     <action dev="niallp" type="update" issue="VALIDATOR-211">
       Upgrade to Digester 1.8
     </action>
+    <action dev="bspeakmon" type="update" issue="VALIDATOR-203" due-to="bayard">
+      Refactor UrlValidator - especially the line 370-ish.
+    </action>
     <action dev="niallp" type="update" issue="VALIDATOR-197">
       Copy remaining Validation Routines to the new routines package
+    </action>
+    <action dev="bspeakmon" type="update" issue="VALIDATOR-193" due-to="Matthias Wessendorf">
+      Removing ORO dep. from GenericValidator
+    </action>
+    <action dev="niallp" type="update" issue="VALIDATOR-192" due-to="Matthias Wessendorf">
+      Adding ISBNValidator to GenericValidator
     </action>
     <action dev="niallp" type="update" issue="VALIDATOR-191" due-to="Matthias Wessendorf">
       Remove the dependency on Jakarta ORO (move to JDK 1.4 regular expression support)
