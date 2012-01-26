@@ -59,26 +59,13 @@ The <action> type attribute can be add,update,fix,remove.
       Move the trim() function from validateRequired.js to validateUtilities.js
     </action>
     <action dev="niallp" type="add" issue="VALIDATOR-215">
-      <a href="apidocs/org/apache/commons/validator/routines/CodeValidator.html">Code Validator</a>
-       - new generic code validator that validates:
-       <ul>
-       <li><b>Format</b> - validates the format of the code using a
-         <a href="apidocs/org/apache/commons/validator/routines/RegexValidator.html">Regular Expression</a>.</li>
-       <li><b>Length</b> - validates the minimum and maximum length of the code.</li>
-       <li><b>Check Digit</b> - validates a code's 
-         <a href="apidocs/org/apache/commons/validator/routines/checkdigit/CheckDigit.html">CheckDigit</a>
-         using a check digit
-         <a href="apidocs/org/apache/commons/validator/routines/checkdigit/package-summary.html">implementation</a>.</li>
-      </ul>
+      New generic CodeValidator that validates format, length and Check Digit for a code
     </action>
     <action dev="niallp" type="add" issue="VALIDATOR-214">
-      <a href="apidocs/org/apache/commons/validator/routines/RegexValidator.html">Regular Expression Validator</a>
-       - new Regular Expression validator using JDK 1.4's Regex.
+      New Regular Expression validator using JDK 1.4's Regex
     </action>
     <action dev="niallp" type="add" issue="VALIDATOR-213">
-      <a href="apidocs/org/apache/commons/validator/routines/checkdigit/CheckDigit.html">Check Digit Validation</a>
-      - factor out <i>Check Digit</i> logic into separate
-      <a href="apidocs/org/apache/commons/validator/routines/checkdigit/package-summary.html">implementations</a>.
+      Factor out Check Digit logic into separate implementations
     </action>
     <action dev="niallp" type="update" issue="VALIDATOR-211">
       Upgrade to Digester 1.8
