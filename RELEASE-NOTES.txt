@@ -24,7 +24,7 @@ INTRODUCTION
 ============
 
 This is a maintenance release with improvements. New projects are encouraged to
-use this release of validator.
+use this release of Commons Validator.
 
 IMPORTANT NOTES
 ================
