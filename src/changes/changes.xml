@@ -46,8 +46,29 @@ The <action> type attribute can be add,update,fix,remove.
     <action dev="simonetripodi" type="fix" issue="VALIDATOR-301" due-to="Jacob Zwiers">
       CheckStyle and FindBug Issues - inner classes and key sets
     </action>
+    <action dev="nick" type="fix" issue="VALIDATOR-293" due-to="Will Glass-Husain">
+      Email validation fails with dash or hyphen at end of local address
+    </action>
+    <action dev="nick" type="fix" issue="VALIDATOR-292">
+      @localhost and @localhost.localdomain email addresses aren't correctly detected as valid
+    </action>
+    <action dev="nick" type="fix" issue="VALIDATOR-289" due-to="GM">
+      UrlValidator.isValid does not properly validate *.travel domains
+    </action>
     <action dev="niallp" type="update" issue="VALIDATOR-288" due-to="feroze daud">
       UrlValidator does not validate URL with simple domains (eg: http://hostname )
+    </action>
+    <action dev="nick" type="fix" issue="VALIDATOR-286">
+      isValid method for EmailValidator should return false for domain with special characters only
+    </action>
+    <action dev="nick" type="fix" issue="VALIDATOR-282">
+      formatDate(String value, Locale locale) in GenericTypeValidator uses DateFormat.SHORT instead of DateFormat.DEFAULT
+    </action>
+    <action dev="nick" type="fix" issue="VALIDATOR-276">
+      isValidURL call returns false for file scheme/protocol when URL is correct
+    </action>
+    <action dev="nick" type="fix" issue="VALIDATOR-271" due-to="Ralf Hauser">
+      gmail testing addresses do not validate
     </action>
     <action dev="niallp" type="update" issue="VALIDATOR-275" due-to="Adam Gordon">
       EmailValidator.isValid(String) follows RFC822 but violates RFC1034
@@ -99,6 +120,15 @@ The <action> type attribute can be add,update,fix,remove.
     </action>
     <action dev="niallp" type="update" issue="VALIDATOR-223" due-to="Hasan Turksoy">
       Move the trim() function from validateRequired.js to validateUtilities.js
+    </action>
+    <action dev="niallp" type="fix" issue="VALIDATOR-220" due-to="Adam Gordon">
+      EmailValidator fails with ArrayIndexOutOfBoundsException on domain names longer than 10 segments
+    </action>
+    <action dev="bspeakmon" type="fix" issue="VALIDATOR-218" due-to="Stephen Chu">
+      UrlValidator fail when path contains "(" / ")"
+    </action>
+    <action dev="bspeakmon" type="fix" issue="VALIDATOR-216" due-to="Kenji Matsuoka">
+      UrlValidator rejects top-level domains (TLDs) with more than 4 characters
     </action>
     <action dev="niallp" type="add" issue="VALIDATOR-215">
       New generic CodeValidator that validates format, length and Check Digit for a code
@@ -161,7 +191,7 @@ The <action> type attribute can be add,update,fix,remove.
     JavaScript Causes HTML Page to Contain Illegal HTML.
     </action>
     <action dev="niallp" type="update" issue="VALIDATOR-209" due-to="Craig McClanahan">
-    Additional constructor for ValidatorResources that takes URL[] instead of String[].
+    Additional constructor for ValidatorResources that takes URL["> instead of String[">.
     </action>
     <action dev="niallp" type="fix" issue="VALIDATOR-195" due-to="Vijay Pandey">
     Fix loading of Digester rules for custom ValidatorResources implementations.
