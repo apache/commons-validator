@@ -193,6 +193,7 @@
             <descriptor>${basedir}/src/main/assembly/src.xml</descriptor>
           </descriptors>
           <tarLongFileMode>gnu</tarLongFileMode>
+          <attach>false</attach>
         </configuration>
       </plugin>
     </plugins>
