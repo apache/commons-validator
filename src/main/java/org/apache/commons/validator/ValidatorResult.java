@@ -148,6 +148,13 @@ public class ValidatorResult implements Serializable {
             this.valid = valid;
             this.result = result;
         }
+        /**
+         * Provided for backwards binary compatibility only
+         * @deprecated Use {@link #ValidatorResult(boolean, Object)} instead
+         */
+        public ResultStatus(ValidatorResult ignored, boolean valid, Object result) {
+            this(valid, result);
+        }
 
         /**
          * Tests whether or not the validation passed.
