@@ -25,7 +25,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <version>1.4.0</version>
+  <version>1.4.1-SNAPSHOT</version>
   <name>Commons Validator</name>
   <description>
     Commons Validator provides the building blocks for both client side validation and server side data validation.
@@ -113,9 +113,9 @@
   </contributors>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/validator/tags/VALIDATOR_1_4_0_RC2</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/validator/tags/VALIDATOR_1_4_0_RC2</developerConnection>
-    <url>http://svn.apache.org/viewvc/commons/proper/validator/tags/VALIDATOR_1_4_0_RC2</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/validator/trunk/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/validator/trunk/</developerConnection>
+    <url>http://svn.apache.org/viewvc/commons/proper/validator/trunk/</url>
   </scm>
 
   <distributionManagement>
