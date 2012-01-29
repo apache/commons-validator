@@ -24,7 +24,7 @@
 apache.dir=D:/Java/Programs/Apache
 
 
-# The JAR file containing version 1.8.3 (or later) of the Beanutils package
+# The JAR file containing version 1.7.0 (or later) of the Beanutils package
 # from the Jakarta Commons project.
 commons-beanutils.jar=../beanutils/dist/commons-beanutils.jar
 
@@ -32,7 +32,7 @@ commons-beanutils.jar=../beanutils/dist/commons-beanutils.jar
 # from the Jakarta Commons project.
 commons-digester.jar=../digester/dist/commons-digester.jar
 
-# The JAR file containing version 1.1.1 (or later) of the Logging package
+# The JAR file containing version 1.1 (or later) of the Logging package
 # from the Jakarta Commons project.
 commons-logging.jar=../logging/dist/commons-logging.jar
 
