@@ -487,7 +487,7 @@
         <mkdir dir="${download.lib.dir}" />
         <get dest="${download.lib.dir}/commons-beanutils.jar"
             usetimestamp="true" ignoreerrors="true"
-            src="http://mirrors.ibiblio.org/pub/mirrors/maven/commons-beanutils/jars/commons-beanutils-1.7.0.jar"/>
+            src="http://mirrors.ibiblio.org/pub/mirrors/maven/commons-beanutils/jars/commons-beanutils-1.8.3.jar"/>
     </target>
 
     <target name="download-digester" unless="digester.found">
@@ -503,7 +503,7 @@
         <mkdir dir="${download.lib.dir}" />
         <get dest="${download.lib.dir}/commons-logging.jar"
             usetimestamp="true" ignoreerrors="true"
-            src="http://mirrors.ibiblio.org/pub/mirrors/maven/commons-logging/jars/commons-logging-1.0.4.jar"/>
+            src="http://mirrors.ibiblio.org/pub/mirrors/maven/commons-logging/jars/commons-logging-1.1.1.jar"/>
     </target>
 
     <target name="download-junit" unless="junit.found">
