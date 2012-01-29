@@ -94,6 +94,9 @@
   <!-- The base directory for example sources -->
   <property name="example.home"            value="src/example"/>
 
+  <!-- Directory where test results are stored -->
+  <property name="test.results.dir"        value="${build.home}/test-results" />
+
   <!-- Directory where binary release files are staged -->
   <property name="stage.bin.dir"           value="${release.home}/stage/bin"/>
 
@@ -162,10 +165,6 @@
   <!-- Should all tests fail if one does? -->
   <property name="test.failonerror"        value="true"/>
 
-  <!-- The test runner to execute -->
-  <property name="test.runner"             value="junit.textui.TestRunner"/>
-
-
 <!-- ========== Example Execution Defaults ================================ -->
 
 
@@ -196,6 +195,7 @@
     <mkdir dir="${build.home}"/>
     <mkdir dir="${build.home}/classes"/>
     <mkdir dir="${build.home}/tests"/>
+    <mkdir dir="${test.results.dir}"/>
   </target>
 
 
@@ -366,31 +366,55 @@
   <target name="test.main"  depends="compile.tests"
    description="Run main unit test cases">
     <echo message="Running main tests ..."/>
-    <java classname="${test.runner}" fork="yes"
-        failonerror="${test.failonerror}">
-      <arg value="org.apache.commons.validator.ValidatorTestSuite"/>
+
+    <junit fork="yes" forkmode="once" printsummary="yes" 
+           haltonfailure="${test.failonerror}" 
+           failureproperty="main.test.failed" showoutput="true">
       <classpath refid="test.classpath"/>
-    </java>
+      <formatter type="plain"/>
+      <batchtest todir="${test.results.dir}">
+         <fileset dir="${test.home}/java">
+           <include name="org/apache/commons/validator/*Test.java" />
+           <exclude name="**/Abstract*Test.java" />
+         </fileset>
+      </batchtest>
+    </junit>
   </target>
 
   <target name="test.checkdigit"  depends="compile.tests"
    description="Run checkdigit unit test cases">
     <echo message="Running checkdigit tests ..."/>
-    <java classname="${test.runner}" fork="yes"
-        failonerror="${test.failonerror}">
-      <arg value="org.apache.commons.validator.routines.checkdigit.CheckDigitTestSuite"/>
+
+    <junit fork="yes" forkmode="once" printsummary="yes" 
+           haltonfailure="${test.failonerror}" 
+           failureproperty="main.test.failed" showoutput="true">
       <classpath refid="test.classpath"/>
-    </java>
+      <formatter type="plain"/>
+      <batchtest todir="${test.results.dir}">
+         <fileset dir="${test.home}/java">
+           <include name="org/apache/commons/validator/routines/checkdigit/*Test.java" />
+           <exclude name="**/Abstract*Test.java" />
+         </fileset>
+      </batchtest>
+    </junit>
   </target>
 
   <target name="test.routines"  depends="compile.tests"
    description="Run routines unit test cases">
     <echo message="Running routines tests ..."/>
-    <java classname="${test.runner}" fork="yes"
-        failonerror="${test.failonerror}">
-      <arg value="org.apache.commons.validator.routines.RoutinesTestSuite"/>
+
+    <junit fork="yes" forkmode="once" printsummary="yes" 
+           haltonfailure="${test.failonerror}" 
+           failureproperty="main.test.failed" showoutput="true">
       <classpath refid="test.classpath"/>
-    </java>
+      <formatter type="plain"/>
+      <batchtest todir="${test.results.dir}">
+         <fileset dir="${test.home}/java">
+           <include name="org/apache/commons/validator/routines/*Test.java" />
+           <exclude name="**/Abstract*Test.java" />
+         </fileset>
+      </batchtest>
+    </junit>
   </target>
 
 <!-- ========== Example Targets =========================================== -->
