@@ -20,7 +20,7 @@
     <name>Apache Commons Validator</name>
     <shortname>Commons Validator</shortname>
     <homepage rdf:resource="http://commons.apache.org/validator/"/>
-    <wiki rdf:resource="http://wiki.apache.org/jakarta-commons/Validator"/>
+    <wiki rdf:resource="http://wiki.apache.org/commons/Validator"/>
     <programming-language>Java</programming-language>
     <category rdf:resource="http://projects.apache.org/category/library"/>
     <license rdf:resource="http://usefulinc.com/doap/licenses/asl20"/>
