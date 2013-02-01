@@ -20,7 +20,7 @@
 </head>
 <body bgcolor="white">
 The Validator package provides validation for JavaBeans based on an xml file.
-<br><br>
+<br/><br/>
 <a name="doc.Description"></a>
 <div align="center">
 <a href="http://commons.apache.org/validator/dependencies.html">[Dependencies]</a>
@@ -144,59 +144,54 @@ speed development and maintenance of validation rules.
 </p>
 <p>
    Create an xml file with your validator and validation rules.
-   Setup your required validator in your xml file.<br>
-   <br>
-   <a href="#doc.Usage.xml">XML Example</a><br>
-   <a href="#doc.Usage.validator">Validator Example</a><br>
+   Setup your required validator in your xml file.<br/>
+   <br/>
+   <a href="#doc.Usage.xml">XML Example</a><br/>
+   <a href="#doc.Usage.validator">Validator Example</a><br/>
    <a href="#doc.Usage.pluggableValidator">Pluggable Validator Example</a>
 </p>
 
 <a name="doc.Usage.xml"></a>
 <h4>XML Example</h4>
 <p>
-   Definition of a 'required' pluggable validator.<br>
-   <br>
-   &lt;form-validation&gt; <br>
-   &nbsp;&nbsp;&nbsp;&lt;global&gt; <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;validator name="required" <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; classname="org.apache.commons.validator.TestValidator" <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; method="validateRequired" <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; methodParams="java.lang.Object,
-                                    org.apache.commons.validator.Field"/&gt; <br>
-
-   &nbsp;&nbsp;&nbsp; &lt;/global&gt; <br>
-   &nbsp;&nbsp;&nbsp; &lt;formset&gt; <br>
-   &nbsp;&nbsp;&nbsp; &lt;/formset&gt; <br>
-   &lt;/form-validation&gt; <br>
-
+   Definition of a 'required' pluggable validator.<br/>
+<pre>
+&lt;form-validation&gt;
+   &lt;global&gt;
+      &lt;validator name="required"
+         classname="org.apache.commons.validator.TestValidator"
+         method="validateRequired"
+         methodParams="java.lang.Object, org.apache.commons.validator.Field"/&gt;
+   &lt;/global&gt;
+   &lt;formset&gt;
+   &lt;/formset&gt;
+&lt;/form-validation&gt;
+</pre>
 </p>
 <p>
-   Add validation rules to require a first name and a last name.<br>
-   <br>
-   &lt;form-validation&gt; <br>
-   &nbsp;&nbsp;&nbsp;&lt;global&gt; <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;validator name="required" <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; classname="org.apache.commons.validator.TestValidator" <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; method="validateRequired" <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; methodParams="java.lang.Object,
-                                    org.apache.commons.validator.Field"/&gt; <br>
-
-   &nbsp;&nbsp;&nbsp; &lt;/global&gt; <br>
+   Add validation rules to require a first name and a last name.<br/>
+<pre>
+&lt;form-validation&gt;
+   &lt;global&gt;
+      &lt;validator name="required"
+         classname="org.apache.commons.validator.TestValidator"
+         method="validateRequired"
+         methodParams="java.lang.Object, org.apache.commons.validator.Field"/&gt;
+   &lt;/global&gt;
 <b>
-   &nbsp;&nbsp;&nbsp; &lt;formset&gt; <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;form    name="nameForm"&gt; <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    &lt;field    property="firstName"
-                                                        depends="required"&gt; <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    	     &lt;arg0 key="nameForm.firstname.displayname"/&gt; <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    &lt;/field&gt; <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    &lt;field    property="lastName"
-                                                             depends="required"&gt; <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    	     &lt;arg0 key="nameForm.lastname.displayname"/&gt; <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    &lt;/field&gt; <br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/form&gt; <br>
-   &nbsp;&nbsp;&nbsp; &lt;/formset&gt; <br>
+   &lt;formset&gt;
+      &lt;form    name="nameForm"&gt;
+         &lt;field property="firstName" depends="required"&gt;
+            &lt;arg0 key="nameForm.firstname.displayname"/&gt;
+         &lt;/field&gt;
+         &lt;field property="lastName" depends="required"&gt;
+            &lt;arg0 key="nameForm.lastname.displayname"/&gt;
+         &lt;/field&gt;
+      &lt;/form&gt;
+   &lt;/formset&gt;
 </b>
-   &lt;/form-validation&gt; <br>
+&lt;/form-validation&gt;
+</pre>
 </p>
 
 <a name="doc.Usage.validator"></a>
@@ -204,38 +199,33 @@ speed development and maintenance of validation rules.
 <p>
 Excerpts from org.apache.commons.validator.RequiredNameTest
 </p>
-<p>
-InputStream in = this.getClass().getResourceAsStream("validator-name-required.xml");<br>
-<br>
-// Create an instance of ValidatorResources to <br>
-// initialize from an xml file. <br>
+<pre>
+InputStream in = this.getClass().getResourceAsStream("validator-name-required.xml");
+
+// Create an instance of ValidatorResources to initialize from an xml file.
 ValidatorResources resources = new ValidatorResources(in);
-</p>
-<p>
-// Create bean to run test on.<br>
-Name name = new Name();<br>
-<br>
-      // Construct validator based on the loaded resources <br>
-      // and the form key<br>
-      Validator validator = new Validator(resources, "nameForm");<br>
-      // add the name bean to the validator as a resource <br>
-      // for the validations to be performed on.<br>
-      validator.setParameter(Validator.BEAN_PARAM, name);<br>
-<br>
-      // Get results of the validation.<br>
-      Map results = null;<br>
-      <br>
-      // throws ValidatorException, <br>
-      // but aren't catching for example <br>
-      results = validator.validate();<br>
-      <br>
-      if (results.get("firstName") == null) { <br>
-&nbsp;&nbsp;&nbsp; // no error <br>
-      } else {<br>
-&nbsp;&nbsp;&nbsp; // number of errors for first name
-&nbsp;&nbsp;&nbsp; int errors = ((Integer)results.get("firstName")).intValue();<br>
-      } <br>
-</p>
+// Create bean to run test on.
+Name name = new Name();
+
+// Construct validator based on the loaded resources and the form key
+Validator validator = new Validator(resources, "nameForm");
+// add the name bean to the validator as a resource
+// for the validations to be performed on.
+validator.setParameter(Validator.BEAN_PARAM, name);
+
+// Get results of the validation.
+Map results = null;
+
+// throws ValidatorException (catch clause not shown here)
+results = validator.validate();
+
+if (results.get("firstName") == null) {
+   // no error
+} else {
+   // number of errors for first name
+   int errors = ((Integer)results.get("firstName")).intValue();
+}
+</pre>
 
 <a name="doc.Usage.pluggableValidator"></a>
 <h4>Pluggable Validator Example</h4>
@@ -244,11 +234,11 @@ Validation method defined in the 'required' pluggable validator
 (excerpt from org.apache.commons.validator.TestValidator).
 </p>
 
-<p>
-                   public static boolean validateRequired(Object bean, Field field) {<br>
-&nbsp;&nbsp;&nbsp;    String value = ValidatorUtil.getValueAsString(bean, field.getProperty());<br>
-&nbsp;&nbsp;&nbsp;    return GenericValidator.isBlankOrNull(value);<br>
-                   }<br>
-</p>
+<pre>
+public static boolean validateRequired(Object bean, Field field) {
+   String value = ValidatorUtil.getValueAsString(bean, field.getProperty());
+      return GenericValidator.isBlankOrNull(value);
+}
+</pre>
 </body>
 </html>
