@@ -96,7 +96,7 @@ public class UrlValidator implements Serializable {
 
     private static final String ALPHA_CHARS = "a-zA-Z";
 
-    private static final String ALPHA_NUMERIC_CHARS = ALPHA_CHARS + "\\d";
+// NOT USED   private static final String ALPHA_NUMERIC_CHARS = ALPHA_CHARS + "\\d";
 
     private static final String SPECIAL_CHARS = ";/@&=,.?:+$";
 
