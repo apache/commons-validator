@@ -277,6 +277,7 @@ public class RegexValidatorTest extends TestCase {
             } else {
                 fail(label + " Null expect=" + expect + " result=" + result);
             }
+            return; // not strictly necessary, but prevents possible NPE below
         }
 
         // Check Length
