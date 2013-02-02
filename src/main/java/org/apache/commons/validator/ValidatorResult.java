@@ -150,7 +150,7 @@ public class ValidatorResult implements Serializable {
         }
         /**
          * Provided for backwards binary compatibility only
-         * @deprecated Use {@link #ValidatorResult(boolean, Object)} instead
+         * @deprecated Use {@link #ResultStatus(boolean, Object)} instead
          */
         public ResultStatus(ValidatorResult ignored, boolean valid, Object result) {
             this(valid, result);
