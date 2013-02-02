@@ -539,17 +539,27 @@
    The following implementations are provided:
 </p>
 <ul>
-    <li><a href="checkdigit/ModulusCheckDigit.html">ModulusCheckDigit</a>
-        - <b>abstract</b> class for custom <b>modulus</b> check digit
-        implementations.</li>
-    <li><a href="checkdigit/LuhnCheckDigit.html">LuhnCheckDigit</a>
-        for <b>Luhn</b> check digit calculation - used by <b>credit cards</b>.</li>
+    <li><a href="checkdigit/ABANumberheckDigit.html">ABANumberCheckDigit</a>
+        for <b>ABA Number</b> (or <b>Routing Transit Number</b> (RTN)) check digit calculation.</li>
+    <li><a href="checkdigit/CUSIPCheckDigit.html">CUSIPCheckDigit</a>
+        for <b>CUSIP</b> (North American Securities) check digit calculation.</li>
     <li><a href="checkdigit/EAN13CheckDigit.html">EAN13CheckDigit</a>
         for <b>EAN-13</b>, <b>UPC</b>, <b>ISBN-13</b> check digit calculation.</li>
     <li><a href="checkdigit/ISBNCheckDigit.html">ISBNCheckDigit</a>
         for <b>ISBN-10</b> and <b>ISBN-13</b> check digit calculation.</li>
     <li><a href="checkdigit/ISBN10CheckDigit.html">ISBN10CheckDigit</a>
         for <b>ISBN-10</b> check digit calculation.</li>
+    <li><a href="checkdigit/ISINCheckDigit.html">ISINCheckDigit</a>
+        for <b>ISIN</b> International Securities Identifying Number check digit calculation.</li>
+    <li><a href="checkdigit/LuhnCheckDigit.html">LuhnCheckDigit</a>
+        for <b>Luhn</b> check digit calculation - used by <b>credit cards</b>.</li>
+    <li><a href="checkdigit/ModulusCheckDigit.html">ModulusCheckDigit</a>
+        - <b>abstract</b> class for custom <b>modulus</b> check digit
+        implementations.</li>
+    <li><a href="checkdigit/SedolCheckDigit.html">SedolCheckDigit</a>
+        for <b>SEDOL</b> (UK Securities) check digit calculation.</li>
+    <li><a href="checkdigit/VerhoeffCheckDigit.html">VerhoeffCheckDigit</a>
+        for <b>Verhoeff</b> (Dihedral) check digit calculation.</li>
 </ul>
 <p>
    The following examples show validating the check digit of a code:
