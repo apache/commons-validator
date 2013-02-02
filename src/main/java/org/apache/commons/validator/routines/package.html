@@ -23,7 +23,7 @@
 <h1>Table of Contents</h1>
 
 <ul>
-<li>1. <a href="#overview">Overview</a>
+<li>1. <a href="#overview">Overview</a></li>
 <li>2. <a href="#date">Date and Time Validators</a>
     <ul>
     <li>2.1 <a href="#date.overview">Overview</a></li>
@@ -31,7 +31,8 @@
     <li>2.3 <a href="#date.format">Formatting</a></li>
     <li>2.4 <a href="#date.timezone">Time Zones</a></li>
     <li>2.5 <a href="#date.compare">Comparing Dates and Times</a></li>
-    </ul></li>
+    </ul>
+</li>
 <li>3. <a href="#numeric">Numeric Validators</a>
     <ul>
     <li>3.1 <a href="#numeric.overview">Overview</a></li>
@@ -40,7 +41,8 @@
     <li>3.4 <a href="#numeric.compare">Comparing Numbers</a></li>
     <li>3.5 <a href="#numeric.currency">Currency Validation</a></li>
     <li>3.6 <a href="#numeric.percent">Percent Validation</a></li>
-    </ul></li>
+    </ul>
+</li>
 <li>4. <a href="#other">Other Validators</a>
     <ul>
     <li>4.1 <a href="#other.overview">Overview</a></li>
@@ -52,7 +54,8 @@
     <li>4.7 <a href="#other.email">Email Address Validation</a></li>
     <li>4.8 <a href="#other.url">URL Validation</a></li>
     <li>4.9 <a href="#other.domain">Domain Name Validation</a></li>
-    </ul></li>
+    </ul>
+</li>
 </ul>
 
 <a name="overview"></a>
@@ -193,14 +196,14 @@
 
       // Check if the date is in the previous quarter
       compare = validator.compareQuarters(fooDate, new Date(), null);
-      if (compare < 0) {
+      if (compare &lt; 0) {
           // do previous quarter processing
           return;
       }
 
       // Check if the date is in the next year
       compare = validator.compareYears(fooDate, new Date(), null);
-      if (compare > 0) {
+      if (compare &gt; 0) {
           // do next year processing
           return;
       }
