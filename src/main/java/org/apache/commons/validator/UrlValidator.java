@@ -168,12 +168,12 @@ public class UrlValidator implements Serializable {
     /**
      * Holds the set of current validation options.
      */
-    private Flags options = null;
+    private final Flags options;
 
     /**
      * The set of schemes that are allowed to be in a URL.
      */
-    private Set allowedSchemes = new HashSet();
+    private final Set allowedSchemes = new HashSet();
 
     /**
      * If no schemes are provided, default to this set.

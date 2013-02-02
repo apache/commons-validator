@@ -82,7 +82,7 @@ public class CreditCardValidator {
     /**
      * The CreditCardTypes that are allowed to pass validation.
      */
-    private Collection cardTypes = new ArrayList();
+    private final Collection cardTypes = new ArrayList();
 
     /**
      * Create a new CreditCardValidator with default options.

@@ -59,13 +59,13 @@ public class FormSet implements Serializable {
      * A <code>Map</code> of <code>Form</code>s using the name field of the
      * <code>Form</code> as the key.
      */
-    private Map forms = new HashMap();
+    private final Map forms = new HashMap();
 
     /**
      * A <code>Map</code> of <code>Constant</code>s using the name field of the
      * <code>Constant</code> as the key.
      */
-    private Map constants = new HashMap();
+    private final Map constants = new HashMap();
 
     /**
      * This is the type of <code>FormSet</code>s where no locale is specified.
