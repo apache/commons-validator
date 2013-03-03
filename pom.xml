@@ -302,7 +302,15 @@
           <!--excludeFilterFile>${basedir}/findbugs-exclude-filter.xml</excludeFilterFile-->
         </configuration>
       </plugin>
-
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>site-content/**</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
     </plugins>
   </reporting>
 
