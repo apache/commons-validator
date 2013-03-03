@@ -119,11 +119,10 @@
   </scm>
 
   <distributionManagement>
-    <!-- Cannot define in parent ATM, see COMMONSSITE-26 -->
     <site>
       <id>apache.website</id>
-      <name>Apache Commons Release Site</name>
-      <url>${commons.deployment.protocol}://people.apache.org/www/commons.apache.org/validator/</url>
+      <name>Apache Commons Site</name>
+      <url>scm:svn:https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-validator/</url>
     </site>
   </distributionManagement>
 
