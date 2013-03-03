@@ -306,17 +306,6 @@
 
   <profiles>
     <profile>
-      <id>rc</id>
-      <distributionManagement>
-        <!-- Cannot define in parent ATM, see COMMONSSITE-26 -->
-        <site>
-          <id>apache.website</id>
-          <name>Apache Commons Release Candidate Staging Site</name>
-          <url>${commons.deployment.protocol}://people.apache.org/www/people.apache.org/builds/commons/${commons.componentid}/${commons.release.version}/${commons.rc.version}/site</url>
-        </site>
-      </distributionManagement>
-    </profile>
-    <profile>
       <id>setup-checkout</id>
       <activation>
         <file>
