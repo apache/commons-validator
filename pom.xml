@@ -31,7 +31,7 @@
     Commons Validator provides the building blocks for both client side validation and server side data validation.
     It may be used standalone or with a framework like Struts.
   </description>
-  <url>http://commons.apache.org/validator/</url>
+  <url>http://commons.apache.org/proper/commons-validator/</url>
   <issueManagement>
     <system>jira</system>
     <url>http://issues.apache.org/jira/browse/VALIDATOR</url>
