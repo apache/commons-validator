@@ -68,6 +68,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                 "LT121000011101001000",          // Lithuania
                 "LU280019400644750000",          // Luxembourg
                 "LV80BANK0000435195001",         // Latvia
+                "MT84MALT011000012345MTLCAST001S",// Malta
                 "NL39RABO0300065264",            // Netherlands
                 "NL91ABNA0417164300",            // Netherlands
                 "NO9386011117947",               // Norway
@@ -78,6 +79,11 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                 "SI56191000000123438",           // Slovenia
                 "SK3112000000198742637541",      // Slovak Republic
                 };
+        /*
+         *  sources
+         *  https://intranet.birmingham.ac.uk/finance/documents/public/IBAN.pdf
+         *  http://www.paymentscouncil.org.uk/resources_and_publications/ibans_in_europe/
+         */
         invalid = new String[] {"510007+47061BE63"};
         zeroSum = null;
         missingMessage = "Invalid Code length=0";
