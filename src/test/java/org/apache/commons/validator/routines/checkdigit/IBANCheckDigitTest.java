@@ -46,7 +46,6 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
         valid  = new String[]  {
                 "AD1200012030200359100100",
                 "AT611904300234573201",
-                "AT611904300234573201",
                 "BE68539007547034",
                 "BE62510007547061",
                 "CY17002001280000001200527600",
