@@ -78,6 +78,19 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                 "SE3550000000054910000003",      // Sweden
                 "SI56191000000123438",           // Slovenia
                 "SK3112000000198742637541",      // Slovak Republic
+                
+                // Codes AA and ZZ will never be used as ISO countries nor in IBANs
+                // add some dummy calculated codes to test the limits
+                // Current minimum length is Norway = 15
+                // Current maximum length is Malta  = 31
+                // N.B. These codes will fail online checkers which validate the IBAN format
+                //234567890123456789012345678901
+                "AA0200000000053",
+                "AA9700000000089",
+                "AA9800000000071",
+                "ZZ02ZZZZZZZZZZZZZZZZZZZZZZZZZ04",
+                "ZZ97ZZZZZZZZZZZZZZZZZZZZZZZZZ40",
+                "ZZ98ZZZZZZZZZZZZZZZZZZZZZZZZZ22",
                 };
         /*
          *  sources
@@ -95,6 +108,19 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      */
     public void testZeroSum() {
         // ignore, don't run this test
+        
+        // example code used to create dummy IBANs
+//        try {
+//            for(int i=0; i<97;i++) {
+//                String check = String.format("ZZ00ZZZZZZZZZZZZZZZZZZZZZZZZZ%02d", new Object[]{Integer.valueOf(i)});
+//                String chk = routine.calculate(check);
+//                if (chk.equals("97")||chk.equals("98")||chk.equals("02")) {
+//                    System.out.println(check+ " "+chk);
+//                }
+//            }
+//        } catch (CheckDigitException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
@@ -110,7 +136,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
         for (int i = 0; i < codes.length; i++) {
             String code = removeCheckDigit(codes[i]);
             String check  = checkDigit(codes[i]);
-            for (int j = 0; j < 96; j++) {
+            for (int j = 2; j <= 98; j++) { // check digits can be from 02-98 (00 and 01 are not possible)
                 String curr =  j > 9 ? "" + j : "0" + j;
                 if (!curr.equals(check)) {
                     list.add(code.substring(0, 2) + curr + code.substring(4));

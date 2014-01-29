@@ -42,7 +42,13 @@ The <action> type attribute can be add,update,fix,remove.
 
   <body>
 
-  <release version="1.4.0" date="in SVN" description="JDK 1.4 (minimum)">
+  <release version="1.4.1" date="TBA" description="TBA">
+    <action dev="sebb" type="fix" issue="VALIDATOR-331">
+      IBANCheckDigitTest.createInvalidCodes(String[] codes) uses wrong values
+    </action>
+  </release>
+
+  <release version="1.4.0" date="2012-02-03" description="JDK 1.4 (minimum)">
     <action dev="simonetripodi" type="fix" issue="VALIDATOR-301" due-to="Jacob Zwiers">
       CheckStyle and FindBug Issues - inner classes and key sets
     </action>
