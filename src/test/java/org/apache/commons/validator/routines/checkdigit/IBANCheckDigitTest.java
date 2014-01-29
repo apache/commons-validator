@@ -16,8 +16,13 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import junit.framework.Assert;
 
 
 /**
@@ -170,4 +175,22 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
        return code.substring(2, 4);
     }
 
+    public void testOther() throws Exception {
+        BufferedReader rdr = null;
+        try {
+            rdr = new BufferedReader(
+                    new InputStreamReader(
+                            this.getClass().getResourceAsStream("IBANtests.txt"),"ASCII"));
+            String line;
+            while((line=rdr.readLine()) != null) {
+                if (!line.startsWith("#") && line.length() > 0) {
+                    Assert.assertTrue(line, routine.isValid(line.replace(" ", "")));
+                }
+            }
+        } finally {
+            if (rdr != null) {
+                rdr.close();
+            }
+        }
+    }
 }
