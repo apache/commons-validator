@@ -24,7 +24,7 @@ import java.io.Serializable;
  * Provides a <i>base</i> class for building <i>modulus</i> Check
  * Digit routines.
  * <p>
- * This implementation only handles <i>numeric</i> codes, such as
+ * This implementation only handles <i>single-digit numeric</i> codes, such as
  * <b>EAN-13</b>. For <i>alphanumeric</i> codes such as <b>EAN-128</b> you
  * will need to implement/override the <code>toInt()</code> and
  * <code>toChar()</code> methods.
@@ -37,6 +37,8 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
 
     private static final long serialVersionUID = 2948962251251528941L;
 
+    // N.B. The modulus can be > 10 provided that the implementing class overrides toCheckDigit and toInt
+    // (for example as in ISBN10CheckDigit)
     private final int modulus;
 
     /**
@@ -146,8 +148,8 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
      * character-->integer conversion.
      *
      * @param character The character to convert
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
+     * @param leftPos The position of the character in the code, counting from left to right (for identifiying the position in the string)
+     * @param rightPos The position of the character in the code, counting from right to left (not used here)
      * @return The integer value of the character
      * @throws CheckDigitException if character is non-numeric
      */
@@ -164,7 +166,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
     /**
      * Convert an integer value to a check digit.
      * <p>
-     * <b>Note:</b> this implementation only handles numeric values
+     * <b>Note:</b> this implementation only handles single-digit numeric values
      * For non-numeric characters, override this method to provide
      * integer-->character conversion.
      *
