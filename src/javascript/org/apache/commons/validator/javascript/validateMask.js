@@ -19,6 +19,9 @@
     * Check to see if fields are a valid using a regular expression.
     * Fields are not checked if they are disabled.
     * @param form The form validation is taking place on.
+    * @deprecated The JS part of commons validation is deprecated
+    *   Please consider using http://parsleyjs.org/ or another 
+    *   validation library.
     */
     function validateMask(form) {
         var isValid = true;
@@ -58,6 +61,11 @@
         return isValid;
     }
 
+    /**
+     * @deprecated The JS part of commons validation is deprecated
+     *   Please consider using http://parsleyjs.org/ or another 
+     *   validation library.
+     */
     function jcv_matchPattern(value, mask) {
        return mask.exec(value);
     }

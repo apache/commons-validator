@@ -19,6 +19,9 @@
     * Check to see if fields are a valid email address.
     * Fields are not checked if they are disabled.
     * @param form The form validation is taking place on.
+    * @deprecated The JS part of commons validation is deprecated
+    *   Please consider using http://parsleyjs.org/ or another 
+    *   validation library.
     */
     function validateEmail(form) {
         var bValid = true;
@@ -58,6 +61,9 @@
     /**
      * Reference: Sandeep V. Tamhankar (stamhankar@hotmail.com),
      * http://javascript.internet.com
+     * @deprecated The JS part of commons validation is deprecated
+     *   Please consider using http://parsleyjs.org/ or another 
+     *   validation library.
      */
     function jcv_checkEmail(emailStr) {
         if (emailStr.length == 0) {

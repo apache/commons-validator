@@ -19,6 +19,9 @@
     * Check to see if fields are a valid byte.
     * Fields are not checked if they are disabled.
     * @param form The form validation is taking place on.
+    * @deprecated The JS part of commons validation is deprecated
+    *   Please consider using http://parsleyjs.org/ or another 
+    *   validation library.
     */
     function validateByte(form) {
         var bValid = true;

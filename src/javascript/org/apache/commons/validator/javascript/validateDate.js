@@ -19,6 +19,9 @@
     * Check to see if fields are a valid date.
     * Fields are not checked if they are disabled.
     * @param form The form validation is taking place on.
+    * @deprecated The JS part of commons validation is deprecated
+    *   Please consider using http://parsleyjs.org/ or another 
+    *   validation library.
     */
     function validateDate(form) {
        var bValid = true;
@@ -183,6 +186,11 @@
        return bValid;
     }
     
+    /**
+     * @deprecated The JS part of commons validation is deprecated
+     *   Please consider using http://parsleyjs.org/ or another 
+     *   validation library.
+     */
     function jcv_isValidDate(day, month, year) {
 	    if (month < 1 || month > 12) {
             return false;
