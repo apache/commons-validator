@@ -220,26 +220,205 @@ public class DomainValidator implements Serializable {
     };
 
     private static final String[] GENERIC_TLDS = new String[] {
+        "academy",
+        "actor",
         "aero",               // air transport industry
+        "agency",
+        "archi",
         "asia",               // Pan-Asia/Asia Pacific
+        "axa",
+        "bar",
+        "bargains",
+        "berlin",
+        "best",
+        "bid",
+        "bike",
         "biz",                // businesses
+        "black",
+        "blue",
+        "boutique",
+        "build",
+        "builders",
+        "buzz",
+        "cab",
+        "camera",
+        "camp",
+        "cards",
+        "careers",
         "cat",                // Catalan linguistic/cultural community
+        "catering",
+        "center",
+        "ceo",
+        "cheap",
+        "christmas",
+        "cleaning",
+        "clothing",
+        "club",
+        "codes",
+        "coffee",
+        "cologne",
         "com",                // commercial enterprises
+        "community",
+        "company",
+        "computer",
+        "condos",
+        "construction",
+        "consulting",
+        "contractors",
+        "cooking",
+        "cool",
         "coop",               // cooperative associations
+        "country",
+        "cruises",
+        "dance",
+        "dating",
+        "democrat",
+        "diamonds",
+        "directory",
+        "dnp",
+        "domains", 
+        "edu",                // accredited postsecondary US education entities
+        "education",
+        "email",
+        "enterprises",
+        "equipment",
+        "estate",
+        "events",
+        "expert",
+        "exposed",
+        "farm",
+        "fish",
+        "fishing",
+        "flights",
+        "florist",
+        "foundation",
+        "futbol",
+        "gallery",
+        "gift",
+        "glass", 
+        "gov",                // United States Government
+        "graphics",
+        "guitars",
+        "guru",
+        "haus",
+        "holdings",
+        "holiday",
+        "horse",
+        "house",
+        "immobilien",
+        "industries",
         "info",               // informational sites
+        "ink",
+        "institute",
+        "int",                // organizations established by international treaty
+        "international",
+        "jetzt",
         "jobs",               // Human Resource managers
+        "kaufen",
+        "kim",
+        "kitchen",
+        "kiwi",
+        "koeln",
+        "kred",
+        "land",
+        "lighting",
+        "limo",
+        "link",
+        "london",
+        "luxury",
+        "maison",
+        "management",
+        "mango",
+        "marketing",
+        "meet",
+        "menu",
+        "miami",
+        "mil",                // United States Military
         "mobi",               // mobile products and services
+        "moda",
+        "moe",
+        "monash",
         "museum",             // museums, surprisingly enough
+        "nagoya",
         "name",               // individuals' sites
         "net",                // internet support infrastructure/business
+        "neustar",
+        "ninja",
+        "nyc",
+        "okinawa",
+        "onl",
         "org",                // noncommercial organizations
+        "partners",
+        "parts",
+        "photo",
+        "photography",
+        "photos",
+        "pics",
+        "pink",
+        "plumbing",
+        "post",
         "pro",                // credentialed professionals and entities
+        "productions",
+        "properties",
+        "pub",
+        "qpon",
+        "recipes",
+        "red",
+        "ren",
+        "rentals",
+        "repair",
+        "report",
+        "rest",
+        "reviews",
+        "rich",
+        "rodeo",
+        "ruhr",
+        "saarland",
+        "sexy",
+        "shiksha",
+        "shoes",
+        "singles",
+        "social",
+        "sohu",
+        "solar",
+        "solutions",
+        "supplies",
+        "supply",
+        "support",
+        "systems",
+        "tattoo",
+        "technology",
         "tel",                // contact data for businesses and individuals
+        "tienda",
+        "tips",
+        "today",
+        "tokyo",
+        "tools",
+        "trade",
+        "training",  
         "travel",             // entities in the travel industry
-        "gov",                // United States Government
-        "edu",                // accredited postsecondary US education entities
-        "mil",                // United States Military
-        "int"                 // organizations established by international treaty
+        "uno",
+        "vacations",
+        "vegas",
+        "ventures",
+        "viajes",
+        "villas",
+        "vision",
+        "vodka",
+        "vote",
+        "voting",
+        "voto",
+        "voyage",
+        "wang",
+        "watch",
+        "webcam",
+        "wed",
+        "wien",
+        "wiki",
+        "works",
+        "xxx",                // pornographic sites on the Internet
+        "xyz",
+        "zone",
     };
 
     private static final String[] COUNTRY_CODE_TLDS = new String[] {
@@ -295,6 +474,7 @@ public class DomainValidator implements Serializable {
         "cr",                 // Costa Rica
         "cu",                 // Cuba
         "cv",                 // Cape Verde
+        "cw",                 // Curaçao
         "cx",                 // Christmas Island
         "cy",                 // Cyprus
         "cz",                 // Czech Republic
@@ -451,6 +631,7 @@ public class DomainValidator implements Serializable {
         "st",                 // São Tomé and Príncipe
         "su",                 // Soviet Union (deprecated)
         "sv",                 // El Salvador
+        "sx",                 // Sint Maarten
         "sy",                 // Syria
         "sz",                 // Swaziland
         "tc",                 // Turks and Caicos Islands
