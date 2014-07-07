@@ -511,7 +511,7 @@
         <mkdir dir="${download.lib.dir}" />
         <get dest="${download.lib.dir}/commons-beanutils.jar"
             usetimestamp="true" ignoreerrors="true"
-            src="http://mirrors.ibiblio.org/pub/mirrors/maven/commons-beanutils/jars/commons-beanutils-1.9.2.jar"/>
+            src="http://mirrors.ibiblio.org/pub/mirrors/maven/commons-beanutils/jars/commons-beanutils-1.7.0.jar"/>
     </target>
 
     <target name="download-digester" unless="digester.found">
@@ -519,7 +519,7 @@
         <mkdir dir="${download.lib.dir}" />
         <get dest="${download.lib.dir}/commons-digester.jar"
             usetimestamp="true" ignoreerrors="true"
-            src="http://mirrors.ibiblio.org/pub/mirrors/maven/commons-digester/jars/commons-digester-1.8.1.jar"/>
+            src="http://mirrors.ibiblio.org/pub/mirrors/maven/commons-digester/jars/commons-digester-1.8.jar"/>
     </target>
 
     <target name="download-logging" unless="logging.found">
@@ -527,7 +527,7 @@
         <mkdir dir="${download.lib.dir}" />
         <get dest="${download.lib.dir}/commons-logging.jar"
             usetimestamp="true" ignoreerrors="true"
-            src="http://mirrors.ibiblio.org/pub/mirrors/maven/commons-logging/jars/commons-logging-1.1.3.jar"/>
+            src="http://mirrors.ibiblio.org/pub/mirrors/maven/commons-logging/jars/commons-logging-1.1.jar"/>
     </target>
 
     <target name="download-junit" unless="junit.found">
@@ -535,7 +535,7 @@
         <mkdir dir="${download.lib.dir}" />
         <get dest="${download.lib.dir}/junit.jar"
             usetimestamp="true" ignoreerrors="true"
-            src="http://mirrors.ibiblio.org/pub/mirrors/maven/junit/jars/junit-3.8.2.jar"/>
+            src="http://mirrors.ibiblio.org/pub/mirrors/maven/junit/jars/junit-3.8.1.jar"/>
     </target>
       
 </project>
