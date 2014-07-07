@@ -28,5 +28,5 @@
 dirtoprocess=$2
 outputto=$3
 package=/org/apache/commons/validator/javascript
-perl $1/jsdoc.pl --project-summary ${dirtoprocess}${package}/package.html --project-name "Package org.apache.commons.validator.javascript" --page-footer "Copyright © 2000-2012 - Apache Software Foundation
+perl $1/jsdoc.pl --project-summary ${dirtoprocess}${package}/package.html --project-name "Package org.apache.commons.validator.javascript" --page-footer "Copyright © 2000-2014 - Apache Software Foundation
 " -d ${outputto}/${package} -r $dirtoprocess
