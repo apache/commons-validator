@@ -165,7 +165,7 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is an infrastructure TLD
      */
     public boolean isValidInfrastructureTld(String iTld) {
-        return INFRASTRUCTURE_TLD_LIST.contains(chompLeadingDot(iTld.toLowerCase()));
+        return Arrays.binarySearch(INFRASTRUCTURE_TLDS, (chompLeadingDot(iTld.toLowerCase()))) >= 0;
     }
 
     /**
@@ -176,7 +176,7 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is a generic TLD
      */
     public boolean isValidGenericTld(String gTld) {
-        return GENERIC_TLD_LIST.contains(chompLeadingDot(gTld.toLowerCase()));
+        return Arrays.binarySearch(GENERIC_TLDS, chompLeadingDot(gTld.toLowerCase())) >= 0;
     }
 
     /**
@@ -187,7 +187,7 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is a country code TLD
      */
     public boolean isValidCountryCodeTld(String ccTld) {
-        return COUNTRY_CODE_TLD_LIST.contains(chompLeadingDot(ccTld.toLowerCase()));
+        return Arrays.binarySearch(COUNTRY_CODE_TLDS, chompLeadingDot(ccTld.toLowerCase())) >= 0;
     }
 
     /**
@@ -198,7 +198,7 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is an local TLD
      */
     public boolean isValidLocalTld(String iTld) {
-        return LOCAL_TLD_LIST.contains(chompLeadingDot(iTld.toLowerCase()));
+        return Arrays.binarySearch(LOCAL_TLDS, chompLeadingDot(iTld.toLowerCase())) >= 0;
     }
 
     private String chompLeadingDot(String str) {
@@ -680,8 +680,10 @@ public class DomainValidator implements Serializable {
        "localdomain"          // Also widely used as localhost.localdomain
    };
 
-    private static final List INFRASTRUCTURE_TLD_LIST = Arrays.asList(INFRASTRUCTURE_TLDS);
-    private static final List GENERIC_TLD_LIST = Arrays.asList(GENERIC_TLDS);
-    private static final List COUNTRY_CODE_TLD_LIST = Arrays.asList(COUNTRY_CODE_TLDS);
-    private static final List LOCAL_TLD_LIST = Arrays.asList(LOCAL_TLDS);
+    static {
+        Arrays.sort(INFRASTRUCTURE_TLDS);
+        Arrays.sort(COUNTRY_CODE_TLDS);
+        Arrays.sort(GENERIC_TLDS);
+        Arrays.sort(LOCAL_TLDS);
+    }
 }

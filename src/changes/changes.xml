@@ -43,6 +43,9 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.4.1" date="TBA" description="TBA">
+    <action dev="britter" type="fix" issue="VALIDATOR-266" due-to="Bruce Collie" >
+      DomainValidator uses an O(n) method where an O(1) would be more appropriate
+    </action>
     <action dev="britter" type="fix" issue="VALIDATOR-273" due-to="Chris Lee" >
       EmailValidator does not support mailboxes at TLDs
     </action>
