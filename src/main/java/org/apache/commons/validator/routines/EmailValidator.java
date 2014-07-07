@@ -160,7 +160,8 @@ public class EmailValidator implements Serializable {
             // Domain is symbolic name
             DomainValidator domainValidator =
                     DomainValidator.getInstance(allowLocal);
-            return domainValidator.isValid(domain);
+            return domainValidator.isValid(domain) ||
+                    domainValidator.isValidTld(domain);
         }
     }
 

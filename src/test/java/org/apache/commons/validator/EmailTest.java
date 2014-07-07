@@ -210,6 +210,18 @@ public class EmailTest extends AbstractCommonTest {
         assertFalse("Test control char 127", validator.isValid("foo" + ((char)127) + "bar@domain.com"));
     }
 
+   /**
+    * Tests the e-mail validation with a user at a TLD
+    */
+   public void testEmailAtTLD() throws ValidatorException {
+      // Create bean to run test on.
+      ValueBean info = new ValueBean();
+
+      info.setValue("m@de");
+      valueTest(info, true);
+
+   }
+
     /**
      * Test that @localhost and @localhost.localdomain
      *  addresses aren't declared valid by default 
