@@ -23,6 +23,9 @@
     *  login page gives unnecessary information away to hackers. While it only slightly
     *  weakens security, we suggest using it only when modifying a password.
     * @param form The form validation is taking place on.
+    * @deprecated The JS part of commons validation is deprecated
+    *   Please consider using http://parsleyjs.org/ or another 
+    *   validation library.
     */
     function validateMinLength(form) {
         var isValid = true;

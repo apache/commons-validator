@@ -19,6 +19,9 @@
     * Check to see if fields are in a valid float range.
     * Fields are not checked if they are disabled.
     * @param form The form validation is taking place on.
+    * @deprecated The JS part of commons validation is deprecated
+    *   Please consider using http://parsleyjs.org/ or another 
+    *   validation library.
     */
     function validateFloatRange(form) {
         var isValid = true;
