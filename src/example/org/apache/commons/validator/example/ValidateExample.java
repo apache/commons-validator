@@ -46,7 +46,7 @@ import org.xml.sax.SAXException;
  *
  * @version $Revision$ $Date$
  */
-public class ValidateExample extends Object {
+public class ValidateExample {
 
     /**
      * We need a resource bundle to get our field names and errors messages 
