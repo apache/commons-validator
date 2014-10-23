@@ -21,7 +21,7 @@ package org.apache.commons.validator.example;
  *
  * @version $Revision$ $Date$
  */
-public class ValidateBean extends Object {
+public class ValidateBean {
 
     String lastName, firstName, street1, street2, city, state, postalCode, age;
 
