@@ -106,7 +106,7 @@ public class UrlValidator implements Serializable {
      */
     private static final String URL_REGEX =
             "^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?";
-    //                                                                      12            3  4          5       6   7        8 9
+    //        12            3  4          5       6   7        8 9
     private static final Pattern URL_PATTERN = Pattern.compile(URL_REGEX);
 
     /**
@@ -133,7 +133,7 @@ public class UrlValidator implements Serializable {
 
     private static final String AUTHORITY_REGEX =
             "^([" + AUTHORITY_CHARS_REGEX + "]*)(:\\d*)?(.*)?";
-    //                                                                            1                          2  3       4
+    //        1                                 2       3
     private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
 
     private static final int PARSE_AUTHORITY_HOST_IP = 1;
