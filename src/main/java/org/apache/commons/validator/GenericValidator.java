@@ -158,7 +158,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value can be converted to a Date.
      */
     public static boolean isDate(String value, String datePattern, boolean strict) {
-        // TODO not yet supported in routines version
+        // TODO method isValid() not yet supported in routines version
         return org.apache.commons.validator.DateValidator.getInstance().isValid(value, datePattern, strict);
     }
 
