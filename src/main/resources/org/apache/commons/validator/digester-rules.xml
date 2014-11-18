@@ -17,86 +17,86 @@
 -->
 
 <!--
-	digester-rules.xml defines the rules our Digester will use to transform 
-	validation.xml files into Java objects.
-	
-	$Id$
+    digester-rules.xml defines the rules our Digester will use to transform 
+    validation.xml files into Java objects.
+    
+    $Id$
 -->
 
 
 <!DOCTYPE digester-rules PUBLIC "-//Jakarta Apache //DTD digester-rules XML V1.0//EN" 
-	"http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
+    "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
 
 <digester-rules>
 
-	<pattern value="form-validation/global">
-		
-		<pattern value="constant">
-			<call-method-rule methodname="addConstant" paramcount="2" />
-			<call-param-rule pattern="constant-name" paramnumber="0" />
-			<call-param-rule pattern="constant-value" paramnumber="1" />
-		</pattern>
-		
-		<pattern value="validator">	
-			<object-create-rule classname="org.apache.commons.validator.ValidatorAction" />
-			<set-properties-rule/>
-			<set-next-rule methodname="addValidatorAction" paramtype="org.apache.commons.validator.ValidatorAction" />
-			<call-method-rule pattern="javascript" methodname="setJavascript" paramcount="0" />
-		</pattern>
-		
-	</pattern>
-	
-	
-	<pattern value="form-validation/formset">
+    <pattern value="form-validation/global">
+        
+        <pattern value="constant">
+            <call-method-rule methodname="addConstant" paramcount="2" />
+            <call-param-rule pattern="constant-name" paramnumber="0" />
+            <call-param-rule pattern="constant-value" paramnumber="1" />
+        </pattern>
+        
+        <pattern value="validator">
+            <object-create-rule classname="org.apache.commons.validator.ValidatorAction" />
+            <set-properties-rule/>
+            <set-next-rule methodname="addValidatorAction" paramtype="org.apache.commons.validator.ValidatorAction" />
+            <call-method-rule pattern="javascript" methodname="setJavascript" paramcount="0" />
+        </pattern>
+        
+    </pattern>
+    
+    
+    <pattern value="form-validation/formset">
 
-		<factory-create-rule classname="org.apache.commons.validator.FormSetFactory" />
-		
-		<pattern value="constant">
-			<call-method-rule methodname="addConstant" paramcount="2" />
-			<call-param-rule pattern="constant-name" paramnumber="0" />
-			<call-param-rule pattern="constant-value" paramnumber="1" />
-		</pattern>
-		
-		<pattern value="form">
-			<object-create-rule classname="org.apache.commons.validator.Form" />
-			<set-properties-rule/>
-			<set-next-rule methodname="addForm" paramtype="org.apache.commons.validator.Form" />
-			
-			<pattern value="field">
-				<object-create-rule classname="org.apache.commons.validator.Field" />
-				<set-properties-rule/>
-				<set-next-rule methodname="addField" paramtype="org.apache.commons.validator.Field" />
-				
-				<pattern value="var">
-					<object-create-rule classname="org.apache.commons.validator.Var" />
-					<set-properties-rule/>
-					<pattern value="var-name">
-						<call-method-rule methodname="setName" paramcount="0" />
-					</pattern>
-					<pattern value="var-value">
-						<call-method-rule methodname="setValue" paramcount="0" />
-					</pattern>
-					<pattern value="var-jstype">
-						<call-method-rule methodname="setJsType" paramcount="0" />
-					</pattern>
-					<set-next-rule methodname="addVar" paramtype="org.apache.commons.validator.Var" />
-				</pattern>
-				
-				<pattern value="msg">
-					<object-create-rule classname="org.apache.commons.validator.Msg" />
-					<set-properties-rule/>
-					<set-next-rule methodname="addMsg" paramtype="org.apache.commons.validator.Msg" />
-				</pattern>
-				
-				<pattern value="arg">
-					<object-create-rule classname="org.apache.commons.validator.Arg" />
-					<set-properties-rule/>
-					<set-next-rule methodname="addArg" paramtype="org.apache.commons.validator.Arg" />
-				</pattern>
-			
-			</pattern>	
-			
-		</pattern>
-		
-	</pattern>
+        <factory-create-rule classname="org.apache.commons.validator.FormSetFactory" />
+        
+        <pattern value="constant">
+            <call-method-rule methodname="addConstant" paramcount="2" />
+            <call-param-rule pattern="constant-name" paramnumber="0" />
+            <call-param-rule pattern="constant-value" paramnumber="1" />
+        </pattern>
+        
+        <pattern value="form">
+            <object-create-rule classname="org.apache.commons.validator.Form" />
+            <set-properties-rule/>
+            <set-next-rule methodname="addForm" paramtype="org.apache.commons.validator.Form" />
+            
+            <pattern value="field">
+                <object-create-rule classname="org.apache.commons.validator.Field" />
+                <set-properties-rule/>
+                <set-next-rule methodname="addField" paramtype="org.apache.commons.validator.Field" />
+                
+                <pattern value="var">
+                    <object-create-rule classname="org.apache.commons.validator.Var" />
+                    <set-properties-rule/>
+                    <pattern value="var-name">
+                        <call-method-rule methodname="setName" paramcount="0" />
+                    </pattern>
+                    <pattern value="var-value">
+                        <call-method-rule methodname="setValue" paramcount="0" />
+                    </pattern>
+                    <pattern value="var-jstype">
+                        <call-method-rule methodname="setJsType" paramcount="0" />
+                    </pattern>
+                    <set-next-rule methodname="addVar" paramtype="org.apache.commons.validator.Var" />
+                </pattern>
+                
+                <pattern value="msg">
+                    <object-create-rule classname="org.apache.commons.validator.Msg" />
+                    <set-properties-rule/>
+                    <set-next-rule methodname="addMsg" paramtype="org.apache.commons.validator.Msg" />
+                </pattern>
+                
+                <pattern value="arg">
+                    <object-create-rule classname="org.apache.commons.validator.Arg" />
+                    <set-properties-rule/>
+                    <set-next-rule methodname="addArg" paramtype="org.apache.commons.validator.Arg" />
+                </pattern>
+            
+            </pattern>
+            
+        </pattern>
+        
+    </pattern>
 </digester-rules>

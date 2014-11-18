@@ -19,7 +19,7 @@
      "http://commons.apache.org/dtds/validator_1_4_0.dtd">
      
 <!--
-	Each of the form's in this test config has a field with a property name of
+      Each of the form's in this test config has a field with a property name of
       "testProperty" which has a variable named "localeVar" which has the value of
       the locale for the Form.
 

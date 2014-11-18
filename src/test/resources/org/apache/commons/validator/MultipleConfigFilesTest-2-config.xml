@@ -19,7 +19,7 @@
      "http://commons.apache.org/dtds/validator_1_4_0.dtd">
      
 <!--
-	This second config file only contains the formset definitions.
+    This second config file only contains the formset definitions.
 -->
 <form-validation>
    <formset>

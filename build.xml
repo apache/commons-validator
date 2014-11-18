@@ -291,7 +291,7 @@
 
 
   <target name="change-log" >
-   	<cvschangelog destfile="changelog.xml" start="${cvs.start}" />
+     <cvschangelog destfile="changelog.xml" start="${cvs.start}" />
      <style in="changelog.xml" out="changelog.html" style="${ant.home}/etc/changelog.xsl">
           <param name="title" expression="Validator ChangeLog"/>
           <param name="module" expression="commons"/>

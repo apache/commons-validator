@@ -35,25 +35,25 @@
    <formset>
       <form name="ValidateBean">
          <field property="firstName"  depends="required">
-         	   <arg key="nameForm.firstname.displayname"/>
+            <arg key="nameForm.firstname.displayname"/>
          </field>    
          <field  property="lastName" depends="required">
-         	     <arg key="nameForm.lastname.displayname"/>
+              <arg key="nameForm.lastname.displayname"/>
          </field>
          <field  property="street1" depends="required">
-         	     <arg key="nameForm.street1.displayname"/>
+              <arg key="nameForm.street1.displayname"/>
          </field>
          <field  property="state" depends="required">
-         	     <arg key="nameForm.city.displayname"/>
+              <arg key="nameForm.city.displayname"/>
          </field>
          <field  property="state" depends="required">
-         	     <arg key="nameForm.state.displayname"/>
+              <arg key="nameForm.state.displayname"/>
          </field>
          <field  property="postalCode" depends="required">
-         	     <arg key="nameForm.postalCode.displayname"/>
+              <arg key="nameForm.postalCode.displayname"/>
          </field>
          <field  property="age" depends="required,int">
-         	     <arg key="nameForm.age.displayname"/>
+              <arg key="nameForm.age.displayname"/>
          </field>
 
       </form>

@@ -19,8 +19,8 @@
      "http://commons.apache.org/dtds/validator_1_4_0.dtd">
      
 <!--
-	This first config file only contains the validator definitions.  This 
-	separation is how Struts does things.
+    This first config file only contains the validator definitions.  This 
+    separation is how Struts does things.
 -->
 <form-validation>
    <global>
