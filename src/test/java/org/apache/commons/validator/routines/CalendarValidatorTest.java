@@ -185,7 +185,9 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         Locale.setDefault(Locale.UK);
 
         AbstractCalendarValidator dateTimeValidator = 
-               new AbstractCalendarValidator(true, DateFormat.SHORT, DateFormat.SHORT) {
+            new AbstractCalendarValidator(true, DateFormat.SHORT, DateFormat.SHORT) {
+                private static final long serialVersionUID = 1L;
+
             protected Object processParsedValue(Object value, Format formatter) {
                 return value;
             }

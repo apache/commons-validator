@@ -28,6 +28,8 @@ import org.apache.commons.validator.ValidatorResources;
  */
 public class CustomValidatorResources extends ValidatorResources {
 
+    private static final long serialVersionUID = 1272843199141974642L;
+
     /**
      * Create a custom ValidatorResources object from an uri
      *

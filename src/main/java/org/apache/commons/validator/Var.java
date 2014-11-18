@@ -27,6 +27,8 @@ import java.io.Serializable;
  */
 public class Var implements Cloneable, Serializable {
 
+    private static final long serialVersionUID = -684185211548420224L;
+
     /**
      * Int Constant for JavaScript type.  This can be used
      * when auto-generating JavaScript.
