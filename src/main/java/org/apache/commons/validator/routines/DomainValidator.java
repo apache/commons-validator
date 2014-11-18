@@ -18,7 +18,6 @@ package org.apache.commons.validator.routines;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * <p><b>Domain name</b> validation routines.</p>
