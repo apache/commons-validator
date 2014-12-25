@@ -20,16 +20,16 @@ import java.io.Serializable;
 
 /**
  * Represents a collection of 64 boolean (on/off) flags.  Individual flags
- * are represented by powers of 2.  For example,<br/>
- * Flag 1 = 1<br/>
- * Flag 2 = 2<br/>
- * Flag 3 = 4<br/>
- * Flag 4 = 8<br/><br/>
- * or using shift operator to make numbering easier:<br/>
- * Flag 1 = 1 &lt;&lt; 0<br/>
- * Flag 2 = 1 &lt;&lt; 1<br/>
- * Flag 3 = 1 &lt;&lt; 2<br/>
- * Flag 4 = 1 &lt;&lt; 3<br/>
+ * are represented by powers of 2.  For example,<br>
+ * Flag 1 = 1<br>
+ * Flag 2 = 2<br>
+ * Flag 3 = 4<br>
+ * Flag 4 = 8<br><br>
+ * or using shift operator to make numbering easier:<br>
+ * Flag 1 = 1 &lt;&lt; 0<br>
+ * Flag 2 = 1 &lt;&lt; 1<br>
+ * Flag 3 = 1 &lt;&lt; 2<br>
+ * Flag 4 = 1 &lt;&lt; 3<br>
  *
  * <p>
  * There cannot be a flag with a value of 3 because that represents Flag 1

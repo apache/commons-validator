@@ -237,9 +237,14 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Gets the page.  This in conjunction with the page property of
-     * a <code>Field<code> can control the processing of fields. If the field's
+     * Gets the page.
+     *
+     * <p>
+     * This in conjunction with the page property of
+     * a {@code Field} can control the processing of fields. If the field's
      * page is less than or equal to this page value, it will be processed.
+     * </p>
+     *
      * @return the page number.
      */
     public int getPage() {
@@ -247,9 +252,13 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Sets the page.  This in conjunction with the page property of
-     * a <code>Field<code> can control the processing of fields. If the field's page
+     * Sets the page.
+     * <p>
+     * This in conjunction with the page property of
+     * a {@code Field} can control the processing of fields. If the field's page
      * is less than or equal to this page value, it will be processed.
+     * </p>
+     *
      * @param page the page number.
      */
     public void setPage(int page) {

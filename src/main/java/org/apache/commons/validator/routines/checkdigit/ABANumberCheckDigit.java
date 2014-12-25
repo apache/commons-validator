@@ -19,22 +19,27 @@ package org.apache.commons.validator.routines.checkdigit;
 /**
  * Modulus 10 <b>ABA Number</b> (or <b>Routing Transit Number</b> (RTN)) Check Digit
  * calculation/validation.
+ *
  * <p>
  * ABA Numbers (or Routing Transit Numbers) are a nine digit numeric code used
  * to identify American financial institutions for things such as checks or deposits
  * (ABA stands for the American Bankers Association).
- * <p>
+ * </p>
+ *
  * Check digit calculation is based on <i>modulus 10</i> with digits being weighted
  * based on their position (from right to left) as follows:
+ *
  * <ul>
- *     <li>Digits 1, 4 and & 7 are weighted 1
- *     <li>Digits 2, 5 and & 8 are weighted 7
- *     <li>Digits 3, 6 and & 9 are weighted 3
+ *   <li>Digits 1, 4 and &amp; 7 are weighted 1</li>
+ *   <li>Digits 2, 5 and &amp; 8 are weighted 7</li>
+ *   <li>Digits 3, 6 and &amp; 9 are weighted 3</li>
  * </ul>
+ *
  * <p>
  * For further information see
  *  <a href="http://en.wikipedia.org/wiki/Routing_transit_number">Wikipedia -
  *  Routing transit number</a>.
+ * </p>
  *
  * @version $Revision$ $Date$
  * @since Validator 1.4

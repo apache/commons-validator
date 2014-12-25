@@ -29,12 +29,14 @@ import org.apache.commons.validator.util.Flags;
 /**
  * <p>Validates URLs.</p>
  * Behavour of validation is modified by passing in options:
+ * <ul>
  * <li>ALLOW_2_SLASHES - [FALSE]  Allows double '/' characters in the path
  * component.</li>
  * <li>NO_FRAGMENT- [FALSE]  By default fragments are allowed, if this option is
  * included then fragments are flagged as illegal.</li>
  * <li>ALLOW_ALL_SCHEMES - [FALSE] By default only http, https, and ftp are
  * considered valid schemes.  Enabling this option will let any scheme pass validation.</li>
+ * </ul>
  *
  * <p>Originally based in on php script by Debbie Dyer, validation.php v1.2b, Date: 03/07/02,
  * http://javascript.internet.com. However, this validation now bears little resemblance

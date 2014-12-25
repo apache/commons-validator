@@ -141,16 +141,21 @@ public class ValidatorResult implements Serializable {
 
        /**
         * Construct a Result status.
-         * @param valid Whether the validator passed or failed.
-         * @param result Value returned by the validator.
+        * @param valid Whether the validator passed or failed.
+        * @param result Value returned by the validator.
         */
         public ResultStatus(boolean valid, Object result) {
             this.valid = valid;
             this.result = result;
         }
         /**
-         * Provided for backwards binary compatibility only
-         * @deprecated Use {@link #ResultStatus(boolean, Object)} instead
+         * Provided for backwards binary compatibility only.
+         *
+         * @param ignored ignored by this method
+         * @param valid Whether the validator passed or failed.
+         * @param result Value returned by the validator.
+         *
+         * @deprecated Use {@code ResultStatus(boolean, Object)} instead
          */
         public ResultStatus(ValidatorResult ignored, boolean valid, Object result) {
             this(valid, result);

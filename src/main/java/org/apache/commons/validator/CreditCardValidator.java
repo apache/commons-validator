@@ -23,20 +23,31 @@ import java.util.Iterator;
 import org.apache.commons.validator.util.Flags;
 
 /**
- * <p>Perform credit card validations.</p>
+ * Perform credit card validations.
+ *
  * <p>
  * By default, all supported card types are allowed.  You can specify which
- * cards should pass validation by configuring the validation options.  For
- * example,<br/><code>CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.AMEX + CreditCardValidator.VISA);</code>
+ * cards should pass validation by configuring the validation options. For
+ * example,
+ * </p>
+ *
+ * <pre>
+ * <code>CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.AMEX + CreditCardValidator.VISA);</code>
+ * </pre>
+ *
+ * <p>
  * configures the validator to only pass American Express and Visa cards.
  * If a card type is not directly supported by this class, you can implement
  * the CreditCardType interface and pass an instance into the
  * <code>addAllowedCardType</code> method.
  * </p>
+ *
+ * <p>
  * For a similar implementation in Perl, reference Sean M. Burke's
  * <a href="http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html">script</a>.
  * More information is also available
  * <a href="http://www.merriampark.com/anatomycc.htm">here</a>.
+ * </p>
  *
  * @version $Revision$ $Date$
  * @since Validator 1.1
@@ -49,11 +60,12 @@ public class CreditCardValidator {
      * Option specifying that no cards are allowed.  This is useful if
      * you want only custom card types to validate so you turn off the
      * default cards with this option.
-     * <br/>
      * <pre>
+     * <code>
      * CreditCardValidator v = new CreditCardValidator(CreditCardValidator.NONE);
      * v.addAllowedCardType(customType);
      * v.isValid(aCardNumber);
+     * </code>
      * </pre>
      * @since Validator 1.1.2
      */
