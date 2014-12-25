@@ -149,9 +149,4 @@
     <property name="fileExtensions" value="java,xml"/>
   </module>
 
-  <!-- enforce License Header -->
-  <module name="Header">
-    <property name="headerFile" value="${checkstyle.header.file}"/>
-  </module>
-
 </module>
