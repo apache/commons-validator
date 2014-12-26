@@ -56,7 +56,7 @@ public interface CheckDigit {
      * @return The calculated Check Digit
      * @throws CheckDigitException if an error occurs.
      */
-    public String calculate(String code) throws CheckDigitException;
+    String calculate(String code) throws CheckDigitException;
 
     /**
      * Validate the check digit for the code.
@@ -65,6 +65,6 @@ public interface CheckDigit {
      * @return <code>true</code> if the check digit is valid, otherwise
      * <code>false</code>.
      */
-    public boolean isValid(String code);
+    boolean isValid(String code);
 
 }
