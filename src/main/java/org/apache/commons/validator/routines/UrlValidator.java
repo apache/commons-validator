@@ -258,17 +258,16 @@ public class UrlValidator implements Serializable {
         this.options = options;
 
         if (isOn(ALLOW_ALL_SCHEMES)) {
-            this.allowedSchemes = Collections.EMPTY_SET;
+            allowedSchemes = Collections.EMPTY_SET;
         } else {
             if (schemes == null) {
                 schemes = DEFAULT_SCHEMES;
             }
-            this.allowedSchemes = new HashSet();
-            this.allowedSchemes.addAll(Arrays.asList(schemes));
+            allowedSchemes = new HashSet();
+            allowedSchemes.addAll(Arrays.asList(schemes));
         }
 
         this.authorityValidator = authorityValidator;
-
     }
 
     /**
@@ -342,7 +341,7 @@ public class UrlValidator implements Serializable {
 
         if (isOff(ALLOW_ALL_SCHEMES)) {
 
-            if (!this.allowedSchemes.contains(scheme)) {
+            if (!allowedSchemes.contains(scheme)) {
                 return false;
             }
         }
@@ -486,7 +485,7 @@ public class UrlValidator implements Serializable {
      * @return whether the specified flag value is on.
      */
     private boolean isOn(long flag) {
-        return (this.options & flag) > 0;
+        return (options & flag) > 0;
     }
 
     /**
@@ -498,6 +497,6 @@ public class UrlValidator implements Serializable {
      * @return whether the specified flag value is off.
      */
     private boolean isOff(long flag) {
-        return (this.options & flag) == 0;
+        return (options & flag) == 0;
     }
 }
