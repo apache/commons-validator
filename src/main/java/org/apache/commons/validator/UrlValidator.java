@@ -293,11 +293,8 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        if (options.isOff(ALLOW_ALL_SCHEMES)) {
-
-            if (!allowedSchemes.contains(scheme)) {
-                return false;
-            }
+        if (options.isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme)) {
+            return false;
         }
 
         return true;
@@ -383,10 +380,8 @@ public class UrlValidator implements Serializable {
         }
 
         String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
-        if (port != null) {
-            if (!PORT_PATTERN.matcher(port).matches()) {
-                return false;
-            }
+        if (port != null && !PORT_PATTERN.matcher(port).matches()) {
+            return false;
         }
 
         String extra = authorityMatcher.group(PARSE_AUTHORITY_EXTRA);
@@ -418,10 +413,8 @@ public class UrlValidator implements Serializable {
 
         int slashCount = countToken("/", path);
         int dot2Count = countToken("..", path);
-        if (dot2Count > 0) {
-            if ((slashCount - slash2Count - 1) <= dot2Count) {
-                return false;
-            }
+        if (dot2Count > 0 && (slashCount - slash2Count - 1) <= dot2Count){
+            return false;
         }
 
         return true;
