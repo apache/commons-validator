@@ -16,15 +16,14 @@
 -->
 $Id$
 
-                 Commons Validator Package
-                     Version 1.4.0
+                 Apache Commons Validator
+                     Version 1.4.1
                      Release Notes
 
 INTRODUCTION
 ============
 
-This is a maintenance release with improvements. New projects are encouraged to
-use this release of Commons Validator.
+This is a maintenance release. New projects are encouraged to use this release of Apache Commons Validator.
 
 IMPORTANT NOTES
 ================
@@ -32,12 +31,11 @@ IMPORTANT NOTES
 BREAKING CHANGES:
 
  * NONE.
- 
+
 DEPENDENCIES
 =============
 
-The dependencies for Validator 1.4 have only one change since the 1.3.1 
-release, in that the Jakarta ORO dependency has been removed (VALIDATOR-193).
+The dependencies for Validator 1.4.1 have not changed since the 1.4 release.
 
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
@@ -45,90 +43,22 @@ http://commons.apache.org/validator/dependencies.html
 BUGS FROM PREVIOUS RELEASE
 ===========================
 
- * [VALIDATOR-216] - UrlValidator rejects top-level domains (TLDs) with
-                     more than 4 characters
- * [VALIDATOR-218] - UrlValidator fail when path contains "(" / ")"
- * [VALIDATOR-220] - EmailValidator fails with ArrayIndexOutOfBoundsException
-                     on domain names longer than 10 segments
- * [VALIDATOR-223] - Move the trim() function from validateRequired.js to
-                     validateUtilities.js
- * [VALIDATOR-271] - gmail testing addresses do not validate
- * [VALIDATOR-276] - isValidURL call returns false for file scheme/protocol
-                     when URL is correct
- * [VALIDATOR-282] - formatDate(String value, Locale locale) in
-                     GenericTypeValidator uses DateFormat.SHORT instead of
-                     DateFormat.DEFAULT
- * [VALIDATOR-286] - isValid method for EmailValidator should return false
-                     for domain with special characters only
- * [VALIDATOR-289] - UrlValidator.isValid does not properly validate *.travel
-                     domains
- * [VALIDATOR-292] - @localhost and @localhost.localdomain email addresses
-                     aren't correctly detected as valid
- * [VALIDATOR-293] - Email validation fails with dash or hyphen at end of
-                     local address
-
-IMPROVEMENTS OVER PREVIOUS RELEASE
-===================================
-
- * [VALIDATOR-188] - Extend ISBN validator to support smooth transition to
-                     ISBN-13 / EAN-13 standard
- * [VALIDATOR-191] - Remove the dependency on Jakarta ORO (move to JDK 1.4
-                     regular expression support)
- * [VALIDATOR-192] - Adding ISBNValidator to GenericValidator
- * [VALIDATOR-193] - Removing ORO dep. from GenericValidator
- * [VALIDATOR-203] - Refactor UrlValidator - especially the line 370-ish.
- * [VALIDATOR-211] - Upgrade to Digester 1.8
- * [VALIDATOR-213] - Factor out Check Digit logic into separate
-                     implementations
- * [VALIDATOR-214] - New Regular Expression validator using JDK 1.4's Regex
- * [VALIDATOR-215] - New generic CodeValidator that validates format, length
-                     and Check Digit for a code
- * [VALIDATOR-224] - validatorUtilities.js - replace colon characters in the
-                     function name (JSF/Shale)
- * [VALIDATOR-226] - Null-Stream input to ValidatorResources leads to
-                     MalformedURLExceptions
- * [VALIDATOR-232] - Add script attribute to control script generation
- * [VALIDATOR-233] - Switch to using Version 0.4.3 of the Dojo Compressor
-                     from the maven repo
- * [VALIDATOR-234] - Create 1.4 DTD
- * [VALIDATOR-240] - Support the 65 prefix for Discover Card
- * [VALIDATOR-241] - New InetAdress Validator implementation
- * [VALIDATOR-242] - Move EmailValidator to routines package
- * [VALIDATOR-247] - Move CreditCardValidator to routines package and
-                     refactor to use new CodeValidator
- * [VALIDATOR-248] - Add an option to allow 'localhost' as a valid hostname
-                     part in the URL
- * [VALIDATOR-249] - Add Diners card validation to CreditCardValidator
- * [VALIDATOR-250] - Banking CheckDigit implementations: ABA, CUSIP, IBAN,
-                     ISIN and Sedol
- * [VALIDATOR-251] - url with brackets is not validated thru URLvalidator
-                     class.
- * [VALIDATOR-252] - Performance improvement of DomainValidator by change
-                     the regular expression
- * [VALIDATOR-275] - EmailValidator.isValid(String) follows RFC822 but
-                     violates RFC1034
- * [VALIDATOR-288] - UrlValidator does not validate URL with simple domains
-                     (eg: http://hostname )
- * [VALIDATOR-300] - clirr Report - EmailValidator.isValidIpAddress() argument
-                     type change
- * [VALIDATOR-301] - CheckStyle and FindBug Issues - inner classes and key sets
+ * [VALIDATOR-266] - DomainValidator uses an O(n) method where an O(1) would be
+                     more appropriate. Thanks to Bruce Collie.
+ * [VALIDATOR-273] - EmailValidator does not support mailboxes at TLDs.
+                     Thanks to Chris Lee.
+ * [VALIDATOR-317] - DomainValidator missing sTLD - "xxx".
+                     Thanks to Ar?nas Bendoraitis.
+ * [VALIDATOR-327] - Missing sx tld.
+                     Thanks to Ar?nas Bendoraitis.
+ * [VALIDATOR-305] - Some TLDs are missing from DomainValidator.
+                     Thanks to Ar?nas Bendoraitis.
+ * [VALIDATOR-331] - IBANCheckDigitTest.createInvalidCodes(String[] codes) uses wrong values.
 
 DEPRECATIONS
 ============
+ * [VALIDATOR-337] - Deprecate the JS part of commons validator. Thanks to Ben Ripkens.
 
- * Most of the org.apache.commons.validator classes have been deprecated,
-   in favour of the new org.apache.commons.validator.routines classes.
 
-OTHER NOTES
-============
-
-Users should be aware of the following potential issues with migration:
-
- * The protected method validator.EmailValidator.isValidIpAddress() previously
-   exposed a Jakarta ORO class via its signature.  The signature has been
-   modified to accept a a java.lang.String and is not therefore not compatible.
-   However, this class is deprecated and clients should use the equivalent
-   class in the validator.routines package.
-
-* Invocations of the method GenericValidator.matchRegexp() should be inspected
-  for semantic differences between Jakarta ORO and Java regular expressions.
+Have fun!
+-Apache Commons Validator team
