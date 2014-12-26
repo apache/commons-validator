@@ -114,7 +114,7 @@ public class GenericTypeValidator implements Serializable {
      *
      *@param  value   The value validation is being performed on.
      *@param  locale  The locale to use to parse the number (system default if
-     *      null)vv
+     *      null)
      *@return the converted Short value.
      */
     public static Short formatShort(String value, Locale locale) {
