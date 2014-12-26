@@ -293,9 +293,9 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        if (this.options.isOff(ALLOW_ALL_SCHEMES)) {
+        if (options.isOff(ALLOW_ALL_SCHEMES)) {
 
-            if (!this.allowedSchemes.contains(scheme)) {
+            if (!allowedSchemes.contains(scheme)) {
                 return false;
             }
         }
@@ -412,7 +412,7 @@ public class UrlValidator implements Serializable {
         }
 
         int slash2Count = countToken("//", path);
-        if (this.options.isOff(ALLOW_2_SLASHES) && (slash2Count > 0)) {
+        if (options.isOff(ALLOW_2_SLASHES) && (slash2Count > 0)) {
             return false;
         }
 
@@ -450,7 +450,7 @@ public class UrlValidator implements Serializable {
             return true;
         }
 
-        return this.options.isOff(NO_FRAGMENTS);
+        return options.isOff(NO_FRAGMENTS);
     }
 
     /**
