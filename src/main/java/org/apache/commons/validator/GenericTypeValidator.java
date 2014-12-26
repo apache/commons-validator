@@ -355,15 +355,14 @@ public class GenericTypeValidator implements Serializable {
     }
 
     /**
-     * <p>
-     * <p/>
-     * Checks if the field is a valid date. The <code>Locale</code> is used
-     * with <code>java.text.DateFormat</code>. The setLenient method is set to
-     * <code>false</code> for all.</p>
+     * Checks if the field is a valid date.
+     *
+     * <p>The {@code Locale} is used with {@code java.text.DateFormat}. The {@link java.text.DateFormat#setLenient(boolean)}
+     * method is set to {@code false} for all.
+     * </p>
      *
      * @param value  The value validation is being performed on.
-     * @param locale The Locale to use to parse the date (system default if
-     *               null)
+     * @param locale The Locale to use to parse the date (system default if null)
      * @return the converted Date value.
      */
     public static Date formatDate(String value, Locale locale) {
@@ -417,15 +416,17 @@ public class GenericTypeValidator implements Serializable {
     }
 
     /**
-     * <p>
-     * Checks if the field is a valid date. The pattern is used with <code>java.text.SimpleDateFormat</code>
-     * . If strict is true, then the length will be checked so '2/12/1999' will
+     * Checks if the field is a valid date.
+     *
+     * <p>The pattern is used with {@code java.text.SimpleDateFormat}.
+     * If strict is true, then the length will be checked so '2/12/1999' will
      * not pass validation with the format 'MM/dd/yyyy' because the month isn't
-     * two digits. The setLenient method is set to <code>false</code> for all.
+     * two digits. The {@link java.text.SimpleDateFormat#setLenient(boolean)}
+     * method is set to {@code false} for all.
      * </p>
      *
      * @param value       The value validation is being performed on.
-     * @param datePattern The pattern passed to <code>SimpleDateFormat</code>.
+     * @param datePattern The pattern passed to {@code SimpleDateFormat}.
      * @param strict      Whether or not to have an exact match of the
      *                    datePattern.
      * @return the converted Date value.
@@ -464,11 +465,10 @@ public class GenericTypeValidator implements Serializable {
     }
 
     /**
-     * <p>
-     * Checks if the field is a valid credit card number.</p> <p>
-     * <p/>
-     * Reference Sean M. Burke's <a href="http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl">
-     * script</a> .</p>
+     * Checks if the field is a valid credit card number.
+     *
+     * <p>Reference Sean M. Burke's <a href="http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl">
+     * script</a>.</p>
      *
      * @param value The value validation is being performed on.
      * @return the converted Credit Card number.
