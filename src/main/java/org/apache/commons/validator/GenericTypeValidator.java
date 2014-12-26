@@ -38,6 +38,8 @@ public class GenericTypeValidator implements Serializable {
 
     private static final long serialVersionUID = 5487162314134261703L;
 
+    private static final Log LOG = LogFactory.getLog(GenericTypeValidator.class);
+
     /**
      * Checks if the value can safely be converted to a byte primitive.
      *
@@ -404,10 +406,9 @@ public class GenericTypeValidator implements Serializable {
                 date = formatterDefault.parse(value);
             }
         } catch (ParseException e) {
-            // Bad date, so log and return null
-            Log log = LogFactory.getLog(GenericTypeValidator.class);
-            if (log.isDebugEnabled()) {
-                log.debug("Date parse failed value=[" + value + "], " +
+            // Bad date, so LOG and return null
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Date parse failed value=[" + value + "], " +
                         "locale=[" + locale + "] " + e);
             }
         }
@@ -453,9 +454,8 @@ public class GenericTypeValidator implements Serializable {
             }
         } catch (ParseException e) {
             // Bad date so return null
-            Log log = LogFactory.getLog(GenericTypeValidator.class);
-            if (log.isDebugEnabled()) {
-                log.debug("Date parse failed value=[" + value + "], " +
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Date parse failed value=[" + value + "], " +
                         "pattern=[" + datePattern + "], " +
                         "strict=[" + strict + "] " + e);
             }
