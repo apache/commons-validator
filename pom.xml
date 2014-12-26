@@ -105,6 +105,10 @@
       <name>SimoneTripodi</name>
       <id>simonetripodi</id>
     </developer>
+    <developer>
+        <name>Benedikt Ritter</name>
+        <id>britter</id>
+      </developer>
   </developers>
   <contributors>
     <contributor>
