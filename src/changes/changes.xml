@@ -42,7 +42,7 @@ The <action> type attribute can be add,update,fix,remove.
 
   <body>
 
-  <release version="1.4.1" date="TBA" description="TBA">
+  <release version="1.4.1" date="tba" description="Maintenance release">
     <action dev="britter" type="update" issue="VALIDATOR-337" due-to="Ben Ripkens" >
       Deprecate the JS part of commons validator
     </action>
