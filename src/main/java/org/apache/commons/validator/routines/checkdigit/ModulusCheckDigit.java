@@ -116,7 +116,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
         if (total == 0) {
             throw new CheckDigitException("Invalid code, sum is zero");
         }
-        return (total % modulus);
+        return total % modulus;
     }
 
     /**

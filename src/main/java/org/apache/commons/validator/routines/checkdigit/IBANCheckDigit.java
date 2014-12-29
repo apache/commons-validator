@@ -117,7 +117,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
             }
             total = (charValue > 9 ? total * 100 : total * 10) + charValue;
             if (total > MAX) {
-                total = (total % MODULUS);
+                total = total % MODULUS;
             }
         }
         return (int)(total % MODULUS);

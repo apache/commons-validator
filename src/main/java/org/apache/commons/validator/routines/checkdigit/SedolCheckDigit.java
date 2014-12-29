@@ -82,7 +82,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        return (charValue * POSITION_WEIGHT[leftPos - 1]);
+        return charValue * POSITION_WEIGHT[leftPos - 1];
     }
 
     /**
