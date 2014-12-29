@@ -157,10 +157,9 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
             throws CheckDigitException {
         if (Character.isDigit(character)) {
             return Character.getNumericValue(character);
-        } else {
-            throw new CheckDigitException("Invalid Character[" +
-                    leftPos + "] = '" + character + "'");
         }
+        throw new CheckDigitException("Invalid Character[" +
+                leftPos + "] = '" + character + "'");
     }
 
     /**
@@ -179,10 +178,9 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
             throws CheckDigitException {
         if (charValue >= 0 && charValue <= 9) {
             return Integer.toString(charValue);
-        } else {
-            throw new CheckDigitException("Invalid Check Digit Value =" +
-                    + charValue);
         }
+        throw new CheckDigitException("Invalid Check Digit Value =" +
+                + charValue);
     }
 
     /**
