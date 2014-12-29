@@ -18,7 +18,9 @@
 package org.apache.commons.validator.routines;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p><b>InetAddress</b> validation and conversion routines (<code>java.net.InetAddress</code>).</p>
