@@ -88,9 +88,8 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
             throws CheckDigitException {
         if (rightPos == 1 && character == 'X') {
             return 10;
-        } else {
-            return super.toInt(character, leftPos, rightPos);
         }
+        return super.toInt(character, leftPos, rightPos);
     }
 
     /**
@@ -106,9 +105,8 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
             throws CheckDigitException {
         if (charValue == 10) {
             return "X";
-        } else {
-            return super.toCheckDigit(charValue);
         }
+        return super.toCheckDigit(charValue);
     }
 
 }
