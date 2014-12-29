@@ -69,7 +69,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        return (charValue * rightPos);
+        return charValue * rightPos;
     }
 
     /**
