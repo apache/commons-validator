@@ -248,8 +248,7 @@ public class IntegerValidator extends AbstractNumberValidator {
         if (longValue < Integer.MIN_VALUE ||
             longValue > Integer.MAX_VALUE) {
             return null;
-        } else {
-            return new Integer((int)longValue);
         }
+        return new Integer((int)longValue);
     }
 }

@@ -244,9 +244,8 @@ public class DoubleValidator extends AbstractNumberValidator {
 
         if (value instanceof Double) {
             return value;
-        } else {
-            return new Double(((Number)value).doubleValue());
         }
+        return new Double(((Number)value).doubleValue());
 
     }
 }

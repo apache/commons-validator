@@ -132,9 +132,8 @@ public class DomainValidator implements Serializable {
         String[] groups = domainRegex.match(domain);
         if (groups != null && groups.length > 0) {
             return isValidTld(groups[0]);
-        } else {
-            return allowLocal && hostnameRegex.isValid(domain);
         }
+        return allowLocal && hostnameRegex.isValid(domain);
     }
 
     /**
@@ -200,9 +199,8 @@ public class DomainValidator implements Serializable {
     private String chompLeadingDot(String str) {
         if (str.startsWith(".")) {
             return str.substring(1);
-        } else {
-            return str;
         }
+        return str;
     }
 
     // ---------------------------------------------

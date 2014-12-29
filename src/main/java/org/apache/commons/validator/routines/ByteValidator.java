@@ -248,9 +248,8 @@ public class ByteValidator extends AbstractNumberValidator {
         if (longValue < Byte.MIN_VALUE ||
             longValue > Byte.MAX_VALUE) {
             return null;
-        } else {
-            return new Byte((byte)longValue);
         }
+        return new Byte((byte)longValue);
     }
 
 }

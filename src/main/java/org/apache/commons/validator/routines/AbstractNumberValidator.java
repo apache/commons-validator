@@ -123,9 +123,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     public boolean minValue(Number value, Number min) {
         if (isAllowFractions()) {
             return (value.doubleValue() >= min.doubleValue());
-        } else {
-            return (value.longValue() >= min.longValue());
         }
+        return (value.longValue() >= min.longValue());
     }
 
     /**
@@ -139,9 +138,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     public boolean maxValue(Number value, Number max) {
         if (isAllowFractions()) {
             return (value.doubleValue() <= max.doubleValue());
-        } else {
-            return (value.longValue() <= max.longValue());
         }
+        return (value.longValue() <= max.longValue());
     }
 
     /**

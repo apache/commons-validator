@@ -156,13 +156,12 @@ public class EmailValidator implements Serializable {
             InetAddressValidator inetAddressValidator =
                     InetAddressValidator.getInstance();
             return inetAddressValidator.isValid(ipDomainMatcher.group(1));
-        } else {
-            // Domain is symbolic name
-            DomainValidator domainValidator =
-                    DomainValidator.getInstance(allowLocal);
-            return domainValidator.isValid(domain) ||
-                    domainValidator.isValidTld(domain);
         }
+        // Domain is symbolic name
+        DomainValidator domainValidator =
+                DomainValidator.getInstance(allowLocal);
+        return domainValidator.isValid(domain) ||
+                domainValidator.isValidTld(domain);
     }
 
     /**

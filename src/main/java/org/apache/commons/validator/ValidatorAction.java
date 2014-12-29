@@ -752,9 +752,8 @@ public class ValidatorAction implements Serializable {
         if (result instanceof Boolean) {
             Boolean valid = (Boolean) result;
             return valid.booleanValue();
-        } else {
-            return (result != null);
         }
+        return (result != null);
     }
 
     /**
