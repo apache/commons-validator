@@ -109,6 +109,13 @@
         <name>Benedikt Ritter</name>
         <id>britter</id>
     </developer>
+    <developer>
+      <name>Gary Gregory</name>
+      <id>ggregory</id>
+      <email>ggregory@apache.org</email>
+      <url>http://www.garygregory.com</url>
+      <timezone>-5</timezone>
+    </developer>    
   </developers>
   <contributors>
     <contributor>
