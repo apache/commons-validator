@@ -149,13 +149,13 @@ public class ValidatorAction implements Serializable {
      * setDepends() (which clears the List) won't interfere with a call to
      * isDependency().
      */
-    private List dependencyList = Collections.synchronizedList(new ArrayList());
+    private final List dependencyList = Collections.synchronizedList(new ArrayList());
 
     /**
      * An internal List representation of all the validation method's
      * parameters defined in the methodParams String.
      */
-    private List methodParameterList = new ArrayList();
+    private final List methodParameterList = new ArrayList();
 
     /**
      * Gets the name of the validator action.

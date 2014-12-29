@@ -26,8 +26,8 @@ import junit.framework.TestCase;
  */
 public class UrlTest extends TestCase {
 
-   private boolean printStatus = false;
-   private boolean printIndex = false;//print index that indicates current scheme,host,port,path, query test were using.
+   private final boolean printStatus = false;
+   private final boolean printIndex = false;//print index that indicates current scheme,host,port,path, query test were using.
 
    public UrlTest(String testName) {
       super(testName);

@@ -27,8 +27,8 @@ import org.apache.commons.validator.ResultPair;
  */
 public class UrlValidatorTest extends TestCase {
 
-   private boolean printStatus = false;
-   private boolean printIndex = false;//print index that indicates current scheme,host,port,path, query test were using.
+   private final boolean printStatus = false;
+   private final boolean printIndex = false;//print index that indicates current scheme,host,port,path, query test were using.
 
    public UrlValidatorTest(String testName) {
       super(testName);
