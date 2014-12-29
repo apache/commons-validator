@@ -78,7 +78,7 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
      */
     protected int weightedValue(int charValue, int leftPos, int rightPos) {
         int weight = POSITION_WEIGHT[rightPos % 3];
-        return (charValue * weight);
+        return charValue * weight;
     }
 
 }
