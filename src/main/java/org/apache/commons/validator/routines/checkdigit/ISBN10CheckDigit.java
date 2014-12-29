@@ -80,7 +80,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
      *
      * @param character The character to convert.
      * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
+     * @param rightPos The position of the character in the code, counting from right to left
      * @return The integer value of the character.
      * @throws CheckDigitException if an error occurs.
      */
