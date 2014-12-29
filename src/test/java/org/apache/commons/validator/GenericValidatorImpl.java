@@ -218,8 +218,9 @@ public class GenericValidatorImpl {
             String dependTest = field.getVarValue("fieldTest[" + i + "]");
             String dependTestValue = field.getVarValue("fieldValue[" + i + "]");
             String dependIndexed = field.getVarValue("fieldIndexed[" + i + "]");
-            if (dependIndexed == null)
+            if (dependIndexed == null) {
                 dependIndexed = "false";
+            }
             String dependVal = null;
             boolean this_required = false;
             if (field.isIndexed() && dependIndexed.equalsIgnoreCase("true")) {
@@ -267,7 +268,9 @@ public class GenericValidatorImpl {
   private static Class stringClass = new String().getClass();
 
   private static boolean isString(Object o) {
-    if (o == null) return true;
+    if (o == null) {
+        return true;
+    }
     return (stringClass.isInstance(o));
   }
       

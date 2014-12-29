@@ -75,7 +75,9 @@ public class InetAddressValidator implements Serializable {
         // verify that address conforms to generic IPv4 format
         String[] groups = ipv4Validator.match(inet4Address);
 
-        if (groups == null) return false;
+        if (groups == null) {
+            return false;
+        }
 
         // verify that address subgroups are legal
         for (int i = 0; i <= 3; i++) {
