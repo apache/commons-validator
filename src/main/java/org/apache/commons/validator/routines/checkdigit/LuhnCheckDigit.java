@@ -69,7 +69,7 @@ public final class LuhnCheckDigit extends ModulusCheckDigit {
      */
     protected int weightedValue(int charValue, int leftPos, int rightPos) {
         int weight = POSITION_WEIGHT[rightPos % 2];
-        int weightedValue = (charValue * weight);
+        int weightedValue = charValue * weight;
         return weightedValue > 9 ? (weightedValue - 9) : weightedValue;
     }
 }
