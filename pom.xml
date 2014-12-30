@@ -149,6 +149,7 @@
     <commons.release.2.binary.suffix />
     <commons.jira.id>VALIDATOR</commons.jira.id>
     <commons.jira.pid>12310494</commons.jira.pid>
+    <commons.encoding>UTF-8</commons.encoding>
 
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-validator</commons.scmPubUrl>
