@@ -237,6 +237,9 @@ public abstract class AbstractCheckDigitTest extends TestCase {
         assertNotNull(result);
     }
 
+    // Prepare for changing tests to try check letter failure as well
+//    private static final String POSSIBLE_CHECK_DIGITS = "0123456789 ABCDEFHIJKLMNOPQRSTUVWXYZ\tabcdefghijklmnopqrstuvwxyz!@£$%^&*()_+";
+    private static final String POSSIBLE_CHECK_DIGITS = "0123456789";
     /**
      * Returns an array of codes with invalid check digits.
      *
@@ -250,8 +253,8 @@ public abstract class AbstractCheckDigitTest extends TestCase {
         for (int i = 0; i < codes.length; i++) {
             String code = removeCheckDigit(codes[i]);
             String check  = checkDigit(codes[i]);
-            for (int j = 0; j < 10; j++) {
-                String curr =  "" + Character.forDigit(j, 10);
+            for (int j = 0; j < POSSIBLE_CHECK_DIGITS.length(); j++) {
+                String curr =  POSSIBLE_CHECK_DIGITS.substring(j, j+1);//"" + Character.forDigit(j, 10);
                 if (!curr.equals(check)) {
                     list.add(code + curr);
                 }
