@@ -43,6 +43,9 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.4.1" date="tba" description="Maintenance release">
+    <action dev="adrianc" type="update" issue="VALIDATOR-307">
+      isValid checks if the given address is only IPV4 address and not IPV6
+    </action>
     <action dev="britter" type="update" issue="VALIDATOR-337" due-to="Ben Ripkens" >
       Deprecate the JS part of commons validator
     </action>
