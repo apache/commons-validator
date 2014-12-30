@@ -55,6 +55,11 @@ BUGS FROM PREVIOUS RELEASE
                      Thanks to Ar?nas Bendoraitis.
  * [VALIDATOR-331] - IBANCheckDigitTest.createInvalidCodes(String[] codes) uses wrong values.
 
+IMPROVEMENTS OVER PREVIOUS RELEASE
+===================================
+
+ * [VALIDATOR-307] - isValid checks if the given address is only IPV4 address and not IPV6
+
 DEPRECATIONS
 ============
  * [VALIDATOR-337] - Deprecate the JS part of commons validator. Thanks to Ben Ripkens.
