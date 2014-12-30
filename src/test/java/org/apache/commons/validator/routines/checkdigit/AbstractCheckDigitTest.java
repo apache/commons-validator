@@ -45,10 +45,36 @@ public abstract class AbstractCheckDigitTest extends TestCase {
     /** Check digit routine being tested */
     protected CheckDigit routine;
 
-    /** Array of valid code values */
+    /**
+     * Array of valid code values
+     * These must contain valid strings *including* the check digit.
+     *
+     * They are passed to:
+     * CheckDigit.isValid(expects string including checkdigit)
+     * which is expected to return true
+     * and
+     * AbstractCheckDigitTest.createInvalidCodes() which
+     * mangles the last character to check that the result is now invalid.
+     * and
+     * the truncated string is passed to
+     * CheckDigit.calculate(expects string without checkdigit)
+     * the result is compared with the last character
+     */
     protected String[] valid;
 
-    /** Array of invalid code values */
+    /**
+     * Array of invalid code values
+     *
+     * These are currently passed to both 
+     * CheckDigit.calculate(expects a string without checkdigit)
+     * which is expected to throw an exception
+     * However that only applies if the string is syntactically incorrect;
+     * and
+     * CheckDigit.isValid(expects a string including checkdigit)
+     * which is expected to return false
+     *
+     * See https://issues.apache.org/jira/browse/VALIDATOR-344 for some dicussion on this 
+     */
     protected String[] invalid = new String[] {"12345678A"};
 
     /** code value which sums to zero */
