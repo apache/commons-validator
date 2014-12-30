@@ -48,11 +48,11 @@ BUGS FROM PREVIOUS RELEASE
  * [VALIDATOR-273] - EmailValidator does not support mailboxes at TLDs.
                      Thanks to Chris Lee.
  * [VALIDATOR-317] - DomainValidator missing sTLD - "xxx".
-                     Thanks to Ar?nas Bendoraitis.
+                     Thanks to Arūnas Bendoraitis.
  * [VALIDATOR-327] - Missing sx tld.
-                     Thanks to Ar?nas Bendoraitis.
+                     Thanks to Arūnas Bendoraitis.
  * [VALIDATOR-305] - Some TLDs are missing from DomainValidator.
-                     Thanks to Ar?nas Bendoraitis.
+                     Thanks to Arūnas Bendoraitis.
  * [VALIDATOR-331] - IBANCheckDigitTest.createInvalidCodes(String[] codes) uses wrong values.
 
 IMPROVEMENTS OVER PREVIOUS RELEASE
