@@ -135,7 +135,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
                 }
                 assertEquals("valid[" + i +"]: " + valid[i], expected, routine.calculate(code));
             } catch (Exception e) {
-                fail("valid[" + i +"] threw " + e);
+                fail("valid[" + i +"]=" + valid[i] + " threw " + e);
             }
         }
 
