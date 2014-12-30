@@ -23,8 +23,10 @@ $Id$
 INTRODUCTION
 ============
 
-This is a maintenance release. New projects are encouraged to use this release of Apache Commons Validator.
-Commons Validator 1.4.1 at least requires Java 1.4.
+This is a maintenance release.
+All projects are encouraged to update to this release of Apache Commons Validator.
+
+Commons Validator requires Java 1.4 or later
 
 IMPORTANT NOTES
 ================
