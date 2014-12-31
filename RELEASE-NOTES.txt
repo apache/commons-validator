@@ -56,6 +56,9 @@ BUGS FROM PREVIOUS RELEASE
                      Thanks to Arūnas Bendoraitis.
  * [VALIDATOR-305] - Some TLDs are missing from DomainValidator.
                      Thanks to Arūnas Bendoraitis.
+ * [VALIDATOR-347] - toLowerCase() method is Locale-sensitive and should not be used
+ * [VALIDATOR-348] - Update TLD list to latest version (Version 2014123000)
+
  * [VALIDATOR-331] - IBANCheckDigitTest.createInvalidCodes(String[] codes) uses wrong values.
 
 IMPROVEMENTS OVER PREVIOUS RELEASE
