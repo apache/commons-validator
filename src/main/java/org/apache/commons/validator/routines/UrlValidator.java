@@ -273,6 +273,9 @@ public class UrlValidator implements Serializable {
     /**
      * <p>Checks if a field has a valid url address.</p>
      *
+     * Note that the method calls #isValidAuthority()
+     * which checks that the domain is valid.
+     *
      * @param value The value validation is being performed on.  A <code>null</code>
      * value is considered invalid.
      * @return true if the url is valid.
@@ -349,6 +352,7 @@ public class UrlValidator implements Serializable {
     /**
      * Returns true if the authority is properly formatted.  An authority is the combination
      * of hostname and port.  A <code>null</code> authority value is considered invalid.
+     * Note: this implementation validates the domain.
      * @param authority Authority value to validate.
      * @return true if authority (hostname and port) is valid.
      */
