@@ -52,20 +52,20 @@ import java.util.TimeZone;
  *    can be used to adjust the <code>TimeZone</code> of the <code>Calendar</code>
  *    object afterwards.</p>
  *
- * <p>Once a value has been sucessfully converted the following
+ * <p>Once a value has been successfully converted the following
  *    methods can be used to perform various time comparison checks:</p>
  *    <ul>
  *       <li><code>compareTime()</code> compares the hours, minutes, seconds
- *           and milliseconds of two calendars, returing 0, -1 or +1 indicating
+ *           and milliseconds of two calendars, returning 0, -1 or +1 indicating
  *           whether the first time is equal, before or after the second.</li>
  *       <li><code>compareSeconds()</code> compares the hours, minutes and
- *           seconds of two times, returing 0, -1 or +1 indicating
+ *           seconds of two times, returning 0, -1 or +1 indicating
  *           whether the first is equal to, before or after the second.</li>
  *       <li><code>compareMinutes()</code> compares the hours and minutes
- *           two times, returing 0, -1 or +1 indicating
+ *           two times, returning 0, -1 or +1 indicating
  *           whether the first is equal to, before or after the second.</li>
  *       <li><code>compareHours()</code> compares the hours
- *           of two times, returing 0, -1 or +1 indicating
+ *           of two times, returning 0, -1 or +1 indicating
  *           whether the first is equal to, before or after the second.</li>
  *    </ul>
  *

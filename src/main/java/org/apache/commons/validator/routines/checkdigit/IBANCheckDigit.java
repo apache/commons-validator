@@ -28,7 +28,7 @@ import java.io.Serializable;
  * to the end of the code.
  *  So <code>CCDDnnnnnnn</code> becomes <code>nnnnnnnCCDD</code> (where
  *  <code>CC</code> is the country code and <code>DD</code> is the check digit). For
- *  check digit calcualtion the check digit value should be set to zero (i.e.
+ *  check digit calculation the check digit value should be set to zero (i.e.
  *  <code>CC00nnnnnnn</code> in this example.
  * <p>
  * Note: the class does not check the format of the IBAN number, only the check digits.

@@ -41,7 +41,7 @@ import java.util.Locale;
  *
  * <p>Fraction/decimal values are automatically trimmed to the appropriate length.</p>
  *
- * <p>Once a value has been sucessfully converted the following
+ * <p>Once a value has been successfully converted the following
  *    methods can be used to perform minimum, maximum and range checks:</p>
  *    <ul>
  *       <li><code>minValue()</code> checks whether the value is greater

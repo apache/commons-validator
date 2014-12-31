@@ -37,7 +37,7 @@ import java.util.Locale;
  *    one of the <code>validate()</code> methods to validate and receive a
  *    <i>converted</i> <code>Long</code> value.</p>
  *
- * <p>Once a value has been sucessfully converted the following
+ * <p>Once a value has been successfully converted the following
  *    methods can be used to perform minimum, maximum and range checks:</p>
  *    <ul>
  *       <li><code>minValue()</code> checks whether the value is greater

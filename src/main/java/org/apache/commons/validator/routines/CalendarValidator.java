@@ -52,23 +52,23 @@ import java.util.TimeZone;
  *    can be used to adjust the <code>TimeZone</code> of the <code>Calendar</code>
  *    object afterwards.</p>
  *
- * <p>Once a value has been sucessfully converted the following
+ * <p>Once a value has been successfully converted the following
  *    methods can be used to perform various date comparison checks:</p>
  *    <ul>
  *       <li><code>compareDates()</code> compares the day, month and
- *           year of two calendars, returing 0, -1 or +1 indicating
+ *           year of two calendars, returning 0, -1 or +1 indicating
  *           whether the first date is equal, before or after the second.</li>
  *       <li><code>compareWeeks()</code> compares the week and
- *           year of two calendars, returing 0, -1 or +1 indicating
+ *           year of two calendars, returning 0, -1 or +1 indicating
  *           whether the first week is equal, before or after the second.</li>
  *       <li><code>compareMonths()</code> compares the month and
- *           year of two calendars, returing 0, -1 or +1 indicating
+ *           year of two calendars, returning 0, -1 or +1 indicating
  *           whether the first month is equal, before or after the second.</li>
  *       <li><code>compareQuarters()</code> compares the quarter and
- *           year of two calendars, returing 0, -1 or +1 indicating
+ *           year of two calendars, returning 0, -1 or +1 indicating
  *           whether the first quarter is equal, before or after the second.</li>
  *       <li><code>compareYears()</code> compares the
- *           year of two calendars, returing 0, -1 or +1 indicating
+ *           year of two calendars, returning 0, -1 or +1 indicating
  *           whether the first year is equal, before or after the second.</li>
  *    </ul>
  *
