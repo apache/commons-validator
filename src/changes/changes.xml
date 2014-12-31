@@ -43,6 +43,9 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.4.1" date="tba" description="Maintenance release">
+    <action dev="sebb" type="update" issue="VALIDATOR-348" >
+      Update TLD list to latest version (Version 2014123000)
+    </action>
     <action dev="sebb" type="fix" issue="VALIDATOR-347" >
       toLowerCase() method is Locale-sensitive and should not be used
       Fixed 4 instances in DomainValidator
