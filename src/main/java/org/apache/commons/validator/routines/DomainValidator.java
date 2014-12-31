@@ -208,6 +208,10 @@ public class DomainValidator implements Serializable {
     // ----- Authoritative and comprehensive list at:
     // ----- http://data.iana.org/TLD/tlds-alpha-by-domain.txt
 
+    // Note that the above list is in UPPER case.
+    // The code currently converts strings to lower case (as per the tables below)
+
+
     private static final String[] INFRASTRUCTURE_TLDS = new String[] {
         "arpa",               // internet infrastructure
         "root"                // diagnostic marker for non-truncated root zone
