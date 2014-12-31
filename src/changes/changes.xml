@@ -53,7 +53,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="VALIDATOR-307" dev="adrianc" type="update">
       isValid checks if the given address is only IPV4 address and not IPV6
     </action>
-    <action  issue="VALIDATOR-337"dev="britter" type="update" due-to="Ben Ripkens" >
+    <action  issue="VALIDATOR-337" dev="britter" type="update" due-to="Ben Ripkens" >
       Deprecate the JS part of commons validator
     </action>
     <action issue="VALIDATOR-266" dev="britter" type="fix" due-to="Bruce Collie" >
@@ -62,7 +62,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="VALIDATOR-273" dev="britter" type="fix" due-to="Chris Lee" >
       EmailValidator does not support mailboxes at TLDs
     </action>
-    <action  issue="VALIDATOR-317"dev="britter" type="fix" due-to="Arūnas Bendoraitis" >
+    <action  issue="VALIDATOR-317" dev="britter" type="fix" due-to="Arūnas Bendoraitis" >
       DomainValidator missing sTLD - "xxx"
     </action>
     <action issue="VALIDATOR-327" dev="britter" type="fix" due-to="Arūnas Bendoraitis" >
