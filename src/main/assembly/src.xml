@@ -35,7 +35,6 @@
                 <include>pom.xml</include>
                 <include>RELEASE-NOTES.txt</include>
                 <include>README.md</include>
-                <include>STATUS.html</include>
             </includes>
         </fileSet>
         <fileSet>
