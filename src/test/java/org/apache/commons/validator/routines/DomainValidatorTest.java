@@ -140,16 +140,16 @@ public class DomainValidatorTest extends TestCase {
             System.out.println("Done");
         }
         BufferedReader br = new BufferedReader(new FileReader(f));
-        System.out.println("Entries missing from TLD List");
+        System.out.println("Entries missing from TLD List\n");
         String line;
         while((line = br.readLine()) != null) {
             if (!line.startsWith("#")) {
                 if (!dv.isValidTld(line)) {
-                    System.out.println(line.toLowerCase(Locale.ENGLISH));
+                    System.out.println("        \""+line.toLowerCase(Locale.ENGLISH)+"\",");
                 }
             }
         }
         br.close();
-        System.out.println("Done");
+        System.out.println("\nDone");
     }
 }
