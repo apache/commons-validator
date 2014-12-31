@@ -16,6 +16,15 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Locale;
+
 import junit.framework.TestCase;
 
 /**
@@ -109,5 +118,38 @@ public class DomainValidatorTest extends TestCase {
     
     public void testIDN() {
        assertTrue("b\u00fccher.ch in IDN should validate", validator.isValid("www.xn--bcher-kva.ch"));
+    }
+
+    // Download and process local copy of http://data.iana.org/TLD/tlds-alpha-by-domain.txt
+    // Check if the internal TLD table is up to date
+    public static void main(String a[]) throws Exception {
+        DomainValidator dv = DomainValidator.getInstance();;
+        File f = new File("target/tlds-alpha-by-domain.txt");
+        if (!f.canRead()) {
+            String tldurl="http://data.iana.org/TLD/tlds-alpha-by-domain.txt";
+            System.out.println("Downloading " + tldurl);
+            byte buff[] = new byte[1024];
+            HttpURLConnection hc = (HttpURLConnection) new URL(tldurl).openConnection();
+            InputStream is = hc.getInputStream();
+            FileOutputStream fos = new FileOutputStream(f);
+            while(is.read(buff) != -1) {
+                fos.write(buff);
+            }
+            fos.close();
+            is.close();
+            System.out.println("Done");
+        }
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        System.out.println("Entries missing from TLD List");
+        String line;
+        while((line = br.readLine()) != null) {
+            if (!line.startsWith("#")) {
+                if (!dv.isValidTld(line)) {
+                    System.out.println(line.toLowerCase(Locale.ENGLISH));
+                }
+            }
+        }
+        br.close();
+        System.out.println("Done");
     }
 }
