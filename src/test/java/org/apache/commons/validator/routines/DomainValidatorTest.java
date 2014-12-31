@@ -143,7 +143,7 @@ public class DomainValidatorTest extends TestCase {
         System.out.println("Entries missing from TLD List\n");
         String line;
         while((line = br.readLine()) != null) {
-            if (!line.startsWith("#")) {
+            if (!line.startsWith("#") && !line.startsWith("XN--")) {
                 if (!dv.isValidTld(line)) {
                     System.out.println("        \""+line.toLowerCase(Locale.ENGLISH)+"\",");
                 }
