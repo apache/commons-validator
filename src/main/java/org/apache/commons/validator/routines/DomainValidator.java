@@ -124,7 +124,7 @@ public class DomainValidator implements Serializable {
     /**
      * Returns true if the specified <code>String</code> parses
      * as a valid domain name with a recognized top-level domain.
-     * The parsing is case-sensitive.
+     * The parsing is case-insensitive.
      * @param domain the parameter to check for domain name syntax
      * @return true if the parameter is a valid domain name
      */
@@ -139,7 +139,7 @@ public class DomainValidator implements Serializable {
     /**
      * Returns true if the specified <code>String</code> matches any
      * IANA-defined top-level domain. Leading dots are ignored if present.
-     * The search is case-sensitive.
+     * The search is case-insensitive.
      * @param tld the parameter to check for TLD status
      * @return true if the parameter is a TLD
      */
@@ -155,7 +155,7 @@ public class DomainValidator implements Serializable {
     /**
      * Returns true if the specified <code>String</code> matches any
      * IANA-defined infrastructure top-level domain. Leading dots are
-     * ignored if present. The search is case-sensitive.
+     * ignored if present. The search is case-insensitive.
      * @param iTld the parameter to check for infrastructure TLD status
      * @return true if the parameter is an infrastructure TLD
      */
@@ -166,7 +166,7 @@ public class DomainValidator implements Serializable {
     /**
      * Returns true if the specified <code>String</code> matches any
      * IANA-defined generic top-level domain. Leading dots are ignored
-     * if present. The search is case-sensitive.
+     * if present. The search is case-insensitive.
      * @param gTld the parameter to check for generic TLD status
      * @return true if the parameter is a generic TLD
      */
@@ -177,7 +177,7 @@ public class DomainValidator implements Serializable {
     /**
      * Returns true if the specified <code>String</code> matches any
      * IANA-defined country code top-level domain. Leading dots are
-     * ignored if present. The search is case-sensitive.
+     * ignored if present. The search is case-insensitive.
      * @param ccTld the parameter to check for country code TLD status
      * @return true if the parameter is a country code TLD
      */
