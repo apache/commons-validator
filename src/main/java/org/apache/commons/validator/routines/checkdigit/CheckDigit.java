@@ -50,7 +50,7 @@ package org.apache.commons.validator.routines.checkdigit;
 public interface CheckDigit {
 
     /**
-     * Calculate the <i>Check Digit</i> for a code.
+     * Calculates the <i>Check Digit</i> for a code.
      *
      * @param code The code to calculate the Check Digit for.
      * @return The calculated Check Digit
@@ -59,7 +59,7 @@ public interface CheckDigit {
     String calculate(String code) throws CheckDigitException;
 
     /**
-     * Validate the check digit for the code.
+     * Validates the check digit for the code.
      *
      * @param code The code to validate.
      * @return <code>true</code> if the check digit is valid, otherwise
