@@ -24,7 +24,8 @@ INTRODUCTION
 ============
 
 This is a maintenance release.
-All projects are encouraged to update to this release of Apache Commons Validator.
+All projects are encouraged to update to this release of
+Apache Commons Validator.
 
 Commons Validator requires Java 1.4 or later
 
@@ -56,19 +57,23 @@ BUGS FROM PREVIOUS RELEASE
                      Thanks to Arūnas Bendoraitis.
  * [VALIDATOR-305] - Some TLDs are missing from DomainValidator.
                      Thanks to Arūnas Bendoraitis.
- * [VALIDATOR-347] - toLowerCase() method is Locale-sensitive and should not be used
+ * [VALIDATOR-347] - toLowerCase() method is Locale-sensitive and should not be
+                     used
  * [VALIDATOR-348] - Update TLD list to latest version (Version 2014123000)
-
- * [VALIDATOR-331] - IBANCheckDigitTest.createInvalidCodes(String[] codes) uses wrong values.
+ * [VALIDATOR-331] - IBANCheckDigitTest.createInvalidCodes(String[] codes) uses
+                     wrong values.
 
 IMPROVEMENTS OVER PREVIOUS RELEASE
 ===================================
 
- * [VALIDATOR-307] - isValid checks if the given address is only IPV4 address and not IPV6
+ * [VALIDATOR-307] - isValid checks if the given address is only IPV4 address
+                     and not IPV6
 
 DEPRECATIONS
 ============
- * [VALIDATOR-337] - Deprecate the JS part of commons validator. Thanks to Ben Ripkens.
+
+ * [VALIDATOR-337] - Deprecate the JS part of commons validator.
+                     Thanks to Ben Ripkens.
 
 
 Have fun!
