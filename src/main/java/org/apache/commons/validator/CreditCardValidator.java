@@ -104,7 +104,7 @@ public class CreditCardValidator {
     }
 
     /**
-     * Create a new CreditCardValidator with the specified options.
+     * Creates a new CreditCardValidator with the specified options.
      * @param options Pass in
      * CreditCardValidator.VISA + CreditCardValidator.AMEX to specify that
      * those are the only valid card types.
@@ -156,7 +156,7 @@ public class CreditCardValidator {
     }
 
     /**
-     * Add an allowed CreditCardType that participates in the card
+     * Adds an allowed CreditCardType that participates in the card
      * validation algorithm.
      * @param type The type that is now allowed to pass validation.
      * @since Validator 1.1.2
