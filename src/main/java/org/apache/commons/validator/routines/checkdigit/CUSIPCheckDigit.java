@@ -61,16 +61,18 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      *
      * @param character The character to convert
      * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
+     * @param rightPos The position of the character in the code, counting from right to left
      * @return The integer value of the character
      * @throws CheckDigitException if character is not alphanumeric
      */
     protected int toInt(char character, int leftPos, int rightPos)
             throws CheckDigitException {
         int charValue = Character.getNumericValue(character);
-        if (charValue < 0 || charValue > 35) {
+        // the final character is only allowed to reach 9
+        final int charMax = rightPos == 1 ? 9 : 35;
+        if (charValue < 0 || charValue > charMax) {
             throw new CheckDigitException("Invalid Character[" +
-                    leftPos + "] = '" + charValue + "'");
+                    leftPos + "," + rightPos + "] = '" + charValue + "' out of range 0 to " + charMax);
         }
         return charValue;
     }
