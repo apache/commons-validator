@@ -97,9 +97,11 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
     protected int toInt(char character, int leftPos, int rightPos)
             throws CheckDigitException {
         int charValue = Character.getNumericValue(character);
-        if (charValue < 0 || charValue > 35) {
+        // the check digit is only allowed to reach 9
+        final int charMax = rightPos == 1 ? 9 : 35;
+        if (charValue < 0 || charValue > charMax) {
             throw new CheckDigitException("Invalid Character[" +
-                    leftPos + "] = '" + charValue + "'");
+                    leftPos + "," + rightPos + "] = '" + charValue + "' out of range 0 to " + charMax);
         }
         return charValue;
     }
