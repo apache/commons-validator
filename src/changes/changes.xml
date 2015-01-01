@@ -42,7 +42,7 @@ The <action> type attribute can be add,update,fix,remove.
 
   <body>
 
-  <release version="1.4.1" date="tba" description="Maintenance release">
+  <release version="1.4.1" date="tba" description="1.4 Maintenance release">
     <action issue="VALIDATOR-336" dev="sebb" type="fix" >
       CUSIPCheckDigit thinks invalid CUSIP is valid
     </action>
