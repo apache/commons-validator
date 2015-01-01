@@ -127,11 +127,8 @@ public class InetAddressValidator implements Serializable {
             if (inet6Address.endsWith("::")) {
                 // String.split() drops ending empty segments
                 octetList.add("");
-            } else if (inet6Address.startsWith("::")) {
-                // String.split() adds beginning empty segments
-                if (!octetList.isEmpty()) {
-                    octetList.remove(0);
-                }
+            } else if (inet6Address.startsWith("::") && !octetList.isEmpty()) {
+                octetList.remove(0);
             }
             octets = octetList.toArray();
         }
