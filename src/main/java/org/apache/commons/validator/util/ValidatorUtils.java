@@ -42,6 +42,8 @@ import org.apache.commons.validator.Var;
  */
 public class ValidatorUtils {
 
+    private static final Log LOG = LogFactory.getLog(ValidatorUtils.class);
+
     /**
      * <p>Replace part of a <code>String</code> with another value.</p>
      *
@@ -103,14 +105,11 @@ public class ValidatorUtils {
             value = PropertyUtils.getProperty(bean, property);
 
         } catch(IllegalAccessException e) {
-            Log log = LogFactory.getLog(ValidatorUtils.class);
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } catch(InvocationTargetException e) {
-            Log log = LogFactory.getLog(ValidatorUtils.class);
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } catch(NoSuchMethodException e) {
-            Log log = LogFactory.getLog(ValidatorUtils.class);
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         }
 
         if (value == null) {
