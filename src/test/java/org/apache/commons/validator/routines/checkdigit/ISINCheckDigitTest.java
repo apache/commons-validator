@@ -48,4 +48,20 @@ public class ISINCheckDigitTest extends AbstractCheckDigitTest {
                               };
         invalid = new String[] {"0378#3100"};
     }
+
+    private static String invalidCheckDigits[] =
+                             {"US037833100O", // proper check digit is '5', see above
+                              "BMG8571G109D", // proper check digit is '6', see above
+                              "AU0000XVGZAD", // proper check digit is '3', see above
+                              "GB000263494I", // proper check digit is '6', see above
+                              "FR000402625C", // proper check digit is '0', see above
+                              "DK000976334H", // proper check digit is '4', see above
+                              };
+
+    public void testVALIDATOR_345() {
+        for (int i = 0; i < invalidCheckDigits.length; i++) {
+            String invalidCheckDigit = invalidCheckDigits[i];
+            assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));
+        }
+    }
 }

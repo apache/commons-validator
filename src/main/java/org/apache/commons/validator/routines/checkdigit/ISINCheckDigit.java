@@ -67,12 +67,20 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      */
     protected int calculateModulus(String code, boolean includesCheckDigit) throws CheckDigitException {
         StringBuffer transformed = new  StringBuffer(code.length() * 2);
+        if (includesCheckDigit) {
+            char checkDigit = code.charAt(code.length()-1); // fetch the last character
+            if (!Character.isDigit(checkDigit)){
+                throw new CheckDigitException("Invalid checkdigit["+ checkDigit+ "] in " + code);
+            }
+        }
         for (int i = 0; i < code.length(); i++) {
             int charValue = Character.getNumericValue(code.charAt(i));
             if (charValue < 0 || charValue > 35) {
                 throw new CheckDigitException("Invalid Character[" +
                         (i + 1) + "] = '" + charValue + "'");
             }
+             // this converts alphanumerics to two digits
+             // so there is no need to overload toInt()
             transformed.append(charValue);
         }
         return super.calculateModulus(transformed.toString(), includesCheckDigit);
