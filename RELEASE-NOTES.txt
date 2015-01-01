@@ -62,6 +62,8 @@ BUGS FROM PREVIOUS RELEASE
  * [VALIDATOR-336] - CUSIPCheckDigit thinks invalid CUSIP is valid.
  * [VALIDATOR-345] - ISINCheckDigit fails to reject invalid (non-numeric) check
                      digits
+ * [VALIDATOR-346] - SedolCheckDigit fails to reject invalid (non-numeric) check
+                     digits
  * [VALIDATOR-347] - toLowerCase() method is Locale-sensitive and should not be
                      used
  * [VALIDATOR-348] - Update TLD list to latest version (Version 2014123000)
