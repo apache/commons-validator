@@ -127,27 +127,27 @@ public class DomainValidatorTest extends TestCase {
        assertTrue("b\u00fccher.ch in IDN should validate", validator.isValid("www.xn--bcher-kva.ch"));
     }
 
-    // Check array is sorted (not strictly needed yet)
-    public void test_INFRASTRUCTURE_TLDS_sorted() throws Exception {
-        final boolean sorted = isSorted("INFRASTRUCTURE_TLDS");
+    // Check array is sorted and is lower-case
+    public void test_INFRASTRUCTURE_TLDS_sortedAndLowerCase() throws Exception {
+        final boolean sorted = isSortedLowerCase("INFRASTRUCTURE_TLDS");
         assertTrue(sorted);
     }
 
-    // Check array is sorted (not strictly needed yet)
-    public void test_COUNTRY_CODE_TLDS_sorted() throws Exception {
-        final boolean sorted = isSorted("COUNTRY_CODE_TLDS");
+    // Check array is sorted and is lower-case
+    public void test_COUNTRY_CODE_TLDS_sortedAndLowerCase() throws Exception {
+        final boolean sorted = isSortedLowerCase("COUNTRY_CODE_TLDS");
         assertTrue(sorted);
     }
 
-    // Check array is sorted (not strictly needed yet)
-    public void test_GENERIC_TLDS_sorted() throws Exception {
-        final boolean sorted = isSorted("GENERIC_TLDS");
+    // Check array is sorted and is lower-case
+    public void test_GENERIC_TLDS_sortedAndLowerCase() throws Exception {
+        final boolean sorted = isSortedLowerCase("GENERIC_TLDS");
         assertTrue(sorted);
     }
 
-    // Check array is sorted (not strictly needed yet)
-    public void test_LOCAL_TLDS_sorted() throws Exception {
-        final boolean sorted = isSorted("LOCAL_TLDS");
+    // Check array is sorted and is lower-case
+    public void test_LOCAL_TLDS_sortedAndLowerCase() throws Exception {
+        final boolean sorted = isSortedLowerCase("LOCAL_TLDS");
         assertTrue(sorted);
     }
 
@@ -263,7 +263,7 @@ public class DomainValidatorTest extends TestCase {
         return true;
     }
 
-    private boolean isSorted(String arrayName) throws Exception {
+    private boolean isSortedLowerCase(String arrayName) throws Exception {
         Field f = DomainValidator.class.getDeclaredField(arrayName);
         final boolean isPrivate = Modifier.isPrivate(f.getModifiers());
         if (isPrivate) {
@@ -271,7 +271,7 @@ public class DomainValidatorTest extends TestCase {
         }
         String[] array = (String[]) f.get(null);
         try {
-            return isSorted(arrayName, array);
+            return isSortedLowerCase(arrayName, array);
         } finally {
             if (isPrivate) {
                 f.setAccessible(false);
@@ -279,26 +279,37 @@ public class DomainValidatorTest extends TestCase {
         }
     }
 
-    // Check if an array is strictly sorted
-    private static boolean isSorted(String name, String [] array) {
+    private static boolean isLowerCase(String string) {
+        return string.equals(string.toLowerCase(Locale.ENGLISH));
+    }
+
+    // Check if an array is strictly sorted - and lowerCase
+    private static boolean isSortedLowerCase(String name, String [] array) {
         boolean sorted = true;
         boolean strictlySorted = true;
-        for(int i = 0; i < array.length-1; i++) { // compare all but last entry with next
-            final int cmp = array[i].compareTo(array[i+1]);
+        final int length = array.length;
+        boolean lowerCase = isLowerCase(array[length-1]); // Check the last entry
+        for(int i = 0; i < length-1; i++) { // compare all but last entry with next
+            final String entry = array[i];
+            final int cmp = entry.compareTo(array[i+1]);
             if (cmp > 0) { // out of order
                 sorted = false;
             } else if (cmp == 0) {
                 strictlySorted = false;
-                System.out.println("Duplicated entry: " + array[i] + " in " + name);
+                System.out.println("Duplicated entry: " + entry + " in " + name);
+            }
+            if (!isLowerCase(entry)) {
+                System.out.println("Non lowerCase entry: " + entry + " in " + name);
+                lowerCase = false;
             }
         }
         if (!sorted) {
             System.out.println("Resorted: " + name);
             Arrays.sort(array);
-            for(int i = 0; i < array.length-1; i++) {
+            for(int i = 0; i < length-1; i++) {
                 System.out.println("        \"" + array[i] + "\",");
             }
         }
-        return sorted && strictlySorted;
+        return sorted && strictlySorted && lowerCase;
     }
 }
