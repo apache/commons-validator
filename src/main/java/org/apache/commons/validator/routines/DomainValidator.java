@@ -682,7 +682,6 @@ public class DomainValidator implements Serializable {
         "trust",
         "video",
         "zuerich",
-        "9c",
     };
 
     private static final String[] COUNTRY_CODE_TLDS = new String[] {
