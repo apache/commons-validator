@@ -189,7 +189,7 @@ public class DomainValidator implements Serializable {
     /**
      * Returns true if the specified <code>String</code> matches any
      * widely used "local" domains (localhost or localdomain). Leading dots are
-     *  ignored if present. The search is case-sensitive.
+     * ignored if present. The search is case-insensitive.
      * @param iTld the parameter to check for local TLD status
      * @return true if the parameter is an local TLD
      */
