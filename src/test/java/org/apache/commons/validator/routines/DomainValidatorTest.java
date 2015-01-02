@@ -306,7 +306,7 @@ public class DomainValidatorTest extends TestCase {
         if (!sorted) {
             System.out.println("Resorted: " + name);
             Arrays.sort(array);
-            for(int i = 0; i < length-1; i++) {
+            for(int i = 0; i < length; i++) {
                 System.out.println("        \"" + array[i] + "\",");
             }
         }
