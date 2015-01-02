@@ -22,9 +22,14 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import junit.framework.TestCase;
 
@@ -90,7 +95,7 @@ public class DomainValidatorTest extends TestCase {
         assertTrue(".BiZ should validate as TLD", validator.isValidTld(".BiZ"));
 
         // corner cases
-        assertFalse("invalid TLD shouldn't validate", validator.isValid(".nope"));
+        assertFalse("invalid TLD shouldn't validate", validator.isValid(".nope")); // TODO this is not guaranteed invalid forever
         assertFalse("empty string shouldn't validate as TLD", validator.isValid(""));
         assertFalse("null shouldn't validate as TLD", validator.isValid(null));
     }
@@ -121,9 +126,35 @@ public class DomainValidatorTest extends TestCase {
        assertTrue("b\u00fccher.ch in IDN should validate", validator.isValid("www.xn--bcher-kva.ch"));
     }
 
+    // Check array is sorted (not strictly needed yet)
+    public void test_INFRASTRUCTURE_TLDS_sorted() throws Exception {
+        final boolean sorted = isSorted("INFRASTRUCTURE_TLDS");
+        assertTrue(sorted);
+    }
+
+    // Check array is sorted (not strictly needed yet)
+    public void test_COUNTRY_CODE_TLDS_sorted() throws Exception {
+        final boolean sorted = isSorted("COUNTRY_CODE_TLDS");
+        assertTrue(sorted);
+    }
+
+    // Check array is sorted (not strictly needed yet)
+    public void test_GENERIC_TLDS_sorted() throws Exception {
+        final boolean sorted = isSorted("GENERIC_TLDS");
+        assertTrue(sorted);
+    }
+
+    // Check array is sorted (not strictly needed yet)
+    public void test_LOCAL_TLDS_sorted() throws Exception {
+        final boolean sorted = isSorted("LOCAL_TLDS");
+        assertTrue(sorted);
+    }
+
     // Download and process local copy of http://data.iana.org/TLD/tlds-alpha-by-domain.txt
     // Check if the internal TLD table is up to date
+    // Check if the internal TLD tables have any spurious entries
     public static void main(String a[]) throws Exception {
+        Set ianaTlds = new HashSet(); // keep for comparison with array contents
         DomainValidator dv = DomainValidator.getInstance();;
         File f = new File("target/tlds-alpha-by-domain.txt");
         if (!f.canRead()) {
@@ -158,9 +189,82 @@ public class DomainValidatorTest extends TestCase {
                 if (!dv.isValidTld(line)) {
                     System.out.println("        \""+line.toLowerCase(Locale.ENGLISH)+"\",");
                 }
+                ianaTlds.add(line.toLowerCase(Locale.ENGLISH));
             }
         }
         br.close();
         System.out.println("\nDone");
+        // Check if internal tables contain any additional entries
+        isInIanaList("INFRASTRUCTURE_TLDS", ianaTlds);
+        isInIanaList("COUNTRY_CODE_TLDS", ianaTlds);
+        isInIanaList("GENERIC_TLDS", ianaTlds);
+        // Don't check local TLDS isInIanaList("LOCAL_TLDS", ianaTlds);
+    }
+
+    // isInIanaList and isSorted are split into two methods.
+    // If/when access to the arrays is possible without reflection, the intermediate
+    // methods can be dropped
+    private static boolean isInIanaList(String arrayName, Set ianaTlds) throws Exception {
+        Field f = DomainValidator.class.getDeclaredField(arrayName);
+        final boolean isPrivate = Modifier.isPrivate(f.getModifiers());
+        if (isPrivate) {
+            f.setAccessible(true);
+        }
+        String[] array = (String[]) f.get(null);
+        try {
+            return isInIanaList(arrayName, array, ianaTlds);
+        } finally {
+            if (isPrivate) {
+                f.setAccessible(false);
+            }
+        }
+    }
+
+    private static boolean isInIanaList(String name, String [] array, Set ianaTlds) {
+        for(int i = 0; i < array.length; i++) {
+            if (!ianaTlds.contains(array[i])) {
+                System.out.println(name + " contains unexpected value: " + array[i]);
+            }
+        }
+        return true;
+    }
+
+    private boolean isSorted(String arrayName) throws Exception {
+        Field f = DomainValidator.class.getDeclaredField(arrayName);
+        final boolean isPrivate = Modifier.isPrivate(f.getModifiers());
+        if (isPrivate) {
+            f.setAccessible(true);
+        }
+        String[] array = (String[]) f.get(null);
+        try {
+            return isSorted(arrayName, array);
+        } finally {
+            if (isPrivate) {
+                f.setAccessible(false);
+            }
+        }
+    }
+
+    // Check if an array is strictly sorted
+    private static boolean isSorted(String name, String [] array) {
+        boolean sorted = true;
+        boolean strictlySorted = true;
+        for(int i = 0; i < array.length-1; i++) { // compare all but last entry with next
+            final int cmp = array[i].compareTo(array[i+1]);
+            if (cmp > 0) { // out of order
+                sorted = false;
+            } else if (cmp == 0) {
+                strictlySorted = false;
+                System.out.println("Duplicated entry: " + array[i] + " in " + name);
+            }
+        }
+        if (!sorted) {
+            System.out.println("Resorted: " + name);
+            Arrays.sort(array);
+            for(int i = 0; i < array.length-1; i++) {
+                System.out.println("        \"" + array[i] + "\",");
+            }
+        }
+        return sorted && strictlySorted;
     }
 }
