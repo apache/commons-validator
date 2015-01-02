@@ -212,6 +212,12 @@ public class DomainValidator implements Serializable {
     // Note that the above list is in UPPER case.
     // The code currently converts strings to lower case (as per the tables below)
 
+    // IANA also provide an HTML list at http://www.iana.org/domains/root/db
+    // Note that this contains several country code entries which are NOT in
+    // the text file. These all have the "Not assigned" in the "Sponsoring Organisation" column
+    // For example (as of 2015-01-02):
+    // .bl  country-code    Not assigned
+    // .um  country-code    Not assigned
 
     private static final String[] INFRASTRUCTURE_TLDS = new String[] {
         "arpa",               // internet infrastructure
@@ -920,6 +926,7 @@ public class DomainValidator implements Serializable {
         "ug",                 // Uganda
         "uk",                 // United Kingdom
         "um",                 // United States Minor Outlying Islands
+                              // TODO um is not in the IANA text file, it is in the HTML file
         "us",                 // United States of America
         "uy",                 // Uruguay
         "uz",                 // Uzbekistan
@@ -935,6 +942,8 @@ public class DomainValidator implements Serializable {
         "ye",                 // Yemen
         "yt",                 // Mayotte
         "yu",                 // Serbia and Montenegro (originally Yugoslavia)
+                              // TODO yu is not in the IANA text file, nor it is in the HTML file
+                              // It looks like it has been removed from use
         "za",                 // South Africa
         "zm",                 // Zambia
         "zw",                 // Zimbabwe
