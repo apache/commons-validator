@@ -20,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -132,8 +133,9 @@ public class DomainValidatorTest extends TestCase {
             HttpURLConnection hc = (HttpURLConnection) new URL(tldurl).openConnection();
             InputStream is = hc.getInputStream();
             FileOutputStream fos = new FileOutputStream(f);
-            while(is.read(buff) != -1) {
-                fos.write(buff);
+            int len;
+            while((len=is.read(buff)) != -1) {
+                fos.write(buff, 0, len);
             }
             fos.close();
             is.close();
@@ -142,6 +144,15 @@ public class DomainValidatorTest extends TestCase {
         BufferedReader br = new BufferedReader(new FileReader(f));
         System.out.println("Entries missing from TLD List\n");
         String line;
+        final String header;
+        line = br.readLine(); // header
+        if (line.startsWith("# Version ")) {
+            header = line.substring(2);
+            System.out.println("        // Taken from " + header);
+        } else {
+            br.close();
+            throw new IOException("File does not have expected Version header");
+        }
         while((line = br.readLine()) != null) {
             if (!line.startsWith("#") && !line.startsWith("XN--")) {
                 if (!dv.isValidTld(line)) {
