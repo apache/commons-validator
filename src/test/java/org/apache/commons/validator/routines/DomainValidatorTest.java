@@ -27,8 +27,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -174,15 +177,12 @@ public class DomainValidatorTest extends TestCase {
             System.out.println("Done");
         }
         BufferedReader br = new BufferedReader(new FileReader(f));
-        System.out.println("Entries missing from TLD List\n");
         String line;
         final String header;
-        final String version;
         line = br.readLine(); // header
         if (line.startsWith("# Version ")) {
             header = line.substring(2);
             System.out.println("        // Taken from " + header);
-            version = header.substring(0,header.indexOf(","));
         } else {
             br.close();
             throw new IOException("File does not have expected Version header");
@@ -191,6 +191,8 @@ public class DomainValidatorTest extends TestCase {
         if (toUnicode == null) {
             System.err.println("Cannot convert XN-- entries (no access to java.net.IDN)");
         }
+
+        List missing = new ArrayList();
         while((line = br.readLine()) != null) {
             if (!line.startsWith("#")) {
                 final String item;
@@ -204,13 +206,20 @@ public class DomainValidatorTest extends TestCase {
                     item = line.toLowerCase(Locale.ENGLISH);
                 }
                 if (!dv.isValidTld(item)) {
-                    System.out.println("        \""+item+"\", // " + line + " added from " + version);
+                    missing.add(item);
                 }
                 ianaTlds.add(item);
             }
         }
         br.close();
-        System.out.println("\nDone");
+        if (!missing.isEmpty()) {
+            System.out.println("Entries missing from TLD List\n");
+            Collections.sort(missing); // XN-- entries are not in sorted order once converted
+            for(int i = 0; i < missing.size(); i++) {
+              System.out.println("        \""+missing.get(i)+"\",");
+            }
+            System.out.println("\nDone");
+        }
         // Check if internal tables contain any additional entries
         isInIanaList("INFRASTRUCTURE_TLDS", ianaTlds);
         isInIanaList("COUNTRY_CODE_TLDS", ianaTlds);
