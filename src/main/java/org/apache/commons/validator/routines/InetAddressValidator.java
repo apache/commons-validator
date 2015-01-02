@@ -82,7 +82,7 @@ public class InetAddressValidator implements Serializable {
         // verify that address subgroups are legal
         for (int i = 0; i <= 3; i++) {
             String ipSegment = groups[i];
-            if (ipSegment == null || ipSegment.isEmpty()) {
+            if (ipSegment == null || ipSegment.length() == 0) {
                 return false;
             }
 
@@ -139,7 +139,7 @@ public class InetAddressValidator implements Serializable {
         int emptyOctets = 0;
         for (int index = 0; index < octets.length; index++) {
             String octet = (String) octets[index];
-            if (octet.isEmpty()) {
+            if (octet.length() == 0) {
                 emptyOctets++;
                 if (emptyOctets > 1) {
                     return false;
