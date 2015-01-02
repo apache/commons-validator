@@ -682,6 +682,8 @@ public class DomainValidator implements Serializable {
         "trust",
         "video",
         "zuerich",
+        // Taken from Version 2014123101, Last Updated Thu Jan  1 07:07:01 2015 UTC
+        "shriram",
     };
 
     private static final String[] COUNTRY_CODE_TLDS = new String[] {
