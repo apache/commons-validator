@@ -23,6 +23,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -176,20 +177,36 @@ public class DomainValidatorTest extends TestCase {
         System.out.println("Entries missing from TLD List\n");
         String line;
         final String header;
+        final String version;
         line = br.readLine(); // header
         if (line.startsWith("# Version ")) {
             header = line.substring(2);
             System.out.println("        // Taken from " + header);
+            version = header.substring(0,header.indexOf(","));
         } else {
             br.close();
             throw new IOException("File does not have expected Version header");
         }
+        final Method toUnicode = getIDNMethod();
+        if (toUnicode == null) {
+            System.err.println("Cannot convert XN-- entries (no access to java.net.IDN)");
+        }
         while((line = br.readLine()) != null) {
-            if (!line.startsWith("#") && !line.startsWith("XN--")) {
-                if (!dv.isValidTld(line)) {
-                    System.out.println("        \""+line.toLowerCase(Locale.ENGLISH)+"\",");
+            if (!line.startsWith("#")) {
+                final String item;
+                if (line.startsWith("XN--")) {
+                    if (toUnicode != null) {
+                        item = toUnicode(toUnicode, line);                        
+                    } else {
+                        continue;
+                    }
+                } else {
+                    item = line.toLowerCase(Locale.ENGLISH);
                 }
-                ianaTlds.add(line.toLowerCase(Locale.ENGLISH));
+                if (!dv.isValidTld(item)) {
+                    System.out.println("        \""+item+"\", // " + line + " added from " + version);
+                }
+                ianaTlds.add(item);
             }
         }
         br.close();
@@ -199,6 +216,23 @@ public class DomainValidatorTest extends TestCase {
         isInIanaList("COUNTRY_CODE_TLDS", ianaTlds);
         isInIanaList("GENERIC_TLDS", ianaTlds);
         // Don't check local TLDS isInIanaList("LOCAL_TLDS", ianaTlds);
+    }
+
+    private static String toUnicode(Method m, String line) {
+        try {
+            return (String) m.invoke(null, new String[]{line.toLowerCase(Locale.ENGLISH)});
+        } catch (Exception e) {
+        }
+        return line;
+    }
+
+    private static Method getIDNMethod() {
+        try {
+            Class clazz = Class.forName("java.net.IDN", false, DomainValidatorTest.class.getClassLoader());
+            return clazz.getDeclaredMethod("toUnicode", new Class[]{String.class});
+        } catch (Exception e) {
+          return null;
+        }
     }
 
     // isInIanaList and isSorted are split into two methods.
