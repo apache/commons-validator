@@ -50,6 +50,10 @@ public class InetAddressValidatorTest extends TestCase {
         assertTrue("appscs.ign.com IP should be valid",       validator.isValid("216.35.123.87"));
     }
 
+    public void testVALIDATOR_335() {
+        assertTrue("2001:0438:FFFE:0000:0000:0000:0000:0A35 should be valid",       validator.isValid("2001:0438:FFFE:0000:0000:0000:0000:0A35"));
+    }
+
     /**
      * Test valid and invalid IPs from each address class.
      */
