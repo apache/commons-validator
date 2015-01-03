@@ -101,7 +101,7 @@ public class UrlValidator implements Serializable {
     public static final long ALLOW_LOCAL_URLS = 1 << 3;
 
     // Drop numeric, and  "+-." for now
-    // TODO does not allow for optional userinfo
+    // TODO does not allow for optional userinfo. Does not enforce initial alphanumeric.
     private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
 
     /**
