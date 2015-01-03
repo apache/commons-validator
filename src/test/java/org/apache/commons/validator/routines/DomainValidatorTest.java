@@ -28,7 +28,6 @@ import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -406,8 +405,10 @@ public class DomainValidatorTest extends TestCase {
         boolean lowerCase = isLowerCase(array[length-1]); // Check the last entry
         for(int i = 0; i < length-1; i++) { // compare all but last entry with next
             final String entry = array[i];
-            final int cmp = entry.compareTo(array[i+1]);
+            final String nextEntry = array[i+1];
+            final int cmp = entry.compareTo(nextEntry);
             if (cmp > 0) { // out of order
+                System.out.println("Out of order entry: " + entry + " < " + nextEntry + " in " + name);
                 sorted = false;
             } else if (cmp == 0) {
                 strictlySorted = false;
@@ -416,13 +417,6 @@ public class DomainValidatorTest extends TestCase {
             if (!isLowerCase(entry)) {
                 System.out.println("Non lowerCase entry: " + entry + " in " + name);
                 lowerCase = false;
-            }
-        }
-        if (!sorted) {
-            System.out.println("Resorted: " + name);
-            Arrays.sort(array);
-            for(int i = 0; i < length; i++) {
-                System.out.println("        \"" + array[i] + "\",");
             }
         }
         return sorted && strictlySorted && lowerCase;
