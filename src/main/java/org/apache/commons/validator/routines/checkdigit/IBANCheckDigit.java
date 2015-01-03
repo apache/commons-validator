@@ -37,7 +37,7 @@ import java.io.Serializable;
  *  <a href="http://en.wikipedia.org/wiki/International_Bank_Account_Number">Wikipedia -
  *  IBAN number</a>.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  * @since Validator 1.4
  */
 public final class IBANCheckDigit implements CheckDigit, Serializable {

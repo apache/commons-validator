@@ -25,7 +25,7 @@ import java.text.DecimalFormatSymbols;
 /**
  * Test Case for CurrencyValidator.
  * 
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class CurrencyValidatorTest extends TestCase {
     

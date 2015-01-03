@@ -33,7 +33,7 @@ import java.io.Serializable;
  * </p>
  * <p>Instances of this class are configured with an &lt;arg&gt; xml element.</p>
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class Arg implements Cloneable, Serializable {
 

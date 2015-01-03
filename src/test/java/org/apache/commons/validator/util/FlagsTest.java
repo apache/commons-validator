@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 /**
  * Test the Flags class.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class FlagsTest extends TestCase {
 

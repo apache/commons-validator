@@ -24,7 +24,7 @@ import junit.framework.TestCase;
 /**
  * CodeValidatorTest.java.
  *    
- * @version $Revision$ $Date$
+ * @version $Revision$
  * @since Validator 1.4
  */
 public class CodeValidatorTest extends TestCase {

@@ -22,7 +22,7 @@ import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 /**
  * Test the CreditCardValidator class.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class CreditCardValidatorTest extends TestCase {
     

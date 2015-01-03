@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 /**
  * Performs Validation Test for url validations.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  * @deprecated to be removed when org.apache.commons.validator.UrlValidator is removed
  */
 public class UrlTest extends TestCase {

@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
  * Performs Validation Test for e-mail validations.
  *
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  * @deprecated to be removed when target class is removed
  */
 public class EmailTest extends AbstractCommonTest {
@@ -386,7 +386,7 @@ public class EmailTest extends AbstractCommonTest {
         new ResultPair("abigail@", false),
         new ResultPair("@example.com", false),
         new ResultPair("phrase: abigail@example.com abigail@example.com ;", false),
-        new ResultPair("invalid£char@example.com", false)
+        new ResultPair("invalidï¿½char@example.com", false)
     };
 
     /**

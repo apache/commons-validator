@@ -28,7 +28,7 @@ import java.util.Locale;
  * getInstance() method.
  * </p>
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  * @since Validator 1.1
  * @deprecated Use the new DateValidator, CalendarValidator or TimeValidator in the
  * routines package. This class will be removed in a future release.

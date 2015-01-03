@@ -20,7 +20,7 @@ package org.apache.commons.validator;
 /**                                                       
  * Performs Validation Test for <code>short</code> validations.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class ShortTest extends AbstractNumberTest {
 

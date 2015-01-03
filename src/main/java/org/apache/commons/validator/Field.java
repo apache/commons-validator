@@ -42,7 +42,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * release.
  * </p>
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  * @see org.apache.commons.validator.Form
  */
 public class Field implements Cloneable, Serializable {

@@ -23,7 +23,7 @@ import org.xml.sax.SAXException;
 /**
  * Abstracts number unit tests methods.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 abstract public class AbstractNumberTest extends AbstractCommonTest {
     

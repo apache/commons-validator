@@ -36,7 +36,7 @@ import java.io.Serializable;
  * and Flag 2 both being on/true.
  * </p>
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class Flags implements Serializable, Cloneable {
 

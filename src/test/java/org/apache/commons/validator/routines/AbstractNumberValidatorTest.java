@@ -28,7 +28,7 @@ import java.math.BigDecimal;
 /**
  * Base Number Test Case.
  * 
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public abstract class AbstractNumberValidatorTest extends TestCase {
 

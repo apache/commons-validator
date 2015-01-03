@@ -19,7 +19,7 @@
 /**
  * Groups tests and expected results.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
  public class ResultPair {
       public String item;

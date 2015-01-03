@@ -26,7 +26,7 @@ import java.util.Iterator;
  * This contains the results of a set of validation rules processed
  * on a JavaBean.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class ValidatorResult implements Serializable {
 

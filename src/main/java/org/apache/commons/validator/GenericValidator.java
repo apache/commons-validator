@@ -28,7 +28,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 /**
  * This class contains basic methods for performing validations.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class GenericValidator implements Serializable {
 

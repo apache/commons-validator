@@ -19,7 +19,7 @@ package org.apache.commons.validator.routines.checkdigit;
 /**
  * Check Digit calculation/validation error.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  * @since Validator 1.4
  */
 public class CheckDigitException extends Exception {

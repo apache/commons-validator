@@ -50,7 +50,7 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigitException;
  *       Transition details</a>.</li>
  * </ul>
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  * @since Validator 1.4
  */
 public class ISBNValidator implements Serializable {

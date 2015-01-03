@@ -31,7 +31,7 @@ import org.apache.commons.logging.LogFactory;
  * based on the country, language, and variant specified. Instances of this
  * class are configured with a &lt;formset&gt; xml element.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class FormSet implements Serializable {
 

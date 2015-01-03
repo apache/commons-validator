@@ -23,7 +23,7 @@ import org.apache.commons.validator.ResultPair;
 /**
  * Performs Validation Test for url validations.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class UrlValidatorTest extends TestCase {
 

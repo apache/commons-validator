@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
 /**
  * Abstracts date unit tests methods.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class DateTest extends AbstractCommonTest {
     

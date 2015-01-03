@@ -39,7 +39,7 @@ package org.apache.commons.validator.routines.checkdigit;
  *       Transition details</a>.</li>
  * </ul>
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  * @since Validator 1.4
  */
 public final class ISBN10CheckDigit extends ModulusCheckDigit {

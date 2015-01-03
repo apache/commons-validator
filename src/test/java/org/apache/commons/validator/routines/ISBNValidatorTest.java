@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 /**
  * ISBNValidator Test Case.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class ISBNValidatorTest extends TestCase {
 

@@ -20,7 +20,7 @@ package org.apache.commons.validator;
 /**                                                       
  * Performs Validation Test for <code>float</code> validations.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class FloatTest extends AbstractNumberTest {
 

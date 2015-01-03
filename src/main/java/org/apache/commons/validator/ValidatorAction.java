@@ -41,7 +41,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  *
  * <strong>Note</strong>: The validation method is assumed to be thread safe.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class ValidatorAction implements Serializable {
 

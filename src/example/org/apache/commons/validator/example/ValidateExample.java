@@ -44,7 +44,7 @@ import org.xml.sax.SAXException;
  * the Validator against raw Beans in a pure Java application, you
  * can see everything you need to know to get it working here.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class ValidateExample {
 

@@ -49,7 +49,7 @@ import org.apache.commons.validator.util.Flags;
  * <a href="http://www.merriampark.com/anatomycc.htm">here</a>.
  * </p>
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  * @since Validator 1.1
  * @deprecated Use the new CreditCardValidator in the routines package. This class
  * will be removed in a future release.

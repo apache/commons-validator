@@ -23,7 +23,7 @@ import org.xml.sax.SAXException;
 /**                                                       
  * Performs Validation Test.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class RequiredIfTest extends AbstractCommonTest {
    

@@ -50,7 +50,7 @@ import org.xml.sax.Attributes;
  * release.
  * </p>
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class ValidatorResources implements Serializable {
 

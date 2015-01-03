@@ -30,7 +30,7 @@ import java.util.TimeZone;
 /**
  * Base Calendar Test Case.
  * 
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public abstract class AbstractCalendarValidatorTest extends TestCase {
 

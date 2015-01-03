@@ -32,7 +32,7 @@ import org.apache.commons.logging.LogFactory;
  * This class contains basic methods for performing validations that return the
  * correctly typed class based on the validation performed.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class GenericTypeValidator implements Serializable {
 

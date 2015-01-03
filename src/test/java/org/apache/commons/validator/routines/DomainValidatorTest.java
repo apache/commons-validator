@@ -42,7 +42,7 @@ import junit.framework.TestCase;
 /**
  * Tests for the DomainValidator.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class DomainValidatorTest extends TestCase {
 

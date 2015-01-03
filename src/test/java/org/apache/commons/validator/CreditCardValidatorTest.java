@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 /**
  * Test the CreditCardValidator class.
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  * @deprecated this test can be removed when the deprecated class is removed
  */
 public class CreditCardValidatorTest extends TestCase {

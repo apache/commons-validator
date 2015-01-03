@@ -36,7 +36,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * for more details.
  * </p>
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  * @since Validator 1.4
  */
 public final class SedolCheckDigit extends ModulusCheckDigit {

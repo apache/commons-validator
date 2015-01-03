@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 /**
  * Test Case for PercentValidator.
  * 
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class PercentValidatorTest extends TestCase {
 

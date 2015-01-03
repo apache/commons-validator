@@ -35,7 +35,7 @@ import org.apache.commons.collections.FastHashMap;// DEPRECATED
  * The use of FastHashMap is deprecated and will be replaced in a future
  * release. </p>
  *
- * @version $Revision$ $Date$
+ * @version $Revision$
  */
 public class Form implements Serializable {
 
