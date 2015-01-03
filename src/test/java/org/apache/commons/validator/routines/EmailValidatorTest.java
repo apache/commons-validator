@@ -136,7 +136,12 @@ public class EmailValidatorTest extends TestCase {
 
     }
 
-   /**
+    public void testVALIDATOR_315() {
+        assertFalse(validator.isValid("me@at&t.net"));
+        assertTrue(validator.isValid("me@att.net")); // Make sure TLD is not the cause of the failure
+    }
+
+    /**
     * Tests the email validation with commas.
     */
     public void testEmailWithCommas()  {
