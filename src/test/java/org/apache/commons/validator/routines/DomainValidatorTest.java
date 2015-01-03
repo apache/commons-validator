@@ -27,9 +27,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -161,12 +163,22 @@ public class DomainValidatorTest extends TestCase {
         Set ianaTlds = new HashSet(); // keep for comparison with array contents
         DomainValidator dv = DomainValidator.getInstance();;
         File f = new File("target/tlds-alpha-by-domain.txt");
-        if (!f.canRead()) {
-            String tldurl="http://data.iana.org/TLD/tlds-alpha-by-domain.txt";
+        String tldurl="http://data.iana.org/TLD/tlds-alpha-by-domain.txt";
+        HttpURLConnection hc = (HttpURLConnection) new URL(tldurl).openConnection();
+        if (f.canRead()) {
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");//Sun, 06 Nov 1994 08:49:37 GMT
+            long modTime = f.lastModified();
+            String since = sdf.format(new Date(modTime));
+            hc.addRequestProperty("If-Modified-Since", since);
+            System.out.println("Found " + f + " with date " + since);       
+        }   
+        if (hc.getResponseCode() == 304) {
+            System.out.println("Already have most recent " + tldurl);       
+        } else {
             System.out.println("Downloading " + tldurl);
             byte buff[] = new byte[1024];
-            HttpURLConnection hc = (HttpURLConnection) new URL(tldurl).openConnection();
             InputStream is = hc.getInputStream();
+            
             FileOutputStream fos = new FileOutputStream(f);
             int len;
             while((len=is.read(buff)) != -1) {
