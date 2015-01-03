@@ -45,8 +45,8 @@ import java.util.ArrayList;
  * <p>
  * For a similar implementation in Perl, reference Sean M. Burke's
  * <a href="http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html">script</a>.
- * More information is also available
- * <a href="http://www.merriampark.com/anatomycc.htm">here</a>.
+ * More information can be found in Michael Gilleland's essay 
+ * <a href="http://web.archive.org/web/20120614072656/http://www.merriampark.com/anatomycc.htm">Anatomy of Credit Card Numbers</a>.
  * </p>
  *
  * @version $Revision$ $Date$
