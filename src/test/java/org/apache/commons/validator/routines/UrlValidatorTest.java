@@ -55,7 +55,6 @@ public class UrlValidatorTest extends TestCase {
       if (printStatus) {
          System.out.print("\n testIsValidScheme() ");
       }
-      String[] schemes = {"http", "gopher"};
       //UrlValidator urlVal = new UrlValidator(schemes,false,false,false);
       UrlValidator urlVal = new UrlValidator(schemes, 0);
       for (int sIndex = 0; sIndex < testScheme.length; sIndex++) {
@@ -261,6 +260,17 @@ public class UrlValidatorTest extends TestCase {
     }
 
     
+    public void testValidator309() {
+        UrlValidator urlValidator = new UrlValidator();
+        assertTrue(urlValidator.isValid("http://sample.ondemand.com/"));
+        assertTrue(urlValidator.isValid("hTtP://sample.ondemand.CoM/"));
+        assertTrue(urlValidator.isValid("httpS://SAMPLE.ONEMAND.COM/"));
+        urlValidator = new UrlValidator(new String[] {"HTTP","HTTPS"});
+        assertTrue(urlValidator.isValid("http://sample.ondemand.com/"));
+        assertTrue(urlValidator.isValid("hTtP://sample.ondemand.CoM/"));
+        assertTrue(urlValidator.isValid("httpS://SAMPLE.ONEMAND.COM/"));
+    }
+
    static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
       boolean carry = true;  //add 1 to lowest order part.
       boolean maxIndex = true;
@@ -399,9 +409,17 @@ public class UrlValidatorTest extends TestCase {
    int[] testPartsIndex = {0, 0, 0, 0, 0};
 
    //---------------- Test data for individual url parts ----------------
+   private final String[] schemes = {"http", "gopher", "g0-To+.",
+                                      "not_valid" // TODO this will need to be dropped if the ctor validates schemes
+                                    };
+
    ResultPair[] testScheme = {new ResultPair("http", true),
                             new ResultPair("ftp", false),
                             new ResultPair("httpd", false),
+                            new ResultPair("gopher", true),
+                            new ResultPair("g0-to+.", true),
+                            new ResultPair("not_valid", false), // underscore not allowed
+                            new ResultPair("HtTp", true),
                             new ResultPair("telnet", false)};
 
 

@@ -17,9 +17,9 @@
 package org.apache.commons.validator.routines;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -101,6 +101,7 @@ public class UrlValidator implements Serializable {
     public static final long ALLOW_LOCAL_URLS = 1 << 3;
 
     // Drop numeric, and  "+-." for now
+    // TODO does not allow for optional userinfo
     private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
 
     /**
@@ -128,7 +129,7 @@ public class UrlValidator implements Serializable {
     private static final int PARSE_URL_FRAGMENT = 9;
 
     /**
-     * Protocol (ie. http:, ftp:,https:).
+     * Protocol scheme (e.g. http, ftp, https).
      */
     private static final String SCHEME_REGEX = "^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*";
     private static final Pattern SCHEME_PATTERN = Pattern.compile(SCHEME_REGEX);
@@ -167,7 +168,7 @@ public class UrlValidator implements Serializable {
     /**
      * The set of schemes that are allowed to be in a URL.
      */
-    private final Set allowedSchemes;
+    private final Set allowedSchemes; // Must be lower-case
 
     /**
      * Regular expressions used to manually validate authorities if IANA
@@ -178,7 +179,7 @@ public class UrlValidator implements Serializable {
     /**
      * If no schemes are provided, default to this set.
      */
-    private static final String[] DEFAULT_SCHEMES = {"http", "https", "ftp"};
+    private static final String[] DEFAULT_SCHEMES = {"http", "https", "ftp"}; // Must be lower-case
 
     /**
      * Singleton instance of this class with default schemes and options.
@@ -224,7 +225,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Behavior of validation is modified by passing in options:
-     * @param schemes The set of valid schemes.
+     * @param schemes The set of valid schemes. Ignored if the ALLOW_ALL_SCHEMES option is set.
      * @param options The options should be set using the public constants declared in
      * this class.  To set multiple options you simply add them together.  For example,
      * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
@@ -247,7 +248,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Customizable constructor. Validation behavior is modifed by passing in options.
-     * @param schemes the set of valid schemes
+     * @param schemes the set of valid schemes. Ignored if the ALLOW_ALL_SCHEMES option is set.
      * @param authorityValidator Regular expression validator used to validate the authority part
      * @param options Validation options. Set using the public constants of this class.
      * To set multiple options, simply add them together:
@@ -263,8 +264,10 @@ public class UrlValidator implements Serializable {
             if (schemes == null) {
                 schemes = DEFAULT_SCHEMES;
             }
-            allowedSchemes = new HashSet();
-            allowedSchemes.addAll(Arrays.asList(schemes));
+            allowedSchemes = new HashSet(schemes.length);
+            for(int i=0; i < schemes.length; i++) {
+                allowedSchemes.add(schemes[i].toLowerCase(Locale.ENGLISH));
+            }
         }
 
         this.authorityValidator = authorityValidator;
@@ -327,8 +330,9 @@ public class UrlValidator implements Serializable {
 
     /**
      * Validate scheme. If schemes[] was initialized to a non null,
-     * then only those scheme's are allowed.  Note this is slightly different
-     * than for the constructor.
+     * then only those schemes are allowed.
+     * Otherwise the default schemes are "http", "https", "ftp".
+     * Matching is case-blind.
      * @param scheme The scheme to validate.  A <code>null</code> value is considered
      * invalid.
      * @return true if valid.
@@ -338,11 +342,12 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
+        // TODO could be removed if external schemes were checked in the ctor before being stored
         if (!SCHEME_PATTERN.matcher(scheme).matches()) {
             return false;
         }
 
-        if (isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme)) {
+        if (isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme.toLowerCase(Locale.ENGLISH))) {
             return false;
         }
 
