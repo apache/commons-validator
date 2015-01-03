@@ -134,6 +134,35 @@ public class DomainValidatorTest extends TestCase {
        assertTrue("b\u00fccher.ch in IDN should validate", validator.isValid("www.xn--bcher-kva.ch"));
     }
 
+    // RFC2396: domainlabel   = alphanum | alphanum *( alphanum | "-" ) alphanum
+    public void testRFC2396domainlabel() {
+        assertTrue("a.ch should validate", validator.isValid("a.ch"));
+        assertTrue("9.ch should validate", validator.isValid("9.ch"));
+        assertTrue("az.ch should validate", validator.isValid("az.ch"));
+        assertTrue("09.ch should validate", validator.isValid("09.ch"));
+        assertTrue("9-1.ch should validate", validator.isValid("9-1.ch"));
+        assertFalse("91-.ch should not validate", validator.isValid("91-.ch"));
+        assertFalse("-.ch should not validate", validator.isValid("-.ch"));
+    }
+
+    // RFC2396 toplabel = alpha | alpha *( alphanum | "-" ) alphanum
+    public void testRFC2396toplabel() {
+        // These tests use non-existent TLDs so currently need to use a package protected method
+        assertTrue("a.c (alpha) should validate", validator.isValidDomainSyntax("a.c"));
+        assertTrue("a.cc (alpha alpha) should validate", validator.isValidDomainSyntax("a.cc"));
+        assertTrue("a.c9 (alpha alphanum) should validate", validator.isValidDomainSyntax("a.c9"));
+        assertTrue("a.c-9 (alpha - alphanum) should validate", validator.isValidDomainSyntax("a.c-9"));
+        assertTrue("a.c-z (alpha - alpha) should validate", validator.isValidDomainSyntax("a.c-z"));
+
+        assertFalse("a.c- (alpha -) should fail", validator.isValidDomainSyntax("a.c-"));
+        assertFalse("a.- (-) should fail", validator.isValidDomainSyntax("a.-"));
+        assertFalse("a.-9 (- alphanum) should fail", validator.isValidDomainSyntax("a.-9"));
+    }
+
+    public void testValidator297() {
+        assertTrue("xn--d1abbgf6aiiy.xn--p1ai should validate", validator.isValid("xn--d1abbgf6aiiy.xn--p1ai")); // This uses a valid TLD
+     }
+
     // Check array is sorted and is lower-case
     public void test_INFRASTRUCTURE_TLDS_sortedAndLowerCase() throws Exception {
         final boolean sorted = isSortedLowerCase("INFRASTRUCTURE_TLDS");

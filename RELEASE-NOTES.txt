@@ -69,6 +69,8 @@ BUGS FROM PREVIOUS RELEASE
  * [VALIDATOR-348] - Update TLD list to latest version (Version 2014123000)
  * [VALIDATOR-309] - UrlValidator does not validate uppercase URL schemes
                      Thanks to Rashid Rashidov
+ * [VALIDATOR-297] - Punycode url is not valid. Top-level domain regex matching was wrong;
+                     e.g. it did not allow embedded "-" as per RFC2396
 
 IMPROVEMENTS OVER PREVIOUS RELEASE
 ===================================
