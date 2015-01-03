@@ -43,6 +43,9 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.4.1" date="tba" description="1.4 Maintenance release">
+    <action issue="VALIDATOR-334" dev="sebb" type="update">
+      UrlValidator: isValidAuthority() returning true when supplied authority validator fails
+    </action>
     <action issue="VALIDATOR-309" dev="sebb" type="fix" due-to="Rashid Rashidov">
       UrlValidator does not validate uppercase URL schemes
     </action>

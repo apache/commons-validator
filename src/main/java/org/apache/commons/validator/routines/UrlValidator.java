@@ -237,6 +237,7 @@ public class UrlValidator implements Serializable {
     /**
      * Initialize a UrlValidator with the given validation options.
      * @param authorityValidator Regular expression validator used to validate the authority part
+     * This allows the user to override the standard set of domains.
      * @param options Validation options. Set using the public constants of this class.
      * To set multiple options, simply add them together:
      * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
@@ -357,7 +358,10 @@ public class UrlValidator implements Serializable {
     /**
      * Returns true if the authority is properly formatted.  An authority is the combination
      * of hostname and port.  A <code>null</code> authority value is considered invalid.
-     * Note: this implementation validates the domain.
+     * Note: this implementation validates the domain unless a RegexValidator was provided.
+     * If a RegexValidator was supplied and it matches, then the authority is regarded
+     * as valid with no further checks, otherwise the method checks against the
+     * AUTHORITY_PATTERN and the DomainValidator (ALLOW_LOCAL_URLS)
      * @param authority Authority value to validate.
      * @return true if authority (hostname and port) is valid.
      */

@@ -77,6 +77,8 @@ IMPROVEMENTS OVER PREVIOUS RELEASE
                      and not IPV6
  * [VALIDATOR-343] - Doc URL update for broken link
                      Thanks to Sam Cooley
+ * [VALIDATOR-334] - UrlValidator: isValidAuthority() returning true when supplied authority validator fails
+                     Clarified documentation: validator is intended as an override
 
 DEPRECATIONS
 ============
