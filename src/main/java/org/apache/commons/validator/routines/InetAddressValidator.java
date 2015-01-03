@@ -113,7 +113,7 @@ public class InetAddressValidator implements Serializable {
      * @return true if the argument contains a valid IPv6 address
      */
     public boolean isValidInet6Address(String inet6Address) {
-        boolean containsCompressedZeroes = inet6Address.contains("::");
+        boolean containsCompressedZeroes = inet6Address.indexOf("::") > -1; // contains is Java 1.5
         if (containsCompressedZeroes && (inet6Address.indexOf("::") != inet6Address.lastIndexOf("::"))) {
             return false;
         }
@@ -146,7 +146,7 @@ public class InetAddressValidator implements Serializable {
                 }
             } else {
                 emptyOctets = 0;
-                if (octet.contains(".")) {
+                if (octet.indexOf(".") > -1) { // contains is Java 1.5+
                     if (!inet6Address.endsWith(octet)) {
                         return false;
                     }

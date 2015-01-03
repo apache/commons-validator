@@ -183,7 +183,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
             String line;
             while((line=rdr.readLine()) != null) {
                 if (!line.startsWith("#") && line.length() > 0) {
-                    Assert.assertTrue(line, routine.isValid(line.replace(" ", "")));
+                    Assert.assertTrue(line, routine.isValid(line.replaceAll(" ", "")));
                 }
             }
         } finally {
