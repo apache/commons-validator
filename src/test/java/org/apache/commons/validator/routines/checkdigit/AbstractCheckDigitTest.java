@@ -263,9 +263,8 @@ public abstract class AbstractCheckDigitTest extends TestCase {
         assertNotNull(result);
     }
 
-    // Prepare for changing tests to try check letter failure as well
-//    private static final String POSSIBLE_CHECK_DIGITS = "0123456789 ABCDEFHIJKLMNOPQRSTUVWXYZ\tabcdefghijklmnopqrstuvwxyz!@£$%^&*()_+";
-    private static final String POSSIBLE_CHECK_DIGITS = "0123456789";
+    private static final String POSSIBLE_CHECK_DIGITS = "0123456789 ABCDEFHIJKLMNOPQRSTUVWXYZ\tabcdefghijklmnopqrstuvwxyz!@£$%^&*()_+";
+//    private static final String POSSIBLE_CHECK_DIGITS = "0123456789";
     /**
      * Returns an array of codes with invalid check digits.
      *
