@@ -188,34 +188,47 @@ public class DomainValidatorTest extends TestCase {
         Map htmlInfo = getHtmlInfo(htmlFile);
         Map missingTLD = new TreeMap(); // stores entry and comments as String[]
         Map missingCC = new TreeMap();
+        final boolean generateUnicodeTlds = false; // Change this to generate Unicode TLDs as well
         while((line = br.readLine()) != null) {
             if (!line.startsWith("#")) {
-                final String item;
-                final String key = line.toLowerCase(Locale.ENGLISH);
+                final String unicodeTld; // only different from asciiTld if that was punycode
+                final String asciiTld = line.toLowerCase(Locale.ENGLISH);
                 if (line.startsWith("XN--")) {
                     if (toUnicode != null) {
-                        item = toUnicode(toUnicode, line);
+                        unicodeTld = toUnicode(toUnicode, line);
                     } else {
-                        continue;
+                        continue; // No translation possible
                     }
                 } else {
-                    item = key;
+                    unicodeTld = asciiTld;
                 }
-                if (!dv.isValidTld(item)) {
-                    String [] info = (String[]) htmlInfo.get(key);
+                if (!dv.isValidTld(asciiTld)) {
+                    String [] info = (String[]) htmlInfo.get(asciiTld);
                     if (info != null) {
                         String type = info[0];
                         String comment = info[1];
-                        if ("country-code".equals(type)) {
-                            missingCC.put(item, key + " " + comment);
+                        if ("country-code".equals(type)) { // Which list to use?
+                            missingCC.put(asciiTld, unicodeTld + " " + comment);
+                            if (generateUnicodeTlds) {
+                                missingCC.put(unicodeTld, asciiTld + " " + comment);
+                            }
                         } else {
-                            missingTLD.put(item, key + " " + comment);
+                            missingTLD.put(asciiTld, unicodeTld + " " + comment);
+                            if (generateUnicodeTlds) {
+                                missingTLD.put(unicodeTld, asciiTld + " " + comment);
+                            }
                         }
                     } else {
-                        System.err.println("Expected to find info for "+ key);
+                        System.err.println("Expected to find info for "+ asciiTld);
                     }
                 }
-                ianaTlds.add(item);
+                ianaTlds.add(asciiTld);
+                // Don't merge these conditions; generateUnicodeTlds is final so needs to be separate to avoid a warning
+                if (generateUnicodeTlds) {
+                    if (!unicodeTld.equals(asciiTld)) {
+                        ianaTlds.add(unicodeTld);                    
+                    }                    
+                }
             }
         }
         br.close();
