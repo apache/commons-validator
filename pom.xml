@@ -329,6 +329,14 @@
   </reporting>
 
   <profiles>
+    <!-- temporary fix until CP 37 is released -->
+    <profile>
+      <id>java-1.4</id>
+      <properties>
+        <!-- later versions of surefire don't support Java 1.4 -->
+        <commons.surefire.version>2.11</commons.surefire.version>
+      </properties>
+    </profile>
     <profile>
       <id>setup-checkout</id>
       <activation>
