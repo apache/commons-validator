@@ -230,10 +230,12 @@ public class DomainValidator implements Serializable {
     // .bl  country-code    Not assigned
     // .um  country-code    Not assigned
 
+    // WARNING: this array MUST be sorted, others it cannot be searched reliably using binary search
     private static final String[] INFRASTRUCTURE_TLDS = new String[] {
         "arpa",               // internet infrastructure
     };
 
+    // WARNING: this array MUST be sorted, others it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = new String[] {
         "abogado",
         "academy",
@@ -779,6 +781,7 @@ public class DomainValidator implements Serializable {
 //        "삼성", // xn--cg4bki SAMSUNG SDS CO., LTD
    };
 
+    // WARNING: this array MUST be sorted, others it cannot be searched reliably using binary search
     private static final String[] COUNTRY_CODE_TLDS = new String[] {
         "ac",                 // Ascension Island
         "ad",                 // Andorra
@@ -1107,15 +1110,10 @@ public class DomainValidator implements Serializable {
 //        "한국", // xn--3e0b707e KISA (Korea Internet &amp; Security Agency)
     };
 
+    // WARNING: this array MUST be sorted, others it cannot be searched reliably using binary search
     private static final String[] LOCAL_TLDS = new String[] {
        "localdomain",         // Also widely used as localhost.localdomain
        "localhost",           // RFC2606 defined
    };
 
-    static {
-        Arrays.sort(INFRASTRUCTURE_TLDS);
-        Arrays.sort(COUNTRY_CODE_TLDS);
-        Arrays.sort(GENERIC_TLDS);
-        Arrays.sort(LOCAL_TLDS);
-    }
 }

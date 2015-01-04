@@ -43,6 +43,9 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.4.1" date="tba" description="1.4 Maintenance release">
+    <action issue="VALIDATOR-349" dev="sebb" type="update">
+     TLD tables should be pre-sorted
+    </action>
     <action issue="VALIDATOR-290" dev="sebb" type="update" due-to="Alexander Rytov">
      Create new url validation using rfc3986 and IDN - added new test
     </action>
