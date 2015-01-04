@@ -91,6 +91,8 @@ IMPROVEMENTS OVER PREVIOUS RELEASE
                      Fix up the testCalculateInvalid() invalid method to allow for 
                      either invalid checksum or syntax (CheckDigitException) error
                      when testing the entries in the invalid array.
+ * [VALIDATOR-290] - Create new url validation using rfc3986 and IDN - added new test
+                     Thanks to  Alexander Rytov
 
 DEPRECATIONS
 ============

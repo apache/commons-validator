@@ -43,6 +43,9 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.4.1" date="tba" description="1.4 Maintenance release">
+    <action issue="VALIDATOR-290" dev="sebb" type="update" due-to="Alexander Rytov">
+     Create new url validation using rfc3986 and IDN - added new test
+    </action>
     <action issue="VALIDATOR-350" dev="sebb" type="fix">
      Should "x.root" validate as a domain name?
      Removed "root" from TLD list. 
