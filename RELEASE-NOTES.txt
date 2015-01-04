@@ -74,6 +74,9 @@ BUGS FROM PREVIOUS RELEASE
  * [VALIDATOR-308] - Logical errors in util.Flags affecting check of multiple
                      flags as well as flag 64
                      Thanks to Til Boerner
+ * [VALIDATOR-350] - Should "x.root" validate as a domain name?
+                     Removed "root" from TLD list. 
+                     Also "um" and "yu" as they are currently "Not assigned" 
 
 IMPROVEMENTS OVER PREVIOUS RELEASE
 ===================================
@@ -88,7 +91,6 @@ IMPROVEMENTS OVER PREVIOUS RELEASE
                      Fix up the testCalculateInvalid() invalid method to allow for 
                      either invalid checksum or syntax (CheckDigitException) error
                      when testing the entries in the invalid array.
-                     
 
 DEPRECATIONS
 ============

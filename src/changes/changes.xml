@@ -43,6 +43,11 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.4.1" date="tba" description="1.4 Maintenance release">
+    <action issue="VALIDATOR-350" dev="sebb" type="fix">
+     Should "x.root" validate as a domain name?
+     Removed "root" from TLD list. 
+     Also "um" and "yu" as they are currently "Not assigned" 
+    </action>
     <action issue="VALIDATOR-308" dev="sebb" type="fix" due-to="Til Boerner">
       Logical errors in util.Flags affecting check of multiple flags as well as flag 64
     </action>

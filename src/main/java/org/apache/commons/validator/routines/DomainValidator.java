@@ -232,7 +232,6 @@ public class DomainValidator implements Serializable {
 
     private static final String[] INFRASTRUCTURE_TLDS = new String[] {
         "arpa",               // internet infrastructure
-        "root"                // diagnostic marker for non-truncated root zone
     };
 
     private static final String[] GENERIC_TLDS = new String[] {
@@ -1013,8 +1012,6 @@ public class DomainValidator implements Serializable {
         "ua",                 // Ukraine
         "ug",                 // Uganda
         "uk",                 // United Kingdom
-        "um",                 // United States Minor Outlying Islands
-                              // TODO um is not in the IANA text file, it is in the HTML file
         "us",                 // United States of America
         "uy",                 // Uruguay
         "uz",                 // Uzbekistan
@@ -1067,9 +1064,6 @@ public class DomainValidator implements Serializable {
         "xn--ygbi2ammx", // فلسطين Ministry of Telecom &amp; Information Technology (MTIT)
         "ye",                 // Yemen
         "yt",                 // Mayotte
-        "yu",                 // Serbia and Montenegro (originally Yugoslavia)
-                              // TODO yu is not in the IANA text file, nor it is in the HTML file
-                              // It looks like it has been removed from use
         "za",                 // South Africa
         "zm",                 // Zambia
         "zw",                 // Zimbabwe
