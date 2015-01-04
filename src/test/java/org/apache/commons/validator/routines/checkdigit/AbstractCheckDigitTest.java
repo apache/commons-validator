@@ -211,6 +211,10 @@ public abstract class AbstractCheckDigitTest extends TestCase {
         // isValid() zero length
         assertFalse("isValid() Zero Length", routine.isValid(""));
 
+        // isValid() length 1
+        // Don't use 0, because that passes for Verhoef (not sure why yet)
+        assertFalse("isValid() Length 1", routine.isValid("9"));
+
         // calculate() null
         try {
             routine.calculate(null);
