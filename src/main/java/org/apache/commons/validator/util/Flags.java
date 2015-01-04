@@ -82,7 +82,7 @@ public class Flags implements Serializable, Cloneable {
      * @return whether the specified flag value is on.
      */
     public boolean isOn(long flag) {
-        return (this.flags & flag) > 0;
+        return (this.flags & flag) == flag;
     }
 
     /**
@@ -136,7 +136,7 @@ public class Flags implements Serializable, Cloneable {
      * Turn on all 64 flags.
      */
     public void turnOnAll() {
-        this.flags = Long.MAX_VALUE;
+        this.flags = 0xFFFFFFFFFFFFFFFFl;
     }
 
     /**
