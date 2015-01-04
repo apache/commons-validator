@@ -179,13 +179,23 @@ public abstract class AbstractCheckDigitTest extends TestCase {
         // test invalid code values
         for (int i = 0; i < invalid.length; i++) {
             try {
+                final String code = invalid[i];
                 if (log.isDebugEnabled()) {
-                    log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + invalid[i] + "]");
+                    log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + code + "]");
                 }
-                routine.calculate(invalid[i]);
-                fail("Invalid Characters[" + i + "]=" +  invalid[i] + " - expected exception");
-            } catch (Exception e) {
-                assertTrue("Invalid Character[" +i +"]=" +  e.getMessage(), e.getMessage().startsWith("Invalid Character["));
+                String expected = checkDigit(code);
+                String actual = routine.calculate(removeCheckDigit(code));
+                // If exception not thrown, check that the digit is incorrect instead
+                if (expected.equals(actual)) {
+                    fail("Expected mismatch for " + code + " expected " + expected + " actual " + actual);
+                }
+            } catch (CheckDigitException e) {
+                // possible failure messages:
+                // Invalid ISBN Length ...
+                // Invalid Character[ ...
+                // Are there any others?
+                assertTrue("Invalid Character[" +i +"]=" +  e.getMessage(), e.getMessage().startsWith("Invalid "));
+// WAS                assertTrue("Invalid Character[" +i +"]=" +  e.getMessage(), e.getMessage().startsWith("Invalid Character["));
             }
         }
     }

@@ -81,6 +81,11 @@ IMPROVEMENTS OVER PREVIOUS RELEASE
                      Thanks to Sam Cooley
  * [VALIDATOR-334] - UrlValidator: isValidAuthority() returning true when supplied authority validator fails
                      Clarified documentation: validator is intended as an override
+ * [VALIDATOR-344] - AbstractCheckDigit class does not fully test invalid strings
+                     Fix up the testCalculateInvalid() invalid method to allow for 
+                     either invalid checksum or syntax (CheckDigitException) error
+                     when testing the entries in the invalid array.
+                     
 
 DEPRECATIONS
 ============

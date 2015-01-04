@@ -43,6 +43,12 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.4.1" date="tba" description="1.4 Maintenance release">
+    <action issue="VALIDATOR-344" dev="sebb" type="fix" >
+      AbstractCheckDigit class does not fully test invalid strings
+      Fix up the testCalculateInvalid() invalid method to allow for 
+      either invalid checksum or syntax (CheckDigitException) error
+      when testing the entries in the invalid array.
+    </action>
     <action issue="VALIDATOR-297" dev="sebb" type="fix">
       Punycode url is not valid
       Top-level domain regex matching was wrong; did not allow embedded "-" as per RFC2396
