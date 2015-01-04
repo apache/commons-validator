@@ -141,6 +141,11 @@ public class EmailValidatorTest extends TestCase {
         assertTrue(validator.isValid("me@att.net")); // Make sure TLD is not the cause of the failure
     }
 
+    public void testVALIDATOR_278() {
+        assertFalse(validator.isValid("someone@-test.com"));// hostname starts with dash/hyphen
+        assertFalse(validator.isValid("someone@test-.com"));// hostname ends with dash/hyphen
+    }
+
     /**
     * Tests the email validation with commas.
     */
