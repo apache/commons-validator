@@ -75,6 +75,10 @@ public class DomainValidator implements Serializable {
     private static final String TOP_LABEL_REGEX = "\\p{Alpha}(?>[\\p{Alnum}-]{0,61}\\p{Alnum})?";
 
     // RFC2396 hostname = *( domainlabel "." ) toplabel [ "." ]
+    // Note that the regex currently requires both a domain label and a top level label, whereas
+    // the RFC does not. This is because the regex is used to detect if a TLD is present.
+    // If the match fails, input is checked against DOMAIN_LABEL_REGEX (hostnameRegex)
+    // RFC1123 sec 2.1 allows hostnames to start with a digit
     private static final String DOMAIN_NAME_REGEX =
             "^(?:" + DOMAIN_LABEL_REGEX + "\\.)+" + "(" + TOP_LABEL_REGEX + ")\\.?$";
 
@@ -98,8 +102,9 @@ public class DomainValidator implements Serializable {
     private final RegexValidator domainRegex =
             new RegexValidator(DOMAIN_NAME_REGEX);
     /**
-     * RegexValidator for matching the a local hostname
+     * RegexValidator for matching a local hostname
      */
+    // RFC1123 sec 2.1 allows hostnames to start with a digit
     private final RegexValidator hostnameRegex =
             new RegexValidator(DOMAIN_LABEL_REGEX);
 
@@ -155,7 +160,8 @@ public class DomainValidator implements Serializable {
             return false;
         }
         String[] groups = domainRegex.match(domain);
-        return (groups != null && groups.length > 0);
+        return (groups != null && groups.length > 0)
+                || hostnameRegex.isValid(domain);
     }
 
     /**
