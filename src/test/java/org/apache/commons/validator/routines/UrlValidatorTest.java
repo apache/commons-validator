@@ -271,7 +271,16 @@ public class UrlValidatorTest extends TestCase {
         assertTrue(urlValidator.isValid("httpS://SAMPLE.ONEMAND.COM/"));
     }
 
-   static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
+    public void testValidator339(){
+        UrlValidator urlValidator = new UrlValidator();
+        assertTrue(urlValidator.isValid("http://www.cnn.com/WORLD/?hpt=sitenav")); // without
+        assertTrue(urlValidator.isValid("http://www.cnn.com./WORLD/?hpt=sitenav")); // with
+        assertFalse(urlValidator.isValid("http://www.cnn.com../")); // doubly dotty
+        assertFalse(urlValidator.isValid("http://www.cnn.invalid/"));
+        assertFalse(urlValidator.isValid("http://www.cnn.invalid./")); // check . does not affect invalid domains
+    }
+
+    static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
       boolean carry = true;  //add 1 to lowest order part.
       boolean maxIndex = true;
       for (int testPartsIndexIndex = testPartsIndex.length - 1; testPartsIndexIndex >= 0; --testPartsIndexIndex) {

@@ -43,6 +43,9 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.4.1" date="tba" description="1.4 Maintenance release">
+    <action issue="VALIDATOR-339" dev="sebb" type="fix" due-to="Alex Blume">
+     URLValidator fails validating domain names with a trailing period, which are valid.
+    </action>
     <action issue="VALIDATOR-306" dev="sebb" type="fix" due-to="Jukka Timonen">
      DomainValidator accepts labels longer than 63 chars and domain name lengths exceeding 255 chars
     </action>

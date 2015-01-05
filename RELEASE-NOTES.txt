@@ -79,6 +79,8 @@ BUGS FROM PREVIOUS RELEASE
                      Also "um" and "yu" as they are currently "Not assigned"
  * [VALIDATOR-306] - DomainValidator accepts labels longer than 63 chars and domain name lengths exceeding 255 chars
                      Thanks to Jukka Timonen
+ * [VALIDATOR-339] - URLValidator fails validating domain names with a trailing period, which are valid.
+                     Thanks to Alex Blume
 
 IMPROVEMENTS OVER PREVIOUS RELEASE
 ===================================

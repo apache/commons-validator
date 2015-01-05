@@ -74,8 +74,9 @@ public class DomainValidator implements Serializable {
     // Max 63 characters
     private static final String TOP_LABEL_REGEX = "\\p{Alpha}(?>[\\p{Alnum}-]{0,61}\\p{Alnum})?";
 
+    // RFC2396 hostname = *( domainlabel "." ) toplabel [ "." ]
     private static final String DOMAIN_NAME_REGEX =
-            "^(?:" + DOMAIN_LABEL_REGEX + "\\.)+" + "(" + TOP_LABEL_REGEX + ")$";
+            "^(?:" + DOMAIN_LABEL_REGEX + "\\.)+" + "(" + TOP_LABEL_REGEX + ")\\.?$";
 
     private final boolean allowLocal;
 
