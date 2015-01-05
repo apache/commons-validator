@@ -135,7 +135,7 @@ public class DomainValidatorTest extends TestCase {
     }
 
     // RFC2396: domainlabel   = alphanum | alphanum *( alphanum | "-" ) alphanum
-    public void testRFC2396domainlabel() {
+    public void testRFC2396domainlabel() { // use fixed valid TLD
         assertTrue("a.ch should validate", validator.isValid("a.ch"));
         assertTrue("9.ch should validate", validator.isValid("9.ch"));
         assertTrue("az.ch should validate", validator.isValid("az.ch"));
@@ -154,9 +154,20 @@ public class DomainValidatorTest extends TestCase {
         assertTrue("a.c-9 (alpha - alphanum) should validate", validator.isValidDomainSyntax("a.c-9"));
         assertTrue("a.c-z (alpha - alpha) should validate", validator.isValidDomainSyntax("a.c-z"));
 
+        assertFalse("a.9c (alphanum alpha) should fail", validator.isValidDomainSyntax("a.9c"));
         assertFalse("a.c- (alpha -) should fail", validator.isValidDomainSyntax("a.c-"));
         assertFalse("a.- (-) should fail", validator.isValidDomainSyntax("a.-"));
         assertFalse("a.-9 (- alphanum) should fail", validator.isValidDomainSyntax("a.-9"));
+    }
+
+    public void testDomainNoDots() {// rfc1123
+        assertTrue("a (alpha) should validate", validator.isValidDomainSyntax("a"));        
+        assertTrue("9 (alphanum) should validate", validator.isValidDomainSyntax("9"));        
+        assertTrue("c-z (alpha - alpha) should validate", validator.isValidDomainSyntax("c-z"));
+
+        assertFalse("c- (alpha -) should fail", validator.isValidDomainSyntax("c-"));
+        assertFalse("-c (- alpha) should fail", validator.isValidDomainSyntax("-c"));
+        assertFalse("- (-) should fail", validator.isValidDomainSyntax("-"));
     }
 
     public void testValidator297() {
