@@ -241,16 +241,18 @@ public class DomainValidatorTest extends TestCase {
             br.close();
             throw new IOException("File does not have expected Version header");
         }
+        final boolean generateUnicodeTlds = false; // Change this to generate Unicode TLDs as well
         final Method toUnicode = getIDNMethod();
         if (toUnicode == null) {
-            System.err.println("Cannot convert XN-- entries (no access to java.net.IDN)");
+            if (generateUnicodeTlds) {
+                System.err.println("Cannot convert XN-- entries (no access to java.net.IDN)");
+            }
         }
 
         // Parse html page to get entries
         Map htmlInfo = getHtmlInfo(htmlFile);
         Map missingTLD = new TreeMap(); // stores entry and comments as String[]
         Map missingCC = new TreeMap();
-        final boolean generateUnicodeTlds = false; // Change this to generate Unicode TLDs as well
         while((line = br.readLine()) != null) {
             if (!line.startsWith("#")) {
                 final String unicodeTld; // only different from asciiTld if that was punycode
@@ -259,7 +261,12 @@ public class DomainValidatorTest extends TestCase {
                     if (toUnicode != null) {
                         unicodeTld = toUnicode(toUnicode, line);
                     } else {
-                        continue; // No translation possible
+                        // allow the code to check for missing ASCII TLDs
+                        if (generateUnicodeTlds) {
+                            continue; // No translation possible
+                        } else {
+                            unicodeTld = "";
+                        }
                     }
                 } else {
                     unicodeTld = asciiTld;
@@ -305,6 +312,7 @@ public class DomainValidatorTest extends TestCase {
         isInIanaList("COUNTRY_CODE_TLDS", ianaTlds);
         isInIanaList("GENERIC_TLDS", ianaTlds);
         // Don't check local TLDS isInIanaList("LOCAL_TLDS", ianaTlds);
+        System.out.println("Finished checks");
     }
 
     private static void printMap(final String header, Map map, String string) {
