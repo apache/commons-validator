@@ -67,10 +67,12 @@ public class DomainValidator implements Serializable {
     // Regular expression strings for hostnames (derived from RFC2396 and RFC 1123)
 
     // RFC2396: domainlabel   = alphanum | alphanum *( alphanum | "-" ) alphanum
-    private static final String DOMAIN_LABEL_REGEX = "\\p{Alnum}(?>[\\p{Alnum}-]*\\p{Alnum})*";
+    // Max 63 characters
+    private static final String DOMAIN_LABEL_REGEX = "\\p{Alnum}(?>[\\p{Alnum}-]{0,61}\\p{Alnum})?";
 
     // RFC2396 toplabel = alpha | alpha *( alphanum | "-" ) alphanum
-    private static final String TOP_LABEL_REGEX = "\\p{Alpha}|(?:\\p{Alpha}(?:[\\p{Alnum}-])*\\p{Alnum})";
+    // Max 63 characters
+    private static final String TOP_LABEL_REGEX = "\\p{Alpha}(?>[\\p{Alnum}-]{0,61}\\p{Alnum})?";
 
     private static final String DOMAIN_NAME_REGEX =
             "^(?:" + DOMAIN_LABEL_REGEX + "\\.)+" + "(" + TOP_LABEL_REGEX + ")$";
@@ -135,6 +137,9 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is a valid domain name
      */
     public boolean isValid(String domain) {
+        if (domain == null || domain.length() > 253) {
+            return false;
+        }
         String[] groups = domainRegex.match(domain);
         if (groups != null && groups.length > 0) {
             return isValidTld(groups[0]);
@@ -142,8 +147,12 @@ public class DomainValidator implements Serializable {
         return allowLocal && hostnameRegex.isValid(domain);
     }
 
-    // package protected for unit test access 
+    // package protected for unit test access
+    // must agree with isValid() above
     final boolean isValidDomainSyntax(String domain) {
+        if (domain == null || domain.length() > 253) {
+            return false;
+        }
         String[] groups = domainRegex.match(domain);
         return (groups != null && groups.length > 0);
     }

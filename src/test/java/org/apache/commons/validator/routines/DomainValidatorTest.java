@@ -163,6 +163,28 @@ public class DomainValidatorTest extends TestCase {
         assertTrue("xn--d1abbgf6aiiy.xn--p1ai should validate", validator.isValid("xn--d1abbgf6aiiy.xn--p1ai")); // This uses a valid TLD
      }
 
+    // labels are a max of 63 chars and domains 253
+    public void testValidator306() {
+        final String longString = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz0123456789A";
+        assertEquals(63, longString.length()); // 26 * 2 + 11
+        
+        assertTrue("63 chars label should validate", validator.isValidDomainSyntax(longString+".com"));
+        assertFalse("64 chars label should fail", validator.isValidDomainSyntax(longString+"x.com"));
+
+        assertTrue("63 chars TLD should validate", validator.isValidDomainSyntax("test."+longString));
+        assertFalse("64 chars TLD should fail", validator.isValidDomainSyntax("test.x"+longString));
+        
+        final String longDomain = 
+                longString
+                + "." + longString
+                + "." + longString
+                + "." + longString.substring(0,61)
+                ; 
+        assertEquals(253, longDomain.length());
+        assertTrue("253 chars domain should validate", validator.isValidDomainSyntax(longDomain));
+        assertFalse("254 chars domain should fail", validator.isValidDomainSyntax(longDomain+"x"));
+    }
+
     // Check array is sorted and is lower-case
     public void test_INFRASTRUCTURE_TLDS_sortedAndLowerCase() throws Exception {
         final boolean sorted = isSortedLowerCase("INFRASTRUCTURE_TLDS");

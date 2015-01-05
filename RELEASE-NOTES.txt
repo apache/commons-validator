@@ -76,7 +76,9 @@ BUGS FROM PREVIOUS RELEASE
                      Thanks to Til Boerner
  * [VALIDATOR-350] - Should "x.root" validate as a domain name?
                      Removed "root" from TLD list. 
-                     Also "um" and "yu" as they are currently "Not assigned" 
+                     Also "um" and "yu" as they are currently "Not assigned"
+ * [VALIDATOR-306] - DomainValidator accepts labels longer than 63 chars and domain name lengths exceeding 255 chars
+                     Thanks to Jukka Timonen
 
 IMPROVEMENTS OVER PREVIOUS RELEASE
 ===================================
