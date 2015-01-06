@@ -100,10 +100,6 @@ public class UrlValidator implements Serializable {
      */
     public static final long ALLOW_LOCAL_URLS = 1 << 3;
 
-    // Drop numeric, and  "+-." for now
-    // TODO does not allow for optional userinfo. Does not enforce initial alphanumeric.
-    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
-
     /**
      * This expression derived/taken from the BNF for URI (RFC2396).
      */
@@ -134,6 +130,11 @@ public class UrlValidator implements Serializable {
     private static final String SCHEME_REGEX = "^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*";
     private static final Pattern SCHEME_PATTERN = Pattern.compile(SCHEME_REGEX);
 
+    // Drop numeric, and  "+-." for now
+    // TODO does not allow for optional userinfo. 
+    // Validation of character set is done by isValidAuthority
+    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
+
     private static final String AUTHORITY_REGEX =
             "^([" + AUTHORITY_CHARS_REGEX + "]*)(:\\d*)?(.*)?";
     //        1                                 2       3
@@ -144,7 +145,7 @@ public class UrlValidator implements Serializable {
     private static final int PARSE_AUTHORITY_PORT = 2;
 
     /**
-     * Should always be empty.
+     * Should always be empty. The code currently allows spaces.
      */
     private static final int PARSE_AUTHORITY_EXTRA = 3;
 
@@ -154,17 +155,8 @@ public class UrlValidator implements Serializable {
     private static final String QUERY_REGEX = "^(.*)$";
     private static final Pattern QUERY_PATTERN = Pattern.compile(QUERY_REGEX);
 
-    private static final String LEGAL_ASCII_REGEX = "^\\p{ASCII}+$";
-    private static final Pattern ASCII_PATTERN = Pattern.compile(LEGAL_ASCII_REGEX);
-
     private static final String PORT_REGEX = "^:(\\d{1,5})$";
     private static final Pattern PORT_PATTERN = Pattern.compile(PORT_REGEX);
-
-    // Pattern to extract domain for IDN conversion
-    private static final Pattern HTTP_IDN_PATTERN = Pattern.compile("(https?://)([^/]+)(.*)", Pattern.CASE_INSENSITIVE);
-    private static final int PARSE_HTTP_IDN_SCHEME = 1;
-    private static final int PARSE_HTTP_IDN_AUTH = 2;
-    private static final int PARSE_HTTP_IDN_REST = 3;
 
     /**
      * Holds the set of current validation options.
@@ -295,22 +287,6 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        if (!ASCII_PATTERN.matcher(value).matches()) {
-            // Non-ASCII input, try and convert HTTP domain
-            Matcher httpMatcher = HTTP_IDN_PATTERN.matcher(value);
-            if (httpMatcher.lookingAt()) { // We have an http(s) URL
-                value =   httpMatcher.group(PARSE_HTTP_IDN_SCHEME)
-                        + DomainValidator.unicodeToASCII(httpMatcher.group(PARSE_HTTP_IDN_AUTH)) 
-                        + httpMatcher.group(PARSE_HTTP_IDN_REST);
-                if (!ASCII_PATTERN.matcher(value).matches()) {
-                    return false;
-                }
-                // Drop thru, we were able to convert the pattern
-            } else {
-                return false;
-            }
-        }
-
         // Check the whole url address structure
         Matcher urlMatcher = URL_PATTERN.matcher(value);
         if (!urlMatcher.matches()) {
@@ -324,11 +300,11 @@ public class UrlValidator implements Serializable {
 
         String authority = urlMatcher.group(PARSE_URL_AUTHORITY);
         if ("file".equals(scheme) && "".equals(authority)) {
-           // Special case - file: allows an empty authority
+            // Special case - file: allows an empty authority
         } else {
-           // Validate the authority
-           if (!isValidAuthority(authority)) {
-               return false;
+            // Validate the authority
+            if (!isValidAuthority(authority)) {
+                return false;
             }
         }
 
@@ -380,7 +356,7 @@ public class UrlValidator implements Serializable {
      * If a RegexValidator was supplied and it matches, then the authority is regarded
      * as valid with no further checks, otherwise the method checks against the
      * AUTHORITY_PATTERN and the DomainValidator (ALLOW_LOCAL_URLS)
-     * @param authority Authority value to validate.
+     * @param authority Authority value to validate, alllows IDN
      * @return true if authority (hostname and port) is valid.
      */
     protected boolean isValidAuthority(String authority) {
@@ -392,8 +368,10 @@ public class UrlValidator implements Serializable {
         if (authorityValidator != null && authorityValidator.isValid(authority)) {
             return true;
         }
+        // convert to ASCII if possible
+        final String authorityASCII = DomainValidator.unicodeToASCII(authority);
 
-        Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authority);
+        Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authorityASCII);
         if (!authorityMatcher.matches()) {
             return false;
         }
