@@ -160,6 +160,12 @@ public class UrlValidator implements Serializable {
     private static final String PORT_REGEX = "^:(\\d{1,5})$";
     private static final Pattern PORT_PATTERN = Pattern.compile(PORT_REGEX);
 
+    // Pattern to extract domain for IDN conversion
+    private static final Pattern HTTP_IDN_PATTERN = Pattern.compile("(https?://)([^/]+)(.*)", Pattern.CASE_INSENSITIVE);
+    private static final int PARSE_HTTP_IDN_SCHEME = 1;
+    private static final int PARSE_HTTP_IDN_AUTH = 2;
+    private static final int PARSE_HTTP_IDN_REST = 3;
+
     /**
      * Holds the set of current validation options.
      */
@@ -290,7 +296,19 @@ public class UrlValidator implements Serializable {
         }
 
         if (!ASCII_PATTERN.matcher(value).matches()) {
-            return false;
+            // Non-ASCII input, try and convert HTTP domain
+            Matcher httpMatcher = HTTP_IDN_PATTERN.matcher(value);
+            if (httpMatcher.lookingAt()) { // We have an http(s) URL
+                value =   httpMatcher.group(PARSE_HTTP_IDN_SCHEME)
+                        + DomainValidator.unicodeToASCII(httpMatcher.group(PARSE_HTTP_IDN_AUTH)) 
+                        + httpMatcher.group(PARSE_HTTP_IDN_REST);
+                if (!ASCII_PATTERN.matcher(value).matches()) {
+                    return false;
+                }
+                // Drop thru, we were able to convert the pattern
+            } else {
+                return false;
+            }
         }
 
         // Check the whole url address structure

@@ -1070,7 +1070,8 @@ public class DomainValidator implements Serializable {
      * @param input the string to convert, not null
      * @return converted input, or original input if conversion fails
      */
-    private static String unicodeToASCII(String input) {
+    // Needed by UrlValidator
+    static String unicodeToASCII(String input) {
         try {
             return /* java.net.IDN. */ toASCII(input);
         } catch (IllegalArgumentException e) { // input is not valid

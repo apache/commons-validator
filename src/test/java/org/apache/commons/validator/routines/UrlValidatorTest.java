@@ -142,6 +142,19 @@ public class UrlValidatorTest extends TestCase {
                validator.isValid("http://somewhere.com/pathxyz/file(1).html"));
    }
 
+   public void testValidator235() {
+       String version = System.getProperty("java.version");
+       if (version.compareTo("1.6") < 0) {
+           System.out.println("Cannot run Unicode IDN tests");
+           return; // Cannot run the test
+       }
+       UrlValidator validator = new UrlValidator();
+       assertTrue("xn--d1abbgf6aiiy.xn--p1ai should validate", validator.isValid("http://xn--d1abbgf6aiiy.xn--p1ai"));
+       assertTrue("президент.рф should validate", validator.isValid("http://президент.рф"));
+       assertTrue("www.b\u00fccher.ch should validate", validator.isValid("http://www.b\u00fccher.ch"));
+       assertFalse("www.\uFFFD.ch FFFD should fail", validator.isValid("http://www.\uFFFD.ch"));
+   }
+
     public void testValidator248() {
         RegexValidator regex = new RegexValidator(new String[] {"localhost", ".*\\.my-testing"});
         UrlValidator validator = new UrlValidator(regex, 0);
