@@ -140,7 +140,7 @@ public class DomainValidatorTest extends TestCase {
             System.out.println("Cannot run Unicode IDN tests");
             return; // Cannot run the test
         } // xn--d1abbgf6aiiy.xn--p1ai http://президент.рф
-       assertTrue("b\u00fccher.ch should validate", validator.isValid("www.b\u00fccher.ch.ch"));
+       assertTrue("b\u00fccher.ch should validate", validator.isValid("www.b\u00fccher.ch"));
        assertTrue("xn--d1abbgf6aiiy.xn--p1ai should validate", validator.isValid("xn--d1abbgf6aiiy.xn--p1ai"));
        assertTrue("президент.рф should validate", validator.isValid("президент.рф"));
     }
