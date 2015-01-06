@@ -1167,12 +1167,7 @@ public class DomainValidator implements Serializable {
               return null;
             }
         }
-        static final Method javaNetIDNtoAscii = getMethod();
-    }
-
-    // package access for unit tests
-    static final Method getIDNMethod() {
-        return IDNHolder.javaNetIDNtoAscii;
+        private static final Method javaNetIDNtoAscii = getMethod();
     }
 
     /*
@@ -1187,7 +1182,7 @@ public class DomainValidator implements Serializable {
         if (isOnlyASCII(line)) {
             return line;
         }
-        Method m = getIDNMethod();
+        Method m = IDNHolder.javaNetIDNtoAscii;
         if (m == null) { // avoid NPE
             return line;
         }
