@@ -17,6 +17,8 @@
 package org.apache.commons.validator.routines;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -146,6 +148,7 @@ public class DomainValidator implements Serializable {
         if (domain == null || domain.length() > 253) {
             return false;
         }
+        domain = unicodeToASCII(domain); // TODO should this be before the length check?
         String[] groups = domainRegex.match(domain);
         if (groups != null && groups.length > 0) {
             return isValidTld(groups[0]);
@@ -159,6 +162,7 @@ public class DomainValidator implements Serializable {
         if (domain == null || domain.length() > 253) {
             return false;
         }
+        domain = unicodeToASCII(domain); // TODO should this be before the length check?
         String[] groups = domainRegex.match(domain);
         return (groups != null && groups.length > 0)
                 || hostnameRegex.isValid(domain);
@@ -168,10 +172,11 @@ public class DomainValidator implements Serializable {
      * Returns true if the specified <code>String</code> matches any
      * IANA-defined top-level domain. Leading dots are ignored if present.
      * The search is case-insensitive.
-     * @param tld the parameter to check for TLD status
+     * @param tld the parameter to check for TLD status, not null
      * @return true if the parameter is a TLD
      */
     public boolean isValidTld(String tld) {
+        tld = unicodeToASCII(tld);
         if(allowLocal && isValidLocalTld(tld)) {
            return true;
         }
@@ -184,10 +189,11 @@ public class DomainValidator implements Serializable {
      * Returns true if the specified <code>String</code> matches any
      * IANA-defined infrastructure top-level domain. Leading dots are
      * ignored if present. The search is case-insensitive.
-     * @param iTld the parameter to check for infrastructure TLD status
+     * @param iTld the parameter to check for infrastructure TLD status, not null
      * @return true if the parameter is an infrastructure TLD
      */
     public boolean isValidInfrastructureTld(String iTld) {
+        iTld = unicodeToASCII(iTld);
         return Arrays.binarySearch(INFRASTRUCTURE_TLDS, (chompLeadingDot(iTld.toLowerCase(Locale.ENGLISH)))) >= 0;
     }
 
@@ -195,10 +201,11 @@ public class DomainValidator implements Serializable {
      * Returns true if the specified <code>String</code> matches any
      * IANA-defined generic top-level domain. Leading dots are ignored
      * if present. The search is case-insensitive.
-     * @param gTld the parameter to check for generic TLD status
+     * @param gTld the parameter to check for generic TLD status, not null
      * @return true if the parameter is a generic TLD
      */
     public boolean isValidGenericTld(String gTld) {
+        gTld = unicodeToASCII(gTld);
         return Arrays.binarySearch(GENERIC_TLDS, chompLeadingDot(gTld.toLowerCase(Locale.ENGLISH))) >= 0;
     }
 
@@ -206,10 +213,11 @@ public class DomainValidator implements Serializable {
      * Returns true if the specified <code>String</code> matches any
      * IANA-defined country code top-level domain. Leading dots are
      * ignored if present. The search is case-insensitive.
-     * @param ccTld the parameter to check for country code TLD status
+     * @param ccTld the parameter to check for country code TLD status, not null
      * @return true if the parameter is a country code TLD
      */
     public boolean isValidCountryCodeTld(String ccTld) {
+        ccTld = unicodeToASCII(ccTld);
         return Arrays.binarySearch(COUNTRY_CODE_TLDS, chompLeadingDot(ccTld.toLowerCase(Locale.ENGLISH))) >= 0;
     }
 
@@ -217,11 +225,12 @@ public class DomainValidator implements Serializable {
      * Returns true if the specified <code>String</code> matches any
      * widely used "local" domains (localhost or localdomain). Leading dots are
      * ignored if present. The search is case-insensitive.
-     * @param iTld the parameter to check for local TLD status
+     * @param lTld the parameter to check for local TLD status, not null
      * @return true if the parameter is an local TLD
      */
-    public boolean isValidLocalTld(String iTld) {
-        return Arrays.binarySearch(LOCAL_TLDS, chompLeadingDot(iTld.toLowerCase(Locale.ENGLISH))) >= 0;
+    public boolean isValidLocalTld(String lTld) {
+        lTld = unicodeToASCII(lTld);
+        return Arrays.binarySearch(LOCAL_TLDS, chompLeadingDot(lTld.toLowerCase(Locale.ENGLISH))) >= 0;
     }
 
     private String chompLeadingDot(String str) {
@@ -1130,6 +1139,85 @@ public class DomainValidator implements Serializable {
     private static final String[] LOCAL_TLDS = new String[] {
        "localdomain",         // Also widely used as localhost.localdomain
        "localhost",           // RFC2606 defined
-   };
+    };
+
+    /**
+     * Converts potentially Unicode input to punycode.
+     * If conversion fails, returns the original input.
+     * 
+     * @param input the string to convert, not null
+     * @return converted input, or original input if conversion fails
+     */
+    private static String unicodeToASCII(String input) {
+        try {
+            return /* java.net.IDN. */ toASCII(input);
+        } catch (IllegalArgumentException e) { // input is not valid
+            return input;
+        }
+    }
+
+    // ================= Code needed for Java 1.4 and 1.5 compatibility ===============
+
+    private static class IDNHolder {
+        private static Method getMethod() {
+            try {
+                Class clazz = Class.forName("java.net.IDN", false, DomainValidatorTest.class.getClassLoader());
+                return clazz.getDeclaredMethod("toASCII", new Class[]{String.class});
+            } catch (Exception e) {
+              return null;
+            }
+        }
+        static final Method javaNetIDNtoAscii = getMethod();
+    }
+
+    // package access for unit tests
+    static final Method getIDNMethod() {
+        return IDNHolder.javaNetIDNtoAscii;
+    }
+
+    /*
+     * Helper method to invoke java.net.IDN.toAscii(String).
+     * Allows code to be compiled with Java 1.4 and 1.5 
+     * @throws IllegalArgumentException if the input string doesn't conform to RFC 3490 specification
+     */
+    private static final String toASCII(String line) throws IllegalArgumentException {
+//        java.net.IDN.toASCII(line); // Java 1.6+
+        // implementation for Java 1.4 and 1.5
+        // effectively this is done by IDN.toASCII but we want to skip the entire call
+        if (isOnlyASCII(line)) {
+            return line;
+        }
+        Method m = getIDNMethod();
+        if (m == null) { // avoid NPE
+            return line;
+        }
+        try {
+            return (String) m.invoke(null, new String[]{line.toLowerCase(Locale.ENGLISH)});
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e); // Should not happen
+        } catch (InvocationTargetException e) {
+            Throwable t = e.getCause();
+            if (t instanceof IllegalArgumentException) { // this is expected from toASCII method
+                throw (IllegalArgumentException) t;
+            }
+            throw new RuntimeException(e); // Should not happen
+        }
+    }
+
+    /*
+     * Check if input contains only ASCII
+     * Treats null as all ASCII
+     */
+    private static boolean isOnlyASCII(String input) {
+        if (input == null) {
+            return true;
+        }
+        for(int i=0; i < input.length(); i++) {
+            if (input.charAt(i) > 0x7F) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

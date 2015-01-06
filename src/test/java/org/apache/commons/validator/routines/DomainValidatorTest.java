@@ -134,6 +134,17 @@ public class DomainValidatorTest extends TestCase {
        assertTrue("b\u00fccher.ch in IDN should validate", validator.isValid("www.xn--bcher-kva.ch"));
     }
 
+    public void testIDNJava6OrLater() {
+        String version = System.getProperty("java.version");
+        if (version.compareTo("1.6") < 0) {
+            System.out.println("Cannot run Unicode IDN tests");
+            return; // Cannot run the test
+        } // xn--d1abbgf6aiiy.xn--p1ai http://президент.рф
+       assertTrue("b\u00fccher.ch should validate", validator.isValid("www.b\u00fccher.ch.ch"));
+       assertTrue("xn--d1abbgf6aiiy.xn--p1ai should validate", validator.isValid("xn--d1abbgf6aiiy.xn--p1ai"));
+       assertTrue("президент.рф should validate", validator.isValid("президент.рф"));
+    }
+
     // RFC2396: domainlabel   = alphanum | alphanum *( alphanum | "-" ) alphanum
     public void testRFC2396domainlabel() { // use fixed valid TLD
         assertTrue("a.ch should validate", validator.isValid("a.ch"));
