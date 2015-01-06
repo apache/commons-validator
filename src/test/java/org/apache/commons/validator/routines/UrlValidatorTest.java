@@ -295,6 +295,12 @@ public class UrlValidatorTest extends TestCase {
         assertFalse(urlValidator.isValid("http://www.cnn.invalid./")); // check . does not affect invalid domains
     }
 
+    public void testValidator342(){
+        UrlValidator urlValidator = new UrlValidator();
+        assertTrue(urlValidator.isValid("http://example.rocks/"));
+        assertTrue(urlValidator.isValid("http://example.rocks"));
+    }
+
     static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
       boolean carry = true;  //add 1 to lowest order part.
       boolean maxIndex = true;

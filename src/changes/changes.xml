@@ -43,6 +43,9 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.4.1" date="tba" description="1.4 Maintenance release">
+    <action issue="VALIDATOR-342" dev="sebb" type="fix" due-to="Donal Murtagh">
+     URLValidator returns false for http://example.rocks
+    </action>
     <action issue="VALIDATOR-235" dev="sebb" type="fix" due-to="Brian Preuß">
      UrlValidator rejects url with Unicode characters in domain label or TLD
     </action>
