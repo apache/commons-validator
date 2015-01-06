@@ -145,10 +145,17 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is a valid domain name
      */
     public boolean isValid(String domain) {
-        if (domain == null || domain.length() > 253) {
+        if (domain == null) {
             return false;
         }
-        domain = unicodeToASCII(domain); // TODO should this be before the length check?
+        domain = unicodeToASCII(domain);
+        // hosts must be equally reachable via punycode and Unicode;
+        // Unicode is never shorter than punycode, so check punycode
+        // if domain did not convert, then it will be caught by ASCII
+        // checks in the regexes below
+        if (domain.length() > 253) {
+            return false;
+        }
         String[] groups = domainRegex.match(domain);
         if (groups != null && groups.length > 0) {
             return isValidTld(groups[0]);
@@ -159,10 +166,17 @@ public class DomainValidator implements Serializable {
     // package protected for unit test access
     // must agree with isValid() above
     final boolean isValidDomainSyntax(String domain) {
-        if (domain == null || domain.length() > 253) {
+        if (domain == null) {
             return false;
         }
-        domain = unicodeToASCII(domain); // TODO should this be before the length check?
+        domain = unicodeToASCII(domain);
+        // hosts must be equally reachable via punycode and Unicode;
+        // Unicode is never shorter than punycode, so check punycode
+        // if domain did not convert, then it will be caught by ASCII
+        // checks in the regexes below
+        if (domain.length() > 253) {
+            return false;
+        }
         String[] groups = domainRegex.match(domain);
         return (groups != null && groups.length > 0)
                 || hostnameRegex.isValid(domain);
