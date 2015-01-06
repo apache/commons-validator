@@ -81,6 +81,8 @@ BUGS FROM PREVIOUS RELEASE
                      Thanks to Jukka Timonen
  * [VALIDATOR-339] - URLValidator fails validating domain names with a trailing period, which are valid.
                      Thanks to Alex Blume
+ * [VALIDATOR-235] - UrlValidator rejects url with Unicode characters in domain label or TLD
+                     Thanks to Brian Preuß
 
 IMPROVEMENTS OVER PREVIOUS RELEASE
 ===================================
