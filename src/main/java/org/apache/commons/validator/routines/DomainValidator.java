@@ -685,8 +685,6 @@ public class DomainValidator implements Serializable {
         "vacations",
         "vegas",
         "ventures",
-//        "vermögensberater", // xn--vermgensberater-ctb Deutsche Vermögensberatung Aktiengesellschaft DVAG
-//        "vermögensberatung", // xn--vermgensberatung-pwb Deutsche Vermögensberatung Aktiengesellschaft DVAG
         "versicherung",
         "vet",
         "viajes",
@@ -766,44 +764,6 @@ public class DomainValidator implements Serializable {
         "zip",
         "zone",
         "zuerich",
-//        "дети", // xn--d1acj3b The Foundation for Network Initiatives “The Smart Internet”
-//        "москва", // xn--80adxhks Foundation for Assistance for Internet Technologies and Infrastructure Development (FAITID)
-//        "онлайн", // xn--80asehdb CORE Association
-//        "орг", // xn--c1avg Public Interest Registry
-//        "рус", // xn--p1acf Rusnames Limited
-//        "сайт", // xn--80aswg CORE Association
-//        "بازار", // xn--mgbab2bd CORE Association
-//        "شبكة", // xn--ngbc5azd International Domain Registry Pty. Ltd.
-//        "موقع", // xn--4gbrim Suhub Electronic Establishment
-//        "संगठन", // xn--i1b6b1a6a2e Public Interest Registry
-//        "みんな", // xn--q9jyb4c Charleston Road Registry Inc.
-//        "グーグル", // xn--qcka1pmc Charleston Road Registry Inc.
-//        "世界", // xn--rhqv96g Stable Tone Limited
-//        "中信", // xn--fiq64b CITIC Group Corporation
-//        "中文网", // xn--fiq228c5hs TLD REGISTRY LIMITED
-//        "企业", // xn--vhquv Dash McCook, LLC
-//        "佛山", // xn--1qqw23a Guangzhou YU Wei Information Technology Co., Ltd.
-//        "八卦", // xn--45q11c Zodiac Scorpio Limited
-//        "公司", // xn--55qx5d Computer Network Information Center of Chinese Academy of Sciences （China Internet Network Information Center）
-//        "公益", // xn--55qw42g China Organizational Name Administration Center
-//        "商城", // xn--czru2d Zodiac Aquarius Limited
-//        "商店", // xn--czrs0t Wild Island, LLC
-//        "商标", // xn--czr694b HU YI GLOBAL INFORMATION RESOURCES(HOLDING) COMPANY.HONGKONG LIMITED
-//        "在线", // xn--3ds443g TLD REGISTRY LIMITED
-//        "广东", // xn--xhq521b Guangzhou YU Wei Information Technology Co., Ltd.
-//        "我爱你", // xn--6qq986b3xl Tycoon Treasure Limited
-//        "手机", // xn--kput3i Beijing RITT-Net Technology Development Co., Ltd
-//        "政务", // xn--zfr164b China Organizational Name Administration Center
-//        "机构", // xn--nqv7f Public Interest Registry
-//        "游戏", // xn--unup4y Spring Fields, LLC
-//        "移动", // xn--6frz82g Afilias Limited
-//        "组织机构", // xn--nqv7fs00ema Public Interest Registry
-//        "网址", // xn--ses554g HU YI GLOBAL INFORMATION RESOURCES (HOLDING) COMPANY. HONGKONG LIMITED
-//        "网店", // xn--hxt814e Zodiac Libra Limited
-//        "网络", // xn--io0a7i Computer Network Information Center of Chinese Academy of Sciences （China Internet Network Information Center）
-//        "谷歌", // xn--flw351e Charleston Road Registry Inc.
-//        "集团", // xn--3bst00m Eagle Horizon Limited
-//        "삼성", // xn--cg4bki SAMSUNG SDS CO., LTD
    };
 
     // WARNING: this array MUST be sorted, others it cannot be searched reliably using binary search
@@ -1095,44 +1055,6 @@ public class DomainValidator implements Serializable {
         "za",                 // South Africa
         "zm",                 // Zambia
         "zw",                 // Zimbabwe
-//        "мкд", // xn--d1alf Macedonian Academic Research Network Skopje
-//        "мон", // xn--l1acc Datacom Co.,Ltd
-//        "рф", // xn--p1ai Coordination Center for TLD RU
-//        "срб", // xn--90a3ac Serbian National Internet Domain Registry (RNIDS)
-//        "укр", // xn--j1amh Ukrainian Network Information Centre (UANIC), Inc.
-//        "қаз", // xn--80ao21a Association of IT Companies of Kazakhstan
-//        "الاردن", // xn--mgbayh7gpa National Information Technology Center (NITC)
-//        "الجزائر", // xn--lgbbat1ad8j CERIST
-//        "السعودية", // xn--mgberp4a5d4ar Communications and Information Technology Commission
-//        "المغرب", // xn--mgbc0a9azcg Agence Nationale de Réglementation des Télécommunications (ANRT)
-//        "امارات", // xn--mgbaam7a8h Telecommunications Regulatory Authority (TRA)
-//        "ایران", // xn--mgba3a4f16a Institute for Research in Fundamental Sciences (IPM)
-//        "بھارت", // xn--mgbbh1a71e National Internet Exchange of India
-//        "تونس", // xn--pgbs0dh Agence Tunisienne d&#39;Internet
-//        "سورية", // xn--ogbpf8fl National Agency for Network Services (NANS)
-//        "عمان", // xn--mgb9awbf Telecommunications Regulatory Authority (TRA)
-//        "فلسطين", // xn--ygbi2ammx Ministry of Telecom &amp; Information Technology (MTIT)
-//        "قطر", // xn--wgbl6a Communications Regulatory Authority
-//        "مصر", // xn--wgbh1c National Telecommunication Regulatory Authority - NTRA
-//        "مليسيا", // xn--mgbx4cd0ab MYNIC Berhad
-//        "भारत", // xn--h2brj9c National Internet Exchange of India
-//        "ভারত", // xn--45brj9c National Internet Exchange of India
-//        "ਭਾਰਤ", // xn--s9brj9c National Internet Exchange of India
-//        "ભારત", // xn--gecrj9c National Internet Exchange of India
-//        "இந்தியா", // xn--xkc2dl3a5ee0h National Internet Exchange of India
-//        "இலங்கை", // xn--xkc2al3hye2a LK Domain Registry
-//        "சிங்கப்பூர்", // xn--clchc0ea0b2g2a9gcd Singapore Network Information Centre (SGNIC) Pte Ltd
-//        "భారత్", // xn--fpcrj9c3d National Internet Exchange of India
-//        "ලංකා", // xn--fzc2c9e2c LK Domain Registry
-//        "ไทย", // xn--o3cw4h Thai Network Information Center Foundation
-//        "გე", // xn--node Information Technologies Development Center (ITDC)
-//        "中国", // xn--fiqs8s China Internet Network Information Center
-//        "中國", // xn--fiqz9s China Internet Network Information Center
-//        "台湾", // xn--kprw13d Taiwan Network Information Center (TWNIC)
-//        "台灣", // xn--kpry57d Taiwan Network Information Center (TWNIC)
-//        "新加坡", // xn--yfro4i67o Singapore Network Information Centre (SGNIC) Pte Ltd
-//        "香港", // xn--j6w193g Hong Kong Internet Registration Corporation Ltd.
-//        "한국", // xn--3e0b707e KISA (Korea Internet &amp; Security Agency)
     };
 
     // WARNING: this array MUST be sorted, others it cannot be searched reliably using binary search
