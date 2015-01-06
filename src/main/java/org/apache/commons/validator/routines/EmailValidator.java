@@ -42,12 +42,10 @@ public class EmailValidator implements Serializable {
     private static final String QUOTED_USER = "(\"[^\"]*\")";
     private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
-    private static final String LEGAL_ASCII_REGEX = "^\\p{ASCII}+$";
     private static final String EMAIL_REGEX = "^\\s*?(.+)@(.+?)\\s*$";
     private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
     private static final String USER_REGEX = "^\\s*" + WORD + "(\\." + WORD + ")*$";
 
-    private static final Pattern MATCH_ASCII_PATTERN = Pattern.compile(LEGAL_ASCII_REGEX);
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
     private static final Pattern IP_DOMAIN_PATTERN = Pattern.compile(IP_DOMAIN_REGEX);
     private static final Pattern USER_PATTERN = Pattern.compile(USER_REGEX);
@@ -111,18 +109,13 @@ public class EmailValidator implements Serializable {
             return false;
         }
 
-        Matcher asciiMatcher = MATCH_ASCII_PATTERN.matcher(email);
-        if (!asciiMatcher.matches()) {
+        if (email.endsWith(".")) { // check this first - it's cheap!
             return false;
         }
 
         // Check the whole email address structure
         Matcher emailMatcher = EMAIL_PATTERN.matcher(email);
         if (!emailMatcher.matches()) {
-            return false;
-        }
-
-        if (email.endsWith(".")) {
             return false;
         }
 
@@ -140,7 +133,7 @@ public class EmailValidator implements Serializable {
     /**
      * Returns true if the domain component of an email address is valid.
      *
-     * @param domain being validated.
+     * @param domain being validated, may be in IDN format
      * @return true if the email address's domain is valid.
      */
     protected boolean isValidDomain(String domain) {

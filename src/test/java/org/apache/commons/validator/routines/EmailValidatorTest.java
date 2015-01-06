@@ -146,6 +146,20 @@ public class EmailValidatorTest extends TestCase {
         assertFalse(validator.isValid("someone@test-.com"));// hostname ends with dash/hyphen
     }
 
+    public void testValidator235() {
+        String version = System.getProperty("java.version");
+        if (version.compareTo("1.6") < 0) {
+            System.out.println("Cannot run Unicode IDN tests");
+            return; // Cannot run the test
+        }
+        assertTrue("xn--d1abbgf6aiiy.xn--p1ai should validate", validator.isValid("someone@xn--d1abbgf6aiiy.xn--p1ai"));
+        assertTrue("президент.рф should validate", validator.isValid("someone@президент.рф"));
+        assertTrue("www.b\u00fccher.ch should validate", validator.isValid("someone@www.b\u00fccher.ch"));
+        assertFalse("www.\uFFFD.ch FFFD should fail", validator.isValid("someone@www.\uFFFD.ch"));
+        assertTrue("www.b\u00fccher.ch should validate", validator.isValid("someone@www.b\u00fccher.ch"));
+        assertFalse("www.\uFFFD.ch FFFD should fail", validator.isValid("someone@www.\uFFFD.ch"));
+    }
+
     /**
     * Tests the email validation with commas.
     */
