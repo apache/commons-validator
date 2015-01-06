@@ -1161,7 +1161,7 @@ public class DomainValidator implements Serializable {
     private static class IDNHolder {
         private static Method getMethod() {
             try {
-                Class clazz = Class.forName("java.net.IDN", false, DomainValidatorTest.class.getClassLoader());
+                Class clazz = Class.forName("java.net.IDN", false, DomainValidator.class.getClassLoader());
                 return clazz.getDeclaredMethod("toASCII", new Class[]{String.class});
             } catch (Exception e) {
               return null;
