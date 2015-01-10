@@ -27,7 +27,7 @@ This is a maintenance release.
 All projects are encouraged to update to this release of
 Apache Commons Validator.
 
-Commons Validator requires Java 1.4 or later
+Commons Validator requires Java 1.4 or later.
 
 IMPORTANT NOTES
 ================
