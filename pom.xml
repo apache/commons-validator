@@ -138,8 +138,6 @@
   </distributionManagement>
 
   <properties>
-    <maven.compiler.source>1.4</maven.compiler.source>
-    <maven.compiler.target>1.4</maven.compiler.target>
     <commons.componentid>validator</commons.componentid>
     <commons.release.version>1.4.1</commons.release.version>
     <commons.rc.version>RC3</commons.rc.version>
@@ -153,6 +151,11 @@
 
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-validator</commons.scmPubUrl>
+
+    <maven.compiler.source>1.4</maven.compiler.source>
+    <maven.compiler.target>1.4</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties> 
 
   <build>
