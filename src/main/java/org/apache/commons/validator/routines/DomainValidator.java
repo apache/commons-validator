@@ -1104,7 +1104,7 @@ public class DomainValidator implements Serializable {
               return null;
             }
         }
-        private static final Method javaNetIDNtoAscii = getMethod();
+        private static final Method JAVA_NET_IDN_TO_ASCII = getMethod();
     }
 
     /*
@@ -1119,7 +1119,7 @@ public class DomainValidator implements Serializable {
         if (isOnlyASCII(line)) {
             return line;
         }
-        Method m = IDNHolder.javaNetIDNtoAscii;
+        Method m = IDNHolder.JAVA_NET_IDN_TO_ASCII;
         if (m == null) { // avoid NPE
             return line;
         }
