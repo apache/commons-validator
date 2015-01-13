@@ -23,9 +23,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
+import java.net.IDN;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -254,12 +254,6 @@ public class DomainValidatorTest extends TestCase {
             throw new IOException("File does not have expected Version header");
         }
         final boolean generateUnicodeTlds = false; // Change this to generate Unicode TLDs as well
-        final Method toUnicode = getIDNMethod();
-        if (toUnicode == null) {
-            if (generateUnicodeTlds) {
-                System.err.println("Cannot convert XN-- entries (no access to java.net.IDN)");
-            }
-        }
 
         // Parse html page to get entries
         Map htmlInfo = getHtmlInfo(htmlFile);
@@ -270,16 +264,7 @@ public class DomainValidatorTest extends TestCase {
                 final String unicodeTld; // only different from asciiTld if that was punycode
                 final String asciiTld = line.toLowerCase(Locale.ENGLISH);
                 if (line.startsWith("XN--")) {
-                    if (toUnicode != null) {
-                        unicodeTld = toUnicode(toUnicode, line);
-                    } else {
-                        // allow the code to check for missing ASCII TLDs
-                        if (generateUnicodeTlds) {
-                            continue; // No translation possible
-                        } else {
-                            unicodeTld = "";
-                        }
-                    }
+                    unicodeTld = IDN.toUnicode(line);
                 } else {
                     unicodeTld = asciiTld;
                 }
@@ -425,23 +410,6 @@ public class DomainValidatorTest extends TestCase {
             System.out.println("Done");
         }
         return f.lastModified();
-    }
-
-    private static String toUnicode(Method m, String line) {
-        try {
-            return (String) m.invoke(null, new String[]{line.toLowerCase(Locale.ENGLISH)});
-        } catch (Exception e) {
-        }
-        return line;
-    }
-
-    private static Method getIDNMethod() {
-        try {
-            Class clazz = Class.forName("java.net.IDN", false, DomainValidatorTest.class.getClassLoader());
-            return clazz.getDeclaredMethod("toUnicode", new Class[]{String.class});
-        } catch (Exception e) {
-          return null;
-        }
     }
 
     // isInIanaList and isSorted are split into two methods.
