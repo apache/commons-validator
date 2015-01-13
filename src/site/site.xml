@@ -40,6 +40,7 @@
     </menu>
 
     <menu name="JavaDocs">
+      <item name="1.4.1 Release"   href="javadocs/api-1.4.1/"/>
       <item name="1.4.0 Release"   href="javadocs/api-1.4.0/"/>
       <item name="1.3.1 Release"   href="javadocs/api-1.3.1/"/>
       <item name="1.3.0 Release"   href="javadocs/api-1.3.0/"/>
