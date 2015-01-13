@@ -17,8 +17,7 @@
 package org.apache.commons.validator.routines;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.net.IDN;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -1087,69 +1086,10 @@ public class DomainValidator implements Serializable {
     // Needed by UrlValidator
     static String unicodeToASCII(String input) {
         try {
-            return /* java.net.IDN. */ toASCII(input);
+            return IDN.toASCII(input);
         } catch (IllegalArgumentException e) { // input is not valid
             return input;
         }
-    }
-
-    // ================= Code needed for Java 1.4 and 1.5 compatibility ===============
-
-    private static class IDNHolder {
-        private static Method getMethod() {
-            try {
-                Class clazz = Class.forName("java.net.IDN", false, DomainValidator.class.getClassLoader());
-                return clazz.getDeclaredMethod("toASCII", new Class[]{String.class});
-            } catch (Exception e) {
-              return null;
-            }
-        }
-        private static final Method JAVA_NET_IDN_TO_ASCII = getMethod();
-    }
-
-    /*
-     * Helper method to invoke java.net.IDN.toAscii(String).
-     * Allows code to be compiled with Java 1.4 and 1.5 
-     * @throws IllegalArgumentException if the input string doesn't conform to RFC 3490 specification
-     */
-    private static final String toASCII(String line) throws IllegalArgumentException {
-//        java.net.IDN.toASCII(line); // Java 1.6+
-        // implementation for Java 1.4 and 1.5
-        // effectively this is done by IDN.toASCII but we want to skip the entire call
-        if (isOnlyASCII(line)) {
-            return line;
-        }
-        Method m = IDNHolder.JAVA_NET_IDN_TO_ASCII;
-        if (m == null) { // avoid NPE
-            return line;
-        }
-        try {
-            return (String) m.invoke(null, new String[]{line.toLowerCase(Locale.ENGLISH)});
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e); // Should not happen
-        } catch (InvocationTargetException e) {
-            Throwable t = e.getCause();
-            if (t instanceof IllegalArgumentException) { // this is expected from toASCII method
-                throw (IllegalArgumentException) t;
-            }
-            throw new RuntimeException(e); // Should not happen
-        }
-    }
-
-    /*
-     * Check if input contains only ASCII
-     * Treats null as all ASCII
-     */
-    private static boolean isOnlyASCII(String input) {
-        if (input == null) {
-            return true;
-        }
-        for(int i=0; i < input.length(); i++) {
-            if (input.charAt(i) > 0x7F) {
-                return false;
-            }
-        }
-        return true;
     }
 
 }
