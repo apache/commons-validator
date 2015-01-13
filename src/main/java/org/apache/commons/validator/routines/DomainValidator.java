@@ -1085,6 +1085,9 @@ public class DomainValidator implements Serializable {
      */
     // Needed by UrlValidator
     static String unicodeToASCII(String input) {
+        if (isOnlyASCII(input)) { // TODO temporary hack to work round IDN.toASCII bug
+            return input;
+        }
         try {
             return IDN.toASCII(input);
         } catch (IllegalArgumentException e) { // input is not valid
@@ -1092,4 +1095,19 @@ public class DomainValidator implements Serializable {
         }
     }
 
+    /*
+     * Check if input contains only ASCII
+     * Treats null as all ASCII
+     */
+    private static boolean isOnlyASCII(String input) {
+        if (input == null) {
+            return true;
+        }
+        for(int i=0; i < input.length(); i++) {
+            if (input.charAt(i) > 0x7F) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
