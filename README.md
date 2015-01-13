@@ -63,7 +63,7 @@ Alternatively you can pull it from the central Maven repositories:
 <dependency>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <version>1.4.0</version>
+  <version>1.4.1</version>
 </dependency>
 ```
 
