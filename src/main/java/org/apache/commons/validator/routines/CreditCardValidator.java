@@ -19,6 +19,7 @@ package org.apache.commons.validator.routines;
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -99,7 +100,7 @@ public class CreditCardValidator implements Serializable {
     /**
      * The CreditCardTypes that are allowed to pass validation.
      */
-    private final List cardTypes = new ArrayList();
+    private final List<CodeValidator> cardTypes = new ArrayList<CodeValidator>();
 
     /**
      * Luhn checkdigit validator for the card numbers.
@@ -169,9 +170,7 @@ public class CreditCardValidator implements Serializable {
         if (creditCardValidators == null) {
             throw new IllegalArgumentException("Card validators are missing");
         }
-        for (int i = 0; i < creditCardValidators.length; i++) {
-            cardTypes.add(creditCardValidators[i]);
-        }
+        Collections.addAll(cardTypes, creditCardValidators);
     }
 
     /**
@@ -183,9 +182,8 @@ public class CreditCardValidator implements Serializable {
         if (card == null || card.length() == 0) {
             return false;
         }
-        for (int i = 0; i < cardTypes.size(); i++) {
-            CodeValidator type = (CodeValidator)cardTypes.get(i);
-            if (type.isValid(card)) {
+        for (CodeValidator cardType : cardTypes) {
+            if (cardType.isValid(card)) {
                 return true;
             }
         }
@@ -203,11 +201,10 @@ public class CreditCardValidator implements Serializable {
             return null;
         }
         Object result = null;
-        for (int i = 0; i < cardTypes.size(); i++) {
-            CodeValidator type = (CodeValidator)cardTypes.get(i);
-            result = type.validate(card);
+        for (CodeValidator cardType : cardTypes) {
+            result = cardType.validate(card);
             if (result != null) {
-                return result ;
+                return result;
             }
         }
         return null;
