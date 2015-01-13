@@ -286,21 +286,21 @@ public abstract class AbstractCheckDigitTest extends TestCase {
      * @return Codes with invalid check digits
      */
     protected String[] createInvalidCodes(String[] codes) {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<String>();
 
         // create invalid check digit values
-        for (int i = 0; i < codes.length; i++) {
-            String code = removeCheckDigit(codes[i]);
-            String check  = checkDigit(codes[i]);
+        for (String fullCode : codes) {
+            String code = removeCheckDigit(fullCode);
+            String check = checkDigit(fullCode);
             for (int j = 0; j < POSSIBLE_CHECK_DIGITS.length(); j++) {
-                String curr =  POSSIBLE_CHECK_DIGITS.substring(j, j+1);//"" + Character.forDigit(j, 10);
+                String curr = POSSIBLE_CHECK_DIGITS.substring(j, j + 1);//"" + Character.forDigit(j, 10);
                 if (!curr.equals(check)) {
                     list.add(code + curr);
                 }
             }
         }
         
-        return (String[])list.toArray(new String[list.size()]);
+        return list.toArray(new String[list.size()]);
     }
 
     /**
