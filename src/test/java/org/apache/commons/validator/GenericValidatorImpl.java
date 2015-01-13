@@ -225,7 +225,7 @@ public class GenericValidatorImpl {
             boolean this_required = false;
             if (field.isIndexed() && dependIndexed.equalsIgnoreCase("true")) {
                 String key = field.getKey();
-                if ((key.indexOf("[") > -1) && (key.indexOf("]") > -1)) {
+                if ((key.contains("[")) && (key.contains("]"))) {
                     String ind = key.substring(0, key.indexOf(".") + 1);
                     dependProp = ind + dependProp;
                 }

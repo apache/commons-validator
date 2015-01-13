@@ -115,7 +115,7 @@ public class InetAddressValidator implements Serializable {
      * @since 1.4.1
      */
     public boolean isValidInet6Address(String inet6Address) {
-        boolean containsCompressedZeroes = inet6Address.indexOf("::") > -1; // contains is Java 1.5
+        boolean containsCompressedZeroes = inet6Address.contains("::");
         if (containsCompressedZeroes && (inet6Address.indexOf("::") != inet6Address.lastIndexOf("::"))) {
             return false;
         }
@@ -148,7 +148,7 @@ public class InetAddressValidator implements Serializable {
                 }
             } else {
                 emptyOctets = 0;
-                if (octet.indexOf(".") > -1) { // contains is Java 1.5+
+                if (octet.contains(".")) { // contains is Java 1.5+
                     if (!inet6Address.endsWith(octet)) {
                         return false;
                     }

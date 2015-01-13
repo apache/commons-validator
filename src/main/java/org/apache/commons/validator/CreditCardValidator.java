@@ -144,9 +144,8 @@ public class CreditCardValidator {
             return false;
         }
 
-        Iterator types = this.cardTypes.iterator();
-        while (types.hasNext()) {
-            CreditCardType type = (CreditCardType) types.next();
+        for (Object cardType : this.cardTypes) {
+            CreditCardType type = (CreditCardType) cardType;
             if (type.matches(card)) {
                 return true;
             }
@@ -234,7 +233,7 @@ public class CreditCardValidator {
         private static final String PREFIX = "34,37,";
         public boolean matches(String card) {
             String prefix2 = card.substring(0, 2) + ",";
-            return ((PREFIX.indexOf(prefix2) != -1) && (card.length() == 15));
+            return ((PREFIX.contains(prefix2)) && (card.length() == 15));
         }
     }
 
@@ -249,7 +248,7 @@ public class CreditCardValidator {
         private static final String PREFIX = "51,52,53,54,55,";
         public boolean matches(String card) {
             String prefix2 = card.substring(0, 2) + ",";
-            return ((PREFIX.indexOf(prefix2) != -1) && (card.length() == 16));
+            return ((PREFIX.contains(prefix2)) && (card.length() == 16));
         }
     }
 
