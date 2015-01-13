@@ -42,7 +42,10 @@ The <action> type attribute can be add,update,fix,remove.
 
   <body>
 
-  <release version="1.5" date="tba" description="tba">
+  <release version="1.5.0" date="tba" description="tba">
+    <action issue="VALIDATOR-355" dev="britter" type="update" >
+      Update to Java 6
+    </action>
   </release>
   
   <release version="1.4.1" date="2014-01-13" description="1.4 Maintenance release">
