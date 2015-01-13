@@ -50,7 +50,7 @@ Documentation
 -------------
 
 More information can be found on the [homepage](http://commons.apache.org/proper/commons-validator).
-The [JavaDoc](http://commons.apache.org/proper/commons-validator/javadocs/api-release) can be browsed.
+The [JavaDoc](http://commons.apache.org/proper/commons-validator/apidocs) can be browsed.
 Questions related to the usage of Apache Commons Validator should be posted to the [user mailing list][ml].
 
 Where can I get the latest release?
