@@ -1085,14 +1085,44 @@ public class DomainValidator implements Serializable {
      */
     // Needed by UrlValidator
     static String unicodeToASCII(String input) {
-        if (isOnlyASCII(input)) { // TODO temporary hack to work round IDN.toASCII bug
+        if (isOnlyASCII(input)) { // skip possibly expensive processing
             return input;
         }
         try {
-            return IDN.toASCII(input);
+            final String ascii = IDN.toASCII(input);
+            if (IDNBUGHOLDER.IDN_TOASCII_PRESERVES_TRAILING_DOTS) {
+                return ascii;
+            }
+            final int length = input.length();
+            if (length == 0) {// check there is a last character
+                return input;
+            }
+// RFC3490 3.1. 1)
+//            Whenever dots are used as label separators, the following
+//            characters MUST be recognized as dots: U+002E (full stop), U+3002
+//            (ideographic full stop), U+FF0E (fullwidth full stop), U+FF61
+//            (halfwidth ideographic full stop).
+            char lastChar = input.charAt(length-1);// fetch original last char
+            switch(lastChar) {
+                case '\u002E': // "." full stop
+                case '\u3002': // ideographic full stop
+                case '\uFF0E': // fullwidth full stop
+                case '\uFF61': // halfwidth ideographic full stop
+                    return ascii + "."; // restore the missing stop
+                default:
+                    return ascii;
+            }
         } catch (IllegalArgumentException e) { // input is not valid
             return input;
         }
+    }
+
+    private static class IDNBUGHOLDER {
+        private static boolean keepsTrailingDot() {
+            final String input = "a."; // must be a valid name
+            return input.equals(IDN.toASCII(input));
+        }
+        private static final boolean IDN_TOASCII_PRESERVES_TRAILING_DOTS = keepsTrailingDot();
     }
 
     /*

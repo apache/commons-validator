@@ -295,6 +295,15 @@ public class UrlValidatorTest extends TestCase {
         assertFalse(urlValidator.isValid("http://www.cnn.invalid./")); // check . does not affect invalid domains
     }
 
+    public void testValidator339IDN(){
+        UrlValidator urlValidator = new UrlValidator();
+        assertTrue(urlValidator.isValid("http://президент.рф/WORLD/?hpt=sitenav")); // without
+        assertTrue(urlValidator.isValid("http://президент.рф./WORLD/?hpt=sitenav")); // with
+        assertFalse(urlValidator.isValid("http://президент.рф..../")); // very dotty
+        assertFalse(urlValidator.isValid("http://президент.рф.../")); // triply dotty
+        assertFalse(urlValidator.isValid("http://президент.рф../")); // doubly dotty
+    }
+
     public void testValidator342(){
         UrlValidator urlValidator = new UrlValidator();
         assertTrue(urlValidator.isValid("http://example.rocks/"));

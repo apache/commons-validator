@@ -208,6 +208,67 @@ public class DomainValidatorTest extends TestCase {
         assertFalse("254 chars domain should fail", validator.isValidDomainSyntax(longDomain+"x"));
     }
 
+    // Check that IDN.toASCII behaves as it should (when wrapped by DomainValidator.unicodeToASCII)
+    // Tests show that method incorrectly trims a trailing "." character 
+    public void testUnicodeToASCII() {
+        String[] asciidots = {
+                "",
+                ",",
+                ".", // fails IDN.toASCII, but should pass wrapped version
+                "a.", // ditto
+                "a.b",
+                "a..b",
+                "a...b",
+                ".a",
+                "..a",
+        };
+        for(String s : asciidots) {
+            assertEquals(s,DomainValidator.unicodeToASCII(s));
+        }
+        // RFC3490 3.1. 1)
+//      Whenever dots are used as label separators, the following
+//      characters MUST be recognized as dots: U+002E (full stop), U+3002
+//      (ideographic full stop), U+FF0E (fullwidth full stop), U+FF61
+//      (halfwidth ideographic full stop).
+        final String otherDots[][] = {
+                {"b\u3002", "b.",},
+                {"b\uFF0E", "b.",},
+                {"b\uFF61", "b.",},
+                {"\u3002", ".",},
+                {"\uFF0E", ".",},
+                {"\uFF61", ".",},
+        };
+        for(String s[] : otherDots) {
+            assertEquals(s[1],DomainValidator.unicodeToASCII(s[0]));
+        }
+    }
+
+    // Check if IDN.toASCII is broken or not
+    public void testIsIDNtoASCIIBroken() {
+        System.out.println(">>DomainValidatorTest.testIsIDNtoASCIIBroken()");
+        final String input = ".";
+        final boolean ok = input.equals(IDN.toASCII(input));
+        System.out.println("IDN.toASCII is " + (ok? "OK" : "BROKEN"));
+        String props[] = {
+        "java.version", //    Java Runtime Environment version
+        "java.vendor", // Java Runtime Environment vendor
+        "java.vm.specification.version", //   Java Virtual Machine specification version
+        "java.vm.specification.vendor", //    Java Virtual Machine specification vendor
+        "java.vm.specification.name", //  Java Virtual Machine specification name
+        "java.vm.version", // Java Virtual Machine implementation version
+        "java.vm.vendor", //  Java Virtual Machine implementation vendor
+        "java.vm.name", //    Java Virtual Machine implementation name
+        "java.specification.version", //  Java Runtime Environment specification version
+        "java.specification.vendor", //   Java Runtime Environment specification vendor
+        "java.specification.name", // Java Runtime Environment specification name
+        "java.class.version", //  Java class format version number
+        };
+        for(String t : props) {
+            System.out.println(t + "=" + System.getProperty(t));
+        }    
+        System.out.println("<<DomainValidatorTest.testIsIDNtoASCIIBroken()");
+    }
+
     // Check array is sorted and is lower-case
     public void test_INFRASTRUCTURE_TLDS_sortedAndLowerCase() throws Exception {
         final boolean sorted = isSortedLowerCase("INFRASTRUCTURE_TLDS");
