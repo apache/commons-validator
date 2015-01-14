@@ -123,16 +123,16 @@ public class InetAddressValidator implements Serializable {
                 || (inet6Address.endsWith(":") && !inet6Address.endsWith("::"))) {
             return false;
         }
-        Object[] octets = inet6Address.split(":");
+        String[] octets = inet6Address.split(":");
         if (containsCompressedZeroes) {
-            List octetList = new ArrayList(Arrays.asList(octets));
+            List<String> octetList = new ArrayList<String>(Arrays.asList(octets));
             if (inet6Address.endsWith("::")) {
                 // String.split() drops ending empty segments
                 octetList.add("");
             } else if (inet6Address.startsWith("::") && !octetList.isEmpty()) {
                 octetList.remove(0);
             }
-            octets = octetList.toArray();
+            octets = octetList.toArray(new String[octetList.size()]);
         }
         if (octets.length > 8) {
             return false;

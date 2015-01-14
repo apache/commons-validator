@@ -59,13 +59,13 @@ public class FormSet implements Serializable {
      * A <code>Map</code> of <code>Form</code>s using the name field of the
      * <code>Form</code> as the key.
      */
-    private final Map forms = new HashMap();
+    private final Map<String, Form> forms = new HashMap<String, Form>();
 
     /**
      * A <code>Map</code> of <code>Constant</code>s using the name field of the
      * <code>Constant</code> as the key.
      */
-    private final Map constants = new HashMap();
+    private final Map<String, String> constants = new HashMap<String, String>();
 
     /**
      * This is the type of <code>FormSet</code>s where no locale is specified.
@@ -151,8 +151,8 @@ public class FormSet implements Serializable {
         if (depends != null) {
             Map pForms = getForms();
             Map dForms = depends.getForms();
-            for (Iterator it = dForms.entrySet().iterator(); it.hasNext(); ) {
-                Entry entry = (Entry) it.next();
+            for (Iterator<Entry> it = dForms.entrySet().iterator(); it.hasNext(); ) {
+                Entry entry = it.next();
                 Object key = entry.getKey();
                 Form pForm = (Form) pForms.get(key);
                 if (pForm != null) {//merge, but principal 'rules', don't overwrite
@@ -283,7 +283,7 @@ public class FormSet implements Serializable {
      *
      * @return   The forms map
      */
-    public Map getForms() {
+    public Map<String, Form> getForms() {
         return Collections.unmodifiableMap(forms);
     }
 
@@ -293,8 +293,8 @@ public class FormSet implements Serializable {
      * @param globalConstants  Global constants
      */
     synchronized void process(Map globalConstants) {
-        for (Iterator i = forms.values().iterator(); i.hasNext(); ) {
-            Form f = (Form) i.next();
+        for (Iterator<Form> i = forms.values().iterator(); i.hasNext(); ) {
+            Form f = i.next();
             f.process(globalConstants, constants, forms);
         }
 
@@ -349,7 +349,7 @@ public class FormSet implements Serializable {
         results.append(variant);
         results.append("\n");
 
-        for (Iterator i = getForms().values().iterator(); i.hasNext(); ) {
+        for (Iterator<?> i = getForms().values().iterator(); i.hasNext(); ) {
             results.append("   ");
             results.append(i.next());
             results.append("\n");

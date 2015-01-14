@@ -145,9 +145,9 @@ public class ValidateExample {
         System.out.println(bean);
 
         // Iterate over each of the properties of the Bean which had messages.
-        Iterator propertyNames = results.getPropertyNames().iterator();
+        Iterator<String> propertyNames = results.getPropertyNames().iterator();
         while (propertyNames.hasNext()) {
-            String propertyName = (String) propertyNames.next();
+            String propertyName = propertyNames.next();
 
             // Get the Field associated with that property in the Form
             Field field = form.getField(propertyName);
@@ -159,10 +159,10 @@ public class ValidateExample {
             ValidatorResult result = results.getValidatorResult(propertyName);
 
             // Get all the actions run against the property, and iterate over their names.
-            Map actionMap = result.getActionMap();
-            Iterator keys = actionMap.keySet().iterator();
+            Map<String, ?> actionMap = result.getActionMap();
+            Iterator<String> keys = actionMap.keySet().iterator();
             while (keys.hasNext()) {
-                String actName = (String) keys.next();
+                String actName = keys.next();
 
                 // Get the Action for that name.
                 ValidatorAction action = resources.getValidatorAction(actName);

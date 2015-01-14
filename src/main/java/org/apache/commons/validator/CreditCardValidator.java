@@ -18,7 +18,6 @@ package org.apache.commons.validator;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.apache.commons.validator.util.Flags;
 
@@ -94,7 +93,7 @@ public class CreditCardValidator {
     /**
      * The CreditCardTypes that are allowed to pass validation.
      */
-    private final Collection cardTypes = new ArrayList();
+    private final Collection<CreditCardType> cardTypes = new ArrayList<CreditCardType>();
 
     /**
      * Create a new CreditCardValidator with default options.

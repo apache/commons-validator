@@ -120,7 +120,7 @@ public class ValidatorUtils {
             return ((String[]) value).length > 0 ? value.toString() : "";
 
         } else if (value instanceof Collection) {
-            return ((Collection) value).isEmpty() ? "" : value.toString();
+            return ((Collection<?>) value).isEmpty() ? "" : value.toString();
 
         } else {
             return value.toString();
@@ -143,9 +143,9 @@ public class ValidatorUtils {
     public static FastHashMap copyFastHashMap(FastHashMap map) {
         FastHashMap results = new FastHashMap();
 
-        Iterator i = map.entrySet().iterator();
+        Iterator<Entry<String, ?>> i = map.entrySet().iterator();
         while (i.hasNext()) {
-            Entry entry = (Entry) i.next();
+            Entry<String, ?> entry = i.next();
             String key = (String) entry.getKey();
             Object value = entry.getValue();
 
@@ -174,12 +174,12 @@ public class ValidatorUtils {
      * @return A copy of the <code>Map</code> that was passed in.
      */
     public static Map copyMap(Map map) {
-        Map results = new HashMap();
+        Map<String, ? super Object> results = new HashMap<String, Object>();
 
-        Iterator i = map.entrySet().iterator();
+        Iterator<Entry<String, ?>> i = map.entrySet().iterator();
         while (i.hasNext()) {
-            Entry entry = (Entry) i.next();
-            String key = (String) entry.getKey();
+            Entry<String, ?> entry = i.next();
+            String key = entry.getKey();
             Object value = entry.getValue();
 
             if (value instanceof Msg) {

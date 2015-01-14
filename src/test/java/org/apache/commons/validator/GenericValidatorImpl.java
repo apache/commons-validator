@@ -265,7 +265,7 @@ public class GenericValidatorImpl {
         return true;
     }
   
-  private static Class stringClass = new String().getClass();
+  private static Class<?> stringClass = new String().getClass();
 
   private static boolean isString(Object o) {
     if (o == null) {

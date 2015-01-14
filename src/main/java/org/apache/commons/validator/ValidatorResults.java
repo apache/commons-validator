@@ -36,7 +36,7 @@ public class ValidatorResults implements Serializable {
     /**
      * Map of validation results.
      */
-    protected Map hResults = new HashMap();
+    protected Map<String, ValidatorResult> hResults = new HashMap<String, ValidatorResult>();
 
     /**
      * Merge another ValidatorResults into mine.
@@ -118,7 +118,7 @@ public class ValidatorResults implements Serializable {
      * been recorded.
      * @return An unmodifiable Set of the property names.
      */
-    public Set getPropertyNames() {
+    public Set<String> getPropertyNames() {
         return Collections.unmodifiableSet(this.hResults.keySet());
     }
 
@@ -128,15 +128,15 @@ public class ValidatorResults implements Serializable {
      *
      * @return Map of objections returned by validators.
      */
-    public Map getResultValueMap() {
-        Map results = new HashMap();
+    public Map<String, Object> getResultValueMap() {
+        Map<String, Object> results = new HashMap<String, Object>();
 
-        for (Iterator i = hResults.keySet().iterator(); i.hasNext();) {
-            String propertyKey = (String) i.next();
+        for (Iterator<String> i = hResults.keySet().iterator(); i.hasNext();) {
+            String propertyKey = i.next();
             ValidatorResult vr = this.getValidatorResult(propertyKey);
 
-            for (Iterator x = vr.getActions(); x.hasNext();) {
-                String actionKey = (String)x.next();
+            for (Iterator<String> x = vr.getActions(); x.hasNext();) {
+                String actionKey = x.next();
                 Object result = vr.getResult(actionKey);
 
                 if (result != null && !(result instanceof Boolean)) {

@@ -89,7 +89,7 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
       
       assertNotNull("Results are null.", results);
       
-      Map hResultValues = results.getResultValueMap();
+      Map<String, ?> hResultValues = results.getResultValueMap();
 
       assertTrue("Expecting byte result to be an instance of Byte.", (hResultValues.get("byte") instanceof Byte));
       assertTrue("Expecting short result to be an instance of Short.", (hResultValues.get("short") instanceof Short));
@@ -98,8 +98,8 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
       assertTrue("Expecting float result to be an instance of Float.", (hResultValues.get("float") instanceof Float));
       assertTrue("Expecting double result to be an instance of Double.", (hResultValues.get("double") instanceof Double));
       
-      for (Iterator i = hResultValues.keySet().iterator(); i.hasNext(); ) {
-         String key = (String)i.next();
+      for (Iterator<String> i = hResultValues.keySet().iterator(); i.hasNext(); ) {
+         String key = i.next();
          Object value = hResultValues.get(key);
          
          assertNotNull("value ValidatorResults.getResultValueMap() should not be null.", value);
@@ -181,8 +181,8 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
       assertTrue("Expecting double result to be an instance of Double for locale: "+locale, (hResultValues.get("double") instanceof Double));
       assertTrue("Expecting date result to be an instance of Date for locale: "+locale, (hResultValues.get("date") instanceof Date));
       
-      for (Iterator i = hResultValues.keySet().iterator(); i.hasNext(); ) {
-         String key = (String)i.next();
+      for (Iterator<String> i = hResultValues.keySet().iterator(); i.hasNext(); ) {
+         String key = i.next();
          Object value = hResultValues.get(key);
          
          assertNotNull("value ValidatorResults.getResultValueMap() should not be null for locale: "+locale, value);
