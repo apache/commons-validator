@@ -129,12 +129,12 @@ public class Field implements Cloneable, Serializable {
     /**
      * @deprecated Subclasses should use getVarMap() instead.
      */
-    protected FastHashMap hVars = new FastHashMap();
+    protected FastHashMap hVars = new FastHashMap(); // <String, Var>
 
     /**
      * @deprecated Subclasses should use getMsgMap() instead.
      */
-    protected FastHashMap hMsgs = new FastHashMap();
+    protected FastHashMap hMsgs = new FastHashMap(); // <String, Msg>
 
     /**
      * Holds Maps of arguments.  args[0] returns the Map for the first
@@ -265,7 +265,7 @@ public class Field implements Cloneable, Serializable {
      * @param msg A validation message.
      */
     public void addMsg(Msg msg) {
-        hMsgs.put(msg.getName(), msg);
+        getMsgMap().put(msg.getName(), msg);
     }
 
     /**
@@ -285,7 +285,7 @@ public class Field implements Cloneable, Serializable {
      * @return A validation message for a specified validator.
      */
     public Msg getMessage(String key) {
-        return (Msg) hMsgs.get(key);
+        return (Msg) getMsgMap().get(key);
     }
 
     /**
@@ -294,8 +294,8 @@ public class Field implements Cloneable, Serializable {
      * @since Validator 1.1.4
      * @return Map of validation messages for the field.
      */
-    public Map getMessages() {
-        return Collections.unmodifiableMap(hMsgs);
+    public Map<String, Msg> getMessages() {
+        return Collections.unmodifiableMap(getMsgMap());
     }
 
     /**
@@ -397,6 +397,7 @@ public class Field implements Cloneable, Serializable {
      */
     private void ensureArgsCapacity(Arg arg) {
         if (arg.getPosition() >= this.args.length) {
+            @SuppressWarnings("unchecked") // cannot check this at compile time, but it is OK
             Map<String, Arg>[] newArgs = new Map[arg.getPosition() + 1];
             System.arraycopy(this.args, 0, newArgs, 0, this.args.length);
             this.args = newArgs;
@@ -461,7 +462,7 @@ public class Field implements Cloneable, Serializable {
      * @param v The Validator Argument.
      */
     public void addVar(Var v) {
-        this.hVars.put(v.getName(), v);
+        this.getVarMap().put(v.getName(), v);
     }
 
     /**
@@ -481,7 +482,7 @@ public class Field implements Cloneable, Serializable {
      * @return the Variable
      */
     public Var getVar(String mainKey) {
-        return (Var) hVars.get(mainKey);
+        return (Var) getVarMap().get(mainKey);
     }
 
     /**
@@ -492,7 +493,7 @@ public class Field implements Cloneable, Serializable {
     public String getVarValue(String mainKey) {
         String value = null;
 
-        Object o = hVars.get(mainKey);
+        Object o = getVarMap().get(mainKey);
         if (o != null && o instanceof Var) {
             Var v = (Var) o;
             value = v.getValue();
@@ -506,8 +507,8 @@ public class Field implements Cloneable, Serializable {
      * unmodifiable <code>Map</code>.
      * @return the Map of Variable's for a Field.
      */
-    public Map getVars() {
-        return Collections.unmodifiableMap(hVars);
+    public Map<String, Var> getVars() {
+        return Collections.unmodifiableMap(getVarMap());
     }
 
     /**
@@ -591,8 +592,8 @@ public class Field implements Cloneable, Serializable {
         }
 
         // Process Var Constant Replacement
-        for (Iterator i = hVars.keySet().iterator(); i.hasNext();) {
-            String key = (String) i.next();
+        for (Iterator<String> i = getVarMap().keySet().iterator(); i.hasNext();) {
+            String key = i.next();
             String key2 = TOKEN_START + TOKEN_VAR + key + TOKEN_END;
             Var var = this.getVar(key);
             String replaceValue = var.getValue();
@@ -607,7 +608,7 @@ public class Field implements Cloneable, Serializable {
      * Replace the vars value with the key/value pairs passed in.
      */
     private void processVars(String key, String replaceValue) {
-        Iterator<String> i = this.hVars.keySet().iterator();
+        Iterator<String> i = getVarMap().keySet().iterator();
         while (i.hasNext()) {
             String varKey = i.next();
             Var var = this.getVar(varKey);
@@ -624,7 +625,7 @@ public class Field implements Cloneable, Serializable {
         String varKey = TOKEN_START + TOKEN_VAR;
         // Process Messages
         if (key != null && !key.startsWith(varKey)) {
-            for (Iterator<Msg> i = hMsgs.values().iterator(); i.hasNext();) {
+            for (Iterator<Msg> i = getMsgMap().values().iterator(); i.hasNext();) {
                 Msg msg = i.next();
                 msg.setKey(ValidatorUtils.replace(msg.getKey(), key, replaceValue));
             }
@@ -727,12 +728,12 @@ public class Field implements Cloneable, Serializable {
 
         if (hVars != null) {
             results.append("\t\tVars:\n");
-            for (Iterator<?> i = hVars.keySet().iterator(); i.hasNext();) {
+            for (Iterator<?> i = getVarMap().keySet().iterator(); i.hasNext();) {
                 Object key = i.next();
                 results.append("\t\t\t");
                 results.append(key);
                 results.append("=");
-                results.append(hVars.get(key));
+                results.append(getVarMap().get(key));
                 results.append("\n");
             }
         }
@@ -763,7 +764,7 @@ public class Field implements Cloneable, Serializable {
         }
 
         if (indexedProperty instanceof Collection) {
-            return ((Collection) indexedProperty).toArray();
+            return ((Collection<?>) indexedProperty).toArray();
 
         } else if (indexedProperty.getClass().isArray()) {
             return (Object[]) indexedProperty;
@@ -798,7 +799,7 @@ public class Field implements Cloneable, Serializable {
         if (indexedProperty == null) {
             return 0;
         } else if (indexedProperty instanceof Collection) {
-            return ((Collection)indexedProperty).size();
+            return ((Collection<?>)indexedProperty).size();
         } else if (indexedProperty.getClass().isArray()) {
             return ((Object[])indexedProperty).length;
         } else {
@@ -939,7 +940,8 @@ public class Field implements Cloneable, Serializable {
      * @since Validator 1.2.0
      * @return A Map of the Field's messages.
      */
-    protected Map getMsgMap() {
+    @SuppressWarnings("unchecked") // FastHashMap does not support generics
+    protected Map<String, Msg> getMsgMap() {
         return hMsgs;
     }
 
@@ -948,7 +950,8 @@ public class Field implements Cloneable, Serializable {
      * @since Validator 1.2.0
      * @return A Map of the Field's variables.
      */
-    protected Map getVarMap() {
+    @SuppressWarnings("unchecked") // FastHashMap does not support generics
+    protected Map<String, Var> getVarMap() {
         return hVars;
     }
 }
