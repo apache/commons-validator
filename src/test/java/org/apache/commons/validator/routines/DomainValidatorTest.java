@@ -236,7 +236,7 @@ public class DomainValidatorTest extends TestCase {
     // Check if the internal TLD table is up to date
     // Check if the internal TLD tables have any spurious entries
     public static void main(String a[]) throws Exception {
-        Set ianaTlds = new HashSet(); // keep for comparison with array contents
+        Set<String> ianaTlds = new HashSet<String>(); // keep for comparison with array contents
         DomainValidator dv = DomainValidator.getInstance();;
         File txtFile = new File("target/tlds-alpha-by-domain.txt");
         long timestamp = download(txtFile, "http://data.iana.org/TLD/tlds-alpha-by-domain.txt", 0L);
@@ -258,9 +258,9 @@ public class DomainValidatorTest extends TestCase {
         final boolean generateUnicodeTlds = false; // Change this to generate Unicode TLDs as well
 
         // Parse html page to get entries
-        Map htmlInfo = getHtmlInfo(htmlFile);
-        Map missingTLD = new TreeMap(); // stores entry and comments as String[]
-        Map missingCC = new TreeMap();
+        Map<String, String[]> htmlInfo = getHtmlInfo(htmlFile);
+        Map<String, String> missingTLD = new TreeMap<String, String>(); // stores entry and comments as String[]
+        Map<String, String> missingCC = new TreeMap<String, String>();
         while((line = br.readLine()) != null) {
             if (!line.startsWith("#")) {
                 final String unicodeTld; // only different from asciiTld if that was punycode
@@ -314,21 +314,21 @@ public class DomainValidatorTest extends TestCase {
         System.out.println("Finished checks");
     }
 
-    private static void printMap(final String header, Map map, String string) {
+    private static void printMap(final String header, Map<String, String> map, String string) {
         System.out.println("Entries missing from "+ string +" List\n");
         if (header != null) {
             System.out.println("        // Taken from " + header);
         }
-        Iterator it = map.entrySet().iterator();
+        Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
         while(it.hasNext()){
-            Map.Entry me = (Map.Entry)it.next();
+            Map.Entry<String, String> me = it.next();
             System.out.println("        \"" + me.getKey() + "\", // " + me.getValue());
         }
         System.out.println("\nDone");
     }
 
-    private static Map getHtmlInfo(final File f) throws IOException {
-        final Map info = new HashMap();
+    private static Map<String, String[]> getHtmlInfo(final File f) throws IOException {
+        final Map<String, String[]> info = new HashMap<String, String[]>();
 
 //        <td><span class="domain tld"><a href="/domains/root/db/ax.html">.ax</a></span></td>
         final Pattern domain = Pattern.compile(".*<a href=\"/domains/root/db/([^.]+)\\.html");
@@ -417,7 +417,7 @@ public class DomainValidatorTest extends TestCase {
     // isInIanaList and isSorted are split into two methods.
     // If/when access to the arrays is possible without reflection, the intermediate
     // methods can be dropped
-    private static boolean isInIanaList(String arrayName, Set ianaTlds) throws Exception {
+    private static boolean isInIanaList(String arrayName, Set<String> ianaTlds) throws Exception {
         Field f = DomainValidator.class.getDeclaredField(arrayName);
         final boolean isPrivate = Modifier.isPrivate(f.getModifiers());
         if (isPrivate) {
@@ -433,7 +433,7 @@ public class DomainValidatorTest extends TestCase {
         }
     }
 
-    private static boolean isInIanaList(String name, String [] array, Set ianaTlds) {
+    private static boolean isInIanaList(String name, String [] array, Set<String> ianaTlds) {
         for(int i = 0; i < array.length; i++) {
             if (!ianaTlds.contains(array[i])) {
                 System.out.println(name + " contains unexpected value: " + array[i]);
