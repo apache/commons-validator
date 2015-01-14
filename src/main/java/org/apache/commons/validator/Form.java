@@ -49,7 +49,7 @@ public class Form implements Serializable {
      * in although individual <code>Field</code>s can be retrieved using <code>Map</code>
      * of <code>Field</code>s.
      */
-    protected List lFields = new ArrayList();
+    protected List<Field> lFields = new ArrayList<Field>();
 
     /**
      * Map of <code>Field</code>s keyed on their property value.
@@ -105,7 +105,7 @@ public class Form implements Serializable {
      *
      * @return   The fields value
      */
-    public List getFields() {
+    public List<Field> getFields() {
         return Collections.unmodifiableList(lFields);
     }
 
@@ -142,9 +142,9 @@ public class Form implements Serializable {
      */
     protected void merge(Form depends) {
 
-        List templFields = new ArrayList();
-        Map temphFields = new FastHashMap();
-        Iterator dependsIt = depends.getFields().iterator();
+        List<Field> templFields = new ArrayList<Field>();
+        Map<String, Field> temphFields = new FastHashMap();
+        Iterator<Field> dependsIt = depends.getFields().iterator();
         while (dependsIt.hasNext()) {
             Field defaultField = (Field) dependsIt.next();
             if (defaultField != null) {
@@ -187,8 +187,8 @@ public class Form implements Serializable {
                     //we want to go all the way up the tree
                     parent.process(constants, globalConstants, forms);
                 }
-                for (Iterator i = parent.getFields().iterator(); i.hasNext(); ) {
-                    Field f = (Field) i.next();
+                for (Iterator<Field> i = parent.getFields().iterator(); i.hasNext(); ) {
+                    Field f = i.next();
                     //we want to be able to override any fields we like
                     if (hFields.get(f.getKey()) == null) {
                         lFields.add(n, f);
@@ -200,8 +200,8 @@ public class Form implements Serializable {
         }
         hFields.setFast(true);
         //no need to reprocess parent's fields, we iterate from 'n'
-        for (Iterator i = lFields.listIterator(n); i.hasNext(); ) {
-            Field f = (Field) i.next();
+        for (Iterator<Field> i = lFields.listIterator(n); i.hasNext(); ) {
+            Field f = i.next();
             f.process(globalConstants, constants);
         }
 
@@ -220,7 +220,7 @@ public class Form implements Serializable {
         results.append(name);
         results.append("\n");
 
-        for (Iterator i = lFields.iterator(); i.hasNext(); ) {
+        for (Iterator<Field> i = lFields.iterator(); i.hasNext(); ) {
             results.append("\tField: \n");
             results.append(i.next());
             results.append("\n");
@@ -261,9 +261,9 @@ public class Form implements Serializable {
      * @throws ValidatorException
      * @since 1.2.0
      */
-    ValidatorResults validate(Map params, Map actions, int page, String fieldName)
+    ValidatorResults validate(Map<String, ? super Object> params, Map actions, int page, String fieldName)
         throws ValidatorException {
-
+// TODO the params map contains both ValidatorResults and Field entries
         ValidatorResults results = new ValidatorResults();
         params.put(Validator.VALIDATOR_RESULTS_PARAM, results);
 
@@ -280,9 +280,9 @@ public class Form implements Serializable {
                results.merge(field.validate(params, actions));
             }
         } else {
-            Iterator fields = this.lFields.iterator();
+            Iterator<Field> fields = this.lFields.iterator();
             while (fields.hasNext()) {
-                Field field = (Field) fields.next();
+                Field field = fields.next();
 
                 params.put(Validator.FIELD_PARAM, field);
 

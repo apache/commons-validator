@@ -66,7 +66,7 @@ public class ValidatorAction implements Serializable {
     /**
      * The Class object loaded from the classname.
      */
-    private Class validationClass = null;
+    private Class<?> validationClass = null;
 
     /**
      * The full method name of the validation to be performed.  The method
@@ -103,7 +103,7 @@ public class ValidatorAction implements Serializable {
     /**
      * The Class objects for each entry in methodParameterList.
      */
-    private Class[] parameterClasses = null;
+    private Class<?>[] parameterClasses = null;
 
     /**
      * The other <code>ValidatorAction</code>s that this one depends on.  If
@@ -149,13 +149,13 @@ public class ValidatorAction implements Serializable {
      * setDepends() (which clears the List) won't interfere with a call to
      * isDependency().
      */
-    private final List dependencyList = Collections.synchronizedList(new ArrayList());
+    private final List<String> dependencyList = Collections.synchronizedList(new ArrayList<String>());
 
     /**
      * An internal List representation of all the validation method's
      * parameters defined in the methodParams String.
      */
-    private final List methodParameterList = new ArrayList();
+    private final List<String> methodParameterList = new ArrayList<String>();
 
     /**
      * Gets the name of the validator action.
@@ -491,7 +491,7 @@ public class ValidatorAction implements Serializable {
      * <code>List</code>.
      * @return List of the validator action's depedents.
      */
-    public List getDependencyList() {
+    public List<String> getDependencyList() {
         return Collections.unmodifiableList(this.dependencyList);
     }
 
@@ -518,6 +518,8 @@ public class ValidatorAction implements Serializable {
      */
     boolean executeValidationMethod(
         Field field,
+        // TODO What is this the correct value type?
+        // both ValidatorAction and Validator are added as parameters
         Map params,
         ValidatorResults results,
         int pos)
@@ -641,7 +643,7 @@ public class ValidatorAction implements Serializable {
             return;
         }
 
-        Class[] parameterClasses = new Class[this.methodParameterList.size()];
+        Class<?>[] parameterClasses = new Class[this.methodParameterList.size()];
 
         for (int i = 0; i < this.methodParameterList.size(); i++) {
             String paramClassName = (String) this.methodParameterList.get(i);
@@ -665,12 +667,12 @@ public class ValidatorAction implements Serializable {
      * array is in the same order as the given List and is suitable for passing
      * to the validation method.
      */
-    private Object[] getParameterValues(Map params) {
+    private Object[] getParameterValues(Map<String, ? super Object> params) {
 
         Object[] paramValue = new Object[this.methodParameterList.size()];
 
         for (int i = 0; i < this.methodParameterList.size(); i++) {
-            String paramClassName = (String) this.methodParameterList.get(i);
+            String paramClassName = this.methodParameterList.get(i);
             paramValue[i] = params.get(paramClassName);
         }
 
@@ -759,6 +761,7 @@ public class ValidatorAction implements Serializable {
     /**
      * Returns the ClassLoader set in the Validator contained in the parameter
      * Map.
+     * TODO expects Map to contain <String, Validator>
      */
     private ClassLoader getClassLoader(Map params) {
         Validator v = (Validator) params.get(Validator.VALIDATOR_PARAM);
@@ -768,6 +771,7 @@ public class ValidatorAction implements Serializable {
     /**
      * Returns the onlyReturnErrors setting in the Validator contained in the
      * parameter Map.
+     * TODO expects Map to contain <String, Validator>
      */
     private boolean onlyReturnErrors(Map params) {
         Validator v = (Validator) params.get(Validator.VALIDATOR_PARAM);

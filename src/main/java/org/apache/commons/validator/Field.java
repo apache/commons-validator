@@ -124,7 +124,7 @@ public class Field implements Cloneable, Serializable {
      * synchronized so a call to setDepends() (which clears the List) won't
      * interfere with a call to isDependency().
      */
-    private final List dependencyList = Collections.synchronizedList(new ArrayList());
+    private final List<String> dependencyList = Collections.synchronizedList(new ArrayList<String>());
 
     /**
      * @deprecated Subclasses should use getVarMap() instead.
@@ -142,7 +142,8 @@ public class Field implements Cloneable, Serializable {
      * only grow to the size of the highest argument position.
      * @since Validator 1.1
      */
-    protected Map[] args = new Map[0];
+    @SuppressWarnings("unchecked") // cannot instantiate generic array, so have to assume this is OK
+    protected Map<String, Arg>[] args = new Map[0];
 
     /**
      * Gets the page value that the Field is associated with for
@@ -333,9 +334,9 @@ public class Field implements Cloneable, Serializable {
         determineArgPosition(arg);
         ensureArgsCapacity(arg);
 
-        Map argMap = this.args[arg.getPosition()];
+        Map<String, Arg> argMap = this.args[arg.getPosition()];
         if (argMap == null) {
-            argMap = new HashMap();
+            argMap = new HashMap<String, Arg>();
             this.args[arg.getPosition()] = argMap;
         }
 
@@ -396,7 +397,7 @@ public class Field implements Cloneable, Serializable {
      */
     private void ensureArgsCapacity(Arg arg) {
         if (arg.getPosition() >= this.args.length) {
-            Map[] newArgs = new Map[arg.getPosition() + 1];
+            Map<String, Arg>[] newArgs = new Map[arg.getPosition() + 1];
             System.arraycopy(this.args, 0, newArgs, 0, this.args.length);
             this.args = newArgs;
         }
@@ -555,18 +556,18 @@ public class Field implements Cloneable, Serializable {
      * Replace constants with values in fields and process the depends field
      * to create the dependency <code>Map</code>.
      */
-    void process(Map globalConstants, Map constants) {
+    void process(Map<String, String> globalConstants, Map<String, String> constants) {
         this.hMsgs.setFast(false);
         this.hVars.setFast(true);
 
         this.generateKey();
 
         // Process FormSet Constants
-        for (Iterator i = constants.entrySet().iterator(); i.hasNext();) {
-            Entry entry = (Entry) i.next();
-            String key = (String) entry.getKey();
+        for (Iterator<Entry<String, String>> i = constants.entrySet().iterator(); i.hasNext();) {
+            Entry<String, String> entry = i.next();
+            String key = entry.getKey();
             String key2 = TOKEN_START + key + TOKEN_END;
-            String replaceValue = (String) entry.getValue();
+            String replaceValue = entry.getValue();
 
             property = ValidatorUtils.replace(property, key2, replaceValue);
 
@@ -576,11 +577,11 @@ public class Field implements Cloneable, Serializable {
         }
 
         // Process Global Constants
-        for (Iterator i = globalConstants.entrySet().iterator(); i.hasNext();) {
-            Entry entry = (Entry) i.next();
-            String key = (String) entry.getKey();
+        for (Iterator<Entry<String, String>> i = globalConstants.entrySet().iterator(); i.hasNext();) {
+            Entry<String, String> entry = i.next();
+            String key = entry.getKey();
             String key2 = TOKEN_START + key + TOKEN_END;
-            String replaceValue = (String) entry.getValue();
+            String replaceValue = entry.getValue();
 
             property = ValidatorUtils.replace(property, key2, replaceValue);
 
@@ -606,9 +607,9 @@ public class Field implements Cloneable, Serializable {
      * Replace the vars value with the key/value pairs passed in.
      */
     private void processVars(String key, String replaceValue) {
-        Iterator i = this.hVars.keySet().iterator();
+        Iterator<String> i = this.hVars.keySet().iterator();
         while (i.hasNext()) {
-            String varKey = (String) i.next();
+            String varKey = i.next();
             Var var = this.getVar(varKey);
 
             var.setValue(ValidatorUtils.replace(var.getValue(), key, replaceValue));
@@ -623,8 +624,8 @@ public class Field implements Cloneable, Serializable {
         String varKey = TOKEN_START + TOKEN_VAR;
         // Process Messages
         if (key != null && !key.startsWith(varKey)) {
-            for (Iterator i = hMsgs.values().iterator(); i.hasNext();) {
-                Msg msg = (Msg) i.next();
+            for (Iterator<Msg> i = hMsgs.values().iterator(); i.hasNext();) {
+                Msg msg = i.next();
                 msg.setKey(ValidatorUtils.replace(msg.getKey(), key, replaceValue));
             }
         }
@@ -639,14 +640,14 @@ public class Field implements Cloneable, Serializable {
     private void processArg(String key, String replaceValue) {
         for (int i = 0; i < this.args.length; i++) {
 
-            Map argMap = this.args[i];
+            Map<String, Arg> argMap = this.args[i];
             if (argMap == null) {
                 continue;
             }
 
-            Iterator iter = argMap.values().iterator();
+            Iterator<Arg> iter = argMap.values().iterator();
             while (iter.hasNext()) {
-                Arg arg = (Arg) iter.next();
+                Arg arg = iter.next();
 
                 if (arg != null) {
                     arg.setKey(
@@ -670,7 +671,7 @@ public class Field implements Cloneable, Serializable {
      * order they were defined in parameter passed to the setDepends() method.
      * @return A list of the Field's dependancies.
      */
-    public List getDependencyList() {
+    public List<String> getDependencyList() {
         return Collections.unmodifiableList(this.dependencyList);
     }
 
@@ -692,13 +693,13 @@ public class Field implements Cloneable, Serializable {
                 continue;
             }
 
-            Map argMap = new HashMap(this.args[i]);
-            Iterator iter = argMap.entrySet().iterator();
+            Map<String, Arg> argMap = new HashMap<String, Arg>(this.args[i]);
+            Iterator<Entry<String, Arg>> iter = argMap.entrySet().iterator();
             while (iter.hasNext()) {
-                Entry entry = (Entry) iter.next();
-                String validatorName = (String) entry.getKey();
-                Arg arg = (Arg) entry.getValue();
-                argMap.put(validatorName, arg.clone());
+                Entry<String, Arg> entry = iter.next();
+                String validatorName = entry.getKey();
+                Arg arg = entry.getValue();
+                argMap.put(validatorName, (Arg) arg.clone());
             }
             field.args[i] = argMap;
         }
@@ -726,7 +727,7 @@ public class Field implements Cloneable, Serializable {
 
         if (hVars != null) {
             results.append("\t\tVars:\n");
-            for (Iterator i = hVars.keySet().iterator(); i.hasNext();) {
+            for (Iterator<?> i = hVars.keySet().iterator(); i.hasNext();) {
                 Object key = i.next();
                 results.append("\t\t\t");
                 results.append(key);
@@ -844,22 +845,22 @@ public class Field implements Cloneable, Serializable {
     private boolean runDependentValidators(
         ValidatorAction va,
         ValidatorResults results,
-        Map actions,
+        Map<String, ValidatorAction> actions,
         Map params,
         int pos)
         throws ValidatorException {
 
-        List dependentValidators = va.getDependencyList();
+        List<String> dependentValidators = va.getDependencyList();
 
         if (dependentValidators.isEmpty()) {
             return true;
         }
 
-        Iterator iter = dependentValidators.iterator();
+        Iterator<String> iter = dependentValidators.iterator();
         while (iter.hasNext()) {
-            String depend = (String) iter.next();
+            String depend = iter.next();
 
-            ValidatorAction action = (ValidatorAction) actions.get(depend);
+            ValidatorAction action = actions.get(depend);
             if (action == null) {
                 this.handleMissingAction(depend);
             }
@@ -898,10 +899,10 @@ public class Field implements Cloneable, Serializable {
 
         for (int fieldNumber = 0; fieldNumber < numberOfFieldsToValidate; fieldNumber++) {
 
-            Iterator dependencies = this.dependencyList.iterator();
+            Iterator<String> dependencies = this.dependencyList.iterator();
             ValidatorResults results = new ValidatorResults();
             while (dependencies.hasNext()) {
-                String depend = (String) dependencies.next();
+                String depend = dependencies.next();
 
                 ValidatorAction action = (ValidatorAction) actions.get(depend);
                 if (action == null) {
