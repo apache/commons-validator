@@ -520,7 +520,7 @@ public class ValidatorAction implements Serializable {
         Field field,
         // TODO What is this the correct value type?
         // both ValidatorAction and Validator are added as parameters
-        Map params,
+        Map<String, Object> params,
         ValidatorResults results,
         int pos)
         throws ValidatorException {
@@ -761,9 +761,8 @@ public class ValidatorAction implements Serializable {
     /**
      * Returns the ClassLoader set in the Validator contained in the parameter
      * Map.
-     * TODO expects Map to contain <String, Validator>
      */
-    private ClassLoader getClassLoader(Map params) {
+    private ClassLoader getClassLoader(Map<String, Object> params) {
         Validator v = (Validator) params.get(Validator.VALIDATOR_PARAM);
         return v.getClassLoader();
     }
@@ -771,9 +770,8 @@ public class ValidatorAction implements Serializable {
     /**
      * Returns the onlyReturnErrors setting in the Validator contained in the
      * parameter Map.
-     * TODO expects Map to contain <String, Validator>
      */
-    private boolean onlyReturnErrors(Map params) {
+    private boolean onlyReturnErrors(Map<String, Object> params) {
         Validator v = (Validator) params.get(Validator.VALIDATOR_PARAM);
         return v.getOnlyReturnErrors();
     }

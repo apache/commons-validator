@@ -688,7 +688,9 @@ public class Field implements Cloneable, Serializable {
             throw new RuntimeException(e.toString());
         }
 
-        field.args = new Map[this.args.length];
+        @SuppressWarnings("unchecked") // empty array always OK; cannot check this at compile time
+        final Map<String, Arg>[] tempMap = new Map[this.args.length];
+        field.args = tempMap;
         for (int i = 0; i < this.args.length; i++) {
             if (this.args[i] == null) {
                 continue;
@@ -816,8 +818,8 @@ public class Field implements Cloneable, Serializable {
     private boolean validateForRule(
         ValidatorAction va,
         ValidatorResults results,
-        Map actions,
-        Map params,
+        Map<String, ValidatorAction> actions,
+        Map<String, Object> params,
         int pos)
         throws ValidatorException {
 
@@ -847,7 +849,7 @@ public class Field implements Cloneable, Serializable {
         ValidatorAction va,
         ValidatorResults results,
         Map<String, ValidatorAction> actions,
-        Map params,
+        Map<String, Object> params,
         int pos)
         throws ValidatorException {
 
@@ -885,7 +887,7 @@ public class Field implements Cloneable, Serializable {
      * this field.
      * @throws ValidatorException If an error occurs during validation.
      */
-    public ValidatorResults validate(Map params, Map<String, ValidatorAction> actions)
+    public ValidatorResults validate(Map<String, Object> params, Map<String, ValidatorAction> actions)
         throws ValidatorException {
 
         if (this.getDepends() == null) {
@@ -905,7 +907,7 @@ public class Field implements Cloneable, Serializable {
             while (dependencies.hasNext()) {
                 String depend = dependencies.next();
 
-                ValidatorAction action = (ValidatorAction) actions.get(depend);
+                ValidatorAction action = actions.get(depend);
                 if (action == null) {
                     this.handleMissingAction(depend);
                 }

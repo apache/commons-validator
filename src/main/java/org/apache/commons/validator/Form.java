@@ -243,8 +243,7 @@ public class Form implements Serializable {
      *      validation messages.
      * @throws ValidatorException
      */
-    // TODO difficult to add generics for params as the map may contain values with incompatible classes
-    ValidatorResults validate(Map params, Map<String, ValidatorAction> actions, int page)
+    ValidatorResults validate(Map<String, Object> params, Map<String, ValidatorAction> actions, int page)
         throws ValidatorException {
         return validate(params, actions, page, null);
     }
@@ -263,15 +262,14 @@ public class Form implements Serializable {
      * @throws ValidatorException
      * @since 1.2.0
      */
-    ValidatorResults validate(Map<String, ? super Object> params, Map<String, ValidatorAction> actions, int page, String fieldName)
+    ValidatorResults validate(Map<String, Object> params, Map<String, ValidatorAction> actions, int page, String fieldName)
         throws ValidatorException {
-// TODO the params map contains both ValidatorResults and Field entries
         ValidatorResults results = new ValidatorResults();
         params.put(Validator.VALIDATOR_RESULTS_PARAM, results);
 
         // Only validate a single field if specified
         if (fieldName != null) {
-            Field field = (Field) getFieldMap().get(fieldName);
+            Field field = getFieldMap().get(fieldName);
 
             if (field == null) {
                throw new ValidatorException("Unknown field "+fieldName+" in form "+getName());
