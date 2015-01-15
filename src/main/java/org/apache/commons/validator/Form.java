@@ -56,7 +56,7 @@ public class Form implements Serializable {
      *
      * @deprecated   Subclasses should use getFieldMap() instead.
      */
-    protected FastHashMap hFields = new FastHashMap();
+    protected FastHashMap hFields = new FastHashMap(); // <String, Field>
 
     /**
      * The name/key of the form which this form extends from.
@@ -96,7 +96,7 @@ public class Form implements Serializable {
      */
     public void addField(Field f) {
         this.lFields.add(f);
-        this.hFields.put(f.getKey(), f);
+        getFieldMap().put(f.getKey(), f);
     }
 
     /**
@@ -118,7 +118,7 @@ public class Form implements Serializable {
      * @since            Validator 1.1
      */
     public Field getField(String fieldName) {
-        return (Field) this.hFields.get(fieldName);
+        return getFieldMap().get(fieldName);
     }
 
     /**
@@ -129,7 +129,7 @@ public class Form implements Serializable {
      * @since            Validator 1.1
      */
     public boolean containsField(String fieldName) {
-        return this.hFields.containsKey(fieldName);
+        return getFieldMap().containsKey(fieldName);
     }
 
     /**
@@ -143,6 +143,7 @@ public class Form implements Serializable {
     protected void merge(Form depends) {
 
         List<Field> templFields = new ArrayList<Field>();
+        @SuppressWarnings("unchecked") // FastHashMap is not generic
         Map<String, Field> temphFields = new FastHashMap();
         Iterator<Field> dependsIt = depends.getFields().iterator();
         while (dependsIt.hasNext()) {
@@ -155,7 +156,7 @@ public class Form implements Serializable {
                 }
                 else {
                     Field old = getField(fieldKey);
-                    hFields.remove(fieldKey);
+                    getFieldMap().remove(fieldKey);
                     lFields.remove(old);
                     templFields.add(old);
                     temphFields.put(fieldKey, old);
@@ -163,7 +164,7 @@ public class Form implements Serializable {
             }
         }
         lFields.addAll(0, templFields);
-        hFields.putAll(temphFields);
+        getFieldMap().putAll(temphFields);
     }
 
     /**
@@ -174,14 +175,14 @@ public class Form implements Serializable {
      * @param forms            Map of forms
      * @since                  Validator 1.2.0
      */
-    protected void process(Map globalConstants, Map constants, Map forms) {
+    protected void process(Map<String, String> globalConstants, Map<String, String> constants, Map<String, Form> forms) {
         if (isProcessed()) {
             return;
         }
 
         int n = 0;//we want the fields from its parent first
         if (isExtending()) {
-            Form parent = (Form) forms.get(inherit);
+            Form parent = forms.get(inherit);
             if (parent != null) {
                 if (!parent.isProcessed()) {
                     //we want to go all the way up the tree
@@ -190,9 +191,9 @@ public class Form implements Serializable {
                 for (Iterator<Field> i = parent.getFields().iterator(); i.hasNext(); ) {
                     Field f = i.next();
                     //we want to be able to override any fields we like
-                    if (hFields.get(f.getKey()) == null) {
+                    if (getFieldMap().get(f.getKey()) == null) {
                         lFields.add(n, f);
-                        hFields.put(f.getKey(), f);
+                        getFieldMap().put(f.getKey(), f);
                         n++;
                     }
                 }
@@ -242,7 +243,7 @@ public class Form implements Serializable {
      *      validation messages.
      * @throws ValidatorException
      */
-    ValidatorResults validate(Map params, Map actions, int page)
+    ValidatorResults validate(Map params, Map<String, ValidatorAction> actions, int page)
         throws ValidatorException {
         return validate(params, actions, page, null);
     }
@@ -261,7 +262,7 @@ public class Form implements Serializable {
      * @throws ValidatorException
      * @since 1.2.0
      */
-    ValidatorResults validate(Map<String, ? super Object> params, Map actions, int page, String fieldName)
+    ValidatorResults validate(Map<String, ? super Object> params, Map<String, ValidatorAction> actions, int page, String fieldName)
         throws ValidatorException {
 // TODO the params map contains both ValidatorResults and Field entries
         ValidatorResults results = new ValidatorResults();
@@ -269,7 +270,7 @@ public class Form implements Serializable {
 
         // Only validate a single field if specified
         if (fieldName != null) {
-            Field field = (Field) this.hFields.get(fieldName);
+            Field field = (Field) getFieldMap().get(fieldName);
 
             if (field == null) {
                throw new ValidatorException("Unknown field "+fieldName+" in form "+getName());
@@ -342,7 +343,8 @@ public class Form implements Serializable {
      * @return   The fieldMap value
      * @since    Validator 1.2.0
      */
-    protected Map getFieldMap() {
+    @SuppressWarnings("unchecked") // FastHashMap is not generic
+    protected Map<String, Field> getFieldMap() {
         return hFields;
     }
 }

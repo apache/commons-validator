@@ -885,7 +885,7 @@ public class Field implements Cloneable, Serializable {
      * this field.
      * @throws ValidatorException If an error occurs during validation.
      */
-    public ValidatorResults validate(Map params, Map actions)
+    public ValidatorResults validate(Map params, Map<String, ValidatorAction> actions)
         throws ValidatorException {
 
         if (this.getDepends() == null) {

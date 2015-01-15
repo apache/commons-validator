@@ -85,24 +85,24 @@ public class ValidatorResources implements Serializable {
 
     /**
      * <code>Map</code> of <code>FormSet</code>s stored under
-     * a <code>Locale</code> key.
+     * a <code>Locale</code> key (expressed as a String).
      * @deprecated Subclasses should use getFormSets() instead.
      */
-    protected FastHashMap hFormSets = new FastHashMap();
+    protected FastHashMap hFormSets = new FastHashMap(); // <String, FormSet>
 
     /**
      * <code>Map</code> of global constant values with
      * the name of the constant as the key.
      * @deprecated Subclasses should use getConstants() instead.
      */
-    protected FastHashMap hConstants = new FastHashMap();
+    protected FastHashMap hConstants = new FastHashMap(); // <String, String>
 
     /**
      * <code>Map</code> of <code>ValidatorAction</code>s with
      * the name of the <code>ValidatorAction</code> as the key.
      * @deprecated Subclasses should use getActions() instead.
      */
-    protected FastHashMap hActions = new FastHashMap();
+    protected FastHashMap hActions = new FastHashMap(); // <String, ValidatorAction>
 
     /**
      * The default locale on our server.
@@ -328,7 +328,7 @@ public class ValidatorResources implements Serializable {
             }
             defaultFormSet = fs;
         } else {
-            FormSet formset = (FormSet) hFormSets.get(key);
+            FormSet formset = getFormSets().get(key);
             if (formset == null) {// it hasn't been included yet
                 if (getLog().isDebugEnabled()) {
                     getLog().debug("Adding FormSet '" + fs.toString() + "'.");
@@ -339,7 +339,7 @@ public class ValidatorResources implements Serializable {
                         .warn("Overriding FormSet definition. Duplicate for locale: "
                                 + key);
             }
-            hFormSets.put(key, fs);
+            getFormSets().put(key, fs);
         }
     }
 
@@ -366,7 +366,7 @@ public class ValidatorResources implements Serializable {
     public void addValidatorAction(ValidatorAction va) {
         va.init();
 
-        this.hActions.put(va.getName(), va);
+        getActions().put(va.getName(), va);
 
         if (getLog().isDebugEnabled()) {
             getLog().debug("Add ValidatorAction: " + va.getName() + "," + va.getClassname());
@@ -379,15 +379,15 @@ public class ValidatorResources implements Serializable {
      * @return The validator action.
      */
     public ValidatorAction getValidatorAction(String key) {
-        return (ValidatorAction) hActions.get(key);
+        return getActions().get(key);
     }
 
     /**
      * Get an unmodifiable <code>Map</code> of the <code>ValidatorAction</code>s.
      * @return Map of validator actions.
      */
-    public Map getValidatorActions() {
-        return Collections.unmodifiableMap(hActions);
+    public Map<String, ValidatorAction> getValidatorActions() {
+        return Collections.unmodifiableMap(getActions());
     }
 
     /**
@@ -456,7 +456,7 @@ public class ValidatorResources implements Serializable {
         // Try language/country/variant
         String key = this.buildLocale(language, country, variant);
         if (key.length() > 0) {
-            FormSet formSet = (FormSet)hFormSets.get(key);
+            FormSet formSet = getFormSets().get(key);
             if (formSet != null) {
                 form = formSet.getForm(formKey);
             }
@@ -468,7 +468,7 @@ public class ValidatorResources implements Serializable {
         if (form == null) {
             key = buildLocale(language, country, null);
             if (key.length() > 0) {
-                FormSet formSet = (FormSet)hFormSets.get(key);
+                FormSet formSet = getFormSets().get(key);
                 if (formSet != null) {
                     form = formSet.getForm(formKey);
                 }
@@ -479,7 +479,7 @@ public class ValidatorResources implements Serializable {
         if (form == null) {
             key = buildLocale(language, null, null);
             if (key.length() > 0) {
-                FormSet formSet = (FormSet)hFormSets.get(key);
+                FormSet formSet = getFormSets().get(key);
                 if (formSet != null) {
                     form = formSet.getForm(formKey);
                 }
@@ -536,15 +536,15 @@ public class ValidatorResources implements Serializable {
         }
         defaultFormSet.process(hConstants);
         // Loop through FormSets and merge if necessary
-        for (Iterator i = hFormSets.keySet().iterator(); i.hasNext();) {
-            String key = (String) i.next();
-            FormSet fs = (FormSet) hFormSets.get(key);
+        for (Iterator<String> i = getFormSets().keySet().iterator(); i.hasNext();) {
+            String key = i.next();
+            FormSet fs = getFormSets().get(key);
             fs.merge(getParent(fs));
         }
 
         // Process Fully Constructed FormSets
-        for (Iterator i = hFormSets.values().iterator(); i.hasNext();) {
-            FormSet fs = (FormSet) i.next();
+        for (Iterator<FormSet> i = getFormSets().values().iterator(); i.hasNext();) {
+            FormSet fs = i.next();
             if (!fs.isProcessed()) {
                 fs.process(hConstants);
             }
@@ -567,16 +567,16 @@ public class ValidatorResources implements Serializable {
         if (fs.getType() == FormSet.LANGUAGE_FORMSET) {
             parent = defaultFormSet;
         } else if (fs.getType() == FormSet.COUNTRY_FORMSET) {
-            parent = (FormSet) hFormSets.get(buildLocale(fs.getLanguage(),
+            parent = (FormSet) getFormSets().get(buildLocale(fs.getLanguage(),
                     null, null));
             if (parent == null) {
                 parent = defaultFormSet;
             }
         } else if (fs.getType() == FormSet.VARIANT_FORMSET) {
-            parent = (FormSet) hFormSets.get(buildLocale(fs.getLanguage(), fs
+            parent = (FormSet) getFormSets().get(buildLocale(fs.getLanguage(), fs
                     .getCountry(), null));
             if (parent == null) {
-                parent = (FormSet) hFormSets.get(buildLocale(fs.getLanguage(),
+                parent = (FormSet) getFormSets().get(buildLocale(fs.getLanguage(),
                         null, null));
                 if (parent == null) {
                     parent = defaultFormSet;
@@ -603,7 +603,7 @@ public class ValidatorResources implements Serializable {
             return defaultFormSet;
         }
 
-        return (FormSet)hFormSets.get(key);
+        return (FormSet)getFormSets().get(key);
     }
 
     /**
@@ -611,7 +611,8 @@ public class ValidatorResources implements Serializable {
      * @return Map of Form sets
      * @since Validator 1.2.0
      */
-    protected Map getFormSets() {
+    @SuppressWarnings("unchecked") // FastHashMap is not generic
+    protected Map<String, FormSet> getFormSets() {
         return hFormSets;
     }
 
@@ -620,7 +621,8 @@ public class ValidatorResources implements Serializable {
      * @return Map of Constants
      * @since Validator 1.2.0
      */
-    protected Map getConstants() {
+    @SuppressWarnings("unchecked") // FastHashMap is not generic
+    protected Map<String, String> getConstants() {
         return hConstants;
     }
 
@@ -629,7 +631,8 @@ public class ValidatorResources implements Serializable {
      * @return Map of Validator Actions
      * @since Validator 1.2.0
      */
-    protected Map getActions() {
+    @SuppressWarnings("unchecked") // FastHashMap is not generic
+    protected Map<String, ValidatorAction> getActions() {
         return hActions;
     }
 
