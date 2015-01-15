@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.Locale;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import org.apache.commons.validator.Field;
@@ -159,8 +158,7 @@ public class ValidateExample {
             ValidatorResult result = results.getValidatorResult(propertyName);
 
             // Get all the actions run against the property, and iterate over their names.
-            Map<String, ?> actionMap = result.getActionMap();
-            Iterator<String> keys = actionMap.keySet().iterator();
+            Iterator<String> keys = result.getActions();
             while (keys.hasNext()) {
                 String actName = keys.next();
 
