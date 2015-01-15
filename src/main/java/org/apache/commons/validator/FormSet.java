@@ -149,18 +149,18 @@ public class FormSet implements Serializable {
      */
     protected void merge(FormSet depends) {
         if (depends != null) {
-            Map pForms = getForms();
-            Map dForms = depends.getForms();
-            for (Iterator<Entry> it = dForms.entrySet().iterator(); it.hasNext(); ) {
-                Entry entry = it.next();
-                Object key = entry.getKey();
-                Form pForm = (Form) pForms.get(key);
+            Map<String, Form> pForms = getForms();
+            Map<String, Form> dForms = depends.getForms();
+            for (Iterator<Entry<String, Form>> it = dForms.entrySet().iterator(); it.hasNext(); ) {
+                Entry<String, Form> entry = it.next();
+                String key = entry.getKey();
+                Form pForm = pForms.get(key);
                 if (pForm != null) {//merge, but principal 'rules', don't overwrite
                     // anything
-                    pForm.merge((Form) entry.getValue());
+                    pForm.merge(entry.getValue());
                 }
                 else {//just add
-                    addForm((Form) entry.getValue());
+                    addForm(entry.getValue());
                 }
             }
         }
@@ -292,7 +292,7 @@ public class FormSet implements Serializable {
      *
      * @param globalConstants  Global constants
      */
-    synchronized void process(Map globalConstants) {
+    synchronized void process(Map<String, String> globalConstants) {
         for (Iterator<Form> i = forms.values().iterator(); i.hasNext(); ) {
             Form f = i.next();
             f.process(globalConstants, constants, forms);

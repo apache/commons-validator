@@ -534,7 +534,7 @@ public class ValidatorResources implements Serializable {
             // default formset
             defaultFormSet = new FormSet();
         }
-        defaultFormSet.process(hConstants);
+        defaultFormSet.process(getConstants());
         // Loop through FormSets and merge if necessary
         for (Iterator<String> i = getFormSets().keySet().iterator(); i.hasNext();) {
             String key = i.next();
@@ -546,7 +546,7 @@ public class ValidatorResources implements Serializable {
         for (Iterator<FormSet> i = getFormSets().values().iterator(); i.hasNext();) {
             FormSet fs = i.next();
             if (!fs.isProcessed()) {
-                fs.process(hConstants);
+                fs.process(getConstants());
             }
         }
     }

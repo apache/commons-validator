@@ -243,6 +243,7 @@ public class Form implements Serializable {
      *      validation messages.
      * @throws ValidatorException
      */
+    // TODO difficult to add generics for params as the map may contain values with incompatible classes
     ValidatorResults validate(Map params, Map<String, ValidatorAction> actions, int page)
         throws ValidatorException {
         return validate(params, actions, page, null);
