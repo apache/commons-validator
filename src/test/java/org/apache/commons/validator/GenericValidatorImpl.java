@@ -200,7 +200,7 @@ public class GenericValidatorImpl {
         Object form = validator.getParameterValue(Validator.BEAN_PARAM);
         String value = null;
         boolean required = false;
-        if (isString(bean)) {
+        if (isStringOrNull(bean)) {
             value = (String) bean;
         } else {
             value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -265,13 +265,11 @@ public class GenericValidatorImpl {
         return true;
     }
   
-  private static Class<?> stringClass = new String().getClass();
-
-  private static boolean isString(Object o) {
+  private static boolean isStringOrNull(Object o) {
     if (o == null) {
-        return true;
+        return true; // TODO this condition is not exercised by any tests currently
     }
-    return (stringClass.isInstance(o));
+    return (o instanceof String);
   }
       
 }                                                         
