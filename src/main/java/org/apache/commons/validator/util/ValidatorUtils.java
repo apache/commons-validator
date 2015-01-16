@@ -143,6 +143,7 @@ public class ValidatorUtils {
     public static FastHashMap copyFastHashMap(FastHashMap map) {
         FastHashMap results = new FastHashMap();
 
+        @SuppressWarnings("unchecked") // FastHashMap is not generic
         Iterator<Entry<String, ?>> i = map.entrySet().iterator();
         while (i.hasNext()) {
             Entry<String, ?> entry = i.next();
@@ -173,12 +174,12 @@ public class ValidatorUtils {
      *
      * @return A copy of the <code>Map</code> that was passed in.
      */
-    public static Map copyMap(Map map) {
-        Map<String, ? super Object> results = new HashMap<String, Object>();
+    public static Map<String, Object> copyMap(Map<String, Object> map) {
+        Map<String, Object> results = new HashMap<String, Object>();
 
-        Iterator<Entry<String, ?>> i = map.entrySet().iterator();
+        Iterator<Entry<String, Object>> i = map.entrySet().iterator();
         while (i.hasNext()) {
-            Entry<String, ?> entry = i.next();
+            Entry<String, Object> entry = i.next();
             String key = entry.getKey();
             Object value = entry.getValue();
 
