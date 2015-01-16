@@ -37,6 +37,7 @@ import org.apache.commons.collections.FastHashMap;// DEPRECATED
  *
  * @version $Revision$
  */
+//TODO mutable non-private fields
 public class Form implements Serializable {
 
     private static final long serialVersionUID = 6445211789563796371L;

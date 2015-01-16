@@ -26,6 +26,7 @@ import java.io.Serializable;
  *
  * @version $Revision$
  */
+//TODO mutable non-private fields
 public class Msg implements Cloneable, Serializable {
 
     private static final long serialVersionUID = 5690015734364127124L;

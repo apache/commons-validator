@@ -29,6 +29,7 @@ import java.util.Set;
  *
  * @version $Revision$
  */
+//TODO mutable non-private fields
 public class ValidatorResults implements Serializable {
 
     private static final long serialVersionUID = -2709911078904924839L;

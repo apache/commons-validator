@@ -45,6 +45,7 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * @version $Revision$
  * @see org.apache.commons.validator.Form
  */
+// TODO mutable non-private fields
 public class Field implements Cloneable, Serializable {
 
     private static final long serialVersionUID = -8502647722530192185L;

@@ -52,6 +52,7 @@ import org.xml.sax.Attributes;
  *
  * @version $Revision$
  */
+//TODO mutable non-private fields
 public class ValidatorResources implements Serializable {
 
     private static final long serialVersionUID = -8203745881446239554L;
