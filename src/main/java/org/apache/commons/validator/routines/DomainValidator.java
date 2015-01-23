@@ -69,7 +69,7 @@ public class DomainValidator implements Serializable {
 
     // RFC2396: domainlabel   = alphanum | alphanum *( alphanum | "-" ) alphanum
     // Max 63 characters
-    private static final String DOMAIN_LABEL_REGEX = "\\p{Alnum}(?>[\\p{Alnum}-]{0,61}\\p{Alnum})?";
+    private static final String DOMAIN_LABEL_REGEX = "\\p{Alnum}(?>[\\p{Alnum}-_]{0,61}\\p{Alnum})?";
 
     // RFC2396 toplabel = alpha | alpha *( alphanum | "-" ) alphanum
     // Max 63 characters
