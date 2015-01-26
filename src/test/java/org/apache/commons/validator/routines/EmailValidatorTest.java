@@ -468,6 +468,6 @@ public class EmailValidatorTest extends TestCase {
         assertTrue(validator.isValid("abc_@abc.com"));
         assertTrue(validator.isValid("abc-def@abc.com"));
         assertTrue(validator.isValid("abc_def@abc.com"));
-        assertTrue(validator.isValid("abc@abc_def.com"));
+        assertFalse(validator.isValid("abc@abc_def.com"));
     }
 }

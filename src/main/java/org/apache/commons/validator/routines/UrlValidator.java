@@ -133,7 +133,7 @@ public class UrlValidator implements Serializable {
     // Drop numeric, and  "+-." for now
     // TODO does not allow for optional userinfo. 
     // Validation of character set is done by isValidAuthority
-    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\._";
+    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
 
     private static final String AUTHORITY_REGEX =
             "^([" + AUTHORITY_CHARS_REGEX + "]*)(:\\d*)?(.*)?";

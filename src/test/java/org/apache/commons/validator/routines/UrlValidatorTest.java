@@ -441,7 +441,6 @@ public class UrlValidatorTest extends TestCase {
                                new ResultPair("", true)};
 
    ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
-		   						  new ResultPair("my_domain.s3.amazonaws.com", true),
                                   new ResultPair("go.com", true),
                                   new ResultPair("go.au", true),
                                   new ResultPair("0.0.0.0", true),
