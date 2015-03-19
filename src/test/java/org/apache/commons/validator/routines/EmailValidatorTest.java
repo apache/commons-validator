@@ -367,6 +367,8 @@ public class EmailValidatorTest extends TestCase {
 
         assertTrue(validator.isValid("\"..\"@apache.org"));
 
+        assertTrue(validator.isValid("john56789.john56789.john56789.john56789.john56789.john56789.john@example.com"));
+
         assertFalse(validator.isValid("john56789.john56789.john56789.john56789.john56789.john56789.john5@example.com"));
     }
 
