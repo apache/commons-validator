@@ -308,6 +308,7 @@ public class DomainValidator implements Serializable {
         "auto", // auto Uniregistry, Corp.
         "autos",
         "axa",
+        "azure", // azure Microsoft Corporation
         "band",
         "bank", // bank fTLD Registry Services, LLC
         "bar",
@@ -324,6 +325,7 @@ public class DomainValidator implements Serializable {
         "bible", // bible American Bible Society
         "bid",
         "bike",
+        "bing", // bing Microsoft Corporation
         "bingo", // bingo Sand Cedar, LLC
         "bio",
         "biz",
@@ -550,11 +552,13 @@ public class DomainValidator implements Serializable {
         "hockey", // hockey Half Willow, LLC
         "holdings",
         "holiday",
+        "homedepot", // homedepot Homer TLC, Inc.
         "homes",
         "honda", // honda Honda Motor Co., Ltd.
         "horse",
         "host",
         "hosting",
+        "hotmail", // hotmail Microsoft Corporation
         "house",
         "how",
         "ibm",
@@ -579,6 +583,7 @@ public class DomainValidator implements Serializable {
         "jcb", // jcb JCB Co., Ltd.
         "jetzt",
         "jewelry", // jewelry Wild Bloom, LLC
+        "jlc", // jlc Richemont DNS Inc.
         "jll", // jll Jones Lang LaSalle Incorporated
         "jobs",
         "joburg",
@@ -595,6 +600,7 @@ public class DomainValidator implements Serializable {
         "kyoto", // kyoto Academic Institution: Kyoto Jyoho Gakuen
         "lacaixa",
         "land",
+        "lasalle", // lasalle Jones Lang LaSalle Incorporated
         "lat", // lat ECOM-LAC Federación de Latinoamérica y el Caribe para Internet y el Comercio Electrónico
         "latrobe",
         "lawyer",
@@ -639,6 +645,7 @@ public class DomainValidator implements Serializable {
         "men", // men Exclusive Registry Limited
         "menu",
         "miami",
+        "microsoft", // microsoft Microsoft Corporation
         "mil",
         "mini",
         "mma", // mma MMA IARD
@@ -647,6 +654,7 @@ public class DomainValidator implements Serializable {
         "moe",
         "monash",
         "money",
+        "montblanc", // montblanc Richemont DNS Inc.
         "mormon",
         "mortgage",
         "moscow",
@@ -871,12 +879,14 @@ public class DomainValidator implements Serializable {
         "wiki",
         "williamhill",
         "win", // win First Registry Limited
+        "windows", // windows Microsoft Corporation
         "wme",
         "work",
         "works",
         "world",
         "wtc",
         "wtf",
+        "xbox", // xbox Microsoft Corporation
         "xerox", // xerox Xerox DNHC LLC
         "xin", // xin Elegant Leader Limited
         "xn--1qqw23a", // 佛山 Guangzhou YU Wei Information Technology Co., Ltd.
