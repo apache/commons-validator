@@ -361,6 +361,12 @@ public class DomainValidatorTest extends TestCase {
             }
         }
         br.close();
+        // List html entries not in TLD text list
+        for(String key : (new TreeMap<String, String[]>(htmlInfo)).keySet()) {
+            if (!ianaTlds.contains(key)) {
+                System.err.println("Expected to find text entry for html: "+key);
+            }
+        }
         if (!missingTLD.isEmpty()) {
             printMap(header, missingTLD, "TLD");
         }
@@ -426,8 +432,13 @@ public class DomainValidatorTest extends TestCase {
                     if (n.lookingAt()) {
                         com = n.group(1);
                     }
-                    info.put(dom.toLowerCase(Locale.ENGLISH), new String[]{typ, com});
-//                    System.out.println(dom + " " + typ + " " +com);
+                    // Don't save unused entries
+                    if (com.contains("Not assigned") || com.contains("Retired") || typ.equals("test")) {
+//                        System.out.println(dom + " " + typ + " " +com);
+                    } else {
+                        info.put(dom.toLowerCase(Locale.ENGLISH), new String[]{typ, com});
+//                        System.out.println(dom + " " + typ + " " +com);
+                    }
                 }
             }
         }
