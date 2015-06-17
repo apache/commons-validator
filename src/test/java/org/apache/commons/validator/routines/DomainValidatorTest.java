@@ -17,15 +17,18 @@
 package org.apache.commons.validator.routines;
 
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 import java.net.IDN;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -364,7 +367,9 @@ public class DomainValidatorTest extends TestCase {
         // List html entries not in TLD text list
         for(String key : (new TreeMap<String, String[]>(htmlInfo)).keySet()) {
             if (!ianaTlds.contains(key)) {
-                System.err.println("Expected to find text entry for html: "+key);
+                if (!isNotInRootZone(key)) {
+                    System.err.println("Expected to find text entry for html: "+key);                    
+                }
             }
         }
         if (!missingTLD.isEmpty()) {
@@ -484,6 +489,41 @@ public class DomainValidatorTest extends TestCase {
             System.out.println("Done");
         }
         return f.lastModified();
+    }
+
+    private static boolean isNotInRootZone(String domain) {
+        String tldurl = "http://www.iana.org/domains/root/db/" + domain + ".html";
+        HttpURLConnection hc = null;
+        BufferedReader in = null;
+        try {
+            hc = (HttpURLConnection) new URL(tldurl).openConnection();
+            in = new BufferedReader(
+                    new InputStreamReader(hc.getInputStream()));
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                if (inputLine.contains("This domain is not present in the root zone at this time.")) {
+                    return true;
+                }
+            }
+            in.close();        
+        } catch (MalformedURLException e) {
+        } catch (IOException e) {
+        } finally {
+            closeQuietly(in);
+            if (hc != null) {
+                hc.disconnect();
+            }
+        }
+        return false;
+    }
+
+    private static void closeQuietly(Closeable in) {
+        if (in != null) {
+            try {
+                in.close();
+            } catch (IOException e) {
+            }
+        }
     }
 
     // isInIanaList and isSorted are split into two methods.
