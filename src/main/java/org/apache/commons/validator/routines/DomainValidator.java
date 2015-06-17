@@ -322,6 +322,7 @@ public class DomainValidator implements Serializable {
         "beer",
         "berlin",
         "best",
+        "bharti", // bharti Bharti Enterprises (Holding) Private Limited
         "bible", // bible American Bible Society
         "bid",
         "bike",
@@ -690,6 +691,7 @@ public class DomainValidator implements Serializable {
         "onl",
         "online", // online DotOnline Inc.
         "ooo",
+        "oracle", // oracle Oracle Corporation
         "org",
         "organic",
         "osaka",
