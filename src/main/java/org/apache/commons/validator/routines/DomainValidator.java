@@ -206,8 +206,8 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is an infrastructure TLD
      */
     public boolean isValidInfrastructureTld(String iTld) {
-        iTld = unicodeToASCII(iTld);
-        return Arrays.binarySearch(INFRASTRUCTURE_TLDS, (chompLeadingDot(iTld.toLowerCase(Locale.ENGLISH)))) >= 0;
+        final String key = chompLeadingDot(unicodeToASCII(iTld).toLowerCase(Locale.ENGLISH));
+        return Arrays.binarySearch(INFRASTRUCTURE_TLDS, key) >= 0;
     }
 
     /**
@@ -218,8 +218,8 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is a generic TLD
      */
     public boolean isValidGenericTld(String gTld) {
-        gTld = unicodeToASCII(gTld);
-        return Arrays.binarySearch(GENERIC_TLDS, chompLeadingDot(gTld.toLowerCase(Locale.ENGLISH))) >= 0;
+        final String key = chompLeadingDot(unicodeToASCII(gTld).toLowerCase(Locale.ENGLISH));
+        return Arrays.binarySearch(GENERIC_TLDS, key) >= 0;
     }
 
     /**
@@ -230,8 +230,8 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is a country code TLD
      */
     public boolean isValidCountryCodeTld(String ccTld) {
-        ccTld = unicodeToASCII(ccTld);
-        return Arrays.binarySearch(COUNTRY_CODE_TLDS, chompLeadingDot(ccTld.toLowerCase(Locale.ENGLISH))) >= 0;
+        final String key = chompLeadingDot(unicodeToASCII(ccTld).toLowerCase(Locale.ENGLISH));
+        return Arrays.binarySearch(COUNTRY_CODE_TLDS, key) >= 0;
     }
 
     /**
@@ -242,8 +242,8 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is an local TLD
      */
     public boolean isValidLocalTld(String lTld) {
-        lTld = unicodeToASCII(lTld);
-        return Arrays.binarySearch(LOCAL_TLDS, chompLeadingDot(lTld.toLowerCase(Locale.ENGLISH))) >= 0;
+        final String key = chompLeadingDot(unicodeToASCII(lTld).toLowerCase(Locale.ENGLISH));
+        return Arrays.binarySearch(LOCAL_TLDS, key) >= 0;
     }
 
     private String chompLeadingDot(String str) {
