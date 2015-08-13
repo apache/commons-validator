@@ -275,626 +275,697 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, others it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = new String[] {
+        // Taken from Version 2015081201, Last Updated Thu Aug 13 07:07:01 2015 UTC
         "abb", // abb ABB Ltd
         "abbott", // abbott Abbott Laboratories, Inc.
-        "abogado",
-        "academy",
+        "abogado", // abogado Top Level Domain Holdings Limited
+        "academy", // academy Half Oaks, LLC
         "accenture", // accenture Accenture plc
         "accountant", // accountant dot Accountant Limited
-        "accountants",
-        "active",
-        "actor",
+        "accountants", // accountants Knob Town, LLC
+        "active", // active The Active Network, Inc
+        "actor", // actor United TLD Holdco Ltd.
         "ads", // ads Charleston Road Registry Inc.
-        "adult",
-        "aero",
+        "adult", // adult ICM Registry AD LLC
+        "aeg", // aeg Aktiebolaget Electrolux
+        "aero", // aero Societe Internationale de Telecommunications Aeronautique (SITA INC USA)
         "afl", // afl Australian Football League
-        "agency",
+        "agency", // agency Steel Falls, LLC
         "aig", // aig American International Group, Inc.
-        "airforce",
-        "allfinanz",
-        "alsace",
-        "amsterdam",
-        "android",
+        "airforce", // airforce United TLD Holdco Ltd.
+        "airtel", // airtel Bharti Airtel Limited
+        "allfinanz", // allfinanz Allfinanz Deutsche Vermögensberatung Aktiengesellschaft
+        "alsace", // alsace REGION D ALSACE
+        "amsterdam", // amsterdam Gemeente Amsterdam
+        "android", // android Charleston Road Registry Inc.
         "apartments", // apartments June Maple, LLC
-        "aquarelle",
-        "archi",
-        "army",
-        "arpa",
-        "asia",
-        "associates",
-        "attorney",
-        "auction",
-        "audio",
+        "app", // app Charleston Road Registry Inc.
+        "aquarelle", // aquarelle Aquarelle.com
+        "archi", // archi STARTING DOT LIMITED
+        "army", // army United TLD Holdco Ltd.
+        "asia", // asia DotAsia Organisation Ltd.
+        "associates", // associates Baxter Hill, LLC
+        "attorney", // attorney United TLD Holdco, Ltd
+        "auction", // auction United TLD HoldCo, Ltd.
+        "audio", // audio Uniregistry, Corp.
         "auto", // auto Uniregistry, Corp.
-        "autos",
-        "axa",
+        "autos", // autos DERAutos, LLC
+        "axa", // axa AXA SA
         "azure", // azure Microsoft Corporation
-        "band",
+        "band", // band United TLD Holdco, Ltd
         "bank", // bank fTLD Registry Services, LLC
-        "bar",
+        "bar", // bar Punto 2012 Sociedad Anonima Promotora de Inversion de Capital Variable
+        "barcelona", // barcelona Municipi de Barcelona
         "barclaycard", // barclaycard Barclays Bank PLC
         "barclays", // barclays Barclays Bank PLC
-        "bargains",
+        "bargains", // bargains Half Hallow, LLC
         "bauhaus", // bauhaus Werkhaus GmbH
-        "bayern",
+        "bayern", // bayern Bayern Connect GmbH
         "bbc", // bbc British Broadcasting Corporation
         "bbva", // bbva BANCO BILBAO VIZCAYA ARGENTARIA, S.A.
-        "beer",
-        "berlin",
-        "best",
+        "bcn", // bcn Municipi de Barcelona
+        "beer", // beer Top Level Domain Holdings Limited
+        "bentley", // bentley Bentley Motors Limited
+        "berlin", // berlin dotBERLIN GmbH &amp; Co. KG
+        "best", // best BestTLD Pty Ltd
+        "bet", // bet Afilias plc
         "bharti", // bharti Bharti Enterprises (Holding) Private Limited
         "bible", // bible American Bible Society
-        "bid",
-        "bike",
+        "bid", // bid dot Bid Limited
+        "bike", // bike Grand Hollow, LLC
         "bing", // bing Microsoft Corporation
         "bingo", // bingo Sand Cedar, LLC
-        "bio",
-        "biz",
-        "black",
-        "blackfriday",
-        "bloomberg",
-        "blue",
-        "bmw",
-        "bnpparibas",
+        "bio", // bio STARTING DOT LIMITED
+        "biz", // biz Neustar, Inc.
+        "black", // black Afilias Limited
+        "blackfriday", // blackfriday Uniregistry, Corp.
+        "bloomberg", // bloomberg Bloomberg IP Holdings LLC
+        "blue", // blue Afilias Limited
+        "bmw", // bmw Bayerische Motoren Werke Aktiengesellschaft
+        "bnl", // bnl Banca Nazionale del Lavoro
+        "bnpparibas", // bnpparibas BNP Paribas
         "boats", // boats DERBoats, LLC
         "bond", // bond Bond University Limited
-        "boo",
-        "boutique",
+        "boo", // boo Charleston Road Registry Inc.
+        "boots", // boots THE BOOTS COMPANY PLC
+        "boutique", // boutique Over Galley, LLC
+        "bradesco", // bradesco Banco Bradesco S.A.
         "bridgestone", // bridgestone Bridgestone Corporation
         "broker", // broker DOTBROKER REGISTRY LTD
         "brother", // brother Brother Industries, Ltd.
-        "brussels",
-        "budapest",
-        "build",
-        "builders",
-        "business",
-        "buzz",
-        "bzh",
-        "cab",
+        "brussels", // brussels DNS.be vzw
+        "budapest", // budapest Top Level Domain Holdings Limited
+        "build", // build Plan Bee LLC
+        "builders", // builders Atomic Madison, LLC
+        "business", // business Spring Cross, LLC
+        "buzz", // buzz DOTSTRATEGY CO.
+        "bzh", // bzh Association www.bzh
+        "cab", // cab Half Sunset, LLC
         "cafe", // cafe Pioneer Canyon, LLC
-        "cal",
-        "camera",
-        "camp",
-        "cancerresearch",
+        "cal", // cal Charleston Road Registry Inc.
+        "camera", // camera Atomic Maple, LLC
+        "camp", // camp Delta Dynamite, LLC
+        "cancerresearch", // cancerresearch Australian Cancer Research Foundation
         "canon", // canon Canon Inc.
-        "capetown",
-        "capital",
-        "caravan",
-        "cards",
-        "care",
-        "career",
-        "careers",
+        "capetown", // capetown ZA Central Registry NPC trading as ZA Central Registry
+        "capital", // capital Delta Mill, LLC
+        "caravan", // caravan Caravan International, Inc.
+        "cards", // cards Foggy Hollow, LLC
+        "care", // care Goose Cross, LLC
+        "career", // career dotCareer LLC
+        "careers", // careers Wild Corner, LLC
         "cars", // cars Uniregistry, Corp.
-        "cartier",
-        "casa",
-        "cash",
+        "cartier", // cartier Richemont DNS Inc.
+        "casa", // casa Top Level Domain Holdings Limited
+        "cash", // cash Delta Lake, LLC
         "casino", // casino Binky Sky, LLC
-        "cat",
-        "catering",
+        "cat", // cat Fundacio puntCAT
+        "catering", // catering New Falls. LLC
+        "cba", // cba COMMONWEALTH BANK OF AUSTRALIA
         "cbn", // cbn The Christian Broadcasting Network, Inc.
-        "center",
-        "ceo",
-        "cern",
+        "ceb", // ceb The Corporate Executive Board Company
+        "center", // center Tin Mill, LLC
+        "ceo", // ceo CEOTLD Pty Ltd
+        "cern", // cern European Organization for Nuclear Research (&quot;CERN&quot;)
         "cfa", // cfa CFA Institute
         "cfd", // cfd DOTCFD REGISTRY LTD
-        "channel",
+        "chanel", // chanel Chanel International B.V.
+        "channel", // channel Charleston Road Registry Inc.
         "chat", // chat Sand Fields, LLC
-        "cheap",
+        "cheap", // cheap Sand Cover, LLC
         "chloe", // chloe Richemont DNS Inc.
-        "christmas",
-        "chrome",
-        "church",
+        "christmas", // christmas Uniregistry, Corp.
+        "chrome", // chrome Charleston Road Registry Inc.
+        "church", // church Holly Fileds, LLC
         "cisco", // cisco Cisco Technology, Inc.
-        "citic",
-        "city",
-        "claims",
-        "cleaning",
-        "click",
-        "clinic",
-        "clothing",
-        "club",
-        "coach",
-        "codes",
-        "coffee",
-        "college",
-        "cologne",
-        "com",
-        "community",
-        "company",
-        "computer",
-        "condos",
-        "construction",
-        "consulting",
-        "contractors",
-        "cooking",
-        "cool",
-        "coop",
+        "citic", // citic CITIC Group Corporation
+        "city", // city Snow Sky, LLC
+        "claims", // claims Black Corner, LLC
+        "cleaning", // cleaning Fox Shadow, LLC
+        "click", // click Uniregistry, Corp.
+        "clinic", // clinic Goose Park, LLC
+        "clothing", // clothing Steel Lake, LLC
+        "cloud", // cloud ARUBA S.p.A.
+        "club", // club .CLUB DOMAINS, LLC
+        "coach", // coach Koko Island, LLC
+        "codes", // codes Puff Willow, LLC
+        "coffee", // coffee Trixy Cover, LLC
+        "college", // college XYZ.COM LLC
+        "cologne", // cologne NetCologne Gesellschaft für Telekommunikation mbH
+        "com", // com VeriSign Global Registry Services
+        "commbank", // commbank COMMONWEALTH BANK OF AUSTRALIA
+        "community", // community Fox Orchard, LLC
+        "company", // company Silver Avenue, LLC
+        "computer", // computer Pine Mill, LLC
+        "condos", // condos Pine House, LLC
+        "construction", // construction Fox Dynamite, LLC
+        "consulting", // consulting United TLD Holdco, LTD.
+        "contractors", // contractors Magic Woods, LLC
+        "cooking", // cooking Top Level Domain Holdings Limited
+        "cool", // cool Koko Lake, LLC
+        "coop", // coop DotCooperation LLC
         "corsica", // corsica Collectivité Territoriale de Corse
-        "country",
+        "country", // country Top Level Domain Holdings Limited
         "coupons", // coupons Black Island, LLC
         "courses", // courses OPEN UNIVERSITIES AUSTRALIA PTY LTD
-        "credit",
-        "creditcard",
-        "cricket",
-        "crs",
-        "cruises",
-        "cuisinella",
-        "cymru",
+        "credit", // credit Snow Shadow, LLC
+        "creditcard", // creditcard Binky Frostbite, LLC
+        "cricket", // cricket dot Cricket Limited
+        "crown", // crown Crown Equipment Corporation
+        "crs", // crs Federated Co-operatives Limited
+        "cruises", // cruises Spring Way, LLC
+        "cuisinella", // cuisinella SALM S.A.S.
+        "cymru", // cymru Nominet UK
         "cyou", // cyou Beijing Gamease Age Digital Technology Co., Ltd.
         "dabur", // dabur Dabur India Limited
-        "dad",
-        "dance",
+        "dad", // dad Charleston Road Registry Inc.
+        "dance", // dance United TLD Holdco Ltd.
         "date", // date dot Date Limited
-        "dating",
+        "dating", // dating Pine Fest, LLC
         "datsun", // datsun NISSAN MOTOR CO., LTD.
-        "day",
+        "day", // day Charleston Road Registry Inc.
         "dclk", // dclk Charleston Road Registry Inc.
-        "deals",
-        "degree",
-        "delivery",
-        "democrat",
-        "dental",
-        "dentist",
-        "desi",
+        "deals", // deals Sand Sunset, LLC
+        "degree", // degree United TLD Holdco, Ltd
+        "delivery", // delivery Steel Station, LLC
+        "delta", // delta Delta Air Lines, Inc.
+        "democrat", // democrat United TLD Holdco Ltd.
+        "dental", // dental Tin Birch, LLC
+        "dentist", // dentist United TLD Holdco, Ltd
+        "desi", // desi Desi Networks LLC
         "design", // design Top Level Design, LLC
-        "dev",
-        "diamonds",
-        "diet",
-        "digital",
-        "direct",
-        "directory",
-        "discount",
-        "dnp",
-        "docs",
+        "dev", // dev Charleston Road Registry Inc.
+        "diamonds", // diamonds John Edge, LLC
+        "diet", // diet Uniregistry, Corp.
+        "digital", // digital Dash Park, LLC
+        "direct", // direct Half Trail, LLC
+        "directory", // directory Extra Madison, LLC
+        "discount", // discount Holly Hill, LLC
+        "dnp", // dnp Dai Nippon Printing Co., Ltd.
+        "docs", // docs Charleston Road Registry Inc.
         "dog", // dog Koko Mill, LLC
         "doha", // doha Communications Regulatory Authority (CRA)
-        "domains",
-        "doosan",
+        "domains", // domains Sugar Cross, LLC
+        "doosan", // doosan Doosan Corporation
         "download", // download dot Support Limited
-        "durban",
-        "dvag",
+        "drive", // drive Charleston Road Registry Inc.
+        "durban", // durban ZA Central Registry NPC trading as ZA Central Registry
+        "dvag", // dvag Deutsche Vermögensberatung Aktiengesellschaft DVAG
         "earth", // earth Interlink Co., Ltd.
-        "eat",
-        "edu",
-        "education",
-        "email",
-        "emerck",
-        "energy",
-        "engineer",
-        "engineering",
-        "enterprises",
+        "eat", // eat Charleston Road Registry Inc.
+        "edu", // edu EDUCAUSE
+        "education", // education Brice Way, LLC
+        "email", // email Spring Madison, LLC
+        "emerck", // emerck Merck KGaA
+        "energy", // energy Binky Birch, LLC
+        "engineer", // engineer United TLD Holdco Ltd.
+        "engineering", // engineering Romeo Canyon
+        "enterprises", // enterprises Snow Oaks, LLC
         "epson", // epson Seiko Epson Corporation
-        "equipment",
+        "equipment", // equipment Corn Station, LLC
         "erni", // erni ERNI Group Holding AG
-        "esq",
-        "estate",
-        "eurovision",
-        "eus",
-        "events",
-        "everbank",
-        "exchange",
-        "expert",
-        "exposed",
+        "esq", // esq Charleston Road Registry Inc.
+        "estate", // estate Trixy Park, LLC
+        "eurovision", // eurovision European Broadcasting Union (EBU)
+        "eus", // eus Puntueus Fundazioa
+        "events", // events Pioneer Maple, LLC
+        "everbank", // everbank EverBank
+        "exchange", // exchange Spring Falls, LLC
+        "expert", // expert Magic Pass, LLC
+        "exposed", // exposed Victor Beach, LLC
         "express", // express Sea Sunset, LLC
-        "fail",
+        "fage", // fage Fage International S.A.
+        "fail", // fail Atomic Pipe, LLC
         "faith", // faith dot Faith Limited
+        "family", // family United TLD Holdco Ltd.
         "fan", // fan Asiamix Digital Ltd
         "fans", // fans Asiamix Digital Limited
-        "farm",
-        "fashion",
-        "feedback",
+        "farm", // farm Just Maple, LLC
+        "fashion", // fashion Top Level Domain Holdings Limited
+        "feedback", // feedback Top Level Spectrum, Inc.
         "film", // film Motion Picture Domain Registry Pty Ltd
-        "finance",
-        "financial",
-        "firmdale",
-        "fish",
-        "fishing",
+        "finance", // finance Cotton Cypress, LLC
+        "financial", // financial Just Cover, LLC
+        "firmdale", // firmdale Firmdale Holdings Limited
+        "fish", // fish Fox Woods, LLC
+        "fishing", // fishing Top Level Domain Holdings Limited
         "fit", // fit Minds + Machines Group Limited
-        "fitness",
-        "flights",
-        "florist",
-        "flowers",
-        "flsmidth",
-        "fly",
-        "foo",
+        "fitness", // fitness Brice Orchard, LLC
+        "flights", // flights Fox Station, LLC
+        "florist", // florist Half Cypress, LLC
+        "flowers", // flowers Uniregistry, Corp.
+        "flsmidth", // flsmidth FLSmidth A/S
+        "fly", // fly Charleston Road Registry Inc.
+        "foo", // foo Charleston Road Registry Inc.
         "football", // football Foggy Farms, LLC
         "forex", // forex DOTFOREX REGISTRY LTD
-        "forsale",
-        "foundation",
-        "frl",
-        "frogans",
-        "fund",
-        "furniture",
-        "futbol",
+        "forsale", // forsale United TLD Holdco, LLC
+        "forum", // forum Fegistry, LLC
+        "foundation", // foundation John Dale, LLC
+        "frl", // frl FRLregistry B.V.
+        "frogans", // frogans OP3FT
+        "fund", // fund John Castle, LLC
+        "furniture", // furniture Lone Fields, LLC
+        "futbol", // futbol United TLD Holdco, Ltd.
         "fyi", // fyi Silver Tigers, LLC
-        "gal",
-        "gallery",
-        "garden",
-        "gbiz",
+        "gal", // gal Asociación puntoGAL
+        "gallery", // gallery Sugar House, LLC
+        "game", // game Uniregistry, Corp.
+        "garden", // garden Top Level Domain Holdings Limited
+        "gbiz", // gbiz Charleston Road Registry Inc.
         "gdn", // gdn Joint Stock Company &quot;Navigation-information systems&quot;
-        "gent",
-        "ggee",
-        "gift",
-        "gifts",
-        "gives",
-        "glass",
-        "gle",
-        "global",
-        "globo",
-        "gmail",
-        "gmo",
-        "gmx",
+        "gent", // gent COMBELL GROUP NV/SA
+        "genting", // genting Resorts World Inc. Pte. Ltd.
+        "ggee", // ggee GMO Internet, Inc.
+        "gift", // gift Uniregistry, Corp.
+        "gifts", // gifts Goose Sky, LLC
+        "gives", // gives United TLD Holdco Ltd.
+        "giving", // giving Giving Limited
+        "glass", // glass Black Cover, LLC
+        "gle", // gle Charleston Road Registry Inc.
+        "global", // global Dot Global Domain Registry Limited
+        "globo", // globo Globo Comunicação e Participações S.A
+        "gmail", // gmail Charleston Road Registry Inc.
+        "gmo", // gmo GMO Internet, Inc.
+        "gmx", // gmx 1&amp;1 Mail &amp; Media GmbH
         "gold", // gold June Edge, LLC
         "goldpoint", // goldpoint YODOBASHI CAMERA CO.,LTD.
         "golf", // golf Lone Falls, LLC
         "goo", // goo NTT Resonant Inc.
         "goog", // goog Charleston Road Registry Inc.
-        "google",
-        "gop",
-        "gov",
-        "graphics",
-        "gratis",
-        "green",
-        "gripe",
+        "google", // google Charleston Road Registry Inc.
+        "gop", // gop Republican State Leadership Committee, Inc.
+        "gov", // gov General Services Administration Attn: QTDC, 2E08 (.gov Domain Registration)
+        "graphics", // graphics Over Madison, LLC
+        "gratis", // gratis Pioneer Tigers, LLC
+        "green", // green Afilias Limited
+        "gripe", // gripe Corn Sunset, LLC
+        "group", // group Romeo Town, LLC
         "guge", // guge Charleston Road Registry Inc.
-        "guide",
-        "guitars",
-        "guru",
-        "hamburg",
+        "guide", // guide Snow Moon, LLC
+        "guitars", // guitars Uniregistry, Corp.
+        "guru", // guru Pioneer Cypress, LLC
+        "hamburg", // hamburg Hamburg Top-Level-Domain GmbH
         "hangout", // hangout Charleston Road Registry Inc.
-        "haus",
-        "healthcare",
-        "help",
-        "here",
+        "haus", // haus United TLD Holdco, LTD.
+        "healthcare", // healthcare Silver Glen, LLC
+        "help", // help Uniregistry, Corp.
+        "here", // here Charleston Road Registry Inc.
         "hermes", // hermes Hermes International
-        "hiphop",
+        "hiphop", // hiphop Uniregistry, Corp.
         "hitachi", // hitachi Hitachi, Ltd.
-        "hiv",
+        "hiv", // hiv dotHIV gemeinnuetziger e.V.
         "hockey", // hockey Half Willow, LLC
-        "holdings",
-        "holiday",
+        "holdings", // holdings John Madison, LLC
+        "holiday", // holiday Goose Woods, LLC
         "homedepot", // homedepot Homer TLC, Inc.
-        "homes",
+        "homes", // homes DERHomes, LLC
         "honda", // honda Honda Motor Co., Ltd.
-        "horse",
-        "host",
-        "hosting",
+        "horse", // horse Top Level Domain Holdings Limited
+        "host", // host DotHost Inc.
+        "hosting", // hosting Uniregistry, Corp.
+        "hoteles", // hoteles Travel Reservations SRL
         "hotmail", // hotmail Microsoft Corporation
-        "house",
-        "how",
-        "ibm",
+        "house", // house Sugar Park, LLC
+        "how", // how Charleston Road Registry Inc.
+        "hsbc", // hsbc HSBC Holdings PLC
+        "ibm", // ibm International Business Machines Corporation
         "icbc", // icbc Industrial and Commercial Bank of China Limited
+        "ice", // ice IntercontinentalExchange, Inc.
         "icu", // icu One.com A/S
         "ifm", // ifm ifm electronic gmbh
-        "immo",
-        "immobilien",
-        "industries",
+        "iinet", // iinet Connect West Pty. Ltd.
+        "immo", // immo Auburn Bloom, LLC
+        "immobilien", // immobilien United TLD Holdco Ltd.
+        "industries", // industries Outer House, LLC
         "infiniti", // infiniti NISSAN MOTOR CO., LTD.
-        "info",
-        "ing",
-        "ink",
-        "institute",
-        "insure",
-        "int",
-        "international",
-        "investments",
-        "irish",
-        "iwc",
+        "info", // info Afilias Limited
+        "ing", // ing Charleston Road Registry Inc.
+        "ink", // ink Top Level Design, LLC
+        "institute", // institute Outer Maple, LLC
+        "insure", // insure Pioneer Willow, LLC
+        "int", // int Internet Assigned Numbers Authority
+        "international", // international Wild Way, LLC
+        "investments", // investments Holly Glen, LLC
+        "ipiranga", // ipiranga Ipiranga Produtos de Petroleo S.A.
+        "irish", // irish Dot-Irish LLC
+        "ist", // ist Istanbul Metropolitan Municipality
+        "istanbul", // istanbul Istanbul Metropolitan Municipality / Medya A.S.
+        "itau", // itau Itau Unibanco Holding S.A.
+        "iwc", // iwc Richemont DNS Inc.
         "java", // java Oracle Corporation
         "jcb", // jcb JCB Co., Ltd.
-        "jetzt",
+        "jetzt", // jetzt New TLD Company AB
         "jewelry", // jewelry Wild Bloom, LLC
         "jlc", // jlc Richemont DNS Inc.
         "jll", // jll Jones Lang LaSalle Incorporated
-        "jobs",
-        "joburg",
-        "juegos",
-        "kaufen",
+        "jobs", // jobs Employ Media LLC
+        "joburg", // joburg ZA Central Registry NPC trading as ZA Central Registry
+        "jprs", // jprs Japan Registry Services Co., Ltd.
+        "juegos", // juegos Uniregistry, Corp.
+        "kaufen", // kaufen United TLD Holdco Ltd.
         "kddi", // kddi KDDI CORPORATION
-        "kim",
-        "kitchen",
-        "kiwi",
-        "koeln",
+        "kim", // kim Afilias Limited
+        "kitchen", // kitchen Just Goodbye, LLC
+        "kiwi", // kiwi DOT KIWI LIMITED
+        "koeln", // koeln NetCologne Gesellschaft für Telekommunikation mbH
         "komatsu", // komatsu Komatsu Ltd.
-        "krd",
-        "kred",
+        "krd", // krd KRG Department of Information Technology
+        "kred", // kred KredTLD Pty Ltd
         "kyoto", // kyoto Academic Institution: Kyoto Jyoho Gakuen
-        "lacaixa",
-        "land",
+        "lacaixa", // lacaixa CAIXA D&#39;ESTALVIS I PENSIONS DE BARCELONA
+        "lancaster", // lancaster LANCASTER
+        "land", // land Pine Moon, LLC
         "lasalle", // lasalle Jones Lang LaSalle Incorporated
         "lat", // lat ECOM-LAC Federación de Latinoamérica y el Caribe para Internet y el Comercio Electrónico
-        "latrobe",
-        "lawyer",
-        "lds",
-        "lease",
+        "latrobe", // latrobe La Trobe University
+        "law", // law Minds + Machines Group Limited
+        "lawyer", // lawyer United TLD Holdco, Ltd
+        "lds", // lds IRI Domain Management, LLC
+        "lease", // lease Victor Trail, LLC
         "leclerc", // leclerc A.C.D. LEC Association des Centres Distributeurs Edouard Leclerc
-        "legal",
-        "lgbt",
+        "legal", // legal Blue Falls, LLC
+        "lexus", // lexus TOYOTA MOTOR CORPORATION
+        "lgbt", // lgbt Afilias Limited
         "liaison", // liaison Liaison Technologies, Incorporated
-        "lidl",
-        "life",
-        "lighting",
-        "limited",
-        "limo",
-        "link",
+        "lidl", // lidl Schwarz Domains und Services GmbH &amp; Co. KG
+        "life", // life Trixy Oaks, LLC
+        "lighting", // lighting John McCook, LLC
+        "limited", // limited Big Fest, LLC
+        "limo", // limo Hidden Frostbite, LLC
+        "link", // link Uniregistry, Corp.
+        "live", // live United TLD Holdco Ltd.
+        "lixil", // lixil LIXIL Group Corporation
         "loan", // loan dot Loan Limited
-        "loans",
+        "loans", // loans June Woods, LLC
         "lol", // lol Uniregistry, Corp.
-        "london",
+        "london", // london Dot London Domains Limited
         "lotte", // lotte Lotte Holdings Co., Ltd.
-        "lotto",
+        "lotto", // lotto Afilias Limited
         "love", // love Merchant Law Group LLP
-        "ltda",
+        "ltda", // ltda InterNetX Corp.
         "lupin", // lupin LUPIN LIMITED
-        "luxe",
-        "luxury",
-        "madrid",
+        "luxe", // luxe Top Level Domain Holdings Limited
+        "luxury", // luxury Luxury Partners LLC
+        "madrid", // madrid Comunidad de Madrid
         "maif", // maif Mutuelle Assurance Instituteur France (MAIF)
-        "maison",
-        "management",
-        "mango",
-        "market",
-        "marketing",
+        "maison", // maison Victor Frostbite, LLC
+        "man", // man MAN SE
+        "management", // management John Goodbye, LLC
+        "mango", // mango PUNTO FA S.L.
+        "market", // market Unitied TLD Holdco, Ltd
+        "marketing", // marketing Fern Pass, LLC
         "markets", // markets DOTMARKETS REGISTRY LTD
         "marriott", // marriott Marriott Worldwide Corporation
         "mba", // mba Lone Hollow, LLC
-        "media",
-        "meet",
-        "melbourne",
-        "meme",
-        "memorial",
+        "media", // media Grand Glen, LLC
+        "meet", // meet Afilias Limited
+        "melbourne", // melbourne The Crown in right of the State of Victoria, represented by its Department of State Development, Business and Innovation
+        "meme", // meme Charleston Road Registry Inc.
+        "memorial", // memorial Dog Beach, LLC
         "men", // men Exclusive Registry Limited
-        "menu",
-        "miami",
+        "menu", // menu Wedding TLD2, LLC
+        "miami", // miami Top Level Domain Holdings Limited
         "microsoft", // microsoft Microsoft Corporation
-        "mil",
-        "mini",
+        "mil", // mil DoD Network Information Center
+        "mini", // mini Bayerische Motoren Werke Aktiengesellschaft
         "mma", // mma MMA IARD
-        "mobi",
-        "moda",
-        "moe",
-        "monash",
-        "money",
+        "mobi", // mobi Afilias Technologies Limited dba dotMobi
+        "moda", // moda United TLD Holdco Ltd.
+        "moe", // moe Interlink Co., Ltd.
+        "monash", // monash Monash University
+        "money", // money Outer McCook, LLC
         "montblanc", // montblanc Richemont DNS Inc.
-        "mormon",
-        "mortgage",
-        "moscow",
-        "motorcycles",
-        "mov",
+        "mormon", // mormon IRI Domain Management, LLC (&quot;Applicant&quot;)
+        "mortgage", // mortgage United TLD Holdco, Ltd
+        "moscow", // moscow Foundation for Assistance for Internet Technologies and Infrastructure Development (FAITID)
+        "motorcycles", // motorcycles DERMotorcycles, LLC
+        "mov", // mov Charleston Road Registry Inc.
         "movie", // movie New Frostbite, LLC
+        "movistar", // movistar Telefónica S.A.
         "mtn", // mtn MTN Dubai Limited
         "mtpc", // mtpc Mitsubishi Tanabe Pharma Corporation
-        "museum",
+        "museum", // museum Museum Domain Management Association
         "nadex", // nadex Nadex Domains, Inc
-        "nagoya",
-        "name",
-        "navy",
+        "nagoya", // nagoya GMO Registry, Inc.
+        "name", // name VeriSign Information Services, Inc.
+        "navy", // navy United TLD Holdco Ltd.
         "nec", // nec NEC Corporation
-        "net",
-        "network",
-        "neustar",
-        "new",
+        "net", // net VeriSign Global Registry Services
+        "netbank", // netbank COMMONWEALTH BANK OF AUSTRALIA
+        "network", // network Trixy Manor, LLC
+        "neustar", // neustar NeuStar, Inc.
+        "new", // new Charleston Road Registry Inc.
         "news", // news United TLD Holdco Ltd.
-        "nexus",
-        "ngo",
-        "nhk",
+        "nexus", // nexus Charleston Road Registry Inc.
+        "ngo", // ngo Public Interest Registry
+        "nhk", // nhk Japan Broadcasting Corporation (NHK)
         "nico", // nico DWANGO Co., Ltd.
-        "ninja",
+        "ninja", // ninja United TLD Holdco Ltd.
         "nissan", // nissan NISSAN MOTOR CO., LTD.
-        "nra",
-        "nrw",
+        "nokia", // nokia Nokia Corporation
+        "nra", // nra NRA Holdings Company, INC.
+        "nrw", // nrw Minds + Machines GmbH
         "ntt", // ntt NIPPON TELEGRAPH AND TELEPHONE CORPORATION
-        "nyc",
-        "okinawa",
+        "nyc", // nyc The City of New York by and through the New York City Department of Information Technology &amp; Telecommunications
+        "office", // office Microsoft Corporation
+        "okinawa", // okinawa BusinessRalliart inc.
+        "omega", // omega The Swatch Group Ltd
         "one", // one One.com A/S
-        "ong",
-        "onl",
+        "ong", // ong Public Interest Registry
+        "onl", // onl I-REGISTRY Ltd., Niederlassung Deutschland
         "online", // online DotOnline Inc.
-        "ooo",
+        "ooo", // ooo INFIBEAM INCORPORATION LIMITED
         "oracle", // oracle Oracle Corporation
-        "org",
-        "organic",
-        "osaka",
-        "otsuka",
-        "ovh",
+        "orange", // orange Orange Brand Services Limited
+        "org", // org Public Interest Registry (PIR)
+        "organic", // organic Afilias Limited
+        "osaka", // osaka Interlink Co., Ltd.
+        "otsuka", // otsuka Otsuka Holdings Co., Ltd.
+        "ovh", // ovh OVH SAS
         "page", // page Charleston Road Registry Inc.
         "panerai", // panerai Richemont DNS Inc.
-        "paris",
-        "partners",
-        "parts",
-        "party",
-        "pharmacy",
+        "paris", // paris City of Paris
+        "partners", // partners Magic Glen, LLC
+        "parts", // parts Sea Goodbye, LLC
+        "party", // party Blue Sky Registry Limited
+        "pet", // pet Afilias plc
+        "pharmacy", // pharmacy National Association of Boards of Pharmacy
         "philips", // philips Koninklijke Philips N.V.
-        "photo",
-        "photography",
-        "photos",
-        "physio",
+        "photo", // photo Uniregistry, Corp.
+        "photography", // photography Sugar Glen, LLC
+        "photos", // photos Sea Corner, LLC
+        "physio", // physio PhysBiz Pty Ltd
         "piaget", // piaget Richemont DNS Inc.
-        "pics",
+        "pics", // pics Uniregistry, Corp.
         "pictet", // pictet Pictet Europe S.A.
-        "pictures",
-        "pink",
-        "pizza",
-        "place",
-        "plumbing",
+        "pictures", // pictures Foggy Sky, LLC
+        "pink", // pink Afilias Limited
+        "pizza", // pizza Foggy Moon, LLC
+        "place", // place Snow Galley, LLC
+        "play", // play Charleston Road Registry Inc.
+        "plumbing", // plumbing Spring Tigers, LLC
         "plus", // plus Sugar Mill, LLC
-        "pohl",
-        "poker",
-        "porn",
-        "post",
-        "praxi",
-        "press",
-        "pro",
-        "prod",
-        "productions",
-        "prof",
-        "properties",
-        "property",
-        "pub",
-        "qpon",
-        "quebec",
+        "pohl", // pohl Deutsche Vermögensberatung Aktiengesellschaft DVAG
+        "poker", // poker Afilias Domains No. 5 Limited
+        "porn", // porn ICM Registry PN LLC
+        "post", // post Universal Postal Union
+        "praxi", // praxi Praxi S.p.A.
+        "press", // press DotPress Inc.
+        "pro", // pro Registry Services Corporation dba RegistryPro
+        "prod", // prod Charleston Road Registry Inc.
+        "productions", // productions Magic Birch, LLC
+        "prof", // prof Charleston Road Registry Inc.
+        "properties", // properties Big Pass, LLC
+        "property", // property Uniregistry, Corp.
+        "pub", // pub United TLD Holdco Ltd.
+        "qpon", // qpon dotCOOL, Inc.
+        "quebec", // quebec PointQuébec Inc
         "racing", // racing Premier Registry Limited
-        "realtor",
-        "recipes",
-        "red",
+        "realtor", // realtor Real Estate Domains LLC
+        "realty", // realty Fegistry, LLC
+        "recipes", // recipes Grand Island, LLC
+        "red", // red Afilias Limited
         "redstone", // redstone Redstone Haute Couture Co., Ltd.
-        "rehab",
-        "reise",
-        "reisen",
-        "reit",
-        "ren",
+        "rehab", // rehab United TLD Holdco Ltd.
+        "reise", // reise Foggy Way, LLC
+        "reisen", // reisen New Cypress, LLC
+        "reit", // reit National Association of Real Estate Investment Trusts, Inc.
+        "ren", // ren Beijing Qianxiang Wangjing Technology Development Co., Ltd.
         "rent", // rent XYZ.COM LLC
-        "rentals",
-        "repair",
-        "report",
-        "republican",
-        "rest",
-        "restaurant",
+        "rentals", // rentals Big Hollow,LLC
+        "repair", // repair Lone Sunset, LLC
+        "report", // report Binky Glen, LLC
+        "republican", // republican United TLD Holdco Ltd.
+        "rest", // rest Punto 2012 Sociedad Anonima Promotora de Inversion de Capital Variable
+        "restaurant", // restaurant Snow Avenue, LLC
         "review", // review dot Review Limited
-        "reviews",
-        "rich",
-        "rio",
-        "rip",
-        "rocks",
-        "rodeo",
-        "rsvp",
-        "ruhr",
+        "reviews", // reviews United TLD Holdco, Ltd.
+        "rich", // rich I-REGISTRY Ltd., Niederlassung Deutschland
+        "ricoh", // ricoh Ricoh Company, Ltd.
+        "rio", // rio Empresa Municipal de Informática SA - IPLANRIO
+        "rip", // rip United TLD Holdco Ltd.
+        "rocks", // rocks United TLD Holdco, LTD.
+        "rodeo", // rodeo Top Level Domain Holdings Limited
+        "rsvp", // rsvp Charleston Road Registry Inc.
+        "ruhr", // ruhr regiodot GmbH &amp; Co. KG
         "run", // run Snow Park, LLC
-        "ryukyu",
-        "saarland",
-        "sale",
-        "samsung",
+        "ryukyu", // ryukyu BusinessRalliart inc.
+        "saarland", // saarland dotSaarland GmbH
+        "sakura", // sakura SAKURA Internet Inc.
+        "sale", // sale United TLD Holdco, Ltd
+        "samsung", // samsung SAMSUNG SDS CO., LTD
         "sandvik", // sandvik Sandvik AB
         "sandvikcoromant", // sandvikcoromant Sandvik AB
+        "sanofi", // sanofi Sanofi
         "sap", // sap SAP AG
-        "sarl",
+        "sarl", // sarl Delta Orchard, LLC
         "saxo", // saxo Saxo Bank A/S
-        "sca",
-        "scb",
-        "schmidt",
+        "sca", // sca SVENSKA CELLULOSA AKTIEBOLAGET SCA (publ)
+        "scb", // scb The Siam Commercial Bank Public Company Limited (&quot;SCB&quot;)
+        "schmidt", // schmidt SALM S.A.S.
         "scholarships", // scholarships Scholarships.com, LLC
         "school", // school Little Galley, LLC
-        "schule",
-        "schwarz",
-        "science",
-        "scot",
+        "schule", // schule Outer Moon, LLC
+        "schwarz", // schwarz Schwarz Domains und Services GmbH &amp; Co. KG
+        "science", // science dot Science Limited
+        "scor", // scor SCOR SE
+        "scot", // scot Dot Scot Registry Limited
         "seat", // seat SEAT, S.A. (Sociedad Unipersonal)
+        "seek", // seek Seek Limited
         "sener", // sener Sener Ingeniería y Sistemas, S.A.
-        "services",
-        "sew",
+        "services", // services Fox Castle, LLC
+        "sew", // sew SEW-EURODRIVE GmbH &amp; Co KG
         "sex", // sex ICM Registry SX LLC
-        "sexy",
-        "shiksha",
-        "shoes",
+        "sexy", // sexy Uniregistry, Corp.
+        "shiksha", // shiksha Afilias Limited
+        "shoes", // shoes Binky Galley, LLC
         "show", // show Snow Beach, LLC
-        "shriram",
-        "singles",
+        "shriram", // shriram Shriram Capital Ltd.
+        "singles", // singles Fern Madison, LLC
         "site", // site DotSite Inc.
         "ski", // ski STARTING DOT LIMITED
-        "sky",
+        "sky", // sky Sky International AG
+        "skype", // skype Microsoft Corporation
         "sncf", // sncf SNCF (Société Nationale des Chemins de fer Francais)
         "soccer", // soccer Foggy Shadow, LLC
-        "social",
-        "software",
-        "sohu",
-        "solar",
-        "solutions",
+        "social", // social United TLD Holdco Ltd.
+        "software", // software United TLD Holdco, Ltd
+        "sohu", // sohu Sohu.com Limited
+        "solar", // solar Ruby Town, LLC
+        "solutions", // solutions Silver Cover, LLC
         "sony", // sony Sony Corporation
-        "soy",
-        "space",
-        "spiegel",
+        "soy", // soy Charleston Road Registry Inc.
+        "space", // space DotSpace Inc.
+        "spiegel", // spiegel SPIEGEL-Verlag Rudolf Augstein GmbH &amp; Co. KG
         "spreadbetting", // spreadbetting DOTSPREADBETTING REGISTRY LTD
+        "srl", // srl InterNetX Corp.
+        "starhub", // starhub StarHub Limited
+        "statoil", // statoil Statoil ASA
+        "studio", // studio United TLD Holdco Ltd.
         "study", // study OPEN UNIVERSITIES AUSTRALIA PTY LTD
         "style", // style Binky Moon, LLC
-        "sucks", // sucks Vox Populi Registry Inc.
-        "supplies",
-        "supply",
-        "support",
-        "surf",
-        "surgery",
-        "suzuki",
+        "sucks", // sucks Vox Populi Registry Ltd.
+        "supplies", // supplies Atomic Fields, LLC
+        "supply", // supply Half Falls, LLC
+        "support", // support Grand Orchard, LLC
+        "surf", // surf Top Level Domain Holdings Limited
+        "surgery", // surgery Tin Avenue, LLC
+        "suzuki", // suzuki SUZUKI MOTOR CORPORATION
+        "swatch", // swatch The Swatch Group Ltd
         "swiss", // swiss Swiss Confederation
-        "sydney",
-        "systems",
-        "taipei",
-        "tatar",
-        "tattoo",
-        "tax",
+        "sydney", // sydney State of New South Wales, Department of Premier and Cabinet
+        "systems", // systems Dash Cypress, LLC
+        "taipei", // taipei Taipei City Government
+        "tatamotors", // tatamotors Tata Motors Ltd
+        "tatar", // tatar Limited Liability Company &quot;Coordination Center of Regional Domain of Tatarstan Republic&quot;
+        "tattoo", // tattoo Uniregistry, Corp.
+        "tax", // tax Storm Orchard, LLC
         "taxi", // taxi Pine Falls, LLC
         "team", // team Atomic Lake, LLC
         "tech", // tech Dot Tech LLC
-        "technology",
-        "tel",
+        "technology", // technology Auburn Falls, LLC
+        "tel", // tel Telnic Ltd.
+        "telefonica", // telefonica Telefónica S.A.
         "temasek", // temasek Temasek Holdings (Private) Limited
         "tennis", // tennis Cotton Bloom, LLC
         "thd", // thd Homer TLC, Inc.
         "theater", // theater Blue Tigers, LLC
         "tickets", // tickets Accent Media Limited
-        "tienda",
-        "tips",
-        "tires",
-        "tirol",
-        "today",
-        "tokyo",
-        "tools",
-        "top",
+        "tienda", // tienda Victor Manor, LLC
+        "tips", // tips Corn Willow, LLC
+        "tires", // tires Dog Edge, LLC
+        "tirol", // tirol punkt Tirol GmbH
+        "today", // today Pearl Woods, LLC
+        "tokyo", // tokyo GMO Registry, Inc.
+        "tools", // tools Pioneer North, LLC
+        "top", // top Jiangsu Bangning Science &amp; Technology Co.,Ltd.
         "toray", // toray Toray Industries, Inc.
         "toshiba", // toshiba TOSHIBA Corporation
         "tours", // tours Sugar Station, LLC
-        "town",
-        "toys",
-        "trade",
+        "town", // town Koko Moon, LLC
+        "toyota", // toyota TOYOTA MOTOR CORPORATION
+        "toys", // toys Pioneer Orchard, LLC
+        "trade", // trade Elite Registry Limited
         "trading", // trading DOTTRADING REGISTRY LTD
-        "training",
-        "travel",
-        "trust",
-        "tui",
-        "university",
-        "uno",
-        "uol",
-        "vacations",
-        "vegas",
-        "ventures",
-        "versicherung",
-        "vet",
-        "viajes",
-        "video",
-        "villas",
-        "vision",
-        "vlaanderen",
-        "vodka",
-        "vote",
-        "voting",
-        "voto",
-        "voyage",
-        "wales",
+        "training", // training Wild Willow, LLC
+        "travel", // travel Tralliance Registry Management Company, LLC.
+        "trust", // trust Artemis Internet Inc
+        "tui", // tui TUI AG
+        "ubs", // ubs UBS AG
+        "university", // university Little Station, LLC
+        "uno", // uno Dot Latin LLC
+        "uol", // uol UBN INTERNET LTDA.
+        "vacations", // vacations Atomic Tigers, LLC
+        "vegas", // vegas Dot Vegas, Inc.
+        "ventures", // ventures Binky Lake, LLC
+        "versicherung", // versicherung dotversicherung-registry GmbH
+        "vet", // vet United TLD Holdco, Ltd
+        "viajes", // viajes Black Madison, LLC
+        "video", // video United TLD Holdco, Ltd
+        "villas", // villas New Sky, LLC
+        "vin", // vin Holly Shadow, LLC
+        "vision", // vision Koko Station, LLC
+        "vista", // vista Vistaprint Limited
+        "vistaprint", // vistaprint Vistaprint Limited
+        "vlaanderen", // vlaanderen DNS.be vzw
+        "vodka", // vodka Top Level Domain Holdings Limited
+        "vote", // vote Monolith Registry LLC
+        "voting", // voting Valuetainment Corp.
+        "voto", // voto Monolith Registry LLC
+        "voyage", // voyage Ruby House, LLC
+        "wales", // wales Nominet UK
         "walter", // walter Sandvik AB
-        "wang",
-        "watch",
-        "webcam",
-        "website",
-        "wed",
-        "wedding",
+        "wang", // wang Zodiac Registry Limited
+        "watch", // watch Sand Shadow, LLC
+        "webcam", // webcam dot Webcam Limited
+        "website", // website DotWebsite Inc.
+        "wed", // wed Atgron, Inc.
+        "wedding", // wedding Top Level Domain Holdings Limited
         "weir", // weir Weir Group IP Limited
-        "whoswho",
-        "wien",
-        "wiki",
-        "williamhill",
+        "whoswho", // whoswho Who&#39;s Who Registry
+        "wien", // wien punkt.wien GmbH
+        "wiki", // wiki Top Level Design, LLC
+        "williamhill", // williamhill William Hill Organization Limited
         "win", // win First Registry Limited
         "windows", // windows Microsoft Corporation
-        "wme",
-        "work",
-        "works",
-        "world",
-        "wtc",
-        "wtf",
+        "wine", // wine June Station, LLC
+        "wme", // wme William Morris Endeavor Entertainment, LLC
+        "work", // work Top Level Domain Holdings Limited
+        "works", // works Little Dynamite, LLC
+        "world", // world Bitter Fields, LLC
+        "wtc", // wtc World Trade Centers Association, Inc.
+        "wtf", // wtf Hidden Way, LLC
         "xbox", // xbox Microsoft Corporation
         "xerox", // xerox Xerox DNHC LLC
         "xin", // xin Elegant Leader Limited
+        "xn--11b4c3d", // कॉम VeriSign Sarl
         "xn--1qqw23a", // 佛山 Guangzhou YU Wei Information Technology Co., Ltd.
-        "xn--30rr7y", // ?? Excellent First Limited
+        "xn--30rr7y", // 慈善 Excellent First Limited
         "xn--3bst00m", // 集团 Eagle Horizon Limited
         "xn--3ds443g", // 在线 TLD REGISTRY LIMITED
+        "xn--3pxu8k", // 点看 VeriSign Sarl
+        "xn--42c2d9a", // คอม VeriSign Sarl
         "xn--45q11c", // 八卦 Zodiac Scorpio Limited
         "xn--4gbrim", // موقع Suhub Electronic Establishment
         "xn--55qw42g", // 公益 China Organizational Name Administration Center
@@ -904,55 +975,64 @@ public class DomainValidator implements Serializable {
         "xn--80adxhks", // москва Foundation for Assistance for Internet Technologies and Infrastructure Development (FAITID)
         "xn--80asehdb", // онлайн CORE Association
         "xn--80aswg", // сайт CORE Association
-        "xn--9et52u", // ?? RISE VICTORY LIMITED
-        "xn--b4w605ferd", // ??? Temasek Holdings (Private) Limited
+        "xn--9dbq2a", // קום VeriSign Sarl
+        "xn--9et52u", // 时尚 RISE VICTORY LIMITED
+        "xn--b4w605ferd", // 淡马锡 Temasek Holdings (Private) Limited
         "xn--c1avg", // орг Public Interest Registry
+        "xn--c2br7g", // नेट VeriSign Sarl
         "xn--cg4bki", // 삼성 SAMSUNG SDS CO., LTD
         "xn--czr694b", // 商标 HU YI GLOBAL INFORMATION RESOURCES(HOLDING) COMPANY.HONGKONG LIMITED
         "xn--czrs0t", // 商店 Wild Island, LLC
         "xn--czru2d", // 商城 Zodiac Aquarius Limited
         "xn--d1acj3b", // дети The Foundation for Network Initiatives “The Smart Internet”
-        "xn--estv75g", // ?? Industrial and Commercial Bank of China Limited
+        "xn--estv75g", // 工行 Industrial and Commercial Bank of China Limited
+        "xn--fhbei", // كوم VeriSign Sarl
         "xn--fiq228c5hs", // 中文网 TLD REGISTRY LIMITED
         "xn--fiq64b", // 中信 CITIC Group Corporation
-        "xn--fjq720a", // ?? Will Bloom, LLC
+        "xn--fjq720a", // 娱乐 Will Bloom, LLC
         "xn--flw351e", // 谷歌 Charleston Road Registry Inc.
         "xn--hxt814e", // 网店 Zodiac Libra Limited
         "xn--i1b6b1a6a2e", // संगठन Public Interest Registry
-        "xn--imr513n", // ?? HU YI GLOBAL INFORMATION RESOURCES (HOLDING) COMPANY. HONGKONG LIMITED
+        "xn--imr513n", // 餐厅 HU YI GLOBAL INFORMATION RESOURCES (HOLDING) COMPANY. HONGKONG LIMITED
         "xn--io0a7i", // 网络 Computer Network Information Center of Chinese Academy of Sciences （China Internet Network Information Center）
-        "xn--kcrx77d1x4a", // ??? Koninklijke Philips N.V.
+        "xn--j1aef", // ком VeriSign Sarl
+        "xn--kcrx77d1x4a", // 飞利浦 Koninklijke Philips N.V.
         "xn--kput3i", // 手机 Beijing RITT-Net Technology Development Co., Ltd
         "xn--mgbab2bd", // بازار CORE Association
-        "xn--mxtq1m", // ?? Net-Chinese Co., Ltd.
+        "xn--mk1bu44c", // 닷컴 VeriSign Sarl
+        "xn--mxtq1m", // 政府 Net-Chinese Co., Ltd.
         "xn--ngbc5azd", // شبكة International Domain Registry Pty. Ltd.
         "xn--nqv7f", // 机构 Public Interest Registry
         "xn--nqv7fs00ema", // 组织机构 Public Interest Registry
-        "xn--nyqy26a", // ?? Stable Tone Limited
+        "xn--nyqy26a", // 健康 Stable Tone Limited
         "xn--p1acf", // рус Rusnames Limited
+        "xn--pssy2u", // 大拿 VeriSign Sarl
         "xn--q9jyb4c", // みんな Charleston Road Registry Inc.
         "xn--qcka1pmc", // グーグル Charleston Road Registry Inc.
         "xn--rhqv96g", // 世界 Stable Tone Limited
-        "xn--ses554g", // 网址 HU YI GLOBAL INFORMATION RESOURCES (HOLDING) COMPANY. HONGKONG LIMITED
+        "xn--ses554g", // 网址 KNET Co., Ltd
+        "xn--t60b56a", // 닷넷 VeriSign Sarl
+        "xn--tckwe", // コム VeriSign Sarl
         "xn--unup4y", // 游戏 Spring Fields, LLC
-        "xn--vermgensberater-ctb", // vermögensberater Deutsche Vermögensberatung Aktiengesellschaft DVAG
-        "xn--vermgensberatung-pwb", // vermögensberatung Deutsche Vermögensberatung Aktiengesellschaft DVAG
+        "xn--vermgensberater-ctb", // VERMöGENSBERATER Deutsche Vermögensberatung Aktiengesellschaft DVAG
+        "xn--vermgensberatung-pwb", // VERMöGENSBERATUNG Deutsche Vermögensberatung Aktiengesellschaft DVAG
         "xn--vhquv", // 企业 Dash McCook, LLC
-        "xn--vuq861b", // ?? Beijing Tele-info Network Technology Co., Ltd.
+        "xn--vuq861b", // 信息 Beijing Tele-info Network Technology Co., Ltd.
         "xn--xhq521b", // 广东 Guangzhou YU Wei Information Technology Co., Ltd.
         "xn--zfr164b", // 政务 China Organizational Name Administration Center
-        "xxx",
-        "xyz",
-        "yachts",
-        "yandex",
+        "xperia", // xperia Sony Mobile Communications AB
+        "xxx", // xxx ICM Registry LLC
+        "xyz", // xyz XYZ.COM LLC
+        "yachts", // yachts DERYachts, LLC
+        "yandex", // yandex YANDEX, LLC
         "yodobashi", // yodobashi YODOBASHI CAMERA CO.,LTD.
-        "yoga",
-        "yokohama",
-        "youtube",
-        "zip",
-        "zone",
-        "zuerich",
-   };
+        "yoga", // yoga Top Level Domain Holdings Limited
+        "yokohama", // yokohama GMO Registry, Inc.
+        "youtube", // youtube Charleston Road Registry Inc.
+        "zip", // zip Charleston Road Registry Inc.
+        "zone", // zone Outer Falls, LLC
+        "zuerich", // zuerich Kanton Zürich (Canton of Zurich)
+    };
 
     // WARNING: this array MUST be sorted, others it cannot be searched reliably using binary search
     private static final String[] COUNTRY_CODE_TLDS = new String[] {
@@ -964,7 +1044,7 @@ public class DomainValidator implements Serializable {
         "ai",                 // Anguilla
         "al",                 // Albania
         "am",                 // Armenia
-        "an",                 // Netherlands Antilles
+//        "an",                 // Netherlands Antilles (retired)
         "ao",                 // Angola
         "aq",                 // Antarctica
         "ar",                 // Argentina
