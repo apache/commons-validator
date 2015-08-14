@@ -27,7 +27,6 @@
                 <include>build.properties.sample</include>
                 <include>build.xml</include>
                 <include>build-javascript.xml</include>
-                <include>doap_validator.rdf</include>
                 <include>checkstyle.xml</include>
                 <include>LICENSE.txt</include>
                 <include>license-header.txt</include>
