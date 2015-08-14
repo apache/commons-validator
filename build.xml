@@ -84,9 +84,6 @@
   <!-- The base directory for component sources -->
   <property name="source.home"             value="src/main/java"/>
 
-  <!-- The base directory for javascript sources -->
-  <property name="javascript.home"             value="src/javascript"/>
-
   <!-- The base directory for unit test sources -->
   <property name="test.home"               value="src/test"/>
 
@@ -222,10 +219,6 @@
     <copy    todir="${build.home}/classes">
       <fileset dir="${resources.home}" includes="**/*.dtd,**/*.xml"/>
     </copy>
-    <copy    todir="${build.home}/classes/">
-      <fileset dir="${javascript.home}"
-          includes="**/*.js"/>
-    </copy>
   </target>
 
 
@@ -246,34 +239,9 @@
     <mkdir      dir="${dist.home}"/>
     <mkdir      dir="${dist.home}/docs"/>
     <mkdir      dir="${dist.home}/docs/apidocs"/>
-    <mkdir      dir="${dist.home}/docs/javascript"/>
-    <mkdir      dir="${dist.home}/docs/javascript/org/apache/commons/validator/javascript/doc-files"/>
   </target>  
 
-  <target name="javadoc.js" depends="javadoc.js.unix,javadoc.js.windows"
-   description="Create Javascript Javadoc documentation">
-
-    <copy todir="${dist.home}/docs/javascript/org/apache/commons/validator/javascript/doc-files">
-      <fileset dir="${javascript.home}/org/apache/commons/validator/javascript/doc-files" includes="*.gif"/>
-    </copy>
-
-  </target>
-
-  <target name="javadoc.js.unix" depends="javadoc.init" if="jsdoc.found"
-   description="Create Javascript Javadoc documentation">
-    <exec  executable="bash" failifexecutionfails="false">
-         <arg line="-c 'etc/jsdoc.sh ${jsdoc.home} ${javascript.home} ${dist.home}/docs/javascript' "/>
-    </exec>
-  </target>
-
-  <target name="javadoc.js.windows" depends="javadoc.init" if="jsdoc.found"
-   description="Windows Create Javascript Javadoc documentation">
-    <exec  executable="etc/jsdoc.bat" failifexecutionfails="false">
-         <arg line="${jsdoc.home} ${javascript.home} ${dist.home}/docs/javascript"/>
-    </exec>
-  </target>
-
-  <target name="javadoc" depends="compile, javadoc.js"
+  <target name="javadoc" depends="compile"
    description="Create component Javadoc documentation">
     <!--javadoc sourcepath="${source.home}"
                 destdir="${dist.home}/docs/apidocs"
@@ -303,13 +271,6 @@
   <target name="dist" depends="compile,javadoc"
    description="Create binary distribution">
     <mkdir      dir="${dist.home}"/>
-
-    <ant antfile="build-javascript.xml" target="compress">
-        <property name="source.dir" value="${javascript.home}"/>
-        <property name="dist.dir"   value="${dist.home}"/>
-        <property name="build.dir"  value="${build.home}"/>
-        <property name="final.name" value="commons-${component.name}-${component.version}"/>
-    </ant>
 
     <copy      file="LICENSE.txt"
               todir="${dist.home}"/>

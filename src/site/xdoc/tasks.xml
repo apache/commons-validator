@@ -32,12 +32,6 @@
 
       <ul>
         <li>
-            Integrate the creation of javascript javadocs into the maven build. What will need to happen
-            is something similar to the exec task in the ant build.xml. Then to put a Maven template around
-            the javadoc it and the legacy 1.0.2 javadoc will need to be copied to a temporary directory then the
-            html2xdoc task will need to be run against that temporary directory.
-        </li>
-        <li>
           Change the validation.xml file semantics to match a more general "bean" validation usage.
           Currently, the &lt;form-validation&gt;, &lt;formset&gt;, &lt;form&gt;, and &lt;field&gt; elements
           require a form-centric view of validations.  Changing these to &lt;bean-validation&gt; or &lt;validator-config&gt;, 

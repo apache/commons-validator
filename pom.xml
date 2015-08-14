@@ -171,35 +171,8 @@
       <resource>
         <directory>${basedir}/src/main/resources</directory>
       </resource>
-      <resource>
-        <directory>${basedir}/src/javascript</directory>
-        <includes>
-          <include>**/*.js</include>
-        </includes>
-      </resource>
     </resources>
     <plugins>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>javascript.compress</id>
-            <phase>prepare-package</phase>
-            <configuration>
-              <tasks>
-                <ant antfile="build-javascript.xml" target="compress">
-                  <property name="build.dir" value="${project.build.directory}" />
-                  <property name="output.dir" value="${project.build.outputDirectory}" />
-                  <property name="final.name" value="${project.build.finalName}" />
-                </ant>
-               </tasks>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
