@@ -177,8 +177,8 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <descriptors>
-            <descriptor>${basedir}/src/main/assembly/bin.xml</descriptor>
-            <descriptor>${basedir}/src/main/assembly/src.xml</descriptor>
+            <descriptor>${basedir}/src/assembly/bin.xml</descriptor>
+            <descriptor>${basedir}/src/assembly/src.xml</descriptor>
           </descriptors>
           <tarLongFileMode>gnu</tarLongFileMode>
         </configuration>
