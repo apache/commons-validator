@@ -351,7 +351,7 @@ public class DomainValidatorTest extends TestCase {
                             }
                         }
                     } else {
-                        System.err.println("Expected to find info for "+ asciiTld);
+                        System.err.println("Expected to find HTML info for "+ asciiTld);
                     }
                 }
                 ianaTlds.add(asciiTld);
@@ -419,6 +419,9 @@ public class DomainValidatorTest extends TestCase {
                 String typ = "??";
                 String com = "??";
                 line = br.readLine();
+                while (line.matches("^\\s*$")) { // extra blank lines introduced
+                    line = br.readLine();                    
+                }
                 Matcher t = type.matcher(line);
                 if (t.lookingAt()) {
                     typ = t.group(1);
@@ -439,11 +442,13 @@ public class DomainValidatorTest extends TestCase {
                     }
                     // Don't save unused entries
                     if (com.contains("Not assigned") || com.contains("Retired") || typ.equals("test")) {
-//                        System.out.println(dom + " " + typ + " " +com);
+//                        System.out.println("Ignored: " + typ + " " + dom + " " +com);
                     } else {
                         info.put(dom.toLowerCase(Locale.ENGLISH), new String[]{typ, com});
-//                        System.out.println(dom + " " + typ + " " +com);
+//                        System.out.println("Storing: " + typ + " " + dom + " " +com);
                     }
+                } else {
+                    System.err.println("Unexpected type: " + line);
                 }
             }
         }
@@ -457,16 +462,20 @@ public class DomainValidatorTest extends TestCase {
      * Html page, so we check if it is newer than the txt file and skip download if so
      */
     private static long download(File f, String tldurl, long timestamp) throws IOException {
-        if (timestamp > 0 && f.canRead()) {
-            long modTime = f.lastModified();            
-            if (modTime > timestamp) {
+        final int HOUR = 60*60*1000; // an hour in ms
+        final long modTime;
+        // For testing purposes, don't download files more than once an hour
+        if (f.canRead()) {
+            modTime = f.lastModified();                        
+            if (modTime > System.currentTimeMillis()-HOUR) {
                 System.out.println("Skipping download - found recent " + f);
                 return modTime;
             }
+        } else {
+            modTime = 0;
         }
         HttpURLConnection hc = (HttpURLConnection) new URL(tldurl).openConnection();
-        if (f.canRead()) {
-            long modTime = f.lastModified();            
+        if (modTime > 0) {
             SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");//Sun, 06 Nov 1994 08:49:37 GMT
             String since = sdf.format(new Date(modTime));
             hc.addRequestProperty("If-Modified-Since", since);
