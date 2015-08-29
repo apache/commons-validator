@@ -275,7 +275,8 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = new String[] {
-        // Taken from Version 2015081201, Last Updated Thu Aug 13 07:07:01 2015 UTC
+        // Taken from Version 2015082801, Last Updated Sat Aug 29 07:07:01 2015 UTC
+        "aaa", // aaa American Automobile Association, Inc.
         "abb", // abb ABB Ltd
         "abbott", // abbott Abbott Laboratories, Inc.
         "abogado", // abogado Top Level Domain Holdings Limited
@@ -283,6 +284,7 @@ public class DomainValidator implements Serializable {
         "accenture", // accenture Accenture plc
         "accountant", // accountant dot Accountant Limited
         "accountants", // accountants Knob Town, LLC
+        "aco", // aco ACO Severin Ahlmann GmbH &amp; Co. KG
         "active", // active The Active Network, Inc
         "actor", // actor United TLD Holdco Ltd.
         "ads", // ads Charleston Road Registry Inc.
@@ -533,7 +535,8 @@ public class DomainValidator implements Serializable {
         "game", // game Uniregistry, Corp.
         "garden", // garden Top Level Domain Holdings Limited
         "gbiz", // gbiz Charleston Road Registry Inc.
-        "gdn", // gdn Joint Stock Company &quot;Navigation-information systems&quot;
+        "gdn", // gdn Joint Stock Company "Navigation-information systems"
+        "gea", // gea GEA Group Aktiengesellschaft
         "gent", // gent COMBELL GROUP NV/SA
         "genting", // genting Resorts World Inc. Pte. Ltd.
         "ggee", // ggee GMO Internet, Inc.
@@ -693,6 +696,7 @@ public class DomainValidator implements Serializable {
         "mobi", // mobi Afilias Technologies Limited dba dotMobi
         "moda", // moda United TLD Holdco Ltd.
         "moe", // moe Interlink Co., Ltd.
+        "mom", // mom Uniregistry, Corp.
         "monash", // monash Monash University
         "money", // money Outer McCook, LLC
         "montblanc", // montblanc Richemont DNS Inc.
@@ -862,6 +866,7 @@ public class DomainValidator implements Serializable {
         "srl", // srl InterNetX Corp.
         "starhub", // starhub StarHub Limited
         "statoil", // statoil Statoil ASA
+        "stcgroup", // stcgroup Saudi Telecom Company
         "studio", // studio United TLD Holdco Ltd.
         "study", // study OPEN UNIVERSITIES AUSTRALIA PTY LTD
         "style", // style Binky Moon, LLC
@@ -928,6 +933,7 @@ public class DomainValidator implements Serializable {
         "vision", // vision Koko Station, LLC
         "vista", // vista Vistaprint Limited
         "vistaprint", // vistaprint Vistaprint Limited
+        "viva", // viva Saudi Telecom Company
         "vlaanderen", // vlaanderen DNS.be vzw
         "vodka", // vodka Top Level Domain Holdings Limited
         "vote", // vote Monolith Registry LLC
@@ -985,6 +991,7 @@ public class DomainValidator implements Serializable {
         "xn--czrs0t", // 商店 Wild Island, LLC
         "xn--czru2d", // 商城 Zodiac Aquarius Limited
         "xn--d1acj3b", // дети The Foundation for Network Initiatives “The Smart Internet”
+        "xn--efvy88h", // 新闻 Xinhua News Agency Guangdong Branch 新华通讯社广东分社
         "xn--estv75g", // 工行 Industrial and Commercial Bank of China Limited
         "xn--fhbei", // كوم VeriSign Sarl
         "xn--fiq228c5hs", // 中文网 TLD REGISTRY LIMITED
