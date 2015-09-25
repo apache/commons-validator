@@ -52,6 +52,7 @@
   <property name="commons-beanutils.jar"   value="${beanutils.home}/dist/commons-beanutils.jar"/>
   <property name="commons-digester.jar"    value="${digester.home}/dist/commons-digester.jar"/>
   <property name="commons-logging.jar"     value="${logging.home}/dist/commons-logging.jar"/>
+  <property name="commons-collections.jar" value="${collections.home}/dist/commons-collections.jar"/>
 
 
 <!-- ========== Component Declarations ==================================== -->
@@ -67,7 +68,7 @@
   <property name="component.title"         value="Commons Validator"/>
 
   <!-- The current version number of this component -->
-  <property name="component.version"       value="1.4.0-SNAPSHOT"/>
+  <property name="component.version"       value="1.5.0-SNAPSHOT"/>
 
   <!-- The base directory for compilation targets -->
   <property name="build.home"              value="target"/>
@@ -112,10 +113,10 @@
 
 
   <!-- source JDK version (should be same as maven.compile.source) -->
-  <property name="compile.source"          value="1.4"/>
+  <property name="compile.source"          value="1.5"/>
 
   <!-- target JDK version (should be same as maven.compile.target) -->
-  <property name="compile.target"          value="1.4"/>
+  <property name="compile.target"          value="1.5"/>
 
   <!-- Should Java compilations set the 'debug' compiler option? -->
   <property name="compile.debug"           value="true"/>
@@ -132,6 +133,7 @@
     <pathelement location="${commons-beanutils.jar}"/>
     <pathelement location="${commons-digester.jar}"/>
     <pathelement location="${commons-logging.jar}"/>
+    <pathelement location="${commons-collections.jar}"/>
     <path refid="downloaded.lib.classpath"/>
   </path>
 
@@ -140,6 +142,7 @@
     <pathelement location="${download.lib.dir}/commons-beanutils.jar"/>
     <pathelement location="${download.lib.dir}/commons-digester.jar"/>
     <pathelement location="${download.lib.dir}/commons-logging.jar"/>
+    <pathelement location="${download.lib.dir}/commons-collections.jar"/>
     <pathelement location="${download.lib.dir}/junit.jar"/>
   </path>
 
@@ -153,6 +156,7 @@
     <pathelement location="${commons-beanutils.jar}"/>
     <pathelement location="${commons-digester.jar}"/>
     <pathelement location="${commons-logging.jar}"/>
+    <pathelement location="${commons-collections.jar}"/>
     <pathelement location="${junit.jar}"/>
     <pathelement location="${xerces.jar}"/>
     <path refid="downloaded.lib.classpath"/>
@@ -455,15 +459,17 @@
         <antcall target="download-beanutils" />
         <antcall target="download-digester" />
         <antcall target="download-logging" />
+        <antcall target="download-collections" />
         <antcall target="download-junit" />
     </target>
 
     <target name="check-availability">
         <echo message="doing check-availability..." />
-        <available file="${commons-beanutils.jar}" property="beanutils.found"/> 
-        <available file="${commons-digester.jar}"  property="digester.found"/> 
-        <available file="${commons-logging.jar}"   property="logging.found"/> 
-        <available file="${junit.jar}"             property="junit.found"/>
+        <available file="${commons-beanutils.jar}"   property="beanutils.found"/> 
+        <available file="${commons-digester.jar}"    property="digester.found"/> 
+        <available file="${commons-logging.jar}"     property="logging.found"/> 
+        <available file="${commons-collections.jar}" property="collections.found"/> 
+        <available file="${junit.jar}"               property="junit.found"/>
     </target>
 
     <target name="download-beanutils" unless="beanutils.found">
@@ -488,6 +494,14 @@
         <get dest="${download.lib.dir}/commons-logging.jar"
             usetimestamp="true" ignoreerrors="true"
             src="http://repo.maven.apache.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.jar"/>
+    </target>
+
+    <target name="download-collections" unless="collections.found">
+        <echo message="Downloading collections..."/>
+        <mkdir dir="${download.lib.dir}" />
+        <get dest="${download.lib.dir}/commons-collections.jar"
+            usetimestamp="true" ignoreerrors="true"
+            src="http://repo.maven.apache.org/maven2/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar"/>
     </target>
 
     <target name="download-junit" unless="junit.found">
