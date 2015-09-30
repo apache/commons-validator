@@ -300,6 +300,16 @@ public class DomainValidatorTest extends TestCase {
     // Check if the internal TLD table is up to date
     // Check if the internal TLD tables have any spurious entries
     public static void main(String a[]) throws Exception {
+        // Check the arrays first as this affects later checks
+        // Doing this here makes it easier when updating the lists
+        boolean OK = true;
+        for(String list : new String[]{"INFRASTRUCTURE_TLDS","COUNTRY_CODE_TLDS","GENERIC_TLDS","LOCAL_TLDS"}) {
+            OK &= isSortedLowerCase(list);
+        }
+        if (!OK) {
+            System.out.println("Fix arrays before retrying; cannot continue");
+            return;
+        }
         Set<String> ianaTlds = new HashSet<String>(); // keep for comparison with array contents
         DomainValidator dv = DomainValidator.getInstance();;
         File txtFile = new File("target/tlds-alpha-by-domain.txt");
@@ -563,7 +573,7 @@ public class DomainValidatorTest extends TestCase {
         return true;
     }
 
-    private boolean isSortedLowerCase(String arrayName) throws Exception {
+    private static boolean isSortedLowerCase(String arrayName) throws Exception {
         Field f = DomainValidator.class.getDeclaredField(arrayName);
         final boolean isPrivate = Modifier.isPrivate(f.getModifiers());
         if (isPrivate) {
