@@ -298,6 +298,7 @@ public class DomainValidator implements Serializable {
         "airtel", // airtel Bharti Airtel Limited
         "allfinanz", // allfinanz Allfinanz Deutsche Vermögensberatung Aktiengesellschaft
         "alsace", // alsace REGION D ALSACE
+        "amica", // amica Amica Mutual Insurance Company
         "amsterdam", // amsterdam Gemeente Amsterdam
         "android", // android Charleston Road Registry Inc.
         "apartments", // apartments June Maple, LLC
@@ -343,10 +344,12 @@ public class DomainValidator implements Serializable {
         "blackfriday", // blackfriday Uniregistry, Corp.
         "bloomberg", // bloomberg Bloomberg IP Holdings LLC
         "blue", // blue Afilias Limited
+        "bms", // bms Bristol-Myers Squibb Company
         "bmw", // bmw Bayerische Motoren Werke Aktiengesellschaft
         "bnl", // bnl Banca Nazionale del Lavoro
         "bnpparibas", // bnpparibas BNP Paribas
         "boats", // boats DERBoats, LLC
+        "bom", // bom Núcleo de Informação e Coordenação do Ponto BR - NIC.br
         "bond", // bond Bond University Limited
         "boo", // boo Charleston Road Registry Inc.
         "boots", // boots THE BOOTS COMPANY PLC
@@ -371,6 +374,7 @@ public class DomainValidator implements Serializable {
         "canon", // canon Canon Inc.
         "capetown", // capetown ZA Central Registry NPC trading as ZA Central Registry
         "capital", // capital Delta Mill, LLC
+        "car", // car Cars Registry Limited
         "caravan", // caravan Caravan International, Inc.
         "cards", // cards Foggy Hollow, LLC
         "care", // care Goose Cross, LLC
@@ -436,6 +440,7 @@ public class DomainValidator implements Serializable {
         "crown", // crown Crown Equipment Corporation
         "crs", // crs Federated Co-operatives Limited
         "cruises", // cruises Spring Way, LLC
+        "csc", // csc Alliance-One Services, Inc.
         "cuisinella", // cuisinella SALM S.A.S.
         "cymru", // cymru Nominet UK
         "cyou", // cyou Beijing Gamease Age Digital Technology Co., Ltd.
@@ -506,6 +511,7 @@ public class DomainValidator implements Serializable {
         "fashion", // fashion Top Level Domain Holdings Limited
         "feedback", // feedback Top Level Spectrum, Inc.
         "film", // film Motion Picture Domain Registry Pty Ltd
+        "final", // final Núcleo de Informação e Coordenação do Ponto BR - NIC.br
         "finance", // finance Cotton Cypress, LLC
         "financial", // financial Just Cover, LLC
         "firmdale", // firmdale Firmdale Holdings Limited
@@ -592,6 +598,7 @@ public class DomainValidator implements Serializable {
         "house", // house Sugar Park, LLC
         "how", // how Charleston Road Registry Inc.
         "hsbc", // hsbc HSBC Holdings PLC
+        "hyundai", // hyundai Hyundai Motor Company
         "ibm", // ibm International Business Machines Corporation
         "icbc", // icbc Industrial and Commercial Bank of China Limited
         "ice", // ice IntercontinentalExchange, Inc.
@@ -628,6 +635,7 @@ public class DomainValidator implements Serializable {
         "juegos", // juegos Uniregistry, Corp.
         "kaufen", // kaufen United TLD Holdco Ltd.
         "kddi", // kddi KDDI CORPORATION
+        "kia", // kia KIA MOTORS CORPORATION
         "kim", // kim Afilias Limited
         "kitchen", // kitchen Just Goodbye, LLC
         "kiwi", // kiwi DOT KIWI LIMITED
@@ -656,6 +664,7 @@ public class DomainValidator implements Serializable {
         "lighting", // lighting John McCook, LLC
         "limited", // limited Big Fest, LLC
         "limo", // limo Hidden Frostbite, LLC
+        "linde", // linde Linde Aktiengesellschaft
         "link", // link Uniregistry, Corp.
         "live", // live United TLD Holdco Ltd.
         "lixil", // lixil LIXIL Group Corporation
@@ -666,6 +675,7 @@ public class DomainValidator implements Serializable {
         "lotte", // lotte Lotte Holdings Co., Ltd.
         "lotto", // lotto Afilias Limited
         "love", // love Merchant Law Group LLP
+        "ltd", // ltd Over Corner, LLC
         "ltda", // ltda InterNetX Corp.
         "lupin", // lupin LUPIN LIMITED
         "luxe", // luxe Top Level Domain Holdings Limited
@@ -732,6 +742,7 @@ public class DomainValidator implements Serializable {
         "nrw", // nrw Minds + Machines GmbH
         "ntt", // ntt NIPPON TELEGRAPH AND TELEPHONE CORPORATION
         "nyc", // nyc The City of New York by and through the New York City Department of Information Technology &amp; Telecommunications
+        "obi", // obi OBI Group Holding SE &amp; Co. KGaA
         "office", // office Microsoft Corporation
         "okinawa", // okinawa BusinessRalliart inc.
         "omega", // omega The Swatch Group Ltd
@@ -782,6 +793,7 @@ public class DomainValidator implements Serializable {
         "prof", // prof Charleston Road Registry Inc.
         "properties", // properties Big Pass, LLC
         "property", // property Uniregistry, Corp.
+        "protection", // protection XYZ.COM LLC
         "pub", // pub United TLD Holdco Ltd.
         "qpon", // qpon dotCOOL, Inc.
         "quebec", // quebec PointQuébec Inc
@@ -836,9 +848,11 @@ public class DomainValidator implements Serializable {
         "scor", // scor SCOR SE
         "scot", // scot Dot Scot Registry Limited
         "seat", // seat SEAT, S.A. (Sociedad Unipersonal)
+        "security", // security XYZ.COM LLC
         "seek", // seek Seek Limited
         "sener", // sener Sener Ingeniería y Sistemas, S.A.
         "services", // services Fox Castle, LLC
+        "seven", // seven Seven West Media Ltd
         "sew", // sew SEW-EURODRIVE GmbH &amp; Co KG
         "sex", // sex ICM Registry SX LLC
         "sexy", // sexy Uniregistry, Corp.
@@ -864,9 +878,12 @@ public class DomainValidator implements Serializable {
         "spiegel", // spiegel SPIEGEL-Verlag Rudolf Augstein GmbH &amp; Co. KG
         "spreadbetting", // spreadbetting DOTSPREADBETTING REGISTRY LTD
         "srl", // srl InterNetX Corp.
+        "stada", // stada STADA Arzneimittel AG
         "starhub", // starhub StarHub Limited
         "statoil", // statoil Statoil ASA
+        "stc", // stc Saudi Telecom Company
         "stcgroup", // stcgroup Saudi Telecom Company
+        "stockholm", // stockholm Stockholms kommun
         "studio", // studio United TLD Holdco Ltd.
         "study", // study OPEN UNIVERSITIES AUSTRALIA PTY LTD
         "style", // style Binky Moon, LLC
@@ -896,6 +913,7 @@ public class DomainValidator implements Serializable {
         "tennis", // tennis Cotton Bloom, LLC
         "thd", // thd Homer TLC, Inc.
         "theater", // theater Blue Tigers, LLC
+        "theatre", // theatre XYZ.COM LLC
         "tickets", // tickets Accent Media Limited
         "tienda", // tienda Victor Manor, LLC
         "tips", // tips Corn Willow, LLC
