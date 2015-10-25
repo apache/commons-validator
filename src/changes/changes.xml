@@ -43,6 +43,11 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.5.0" date="tba" description="tba">
+    <action issue="VALIDATOR-376" type="fix" dev="rgoers">
+      Revert EmailValidator to handle top level domains to the behavior prior to VALIDATOR-273. Allow an optional
+      behavior to allow the behavior VALIDATOR-273 implemented. Note that this is a behavioral change for users
+      of version 1.4.1, but not for anyone upgrading from a release prior to that.
+    </action>
     <action issue="VALIDATOR-371" type="remove">Drop the Javascript code entirely</action>
     <action issue="VALIDATOR-362" dev="britter" type="fix" due-to="Teo Bran">
       Local part of the email address should not be longer than 64 bytes

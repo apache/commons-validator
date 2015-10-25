@@ -51,18 +51,32 @@ public class EmailValidator implements Serializable {
     private static final Pattern USER_PATTERN = Pattern.compile(USER_REGEX);
 
     private final boolean allowLocal;
+    private final boolean allowTld;
 
     /**
      * Singleton instance of this class, which
      *  doesn't consider local addresses as valid.
      */
-    private static final EmailValidator EMAIL_VALIDATOR = new EmailValidator(false);
+    private static final EmailValidator EMAIL_VALIDATOR = new EmailValidator(false, false);
+
+    /**
+     * Singleton instance of this class, which
+     *  doesn't consider local addresses as valid.
+     */
+    private static final EmailValidator EMAIL_VALIDATOR_WITH_TLD = new EmailValidator(false, true);
 
     /**
      * Singleton instance of this class, which does
      *  consider local addresses valid.
      */
-    private static final EmailValidator EMAIL_VALIDATOR_WITH_LOCAL = new EmailValidator(true);
+    private static final EmailValidator EMAIL_VALIDATOR_WITH_LOCAL = new EmailValidator(true, false);
+
+
+    /**
+     * Singleton instance of this class, which does
+     *  consider local addresses valid.
+     */
+    private static final EmailValidator EMAIL_VALIDATOR_WITH_LOCAL_WITH_TLD = new EmailValidator(true, true);
 
     /**
      * Returns the Singleton instance of this validator.
@@ -80,11 +94,42 @@ public class EmailValidator implements Serializable {
      * @param allowLocal Should local addresses be considered valid?
      * @return singleton instance of this validator
      */
-    public static EmailValidator getInstance(boolean allowLocal) {
+    public static EmailValidator getInstance(boolean allowLocal, boolean allowTld) {
         if(allowLocal) {
-           return EMAIL_VALIDATOR_WITH_LOCAL;
+            if (allowTld) {
+                return EMAIL_VALIDATOR_WITH_LOCAL_WITH_TLD;
+            } else {
+                return EMAIL_VALIDATOR_WITH_LOCAL;
+            }
+        } else {
+            if (allowTld) {
+                return EMAIL_VALIDATOR_WITH_TLD;
+            } else {
+                return EMAIL_VALIDATOR;
+            }
         }
-        return EMAIL_VALIDATOR;
+    }
+
+    /**
+     * Returns the Singleton instance of this validator,
+     *  with local validation as required.
+     *
+     * @param allowLocal Should local addresses be considered valid?
+     * @return singleton instance of this validator
+     */
+    public static EmailValidator getInstance(boolean allowLocal) {
+        return getInstance(allowLocal, false);
+    }
+
+    /**
+     * Protected constructor for subclasses to use.
+     *
+     * @param allowLocal Should local addresses be considered valid?
+     */
+    protected EmailValidator(boolean allowLocal, boolean allowTld) {
+        super();
+        this.allowLocal = allowLocal;
+        this.allowTld = allowTld;
     }
 
     /**
@@ -95,6 +140,7 @@ public class EmailValidator implements Serializable {
     protected EmailValidator(boolean allowLocal) {
         super();
         this.allowLocal = allowLocal;
+        this.allowTld = false;
     }
 
     /**
@@ -148,8 +194,11 @@ public class EmailValidator implements Serializable {
         // Domain is symbolic name
         DomainValidator domainValidator =
                 DomainValidator.getInstance(allowLocal);
-        return domainValidator.isValid(domain) ||
-                domainValidator.isValidTld(domain);
+        if (allowTld) {
+            return domainValidator.isValid(domain) || domainValidator.isValidTld(domain);
+        } else {
+            return domainValidator.isValid(domain);
+        }
     }
 
     /**
