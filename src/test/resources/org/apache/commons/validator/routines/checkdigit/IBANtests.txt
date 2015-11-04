@@ -103,3 +103,11 @@ SN12 K001 0015 2000 0256 9000 7542
 TN59 1000 6035 1835 9847 8831
 AE07 0331 2345 6789 0123 456
 FR76 3000 7000 1100 0997 0004 942
+
+# VALIDATOR-378
+CH59 09000 0001 7342 7712
+# This passes the checksum test, but the length is wrong (we don't check that)
+CH59  9000 0001 7342 7712
+# However this does fail the check digit test:
+# (a leading minus sign means the check should fail)
+-CH59 90000 0001 7342 7712
