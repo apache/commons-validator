@@ -277,6 +277,7 @@ public class DomainValidator implements Serializable {
     private static final String[] GENERIC_TLDS = new String[] {
         // Taken from Version 2015082801, Last Updated Sat Aug 29 07:07:01 2015 UTC
         "aaa", // aaa American Automobile Association, Inc.
+        "aarp", // aarp AARP
         "abb", // abb ABB Ltd
         "abbott", // abbott Abbott Laboratories, Inc.
         "abogado", // abogado Top Level Domain Holdings Limited
@@ -303,9 +304,12 @@ public class DomainValidator implements Serializable {
         "android", // android Charleston Road Registry Inc.
         "apartments", // apartments June Maple, LLC
         "app", // app Charleston Road Registry Inc.
+        "apple", // apple Apple Inc.
         "aquarelle", // aquarelle Aquarelle.com
+        "aramco", // aramco Aramco Services Company
         "archi", // archi STARTING DOT LIMITED
         "army", // army United TLD Holdco Ltd.
+        "arte", // arte Association Relative à la Télévision Européenne G.E.I.E.
         "asia", // asia DotAsia Organisation Ltd.
         "associates", // associates Baxter Hill, LLC
         "attorney", // attorney United TLD Holdco, Ltd
@@ -327,6 +331,7 @@ public class DomainValidator implements Serializable {
         "bbc", // bbc British Broadcasting Corporation
         "bbva", // bbva BANCO BILBAO VIZCAYA ARGENTARIA, S.A.
         "bcn", // bcn Municipi de Barcelona
+        "beats", // beats Beats Electronics, LLC
         "beer", // beer Top Level Domain Holdings Limited
         "bentley", // bentley Bentley Motors Limited
         "berlin", // berlin dotBERLIN GmbH &amp; Co. KG
@@ -403,6 +408,7 @@ public class DomainValidator implements Serializable {
         "christmas", // christmas Uniregistry, Corp.
         "chrome", // chrome Charleston Road Registry Inc.
         "church", // church Holly Fileds, LLC
+        "cipriani", // cipriani Hotel Cipriani Srl
         "cisco", // cisco Cisco Technology, Inc.
         "citic", // citic CITIC Group Corporation
         "city", // city Snow Sky, LLC
@@ -413,6 +419,7 @@ public class DomainValidator implements Serializable {
         "clothing", // clothing Steel Lake, LLC
         "cloud", // cloud ARUBA S.p.A.
         "club", // club .CLUB DOMAINS, LLC
+        "clubmed", // clubmed Club Méditerranée S.A.
         "coach", // coach Koko Island, LLC
         "codes", // codes Puff Willow, LLC
         "coffee", // coffee Trixy Cover, LLC
@@ -455,6 +462,7 @@ public class DomainValidator implements Serializable {
         "deals", // deals Sand Sunset, LLC
         "degree", // degree United TLD Holdco, Ltd
         "delivery", // delivery Steel Station, LLC
+        "dell", // dell Dell Inc.
         "delta", // delta Delta Air Lines, Inc.
         "democrat", // democrat United TLD Holdco Ltd.
         "dental", // dental Tin Birch, LLC
@@ -570,6 +578,7 @@ public class DomainValidator implements Serializable {
         "green", // green Afilias Limited
         "gripe", // gripe Corn Sunset, LLC
         "group", // group Romeo Town, LLC
+        "gucci", // gucci Guccio Gucci S.p.a.
         "guge", // guge Charleston Road Registry Inc.
         "guide", // guide Snow Moon, LLC
         "guitars", // guitars Uniregistry, Corp.
@@ -623,6 +632,7 @@ public class DomainValidator implements Serializable {
         "istanbul", // istanbul Istanbul Metropolitan Municipality / Medya A.S.
         "itau", // itau Itau Unibanco Holding S.A.
         "iwc", // iwc Richemont DNS Inc.
+        "jaguar", // jaguar Jaguar Land Rover Ltd
         "java", // java Oracle Corporation
         "jcb", // jcb JCB Co., Ltd.
         "jetzt", // jetzt New TLD Company AB
@@ -637,6 +647,7 @@ public class DomainValidator implements Serializable {
         "kddi", // kddi KDDI CORPORATION
         "kia", // kia KIA MOTORS CORPORATION
         "kim", // kim Afilias Limited
+        "kinder", // kinder Ferrero Trading Lux S.A.
         "kitchen", // kitchen Just Goodbye, LLC
         "kiwi", // kiwi DOT KIWI LIMITED
         "koeln", // koeln NetCologne Gesellschaft für Telekommunikation mbH
@@ -647,6 +658,7 @@ public class DomainValidator implements Serializable {
         "lacaixa", // lacaixa CAIXA D&#39;ESTALVIS I PENSIONS DE BARCELONA
         "lancaster", // lancaster LANCASTER
         "land", // land Pine Moon, LLC
+        "landrover", // landrover Jaguar Land Rover Ltd
         "lasalle", // lasalle Jones Lang LaSalle Incorporated
         "lat", // lat ECOM-LAC Federación de Latinoamérica y el Caribe para Internet y el Comercio Electrónico
         "latrobe", // latrobe La Trobe University
@@ -698,6 +710,7 @@ public class DomainValidator implements Serializable {
         "memorial", // memorial Dog Beach, LLC
         "men", // men Exclusive Registry Limited
         "menu", // menu Wedding TLD2, LLC
+        "meo", // meo PT Comunicacoes S.A.
         "miami", // miami Top Level Domain Holdings Limited
         "microsoft", // microsoft Microsoft Corporation
         "mil", // mil DoD Network Information Center
@@ -706,6 +719,7 @@ public class DomainValidator implements Serializable {
         "mobi", // mobi Afilias Technologies Limited dba dotMobi
         "moda", // moda United TLD Holdco Ltd.
         "moe", // moe Interlink Co., Ltd.
+        "moi", // moi Amazon Registry Services, Inc.
         "mom", // mom Uniregistry, Corp.
         "monash", // monash Monash University
         "money", // money Outer McCook, LLC
@@ -719,7 +733,9 @@ public class DomainValidator implements Serializable {
         "movistar", // movistar Telefónica S.A.
         "mtn", // mtn MTN Dubai Limited
         "mtpc", // mtpc Mitsubishi Tanabe Pharma Corporation
+        "mtr", // mtr MTR Corporation Limited
         "museum", // museum Museum Domain Management Association
+        "mutuelle", // mutuelle Fédération Nationale de la Mutualité Française
         "nadex", // nadex Nadex Domains, Inc
         "nagoya", // nagoya GMO Registry, Inc.
         "name", // name VeriSign Information Services, Inc.
@@ -775,6 +791,7 @@ public class DomainValidator implements Serializable {
         "pics", // pics Uniregistry, Corp.
         "pictet", // pictet Pictet Europe S.A.
         "pictures", // pictures Foggy Sky, LLC
+        "ping", // ping Ping Registry Provider, Inc.
         "pink", // pink Afilias Limited
         "pizza", // pizza Foggy Moon, LLC
         "place", // place Snow Galley, LLC
@@ -826,6 +843,7 @@ public class DomainValidator implements Serializable {
         "rsvp", // rsvp Charleston Road Registry Inc.
         "ruhr", // ruhr regiodot GmbH &amp; Co. KG
         "run", // run Snow Park, LLC
+        "rwe", // rwe RWE AG
         "ryukyu", // ryukyu BusinessRalliart inc.
         "saarland", // saarland dotSaarland GmbH
         "sakura", // sakura SAKURA Internet Inc.
@@ -835,8 +853,10 @@ public class DomainValidator implements Serializable {
         "sandvikcoromant", // sandvikcoromant Sandvik AB
         "sanofi", // sanofi Sanofi
         "sap", // sap SAP AG
+        "sapo", // sapo PT Comunicacoes S.A.
         "sarl", // sarl Delta Orchard, LLC
         "saxo", // saxo Saxo Bank A/S
+        "sbs", // sbs SPECIAL BROADCASTING SERVICE CORPORATION
         "sca", // sca SVENSKA CELLULOSA AKTIEBOLAGET SCA (publ)
         "scb", // scb The Siam Commercial Bank Public Company Limited (&quot;SCB&quot;)
         "schmidt", // schmidt SALM S.A.S.
@@ -948,6 +968,7 @@ public class DomainValidator implements Serializable {
         "video", // video United TLD Holdco, Ltd
         "villas", // villas New Sky, LLC
         "vin", // vin Holly Shadow, LLC
+        "virgin", // virgin Virgin Enterprises Limited
         "vision", // vision Koko Station, LLC
         "vista", // vista Vistaprint Limited
         "vistaprint", // vistaprint Vistaprint Limited
@@ -1023,6 +1044,7 @@ public class DomainValidator implements Serializable {
         "xn--j1aef", // ком VeriSign Sarl
         "xn--kcrx77d1x4a", // 飞利浦 Koninklijke Philips N.V.
         "xn--kput3i", // 手机 Beijing RITT-Net Technology Development Co., Ltd
+        "xn--mgba3a3ejt", // ارامكو Aramco Services Company
         "xn--mgbab2bd", // بازار CORE Association
         "xn--mk1bu44c", // 닷컴 VeriSign Sarl
         "xn--mxtq1m", // 政府 Net-Chinese Co., Ltd.
@@ -1049,11 +1071,13 @@ public class DomainValidator implements Serializable {
         "xxx", // xxx ICM Registry LLC
         "xyz", // xyz XYZ.COM LLC
         "yachts", // yachts DERYachts, LLC
+        "yamaxun", // yamaxun Amazon Registry Services, Inc.
         "yandex", // yandex YANDEX, LLC
         "yodobashi", // yodobashi YODOBASHI CAMERA CO.,LTD.
         "yoga", // yoga Top Level Domain Holdings Limited
         "yokohama", // yokohama GMO Registry, Inc.
         "youtube", // youtube Charleston Road Registry Inc.
+        "zara", // zara Industria de Diseño Textil, S.A. (INDITEX, S.A.)
         "zip", // zip Charleston Road Registry Inc.
         "zone", // zone Outer Falls, LLC
         "zuerich", // zuerich Kanton Zürich (Canton of Zurich)
@@ -1332,12 +1356,14 @@ public class DomainValidator implements Serializable {
         "xn--mgbc0a9azcg", // المغرب Agence Nationale de Réglementation des Télécommunications (ANRT)
         "xn--mgberp4a5d4ar", // السعودية Communications and Information Technology Commission
         "xn--mgbpl2fh", // ????? Sudan Internet Society
+        "xn--mgbtx2b", // عراق Communications and Media Commission (CMC)
         "xn--mgbx4cd0ab", // مليسيا MYNIC Berhad
         "xn--node", // გე Information Technologies Development Center (ITDC)
         "xn--o3cw4h", // ไทย Thai Network Information Center Foundation
         "xn--ogbpf8fl", // سورية National Agency for Network Services (NANS)
         "xn--p1ai", // рф Coordination Center for TLD RU
         "xn--pgbs0dh", // تونس Agence Tunisienne d&#39;Internet
+        "xn--qxam", // ελ ICS-FORTH GR
         "xn--s9brj9c", // ਭਾਰਤ National Internet Exchange of India
         "xn--wgbh1c", // مصر National Telecommunication Regulatory Authority - NTRA
         "xn--wgbl6a", // قطر Communications Regulatory Authority
