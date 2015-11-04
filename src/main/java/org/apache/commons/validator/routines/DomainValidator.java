@@ -207,7 +207,7 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidInfrastructureTld(String iTld) {
         final String key = chompLeadingDot(unicodeToASCII(iTld).toLowerCase(Locale.ENGLISH));
-        return Arrays.binarySearch(INFRASTRUCTURE_TLDS, key) >= 0;
+        return arrayContains(INFRASTRUCTURE_TLDS, key);
     }
 
     /**
@@ -219,7 +219,7 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidGenericTld(String gTld) {
         final String key = chompLeadingDot(unicodeToASCII(gTld).toLowerCase(Locale.ENGLISH));
-        return Arrays.binarySearch(GENERIC_TLDS, key) >= 0;
+        return arrayContains(GENERIC_TLDS, key);
     }
 
     /**
@@ -231,7 +231,7 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidCountryCodeTld(String ccTld) {
         final String key = chompLeadingDot(unicodeToASCII(ccTld).toLowerCase(Locale.ENGLISH));
-        return Arrays.binarySearch(COUNTRY_CODE_TLDS, key) >= 0;
+        return arrayContains(COUNTRY_CODE_TLDS, key);
     }
 
     /**
@@ -243,7 +243,7 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidLocalTld(String lTld) {
         final String key = chompLeadingDot(unicodeToASCII(lTld).toLowerCase(Locale.ENGLISH));
-        return Arrays.binarySearch(LOCAL_TLDS, key) >= 0;
+        return arrayContains(LOCAL_TLDS, key);
     }
 
     private String chompLeadingDot(String str) {
@@ -1448,5 +1448,16 @@ public class DomainValidator implements Serializable {
             }
         }
         return true;
+    }
+
+    /**
+     * Check if a sorted array contains the specified key
+     *
+     * @param sortedArray the array to search
+     * @param key the key to find
+     * @return {@code true} if the array contains the key
+     */
+    private static boolean arrayContains(String[] sortedArray, String key) {
+        return Arrays.binarySearch(sortedArray, key) >= 0;
     }
 }
