@@ -500,4 +500,8 @@ public class EmailValidatorTest extends TestCase {
                 "Etiamnisinislvenenatisvelauctorutullamcorperinjusto.Proinvelligulaerat.Phasellusvestibulumgravidamassanonfeugiat."+
                 "Maecenaspharetraeuismodmetusegetefficitur.Suspendisseamet@gmail.com"));
     }
+
+    public void testValidator374() {
+        assertTrue(validator.isValid("abc@school.school"));
+    }
 }

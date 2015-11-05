@@ -43,6 +43,10 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.5.0" date="tba" description="tba">
+    <action issue="VALIDATOR-374" type="fix">
+    Email Validator : .school domain is being rejected
+    Add Unit test to show it has been fixed
+    </action>
     <action issue="VALIDATOR-376" type="fix" dev="rgoers">
       Revert EmailValidator to handle top level domains to the behavior prior to VALIDATOR-273. Allow an optional
       behavior to allow the behavior VALIDATOR-273 implemented. Note that this is a behavioral change for users
