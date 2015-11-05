@@ -63,6 +63,8 @@ import java.util.Locale;
  */
 public class DomainValidator implements Serializable {
 
+    private static final String[] EMPTY_STRING_ARRAY = new String[0];
+
     private static final long serialVersionUID = -4407125112880174009L;
 
     // Regular expression strings for hostnames (derived from RFC2396 and RFC 1123)
@@ -219,7 +221,8 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidGenericTld(String gTld) {
         final String key = chompLeadingDot(unicodeToASCII(gTld).toLowerCase(Locale.ENGLISH));
-        return arrayContains(GENERIC_TLDS, key);
+        return (arrayContains(GENERIC_TLDS, key) || arrayContains(GENERIC_TLDS_PLUS, key))
+                && !arrayContains(GENERIC_TLDS_MINUS, key);
     }
 
     /**
@@ -231,7 +234,8 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidCountryCodeTld(String ccTld) {
         final String key = chompLeadingDot(unicodeToASCII(ccTld).toLowerCase(Locale.ENGLISH));
-        return arrayContains(COUNTRY_CODE_TLDS, key);
+        return (arrayContains(COUNTRY_CODE_TLDS, key) || arrayContains(COUNTRY_CODE_TLDS_PLUS, key))
+                && !arrayContains(COUNTRY_CODE_TLDS_MINUS, key);
     }
 
     /**
@@ -1384,6 +1388,68 @@ public class DomainValidator implements Serializable {
        "localdomain",         // Also widely used as localhost.localdomain
        "localhost",           // RFC2606 defined
     };
+
+    // Additional arrays to supplement or override the built in ones.
+    // The PLUS arrays are valid keys, the MINUS arrays are invalid keys
+    // The arrays are marked volatile because they are not immutable
+
+    // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
+    private static volatile String[] COUNTRY_CODE_TLDS_PLUS = EMPTY_STRING_ARRAY;
+
+    // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
+    private static volatile String[] GENERIC_TLDS_PLUS = EMPTY_STRING_ARRAY;
+
+    // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
+    private static volatile String[] COUNTRY_CODE_TLDS_MINUS = EMPTY_STRING_ARRAY;
+
+    // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
+    private static volatile String[] GENERIC_TLDS_MINUS = EMPTY_STRING_ARRAY;
+
+    enum ArrayType {
+        GENERIC_PLUS,
+        GENERIC_MINUS,
+        COUNTRY_CODE_PLUS,
+        COUNTRY_CODE_MINUS;
+    };
+
+    // For use by unit test code
+    static void clearTLDOverrides() {
+        COUNTRY_CODE_TLDS_PLUS = EMPTY_STRING_ARRAY;
+        COUNTRY_CODE_TLDS_MINUS = EMPTY_STRING_ARRAY;
+        GENERIC_TLDS_PLUS = EMPTY_STRING_ARRAY;
+        GENERIC_TLDS_MINUS = EMPTY_STRING_ARRAY;
+    }
+    /**
+     * Update one of the TLD override arrays.
+     * This should normally only be done at program startup.
+     *
+     * To clear an override array, provide an empty array.
+     *
+     * @param table the table to update
+     * @param tlds the array of TLDs, must not be null
+     */
+    public static void updateTLDOverride(ArrayType table, String [] tlds) {
+        String [] copy = new String[tlds.length];
+        // Comparisons are always done with lower-case entries
+        for (int i = 0; i < tlds.length; i++) {
+            copy[i] = tlds[i].toLowerCase(Locale.ENGLISH);
+        }
+        Arrays.sort(copy);
+        switch(table) {
+        case COUNTRY_CODE_MINUS:
+            COUNTRY_CODE_TLDS_MINUS = copy;
+            break;
+        case COUNTRY_CODE_PLUS:
+            COUNTRY_CODE_TLDS_PLUS = copy;
+            break;
+        case GENERIC_MINUS:
+            GENERIC_TLDS_MINUS = copy;
+            break;
+        case GENERIC_PLUS:
+            GENERIC_TLDS_PLUS = copy;
+            break;
+        }
+    }
 
     /**
      * Converts potentially Unicode input to punycode.

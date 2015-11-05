@@ -42,6 +42,8 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.validator.routines.DomainValidator.ArrayType;
+
 import junit.framework.TestCase;
 
 /**
@@ -55,6 +57,7 @@ public class DomainValidatorTest extends TestCase {
 
     public void setUp() {
         validator = DomainValidator.getInstance();
+        DomainValidator.clearTLDOverrides();
     }
 
     public void testValidDomains() {
@@ -294,6 +297,34 @@ public class DomainValidatorTest extends TestCase {
     public void test_LOCAL_TLDS_sortedAndLowerCase() throws Exception {
         final boolean sorted = isSortedLowerCase("LOCAL_TLDS");
         assertTrue(sorted);
+    }
+
+    public void testUpdateCountryCode() {
+        assertFalse(validator.isValidCountryCodeTld("com")); // cannot be valid
+        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_PLUS, new String[]{"com"});
+        assertTrue(validator.isValidCountryCodeTld("com")); // it is now!
+        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, new String[]{"com"});
+        assertFalse(validator.isValidCountryCodeTld("com")); // show that minus overrides the rest
+
+        assertTrue(validator.isValidCountryCodeTld("ch"));
+        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, new String[]{"ch"});
+        assertFalse(validator.isValidCountryCodeTld("ch"));
+        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, new String[]{"xx"});
+        assertTrue(validator.isValidCountryCodeTld("ch"));
+    }
+
+    public void testUpdateGeneric() {
+        assertFalse(validator.isValidGenericTld("ch")); // cannot be valid
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"});
+        assertTrue(validator.isValidGenericTld("ch")); // it is now!
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"ch"});
+        assertFalse(validator.isValidGenericTld("ch")); // show that minus overrides the rest
+
+        assertTrue(validator.isValidGenericTld("com"));
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"com"});
+        assertFalse(validator.isValidGenericTld("com"));
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"xx"}); // change the minus list
+        assertTrue(validator.isValidGenericTld("com"));
     }
 
     // Download and process local copy of http://data.iana.org/TLD/tlds-alpha-by-domain.txt

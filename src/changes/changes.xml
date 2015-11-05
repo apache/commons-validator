@@ -43,6 +43,10 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.5.0" date="tba" description="tba">
+    <action issue="VALIDATOR-341" type="add" dev="sebb">
+    Make TLD list configurable;
+    both generic and country-code now support addition and removal
+    </action>
     <action issue="VALIDATOR-374" type="fix">
     Email Validator : .school domain is being rejected
     Add Unit test to show it has been fixed
