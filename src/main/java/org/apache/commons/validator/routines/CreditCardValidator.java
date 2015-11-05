@@ -99,6 +99,7 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Option specifying that VPay (Visa) cards are allowed.
+     * @since 1.5
      */
     public static final long VPAY = 1 << 5;
 
@@ -131,7 +132,9 @@ public class CreditCardValidator implements Serializable {
     /** Visa Card Validator */
     public static final CodeValidator VISA_VALIDATOR = new CodeValidator("^(4)(\\d{12}|\\d{15})$", LUHN_VALIDATOR);
 
-    /** VPay (Visa) Card Validator */
+    /** VPay (Visa) Card Validator 
+     * @since 1.5
+     */
     public static final CodeValidator VPAY_VALIDATOR = new CodeValidator("^(4)(\\d{12,18})$", LUHN_VALIDATOR);
 
     /**
