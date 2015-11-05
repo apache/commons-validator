@@ -116,7 +116,8 @@ public class DomainValidator implements Serializable {
      *  will not consider local addresses as valid.
      * @return the singleton instance of this validator
      */
-    public static DomainValidator getInstance() {
+    public static synchronized DomainValidator getInstance() {
+        inUse = true;
         return DOMAIN_VALIDATOR;
     }
 
@@ -126,7 +127,8 @@ public class DomainValidator implements Serializable {
      * @param allowLocal Should local addresses be considered valid?
      * @return the singleton instance of this validator
      */
-    public static DomainValidator getInstance(boolean allowLocal) {
+    public static synchronized DomainValidator getInstance(boolean allowLocal) {
+        inUse = true;
        if(allowLocal) {
           return DOMAIN_VALIDATOR_WITH_LOCAL;
        }
@@ -1391,8 +1393,20 @@ public class DomainValidator implements Serializable {
 
     // Additional arrays to supplement or override the built in ones.
     // The PLUS arrays are valid keys, the MINUS arrays are invalid keys
-    // The arrays are marked volatile because they are not immutable
 
+    /*
+     * This field is used to detect whether the getInstance has been called.
+     * After this, the method updateTLDOverride is not allowed to be called.
+     * This field does not need to be volatile since it is only accessed from
+     * synchronized methods. 
+     */
+    private static boolean inUse = false;
+
+    /*
+     * These arrays are mutable, but they don't need to be volatile.
+     * They can only be updated by the updateTLDOverride method, and any readers must get an instance
+     * using the getInstance methods which are all (now) synchronised.
+     */
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static volatile String[] COUNTRY_CODE_TLDS_PLUS = EMPTY_STRING_ARRAY;
 
@@ -1420,8 +1434,9 @@ public class DomainValidator implements Serializable {
         COUNTRY_CODE_MINUS;
     };
 
-    // For use by unit test code
-    static void clearTLDOverrides() {
+    // For use by unit test code only
+    static synchronized void clearTLDOverrides() {
+        inUse = false;
         COUNTRY_CODE_TLDS_PLUS = EMPTY_STRING_ARRAY;
         COUNTRY_CODE_TLDS_MINUS = EMPTY_STRING_ARRAY;
         GENERIC_TLDS_PLUS = EMPTY_STRING_ARRAY;
@@ -1429,7 +1444,7 @@ public class DomainValidator implements Serializable {
     }
     /**
      * Update one of the TLD override arrays.
-     * This should normally only be done at program startup.
+     * This must only be done at program startup, before any instances are accessed using getInstance.
      * <p>
      * For example:
      * <p>
@@ -1439,8 +1454,12 @@ public class DomainValidator implements Serializable {
      *
      * @param table the table to update, see {@link DomainValidator#ArrayType}
      * @param tlds the array of TLDs, must not be null
+     * @throws IllegalStateException if the method is called after getInstance
      */
-    public static void updateTLDOverride(ArrayType table, String [] tlds) {
+    public static synchronized void updateTLDOverride(ArrayType table, String [] tlds) {
+        if (inUse) {
+            throw new IllegalStateException("Can only invoke this method before calling getInstance");
+        }
         String [] copy = new String[tlds.length];
         // Comparisons are always done with lower-case entries
         for (int i = 0; i < tlds.length; i++) {

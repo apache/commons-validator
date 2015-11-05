@@ -57,7 +57,7 @@ public class DomainValidatorTest extends TestCase {
 
     public void setUp() {
         validator = DomainValidator.getInstance();
-        DomainValidator.clearTLDOverrides();
+        DomainValidator.clearTLDOverrides(); // N.B. this clears the inUse flag, allowing overrides
     }
 
     public void testValidDomains() {
@@ -327,6 +327,17 @@ public class DomainValidatorTest extends TestCase {
         assertTrue(validator.isValidGenericTld("com"));
     }
 
+    public void testCannotUpdate() {
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"}); // OK
+        DomainValidator dv = DomainValidator.getInstance();
+        assertNotNull(dv);
+        try {
+            DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"});
+            fail("Expected IllegalStateException");
+        } catch (IllegalStateException ise) {
+            // expected
+        }
+    }
     // Download and process local copy of http://data.iana.org/TLD/tlds-alpha-by-domain.txt
     // Check if the internal TLD table is up to date
     // Check if the internal TLD tables have any spurious entries
