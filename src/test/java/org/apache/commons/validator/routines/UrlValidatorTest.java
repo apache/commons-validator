@@ -409,6 +409,11 @@ public class UrlValidatorTest extends TestCase {
 //        assertTrue(validator.isValid("http://test.xn--hlcj6aya9esc7a")); // Tamil
     }
 
+   public void testValidator361() {
+       UrlValidator validator = new UrlValidator();
+       assertTrue(validator.isValid("http://hello.tokyo/"));
+    }
+
    
    /**
     * Only used to debug the unit tests.

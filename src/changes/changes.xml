@@ -43,6 +43,10 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
 
   <release version="1.5.0" date="tba" description="tba">
+    <action issue="VALIDATOR-361" type="add" dev="sebb">
+    UrlValidator rejects new gTLDs with more than 4 characters
+    Added unit test to show that this has been fixed
+    </action>
     <action issue="VALIDATOR-341" type="add" dev="sebb">
     Make TLD list configurable;
     both generic and country-code now support addition and removal
