@@ -1405,10 +1405,18 @@ public class DomainValidator implements Serializable {
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static volatile String[] GENERIC_TLDS_MINUS = EMPTY_STRING_ARRAY;
 
+    /**
+     * enum used by {@link DomainValidator#updateTLDOverride(ArrayType, String[])}
+     * to determine which override array to update.
+     */
     enum ArrayType {
+        /** Update the GENERIC_TLDS_PLUS table containing additonal generic TLDs */
         GENERIC_PLUS,
+        /** Update the GENERIC_TLDS_MINUS table containing deleted generic TLDs */
         GENERIC_MINUS,
+        /** Update the COUNTRY_CODE_TLDS_PLUS table containing additonal country code TLDs */
         COUNTRY_CODE_PLUS,
+        /** Update the COUNTRY_CODE_TLDS_MINUS table containing deleted country code TLDs */
         COUNTRY_CODE_MINUS;
     };
 
@@ -1422,10 +1430,14 @@ public class DomainValidator implements Serializable {
     /**
      * Update one of the TLD override arrays.
      * This should normally only be done at program startup.
-     *
+     * <p>
+     * For example:
+     * <p>
+     * {@code DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"apache"})}
+     * <p>
      * To clear an override array, provide an empty array.
      *
-     * @param table the table to update
+     * @param table the table to update, see {@link DomainValidator#ArrayType}
      * @param tlds the array of TLDs, must not be null
      */
     public static void updateTLDOverride(ArrayType table, String [] tlds) {
