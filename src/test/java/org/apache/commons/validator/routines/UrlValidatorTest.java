@@ -414,6 +414,16 @@ public class UrlValidatorTest extends TestCase {
        assertTrue(validator.isValid("http://hello.tokyo/"));
     }
 
+   public void testValidator375() {
+       UrlValidator validator = new UrlValidator();
+       String url = "http://[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]:80/index.html";
+       assertTrue("IPv6 address URL should validate: " + url, validator.isValid(url));
+       url = "http://[::1]:80/index.html";
+       assertTrue("IPv6 address URL should validate: " + url, validator.isValid(url));
+       url = "http://FEDC:BA98:7654:3210:FEDC:BA98:7654:3210:80/index.html";
+       assertFalse("IPv6 address without [] should not validate: " + url, validator.isValid(url));
+    }
+
    
    /**
     * Only used to debug the unit tests.
