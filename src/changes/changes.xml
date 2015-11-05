@@ -41,8 +41,10 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
 
   <body>
-
   <release version="1.5.0" date="tba" description="tba">
+    <action issue="VALIDATOR-369" type="fix" dev="sebb">
+    DateValidatorTest.testCompare() fails with GMT-12
+    </action>
     <action issue="VALIDATOR-372" type="add" dev="sebb">
     Validate 19 digit VPay (VISA)
     </action>
