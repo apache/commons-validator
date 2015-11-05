@@ -40,6 +40,9 @@ public class CreditCardValidatorTest extends TestCase {
     private static final String ERROR_DISCOVER65 = "6534567890123450"; // FIXME need verified test data for Discover with "65" prefix
     private static final String VALID_DINERS = "30569309025904";
     private static final String ERROR_DINERS = "30569309025901";
+    private static final String VALID_VPAY = "4370000000000061";
+    private static final String VALID_VPAY2 = "4370000000000012";
+    private static final String ERROR_VPAY = "4370000000000069";
 
     /**
      * Constructor for CreditCardValidatorTest.
@@ -462,6 +465,22 @@ public class CreditCardValidatorTest extends TestCase {
         assertFalse("Mastercard",     validator.isValid(VALID_MASTERCARD));
         assertTrue("Visa",            validator.isValid(VALID_VISA));
         assertTrue("Visa Short",      validator.isValid(VALID_SHORT_VISA));
+    }
+
+    public void testVPayOption() {
+        CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.VPAY);
+        assertTrue("Valid",           validator.isValid(VALID_VPAY));
+        assertTrue("Valid",           validator.isValid(VALID_VPAY2));
+        assertFalse("Invalid",        validator.isValid(ERROR_VPAY));
+        assertEquals(VALID_VPAY,      validator.validate(VALID_VPAY));
+        assertEquals(VALID_VPAY2,      validator.validate(VALID_VPAY2));
+
+        assertFalse("Amex",           validator.isValid(VALID_AMEX));
+        assertFalse("Diners",         validator.isValid(VALID_DINERS));
+        assertFalse("Discover",       validator.isValid(VALID_DISCOVER));
+        assertFalse("Mastercard",     validator.isValid(VALID_MASTERCARD));
+        assertTrue("Visa",            validator.isValid(VALID_VISA));
+        assertTrue("Visa Short",      validator.isValid(VALID_SHORT_VISA));        
     }
 
     /**
