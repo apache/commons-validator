@@ -82,7 +82,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                 "SE3550000000054910000003",      // Sweden
                 "SI56191000000123438",           // Slovenia
                 "SK3112000000198742637541",      // Slovak Republic
-                
+
                 // Codes AA and ZZ will never be used as ISO countries nor in IBANs
                 // add some dummy calculated codes to test the limits
                 // Current minimum length is Norway = 15
@@ -112,7 +112,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      */
     public void testZeroSum() {
         // ignore, don't run this test
-        
+
         // example code used to create dummy IBANs
 //        try {
 //            for(int i=0; i<97;i++) {
@@ -147,7 +147,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                 }
             }
         }
-        
+
         return (String[])list.toArray(new String[list.size()]);
     }
 
