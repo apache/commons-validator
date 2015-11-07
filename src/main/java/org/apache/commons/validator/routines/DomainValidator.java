@@ -524,6 +524,7 @@ public class DomainValidator implements Serializable {
         "farm", // farm Just Maple, LLC
         "fashion", // fashion Top Level Domain Holdings Limited
         "feedback", // feedback Top Level Spectrum, Inc.
+        "ferrero", // ferrero Ferrero Trading Lux S.A.
         "film", // film Motion Picture Domain Registry Pty Ltd
         "final", // final Núcleo de Informação e Coordenação do Ponto BR - NIC.br
         "finance", // finance Cotton Cypress, LLC
@@ -802,6 +803,7 @@ public class DomainValidator implements Serializable {
         "pizza", // pizza Foggy Moon, LLC
         "place", // place Snow Galley, LLC
         "play", // play Charleston Road Registry Inc.
+        "playstation", // playstation Sony Computer Entertainment Inc.
         "plumbing", // plumbing Spring Tigers, LLC
         "plus", // plus Sugar Mill, LLC
         "pohl", // pohl Deutsche Vermögensberatung Aktiengesellschaft DVAG
@@ -844,6 +846,7 @@ public class DomainValidator implements Serializable {
         "ricoh", // ricoh Ricoh Company, Ltd.
         "rio", // rio Empresa Municipal de Informática SA - IPLANRIO
         "rip", // rip United TLD Holdco Ltd.
+        "rocher", // rocher Ferrero Trading Lux S.A.
         "rocks", // rocks United TLD Holdco, LTD.
         "rodeo", // rodeo Top Level Domain Holdings Limited
         "rsvp", // rsvp Charleston Road Registry Inc.
