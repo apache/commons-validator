@@ -1,0 +1,197 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commons.validator.routines;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.commons.validator.routines.RegexValidator;
+import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
+
+/**
+ * IBAN Validator.
+ */
+public class IBANValidator {
+
+    private final Map<String, Validator> formatValidators;
+
+    public static class Validator {
+        final String countryCode;
+        final RegexValidator validator;
+        final int lengthOfIBAN; // used to avoid unnecessary regex matching
+        public Validator(String cc, int len, String format) {
+            this.countryCode = cc;
+            this.lengthOfIBAN = len;
+            this.validator = new RegexValidator(format);
+            if (!format.startsWith(cc)) {
+                throw new IllegalArgumentException("countryCode '"+cc+"' does not agree with format: " + format);
+            }
+        }
+    }
+
+    /*
+     * Wikipedia [1] says that only uppercase is allowed.
+     * The SWIFT PDF file [2] implies that lower case is allowed.
+     * However there are no examples using lower-case.
+     * Unfortunately the relevant ISO documents (ISO 13616-1) are not available for free.
+     * The IBANCheckDigit code treats upper and lower case the same,
+     * so any case validation has to be done in this class.
+     *
+     * [1] https://en.wikipedia.org/wiki/International_Bank_Account_Number
+     * [2] http://www.swift.com/dsp/resources/documents/IBAN_Registry.pdf
+     */
+    
+    private static final Validator[] DEFAULT_FORMATS = {
+            new Validator("AL", 28, "AL\\d{10}[a-zA-Z0-9]{16}"              ), // Albania
+            new Validator("AD", 24, "AD\\d{10}[a-zA-Z0-9]{12}"              ), // Andorra
+            new Validator("AT", 20, "AT\\d{18}"                             ), // Austria
+            new Validator("AZ", 28, "AZ\\d{2}[A-Z]{4}[a-zA-Z0-9]{20}"       ), // Republic of Azerbaijan
+            new Validator("BH", 22, "BH\\d{2}[A-Z]{4}[a-zA-Z0-9]{14}"       ), // Bahrain (Kingdom of)
+            new Validator("BE", 16, "BE\\d{14}"                             ), // Belgium
+            new Validator("BA", 20, "BA\\d{18}"                             ), // Bosnia and Herzegovina
+            new Validator("BR", 29, "BR\\d{25}[A-Z]{1}[a-zA-Z0-9]{1}"       ), // Brazil
+            new Validator("BG", 22, "BG\\d{2}[A-Z]{4}\\d{6}[a-zA-Z0-9]{8}"  ), // Bulgaria
+            new Validator("CR", 21, "CR\\d{19}"                             ), // Costa Rica
+            new Validator("HR", 21, "HR\\d{19}"                             ), // Croatia
+            new Validator("CY", 28, "CY\\d{10}[a-zA-Z0-9]{16}"              ), // Cyprus
+            new Validator("CZ", 24, "CZ\\d{22}"                             ), // Czech Republic
+            new Validator("DK", 18, "DK\\d{16}"                             ), // Denmark
+            new Validator("FO", 18, "FO\\d{16}"                             ), // Denmark (Faroes)
+            new Validator("GL", 18, "GL\\d{16}"                             ), // Denmark (Greenland)
+            new Validator("DO", 28, "DO\\d{2}[a-zA-Z0-9]{4}\\d{20}"         ), // Dominican Republic
+            new Validator("EE", 20, "EE\\d{18}"                             ), // Estonia
+            new Validator("FI", 18, "FI\\d{16}"                             ), // Finland
+            new Validator("FR", 27, "FR\\d{12}[a-zA-Z0-9]{11}\\d{2}"        ), // France
+            new Validator("GE", 22, "GE\\d{2}[A-Z]{2}\\d{16}"               ), // Georgia
+            new Validator("DE", 22, "DE\\d{20}"                             ), // Germany
+            new Validator("GI", 23, "GI\\d{2}[A-Z]{4}[a-zA-Z0-9]{15}"       ), // Gibraltar
+            new Validator("GR", 27, "GR\\d{9}[a-zA-Z0-9]{16}"               ), // Greece
+            new Validator("GT", 28, "GT\\d{2}[a-zA-Z0-9]{24}"               ), // Guatemala
+            new Validator("HU", 28, "HU\\d{26}"                             ), // Hungary
+            new Validator("IS", 26, "IS\\d{24}"                             ), // Iceland
+            new Validator("IE", 22, "IE\\d{2}[A-Z]{4}\\d{14}"               ), // Ireland
+            new Validator("IL", 23, "IL\\d{21}"                             ), // Israel
+            new Validator("IT", 27, "IT\\d{2}[A-Z]{1}\\d{10}[a-zA-Z0-9]{12}"), // Italy
+            new Validator("JO", 30, "JO\\d{2}[A-Z]{4}\\d{4}[a-zA-Z0-9]{18}" ), // Jordan
+            new Validator("KZ", 20, "KZ\\d{5}[a-zA-Z0-9]{13}"               ), // Kazakhstan
+            new Validator("XK", 20, "XK\\d{18}"                             ), // Republic of Kosovo
+            new Validator("KW", 30, "KW\\d{2}[A-Z]{4}[a-zA-Z0-9]{22}"       ), // Kuwait
+            new Validator("LV", 21, "LV\\d{2}[A-Z]{4}[a-zA-Z0-9]{13}"       ), // Latvia
+            new Validator("LB", 28, "LB\\d{6}[a-zA-Z0-9]{20}"               ), // Lebanon
+            new Validator("LI", 21, "LI\\d{7}[a-zA-Z0-9]{12}"               ), // Liechtenstein (Principality of)
+            new Validator("LT", 20, "LT\\d{18}"                             ), // Lithuania
+            new Validator("LU", 20, "LU\\d{5}[a-zA-Z0-9]{13}"               ), // Luxembourg
+            new Validator("MK", 19, "MK\\d{5}[a-zA-Z0-9]{10}\\d{2}"         ), // Macedonia, Former Yugoslav Republic of
+            new Validator("MT", 31, "MT\\d{2}[A-Z]{4}\\d{5}[a-zA-Z0-9]{18}" ), // Malta
+            new Validator("MR", 27, "MR13\\d{23}"                           ), // Mauritania
+            new Validator("MU", 30, "MU\\d{2}[A-Z]{4}\\d{19}[A-Z]{3}"       ), // Mauritius
+            new Validator("MD", 24, "MD\\d{2}[a-zA-Z0-9]{20}"               ), // Moldova
+            new Validator("MC", 27, "MC\\d{12}[a-zA-Z0-9]{11}\\d{2}"        ), // Monaco
+            new Validator("ME", 22, "ME\\d{20}"                             ), // Montenegro
+            new Validator("NL", 18, "NL\\d{2}[A-Z]{4}\\d{10}"               ), // The Netherlands
+            new Validator("NO", 15, "NO\\d{13}"                             ), // Norway
+            new Validator("PK", 24, "PK\\d{2}[A-Z]{4}[a-zA-Z0-9]{16}"       ), // Pakistan
+            new Validator("PS", 29, "PS\\d{2}[A-Z]{4}[a-zA-Z0-9]{21}"       ), // Palestine, State of
+            new Validator("PL", 28, "PL\\d{26}"                             ), // Poland
+            new Validator("PT", 25, "PT\\d{23}"                             ), // Portugal
+            new Validator("QA", 29, "QA\\d{2}[A-Z]{4}[a-zA-Z0-9]{21}"       ), // Qatar
+            new Validator("RO", 24, "RO\\d{2}[A-Z]{4}[a-zA-Z0-9]{16}"       ), // Romania
+            new Validator("LC", 32, "LC\\d{2}[A-Z]{4}\\d{24}"               ), // Saint Lucia
+            new Validator("SM", 27, "SM\\d{2}[A-Z]{1}\\d{10}[a-zA-Z0-9]{12}"), // San Marino
+            new Validator("ST", 25, "ST\\d{23}"                             ), // Sao Tome And Principe
+            new Validator("SA", 24, "SA\\d{4}[a-zA-Z0-9]{18}"               ), // Saudi Arabia
+            new Validator("RS", 22, "RS\\d{20}"                             ), // Serbia
+            new Validator("SK", 24, "SK\\d{22}"                             ), // Slovak Republic
+            new Validator("SI", 19, "SI\\d{17}"                             ), // Slovenia
+            new Validator("ES", 24, "ES\\d{22}"                             ), // Spain
+            new Validator("SE", 24, "SE\\d{22}"                             ), // Sweden
+            new Validator("CH", 21, "CH\\d{7}[a-zA-Z0-9]{12}"               ), // Switzerland
+            new Validator("TL", 23, "TL\\d{21}"                             ), // Timor-Leste
+            new Validator("TN", 24, "TN59\\d{20}"                           ), // Tunisia
+            new Validator("TR", 26, "TR\\d{8}[a-zA-Z0-9]{16}"               ), // Turkey
+            new Validator("AE", 23, "AE\\d{21}"                             ), // United Arab Emirates
+            new Validator("GB", 22, "GB\\d{2}[A-Z]{4}\\d{14}"               ), // United Kingdom
+            new Validator("VG", 24, "VG\\d{2}[A-Z]{4}\\d{16}"               ), // Virgin Islands, British
+    };
+
+    public static final IBANValidator DEFAULT_IBAN_VALIDATOR = new IBANValidator();
+
+    /**
+     * Return a singleton instance of the IBAN validator using the default formats
+     *
+     * @return A singleton instance of the ISBN validator
+     */
+    public static IBANValidator getInstance() {
+        return DEFAULT_IBAN_VALIDATOR;
+    }
+
+    /**
+     * Create a default IBAN validator.
+     */
+    public IBANValidator() {
+        this(DEFAULT_FORMATS);
+    }
+
+    /**
+     * Create an IBAN validator from the specified map of IBAN formats.
+     *
+     * @param formatMap map of IBAN formats
+     */
+    public IBANValidator(Validator[] formatMap) {
+        this.formatValidators = createValidators(formatMap);
+    }
+
+    private Map<String, Validator> createValidators(Validator[] formatMap) {
+        Map<String, Validator> m = new ConcurrentHashMap<String, Validator>();
+        for(Validator v : formatMap) {
+            m.put(v.countryCode, v);
+        }
+        return m;
+    }
+
+    /**
+     * <p>Validate an IBAN Code</code>.
+     *
+     * @param value The value validation is being performed on
+     * @return <code>true</code> if the value is valid
+     */
+    public boolean isValid(String code) {
+        Validator formatValidator = getValidator(code);
+        if (formatValidator == null || code.length() != formatValidator.lengthOfIBAN || !formatValidator.validator.isValid(code)) {
+            return false;
+        }
+        return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code);
+    }
+
+    /**
+     * Does the class have the required validator?
+     *
+     * @param code the code to check
+     * @return true if there is a validator
+     */
+    public boolean hasValidator(String code) {
+        return getValidator(code) != null;
+    }
+
+    private Validator getValidator(String code) {
+        if (code == null || code.length() < 2) { // ensure we can extract the code
+            return null;
+        }
+        String key = code.substring(0, 2);
+        return formatValidators.get(key);
+    }
+}
