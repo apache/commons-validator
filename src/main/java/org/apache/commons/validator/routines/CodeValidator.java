@@ -60,6 +60,7 @@ public final class CodeValidator implements Serializable {
     /**
      * Construct a code validator with a specified regular
      * expression and {@link CheckDigit}.
+     * The RegexValidator validator is created to be case-sensitive
      *
      * @param regex The format regular expression
      * @param checkdigit The check digit validation routine
@@ -71,6 +72,7 @@ public final class CodeValidator implements Serializable {
     /**
      * Construct a code validator with a specified regular
      * expression, length and {@link CheckDigit}.
+     * The RegexValidator validator is created to be case-sensitive
      *
      * @param regex The format regular expression.
      * @param length The length of the code
@@ -84,8 +86,9 @@ public final class CodeValidator implements Serializable {
     /**
      * Construct a code validator with a specified regular
      * expression, minimum/maximum length and {@link CheckDigit} validation.
+     * The RegexValidator validator is created to be case-sensitive
      *
-     * @param regex The regular expression validator
+     * @param regex The regular expression
      * @param minLength The minimum length of the code
      * @param maxLength The maximum length of the code
      * @param checkdigit The check digit validation routine
