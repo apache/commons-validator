@@ -16,14 +16,19 @@
  */
 package org.apache.commons.validator.routines;
 
-import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import junit.framework.TestCase;
+import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
+import org.junit.Test;
 
 /**
  * IBANValidator Test Case.
+ * @since 1.5.0
  */
-public class IBANValidatorTest extends TestCase {
+public class IBANValidatorTest {
 
     // It's not clear whether IBANs can contain lower case characters
     // so we test for both where possible
@@ -52,7 +57,6 @@ public class IBANValidatorTest extends TestCase {
             "FI2112345600000785",
             "FI5542345670000081",
             "FR1420041010050500013M02606",
-            "FR1420041010050500013m02606", // lowercase version
             "GE29NB0000000101904917",
             "DE89370400440532013000",
             "GI75NWBK000000007099453",
@@ -70,12 +74,10 @@ public class IBANValidatorTest extends TestCase {
             "LV80BANK0000435195001",
             "LB62099900000001001901229114",
             "LI21088100002324013AA",
-            "LI21088100002324013aa", // lowercase version
             "LT121000011101001000",
             "LU280019400644750000",
             "MK07250120000058984",
             "MT84MALT011000012345MTLCAST001S",
-            "MT84MALT011000012345mtlcast001s", // lowercase version
             "MR1300020001010000123456753",
             "MU17BOMM0101101030300200000MUR",
             "MD24AG000225100013104168",
@@ -88,9 +90,7 @@ public class IBANValidatorTest extends TestCase {
             "PL61109010140000071219812874",
             "PT50000201231234567890154",
             "QA58DOHB00001234567890ABCDEFG",
-            "QA58DOHB00001234567890abcdefg", // lowercase version
             "RO49AAAA1B31007593840000",
-            "RO49AAAA1b31007593840000", // lowercase version
             "LC55HEMM000100010012001200023015", // the SWIFT docs have LC62...
             "SM86U0322509800000000270100",
             "ST68000100010051845310112",
@@ -114,39 +114,81 @@ public class IBANValidatorTest extends TestCase {
             "   ",                     // empty
             "A",                       // too short
             "AB",                      // too short
+            "FR1420041010050500013m02606", // lowercase version
+            "MT84MALT011000012345mtlcast001s", // lowercase version
+            "LI21088100002324013aa", // lowercase version
+            "QA58DOHB00001234567890abcdefg", // lowercase version
+            "RO49AAAA1b31007593840000", // lowercase version
+            "LC62HEMM000100010012001200023015", // wrong in SWIFT
             };
 
-    private IBANValidator validator;
+    private static final IBANValidator VALIDATOR = IBANValidator.getInstance();
 
-    @Override
-    protected void setUp() {
-        validator = IBANValidator.getInstance();
-    }
-
-    public IBANValidatorTest(String name) {
-        super(name);
-    }
-
+    @Test
     public void testValid() {
         for(String f : validIBANFormat) {
             assertTrue("Checksum fail: "+f, IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(f));
-            assertTrue("Missing validator: "+f, validator.hasValidator(f));
-            assertTrue(f, validator.isValid(f));
+            assertTrue("Missing validator: "+f, VALIDATOR.hasValidator(f));
+            assertTrue(f, VALIDATOR.isValid(f));
         }
     }
 
+    @Test
     public void testInValid() {
         for(String f : invalidIBANFormat) {
-            assertFalse(f, validator.isValid(f));
+            assertFalse(f, VALIDATOR.isValid(f));
         }
     }
 
+    @Test
     public void testNull() {
-        assertFalse("isValid(null)",  validator.isValid(null));
+        assertFalse("isValid(null)",  VALIDATOR.isValid(null));
     }
 
+    @Test
     public void testHasValidator() {
-        assertTrue("GB", validator.hasValidator("GB"));
-        assertFalse("gb", validator.hasValidator("gb"));
+        assertTrue("GB", VALIDATOR.hasValidator("GB"));
+        assertFalse("gb", VALIDATOR.hasValidator("gb"));
+    }
+
+    @Test
+    public void testGetValidator() {
+        assertNotNull("GB", VALIDATOR.getValidator("GB"));
+        assertNull("gb", VALIDATOR.getValidator("gb"));        
+    }
+
+    @Test(expected=IllegalStateException.class)
+    public void testSetDefaultValidator1() {
+        assertNotNull(VALIDATOR.setValidator("GB", 15, "GB"));
+    }
+
+    @Test(expected=IllegalStateException.class)
+    public void testSetDefaultValidator2() {
+        assertNotNull(VALIDATOR.setValidator("GB", -1, "GB"));
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testSetValidatorLC() {
+        IBANValidator validator = new IBANValidator();
+        assertNotNull(validator.setValidator("gb", 15, "GB"));
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testSetValidatorLen7() {
+        IBANValidator validator = new IBANValidator();
+        assertNotNull(validator.setValidator("GB", 7, "GB"));
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testSetValidatorLen35() {
+        IBANValidator validator = new IBANValidator();
+        assertNotNull(validator.setValidator("GB", 35, "GB")); // valid params, but immutable validator
+    }
+
+    @Test
+    public void testSetValidatorLen_1() {
+        IBANValidator validator = new IBANValidator();
+        assertNotNull("should be present",validator.setValidator("GB", -1, ""));
+        assertNull("no longer present",validator.setValidator("GB", -1, ""));
     }
 }
