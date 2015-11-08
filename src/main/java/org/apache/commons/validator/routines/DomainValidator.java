@@ -1425,6 +1425,7 @@ public class DomainValidator implements Serializable {
     /**
      * enum used by {@link DomainValidator#updateTLDOverride(ArrayType, String[])}
      * to determine which override array to update.
+     * @since 1.5.0
      */
     enum ArrayType {
         /** Update the GENERIC_TLDS_PLUS table containing additonal generic TLDs */
@@ -1458,7 +1459,7 @@ public class DomainValidator implements Serializable {
      * @param table the table to update, see {@link DomainValidator#ArrayType}
      * @param tlds the array of TLDs, must not be null
      * @throws IllegalStateException if the method is called after getInstance
-     * @since 1.5
+     * @since 1.5.0
      */
     public static synchronized void updateTLDOverride(ArrayType table, String [] tlds) {
         if (inUse) {
