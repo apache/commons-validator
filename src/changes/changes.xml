@@ -75,7 +75,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="VALIDATOR-362" dev="britter" type="fix" due-to="Teo Bran">
       Local part of the email address should not be longer than 64 bytes
     </action>
-    <action issue="VALIDATOR-356" dev="seb" type="fix" >
+    <action issue="VALIDATOR-356" dev="sebb" type="fix" >
       IDN.toASCII drops trailing dot in Java 6 &amp; 7
     </action>
     <action issue="VALIDATOR-355" dev="britter" type="update" >
