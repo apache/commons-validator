@@ -171,7 +171,7 @@ public class Arg implements Cloneable, Serializable {
      * @return a string representation of the object.
      */
     public String toString() {
-        StringBuffer results = new StringBuffer();
+        StringBuilder results = new StringBuilder();
 
         results.append("Arg: name=");
         results.append(name);

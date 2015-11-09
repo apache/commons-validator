@@ -216,7 +216,7 @@ public class Form implements Serializable {
      * @return string representation
      */
     public String toString() {
-        StringBuffer results = new StringBuffer();
+        StringBuilder results = new StringBuilder();
 
         results.append("Form: ");
         results.append(name);

@@ -66,7 +66,7 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      * for the specified code
      */
     protected int calculateModulus(String code, boolean includesCheckDigit) throws CheckDigitException {
-        StringBuffer transformed = new  StringBuffer(code.length() * 2);
+        StringBuilder transformed = new  StringBuilder(code.length() * 2);
         if (includesCheckDigit) {
             char checkDigit = code.charAt(code.length()-1); // fetch the last character
             if (!Character.isDigit(checkDigit)){

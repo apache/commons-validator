@@ -194,7 +194,7 @@ public class Var implements Cloneable, Serializable {
      * @return A string representation of the variable.
      */
     public String toString() {
-        StringBuffer results = new StringBuffer();
+        StringBuilder results = new StringBuilder();
 
         results.append("Var: name=");
         results.append(name);

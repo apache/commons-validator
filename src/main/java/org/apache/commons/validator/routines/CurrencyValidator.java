@@ -103,7 +103,7 @@ public class CurrencyValidator extends BigDecimalValidator {
         DecimalFormat decimalFormat = (DecimalFormat)formatter;
         String pattern = decimalFormat.toPattern();
         if (pattern.indexOf(CURRENCY_SYMBOL) >= 0) {
-            StringBuffer buffer = new StringBuffer(pattern.length());
+            StringBuilder buffer = new StringBuilder(pattern.length());
             for (int i = 0; i < pattern.length(); i++) {
                 if (pattern.charAt(i) != CURRENCY_SYMBOL) {
                     buffer.append(pattern.charAt(i));

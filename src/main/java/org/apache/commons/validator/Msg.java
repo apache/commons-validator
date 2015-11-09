@@ -142,7 +142,7 @@ public class Msg implements Cloneable, Serializable {
      * @return Msg String representation.
      */
     public String toString() {
-        StringBuffer results = new StringBuffer();
+        StringBuilder results = new StringBuilder();
 
         results.append("Msg: name=");
         results.append(name);

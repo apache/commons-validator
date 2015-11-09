@@ -719,7 +719,7 @@ public class Field implements Cloneable, Serializable {
      * @return A string representation of the object.
      */
     public String toString() {
-        StringBuffer results = new StringBuffer();
+        StringBuilder results = new StringBuilder();
 
         results.append("\t\tkey = " + key + "\n");
         results.append("\t\tproperty = " + property + "\n");

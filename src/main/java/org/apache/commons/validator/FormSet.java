@@ -307,7 +307,7 @@ public class FormSet implements Serializable {
      * @return   A string representation of the key
      */
     public String displayKey() {
-        StringBuffer results = new StringBuffer();
+        StringBuilder results = new StringBuilder();
         if (language != null && language.length() > 0) {
             results.append("language=");
             results.append(language);
@@ -339,7 +339,7 @@ public class FormSet implements Serializable {
      * @return   A string representation
      */
     public String toString() {
-        StringBuffer results = new StringBuffer();
+        StringBuilder results = new StringBuilder();
 
         results.append("FormSet: language=");
         results.append(language);

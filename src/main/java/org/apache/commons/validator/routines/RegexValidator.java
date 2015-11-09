@@ -196,7 +196,7 @@ public class RegexValidator implements Serializable {
                 if (count == 1) {
                     return matcher.group(1);
                 }
-                StringBuffer buffer = new StringBuffer();
+                StringBuilder buffer = new StringBuilder();
                 for (int j = 0; j < count; j++) {
                     String component = matcher.group(j+1);
                     if (component != null) {
@@ -214,7 +214,7 @@ public class RegexValidator implements Serializable {
      * @return A String representation of this validator
      */
     public String toString() {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append("RegexValidator{");
         for (int i = 0; i < patterns.length; i++) {
             if (i > 0) {

@@ -419,7 +419,7 @@ public class ValidatorAction implements Serializable {
             return null;
         }
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         try {
             String line = null;
@@ -467,8 +467,8 @@ public class ValidatorAction implements Serializable {
      * Used to generate the javascript name when it is not specified.
      */
     private String generateJsFunction() {
-        StringBuffer jsName =
-                new StringBuffer("org.apache.commons.validator.javascript");
+        StringBuilder jsName =
+                new StringBuilder("org.apache.commons.validator.javascript");
 
         jsName.append(".validate");
         jsName.append(name.substring(0, 1).toUpperCase());
@@ -500,7 +500,7 @@ public class ValidatorAction implements Serializable {
      * @return a string representation.
      */
     public String toString() {
-        StringBuffer results = new StringBuffer("ValidatorAction: ");
+        StringBuilder results = new StringBuilder("ValidatorAction: ");
         results.append(name);
         results.append("\n");
 
