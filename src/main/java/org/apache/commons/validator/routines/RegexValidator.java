@@ -57,6 +57,8 @@ import java.util.regex.Matcher;
  *   </li>
  * </ul>
  *
+ * <b>Note that patterns are matched against the entire input.</b>
+ *
  * <p>
  * Cached instances pre-compile and re-use {@link Pattern}(s) - which according
  * to the {@link Pattern} API are safe to use in a multi-threaded environment.
