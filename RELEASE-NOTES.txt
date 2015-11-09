@@ -1,114 +1,58 @@
-<!--
-   Licensed to the Apache Software Foundation (ASF) under one or more
-   contributor license agreements.  See the NOTICE file distributed with
-   this work for additional information regarding copyright ownership.
-   The ASF licenses this file to You under the Apache License, Version 2.0
-   (the "License"); you may not use this file except in compliance with
-   the License.  You may obtain a copy of the License at
+              Apache Apache Commons Validator
+                  Version 1.5.0
+                 RELEASE NOTES
 
-       http://www.apache.org/licenses/LICENSE-2.0
+The Apache Commons Validator team is pleased to announce the release of Apache Apache Commons Validator 1.5.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
--->
-$Id$
-
-                 Apache Commons Validator
-                     Version 1.4.1
-                     Release Notes
-
-INTRODUCTION
-============
+Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
+It may be used standalone or with a framework like Struts.
 
 This is a maintenance release.
-All projects are encouraged to update to this release of
-Apache Commons Validator.
+All projects are encouraged to update to this release of Apache Commons Validator.
 
-Commons Validator requires Java 1.4 or later.
+Commons Validator requires Java 1.6 or later.
 
 IMPORTANT NOTES
-================
+===============
 
 BREAKING CHANGES:
 
  * NONE.
 
 DEPENDENCIES
-=============
-
-The dependencies for Validator 1.4.1 have not changed since the 1.4 release.
-
-For the current list of dependencies, please see
-http://commons.apache.org/validator/dependencies.html
-
-BUGS FROM PREVIOUS RELEASE
-===========================
-
- * [VALIDATOR-266] - DomainValidator uses an O(n) method where an O(1) would be
-                     more appropriate. Thanks to Bruce Collie.
- * [VALIDATOR-273] - EmailValidator does not support mailboxes at TLDs.
-                     Thanks to Chris Lee.
- * [VALIDATOR-305] - Some TLDs are missing from DomainValidator.
-                     Thanks to Arūnas Bendoraitis.
- * [VALIDATOR-317] - DomainValidator missing sTLD - "xxx".
-                     Thanks to Arūnas Bendoraitis.
- * [VALIDATOR-327] - Missing sx tld.
-                     Thanks to Arūnas Bendoraitis.
- * [VALIDATOR-331] - IBANCheckDigitTest.createInvalidCodes(String[] codes) uses
-                     wrong values.
- * [VALIDATOR-336] - CUSIPCheckDigit thinks invalid CUSIP is valid.
- * [VALIDATOR-345] - ISINCheckDigit fails to reject invalid (non-numeric) check
-                     digits
- * [VALIDATOR-346] - SedolCheckDigit fails to reject invalid (non-numeric) check
-                     digits
- * [VALIDATOR-347] - toLowerCase() method is Locale-sensitive and should not be
-                     used
- * [VALIDATOR-348] - Update TLD list to latest version (Version 2014123000)
- * [VALIDATOR-309] - UrlValidator does not validate uppercase URL schemes
-                     Thanks to Rashid Rashidov
- * [VALIDATOR-297] - Punycode url is not valid. Top-level domain regex matching
-                     was wrong; e.g. it did not allow embedded "-"  per RFC2396
- * [VALIDATOR-308] - Logical errors in util.Flags affecting check of multiple
-                     flags as well as flag 64
-                     Thanks to Til Boerner
- * [VALIDATOR-350] - Should "x.root" validate as a domain name?
-                     Removed "root" from TLD list. 
-                     Also "um" and "yu" as they are currently "Not assigned"
- * [VALIDATOR-306] - DomainValidator accepts labels longer than 63 chars and domain name lengths exceeding 255 chars
-                     Thanks to Jukka Timonen
- * [VALIDATOR-339] - URLValidator fails validating domain names with a trailing period, which are valid.
-                     Thanks to Alex Blume
- * [VALIDATOR-235] - UrlValidator rejects url with Unicode characters in domain label or TLD
-                     Thanks to Brian Preuß
-
-IMPROVEMENTS OVER PREVIOUS RELEASE
-===================================
-
- * [VALIDATOR-307] - isValid checks if the given address is only IPV4 address
-                     and not IPV6
- * [VALIDATOR-343] - Doc URL update for broken link
-                     Thanks to Sam Cooley
- * [VALIDATOR-334] - UrlValidator: isValidAuthority() returning true when supplied authority validator fails
-                     Clarified documentation: validator is intended as an override
- * [VALIDATOR-344] - AbstractCheckDigit class does not fully test invalid strings
-                     Fix up the testCalculateInvalid() invalid method to allow for 
-                     either invalid checksum or syntax (CheckDigitException) error
-                     when testing the entries in the invalid array.
- * [VALIDATOR-290] - Create new url validation using rfc3986 and IDN - added new test
-                     Thanks to  Alexander Rytov
- * [VALIDATOR-349] - TLD tables should be pre-sorted
- * [VALIDATOR-342] - URLValidator returns false for http://example.rocks
-                     Thanks to Donal Murtagh
-
-DEPRECATIONS
 ============
+The dependencies for Validator have not changed since the 1.4 release.
+For the current list of dependencies, please see http://commons.apache.org/validator/dependencies.html
 
- * [VALIDATOR-337] - Deprecate the JS part of commons validator.
-                     Thanks to Ben Ripkens.
+Changes in this version include:
 
+New features:
+o VALIDATOR-321:  ISSN validator and converter to EAN-13
+o VALIDATOR-325:  Improve IBAN validation with format checks
+o VALIDATOR-372:  Validate 19 digit VPay (VISA)
+o VALIDATOR-361:  UrlValidator rejects new gTLDs with more than 4 characters
+                  Added unit test to show that this has been fixed
+o VALIDATOR-341:  Make TLD list configurable;
+                  both generic and country-code now support addition and removal
 
-Have fun!
--Apache Commons Validator team
+Fixed Bugs:
+o VALIDATOR-369:  DateValidatorTest.testCompare() fails with GMT-12
+o VALIDATOR-375:  UrlValidator fails on IPv6 URL
+o VALIDATOR-374:  Email Validator : .school domain is being rejected
+                  Add Unit test to show it has been fixed
+o VALIDATOR-376:  Revert EmailValidator to handle top level domains to the behavior prior to VALIDATOR-273. Allow an optional
+                  behavior to allow the behavior VALIDATOR-273 implemented. Note that this is a behavioral change for users
+                  of version 1.4.1, but not for anyone upgrading from a release prior to that.
+o VALIDATOR-362:  Local part of the email address should not be longer than 64 bytes Thanks to Teo Bran.
+o VALIDATOR-356:  IDN.toASCII drops trailing dot in Java 6 & 7
+
+Changes:
+o VALIDATOR-355:  Update to Java 6
+
+Removed:
+o VALIDATOR-371:  Drop the Javascript code entirely
+
+For complete information on Apache Commons Validator, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Apache Commons Validator website:
+
+http://commons.apache.org/proper/commons-validator/

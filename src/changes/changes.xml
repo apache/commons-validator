@@ -30,6 +30,13 @@ SVN commits.  Set the project.properties' maven.changelog.range
 property to the number of days since the last release.
 
 
+To generate the release notes from this file:
+
+mvn changes:announcement-generate -Prelease-notes [-Dchanges.version=nnn]
+
+then tweak the formatting if necessary
+and commit
+
 The <action> type attribute can be add,update,fix,remove.
 -->
 
@@ -40,8 +47,49 @@ The <action> type attribute can be add,update,fix,remove.
     <title>Release Notes</title>
   </properties>
 
+    <!-- NOTE:
+    The description below is specially formatted so as to improve the layout of the generated release notes:
+    The parsing process removes all line feeds, replacing them with a single space.
+    The Velocity template in src/changes has been enhanced to replace pairs of adjacent spaces
+    with a new-line in the release notes. (These spaces are ignored when displaying HTML).
+    If the output is not quite correct, check for invisible trailing spaces!
+
+    N.B. The release notes template groups actions by type, and only extracts data for the current release.
+    The changes report outputs actions in the order they appear in this file.
+
+    To regenerate the release notes:
+    mvn changes:announcement-generate -Prelease-notes [-Dchanges.version=nnn]
+
+    Defining changes.version allows one to create the RN without first removing the SNAPSHOT suffix.
+     -->
+
   <body>
-  <release version="1.5.0" date="tba" description="tba">
+  <release version="1.5.0" date="tba" description="
+This is a maintenance release.
+
+All projects are encouraged to update to this release of
+Apache Commons Validator.
+
+  Commons Validator requires Java 1.6 or later.
+
+
+ IMPORTANT NOTES
+ ===============
+
+
+ BREAKING CHANGES:
+
+   * NONE.
+
+
+ DEPENDENCIES
+ ============
+
+The dependencies for Validator have not changed since the 1.4 release.
+
+For the current list of dependencies, please see
+http://commons.apache.org/validator/dependencies.html
+  ">
     <action issue="VALIDATOR-321" type="add" dev="sebb">
     ISSN validator and converter to EAN-13
     </action>
