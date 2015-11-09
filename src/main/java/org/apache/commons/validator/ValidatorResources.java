@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.commons.collections.FastHashMap;
+import org.apache.commons.collections.FastHashMap; // DEPRECATED
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rule;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
