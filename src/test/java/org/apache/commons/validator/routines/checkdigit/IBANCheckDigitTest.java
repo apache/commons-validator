@@ -152,10 +152,10 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
     }
 
     /**
-     * Returns a code with the Check Digit (i.e. last character) removed.
+     * Returns a code with the Check Digits (i.e. characters 3&4) set to "00".
      *
      * @param code The code
-     * @return The code without the check digit
+     * @return The code with the zeroed check digits
      */
     protected String removeCheckDigit(String code) {
         return code.substring(0, 2) + "00" + code.substring(4);
