@@ -37,17 +37,12 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  * <p>
  * <b>Note</b>
  * The {@link #isValid(String)} method will return true if the input passes validation.
- * Since this includes trimming the input, it is possible for a String to pass validation
- * but fail the checkdigit test if passed directly to it (the check digit routines generally don't trim input).
- * However the check digit routines don't check the format.
- * If you need to be sure that you are passing valid input to a method which is not expecting leading
- * or trailing spaces, either trim the input yourself, or use the validate method:
+ * Since this includes trimming as well as potentially dropping parts of the input,
+ * it is possible for a String to pass validation
+ * but fail the checkdigit test if passed directly to it (the check digit routines generally don't trim input
+ * nor do they generally check the format/length).
+ * To be sure that you are passing valid input to a method use {@link #validate(String)} as follows:
  * <pre>
- * // method 1
- * if (validator.isValid(input)) {
- *     some_method(input.trim());
- * }
- * // method 2 
  * Object valid = validator.validate(input); 
  * if (valid != null) {
  *    some_method(valid.toString());
