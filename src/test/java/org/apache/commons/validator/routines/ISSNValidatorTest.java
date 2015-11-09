@@ -45,6 +45,8 @@ public class ISSNValidatorTest extends TestCase {
             "ISSN 1911-1460",
             "0001-6772",
             "1365-201X",
+            "0264-3596",
+            "1144-875X",
             };
 
     private final String[] invalidFormat = new String[] {
@@ -148,6 +150,10 @@ public class ISSNValidatorTest extends TestCase {
             String ean13 = VALIDATOR.convertToEAN13(f, suffix);
             assertTrue(ean13, ean13cd.isValid(ean13));
         }
+        // internet samples
+        assertEquals("9771144875007", VALIDATOR.convertToEAN13("1144-875X", "00"));
+        assertEquals("9770264359008", VALIDATOR.convertToEAN13("0264-3596", "00"));
+        assertEquals("9771234567003", VALIDATOR.convertToEAN13("1234-5679", "00"));
     }
 
 }
