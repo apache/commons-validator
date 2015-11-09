@@ -80,7 +80,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
      * Calculate the <i>Check Digit</i> for an IBAN code.
      * <p>
      * <b>Note:</b> The check digit is the third and fourth
-     * characters and and should contain value "<code>00</code>".
+     * characters and is set to the value "<code>00</code>".
      *
      * @param code The code to calculate the Check Digit for
      * @return The calculated Check Digit as 2 numeric decimal characters, e.g. "42"
@@ -92,6 +92,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
             throw new CheckDigitException("Invalid Code length=" +
                     (code == null ? 0 : code.length()));
         }
+        code = code.substring(0, 2) + "00" + code.substring(4);
         int modulusResult = calculateModulus(code);
         int charValue = (98 - modulusResult);
         String checkDigit = Integer.toString(charValue);
