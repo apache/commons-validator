@@ -437,6 +437,14 @@ public class UrlValidatorTest extends TestCase {
        assertFalse(validator.isValid("http://user:pa@ss@www.apache.org/path"));
    }
 
+   public void testValidator380() {
+       UrlValidator validator = new UrlValidator();
+       assertTrue(validator.isValid("http://www.apache.org:80/path"));       
+       assertTrue(validator.isValid("http://www.apache.org:8/path")); 
+       // To be enabled when code has been fixed
+//       assertTrue(validator.isValid("http://www.apache.org:/path"));
+   }
+
    /**
     * Only used to debug the unit tests.
     * @param argv
