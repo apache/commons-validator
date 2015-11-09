@@ -16,9 +16,9 @@
  */
 package org.apache.commons.validator.routines;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.validator.ResultPair;
+
+import junit.framework.TestCase;
 
 /**
  * Performs Validation Test for url validations.
@@ -424,7 +424,19 @@ public class UrlValidatorTest extends TestCase {
        assertFalse("IPv6 address without [] should not validate: " + url, validator.isValid(url));
     }
 
-   
+
+   public void testValidator353() { // userinfo
+       UrlValidator validator = new UrlValidator();
+       assertTrue(validator.isValid("http://www.apache.org:80/path"));
+       assertTrue(validator.isValid("http://user:pass@www.apache.org:80/path"));
+       assertTrue(validator.isValid("http://user:@www.apache.org:80/path"));
+       assertTrue(validator.isValid("http://us%00er:-._~!$&'()*+,;=@www.apache.org:80/path"));
+       assertFalse(validator.isValid("http://:pass@www.apache.org:80/path"));
+       assertFalse(validator.isValid("http://:@www.apache.org:80/path"));
+       assertFalse(validator.isValid("http://user:pa:ss@www.apache.org/path"));
+       assertFalse(validator.isValid("http://user:pa@ss@www.apache.org/path"));
+   }
+
    /**
     * Only used to debug the unit tests.
     * @param argv

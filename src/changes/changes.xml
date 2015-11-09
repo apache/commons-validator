@@ -90,6 +90,9 @@ The dependencies for Validator have not changed since the 1.4 release.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action issue="VALIDATOR-353" type="update" dev="sebb">
+    UrlValidator does not allow for optional userinfo in the authority
+    </action>
     <action issue="VALIDATOR-321" type="add" dev="sebb">
     ISSN validator and converter to EAN-13
     </action>
