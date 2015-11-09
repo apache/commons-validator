@@ -146,15 +146,16 @@ public class UrlValidator implements Serializable {
             USERINFO_CHARS_REGEX + "+:" + // At least one character for the name
             USERINFO_CHARS_REGEX + "*@"; // password may be absent
     private static final String AUTHORITY_REGEX =
-            "^(?:\\[("+IPV6_REGEX+")\\]|(?:(?:"+USERINFO_FIELD_REGEX+")?([" + AUTHORITY_CHARS_REGEX + "]*)))(:\\d*)?(.*)?";
-    //                   1                 e.g. user:pass@                         2                         3       4
+            "(?:\\[("+IPV6_REGEX+")\\]|(?:(?:"+USERINFO_FIELD_REGEX+")?([" + AUTHORITY_CHARS_REGEX + "]*)))(:\\d*)?(.*)?";
+    //             1                          e.g. user:pass@          2                                   3       4
     private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
 
     private static final int PARSE_AUTHORITY_IPV6 = 1;
 
-    private static final int PARSE_AUTHORITY_HOST_IP = 2;
+    private static final int PARSE_AUTHORITY_HOST_IP = 2; // excludes userinfo, if present
 
-    private static final int PARSE_AUTHORITY_PORT = 3;
+    // Not needed, because it is validated by AUTHORITY_REGEX
+//    private static final int PARSE_AUTHORITY_PORT = 3;
 
     /**
      * Should always be empty. The code currently allows spaces.
@@ -166,9 +167,6 @@ public class UrlValidator implements Serializable {
 
     private static final String QUERY_REGEX = "^(.*)$";
     private static final Pattern QUERY_PATTERN = Pattern.compile(QUERY_REGEX);
-
-    private static final String PORT_REGEX = "^:(\\d{1,5})$";
-    private static final Pattern PORT_PATTERN = Pattern.compile(PORT_REGEX);
 
     /**
      * Holds the set of current validation options.
@@ -311,9 +309,14 @@ public class UrlValidator implements Serializable {
         }
 
         String authority = urlMatcher.group(PARSE_URL_AUTHORITY);
-        if ("file".equals(scheme) && "".equals(authority)) {
-            // Special case - file: allows an empty authority
-        } else {
+        if ("file".equals(scheme)) {// Special case - file: allows an empty authority
+            if (!"".equals(authority)) {
+                if (authority.contains(":")) { // but cannot allow trailing :
+                    return false;
+                }
+            }
+            // drop through to continue validation
+        } else { // not file:
             // Validate the authority
             if (!isValidAuthority(authority)) {
                 return false;
@@ -408,11 +411,6 @@ public class UrlValidator implements Serializable {
                     return false;
                 }
             }
-        }
-
-        String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
-        if (port != null && !PORT_PATTERN.matcher(port).matches()) {
-            return false;
         }
 
         String extra = authorityMatcher.group(PARSE_AUTHORITY_EXTRA);
