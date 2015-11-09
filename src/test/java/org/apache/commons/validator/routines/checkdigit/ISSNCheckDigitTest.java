@@ -20,7 +20,7 @@ package org.apache.commons.validator.routines.checkdigit;
 /**
  * ISSN Check Digit Test.
  *
- * @since Validator 1.5.0
+ * @since 1.5.0
  */
 public class ISSNCheckDigitTest extends AbstractCheckDigitTest {
     

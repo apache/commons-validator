@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 /**
  * ISSNValidator Test Case.
  *
- * @version $Revision: 1649191 $
+ * @since 1.5.0
  */
 public class ISSNValidatorTest extends TestCase {
 
