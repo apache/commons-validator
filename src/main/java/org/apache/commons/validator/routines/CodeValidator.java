@@ -26,11 +26,33 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  * <p>
  * Performs the following validations on a code:
  * <ul>
+ *   <li>if the code is null, return null/false as appropriate</li>
+ *   <li>trim the input. If the resulting code is empty, return null/false as appropriate</li>
  *   <li>Check the <i>format</i> of the code using a <i>regular expression.</i> (if specified)</li>
  *   <li>Check the <i>minimum</i> and <i>maximum</i> length  (if specified) of the <i>parsed</i> code
  *      (i.e. parsed by the <i>regular expression</i>).</li>
  *   <li>Performs {@link CheckDigit} validation on the parsed code (if specified).</li>
+ *   <li>The {@link #validate(String)} method returns the trimmed, parsed input (or null if validation failed)</li>
  * </ul>
+ * <p>
+ * <b>Note</b>
+ * The {@link #isValid(String)} method will return true if the input passes validation.
+ * Since this includes trimming the input, it is possible for a String to pass validation
+ * but fail the checkdigit test if passed directly to it (the check digit routines generally don't trim input).
+ * However the check digit routines don't check the format.
+ * If you need to be sure that you are passing valid input to a method which is not expecting leading
+ * or trailing spaces, either trim the input yourself, or use the validate method:
+ * <pre>
+ * // method 1
+ * if (validator.isValid(input)) {
+ *     some_method(input.trim());
+ * }
+ * // method 2 
+ * Object valid = validator.validate(input); 
+ * if (valid != null) {
+ *    some_method(valid.toString());
+ * }
+ * </pre>
  * <p>
  * Configure the validator with the appropriate regular expression, minimum/maximum length
  * and {@link CheckDigit} validator and then call one of the two validation
@@ -44,7 +66,9 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  * more easily human readable. These can be removed prior to length and check digit
  * validation by  specifying them as a <i>non-capturing</i> group in the regular
  * expression (i.e. use the <code>(?:   )</code> notation).
- *
+ * <br>
+ * Or just avoid using parentheses except for the parts you want to capture
+ * 
  * @version $Revision$
  * @since Validator 1.4
  */
