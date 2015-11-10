@@ -425,6 +425,13 @@ public class UrlValidatorTest extends TestCase {
         assertTrue(urlValidator.isValid("http://www.example.org/..world"));
         assertTrue(urlValidator.isValid("http://www.example.org/.../world"));
         assertFalse(urlValidator.isValid("http://www.example.org/../world"));
+        assertFalse(urlValidator.isValid("http://www.example.org/.."));
+        assertFalse(urlValidator.isValid("http://www.example.org/../"));
+        assertFalse(urlValidator.isValid("http://www.example.org/./.."));
+        assertFalse(urlValidator.isValid("http://www.example.org/././.."));
+        assertTrue(urlValidator.isValid("http://www.example.org/..."));
+        assertTrue(urlValidator.isValid("http://www.example.org/.../"));
+        assertTrue(urlValidator.isValid("http://www.example.org/.../.."));
     }
 
    public void testValidator375() {
