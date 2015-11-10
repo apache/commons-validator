@@ -90,6 +90,9 @@ The dependencies for Validator have not changed since the 1.4 release.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action issue="VALIDATOR-363" type="fix" dev="sebb">
+    UrlValidator rejects path having two or more successive dots
+    </action>
     <action issue="VALIDATOR-330" type="fix" dev="sebb">
     IBANCheckDigit.isValid() returns True for some invalid IBANs
     </action>

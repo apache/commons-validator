@@ -414,6 +414,19 @@ public class UrlValidatorTest extends TestCase {
        assertTrue(validator.isValid("http://hello.tokyo/"));
     }
 
+   public void testValidator363(){
+        UrlValidator urlValidator = new UrlValidator();
+        assertTrue(urlValidator.isValid("http://www.example.org/a/b/hello..world"));
+        assertTrue(urlValidator.isValid("http://www.example.org/a/hello..world"));
+        assertTrue(urlValidator.isValid("http://www.example.org/hello.world/"));
+        assertTrue(urlValidator.isValid("http://www.example.org/hello..world/"));
+        assertTrue(urlValidator.isValid("http://www.example.org/hello.world"));
+        assertTrue(urlValidator.isValid("http://www.example.org/hello..world"));
+        assertTrue(urlValidator.isValid("http://www.example.org/..world"));
+        assertTrue(urlValidator.isValid("http://www.example.org/.../world"));
+        assertFalse(urlValidator.isValid("http://www.example.org/../world"));
+    }
+
    public void testValidator375() {
        UrlValidator validator = new UrlValidator();
        String url = "http://[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]:80/index.html";
