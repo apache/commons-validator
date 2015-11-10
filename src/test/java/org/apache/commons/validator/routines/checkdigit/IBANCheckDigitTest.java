@@ -101,7 +101,12 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
          *  https://intranet.birmingham.ac.uk/finance/documents/public/IBAN.pdf
          *  http://www.paymentscouncil.org.uk/resources_and_publications/ibans_in_europe/
          */
-        invalid = new String[] {"510007+47061BE63"};
+        invalid = new String[] {
+                "510007+47061BE63",
+                "IE01AIBK93118702569045",
+                "AA0000000000089",
+                "AA9900000000053",
+        };
         zeroSum = null;
         missingMessage = "Invalid Code length=0";
 

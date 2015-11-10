@@ -68,6 +68,10 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
         if (code == null || code.length() < 5) {
             return false;
         }
+        String check = code.substring(2,4);
+        if ("00".equals(check) || "01".equals(check) || "99".equals(check)) {
+            return false;
+        }
         try {
             int modulusResult = calculateModulus(code);
             return (modulusResult == 1);
