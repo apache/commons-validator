@@ -457,6 +457,11 @@ public class UrlValidatorTest extends TestCase {
        assertFalse(validator.isValid("http://user:pa@ss@www.apache.org/path"));
    }
 
+   public void testValidator382() {
+       UrlValidator validator = new UrlValidator();
+       assertTrue(validator.isValid("ftp://username:password@example.com:8042/over/there/index.dtb?type=animal&name=narwhal#nose"));
+   }
+
    public void testValidator380() {
        UrlValidator validator = new UrlValidator();
        assertTrue(validator.isValid("http://www.apache.org:80/path"));       
