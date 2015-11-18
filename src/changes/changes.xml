@@ -90,6 +90,9 @@ The dependencies for Validator have not changed since the 1.4 release.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action issue="VALIDATOR-364" type="fix" dev="sebb" due-to="teo bran">
+    Email Validator does not support quoted/escaped character in the local part of the email address
+    </action>
     <action issue="VALIDATOR-381" type="fix" dev="ggregory">
     Update commons-collections from 3.2.1 to 3.2.2.
     </action>
