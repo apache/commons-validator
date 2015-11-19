@@ -1456,7 +1456,7 @@ public class DomainValidator implements Serializable {
      * <p>
      * To clear an override array, provide an empty array.
      *
-     * @param table the table to update, see {@link DomainValidator#ArrayType}
+     * @param table the table to update, see {@link DomainValidator.ArrayType}
      * @param tlds the array of TLDs, must not be null
      * @throws IllegalStateException if the method is called after getInstance
      * @since 1.5.0

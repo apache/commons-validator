@@ -26,7 +26,6 @@ import org.apache.commons.validator.routines.checkdigit.ISSNCheckDigit;
  * International Standard Serial Number (ISSN)
  * is an eight-digit serial number used to
  * uniquely identify a serial publication.
- * <p>
  * <pre>
  * The format is:
  * 

@@ -192,9 +192,9 @@ public class IBANValidator {
     }
 
     /**
-     * <p>Validate an IBAN Code</code>.
+     * Validate an IBAN Code
      *
-     * @param value The value validation is being performed on
+     * @param code The value validation is being performed on
      * @return <code>true</code> if the value is valid
      */
     public boolean isValid(String code) {
@@ -258,7 +258,7 @@ public class IBANValidator {
      * Installs a validator.
      * Will replace any existing entry which has the same countryCode.
      * 
-     * @param countryCode
+     * @param countryCode the country code
      * @param length the length of the IBAN. Must be &ge; 8 and &le; 32.
      * If the length is &lt; 0, the validator is removed, and the format is not used.
      * @param format the format of the IBAN (as a regular expression)
