@@ -157,6 +157,7 @@
     <maven.compiler.target>1.6</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <checkstyle.plugin.version>2.16</checkstyle.plugin.version>
   </properties> 
 
   <build>
@@ -191,6 +192,17 @@
           <ignorePathsToDelete>
             <ignorePathToDelete>javadocs</ignorePathToDelete>
           </ignorePathsToDelete>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${checkstyle.plugin.version}</version>
+        <configuration>
+          <configLocation>${basedir}/checkstyle.xml</configLocation>
+          <!-- Needed to define config_loc -->
+          <propertyExpansion>config_loc=${basedir}</propertyExpansion>
+          <enableRulesSummary>false</enableRulesSummary>
         </configuration>
       </plugin>
     </plugins>
@@ -247,9 +259,11 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.16</version>
+        <version>${checkstyle.plugin.version}</version>
         <configuration>
           <configLocation>${basedir}/checkstyle.xml</configLocation>
+          <!-- Needed to define config_loc -->
+          <propertyExpansion>config_loc=${basedir}</propertyExpansion>
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
         <reportSets>

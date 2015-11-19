@@ -149,4 +149,20 @@
     <property name="fileExtensions" value="java,xml"/>
   </module>
 
+  <module name="SuppressionCommentFilter"/>
+
+  <module name="SuppressionFilter">
+    <!-- config_loc is used by Eclipse plugin -->
+    <property name="file" value="${config_loc}/checkstyle-suppressions.xml"/>
+  </module>
+
+  <!-- 
+      Allow comment to suppress checkstyle for a single line
+      e.g. // CHECKSTYLE IGNORE MagicNumber
+   -->
+  <module name="SuppressWithNearbyCommentFilter">
+    <property name="commentFormat" value="CHECKSTYLE IGNORE (\w+)"/>
+    <property name="checkFormat" value="$1"/>
+  </module>
+
 </module>
