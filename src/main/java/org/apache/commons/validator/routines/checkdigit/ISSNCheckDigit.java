@@ -54,6 +54,9 @@ public final class ISSNCheckDigit extends ModulusCheckDigit {
     /** Singleton ISSN Check Digit instance */
     public static final CheckDigit ISSN_CHECK_DIGIT = new ISSNCheckDigit();
 
+    /**
+     * Creates the instance using a checkdigit modulus of 11
+     */
     public ISSNCheckDigit() {
         super(11);
     }

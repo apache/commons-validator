@@ -31,6 +31,9 @@ public class IBANValidator {
 
     private final Map<String, Validator> formatValidators;
 
+    /**
+     * The validation class
+     */
     public static class Validator {
         /*
          * The minimum length does not appear to be defined by the standard.
@@ -46,6 +49,13 @@ public class IBANValidator {
         final String countryCode;
         final RegexValidator validator;
         final int lengthOfIBAN; // used to avoid unnecessary regex matching
+
+        /**
+         * Creates the validator
+         * @param cc the country code
+         * @param len the length of the IBAN
+         * @param format the regex to use to check the format
+         */
         public Validator(String cc, int len, String format) {
             if (!(cc.length() == 2 && Character.isUpperCase(cc.charAt(0)) && Character.isUpperCase(cc.charAt(1)))) {
                 throw new IllegalArgumentException("Invalid country Code; must be exactly 2 upper-case characters");
@@ -156,6 +166,7 @@ public class IBANValidator {
             new Validator("VG", 24, "VG\\d{2}[A-Z]{4}\\d{16}"               ), // Virgin Islands, British
     };
 
+    /** The singleton instance which uses the default formats */
     public static final IBANValidator DEFAULT_IBAN_VALIDATOR = new IBANValidator();
 
     /**
