@@ -66,7 +66,7 @@ public class ISSNValidator implements Serializable {
 
     private static final String ISSN_REGEX = "(?:ISSN )?(\\d{4})-(\\d{3}[0-9X])$"; // We don't include the '-' in the code, so it is 8 chars
 
-    private static final CodeValidator issnValidator = new CodeValidator(ISSN_REGEX, 8, ISSNCheckDigit.ISSN_CHECK_DIGIT);
+    private static final CodeValidator VALIDATOR = new CodeValidator(ISSN_REGEX, 8, ISSNCheckDigit.ISSN_CHECK_DIGIT);
 
     /** ISSN Code Validator */
     private static final ISSNValidator ISSN_VALIDATOR = new ISSNValidator();
@@ -88,7 +88,7 @@ public class ISSNValidator implements Serializable {
      * code, otherwise <code>false</code>.
      */
     public boolean isValid(String code) {
-        return issnValidator.isValid(code);
+        return VALIDATOR.isValid(code);
     }
 
     /**
@@ -101,7 +101,7 @@ public class ISSNValidator implements Serializable {
      * @return A valid ISSN code if valid, otherwise <code>null</code>.
      */
     public Object validate(String code) {
-        return issnValidator.validate(code);
+        return VALIDATOR.validate(code);
     }
 
     /**
