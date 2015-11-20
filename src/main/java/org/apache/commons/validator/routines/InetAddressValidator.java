@@ -92,8 +92,7 @@ public class InetAddressValidator implements Serializable {
         }
 
         // verify that address subgroups are legal
-        for (int i = 0; i <= 3; i++) {
-            String ipSegment = groups[i];
+        for (String ipSegment : groups) {
             if (ipSegment == null || ipSegment.length() == 0) {
                 return false;
             }
