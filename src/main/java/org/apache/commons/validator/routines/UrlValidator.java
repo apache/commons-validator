@@ -100,7 +100,7 @@ public class UrlValidator implements Serializable {
      *  validation requirements you should create your validator with
      *  a {@link RegexValidator} instead ({@link #UrlValidator(RegexValidator, long)})
      */
-    public static final long ALLOW_LOCAL_URLS = 1 << 3;
+    public static final long ALLOW_LOCAL_URLS = 1 << 3; // CHECKSTYLE IGNORE MagicNumber
 
     /**
      * This expression derived/taken from the BNF for URI (RFC2396).

@@ -53,7 +53,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * Construct a modulus 11 Check Digit routine for ISBN-10.
      */
     public SedolCheckDigit() {
-        super(10);
+        super(10); // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**

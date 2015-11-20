@@ -223,13 +223,13 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
         int scale = minimumFraction;
         if (format instanceof DecimalFormat) {
             int multiplier = ((DecimalFormat)format).getMultiplier();
-            if (multiplier == 100) {
-                scale += 2;
-            } else if (multiplier == 1000) {
-                scale += 3;
+            if (multiplier == 100) { // CHECKSTYLE IGNORE MagicNumber
+                scale += 2; // CHECKSTYLE IGNORE MagicNumber
+            } else if (multiplier == 1000) { // CHECKSTYLE IGNORE MagicNumber
+                scale += 3; // CHECKSTYLE IGNORE MagicNumber
             }
         } else if (formatType == PERCENT_FORMAT) {
-            scale += 2;
+            scale += 2; // CHECKSTYLE IGNORE MagicNumber
         }
         return scale;
     }

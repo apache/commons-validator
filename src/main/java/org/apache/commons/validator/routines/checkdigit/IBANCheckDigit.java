@@ -42,6 +42,8 @@ import java.io.Serializable;
  */
 public final class IBANCheckDigit implements CheckDigit, Serializable {
 
+    private static final int MIN_CODE_LEN = 5;
+
     private static final long serialVersionUID = -3600191725934382801L;
 
     /** Singleton IBAN Number Check Digit instance */
@@ -68,7 +70,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
         if (code == null || code.length() < 5) {
             return false;
         }
-        String check = code.substring(2,4);
+        String check = code.substring(2,4); // CHECKSTYLE IGNORE MagicNumber
         if ("00".equals(check) || "01".equals(check) || "99".equals(check)) {
             return false;
         }
@@ -92,15 +94,15 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
      * the check digit for the specified code
      */
     public String calculate(String code) throws CheckDigitException {
-        if (code == null || code.length() < 5) {
+        if (code == null || code.length() < MIN_CODE_LEN) {
             throw new CheckDigitException("Invalid Code length=" +
                     (code == null ? 0 : code.length()));
         }
-        code = code.substring(0, 2) + "00" + code.substring(4);
+        code = code.substring(0, 2) + "00" + code.substring(4); // CHECKSTYLE IGNORE MagicNumber
         int modulusResult = calculateModulus(code);
-        int charValue = (98 - modulusResult);
+        int charValue = (98 - modulusResult); // CHECKSTYLE IGNORE MagicNumber
         String checkDigit = Integer.toString(charValue);
-        return (charValue > 9 ? checkDigit : "0" + checkDigit);
+        return (charValue > 9 ? checkDigit : "0" + checkDigit); // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**
@@ -112,7 +114,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
      * for the specified code
      */
     private int calculateModulus(String code) throws CheckDigitException {
-        String reformattedCode = code.substring(4) + code.substring(0, 4);
+        String reformattedCode = code.substring(4) + code.substring(0, 4); // CHECKSTYLE IGNORE MagicNumber
         long total = 0;
         for (int i = 0; i < reformattedCode.length(); i++) {
             int charValue = Character.getNumericValue(reformattedCode.charAt(i));
@@ -120,7 +122,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
                 throw new CheckDigitException("Invalid Character[" +
                         i + "] = '" + charValue + "'");
             }
-            total = (charValue > 9 ? total * 100 : total * 10) + charValue;
+            total = (charValue > 9 ? total * 100 : total * 10) + charValue; // CHECKSTYLE IGNORE MagicNumber
             if (total > MAX) {
                 total = total % MODULUS;
             }

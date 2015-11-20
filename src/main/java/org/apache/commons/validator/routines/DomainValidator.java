@@ -63,6 +63,8 @@ import java.util.Locale;
  */
 public class DomainValidator implements Serializable {
 
+    private static final int MAX_DOMAIN_LENGTH = 253;
+
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     private static final long serialVersionUID = -4407125112880174009L;
@@ -156,7 +158,7 @@ public class DomainValidator implements Serializable {
         // Unicode is never shorter than punycode, so check punycode
         // if domain did not convert, then it will be caught by ASCII
         // checks in the regexes below
-        if (domain.length() > 253) {
+        if (domain.length() > MAX_DOMAIN_LENGTH) {
             return false;
         }
         String[] groups = domainRegex.match(domain);
@@ -177,7 +179,7 @@ public class DomainValidator implements Serializable {
         // Unicode is never shorter than punycode, so check punycode
         // if domain did not convert, then it will be caught by ASCII
         // checks in the regexes below
-        if (domain.length() > 253) {
+        if (domain.length() > MAX_DOMAIN_LENGTH) {
             return false;
         }
         String[] groups = domainRegex.match(domain);
@@ -1411,7 +1413,7 @@ public class DomainValidator implements Serializable {
      * using the getInstance methods which are all (now) synchronised.
      */
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static volatile String[] COUNTRY_CODE_TLDS_PLUS = EMPTY_STRING_ARRAY;
+    private static volatile String[] COUNTRY_CODE_TLDS_PLUS = EMPTY_STRING_ARRAY; // 
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static volatile String[] GENERIC_TLDS_PLUS = EMPTY_STRING_ARRAY;
@@ -1545,7 +1547,7 @@ public class DomainValidator implements Serializable {
             return true;
         }
         for(int i=0; i < input.length(); i++) {
-            if (input.charAt(i) > 0x7F) {
+            if (input.charAt(i) > 0x7F) { // CHECKSTYLE IGNORE MagicNumber
                 return false;
             }
         }

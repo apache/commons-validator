@@ -176,7 +176,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
      */
     protected String toCheckDigit(int charValue)
             throws CheckDigitException {
-        if (charValue >= 0 && charValue <= 9) {
+        if (charValue >= 0 && charValue <= 9) { // CHECKSTYLE IGNORE MagicNumber
             return Integer.toString(charValue);
         }
         throw new CheckDigitException("Invalid Check Digit Value =" +
@@ -193,8 +193,8 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
         int total = 0;
         int todo = number;
         while (todo > 0) {
-            total += todo % 10;
-            todo  = todo / 10;
+            total += todo % 10; // CHECKSTYLE IGNORE MagicNumber
+            todo  = todo / 10; // CHECKSTYLE IGNORE MagicNumber
         }
         return total;
     }

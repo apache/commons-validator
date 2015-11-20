@@ -51,7 +51,7 @@ public final class LuhnCheckDigit extends ModulusCheckDigit {
      * Construct a modulus 10 Luhn Check Digit routine.
      */
     public LuhnCheckDigit() {
-        super(10);
+        super(10); // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**
@@ -68,8 +68,8 @@ public final class LuhnCheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        int weight = POSITION_WEIGHT[rightPos % 2];
+        int weight = POSITION_WEIGHT[rightPos % 2]; // CHECKSTYLE IGNORE MagicNumber
         int weightedValue = charValue * weight;
-        return weightedValue > 9 ? (weightedValue - 9) : weightedValue;
+        return weightedValue > 9 ? (weightedValue - 9) : weightedValue; // CHECKSTYLE IGNORE MagicNumber
     }
 }

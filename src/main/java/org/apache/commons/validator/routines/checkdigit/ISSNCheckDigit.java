@@ -58,17 +58,17 @@ public final class ISSNCheckDigit extends ModulusCheckDigit {
      * Creates the instance using a checkdigit modulus of 11
      */
     public ISSNCheckDigit() {
-        super(11);
+        super(11); // CHECKSTYLE IGNORE MagicNumber
     }
 
     @Override
     protected int weightedValue(int charValue, int leftPos, int rightPos) throws CheckDigitException {
-        return charValue * (9 - leftPos);
+        return charValue * (9 - leftPos); // CHECKSTYLE IGNORE MagicNumber
     }
 
     @Override
     protected String toCheckDigit(int charValue) throws CheckDigitException {
-        if (charValue == 10) {
+        if (charValue == 10) { // CHECKSTYLE IGNORE MagicNumber
             return "X";
         }
         return super.toCheckDigit(charValue);
@@ -78,7 +78,7 @@ public final class ISSNCheckDigit extends ModulusCheckDigit {
     protected int toInt(char character, int leftPos, int rightPos)
             throws CheckDigitException {
         if (rightPos == 1 && character == 'X') {
-            return 10;
+            return 10; // CHECKSTYLE IGNORE MagicNumber
         }
         return super.toInt(character, leftPos, rightPos);
     }

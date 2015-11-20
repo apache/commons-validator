@@ -50,6 +50,8 @@ public class EmailValidator implements Serializable {
     private static final Pattern IP_DOMAIN_PATTERN = Pattern.compile(IP_DOMAIN_REGEX);
     private static final Pattern USER_PATTERN = Pattern.compile(USER_REGEX);
 
+    private static final int MAX_USERNAME_LEN = 64;
+
     private final boolean allowLocal;
     private final boolean allowTld;
 
@@ -211,7 +213,7 @@ public class EmailValidator implements Serializable {
      */
     protected boolean isValidUser(String user) {
         
-        if (user == null || user.length() > 64) {
+        if (user == null || user.length() > MAX_USERNAME_LEN) {
             return false;
         }
         

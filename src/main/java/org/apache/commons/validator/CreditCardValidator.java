@@ -53,6 +53,7 @@ import org.apache.commons.validator.util.Flags;
  * @deprecated Use the new CreditCardValidator in the routines package. This class
  * will be removed in a future release.
  */
+// CHECKSTYLE:OFF (deprecated code)
 public class CreditCardValidator {
 
     /**

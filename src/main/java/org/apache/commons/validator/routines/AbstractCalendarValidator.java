@@ -389,13 +389,13 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
         int month = (calendar.get(Calendar.MONTH) + 1);
         int relativeMonth = (month >= monthOfFirstQuarter)
                           ? (month - monthOfFirstQuarter)
-                          : (month + (12 - monthOfFirstQuarter));
-        int quarter = ((relativeMonth / 3) + 1);
+                          : (month + (12 - monthOfFirstQuarter)); // CHECKSTYLE IGNORE MagicNumber
+        int quarter = ((relativeMonth / 3) + 1); // CHECKSTYLE IGNORE MagicNumber
         // adjust the year if the quarter doesn't start in January
         if (month < monthOfFirstQuarter) {
             --year;
         }
-        return (year * 10) + quarter;
+        return (year * 10) + quarter; // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**

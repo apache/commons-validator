@@ -138,7 +138,7 @@ public class EmailValidator {
      */
     protected boolean isValidIpAddress(String ipAddress) {
         Matcher ipAddressMatcher = IP_DOMAIN_PATTERN.matcher(ipAddress);
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 1; i <= 4; i++) { // CHECKSTYLE IGNORE MagicNumber
             String ipSegment = ipAddressMatcher.group(i);
             if (ipSegment == null || ipSegment.length() <= 0) {
                 return false;
@@ -152,7 +152,7 @@ public class EmailValidator {
                 return false;
             }
 
-            if (iIpSegment > 255) {
+            if (iIpSegment > 255) { // CHECKSTYLE IGNORE MagicNumber
                 return false;
             }
 
@@ -166,7 +166,7 @@ public class EmailValidator {
      * @return true if the symbolic domain name is valid.
      */
     protected boolean isValidSymbolicDomain(String domain) {
-        String[] domainSegment = new String[10];
+        String[] domainSegment = new String[10]; // CHECKSTYLE IGNORE MagicNumber
         boolean match = true;
         int i = 0;
         Matcher atomMatcher = ATOM_PATTERN.matcher(domain);

@@ -193,7 +193,7 @@ public class Flags implements Serializable, Cloneable {
      */
     public String toString() {
         StringBuilder bin = new StringBuilder(Long.toBinaryString(this.flags));
-        for (int i = 64 - bin.length(); i > 0; i--) {
+        for (int i = 64 - bin.length(); i > 0; i--) { // CHECKSTYLE IGNORE MagicNumber
             bin.insert(0, "0");
         }
         return bin.toString();

@@ -54,7 +54,7 @@ public final class EAN13CheckDigit extends ModulusCheckDigit {
      * Construct a modulus 10 Check Digit routine for EAN/UPC.
      */
     public EAN13CheckDigit() {
-        super(10);
+        super(10);  // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**

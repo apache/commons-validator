@@ -58,7 +58,7 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
      * Construct a modulus 10 Check Digit routine for ABA Numbers.
      */
     public ABANumberCheckDigit() {
-        super(10);
+        super(10); // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**
@@ -77,7 +77,7 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        int weight = POSITION_WEIGHT[rightPos % 3];
+        int weight = POSITION_WEIGHT[rightPos % 3]; // CHECKSTYLE IGNORE MagicNumber
         return charValue * weight;
     }
 

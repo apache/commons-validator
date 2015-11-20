@@ -294,7 +294,8 @@ public class ValidatorResources implements Serializable {
                     arg.setResource(false);
                 }
                 try {
-                    arg.setPosition(Integer.parseInt(name.substring(3)));
+                    final int length = "arg".length(); // skip the arg prefix
+                    arg.setPosition(Integer.parseInt(name.substring(length)));
                 } catch (Exception ex) {
                     getLog().error("Error parsing Arg position: "
                                + name + " " + arg + " " + ex);

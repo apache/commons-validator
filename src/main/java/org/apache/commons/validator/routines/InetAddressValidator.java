@@ -36,10 +36,22 @@ import java.util.List;
  */
 public class InetAddressValidator implements Serializable {
 
+    private static final int IPV4_MAX_OCTET_VALUE = 255;
+
+    private static final int MAX_UNSIGNED_SHORT = 0xffff;
+
+    private static final int BASE_16 = 16;
+
     private static final long serialVersionUID = -919201640201914789L;
 
     private static final String IPV4_REGEX =
             "^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$";
+
+    // Max number of hex groups (separated by :) in an IPV6 address
+    private static final int IPV6_MAX_HEX_GROUPS = 8;
+
+    // Max hex digits in each IPv6 group
+    private static final int IPV6_MAX_HEX_DIGITS_PER_GROUP = 4;
 
     /**
      * Singleton instance of this class.
@@ -94,7 +106,7 @@ public class InetAddressValidator implements Serializable {
                 return false;
             }
 
-            if (iIpSegment > 255) {
+            if (iIpSegment > IPV4_MAX_OCTET_VALUE) {
                 return false;
             }
 
@@ -134,7 +146,7 @@ public class InetAddressValidator implements Serializable {
             }
             octets = octetList.toArray(new String[octetList.size()]);
         }
-        if (octets.length > 8) {
+        if (octets.length > IPV6_MAX_HEX_GROUPS) {
             return false;
         }
         int validOctets = 0;
@@ -162,22 +174,22 @@ public class InetAddressValidator implements Serializable {
                     validOctets += 2;
                     continue;
                 }
-                if (octet.length() > 4) {
+                if (octet.length() > IPV6_MAX_HEX_DIGITS_PER_GROUP) {
                     return false;
                 }
                 int octetInt = 0;
                 try {
-                    octetInt = Integer.valueOf(octet, 16).intValue();
+                    octetInt = Integer.valueOf(octet, BASE_16).intValue();
                 } catch (NumberFormatException e) {
                     return false;
                 }
-                if (octetInt < 0 || octetInt > 0xffff) {
+                if (octetInt < 0 || octetInt > MAX_UNSIGNED_SHORT) {
                     return false;
                 }
             }
             validOctets++;
         }
-        if (validOctets < 8 && !containsCompressedZeroes) {
+        if (validOctets < IPV6_MAX_HEX_GROUPS && !containsCompressedZeroes) {
             return false;
         }
         return true;

@@ -114,12 +114,12 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
         for (int i = 0; i < code.length(); i++) {
             int idx = code.length() - (i + 1);
             int num = Character.getNumericValue(code.charAt(idx));
-            if (num < 0 || num > 9) {
+            if (num < 0 || num > 9) { // CHECKSTYLE IGNORE MagicNumber
                 throw new CheckDigitException("Invalid Character[" +
                         i + "] = '" + ((int)code.charAt(idx)) + "'");
             }
             int pos = includesCheckDigit ? i : i + 1;
-            checksum = D_TABLE[checksum][P_TABLE[pos % 8][num]];
+            checksum = D_TABLE[checksum][P_TABLE[pos % 8][num]]; // CHECKSTYLE IGNORE MagicNumber
         }
         return checksum;
     }

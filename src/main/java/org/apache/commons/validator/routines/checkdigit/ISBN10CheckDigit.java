@@ -53,7 +53,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
      * Construct a modulus 11 Check Digit routine for ISBN-10.
      */
     public ISBN10CheckDigit() {
-        super(11);
+        super(11);  // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**
@@ -87,7 +87,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
     protected int toInt(char character, int leftPos, int rightPos)
             throws CheckDigitException {
         if (rightPos == 1 && character == 'X') {
-            return 10;
+            return 10;  // CHECKSTYLE IGNORE MagicNumber
         }
         return super.toInt(character, leftPos, rightPos);
     }
@@ -103,7 +103,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
      */
     protected String toCheckDigit(int charValue)
             throws CheckDigitException {
-        if (charValue == 10) {
+        if (charValue == 10) {  // CHECKSTYLE IGNORE MagicNumber
             return "X";
         }
         return super.toCheckDigit(charValue);

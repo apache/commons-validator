@@ -90,18 +90,18 @@ public class CreditCardValidator implements Serializable {
     /**
      * Option specifying that Discover cards are allowed.
      */
-    public static final long DISCOVER = 1 << 3;
+    public static final long DISCOVER = 1 << 3; // CHECKSTYLE IGNORE MagicNumber
 
     /**
      * Option specifying that Diners cards are allowed.
      */
-    public static final long DINERS = 1 << 4;
+    public static final long DINERS = 1 << 4; // CHECKSTYLE IGNORE MagicNumber
 
     /**
      * Option specifying that VPay (Visa) cards are allowed.
      * @since 1.5.0
      */
-    public static final long VPAY = 1 << 5;
+    public static final long VPAY = 1 << 5; // CHECKSTYLE IGNORE MagicNumber
 
 
     /**
