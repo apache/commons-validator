@@ -225,8 +225,8 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidGenericTld(String gTld) {
         final String key = chompLeadingDot(unicodeToASCII(gTld).toLowerCase(Locale.ENGLISH));
-        return (arrayContains(GENERIC_TLDS, key) || arrayContains(GENERIC_TLDS_PLUS, key))
-                && !arrayContains(GENERIC_TLDS_MINUS, key);
+        return (arrayContains(GENERIC_TLDS, key) || arrayContains(genericTLDsPlus, key))
+                && !arrayContains(genericTLDsMinus, key);
     }
 
     /**
@@ -238,8 +238,8 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidCountryCodeTld(String ccTld) {
         final String key = chompLeadingDot(unicodeToASCII(ccTld).toLowerCase(Locale.ENGLISH));
-        return (arrayContains(COUNTRY_CODE_TLDS, key) || arrayContains(COUNTRY_CODE_TLDS_PLUS, key))
-                && !arrayContains(COUNTRY_CODE_TLDS_MINUS, key);
+        return (arrayContains(COUNTRY_CODE_TLDS, key) || arrayContains(countryCodeTLDsPlus, key))
+                && !arrayContains(countryCodeTLDsMinus, key);
     }
 
     /**
@@ -1413,16 +1413,16 @@ public class DomainValidator implements Serializable {
      * using the getInstance methods which are all (now) synchronised.
      */
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static volatile String[] COUNTRY_CODE_TLDS_PLUS = EMPTY_STRING_ARRAY; // 
+    private static volatile String[] countryCodeTLDsPlus = EMPTY_STRING_ARRAY;
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static volatile String[] GENERIC_TLDS_PLUS = EMPTY_STRING_ARRAY;
+    private static volatile String[] genericTLDsPlus = EMPTY_STRING_ARRAY;
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static volatile String[] COUNTRY_CODE_TLDS_MINUS = EMPTY_STRING_ARRAY;
+    private static volatile String[] countryCodeTLDsMinus = EMPTY_STRING_ARRAY;
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static volatile String[] GENERIC_TLDS_MINUS = EMPTY_STRING_ARRAY;
+    private static volatile String[] genericTLDsMinus = EMPTY_STRING_ARRAY;
 
     /**
      * enum used by {@link DomainValidator#updateTLDOverride(ArrayType, String[])}
@@ -1443,10 +1443,10 @@ public class DomainValidator implements Serializable {
     // For use by unit test code only
     static synchronized void clearTLDOverrides() {
         inUse = false;
-        COUNTRY_CODE_TLDS_PLUS = EMPTY_STRING_ARRAY;
-        COUNTRY_CODE_TLDS_MINUS = EMPTY_STRING_ARRAY;
-        GENERIC_TLDS_PLUS = EMPTY_STRING_ARRAY;
-        GENERIC_TLDS_MINUS = EMPTY_STRING_ARRAY;
+        countryCodeTLDsPlus = EMPTY_STRING_ARRAY;
+        countryCodeTLDsMinus = EMPTY_STRING_ARRAY;
+        genericTLDsPlus = EMPTY_STRING_ARRAY;
+        genericTLDsMinus = EMPTY_STRING_ARRAY;
     }
     /**
      * Update one of the TLD override arrays.
@@ -1475,16 +1475,16 @@ public class DomainValidator implements Serializable {
         Arrays.sort(copy);
         switch(table) {
         case COUNTRY_CODE_MINUS:
-            COUNTRY_CODE_TLDS_MINUS = copy;
+            countryCodeTLDsMinus = copy;
             break;
         case COUNTRY_CODE_PLUS:
-            COUNTRY_CODE_TLDS_PLUS = copy;
+            countryCodeTLDsPlus = copy;
             break;
         case GENERIC_MINUS:
-            GENERIC_TLDS_MINUS = copy;
+            genericTLDsMinus = copy;
             break;
         case GENERIC_PLUS:
-            GENERIC_TLDS_PLUS = copy;
+            genericTLDsPlus = copy;
             break;
         }
     }
