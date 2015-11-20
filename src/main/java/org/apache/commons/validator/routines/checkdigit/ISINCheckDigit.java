@@ -43,6 +43,8 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -1239211208101323599L;
 
+    private static final int MAX_ALPHANUMERIC_VALUE = 35; // Character.getNumericValue('Z')
+
     /** Singleton ISIN Check Digit instance */
     public static final CheckDigit ISIN_CHECK_DIGIT = new ISINCheckDigit();
 
@@ -75,7 +77,7 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
         }
         for (int i = 0; i < code.length(); i++) {
             int charValue = Character.getNumericValue(code.charAt(i));
-            if (charValue < 0 || charValue > 35) {
+            if (charValue < 0 || charValue > MAX_ALPHANUMERIC_VALUE) {
                 throw new CheckDigitException("Invalid Character[" +
                         (i + 1) + "] = '" + charValue + "'");
             }

@@ -46,6 +46,8 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
 
     private static final long serialVersionUID = -3600191725934382801L;
 
+    private static final int MAX_ALPHANUMERIC_VALUE = 35; // Character.getNumericValue('Z')
+
     /** Singleton IBAN Number Check Digit instance */
     public static final CheckDigit IBAN_CHECK_DIGIT = new IBANCheckDigit();
 
@@ -67,7 +69,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
      * <code>false</code>
      */
     public boolean isValid(String code) {
-        if (code == null || code.length() < 5) {
+        if (code == null || code.length() < MIN_CODE_LEN) {
             return false;
         }
         String check = code.substring(2,4); // CHECKSTYLE IGNORE MagicNumber
@@ -118,7 +120,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
         long total = 0;
         for (int i = 0; i < reformattedCode.length(); i++) {
             int charValue = Character.getNumericValue(reformattedCode.charAt(i));
-            if (charValue < 0 || charValue > 35) {
+            if (charValue < 0 || charValue > MAX_ALPHANUMERIC_VALUE) {
                 throw new CheckDigitException("Invalid Character[" +
                         i + "] = '" + charValue + "'");
             }

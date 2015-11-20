@@ -43,6 +43,8 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -8976881621148878443L;
 
+    private static final int MAX_ALPHANUMERIC_VALUE = 35; // Character.getNumericValue('Z')
+
     /** Singleton SEDOL check digit instance */
     public static final CheckDigit SEDOL_CHECK_DIGIT = new SedolCheckDigit();
 
@@ -66,7 +68,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * for the specified code
      */
     protected int calculateModulus(String code, boolean includesCheckDigit) throws CheckDigitException {
-        if (code.length() > 7) {
+        if (code.length() > POSITION_WEIGHT.length) {
             throw new CheckDigitException("Invalid Code Length = " + code.length());
         }
         return super.calculateModulus(code, includesCheckDigit);
@@ -98,7 +100,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
             throws CheckDigitException {
         int charValue = Character.getNumericValue(character);
         // the check digit is only allowed to reach 9
-        final int charMax = rightPos == 1 ? 9 : 35;
+        final int charMax = rightPos == 1 ? 9 : MAX_ALPHANUMERIC_VALUE; // CHECKSTYLE IGNORE MagicNumber
         if (charValue < 0 || charValue > charMax) {
             throw new CheckDigitException("Invalid Character[" +
                     leftPos + "," + rightPos + "] = '" + charValue + "' out of range 0 to " + charMax);
