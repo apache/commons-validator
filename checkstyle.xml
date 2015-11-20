@@ -129,6 +129,11 @@
     <!-- Item 57 - Provide a readResolve method when necessary -->
     <!-- no rfe yet -->
 
+    <module name="MagicNumber"/>
+
+    <!-- This is needed for Suppression Comment Filters -->
+    <module name="FileContentsHolder"/>
+
   </module>
 
   <!-- enforce package documentation -->
