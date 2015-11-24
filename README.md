@@ -49,13 +49,13 @@ Apache Commons Validator provides the building blocks for both client side valid
 Documentation
 -------------
 
-More information can be found on the [homepage](https://commons.apache.org/proper/commons-validator).
-The [JavaDoc](https://commons.apache.org/proper/commons-validator/javadocs/api-1.4.1) can be browsed.
+More information can be found on the [homepage](http://commons.apache.org/proper/commons-validator).
+The [JavaDoc](http://commons.apache.org/proper/commons-validator/javadocs/api-release) can be browsed.
 Questions related to the usage of Apache Commons Validator should be posted to the [user mailing list][ml].
 
 Where can I get the latest release?
 -----------------------------------
-You can download source and binaries from our [download page](https://commons.apache.org/proper/commons-validator/download_validator.cgi).
+You can download source and binaries from our [download page](http://commons.apache.org/proper/commons-validator/download_validator.cgi).
 
 Alternatively you can pull it from the central Maven repositories:
 
@@ -63,7 +63,7 @@ Alternatively you can pull it from the central Maven repositories:
 <dependency>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <version>1.4.1</version>
+  <version>1.5.0</version>
 </dependency>
 ```
 
@@ -77,23 +77,23 @@ There are some guidelines which will make applying PRs easier for us:
 + Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
 + Provide JUnit tests for your changes and make sure your changes don't break any existing tests by running ```mvn clean test```.
 
-If you plan to contribute on a regular basis, please consider filing a [contributor license agreement](https://www.apache.org/licenses/#clas).
-You can learn more about contributing via GitHub in our [contribution guidelines](CONTRIBUTING.md).
+If you plan to contribute on a regular basis, please consider filing a [contributor license agreement](http://www.apache.org/licenses/#clas).
+You can learn more about contributing via GitHub in our [contribution guidelines](https://github.com/apache/commons-validator/blob/trunk/CONTRIBUTING.md).
 
 License
 -------
-Code is under the [Apache Licence v2](https://www.apache.org/licenses/LICENSE-2.0.txt).
+Code is under the [Apache Licence v2](http://www.apache.org/licenses/LICENSE-2.0.txt).
 
 Donations
 ---------
-You like Apache Commons Validator? Then [donate back to the ASF](https://www.apache.org/foundation/contributing.html) to support the development.
+You like Apache Commons Validator? Then [donate back to the ASF](http://www.apache.org/foundation/contributing.html) to support the development.
 
 Additional Resources
 --------------------
 
-+ [Apache Commons Homepage](https://commons.apache.org/)
++ [Apache Commons Homepage](http://commons.apache.org/)
 + [Apache Bugtracker (JIRA)](https://issues.apache.org/jira/)
 + [Apache Commons Twitter Account](https://twitter.com/ApacheCommons)
 + #apachecommons IRC channel on freenode.org
 
-[ml]:https://commons.apache.org/mail-lists.html
+[ml]:http://commons.apache.org/proper/commons-validator/mail-lists.html
