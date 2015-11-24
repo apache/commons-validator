@@ -42,6 +42,13 @@
     <release>
       <Version>
         <name>Latest Stable Release</name>
+        <created>2015-11-24</created>
+        <revision>1.5.0</revision>
+      </Version>
+    </release>
+    <release>
+      <Version>
+        <name>Latest Stable Release</name>
         <created>2014-01-13</created>
         <revision>1.4.1</revision>
       </Version>
