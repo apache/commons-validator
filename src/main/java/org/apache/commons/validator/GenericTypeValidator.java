@@ -52,7 +52,7 @@ public class GenericTypeValidator implements Serializable {
         }
 
         try {
-            return new Byte(value);
+            return Byte.valueOf(value);
         } catch (NumberFormatException e) {
             return null;
         }
@@ -85,7 +85,7 @@ public class GenericTypeValidator implements Serializable {
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
                     num.doubleValue() >= Byte.MIN_VALUE &&
                     num.doubleValue() <= Byte.MAX_VALUE) {
-                result = new Byte(num.byteValue());
+                result = Byte.valueOf(num.byteValue());
             }
         }
 
@@ -104,7 +104,7 @@ public class GenericTypeValidator implements Serializable {
         }
 
         try {
-            return new Short(value);
+            return Short.valueOf(value);
         } catch (NumberFormatException e) {
             return null;
         }
@@ -137,7 +137,7 @@ public class GenericTypeValidator implements Serializable {
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
                     num.doubleValue() >= Short.MIN_VALUE &&
                     num.doubleValue() <= Short.MAX_VALUE) {
-                result = new Short(num.shortValue());
+                result = Short.valueOf(num.shortValue());
             }
         }
 
@@ -156,7 +156,7 @@ public class GenericTypeValidator implements Serializable {
         }
 
         try {
-            return new Integer(value);
+            return Integer.valueOf(value);
         } catch (NumberFormatException e) {
             return null;
         }
@@ -189,7 +189,7 @@ public class GenericTypeValidator implements Serializable {
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
                     num.doubleValue() >= Integer.MIN_VALUE &&
                     num.doubleValue() <= Integer.MAX_VALUE) {
-                result = new Integer(num.intValue());
+                result = Integer.valueOf(num.intValue());
             }
         }
 
@@ -208,7 +208,7 @@ public class GenericTypeValidator implements Serializable {
         }
 
         try {
-            return new Long(value);
+            return Long.valueOf(value);
         } catch (NumberFormatException e) {
             return null;
         }
@@ -241,7 +241,7 @@ public class GenericTypeValidator implements Serializable {
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
                     num.doubleValue() >= Long.MIN_VALUE &&
                     num.doubleValue() <= Long.MAX_VALUE) {
-                result = new Long(num.longValue());
+                result = Long.valueOf(num.longValue());
             }
         }
 
@@ -466,7 +466,7 @@ public class GenericTypeValidator implements Serializable {
      * @return the converted Credit Card number.
      */
     public static Long formatCreditCard(String value) {
-        return GenericValidator.isCreditCard(value) ? new Long(value) : null;
+        return GenericValidator.isCreditCard(value) ? Long.valueOf(value) : null;
     }
 
 }

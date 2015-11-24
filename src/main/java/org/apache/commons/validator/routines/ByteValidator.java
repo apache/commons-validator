@@ -249,7 +249,7 @@ public class ByteValidator extends AbstractNumberValidator {
             longValue > Byte.MAX_VALUE) {
             return null;
         }
-        return new Byte((byte)longValue);
+        return Byte.valueOf((byte)longValue);
     }
 
 }

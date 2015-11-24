@@ -249,6 +249,6 @@ public class ShortValidator extends AbstractNumberValidator {
             longValue > Short.MAX_VALUE) {
             return null;
         }
-        return new Short((short)longValue);
+        return Short.valueOf((short)longValue);
     }
 }

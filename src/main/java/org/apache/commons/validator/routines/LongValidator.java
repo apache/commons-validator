@@ -244,7 +244,7 @@ public class LongValidator extends AbstractNumberValidator {
         if (value instanceof Long) {
             return value;
         }
-        return new Long(((Number)value).longValue());
+        return Long.valueOf(((Number)value).longValue());
 
     }
 }
