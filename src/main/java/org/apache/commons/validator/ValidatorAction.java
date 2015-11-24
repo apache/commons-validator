@@ -420,7 +420,7 @@ public class ValidatorAction implements Serializable {
         }
 
         StringBuilder buffer = new StringBuilder();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is)); // TODO encoding
         try {
             String line = null;
             while ((line = reader.readLine()) != null) {
