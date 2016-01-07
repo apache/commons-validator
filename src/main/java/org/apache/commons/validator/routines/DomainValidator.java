@@ -131,15 +131,15 @@ public class DomainValidator implements Serializable {
      */
     public static synchronized DomainValidator getInstance(boolean allowLocal) {
         inUse = true;
-       if(allowLocal) {
-          return DOMAIN_VALIDATOR_WITH_LOCAL;
-       }
-       return DOMAIN_VALIDATOR;
+        if(allowLocal) {
+            return DOMAIN_VALIDATOR_WITH_LOCAL;
+        }
+        return DOMAIN_VALIDATOR;
     }
 
     /** Private constructor. */
     private DomainValidator(boolean allowLocal) {
-       this.allowLocal = allowLocal;
+        this.allowLocal = allowLocal;
     }
 
     /**
@@ -197,7 +197,7 @@ public class DomainValidator implements Serializable {
     public boolean isValidTld(String tld) {
         tld = unicodeToASCII(tld);
         if(allowLocal && isValidLocalTld(tld)) {
-           return true;
+            return true;
         }
         return isValidInfrastructureTld(tld)
                 || isValidGenericTld(tld)
@@ -1661,11 +1661,11 @@ public class DomainValidator implements Serializable {
             if (length == 0) {// check there is a last character
                 return input;
             }
-// RFC3490 3.1. 1)
-//            Whenever dots are used as label separators, the following
-//            characters MUST be recognized as dots: U+002E (full stop), U+3002
-//            (ideographic full stop), U+FF0E (fullwidth full stop), U+FF61
-//            (halfwidth ideographic full stop).
+            // RFC3490 3.1. 1)
+            //            Whenever dots are used as label separators, the following
+            //            characters MUST be recognized as dots: U+002E (full stop), U+3002
+            //            (ideographic full stop), U+FF0E (fullwidth full stop), U+FF61
+            //            (halfwidth ideographic full stop).
             char lastChar = input.charAt(length-1);// fetch original last char
             switch(lastChar) {
                 case '\u002E': // "." full stop
