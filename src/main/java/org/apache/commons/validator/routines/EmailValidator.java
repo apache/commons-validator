@@ -39,7 +39,7 @@ public class EmailValidator implements Serializable {
 
     private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
     private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
     private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
     private static final String EMAIL_REGEX = "^\\s*?(.+)@(.+?)\\s*$";

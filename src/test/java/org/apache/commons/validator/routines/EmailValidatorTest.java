@@ -367,6 +367,9 @@ public class EmailValidatorTest extends TestCase {
 
         assertTrue(validator.isValid("\"..\"@apache.org"));
 
+        // escaped quote character valid in quoted string
+        assertTrue(validator.isValid("\"john\\\"doe\"@apache.org"));
+
         assertTrue(validator.isValid("john56789.john56789.john56789.john56789.john56789.john56789.john@example.com"));
 
         assertFalse(validator.isValid("john56789.john56789.john56789.john56789.john56789.john56789.john5@example.com"));
