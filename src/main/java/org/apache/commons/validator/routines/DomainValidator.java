@@ -1512,19 +1512,28 @@ public class DomainValidator implements Serializable {
 
     /**
      * enum used by {@link DomainValidator#updateTLDOverride(ArrayType, String[])}
-     * to determine which override array to update.
+     * to determine which override array to update / fetch
      * @since 1.5.0
-     * @since 1.5.1 made public
+     * @since 1.5.1 made public and added read-only array references
      */
     public enum ArrayType {
-        /** Update the GENERIC_TLDS_PLUS table containing additonal generic TLDs */
+        /** Update (or get a copy of) the GENERIC_TLDS_PLUS table containing additonal generic TLDs */
         GENERIC_PLUS,
-        /** Update the GENERIC_TLDS_MINUS table containing deleted generic TLDs */
+        /** Update (or get a copy of) the GENERIC_TLDS_MINUS table containing deleted generic TLDs */
         GENERIC_MINUS,
-        /** Update the COUNTRY_CODE_TLDS_PLUS table containing additonal country code TLDs */
+        /** Update (or get a copy of) the COUNTRY_CODE_TLDS_PLUS table containing additonal country code TLDs */
         COUNTRY_CODE_PLUS,
-        /** Update the COUNTRY_CODE_TLDS_MINUS table containing deleted country code TLDs */
-        COUNTRY_CODE_MINUS;
+        /** Update (or get a copy of) the COUNTRY_CODE_TLDS_MINUS table containing deleted country code TLDs */
+        COUNTRY_CODE_MINUS,
+        /** Get a copy of the generic TLDS table */
+        GENERIC_RO,
+        /** Get a copy of the country code table */
+        COUNTRY_CODE_RO,
+        /** Get a copy of the infrastructure table */
+        INFRASTRUCTURE_RO,
+        /** Get a copy of the local table */
+        LOCAL_RO
+        ;
     };
 
     // For use by unit test code only
@@ -1546,8 +1555,16 @@ public class DomainValidator implements Serializable {
      * To clear an override array, provide an empty array.
      *
      * @param table the table to update, see {@link DomainValidator.ArrayType}
+     * Must be one of the following
+     * <ul>
+     * <li>COUNTRY_CODE_MINUS</li>
+     * <li>COUNTRY_CODE_PLUS</li>
+     * <li>GENERIC_MINUS</li>
+     * <li>GENERIC_PLUS</li>
+     * </ul>
      * @param tlds the array of TLDs, must not be null
      * @throws IllegalStateException if the method is called after getInstance
+     * @throws InvalidArgumentException if one of the read-only tables is requested
      * @since 1.5.0
      */
     public static synchronized void updateTLDOverride(ArrayType table, String [] tlds) {
@@ -1573,7 +1590,54 @@ public class DomainValidator implements Serializable {
         case GENERIC_PLUS:
             genericTLDsPlus = copy;
             break;
+        case COUNTRY_CODE_RO:
+        case GENERIC_RO:
+        case INFRASTRUCTURE_RO:
+        case LOCAL_RO:
+            throw new IllegalArgumentException("Cannot update the table: " + table);
+        default:
+            throw new IllegalArgumentException("Unexpected enum value: " + table);
         }
+    }
+
+    /**
+     * Get a copy of the internal array.
+     * @param table the array type (any of the enum values)
+     * @return a copy of the array
+     * @throws IllegalArgumentException if the table type is unexpected (should not happen)
+     * @since 1.5.1
+     */
+    public static String [] getTLDEntries(ArrayType table) {
+        final String array[];
+        switch(table) {
+        case COUNTRY_CODE_MINUS:
+            array = countryCodeTLDsMinus;
+            break;
+        case COUNTRY_CODE_PLUS:
+            array = countryCodeTLDsPlus;
+            break;
+        case GENERIC_MINUS:
+            array = genericTLDsMinus;
+            break;
+        case GENERIC_PLUS:
+            array = genericTLDsPlus;
+            break;
+        case GENERIC_RO:
+            array = GENERIC_TLDS;
+            break;
+        case COUNTRY_CODE_RO:
+            array = COUNTRY_CODE_TLDS;
+            break;
+        case INFRASTRUCTURE_RO:
+            array = INFRASTRUCTURE_TLDS;
+            break;
+        case LOCAL_RO:
+            array = LOCAL_TLDS;
+            break;
+        default:
+            throw new IllegalArgumentException("Unexpected enum value: " + table);
+        }
+        return Arrays.copyOf(array, array.length); // clone the array
     }
 
     /**

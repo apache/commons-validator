@@ -96,8 +96,11 @@ http://commons.apache.org/validator/dependencies.html
     <action issue="VALIDATOR-359" type="fix" dev="sebb" due-to="Dora Kinghorn">
     EmailValidator does not catch invalid email address like dora@.com
     </action>
-    <action issue="VALIDATOR-384" type="fix" dev="sebb" due-to=" Kris Babic">
+    <action issue="VALIDATOR-384" type="fix" dev="sebb" due-to="Kris Babic">
     EmailValidator does not support escaped quotes in a quoted string
+    </action>
+    <action issue="VALIDATOR-351" type="add" dev="sebb">
+    DomainValidator - allow access to internal arrays
     </action>
     <action type="update" dev="sebb">
     Updated to TLD list Version 2016010600, Last Updated Wed Jan  6 07:07:02 2016 UTC

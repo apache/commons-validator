@@ -303,6 +303,44 @@ public class DomainValidatorTest extends TestCase {
         assertTrue(Modifier.isPublic(DomainValidator.ArrayType.class.getModifiers()));
     }
 
+    public void testUpdateBaseArrays() {
+        try {
+            DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_RO, new String[]{"com"});
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException iae) {
+            // expected
+        }
+        try {
+            DomainValidator.updateTLDOverride(ArrayType.GENERIC_RO, new String[]{"com"});
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException iae) {
+            // expected
+        }
+        try {
+            DomainValidator.updateTLDOverride(ArrayType.INFRASTRUCTURE_RO, new String[]{"com"});
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException iae) {
+            // expected
+        }
+        try {
+            DomainValidator.updateTLDOverride(ArrayType.LOCAL_RO, new String[]{"com"});
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException iae) {
+            // expected
+        }
+    }
+
+    public void testGetArray() {
+        assertNotNull(DomainValidator.getTLDEntries(ArrayType.COUNTRY_CODE_MINUS));
+        assertNotNull(DomainValidator.getTLDEntries(ArrayType.COUNTRY_CODE_PLUS));
+        assertNotNull(DomainValidator.getTLDEntries(ArrayType.GENERIC_MINUS));
+        assertNotNull(DomainValidator.getTLDEntries(ArrayType.GENERIC_PLUS));
+        assertNotNull(DomainValidator.getTLDEntries(ArrayType.COUNTRY_CODE_RO));
+        assertNotNull(DomainValidator.getTLDEntries(ArrayType.GENERIC_RO));
+        assertNotNull(DomainValidator.getTLDEntries(ArrayType.INFRASTRUCTURE_RO));
+        assertNotNull(DomainValidator.getTLDEntries(ArrayType.LOCAL_RO));
+    }
+
     public void testUpdateCountryCode() {
         assertFalse(validator.isValidCountryCodeTld("com")); // cannot be valid
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_PLUS, new String[]{"com"});
