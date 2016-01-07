@@ -1428,8 +1428,9 @@ public class DomainValidator implements Serializable {
      * enum used by {@link DomainValidator#updateTLDOverride(ArrayType, String[])}
      * to determine which override array to update.
      * @since 1.5.0
+     * @since 1.5.1 made public
      */
-    enum ArrayType {
+    public enum ArrayType {
         /** Update the GENERIC_TLDS_PLUS table containing additonal generic TLDs */
         GENERIC_PLUS,
         /** Update the GENERIC_TLDS_MINUS table containing deleted generic TLDs */

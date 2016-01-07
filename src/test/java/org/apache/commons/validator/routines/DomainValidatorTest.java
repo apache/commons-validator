@@ -299,6 +299,10 @@ public class DomainValidatorTest extends TestCase {
         assertTrue(sorted);
     }
 
+    public void testEnumIsPublic() {
+        assertTrue(Modifier.isPublic(DomainValidator.ArrayType.class.getModifiers()));
+    }
+
     public void testUpdateCountryCode() {
         assertFalse(validator.isValidCountryCodeTld("com")); // cannot be valid
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_PLUS, new String[]{"com"});
