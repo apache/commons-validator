@@ -93,6 +93,9 @@ http://commons.apache.org/validator/dependencies.html
     <action issue="VALIDATOR-386" type="fix" dev="sebb" due-to="Auke van Leeuwen">
     org.apache.commons.validator.routines.DomainValidator.ArrayType is not public
     </action>
+    <action type="update" dev="sebb">
+    Updated to TLD list Version 2016010600, Last Updated Wed Jan  6 07:07:02 2016 UTC
+    </action>
   </release>
   <release version="1.5.0" date="2015-11-24" description="
 This is a maintenance release.
