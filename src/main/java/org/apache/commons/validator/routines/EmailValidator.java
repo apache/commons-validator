@@ -199,7 +199,7 @@ public class EmailValidator implements Serializable {
         DomainValidator domainValidator =
                 DomainValidator.getInstance(allowLocal);
         if (allowTld) {
-            return domainValidator.isValid(domain) || domainValidator.isValidTld(domain);
+            return domainValidator.isValid(domain) || (!domain.startsWith(".") && domainValidator.isValidTld(domain));
         } else {
             return domainValidator.isValid(domain);
         }
