@@ -283,7 +283,7 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = new String[] {
-        // Taken from Version 2016010600, Last Updated Wed Jan  6 07:07:02 2016 UTC
+        // Taken from Version 2016010800, Last Updated Fri Jan  8 07:07:01 2016 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
         "abb", // abb ABB Ltd
@@ -512,6 +512,7 @@ public class DomainValidator implements Serializable {
         "doosan", // doosan Doosan Corporation
         "download", // download dot Support Limited
         "drive", // drive Charleston Road Registry Inc.
+        "dubai", // dubai Dubai Smart Government Department
         "durban", // durban ZA Central Registry NPC trading as ZA Central Registry
         "dvag", // dvag Deutsche Vermögensberatung Aktiengesellschaft DVAG
         "earth", // earth Interlink Co., Ltd.

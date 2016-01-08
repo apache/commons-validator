@@ -103,7 +103,7 @@ http://commons.apache.org/validator/dependencies.html
     DomainValidator - allow access to internal arrays
     </action>
     <action type="update" dev="sebb">
-    Updated to TLD list Version 2016010600, Last Updated Wed Jan  6 07:07:02 2016 UTC
+    Updated to TLD list Version 2016010800, Last Updated Fri Jan  8 07:07:01 2016 UTC
     </action>
   </release>
   <release version="1.5.0" date="2015-11-24" description="
