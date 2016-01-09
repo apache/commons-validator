@@ -23,12 +23,10 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 import java.net.IDN;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -395,7 +393,7 @@ public class DomainValidatorTest extends TestCase {
             return;
         }
         Set<String> ianaTlds = new HashSet<String>(); // keep for comparison with array contents
-        DomainValidator dv = DomainValidator.getInstance();;
+        DomainValidator dv = DomainValidator.getInstance();
         File txtFile = new File("target/tlds-alpha-by-domain.txt");
         long timestamp = download(txtFile, "http://data.iana.org/TLD/tlds-alpha-by-domain.txt", 0L);
         final File htmlFile = new File("target/tlds-alpha-by-domain.html");
@@ -461,8 +459,10 @@ public class DomainValidatorTest extends TestCase {
         // List html entries not in TLD text list
         for(String key : (new TreeMap<String, String[]>(htmlInfo)).keySet()) {
             if (!ianaTlds.contains(key)) {
-                if (!isNotInRootZone(key)) {
-                    System.err.println("Expected to find text entry for html: "+key);                    
+                if (isNotInRootZone(key)) {
+                    System.out.println("INFO: HTML entry not yet in root zone: "+key);
+                } else {
+                    System.err.println("WARN: Expected to find text entry for html: "+key);
                 }
             }
         }
@@ -594,14 +594,21 @@ public class DomainValidatorTest extends TestCase {
         return f.lastModified();
     }
 
+    /**
+     * Check whether the domain is in the root zone currently.
+     * Reads the URL http://www.iana.org/domains/root/db/*domain*.html
+     * (using a local disk cache)
+     * and checks for the string "This domain is not present in the root zone at this time."
+     * @param domain the domain to check
+     * @return true if the string is found
+     */
     private static boolean isNotInRootZone(String domain) {
         String tldurl = "http://www.iana.org/domains/root/db/" + domain + ".html";
-        HttpURLConnection hc = null;
+        File rootCheck = new File("target","tld_" + domain + ".html");
         BufferedReader in = null;
         try {
-            hc = (HttpURLConnection) new URL(tldurl).openConnection();
-            in = new BufferedReader(
-                    new InputStreamReader(hc.getInputStream()));
+            download(rootCheck, tldurl, 0L);
+            in = new BufferedReader(new FileReader(rootCheck));
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 if (inputLine.contains("This domain is not present in the root zone at this time.")) {
@@ -609,13 +616,9 @@ public class DomainValidatorTest extends TestCase {
                 }
             }
             in.close();        
-        } catch (MalformedURLException e) {
         } catch (IOException e) {
         } finally {
             closeQuietly(in);
-            if (hc != null) {
-                hc.disconnect();
-            }
         }
         return false;
     }
