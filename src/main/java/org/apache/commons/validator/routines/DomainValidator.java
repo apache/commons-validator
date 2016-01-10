@@ -283,7 +283,7 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = new String[] {
-        // Taken from Version 2016010800, Last Updated Fri Jan  8 07:07:01 2016 UTC
+         // Taken from Version 2016011000, Last Updated Sun Jan 10 07:07:01 2016 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
         "abb", // abb ABB Ltd
@@ -573,6 +573,7 @@ public class DomainValidator implements Serializable {
         "forum", // forum Fegistry, LLC
         "foundation", // foundation John Dale, LLC
         "fox", // fox FOX Registry, LLC
+        "fresenius", // fresenius Fresenius Immobilien-Verwaltungs-GmbH
         "frl", // frl FRLregistry B.V.
         "frogans", // frogans OP3FT
         "fund", // fund John Castle, LLC
@@ -1062,6 +1063,7 @@ public class DomainValidator implements Serializable {
         "viva", // viva Saudi Telecom Company
         "vlaanderen", // vlaanderen DNS.be vzw
         "vodka", // vodka Top Level Domain Holdings Limited
+        "volkswagen", // volkswagen Volkswagen Group of America Inc.
         "vote", // vote Monolith Registry LLC
         "voting", // voting Valuetainment Corp.
         "voto", // voto Monolith Registry LLC
