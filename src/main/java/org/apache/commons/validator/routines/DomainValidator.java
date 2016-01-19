@@ -283,7 +283,7 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = new String[] {
-         // Taken from Version 2016011000, Last Updated Sun Jan 10 07:07:01 2016 UTC
+         // Taken from Version 2016011900, Last Updated Tue Jan 19 07:07:02 2016 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
         "abb", // abb ABB Ltd
@@ -305,6 +305,8 @@ public class DomainValidator implements Serializable {
         "aig", // aig American International Group, Inc.
         "airforce", // airforce United TLD Holdco Ltd.
         "airtel", // airtel Bharti Airtel Limited
+        "alibaba", // alibaba Alibaba Group Holding Limited
+        "alipay", // alipay Alibaba Group Holding Limited
         "allfinanz", // allfinanz Allfinanz Deutsche Vermögensberatung Aktiengesellschaft
         "alsace", // alsace REGION D ALSACE
         "amica", // amica Amica Mutual Insurance Company
@@ -453,6 +455,7 @@ public class DomainValidator implements Serializable {
         "commbank", // commbank COMMONWEALTH BANK OF AUSTRALIA
         "community", // community Fox Orchard, LLC
         "company", // company Silver Avenue, LLC
+        "compare", // compare iSelect Ltd
         "computer", // computer Pine Mill, LLC
         "comsec", // comsec VeriSign, Inc.
         "condos", // condos Pine House, LLC
@@ -667,6 +670,7 @@ public class DomainValidator implements Serializable {
         "investments", // investments Holly Glen, LLC
         "ipiranga", // ipiranga Ipiranga Produtos de Petroleo S.A.
         "irish", // irish Dot-Irish LLC
+        "iselect", // iselect iSelect Ltd
         "ist", // ist Istanbul Metropolitan Municipality
         "istanbul", // istanbul Istanbul Metropolitan Municipality / Medya A.S.
         "itau", // itau Itau Unibanco Holding S.A.
@@ -745,6 +749,7 @@ public class DomainValidator implements Serializable {
         "madrid", // madrid Comunidad de Madrid
         "maif", // maif Mutuelle Assurance Instituteur France (MAIF)
         "maison", // maison Victor Frostbite, LLC
+        "makeup", // makeup L&#39;Oréal
         "man", // man MAN SE
         "management", // management John Goodbye, LLC
         "mango", // mango PUNTO FA S.L.
@@ -940,6 +945,7 @@ public class DomainValidator implements Serializable {
         "seat", // seat SEAT, S.A. (Sociedad Unipersonal)
         "security", // security XYZ.COM LLC
         "seek", // seek Seek Limited
+        "select", // select iSelect Ltd
         "sener", // sener Sener Ingeniería y Sistemas, S.A.
         "services", // services Fox Castle, LLC
         "seven", // seven Seven West Media Ltd
@@ -957,12 +963,14 @@ public class DomainValidator implements Serializable {
         "singles", // singles Fern Madison, LLC
         "site", // site DotSite Inc.
         "ski", // ski STARTING DOT LIMITED
+        "skin", // skin L&#39;Oréal
         "sky", // sky Sky International AG
         "skype", // skype Microsoft Corporation
         "smile", // smile Amazon Registry Services, Inc.
         "sncf", // sncf SNCF (Société Nationale des Chemins de fer Francais)
         "soccer", // soccer Foggy Shadow, LLC
         "social", // social United TLD Holdco Ltd.
+        "softbank", // softbank SoftBank Group Corp.
         "software", // software United TLD Holdco, Ltd
         "sohu", // sohu Sohu.com Limited
         "solar", // solar Ruby Town, LLC
@@ -1038,6 +1046,7 @@ public class DomainValidator implements Serializable {
         "travelersinsurance", // travelersinsurance Travelers TLD, LLC
         "trust", // trust Artemis Internet Inc
         "trv", // trv Travelers TLD, LLC
+        "tube", // tube Latin American Telecom LLC
         "tui", // tui TUI AG
         "tushu", // tushu Amazon Registry Services, Inc.
         "ubs", // ubs UBS AG
@@ -1074,6 +1083,7 @@ public class DomainValidator implements Serializable {
         "wanggou", // wanggou Amazon Registry Services, Inc.
         "watch", // watch Sand Shadow, LLC
         "watches", // watches Richemont DNS Inc.
+        "weather", // weather The Weather Channel, LLC
         "webcam", // webcam dot Webcam Limited
         "weber", // weber Saint-Gobain Weber SA
         "website", // website DotWebsite Inc.
@@ -1130,6 +1140,7 @@ public class DomainValidator implements Serializable {
         "xn--fiq64b", // 中信 CITIC Group Corporation
         "xn--fjq720a", // 娱乐 Will Bloom, LLC
         "xn--flw351e", // 谷歌 Charleston Road Registry Inc.
+        "xn--g2xx48c", // 购物 Minds + Machines Group Limited
         "xn--hxt814e", // 网店 Zodiac Libra Limited
         "xn--i1b6b1a6a2e", // संगठन Public Interest Registry
         "xn--imr513n", // 餐厅 HU YI GLOBAL INFORMATION RESOURCES (HOLDING) COMPANY. HONGKONG LIMITED
