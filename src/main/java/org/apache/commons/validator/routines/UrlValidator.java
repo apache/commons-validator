@@ -145,8 +145,8 @@ public class UrlValidator implements Serializable {
     private static final String USERINFO_CHARS_REGEX = "[a-zA-Z0-9%-._~!$&'()*+,;=]";
     // since neither ':' nor '@' are allowed chars, we don't need to use non-greedy matching
     private static final String USERINFO_FIELD_REGEX =
-            USERINFO_CHARS_REGEX + "+:" + // At least one character for the name
-            USERINFO_CHARS_REGEX + "*@"; // password may be absent
+            USERINFO_CHARS_REGEX + "+" + // At least one character for the name
+            "(?::" + USERINFO_CHARS_REGEX + "*)?@"; // colon and password may be absent
     private static final String AUTHORITY_REGEX =
             "(?:\\[("+IPV6_REGEX+")\\]|(?:(?:"+USERINFO_FIELD_REGEX+")?([" + AUTHORITY_CHARS_REGEX + "]*)))(:\\d*)?(.*)?";
     //             1                          e.g. user:pass@          2                                   3       4
