@@ -246,18 +246,18 @@ public final class CodeValidator implements Serializable {
             return null;
         }
 
-        // check the length
-        if ((minLength >= 0 && code.length() < minLength) ||
-            (maxLength >= 0 && code.length() > maxLength)) {
-            return null;
-        }
-
         // validate/reformat using regular expression
         if (regexValidator != null) {
             code = regexValidator.validate(code);
             if (code == null) {
                 return null;
             }
+        }
+
+        // check the length (must be done after validate as that can change the code)
+        if ((minLength >= 0 && code.length() < minLength) ||
+            (maxLength >= 0 && code.length() > maxLength)) {
+            return null;
         }
 
         // validate the check digit
