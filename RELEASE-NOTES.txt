@@ -1,8 +1,8 @@
               Apache Apache Commons Validator
-                  Version 1.5.0
+                  Version 1.5.1
                  RELEASE NOTES
 
-The Apache Commons Validator team is pleased to announce the release of Apache Apache Commons Validator 1.5.0
+The Apache Commons Validator team is pleased to announce the release of Apache Apache Commons Validator 1.5.1
 
 Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
 It may be used standalone or with a framework like Struts.
@@ -27,38 +27,18 @@ For the current list of dependencies, please see http://commons.apache.org/valid
 Changes in this version include:
 
 New features:
-o VALIDATOR-321:  ISSN validator and converter to EAN-13
-o VALIDATOR-325:  Improve IBAN validation with format checks
-o VALIDATOR-372:  Validate 19 digit VPay (VISA)
-o VALIDATOR-361:  UrlValidator rejects new gTLDs with more than 4 characters
-                  Added unit test to show that this has been fixed
-o VALIDATOR-341:  Make TLD list configurable;
-                  both generic and country-code now support addition and removal
+o VALIDATOR-351:  DomainValidator - allow access to internal arrays
 
 Fixed Bugs:
-o VALIDATOR-364:  Email Validator does not support quoted/escaped character in the local part of the email address Thanks to teo bran.
-o VALIDATOR-381:  Update commons-collections from 3.2.1 to 3.2.2.
-o VALIDATOR-363:  UrlValidator rejects path having two or more successive dots
-o VALIDATOR-330:  IBANCheckDigit.isValid() returns True for some invalid IBANs
-o VALIDATOR-380:  UrlValidator does not allow for optional port digits
-o VALIDATOR-369:  DateValidatorTest.testCompare() fails with GMT-12
-o VALIDATOR-375:  UrlValidator fails on IPv6 URL
-o VALIDATOR-374:  Email Validator : .school domain is being rejected
-                  Add Unit test to show it has been fixed
-o VALIDATOR-376:  Revert EmailValidator to handle top level domains to the behavior prior to VALIDATOR-273. Allow an optional
-                  behavior to allow the behavior VALIDATOR-273 implemented. Note that this is a behavioral change for users
-                  of version 1.4.1, but not for anyone upgrading from a release prior to that.
-o VALIDATOR-362:  Local part of the email address should not be longer than 64 bytes Thanks to Teo Bran.
-o VALIDATOR-356:  IDN.toASCII drops trailing dot in Java 6 & 7
+o VALIDATOR-392:  Mastercard Series 2 BIN ranges (active from October 2016) added to CreditCardValidator
+                  To disable the new ranges, use option MASTERCARD_PRE_OCT2016 or validator MASTERCARD_VALIDATOR_PRE_OCT2016 Thanks to Tim Deboer.
+o VALIDATOR-386:  org.apache.commons.validator.routines.DomainValidator.ArrayType is not public Thanks to Auke van Leeuwen.
+o VALIDATOR-359:  EmailValidator does not catch invalid email address like dora@.com Thanks to Dora Kinghorn.
+o VALIDATOR-384:  EmailValidator does not support escaped quotes in a quoted string Thanks to Kris Babic.
 
 Changes:
-o VALIDATOR-332:  IIBANCheckDigit.calculate does not enforce initial checksum value
-                  Checkdigit field is now unconditionally set to "00" to ensure correct generation
-o VALIDATOR-353:  UrlValidator does not allow for optional userinfo in the authority
-o VALIDATOR-355:  Update to Java 6
+o                 Updated to TLD list Version 2016041301, Last Updated Thu Apr 14 07:07:01 2016 UTC
 
-Removed:
-o VALIDATOR-371:  Drop the Javascript code entirely
 
 For complete information on Apache Commons Validator, including instructions on how to submit bug reports,
 patches, or suggestions for improvement, see the Apache Apache Commons Validator website:
