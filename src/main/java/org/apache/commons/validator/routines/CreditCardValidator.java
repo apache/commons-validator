@@ -103,6 +103,13 @@ public class CreditCardValidator implements Serializable {
      */
     public static final long VPAY = 1 << 5; // CHECKSTYLE IGNORE MagicNumber
 
+    /**
+     * Option specifying that Mastercard cards (pre Oct 2016 only) are allowed.
+     * @deprecated for use until Oct 2016 only
+     */
+    @Deprecated
+    public static final long MASTERCARD_PRE_OCT2016 = 1 << 6; // CHECKSTYLE IGNORE MagicNumber
+
 
     /**
      * The CreditCardTypes that are allowed to pass validation.
@@ -126,8 +133,28 @@ public class CreditCardValidator implements Serializable {
     /** Discover Card Validator */
     public static final CodeValidator DISCOVER_VALIDATOR = new CodeValidator(DISCOVER_REGEX, LUHN_VALIDATOR);
 
+    /** Mastercard regular expressions */
+    private static final RegexValidator MASTERCARD_REGEX = new RegexValidator(
+        new String[] {
+            "^(5[1-5]\\d{14})$",  // 51 - 55 (pre Oct 2016)
+            // valid from October 2016
+            "^(2221\\d{12})$",    // 222100 - 222199
+            "^(222[2-9]\\d{12})$",// 222200 - 222999
+            "^(22[3-9]\\d{13})$", // 223000 - 229999
+            "^(2[3-6]\\d{14})$",  // 230000 - 269999
+            "^(27[01]\\d{13})$",  // 270000 - 271999
+            "^(2720\\d{12})$",    // 272000 - 272099
+        });
+
     /** Mastercard Card Validator */
-    public static final CodeValidator MASTERCARD_VALIDATOR = new CodeValidator("^(5[1-5]\\d{14})$", LUHN_VALIDATOR);
+    public static final CodeValidator MASTERCARD_VALIDATOR = new CodeValidator(MASTERCARD_REGEX, LUHN_VALIDATOR);
+
+    /** 
+     * Mastercard Card Validator (pre Oct 2016)
+     * @deprecated for use until Oct 2016 only
+     */
+    @Deprecated
+    public static final CodeValidator MASTERCARD_VALIDATOR_PRE_OCT2016 = new CodeValidator("^(5[1-5]\\d{14})$", LUHN_VALIDATOR);
 
     /** Visa Card Validator */
     public static final CodeValidator VISA_VALIDATOR = new CodeValidator("^(4)(\\d{12}|\\d{15})$", LUHN_VALIDATOR);
@@ -139,6 +166,8 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Create a new CreditCardValidator with default options.
+     * The default options are:
+     * AMEX, VISA, MASTERCARD and DISCOVER
      */
     public CreditCardValidator() {
         this(AMEX + VISA + MASTERCARD + DISCOVER);
@@ -167,6 +196,10 @@ public class CreditCardValidator implements Serializable {
 
         if (isOn(options, MASTERCARD)) {
             this.cardTypes.add(MASTERCARD_VALIDATOR);
+        }
+
+        if (isOn(options, MASTERCARD_PRE_OCT2016)) {
+            this.cardTypes.add(MASTERCARD_VALIDATOR_PRE_OCT2016);
         }
 
         if (isOn(options, DISCOVER)) {

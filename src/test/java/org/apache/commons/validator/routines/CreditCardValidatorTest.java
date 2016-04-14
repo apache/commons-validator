@@ -384,6 +384,15 @@ public class CreditCardValidatorTest extends TestCase {
         assertTrue("Valid-C",         validator.isValid("5301250070000191"));
         assertTrue("Valid-D",         validator.isValid("5123456789012346"));
         assertTrue("Valid-E",         validator.isValid("5555555555554444"));
+        
+        RegexValidator rev = validator.getRegexValidator();
+        final String PAD = "0000000000";
+        assertFalse("222099",rev.isValid("222099"+PAD));
+        for(int i=222100; i <= 272099; i++) {
+            String j = Integer.toString(i)+PAD;
+            assertTrue(j, rev.isValid(j));
+        }
+        assertFalse("272100",rev.isValid("272100"+PAD));
     }
 
     /**

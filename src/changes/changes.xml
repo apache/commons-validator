@@ -90,6 +90,10 @@ The dependencies for Validator have not changed since the 1.4 release.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action issue="VALIDATOR-392" type="fix" dev="sebb" due-to="Tim Deboer">
+    Mastercard Series 2 BIN ranges (active from October 2016) added to CreditCardValidator
+    To disable the new ranges, use option MASTERCARD_PRE_OCT2016 or validator MASTERCARD_VALIDATOR_PRE_OCT2016
+    </action>
     <action issue="VALIDATOR-386" type="fix" dev="sebb" due-to="Auke van Leeuwen">
     org.apache.commons.validator.routines.DomainValidator.ArrayType is not public
     </action>
@@ -103,7 +107,7 @@ http://commons.apache.org/validator/dependencies.html
     DomainValidator - allow access to internal arrays
     </action>
     <action type="update" dev="sebb">
-    Updated to TLD list Version 2016011900, Last Updated Tue Jan 19 07:07:02 2016 UTC
+    Updated to TLD list Version 2016041301, Last Updated Thu Apr 14 07:07:01 2016 UTC
     </action>
   </release>
   <release version="1.5.0" date="2015-11-24" description="
