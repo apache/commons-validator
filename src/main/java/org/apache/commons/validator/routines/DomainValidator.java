@@ -1662,7 +1662,7 @@ public class DomainValidator implements Serializable {
      * </ul>
      * @param tlds the array of TLDs, must not be null
      * @throws IllegalStateException if the method is called after getInstance
-     * @throws InvalidArgumentException if one of the read-only tables is requested
+     * @throws IllegalArgumentException if one of the read-only tables is requested
      * @since 1.5.0
      */
     public static synchronized void updateTLDOverride(ArrayType table, String [] tlds) {
