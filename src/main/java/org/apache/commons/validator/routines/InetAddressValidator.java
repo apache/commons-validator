@@ -163,7 +163,7 @@ public class InetAddressValidator implements Serializable {
                     if (!inet6Address.endsWith(octet)) {
                         return false;
                     }
-                    if (index > octets.length - 1 || index > 6) { // TODO magic number (sort of)
+                    if (index > octets.length - 1 || index > 6) {  // CHECKSTYLE IGNORE MagicNumber
                         // IPV4 occupies last two octets
                         return false;
                     }
