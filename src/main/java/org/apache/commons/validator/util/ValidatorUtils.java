@@ -140,6 +140,7 @@ public class ValidatorUtils {
      * will use it internally until FastHashMap references are removed.  Use
      * copyMap() instead.
      */
+    @Deprecated
     public static FastHashMap copyFastHashMap(FastHashMap map) {
         FastHashMap results = new FastHashMap();
 

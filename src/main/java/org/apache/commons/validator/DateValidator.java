@@ -33,6 +33,7 @@ import java.util.Locale;
  * @deprecated Use the new DateValidator, CalendarValidator or TimeValidator in the
  * routines package. This class will be removed in a future release.
  */
+@Deprecated
 public class DateValidator {
 
     /**

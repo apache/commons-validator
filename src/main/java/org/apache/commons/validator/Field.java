@@ -130,11 +130,13 @@ public class Field implements Cloneable, Serializable {
     /**
      * @deprecated Subclasses should use getVarMap() instead.
      */
+    @Deprecated
     protected FastHashMap hVars = new FastHashMap(); // <String, Var>
 
     /**
      * @deprecated Subclasses should use getMsgMap() instead.
      */
+    @Deprecated
     protected FastHashMap hMsgs = new FastHashMap(); // <String, Msg>
 
     /**

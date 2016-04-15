@@ -41,6 +41,7 @@ import java.util.regex.Pattern;
  * @deprecated Use the new EmailValidator in the routines package. This class
  * will be removed in a future release.
  */
+@Deprecated
 public class EmailValidator {
 
     private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";

@@ -76,6 +76,7 @@ import org.apache.commons.validator.util.Flags;
  * @deprecated Use the new UrlValidator in the routines package. This class
  * will be removed in a future release.
  */
+@Deprecated
 public class UrlValidator implements Serializable {
 
     private static final long serialVersionUID = 24137157400029593L;

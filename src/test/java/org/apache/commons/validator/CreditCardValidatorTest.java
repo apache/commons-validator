@@ -24,6 +24,7 @@ import junit.framework.TestCase;
  * @version $Revision$
  * @deprecated this test can be removed when the deprecated class is removed
  */
+@Deprecated
 public class CreditCardValidatorTest extends TestCase {
     
     private static final String VALID_VISA = "4417123456789113";

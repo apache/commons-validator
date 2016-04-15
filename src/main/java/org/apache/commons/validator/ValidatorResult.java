@@ -118,6 +118,7 @@ public class ValidatorResult implements Serializable {
      *             to determine the contents of ResultStatus.
      *
      */
+    @Deprecated
     public Map<String, ResultStatus> getActionMap() {
         return Collections.unmodifiableMap(hAction);
     }
@@ -158,6 +159,7 @@ public class ValidatorResult implements Serializable {
          *
          * @deprecated Use {@code ResultStatus(boolean, Object)} instead
          */
+        @Deprecated
         public ResultStatus(ValidatorResult ignored, boolean valid, Object result) {
             this(valid, result);
         }

@@ -24,6 +24,7 @@ import junit.framework.TestCase;
  * @version $Revision$
  * @deprecated to be removed when org.apache.commons.validator.UrlValidator is removed
  */
+@Deprecated
 public class UrlTest extends TestCase {
 
    private final boolean printStatus = false;

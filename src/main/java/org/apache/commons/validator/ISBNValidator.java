@@ -29,6 +29,7 @@ package org.apache.commons.validator;
  * @since Validator 1.2.0
  * @deprecated Use the new ISBNValidator in the routines package
  */
+@Deprecated
 public class ISBNValidator {
 
     /**

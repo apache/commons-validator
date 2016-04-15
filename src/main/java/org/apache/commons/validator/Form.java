@@ -57,6 +57,7 @@ public class Form implements Serializable {
      *
      * @deprecated   Subclasses should use getFieldMap() instead.
      */
+    @Deprecated
     protected FastHashMap hFields = new FastHashMap(); // <String, Field>
 
     /**

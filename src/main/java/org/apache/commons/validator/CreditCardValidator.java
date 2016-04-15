@@ -54,6 +54,7 @@ import org.apache.commons.validator.util.Flags;
  * will be removed in a future release.
  */
 // CHECKSTYLE:OFF (deprecated code)
+@Deprecated
 public class CreditCardValidator {
 
     /**
