@@ -647,7 +647,7 @@ public class ValidatorAction implements Serializable {
         Class<?>[] parameterClasses = new Class[this.methodParameterList.size()];
 
         for (int i = 0; i < this.methodParameterList.size(); i++) {
-            String paramClassName = (String) this.methodParameterList.get(i);
+            String paramClassName = this.methodParameterList.get(i);
 
             try {
                 parameterClasses[i] = loader.loadClass(paramClassName);

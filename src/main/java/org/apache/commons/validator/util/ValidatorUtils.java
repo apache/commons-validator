@@ -148,7 +148,7 @@ public class ValidatorUtils {
         Iterator<Entry<String, ?>> i = map.entrySet().iterator();
         while (i.hasNext()) {
             Entry<String, ?> entry = i.next();
-            String key = (String) entry.getKey();
+            String key = entry.getKey();
             Object value = entry.getValue();
 
             if (value instanceof Msg) {

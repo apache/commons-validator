@@ -151,7 +151,7 @@ public class InetAddressValidator implements Serializable {
         int validOctets = 0;
         int emptyOctets = 0;
         for (int index = 0; index < octets.length; index++) {
-            String octet = (String) octets[index];
+            String octet = octets[index];
             if (octet.length() == 0) {
                 emptyOctets++;
                 if (emptyOctets > 1) {

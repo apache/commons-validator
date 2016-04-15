@@ -149,7 +149,7 @@ public class Form implements Serializable {
         Map<String, Field> temphFields = new FastHashMap();
         Iterator<Field> dependsIt = depends.getFields().iterator();
         while (dependsIt.hasNext()) {
-            Field defaultField = (Field) dependsIt.next();
+            Field defaultField = dependsIt.next();
             if (defaultField != null) {
                 String fieldKey = defaultField.getKey();
                 if (!this.containsField(fieldKey)) {

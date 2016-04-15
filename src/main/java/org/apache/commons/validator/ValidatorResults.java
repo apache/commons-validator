@@ -111,7 +111,7 @@ public class ValidatorResults implements Serializable {
      * @return The result of a specified key.
      */
     public ValidatorResult getValidatorResult(String key) {
-        return (ValidatorResult) this.hResults.get(key);
+        return this.hResults.get(key);
     }
 
     /**

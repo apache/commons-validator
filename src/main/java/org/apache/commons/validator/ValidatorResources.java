@@ -573,16 +573,16 @@ public class ValidatorResources implements Serializable {
         if (fs.getType() == FormSet.LANGUAGE_FORMSET) {
             parent = defaultFormSet;
         } else if (fs.getType() == FormSet.COUNTRY_FORMSET) {
-            parent = (FormSet) getFormSets().get(buildLocale(fs.getLanguage(),
+            parent = getFormSets().get(buildLocale(fs.getLanguage(),
                     null, null));
             if (parent == null) {
                 parent = defaultFormSet;
             }
         } else if (fs.getType() == FormSet.VARIANT_FORMSET) {
-            parent = (FormSet) getFormSets().get(buildLocale(fs.getLanguage(), fs
+            parent = getFormSets().get(buildLocale(fs.getLanguage(), fs
                     .getCountry(), null));
             if (parent == null) {
-                parent = (FormSet) getFormSets().get(buildLocale(fs.getLanguage(),
+                parent = getFormSets().get(buildLocale(fs.getLanguage(),
                         null, null));
                 if (parent == null) {
                     parent = defaultFormSet;
@@ -609,7 +609,7 @@ public class ValidatorResources implements Serializable {
             return defaultFormSet;
         }
 
-        return (FormSet)getFormSets().get(key);
+        return getFormSets().get(key);
     }
 
     /**

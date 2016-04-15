@@ -348,16 +348,16 @@ public class ExtensionTest extends TestCase {
        assertTrue("There should only be 2 fields in " + FORM_KEY2, form2.getFields().size() == 2);
 
        //get the first field
-       Field fieldFirstName = (Field)form.getFields().get(0);
+       Field fieldFirstName = form.getFields().get(0);
        //get the second field
-       Field fieldLastName = (Field)form.getFields().get(1);
+       Field fieldLastName = form.getFields().get(1);
        assertTrue("firstName in " + FORM_KEY + " should be the first in the list", fieldFirstName.getKey().equals("firstName"));
        assertTrue("lastName in " + FORM_KEY + " should be the first in the list", fieldLastName.getKey().equals("lastName"));
 
 //     get the second field
-       fieldLastName = (Field)form2.getFields().get(0);
+       fieldLastName = form2.getFields().get(0);
         //get the first field
-        fieldFirstName = (Field)form2.getFields().get(1);
+        fieldFirstName = form2.getFields().get(1);
         assertTrue("firstName in " + FORM_KEY2 + " should be the first in the list", fieldFirstName.getKey().equals("firstName"));
        assertTrue("lastName in " + FORM_KEY2 + " should be the first in the list", fieldLastName.getKey().equals("lastName"));
 

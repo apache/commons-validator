@@ -428,7 +428,7 @@ public class DomainValidatorTest extends TestCase {
                     unicodeTld = asciiTld;
                 }
                 if (!dv.isValidTld(asciiTld)) {
-                    String [] info = (String[]) htmlInfo.get(asciiTld);
+                    String [] info = htmlInfo.get(asciiTld);
                     if (info != null) {
                         String type = info[0];
                         String comment = info[1];

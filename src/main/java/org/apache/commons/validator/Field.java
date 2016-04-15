@@ -288,7 +288,7 @@ public class Field implements Cloneable, Serializable {
      * @return A validation message for a specified validator.
      */
     public Msg getMessage(String key) {
-        return (Msg) getMsgMap().get(key);
+        return getMsgMap().get(key);
     }
 
     /**
@@ -432,7 +432,7 @@ public class Field implements Cloneable, Serializable {
             return null;
         }
 
-        Arg arg = (Arg) args[position].get(key);
+        Arg arg = args[position].get(key);
 
         // Didn't find default arg so exit, otherwise we would get into
         // infinite recursion
@@ -485,7 +485,7 @@ public class Field implements Cloneable, Serializable {
      * @return the Variable
      */
     public Var getVar(String mainKey) {
-        return (Var) getVarMap().get(mainKey);
+        return getVarMap().get(mainKey);
     }
 
     /**

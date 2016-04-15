@@ -274,7 +274,7 @@ public class FormSet implements Serializable {
      * @return          The form
      */
     public Form getForm(String formName) {
-        return (Form) this.forms.get(formName);
+        return this.forms.get(formName);
     }
 
     /**
