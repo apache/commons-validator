@@ -222,6 +222,7 @@ public class CreditCardValidator {
      */
     private static class Visa implements CreditCardType {
         private static final String PREFIX = "4";
+        @Override
         public boolean matches(String card) {
             return (
                 card.substring(0, 1).equals(PREFIX)
@@ -231,6 +232,7 @@ public class CreditCardValidator {
 
     private static class Amex implements CreditCardType {
         private static final String PREFIX = "34,37,";
+        @Override
         public boolean matches(String card) {
             String prefix2 = card.substring(0, 2) + ",";
             return ((PREFIX.contains(prefix2)) && (card.length() == 15));
@@ -239,6 +241,7 @@ public class CreditCardValidator {
 
     private static class Discover implements CreditCardType {
         private static final String PREFIX = "6011";
+        @Override
         public boolean matches(String card) {
             return (card.substring(0, 4).equals(PREFIX) && (card.length() == 16));
         }
@@ -246,6 +249,7 @@ public class CreditCardValidator {
 
     private static class Mastercard implements CreditCardType {
         private static final String PREFIX = "51,52,53,54,55,";
+        @Override
         public boolean matches(String card) {
             String prefix2 = card.substring(0, 2) + ",";
             return ((PREFIX.contains(prefix2)) && (card.length() == 16));

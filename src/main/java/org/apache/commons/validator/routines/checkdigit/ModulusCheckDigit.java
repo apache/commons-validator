@@ -66,6 +66,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
      * @return <code>true</code> if the check digit is valid, otherwise
      * <code>false</code>
      */
+    @Override
     public boolean isValid(String code) {
         if (code == null || code.length() == 0) {
             return false;
@@ -86,6 +87,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
      * @return The calculated Check Digit
      * @throws CheckDigitException if an error occurs calculating the check digit
      */
+    @Override
     public String calculate(String code) throws CheckDigitException {
         if (code == null || code.length() == 0) {
             throw new CheckDigitException("Code is missing");

@@ -63,6 +63,7 @@ public final class ISBNCheckDigit implements CheckDigit, Serializable {
      * length (i.e. not 9 or 12) or if there is an error calculating the
      * check digit.
      */
+    @Override
     public String calculate(String code) throws CheckDigitException {
         if (code == null || code.length() == 0) {
             throw new CheckDigitException("ISBN Code is missing");
@@ -89,6 +90,7 @@ public final class ISBNCheckDigit implements CheckDigit, Serializable {
      * a valid ISBN-10 check digit or the code has a length of 13 and is
      * a valid ISBN-13 check digit - otherwise <code>false</code>.
      */
+    @Override
     public boolean isValid(String code) {
         if (code == null) {
             return false;

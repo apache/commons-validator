@@ -68,6 +68,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
      * @return <code>true</code> if the check digit is valid, otherwise
      * <code>false</code>
      */
+    @Override
     public boolean isValid(String code) {
         if (code == null || code.length() < MIN_CODE_LEN) {
             return false;
@@ -95,6 +96,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
      * @throws CheckDigitException if an error occurs calculating
      * the check digit for the specified code
      */
+    @Override
     public String calculate(String code) throws CheckDigitException {
         if (code == null || code.length() < MIN_CODE_LEN) {
             throw new CheckDigitException("Invalid Code length=" +

@@ -78,6 +78,7 @@ public class CreditCardValidatorTest extends TestCase {
      */
     private class DinersClub implements CreditCardValidator.CreditCardType {
         private static final String PREFIX = "300,301,302,303,304,305,";
+        @Override
         public boolean matches(String card) {
             String prefix = card.substring(0, 3) + ",";
             return ((PREFIX.contains(prefix)) && (card.length() == 14));
