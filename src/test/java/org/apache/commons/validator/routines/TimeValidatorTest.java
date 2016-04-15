@@ -102,6 +102,7 @@ public class TimeValidatorTest extends TestCase {
         super(name);
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         validator = new TimeValidator();
@@ -111,6 +112,7 @@ public class TimeValidatorTest extends TestCase {
      * Tear down
      * @throws Exception
      */
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
         validator = null;

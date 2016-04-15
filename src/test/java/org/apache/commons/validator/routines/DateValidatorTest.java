@@ -41,6 +41,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
      * Set Up.
      * @throws Exception
      */
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         dateValidator = new DateValidator();

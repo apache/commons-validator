@@ -70,6 +70,7 @@ public class ExtensionTest extends TestCase {
      * Load <code>ValidatorResources</code> from
      * validator-extension.xml.
     */
+    @Override
     protected void setUp() throws Exception {
         // Load resources
         InputStream in = null;
@@ -84,6 +85,7 @@ public class ExtensionTest extends TestCase {
         }
     }
 
+    @Override
     protected void tearDown() {
     }
 

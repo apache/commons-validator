@@ -47,7 +47,8 @@ public class ValidatorResultsTest extends AbstractCommonTest {
     * Load <code>ValidatorResources</code> from
     * ValidatorResultsTest-config.xml.
     */
-   protected void setUp() throws IOException, SAXException {
+   @Override
+protected void setUp() throws IOException, SAXException {
       // Load resources
       loadResources("ValidatorResultsTest-config.xml");
 
@@ -58,7 +59,8 @@ public class ValidatorResultsTest extends AbstractCommonTest {
 
    }
 
-   protected void tearDown() {
+   @Override
+protected void tearDown() {
    }
 
    /**

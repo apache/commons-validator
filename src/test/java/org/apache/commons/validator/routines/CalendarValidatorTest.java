@@ -43,6 +43,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         super(name);
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         calValidator = new CalendarValidator();
@@ -188,6 +189,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
             new AbstractCalendarValidator(true, DateFormat.SHORT, DateFormat.SHORT) {
                 private static final long serialVersionUID = 1L;
 
+            @Override
             protected Object processParsedValue(Object value, Format formatter) {
                 return value;
             }
@@ -202,6 +204,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     /**
      * Test format methods
      */
+    @Override
     public void testFormat() {
         // Set the default Locale
         Locale origDefault = Locale.getDefault();

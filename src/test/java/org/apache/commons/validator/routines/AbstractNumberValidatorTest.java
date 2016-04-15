@@ -66,6 +66,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
         super(name);
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -77,6 +78,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
      * Tear down
      * @throws Exception
      */
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
         validator = null;

@@ -213,6 +213,7 @@ public class RegexValidator implements Serializable {
      * Provide a String representation of this validator.
      * @return A String representation of this validator
      */
+    @Override
     public String toString() {
         StringBuilder buffer = new StringBuilder();
         buffer.append("RegexValidator{");

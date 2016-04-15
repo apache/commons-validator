@@ -94,6 +94,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
     /**
      * Tear Down - clears routine and valid codes.
      */
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
         valid = null;

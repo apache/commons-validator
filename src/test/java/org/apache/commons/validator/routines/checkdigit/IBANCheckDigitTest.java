@@ -44,6 +44,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
     /**
      * Set up routine & valid codes.
      */
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         routine = IBANCheckDigit.IBAN_CHECK_DIGIT;
@@ -115,6 +116,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
     /**
      * Test zero sum
      */
+    @Override
     public void testZeroSum() {
         // ignore, don't run this test
 
@@ -138,6 +140,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      * @param codes Codes with valid check digits
      * @return Codes with invalid check digits
      */
+    @Override
     protected String[] createInvalidCodes(String[] codes) {
         List<String> list = new ArrayList<String>();
 
@@ -162,6 +165,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      * @param code The code
      * @return The code with the zeroed check digits
      */
+    @Override
     protected String removeCheckDigit(String code) {
         return code.substring(0, 2) + "00" + code.substring(4);
     }
@@ -172,6 +176,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      * @param code The code
      * @return The check digit
      */
+    @Override
     protected String checkDigit(String code) {
         if (code == null || code.length() <= checkDigitLth) {
             return "";

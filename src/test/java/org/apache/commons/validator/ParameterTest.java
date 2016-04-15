@@ -47,6 +47,7 @@ public class ParameterTest extends AbstractCommonTest {
      * Load <code>ValidatorResources</code> from
      * ValidatorResultsTest-config.xml.
      */
+    @Override
     protected void setUp() throws IOException, SAXException {
         // Load resources
         loadResources("ParameterTest-config.xml");
@@ -58,6 +59,7 @@ public class ParameterTest extends AbstractCommonTest {
 
     }
 
+    @Override
     protected void tearDown() {
     }
 

@@ -36,6 +36,7 @@ public class InetAddressValidatorTest extends TestCase {
         super(name);
     }
 
+    @Override
     protected void setUp() {
         validator = new InetAddressValidator();
     }

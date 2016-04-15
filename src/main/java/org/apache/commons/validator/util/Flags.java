@@ -145,6 +145,7 @@ public class Flags implements Serializable, Cloneable {
      * @return a copy of this object.
      * @see java.lang.Object#clone()
      */
+    @Override
     public Object clone() {
         try {
             return super.clone();
@@ -160,6 +161,7 @@ public class Flags implements Serializable, Cloneable {
      *
      * @return whether the objects are equal.
      */
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Flags)) {
             return false;
@@ -180,6 +182,7 @@ public class Flags implements Serializable, Cloneable {
      *
      * @return the hash code for this object.
      */
+    @Override
     public int hashCode() {
         return (int) this.flags;
     }
@@ -191,6 +194,7 @@ public class Flags implements Serializable, Cloneable {
      *
      * @return string representation of this object.
      */
+    @Override
     public String toString() {
         StringBuilder bin = new StringBuilder(Long.toBinaryString(this.flags));
         for (int i = 64 - bin.length(); i > 0; i--) { // CHECKSTYLE IGNORE MagicNumber

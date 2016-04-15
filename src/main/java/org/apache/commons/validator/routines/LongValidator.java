@@ -239,6 +239,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @return The parsed <code>Number</code> converted to a
      *         <code>Long</code>.
      */
+    @Override
     protected Object processParsedValue(Object value, Format formatter) {
 
         if (value instanceof Long) {

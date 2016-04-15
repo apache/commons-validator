@@ -36,6 +36,7 @@ public class ABANumberCheckDigitTest extends AbstractCheckDigitTest {
     /**
      * Set up routine & valid codes.
      */
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         routine = ABANumberCheckDigit.ABAN_CHECK_DIGIT;

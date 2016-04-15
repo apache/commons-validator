@@ -49,7 +49,8 @@ public class EmailTest extends AbstractCommonTest {
     * Load <code>ValidatorResources</code> from 
     * validator-regexp.xml.
     */
-   protected void setUp() throws IOException, SAXException {
+   @Override
+protected void setUp() throws IOException, SAXException {
       loadResources("EmailTest-config.xml");
    }
 

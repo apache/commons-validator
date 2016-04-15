@@ -33,6 +33,7 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
         super(name);
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
 

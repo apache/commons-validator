@@ -278,6 +278,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * @param formatter The Format used to parse the value with.
      * @return The parsed value converted to a <code>Calendar</code>.
      */
+    @Override
     protected Object processParsedValue(Object value, Format formatter) {
         return ((DateFormat)formatter).getCalendar();
     }

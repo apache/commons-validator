@@ -45,11 +45,13 @@ public class EmailValidatorTest extends TestCase {
        super(name);
    }
 
-   protected void setUp() {
+   @Override
+protected void setUp() {
         validator = EmailValidator.getInstance();
    }
 
-   protected void tearDown() {
+   @Override
+protected void tearDown() {
    }
 
    /**

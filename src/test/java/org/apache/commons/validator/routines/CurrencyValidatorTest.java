@@ -42,6 +42,7 @@ public class CurrencyValidatorTest extends TestCase {
         super(name);
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         US_DOLLAR = (new DecimalFormatSymbols(Locale.US)).getCurrencySymbol();
@@ -52,6 +53,7 @@ public class CurrencyValidatorTest extends TestCase {
      * Tear down
      * @throws Exception
      */
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }

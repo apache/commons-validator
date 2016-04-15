@@ -75,6 +75,7 @@ public class Arg implements Cloneable, Serializable {
      * Creates and returns a copy of this object.
      * @return A copy of this object.
      */
+    @Override
     public Object clone() {
         try {
             return super.clone();
@@ -170,6 +171,7 @@ public class Arg implements Cloneable, Serializable {
      * Returns a string representation of the object.
      * @return a string representation of the object.
      */
+    @Override
     public String toString() {
         StringBuilder results = new StringBuilder();
 

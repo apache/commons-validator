@@ -46,6 +46,7 @@ public class ExceptionTest extends AbstractCommonTest {
      * Load <code>ValidatorResources</code> from 
      * validator-exception.xml.
      */
+    @Override
     protected void setUp() throws IOException, SAXException {
         loadResources("ExceptionTest-config.xml");
     }

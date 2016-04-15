@@ -51,6 +51,7 @@ public class RegexValidatorTest extends TestCase {
     /**
      * Set Up.
      */
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
@@ -58,6 +59,7 @@ public class RegexValidatorTest extends TestCase {
     /**
      * Tear Down.
      */
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }

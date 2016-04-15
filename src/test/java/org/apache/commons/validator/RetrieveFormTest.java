@@ -55,6 +55,7 @@ public class RetrieveFormTest extends TestCase {
     /** 
      * Load <code>ValidatorResources</code> from multiple xml files.
      */
+    @Override
     protected void setUp() throws IOException, SAXException {
         InputStream[] streams =
             new InputStream[] {

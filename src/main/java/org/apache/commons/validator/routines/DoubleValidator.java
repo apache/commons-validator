@@ -240,6 +240,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @return The validated/converted <code>Double</code> value if valid
      * or <code>null</code> if invalid.
      */
+    @Override
     protected Object processParsedValue(Object value, Format formatter) {
 
         if (value instanceof Double) {

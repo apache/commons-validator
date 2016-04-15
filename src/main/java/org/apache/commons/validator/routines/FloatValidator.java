@@ -241,6 +241,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @return The parsed <code>Number</code> converted to a
      *   <code>Float</code> if valid or <code>null</code> if invalid.
      */
+    @Override
     protected Object processParsedValue(Object value, Format formatter) {
 
         double doubleValue = ((Number)value).doubleValue();

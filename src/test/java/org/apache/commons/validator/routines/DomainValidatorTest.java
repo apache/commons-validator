@@ -53,6 +53,7 @@ public class DomainValidatorTest extends TestCase {
 
     private DomainValidator validator;
 
+    @Override
     public void setUp() {
         validator = DomainValidator.getInstance();
         DomainValidator.clearTLDOverrides(); // N.B. this clears the inUse flag, allowing overrides

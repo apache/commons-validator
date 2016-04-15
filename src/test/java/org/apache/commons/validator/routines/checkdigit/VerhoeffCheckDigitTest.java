@@ -35,6 +35,7 @@ public class VerhoeffCheckDigitTest extends AbstractCheckDigitTest {
     /**
      * Set up routine & valid codes.
      */
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         routine = VerhoeffCheckDigit.VERHOEFF_CHECK_DIGIT;
@@ -48,6 +49,7 @@ public class VerhoeffCheckDigitTest extends AbstractCheckDigitTest {
     /**
      * Test zero sum
      */
+    @Override
     public void testZeroSum() {
         // ignore, don't run this test
     }

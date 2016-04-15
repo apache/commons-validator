@@ -46,6 +46,7 @@ public class FieldTest extends TestCase {
     /**
      * Test setup
      */
+    @Override
     public void setUp() {
         field = new Field();
     }
@@ -53,6 +54,7 @@ public class FieldTest extends TestCase {
     /**
      * Test clean up
      */
+    @Override
     public void tearDown() {
         field = null;
     }

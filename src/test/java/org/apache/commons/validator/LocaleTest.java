@@ -51,6 +51,7 @@ public class LocaleTest extends AbstractCommonTest {
      * @exception IOException   If something goes wrong
      * @exception SAXException  If something goes wrong
      */
+    @Override
     protected void setUp()
         throws IOException, SAXException {
         // Load resources
@@ -58,6 +59,7 @@ public class LocaleTest extends AbstractCommonTest {
     }
 
     /** The teardown method for JUnit */
+    @Override
     protected void tearDown() {
     }
 

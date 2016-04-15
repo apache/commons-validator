@@ -91,6 +91,7 @@ public class CurrencyValidator extends BigDecimalValidator {
      * @param formatter The Format to parse the value with.
      * @return The parsed value if valid or <code>null</code> if invalid.
      */
+    @Override
     protected Object parse(String value, Format formatter) {
 
         // Initial parse of the value

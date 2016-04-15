@@ -64,6 +64,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @param locale The locale to use for the Format, defaults to the default
      * @return <code>true</code> if the value is valid.
      */
+    @Override
     public boolean isValid(String value, String pattern, Locale locale) {
         Object parsedValue = parse(value, pattern, locale, (TimeZone)null);
         return (parsedValue == null ? false : true);
@@ -119,6 +120,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @param locale The locale to use for the Format.
      * @return The value formatted as a <code>String</code>.
      */
+    @Override
     public String format(Object value, String pattern, Locale locale) {
         return format(value, pattern, locale, (TimeZone)null);
     }
@@ -151,6 +153,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @param formatter The Format to use.
      * @return The formatted value.
      */
+    @Override
     protected String format(Object value, Format formatter) {
         if (value == null) {
             return null;
@@ -193,6 +196,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return The parsed value converted to the appropriate type
      *         if valid or <code>null</code> if invalid.
      */
+    @Override
     protected abstract Object processParsedValue(Object value, Format formatter);
 
     /**
@@ -204,6 +208,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @param locale The locale to use for the currency format, system default if null.
      * @return The <code>DateFormat</code> to created.
      */
+    @Override
     protected Format getFormat(String pattern, Locale locale) {
         DateFormat formatter = null;
         boolean usePattern = (pattern != null && pattern.length() > 0);

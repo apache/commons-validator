@@ -40,6 +40,7 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
      * @return The FormSet for a locale.
      * @throws Exception If an error occurs creating the FormSet.
      */
+    @Override
     public Object createObject(Attributes attributes) throws Exception {
 
         ValidatorResources resources = (ValidatorResources)digester.peek(0);

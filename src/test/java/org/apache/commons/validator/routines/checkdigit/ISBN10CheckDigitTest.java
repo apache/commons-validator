@@ -36,6 +36,7 @@ public class ISBN10CheckDigitTest extends AbstractCheckDigitTest {
     /**
      * Set up routine & valid codes.
      */
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         routine = ISBN10CheckDigit.ISBN10_CHECK_DIGIT;

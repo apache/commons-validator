@@ -241,6 +241,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @return The parsed <code>Number</code> converted to a
      *   <code>Short</code> if valid or <code>null</code> if invalid.
      */
+    @Override
     protected Object processParsedValue(Object value, Format formatter) {
 
         long longValue = ((Number)value).longValue();

@@ -38,12 +38,14 @@ public class CustomValidatorResourcesTest extends TestCase {
     /**
      * Set up.
      */
+    @Override
     protected void setUp() {
     }
 
     /**
      * Tear Down
      */
+    @Override
     protected void tearDown() {
     }
 

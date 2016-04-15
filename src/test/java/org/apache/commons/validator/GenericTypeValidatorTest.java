@@ -50,12 +50,14 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
     * Load <code>ValidatorResources</code> from 
     * validator-type.xml.
     */
-   protected void setUp() throws IOException, SAXException {
+   @Override
+protected void setUp() throws IOException, SAXException {
       // Load resources
       loadResources("GenericTypeValidatorTest-config.xml");
    }
 
-   protected void tearDown() {
+   @Override
+protected void tearDown() {
    }
 
    /**

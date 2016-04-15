@@ -284,6 +284,7 @@ public class ValidatorResources implements Serializable {
 
         // Create a new rule to process args elements
         Rule rule = new Rule() {
+            @Override
             public void begin(String namespace, String name,
                                Attributes attributes) throws Exception {
                 // Create the Arg

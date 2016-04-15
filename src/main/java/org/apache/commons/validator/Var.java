@@ -180,6 +180,7 @@ public class Var implements Cloneable, Serializable {
      * Creates and returns a copy of this object.
      * @return A copy of the variable.
      */
+    @Override
     public Object clone() {
         try {
             return super.clone();
@@ -193,6 +194,7 @@ public class Var implements Cloneable, Serializable {
      * Returns a string representation of the object.
      * @return A string representation of the variable.
      */
+    @Override
     public String toString() {
         StringBuilder results = new StringBuilder();
 

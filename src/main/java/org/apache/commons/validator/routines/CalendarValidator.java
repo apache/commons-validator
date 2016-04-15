@@ -305,6 +305,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
      * parameter's quarter is less than the seconds and +1 if the first
      * parameter's quarter is greater than.
      */
+    @Override
     public int compareQuarters(Calendar value, Calendar compare, int monthOfFirstQuarter) {
         return super.compareQuarters(value, compare, monthOfFirstQuarter);
     }
@@ -329,6 +330,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
      * @param formatter The Format used to parse the value with.
      * @return The parsed value converted to a <code>Calendar</code>.
      */
+    @Override
     protected Object processParsedValue(Object value, Format formatter) {
         return ((DateFormat)formatter).getCalendar();
     }

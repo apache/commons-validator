@@ -67,6 +67,7 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      * @throws CheckDigitException if an error occurs calculating the modulus
      * for the specified code
      */
+    @Override
     protected int calculateModulus(String code, boolean includesCheckDigit) throws CheckDigitException {
         StringBuilder transformed = new  StringBuilder(code.length() * 2);
         if (includesCheckDigit) {
@@ -101,6 +102,7 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character.
      */
+    @Override
     protected int weightedValue(int charValue, int leftPos, int rightPos) {
         int weight = POSITION_WEIGHT[rightPos % 2];
         int weightedValue = (charValue * weight);

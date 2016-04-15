@@ -128,6 +128,7 @@ public class Msg implements Cloneable, Serializable {
      * Creates and returns a copy of this object.
      * @return A copy of the Msg.
      */
+    @Override
     public Object clone() {
         try {
             return super.clone();
@@ -141,6 +142,7 @@ public class Msg implements Cloneable, Serializable {
      * Returns a string representation of the object.
      * @return Msg String representation.
      */
+    @Override
     public String toString() {
         StringBuilder results = new StringBuilder();
 

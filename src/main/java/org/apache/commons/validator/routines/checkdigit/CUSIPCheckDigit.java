@@ -65,6 +65,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      * @return The integer value of the character
      * @throws CheckDigitException if character is not alphanumeric
      */
+    @Override
     protected int toInt(char character, int leftPos, int rightPos)
             throws CheckDigitException {
         int charValue = Character.getNumericValue(character);
@@ -90,6 +91,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character.
      */
+    @Override
     protected int weightedValue(int charValue, int leftPos, int rightPos) {
         int weight = POSITION_WEIGHT[rightPos % 2];
         int weightedValue = (charValue * weight);

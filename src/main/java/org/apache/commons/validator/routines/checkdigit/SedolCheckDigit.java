@@ -67,6 +67,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * @throws CheckDigitException if an error occurs calculating the modulus
      * for the specified code
      */
+    @Override
     protected int calculateModulus(String code, boolean includesCheckDigit) throws CheckDigitException {
         if (code.length() > POSITION_WEIGHT.length) {
             throw new CheckDigitException("Invalid Code Length = " + code.length());
@@ -83,6 +84,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * @param rightPos The positionof the character in the code, counting from right to left
      * @return The weighted value of the character.
      */
+    @Override
     protected int weightedValue(int charValue, int leftPos, int rightPos) {
         return charValue * POSITION_WEIGHT[leftPos - 1];
     }
@@ -96,6 +98,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * @return The integer value of the character
      * @throws CheckDigitException if character is not alphanumeric
      */
+    @Override
     protected int toInt(char character, int leftPos, int rightPos)
             throws CheckDigitException {
         int charValue = Character.getNumericValue(character);

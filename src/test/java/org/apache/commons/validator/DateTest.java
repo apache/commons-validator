@@ -48,6 +48,7 @@ public class DateTest extends AbstractCommonTest {
      * Load <code>ValidatorResources</code> from 
      * validator-numeric.xml.
      */
+    @Override
     protected void setUp() throws IOException, SAXException {
         // Load resources
         loadResources("DateTest-config.xml");

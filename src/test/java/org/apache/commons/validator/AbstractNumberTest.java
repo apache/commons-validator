@@ -47,11 +47,13 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
      * Load <code>ValidatorResources</code> from 
      * validator-numeric.xml.
      */
+    @Override
     protected void setUp() throws IOException, SAXException {
         // Load resources
         loadResources("TestNumber-config.xml");
     }
 
+    @Override
     protected void tearDown() {
     }
 

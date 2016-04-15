@@ -221,6 +221,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * @return The parsed <code>Number</code> converted to a
      *         <code>BigDecimal</code>.
      */
+    @Override
     protected Object processParsedValue(Object value, Format formatter) {
         BigDecimal decimal = null;
         if (value instanceof Long) {

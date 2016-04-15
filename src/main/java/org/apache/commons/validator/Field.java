@@ -681,6 +681,7 @@ public class Field implements Cloneable, Serializable {
      * Creates and returns a copy of this object.
      * @return A copy of the Field.
      */
+    @Override
     public Object clone() {
         Field field = null;
         try {
@@ -718,6 +719,7 @@ public class Field implements Cloneable, Serializable {
      * Returns a string representation of the object.
      * @return A string representation of the object.
      */
+    @Override
     public String toString() {
         StringBuilder results = new StringBuilder();
 

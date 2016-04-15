@@ -241,6 +241,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @return The parsed <code>Number</code> converted to an
      *   <code>Integer</code> if valid or <code>null</code> if invalid.
      */
+    @Override
     protected Object processParsedValue(Object value, Format formatter) {
 
         long longValue = ((Number)value).longValue();

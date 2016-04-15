@@ -94,6 +94,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @param locale The locale to use for the date format, system default if null.
      * @return <code>true</code> if the value is valid.
      */
+    @Override
     public boolean isValid(String value, String pattern, Locale locale) {
         Object parsedValue = parse(value, pattern, locale);
         return (parsedValue == null ? false : true);
@@ -171,6 +172,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @return The parsed value converted to the appropriate type
      *         if valid or <code>null</code> if invalid.
      */
+    @Override
     protected abstract Object processParsedValue(Object value, Format formatter);
 
     /**
@@ -182,6 +184,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @param locale The locale to use for the currency format, system default if null.
      * @return The <code>NumberFormat</code> to created.
      */
+    @Override
     protected Format getFormat(String pattern, Locale locale) {
 
         NumberFormat formatter = null;

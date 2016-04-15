@@ -204,6 +204,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * @return The parsed <code>Number</code> converted to a
      *         <code>BigInteger</code>.
      */
+    @Override
     protected Object processParsedValue(Object value, Format formatter) {
         return BigInteger.valueOf(((Number)value).longValue());
     }
