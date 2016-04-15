@@ -63,7 +63,7 @@ public class CurrencyValidatorTest extends TestCase {
      */
     public void testFormatType() {
         assertEquals("Format Type A", 1, CurrencyValidator.getInstance().getFormatType());
-        assertEquals("Format Type B", CurrencyValidator.CURRENCY_FORMAT, CurrencyValidator.getInstance().getFormatType());
+        assertEquals("Format Type B", AbstractNumberValidator.CURRENCY_FORMAT, CurrencyValidator.getInstance().getFormatType());
     }
 
     /**

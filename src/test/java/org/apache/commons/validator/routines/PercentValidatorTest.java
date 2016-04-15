@@ -58,7 +58,7 @@ public class PercentValidatorTest extends TestCase {
      */
     public void testFormatType() {
         assertEquals("Format Type A", 2, PercentValidator.getInstance().getFormatType());
-        assertEquals("Format Type B", PercentValidator.PERCENT_FORMAT, PercentValidator.getInstance().getFormatType());
+        assertEquals("Format Type B", AbstractNumberValidator.PERCENT_FORMAT, PercentValidator.getInstance().getFormatType());
     }
 
     /**
