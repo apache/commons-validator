@@ -30,7 +30,6 @@
       <item name="Download"          href="/download_validator.cgi"/>
       <item name="Release Notes"     href="/changes-report.html"/>
       <item name="Dependencies"      href="/dependencies.html"/>
-      <item name="License"           href="/license.html"/>
     </menu>
 
     <menu name="Documentation">
@@ -40,6 +39,7 @@
     </menu>
 
     <menu name="JavaDocs">
+      <item name="1.5.1 Release"   href="javadocs/api-1.5.1/"/>
       <item name="1.5.0 Release"   href="javadocs/api-1.5.0/"/>
       <item name="1.4.1 Release"   href="javadocs/api-1.4.1/"/>
       <item name="1.4.0 Release"   href="javadocs/api-1.4.0/"/>
