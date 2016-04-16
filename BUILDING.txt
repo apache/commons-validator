@@ -10,7 +10,11 @@ For setting up your Maven installation to enable the use of the profile, please 
 
 http://commons.apache.org/commons-parent-pom.html#Testing_with_different_Java_versions
 
-Building the site will also generally require at least Java 7.
+Building the site will also generally require at least Java 7 to run Maven.
+To build the site from scratch, you can use:
+
+mvn clean site [-Pjava-1.6]
+
 Also, ensure Maven has enough memory when using Java 7:
 
 export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m" # Unix
