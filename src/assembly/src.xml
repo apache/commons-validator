@@ -24,9 +24,11 @@
     <fileSets>
         <fileSet>
             <includes>
+                <include>BUILDING.txt</include>
                 <include>build.properties.sample</include>
                 <include>build.xml</include>
                 <include>checkstyle*.xml</include>
+                <include>CONTRIBUTING.md</include>
                 <include>LICENSE.txt</include>
                 <include>license-header.txt</include>
                 <include>NOTICE.txt</include>
