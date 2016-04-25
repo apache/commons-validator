@@ -283,7 +283,7 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = new String[] {
-        // Taken from Version 2016041301, Last Updated Thu Apr 14 07:07:01 2016 UTC
+        // Taken from Version 2016042500, Last Updated Mon Apr 25 07:07:01 2016 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
         "abb", // abb ABB Ltd
@@ -304,10 +304,12 @@ public class DomainValidator implements Serializable {
         "aeg", // aeg Aktiebolaget Electrolux
         "aero", // aero Societe Internationale de Telecommunications Aeronautique (SITA INC USA)
         "afl", // afl Australian Football League
+        "agakhan", // agakhan Fondation Aga Khan (Aga Khan Foundation)
         "agency", // agency Steel Falls, LLC
         "aig", // aig American International Group, Inc.
         "airforce", // airforce United TLD Holdco Ltd.
         "airtel", // airtel Bharti Airtel Limited
+        "akdn", // akdn Fondation Aga Khan (Aga Khan Foundation)
         "alibaba", // alibaba Alibaba Group Holding Limited
         "alipay", // alipay Alibaba Group Holding Limited
         "allfinanz", // allfinanz Allfinanz Deutsche Vermögensberatung Aktiengesellschaft
@@ -596,6 +598,7 @@ public class DomainValidator implements Serializable {
         "frl", // frl FRLregistry B.V.
         "frogans", // frogans OP3FT
         "frontier", // frontier Frontier Communications Corporation
+        "ftr", // ftr Frontier Communications Corporation
         "fund", // fund John Castle, LLC
         "furniture", // furniture Lone Fields, LLC
         "futbol", // futbol United TLD Holdco, Ltd.
@@ -679,6 +682,7 @@ public class DomainValidator implements Serializable {
         "icu", // icu One.com A/S
         "ifm", // ifm ifm electronic gmbh
         "iinet", // iinet Connect West Pty. Ltd.
+        "imamat", // imamat Fondation Aga Khan (Aga Khan Foundation)
         "immo", // immo Auburn Bloom, LLC
         "immobilien", // immobilien United TLD Holdco Ltd.
         "industries", // industries Outer House, LLC
@@ -695,6 +699,7 @@ public class DomainValidator implements Serializable {
         "ipiranga", // ipiranga Ipiranga Produtos de Petroleo S.A.
         "irish", // irish Dot-Irish LLC
         "iselect", // iselect iSelect Ltd
+        "ismaili", // ismaili Fondation Aga Khan (Aga Khan Foundation)
         "ist", // ist Istanbul Metropolitan Municipality
         "istanbul", // istanbul Istanbul Metropolitan Municipality / Medya A.S.
         "itau", // itau Itau Unibanco Holding S.A.
@@ -806,6 +811,7 @@ public class DomainValidator implements Serializable {
         "microsoft", // microsoft Microsoft Corporation
         "mil", // mil DoD Network Information Center
         "mini", // mini Bayerische Motoren Werke Aktiengesellschaft
+        "mls", // mls The Canadian Real Estate Association
         "mma", // mma MMA IARD
         "mobi", // mobi Afilias Technologies Limited dba dotMobi
         "mobily", // mobily GreenTech Consultancy Company W.L.L.
@@ -914,6 +920,7 @@ public class DomainValidator implements Serializable {
         "prod", // prod Charleston Road Registry Inc.
         "productions", // productions Magic Birch, LLC
         "prof", // prof Charleston Road Registry Inc.
+        "progressive", // progressive Progressive Casualty Insurance Company
         "promo", // promo Afilias plc
         "properties", // properties Big Pass, LLC
         "property", // property Uniregistry, Corp.
@@ -974,6 +981,7 @@ public class DomainValidator implements Serializable {
         "sarl", // sarl Delta Orchard, LLC
         "sas", // sas Research IP LLC
         "saxo", // saxo Saxo Bank A/S
+        "sbi", // sbi STATE BANK OF INDIA
         "sbs", // sbs SPECIAL BROADCASTING SERVICE CORPORATION
         "sca", // sca SVENSKA CELLULOSA AKTIEBOLAGET SCA (publ)
         "scb", // scb The Siam Commercial Bank Public Company Limited (&quot;SCB&quot;)
@@ -1033,6 +1041,7 @@ public class DomainValidator implements Serializable {
         "stada", // stada STADA Arzneimittel AG
         "star", // star Star India Private Limited
         "starhub", // starhub StarHub Limited
+        "statebank", // statebank STATE BANK OF INDIA
         "statefarm", // statefarm State Farm Mutual Automobile Insurance Company
         "statoil", // statoil Statoil ASA
         "stc", // stc Saudi Telecom Company
@@ -1186,6 +1195,7 @@ public class DomainValidator implements Serializable {
         "xn--4gbrim", // موقع Suhub Electronic Establishment
         "xn--55qw42g", // 公益 China Organizational Name Administration Center
         "xn--55qx5d", // 公司 Computer Network Information Center of Chinese Academy of Sciences （China Internet Network Information Center）
+        "xn--5tzm5g", // 网站 Global Website TLD Asia Limited
         "xn--6frz82g", // 移动 Afilias Limited
         "xn--6qq986b3xl", // 我爱你 Tycoon Treasure Limited
         "xn--80adxhks", // москва Foundation for Assistance for Internet Technologies and Infrastructure Development (FAITID)
