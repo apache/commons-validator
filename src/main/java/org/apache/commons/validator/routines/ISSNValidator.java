@@ -48,7 +48,7 @@ import org.apache.commons.validator.routines.checkdigit.ISSNCheckDigit;
  * 
  * </pre>
  * <p>
- * Note: the {@link #isValid(String)} and {@link } methods strip off any leading
+ * Note: the {@link #isValid(String)} and {@link #validate(String)} methods strip off any leading
  * or trailing spaces before doing the validation.
  * To ensure that only a valid code (without 'ISSN ' prefix) is passed to a method,
  * use the following code:
