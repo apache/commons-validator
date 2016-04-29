@@ -24,3 +24,6 @@ For Java 8+, the MaxPermSize option should be removed:
 
 export MAVEN_OPTS="-Xmx512m" # Unix
 set MAVEN_OPTS="-Xmx512m"    # Windows
+
+There can be problems building the site using Maven 3.0.5 or earlier;
+if so please use a later version.
