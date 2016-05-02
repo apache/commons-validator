@@ -275,6 +275,17 @@ protected void setUp() {
               validator.isValid("file://C:\\some.file"));
     }
 
+    public void testValidator391OK() {
+        String[] schemes = {"file"};
+        UrlValidator urlValidator = new UrlValidator(schemes);
+        urlValidator.isValid("file:///C:/path/to/dir/");
+    }
+    
+    public void testValidator391FAILS() {
+        String[] schemes = {"file"};
+        UrlValidator urlValidator = new UrlValidator(schemes);
+        urlValidator.isValid("file:/C:/path/to/dir/");
+    }
     
     public void testValidator309() {
         UrlValidator urlValidator = new UrlValidator();
