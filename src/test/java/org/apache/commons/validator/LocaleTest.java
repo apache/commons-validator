@@ -48,8 +48,8 @@ public class LocaleTest extends AbstractCommonTest {
     /**
      * Load <code>ValidatorResources</code> from validator-locale.xml.
      *
-     * @exception IOException   If something goes wrong
-     * @exception SAXException  If something goes wrong
+     * @throws IOException   If something goes wrong
+     * @throws SAXException  If something goes wrong
      */
     @Override
     protected void setUp()
@@ -67,7 +67,7 @@ public class LocaleTest extends AbstractCommonTest {
      * See what happens when we try to validate with a Locale, Country and
      * variant. Also check if the added locale validation field is getting used.
      *
-     * @exception ValidatorException  If something goes wrong
+     * @throws ValidatorException  If something goes wrong
      */
     public void testLocale1()
         throws ValidatorException {
@@ -83,7 +83,7 @@ public class LocaleTest extends AbstractCommonTest {
      * See what happens when we try to validate with a Locale, Country and
      * variant
      *
-     * @exception ValidatorException  If something goes wrong
+     * @throws ValidatorException  If something goes wrong
      */
     public void testLocale2()
         throws ValidatorException {
@@ -99,7 +99,7 @@ public class LocaleTest extends AbstractCommonTest {
      * See what happens when we try to validate with a Locale, Country and
      * variant
      *
-     * @exception ValidatorException  If something goes wrong
+     * @throws ValidatorException  If something goes wrong
      */
     public void testLocale3()
         throws ValidatorException {
@@ -116,7 +116,7 @@ public class LocaleTest extends AbstractCommonTest {
      * set. Bug #16920 states that this isn't happening, even though it is
      * passing this test. see #16920.
      *
-     * @exception ValidatorException  If something goes wrong
+     * @throws ValidatorException  If something goes wrong
      */
     public void testLocale4()
         throws ValidatorException {
@@ -131,7 +131,7 @@ public class LocaleTest extends AbstractCommonTest {
     /**
      * See if a locale of language=en falls back to default form set.
      *
-     * @exception ValidatorException  If something goes wrong
+     * @throws ValidatorException  If something goes wrong
      */
     public void testLocale5()
         throws ValidatorException {
@@ -151,7 +151,7 @@ public class LocaleTest extends AbstractCommonTest {
      * @param firstGood               param
      * @param lastGood                param
      * @param middleGood              param
-     * @exception ValidatorException  If something goes wrong
+     * @throws ValidatorException  If something goes wrong
      */
     private void valueTest(Object name, Locale loc, boolean firstGood, boolean lastGood, boolean middleGood)
         throws ValidatorException {
