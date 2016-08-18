@@ -107,7 +107,9 @@ public class IBANValidatorTest {
             "AE070331234567890123456",
             "GB29NWBK60161331926819",
             "VG96VPVG0000012345678901",
-            };
+            "SC18SSCB11010000000000001497USD",
+            "UA213996220000026007233566001"
+    };
 
     private final String[] invalidIBANFormat = new String[] {
             "",                        // empty
