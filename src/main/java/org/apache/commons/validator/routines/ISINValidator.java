@@ -23,7 +23,7 @@ import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 /**
  * International Securities Identification Number (ISIN) uniquely identifies a
  * bonds, commercial paper, stocks or warrant. The structure is governed
- * by ISO 6166.
+ * by <a href="http://www.anna-web.org/standards/isin-iso-6166/">ISO 6166:2013</a>.
  */
 public class ISINValidator implements Serializable {
     
@@ -45,7 +45,8 @@ public class ISINValidator implements Serializable {
             return false;
         }
 
-        // check country code or international code
+        // check country code or code XS for Euroclear and Clearstream
+        // 
         String countryCode = isin.substring(0, 2);
         if (!countryCode.equals("XS")) {
             boolean foundCode = false;
