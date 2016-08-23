@@ -22,7 +22,8 @@ import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 
 /**
  * International Securities Identification Number (ISIN) uniquely identifies a
- * bonds, commercial paper, stocks or warrant.
+ * bonds, commercial paper, stocks or warrant. The structure is governed
+ * by ISO 6166.
  */
 public class ISINValidator implements Serializable {
     
