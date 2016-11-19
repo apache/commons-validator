@@ -65,6 +65,9 @@ The <action> type attribute can be add,update,fix,remove.
 
   <body>
   <release version="1.5.2" date="TBA" description="">
+    <action issue="VALIDATOR-407" type="fix" dev="sebb">
+    Generic .shop top level domain is considered invalid
+    </action>
     <action issue="VALIDATOR-405" type="fix" dev="sebb">
     IBANValidator - Costa Rica entry has been updated in SWIFT docs
     </action>
