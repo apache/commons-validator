@@ -177,13 +177,13 @@ protected void setUp() {
 
         // Now check using options
         validator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
-        
+
         assertTrue("localhost URL should validate",
               validator.isValid("http://localhost/test/index.html"));
-        
+
         assertTrue("machinename URL should validate",
               validator.isValid("http://machinename/test/index.html"));
-        
+
         assertTrue("www.apache.org should still validate",
               validator.isValid("http://www.apache.org/test/index.html"));
     }
@@ -196,10 +196,10 @@ protected void setUp() {
 
         assertTrue("hostname with path should validate",
                 validator.isValid("http://hostname/test/index.html"));
-        
+
         assertTrue("localhost URL should validate",
                 validator.isValid("http://localhost/test/index.html"));
-        
+
         assertFalse("first.my-testing should not validate",
                 validator.isValid("http://first.my-testing/test/index.html"));
 
@@ -217,60 +217,60 @@ protected void setUp() {
 
         assertFalse("localhost URL should no longer validate",
                 validator.isValid("http://localhost/test/index.html"));
-        
+
         assertTrue("www.apache.org should still validate",
                 validator.isValid("http://www.apache.org/test/index.html"));
     }
-    
+
     public void testValidator276() {
         // file:// isn't allowed by default
         UrlValidator validator = new UrlValidator();
-        
+
         assertTrue("http://apache.org/ should be allowed by default",
                  validator.isValid("http://www.apache.org/test/index.html"));
-       
+
         assertFalse("file:///c:/ shouldn't be allowed by default",
                  validator.isValid("file:///C:/some.file"));
-        
+
         assertFalse("file:///c:\\ shouldn't be allowed by default",
               validator.isValid("file:///C:\\some.file"));
-        
+
         assertFalse("file:///etc/ shouldn't be allowed by default",
               validator.isValid("file:///etc/hosts"));
-        
+
         assertFalse("file://localhost/etc/ shouldn't be allowed by default",
               validator.isValid("file://localhost/etc/hosts"));
-        
+
         assertFalse("file://localhost/c:/ shouldn't be allowed by default",
               validator.isValid("file://localhost/c:/some.file"));
-        
+
         // Turn it on, and check
         // Note - we need to enable local urls when working with file:
         validator = new UrlValidator(new String[] {"http","file"}, UrlValidator.ALLOW_LOCAL_URLS);
-        
+
         assertTrue("http://apache.org/ should be allowed by default",
                  validator.isValid("http://www.apache.org/test/index.html"));
-       
+
         assertTrue("file:///c:/ should now be allowed",
                  validator.isValid("file:///C:/some.file"));
-        
+
         // Currently, we don't support the c:\ form
         assertFalse("file:///c:\\ shouldn't be allowed",
               validator.isValid("file:///C:\\some.file"));
-        
+
         assertTrue("file:///etc/ should now be allowed",
               validator.isValid("file:///etc/hosts"));
-        
+
         assertTrue("file://localhost/etc/ should now be allowed",
               validator.isValid("file://localhost/etc/hosts"));
-        
+
         assertTrue("file://localhost/c:/ should now be allowed",
               validator.isValid("file://localhost/c:/some.file"));
-        
+
         // These are never valid
         assertFalse("file://c:/ shouldn't ever be allowed, needs file:///c:/",
               validator.isValid("file://C:/some.file"));
-     
+
         assertFalse("file://c:\\ shouldn't ever be allowed, needs file:///c:/",
               validator.isValid("file://C:\\some.file"));
     }
@@ -280,13 +280,13 @@ protected void setUp() {
         UrlValidator urlValidator = new UrlValidator(schemes);
         assertTrue(urlValidator.isValid("file:///C:/path/to/dir/"));
     }
-    
+
     public void testValidator391FAILS() {
         String[] schemes = {"file"};
         UrlValidator urlValidator = new UrlValidator(schemes);
         assertTrue(urlValidator.isValid("file:/C:/path/to/dir/"));
     }
-    
+
     public void testValidator309() {
         UrlValidator urlValidator = new UrlValidator();
         assertTrue(urlValidator.isValid("http://sample.ondemand.com/"));
@@ -476,8 +476,8 @@ protected void setUp() {
 
    public void testValidator380() {
        UrlValidator validator = new UrlValidator();
-       assertTrue(validator.isValid("http://www.apache.org:80/path"));       
-       assertTrue(validator.isValid("http://www.apache.org:8/path")); 
+       assertTrue(validator.isValid("http://www.apache.org:80/path"));
+       assertTrue(validator.isValid("http://www.apache.org:8/path"));
        assertTrue(validator.isValid("http://www.apache.org:/path"));
    }
 
@@ -512,6 +512,7 @@ protected void setUp() {
                                new ResultPair("", true)};
 
    ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
+                                  new ResultPair("www.google.com.", true),
                                   new ResultPair("go.com", true),
                                   new ResultPair("go.au", true),
                                   new ResultPair("0.0.0.0", true),
