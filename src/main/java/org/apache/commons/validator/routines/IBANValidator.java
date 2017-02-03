@@ -104,6 +104,7 @@ public class IBANValidator {
             new Validator("BG", 22, "BG\\d{2}[A-Z]{4}\\d{6}[A-Z0-9]{8}"     ), // Bulgaria
             new Validator("BH", 22, "BH\\d{2}[A-Z]{4}[A-Z0-9]{14}"          ), // Bahrain (Kingdom of)
             new Validator("BR", 29, "BR\\d{25}[A-Z]{1}[A-Z0-9]{1}"          ), // Brazil
+            new Validator("BY", 28, "BY\\d{2}[A-Z0-9]{4}\\d{4}[A-Z0-9]{16}" ), // Republic of Belarus
             new Validator("CH", 21, "CH\\d{7}[A-Z0-9]{12}"                  ), // Switzerland
             new Validator("CR", 22, "CR\\d{20}"                             ), // Costa Rica
             new Validator("CY", 28, "CY\\d{10}[A-Z0-9]{16}"                 ), // Cyprus
@@ -128,6 +129,7 @@ public class IBANValidator {
             new Validator("IL", 23, "IL\\d{21}"                             ), // Israel
             new Validator("IS", 26, "IS\\d{24}"                             ), // Iceland
             new Validator("IT", 27, "IT\\d{2}[A-Z]{1}\\d{10}[A-Z0-9]{12}"   ), // Italy
+            new Validator("IQ", 23, "IQ\\d{2}[A-Z]{4}\\d{15}"               ), // Iraq
             new Validator("JO", 30, "JO\\d{2}[A-Z]{4}\\d{4}[A-Z0-9]{18}"    ), // Jordan
             new Validator("KW", 30, "KW\\d{2}[A-Z]{4}[A-Z0-9]{22}"          ), // Kuwait
             new Validator("KZ", 20, "KZ\\d{5}[A-Z0-9]{13}"                  ), // Kazakhstan
