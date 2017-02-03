@@ -44,6 +44,7 @@ public class IBANValidatorTest {
             "BG80BNBG96611020345678",
             "BH67BMAG00001299123456",
             "BR1800000000141455123924100C2",
+            "BR1800360305000010009795493C1",
             "BR9700360305000010009795493P1",
             // TODO add BY valid example
             "CH9300762011623852957",
@@ -102,12 +103,14 @@ public class IBANValidatorTest {
             "SC18SSCB11010000000000001497USD",
             "SE4550000000058398257466",
             "SI56191000000123438",
+            "SI56263300012039086",
             "SK3112000000198742637541",
             "SM86U0322509800000000270100",
             "ST68000100010051845310112",
             "TL380080012345678910157",
             "TN5910006035183598478831",
             "TR330006100519786457841326",
+            "UA213223130000026007233566001",
             "UA213996220000026007233566001",
             "VG96VPVG0000012345678901",
             "XK051212012345678906",
@@ -125,6 +128,8 @@ public class IBANValidatorTest {
             "RO49AAAA1b31007593840000", // lowercase version
             "LC62HEMM000100010012001200023015", // wrong in SWIFT
             "BY00NBRB3600000000000Z00AB00", // Wrong in SWIFT v73
+            "ST68000200010192194210112", // ditto
+            "SV62CENR0000000000000700025", // ditto
             };
 
     private static final IBANValidator VALIDATOR = IBANValidator.getInstance();
