@@ -132,7 +132,7 @@ public class IBANValidator {
             new Validator("KW", 30, "KW\\d{2}[A-Z]{4}[A-Z0-9]{22}"          ), // Kuwait
             new Validator("KZ", 20, "KZ\\d{5}[A-Z0-9]{13}"                  ), // Kazakhstan
             new Validator("LB", 28, "LB\\d{6}[A-Z0-9]{20}"                  ), // Lebanon
-            new Validator("LC", 32, "LC\\d{2}[A-Z]{4}\\d{24}"               ), // Saint Lucia
+            new Validator("LC", 32, "LC\\d{2}[A-Z]{4}[A-Z0-9]{24}"          ), // Saint Lucia
             new Validator("LI", 21, "LI\\d{7}[A-Z0-9]{12}"                  ), // Liechtenstein (Principality of)
             new Validator("LT", 20, "LT\\d{18}"                             ), // Lithuania
             new Validator("LU", 20, "LU\\d{5}[A-Z0-9]{13}"                  ), // Luxembourg
@@ -141,7 +141,7 @@ public class IBANValidator {
             new Validator("MD", 24, "MD\\d{2}[A-Z0-9]{20}"                  ), // Moldova
             new Validator("ME", 22, "ME\\d{20}"                             ), // Montenegro
             new Validator("MK", 19, "MK\\d{5}[A-Z0-9]{10}\\d{2}"            ), // Macedonia, Former Yugoslav Republic of
-            new Validator("MR", 27, "MR13\\d{23}"                           ), // Mauritania
+            new Validator("MR", 27, "MR\\d{25}"                             ), // Mauritania
             new Validator("MT", 31, "MT\\d{2}[A-Z]{4}\\d{5}[A-Z0-9]{18}"    ), // Malta
             new Validator("MU", 30, "MU\\d{2}[A-Z]{4}\\d{19}[A-Z]{3}"       ), // Mauritius
             new Validator("NL", 18, "NL\\d{2}[A-Z]{4}\\d{10}"               ), // The Netherlands
@@ -159,9 +159,9 @@ public class IBANValidator {
             new Validator("SI", 19, "SI\\d{17}"                             ), // Slovenia
             new Validator("SK", 24, "SK\\d{22}"                             ), // Slovak Republic
             new Validator("SM", 27, "SM\\d{2}[A-Z]{1}\\d{10}[A-Z0-9]{12}"   ), // San Marino
-            new Validator("ST", 25, "ST\\d{23}"                             ), // Sao Tome And Principe
+            new Validator("ST", 25, "ST\\d{23}"                             ), // Sao Tome and Principe
             new Validator("TL", 23, "TL\\d{21}"                             ), // Timor-Leste
-            new Validator("TN", 24, "TN59\\d{20}"                           ), // Tunisia
+            new Validator("TN", 24, "TN\\d{22}"                             ), // Tunisia
             new Validator("TR", 26, "TR\\d{8}[A-Z0-9]{16}"                  ), // Turkey
             new Validator("UA", 29, "UA\\d{8}[A-Z0-9]{19}"                  ), // Ukraine
             new Validator("VG", 24, "VG\\d{2}[A-Z]{4}\\d{16}"               ), // Virgin Islands, British
