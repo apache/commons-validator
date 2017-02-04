@@ -64,7 +64,38 @@ The <action> type attribute can be add,update,fix,remove.
      -->
 
   <body>
-  <release version="1.5.2" date="TBA" description="">
+  <release version="1.5.2" date="TBA" description="
+This is a maintenance release.
+
+All projects are encouraged to update to this release of
+Apache Commons Validator.
+
+  Commons Validator requires Java 1.6 or later.
+
+
+ IMPORTANT NOTES
+ ===============
+
+
+ BREAKING CHANGES:
+
+   * NONE.
+
+
+ DEPENDENCIES
+ ============
+
+The dependencies for Validator have not changed since the 1.4 release.
+
+For the current list of dependencies, please see
+http://commons.apache.org/validator/dependencies.html
+  ">
+    <action type="update" dev="sebb">
+    IANA TLD lists: Updated to Version 2017020400, Last Updated Sat Feb  4 07:07:01 2017 UTC
+    </action>
+    <action type="update" dev="sebb">
+    Update to version 73 of SWIFT IBAN list: added BY (Belarus) and IQ (Iraq); fixed Santa Lucia format
+    </action>
     <action issue="VALIDATOR-407" type="fix" dev="sebb">
     Generic .shop top level domain is considered invalid
     </action>
