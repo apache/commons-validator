@@ -322,6 +322,15 @@ protected void setUp() {
         assertTrue(urlValidator.isValid("http://example.rocks"));
     }
 
+    public void testValidator411(){
+        UrlValidator urlValidator = new UrlValidator();
+        assertTrue(urlValidator.isValid("http://example.rocks:/"));
+        assertTrue(urlValidator.isValid("http://example.rocks:0/"));
+        assertTrue(urlValidator.isValid("http://example.rocks:65535/"));
+        assertFalse(urlValidator.isValid("http://example.rocks:65536/"));
+        assertFalse(urlValidator.isValid("http://example.rocks:100000/"));
+    }
+
     static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
       boolean carry = true;  //add 1 to lowest order part.
       boolean maxIndex = true;
@@ -533,11 +542,12 @@ protected void setUp() {
                                   new ResultPair("", false)
    };
    ResultPair[] testUrlPort = {new ResultPair(":80", true),
-                             new ResultPair(":65535", true),
+                             new ResultPair(":65535", true), // max possible
                              new ResultPair(":0", true),
                              new ResultPair("", true),
                              new ResultPair(":-1", false),
-                             new ResultPair(":65636", true),
+                             new ResultPair(":65636", false),
+                             new ResultPair(":999999999999999999", false),
                              new ResultPair(":65a", false)
    };
    ResultPair[] testPath = {new ResultPair("/test1", true),

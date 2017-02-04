@@ -156,8 +156,7 @@ public class UrlValidator implements Serializable {
 
     private static final int PARSE_AUTHORITY_HOST_IP = 2; // excludes userinfo, if present
 
-    // Not needed, because it is validated by AUTHORITY_REGEX
-//    private static final int PARSE_AUTHORITY_PORT = 3;
+    private static final int PARSE_AUTHORITY_PORT = 3; // excludes leading colon
 
     /**
      * Should always be empty. The code currently allows spaces.
@@ -412,6 +411,17 @@ public class UrlValidator implements Serializable {
                     // isn't IPv4, so the URL is invalid
                     return false;
                 }
+            }
+            String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
+            if (port != null && port.length() > 0) {
+            	try {
+            		long iPort = Integer.parseInt(port);
+            		if (iPort < 0 || iPort > 0xFFFF) {
+            			return false;
+            		}
+            	} catch (NumberFormatException nfe) {
+            		return false; // this can happen for big numbers
+            	}
             }
         }
 
