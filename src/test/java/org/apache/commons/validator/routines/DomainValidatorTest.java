@@ -368,6 +368,18 @@ public class DomainValidatorTest extends TestCase {
         assertTrue(validator.isValidGenericTld("com"));
     }
 
+    public void testVALIDATOR_412() {
+        assertFalse(validator.isValidGenericTld("local"));    	
+        assertFalse(validator.isValid("abc.local"));    	
+        assertFalse(validator.isValidGenericTld("pvt"));    	
+        assertFalse(validator.isValid("abc.pvt"));    	
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"local", "pvt"});
+        assertTrue(validator.isValidGenericTld("local"));
+        assertTrue(validator.isValid("abc.local"));    	
+        assertTrue(validator.isValidGenericTld("pvt"));
+        assertTrue(validator.isValid("abc.pvt"));    	
+    }
+
     public void testCannotUpdate() {
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"}); // OK
         DomainValidator dv = DomainValidator.getInstance();
