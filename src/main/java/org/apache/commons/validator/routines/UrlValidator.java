@@ -415,7 +415,7 @@ public class UrlValidator implements Serializable {
             String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
             if (port != null && port.length() > 0) {
             	try {
-            		long iPort = Integer.parseInt(port);
+            		int iPort = Integer.parseInt(port);
             		if (iPort < 0 || iPort > 0xFFFF) {
             			return false;
             		}
