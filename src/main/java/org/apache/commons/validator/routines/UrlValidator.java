@@ -78,6 +78,8 @@ public class UrlValidator implements Serializable {
 
     private static final long serialVersionUID = 7557161713937335013L;
 
+    private static final int MAX_UNSIGNED_16_BIT_INT = 0xFFFF; // port max
+
     /**
      * Allows all validly formatted schemes to pass validation instead of
      * supplying a set of valid schemes.
@@ -416,7 +418,7 @@ public class UrlValidator implements Serializable {
             if (port != null && port.length() > 0) {
             	try {
             		int iPort = Integer.parseInt(port);
-            		if (iPort < 0 || iPort > 0xFFFF) {
+            		if (iPort < 0 || iPort > MAX_UNSIGNED_16_BIT_INT) {
             			return false;
             		}
             	} catch (NumberFormatException nfe) {
