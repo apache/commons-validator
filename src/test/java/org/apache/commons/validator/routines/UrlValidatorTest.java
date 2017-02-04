@@ -543,6 +543,7 @@ protected void setUp() {
    };
    ResultPair[] testUrlPort = {new ResultPair(":80", true),
                              new ResultPair(":65535", true), // max possible
+                             new ResultPair(":65536", false), // max possible +1
                              new ResultPair(":0", true),
                              new ResultPair("", true),
                              new ResultPair(":-1", false),
