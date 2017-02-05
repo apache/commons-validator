@@ -491,17 +491,6 @@ protected void setUp() {
        assertTrue(validator.isValid("http://www.apache.org:/path"));
    }
 
-   /**
-    * Only used to debug the unit tests.
-    * @param argv
-    */
-   public static void main(String[] argv) {
-
-      UrlValidatorTest fct = new UrlValidatorTest("url test");
-      fct.setUp();
-      fct.testIsValid();
-      fct.testIsValidScheme();
-   }
    //-------------------- Test data for creating a composite URL
    /**
     * The data given below approximates the 4 parts of a URL
