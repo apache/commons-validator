@@ -90,7 +90,10 @@ The dependencies for Validator have not changed since the 1.4 release.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
-    <action issue="VALIDATOR-394" type="add" dev="sebb" due-to="Niall Pemberton "</>>
+    <action issue="VALIDATOR-387" type="fix" dev="sebb" due-to=" Shumpei Akai"</>>
+    Userinfo without colon should be valid in UrlValidator
+    </action>
+    <action issue="VALIDATOR-394" type="add" dev="sebb" due-to="Niall Pemberton"</>>
     General Modulus Ten Check Digit Implementation
     </action>
     <action issue="VALIDATOR-411" type="fix" dev="sebb">
