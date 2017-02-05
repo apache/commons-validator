@@ -218,6 +218,13 @@ public final class CodeValidator implements Serializable {
     /**
      * Validate the code returning either <code>true</code>
      * or <code>false</code>.
+     * <p>
+     * This calls {@link #validate(String)} and returns false
+     * if the return value is null, true otherwise.
+     * <p>
+     * Note that {@link #validate(String)} trims the input
+     * and if there is a {@link RegexValidator} it may also
+     * change the input as part of the validation.
      *
      * @param input The code to validate
      * @return <code>true</code> if valid, otherwise
@@ -230,6 +237,10 @@ public final class CodeValidator implements Serializable {
     /**
      * Validate the code returning either the valid code or
      * <code>null</code> if invalid.
+     * <p>
+     * Note that this method trims the input
+     * and if there is a {@link RegexValidator} it may also
+     * change the input as part of the validation.
      *
      * @param input The code to validate
      * @return The code if valid, otherwise <code>null</code>
