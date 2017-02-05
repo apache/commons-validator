@@ -59,7 +59,7 @@ public class CreditCardValidator implements Serializable {
 
     private static final int MIN_CC_LENGTH = 12; // minimum allowed length
 
-	private static final int MAX_CC_LENGTH = 19; // maximum allowed length
+    private static final int MAX_CC_LENGTH = 19; // maximum allowed length
 
     /**
      * Option specifying that no cards are allowed.  This is useful if
@@ -263,7 +263,7 @@ public class CreditCardValidator implements Serializable {
      * @since 1.5.2
      */
     public static CreditCardValidator genericCreditCardValidator(int minLen, int maxLen) {
-    	return new CreditCardValidator(new CodeValidator[] {new CodeValidator("(\\d+)", minLen, maxLen, LuhnCheckDigit.LUHN_CHECK_DIGIT)});
+        return new CreditCardValidator(new CodeValidator[] {new CodeValidator("(\\d+)", minLen, maxLen, LuhnCheckDigit.LUHN_CHECK_DIGIT)});
     }
 
     /**
@@ -273,7 +273,7 @@ public class CreditCardValidator implements Serializable {
      * @since 1.5.2
      */
     public static CreditCardValidator genericCreditCardValidator(int length) {
-    	return genericCreditCardValidator(length, length);
+        return genericCreditCardValidator(length, length);
     }
 
     /**
@@ -282,7 +282,7 @@ public class CreditCardValidator implements Serializable {
      * @since 1.5.2
      */
     public static CreditCardValidator genericCreditCardValidator() {
-    	return genericCreditCardValidator(MIN_CC_LENGTH, MAX_CC_LENGTH);
+        return genericCreditCardValidator(MIN_CC_LENGTH, MAX_CC_LENGTH);
     }
 
     /**

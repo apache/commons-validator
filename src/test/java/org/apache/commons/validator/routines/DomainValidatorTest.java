@@ -369,15 +369,15 @@ public class DomainValidatorTest extends TestCase {
     }
 
     public void testVALIDATOR_412() {
-        assertFalse(validator.isValidGenericTld("local"));    	
-        assertFalse(validator.isValid("abc.local"));    	
-        assertFalse(validator.isValidGenericTld("pvt"));    	
-        assertFalse(validator.isValid("abc.pvt"));    	
+        assertFalse(validator.isValidGenericTld("local"));
+        assertFalse(validator.isValid("abc.local"));
+        assertFalse(validator.isValidGenericTld("pvt"));
+        assertFalse(validator.isValid("abc.pvt"));
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"local", "pvt"});
         assertTrue(validator.isValidGenericTld("local"));
-        assertTrue(validator.isValid("abc.local"));    	
+        assertTrue(validator.isValid("abc.local"));
         assertTrue(validator.isValidGenericTld("pvt"));
-        assertTrue(validator.isValid("abc.pvt"));    	
+        assertTrue(validator.isValid("abc.pvt"));
     }
 
     public void testCannotUpdate() {

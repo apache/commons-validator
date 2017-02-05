@@ -416,14 +416,14 @@ public class UrlValidator implements Serializable {
             }
             String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
             if (port != null && port.length() > 0) {
-            	try {
-            		int iPort = Integer.parseInt(port);
-            		if (iPort < 0 || iPort > MAX_UNSIGNED_16_BIT_INT) {
-            			return false;
-            		}
-            	} catch (NumberFormatException nfe) {
-            		return false; // this can happen for big numbers
-            	}
+                try {
+                    int iPort = Integer.parseInt(port);
+                    if (iPort < 0 || iPort > MAX_UNSIGNED_16_BIT_INT) {
+                        return false;
+                    }
+                } catch (NumberFormatException nfe) {
+                    return false; // this can happen for big numbers
+                }
             }
         }
 

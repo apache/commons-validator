@@ -283,7 +283,7 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = new String[] {
-   		// Taken from Version 2017020400, Last Updated Sat Feb  4 07:07:01 2017 UTC
+        // Taken from Version 2017020400, Last Updated Sat Feb  4 07:07:01 2017 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
         "abarth", // abarth Fiat Chrysler Automobiles N.V.

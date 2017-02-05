@@ -45,31 +45,31 @@ public class CreditCardValidatorTest extends TestCase {
     private static final String ERROR_VPAY = "4370000000000069";
 
     private static final String [] VALID_CARDS = {
-		VALID_VISA,
-		VALID_SHORT_VISA,
-		VALID_AMEX,
-		VALID_MASTERCARD,
-		VALID_DISCOVER,
-		VALID_DISCOVER65,
-		VALID_DINERS,
-		VALID_VPAY,
-		VALID_VPAY2,
+        VALID_VISA,
+        VALID_SHORT_VISA,
+        VALID_AMEX,
+        VALID_MASTERCARD,
+        VALID_DISCOVER,
+        VALID_DISCOVER65,
+        VALID_DINERS,
+        VALID_VPAY,
+        VALID_VPAY2,
     };
 
     private static final String [] ERROR_CARDS = {
-		ERROR_VISA,
-		ERROR_SHORT_VISA,
-		ERROR_AMEX,
-		ERROR_MASTERCARD,
-		ERROR_DISCOVER,
-		ERROR_DISCOVER65,
-		ERROR_DINERS,
-		ERROR_VPAY,
-//		ERROR_VPAY2,
-		"",
-		"12345678901", // too short (11)
-		"12345678901234567890", // too long (20)
-		"4417123456789112", // invalid check digit
+        ERROR_VISA,
+        ERROR_SHORT_VISA,
+        ERROR_AMEX,
+        ERROR_MASTERCARD,
+        ERROR_DISCOVER,
+        ERROR_DISCOVER65,
+        ERROR_DINERS,
+        ERROR_VPAY,
+//        ERROR_VPAY2,
+        "",
+        "12345678901", // too short (11)
+        "12345678901234567890", // too long (20)
+        "4417123456789112", // invalid check digit
     };
 
     /**
@@ -551,12 +551,12 @@ public class CreditCardValidatorTest extends TestCase {
     }
 
     public void testGeneric() {
-    	CreditCardValidator ccv = CreditCardValidator.genericCreditCardValidator();
-    	for(String s : VALID_CARDS) {
-    		assertTrue(s, ccv.isValid(s));
-    	}
-    	for(String s : ERROR_CARDS) {
-    		assertFalse(s, ccv.isValid(s));
-    	}
+        CreditCardValidator ccv = CreditCardValidator.genericCreditCardValidator();
+        for(String s : VALID_CARDS) {
+            assertTrue(s, ccv.isValid(s));
+        }
+        for(String s : ERROR_CARDS) {
+            assertFalse(s, ccv.isValid(s));
+        }
     }
 }
