@@ -57,6 +57,10 @@ public class CreditCardValidator implements Serializable {
 
     private static final long serialVersionUID = 5955978921148959496L;
 
+    private static final int MIN_CC_LENGTH = 12; // minimum allowed length
+
+	private static final int MAX_CC_LENGTH = 19; // maximum allowed length
+
     /**
      * Option specifying that no cards are allowed.  This is useful if
      * you want only custom card types to validate so you turn off the
@@ -249,6 +253,36 @@ public class CreditCardValidator implements Serializable {
             throw new IllegalArgumentException("Card validators are missing");
         }
         Collections.addAll(cardTypes, creditCardValidators);
+    }
+
+    /**
+     * Create a new generic CreditCardValidator which validates the syntax and check digit only.
+     * @param minLen minimum allowed length
+     * @param maxLen maximum allowed length
+     * @return the validator
+     * @since 1.5.2
+     */
+    public static CreditCardValidator genericCreditCardValidator(int minLen, int maxLen) {
+    	return new CreditCardValidator(new CodeValidator[] {new CodeValidator("(\\d+)", minLen, maxLen, LuhnCheckDigit.LUHN_CHECK_DIGIT)});
+    }
+
+    /**
+     * Create a new generic CreditCardValidator which validates the syntax and check digit only.
+     * @param length exact length
+     * @return the validator
+     * @since 1.5.2
+     */
+    public static CreditCardValidator genericCreditCardValidator(int length) {
+    	return genericCreditCardValidator(length, length);
+    }
+
+    /**
+     * Create a new generic CreditCardValidator which validates the syntax and check digit only.
+     * @return the validator
+     * @since 1.5.2
+     */
+    public static CreditCardValidator genericCreditCardValidator() {
+    	return genericCreditCardValidator(MIN_CC_LENGTH, MAX_CC_LENGTH);
     }
 
     /**
