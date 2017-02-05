@@ -123,25 +123,28 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * American Express (Amex) Card Validator
-     * 34xxxx (15)
-     * 37xxxx (15)
+     * <p>
+     * 34xxxx (15) <br>
+     * 37xxxx (15) <br>
      */
     public static final CodeValidator AMEX_VALIDATOR = new CodeValidator("^(3[47]\\d{13})$", LUHN_VALIDATOR);
 
     /**
      * Diners Card Validator
-     * 300xxx - 305xxx (14)
-     * 3095xx (14)
-     * 36xxxx (14)
-     * 38xxxx (14)
-     * 39xxxx (14)
+     * <p>
+     * 300xxx - 305xxx (14) <br>
+     * 3095xx (14) <br>
+     * 36xxxx (14) <br>
+     * 38xxxx (14) <br>
+     * 39xxxx (14) <br>
      */
     public static final CodeValidator DINERS_VALIDATOR = new CodeValidator("^(30[0-5]\\d{11}|3095\\d{10}|36\\d{12}|3[8-9]\\d{12})$", LUHN_VALIDATOR);
 
     /**
      * Discover Card regular expressions
-     * 6011xx (16)
-     * 644xxx - 65xxxx (16)
+     * <p>
+     * 6011xx (16) <br>
+     * 644xxx - 65xxxx (16) <br>
      */
     private static final RegexValidator DISCOVER_REGEX = new RegexValidator(new String[] {"^(6011\\d{12})$", "^(64[4-9]\\d{13})$", "^(65\\d{14})$"});
 
@@ -150,8 +153,9 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Mastercard regular expressions
-     * 2221xx - 2720xx (16)
-     * 51xxx - 55xxx (16)
+     * <p>
+     * 2221xx - 2720xx (16) <br>
+     * 51xxx - 55xxx (16) <br>
      */
     private static final RegexValidator MASTERCARD_REGEX = new RegexValidator(
         new String[] {
@@ -177,11 +181,13 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Visa Card Validator
+     * <p>
      * 4xxxxx (13 or 16)
      */
     public static final CodeValidator VISA_VALIDATOR = new CodeValidator("^(4)(\\d{12}|\\d{15})$", LUHN_VALIDATOR);
 
     /** VPay (Visa) Card Validator
+     * <p>
      * 4xxxxx (13-19) 
      * @since 1.5.0
      */
