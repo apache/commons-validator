@@ -1,8 +1,7 @@
-              Apache Commons Validator
-                  Version 1.5.1
-                 RELEASE NOTES
+              Apache Commons Validator 1.5.2
+                  RELEASE NOTES
 
-The Apache Commons Validator team is pleased to announce the release of Apache Commons Validator 1.5.1
+The Apache Commons Validator team is pleased to announce the release of Apache Commons Validator 1.5.2
 
 Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
 It may be used standalone or with a framework like Struts.
@@ -27,18 +26,25 @@ For the current list of dependencies, please see http://commons.apache.org/valid
 Changes in this version include:
 
 New features:
-o VALIDATOR-351:  DomainValidator - allow access to internal arrays
+o VALIDATOR-413:  Generic CreditCard validation
+o VALIDATOR-394:  General Modulus Ten Check Digit Implementation Thanks to Niall Pemberton.
 
 Fixed Bugs:
-o VALIDATOR-392:  Mastercard Series 2 BIN ranges (active from October 2016) added to CreditCardValidator
-                  To disable the new ranges, use option MASTERCARD_PRE_OCT2016 or validator MASTERCARD_VALIDATOR_PRE_OCT2016 Thanks to Tim Deboer.
-o VALIDATOR-386:  org.apache.commons.validator.routines.DomainValidator.ArrayType is not public Thanks to Auke van Leeuwen.
-o VALIDATOR-359:  EmailValidator does not catch invalid email address like dora@.com Thanks to Dora Kinghorn.
-o VALIDATOR-384:  EmailValidator does not support escaped quotes in a quoted string Thanks to Kris Babic.
+o VALIDATOR-379:  CodeValidator unconditionally trim()s the input string - document the behaviour
+o VALIDATOR-387:  Userinfo without colon should be valid in UrlValidator Thanks to Shumpei Akai.
+o VALIDATOR-411:  UrlValidator accepts ports above max limit of 16-bit unsigned integer
+o VALIDATOR-407:  Generic .shop top level domain is considered invalid
+o VALIDATOR-405:  IBANValidator - Costa Rica entry has been updated in SWIFT docs
+o VALIDATOR-401:  IBANValidator fails for Seychelles and Ukraine
+o VALIDATOR-391:  UrlValidator.isValid throws exception for FILEURLs
+                  Fixed code so it handles URLs with no authority field Thanks to Mark E. Scott, Jr. & Jason Loomis.
 
 Changes:
-o                 Updated to TLD list Version 2016041301, Last Updated Thu Apr 14 07:07:01 2016 UTC
+o                 IANA TLD lists: Updated to Version 2017020400, Last Updated Sat Feb  4 07:07:01 2017 UTC
+o                 Update to version 73 of SWIFT IBAN list: added BY (Belarus) and IQ (Iraq); fixed Santa Lucia format
 
+
+Historical list of changes: http://commons.apache.org/proper/commons-validator/changes-report.html
 
 For complete information on Apache Commons Validator, including instructions on how to submit bug reports,
 patches, or suggestions for improvement, see the Apache Apache Commons Validator website:
