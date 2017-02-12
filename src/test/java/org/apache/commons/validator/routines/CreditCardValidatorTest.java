@@ -18,6 +18,7 @@ package org.apache.commons.validator.routines;
 
 import junit.framework.TestCase;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
+import org.apache.commons.validator.routines.CreditCardValidator.CreditCardRange;
 
 /**
  * Test the CreditCardValidator class.
@@ -552,6 +553,52 @@ public class CreditCardValidatorTest extends TestCase {
 
     public void testGeneric() {
         CreditCardValidator ccv = CreditCardValidator.genericCreditCardValidator();
+        for(String s : VALID_CARDS) {
+            assertTrue(s, ccv.isValid(s));
+        }
+        for(String s : ERROR_CARDS) {
+            assertFalse(s, ccv.isValid(s));
+        }
+    }
+
+    public void testRangeGeneratorNoLuhn() {
+        CodeValidator cv = CreditCardValidator.createRangeValidator(
+            new CreditCardRange[]{
+                new CreditCardRange("1",null,6,7),
+                new CreditCardRange("644","65", 8, 8)
+            }, 
+            null);
+        assertTrue(cv.isValid("1990000"));
+        assertTrue(cv.isValid("199000"));
+        assertFalse(cv.isValid("000000"));
+        assertFalse(cv.isValid("099999"));
+        assertFalse(cv.isValid("200000"));
+
+        assertFalse(cv.isValid("64399999"));
+        assertTrue(cv.isValid("64400000"));
+        assertTrue(cv.isValid("64900000"));
+        assertTrue(cv.isValid("65000000"));
+        assertTrue(cv.isValid("65999999"));
+        assertFalse(cv.isValid("66000000"));
+    }
+
+    public void testRangeGenerator() {
+        CreditCardValidator ccv = new CreditCardValidator(
+            new CodeValidator[] {
+                CreditCardValidator.AMEX_VALIDATOR,
+                CreditCardValidator.VISA_VALIDATOR,
+                CreditCardValidator.MASTERCARD_VALIDATOR,
+                CreditCardValidator.DISCOVER_VALIDATOR,
+            },
+            // Add missing validator
+            new CreditCardRange[]{
+                new CreditCardRange("300", "305", 14, 14), // Diners
+                new CreditCardRange("3095", null, 14, 14), // Diners
+                new CreditCardRange("36",   null, 14, 14), // Diners
+                new CreditCardRange("38",   "39", 14, 14), // Diners
+            }
+            // we don't have any VPAY examples yet that aren't handled by VISA
+            );
         for(String s : VALID_CARDS) {
             assertTrue(s, ccv.isValid(s));
         }

@@ -38,14 +38,40 @@ import java.util.ArrayList;
  *
  * <p>
  * configures the validator to only pass American Express and Visa cards.
- * If a card type is not directly supported by this class, you can implement
- * the CreditCardType interface and pass an instance into the
- * <code>addAllowedCardType</code> method.
+ * If a card type is not directly supported by this class, you can create an
+ * instance of the {@link CodeValidator} class and pass it to a {@link CreditCardValidator}
+ * constructor along with any existing validators. For example:
  * </p>
  *
+ * <pre>
+ * <code>CreditCardValidator ccv = new CreditCardValidator(
+ *     new CodeValidator[] {
+ *         CreditCardValidator.AMEX_VALIDATOR,
+ *         CreditCardValidator.VISA_VALIDATOR,
+ *         new CodeValidator("^(4)(\\d{12,18})$", LUHN_VALIDATOR) // add VPAY
+ * };</code>
+ * </pre>
+ *
  * <p>
- * For a similar implementation in Perl, reference Sean M. Burke's
- * <a href="http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html">script</a>.
+ * Alternatively you can define a validator using the {@link CreditCardRange} class.
+ * For example:
+ * </p>
+ *
+ * <pre>
+ * <code>CreditCardValidator ccv = new CreditCardValidator(
+ *    new CreditCardRange[]{
+ *        new CreditCardRange("300", "305", 14, 14), // Diners
+ *        new CreditCardRange("3095", null, 14, 14), // Diners
+ *        new CreditCardRange("36",   null, 14, 14), // Diners
+ *        new CreditCardRange("38",   "39", 14, 14), // Diners
+ *    }
+ * );
+ * </code>
+ * </pre>
+ * <p>
+ * This can be combined with a list of {@code CodeValidator}s
+ * </p>
+ * <p>
  * More information can be found in Michael Gilleland's essay 
  * <a href="http://web.archive.org/web/20120614072656/http://www.merriampark.com/anatomycc.htm">Anatomy of Credit Card Numbers</a>.
  * </p>
@@ -60,6 +86,38 @@ public class CreditCardValidator implements Serializable {
     private static final int MIN_CC_LENGTH = 12; // minimum allowed length
 
     private static final int MAX_CC_LENGTH = 19; // maximum allowed length
+
+    /**
+     * Class that represents a credit card range. 
+     */
+    public static class CreditCardRange {
+        final String low; // e.g. 34 or 644
+        final String high; // e.g. 34 or 65
+        final int minLen; // e.g. 16
+        final int maxLen; // e.g. 19
+
+        /**
+         * Create a credit card range specifier for use in validation
+         * of the number syntax including the IIN range.
+         * <p>
+         * The low and high parameters may be shorter than the length
+         * of an IIN (currently 6 digits) in which case subsequent digits
+         * are ignored and may range from 0-9.
+         * <b>
+         * The low and high parameters may be different lengths.
+         * e.g. Discover "644" and "65".
+         * @param low the low digits of the IIN range 
+         * @param high the high digits of the IIN range
+         * @param minLen the minimum length of the entire number
+         * @param maxLen the maximum length of the entire number
+         */
+        public CreditCardRange(String low, String high, int minLen, int maxLen) {
+            this.low = low;
+            this.high = high;
+            this.minLen = minLen;
+            this.maxLen = maxLen;
+        }
+    }
 
     /**
      * Option specifying that no cards are allowed.  This is useful if
@@ -256,6 +314,39 @@ public class CreditCardValidator implements Serializable {
     }
 
     /**
+     * Create a new CreditCardValidator with the specified {@link CreditCardRange}s.
+     * @param creditCardRanges Set of valid code validators
+     * @since 1.5.2
+     */
+    public CreditCardValidator(CreditCardRange[] creditCardRanges) {
+        if (creditCardRanges == null) {
+            throw new IllegalArgumentException("Card ranges are missing");
+        }
+        Collections.addAll(cardTypes, createRangeValidator(creditCardRanges, LUHN_VALIDATOR));
+    }
+
+    /**
+     * Create a new CreditCardValidator with the specified {@link CodeValidator}s
+     * and {@link CreditCardRange}s.
+     * <p>
+     * This can be used to combine predefined validators such as {@link #MASTERCARD_VALIDATOR}
+     * with additional validators using the simpler {@link CreditCardRange}s.
+     * @param creditCardValidators Set of valid code validators
+     * @param creditCardRanges Set of valid code validators
+     * @since 1.5.2
+     */
+    public CreditCardValidator(CodeValidator[] creditCardValidators, CreditCardRange[] creditCardRanges) {
+        if (creditCardValidators == null) {
+            throw new IllegalArgumentException("Card validators are missing");
+        }
+        if (creditCardRanges == null) {
+            throw new IllegalArgumentException("Card ranges are missing");
+        }
+        Collections.addAll(cardTypes, creditCardValidators);
+        Collections.addAll(cardTypes, createRangeValidator(creditCardRanges, LUHN_VALIDATOR));
+    }
+
+    /**
      * Create a new generic CreditCardValidator which validates the syntax and check digit only.
      * Does not check the Issuer Identification Number (IIN)
      *
@@ -328,6 +419,47 @@ public class CreditCardValidator implements Serializable {
         return null;
 
     }
+
+    // package protected for unit test access
+    static CodeValidator createRangeValidator(final CreditCardRange[] creditCardRanges, final CheckDigit digitCheck ) {
+        return new CodeValidator(
+                // must be numeric (rest of validation is done later)
+                new RegexValidator("(\\d+)") {
+                    private static final long serialVersionUID = 1L;
+                    private CreditCardRange[] ccr = creditCardRanges.clone();
+                    @Override
+                    // must return full string
+                    public String validate(String value) {
+                        if (super.match(value) != null) {
+                            int length = value.length();
+                            for(CreditCardRange range : ccr) {
+                                if (length >= range.minLen && length <= range.maxLen) {
+                                    if (range.high == null) { // single prefix only
+                                        if (value.startsWith(range.low)) {
+                                            return value;
+                                        }
+                                    } else if (range.low.compareTo(value) <= 0 // no need to trim value here
+                                                &&
+                                                // here we have to ignore digits beyond the prefix
+                                                range.high.compareTo(value.substring(0, range.high.length())) >= 0) {
+                                               return value;
+                                    }
+                                }
+                            }
+                        }
+                        return null;
+                    }
+                    @Override
+                    public boolean isValid(String value) {
+                        return validate(value) != null;
+                    }
+                    @Override
+                    public String[] match(String value) {
+                        return new String[]{validate(value)};
+                    }
+                }, digitCheck);
+    }
+
     /**
      * Tests whether the given flag is on.  If the flag is not a power of 2
      * (ie. 3) this tests whether the combination of flags is on.

@@ -65,13 +65,21 @@ The <action> type attribute can be add,update,fix,remove.
 
   <body>
   <release version="1.5.2" date="TBA" description="
-This is a maintenance release.
+This is primarily a maintenance release.
 
 All projects are encouraged to update to this release of
 Apache Commons Validator.
 
   Commons Validator requires Java 1.6 or later.
 
+Main enhancements
+=================
+
+* Modulus Ten Check Digit Implementation
+
+* Generic CreditCard validation (syntax and checkdigit only; does not check IIN)
+
+* CreditCard validation specification by numeric range
 
  IMPORTANT NOTES
  ===============
@@ -90,6 +98,9 @@ The dependencies for Validator have not changed since the 1.4 release.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action issue="VALIDATOR-415" type="add" dev="sebb">
+    Simplify building new CreditCard validators
+    </action>
     <action issue="VALIDATOR-413" type="add" dev="sebb">
     Generic CreditCard validation
     </action>
