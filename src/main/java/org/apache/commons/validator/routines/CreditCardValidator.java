@@ -257,17 +257,21 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Create a new generic CreditCardValidator which validates the syntax and check digit only.
+     * Does not check the Issuer Identification Number (IIN)
+     *
      * @param minLen minimum allowed length
      * @param maxLen maximum allowed length
      * @return the validator
      * @since 1.5.2
      */
     public static CreditCardValidator genericCreditCardValidator(int minLen, int maxLen) {
-        return new CreditCardValidator(new CodeValidator[] {new CodeValidator("(\\d+)", minLen, maxLen, LuhnCheckDigit.LUHN_CHECK_DIGIT)});
+        return new CreditCardValidator(new CodeValidator[] {new CodeValidator("(\\d+)", minLen, maxLen, LUHN_VALIDATOR)});
     }
 
     /**
      * Create a new generic CreditCardValidator which validates the syntax and check digit only.
+     * Does not check the Issuer Identification Number (IIN)
+     *
      * @param length exact length
      * @return the validator
      * @since 1.5.2
@@ -278,6 +282,8 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Create a new generic CreditCardValidator which validates the syntax and check digit only.
+     * Does not check the Issuer Identification Number (IIN)
+     *
      * @return the validator
      * @since 1.5.2
      */
