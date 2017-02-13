@@ -250,6 +250,6 @@ public class IntegerValidator extends AbstractNumberValidator {
             longValue > Integer.MAX_VALUE) {
             return null;
         }
-        return new Integer((int)longValue);
+        return Integer.valueOf((int)longValue);
     }
 }
