@@ -27,23 +27,23 @@ import org.apache.commons.validator.routines.CreditCardValidator.CreditCardRange
  */
 public class CreditCardValidatorTest extends TestCase {
     
-    private static final String VALID_VISA = "4417123456789113";
-    private static final String ERROR_VISA = "4417123456789112";
-    private static final String VALID_SHORT_VISA = "4222222222222";
+    private static final String VALID_VISA       = "4417123456789113"; // 16
+    private static final String ERROR_VISA       = "4417123456789112"; 
+    private static final String VALID_SHORT_VISA = "4222222222222"; // 13
     private static final String ERROR_SHORT_VISA = "4222222222229";
-    private static final String VALID_AMEX = "378282246310005";
-    private static final String ERROR_AMEX = "378282246310001";
+    private static final String VALID_AMEX       = "378282246310005"; // 15
+    private static final String ERROR_AMEX       = "378282246310001";
     private static final String VALID_MASTERCARD = "5105105105105100";
     private static final String ERROR_MASTERCARD = "5105105105105105";
-    private static final String VALID_DISCOVER = "6011000990139424";
-    private static final String ERROR_DISCOVER = "6011000990139421";
+    private static final String VALID_DISCOVER   = "6011000990139424";
+    private static final String ERROR_DISCOVER   = "6011000990139421";
     private static final String VALID_DISCOVER65 = "6534567890123458"; // FIXME need verified test data for Discover with "65" prefix
     private static final String ERROR_DISCOVER65 = "6534567890123450"; // FIXME need verified test data for Discover with "65" prefix
-    private static final String VALID_DINERS = "30569309025904";
-    private static final String ERROR_DINERS = "30569309025901";
-    private static final String VALID_VPAY = "4370000000000061";
-    private static final String VALID_VPAY2 = "4370000000000012";
-    private static final String ERROR_VPAY = "4370000000000069";
+    private static final String VALID_DINERS     = "30569309025904"; // 14
+    private static final String ERROR_DINERS     = "30569309025901";
+    private static final String VALID_VPAY       = "4370000000000061"; // 16
+    private static final String VALID_VPAY2      = "4370000000000012";
+    private static final String ERROR_VPAY       = "4370000000000069";
 
     private static final String [] VALID_CARDS = {
         VALID_VISA,
@@ -605,5 +605,46 @@ public class CreditCardValidatorTest extends TestCase {
         for(String s : ERROR_CARDS) {
             assertFalse(s, ccv.isValid(s));
         }
+    }
+
+    public void testValidLength() {
+        assertTrue(CreditCardValidator.validLength(14, new CreditCardRange("", "", 14, 14)));
+        assertFalse(CreditCardValidator.validLength(15, new CreditCardRange("", "", 14, 14)));
+        assertFalse(CreditCardValidator.validLength(13, new CreditCardRange("", "", 14, 14)));
+
+        assertFalse(CreditCardValidator.validLength(14, new CreditCardRange("", "", 15, 17)));
+        assertTrue(CreditCardValidator.validLength(15, new CreditCardRange("", "", 15, 17)));
+        assertTrue(CreditCardValidator.validLength(16, new CreditCardRange("", "", 15, 17)));
+        assertTrue(CreditCardValidator.validLength(17, new CreditCardRange("", "", 15, 17)));
+        assertFalse(CreditCardValidator.validLength(18, new CreditCardRange("", "", 15, 17)));
+
+        assertFalse(CreditCardValidator.validLength(14, new CreditCardRange("", "", new int[]{15, 17})));
+        assertTrue(CreditCardValidator.validLength(15, new CreditCardRange("", "", new int[]{15, 17})));
+        assertFalse(CreditCardValidator.validLength(16, new CreditCardRange("", "", new int[]{15, 17})));
+        assertTrue(CreditCardValidator.validLength(17, new CreditCardRange("", "", new int[]{15, 17})));
+        assertFalse(CreditCardValidator.validLength(18, new CreditCardRange("", "", new int[]{15, 17})));
+    }
+
+    public void testDisjointRange() {
+        CreditCardValidator ccv = new CreditCardValidator(
+            new CreditCardRange[]{
+                    new CreditCardRange("305", "4", new int[]{13, 16}),
+                }
+            );
+        assertEquals(13, VALID_SHORT_VISA.length());
+        assertEquals(16, VALID_VISA.length());
+        assertEquals(14, VALID_DINERS.length());
+        assertTrue(ccv.isValid(VALID_SHORT_VISA));
+        assertTrue(ccv.isValid(VALID_VISA));
+        assertFalse(ccv.isValid(ERROR_SHORT_VISA));
+        assertFalse(ccv.isValid(ERROR_VISA));
+        assertFalse(ccv.isValid(VALID_DINERS));
+        ccv = new CreditCardValidator(
+            new CreditCardRange[]{
+                    // add 14 as a valid length
+                    new CreditCardRange("305", "4", new int[]{13, 14, 16}),
+                }
+            );
+        assertTrue(ccv.isValid(VALID_DINERS));
     }
 }

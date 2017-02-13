@@ -64,6 +64,7 @@ import java.util.ArrayList;
  *        new CreditCardRange("3095", null, 14, 14), // Diners
  *        new CreditCardRange("36",   null, 14, 14), // Diners
  *        new CreditCardRange("38",   "39", 14, 14), // Diners
+ *        new CreditCardRange("4",    null, new int[] {13, 16}), // VISA
  *    }
  * );
  * </code>
@@ -88,13 +89,15 @@ public class CreditCardValidator implements Serializable {
     private static final int MAX_CC_LENGTH = 19; // maximum allowed length
 
     /**
-     * Class that represents a credit card range. 
+     * Class that represents a credit card range.
+     * @since 1.6
      */
     public static class CreditCardRange {
         final String low; // e.g. 34 or 644
         final String high; // e.g. 34 or 65
-        final int minLen; // e.g. 16
-        final int maxLen; // e.g. 19
+        final int minLen; // e.g. 16 or -1
+        final int maxLen; // e.g. 19 or -1
+        final int lengths[]; // e.g. 16,18,19
 
         /**
          * Create a credit card range specifier for use in validation
@@ -117,6 +120,30 @@ public class CreditCardValidator implements Serializable {
             this.high = high;
             this.minLen = minLen;
             this.maxLen = maxLen;
+            this.lengths = null;
+        }
+
+        /**
+         * Create a credit card range specifier for use in validation
+         * of the number syntax including the IIN range.
+         * <p>
+         * The low and high parameters may be shorter than the length
+         * of an IIN (currently 6 digits) in which case subsequent digits
+         * are ignored and may range from 0-9.
+         * <br>
+         * The low and high parameters may be different lengths.
+         * e.g. Discover "644" and "65".
+         * </p>
+         * @param low the low digits of the IIN range 
+         * @param high the high digits of the IIN range
+         * @param lengths array of valid lengths
+         */
+        public CreditCardRange(String low, String high, int [] lengths) {
+            this.low = low;
+            this.high = high;
+            this.minLen = -1;
+            this.maxLen = -1;
+            this.lengths = lengths.clone();
         }
     }
 
@@ -422,6 +449,19 @@ public class CreditCardValidator implements Serializable {
     }
 
     // package protected for unit test access
+    static boolean validLength(int valueLength, CreditCardRange range) {
+        if (range.lengths != null) {
+            for(int length : range.lengths) {
+                if (valueLength == length) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return valueLength >= range.minLen && valueLength <= range.maxLen;
+    }
+
+    // package protected for unit test access
     static CodeValidator createRangeValidator(final CreditCardRange[] creditCardRanges, final CheckDigit digitCheck ) {
         return new CodeValidator(
                 // must be numeric (rest of validation is done later)
@@ -434,7 +474,7 @@ public class CreditCardValidator implements Serializable {
                         if (super.match(value) != null) {
                             int length = value.length();
                             for(CreditCardRange range : ccr) {
-                                if (length >= range.minLen && length <= range.maxLen) {
+                                if (validLength(length, range)) {
                                     if (range.high == null) { // single prefix only
                                         if (value.startsWith(range.low)) {
                                             return value;
