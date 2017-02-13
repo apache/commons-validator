@@ -1,7 +1,7 @@
-              Apache Commons Validator 1.5.2
+              Apache Commons Validator 1.6
                   RELEASE NOTES
 
-The Apache Commons Validator team is pleased to announce the release of Apache Commons Validator 1.5.2
+The Apache Commons Validator team is pleased to announce the release of Apache Commons Validator 1.6
 
 Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
 It may be used standalone or with a framework like Struts.

@@ -317,7 +317,7 @@ public class CreditCardValidator implements Serializable {
     /**
      * Create a new CreditCardValidator with the specified {@link CreditCardRange}s.
      * @param creditCardRanges Set of valid code validators
-     * @since 1.5.2
+     * @since 1.6
      */
     public CreditCardValidator(CreditCardRange[] creditCardRanges) {
         if (creditCardRanges == null) {
@@ -334,7 +334,7 @@ public class CreditCardValidator implements Serializable {
      * with additional validators using the simpler {@link CreditCardRange}s.
      * @param creditCardValidators Set of valid code validators
      * @param creditCardRanges Set of valid code validators
-     * @since 1.5.2
+     * @since 1.6
      */
     public CreditCardValidator(CodeValidator[] creditCardValidators, CreditCardRange[] creditCardRanges) {
         if (creditCardValidators == null) {
@@ -354,7 +354,7 @@ public class CreditCardValidator implements Serializable {
      * @param minLen minimum allowed length
      * @param maxLen maximum allowed length
      * @return the validator
-     * @since 1.5.2
+     * @since 1.6
      */
     public static CreditCardValidator genericCreditCardValidator(int minLen, int maxLen) {
         return new CreditCardValidator(new CodeValidator[] {new CodeValidator("(\\d+)", minLen, maxLen, LUHN_VALIDATOR)});
@@ -366,7 +366,7 @@ public class CreditCardValidator implements Serializable {
      *
      * @param length exact length
      * @return the validator
-     * @since 1.5.2
+     * @since 1.6
      */
     public static CreditCardValidator genericCreditCardValidator(int length) {
         return genericCreditCardValidator(length, length);
@@ -377,7 +377,7 @@ public class CreditCardValidator implements Serializable {
      * Does not check the Issuer Identification Number (IIN)
      *
      * @return the validator
-     * @since 1.5.2
+     * @since 1.6
      */
     public static CreditCardValidator genericCreditCardValidator() {
         return genericCreditCardValidator(MIN_CC_LENGTH, MAX_CC_LENGTH);
