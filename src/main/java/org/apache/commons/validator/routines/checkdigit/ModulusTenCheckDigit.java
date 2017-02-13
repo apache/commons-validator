@@ -65,7 +65,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * 
  * <p>
  * <b>ABA Number</b> Check Digit Routine (equivalent of
- * {@link ABANumberCheckDigit}). Weighting factors are <code>[1, 7, 3]/code>
+ * {@link ABANumberCheckDigit}). Weighting factors are <code>[1, 7, 3]</code>
  * applied from right to left.
  * 
  * <pre>

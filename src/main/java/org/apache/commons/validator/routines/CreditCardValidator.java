@@ -103,10 +103,11 @@ public class CreditCardValidator implements Serializable {
          * The low and high parameters may be shorter than the length
          * of an IIN (currently 6 digits) in which case subsequent digits
          * are ignored and may range from 0-9.
-         * <b>
+         * <br>
          * The low and high parameters may be different lengths.
          * e.g. Discover "644" and "65".
-         * @param low the low digits of the IIN range 
+         * </p>
+         * @param low the low digits of the IIN range
          * @param high the high digits of the IIN range
          * @param minLen the minimum length of the entire number
          * @param maxLen the maximum length of the entire number
