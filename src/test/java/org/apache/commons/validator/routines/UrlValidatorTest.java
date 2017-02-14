@@ -337,6 +337,7 @@ protected void setUp() {
       for (int testPartsIndexIndex = testPartsIndex.length - 1; testPartsIndexIndex >= 0; --testPartsIndexIndex) {
          int index = testPartsIndex[testPartsIndexIndex];
          ResultPair[] part = (ResultPair[]) testParts[testPartsIndexIndex];
+         maxIndex &= (index == (part.length - 1));
          if (carry) {
             if (index < part.length - 1) {
                index++;
@@ -347,7 +348,6 @@ protected void setUp() {
                carry = true;
             }
          }
-         maxIndex &= (index == (part.length - 1));
       }
 
 
@@ -507,8 +507,7 @@ protected void setUp() {
                                new ResultPair("http:/", false),
                                new ResultPair("http:", false),
                                new ResultPair("http/", false),
-                               new ResultPair("://", false),
-                               new ResultPair("", true)};
+                               new ResultPair("://", false)};
 
    ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
                                   new ResultPair("www.google.com.", true),

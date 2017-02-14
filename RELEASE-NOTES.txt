@@ -38,6 +38,7 @@ o VALIDATOR-405:  IBANValidator - Costa Rica entry has been updated in SWIFT doc
 o VALIDATOR-401:  IBANValidator fails for Seychelles and Ukraine
 o VALIDATOR-391:  UrlValidator.isValid throws exception for FILEURLs
                   Fixed code so it handles URLs with no authority field Thanks to Mark E. Scott, Jr. & Jason Loomis.
+o VALIDATOR-418:  UrlValidatorTest: testIsValid() does not run all tests. Thanks to Robert McGuigan
 
 Changes:
 o                 IANA TLD lists: Updated to Version 2017020400, Last Updated Sat Feb  4 07:07:01 2017 UTC
