@@ -6,12 +6,15 @@ The Apache Commons Validator team is pleased to announce the release of Apache C
 Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
 It may be used standalone or with a framework like Struts.
 
-This is a maintenance release.
+This is primarily a maintenance release.
 All projects are encouraged to update to this release of Apache Commons Validator.
 
 Commons Validator requires Java 1.6 or later.
-
-IMPORTANT NOTES
+Main enhancements =================
+* Modulus Ten Check Digit Implementation
+* Generic CreditCard validation (syntax and checkdigit only; does not check IIN)
+* CreditCard validation specification by numeric range
+ IMPORTANT NOTES
 ===============
 
 BREAKING CHANGES:
@@ -26,10 +29,13 @@ For the current list of dependencies, please see http://commons.apache.org/valid
 Changes in this version include:
 
 New features:
+o VALIDATOR-415:  Simplify building new CreditCard validators
 o VALIDATOR-413:  Generic CreditCard validation
 o VALIDATOR-394:  General Modulus Ten Check Digit Implementation Thanks to Niall Pemberton.
 
 Fixed Bugs:
+o VALIDATOR-419:  Invalid IPv6 addresses that are IPv4-mapped pass InetAddressValidator validation Thanks to Denis Iskhakov.
+o VALIDATOR-418:  UrlValidatorTest: testIsValid() does not run all tests Thanks to Robert McGuigan.
 o VALIDATOR-379:  CodeValidator unconditionally trim()s the input string - document the behaviour
 o VALIDATOR-387:  Userinfo without colon should be valid in UrlValidator Thanks to Shumpei Akai.
 o VALIDATOR-411:  UrlValidator accepts ports above max limit of 16-bit unsigned integer
@@ -38,7 +44,6 @@ o VALIDATOR-405:  IBANValidator - Costa Rica entry has been updated in SWIFT doc
 o VALIDATOR-401:  IBANValidator fails for Seychelles and Ukraine
 o VALIDATOR-391:  UrlValidator.isValid throws exception for FILEURLs
                   Fixed code so it handles URLs with no authority field Thanks to Mark E. Scott, Jr. & Jason Loomis.
-o VALIDATOR-418:  UrlValidatorTest: testIsValid() does not run all tests. Thanks to Robert McGuigan
 
 Changes:
 o                 IANA TLD lists: Updated to Version 2017020400, Last Updated Sat Feb  4 07:07:01 2017 UTC

@@ -149,7 +149,7 @@ public class InetAddressValidator implements Serializable {
             return false;
         }
         int validOctets = 0;
-        int emptyOctets = 0;
+        int emptyOctets = 0; // consecutive empty chunks
         for (int index = 0; index < octets.length; index++) {
             String octet = octets[index];
             if (octet.length() == 0) {
@@ -159,14 +159,8 @@ public class InetAddressValidator implements Serializable {
                 }
             } else {
                 emptyOctets = 0;
-                if (octet.contains(".")) { // contains is Java 1.5+
-                    if (!inet6Address.endsWith(octet)) {
-                        return false;
-                    }
-                    if (index > octets.length - 1 || index > 6) {  // CHECKSTYLE IGNORE MagicNumber
-                        // IPV4 occupies last two octets
-                        return false;
-                    }
+                // Is last chunk an IPv4 address?
+                if (index == octets.length - 1 && octet.contains(".")) {
                     if (!isValidInet4Address(octet)) {
                         return false;
                     }
@@ -178,7 +172,7 @@ public class InetAddressValidator implements Serializable {
                 }
                 int octetInt = 0;
                 try {
-                    octetInt = Integer.valueOf(octet, BASE_16).intValue();
+                    octetInt = Integer.parseInt(octet, BASE_16);
                 } catch (NumberFormatException e) {
                     return false;
                 }
@@ -188,7 +182,7 @@ public class InetAddressValidator implements Serializable {
             }
             validOctets++;
         }
-        if (validOctets < IPV6_MAX_HEX_GROUPS && !containsCompressedZeroes) {
+        if (validOctets > IPV6_MAX_HEX_GROUPS || (validOctets < IPV6_MAX_HEX_GROUPS && !containsCompressedZeroes)) {
             return false;
         }
         return true;
