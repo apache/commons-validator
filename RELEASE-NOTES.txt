@@ -34,6 +34,7 @@ o VALIDATOR-413:  Generic CreditCard validation
 o VALIDATOR-394:  General Modulus Ten Check Digit Implementation Thanks to Niall Pemberton.
 
 Fixed Bugs:
+o VALIDATOR-420:  Query params validator shouldn't accept whitespaces Thanks to Marcin Gasior.
 o VALIDATOR-419:  Invalid IPv6 addresses that are IPv4-mapped pass InetAddressValidator validation Thanks to Denis Iskhakov.
 o VALIDATOR-418:  UrlValidatorTest: testIsValid() does not run all tests Thanks to Robert McGuigan.
 o VALIDATOR-379:  CodeValidator unconditionally trim()s the input string - document the behaviour
