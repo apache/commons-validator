@@ -98,6 +98,9 @@ The dependencies for Validator have not changed since the 1.4 release.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action issue="VALIDATOR-420" type="fix" dev="sebb" due-to="Marcin Gasior">
+    Query params validator shouldn't accept whitespaces
+    </action>
     <action issue="VALIDATOR-419" type="fix" dev="sebb" due-to="Denis Iskhakov">
     Invalid IPv6 addresses that are IPv4-mapped pass InetAddressValidator validation
     </action>

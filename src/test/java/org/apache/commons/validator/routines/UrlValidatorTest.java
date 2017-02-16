@@ -491,6 +491,13 @@ protected void setUp() {
        assertTrue(validator.isValid("http://www.apache.org:/path"));
    }
 
+   public void testValidator420() {
+       UrlValidator validator = new UrlValidator();
+       assertFalse(validator.isValid("http://example.com/serach?address=Main Avenue"));
+       assertTrue(validator.isValid("http://example.com/serach?address=Main%20Avenue"));
+       assertTrue(validator.isValid("http://example.com/serach?address=Main+Avenue"));
+   }
+
    //-------------------- Test data for creating a composite URL
    /**
     * The data given below approximates the 4 parts of a URL
