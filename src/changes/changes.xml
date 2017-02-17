@@ -72,14 +72,15 @@ Apache Commons Validator.
 
   Commons Validator requires Java 1.6 or later.
 
-Main enhancements
-=================
 
-* Modulus Ten Check Digit Implementation
+ Main enhancements
+ =================
 
-* Generic CreditCard validation (syntax and checkdigit only; does not check IIN)
 
-* CreditCard validation specification by numeric range
+ * Modulus Ten Check Digit Implementation
+ * Generic CreditCard validation (syntax and checkdigit only; does not check IIN)
+ * CreditCard validation specification by numeric range
+
 
  IMPORTANT NOTES
  ===============
