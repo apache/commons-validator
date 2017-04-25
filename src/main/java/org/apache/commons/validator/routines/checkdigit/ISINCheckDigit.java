@@ -98,8 +98,8 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      * of <b>two</b>. Weighted values &gt; 9, have 9 subtracted</p>
      *
      * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
+     * @param leftPos  The position of the character in the code, counting from left to right
+     * @param rightPos The position of the character in the code, counting from right to left
      * @return The weighted value of the character.
      */
     @Override
