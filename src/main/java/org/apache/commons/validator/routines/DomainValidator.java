@@ -283,7 +283,7 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = new String[] {
-        // Taken from Version 2017020400, Last Updated Sat Feb  4 07:07:01 2017 UTC
+        // Taken from Version 2017042500, Last Updated Tue Apr 25 07:07:02 2017 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
         "abarth", // abarth Fiat Chrysler Automobiles N.V.
@@ -309,6 +309,7 @@ public class DomainValidator implements Serializable {
         "aetna", // aetna Aetna Life Insurance Company
         "afamilycompany", // afamilycompany Johnson Shareholdings, Inc.
         "afl", // afl Australian Football League
+        "africa", // africa ZA Central Registry NPC trading as Registry.Africa
         "agakhan", // agakhan Fondation Aga Khan (Aga Khan Foundation)
         "agency", // agency Steel Falls, LLC
         "aig", // aig American International Group, Inc.
@@ -774,6 +775,7 @@ public class DomainValidator implements Serializable {
         "hosting", // hosting Uniregistry, Corp.
         "hot", // hot Amazon Registry Services, Inc.
         "hoteles", // hoteles Travel Reservations SRL
+        "hotels", // hotels Booking.com B.V.
         "hotmail", // hotmail Microsoft Corporation
         "house", // house Sugar Park, LLC
         "how", // how Charleston Road Registry Inc.
@@ -1043,7 +1045,7 @@ public class DomainValidator implements Serializable {
         "orange", // orange Orange Brand Services Limited
         "org", // org Public Interest Registry (PIR)
         "organic", // organic Afilias Limited
-        "orientexpress", // orientexpress Orient Express
+//        "orientexpress", // orientexpress Orient Express (retired 2017-04-11)
         "origins", // origins The Estée Lauder Companies Inc.
         "osaka", // osaka Interlink Co., Ltd.
         "otsuka", // otsuka Otsuka Holdings Co., Ltd.
@@ -1153,6 +1155,7 @@ public class DomainValidator implements Serializable {
         "rogers", // rogers Rogers Communications Canada Inc.
         "room", // room Amazon Registry Services, Inc.
         "rsvp", // rsvp Charleston Road Registry Inc.
+        "rugby", // rugby World Rugby Strategic Developments Limited
         "ruhr", // ruhr regiodot GmbH &amp; Co. KG
         "run", // run Snow Park, LLC
         "rwe", // rwe RWE AG
@@ -1526,6 +1529,7 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] COUNTRY_CODE_TLDS = new String[] {
+        // Taken from Version 2017042500, Last Updated Tue Apr 25 07:07:02 2017 UTC
         "ac",                 // Ascension Island
         "ad",                 // Andorra
         "ae",                 // United Arab Emirates
@@ -1794,6 +1798,7 @@ public class DomainValidator implements Serializable {
         "xn--mgb9awbf", // عمان Telecommunications Regulatory Authority (TRA)
         "xn--mgba3a4f16a", // ایران Institute for Research in Fundamental Sciences (IPM)
         "xn--mgbaam7a8h", // امارات Telecommunications Regulatory Authority (TRA)
+        "xn--mgbai9azgqp6j", // پاکستان National Telecommunication Corporation
         "xn--mgbayh7gpa", // الاردن National Information Technology Center (NITC)
         "xn--mgbbh1a71e", // بھارت National Internet Exchange of India
         "xn--mgbc0a9azcg", // المغرب Agence Nationale de Réglementation des Télécommunications (ANRT)
