@@ -49,6 +49,9 @@ public class ISINCheckDigitTest extends AbstractCheckDigitTest {
                               "DK0009763344",
                               "dk0009763344", // TODO lowercase is currently accepted, but is this valid?
                               "AU0000xvgza3", // lowercase NSIN
+                              "EZ0000000003", // Invented; for use in ISINValidatorTest
+                              "XS0000000009", // ditto
+                              "AA0000000006", // ditto
                               };
         invalid = new String[] {"0378#3100"};
     }

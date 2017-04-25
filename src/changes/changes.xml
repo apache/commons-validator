@@ -64,6 +64,44 @@ The <action> type attribute can be add,update,fix,remove.
      -->
 
   <body>
+  <release version="1.7" date="TBA" description="
+This is primarily a maintenance release.
+
+All projects are encouraged to update to this release of
+Apache Commons Validator.
+
+  Commons Validator requires Java 1.6 or later.
+
+
+ Main enhancements
+ =================
+
+
+ * CreditCard validation specification by numeric range
+
+
+ IMPORTANT NOTES
+ ===============
+
+
+ BREAKING CHANGES:
+
+   * NONE.
+
+
+ DEPENDENCIES
+ ============
+
+The dependencies for Validator have not changed since the 1.4 release.
+
+For the current list of dependencies, please see
+http://commons.apache.org/validator/dependencies.html
+  ">
+    <action issue="VALIDATOR-423" type="add" dev="sebb">
+    Add ISINValidator
+    </action>
+  </release>
+
   <release version="1.6" date="2017-02-21" description="
 This is primarily a maintenance release.
 
