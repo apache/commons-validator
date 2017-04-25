@@ -45,6 +45,7 @@ public class ISINCheckDigitTest extends AbstractCheckDigitTest {
                               "AU0000XVGZA3",
                               "GB0002634946",
                               "FR0004026250",
+                                "3133EHHF3", // see VALIDATOR-422 Valid check-digit, but not valid ISIN
                               "DK0009763344"
                               };
         invalid = new String[] {"0378#3100"};
