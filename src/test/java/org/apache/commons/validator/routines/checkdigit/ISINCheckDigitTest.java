@@ -46,7 +46,9 @@ public class ISINCheckDigitTest extends AbstractCheckDigitTest {
                               "GB0002634946",
                               "FR0004026250",
                                 "3133EHHF3", // see VALIDATOR-422 Valid check-digit, but not valid ISIN
-                              "DK0009763344"
+                              "DK0009763344",
+                              "dk0009763344", // TODO lowercase is currently accepted, but is this valid?
+                              "AU0000xvgza3", // lowercase NSIN
                               };
         invalid = new String[] {"0378#3100"};
     }
