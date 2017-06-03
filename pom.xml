@@ -139,6 +139,7 @@
 
   <properties>
     <commons.componentid>validator</commons.componentid>
+    <commons.module.name>org.apache.commons.validator</commons.module.name>
     <!-- Re-generate the download page using: mvn commons:download-page -->
     <commons.release.version>1.6</commons.release.version>
     <commons.rc.version>RC1</commons.rc.version>
