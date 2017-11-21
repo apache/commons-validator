@@ -103,6 +103,9 @@ http://commons.apache.org/validator/dependencies.html
     <action issue="VALIDATOR-428" type="update" dev="pschumacher" due-to="Matthew Zavislak">
     Update commons digester to 2.1
     </action>
+    <action issue="VALIDATOR-434" type="fix" dev="kinow" due-to="emopers">
+    Field does not synchronize iteration on synchronized list
+    </action>
   </release>
 
   <release version="1.6" date="2017-02-21" description="
