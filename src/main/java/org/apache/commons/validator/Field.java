@@ -907,22 +907,24 @@ public class Field implements Cloneable, Serializable {
 
         for (int fieldNumber = 0; fieldNumber < numberOfFieldsToValidate; fieldNumber++) {
 
-            Iterator<String> dependencies = this.dependencyList.iterator();
             ValidatorResults results = new ValidatorResults();
-            while (dependencies.hasNext()) {
-                String depend = dependencies.next();
+            synchronized(dependencyList) {
+                Iterator<String> dependencies = this.dependencyList.iterator();
+                while (dependencies.hasNext()) {
+                    String depend = dependencies.next();
 
-                ValidatorAction action = actions.get(depend);
-                if (action == null) {
-                    this.handleMissingAction(depend);
-                }
+                    ValidatorAction action = actions.get(depend);
+                    if (action == null) {
+                        this.handleMissingAction(depend);
+                    }
 
-                boolean good =
-                    validateForRule(action, results, actions, params, fieldNumber);
+                    boolean good =
+                        validateForRule(action, results, actions, params, fieldNumber);
 
-                if (!good) {
-                    allResults.merge(results);
-                    return allResults;
+                    if (!good) {
+                        allResults.merge(results);
+                        return allResults;
+                    }
                 }
             }
             allResults.merge(results);
