@@ -109,7 +109,9 @@ protected void tearDown() {
     * the address.
     */
    public void testEmailWithDotEnd()  {
-      assertFalse(validator.isValid("andy.noble@data-workshop.com."));
+       assertFalse(validator.isValid("andy.noble@data-workshop.com."));
+
+       assertFalse(validator.isValid("andy.noble@data-workshop.com. "));
    }
 
     /**

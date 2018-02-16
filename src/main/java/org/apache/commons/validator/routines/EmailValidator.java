@@ -173,7 +173,13 @@ public class EmailValidator implements Serializable {
             return false;
         }
 
-        if (!isValidDomain(emailMatcher.group(2))) {
+        String domain = emailMatcher.group(2);
+
+        if (domain.endsWith(".")) {
+            return false;
+        }
+
+        if (!isValidDomain(domain)) {
             return false;
         }
 
