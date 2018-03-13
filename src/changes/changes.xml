@@ -92,7 +92,8 @@ Apache Commons Validator.
  DEPENDENCIES
  ============
 
-The dependencies for Validator have not changed since the 1.4 release.
+ *   Updates Apache Commons BeanUtils dependency from 1.9.2 to 1.9.3.
+     This picks up BEANUTILS-482: Update commons-collections from 3.2.1 to 3.2.2 (CVE-2015-4852).
 
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
