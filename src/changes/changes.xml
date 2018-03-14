@@ -98,6 +98,9 @@ Apache Commons Validator.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action type="update" dev="sebb">
+    IANA TLD lists: Updated to Version 2018031400, Last Updated Wed Mar 14 07:07:01 2018 UTC
+    </action>
     <action issue="VALIDATOR-423" type="add" dev="sebb">
     Add ISINValidator
     </action>
