@@ -89,7 +89,8 @@ public class IBANValidator {
      * upper case for IBANs.
      *
      * [1] https://en.wikipedia.org/wiki/International_Bank_Account_Number
-     * [2] http://www.swift.com/dsp/resources/documents/IBAN_Registry.pdf
+     * [2] http://www.swift.com/dsp/resources/documents/IBAN_Registry.pdf (404)
+     * => https://www.swift.com/sites/default/files/resources/iban_registry.pdf
      * [3] http://www.europeanpaymentscouncil.eu/documents/ECBS%20IBAN%20standard%20EBS204_V3.2.pdf
      */
     
