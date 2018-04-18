@@ -20,7 +20,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import org.apache.commons.validator.routines.IBANValidator.Validator;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 import org.junit.Test;
 
@@ -200,5 +202,23 @@ public class IBANValidatorTest {
         IBANValidator validator = new IBANValidator();
         assertNotNull("should be present",validator.setValidator("GB", -1, ""));
         assertNull("no longer present",validator.setValidator("GB", -1, ""));
+    }
+
+    @Test
+    public void testSorted() {
+        IBANValidator validator = new IBANValidator();
+        Validator[] vals = validator.getDefaultValidators();
+        assertNotNull(vals);
+        System.out.println();
+        for(int i=1; i < vals.length; i++) {
+            if (vals[i].countryCode.compareTo(vals[i-1].countryCode) <= 0) {
+                fail("Not sorted: "+vals[i].countryCode+ " <= " + vals[i-1].countryCode);
+            }
+        }
+    }
+    public static void main(String [] a) {
+        IBANValidator validator = new IBANValidator();
+        Validator[] vals = validator.getDefaultValidators();
+        System.out.println("Number of entries: " + vals.length);        
     }
 }
