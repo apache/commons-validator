@@ -162,6 +162,7 @@ public class IBANValidator {
             new Validator("SK", 24, "SK\\d{22}"                             ), // Slovak Republic
             new Validator("SM", 27, "SM\\d{2}[A-Z]{1}\\d{10}[A-Z0-9]{12}"   ), // San Marino
             new Validator("ST", 25, "ST\\d{23}"                             ), // Sao Tome and Principe
+            new Validator("SV", 28, "SV\\d{2}[A-Z]{4}\\d{20}"               ), // El Salvador
             new Validator("TL", 23, "TL\\d{21}"                             ), // Timor-Leste
             new Validator("TN", 24, "TN\\d{22}"                             ), // Tunisia
             new Validator("TR", 26, "TR\\d{8}[A-Z0-9]{16}"                  ), // Turkey
