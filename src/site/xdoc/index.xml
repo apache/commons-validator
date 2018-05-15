@@ -91,7 +91,7 @@
 
       <subsection name="Documentation">
         <p>
-        The package JavaDoc has useful information:
+        The package Javadoc has useful information:
         </p>
         <ul>
             <li><a href="apidocs/org/apache/commons/validator/package-summary.html#package_description">Validator Framework</a></li>

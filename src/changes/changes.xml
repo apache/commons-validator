@@ -619,7 +619,7 @@ http://commons.apache.org/validator/dependencies.html
       Integer, Long, Float, Double, BigInteger, BigDecimal,
       Currency and Percent.</p>
      <p>See <a href="apidocs/org/apache/commons/validator/routines/package-summary.html">
-      Routines Package JavaDocs</a></p>
+      Routines Package Javadocs</a></p>
     </action>
     <action dev="niallp" type="add" issue="VALIDATOR-30">
      Deprecate ValidatorResult's getActionMap() and add getActions()
@@ -795,7 +795,7 @@ http://commons.apache.org/validator/dependencies.html
     GenericTypeValidator does not accept negative Floats/Doubles.
     </action>
     <action dev="niallp" type="fix" issue="VALIDATOR-48">
-    correct UrlValidator JavaDoc.
+    correct UrlValidator Javadoc.
     </action>
     <action dev="niallp" type="add" issue="VALIDATOR-3">
     Search the locale 'hierarchy' of formsets for a Form.
