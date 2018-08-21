@@ -21,6 +21,9 @@ import java.io.Serializable;
 import org.apache.commons.validator.routines.checkdigit.CheckDigitException;
 import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.ISSNCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.ModulusCheckDigit;
+
+import static org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit.EAN13_CHECK_DIGIT;
 
 /**
  * International Standard Serial Number (ISSN)
@@ -28,15 +31,15 @@ import org.apache.commons.validator.routines.checkdigit.ISSNCheckDigit;
  * uniquely identify a serial publication.
  * <pre>
  * The format is:
- * 
+ *
  * ISSN dddd-dddC
  * where:
  * d = decimal digit (0-9)
  * C = checksum (0-9 or X)
- * 
+ *
  * The checksum is formed by adding the first 7 digits multiplied by
  * the position in the entire number (counting from the right).
- * 
+ *
  * For example, abcd-efg would be 8a + 7b + 6c + 5d + 4e +3f +2g.
  * The check digit is modulus 11, where the value 10 is represented by 'X'
  * For example:
@@ -45,7 +48,7 @@ import org.apache.commons.validator.routines.checkdigit.ISSNCheckDigit;
  *
  * This class strips off the 'ISSN ' prefix if it is present before passing
  * the remainder to the checksum routine.
- * 
+ *
  * </pre>
  * <p>
  * Note: the {@link #isValid(String)} and {@link #validate(String)} methods strip off any leading
@@ -53,7 +56,7 @@ import org.apache.commons.validator.routines.checkdigit.ISSNCheckDigit;
  * To ensure that only a valid code (without 'ISSN ' prefix) is passed to a method,
  * use the following code:
  * <pre>
- * Object valid = validator.validate(input); 
+ * Object valid = validator.validate(input);
  * if (valid != null) {
  *    some_method(valid.toString());
  * }
@@ -66,7 +69,13 @@ public class ISSNValidator implements Serializable {
 
     private static final String ISSN_REGEX = "(?:ISSN )?(\\d{4})-(\\d{3}[0-9X])$"; // We don't include the '-' in the code, so it is 8 chars
 
+    private static final String EAN_ISSN_REGEX = "^(977)(?:(\\d{10}))$";
+
+    private static final int EAN_ISSN_LEN = 13;
+
     private static final CodeValidator VALIDATOR = new CodeValidator(ISSN_REGEX, 8, ISSNCheckDigit.ISSN_CHECK_DIGIT);
+
+    private static final CodeValidator EAN_VALIDATOR = new CodeValidator(EAN_ISSN_REGEX, 13, EAN13CheckDigit.EAN13_CHECK_DIGIT);
 
     /** ISSN Code Validator */
     private static final ISSNValidator ISSN_VALIDATOR = new ISSNValidator();
@@ -100,6 +109,19 @@ public class ISSNValidator implements Serializable {
      * @param code The code to validate.
      * @return A valid ISSN code if valid, otherwise <code>null</code>.
      */
+    public Object validateEan(String code) {
+        return EAN_VALIDATOR.validate(code);
+    }
+
+    /**
+     * Check the code is valid ISSN code.
+     * <p>
+     * If valid, this method returns the ISSN code with
+     * the 'ISSN ' prefix removed (if it was present)
+     *
+     * @param code The code to validate.
+     * @return A valid ISSN code if valid, otherwise <code>null</code>.
+     */
     public Object validate(String code) {
         return VALIDATOR.validate(code);
     }
@@ -113,14 +135,14 @@ public class ISSNValidator implements Serializable {
      * method.
      *
      * @param issn The ISSN code to convert
-     * @param suffix the two digit suffix, e.g. "00" 
+     * @param suffix the two digit suffix, e.g. "00"
      * @return A converted EAN-13 code or <code>null</code>
      * if the input ISSN code is not valid
      */
     public String convertToEAN13(String issn, String suffix) {
 
         if (suffix == null || !suffix.matches("\\d\\d")) {
-            throw new IllegalArgumentException("Suffix must be two digits: '" + suffix + "'");            
+            throw new IllegalArgumentException("Suffix must be two digits: '" + suffix + "'");
         }
 
         Object result = validate(issn);
@@ -132,12 +154,50 @@ public class ISSNValidator implements Serializable {
         final String input = result.toString();
         String ean13 = "977" + input.substring(0, input.length() -1) + suffix;
         try {
-            String checkDigit = EAN13CheckDigit.EAN13_CHECK_DIGIT.calculate(ean13);
+            String checkDigit = EAN13_CHECK_DIGIT.calculate(ean13);
             ean13 += checkDigit;
             return ean13;
         } catch (CheckDigitException e) { // Should not happen
             throw new IllegalArgumentException("Check digit error for '" + ean13 + "' - " + e.getMessage());
         }
 
+    }
+    /**
+     * Extract an ISSN code from an ISSN-EAN-13 code.
+     * <p>
+     * This method requires a valid ISSN-EAN-13 code with NO formatting
+     * characters.
+     * That is a 13 digit EAN-13 code with the '977' prefix
+     *
+     * @param ean13 The ISSN code to convert
+     * @return A valid ISSN code or <code>null</code>
+     * if the input ISSN EAN-13 code is not valid
+     */
+    public String extractFromEAN13(String ean13) {
+        String input = ean13.trim();
+        if (input.length() != EAN_ISSN_LEN ) {
+            throw new IllegalArgumentException("Invalid length " + input.length() + " for '" + input + "'");
+        }
+
+        if (!input.substring(0,3).equals("977")) {
+            throw new IllegalArgumentException("Prefix must be 977 digits to contain an ISSN: '" + ean13 + "'");
+        }
+
+        Object result = validateEan(input);
+        if (result == null) {
+            return null;
+        }
+
+        // Calculate the ISSN code
+        input = result.toString();
+        //final String input = ean13;
+        try {
+            String issnBase = input.substring(3,10);
+            String checkDigit = ISSNCheckDigit.ISSN_CHECK_DIGIT.calculate(issnBase);
+            String issn = issnBase + checkDigit;
+            return issn;
+        } catch (CheckDigitException e) { // Should not happen
+            throw new IllegalArgumentException("Check digit error for '" + ean13 + "' - " + e.getMessage());
+        }
     }
 }
