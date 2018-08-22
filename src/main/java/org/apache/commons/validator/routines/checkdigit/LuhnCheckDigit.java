@@ -37,7 +37,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * @version $Revision$
  * @since Validator 1.4
  */
-public final class LuhnCheckDigit extends ModulusCheckDigit {
+public class LuhnCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -2976900113942875999L;
 
