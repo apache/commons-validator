@@ -64,13 +64,13 @@ public class LuhnCheckDigit extends ModulusCheckDigit {
      *
      * @param charValue The numeric value of the character.
      * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
+     * @param rightPos The position of the character in the code, counting from right to left
      * @return The weighted value of the character.
      */
     @Override
     protected int weightedValue(int charValue, int leftPos, int rightPos) {
         int weight = POSITION_WEIGHT[rightPos % 2]; // CHECKSTYLE IGNORE MagicNumber
         int weightedValue = charValue * weight;
-        return weightedValue > 9 ? (weightedValue - 9) : weightedValue; // CHECKSTYLE IGNORE MagicNumber
+        return ModulusCheckDigit.sumDigits(weightedValue);
     }
 }
