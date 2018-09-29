@@ -283,7 +283,7 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = new String[] {
-        // Taken from Version 2018031400, Last Updated Wed Mar 14 07:07:01 2018 UTC
+        // Taken from Version 2018092800, Last Updated Fri Sep 28 07:07:02 2018 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
         "abarth", // abarth Fiat Chrysler Automobiles N.V.
@@ -420,7 +420,7 @@ public class DomainValidator implements Serializable {
         "boo", // boo Charleston Road Registry Inc.
         "book", // book Amazon Registry Services, Inc.
         "booking", // booking Booking.com B.V.
-        "boots", // boots THE BOOTS COMPANY PLC
+//        "boots", // boots THE BOOTS COMPANY PLC
         "bosch", // bosch Robert Bosch GMBH
         "bostik", // bostik Bostik SA
         "boston", // boston Boston TLD Management, LLC
@@ -482,6 +482,7 @@ public class DomainValidator implements Serializable {
         "cfd", // cfd DOTCFD REGISTRY LTD
         "chanel", // chanel Chanel International B.V.
         "channel", // channel Charleston Road Registry Inc.
+        "charity", // charity Corn Lake, LLC
         "chase", // chase JPMorgan Chase &amp; Co.
         "chat", // chat Sand Fields, LLC
         "cheap", // cheap Sand Cover, LLC
@@ -724,7 +725,7 @@ public class DomainValidator implements Serializable {
         "goldpoint", // goldpoint YODOBASHI CAMERA CO.,LTD.
         "golf", // golf Lone Falls, LLC
         "goo", // goo NTT Resonant Inc.
-        "goodhands", // goodhands Allstate Fire and Casualty Insurance Company
+//        "goodhands", // goodhands Allstate Fire and Casualty Insurance Company
         "goodyear", // goodyear The Goodyear Tire &amp; Rubber Company
         "goog", // goog Charleston Road Registry Inc.
         "google", // google Charleston Road Registry Inc.
@@ -799,6 +800,7 @@ public class DomainValidator implements Serializable {
         "imdb", // imdb Amazon Registry Services, Inc.
         "immo", // immo Auburn Bloom, LLC
         "immobilien", // immobilien United TLD Holdco Ltd.
+        "inc", // inc Intercap Holdings Inc.
         "industries", // industries Outer House, LLC
         "infiniti", // infiniti NISSAN MOTOR CO., LTD.
         "info", // info Afilias Limited
@@ -821,7 +823,7 @@ public class DomainValidator implements Serializable {
         "itau", // itau Itau Unibanco Holding S.A.
         "itv", // itv ITV Services Limited
         "iveco", // iveco CNH Industrial N.V.
-        "iwc", // iwc Richemont DNS Inc.
+//        "iwc", // iwc Richemont DNS Inc.
         "jaguar", // jaguar Jaguar Land Rover Ltd
         "java", // java Oracle Corporation
         "jcb", // jcb JCB Co., Ltd.
@@ -830,7 +832,7 @@ public class DomainValidator implements Serializable {
         "jetzt", // jetzt New TLD Company AB
         "jewelry", // jewelry Wild Bloom, LLC
         "jio", // jio Affinity Names, Inc.
-        "jlc", // jlc Richemont DNS Inc.
+//        "jlc", // jlc Richemont DNS Inc.
         "jll", // jll Jones Lang LaSalle Incorporated
         "jmp", // jmp Matrix IP LLC
         "jnj", // jnj Johnson &amp; Johnson Services, Inc.
@@ -904,6 +906,7 @@ public class DomainValidator implements Serializable {
         "live", // live United TLD Holdco Ltd.
         "living", // living Lifestyle Domain Holdings, Inc.
         "lixil", // lixil LIXIL Group Corporation
+        "llc", // llc Afilias plc
         "loan", // loan dot Loan Limited
         "loans", // loans June Woods, LLC
         "locker", // locker Dish DBS Corporation
@@ -950,7 +953,7 @@ public class DomainValidator implements Serializable {
         "memorial", // memorial Dog Beach, LLC
         "men", // men Exclusive Registry Limited
         "menu", // menu Wedding TLD2, LLC
-        "meo", // meo PT Comunicacoes S.A.
+//        "meo", // meo PT Comunicacoes S.A.
         "merckmsd", // merckmsd MSD Registry Holdings, Inc.
         "metlife", // metlife MetLife Services and Solutions, LLC
         "miami", // miami Top Level Domain Holdings Limited
@@ -1059,7 +1062,7 @@ public class DomainValidator implements Serializable {
         "page", // page Charleston Road Registry Inc.
 //        "pamperedchef", // pamperedchef The Pampered Chef, Ltd. (Not assigned)
         "panasonic", // panasonic Panasonic Corporation
-        "panerai", // panerai Richemont DNS Inc.
+//        "panerai", // panerai Richemont DNS Inc.
         "paris", // paris City of Paris
         "pars", // pars Asia Green IT System Bilgisayar San. ve Tic. Ltd. Sti.
         "partners", // partners Magic Glen, LLC
@@ -1178,7 +1181,7 @@ public class DomainValidator implements Serializable {
         "sandvikcoromant", // sandvikcoromant Sandvik AB
         "sanofi", // sanofi Sanofi
         "sap", // sap SAP AG
-        "sapo", // sapo PT Comunicacoes S.A.
+//        "sapo", // sapo PT Comunicacoes S.A.
         "sarl", // sarl Delta Orchard, LLC
         "sas", // sas Research IP LLC
         "save", // save Amazon Registry Services, Inc.
@@ -1298,7 +1301,7 @@ public class DomainValidator implements Serializable {
         "tech", // tech Dot Tech LLC
         "technology", // technology Auburn Falls, LLC
         "tel", // tel Telnic Ltd.
-        "telecity", // telecity TelecityGroup International Limited
+//        "telecity", // telecity TelecityGroup International Limited
         "telefonica", // telefonica Telefónica S.A.
         "temasek", // temasek Temasek Holdings (Private) Limited
         "tennis", // tennis Cotton Bloom, LLC
@@ -1368,7 +1371,7 @@ public class DomainValidator implements Serializable {
         "virgin", // virgin Virgin Enterprises Limited
         "visa", // visa Visa Worldwide Pte. Limited
         "vision", // vision Koko Station, LLC
-        "vista", // vista Vistaprint Limited
+//        "vista", // vista Vistaprint Limited
         "vistaprint", // vistaprint Vistaprint Limited
         "viva", // viva Saudi Telecom Company
         "vivo", // vivo Telefonica Brasil S.A.
@@ -1516,7 +1519,7 @@ public class DomainValidator implements Serializable {
         "xn--w4rs40l", // 嘉里 Kerry Trading Co. Limited
         "xn--xhq521b", // 广东 Guangzhou YU Wei Information Technology Co., Ltd.
         "xn--zfr164b", // 政务 China Organizational Name Administration Center
-        "xperia", // xperia Sony Mobile Communications AB
+//        "xperia", // xperia Sony Mobile Communications AB
         "xxx", // xxx ICM Registry LLC
         "xyz", // xyz XYZ.COM LLC
         "yachts", // yachts DERYachts, LLC

@@ -103,7 +103,7 @@ http://commons.apache.org/validator/dependencies.html
     Add definition
     </action>
     <action type="update" dev="sebb">
-    IANA TLD lists: Updated to Version 2018031400, Last Updated Wed Mar 14 07:07:01 2018 UTC
+    IANA TLD lists: Updated to Version 2018092800, Last Updated Fri Sep 28 07:07:02 2018 UTC
     </action>
     <action issue="VALIDATOR-423" type="add" dev="sebb">
     Add ISINValidator
