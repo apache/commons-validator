@@ -24,7 +24,7 @@ import java.text.Format;
  *
  * <p>This is one implementation of a currency validator that has the following features:</p>
  *    <ul>
- *       <li>It is <i>lenient</i> about the the presence of the <i>currency symbol</i></li>
+ *       <li>It is <i>lenient</i> about the presence of the <i>currency symbol</i></li>
  *       <li>It converts the currency to a <code>java.math.BigDecimal</code></li>
  *    </ul>
  *
