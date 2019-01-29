@@ -498,6 +498,12 @@ protected void setUp() {
        assertTrue(validator.isValid("http://example.com/serach?address=Main+Avenue"));
    }
 
+    public void testValidator453() {
+        final String[] schemes = {"http", "https"};
+        final UrlValidator validator = new UrlValidator(schemes);
+        assertTrue(validator.isValid("https://www.linkedin.com/in/ølæ-nordmånn/"));
+    }
+
    //-------------------- Test data for creating a composite URL
    /**
     * The data given below approximates the 4 parts of a URL
