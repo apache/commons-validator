@@ -124,9 +124,9 @@
   </contributors>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/validator/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/validator/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewvc/commons/proper/validator/trunk/</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-validator</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-validator</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf/commons-validator</url>
   </scm>
 
   <distributionManagement>
