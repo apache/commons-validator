@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>43</version>
+    <version>49</version>
   </parent>
 
   <groupId>commons-validator</groupId>
@@ -40,7 +40,7 @@
     <commons.componentid>validator</commons.componentid>
     <commons.module.name>org.apache.commons.validator</commons.module.name>
     <!-- Re-generate the download page using: mvn commons:download-page -->
-    <commons.release.version>1.6</commons.release.version>
+    <commons.release.version>1.7</commons.release.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.desc>(requires JDK ${maven.compiler.target})</commons.release.desc>
     <commons.jira.id>VALIDATOR</commons.jira.id>
@@ -55,6 +55,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
+    <spotbugs.plugin.version>3.1.12.2</spotbugs.plugin.version>
   </properties> 
 
   <scm>
@@ -77,6 +78,7 @@
   </distributionManagement>
 
   <build>
+    <defaultGoal>clean verify apache-rat:check clirr:check checkstyle:check javadoc:javadoc</defaultGoal>
     <resources>
       <resource>
         <directory>${basedir}</directory>
@@ -120,6 +122,11 @@
           <propertyExpansion>config_loc=${basedir}</propertyExpansion>
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${spotbugs.plugin.version}</version>
       </plugin>
     </plugins>
   </build>
