@@ -118,6 +118,10 @@ http://commons.apache.org/validator/dependencies.html
     Update Apache Commons BeanUtils dependency from 1.9.2 to 1.9.3.
     This picks up BEANUTILS-482: Update commons-collections from 3.2.1 to 3.2.2 (CVE-2015-4852).
     </action>
+    <action issue="VALIDATOR-460" type="fix" dev="ggregory" due-to="Jeff Schram">
+    Update Apache Commons BeanUtils dependency from 1.9.3 to 1.9.4
+    This picks up BEANUTILS-520: Mitigate CVE-2014-0114.
+    </action>
   </release>
 
   <release version="1.6" date="2017-02-21" description="
