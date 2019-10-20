@@ -168,6 +168,7 @@ public class IBANValidator {
             new Validator("TN", 24, "TN\\d{22}"                             ), // Tunisia
             new Validator("TR", 26, "TR\\d{8}[A-Z0-9]{16}"                  ), // Turkey
             new Validator("UA", 29, "UA\\d{8}[A-Z0-9]{19}"                  ), // Ukraine
+            new Validator("VA", 22, "VA\\d{20}"                             ), // Vatican City State
             new Validator("VG", 24, "VG\\d{2}[A-Z]{4}\\d{16}"               ), // Virgin Islands, British
             new Validator("XK", 20, "XK\\d{18}"                             ), // Republic of Kosovo
     };
