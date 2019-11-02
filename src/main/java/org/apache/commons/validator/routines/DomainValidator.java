@@ -906,7 +906,7 @@ public class DomainValidator implements Serializable {
         "live", // live United TLD Holdco Ltd.
         "living", // living Lifestyle Domain Holdings, Inc.
         "lixil", // lixil LIXIL Group Corporation
-        "llc", // llc Afilias plc
+        "llc", // Limited Liability option
         "loan", // loan dot Loan Limited
         "loans", // loans June Woods, LLC
         "locker", // locker Dish DBS Corporation

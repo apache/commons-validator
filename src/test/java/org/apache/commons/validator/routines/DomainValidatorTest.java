@@ -67,6 +67,8 @@ public class DomainValidatorTest extends TestCase {
         assertTrue("test---domain.com should validate", validator.isValid("test---domain.com"));
         assertTrue("test-d-o-m-ain.com should validate", validator.isValid("test-d-o-m-ain.com"));
         assertTrue("two-letter domain label should validate", validator.isValid("as.uk"));
+        assertTrue(validator.isValidDomainSyntax("llc"));
+        assertTrue("llc domain label should validate", validator.isValid("test.llc"));
 
         assertTrue("case-insensitive ApAchE.Org should validate", validator.isValid("ApAchE.Org"));
 
@@ -247,6 +249,10 @@ public class DomainValidatorTest extends TestCase {
             assertEquals(s[1],DomainValidator.unicodeToASCII(s[0]));
         }
     }
+    
+//    public void testDomainNameLLC() {
+//        assertTrue("abc@onedomain.llc should validate" , validator.isValid("abc@onedomain.llc"));
+//    }
 
     // Check if IDN.toASCII is broken or not
     public void testIsIDNtoASCIIBroken() {
