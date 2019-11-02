@@ -16,9 +16,9 @@
  */
 package org.apache.commons.validator.routines;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.validator.ResultPair;
+
+import junit.framework.TestCase;
 
 /**
  * Performs Validation Test for e-mail validations.
@@ -69,6 +69,20 @@ protected void tearDown() {
         assertTrue(validator.isValid("someone@yahoo.com"));
     }
 
+    /**
+     * Make sure no end angular bracket like < or > an the bingen and ending failure
+     */
+    public void testEmailwithAngleBraket() {
+        // Make sure no end angular bracket like < or > an the bingen and ending failure
+        assertFalse(validator.isValid("Leo Notenboom <leo@somerandomservice.com>")); 
+        assertFalse(validator.isValid("<leo@somerandomservice.com>"));
+        assertTrue(validator.isValid("leo@somerandomservice.com"));
+        assertFalse(validator.isValid(">leo@somerandomservice.com<"));
+        
+    }
+    
+    
+    
     /**
      * Tests the e-mail validation.
      */
@@ -257,6 +271,7 @@ protected void tearDown() {
      * that is being tested.
      */
     public void testEmailUserName()  {
+        
 
         assertTrue(validator.isValid("joe1blow@apache.org"));
 
