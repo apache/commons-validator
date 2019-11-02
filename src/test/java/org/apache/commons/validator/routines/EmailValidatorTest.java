@@ -19,6 +19,7 @@ package org.apache.commons.validator.routines;
 import junit.framework.TestCase;
 
 import org.apache.commons.validator.ResultPair;
+import org.junit.Test;
 
 /**
  * Performs Validation Test for e-mail validations.
@@ -137,6 +138,14 @@ protected void tearDown() {
         assertFalse(validator.isValid("test@^&#.com"));
 
     }
+
+    @Test
+    public void testIsValid() {
+        assertFalse(validator.isValid(" some@email.com "));
+
+    }
+
+
 
     public void testVALIDATOR_315() {
         assertFalse(validator.isValid("me@at&t.net"));

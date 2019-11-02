@@ -163,6 +163,9 @@ public class EmailValidator implements Serializable {
             return false;
         }
 
+        if (email.contains(" "))  //If string contains space
+            return false;
+
         // Check the whole email address structure
         Matcher emailMatcher = EMAIL_PATTERN.matcher(email);
         if (!emailMatcher.matches()) {
