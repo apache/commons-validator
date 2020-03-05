@@ -496,9 +496,8 @@ public class Field implements Cloneable, Serializable {
     public String getVarValue(String mainKey) {
         String value = null;
 
-        Object o = getVarMap().get(mainKey);
-        if (o != null && o instanceof Var) {
-            Var v = (Var) o;
+        Var v = getVarMap().get(mainKey);
+        if (v != null) {
             value = v.getValue();
         }
 
