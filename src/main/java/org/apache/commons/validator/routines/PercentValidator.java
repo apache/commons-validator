@@ -86,7 +86,7 @@ public class PercentValidator extends BigDecimalValidator {
      *
      * <p>This implementation is lenient whether the currency symbol
      *    is present or not. The default <code>NumberFormat</code>
-     *    behaviour is for the parsing to "fail" if the currency
+     *    behavior is for the parsing to "fail" if the currency
      *    symbol is missing. This method re-parses with a format
      *    without the currency symbol if it fails initially.</p>
      *

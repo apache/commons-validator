@@ -175,7 +175,7 @@ http://commons.apache.org/validator/dependencies.html
     Generic CreditCard validation
     </action>
     <action issue="VALIDATOR-379" type="fix" dev="sebb">
-    CodeValidator unconditionally trim()s the input string - document the behaviour
+    CodeValidator unconditionally trim()s the input string - document the behavior
     </action>
     <action issue="VALIDATOR-387" type="fix" dev="sebb" due-to="Shumpei Akai">
     Userinfo without colon should be valid in UrlValidator
