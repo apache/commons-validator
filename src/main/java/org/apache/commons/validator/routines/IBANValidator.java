@@ -91,6 +91,9 @@ public class IBANValidator {
      * [1] https://en.wikipedia.org/wiki/International_Bank_Account_Number
      * [2] http://www.swift.com/dsp/resources/documents/IBAN_Registry.pdf (404)
      * => https://www.swift.com/sites/default/files/resources/iban_registry.pdf
+     * The above is an old version (62, Jan 2016)
+     * As at May 2020, the current IBAN standards are located at:
+     * https://www.swift.com/standards/data-standards/iban
      * [3] http://www.europeanpaymentscouncil.eu/documents/ECBS%20IBAN%20standard%20EBS204_V3.2.pdf
      */
     
