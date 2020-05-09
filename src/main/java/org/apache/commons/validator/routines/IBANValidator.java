@@ -114,6 +114,7 @@ public class IBANValidator {
             new Validator("DK", 18, "DK\\d{16}"                             ), // Denmark
             new Validator("DO", 28, "DO\\d{2}[A-Z0-9]{4}\\d{20}"            ), // Dominican Republic
             new Validator("EE", 20, "EE\\d{18}"                             ), // Estonia
+            new Validator("EG", 29, "EG\\d{27}"                             ), // Egypt
             new Validator("ES", 24, "ES\\d{22}"                             ), // Spain
             new Validator("FI", 18, "FI\\d{16}"                             ), // Finland
             new Validator("FO", 18, "FO\\d{16}"                             ), // Denmark (Faroes)
@@ -163,11 +164,12 @@ public class IBANValidator {
             new Validator("SK", 24, "SK\\d{22}"                             ), // Slovak Republic
             new Validator("SM", 27, "SM\\d{2}[A-Z]{1}\\d{10}[A-Z0-9]{12}"   ), // San Marino
             new Validator("ST", 25, "ST\\d{23}"                             ), // Sao Tome and Principe
-            new Validator("SV", 28, "SV\\d{2}[A-Z]{4}\\d{20}"             ) , // El Salvador
+            new Validator("SV", 28, "SV\\d{2}[A-Z]{4}\\d{20}"               ), // El Salvador
             new Validator("TL", 23, "TL\\d{21}"                             ), // Timor-Leste
             new Validator("TN", 24, "TN\\d{22}"                             ), // Tunisia
             new Validator("TR", 26, "TR\\d{8}[A-Z0-9]{16}"                  ), // Turkey
             new Validator("UA", 29, "UA\\d{8}[A-Z0-9]{19}"                  ), // Ukraine
+            new Validator("VA", 22, "VA\\d{20}"                             ), // Vatican City State
             new Validator("VG", 24, "VG\\d{2}[A-Z]{4}\\d{16}"               ), // Virgin Islands, British
             new Validator("XK", 20, "XK\\d{18}"                             ), // Republic of Kosovo
     };
