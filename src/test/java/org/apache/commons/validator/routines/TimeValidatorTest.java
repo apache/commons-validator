@@ -94,6 +94,9 @@ public class TimeValidatorTest extends TestCase {
                         ,"10::1"    // invalid pattern
                         ,"10:1:"};  // invalid pattern
 
+    private Locale origDefault;
+    private TimeZone defaultZone;
+
     /**
      * Constructor
      * @param name test name
@@ -106,6 +109,8 @@ public class TimeValidatorTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         validator = new TimeValidator();
+        defaultZone = TimeZone.getDefault();
+        origDefault = Locale.getDefault();
     }
 
     /**
@@ -116,6 +121,8 @@ public class TimeValidatorTest extends TestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
         validator = null;
+        Locale.setDefault(origDefault);
+        TimeZone.setDefault(defaultZone);
     }
 
     /**
@@ -175,9 +182,7 @@ public class TimeValidatorTest extends TestCase {
      */
     public void testTimeZone() {
         // Set the default Locale & TimeZone
-        Locale origDefault = Locale.getDefault();
         Locale.setDefault(Locale.UK);
-        TimeZone defaultZone = TimeZone.getDefault();
         TimeZone.setDefault(GMT);
 
         Calendar result = null;
@@ -236,9 +241,6 @@ public class TimeValidatorTest extends TestCase {
         assertEquals("pattern minute", 05, result.get(Calendar.MINUTE));
         result = null;
 
-        // Restore the original default
-        Locale.setDefault(origDefault);
-        TimeZone.setDefault(defaultZone);
     }
 
     /**
@@ -246,7 +248,6 @@ public class TimeValidatorTest extends TestCase {
      */
     public void testFormat() {
         // Set the default Locale
-        Locale origDefault = Locale.getDefault();
         Locale.setDefault(Locale.UK);
 
         Object test = TimeValidator.getInstance().validate("16:49:23", "HH:mm:ss");
@@ -255,8 +256,6 @@ public class TimeValidatorTest extends TestCase {
         assertEquals("Format locale",  "4:49 PM",  validator.format(test, Locale.US));
         assertEquals("Format default", "16:49",  validator.format(test));
 
-        // Restore the original default
-        Locale.setDefault(origDefault);
     }
 
     /**
