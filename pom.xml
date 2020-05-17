@@ -309,6 +309,32 @@
         <commons.animal-sniffer.version>1.17</commons.animal-sniffer.version>
       </properties>
     </profile>
+    <profile>
+      <id>jdk9-cldr</id>
+      <activation>
+        <jdk>[1.9,)</jdk>
+      </activation>
+      <!--
+       Temporary fix to allow tests to work under Java 9+, which changed to use CLDR names.
+       This causes several Date/Time tests to fail, as some language strings have changed.
+       e.g. German now uses "Dez." rather than "Dez" for the short version of "December"
+       (see: TimeValidatorTest#testTimeZone)
+       Is the test data wrong, or should the code still be able to parse "Dez"?
+      -->
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+                <systemPropertyVariables>
+                    <java.locale.providers>COMPAT,CLDR</java.locale.providers>
+                </systemPropertyVariables>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 
   <developers>
