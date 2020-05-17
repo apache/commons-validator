@@ -22,6 +22,17 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.validator.routines.IBANValidator.Validator;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 import org.junit.Test;
@@ -136,7 +147,7 @@ public class IBANValidatorTest {
             "BY00NBRB3600000000000Z00AB00", // Wrong in SWIFT v73
             "ST68000200010192194210112", // ditto
             "SV62CENR0000000000000700025", // ditto
-            };
+    };
 
     private static final IBANValidator VALIDATOR = IBANValidator.getInstance();
 
@@ -220,9 +231,134 @@ public class IBANValidatorTest {
             }
         }
     }
-    public static void main(String [] a) {
+
+    private static void checkIBAN(File file, IBANValidator val) throws Exception {
+        // The IBAN Registry (TXT) file is a TAB-separated file
+        // Rows are the entry types, columns are the countries
+        CSVFormat format = CSVFormat.DEFAULT.withDelimiter('\t');
+        Reader rdr = new InputStreamReader(new FileInputStream(file), StandardCharsets.ISO_8859_1);
+        CSVParser p = new CSVParser(rdr, format);
+        CSVRecord country = null;
+        CSVRecord cc = null;
+        CSVRecord structure = null;
+        CSVRecord length = null;
+        for (CSVRecord o : p) {
+            String item = o.get(0);
+            if ("Name of country".equals(item)) {
+                country = o;
+            } else if ("IBAN prefix country code (ISO 3166)".equals(item)) {
+                cc = o;
+            } else if ("IBAN structure".equals(item)) {
+                structure = o;
+            } else if ("IBAN length".equals(item)) {
+                length = o;
+            }
+        }
+        for (int i=1; i < country.size(); i++) {
+            String newLength = length.get(i).split("!")[0]; // El Salvador currently has "28!n"
+            String newRE = fmtRE(structure.get(i), Integer.parseInt(newLength));
+            final Validator valre = val.getValidator(cc.get(i));
+            if (valre == null) {
+                System.out.println("// Missing entry:");
+                printEntry(
+                        cc.get(i),
+                        newLength,
+                        newRE,
+                        country.get(i));              
+            } else {
+                String currentLength = Integer.toString(valre.lengthOfIBAN);
+                String currentRE = valre.validator.toString()
+                        .replaceAll("^.+?\\{(.+)}","$1") // Extract RE from RegexValidator{re} string
+                        .replaceAll("\\\\d","\\\\\\\\d"); // convert \d to \\d
+                // The above assumes that the RegexValidator contains a single Regex
+                if (currentRE.equals(newRE) && currentLength.equals(newLength)) {
+
+                } else {
+                    System.out.println("// Expected: " + newRE + ", " + newLength + " Actual: " + currentRE + ", " + currentLength);
+                    printEntry(
+                            cc.get(i),
+                            newLength,
+                            newRE,
+                            country.get(i));              
+                }
+
+            }
+        }
+        p.close();
+    }
+
+    private static void printEntry(String ccode, String length, String ib, String country) {
+        String fmt = String.format("\"%s\"", ib);
+        System.out.printf("            new Validator(\"%s\", %s, %-40s), // %s\n",
+                ccode,
+                length,
+                fmt,
+                country);        
+    }
+
+    // Unfortunately Java only returns the last match of repeated patterns
+    // Use a manual repeat instead
+    private static final String IBAN_PART = "(?:(\\d+)!([acn]))"; // Assume all parts are fixed length
+    private static final Pattern IBAN_PAT = Pattern.compile(
+            "([A-Z]{2})"+IBAN_PART+IBAN_PART+IBAN_PART+IBAN_PART+"?"+IBAN_PART+"?"+IBAN_PART+"?"+IBAN_PART+"?");
+
+    // convert IBAN type string and length to regex
+    private static String formatToRE(String type, int len) {
+        char ctype = type.charAt(0); // assume type.length() == 1
+        switch(ctype) {
+        case 'n':
+            return String.format("\\\\d{%d}",len);
+        case 'a':
+            return String.format("[A-Z]{%d}",len);
+        case 'c':
+            return String.format("[A-Z0-9]{%d}",len);
+        default:
+            throw new IllegalArgumentException("Unexpected type " + type);
+        }
+    }
+
+    private static String fmtRE(String iban_pat, int iban_len) {
+        Matcher m = IBAN_PAT.matcher(iban_pat);
+        if (m.matches()) {
+            StringBuilder sb = new StringBuilder();
+            String cc = m.group(1); // country code
+            int totalLen = cc.length();
+            sb.append(cc);
+            int len = Integer.parseInt(m.group(2)); // length of part
+            String curType = m.group(3); // part type
+            for (int i = 4; i <= m.groupCount(); i += 2) {
+                if (m.group(i) == null) { // reached an optional group
+                    break;
+                }
+                int count = Integer.parseInt(m.group(i));
+                String type = m.group(i+1);
+                if (type.equals(curType)) { // more of the same type
+                    len += count;                    
+                } else {
+                    sb.append(formatToRE(curType,len));
+                    totalLen += len;
+                    curType = type;
+                    len = count;
+                }
+            }
+            sb.append(formatToRE(curType,len));
+            totalLen += len;
+            if (iban_len != totalLen) {
+                throw new IllegalArgumentException("IBAN pattern " + iban_pat + " does not match length " + iban_len);                
+            }
+            return sb.toString();
+        } else {
+            throw new IllegalArgumentException("Unexpected IBAN pattern " + iban_pat);
+        }
+    }
+
+    public static void main(String [] a) throws Exception {
         IBANValidator validator = new IBANValidator();
-        Validator[] vals = validator.getDefaultValidators();
-        System.out.println("Number of entries: " + vals.length);        
+        File iban_tsv = new File("target","iban-registry.tsv");
+        if (iban_tsv.canRead()) {
+            checkIBAN(iban_tsv, validator);
+        } else {
+            System.out.println("Please load the file " + iban_tsv.getCanonicalPath() + " from https://www.swift.com/standards/data-standards/iban");
+        }
     }
 }
