@@ -168,6 +168,15 @@
       <version>3.2.2</version>
     </dependency>
 
+    <!-- Needed for IBANValidatorTest -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <!-- 1.6 needed for Java 7+ -->
+      <version>1.6</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
