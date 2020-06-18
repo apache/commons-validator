@@ -134,4 +134,10 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
         assertTrue("maxValue() = max",     validator.maxValue(number20, 20));
         assertFalse("maxValue() > max",    validator.maxValue(number21, 20));
     }
+    public void testMinMaxValues() {
+        assertTrue("2147483647 is max integer", validator.isValid("2147483647"));
+        assertFalse("2147483648 > max integer", validator.isValid("2147483648"));
+        assertTrue("-2147483648 is min integer", validator.isValid("-2147483648"));
+        assertFalse("-2147483649 < min integer", validator.isValid("-2147483649"));
+    }
 }
