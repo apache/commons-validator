@@ -371,11 +371,11 @@ public class Field implements Cloneable, Serializable {
 
         // determine the position of the last argument with
         // the same name or the last default argument
-        String key = arg.getName() == null ? DEFAULT_ARG : arg.getName();
+        String keyName = arg.getName() == null ? DEFAULT_ARG : arg.getName();
         int lastPosition = -1;
         int lastDefault  = -1;
         for (int i = 0; i < args.length; i++) {
-            if (args[i] != null && args[i].containsKey(key)) {
+            if (args[i] != null && args[i].containsKey(keyName)) {
                 lastPosition = i;
             }
             if (args[i] != null && args[i].containsKey(DEFAULT_ARG)) {
@@ -451,13 +451,13 @@ public class Field implements Cloneable, Serializable {
      * @since Validator 1.1.1
      */
     public Arg[] getArgs(String key){
-        Arg[] args = new Arg[this.args.length];
+        Arg[] argList = new Arg[this.args.length];
 
         for (int i = 0; i < this.args.length; i++) {
-            args[i] = this.getArg(key, i);
+            argList[i] = this.getArg(key, i);
         }
 
-        return args;
+        return argList;
     }
 
     /**
@@ -541,7 +541,7 @@ public class Field implements Cloneable, Serializable {
      * @return Whether the Field is indexed.
      */
     public boolean isIndexed() {
-        return ((indexedListProperty != null && indexedListProperty.length() > 0));
+        return (indexedListProperty != null && indexedListProperty.length() > 0);
     }
 
     /**
@@ -568,8 +568,8 @@ public class Field implements Cloneable, Serializable {
         // Process FormSet Constants
         for (Iterator<Entry<String, String>> i = constants.entrySet().iterator(); i.hasNext();) {
             Entry<String, String> entry = i.next();
-            String key = entry.getKey();
-            String key2 = TOKEN_START + key + TOKEN_END;
+            String key1 = entry.getKey();
+            String key2 = TOKEN_START + key1 + TOKEN_END;
             String replaceValue = entry.getValue();
 
             property = ValidatorUtils.replace(property, key2, replaceValue);
@@ -582,8 +582,8 @@ public class Field implements Cloneable, Serializable {
         // Process Global Constants
         for (Iterator<Entry<String, String>> i = globalConstants.entrySet().iterator(); i.hasNext();) {
             Entry<String, String> entry = i.next();
-            String key = entry.getKey();
-            String key2 = TOKEN_START + key + TOKEN_END;
+            String key1 = entry.getKey();
+            String key2 = TOKEN_START + key1 + TOKEN_END;
             String replaceValue = entry.getValue();
 
             property = ValidatorUtils.replace(property, key2, replaceValue);
@@ -595,9 +595,9 @@ public class Field implements Cloneable, Serializable {
 
         // Process Var Constant Replacement
         for (Iterator<String> i = getVarMap().keySet().iterator(); i.hasNext();) {
-            String key = i.next();
-            String key2 = TOKEN_START + TOKEN_VAR + key + TOKEN_END;
-            Var var = this.getVar(key);
+            String key1 = i.next();
+            String key2 = TOKEN_START + TOKEN_VAR + key1 + TOKEN_END;
+            Var var = this.getVar(key1);
             String replaceValue = var.getValue();
 
             this.processMessageComponents(key2, replaceValue);
@@ -735,11 +735,11 @@ public class Field implements Cloneable, Serializable {
         if (hVars != null) {
             results.append("\t\tVars:\n");
             for (Iterator<?> i = getVarMap().keySet().iterator(); i.hasNext();) {
-                Object key = i.next();
+                Object key1 = i.next();
                 results.append("\t\t\t");
-                results.append(key);
+                results.append(key1);
                 results.append("=");
-                results.append(getVarMap().get(key));
+                results.append(getVarMap().get(key1));
                 results.append("\n");
             }
         }
@@ -755,10 +755,10 @@ public class Field implements Cloneable, Serializable {
      * or, the property found is not indexed.
      */
     Object[] getIndexedProperty(Object bean) throws ValidatorException {
-        Object indexedProperty = null;
+        Object indexProp = null;
 
         try {
-            indexedProperty =
+            indexProp =
                 PropertyUtils.getProperty(bean, this.getIndexedListProperty());
 
         } catch(IllegalAccessException e) {
@@ -769,11 +769,11 @@ public class Field implements Cloneable, Serializable {
             throw new ValidatorException(e.getMessage());
         }
 
-        if (indexedProperty instanceof Collection) {
-            return ((Collection<?>) indexedProperty).toArray();
+        if (indexProp instanceof Collection) {
+            return ((Collection<?>) indexProp).toArray();
 
-        } else if (indexedProperty.getClass().isArray()) {
-            return (Object[]) indexedProperty;
+        } else if (indexProp.getClass().isArray()) {
+            return (Object[]) indexProp;
 
         } else {
             throw new ValidatorException(this.getKey() + " is not indexed");
@@ -788,10 +788,10 @@ public class Field implements Cloneable, Serializable {
      * or, the property found is not indexed.
      */
     private int getIndexedPropertySize(Object bean) throws ValidatorException {
-        Object indexedProperty = null;
+        Object indexProp = null;
 
         try {
-            indexedProperty =
+            indexProp =
                 PropertyUtils.getProperty(bean, this.getIndexedListProperty());
 
         } catch(IllegalAccessException e) {
@@ -802,12 +802,12 @@ public class Field implements Cloneable, Serializable {
             throw new ValidatorException(e.getMessage());
         }
 
-        if (indexedProperty == null) {
+        if (indexProp == null) {
             return 0;
-        } else if (indexedProperty instanceof Collection) {
-            return ((Collection<?>)indexedProperty).size();
-        } else if (indexedProperty.getClass().isArray()) {
-            return ((Object[])indexedProperty).length;
+        } else if (indexProp instanceof Collection) {
+            return ((Collection<?>)indexProp).size();
+        } else if (indexProp.getClass().isArray()) {
+            return ((Object[])indexProp).length;
         } else {
             throw new ValidatorException(this.getKey() + " is not indexed");
         }
