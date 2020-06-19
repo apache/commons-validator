@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Perform credit card validations.
  *
  * <p>
- * By default, all supported card types are allowed.  You can specify which
+ * By default, AMEX + VISA + MASTERCARD + DISCOVER card types are allowed.  You can specify which
  * cards should pass validation by configuring the validation options. For
  * example,
  * </p>
