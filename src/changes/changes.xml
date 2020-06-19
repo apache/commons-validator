@@ -134,6 +134,9 @@ http://commons.apache.org/validator/dependencies.html
     <action issue="VALIDATOR-416" type="fix" dev="sebb">
     CreditCardValidator default ctor disagrees with Javadoc
     </action>
+    <action issue="VALIDATOR-446" type="add" dev="sebb" due-to="Alex">
+    ISSN Validator extract ISSN from EAN-13
+    </action>
   </release>
 
   <release version="1.6" date="2017-02-21" description="
