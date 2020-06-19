@@ -450,7 +450,8 @@ public class UrlValidator implements Serializable {
         }
 
         try {
-            URI uri = new URI(null,null,path,null);
+            // Don't omit host otherwise leading path may be taken as host if it starts with //
+            URI uri = new URI(null,"localhost",path,null);
             String norm = uri.normalize().getPath();
             if (norm.startsWith("/../") // Trying to go via the parent dir 
              || norm.equals("/..")) {   // Trying to go to the parent dir
