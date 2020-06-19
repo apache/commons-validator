@@ -156,4 +156,57 @@ public class ISSNValidatorTest extends TestCase {
         assertEquals("9771234567003", VALIDATOR.convertToEAN13("1234-5679", "00"));
     }
 
+    /**
+     * Test Invalid EAN-13 ISSN prefix codes
+     * Test Input length
+     */
+    public void testConversionErrors() {
+        String input = null;
+        try {
+            input = "9780072129519";
+            VALIDATOR.extractFromEAN13(input);
+            fail("Expected IllegalArgumentException for '" + input + "'");
+        } catch (IllegalArgumentException e) {
+            // expected result
+        }
+        try {
+            input = "9791090636071";
+            VALIDATOR.extractFromEAN13(input);
+            fail("Expected IllegalArgumentException for '" + input + "'");
+        } catch (IllegalArgumentException e) {
+            // expected result
+        }
+        try {
+            input = "03178471";
+            VALIDATOR.extractFromEAN13(input);
+            fail("Expected IllegalArgumentException for '" + input + "'");
+        } catch (IllegalArgumentException e) {
+            // expected result
+        }
+    }
+
+    /**
+     * Test Invalid EAN-13 ISSN codes
+     */
+    public void testValidCheckDigitEan13() {
+        assertNull(VALIDATOR.extractFromEAN13("9771234567001"));
+        assertNull(VALIDATOR.extractFromEAN13("9771234567002"));
+        assertNotNull(VALIDATOR.extractFromEAN13("9771234567003")); // valid check digit
+        assertNull(VALIDATOR.extractFromEAN13("9771234567004"));
+        assertNull(VALIDATOR.extractFromEAN13("9771234567005"));
+        assertNull(VALIDATOR.extractFromEAN13("9771234567006"));
+        assertNull(VALIDATOR.extractFromEAN13("9771234567007"));
+        assertNull(VALIDATOR.extractFromEAN13("9771234567008"));
+        assertNull(VALIDATOR.extractFromEAN13("9771234567009"));
+        assertNull(VALIDATOR.extractFromEAN13("9771234567000"));
+    }
+    /**
+     *  Test valid EAN-13 ISSN codes and extract the ISSN
+     */
+    public void testIsValidExtract() {
+        assertEquals("12345679", VALIDATOR.extractFromEAN13("9771234567003"));
+        assertEquals("00014664", VALIDATOR.extractFromEAN13("9770001466006"));
+        assertEquals("03178471", VALIDATOR.extractFromEAN13("9770317847001"));
+        assertEquals("1144875X", VALIDATOR.extractFromEAN13("9771144875007"));
+    }
 }

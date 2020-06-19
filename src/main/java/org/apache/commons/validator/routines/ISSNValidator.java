@@ -66,7 +66,13 @@ public class ISSNValidator implements Serializable {
 
     private static final String ISSN_REGEX = "(?:ISSN )?(\\d{4})-(\\d{3}[0-9X])$"; // We don't include the '-' in the code, so it is 8 chars
 
+    private static final String EAN_ISSN_REGEX = "^(977)(?:(\\d{10}))$";
+
+    private static final int EAN_ISSN_LEN = 13;
+
     private static final CodeValidator VALIDATOR = new CodeValidator(ISSN_REGEX, 8, ISSNCheckDigit.ISSN_CHECK_DIGIT);
+
+    private static final CodeValidator EAN_VALIDATOR = new CodeValidator(EAN_ISSN_REGEX, 13, EAN13CheckDigit.EAN13_CHECK_DIGIT);
 
     /** ISSN Code Validator */
     private static final ISSNValidator ISSN_VALIDATOR = new ISSNValidator();
@@ -78,6 +84,18 @@ public class ISSNValidator implements Serializable {
      */
     public static ISSNValidator getInstance() {
         return ISSN_VALIDATOR;
+    }
+
+    /**
+     * Check the code is a valid EAN code.
+     * <p>
+     * If valid, this method returns the EAN code
+     *
+     * @param code The code to validate.
+     * @return A valid EAN code if valid, otherwise <code>null</code>.
+     */
+    public Object validateEan(String code) {
+        return EAN_VALIDATOR.validate(code);
     }
 
     /**
@@ -139,5 +157,40 @@ public class ISSNValidator implements Serializable {
             throw new IllegalArgumentException("Check digit error for '" + ean13 + "' - " + e.getMessage());
         }
 
+    }
+
+    /**
+     * Extract an ISSN code from an ISSN-EAN-13 code.
+     * <p>
+     * This method requires a valid ISSN-EAN-13 code with NO formatting
+     * characters.
+     * That is a 13 digit EAN-13 code with the '977' prefix
+     *
+     * @param ean13 The ISSN code to convert
+     * @return A valid ISSN code or <code>null</code>
+     * if the input ISSN EAN-13 code is not valid
+     */
+    public String extractFromEAN13(String ean13) {
+        String input = ean13.trim();
+        if (input.length() != EAN_ISSN_LEN ) {
+            throw new IllegalArgumentException("Invalid length " + input.length() + " for '" + input + "'");
+        }
+        if (!input.substring(0,3).equals("977")) {
+            throw new IllegalArgumentException("Prefix must be 977 digits to contain an ISSN: '" + ean13 + "'");
+        }
+        Object result = validateEan(input);
+        if (result == null) {
+            return null;
+        }
+        // Calculate the ISSN code
+        input = result.toString();
+        try {
+            String issnBase = input.substring(3,10);
+            String checkDigit = ISSNCheckDigit.ISSN_CHECK_DIGIT.calculate(issnBase);
+            String issn = issnBase + checkDigit;
+            return issn;
+        } catch (CheckDigitException e) { // Should not happen
+            throw new IllegalArgumentException("Check digit error for '" + ean13 + "' - " + e.getMessage());
+        }
     }
 }
