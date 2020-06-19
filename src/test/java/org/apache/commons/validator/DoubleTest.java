@@ -48,7 +48,7 @@ public class DoubleTest extends AbstractNumberTest {
     public void testDoubleMin() throws ValidatorException {
         // Create bean to run test on.
         ValueBean info = new ValueBean();
-        info.setValue(new Double(Double.MIN_VALUE).toString());
+        info.setValue(Double.valueOf(Double.MIN_VALUE).toString());
 
         valueTest(info, true);
     }
@@ -59,7 +59,7 @@ public class DoubleTest extends AbstractNumberTest {
     public void testDoubleMax() throws ValidatorException {
         // Create bean to run test on.
         ValueBean info = new ValueBean();
-        info.setValue(new Double(Double.MAX_VALUE).toString());
+        info.setValue(Double.valueOf(Double.MAX_VALUE).toString());
 
         valueTest(info, true);
     }
