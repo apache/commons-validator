@@ -43,10 +43,10 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
         testPattern = "#,###";
 
         // testValidateMinMax()
-        max = new Byte(Byte.MAX_VALUE);
-        maxPlusOne = new Long(max.longValue() + 1);
-        min = new Byte(Byte.MIN_VALUE);
-        minMinusOne = new Long(min.longValue() - 1);
+        max = Byte.valueOf(Byte.MAX_VALUE);
+        maxPlusOne = Long.valueOf(max.longValue() + 1);
+        min = Byte.valueOf(Byte.MIN_VALUE);
+        minMinusOne = Long.valueOf(min.longValue() - 1);
 
         // testInvalidStrict()
         invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2"};
@@ -55,8 +55,8 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
         invalid       = new String[] {null, "", "X", "X12"};
 
         // testValid()
-        testNumber    = new Byte((byte)123);
-        testZero      = new Byte((byte)0);
+        testNumber    = Byte.valueOf((byte)123);
+        testZero      = Byte.valueOf((byte)0);
         validStrict          = new String[] {"0", "123", ",123"};
         validStrictCompare   = new Number[] {testZero, testNumber, testNumber};
         valid                = new String[] {"0", "123", ",123", ",123.5", "123X"};
@@ -84,7 +84,7 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
         String localeVal  = ".123";
         String defaultVal = ",123";
         String XXXX    = "XXXX"; 
-        Byte expected = new Byte((byte)123);
+        Byte expected = Byte.valueOf((byte)123);
         assertEquals("validate(A) default", expected, ByteValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, ByteValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, ByteValidator.getInstance().validate(patternVal, pattern));

@@ -55,8 +55,8 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
         invalid       = new String[] {null, "", "X", "X12"};
 
         // testValid()
-        testNumber    = new Long(1234);
-        testZero      = new Long(0);
+        testNumber    = Long.valueOf(1234);
+        testZero      = Long.valueOf(0);
         validStrict          = new String[] {"0", "1234", "1,234"};
         validStrictCompare   = new Number[] {testZero, testNumber, testNumber};
         valid                = new String[] {"0", "1234", "1,234", "1,234.5", "1234X"};
@@ -84,7 +84,7 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
         String localeVal  = "12.345";
         String defaultVal = "12,345";
         String XXXX    = "XXXX"; 
-        Long expected = new Long(12345);
+        Long expected = Long.valueOf(12345);
         assertEquals("validate(A) default", expected, LongValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, LongValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, LongValidator.getInstance().validate(patternVal, pattern));

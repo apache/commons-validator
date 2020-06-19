@@ -246,7 +246,7 @@ public class DoubleValidator extends AbstractNumberValidator {
         if (value instanceof Double) {
             return value;
         }
-        return new Double(((Number)value).doubleValue());
+        return Double.valueOf(((Number)value).doubleValue());
 
     }
 }

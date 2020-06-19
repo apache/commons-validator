@@ -263,7 +263,7 @@ public class FloatValidator extends AbstractNumberValidator {
             }
         }
 
-        return new Float((float)doubleValue);
+        return Float.valueOf((float)doubleValue);
 
     }
 

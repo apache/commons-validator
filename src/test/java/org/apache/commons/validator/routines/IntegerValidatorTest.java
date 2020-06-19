@@ -43,10 +43,10 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
         testPattern = "#,###";
 
         // testValidateMinMax()
-        max = new Integer(Integer.MAX_VALUE);
-        maxPlusOne = new Long(max.longValue() + 1);
-        min = new Integer(Integer.MIN_VALUE);
-        minMinusOne = new Long(min.longValue() - 1);
+        max = Integer.valueOf(Integer.MAX_VALUE);
+        maxPlusOne = Long.valueOf(max.longValue() + 1);
+        min = Integer.valueOf(Integer.MIN_VALUE);
+        minMinusOne = Long.valueOf(min.longValue() - 1);
 
         // testInvalidStrict()
         invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2"};
@@ -55,8 +55,8 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
         invalid       = new String[] {null, "", "X", "X12"};
 
         // testValid()
-        testNumber    = new Integer(1234);
-        testZero      = new Integer(0);
+        testNumber    = Integer.valueOf(1234);
+        testZero      = Integer.valueOf(0);
         validStrict          = new String[] {"0", "1234", "1,234"};
         validStrictCompare   = new Number[] {testZero, testNumber, testNumber};
         valid                = new String[] {"0", "1234", "1,234", "1,234.5", "1234X"};
@@ -83,7 +83,7 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
         String localeVal  = "12.345";
         String defaultVal = "12,345";
         String XXXX    = "XXXX"; 
-        Integer expected = new Integer(12345);
+        Integer expected = Integer.valueOf(12345);
         assertEquals("validate(A) default", expected, IntegerValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, IntegerValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, IntegerValidator.getInstance().validate(patternVal, pattern));

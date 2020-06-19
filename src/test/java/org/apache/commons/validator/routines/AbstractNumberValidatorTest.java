@@ -189,12 +189,12 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
      * Test Range/Min/Max
      */
     public void testRangeMinMax() {
-        Number number9 = new Integer(9);
-        Number number10 = new Integer(10);
-        Number number11 = new Integer(11);
-        Number number19 = new Integer(19);
-        Number number20 = new Integer(20);
-        Number number21 = new Integer(21);
+        Number number9 = Integer.valueOf(9);
+        Number number10 = Integer.valueOf(10);
+        Number number11 = Integer.valueOf(11);
+        Number number19 = Integer.valueOf(19);
+        Number number20 = Integer.valueOf(20);
+        Number number21 = Integer.valueOf(21);
 
         // Test isInRange()
         assertFalse("isInRange() < min",   strictValidator.isInRange(number9 ,  number10, number20));
