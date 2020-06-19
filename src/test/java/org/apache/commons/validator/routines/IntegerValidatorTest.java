@@ -25,6 +25,15 @@ import java.util.Locale;
  */
 public class IntegerValidatorTest extends AbstractNumberValidatorTest {
 
+    private static final Integer INT_MIN_VAL = Integer.valueOf(Integer.MIN_VALUE);
+    private static final Integer INT_MAX_VAL = Integer.valueOf(Integer.MAX_VALUE);
+    private static final String INT_MAX   =  "2147483647";
+    private static final String INT_MAX_0 =  "2147483647.99999999999999999999999"; // force double rounding
+    private static final String INT_MAX_1 =  "2147483648";
+    private static final String INT_MIN   = "-2147483648";
+    private static final String INT_MIN_0 = "-2147483648.99999999999999999999999"; // force double rounding";
+    private static final String INT_MIN_1 = "-2147483649";
+
     /**
      * Constructor
      * @param name test name
@@ -49,18 +58,18 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
         minMinusOne = Long.valueOf(min.longValue() - 1);
 
         // testInvalidStrict()
-        invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2"};
+        invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2", INT_MAX_1, INT_MIN_1};
 
         // testInvalidNotStrict()
-        invalid       = new String[] {null, "", "X", "X12"};
+        invalid       = new String[] {null, "", "X", "X12", INT_MAX_1, INT_MIN_1};
 
         // testValid()
         testNumber    = Integer.valueOf(1234);
         testZero      = Integer.valueOf(0);
-        validStrict          = new String[] {"0", "1234", "1,234"};
-        validStrictCompare   = new Number[] {testZero, testNumber, testNumber};
-        valid                = new String[] {"0", "1234", "1,234", "1,234.5", "1234X"};
-        validCompare         = new Number[] {testZero, testNumber, testNumber, testNumber, testNumber};
+        validStrict          = new String[] {"0", "1234", "1,234", INT_MAX, INT_MIN};
+        validStrictCompare   = new Number[] {testZero, testNumber, testNumber, INT_MAX_VAL, INT_MIN_VAL};
+        valid                = new String[] {"0", "1234", "1,234", "1,234.5", "1234X", INT_MAX, INT_MIN, INT_MAX_0, INT_MIN_0};
+        validCompare         = new Number[] {testZero, testNumber, testNumber, testNumber, testNumber, INT_MAX_VAL, INT_MIN_VAL, INT_MAX_VAL, INT_MIN_VAL};
 
         testStringUS = "1,234";
         testStringDE = "1.234";

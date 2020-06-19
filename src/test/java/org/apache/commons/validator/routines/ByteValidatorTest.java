@@ -25,6 +25,14 @@ import java.util.Locale;
  */
 public class ByteValidatorTest extends AbstractNumberValidatorTest {
 
+    private static final Byte BYTE_MIN_VAL = Byte.valueOf(Byte.MIN_VALUE);
+    private static final Byte BYTE_MAX_VAL = Byte.valueOf(Byte.MAX_VALUE);
+    private static final String BYTE_MAX   =  "127";
+    private static final String BYTE_MAX_0 =  "127.99999999999999999999999"; // force double rounding
+    private static final String BYTE_MAX_1 =  "128";
+    private static final String BYTE_MIN   = "-128";
+    private static final String BYTE_MIN_0 = "-128.99999999999999999999999"; // force double rounding";
+    private static final String BYTE_MIN_1 = "-129";
     /**
      * Constructor
      * @param name test name
@@ -49,18 +57,18 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
         minMinusOne = Long.valueOf(min.longValue() - 1);
 
         // testInvalidStrict()
-        invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2"};
+        invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2", BYTE_MAX_1, BYTE_MIN_1, BYTE_MAX_0, BYTE_MIN_0};
 
         // testInvalidNotStrict()
-        invalid       = new String[] {null, "", "X", "X12"};
+        invalid       = new String[] {null, "", "X", "X12", BYTE_MAX_1, BYTE_MIN_1};
 
         // testValid()
         testNumber    = Byte.valueOf((byte)123);
         testZero      = Byte.valueOf((byte)0);
-        validStrict          = new String[] {"0", "123", ",123"};
-        validStrictCompare   = new Number[] {testZero, testNumber, testNumber};
-        valid                = new String[] {"0", "123", ",123", ",123.5", "123X"};
-        validCompare         = new Number[] {testZero, testNumber, testNumber, testNumber, testNumber};
+        validStrict          = new String[] {"0", "123", ",123", BYTE_MAX, BYTE_MIN};
+        validStrictCompare   = new Number[] {testZero, testNumber, testNumber, BYTE_MAX_VAL, BYTE_MIN_VAL};
+        valid                = new String[] {"0", "123", ",123", ",123.5", "123X", BYTE_MAX, BYTE_MIN, BYTE_MAX_0, BYTE_MIN_0};
+        validCompare         = new Number[] {testZero, testNumber, testNumber, testNumber, testNumber, BYTE_MAX_VAL, BYTE_MIN_VAL, BYTE_MAX_VAL, BYTE_MIN_VAL};
 
         testStringUS = ",123";
         testStringDE = ".123";
