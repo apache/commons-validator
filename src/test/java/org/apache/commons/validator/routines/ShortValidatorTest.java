@@ -43,10 +43,10 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
         testPattern = "#,###";
 
         // testValidateMinMax()
-        max = new Short(Short.MAX_VALUE);
-        maxPlusOne = new Long(max.longValue() + 1);
-        min = new Short(Short.MIN_VALUE);
-        minMinusOne = new Long(min.longValue() - 1);
+        max = Short.valueOf(Short.MAX_VALUE);
+        maxPlusOne = Long.valueOf(max.longValue() + 1);
+        min = Short.valueOf(Short.MIN_VALUE);
+        minMinusOne = Long.valueOf(min.longValue() - 1);
 
         // testInvalidStrict()
         invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2"};
@@ -55,8 +55,8 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
         invalid       = new String[] {null, "", "X", "X12"};
 
         // testValid()
-        testNumber    = new Short((short)1234);
-        testZero      = new Short((short)0);
+        testNumber    = Short.valueOf((short)1234);
+        testZero      = Short.valueOf((short)0);
         validStrict          = new String[] {"0", "1234", "1,234"};
         validStrictCompare   = new Number[] {testZero, testNumber, testNumber};
         valid                = new String[] {"0", "1234", "1,234", "1,234.5", "1234X"};
@@ -84,7 +84,7 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
         String localeVal  = "12.345";
         String defaultVal = "12,345";
         String XXXX    = "XXXX"; 
-        Short expected = new Short((short)12345);
+        Short expected = Short.valueOf((short)12345);
         assertEquals("validate(A) default", expected, ShortValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, ShortValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, ShortValidator.getInstance().validate(patternVal, pattern));

@@ -55,8 +55,8 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
         invalid       = new String[] {null, "", "X", "X12"};
 
         // testValid()
-        testNumber    = new Double(1234.5);
-        testZero      = new Double(0);
+        testNumber    = Double.valueOf(1234.5);
+        testZero      = Double.valueOf(0);
         validStrict          = new String[] {"0", "1234.5", "1,234.5"};
         validStrictCompare   = new Number[] {testZero, testNumber, testNumber};
         valid                = new String[] {"0", "1234.5", "1,234.5", "1,234.5", "1234.5X"};
@@ -84,7 +84,7 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
         String localeVal  = "12.345";
         String defaultVal = "12,345";
         String XXXX    = "XXXX"; 
-        Double expected = new Double(12345);
+        Double expected = Double.valueOf(12345);
         assertEquals("validate(A) default", expected, DoubleValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, DoubleValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, DoubleValidator.getInstance().validate(patternVal, pattern));

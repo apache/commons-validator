@@ -44,10 +44,10 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
         testPattern = "#,###.#";
 
         // testValidateMinMax()
-        max = new Float(Float.MAX_VALUE);
-        maxPlusOne = new Double(max.doubleValue() * 10);
-        min = new Float(Float.MAX_VALUE * -1);
-        minMinusOne = new Double(min.doubleValue() * 10);
+        max = Float.valueOf(Float.MAX_VALUE);
+        maxPlusOne = Double.valueOf(max.doubleValue() * 10);
+        min = Float.valueOf(Float.MAX_VALUE * -1);
+        minMinusOne = Double.valueOf(min.doubleValue() * 10);
 
         // testInvalidStrict()
         invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2"};
@@ -56,8 +56,8 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
         invalid       = new String[] {null, "", "X", "X12"};
 
         // testValid()
-        testNumber    = new Float(1234.5);
-        testZero      = new Float(0);
+        testNumber    = Float.valueOf(1234.5f);
+        testZero      = Float.valueOf(0);
         validStrict          = new String[] {"0", "1234.5", "1,234.5"};
         validStrictCompare   = new Number[] {testZero, testNumber, testNumber};
         valid                = new String[] {"0", "1234.5", "1,234.5", "1,234.5", "1234.5X"};
@@ -85,7 +85,7 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
         String germanPatternVal = "1.23.45";
         String defaultVal = "12,345";
         String XXXX    = "XXXX"; 
-        Float expected = new Float(12345);
+        Float expected = Float.valueOf(12345);
         assertEquals("validate(A) default", expected, FloatValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, FloatValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, FloatValidator.getInstance().validate(patternVal, pattern));
@@ -116,22 +116,22 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
         DecimalFormat fmt = new DecimalFormat(pattern);
 
         // Validate Smallest +ve value
-        Float smallestPositive  = new Float(Float.MIN_VALUE);
+        Float smallestPositive  = Float.valueOf(Float.MIN_VALUE);
         String strSmallestPositive = fmt.format(smallestPositive);
         assertEquals("Smallest +ve", smallestPositive, FloatValidator.getInstance().validate(strSmallestPositive, pattern));
 
         // Validate Smallest -ve value
-        Float smallestNegative  = new Float(Float.MIN_VALUE * -1);
+        Float smallestNegative  = Float.valueOf(Float.MIN_VALUE * -1);
         String strSmallestNegative = fmt.format(smallestNegative);
         assertEquals("Smallest -ve", smallestNegative, FloatValidator.getInstance().validate(strSmallestNegative, pattern));
 
         // Validate Too Small +ve
-        Double tooSmallPositive = new Double(((double)Float.MIN_VALUE / (double)10)); 
+        Double tooSmallPositive = Double.valueOf(((double)Float.MIN_VALUE / (double)10)); 
         String strTooSmallPositive = fmt.format(tooSmallPositive);
         assertFalse("Too small +ve", FloatValidator.getInstance().isValid(strTooSmallPositive, pattern));
 
         // Validate Too Small -ve
-        Double tooSmallNegative = new Double(tooSmallPositive.doubleValue() * -1);
+        Double tooSmallNegative = Double.valueOf(tooSmallPositive.doubleValue() * -1);
         String strTooSmallNegative = fmt.format(tooSmallNegative);
         assertFalse("Too small -ve", FloatValidator.getInstance().isValid(strTooSmallNegative, pattern));
     }

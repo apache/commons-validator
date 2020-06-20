@@ -128,6 +128,18 @@ http://commons.apache.org/validator/dependencies.html
     <action issue="VALIDATOR-461" type="fix" dev="sebb">
     Generic .gmbh top level domain is considered invalid
     </action>
+    <action issue="VALIDATOR-444" type="fix" dev="sebb" due=to="Marin Scholz">
+    LongValidator: numbers bigger than the maxvalue are Valid
+    </action>
+    <action issue="VALIDATOR-416" type="fix" dev="sebb">
+    CreditCardValidator default ctor disagrees with Javadoc
+    </action>
+    <action issue="VALIDATOR-446" type="add" dev="sebb" due-to="Alex">
+    ISSN Validator extract ISSN from EAN-13
+    </action>
+    <action issue="VALIDATOR-467" type="fix" dev="sebb" due-to="Ivan Larionov">
+    URL validator fails if path starts with double slash and has underscores
+    </action>
   </release>
 
   <release version="1.6" date="2017-02-21" description="

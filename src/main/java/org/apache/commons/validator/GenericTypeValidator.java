@@ -260,7 +260,7 @@ public class GenericTypeValidator implements Serializable {
         }
 
         try {
-            return new Float(value);
+            return Float.valueOf(value);
         } catch (NumberFormatException e) {
             return null;
         }
@@ -292,7 +292,7 @@ public class GenericTypeValidator implements Serializable {
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
                     num.doubleValue() >= (Float.MAX_VALUE * -1) &&
                     num.doubleValue() <= Float.MAX_VALUE) {
-                result = new Float(num.floatValue());
+                result = Float.valueOf(num.floatValue());
             }
         }
 
@@ -311,7 +311,7 @@ public class GenericTypeValidator implements Serializable {
         }
 
         try {
-            return new Double(value);
+            return Double.valueOf(value);
         } catch (NumberFormatException e) {
             return null;
         }
@@ -343,7 +343,7 @@ public class GenericTypeValidator implements Serializable {
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
                     num.doubleValue() >= (Double.MAX_VALUE * -1) &&
                     num.doubleValue() <= Double.MAX_VALUE) {
-                result = new Double(num.doubleValue());
+                result = Double.valueOf(num.doubleValue());
             }
         }
 

@@ -36,7 +36,7 @@ public class ShortTest extends AbstractNumberTest {
    public void testShortMin() throws ValidatorException {
       // Create bean to run test on.
       ValueBean info = new ValueBean();
-      info.setValue(new Short(Short.MIN_VALUE).toString());
+      info.setValue(Short.valueOf(Short.MIN_VALUE).toString());
       
       valueTest(info, true);
    }
@@ -47,7 +47,7 @@ public class ShortTest extends AbstractNumberTest {
    public void testShortMax() throws ValidatorException {
       // Create bean to run test on.
       ValueBean info = new ValueBean();
-      info.setValue(new Short(Short.MAX_VALUE).toString());
+      info.setValue(Short.valueOf(Short.MAX_VALUE).toString());
       
       valueTest(info, true);
    }

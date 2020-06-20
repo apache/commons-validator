@@ -244,13 +244,15 @@ public class ByteValidator extends AbstractNumberValidator {
     @Override
     protected Object processParsedValue(Object value, Format formatter) {
 
-        long longValue = ((Number)value).longValue();
-
-        if (longValue < Byte.MIN_VALUE ||
-            longValue > Byte.MAX_VALUE) {
-            return null;
+        // Parsed value will be Long if it fits in a long and is not fractional
+        if (value instanceof Long) {
+            long longValue = ((Long)value).longValue();
+            if (longValue >= Byte.MIN_VALUE && 
+                longValue <= Byte.MAX_VALUE) {
+                return Byte.valueOf((byte)longValue);
+            }
         }
-        return Byte.valueOf((byte)longValue);
+        return null;
     }
 
 }

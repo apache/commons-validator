@@ -25,6 +25,15 @@ import java.util.Locale;
  */
 public class IntegerValidatorTest extends AbstractNumberValidatorTest {
 
+    private static final Integer INT_MIN_VAL = Integer.valueOf(Integer.MIN_VALUE);
+    private static final Integer INT_MAX_VAL = Integer.valueOf(Integer.MAX_VALUE);
+    private static final String INT_MAX   =  "2147483647";
+    private static final String INT_MAX_0 =  "2147483647.99999999999999999999999"; // force double rounding
+    private static final String INT_MAX_1 =  "2147483648";
+    private static final String INT_MIN   = "-2147483648";
+    private static final String INT_MIN_0 = "-2147483648.99999999999999999999999"; // force double rounding";
+    private static final String INT_MIN_1 = "-2147483649";
+
     /**
      * Constructor
      * @param name test name
@@ -43,24 +52,24 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
         testPattern = "#,###";
 
         // testValidateMinMax()
-        max = new Integer(Integer.MAX_VALUE);
-        maxPlusOne = new Long(max.longValue() + 1);
-        min = new Integer(Integer.MIN_VALUE);
-        minMinusOne = new Long(min.longValue() - 1);
+        max = Integer.valueOf(Integer.MAX_VALUE);
+        maxPlusOne = Long.valueOf(max.longValue() + 1);
+        min = Integer.valueOf(Integer.MIN_VALUE);
+        minMinusOne = Long.valueOf(min.longValue() - 1);
 
         // testInvalidStrict()
-        invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2"};
+        invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2", INT_MAX_1, INT_MIN_1};
 
         // testInvalidNotStrict()
-        invalid       = new String[] {null, "", "X", "X12"};
+        invalid       = new String[] {null, "", "X", "X12", INT_MAX_1, INT_MIN_1};
 
         // testValid()
-        testNumber    = new Integer(1234);
-        testZero      = new Integer(0);
-        validStrict          = new String[] {"0", "1234", "1,234"};
-        validStrictCompare   = new Number[] {testZero, testNumber, testNumber};
-        valid                = new String[] {"0", "1234", "1,234", "1,234.5", "1234X"};
-        validCompare         = new Number[] {testZero, testNumber, testNumber, testNumber, testNumber};
+        testNumber    = Integer.valueOf(1234);
+        testZero      = Integer.valueOf(0);
+        validStrict          = new String[] {"0", "1234", "1,234", INT_MAX, INT_MIN};
+        validStrictCompare   = new Number[] {testZero, testNumber, testNumber, INT_MAX_VAL, INT_MIN_VAL};
+        valid                = new String[] {"0", "1234", "1,234", "1,234.5", "1234X", INT_MAX, INT_MIN, INT_MAX_0, INT_MIN_0};
+        validCompare         = new Number[] {testZero, testNumber, testNumber, testNumber, testNumber, INT_MAX_VAL, INT_MIN_VAL, INT_MAX_VAL, INT_MIN_VAL};
 
         testStringUS = "1,234";
         testStringDE = "1.234";
@@ -83,7 +92,7 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
         String localeVal  = "12.345";
         String defaultVal = "12,345";
         String XXXX    = "XXXX"; 
-        Integer expected = new Integer(12345);
+        Integer expected = Integer.valueOf(12345);
         assertEquals("validate(A) default", expected, IntegerValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, IntegerValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, IntegerValidator.getInstance().validate(patternVal, pattern));
@@ -133,5 +142,11 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
         assertTrue("maxValue() < max",     validator.maxValue(number19, 20));
         assertTrue("maxValue() = max",     validator.maxValue(number20, 20));
         assertFalse("maxValue() > max",    validator.maxValue(number21, 20));
+    }
+    public void testMinMaxValues() {
+        assertTrue("2147483647 is max integer", validator.isValid("2147483647"));
+        assertFalse("2147483648 > max integer", validator.isValid("2147483648"));
+        assertTrue("-2147483648 is min integer", validator.isValid("-2147483648"));
+        assertFalse("-2147483649 < min integer", validator.isValid("-2147483649"));
     }
 }

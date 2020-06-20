@@ -498,7 +498,14 @@ protected void setUp() {
        assertTrue(validator.isValid("http://example.com/serach?address=Main+Avenue"));
    }
 
-   //-------------------- Test data for creating a composite URL
+   public void testValidator467() {
+      UrlValidator validator = new UrlValidator(UrlValidator.ALLOW_2_SLASHES);
+      assertTrue(validator.isValid("https://example.com/some_path/path/"));
+      assertTrue(validator.isValid("https://example.com//somepath/path/"));
+      assertTrue(validator.isValid("https://example.com//some_path/path/"));
+  }
+
+  //-------------------- Test data for creating a composite URL
    /**
     * The data given below approximates the 4 parts of a URL
     * <scheme>://<authority><path>?<query> except that the port number

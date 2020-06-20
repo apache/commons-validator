@@ -50,7 +50,7 @@ public class IntegerTest extends AbstractNumberTest {
     public void testIntMin() throws ValidatorException {
         // Create bean to run test on.
         ValueBean info = new ValueBean();
-        info.setValue(new Integer(Integer.MIN_VALUE).toString());
+        info.setValue(Integer.valueOf(Integer.MIN_VALUE).toString());
 
         valueTest(info, true);
     }
@@ -61,7 +61,7 @@ public class IntegerTest extends AbstractNumberTest {
     public void testIntegerMax() throws ValidatorException {
         // Create bean to run test on.
         ValueBean info = new ValueBean();
-        info.setValue(new Integer(Integer.MAX_VALUE).toString());
+        info.setValue(Integer.valueOf(Integer.MAX_VALUE).toString());
 
         valueTest(info, true);
     }

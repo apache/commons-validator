@@ -25,6 +25,16 @@ import java.util.Locale;
  */
 public class LongValidatorTest extends AbstractNumberValidatorTest {
 
+    private static final Long LONG_MIN_VAL = Long.valueOf(Long.MIN_VALUE);
+    private static final Long LONG_MAX_VAL = Long.valueOf(Long.MAX_VALUE);
+    private static final String LONG_MAX   =  "9223372036854775807";
+    private static final String LONG_MAX_0 =  "9223372036854775807.99999999999999999999999"; // force double rounding
+    private static final String LONG_MAX_1 =  "9223372036854775808";
+    private static final String LONG_MIN   = "-9223372036854775808";
+    private static final String LONG_MIN_0 = "-9223372036854775808.99999999999999999999999"; // force double rounding
+    private static final String LONG_MIN_1 = "-9223372036854775809";
+
+    private static final String NINES = "9999999999999999999999999999999999999";
     /**
      * Constructor
      * @param name test name
@@ -48,19 +58,20 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
         min = null;
         minMinusOne = null;
 
+        
         // testInvalidStrict()
-        invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2"};
+        invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2", LONG_MAX_1, LONG_MIN_1, NINES};
 
         // testInvalidNotStrict()
-        invalid       = new String[] {null, "", "X", "X12"};
+        invalid       = new String[] {null, "", "X", "X12", "", LONG_MAX_1, LONG_MIN_1, NINES};
 
         // testValid()
-        testNumber    = new Long(1234);
-        testZero      = new Long(0);
-        validStrict          = new String[] {"0", "1234", "1,234"};
-        validStrictCompare   = new Number[] {testZero, testNumber, testNumber};
-        valid                = new String[] {"0", "1234", "1,234", "1,234.5", "1234X"};
-        validCompare         = new Number[] {testZero, testNumber, testNumber, testNumber, testNumber};
+        testNumber    = Long.valueOf(1234);
+        testZero      = Long.valueOf(0);
+        validStrict          = new String[] {"0", "1234", "1,234", LONG_MAX, LONG_MIN};
+        validStrictCompare   = new Number[] {testZero, testNumber, testNumber, LONG_MAX_VAL, LONG_MIN_VAL};
+        valid                = new String[] {"0", "1234", "1,234", "1,234.5", "1234X", LONG_MAX, LONG_MIN, LONG_MAX_0, LONG_MIN_0};
+        validCompare         = new Number[] {testZero, testNumber, testNumber, testNumber, testNumber, LONG_MAX_VAL, LONG_MIN_VAL, LONG_MAX_VAL, LONG_MIN_VAL};
 
         testStringUS = "1,234";
         testStringDE = "1.234";
@@ -84,7 +95,7 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
         String localeVal  = "12.345";
         String defaultVal = "12,345";
         String XXXX    = "XXXX"; 
-        Long expected = new Long(12345);
+        Long expected = Long.valueOf(12345);
         assertEquals("validate(A) default", expected, LongValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, LongValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, LongValidator.getInstance().validate(patternVal, pattern));

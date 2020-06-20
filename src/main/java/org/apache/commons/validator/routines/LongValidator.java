@@ -242,10 +242,11 @@ public class LongValidator extends AbstractNumberValidator {
     @Override
     protected Object processParsedValue(Object value, Format formatter) {
 
+        // Parsed value will be Long if it fits in a long and is not fractional
         if (value instanceof Long) {
             return value;
         }
-        return Long.valueOf(((Number)value).longValue());
+        return null;
 
     }
 }

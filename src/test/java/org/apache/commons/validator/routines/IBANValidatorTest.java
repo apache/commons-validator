@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -236,7 +235,7 @@ public class IBANValidatorTest {
         // The IBAN Registry (TXT) file is a TAB-separated file
         // Rows are the entry types, columns are the countries
         CSVFormat format = CSVFormat.DEFAULT.withDelimiter('\t');
-        Reader rdr = new InputStreamReader(new FileInputStream(file), StandardCharsets.ISO_8859_1);
+        Reader rdr = new InputStreamReader(new FileInputStream(file), "ISO_8859_1");
         CSVParser p = new CSVParser(rdr, format);
         CSVRecord country = null;
         CSVRecord cc = null;

@@ -198,7 +198,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
             formatter = new DecimalFormat(pattern, symbols);
         }
 
-        if (determineScale(formatter) == 0) {
+        if (!isAllowFractions()) {
             formatter.setParseIntegerOnly(true);
         }
         return formatter;
@@ -266,6 +266,9 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
                 formatter = NumberFormat.getInstance();
             } else {
                 formatter = NumberFormat.getInstance(locale);
+            }
+            if (!isAllowFractions()) {
+                formatter.setParseIntegerOnly(true);
             }
             break;
         }

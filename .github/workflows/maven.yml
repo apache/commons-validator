@@ -5,7 +5,7 @@
 # (the "License"); you may not use this file except in compliance with
 # the License.  You may obtain a copy of the License at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,22 +13,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-language: java
-dist: trusty
-cache:
-  directories:
-    - $HOME/.m2
-matrix:
-  include:
-    - jdk: openjdk7
-    - jdk: openjdk8
-    - jdk: openjdk11
-    - os: linux-ppc64le
-      jdk: openjdk8
-  allow_failures:
-    - jdk: openjdk11
-script:
-  - mvn clean test
+name: Java CI
 
-after_success:
-  - mvn clean cobertura:cobertura coveralls:report
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ 6, 7, 11 ]
+# Later versions of Java don't support 1.6
+        
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up JDK ${{ matrix.java }}
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - name: Build with Maven
+      run: mvn --batch-mode apache-rat:check package --file pom.xml
+#      run: mvn --batch-mode apache-rat:check javadoc:javadoc -Ddoclint=all package --file pom.xml
