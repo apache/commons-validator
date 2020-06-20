@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ 7, 11 ]
+        java: [ 7, 8, 11 ]
 # Later versions of Java don't support 1.6
         
     steps:
@@ -33,5 +33,5 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
     - name: Build with Maven
+      run: mvn --batch-mode apache-rat:check javadoc:javadoc -Ddoclint=all package --file pom.xml
 #      run: mvn --batch-mode apache-rat:check package --file pom.xml
-     run: mvn --batch-mode apache-rat:check javadoc:javadoc -Ddoclint=all package --file pom.xml
