@@ -35,7 +35,7 @@ public class UrlValidatorTest extends TestCase {
    }
 
    @Override
-protected void setUp() {
+   protected void setUp() {
       for (int index = 0; index < testPartsIndex.length - 1; index++) {
          testPartsIndex[index] = 0;
       }
@@ -254,8 +254,7 @@ protected void setUp() {
         assertTrue("file:///c:/ should now be allowed",
                  validator.isValid("file:///C:/some.file"));
 
-        // Currently, we don't support the c:\ form
-        assertFalse("file:///c:\\ shouldn't be allowed",
+        assertTrue("file:///c:\\ should be allowed",
               validator.isValid("file:///C:\\some.file"));
 
         assertTrue("file:///etc/ should now be allowed",
@@ -329,6 +328,15 @@ protected void setUp() {
         assertTrue(urlValidator.isValid("http://example.rocks:65535/"));
         assertFalse(urlValidator.isValid("http://example.rocks:65536/"));
         assertFalse(urlValidator.isValid("http://example.rocks:100000/"));
+    }
+
+    public void testValidator464() {
+        String[] schemes = {"file"};
+        UrlValidator urlValidator = new UrlValidator(schemes);
+        String fileOK = "file:///bad ^ domain.com/label/test";
+        String fileNAK = "file://bad ^ domain.com/label/test";
+        assertTrue(fileOK, urlValidator.isValid(fileOK));
+        assertFalse(fileNAK, urlValidator.isValid(fileNAK));
     }
 
     static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {

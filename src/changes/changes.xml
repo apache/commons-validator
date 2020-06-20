@@ -140,6 +140,9 @@ http://commons.apache.org/validator/dependencies.html
     <action issue="VALIDATOR-467" type="fix" dev="sebb" due-to="Ivan Larionov">
     URL validator fails if path starts with double slash and has underscores
     </action>
+    <action issue="VALIDATOR-464" type="fix" dev="sebb" due-to="Sebastian Choina">
+    UrlValidator says "file://bad ^ domain.com/label/test" is valid
+    </action>
   </release>
 
   <release version="1.6" date="2017-02-21" description="

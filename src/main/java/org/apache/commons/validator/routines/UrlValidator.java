@@ -312,14 +312,11 @@ public class UrlValidator implements Serializable {
         }
 
         String authority = urlMatcher.group(PARSE_URL_AUTHORITY);
-        if ("file".equals(scheme)) {// Special case - file: allows an empty authority
-            if (authority != null) {
-                if (authority.contains(":")) { // but cannot allow trailing :
-                    return false;
-                }
-            }
-            // drop through to continue validation
-        } else { // not file:
+        if ("file".equals(scheme) && (authority == null || "".equals(authority))) {// Special case - file: allows an empty authority
+            return true; // this is a local file - nothing more to do here
+        } else if ("file".equals(scheme) && authority != null && authority.contains(":")) {
+            return false;
+        } else {
             // Validate the authority
             if (!isValidAuthority(authority)) {
                 return false;
@@ -542,4 +539,34 @@ public class UrlValidator implements Serializable {
     Matcher matchURL(String value) {
         return URL_PATTERN.matcher(value);
     }
+
+    public static void main(String[] args) {
+        UrlValidator val = new UrlValidator(new String[] { "file", "http", "https" }, UrlValidator.ALLOW_LOCAL_URLS);
+        for(String arg: args) {
+           Matcher m = val.matchURL(arg);
+           if (m.matches()) {
+              System.out.printf("%s has %d parts%n",arg,m.groupCount());
+              for(int i=1;i <m.groupCount(); i++) {
+                 String grp = m.group(i);
+                 if (grp != null) {
+                    System.out.printf("%d: %s%n",i, grp);
+                 }
+              }
+              String authority = m.group(4);
+              String path = m.group(5);
+              String query = m.group(7);
+              String frag = m.group(9);
+              System.out.printf("auth: %s %s%n", authority,val.isValidAuthority(authority));
+              System.out.printf("path: %s %s%n", path,val.isValidPath(path));
+              System.out.printf("query: %s %s%n", query,val.isValidQuery(query));
+              System.out.printf("frag: %s %s%n", frag,val.isValidFragment(frag));
+              System.out.printf("valid: %s %s%n", arg,val.isValid(arg));
+              System.out.println();
+           } else {
+              System.out.printf("%s is not valid%n",arg);
+           }
+  
+        }
+     }   
+  
 }
