@@ -20,9 +20,9 @@
 </head>
 <body bgcolor="white">
 The Validator package provides validation for JavaBeans based on an xml file.
-<br/><br/>
-<a name="doc.Description"></a>
-<div align="center">
+<br><br>
+<a id="doc.Description"></a>
+<div>
 <a href="http://commons.apache.org/validator/dependencies.html">[Dependencies]</a>
 <a href="#doc.Intro">[Introduction]</a>
 <a href="#doc.Overview">[Overview]</a>
@@ -30,7 +30,7 @@ The Validator package provides validation for JavaBeans based on an xml file.
 <a href="#doc.Usage">[Usage Example]</a>
 </div>
 
-<a name="doc.Intro"></a>
+<a id="doc.Intro"></a>
 <h3>Introduction</h3>
 
 <p>A common issue when receiving data either electronically or from
@@ -55,7 +55,7 @@ speed development and maintenance of validation rules.
    <li>Call the validate method on <code>org.apache.commons.validator.Validator</code>.</li>
 </ul>
 
-<a name="doc.Overview"></a>
+<a id="doc.Overview"></a>
 <h3>Overview</h3>
 <p>
    The Commons Validator is a basic validation framework that
@@ -78,7 +78,7 @@ speed development and maintenance of validation rules.
    associated with a fields validation.
 </p>
 
-<a name="doc.Resources"></a>
+<a id="doc.Resources"></a>
 <h3>Resources</h3>
 <p>
    After a Validator instance is created, instances of
@@ -87,7 +87,8 @@ speed development and maintenance of validation rules.
    method.  Below is a list of reserved parameters (class names).
 </p>
 
-<table width="100%" border="1" cellspacing="5">
+<table border="1">
+   <caption>Reserved Parameters</caption>
    <tr>
       <th>Class Name</th>
       <th>Validator Contstant</th>
@@ -134,7 +135,7 @@ speed development and maintenance of validation rules.
 </table>
 
 
-<a name="doc.Usage"></a>
+<a id="doc.Usage"></a>
 <h3>Usage Example</h3>
 <p>
    This is a basic example setting up a required validator for
@@ -144,17 +145,17 @@ speed development and maintenance of validation rules.
 </p>
 <p>
    Create an xml file with your validator and validation rules.
-   Setup your required validator in your xml file.<br/>
-   <br/>
-   <a href="#doc.Usage.xml">XML Example</a><br/>
-   <a href="#doc.Usage.validator">Validator Example</a><br/>
+   Setup your required validator in your xml file.<br>
+   <br>
+   <a href="#doc.Usage.xml">XML Example</a><br>
+   <a href="#doc.Usage.validator">Validator Example</a><br>
    <a href="#doc.Usage.pluggableValidator">Pluggable Validator Example</a>
 </p>
 
-<a name="doc.Usage.xml"></a>
+<a id="doc.Usage.xml"></a>
 <h4>XML Example</h4>
 <p>
-   Definition of a 'required' pluggable validator.<br/>
+   Definition of a 'required' pluggable validator.<br>
 <pre>
 &lt;form-validation&gt;
    &lt;global&gt;
@@ -167,9 +168,9 @@ speed development and maintenance of validation rules.
    &lt;/formset&gt;
 &lt;/form-validation&gt;
 </pre>
-</p>
+
 <p>
-   Add validation rules to require a first name and a last name.<br/>
+   Add validation rules to require a first name and a last name.<br>
 <pre>
 &lt;form-validation&gt;
    &lt;global&gt;
@@ -192,9 +193,8 @@ speed development and maintenance of validation rules.
 </b>
 &lt;/form-validation&gt;
 </pre>
-</p>
 
-<a name="doc.Usage.validator"></a>
+<a id="doc.Usage.validator"></a>
 <h4>Validator Example</h4>
 <p>
 Excerpts from org.apache.commons.validator.RequiredNameTest
@@ -227,7 +227,7 @@ if (results.get("firstName") == null) {
 }
 </pre>
 
-<a name="doc.Usage.pluggableValidator"></a>
+<a id="doc.Usage.pluggableValidator"></a>
 <h4>Pluggable Validator Example</h4>
 <p>
 Validation method defined in the 'required' pluggable validator

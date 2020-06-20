@@ -58,7 +58,7 @@
 </li>
 </ul>
 
-<a name="overview"></a>
+<a id="overview"></a>
 <h1>1. Overview</h1>
 <p>
    Commons Validator serves two purposes:
@@ -78,11 +78,11 @@
    Commons Validator and can be used on their own.
 </p>
 
-<a name="date"></a>
+<a id="date"></a>
 <h1>2. Date and Time Validators</h1>
 
-<a name="date.overview"></a>
-<h3>2.1 Overview</h3>
+<a id="date.overview"></a>
+<h2>2.1 Overview</h2>
 <p>
    The date and time validators either validate according to a specified <i>format</i>
    or use a standard <i>format</i> for a specified <code>Locale</code>.
@@ -96,8 +96,8 @@
        converting to a <code>java.util.Calendar</code> type.</li>
 </ul>
 
-<a name="date.validate"></a>
-<h3>2.2 Validating a Date Value</h3>
+<a id="date.validate"></a>
+<h2>2.2 Validating a Date Value</h2>
 <p>
    You can either use one of the <code>isValid()</code> methods to just determine
    if a date is valid, or use one of the <code>validate()</code> methods to
@@ -133,8 +133,8 @@
     <li><code>validate(<i>value</i>, <i>pattern</i>, Locale)</code></li>
 </ul>
 
-<a name="date.format"></a>
-<h3>2.3 Formatting</h3>
+<a id="date.format"></a>
+<h2>2.3 Formatting</h2>
 <p>
    Formatting and validating are two sides of the same coin. Typically
    <i>input</i> values which are converted from Strings according to a
@@ -150,8 +150,8 @@
     <li><code>format(<i>date/calendar</i>, <i>pattern</i>, Locale)</code></li>
 </ul>
 
-<a name="date.timezone"></a>
-<h3>2.4 Time Zones</h3>
+<a id="date.timezone"></a>
+<h2>2.4 Time Zones</h2>
 <p>
    If the date being parsed relates to a different time zone than the
    system default, you can specify the <code>TimeZone</code> to use when
@@ -174,8 +174,8 @@
     <li><code>validate(<i>value</i>, <i>pattern</i>, Locale, TimeZone)</code></li>
 </ul>
 
-<a name="date.compare"></a>
-<h3>2.5 Comparing Dates and Times</h3>
+<a id="date.compare"></a>
+<h2>2.5 Comparing Dates and Times</h2>
 <p>
    As well as validating that a value is a valid date or time, these validators
    also provide <i>date comparison</i> functions. The <code>DateValidator</code>
@@ -210,11 +210,11 @@
 </pre>
 
 
-<a name="numeric"></a>
+<a id="numeric"></a>
 <h1>3 Numeric Validators</h1>
 
-<a name="numeric.overview"></a>
-<h3>3.1 Overview</h3>
+<a id="numeric.overview"></a>
+<h2>3.1 Overview</h2>
 <p>
    The numeric validators either validate according to a specified <i>format</i>
    or use a standard <i>format</i> for a specified <code>Locale</code> or use
@@ -239,8 +239,8 @@
         converting to a <code>java.math.BigDecimal</code> type.</li>
 </ul>
 
-<a name="numeric.validate"></a>
-<h3>3.2 Validating a Numeric Value</h3>
+<a id="numeric.validate"></a>
+<h2>3.2 Validating a Numeric Value</h2>
 <p>
    You can either use one of the <code>isValid()</code> methods to just determine
    if a number is valid, or use one of the <code>validate()</code> methods to
@@ -281,8 +281,8 @@
     <li><code>validate(<i>value</i>, <i>pattern</i>, Locale)</code></li>
 </ul>
 
-<a name="numeric.format"></a>
-<h3>3.3 Formatting</h3>
+<a id="numeric.format"></a>
+<h2>3.3 Formatting</h2>
 <p>
    Formatting and validating are two sides of the same coin. Typically
    <i>input</i> values which are converted from Strings according to a
@@ -298,8 +298,8 @@
     <li><code>format(<i>number</i>, <i>pattern</i>, Locale)</code></li>
 </ul>
 
-<a name="numeric.compare"></a>
-<h3>3.4 Comparing Numbers</h3>
+<a id="numeric.compare"></a>
+<h2>3.4 Comparing Numbers</h2>
 <p>
    As well as validating that a value is a valid number, these validators
    also provide functions for validating the <i>minimum</i>, <i>maximum</i> 
@@ -313,8 +313,8 @@
       }
 </pre>
 
-<a name="numeric.currency"></a>
-<h3>3.5 Currency Validation</h3>
+<a id="numeric.currency"></a>
+<h2>3.5 Currency Validation</h2>
 <p>
    A default <a href="CurrencyValidator.html">Currency Validator</a> 
    implementation is provided, although all the <i>numeric</i> validators
@@ -360,8 +360,8 @@
       }
 </pre>
 
-<a name="numeric.percent"></a>
-<h3>3.6 Percent Validation</h3>
+<a id="numeric.percent"></a>
+<h2>3.6 Percent Validation</h2>
 <p>
    A default <a href="PercentValidator.html">Percent Validator</a> 
    implementation is provided, although the <i>Float</i>,
@@ -415,11 +415,11 @@
    they will only work with percentages greater than 100%.
 </p>
 
-<a name="other"></a>
+<a id="other"></a>
 <h1>4. Other Validators</h1>
 
-<a name="other.overview"></a>
-<h3>4.1 Overview</h3>
+<a id="other.overview"></a>
+<h2>4.1 Overview</h2>
 <p>
    This section lists other available validators.
 </p>
@@ -442,8 +442,8 @@
        name and IANA TLD validation.</li>
 </ul>
 
-<a name="other.regex"></a>
-<h3>4.2 Regular Expression Validation</h3>
+<a id="other.regex"></a>
+<h2>4.2 Regular Expression Validation</h2>
 <p>
    Regular expression validation can be done either by using the <i>static</i>
    methods provied by <a href="RegexValidator.html">RegexValidator</a> or
@@ -451,6 +451,7 @@
 </p>
 <ul>
    <li><b>Method Flavours</b> - three <i>flavours</i> of validation metods are provided:</li>
+    <li>
     <ul>
         <li><code>isValid()</code> methods return true/false to indicate
             whether validation was successful.</li>
@@ -460,6 +461,7 @@
         <li><code>match()</code> methods return a <code>String</code> array
             of the matched <i>groups</i> or <code>null</code> if invalid.</li>
     </ul>
+    </li>
    <li><b>Case Sensitivity</b> - matching can be done in either a <i>case
        sensitive</i> or <i>case in-sensitive</i> way.</li>
    <li><b>Multiple Expressions</b> - instances of the
@@ -522,8 +524,8 @@
    of the available constructors.
 </p>
 
-<a name="other.checkdigit"></a>
-<h3>4.3 Check Digit validation/calculation</h3>
+<a id="other.checkdigit"></a>
+<h2>4.3 Check Digit validation/calculation</h2>
 <p>
    <a href="checkdigit/CheckDigit.html">CheckDigit</a> defines a new
    type for the calculation and validation of check digits with the 
@@ -607,8 +609,8 @@
 </pre>
 
 
-<a name="other.code"></a>
-<h3>4.4 General Code validation</h3>
+<a id="other.code"></a>
+<h2>4.4 General Code validation</h2>
 <p>
    <a href="CodeValidator.html">CodeValidator</a> provides a generic
    implementation for validating codes. It performs the following
@@ -640,8 +642,8 @@
 
 </pre>
 
-<a name="other.isbn"></a>
-<h3>4.5 ISBN validation</h3>
+<a id="other.isbn"></a>
+<h2>4.5 ISBN validation</h2>
 <p>
    <a href="ISBNValidator.html">ISBNValidator</a> provides ISBN-10
    and ISBN-13 validation and can <i>optionally</i> convert
@@ -652,25 +654,31 @@
         <a href="CodeValidator.html">CodeValidator</a> with the
         <a href="checkdigit/ISBN10CheckDigit.html">ISBN10CheckDigit</a>
         routine.</li>
+        <li>
         <ul>
             <li><code>isValidISBN10(<i>value</i>)</code> - returns a boolean</li>
             <li><code>validateISBN10(<i>value</i>)</code> - returns a reformatted ISBN-10 code</li>
         </ul>
+        </li>
     <li><b>ISBN-13</b> - validates using a
         <a href="CodeValidator.html">CodeValidator</a> with the
         <a href="checkdigit/EAN13CheckDigit.html">EAN13CheckDigit</a>
         routine.</li>
+        <li>
         <ul>
             <li><code>isValidISBN13(<i>value</i>)</code> - returns a boolean</li>
             <li><code>validateISBN13(<i>value</i>)</code> - returns a reformatted ISBN-13 code</li>
         </ul>
+        </li>
     <li><b>ISBN-10</b> and <b>ISBN-13</b> - validates codes are either
         valid ISBN-10 or valid ISBN-13 - optionally can convert ISBN-10 codes to ISBN-13.</li>
+        <li>
         <ul>
             <li><code>isValid(<i>value</i>)</code> - returns a boolean</li>
             <li><code>validate(<i>value</i>)</code> - returns a reformatted ISBN code
                 (converts ISBN-10 to ISBN-13 if the <i>convert</i> option is <code>true</code>).</li>
         </ul>
+        </li>
 </ul>
 <p>
    For example to validate
@@ -690,8 +698,8 @@
 
 </pre>
 
-<a name="other.inet"></a>
-<h3>4.6 IP Address Validation</h3>
+<a id="other.inet"></a>
+<h2>4.6 IP Address Validation</h2>
 
 <p>
     <a href="InetAddressValidator.html">InetAddressValidator</a> provides
@@ -712,8 +720,8 @@
 
 </pre>
 
-<a name="other.email"></a>
-<h3>4.7 Email Address Validation</h3>
+<a id="other.email"></a>
+<h2>4.7 Email Address Validation</h2>
 
 <p>
     <a href="EmailValidator.html">EmailValidator</a> provides email address
@@ -736,8 +744,8 @@
       }
 </pre>
 
-<a name="other.url"></a>
-<h3>4.8 URL Validation</h3>
+<a id="other.url"></a>
+<h2>4.8 URL Validation</h2>
 
 <p>
     <a href="UrlValidator.html">UrlValidator</a> provides URL validation by
@@ -777,8 +785,8 @@
       }
 </pre>
 
-<a name="other.domain"></a>
-<h3>4.9 Domain Name Validation</h3>
+<a id="other.domain"></a>
+<h2>4.9 Domain Name Validation</h2>
 
 <p>
     <a href="DomainValidator.html">DomainValidator</a> provides validation of Internet
