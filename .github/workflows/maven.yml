@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ 6, 7, 11 ]
+        java: [ 7, 11 ]
 # Later versions of Java don't support 1.6
         
     steps:
