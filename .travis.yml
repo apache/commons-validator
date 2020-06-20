@@ -25,10 +25,7 @@ matrix:
     - jdk: openjdk11
     - os: linux-ppc64le
       jdk: openjdk8
-  allow_failures:
-    - jdk: openjdk11
 script:
   - mvn clean test
-
 after_success:
   - mvn clean cobertura:cobertura coveralls:report
