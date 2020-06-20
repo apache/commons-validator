@@ -178,17 +178,23 @@ protected void tearDown() {
     * Tests the email validation with spaces.
     */
     public void testEmailWithSpaces()  {
-        assertFalse(validator.isValid("joeblow @apache.org")); // TODO - this should be valid?
+        assertFalse(validator.isValid("joeblow @apache.org"));
 
         assertFalse(validator.isValid("joeblow@ apache.org"));
 
-        assertTrue(validator.isValid(" joeblow@apache.org")); // TODO - this should be valid?
+        assertFalse(validator.isValid(" joeblow@apache.org"));
 
-        assertTrue(validator.isValid("joeblow@apache.org "));
+        assertFalse(validator.isValid("joeblow@apache.org "));
 
         assertFalse(validator.isValid("joe blow@apache.org "));
 
         assertFalse(validator.isValid("joeblow@apa che.org "));
+
+        assertTrue(validator.isValid("\"joeblow \"@apache.org"));
+
+        assertTrue(validator.isValid("\" joeblow\"@apache.org"));
+
+        assertTrue(validator.isValid("\" joe blow \"@apache.org"));
 
     }
 
@@ -344,6 +350,8 @@ protected void tearDown() {
         assertTrue(validator.isValid("\".joe\"@apache.org"));
 
         assertTrue(validator.isValid("\"joe+\"@apache.org"));
+
+        assertTrue(validator.isValid("\"joe@\"@apache.org"));
 
         assertTrue(validator.isValid("\"joe!\"@apache.org"));
 

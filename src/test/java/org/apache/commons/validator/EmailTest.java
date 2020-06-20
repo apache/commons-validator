@@ -190,13 +190,15 @@ protected void setUp() throws IOException, SAXException {
         info.setValue("joeblow@ apache.org");
         valueTest(info, false);
         info.setValue(" joeblow@apache.org");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joeblow@apache.org ");
-        valueTest(info, true);
+        valueTest(info, false);
         info.setValue("joe blow@apache.org ");
         valueTest(info, false);
         info.setValue("joeblow@apa che.org ");
         valueTest(info, false);
+        info.setValue("\"joe blow\"@apache.org");
+        valueTest(info, true);
 
     }
 
