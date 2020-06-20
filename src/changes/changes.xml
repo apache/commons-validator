@@ -70,7 +70,7 @@ This is primarily a maintenance release.
 All projects are encouraged to update to this release of
 Apache Commons Validator.
 
-  Commons Validator requires Java 1.6 or later.
+  Commons Validator requires Java 7 or later.
 
 
  Main enhancements
@@ -86,7 +86,7 @@ Apache Commons Validator.
 
  BREAKING CHANGES:
 
-   * NONE.
+   * Now requires Java 7
 
 
  DEPENDENCIES
