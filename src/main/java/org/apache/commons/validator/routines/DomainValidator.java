@@ -63,6 +63,7 @@ import java.util.Locale;
  */
 public class DomainValidator implements Serializable {
 
+    /** Maximum allowable length ({@value}) of a domain name */
     private static final int MAX_DOMAIN_LENGTH = 253;
 
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
@@ -102,6 +103,11 @@ public class DomainValidator implements Serializable {
     private static final DomainValidator DOMAIN_VALIDATOR_WITH_LOCAL = new DomainValidator(true);
 
     /**
+     * The above instances must only be returned via the getInstance() methods.
+     * This is to ensure that the override data arrays are properly protected.
+     */
+
+    /**
      * RegexValidator for matching domains.
      */
     private final RegexValidator domainRegex =
@@ -137,7 +143,11 @@ public class DomainValidator implements Serializable {
         return DOMAIN_VALIDATOR;
     }
 
-    /** Private constructor. */
+    /**
+     * Private constructor. 
+     * This does not set the inUse flag - that is done by getInstance.
+     * This is to allow the static shared instances to be created.
+    */
     private DomainValidator(boolean allowLocal) {
         this.allowLocal = allowLocal;
     }
