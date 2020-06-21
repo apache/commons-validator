@@ -1889,21 +1889,22 @@ public class DomainValidator implements Serializable {
     private static boolean inUse = false;
 
     /*
-     * These arrays are mutable, but they don't need to be volatile.
-     * They can only be updated by the updateTLDOverride method, and any readers must get an instance
+     * These arrays are mutable.
+     * They can only be updated by the updateTLDOverride method, and readers must first get an instance
      * using the getInstance methods which are all (now) synchronised.
+     * The only other access is via getTLDEntries which is now synchronised.
      */
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static volatile String[] countryCodeTLDsPlus = EMPTY_STRING_ARRAY;
+    private static String[] countryCodeTLDsPlus = EMPTY_STRING_ARRAY;
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static volatile String[] genericTLDsPlus = EMPTY_STRING_ARRAY;
+    private static String[] genericTLDsPlus = EMPTY_STRING_ARRAY;
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static volatile String[] countryCodeTLDsMinus = EMPTY_STRING_ARRAY;
+    private static String[] countryCodeTLDsMinus = EMPTY_STRING_ARRAY;
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static volatile String[] genericTLDsMinus = EMPTY_STRING_ARRAY;
+    private static String[] genericTLDsMinus = EMPTY_STRING_ARRAY;
 
     /**
      * enum used by {@link DomainValidator#updateTLDOverride(ArrayType, String[])}
@@ -2002,7 +2003,7 @@ public class DomainValidator implements Serializable {
      * @throws IllegalArgumentException if the table type is unexpected (should not happen)
      * @since 1.5.1
      */
-    public static String [] getTLDEntries(ArrayType table) {
+    public static synchronized String [] getTLDEntries(ArrayType table) {
         final String array[];
         switch(table) {
         case COUNTRY_CODE_MINUS:
