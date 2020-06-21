@@ -154,7 +154,7 @@ public class DomainValidator implements Serializable {
             return false;
         }
         domain = unicodeToASCII(domain);
-        // hosts must be equally reachable via punycode and Unicode;
+        // hosts must be equally reachable via punycode and Unicode
         // Unicode is never shorter than punycode, so check punycode
         // if domain did not convert, then it will be caught by ASCII
         // checks in the regexes below
@@ -175,7 +175,7 @@ public class DomainValidator implements Serializable {
             return false;
         }
         domain = unicodeToASCII(domain);
-        // hosts must be equally reachable via punycode and Unicode;
+        // hosts must be equally reachable via punycode and Unicode
         // Unicode is never shorter than punycode, so check punycode
         // if domain did not convert, then it will be caught by ASCII
         // checks in the regexes below
@@ -1295,7 +1295,7 @@ public class DomainValidator implements Serializable {
         "taobao", // taobao Alibaba Group Holding Limited
         "target", // target Target Domain Holdings, LLC
         "tatamotors", // tatamotors Tata Motors Ltd
-        "tatar", // tatar Limited Liability Company &quot;Coordination Center of Regional Domain of Tatarstan Republic&quot;
+        "tatar", // tatar LLC "Coordination Center of Regional Domain of Tatarstan Republic"
         "tattoo", // tattoo Uniregistry, Corp.
         "tax", // tax Storm Orchard, LLC
         "taxi", // taxi Pine Falls, LLC
