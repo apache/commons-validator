@@ -339,7 +339,7 @@ public class Field implements Cloneable, Serializable {
 
         Map<String, Arg> argMap = this.args[arg.getPosition()];
         if (argMap == null) {
-            argMap = new HashMap<String, Arg>();
+            argMap = new HashMap<>();
             this.args[arg.getPosition()] = argMap;
         }
 
@@ -699,7 +699,7 @@ public class Field implements Cloneable, Serializable {
                 continue;
             }
 
-            Map<String, Arg> argMap = new HashMap<String, Arg>(this.args[i]);
+            Map<String, Arg> argMap = new HashMap<>(this.args[i]);
             Iterator<Entry<String, Arg>> iter = argMap.entrySet().iterator();
             while (iter.hasNext()) {
                 Entry<String, Arg> entry = iter.next();
