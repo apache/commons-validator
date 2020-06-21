@@ -761,11 +761,7 @@ public class Field implements Cloneable, Serializable {
             indexProp =
                 PropertyUtils.getProperty(bean, this.getIndexedListProperty());
 
-        } catch(IllegalAccessException e) {
-            throw new ValidatorException(e.getMessage());
-        } catch(InvocationTargetException e) {
-            throw new ValidatorException(e.getMessage());
-        } catch(NoSuchMethodException e) {
+        } catch(IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
             throw new ValidatorException(e.getMessage());
         }
 
@@ -794,11 +790,7 @@ public class Field implements Cloneable, Serializable {
             indexProp =
                 PropertyUtils.getProperty(bean, this.getIndexedListProperty());
 
-        } catch(IllegalAccessException e) {
-            throw new ValidatorException(e.getMessage());
-        } catch(InvocationTargetException e) {
-            throw new ValidatorException(e.getMessage());
-        } catch(NoSuchMethodException e) {
+        } catch(IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
             throw new ValidatorException(e.getMessage());
         }
 
