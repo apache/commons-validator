@@ -192,8 +192,6 @@ public class EmailValidator {
             return false;
         }
         
-        // TODO: the tld should be checked against some sort of configurable 
-        // list
         String tld = domainSegment[len - 1];
         if (tld.length() > 1) {
             if (! TLD_PATTERN.matcher(tld).matches()) {
