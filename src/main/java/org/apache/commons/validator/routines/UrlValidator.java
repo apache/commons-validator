@@ -540,6 +540,10 @@ public class UrlValidator implements Serializable {
         return URL_PATTERN.matcher(value);
     }
 
+    /**
+     * Validator for checking URL parsing
+     * @param args - URLs to validate
+     */
     public static void main(String[] args) {
         UrlValidator val = new UrlValidator(new String[] { "file", "http", "https" }, UrlValidator.ALLOW_LOCAL_URLS);
         for(String arg: args) {
@@ -552,10 +556,10 @@ public class UrlValidator implements Serializable {
                     System.out.printf("%d: %s%n",i, grp);
                  }
               }
-              String authority = m.group(4);
-              String path = m.group(5);
-              String query = m.group(7);
-              String frag = m.group(9);
+              String authority = m.group(PARSE_URL_AUTHORITY);
+              String path = m.group(PARSE_URL_PATH);
+              String query = m.group(PARSE_URL_QUERY);
+              String frag = m.group(PARSE_URL_FRAGMENT);
               System.out.printf("auth: %s %s%n", authority,val.isValidAuthority(authority));
               System.out.printf("path: %s %s%n", path,val.isValidPath(path));
               System.out.printf("query: %s %s%n", query,val.isValidQuery(query));
