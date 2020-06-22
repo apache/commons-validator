@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>49</version>
+    <version>51</version>
   </parent>
 
   <groupId>commons-validator</groupId>
@@ -54,8 +54,8 @@
     <maven.compiler.target>1.7</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
-    <spotbugs.plugin.version>3.1.12.2</spotbugs.plugin.version>
+    <!-- TODO: update checkstyle syntax to allow use of version defined in CP 51 -->
+    <commons.checkstyle-plugin.version>2.17</commons.checkstyle-plugin.version>
   </properties> 
 
   <scm>
@@ -115,7 +115,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${checkstyle.plugin.version}</version>
+        <version>${commons.checkstyle-plugin.version}</version>
         <configuration>
           <configLocation>${basedir}/checkstyle.xml</configLocation>
           <!-- Needed to define config_loc -->
@@ -126,7 +126,7 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>${spotbugs.plugin.version}</version>
+        <version>${commons.spotbugs.version}</version>
       </plugin>
     </plugins>
   </build>
@@ -191,7 +191,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${checkstyle.plugin.version}</version>
+        <version>${commons.checkstyle-plugin.version}</version>
         <configuration>
           <configLocation>${basedir}/checkstyle.xml</configLocation>
           <!-- Needed to define config_loc -->
@@ -296,18 +296,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
-    <!-- profile to allow the use of plugin versions that require Java 7 -->
-    <!-- TODO remove when CP updated to version 51 -->
-    <profile>
-      <id>jdk7-plugin-fix-version</id>
-      <activation>
-        <jdk>[1.7,1.8)</jdk>
-      </activation>
-      <properties>
-        <!-- Fix to build on JDK 7: version 1.18 requires Java 8. -->
-        <commons.animal-sniffer.version>1.17</commons.animal-sniffer.version>
-      </properties>
     </profile>
     <profile>
       <id>jdk9-cldr</id>
