@@ -223,7 +223,6 @@ public class IBANValidatorTest {
         IBANValidator validator = new IBANValidator();
         Validator[] vals = validator.getDefaultValidators();
         assertNotNull(vals);
-        System.out.println();
         for(int i=1; i < vals.length; i++) {
             if (vals[i].countryCode.compareTo(vals[i-1].countryCode) <= 0) {
                 fail("Not sorted: "+vals[i].countryCode+ " <= " + vals[i-1].countryCode);
