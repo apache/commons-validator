@@ -128,7 +128,7 @@ http://commons.apache.org/validator/dependencies.html
     <action issue="VALIDATOR-461" type="fix" dev="sebb">
     Generic .gmbh top level domain is considered invalid
     </action>
-    <action issue="VALIDATOR-444" type="fix" dev="sebb" due=to="Marin Scholz">
+    <action issue="VALIDATOR-444" type="fix" dev="sebb" due-to="Martin Scholz">
     LongValidator: numbers bigger than the maxvalue are Valid
     </action>
     <action issue="VALIDATOR-416" type="fix" dev="sebb">
