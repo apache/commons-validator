@@ -66,13 +66,17 @@ public class ISSNValidator implements Serializable {
 
     private static final String ISSN_REGEX = "(?:ISSN )?(\\d{4})-(\\d{3}[0-9X])$"; // We don't include the '-' in the code, so it is 8 chars
 
+    private static final int ISSN_LEN = 8;
+
+    private static final String ISSN_PREFIX = "977";
+
     private static final String EAN_ISSN_REGEX = "^(977)(?:(\\d{10}))$";
 
     private static final int EAN_ISSN_LEN = 13;
 
-    private static final CodeValidator VALIDATOR = new CodeValidator(ISSN_REGEX, 8, ISSNCheckDigit.ISSN_CHECK_DIGIT);
+    private static final CodeValidator VALIDATOR = new CodeValidator(ISSN_REGEX, ISSN_LEN, ISSNCheckDigit.ISSN_CHECK_DIGIT);
 
-    private static final CodeValidator EAN_VALIDATOR = new CodeValidator(EAN_ISSN_REGEX, 13, EAN13CheckDigit.EAN13_CHECK_DIGIT);
+    private static final CodeValidator EAN_VALIDATOR = new CodeValidator(EAN_ISSN_REGEX, EAN_ISSN_LEN, EAN13CheckDigit.EAN13_CHECK_DIGIT);
 
     /** ISSN Code Validator */
     private static final ISSNValidator ISSN_VALIDATOR = new ISSNValidator();
@@ -148,7 +152,7 @@ public class ISSNValidator implements Serializable {
 
         // Calculate the new EAN-13 code
         final String input = result.toString();
-        String ean13 = "977" + input.substring(0, input.length() -1) + suffix;
+        String ean13 = ISSN_PREFIX + input.substring(0, input.length() -1) + suffix;
         try {
             String checkDigit = EAN13CheckDigit.EAN13_CHECK_DIGIT.calculate(ean13);
             ean13 += checkDigit;
@@ -175,8 +179,8 @@ public class ISSNValidator implements Serializable {
         if (input.length() != EAN_ISSN_LEN ) {
             throw new IllegalArgumentException("Invalid length " + input.length() + " for '" + input + "'");
         }
-        if (!input.substring(0,3).equals("977")) {
-            throw new IllegalArgumentException("Prefix must be 977 digits to contain an ISSN: '" + ean13 + "'");
+        if (!input.startsWith(ISSN_PREFIX)) {
+            throw new IllegalArgumentException("Prefix must be " + ISSN_PREFIX + " to contain an ISSN: '" + ean13 + "'");
         }
         Object result = validateEan(input);
         if (result == null) {
@@ -185,7 +189,9 @@ public class ISSNValidator implements Serializable {
         // Calculate the ISSN code
         input = result.toString();
         try {
-            String issnBase = input.substring(3,10);
+            //CHECKSTYLE:OFF: MagicNumber
+            String issnBase = input.substring(3,10); // TODO: how to derive these
+            //CHECKSTYLE:ON: MagicNumber
             String checkDigit = ISSNCheckDigit.ISSN_CHECK_DIGIT.calculate(issnBase);
             String issn = issnBase + checkDigit;
             return issn;
