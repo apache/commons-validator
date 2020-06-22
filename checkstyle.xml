@@ -43,8 +43,6 @@
 
    <module name="TreeWalker">
 
-    <property name="cacheFile" value="${checkstyle.cache.file}"/>
-
     <!-- Item 4 - Avoid creating duplicate objects -->
     <module name="IllegalInstantiation">
       <property name="classes" value="java.lang.Boolean, java.lang.String"/>
@@ -131,10 +129,18 @@
 
     <module name="MagicNumber"/>
 
-    <!-- This is needed for Suppression Comment Filters -->
-    <module name="FileContentsHolder"/>
+    <module name="SuppressionCommentFilter"/>
 
-  </module>
+    <!-- 
+      Allow comment to suppress checkstyle for a single line
+      e.g. // CHECKSTYLE IGNORE MagicNumber
+     -->
+    <module name="SuppressWithNearbyCommentFilter">
+      <property name="commentFormat" value="CHECKSTYLE IGNORE (\w+)"/>
+      <property name="checkFormat" value="$1"/>
+    </module>
+
+</module>
 
   <!-- enforce package documentation -->
   <module name="JavadocPackage">
@@ -154,20 +160,10 @@
     <property name="fileExtensions" value="java,xml"/>
   </module>
 
-  <module name="SuppressionCommentFilter"/>
-
   <module name="SuppressionFilter">
     <!-- config_loc is used by Eclipse plugin -->
     <property name="file" value="${config_loc}/checkstyle-suppressions.xml"/>
   </module>
 
-  <!-- 
-      Allow comment to suppress checkstyle for a single line
-      e.g. // CHECKSTYLE IGNORE MagicNumber
-   -->
-  <module name="SuppressWithNearbyCommentFilter">
-    <property name="commentFormat" value="CHECKSTYLE IGNORE (\w+)"/>
-    <property name="checkFormat" value="$1"/>
-  </module>
-
+  
 </module>

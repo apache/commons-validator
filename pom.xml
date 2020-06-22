@@ -54,8 +54,6 @@
     <maven.compiler.target>1.7</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <!-- TODO: update checkstyle syntax to allow use of version defined in CP 51 -->
-    <commons.checkstyle-plugin.version>2.17</commons.checkstyle-plugin.version>
   </properties> 
 
   <scm>
