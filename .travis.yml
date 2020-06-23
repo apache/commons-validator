@@ -14,24 +14,18 @@
 # limitations under the License.
 
 language: java
-jdk:
-  - openjdk6
-  - openjdk7
-  - openjdk8
-  - openjdk11
-  - openjdk13
-  - openjdk14
-  - openjdk-ea
-
+dist: trusty
+cache:
+  directories:
+    - $HOME/.m2
 matrix:
   include:
+    - jdk: openjdk7
+    - jdk: openjdk8
+    - jdk: openjdk11
     - os: linux-ppc64le
       jdk: openjdk8
-  allow_failures:
-    - jdk: openjdk-ea
-
 script:
   - mvn clean test
-
 after_success:
   - mvn clean cobertura:cobertura coveralls:report
