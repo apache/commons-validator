@@ -209,7 +209,6 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is a TLD
      */
     public boolean isValidTld(String tld) {
-        tld = unicodeToASCII(tld);
         if(allowLocal && isValidLocalTld(tld)) {
             return true;
         }
