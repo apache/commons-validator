@@ -183,6 +183,12 @@ public class IBANValidatorTest {
         assertNull("gb", VALIDATOR.getValidator("gb"));        
     }
 
+    @Test
+    public void testGetRegexValidator() {
+        assertNotNull("GB", VALIDATOR.getValidator("GB").getRegexValidator());
+        assertNull("gb", VALIDATOR.getValidator("gb"));
+    }
+
     @Test(expected=IllegalStateException.class)
     public void testSetDefaultValidator1() {
         assertNotNull(VALIDATOR.setValidator("GB", 15, "GB"));

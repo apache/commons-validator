@@ -69,6 +69,15 @@ public class IBANValidator {
             this.lengthOfIBAN = len;
             this.validator = new RegexValidator(format);
         }
+
+        /**
+         * Getter method for validator.
+         *
+         * @return the {@link RegexValidator} for this validator.
+         */
+        public RegexValidator getRegexValidator() {
+            return validator;
+        }
     }
 
     /*

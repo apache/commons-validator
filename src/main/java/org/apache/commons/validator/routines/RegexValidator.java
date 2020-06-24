@@ -132,6 +132,15 @@ public class RegexValidator implements Serializable {
     }
 
     /**
+     * Getter method for <code>patterns</code>.
+     *
+     * @return the array of <code>patterns</code> used to validate values.
+     */
+    public Pattern[] getPatterns() {
+        return patterns;
+    }
+
+    /**
      * Validate a value against the set of regular expressions.
      *
      * @param value The value to validate.
