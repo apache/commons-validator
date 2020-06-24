@@ -201,6 +201,10 @@ public class DomainValidator implements Serializable {
      * Returns true if the specified <code>String</code> matches any
      * IANA-defined top-level domain. Leading dots are ignored if present.
      * The search is case-insensitive.
+     * <p>
+     * If allowLocal is true, the TLD is checked using {@link #isValidLocalTld(String)}.
+     * The TLD is then checked against {@link #isValidInfrastructureTld(String)},
+     * {@link #isValidGenericTld(String)} and {@link #isValidCountryCodeTld(String)}
      * @param tld the parameter to check for TLD status, not null
      * @return true if the parameter is a TLD
      */
