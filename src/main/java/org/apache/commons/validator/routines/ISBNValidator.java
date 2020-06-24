@@ -50,6 +50,17 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigitException;
  *       Transition details</a>.</li>
  * </ul>
  *
+ * <p>ISBN-13s are either prefixed with 978 or 979. 978 prefixes are only assigned
+ * to the ISBN agency. 979 prefixes may be assigned to ISBNs or ISMNs
+ * (<a href="https://www.ismn-international.org/">International
+ * Standard Music Numbers</a>).
+ * <ul>
+ *     <li>979-0 are assigned to the ISMN agency</li>
+ *     <li>979-10, 979-11, 979-12 are assigned to the ISBN agency</li>
+ * </ul>
+ * All other 979 prefixed EAN-13 numbers have not yet been assigned to an agency. The
+ * validator validates all 13 digit codes with 978 or 979 prefixes.</p>
+ *
  * @version $Revision$
  * @since Validator 1.4
  */
