@@ -24,7 +24,6 @@ jobs:
     strategy:
       matrix:
         java: [ 7, 8, 11 ]
-# Later versions of Java don't support 1.6
         
     steps:
     - uses: actions/checkout@v1
