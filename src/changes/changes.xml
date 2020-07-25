@@ -78,6 +78,7 @@ Apache Commons Validator.
 
 
  * CreditCard validation specification by numeric range
+ * DomainValidator instances can be created with local overrides
 
 
  IMPORTANT NOTES
@@ -98,12 +99,15 @@ Apache Commons Validator.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action issue="VALIDATOR-471" type="add" dev="sebb">
+    Allow DomainValidator overrides at run-time
+    </action>
     <action issue="VALIDATOR-438" type="fix" dev="sebb">
     IBANValidator fails for El Salvador
     Add definition
     </action>
     <action type="update" dev="sebb">
-    IANA TLD lists: Updated to Version 2018092800, Last Updated Fri Sep 28 07:07:02 2018 UTC
+    IANA TLD lists: Updated to Version 2020072500, Last Updated Sat Jul 25 07:07:01 2020 UTC
     </action>
     <action issue="VALIDATOR-423" type="add" dev="sebb">
     Add ISINValidator

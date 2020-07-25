@@ -19,6 +19,7 @@ package org.apache.commons.validator.routines;
 import java.io.Serializable;
 import java.net.IDN;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -90,17 +91,21 @@ public class DomainValidator implements Serializable {
 
     private final boolean allowLocal;
 
-    /**
-     * Singleton instance of this validator, which
-     *  doesn't consider local addresses as valid.
-     */
-    private static final DomainValidator DOMAIN_VALIDATOR = new DomainValidator(false);
+    private static class LazyHolder { // IODH
 
-    /**
-     * Singleton instance of this validator, which does
-     *  consider local addresses valid.
-     */
-    private static final DomainValidator DOMAIN_VALIDATOR_WITH_LOCAL = new DomainValidator(true);
+        /**
+         * Singleton instance of this validator, which
+         *  doesn't consider local addresses as valid.
+         */
+        private static final DomainValidator DOMAIN_VALIDATOR = new DomainValidator(false);
+
+        /**
+         * Singleton instance of this validator, which does
+         *  consider local addresses valid.
+         */
+        private static final DomainValidator DOMAIN_VALIDATOR_WITH_LOCAL = new DomainValidator(true);
+
+    }
 
     /**
      * The above instances must only be returned via the getInstance() methods.
@@ -126,7 +131,7 @@ public class DomainValidator implements Serializable {
      */
     public static synchronized DomainValidator getInstance() {
         inUse = true;
-        return DOMAIN_VALIDATOR;
+        return LazyHolder.DOMAIN_VALIDATOR;
     }
 
     /**
@@ -138,18 +143,90 @@ public class DomainValidator implements Serializable {
     public static synchronized DomainValidator getInstance(boolean allowLocal) {
         inUse = true;
         if(allowLocal) {
-            return DOMAIN_VALIDATOR_WITH_LOCAL;
+            return LazyHolder.DOMAIN_VALIDATOR_WITH_LOCAL;
         }
-        return DOMAIN_VALIDATOR;
+        return LazyHolder.DOMAIN_VALIDATOR;
     }
 
     /**
+     * Returns a new instance of this validator.
+     * The user can provide a list of {@link Item} entries which can
+     * be used to override the generic and country code lists.
+     * Note that any such entries override values provided by the
+     * {@link #updateTLDOverride(ArrayType, String[])} method
+     * If an entry for a particular type is not provided, then
+     * the class override (if any) is retained.
+     *
+     * @param allowLocal Should local addresses be considered valid?
+     * @param items - array of {@link Item} entries
+     * @return an instance of this validator
+     * @since 1.7
+     */
+    public static synchronized DomainValidator getInstance(boolean allowLocal, List<Item> items) {
+        inUse = true;
+        return new DomainValidator(allowLocal, items);
+    }
+
+    // intance variables allowing local overrides
+    final String[] mycountryCodeTLDsMinus;
+    final String[] mycountryCodeTLDsPlus;
+    final String[] mygenericTLDsPlus;
+    final String[] mygenericTLDsMinus;
+    
+    /**
      * Private constructor. 
-     * This does not set the inUse flag - that is done by getInstance.
-     * This is to allow the static shared instances to be created.
     */
-    private DomainValidator(boolean allowLocal) {
+     DomainValidator(boolean allowLocal) {
         this.allowLocal = allowLocal;
+        // link to class overrides
+        mycountryCodeTLDsMinus = countryCodeTLDsMinus;
+        mycountryCodeTLDsPlus = countryCodeTLDsPlus;
+        mygenericTLDsPlus = genericTLDsPlus;
+        mygenericTLDsMinus = genericTLDsMinus;
+    }
+
+    /**
+     * Private constructor, allowing local overrides
+     * @since 1.7
+    */
+    DomainValidator(boolean allowLocal,  List<Item> items) { 
+        this.allowLocal = allowLocal;
+
+        // default to class overrides
+        String[] ccMinus = countryCodeTLDsMinus;
+        String[] ccPlus = countryCodeTLDsPlus;
+        String[] genMinus = genericTLDsMinus;
+        String[] genPlus = genericTLDsPlus;
+
+        // apply the instance overrides
+        for(Item item: items) {
+            switch(item.type) {
+            case COUNTRY_CODE_MINUS: {
+                ccMinus = item.values.clone();
+                break;
+            }
+            case COUNTRY_CODE_PLUS: {
+                ccPlus = item.values.clone();
+                break;
+            }
+            case GENERIC_MINUS: {
+                genMinus = item.values.clone();
+                break;
+            }
+            case GENERIC_PLUS: {
+                genPlus = item.values.clone();
+                break;
+            }
+            default:
+                break;
+            }
+        }
+
+        // init the instance overrides
+        mycountryCodeTLDsMinus = ccMinus;
+        mycountryCodeTLDsPlus = ccPlus;
+        mygenericTLDsMinus = genMinus;
+        mygenericTLDsPlus = genPlus;
     }
 
     /**
@@ -238,8 +315,8 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidGenericTld(String gTld) {
         final String key = chompLeadingDot(unicodeToASCII(gTld).toLowerCase(Locale.ENGLISH));
-        return (arrayContains(GENERIC_TLDS, key) || arrayContains(genericTLDsPlus, key))
-                && !arrayContains(genericTLDsMinus, key);
+        return (arrayContains(GENERIC_TLDS, key) || arrayContains(mygenericTLDsPlus, key))
+                && !arrayContains(mygenericTLDsMinus, key);
     }
 
     /**
@@ -251,8 +328,8 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidCountryCodeTld(String ccTld) {
         final String key = chompLeadingDot(unicodeToASCII(ccTld).toLowerCase(Locale.ENGLISH));
-        return (arrayContains(COUNTRY_CODE_TLDS, key) || arrayContains(countryCodeTLDsPlus, key))
-                && !arrayContains(countryCodeTLDsMinus, key);
+        return (arrayContains(COUNTRY_CODE_TLDS, key) || arrayContains(mycountryCodeTLDsPlus, key))
+                && !arrayContains(mycountryCodeTLDsMinus, key);
     }
 
     /**
@@ -1933,7 +2010,20 @@ public class DomainValidator implements Serializable {
         /** Get a copy of the local table */
         LOCAL_RO
         ;
-    };
+    }
+
+    /**
+     * Used to specify overrides when creating a new class.
+     * @since 1.7
+     */
+    public static class Item {
+        final ArrayType type;
+        final String[] values;
+        public Item(ArrayType type, String[] values) {
+            this.type = type;
+            this.values = values; // no need to copy here
+        }
+    }
 
     /**
      * Update one of the TLD override arrays.
@@ -1992,7 +2082,7 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Get a copy of the internal array.
+     * Get a copy of a class level internal array.
      * @param table the array type (any of the enum values)
      * @return a copy of the array
      * @throws IllegalArgumentException if the table type is unexpected (should not happen)
@@ -2031,6 +2121,33 @@ public class DomainValidator implements Serializable {
         return Arrays.copyOf(array, array.length); // clone the array
     }
 
+    /**
+     * Get a copy of an instance level internal array.
+     * @param table the array type (any of the enum values)
+     * @return a copy of the array
+     * @throws IllegalArgumentException if the table type is unexpected, e.g. GENERIC_RO
+     * @since 1.7
+     */
+    public String [] getOverrides(ArrayType table) {
+        final String array[];
+        switch(table) {
+        case COUNTRY_CODE_MINUS:
+            array = mycountryCodeTLDsMinus;
+            break;
+        case COUNTRY_CODE_PLUS:
+            array = mycountryCodeTLDsPlus;
+            break;
+        case GENERIC_MINUS:
+            array = mygenericTLDsMinus;
+            break;
+        case GENERIC_PLUS:
+            array = mygenericTLDsPlus;
+            break;
+        default:
+            throw new IllegalArgumentException("Unexpected enum value: " + table);
+        }
+        return Arrays.copyOf(array, array.length); // clone the array
+    }
     /**
      * Converts potentially Unicode input to punycode.
      * If conversion fails, returns the original input.
