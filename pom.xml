@@ -182,6 +182,14 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <!-- For testing DomainValidatorStartup -->
+      <groupId>org.bitstrings.test</groupId>
+      <artifactId>junit-clptr</artifactId>
+      <version>1.2.2</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <reporting>

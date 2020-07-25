@@ -19,23 +19,18 @@ package org.apache.commons.validator.routines;
 import static org.junit.Assert.*;
 
 import org.apache.commons.validator.routines.DomainValidator.ArrayType;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import org.bitstrings.test.junit.runner.ClassLoaderPerTestRunner;
+
 /**
  * Startup Tests for the DomainValidator.
  *
  * @version $Revision$
  */
+@RunWith( ClassLoaderPerTestRunner.class )
 public class DomainValidatorStartupTest {
-
-    private DomainValidator validator;
-
-    @Before
-    public void setUp() {
-        validator = DomainValidator.getInstance();
-        DomainValidator.clearTLDOverrides(); // N.B. this clears the inUse flag, allowing overrides
-    }
-
 
     @Test(expected = IllegalArgumentException.class)
     public void testUpdateBaseArrayCC() {
@@ -58,42 +53,101 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testUpdateCountryCode() {
+    public void testUpdateCountryCode1a() {
+        DomainValidator validator = DomainValidator.getInstance();
         assertFalse(validator.isValidCountryCodeTld("com")); // cannot be valid
+    }
+
+    @Test
+    public void testUpdateCountryCode1b() {
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_PLUS, new String[]{"com"});
+        DomainValidator validator = DomainValidator.getInstance();
         assertTrue(validator.isValidCountryCodeTld("com")); // it is now!
+    }
+
+    @Test
+    public void testUpdateCountryCode2() {
+        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_PLUS, new String[]{"com"});
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, new String[]{"com"});
+        DomainValidator validator = DomainValidator.getInstance();
         assertFalse(validator.isValidCountryCodeTld("com")); // show that minus overrides the rest
+    }
 
+    @Test
+    public void testUpdateCountryCode3a() { // show ch is valid
+        DomainValidator validator = DomainValidator.getInstance();
         assertTrue(validator.isValidCountryCodeTld("ch"));
+    }
+
+    @Test
+    public void testUpdateCountryCode3b() { // show ch can be made invalid
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, new String[]{"ch"});
+        DomainValidator validator = DomainValidator.getInstance();
         assertFalse(validator.isValidCountryCodeTld("ch"));
+    }
+
+    @Test
+    public void testUpdateCountryCode3c() { // show ch can be made valid again by replacing the CC array
+        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, new String[]{"ch"});
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, new String[]{"xx"});
+        DomainValidator validator = DomainValidator.getInstance();
         assertTrue(validator.isValidCountryCodeTld("ch"));
     }
 
     @Test
-    public void testUpdateGeneric() {
+    public void testUpdateGeneric1() {
+        DomainValidator validator = DomainValidator.getInstance();
         assertFalse(validator.isValidGenericTld("ch")); // cannot be valid
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"});
-        assertTrue(validator.isValidGenericTld("ch")); // it is now!
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"ch"});
-        assertFalse(validator.isValidGenericTld("ch")); // show that minus overrides the rest
+    }
 
-        assertTrue(validator.isValidGenericTld("com"));
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"com"});
-        assertFalse(validator.isValidGenericTld("com"));
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"xx"}); // change the minus list
+    @Test
+    public void testUpdateGeneric2() {
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"});
+        DomainValidator validator = DomainValidator.getInstance();
+        assertTrue(validator.isValidGenericTld("ch")); // it is now!
+    }
+
+    @Test
+    public void testUpdateGeneric3() {
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"});
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"ch"});
+        DomainValidator validator = DomainValidator.getInstance();
+        assertFalse(validator.isValidGenericTld("ch")); // show that minus overrides the rest
         assertTrue(validator.isValidGenericTld("com"));
     }
 
     @Test
-    public void testVALIDATOR_412() {
+    public void testUpdateGeneric4() {
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"});
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"ch"});
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"com"});
+        DomainValidator validator = DomainValidator.getInstance();
+        assertFalse(validator.isValidGenericTld("com"));
+    }
+
+    @Test
+    public void testUpdateGeneric5() {
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"});
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"ch"});
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"com"});
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"xx"}); // change the minus list
+        DomainValidator validator = DomainValidator.getInstance();
+        assertTrue(validator.isValidGenericTld("com"));
+    }
+
+    @Test
+    public void testVALIDATOR_412a() {
+        DomainValidator validator = DomainValidator.getInstance();
         assertFalse(validator.isValidGenericTld("local"));
         assertFalse(validator.isValid("abc.local"));
         assertFalse(validator.isValidGenericTld("pvt"));
         assertFalse(validator.isValid("abc.pvt"));
+    }
+
+    @Test
+    public void testVALIDATOR_412b() {
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"local", "pvt"});
+        DomainValidator validator = DomainValidator.getInstance();
         assertTrue(validator.isValidGenericTld("local"));
         assertTrue(validator.isValid("abc.local"));
         assertTrue(validator.isValidGenericTld("pvt"));

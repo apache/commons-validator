@@ -1935,14 +1935,6 @@ public class DomainValidator implements Serializable {
         ;
     };
 
-    // For use by unit test code only
-    static synchronized void clearTLDOverrides() {
-        inUse = false;
-        countryCodeTLDsPlus = EMPTY_STRING_ARRAY;
-        countryCodeTLDsMinus = EMPTY_STRING_ARRAY;
-        genericTLDsPlus = EMPTY_STRING_ARRAY;
-        genericTLDsMinus = EMPTY_STRING_ARRAY;
-    }
     /**
      * Update one of the TLD override arrays.
      * This must only be done at program startup, before any instances are accessed using getInstance.
