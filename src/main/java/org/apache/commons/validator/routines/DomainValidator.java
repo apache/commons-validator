@@ -296,7 +296,7 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = new String[] {
-        // Taken from Version 2020062100, Last Updated Sun Jun 21 07:07:01 2020 UTC
+        // Taken from Version 2020072500, Last Updated Sat Jul 25 07:07:01 2020 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
         "abarth", // abarth Fiat Chrysler Automobiles N.V.
@@ -326,7 +326,7 @@ public class DomainValidator implements Serializable {
         "agakhan", // agakhan Fondation Aga Khan (Aga Khan Foundation)
         "agency", // agency Steel Falls, LLC
         "aig", // aig American International Group, Inc.
-        "aigo", // aigo aigo Digital Technology Co,Ltd.
+//        "aigo", // aigo aigo Digital Technology Co,Ltd. [Not assigned as of Jul 25]
         "airbus", // airbus Airbus S.A.S.
         "airforce", // airforce United TLD Holdco Ltd.
         "airtel", // airtel Bharti Airtel Limited
@@ -1300,7 +1300,7 @@ public class DomainValidator implements Serializable {
         "swiftcover", // swiftcover Swiftcover Insurance Services Limited
         "swiss", // swiss Swiss Confederation
         "sydney", // sydney State of New South Wales, Department of Premier and Cabinet
-        "symantec", // symantec Symantec Corporation
+//        "symantec", // symantec Symantec Corporation [Not assigned as of Jul 25]
         "systems", // systems Dash Cypress, LLC
         "tab", // tab Tabcorp Holdings Limited
         "taipei", // taipei Taipei City Government
@@ -1499,7 +1499,7 @@ public class DomainValidator implements Serializable {
         "xn--jlq61u9w7b", // 诺基亚 Nokia Corporation
         "xn--jvr189m", // 食品 Amazon Registry Services, Inc.
         "xn--kcrx77d1x4a", // 飞利浦 Koninklijke Philips N.V.
-        "xn--kpu716f", // 手表 Richemont DNS Inc.
+//        "xn--kpu716f", // 手表 Richemont DNS Inc. [Not assigned as of Jul 25]
         "xn--kput3i", // 手机 Beijing RITT-Net Technology Development Co., Ltd
         "xn--mgba3a3ejt", // ارامكو Aramco Services Company
         "xn--mgba7c0bbn0a", // العليان Crescent Holding GmbH
@@ -1519,7 +1519,7 @@ public class DomainValidator implements Serializable {
         "xn--nyqy26a", // 健康 Stable Tone Limited
         "xn--otu796d", // 招聘 Dot Trademark TLD Holding Company Limited
         "xn--p1acf", // рус Rusnames Limited
-        "xn--pbt977c", // 珠宝 Richemont DNS Inc.
+//        "xn--pbt977c", // 珠宝 Richemont DNS Inc. [Not assigned as of Jul 25]
         "xn--pssy2u", // 大拿 VeriSign Sarl
         "xn--q9jyb4c", // みんな Charleston Road Registry Inc.
         "xn--qcka1pmc", // グーグル Charleston Road Registry Inc.
