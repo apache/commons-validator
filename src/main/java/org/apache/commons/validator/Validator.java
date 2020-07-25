@@ -109,7 +109,7 @@ public class Validator implements Serializable {
      * Maps validation method parameter class names to the objects to be passed
      * into the method.
      */
-    protected Map<String, Object> parameters = new HashMap<String, Object>(); // <String, Object>
+    protected Map<String, Object> parameters = new HashMap<>(); // <String, Object>
 
     /**
      * The current page number to validate.
@@ -278,7 +278,7 @@ public class Validator implements Serializable {
     public void clear() {
         this.formName = null;
         this.fieldName = null;
-        this.parameters = new HashMap<String, Object>();
+        this.parameters = new HashMap<>();
         this.page = 0;
     }
 

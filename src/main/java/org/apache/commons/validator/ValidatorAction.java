@@ -155,7 +155,7 @@ public class ValidatorAction implements Serializable {
      * An internal List representation of all the validation method's
      * parameters defined in the methodParams String.
      */
-    private final List<String> methodParameterList = new ArrayList<String>();
+    private final List<String> methodParameterList = new ArrayList<>();
 
     /**
      * Gets the name of the validator action.
@@ -447,13 +447,13 @@ public class ValidatorAction implements Serializable {
      * ClassLoader.getResourceAsStream() method.
      */
     private String formatJavascriptFileName() {
-        String name = this.jsFunction.substring(1);
+        String fname = this.jsFunction.substring(1);
 
         if (!this.jsFunction.startsWith("/")) {
-            name = jsFunction.replace('.', '/') + ".js";
+            fname = jsFunction.replace('.', '/') + ".js";
         }
 
-        return name;
+        return fname;
     }
 
     /**
@@ -693,22 +693,22 @@ public class ValidatorAction implements Serializable {
                 try {
                     this.instance = this.validationClass.newInstance();
                 } catch (InstantiationException e) {
-                    String msg =
+                    String msg1 =
                         "Couldn't create instance of "
                             + this.classname
                             + ".  "
                             + e.getMessage();
 
-                    throw new ValidatorException(msg);
+                    throw new ValidatorException(msg1);
 
                 } catch (IllegalAccessException e) {
-                    String msg =
+                    String msg1 =
                         "Couldn't create instance of "
                             + this.classname
                             + ".  "
                             + e.getMessage();
 
-                    throw new ValidatorException(msg);
+                    throw new ValidatorException(msg1);
                 }
             }
         }
