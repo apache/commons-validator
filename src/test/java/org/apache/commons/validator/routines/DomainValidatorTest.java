@@ -56,7 +56,6 @@ public class DomainValidatorTest extends TestCase {
     @Override
     public void setUp() {
         validator = DomainValidator.getInstance();
-        DomainValidator.clearTLDOverrides(); // N.B. this clears the inUse flag, allowing overrides
     }
 
     public void testValidDomains() {
@@ -303,33 +302,6 @@ public class DomainValidatorTest extends TestCase {
         assertTrue(Modifier.isPublic(DomainValidator.ArrayType.class.getModifiers()));
     }
 
-    public void testUpdateBaseArrays() {
-        try {
-            DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_RO, new String[]{"com"});
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException iae) {
-            // expected
-        }
-        try {
-            DomainValidator.updateTLDOverride(ArrayType.GENERIC_RO, new String[]{"com"});
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException iae) {
-            // expected
-        }
-        try {
-            DomainValidator.updateTLDOverride(ArrayType.INFRASTRUCTURE_RO, new String[]{"com"});
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException iae) {
-            // expected
-        }
-        try {
-            DomainValidator.updateTLDOverride(ArrayType.LOCAL_RO, new String[]{"com"});
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException iae) {
-            // expected
-        }
-    }
-
     public void testGetArray() {
         assertNotNull(DomainValidator.getTLDEntries(ArrayType.COUNTRY_CODE_MINUS));
         assertNotNull(DomainValidator.getTLDEntries(ArrayType.COUNTRY_CODE_PLUS));
@@ -341,57 +313,6 @@ public class DomainValidatorTest extends TestCase {
         assertNotNull(DomainValidator.getTLDEntries(ArrayType.LOCAL_RO));
     }
 
-    public void testUpdateCountryCode() {
-        assertFalse(validator.isValidCountryCodeTld("com")); // cannot be valid
-        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_PLUS, new String[]{"com"});
-        assertTrue(validator.isValidCountryCodeTld("com")); // it is now!
-        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, new String[]{"com"});
-        assertFalse(validator.isValidCountryCodeTld("com")); // show that minus overrides the rest
-
-        assertTrue(validator.isValidCountryCodeTld("ch"));
-        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, new String[]{"ch"});
-        assertFalse(validator.isValidCountryCodeTld("ch"));
-        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, new String[]{"xx"});
-        assertTrue(validator.isValidCountryCodeTld("ch"));
-    }
-
-    public void testUpdateGeneric() {
-        assertFalse(validator.isValidGenericTld("ch")); // cannot be valid
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"});
-        assertTrue(validator.isValidGenericTld("ch")); // it is now!
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"ch"});
-        assertFalse(validator.isValidGenericTld("ch")); // show that minus overrides the rest
-
-        assertTrue(validator.isValidGenericTld("com"));
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"com"});
-        assertFalse(validator.isValidGenericTld("com"));
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, new String[]{"xx"}); // change the minus list
-        assertTrue(validator.isValidGenericTld("com"));
-    }
-
-    public void testVALIDATOR_412() {
-        assertFalse(validator.isValidGenericTld("local"));
-        assertFalse(validator.isValid("abc.local"));
-        assertFalse(validator.isValidGenericTld("pvt"));
-        assertFalse(validator.isValid("abc.pvt"));
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"local", "pvt"});
-        assertTrue(validator.isValidGenericTld("local"));
-        assertTrue(validator.isValid("abc.local"));
-        assertTrue(validator.isValidGenericTld("pvt"));
-        assertTrue(validator.isValid("abc.pvt"));
-    }
-
-    public void testCannotUpdate() {
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"}); // OK
-        DomainValidator dv = DomainValidator.getInstance();
-        assertNotNull(dv);
-        try {
-            DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"});
-            fail("Expected IllegalStateException");
-        } catch (IllegalStateException ise) {
-            // expected
-        }
-    }
     // Download and process local copy of http://data.iana.org/TLD/tlds-alpha-by-domain.txt
     // Check if the internal TLD table is up to date
     // Check if the internal TLD tables have any spurious entries
