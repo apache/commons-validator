@@ -16,53 +16,48 @@
  */
 package org.apache.commons.validator.routines;
 
+import static org.junit.Assert.*;
+
 import org.apache.commons.validator.routines.DomainValidator.ArrayType;
-
-import junit.framework.TestCase;
-
+import org.junit.Before;
+import org.junit.Test;
 /**
  * Startup Tests for the DomainValidator.
  *
  * @version $Revision$
  */
-public class DomainValidatorStartupTest extends TestCase {
+public class DomainValidatorStartupTest {
 
     private DomainValidator validator;
 
-    @Override
+    @Before
     public void setUp() {
         validator = DomainValidator.getInstance();
         DomainValidator.clearTLDOverrides(); // N.B. this clears the inUse flag, allowing overrides
     }
 
 
-    public void testUpdateBaseArrays() {
-        try {
-            DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_RO, new String[]{"com"});
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException iae) {
-            // expected
-        }
-        try {
-            DomainValidator.updateTLDOverride(ArrayType.GENERIC_RO, new String[]{"com"});
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException iae) {
-            // expected
-        }
-        try {
-            DomainValidator.updateTLDOverride(ArrayType.INFRASTRUCTURE_RO, new String[]{"com"});
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException iae) {
-            // expected
-        }
-        try {
-            DomainValidator.updateTLDOverride(ArrayType.LOCAL_RO, new String[]{"com"});
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException iae) {
-            // expected
-        }
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateBaseArrayCC() {
+        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_RO, new String[]{"com"});
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateBaseArrayGeneric() {
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_RO, new String[]{"com"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateBaseArrayInfra() {
+        DomainValidator.updateTLDOverride(ArrayType.INFRASTRUCTURE_RO, new String[]{"com"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateBaseArrayLocal() {
+        DomainValidator.updateTLDOverride(ArrayType.LOCAL_RO, new String[]{"com"});
+    }
+
+    @Test
     public void testUpdateCountryCode() {
         assertFalse(validator.isValidCountryCodeTld("com")); // cannot be valid
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_PLUS, new String[]{"com"});
@@ -77,6 +72,7 @@ public class DomainValidatorStartupTest extends TestCase {
         assertTrue(validator.isValidCountryCodeTld("ch"));
     }
 
+    @Test
     public void testUpdateGeneric() {
         assertFalse(validator.isValidGenericTld("ch")); // cannot be valid
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"});
@@ -91,6 +87,7 @@ public class DomainValidatorStartupTest extends TestCase {
         assertTrue(validator.isValidGenericTld("com"));
     }
 
+    @Test
     public void testVALIDATOR_412() {
         assertFalse(validator.isValidGenericTld("local"));
         assertFalse(validator.isValid("abc.local"));
@@ -103,6 +100,7 @@ public class DomainValidatorStartupTest extends TestCase {
         assertTrue(validator.isValid("abc.pvt"));
     }
 
+    @Test
     public void testCannotUpdate() {
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"}); // OK
         DomainValidator dv = DomainValidator.getInstance();
