@@ -172,11 +172,15 @@ public class DomainValidator implements Serializable {
     final String[] mycountryCodeTLDsPlus;
     final String[] mygenericTLDsPlus;
     final String[] mygenericTLDsMinus;
-    
+    /* 
+     * N.B. It is vital that instances are immutable.
+     * This is because the default instances are shared.
+    */
+
     /**
      * Private constructor. 
     */
-     DomainValidator(boolean allowLocal) {
+    private DomainValidator(boolean allowLocal) {
         this.allowLocal = allowLocal;
         // link to class overrides
         mycountryCodeTLDsMinus = countryCodeTLDsMinus;
@@ -189,7 +193,7 @@ public class DomainValidator implements Serializable {
      * Private constructor, allowing local overrides
      * @since 1.7
     */
-    DomainValidator(boolean allowLocal,  List<Item> items) { 
+    private DomainValidator(boolean allowLocal,  List<Item> items) { 
         this.allowLocal = allowLocal;
 
         // default to class overrides
