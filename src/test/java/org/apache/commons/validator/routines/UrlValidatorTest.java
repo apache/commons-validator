@@ -339,6 +339,11 @@ public class UrlValidatorTest extends TestCase {
         assertFalse(fileNAK, urlValidator.isValid(fileNAK));
     }
 
+    public void testValidator452(){
+      UrlValidator urlValidator = new UrlValidator();
+      assertTrue(urlValidator.isValid("http://[::FFFF:129.144.52.38]:80/index.html"));
+    }
+
     static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
       boolean carry = true;  //add 1 to lowest order part.
       boolean maxIndex = true;

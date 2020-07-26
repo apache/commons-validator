@@ -99,6 +99,9 @@ Apache Commons Validator.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action issue="VALIDATOR-452" type="fix" dev="sebb">
+    Validation of URL containing IPv4-mapped IPv6 address
+    </action>
     <action issue="VALIDATOR-471" type="add" dev="sebb">
     Allow DomainValidator overrides at run-time
     </action>
