@@ -230,7 +230,7 @@ public class IBANValidatorTest {
         }
     }
 
-    private static void checkIBAN(File file, IBANValidator val) throws Exception {
+    private static int checkIBAN(File file, IBANValidator val) throws Exception {
         // The IBAN Registry (TXT) file is a TAB-separated file
         // Rows are the entry types, columns are the countries
         CSVFormat format = CSVFormat.DEFAULT.withDelimiter('\t');
@@ -253,6 +253,8 @@ public class IBANValidatorTest {
             }
         }
         for (int i=1; i < country.size(); i++) {
+          try {
+
             String newLength = length.get(i).split("!")[0]; // El Salvador currently has "28!n"
             String newRE = fmtRE(structure.get(i), Integer.parseInt(newLength));
             final Validator valre = val.getValidator(cc.get(i));
@@ -281,8 +283,13 @@ public class IBANValidatorTest {
                 }
 
             }
+
+          } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+          }
         }
         p.close();
+        return country.size();
     }
 
     private static void printEntry(String ccode, String length, String ib, String country) {
@@ -353,10 +360,12 @@ public class IBANValidatorTest {
     public static void main(String [] a) throws Exception {
         IBANValidator validator = new IBANValidator();
         File iban_tsv = new File("target","iban-registry.tsv");
+        int countries = 0;
         if (iban_tsv.canRead()) {
-            checkIBAN(iban_tsv, validator);
+            countries = checkIBAN(iban_tsv, validator);
         } else {
             System.out.println("Please load the file " + iban_tsv.getCanonicalPath() + " from https://www.swift.com/standards/data-standards/iban");
         }
+        System.out.println("Processed " + countries + " countries.");
     }
 }
