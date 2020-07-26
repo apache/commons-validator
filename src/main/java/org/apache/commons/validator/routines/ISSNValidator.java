@@ -97,6 +97,7 @@ public class ISSNValidator implements Serializable {
      *
      * @param code The code to validate.
      * @return A valid EAN code if valid, otherwise <code>null</code>.
+     * @since 1.7
      */
     public Object validateEan(String code) {
         return EAN_VALIDATOR.validate(code);
@@ -173,6 +174,7 @@ public class ISSNValidator implements Serializable {
      * @param ean13 The ISSN code to convert
      * @return A valid ISSN code or <code>null</code>
      * if the input ISSN EAN-13 code is not valid
+     * @since 1.7
      */
     public String extractFromEAN13(String ean13) {
         String input = ean13.trim();
