@@ -333,7 +333,7 @@ public class UrlValidatorTest extends TestCase {
     public void testValidator464() {
         String[] schemes = {"file"};
         UrlValidator urlValidator = new UrlValidator(schemes);
-        String fileOK = "file:///bad ^ domain.com/label/test";
+        String fileOK = "file:///bad ^ domain.com/label/test"; // TODO should '^' be allowed unescaped?
         String fileNAK = "file://bad ^ domain.com/label/test";
         assertTrue(fileOK, urlValidator.isValid(fileOK));
         assertFalse(fileNAK, urlValidator.isValid(fileNAK));
