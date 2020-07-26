@@ -511,6 +511,7 @@ public class UrlValidatorTest extends TestCase {
       assertTrue(validator.isValid("https://example.com/some_path/path/"));
       assertTrue(validator.isValid("https://example.com//somepath/path/"));
       assertTrue(validator.isValid("https://example.com//some_path/path/"));
+      assertTrue(validator.isValid("http://example.com//_test")); // VALIDATOR-429
   }
 
   //-------------------- Test data for creating a composite URL
