@@ -105,9 +105,12 @@ public class InetAddressValidatorTest extends TestCase {
      */
     public void testBrokenInetAddresses() {
         assertFalse("IP with characters should be invalid",     validator.isValid("124.14.32.abc"));
-//        assertFalse("IP with leading zeroes should be invalid", validator.isValid("124.14.32.01"));
+        // TODO: there is some debate as to whether leading zeros should be allowed
+        // They are ambiguous: does the leading 0 mean octal?
+        assertFalse("IP with leading zeroes should be invalid", validator.isValid("124.14.32.01"));
         assertFalse("IP with three groups should be invalid",   validator.isValid("23.64.12"));
         assertFalse("IP with five groups should be invalid",    validator.isValid("26.34.23.77.234"));
+        assertFalse("IP empty string should be invalid", validator.isValidInet6Address(""));// empty string 
     }
 
     /**
@@ -119,7 +122,7 @@ public class InetAddressValidatorTest extends TestCase {
     public void testIPv6() {
         // The original Perl script contained a lot of duplicate tests.
         // I removed the duplicates I noticed, but there may be more.
-//        assertFalse("IPV6 empty string should be invalid", validator.isValidInet6Address(""));// empty string 
+        assertFalse("IPV6 empty string should be invalid", validator.isValidInet6Address(""));// empty string 
         assertTrue("IPV6 ::1 should be valid", validator.isValidInet6Address("::1"));// loopback, compressed, non-routable 
         assertTrue("IPV6 :: should be valid", validator.isValidInet6Address("::"));// unspecified, compressed, non-routable 
         assertTrue("IPV6 0:0:0:0:0:0:0:1 should be valid", validator.isValidInet6Address("0:0:0:0:0:0:0:1"));// loopback, full 
