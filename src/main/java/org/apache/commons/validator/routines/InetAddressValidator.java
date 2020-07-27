@@ -125,10 +125,10 @@ public class InetAddressValidator implements Serializable {
      * 
      * @since 1.4.1
      */
-    public boolean isValidInet6Address(String inet6AddressInput) {
+    public boolean isValidInet6Address(String inet6Address) {
         String[] parts;
         // remove prefix size. This will appear after the zone id (if any)
-        parts = inet6AddressInput.split("/", -1);
+        parts = inet6Address.split("/", -1);
         if (parts.length > 2) {
             return false; // can only have one prefix specifier
         }
@@ -153,7 +153,7 @@ public class InetAddressValidator implements Serializable {
                 return false; // invalid id
             }
         }
-        String inet6Address = parts[0];
+        inet6Address = parts[0];
         boolean containsCompressedZeroes = inet6Address.contains("::");
         if (containsCompressedZeroes && (inet6Address.indexOf("::") != inet6Address.lastIndexOf("::"))) {
             return false;
