@@ -99,6 +99,12 @@ Apache Commons Validator.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action issue="VALIDATOR-472" type="fix" dev="sebb">
+    UrlValidator should not be more lax than java.net.URI
+    </action>
+    <action issue="VALIDATOR-283" type="fix" dev="sebb" due-to="RC Johnson">
+    URLValidator should check for illegal Hex characters
+    </action>
     <action issue="VALIDATOR-445" type="fix" dev="sebb" due-to="devson">
     Inet6Address may also contain a scope id
     </action>

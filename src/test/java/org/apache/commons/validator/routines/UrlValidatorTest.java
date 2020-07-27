@@ -254,7 +254,7 @@ public class UrlValidatorTest extends TestCase {
         assertTrue("file:///c:/ should now be allowed",
                  validator.isValid("file:///C:/some.file"));
 
-        assertTrue("file:///c:\\ should be allowed",
+        assertFalse("file:///c:\\ should not be allowed", // Only allow forward slashes
               validator.isValid("file:///C:\\some.file"));
 
         assertTrue("file:///etc/ should now be allowed",
@@ -333,9 +333,7 @@ public class UrlValidatorTest extends TestCase {
     public void testValidator464() {
         String[] schemes = {"file"};
         UrlValidator urlValidator = new UrlValidator(schemes);
-        String fileOK = "file:///bad ^ domain.com/label/test"; // TODO should '^' be allowed unescaped?
         String fileNAK = "file://bad ^ domain.com/label/test";
-        assertTrue(fileOK, urlValidator.isValid(fileOK));
         assertFalse(fileNAK, urlValidator.isValid(fileNAK));
     }
 
@@ -518,6 +516,20 @@ public class UrlValidatorTest extends TestCase {
       assertTrue(validator.isValid("https://example.com//some_path/path/"));
       assertTrue(validator.isValid("http://example.com//_test")); // VALIDATOR-429
   }
+
+  public void testValidator283() {
+   UrlValidator validator = new UrlValidator();
+   assertFalse(validator.isValid("http://finance.yahoo.com/news/Owners-54B-NY-housing-apf-2493139299.html?x=0&ap=%fr"));
+   assertTrue(validator.isValid("http://finance.yahoo.com/news/Owners-54B-NY-housing-apf-2493139299.html?x=0&ap=%22"));
+  }
+
+  public void testFragments() {
+   String[] schemes = {"http","https"};
+   UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.NO_FRAGMENTS);
+   assertFalse(urlValidator.isValid("http://apache.org/a/b/c#frag"));
+   urlValidator = new UrlValidator(schemes);
+   assertTrue(urlValidator.isValid("http://apache.org/a/b/c#frag"));
+}
 
   //-------------------- Test data for creating a composite URL
    /**

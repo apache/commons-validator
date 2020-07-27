@@ -105,30 +105,6 @@ public class UrlValidator implements Serializable {
     public static final long ALLOW_LOCAL_URLS = 1 << 3; // CHECKSTYLE IGNORE MagicNumber
 
     /**
-     * This expression derived/taken from the BNF for URI (RFC2396).
-     */
-    private static final String URL_REGEX =
-            "^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?";
-    //        12            3  4          5       6   7        8 9
-    private static final Pattern URL_PATTERN = Pattern.compile(URL_REGEX);
-
-    /**
-     * Schema/Protocol (ie. http:, ftp:, file:, etc).
-     */
-    private static final int PARSE_URL_SCHEME = 2;
-
-    /**
-     * Includes hostname/ip and port number.
-     */
-    private static final int PARSE_URL_AUTHORITY = 4;
-
-    private static final int PARSE_URL_PATH = 5;
-
-    private static final int PARSE_URL_QUERY = 7;
-
-    private static final int PARSE_URL_FRAGMENT = 9;
-
-    /**
      * Protocol scheme (e.g. http, ftp, https).
      */
     private static final String SCHEME_REGEX = "^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*";
@@ -301,18 +277,20 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        // Check the whole url address structure
-        Matcher urlMatcher = URL_PATTERN.matcher(value);
-        if (!urlMatcher.matches()) {
+        URI uri; // ensure value is a valid URI
+        try {
+            uri = new URI(value);
+        } catch (URISyntaxException e) {
             return false;
         }
+        // OK, perfom additional validation
 
-        String scheme = urlMatcher.group(PARSE_URL_SCHEME);
+        String scheme = uri.getScheme();
         if (!isValidScheme(scheme)) {
             return false;
         }
 
-        String authority = urlMatcher.group(PARSE_URL_AUTHORITY);
+        String authority = uri.getRawAuthority();
         if ("file".equals(scheme) && (authority == null || "".equals(authority))) {// Special case - file: allows an empty authority
             return true; // this is a local file - nothing more to do here
         } else if ("file".equals(scheme) && authority != null && authority.contains(":")) {
@@ -324,15 +302,15 @@ public class UrlValidator implements Serializable {
             }
         }
 
-        if (!isValidPath(urlMatcher.group(PARSE_URL_PATH))) {
+        if (!isValidPath(uri.getRawPath())) {
             return false;
         }
 
-        if (!isValidQuery(urlMatcher.group(PARSE_URL_QUERY))) {
+        if (!isValidQuery(uri.getRawQuery())) {
             return false;
         }
 
-        if (!isValidFragment(urlMatcher.group(PARSE_URL_FRAGMENT))) {
+        if (!isValidFragment(uri.getRawFragment())) {
             return false;
         }
 
@@ -536,17 +514,11 @@ public class UrlValidator implements Serializable {
         return (options & flag) == 0;
     }
 
-    // Unit test access to pattern matcher
-    Matcher matchURL(String value) {
-        return URL_PATTERN.matcher(value);
-    }
-
     /**
      * Validator for checking URL parsing
      * @param args - URLs to validate
      */
     public static void main(String[] args) {
-        UrlValidator val = new UrlValidator(new String[] { "file", "http", "https" }, UrlValidator.ALLOW_LOCAL_URLS);
         for(String arg: args) {
             try {
                 URI uri = new URI(arg);
@@ -567,29 +539,6 @@ public class UrlValidator implements Serializable {
             } catch (URISyntaxException e) {
                 System.out.println(e.getMessage());
             }
-           Matcher m = val.matchURL(arg);
-           if (m.matches()) {
-              System.out.printf("%s has %d parts%n",arg,m.groupCount());
-              for(int i=1;i <m.groupCount(); i++) {
-                 String grp = m.group(i);
-                 if (grp != null) {
-                    System.out.printf("%d: %s%n",i, grp);
-                 }
-              }
-              String authority = m.group(PARSE_URL_AUTHORITY);
-              String path = m.group(PARSE_URL_PATH);
-              String query = m.group(PARSE_URL_QUERY);
-              String frag = m.group(PARSE_URL_FRAGMENT);
-              System.out.printf("auth: %s %s%n", authority,val.isValidAuthority(authority));
-              System.out.printf("path: %s %s%n", path,val.isValidPath(path));
-              System.out.printf("query: %s %s%n", query,val.isValidQuery(query));
-              System.out.printf("frag: %s %s%n", frag,val.isValidFragment(frag));
-              System.out.printf("valid: %s %s%n", arg,val.isValid(arg));
-              System.out.println();
-           } else {
-              System.out.printf("%s is not valid%n",arg);
-           }
-  
         }
      }   
   
