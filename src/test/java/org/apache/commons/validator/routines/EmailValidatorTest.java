@@ -477,14 +477,17 @@ protected void tearDown() {
      * The real solution is to fix the email parsing.
      */
     public void _testEmailFromPerl()  {
+        int errors = 0;
         for (int index = 0; index < testEmailFromPerl.length; index++) {
             String item = testEmailFromPerl[index].item;
-            if (testEmailFromPerl[index].valid) {
-                assertTrue("Should be OK: "+item, validator.isValid(item));
-            } else {
-                assertFalse("Should fail: "+item, validator.isValid(item));
+            boolean exp =  testEmailFromPerl[index].valid;
+            boolean act = validator.isValid(item);
+            if (act != exp) {
+                System.out.printf("%s: expected %s actual %s%n", item, exp, act);
+                errors += 1;
             }
         }
+        assertEquals("Expected 0 errors", 0, errors);
     }
 
     public void testValidator293(){
