@@ -99,13 +99,16 @@ Apache Commons Validator.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
-    <action issue="VALIDATOR-452" type="fix" dev="sebb">
+    <action issue="VALIDATOR-445" type="fix" dev="sebb" due-to="devson">
+    Inet6Address may also contain a scope id
+    </action>
+    <action issue="VALIDATOR-452" type="fix" dev="sebb" due-to="devson">
     Validation of URL containing IPv4-mapped IPv6 address
     </action>
     <action issue="VALIDATOR-471" type="add" dev="sebb">
     Allow DomainValidator overrides at run-time
     </action>
-    <action issue="VALIDATOR-438" type="fix" dev="sebb">
+    <action issue="VALIDATOR-438" type="fix" dev="sebb" due-to="Simon Marti">
     IBANValidator fails for El Salvador
     Add definition
     </action>
@@ -129,10 +132,10 @@ http://commons.apache.org/validator/dependencies.html
     Update Apache Commons BeanUtils dependency from 1.9.3 to 1.9.4
     This picks up BEANUTILS-520: Mitigate CVE-2014-0114.
     </action>
-    <action issue="VALIDATOR-455" type="add" dev="sebb">
+    <action issue="VALIDATOR-455" type="add" dev="sebb" due-to="Eugen Hanussek">
     Add IBAN validator for VA – Vatican City State
     </action>
-    <action issue="VALIDATOR-461" type="fix" dev="sebb">
+    <action issue="VALIDATOR-461" type="fix" dev="sebb" due-to="Nils Reischmann">
     Generic .gmbh top level domain is considered invalid
     </action>
     <action issue="VALIDATOR-444" type="fix" dev="sebb" due-to="Martin Scholz">

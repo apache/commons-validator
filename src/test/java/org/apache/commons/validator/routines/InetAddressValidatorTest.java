@@ -73,6 +73,34 @@ public class InetAddressValidatorTest extends TestCase {
     }
 
     /**
+     * Inet6Address may also contain a scope id
+     */
+    public void testVALIDATOR_445() {
+        String [] valid = {
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876",
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/123",
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/0",
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876%0",
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876%abcdefgh",
+            };
+        String [] invalid = {
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/129", // too big
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/-0", // sign not allowed
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/+0", // sign not allowed
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/10O", // non-digit
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/0%0", // /bits before %node-id
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876%abc defgh", // space in node id
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876%abc%defgh", // '%' in node id
+            };
+        for(String item : valid) {
+            assertTrue(String.format("%s should be valid", item), validator.isValid(item));
+        }
+        for(String item : invalid) {
+            assertFalse(String.format("%s should be invalid", item), validator.isValid(item));
+        }
+    }
+
+    /**
      * Test valid and invalid IPs from each address class.
      */
     public void testInetAddressesByClass() {
