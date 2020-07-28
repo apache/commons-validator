@@ -16,9 +16,15 @@
  */
 package org.apache.commons.validator.routines;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.validator.ResultPair;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Performs Validation Test for e-mail validations.
@@ -26,7 +32,7 @@ import org.apache.commons.validator.ResultPair;
  *
  * @version $Revision$
  */
-public class EmailValidatorTest extends TestCase {
+public class EmailValidatorTest {
 
     /**
      * The key used to retrieve the set of validation
@@ -39,31 +45,25 @@ public class EmailValidatorTest extends TestCase {
     */
    protected static String ACTION = "email";
 
-    private EmailValidator validator;
+   private EmailValidator validator;
 
-   public EmailValidatorTest(String name) {
-       super(name);
-   }
-
-   @Override
-protected void setUp() {
+   @Before
+   public void setUp() {
         validator = EmailValidator.getInstance();
-   }
-
-   @Override
-protected void tearDown() {
    }
 
    /**
     * Tests the e-mail validation.
     */
-   public void testEmail()  {
-      assertTrue(validator.isValid("jsmith@apache.org"));
-   }
+    @Test
+    public void testEmail()  {
+       assertTrue(validator.isValid("jsmith@apache.org"));
+    }
 
    /**
     * Tests the email validation with numeric domains.
     */
+    @Test
     public void testEmailWithNumericAddress()  {
         assertTrue(validator.isValid("someone@[216.109.118.76]"));
         assertTrue(validator.isValid("someone@yahoo.com"));
@@ -72,6 +72,7 @@ protected void tearDown() {
     /**
      * Tests the e-mail validation.
      */
+    @Test
     public void testEmailExtension()  {
         assertTrue(validator.isValid("jsmith@apache.org"));
 
@@ -94,7 +95,8 @@ protected void tearDown() {
     * <p>Tests the e-mail validation with a dash in
     * the address.</p>
     */
-   public void testEmailWithDash()  {
+    @Test
+    public void testEmailWithDash()  {
        assertTrue(validator.isValid("andy.noble@data-workshop.com"));
 
        assertFalse(validator.isValid("andy-noble@data-workshop.-com"));
@@ -108,7 +110,8 @@ protected void tearDown() {
     * Tests the e-mail validation with a dot at the end of
     * the address.
     */
-   public void testEmailWithDotEnd()  {
+    @Test
+    public void testEmailWithDotEnd()  {
       assertFalse(validator.isValid("andy.noble@data-workshop.com."));
    }
 
@@ -116,6 +119,7 @@ protected void tearDown() {
      * Tests the e-mail validation with an RCS-noncompliant character in
      * the address.
      */
+    @Test
     public void testEmailWithBogusCharacter()  {
 
         assertFalse(validator.isValid("andy.noble@\u008fdata-workshop.com"));
@@ -138,16 +142,19 @@ protected void tearDown() {
 
     }
 
+    @Test
     public void testVALIDATOR_315() {
         assertFalse(validator.isValid("me@at&t.net"));
         assertTrue(validator.isValid("me@att.net")); // Make sure TLD is not the cause of the failure
     }
 
+    @Test
     public void testVALIDATOR_278() {
         assertFalse(validator.isValid("someone@-test.com"));// hostname starts with dash/hyphen
         assertFalse(validator.isValid("someone@test-.com"));// hostname ends with dash/hyphen
     }
 
+    @Test
     public void testValidator235() {
         String version = System.getProperty("java.version");
         if (version.compareTo("1.6") < 0) {
@@ -165,6 +172,7 @@ protected void tearDown() {
     /**
     * Tests the email validation with commas.
     */
+    @Test
     public void testEmailWithCommas()  {
         assertFalse(validator.isValid("joeblow@apa,che.org"));
 
@@ -177,6 +185,7 @@ protected void tearDown() {
    /**
     * Tests the email validation with spaces.
     */
+    @Test
     public void testEmailWithSpaces()  {
         assertFalse(validator.isValid("joeblow @apache.org"));
 
@@ -202,6 +211,7 @@ protected void tearDown() {
     * Tests the email validation with ascii control characters.
     * (i.e. Ascii chars 0 - 31 and 127)
     */
+    @Test
     public void testEmailWithControlChars()  {
         for (char c = 0; c < 32; c++) {
             assertFalse("Test control char " + ((int)c), validator.isValid("foo" + c + "bar@domain.com"));
@@ -213,6 +223,7 @@ protected void tearDown() {
      * Test that @localhost and @localhost.localdomain
      *  addresses are declared as valid when requested. 
      */
+    @Test
     public void testEmailLocalhost() {
        // Check the default is not to allow
        EmailValidator noLocal = EmailValidator.getInstance(false);
@@ -243,6 +254,7 @@ protected void tearDown() {
      * VALIDATOR-296 - A / or a ! is valid in the user part,
      *  but not in the domain part 
      */
+    @Test
     public void testEmailWithSlashes() {
        assertTrue(
              "/ and ! valid in username",
@@ -262,6 +274,7 @@ protected void tearDown() {
      * Write this test according to parts of RFC, as opposed to the type of character
      * that is being tested.
      */
+    @Test
     public void testEmailUserName()  {
 
         assertTrue(validator.isValid("joe1blow@apache.org"));
@@ -473,10 +486,12 @@ protected void tearDown() {
      * Write this test based on perl Mail::RFC822::Address
      * which takes its example email address directly from RFC822
      *
-     * FIXME This test fails so disable it with a leading _ for 1.1.4 release.
+     * This test fails so disable it
      * The real solution is to fix the email parsing.
      */
-    public void _testEmailFromPerl()  {
+    @Ignore("VALIDATOR-267")
+    @Test
+    public void testEmailFromPerl()  {
         int errors = 0;
         for (int index = 0; index < testEmailFromPerl.length; index++) {
             String item = testEmailFromPerl[index].item;
@@ -490,6 +505,7 @@ protected void tearDown() {
         assertEquals("Expected 0 errors", 0, errors);
     }
 
+    @Test
     public void testValidator293(){
         assertTrue(validator.isValid("abc-@abc.com"));
         assertTrue(validator.isValid("abc_@abc.com"));
@@ -498,6 +514,7 @@ protected void tearDown() {
         assertFalse(validator.isValid("abc@abc_def.com"));
     }
 
+    @Test
     public void testValidator365() {
         assertFalse(validator.isValid(
                 "Loremipsumdolorsitametconsecteturadipiscingelit.Nullavitaeligulamattisrhoncusnuncegestasmattisleo."+
@@ -532,16 +549,19 @@ protected void tearDown() {
      * (In the case of a top-level domain used by itself in an
      * email address, a single string is used without any dots)
      */
+    @Test
     public void testEmailAtTLD() {
         EmailValidator val = EmailValidator.getInstance(false, true);
         assertTrue(val.isValid("test@com"));
     }
 
+    @Test
     public void testValidator359() {
         EmailValidator val = EmailValidator.getInstance(false, true);
         assertFalse(val.isValid("test@.com"));
     }
 
+    @Test
     public void testValidator374() {
         assertTrue(validator.isValid("abc@school.school"));
     }
