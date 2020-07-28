@@ -331,7 +331,6 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        // TODO could be removed if external schemes were checked in the ctor before being stored
         if (!SCHEME_PATTERN.matcher(scheme).matches()) {
             return false;
         }
