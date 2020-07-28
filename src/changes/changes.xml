@@ -99,6 +99,9 @@ Apache Commons Validator.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action issue="VALIDATOR-403" type="fix" dev="sebb" due-to="Tanya">
+    Accept Discover cards of 17 digits long that start with 6011
+    </action>
     <action issue="VALIDATOR-408" type="fix" dev="sebb" due-to="Raj Vaida">
     DISCOVER Card Validation Patterns
     </action>

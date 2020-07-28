@@ -55,6 +55,7 @@ public class CreditCardValidatorTest extends TestCase {
         VALID_DINERS,
         VALID_VPAY,
         VALID_VPAY2,
+        "60115564485789458", // VALIDATOR-403
     };
 
     private static final String [] ERROR_CARDS = {
@@ -311,7 +312,6 @@ public class CreditCardValidatorTest extends TestCase {
         assertTrue("Length 16-644",   regex.isValid("6444567890123456"));
         assertTrue("Length 16-648",   regex.isValid("6484567890123456"));
         assertTrue("Length 16-65",    regex.isValid("6534567890123456"));
-        assertFalse("Length 17-6011", regex.isValid("60115678901234567"));
         assertFalse("Length 17-65",   regex.isValid("65345678901234567"));
         assertFalse("Length 18-6011", regex.isValid("601156789012345678"));
         assertFalse("Length 18-65",   regex.isValid("653456789012345678"));
