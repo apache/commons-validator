@@ -16,31 +16,30 @@
  */
 package org.apache.commons.validator.routines;
 
-import org.apache.commons.validator.ResultPair;
+import static org.junit.Assert.*;
 
-import junit.framework.TestCase;
+import org.apache.commons.validator.ResultPair;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Performs Validation Test for url validations.
  *
  * @version $Revision$
  */
-public class UrlValidatorTest extends TestCase {
+public class UrlValidatorTest {
 
    private final boolean printStatus = false;
    private final boolean printIndex = false;//print index that indicates current scheme,host,port,path, query test were using.
 
-   public UrlValidatorTest(String testName) {
-      super(testName);
-   }
-
-   @Override
-   protected void setUp() {
+   @Before
+   public void setUp() {
       for (int index = 0; index < testPartsIndex.length - 1; index++) {
          testPartsIndex[index] = 0;
       }
    }
 
+   @Test
    public void testIsValid() {
         testIsValid(testUrlParts, UrlValidator.ALLOW_ALL_SCHEMES);
         setUp();
@@ -52,6 +51,7 @@ public class UrlValidatorTest extends TestCase {
         testIsValid(testUrlPartsOptions, options);
    }
 
+   @Test
    public void testIsValidScheme() {
       if (printStatus) {
          System.out.print("\n testIsValidScheme() ");
@@ -125,24 +125,28 @@ public class UrlValidatorTest extends TestCase {
       }
    }
 
+   @Test
    public void testValidator202() {
        String[] schemes = {"http","https"};
        UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.NO_FRAGMENTS);
        assertTrue(urlValidator.isValid("http://l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.l.org"));
    }
 
+   @Test
    public void testValidator204() {
        String[] schemes = {"http","https"};
        UrlValidator urlValidator = new UrlValidator(schemes);
        assertTrue(urlValidator.isValid("http://tech.yahoo.com/rc/desktops/102;_ylt=Ao8yevQHlZ4On0O3ZJGXLEQFLZA5"));
    }
 
+   @Test
    public void testValidator218() {
        UrlValidator validator = new UrlValidator(UrlValidator.ALLOW_2_SLASHES);
        assertTrue("parentheses should be valid in URLs",
                validator.isValid("http://somewhere.com/pathxyz/file(1).html"));
    }
 
+   @Test
    public void testValidator235() {
        String version = System.getProperty("java.version");
        if (version.compareTo("1.6") < 0) {
@@ -158,6 +162,7 @@ public class UrlValidatorTest extends TestCase {
        assertFalse("www.\uFFFD.ch FFFD should fail", validator.isValid("ftp://www.\uFFFD.ch"));
    }
 
+    @Test
     public void testValidator248() {
         RegexValidator regex = new RegexValidator(new String[] {"localhost", ".*\\.my-testing"});
         UrlValidator validator = new UrlValidator(regex, 0);
@@ -188,6 +193,7 @@ public class UrlValidatorTest extends TestCase {
               validator.isValid("http://www.apache.org/test/index.html"));
     }
 
+    @Test
     public void testValidator288() {
         UrlValidator validator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
 
@@ -222,6 +228,7 @@ public class UrlValidatorTest extends TestCase {
                 validator.isValid("http://www.apache.org/test/index.html"));
     }
 
+    @Test
     public void testValidator276() {
         // file:// isn't allowed by default
         UrlValidator validator = new UrlValidator();
@@ -274,18 +281,21 @@ public class UrlValidatorTest extends TestCase {
               validator.isValid("file://C:\\some.file"));
     }
 
+    @Test
     public void testValidator391OK() {
         String[] schemes = {"file"};
         UrlValidator urlValidator = new UrlValidator(schemes);
         assertTrue(urlValidator.isValid("file:///C:/path/to/dir/"));
     }
 
+    @Test
     public void testValidator391FAILS() {
         String[] schemes = {"file"};
         UrlValidator urlValidator = new UrlValidator(schemes);
         assertTrue(urlValidator.isValid("file:/C:/path/to/dir/"));
     }
 
+    @Test
     public void testValidator309() {
         UrlValidator urlValidator = new UrlValidator();
         assertTrue(urlValidator.isValid("http://sample.ondemand.com/"));
@@ -297,6 +307,7 @@ public class UrlValidatorTest extends TestCase {
         assertTrue(urlValidator.isValid("httpS://SAMPLE.ONEMAND.COM/"));
     }
 
+    @Test
     public void testValidator339(){
         UrlValidator urlValidator = new UrlValidator();
         assertTrue(urlValidator.isValid("http://www.cnn.com/WORLD/?hpt=sitenav")); // without
@@ -306,6 +317,7 @@ public class UrlValidatorTest extends TestCase {
         assertFalse(urlValidator.isValid("http://www.cnn.invalid./")); // check . does not affect invalid domains
     }
 
+    @Test
     public void testValidator339IDN(){
         UrlValidator urlValidator = new UrlValidator();
         assertTrue(urlValidator.isValid("http://президент.рф/WORLD/?hpt=sitenav")); // without
@@ -315,12 +327,14 @@ public class UrlValidatorTest extends TestCase {
         assertFalse(urlValidator.isValid("http://президент.рф../")); // doubly dotty
     }
 
+    @Test
     public void testValidator342(){
         UrlValidator urlValidator = new UrlValidator();
         assertTrue(urlValidator.isValid("http://example.rocks/"));
         assertTrue(urlValidator.isValid("http://example.rocks"));
     }
 
+    @Test
     public void testValidator411(){
         UrlValidator urlValidator = new UrlValidator();
         assertTrue(urlValidator.isValid("http://example.rocks:/"));
@@ -330,6 +344,7 @@ public class UrlValidatorTest extends TestCase {
         assertFalse(urlValidator.isValid("http://example.rocks:100000/"));
     }
 
+    @Test
     public void testValidator464() {
         String[] schemes = {"file"};
         UrlValidator urlValidator = new UrlValidator(schemes);
@@ -337,6 +352,7 @@ public class UrlValidatorTest extends TestCase {
         assertFalse(fileNAK, urlValidator.isValid(fileNAK));
     }
 
+    @Test
     public void testValidator452(){
       UrlValidator urlValidator = new UrlValidator();
       assertTrue(urlValidator.isValid("http://[::FFFF:129.144.52.38]:80/index.html"));
@@ -379,10 +395,12 @@ public class UrlValidatorTest extends TestCase {
 
    }
 
+   @Test
    public void testValidateUrl() {
       assertTrue(true);
    }
 
+   @Test
    public void testValidator290() {
         UrlValidator validator = new UrlValidator();
         assertTrue(validator.isValid("http://xn--h1acbxfam.idn.icann.org/"));
@@ -441,11 +459,13 @@ public class UrlValidatorTest extends TestCase {
 //        assertTrue(validator.isValid("http://test.xn--hlcj6aya9esc7a")); // Tamil
     }
 
+   @Test
    public void testValidator361() {
        UrlValidator validator = new UrlValidator();
        assertTrue(validator.isValid("http://hello.tokyo/"));
     }
 
+   @Test
    public void testValidator363(){
         UrlValidator urlValidator = new UrlValidator();
         assertTrue(urlValidator.isValid("http://www.example.org/a/b/hello..world"));
@@ -466,6 +486,7 @@ public class UrlValidatorTest extends TestCase {
         assertTrue(urlValidator.isValid("http://www.example.org/.../.."));
     }
 
+   @Test
    public void testValidator375() {
        UrlValidator validator = new UrlValidator();
        String url = "http://[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]:80/index.html";
@@ -477,6 +498,7 @@ public class UrlValidatorTest extends TestCase {
     }
 
 
+   @Test
    public void testValidator353() { // userinfo
        UrlValidator validator = new UrlValidator();
        assertTrue(validator.isValid("http://www.apache.org:80/path"));
@@ -490,11 +512,13 @@ public class UrlValidatorTest extends TestCase {
        assertFalse(validator.isValid("http://user:pa@ss@www.apache.org/path"));
    }
 
+   @Test
    public void testValidator382() {
        UrlValidator validator = new UrlValidator();
        assertTrue(validator.isValid("ftp://username:password@example.com:8042/over/there/index.dtb?type=animal&name=narwhal#nose"));
    }
 
+   @Test
    public void testValidator380() {
        UrlValidator validator = new UrlValidator();
        assertTrue(validator.isValid("http://www.apache.org:80/path"));
@@ -502,6 +526,7 @@ public class UrlValidatorTest extends TestCase {
        assertTrue(validator.isValid("http://www.apache.org:/path"));
    }
 
+   @Test
    public void testValidator420() {
        UrlValidator validator = new UrlValidator();
        assertFalse(validator.isValid("http://example.com/serach?address=Main Avenue"));
@@ -509,6 +534,7 @@ public class UrlValidatorTest extends TestCase {
        assertTrue(validator.isValid("http://example.com/serach?address=Main+Avenue"));
    }
 
+   @Test
    public void testValidator467() {
       UrlValidator validator = new UrlValidator(UrlValidator.ALLOW_2_SLASHES);
       assertTrue(validator.isValid("https://example.com/some_path/path/"));
@@ -517,12 +543,14 @@ public class UrlValidatorTest extends TestCase {
       assertTrue(validator.isValid("http://example.com//_test")); // VALIDATOR-429
   }
 
+  @Test
   public void testValidator283() {
    UrlValidator validator = new UrlValidator();
    assertFalse(validator.isValid("http://finance.yahoo.com/news/Owners-54B-NY-housing-apf-2493139299.html?x=0&ap=%fr"));
    assertTrue(validator.isValid("http://finance.yahoo.com/news/Owners-54B-NY-housing-apf-2493139299.html?x=0&ap=%22"));
   }
 
+  @Test
   public void testFragments() {
    String[] schemes = {"http","https"};
    UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.NO_FRAGMENTS);
