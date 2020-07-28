@@ -592,4 +592,10 @@ public class EmailValidatorTest {
         assertTrue(val.isValidDomain("test.local"));
     }
 
+    public static void main(String[] args) {
+        EmailValidator validator = EmailValidator.getInstance();
+        for(String arg : args) {
+            System.out.printf("%s: %s%n", arg, validator.isValid(arg));
+        }
+    }
 }
