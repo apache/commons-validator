@@ -69,7 +69,7 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int calculateModulus(String code, boolean includesCheckDigit) throws CheckDigitException {
-        StringBuilder transformed = new  StringBuilder(code.length() * 2);
+        StringBuilder transformed = new  StringBuilder(code.length() * 2); // CHECKSTYLE IGNORE MagicNumber
         if (includesCheckDigit) {
             char checkDigit = code.charAt(code.length()-1); // fetch the last character
             if (!Character.isDigit(checkDigit)){
@@ -93,9 +93,9 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      * <p>Calculates the <i>weighted</i> value of a charcter in the
      * code at a specified position.</p>
      *
-     * <p>For Luhn (from right to left) <b>odd</b> digits are weighted
+     * <p>For ISIN (from right to left) <b>odd</b> digits are weighted
      * with a factor of <b>one</b> and <b>even</b> digits with a factor
-     * of <b>two</b>. Weighted values &gt; 9, have 9 subtracted</p>
+     * of <b>two</b>. Weighted values are reduced to their digital root</p>
      *
      * @param charValue The numeric value of the character.
      * @param leftPos  The position of the character in the code, counting from left to right
@@ -104,8 +104,8 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        int weight = POSITION_WEIGHT[rightPos % 2];
-        int weightedValue = (charValue * weight);
+        int weight = POSITION_WEIGHT[rightPos % 2]; // CHECKSTYLE IGNORE MagicNumber
+        int weightedValue = charValue * weight;
         return ModulusCheckDigit.sumDigits(weightedValue);
     }
 }
