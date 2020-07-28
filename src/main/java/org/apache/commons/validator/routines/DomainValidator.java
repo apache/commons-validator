@@ -348,6 +348,16 @@ public class DomainValidator implements Serializable {
         return arrayContains(LOCAL_TLDS, key);
     }
 
+    /**
+     * Does this instance allow local addresses?
+     *
+     * @return true if local addresses are allowed.
+     * @since 1.7
+     */
+    public boolean isAllowLocal() {
+        return this.allowLocal;
+    }
+
     private String chompLeadingDot(String str) {
         if (str.startsWith(".")) {
             return str.substring(1);
