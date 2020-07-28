@@ -18,6 +18,9 @@ package org.apache.commons.validator.routines;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.validator.ResultPair;
 import org.junit.Before;
 import org.junit.Test;
@@ -356,6 +359,23 @@ public class UrlValidatorTest {
     public void testValidator452(){
       UrlValidator urlValidator = new UrlValidator();
       assertTrue(urlValidator.isValid("http://[::FFFF:129.144.52.38]:80/index.html"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testValidator473_1() { // reject null DomainValidator
+        new UrlValidator(new String[]{}, null, 0L, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testValidator473_2() { // reject null DomainValidator with mismatched allowLocal
+        List<DomainValidator.Item> items = new ArrayList<>();
+        new UrlValidator(new String[]{}, null, 0L, DomainValidator.getInstance(true, items));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testValidator473_3() { // reject null DomainValidator with mismatched allowLocal
+        List<DomainValidator.Item> items = new ArrayList<>();
+        new UrlValidator(new String[]{}, null, UrlValidator.ALLOW_LOCAL_URLS, DomainValidator.getInstance(false, items));
     }
 
     static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {

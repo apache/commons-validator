@@ -52,7 +52,6 @@ public class EmailValidator implements Serializable {
 
     private static final int MAX_USERNAME_LEN = 64;
 
-    private final boolean allowLocal;
     private final boolean allowTld;
 
     /**
@@ -79,6 +78,8 @@ public class EmailValidator implements Serializable {
      *  consider local addresses valid.
      */
     private static final EmailValidator EMAIL_VALIDATOR_WITH_LOCAL_WITH_TLD = new EmailValidator(true, true);
+
+    private final DomainValidator domainValidator;
 
     /**
      * Returns the Singleton instance of this validator.
@@ -125,15 +126,36 @@ public class EmailValidator implements Serializable {
     }
 
     /**
+     * constructor for creating instances with the specified domainValidator
+     *
+     * @param allowLocal Should local addresses be considered valid?
+     * @param allowTld Should TLDs be allowed?
+     * @param domainValidator allow override of the DomainValidator.
+     * The instance must have the same allowLocal setting.
+     * @since 1.7
+     */
+    public EmailValidator(boolean allowLocal, boolean allowTld, DomainValidator domainValidator) {
+        super();
+        this.allowTld = allowTld;
+        if (domainValidator == null) {
+            throw new IllegalArgumentException("DomainValidator cannot be null");
+        } else {
+            if (domainValidator.isAllowLocal() != allowLocal) {
+                throw new IllegalArgumentException("DomainValidator must agree with allowLocal setting");
+            }
+            this.domainValidator = domainValidator;
+        }
+    }
+
+    /**
      * Protected constructor for subclasses to use.
      *
      * @param allowLocal Should local addresses be considered valid?
      * @param allowTld Should TLDs be allowed?
      */
     protected EmailValidator(boolean allowLocal, boolean allowTld) {
-        super();
-        this.allowLocal = allowLocal;
         this.allowTld = allowTld;
+        this.domainValidator = DomainValidator.getInstance(allowLocal);
     }
 
     /**
@@ -142,9 +164,7 @@ public class EmailValidator implements Serializable {
      * @param allowLocal Should local addresses be considered valid?
      */
     protected EmailValidator(boolean allowLocal) {
-        super();
-        this.allowLocal = allowLocal;
-        this.allowTld = false;
+        this(allowLocal, false);
     }
 
     /**
@@ -196,8 +216,6 @@ public class EmailValidator implements Serializable {
             return inetAddressValidator.isValid(ipDomainMatcher.group(1));
         }
         // Domain is symbolic name
-        DomainValidator domainValidator =
-                DomainValidator.getInstance(allowLocal);
         if (allowTld) {
             return domainValidator.isValid(domain) || (!domain.startsWith(".") && domainValidator.isValidTld(domain));
         } else {

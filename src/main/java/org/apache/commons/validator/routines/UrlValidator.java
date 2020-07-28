@@ -182,6 +182,8 @@ public class UrlValidator implements Serializable {
         return DEFAULT_URL_VALIDATOR;
     }
 
+    private final DomainValidator domainValidator;
+
     /**
      * Create a UrlValidator with default properties.
      */
@@ -245,7 +247,29 @@ public class UrlValidator implements Serializable {
      * enables both of those options.
      */
     public UrlValidator(String[] schemes, RegexValidator authorityValidator, long options) {
+        this(schemes, authorityValidator, options, DomainValidator.getInstance(isOn(ALLOW_LOCAL_URLS, options)));
+    }
+
+    /**
+     * Customizable constructor. Validation behavior is modifed by passing in options.
+     * @param schemes the set of valid schemes. Ignored if the ALLOW_ALL_SCHEMES option is set.
+     * @param authorityValidator Regular expression validator used to validate the authority part
+     * @param options Validation options. Set using the public constants of this class.
+     * To set multiple options, simply add them together:
+     * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
+     * enables both of those options.
+     * @param domainValidator the DomainValidator to use; must agree with ALLOW_LOCAL_URLS setting
+     * @since 1.7
+     */
+    public UrlValidator(String[] schemes, RegexValidator authorityValidator, long options, DomainValidator domainValidator) {
         this.options = options;
+        if (domainValidator == null) {
+            throw new IllegalArgumentException("DomainValidator must not be null");
+        }
+        if (domainValidator.isAllowLocal() != ((options & ALLOW_LOCAL_URLS) > 0)){
+            throw new IllegalArgumentException("DomainValidator disagrees with ALLOW_LOCAL_URLS setting");
+        }
+        this.domainValidator = domainValidator;
 
         if (isOn(ALLOW_ALL_SCHEMES)) {
             allowedSchemes = Collections.emptySet();
@@ -380,8 +404,7 @@ public class UrlValidator implements Serializable {
             String hostLocation = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
             // check if authority is hostname or IP address:
             // try a hostname first since that's much more likely
-            DomainValidator domainValidator = DomainValidator.getInstance(isOn(ALLOW_LOCAL_URLS));
-            if (!domainValidator.isValid(hostLocation)) {
+            if (!this.domainValidator.isValid(hostLocation)) {
                 // try an IPv4 address
                 InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
                 if (!inetAddressValidator.isValidInet4Address(hostLocation)) {
@@ -498,6 +521,19 @@ public class UrlValidator implements Serializable {
      * @return whether the specified flag value is on.
      */
     private boolean isOn(long flag) {
+        return (options & flag) > 0;
+    }
+
+    /**
+     * Tests whether the given flag is on.  If the flag is not a power of 2
+     * (e.g. 3) this tests whether the combination of flags is on.
+     *
+     * @param flag Flag value to check.
+     * @param options what to check
+     *
+     * @return whether the specified flag value is on.
+     */
+    private static boolean isOn(long flag, long options) {
         return (options & flag) > 0;
     }
 

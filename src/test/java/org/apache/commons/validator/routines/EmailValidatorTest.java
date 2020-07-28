@@ -565,4 +565,31 @@ public class EmailValidatorTest {
     public void testValidator374() {
         assertTrue(validator.isValid("abc@school.school"));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testValidator473_1() { // reject null DomainValidator
+        new EmailValidator(false, false, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testValidator473_2() { // reject null DomainValidator with mismatched allowLocal
+        List<DomainValidator.Item> items = new ArrayList<>();
+        new EmailValidator(false, false, DomainValidator.getInstance(true, items));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testValidator473_3() { // reject null DomainValidator with mismatched allowLocal
+        List<DomainValidator.Item> items = new ArrayList<>();
+        new EmailValidator(true, false, DomainValidator.getInstance(false, items));
+    }
+
+    @Test
+    public void testValidator473_4() { // Show that can override domain validation
+        assertFalse(validator.isValidDomain("test.local"));
+        List<DomainValidator.Item> items = new ArrayList<>();
+        items.add(new DomainValidator.Item(DomainValidator.ArrayType.GENERIC_PLUS, new String[]{"local"}));
+        EmailValidator val = new EmailValidator(true, false, DomainValidator.getInstance(true, items));
+        assertTrue(val.isValidDomain("test.local"));
+    }
+
 }
