@@ -89,6 +89,8 @@ public class DomainValidator implements Serializable {
     private static final String DOMAIN_NAME_REGEX =
             "^(?:" + DOMAIN_LABEL_REGEX + "\\.)+" + "(" + TOP_LABEL_REGEX + ")\\.?$";
 
+    private static final String UNEXPECTED_ENUM_VALUE = "Unexpected enum value: ";
+
     private final boolean allowLocal;
 
     private static class LazyHolder { // IODH
@@ -2091,7 +2093,7 @@ public class DomainValidator implements Serializable {
         case LOCAL_RO:
             throw new IllegalArgumentException("Cannot update the table: " + table);
         default:
-            throw new IllegalArgumentException("Unexpected enum value: " + table);
+            throw new IllegalArgumentException(UNEXPECTED_ENUM_VALUE + table);
         }
     }
 
@@ -2103,7 +2105,7 @@ public class DomainValidator implements Serializable {
      * @since 1.5.1
      */
     public static synchronized String [] getTLDEntries(ArrayType table) {
-        final String array[];
+        final String[] array;
         switch(table) {
         case COUNTRY_CODE_MINUS:
             array = countryCodeTLDsMinus;
@@ -2130,7 +2132,7 @@ public class DomainValidator implements Serializable {
             array = LOCAL_TLDS;
             break;
         default:
-            throw new IllegalArgumentException("Unexpected enum value: " + table);
+            throw new IllegalArgumentException(UNEXPECTED_ENUM_VALUE + table);
         }
         return Arrays.copyOf(array, array.length); // clone the array
     }
@@ -2143,7 +2145,7 @@ public class DomainValidator implements Serializable {
      * @since 1.7
      */
     public String [] getOverrides(ArrayType table) {
-        final String array[];
+        final String[] array;
         switch(table) {
         case COUNTRY_CODE_MINUS:
             array = mycountryCodeTLDsMinus;
@@ -2158,7 +2160,7 @@ public class DomainValidator implements Serializable {
             array = mygenericTLDsPlus;
             break;
         default:
-            throw new IllegalArgumentException("Unexpected enum value: " + table);
+            throw new IllegalArgumentException(UNEXPECTED_ENUM_VALUE + table);
         }
         return Arrays.copyOf(array, array.length); // clone the array
     }
