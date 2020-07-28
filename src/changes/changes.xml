@@ -99,6 +99,9 @@ Apache Commons Validator.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action issue="VALIDATOR-408" type="fix" dev="sebb" due-to="Raj Vaida">
+    DISCOVER Card Validation Patterns
+    </action>
     <action issue="VALIDATOR-472" type="fix" dev="sebb">
     UrlValidator should not be more lax than java.net.URI
     </action>
