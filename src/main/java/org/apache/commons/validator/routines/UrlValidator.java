@@ -549,37 +549,4 @@ public class UrlValidator implements Serializable {
         return (options & flag) == 0;
     }
 
-    /**
-     * Validator for checking URL parsing
-     * @param args - URLs to validate
-     */
-    public static void main(String[] args) {
-        UrlValidator uv = new UrlValidator();
-        for(String arg: args) {
-            try {
-                URI uri = new URI(arg);
-                uri = uri.normalize();
-                System.out.println(uri.toString());
-                System.out.printf("URI scheme: %s%n", uri.getScheme());
-                System.out.printf("URI scheme specific part: %s%n", uri.getSchemeSpecificPart());
-                System.out.printf("URI raw scheme specific part: %s%n", uri.getRawSchemeSpecificPart());
-                System.out.printf("URI auth: %s%n", uri.getAuthority());
-                System.out.printf("URI raw auth: %s%n", uri.getRawAuthority());
-                System.out.printf("URI userInfo: %s%n", uri.getUserInfo());
-                System.out.printf("URI raw userInfo: %s%n", uri.getRawUserInfo());
-                System.out.printf("URI host: %s%n", uri.getHost());
-                System.out.printf("URI port: %s%n", uri.getPort());
-                System.out.printf("URI path: %s%n", uri.getPath());
-                System.out.printf("URI raw path: %s%n", uri.getRawPath());
-                System.out.printf("URI query: %s%n", uri.getQuery());
-                System.out.printf("URI raw query: %s%n", uri.getRawQuery());
-                System.out.printf("URI fragment: %s%n", uri.getFragment());
-                System.out.printf("URI raw fragment: %s%n", uri.getRawFragment());
-            } catch (URISyntaxException e) {
-                System.out.println(e.getMessage());
-            }
-            System.out.printf("isValid: %s%n",uv.isValid(arg));
-        }
-     }   
-  
 }
