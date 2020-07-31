@@ -206,21 +206,27 @@ public class DomainValidator implements Serializable {
 
         // apply the instance overrides
         for(Item item: items) {
+            String [] copy = new String[item.values.length];
+            // Comparisons are always done with lower-case entries
+            for (int i = 0; i < item.values.length; i++) {
+                copy[i] = item.values[i].toLowerCase(Locale.ENGLISH);
+            }
+            Arrays.sort(copy);
             switch(item.type) {
             case COUNTRY_CODE_MINUS: {
-                ccMinus = item.values.clone();
+                ccMinus = copy;
                 break;
             }
             case COUNTRY_CODE_PLUS: {
-                ccPlus = item.values.clone();
+                ccPlus = copy;
                 break;
             }
             case GENERIC_MINUS: {
-                genMinus = item.values.clone();
+                genMinus = copy;
                 break;
             }
             case GENERIC_PLUS: {
-                genPlus = item.values.clone();
+                genPlus = copy;
                 break;
             }
             default:
