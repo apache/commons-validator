@@ -307,6 +307,8 @@ public class DomainValidatorTest extends TestCase {
         assertNotNull(DomainValidator.getTLDEntries(ArrayType.COUNTRY_CODE_PLUS));
         assertNotNull(DomainValidator.getTLDEntries(ArrayType.GENERIC_MINUS));
         assertNotNull(DomainValidator.getTLDEntries(ArrayType.GENERIC_PLUS));
+        assertNotNull(DomainValidator.getTLDEntries(ArrayType.LOCAL_MINUS));
+        assertNotNull(DomainValidator.getTLDEntries(ArrayType.LOCAL_PLUS));
         assertNotNull(DomainValidator.getTLDEntries(ArrayType.COUNTRY_CODE_RO));
         assertNotNull(DomainValidator.getTLDEntries(ArrayType.GENERIC_RO));
         assertNotNull(DomainValidator.getTLDEntries(ArrayType.INFRASTRUCTURE_RO));

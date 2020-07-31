@@ -174,6 +174,8 @@ public class DomainValidator implements Serializable {
     final String[] mycountryCodeTLDsPlus;
     final String[] mygenericTLDsPlus;
     final String[] mygenericTLDsMinus;
+    final String[] mylocalTLDsPlus;
+    final String[] mylocalTLDsMinus;
     /* 
      * N.B. It is vital that instances are immutable.
      * This is because the default instances are shared.
@@ -189,6 +191,8 @@ public class DomainValidator implements Serializable {
         mycountryCodeTLDsPlus = countryCodeTLDsPlus;
         mygenericTLDsPlus = genericTLDsPlus;
         mygenericTLDsMinus = genericTLDsMinus;
+        mylocalTLDsPlus = localTLDsPlus;
+        mylocalTLDsMinus = localTLDsMinus;
     }
 
     /**
@@ -203,6 +207,8 @@ public class DomainValidator implements Serializable {
         String[] ccPlus = countryCodeTLDsPlus;
         String[] genMinus = genericTLDsMinus;
         String[] genPlus = genericTLDsPlus;
+        String[] localMinus = localTLDsMinus;
+        String[] localPlus = localTLDsPlus;
 
         // apply the instance overrides
         for(Item item: items) {
@@ -229,6 +235,14 @@ public class DomainValidator implements Serializable {
                 genPlus = copy;
                 break;
             }
+            case LOCAL_MINUS: {
+                localMinus = copy;
+                break;
+            }
+            case LOCAL_PLUS: {
+                localPlus = copy;
+                break;
+            }
             default:
                 break;
             }
@@ -239,6 +253,8 @@ public class DomainValidator implements Serializable {
         mycountryCodeTLDsPlus = ccPlus;
         mygenericTLDsMinus = genMinus;
         mygenericTLDsPlus = genPlus;
+        mylocalTLDsMinus = localMinus;
+        mylocalTLDsPlus = localPlus;
     }
 
     /**
@@ -353,7 +369,8 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidLocalTld(String lTld) {
         final String key = chompLeadingDot(unicodeToASCII(lTld).toLowerCase(Locale.ENGLISH));
-        return arrayContains(LOCAL_TLDS, key);
+        return (arrayContains(LOCAL_TLDS, key) || arrayContains(mylocalTLDsPlus, key))
+                && !arrayContains(mylocalTLDsMinus, key);
     }
 
     /**
@@ -2008,6 +2025,12 @@ public class DomainValidator implements Serializable {
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static String[] genericTLDsMinus = EMPTY_STRING_ARRAY;
 
+    // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
+    private static String[] localTLDsMinus = EMPTY_STRING_ARRAY;
+
+    // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
+    private static String[] localTLDsPlus = EMPTY_STRING_ARRAY;
+
     /**
      * enum used by {@link DomainValidator#updateTLDOverride(ArrayType, String[])}
      * to determine which override array to update / fetch
@@ -2030,7 +2053,17 @@ public class DomainValidator implements Serializable {
         /** Get a copy of the infrastructure table */
         INFRASTRUCTURE_RO,
         /** Get a copy of the local table */
-        LOCAL_RO
+        LOCAL_RO,
+        /** 
+         * Update (or get a copy of) the LOCAL_TLDS_PLUS table containing additional local TLDs 
+         * @since 1.7
+         */
+        LOCAL_PLUS,
+        /**
+         * Update (or get a copy of) the LOCAL_TLDS_MINUS table containing deleted local TLDs
+         * @since 1.7
+         */
+        LOCAL_MINUS
         ;
     }
 
@@ -2041,6 +2074,11 @@ public class DomainValidator implements Serializable {
     public static class Item {
         final ArrayType type;
         final String[] values;
+        /**
+         * 
+         * @param type ArrayType, e.g. GENERIC_PLUS, LOCAL_PLUS
+         * @param values array of TLDs. Will be lower-cased and sorted
+         */
         public Item(ArrayType type, String[] values) {
             this.type = type;
             this.values = values; // no need to copy here
@@ -2064,6 +2102,8 @@ public class DomainValidator implements Serializable {
      * <li>COUNTRY_CODE_PLUS</li>
      * <li>GENERIC_MINUS</li>
      * <li>GENERIC_PLUS</li>
+     * <li>LOCAL_MINUS</li>
+     * <li>LOCAL_PLUS</li>
      * </ul>
      * @param tlds the array of TLDs, must not be null
      * @throws IllegalStateException if the method is called after getInstance
@@ -2092,6 +2132,12 @@ public class DomainValidator implements Serializable {
             break;
         case GENERIC_PLUS:
             genericTLDsPlus = copy;
+            break;
+        case LOCAL_MINUS:
+            localTLDsMinus = copy;
+            break;
+        case LOCAL_PLUS:
+            localTLDsPlus = copy;
             break;
         case COUNTRY_CODE_RO:
         case GENERIC_RO:
@@ -2124,6 +2170,12 @@ public class DomainValidator implements Serializable {
             break;
         case GENERIC_PLUS:
             array = genericTLDsPlus;
+            break;
+        case LOCAL_MINUS:
+            array = localTLDsMinus;
+            break;
+        case LOCAL_PLUS:
+            array = localTLDsPlus;
             break;
         case GENERIC_RO:
             array = GENERIC_TLDS;
@@ -2164,6 +2216,12 @@ public class DomainValidator implements Serializable {
             break;
         case GENERIC_PLUS:
             array = mygenericTLDsPlus;
+            break;
+        case LOCAL_MINUS:
+            array = mylocalTLDsMinus;
+            break;
+        case LOCAL_PLUS:
+            array = mylocalTLDsPlus;
             break;
         default:
             throw new IllegalArgumentException(UNEXPECTED_ENUM_VALUE + table);

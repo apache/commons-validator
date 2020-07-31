@@ -78,7 +78,8 @@ Apache Commons Validator.
 
 
  * CreditCard validation specification by numeric range
- * DomainValidator instances can be created with local overrides
+ * DomainValidator instances can be created with instance overrides
+ * DomainValidator supports overrides of LOCAL TLDs
 
 
  IMPORTANT NOTES
@@ -99,6 +100,9 @@ Apache Commons Validator.
 For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action issue="VALIDATOR-474" type="add" dev="sebb">
+    DomainValidator should allow local overrides
+    </action>
     <action issue="VALIDATOR-473" type="add" dev="sebb">
     Allow Email- and UrlValidator to use specified DomainValidator
     </action>

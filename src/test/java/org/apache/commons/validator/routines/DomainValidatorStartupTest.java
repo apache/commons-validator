@@ -158,6 +158,25 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
+    public void testVALIDATOR_412c() {
+        DomainValidator validator = DomainValidator.getInstance(true);
+        assertFalse(validator.isValidLocalTld("local"));
+        assertFalse(validator.isValid("abc.local"));
+        assertFalse(validator.isValidLocalTld("pvt"));
+        assertFalse(validator.isValid("abc.pvt"));
+    }
+
+    @Test
+    public void testVALIDATOR_412d() {
+        DomainValidator.updateTLDOverride(ArrayType.LOCAL_PLUS, new String[]{"local", "pvt"});
+        DomainValidator validator = DomainValidator.getInstance(true);
+        assertTrue(validator.isValidLocalTld("local"));
+        assertTrue(validator.isValidLocalTld("pvt"));
+        assertTrue(validator.isValid("abc.local"));
+        assertTrue(validator.isValid("abc.pvt"));
+    }
+
+    @Test
     public void testCannotUpdate() {
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"ch"}); // OK
         DomainValidator dv = DomainValidator.getInstance();
