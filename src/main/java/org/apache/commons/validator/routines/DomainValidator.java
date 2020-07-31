@@ -417,7 +417,7 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = new String[] {
-        // Taken from Version 2020072500, Last Updated Sat Jul 25 07:07:01 2020 UTC
+        // Taken from Version 2020073100, Last Updated Fri Jul 31 07:07:01 2020 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
         "abarth", // abarth Fiat Chrysler Automobiles N.V.
@@ -1291,7 +1291,7 @@ public class DomainValidator implements Serializable {
         "rich", // rich I-REGISTRY Ltd., Niederlassung Deutschland
         "richardli", // richardli Pacific Century Asset Management (HK) Limited
         "ricoh", // ricoh Ricoh Company, Ltd.
-        "rightathome", // rightathome Johnson Shareholdings, Inc.
+        // "rightathome", // rightathome Johnson Shareholdings, Inc. (retired 2020-07-31)
         "ril", // ril Reliance Industries Limited
         "rio", // rio Empresa Municipal de Informática SA - IPLANRIO
         "rip", // rip United TLD Holdco Ltd.
