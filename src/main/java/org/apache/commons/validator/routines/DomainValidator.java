@@ -181,6 +181,11 @@ public class DomainValidator implements Serializable {
      * This is because the default instances are shared.
     */
 
+    // N.B. The constructors are deliberately private to avoid possible problems with unsafe publication.
+    // It is vital that the static override arrays are not mutable once they have been used in an instance
+    // The arrays could be copied into the instance variables, however if the static array were changed it could
+    // result in different settings for the shared default instances
+
     /**
      * Private constructor. 
     */
