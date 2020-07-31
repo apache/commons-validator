@@ -23,7 +23,7 @@ import org.apache.commons.validator.routines.CodeValidator;
 /**
  * General Modulus 10 Check Digit calculation/validation.
  *
- * <h3>How if Works</h3>
+ * <h2>How it Works</h2>
  * <p>
  * This implementation calculates/validates the check digit in the following
  * way:
@@ -42,7 +42,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * <li>The <i>weighted values</i> of each character are totalled.</li>
  * <li>The total modulo 10 will be zero for a code with a valid Check Digit.</li>
  * </ul>
- * <h3>Limitations</h3>
+ * <h2>Limitations</h2>
  * <p>
  * This implementation has the following limitations:
  * <ul>
@@ -58,7 +58,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * <b>Note:</b> This implementation can be combined with the
  * {@link CodeValidator} in order to ensure the length and characters are valid.
  * 
- * <h3>Example Usage</h3>
+ * <h2>Example Usage</h2>
  * <p>
  * This implementation was added after a number of Modulus 10 routines and these
  * are shown re-implemented using this routine below:

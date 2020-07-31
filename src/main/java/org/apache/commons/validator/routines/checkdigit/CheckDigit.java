@@ -38,7 +38,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * CheckDigit is used by the new generic @link CodeValidator} implementation.
  * </p>
  *
- * <h3>Implementations</h3>
+ * <h2>Implementations</h2>
  * See the 
  * <a href="package-summary.html">Package Summary</a> for a full
  * list of implementations provided within Commons Validator.
