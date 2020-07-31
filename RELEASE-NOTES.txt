@@ -78,3 +78,5 @@ For complete information on Apache Commons Validator, including instructions on 
 patches, or suggestions for improvement, see the Apache Apache Commons Validator website:
 
 http://commons.apache.org/proper/commons-validator/
+
+Download page: http://commons.apache.org/proper/commons-validator/download_validator.cgi
