@@ -25,7 +25,7 @@
  | commons-build-plugin/trunk/src/main/resources/commons-xdoc-templates |
  +======================================================================+
  |                                                                      |
- | 1) Re-generate using: mvn commons:readme-md                          |
+ | 1) Re-generate using: mvn commons-build:readme-md                    |
  |                                                                      |
  | 2) Set the following properties in the component's pom:              |
  |    - commons.componentid (required, alphabetic, lower case)          |
@@ -43,8 +43,10 @@
 Apache Commons Validator
 ===================
 
-[![Build Status](https://travis-ci.org/apache/commons-validator.svg?branch=trunk)](https://travis-ci.org/apache/commons-validator)
+[![Build Status](https://travis-ci.org/apache/commons-validator.svg)](https://travis-ci.org/apache/commons-validator)
+[![Coverage Status](https://coveralls.io/repos/apache/commons-validator/badge.svg)](https://coveralls.io/r/apache/commons-validator)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/commons-validator/commons-validator/badge.svg)](https://maven-badges.herokuapp.com/maven-central/commons-validator/commons-validator/)
+[![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.7.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.7)
 
 Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
     It may be used standalone or with a framework like Struts.
@@ -53,7 +55,7 @@ Documentation
 -------------
 
 More information can be found on the [Apache Commons Validator homepage](https://commons.apache.org/proper/commons-validator).
-The [Javadoc](https://commons.apache.org/proper/commons-validator/javadocs/api-release) can be browsed.
+The [Javadoc](https://commons.apache.org/proper/commons-validator/apidocs) can be browsed.
 Questions related to the usage of Apache Commons Validator should be posted to the [user mailing list][ml].
 
 Where can I get the latest release?
@@ -66,7 +68,7 @@ Alternatively you can pull it from the central Maven repositories:
 <dependency>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <version>1.6</version>
+  <version>1.7</version>
 </dependency>
 ```
 
