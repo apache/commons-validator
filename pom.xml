@@ -43,6 +43,7 @@
     <commons.release.version>1.7</commons.release.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.desc>(requires JDK ${maven.compiler.target})</commons.release.desc>
+    <commons.bc.version>1.6</commons.bc.version>
     <commons.jira.id>VALIDATOR</commons.jira.id>
     <commons.jira.pid>12310494</commons.jira.pid>
     <commons.encoding>UTF-8</commons.encoding>
@@ -54,6 +55,7 @@
     <maven.compiler.target>1.7</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <commons.release.isDistModule>true</commons.release.isDistModule>
   </properties> 
 
   <scm>
