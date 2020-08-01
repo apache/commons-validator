@@ -41,7 +41,7 @@
     <commons.module.name>org.apache.commons.validator</commons.module.name>
     <!-- Re-generate the download page using: mvn commons:download-page -->
     <commons.release.version>1.7</commons.release.version>
-    <commons.rc.version>RC1</commons.rc.version>
+    <commons.rc.version>RC2</commons.rc.version>
     <commons.release.desc>(requires JDK ${maven.compiler.target})</commons.release.desc>
     <commons.bc.version>1.6</commons.bc.version>
     <commons.jira.id>VALIDATOR</commons.jira.id>
