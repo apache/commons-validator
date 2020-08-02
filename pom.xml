@@ -78,7 +78,7 @@
   </distributionManagement>
 
   <build>
-    <defaultGoal>clean verify apache-rat:check clirr:check checkstyle:check javadoc:javadoc</defaultGoal>
+    <defaultGoal>clean verify apache-rat:check checkstyle:check javadoc:javadoc</defaultGoal>
     <resources>
       <resource>
         <directory>${basedir}</directory>
@@ -213,15 +213,6 @@
             </reports>
           </reportSet>
         </reportSets>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <version>${commons.cobertura.version}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>clirr-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
