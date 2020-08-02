@@ -103,6 +103,9 @@ Apache Commons Validator.
   For the current list of dependencies, please see
 http://commons.apache.org/validator/dependencies.html
   ">
+    <action type="update" dev="sebb">
+    Drop Clirr and Cobertura in favour of JApiCmp and JaCoCo
+    </action>
     <action issue="VALIDATOR-474" type="add" dev="sebb">
     DomainValidator should allow local overrides
     </action>
