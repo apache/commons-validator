@@ -16,6 +16,7 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -48,6 +49,21 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
         validator         = dateValidator;
     }
 
+    /**
+     * Check that locale providers are set up correctly
+     * If not, the parse will fail
+     */
+    public void testLocaleProviders() throws Exception {
+        String localeProviders = System.getProperty("java.locale.providers");
+        if (localeProviders != null) { // may be null before Java 9
+            assertTrue("java.locale.providers must start with COMPAT", localeProviders.startsWith("COMPAT"));
+        }
+        String txt = "3/20/15 10:59:00 PM";  // This relies on the locale format prior to Java 9 to parse correctly
+        DateFormat dateformat= DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, Locale.US); 
+        dateformat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date date = dateformat.parse(txt);
+        assertNotNull(date);
+    }
     /**
      * Test DateValidator validate Methods
      */

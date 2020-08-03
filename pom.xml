@@ -314,9 +314,12 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
-                <systemPropertyVariables>
-                    <java.locale.providers>COMPAT,CLDR</java.locale.providers>
-                </systemPropertyVariables>
+              <!--
+                systemPropertyVariables are set too late in Surefire
+                versions after 2.21.0 and before 3.0-M4 (but only on Windows!)
+                Use the command-line instead to ensure the property is set early enough
+              -->
+              <argLine>-Djava.locale.providers=COMPAT,SPI</argLine>
             </configuration>
           </plugin>
         </plugins>
