@@ -23,15 +23,15 @@ IMPORTANT NOTES
 
 BREAKING CHANGES:
 
- * Now requires Java 7
+* Now requires Java 7
+* N.B. Java 9 changed the way Locales are handled. This affects the output from some Date-related methods, and may cause some tests to break.
 
 DEPENDENCIES
 ============
- *
- Updates Apache Commons BeanUtils dependency from 1.9.2 to 1.9.3.
 
+* Updates Apache Commons BeanUtils dependency from 1.9.2 to 1.9.4.
+ This picks up BEANUTILS-482: Update commons-collections from 3.2.1 to 3.2.2 (CVE-2015-4852).
 
-This picks up BEANUTILS-482: Update commons-collections from 3.2.1 to 3.2.2 (CVE-2015-4852).
 For the current list of dependencies, please see http://commons.apache.org/validator/dependencies.html
 
 Changes in this version include:
@@ -68,6 +68,7 @@ o VALIDATOR-302:  EMailValidator: Addresses with leading spaces must not be acce
 o VALIDATOR-468:  DomainValidator.getTLDArray does not synch mutable arrays
 
 Changes:
+o                 Drop Clirr and Cobertura in favour of JApiCmp and JaCoCo
 o                 IANA TLD lists: Updated to Version 2020073100, Last Updated Fri Jul 31 07:07:01 2020 UTC
 o VALIDATOR-428:  Update commons digester to 2.1 Thanks to Matthew Zavislak.
 
