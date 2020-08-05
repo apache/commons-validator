@@ -26,6 +26,6 @@ matrix:
     - os: linux-ppc64le
       jdk: openjdk8
 script:
-  - mvn clean test
+  - mvn -V --no-transfer-progress clean test
 after_success:
-  - mvn clean cobertura:cobertura coveralls:report
+  - mvn -V --no-transfer-progress clean cobertura:cobertura coveralls:report
