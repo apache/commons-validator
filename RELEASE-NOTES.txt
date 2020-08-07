@@ -6,6 +6,7 @@ The Apache Commons Validator team is pleased to announce the release of Apache C
 Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
 It may be used standalone or with a framework like Struts.
 
+
 This is primarily a maintenance release.
 All projects are encouraged to update to this release of Apache Commons Validator.
 
@@ -34,7 +35,15 @@ DEPENDENCIES
 
 For the current list of dependencies, please see http://commons.apache.org/validator/dependencies.html
 
+For complete information on Apache Commons Validator, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Apache Commons Validator website:
+
+http://commons.apache.org/proper/commons-validator/
+
+Download page: http://commons.apache.org/proper/commons-validator/download_validator.cgi
+
 Changes in this version include:
+===============================
 
 New features:
 o VALIDATOR-474:  DomainValidator should allow local overrides
@@ -75,9 +84,5 @@ o VALIDATOR-428:  Update commons digester to 2.1 Thanks to Matthew Zavislak.
 
 Historical list of changes: http://commons.apache.org/proper/commons-validator/changes-report.html
 
-For complete information on Apache Commons Validator, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Validator website:
-
-http://commons.apache.org/proper/commons-validator/
-
-Download page: http://commons.apache.org/proper/commons-validator/download_validator.cgi
+Enjoy!
+-Apache Commons Validator team
