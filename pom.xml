@@ -78,7 +78,7 @@
   </distributionManagement>
 
   <build>
-    <defaultGoal>clean verify apache-rat:check checkstyle:check javadoc:javadoc</defaultGoal>
+    <defaultGoal>clean package apache-rat:check japicmp:cmp checkstyle:check javadoc:javadoc</defaultGoal>
     <resources>
       <resource>
         <directory>${basedir}</directory>

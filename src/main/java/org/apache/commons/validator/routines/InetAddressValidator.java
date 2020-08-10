@@ -36,6 +36,8 @@ import java.util.List;
  */
 public class InetAddressValidator implements Serializable {
 
+    private static final int MAX_BYTE = 128;
+
     private static final int IPV4_MAX_OCTET_VALUE = 255;
 
     private static final int MAX_UNSIGNED_SHORT = 0xffff;
@@ -135,7 +137,7 @@ public class InetAddressValidator implements Serializable {
         if (parts.length == 2) {
             if (parts[1].matches("\\d{1,3}")) { // Need to eliminate signs
                 int bits = Integer.parseInt(parts[1]); // cannot fail because of RE check
-                if (bits < 0 || bits > 128) {
+                if (bits < 0 || bits > MAX_BYTE) {
                     return false; // out of range
                 }
             } else {

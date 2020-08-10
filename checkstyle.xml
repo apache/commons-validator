@@ -90,7 +90,6 @@
     </module>
     <module name="JavadocMethod"> <!-- also covers Item 44 -->
       <property name="scope" value="protected"/>
-      <property name="allowUndeclaredRTE" value="true"/>
     </module>
     <module name="JavadocVariable">
       <property name="scope" value="protected"/>
