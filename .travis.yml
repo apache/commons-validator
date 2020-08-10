@@ -14,7 +14,6 @@
 # limitations under the License.
 
 language: java
-dist: trusty
 cache:
   directories:
     - $HOME/.m2
