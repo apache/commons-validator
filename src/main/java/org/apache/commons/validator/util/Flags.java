@@ -136,7 +136,7 @@ public class Flags implements Serializable, Cloneable {
      * Turn on all 64 flags.
      */
     public void turnOnAll() {
-        this.flags = 0xFFFFFFFFFFFFFFFFl;
+        this.flags = 0xFFFFFFFFFFFFFFFFL;
     }
 
     /**
