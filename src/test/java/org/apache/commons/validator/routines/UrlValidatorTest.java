@@ -16,6 +16,9 @@
  */
 package org.apache.commons.validator.routines;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
 import java.net.URI;
@@ -26,6 +29,7 @@ import java.util.List;
 import org.apache.commons.validator.ResultPair;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
 
 /**
  * Performs Validation Test for url validations.
@@ -359,21 +363,27 @@ public class UrlValidatorTest {
       assertTrue(urlValidator.isValid("http://[::FFFF:129.144.52.38]:80/index.html"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testValidator473_1() { // reject null DomainValidator
-        new UrlValidator(new String[]{}, null, 0L, null);
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
+                new UrlValidator(new String[]{}, null, 0L, null));
+        assertThat(thrown.getMessage(), is(equalTo("DomainValidator must not be null")));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testValidator473_2() { // reject null DomainValidator with mismatched allowLocal
         final List<DomainValidator.Item> items = new ArrayList<>();
-        new UrlValidator(new String[]{}, null, 0L, DomainValidator.getInstance(true, items));
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
+                new UrlValidator(new String[]{}, null, 0L, DomainValidator.getInstance(true, items)));
+        assertThat(thrown.getMessage(), is(equalTo("DomainValidator disagrees with ALLOW_LOCAL_URLS setting")));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testValidator473_3() { // reject null DomainValidator with mismatched allowLocal
         final List<DomainValidator.Item> items = new ArrayList<>();
-        new UrlValidator(new String[]{}, null, UrlValidator.ALLOW_LOCAL_URLS, DomainValidator.getInstance(false, items));
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
+                new UrlValidator(new String[]{}, null, UrlValidator.ALLOW_LOCAL_URLS, DomainValidator.getInstance(false, items)));
+        assertThat(thrown.getMessage(), is(equalTo("DomainValidator disagrees with ALLOW_LOCAL_URLS setting")));
     }
 
     static boolean incrementTestPartsIndex(final int[] testPartsIndex, final Object[] testParts) {
