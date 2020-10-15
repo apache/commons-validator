@@ -16,6 +16,9 @@
  */
 package org.apache.commons.validator.routines;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ import java.util.List;
 
 import org.apache.commons.validator.routines.DomainValidator.ArrayType;
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
 import org.junit.runner.RunWith;
 
 import org.bitstrings.test.junit.runner.ClassLoaderPerTestRunner;
@@ -34,24 +38,52 @@ import org.bitstrings.test.junit.runner.ClassLoaderPerTestRunner;
 @RunWith( ClassLoaderPerTestRunner.class )
 public class DomainValidatorStartupTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testUpdateBaseArrayCC() {
-        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_RO, new String[]{"com"});
+        // FIXME Simplification once upgraded to Java 1.8
+        final ThrowingRunnable testMethod = new ThrowingRunnable() {
+            public void run() {
+                DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_RO, new String[]{"com"});
+            }
+        };
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
+        assertThat(thrown.getMessage(), is(equalTo("Cannot update the table: COUNTRY_CODE_RO")));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testUpdateBaseArrayGeneric() {
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_RO, new String[]{"com"});
+        // FIXME Simplification once upgraded to Java 1.8
+        final ThrowingRunnable testMethod = new ThrowingRunnable() {
+            public void run() {
+                DomainValidator.updateTLDOverride(ArrayType.GENERIC_RO, new String[]{"com"});
+            }
+        };
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
+        assertThat(thrown.getMessage(), is(equalTo("Cannot update the table: GENERIC_RO")));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testUpdateBaseArrayInfra() {
-        DomainValidator.updateTLDOverride(ArrayType.INFRASTRUCTURE_RO, new String[]{"com"});
+        // FIXME Simplification once upgraded to Java 1.8
+        final ThrowingRunnable testMethod = new ThrowingRunnable() {
+            public void run() {
+                DomainValidator.updateTLDOverride(ArrayType.INFRASTRUCTURE_RO, new String[]{"com"});
+            }
+        };
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
+        assertThat(thrown.getMessage(), is(equalTo("Cannot update the table: INFRASTRUCTURE_RO")));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testUpdateBaseArrayLocal() {
-        DomainValidator.updateTLDOverride(ArrayType.LOCAL_RO, new String[]{"com"});
+        // FIXME Simplification once upgraded to Java 1.8
+        final ThrowingRunnable testMethod = new ThrowingRunnable() {
+            public void run() {
+                DomainValidator.updateTLDOverride(ArrayType.LOCAL_RO, new String[]{"com"});
+            }
+        };
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
+        assertThat(thrown.getMessage(), is(equalTo("Cannot update the table: LOCAL_RO")));
     }
 
     @Test
