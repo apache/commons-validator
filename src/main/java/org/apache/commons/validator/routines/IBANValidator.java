@@ -143,6 +143,7 @@ public class IBANValidator {
             new Validator("LT", 20, "LT\\d{18}"                             ), // Lithuania
             new Validator("LU", 20, "LU\\d{5}[A-Z0-9]{13}"                  ), // Luxembourg
             new Validator("LV", 21, "LV\\d{2}[A-Z]{4}[A-Z0-9]{13}"          ), // Latvia
+            new Validator("LY", 25, "LY\\d{23}"                             ), // Libya
             new Validator("MC", 27, "MC\\d{12}[A-Z0-9]{11}\\d{2}"           ), // Monaco
             new Validator("MD", 24, "MD\\d{2}[A-Z0-9]{20}"                  ), // Moldova
             new Validator("ME", 22, "ME\\d{20}"                             ), // Montenegro
@@ -182,7 +183,7 @@ public class IBANValidator {
     /**
      * Return a singleton instance of the IBAN validator using the default formats
      *
-     * @return A singleton instance of the ISBN validator
+     * @return A singleton instance of the IBAN validator
      */
     public static IBANValidator getInstance() {
         return DEFAULT_IBAN_VALIDATOR;
