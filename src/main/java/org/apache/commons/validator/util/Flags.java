@@ -51,7 +51,6 @@ public class Flags implements Serializable, Cloneable {
      * Create a new Flags object.
      */
     public Flags() {
-        super();
     }
 
     /**
@@ -60,7 +59,6 @@ public class Flags implements Serializable, Cloneable {
      * @param flags collection of boolean flags to represent.
      */
     public Flags(long flags) {
-        super();
         this.flags = flags;
     }
 

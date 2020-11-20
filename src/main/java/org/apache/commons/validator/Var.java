@@ -76,7 +76,6 @@ public class Var implements Cloneable, Serializable {
      * Default Constructor.
      */
     public Var() {
-        super();
     }
 
     /**

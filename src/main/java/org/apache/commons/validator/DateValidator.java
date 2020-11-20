@@ -53,7 +53,6 @@ public class DateValidator {
      * Protected constructor for subclasses to use.
      */
     protected DateValidator() {
-        super();
     }
 
     /**

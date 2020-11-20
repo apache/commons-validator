@@ -135,7 +135,6 @@ public class EmailValidator implements Serializable {
      * @since 1.7
      */
     public EmailValidator(boolean allowLocal, boolean allowTld, DomainValidator domainValidator) {
-        super();
         this.allowTld = allowTld;
         if (domainValidator == null) {
             throw new IllegalArgumentException("DomainValidator cannot be null");

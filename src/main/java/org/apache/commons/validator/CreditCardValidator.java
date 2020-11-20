@@ -111,8 +111,6 @@ public class CreditCardValidator {
      * those are the only valid card types.
      */
     public CreditCardValidator(int options) {
-        super();
-
         Flags f = new Flags(options);
         if (f.isOn(VISA)) {
             this.cardTypes.add(new Visa());

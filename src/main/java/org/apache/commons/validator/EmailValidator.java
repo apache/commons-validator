@@ -76,7 +76,6 @@ public class EmailValidator {
      * Protected constructor for subclasses to use.
      */
     protected EmailValidator() {
-        super();
     }
 
     /**

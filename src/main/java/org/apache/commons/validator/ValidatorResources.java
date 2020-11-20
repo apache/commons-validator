@@ -117,7 +117,6 @@ public class ValidatorResources implements Serializable {
      * Create an empty ValidatorResources object.
      */
     public ValidatorResources() {
-        super();
     }
 
     /**
@@ -153,8 +152,6 @@ public class ValidatorResources implements Serializable {
      */
     public ValidatorResources(InputStream[] streams)
             throws IOException, SAXException {
-
-        super();
 
         Digester digester = initDigester();
         for (int i = 0; i < streams.length; i++) {
@@ -194,8 +191,6 @@ public class ValidatorResources implements Serializable {
     public ValidatorResources(String[] uris)
             throws IOException, SAXException {
 
-        super();
-
         Digester digester = initDigester();
         for (int i = 0; i < uris.length; i++) {
             digester.push(this);
@@ -232,8 +227,6 @@ public class ValidatorResources implements Serializable {
      */
     public ValidatorResources(URL[] urls)
             throws IOException, SAXException {
-
-        super();
 
         Digester digester = initDigester();
         for (int i = 0; i < urls.length; i++) {

@@ -299,8 +299,6 @@ public class CreditCardValidator implements Serializable {
      * those are the only valid card types.
      */
     public CreditCardValidator(long options) {
-        super();
-
         if (isOn(options, VISA)) {
             this.cardTypes.add(VISA_VALIDATOR);
         }
