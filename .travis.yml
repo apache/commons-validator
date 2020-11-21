@@ -22,7 +22,7 @@ matrix:
     - jdk: openjdk7
     - jdk: openjdk8
     - jdk: openjdk11
-    - jdk: openjdk14
+    - jdk: openjdk15
 script:
   - mvn -V --no-transfer-progress clean test
 after_success:
