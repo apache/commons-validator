@@ -66,8 +66,7 @@ public class ISINCheckDigitTest extends AbstractCheckDigitTest {
                               };
 
     public void testVALIDATOR_345() {
-        for (int i = 0; i < invalidCheckDigits.length; i++) {
-            String invalidCheckDigit = invalidCheckDigits[i];
+        for (String invalidCheckDigit : invalidCheckDigits) {
             assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));
         }
     }

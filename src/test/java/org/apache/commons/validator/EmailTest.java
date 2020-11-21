@@ -409,9 +409,9 @@ protected void setUp() throws IOException, SAXException {
      */
     public void _testEmailFromPerl() throws ValidatorException {
         ValueBean info = new ValueBean();
-        for (int index = 0; index < testEmailFromPerl.length; index++) {
-            info.setValue(testEmailFromPerl[index].item);
-            valueTest(info, testEmailFromPerl[index].valid);
+        for (ResultPair element : testEmailFromPerl) {
+            info.setValue(element.item);
+            valueTest(info, element.valid);
         }
     }
 

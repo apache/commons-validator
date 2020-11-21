@@ -336,8 +336,8 @@ public class UrlValidator implements Serializable {
             // TODO: Rewrite to use ArrayList and .add semantics: see VALIDATOR-203
             char[] chars = hostIP.toCharArray();
             int size = 1;
-            for(int i=0; i<chars.length; i++) {
-                if(chars[i] == '.') {
+            for (char element : chars) {
+                if(element == '.') {
                     size++;
                 }
             }

@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
@@ -192,9 +191,9 @@ public class ValidatorResources implements Serializable {
             throws IOException, SAXException {
 
         Digester digester = initDigester();
-        for (int i = 0; i < uris.length; i++) {
+        for (String element : uris) {
             digester.push(this);
-            digester.parse(uris[i]);
+            digester.parse(element);
         }
 
         this.process();
@@ -229,9 +228,9 @@ public class ValidatorResources implements Serializable {
             throws IOException, SAXException {
 
         Digester digester = initDigester();
-        for (int i = 0; i < urls.length; i++) {
+        for (URL url : urls) {
             digester.push(this);
-            digester.parse(urls[i]);
+            digester.parse(url);
         }
 
         this.process();
@@ -535,15 +534,13 @@ public class ValidatorResources implements Serializable {
         }
         defaultFormSet.process(getConstants());
         // Loop through FormSets and merge if necessary
-        for (Iterator<String> i = getFormSets().keySet().iterator(); i.hasNext();) {
-            String key = i.next();
+        for (String key : getFormSets().keySet()) {
             FormSet fs = getFormSets().get(key);
             fs.merge(getParent(fs));
         }
 
         // Process Fully Constructed FormSets
-        for (Iterator<FormSet> i = getFormSets().values().iterator(); i.hasNext();) {
-            FormSet fs = i.next();
+        for (FormSet fs : getFormSets().values()) {
             if (!fs.isProcessed()) {
                 fs.process(getConstants());
             }

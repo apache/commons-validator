@@ -60,8 +60,7 @@ public class SedolCheckDigitTest extends AbstractCheckDigitTest {
                };
 
     public void testVALIDATOR_346() {
-        for (int i = 0; i < invalidCheckDigits.length; i++) {
-            String invalidCheckDigit = invalidCheckDigits[i];
+        for (String invalidCheckDigit : invalidCheckDigits) {
             assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));
         }
     }

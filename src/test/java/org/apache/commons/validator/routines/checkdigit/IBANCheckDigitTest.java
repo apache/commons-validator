@@ -190,9 +190,9 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
         List<String> list = new ArrayList<>();
 
         // create invalid check digit values
-        for (int i = 0; i < codes.length; i++) {
-            String code = removeCheckDigit(codes[i]);
-            String check  = checkDigit(codes[i]);
+        for (String code2 : codes) {
+            String code = removeCheckDigit(code2);
+            String check  = checkDigit(code2);
             for (int j = 2; j <= 98; j++) { // check digits can be from 02-98 (00 and 01 are not possible)
                 String curr =  j > 9 ? "" + j : "0" + j;
                 if (!curr.equals(check)) {

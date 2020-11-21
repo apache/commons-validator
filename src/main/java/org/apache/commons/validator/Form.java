@@ -190,8 +190,7 @@ public class Form implements Serializable {
                     //we want to go all the way up the tree
                     parent.process(constants, globalConstants, forms);
                 }
-                for (Iterator<Field> i = parent.getFields().iterator(); i.hasNext(); ) {
-                    Field f = i.next();
+                for (Field f : parent.getFields()) {
                     //we want to be able to override any fields we like
                     if (getFieldMap().get(f.getKey()) == null) {
                         lFields.add(n, f);
@@ -224,9 +223,9 @@ public class Form implements Serializable {
         results.append(name);
         results.append("\n");
 
-        for (Iterator<Field> i = lFields.iterator(); i.hasNext(); ) {
+        for (Field lField : lFields) {
             results.append("\tField: \n");
-            results.append(i.next());
+            results.append(lField);
             results.append("\n");
         }
 

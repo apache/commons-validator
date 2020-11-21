@@ -69,8 +69,8 @@ public class MultipleConfigFilesTest extends TestCase {
 
         this.resources = new ValidatorResources(streams);
 
-        for (int i = 0; i < streams.length; i++) {
-            streams[i].close();
+        for (InputStream stream : streams) {
+            stream.close();
         }
     }
 

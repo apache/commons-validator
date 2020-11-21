@@ -132,8 +132,7 @@ public class ValidatorResults implements Serializable {
     public Map<String, Object> getResultValueMap() {
         Map<String, Object> results = new HashMap<>();
 
-        for (Iterator<String> i = hResults.keySet().iterator(); i.hasNext();) {
-            String propertyKey = i.next();
+        for (String propertyKey : hResults.keySet()) {
             ValidatorResult vr = this.getValidatorResult(propertyKey);
 
             for (Iterator<String> x = vr.getActions(); x.hasNext();) {

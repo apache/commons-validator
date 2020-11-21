@@ -566,8 +566,7 @@ public class Field implements Cloneable, Serializable {
         this.generateKey();
 
         // Process FormSet Constants
-        for (Iterator<Entry<String, String>> i = constants.entrySet().iterator(); i.hasNext();) {
-            Entry<String, String> entry = i.next();
+        for (Entry<String, String> entry : constants.entrySet()) {
             String key1 = entry.getKey();
             String key2 = TOKEN_START + key1 + TOKEN_END;
             String replaceValue = entry.getValue();
@@ -580,8 +579,7 @@ public class Field implements Cloneable, Serializable {
         }
 
         // Process Global Constants
-        for (Iterator<Entry<String, String>> i = globalConstants.entrySet().iterator(); i.hasNext();) {
-            Entry<String, String> entry = i.next();
+        for (Entry<String, String> entry : globalConstants.entrySet()) {
             String key1 = entry.getKey();
             String key2 = TOKEN_START + key1 + TOKEN_END;
             String replaceValue = entry.getValue();
@@ -594,8 +592,7 @@ public class Field implements Cloneable, Serializable {
         }
 
         // Process Var Constant Replacement
-        for (Iterator<String> i = getVarMap().keySet().iterator(); i.hasNext();) {
-            String key1 = i.next();
+        for (String key1 : getVarMap().keySet()) {
             String key2 = TOKEN_START + TOKEN_VAR + key1 + TOKEN_END;
             Var var = this.getVar(key1);
             String replaceValue = var.getValue();
@@ -627,8 +624,7 @@ public class Field implements Cloneable, Serializable {
         String varKey = TOKEN_START + TOKEN_VAR;
         // Process Messages
         if (key != null && !key.startsWith(varKey)) {
-            for (Iterator<Msg> i = getMsgMap().values().iterator(); i.hasNext();) {
-                Msg msg = i.next();
+            for (Msg msg : getMsgMap().values()) {
                 msg.setKey(ValidatorUtils.replace(msg.getKey(), key, replaceValue));
             }
         }
@@ -641,9 +637,8 @@ public class Field implements Cloneable, Serializable {
      * pairs passed in.
      */
     private void processArg(String key, String replaceValue) {
-        for (int i = 0; i < this.args.length; i++) {
+        for (Map<String, Arg> argMap : this.args) {
 
-            Map<String, Arg> argMap = this.args[i];
             if (argMap == null) {
                 continue;
             }
@@ -734,8 +729,7 @@ public class Field implements Cloneable, Serializable {
 
         if (hVars != null) {
             results.append("\t\tVars:\n");
-            for (Iterator<?> i = getVarMap().keySet().iterator(); i.hasNext();) {
-                Object key1 = i.next();
+            for (Object key1 : getVarMap().keySet()) {
                 results.append("\t\t\t");
                 results.append(key1);
                 results.append("=");
