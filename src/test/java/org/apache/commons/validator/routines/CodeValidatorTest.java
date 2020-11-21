@@ -213,7 +213,7 @@ public class CodeValidatorTest extends TestCase {
      * Test Regular Expression.
      */
     public void testConstructors() {
-        CodeValidator validator = null;
+        CodeValidator validator;
         RegexValidator regex = new RegexValidator("^[0-9]*$");
 
         // Constructor 1

@@ -430,13 +430,11 @@ protected void setUp() throws IOException, SAXException {
       validator.setParameter(Validator.BEAN_PARAM, info);
 
       // Get results of the validation.
-      ValidatorResults results = null;
-      
       // throws ValidatorException, 
       // but we aren't catching for testing 
       // since no validation methods we use 
       // throw this
-      results = validator.validate();
+      ValidatorResults results = validator.validate();
       
       assertNotNull("Results are null.", results);
       

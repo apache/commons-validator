@@ -221,7 +221,6 @@ public class GenericValidatorImpl {
             if (dependIndexed == null) {
                 dependIndexed = "false";
             }
-            String dependVal = null;
             boolean this_required = false;
             if (field.isIndexed() && dependIndexed.equalsIgnoreCase("true")) {
                 String key = field.getKey();
@@ -230,7 +229,7 @@ public class GenericValidatorImpl {
                     dependProp = ind + dependProp;
                 }
             }
-            dependVal = ValidatorUtils.getValueAsString(form, dependProp);
+            String dependVal = ValidatorUtils.getValueAsString(form, dependProp);
             if (dependTest.equals(FIELD_TEST_NULL)) {
                 if ((dependVal != null) && (dependVal.length() > 0)) {
                     this_required = false;

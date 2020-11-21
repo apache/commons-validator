@@ -273,7 +273,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      */
     protected int compare(Calendar value, Calendar compare, int field) {
 
-        int result = 0;
+        int result;
 
         // Compare Year
         result = calculateCompareResult(value, compare, Calendar.YEAR);
@@ -329,7 +329,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      */
     protected int compareTime(Calendar value, Calendar compare, int field) {
 
-        int result = 0;
+        int result;
 
         // Compare Hour
         result = calculateCompareResult(value, compare, Calendar.HOUR_OF_DAY);
