@@ -37,7 +37,7 @@ public class ValidatorResults implements Serializable {
     /**
      * Map of validation results.
      */
-    protected Map<String, ValidatorResult> hResults = new HashMap<String, ValidatorResult>();
+    protected Map<String, ValidatorResult> hResults = new HashMap<>();
 
     /**
      * Merge another ValidatorResults into mine.
@@ -130,7 +130,7 @@ public class ValidatorResults implements Serializable {
      * @return Map of objections returned by validators.
      */
     public Map<String, Object> getResultValueMap() {
-        Map<String, Object> results = new HashMap<String, Object>();
+        Map<String, Object> results = new HashMap<>();
 
         for (Iterator<String> i = hResults.keySet().iterator(); i.hasNext();) {
             String propertyKey = i.next();

@@ -187,7 +187,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      */
     @Override
     protected String[] createInvalidCodes(String[] codes) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
 
         // create invalid check digit values
         for (int i = 0; i < codes.length; i++) {

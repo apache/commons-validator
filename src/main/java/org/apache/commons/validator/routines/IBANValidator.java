@@ -227,7 +227,7 @@ public class IBANValidator {
     }
 
     private Map<String, Validator> createValidators(Validator[] formatMap) {
-        Map<String, Validator> m = new ConcurrentHashMap<String, Validator>();
+        Map<String, Validator> m = new ConcurrentHashMap<>();
         for(Validator v : formatMap) {
             m.put(v.countryCode, v);
         }

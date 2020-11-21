@@ -176,7 +176,7 @@ public class UrlValidator implements Serializable {
     /**
      * The set of schemes that are allowed to be in a URL.
      */
-    private final Set<String> allowedSchemes = new HashSet<String>();
+    private final Set<String> allowedSchemes = new HashSet<>();
 
     /**
      * If no schemes are provided, default to this set.

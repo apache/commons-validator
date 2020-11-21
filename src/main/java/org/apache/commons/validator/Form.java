@@ -50,7 +50,7 @@ public class Form implements Serializable {
      * in although individual <code>Field</code>s can be retrieved using <code>Map</code>
      * of <code>Field</code>s.
      */
-    protected List<Field> lFields = new ArrayList<Field>();
+    protected List<Field> lFields = new ArrayList<>();
 
     /**
      * Map of <code>Field</code>s keyed on their property value.
@@ -144,7 +144,7 @@ public class Form implements Serializable {
      */
     protected void merge(Form depends) {
 
-        List<Field> templFields = new ArrayList<Field>();
+        List<Field> templFields = new ArrayList<>();
         @SuppressWarnings("unchecked") // FastHashMap is not generic
         Map<String, Field> temphFields = new FastHashMap();
         Iterator<Field> dependsIt = depends.getFields().iterator();

@@ -191,7 +191,7 @@ public class ValidatorTest extends TestCase {
       resources.addFormSet(fs);
       resources.process();
 
-      List<?> l = new ArrayList<Object>();
+      List<?> l = new ArrayList<>();
 
       TestBean bean = new TestBean();  
       bean.setLetter("A");

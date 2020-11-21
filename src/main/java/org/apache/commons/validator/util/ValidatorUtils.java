@@ -176,7 +176,7 @@ public class ValidatorUtils {
      * @return A copy of the <code>Map</code> that was passed in.
      */
     public static Map<String, Object> copyMap(Map<String, Object> map) {
-        Map<String, Object> results = new HashMap<String, Object>();
+        Map<String, Object> results = new HashMap<>();
 
         Iterator<Entry<String, Object>> i = map.entrySet().iterator();
         while (i.hasNext()) {

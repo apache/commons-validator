@@ -204,7 +204,7 @@ public class CreditCardValidator implements Serializable {
     /**
      * The CreditCardTypes that are allowed to pass validation.
      */
-    private final List<CodeValidator> cardTypes = new ArrayList<CodeValidator>();
+    private final List<CodeValidator> cardTypes = new ArrayList<>();
 
     /**
      * Luhn checkdigit validator for the card numbers.

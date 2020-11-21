@@ -329,7 +329,7 @@ public class DomainValidatorTest extends TestCase {
             System.out.println("Fix arrays before retrying; cannot continue");
             return;
         }
-        Set<String> ianaTlds = new HashSet<String>(); // keep for comparison with array contents
+        Set<String> ianaTlds = new HashSet<>(); // keep for comparison with array contents
         DomainValidator dv = DomainValidator.getInstance();
         File txtFile = new File("target/tlds-alpha-by-domain.txt");
         long timestamp = download(txtFile, "https://data.iana.org/TLD/tlds-alpha-by-domain.txt", 0L);
@@ -352,8 +352,8 @@ public class DomainValidatorTest extends TestCase {
 
         // Parse html page to get entries
         Map<String, String[]> htmlInfo = getHtmlInfo(htmlFile);
-        Map<String, String> missingTLD = new TreeMap<String, String>(); // stores entry and comments as String[]
-        Map<String, String> missingCC = new TreeMap<String, String>();
+        Map<String, String> missingTLD = new TreeMap<>(); // stores entry and comments as String[]
+        Map<String, String> missingCC = new TreeMap<>();
         while((line = br.readLine()) != null) {
             if (!line.startsWith("#")) {
                 final String unicodeTld; // only different from asciiTld if that was punycode
@@ -394,7 +394,7 @@ public class DomainValidatorTest extends TestCase {
         }
         br.close();
         // List html entries not in TLD text list
-        for(String key : (new TreeMap<String, String[]>(htmlInfo)).keySet()) {
+        for(String key : (new TreeMap<>(htmlInfo)).keySet()) {
             if (!ianaTlds.contains(key)) {
                 if (isNotInRootZone(key)) {
                     System.out.println("INFO: HTML entry not yet in root zone: "+key);
@@ -431,7 +431,7 @@ public class DomainValidatorTest extends TestCase {
     }
 
     private static Map<String, String[]> getHtmlInfo(final File f) throws IOException {
-        final Map<String, String[]> info = new HashMap<String, String[]>();
+        final Map<String, String[]> info = new HashMap<>();
 
 //        <td><span class="domain tld"><a href="/domains/root/db/ax.html">.ax</a></span></td>
         final Pattern domain = Pattern.compile(".*<a href=\"/domains/root/db/([^.]+)\\.html");
