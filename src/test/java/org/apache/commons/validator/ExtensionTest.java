@@ -73,15 +73,8 @@ public class ExtensionTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         // Load resources
-        InputStream in = null;
-
-        try {
-            in = this.getClass().getResourceAsStream("ExtensionTest-config.xml");
+        try (InputStream in = this.getClass().getResourceAsStream("ExtensionTest-config.xml")) {
             resources = new ValidatorResources(in);
-        } finally {
-            if (in != null) {
-                in.close();
-            }
         }
     }
 

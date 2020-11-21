@@ -230,11 +230,9 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
     }
 
     public void testOther() throws Exception {
-        BufferedReader rdr = null;
-        try {
-            rdr = new BufferedReader(
-                    new InputStreamReader(
-                            this.getClass().getResourceAsStream("IBANtests.txt"),"ASCII"));
+        try (BufferedReader rdr = new BufferedReader(
+                new InputStreamReader(
+                        this.getClass().getResourceAsStream("IBANtests.txt"),"ASCII"))) {
             String line;
             while((line=rdr.readLine()) != null) {
                 if (!line.startsWith("#") && line.length() > 0) {
@@ -245,10 +243,6 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                         Assert.assertTrue(line, routine.isValid(line.replaceAll(" ", "")));
                     }
                 }
-            }
-        } finally {
-            if (rdr != null) {
-                rdr.close();
             }
         }
     }
