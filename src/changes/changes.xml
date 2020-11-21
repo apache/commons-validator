@@ -69,7 +69,10 @@ The <action> type attribute can be add,update,fix,remove.
     Add IBAN validator for LY – Libya
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot">
-    Update actions/checkout from v2.3.1 to v2.3.2 #38.
+    Update actions/checkout from v2.3.1 to v2.3.4, #38, #47.
+    </action>
+    <action type="update" dev="ggregory" due-to="Dependabot">
+    Bump actions/setup-java from v1.4.0 to v1.4.3, #42.
     </action>
   </release>
   
