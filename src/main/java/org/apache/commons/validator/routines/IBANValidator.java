@@ -27,21 +27,23 @@ import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
  * <p>
  * The validator includes a default set of formats derived from the IBAN registry at
  * https://www.swift.com/standards/data-standards/iban.
+ * </p>
  * <p>
  * This can get out of date, but the set can be adjusted by creating a validator and using the
  * {@link #setValidator(String, int, String)} or 
  * {@link #setValidator(Validator)}
  * method to add (or remove) an entry.
+ * </p>
  * <p>
  * For example:
- * <p>
- * <code>
+ * </p>
+ * <pre>
  * IBANValidator ibv = new IBANValidator();
- * <p>
  * ibv.setValidator("XX", 12, "XX\\d{10}")
- * </code>
+ * </pre>
  * <p>
  * The singleton default instance cannot be modifed in this way.
+ * </p>
  * @since 1.5.0
  */
 public class IBANValidator {
