@@ -44,6 +44,10 @@ public class ISINValidatorTest extends TestCase {
             "INE112A01023",
             "EZ0000000003", // Invented; for use in ISINValidator
             "XS0000000009",
+            "EU0009652783",
+            "XAC8614YAB92",
+            "XC0001458477",
+            "XD0209061296",
             };
 
     private final String[] invalidFormat = new String[] {

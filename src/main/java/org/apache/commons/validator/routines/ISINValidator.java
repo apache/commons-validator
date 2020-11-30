@@ -63,6 +63,13 @@ public class ISINValidator implements Serializable {
     private static final String [] SPECIALS = {
             "EZ", // http://www.anna-web.org/standards/isin-iso-6166/
             "XS", // https://www.isin.org/isin/
+            "EU", // eg. EU0009652783, EU0009656420 - https://www.anna-web.org/wp-content/uploads/2019/12/ISIN-Guidelines-Version-16_clean.pdf
+            // see ISIN UNIFORM GUIDELINES RELATING TO ISO 6166 (9 th edition),  Version 16: December 2019
+            //  5. SUBSTITUTE NUMBERING AGENCIES (SNAs)
+            "XA", // internal CUSIP Global Services
+            "XB", // internal NSD Russia
+            "XC", // internal WM Datenservice Germany
+            "XD", // internal SIX Financial Information Ltd.
         };
 
     static {
