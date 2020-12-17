@@ -489,7 +489,7 @@ public class DomainValidatorTest extends TestCase {
 
     /*
      * Download a file if it is more recent than our cached copy.
-     * Unfortunately the server does not seem to honour If-Modified-Since for the
+     * Unfortunately the server does not seem to honor If-Modified-Since for the
      * Html page, so we check if it is newer than the txt file and skip download if so
      */
     private static long download(File f, String tldurl, long timestamp) throws IOException {
