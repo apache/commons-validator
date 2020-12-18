@@ -47,7 +47,7 @@ public class FloatTest extends AbstractNumberTest {
     public void testFloatMin() throws ValidatorException {
         // Create bean to run test on.
         ValueBean info = new ValueBean();
-        info.setValue(Float.valueOf(Float.MIN_VALUE).toString());
+        info.setValue(Float.toString(Float.MIN_VALUE));
 
         valueTest(info, true);
     }
@@ -58,7 +58,7 @@ public class FloatTest extends AbstractNumberTest {
     public void testFloatMax() throws ValidatorException {
         // Create bean to run test on.
         ValueBean info = new ValueBean();
-        info.setValue(Float.valueOf(Float.MAX_VALUE).toString());
+        info.setValue(Float.toString(Float.MAX_VALUE));
 
         valueTest(info, true);
     }

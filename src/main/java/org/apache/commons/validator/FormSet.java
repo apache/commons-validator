@@ -19,7 +19,6 @@ package org.apache.commons.validator;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -59,13 +58,13 @@ public class FormSet implements Serializable {
      * A <code>Map</code> of <code>Form</code>s using the name field of the
      * <code>Form</code> as the key.
      */
-    private final Map<String, Form> forms = new HashMap<String, Form>();
+    private final Map<String, Form> forms = new HashMap<>();
 
     /**
      * A <code>Map</code> of <code>Constant</code>s using the name field of the
      * <code>Constant</code> as the key.
      */
-    private final Map<String, String> constants = new HashMap<String, String>();
+    private final Map<String, String> constants = new HashMap<>();
 
     /**
      * This is the type of <code>FormSet</code>s where no locale is specified.
@@ -151,8 +150,7 @@ public class FormSet implements Serializable {
         if (depends != null) {
             Map<String, Form> pForms = getForms();
             Map<String, Form> dForms = depends.getForms();
-            for (Iterator<Entry<String, Form>> it = dForms.entrySet().iterator(); it.hasNext(); ) {
-                Entry<String, Form> entry = it.next();
+            for (Entry<String, Form> entry : dForms.entrySet()) {
                 String key = entry.getKey();
                 Form pForm = pForms.get(key);
                 if (pForm != null) {//merge, but principal 'rules', don't overwrite
@@ -293,8 +291,7 @@ public class FormSet implements Serializable {
      * @param globalConstants  Global constants
      */
     synchronized void process(Map<String, String> globalConstants) {
-        for (Iterator<Form> i = forms.values().iterator(); i.hasNext(); ) {
-            Form f = i.next();
+        for (Form f : forms.values()) {
             f.process(globalConstants, constants, forms);
         }
 
@@ -350,9 +347,9 @@ public class FormSet implements Serializable {
         results.append(variant);
         results.append("\n");
 
-        for (Iterator<?> i = getForms().values().iterator(); i.hasNext(); ) {
+        for (Object name : getForms().values()) {
             results.append("   ");
-            results.append(i.next());
+            results.append(name);
             results.append("\n");
         }
 

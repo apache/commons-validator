@@ -50,7 +50,7 @@ public class Form implements Serializable {
      * in although individual <code>Field</code>s can be retrieved using <code>Map</code>
      * of <code>Field</code>s.
      */
-    protected List<Field> lFields = new ArrayList<Field>();
+    protected List<Field> lFields = new ArrayList<>();
 
     /**
      * Map of <code>Field</code>s keyed on their property value.
@@ -144,7 +144,7 @@ public class Form implements Serializable {
      */
     protected void merge(Form depends) {
 
-        List<Field> templFields = new ArrayList<Field>();
+        List<Field> templFields = new ArrayList<>();
         @SuppressWarnings("unchecked") // FastHashMap is not generic
         Map<String, Field> temphFields = new FastHashMap();
         Iterator<Field> dependsIt = depends.getFields().iterator();
@@ -190,8 +190,7 @@ public class Form implements Serializable {
                     //we want to go all the way up the tree
                     parent.process(constants, globalConstants, forms);
                 }
-                for (Iterator<Field> i = parent.getFields().iterator(); i.hasNext(); ) {
-                    Field f = i.next();
+                for (Field f : parent.getFields()) {
                     //we want to be able to override any fields we like
                     if (getFieldMap().get(f.getKey()) == null) {
                         lFields.add(n, f);
@@ -224,9 +223,9 @@ public class Form implements Serializable {
         results.append(name);
         results.append("\n");
 
-        for (Iterator<Field> i = lFields.iterator(); i.hasNext(); ) {
+        for (Field lField : lFields) {
             results.append("\tField: \n");
-            results.append(i.next());
+            results.append(lField);
             results.append("\n");
         }
 

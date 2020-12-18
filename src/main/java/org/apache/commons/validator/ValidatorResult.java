@@ -37,7 +37,7 @@ public class ValidatorResult implements Serializable {
      * Map of results.  The key is the name of the <code>ValidatorAction</code>
      * and the value is whether or not this field passed or not.
      */
-    protected Map<String, ResultStatus> hAction = new HashMap<String, ResultStatus>();
+    protected Map<String, ResultStatus> hAction = new HashMap<>();
 
     /**
      * <code>Field</code> being validated.

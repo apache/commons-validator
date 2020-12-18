@@ -45,15 +45,8 @@ abstract public class AbstractCommonTest extends TestCase {
      */
     protected void loadResources(String file) throws IOException, SAXException {
         // Load resources
-        InputStream in = null;
-
-        try {
-            in = this.getClass().getResourceAsStream(file);
+        try (InputStream in = this.getClass().getResourceAsStream(file)) {
             resources = new ValidatorResources(in);
-        } finally {
-            if (in != null) {
-                in.close();
-            }
         }
     }
 }

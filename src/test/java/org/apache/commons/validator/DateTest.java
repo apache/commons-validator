@@ -91,13 +91,11 @@ public class DateTest extends AbstractCommonTest {
         validator.setParameter(Validator.LOCALE_PARAM, Locale.US);
 
         // Get results of the validation.
-        ValidatorResults results = null;
-
         // throws ValidatorException,
         // but we aren't catching for testing
         // since no validation methods we use
         // throw this
-        results = validator.validate();
+        ValidatorResults results = validator.validate();
 
         assertNotNull("Results are null.", results);
 

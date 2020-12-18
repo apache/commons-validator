@@ -18,7 +18,6 @@ package org.apache.commons.validator;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
@@ -81,13 +80,11 @@ protected void tearDown() {
       validator.setParameter(Validator.BEAN_PARAM, info);
 
       // Get results of the validation.
-      ValidatorResults results = null;
-      
       // throws ValidatorException, 
       // but we aren't catching for testing 
       // since no validation methods we use 
       // throw this
-      results = validator.validate();
+      ValidatorResults results = validator.validate();
       
       assertNotNull("Results are null.", results);
       
@@ -100,8 +97,7 @@ protected void tearDown() {
       assertTrue("Expecting float result to be an instance of Float.", (hResultValues.get("float") instanceof Float));
       assertTrue("Expecting double result to be an instance of Double.", (hResultValues.get("double") instanceof Double));
       
-      for (Iterator<String> i = hResultValues.keySet().iterator(); i.hasNext(); ) {
-         String key = i.next();
+      for (String key : hResultValues.keySet()) {
          Object value = hResultValues.get(key);
          
          assertNotNull("value ValidatorResults.getResultValueMap() should not be null.", value);
@@ -163,13 +159,11 @@ protected void tearDown() {
       validator.setParameter("java.util.Locale", locale);
 
       // Get results of the validation.
-      ValidatorResults results = null;
-      
       // throws ValidatorException, 
       // but we aren't catching for testing 
       // since no validation methods we use 
       // throw this
-      results = validator.validate();
+      ValidatorResults results = validator.validate();
       
       assertNotNull("Results are null.", results);
       
@@ -183,8 +177,7 @@ protected void tearDown() {
       assertTrue("Expecting double result to be an instance of Double for locale: "+locale, (hResultValues.get("double") instanceof Double));
       assertTrue("Expecting date result to be an instance of Date for locale: "+locale, (hResultValues.get("date") instanceof Date));
       
-      for (Iterator<String> i = hResultValues.keySet().iterator(); i.hasNext(); ) {
-         String key = i.next();
+      for (String key : hResultValues.keySet()) {
          Object value = hResultValues.get(key);
          
          assertNotNull("value ValidatorResults.getResultValueMap() should not be null for locale: "+locale, value);

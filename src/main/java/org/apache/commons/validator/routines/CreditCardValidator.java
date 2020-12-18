@@ -204,7 +204,7 @@ public class CreditCardValidator implements Serializable {
     /**
      * The CreditCardTypes that are allowed to pass validation.
      */
-    private final List<CodeValidator> cardTypes = new ArrayList<CodeValidator>();
+    private final List<CodeValidator> cardTypes = new ArrayList<>();
 
     /**
      * Luhn checkdigit validator for the card numbers.
@@ -299,8 +299,6 @@ public class CreditCardValidator implements Serializable {
      * those are the only valid card types.
      */
     public CreditCardValidator(long options) {
-        super();
-
         if (isOn(options, VISA)) {
             this.cardTypes.add(VISA_VALIDATOR);
         }

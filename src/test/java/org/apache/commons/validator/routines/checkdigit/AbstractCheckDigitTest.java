@@ -287,7 +287,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
      * @return Codes with invalid check digits
      */
     protected String[] createInvalidCodes(String[] codes) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
 
         // create invalid check digit values
         for (String fullCode : codes) {

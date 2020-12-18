@@ -185,7 +185,7 @@ public class TimeValidatorTest extends TestCase {
         Locale.setDefault(Locale.UK);
         TimeZone.setDefault(GMT);
 
-        Calendar result = null;
+        Calendar result;
 
         // Default Locale, Default TimeZone
         result = validator.validate("18:01");

@@ -73,15 +73,8 @@ public class ExtensionTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         // Load resources
-        InputStream in = null;
-
-        try {
-            in = this.getClass().getResourceAsStream("ExtensionTest-config.xml");
+        try (InputStream in = this.getClass().getResourceAsStream("ExtensionTest-config.xml")) {
             resources = new ValidatorResources(in);
-        } finally {
-            if (in != null) {
-                in.close();
-            }
         }
     }
 
@@ -104,13 +97,11 @@ public class ExtensionTest extends TestCase {
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = null;
-
        // throws ValidatorException,
        // but we aren't catching for testing
        // since no validation methods we use
        // throw this
-       results = validator.validate();
+       ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
@@ -142,9 +133,7 @@ public class ExtensionTest extends TestCase {
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = null;
-
-       results = validator.validate();
+       ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
@@ -176,9 +165,7 @@ public class ExtensionTest extends TestCase {
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = null;
-
-       results = validator.validate();
+       ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
@@ -210,9 +197,7 @@ public class ExtensionTest extends TestCase {
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = null;
-
-       results = validator.validate();
+       ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
@@ -244,9 +229,7 @@ public class ExtensionTest extends TestCase {
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = null;
-
-       results = validator.validate();
+       ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
@@ -280,9 +263,7 @@ public class ExtensionTest extends TestCase {
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = null;
-
-       results = validator.validate();
+       ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
@@ -317,9 +298,7 @@ public class ExtensionTest extends TestCase {
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = null;
-
-       results = validator.validate();
+       ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 

@@ -24,6 +24,26 @@ import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 
 /**
  * IBAN Validator.
+ * <p>
+ * The validator includes a default set of formats derived from the IBAN registry at
+ * https://www.swift.com/standards/data-standards/iban.
+ * </p>
+ * <p>
+ * This can get out of date, but the set can be adjusted by creating a validator and using the
+ * {@link #setValidator(String, int, String)} or 
+ * {@link #setValidator(Validator)}
+ * method to add (or remove) an entry.
+ * </p>
+ * <p>
+ * For example:
+ * </p>
+ * <pre>
+ * IBANValidator ibv = new IBANValidator();
+ * ibv.setValidator("XX", 12, "XX\\d{10}")
+ * </pre>
+ * <p>
+ * The singleton default instance cannot be modifed in this way.
+ * </p>
  * @since 1.5.0
  */
 public class IBANValidator {
@@ -93,6 +113,9 @@ public class IBANValidator {
      * The above is an old version (62, Jan 2016)
      * As at May 2020, the current IBAN standards are located at:
      * https://www.swift.com/standards/data-standards/iban
+     * The above page contains links for the PDF and TXT (CSV) versions of the registry
+     * Warning: these may not agree -- in the past there have been discrepancies.
+     * The TXT file can be used to determine changes which can be cross-checked in the PDF file.
      * [3] http://www.europeanpaymentscouncil.eu/documents/ECBS%20IBAN%20standard%20EBS204_V3.2.pdf
      */
     
@@ -206,7 +229,7 @@ public class IBANValidator {
     }
 
     private Map<String, Validator> createValidators(Validator[] formatMap) {
-        Map<String, Validator> m = new ConcurrentHashMap<String, Validator>();
+        Map<String, Validator> m = new ConcurrentHashMap<>();
         for(Validator v : formatMap) {
             m.put(v.countryCode, v);
         }

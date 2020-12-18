@@ -493,9 +493,9 @@ public class EmailValidatorTest {
     @Test
     public void testEmailFromPerl()  {
         int errors = 0;
-        for (int index = 0; index < testEmailFromPerl.length; index++) {
-            String item = testEmailFromPerl[index].item;
-            boolean exp =  testEmailFromPerl[index].valid;
+        for (ResultPair element : testEmailFromPerl) {
+            String item = element.item;
+            boolean exp =  element.valid;
             boolean act = validator.isValid(item);
             if (act != exp) {
                 System.out.printf("%s: expected %s actual %s%n", item, exp, act);

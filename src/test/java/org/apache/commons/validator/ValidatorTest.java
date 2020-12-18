@@ -191,7 +191,7 @@ public class ValidatorTest extends TestCase {
       resources.addFormSet(fs);
       resources.process();
 
-      List<?> l = new ArrayList<Object>();
+      List<?> l = new ArrayList<>();
 
       TestBean bean = new TestBean();  
       bean.setLetter("A");
@@ -249,8 +249,7 @@ public class ValidatorTest extends TestCase {
       Date date = null;
       
       try {
-         DateFormat formatter = null;
-         formatter = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
+          DateFormat formatter = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
             
          formatter.setLenient(false);
              

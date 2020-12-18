@@ -32,7 +32,6 @@ public class FieldTest extends TestCase {
      * FieldTest constructor.
      */
     public FieldTest() {
-        super();
     }
 
     /**

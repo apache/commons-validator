@@ -31,7 +31,6 @@ public class ValidatorException extends Exception {
      * Constructs an Exception with no specified detail message.
      */
     public ValidatorException() {
-        super();
     }
 
     /**
