@@ -98,7 +98,7 @@ public class EmailValidator implements Serializable {
      * @param allowTld Should TLDs be allowed?
      * @return singleton instance of this validator
      */
-    public static EmailValidator getInstance(boolean allowLocal, boolean allowTld) {
+    public static EmailValidator getInstance(final boolean allowLocal, final boolean allowTld) {
         if(allowLocal) {
             if (allowTld) {
                 return EMAIL_VALIDATOR_WITH_LOCAL_WITH_TLD;
@@ -121,7 +121,7 @@ public class EmailValidator implements Serializable {
      * @param allowLocal Should local addresses be considered valid?
      * @return singleton instance of this validator
      */
-    public static EmailValidator getInstance(boolean allowLocal) {
+    public static EmailValidator getInstance(final boolean allowLocal) {
         return getInstance(allowLocal, false);
     }
 
@@ -134,7 +134,7 @@ public class EmailValidator implements Serializable {
      * The instance must have the same allowLocal setting.
      * @since 1.7
      */
-    public EmailValidator(boolean allowLocal, boolean allowTld, DomainValidator domainValidator) {
+    public EmailValidator(final boolean allowLocal, final boolean allowTld, final DomainValidator domainValidator) {
         this.allowTld = allowTld;
         if (domainValidator == null) {
             throw new IllegalArgumentException("DomainValidator cannot be null");
@@ -152,7 +152,7 @@ public class EmailValidator implements Serializable {
      * @param allowLocal Should local addresses be considered valid?
      * @param allowTld Should TLDs be allowed?
      */
-    protected EmailValidator(boolean allowLocal, boolean allowTld) {
+    protected EmailValidator(final boolean allowLocal, final boolean allowTld) {
         this.allowTld = allowTld;
         this.domainValidator = DomainValidator.getInstance(allowLocal);
     }
@@ -162,7 +162,7 @@ public class EmailValidator implements Serializable {
      *
      * @param allowLocal Should local addresses be considered valid?
      */
-    protected EmailValidator(boolean allowLocal) {
+    protected EmailValidator(final boolean allowLocal) {
         this(allowLocal, false);
     }
 
@@ -173,7 +173,7 @@ public class EmailValidator implements Serializable {
      *              value is considered invalid.
      * @return true if the email address is valid.
      */
-    public boolean isValid(String email) {
+    public boolean isValid(final String email) {
         if (email == null) {
             return false;
         }
@@ -183,7 +183,7 @@ public class EmailValidator implements Serializable {
         }
 
         // Check the whole email address structure
-        Matcher emailMatcher = EMAIL_PATTERN.matcher(email);
+        final Matcher emailMatcher = EMAIL_PATTERN.matcher(email);
         if (!emailMatcher.matches()) {
             return false;
         }
@@ -205,12 +205,12 @@ public class EmailValidator implements Serializable {
      * @param domain being validated, may be in IDN format
      * @return true if the email address's domain is valid.
      */
-    protected boolean isValidDomain(String domain) {
+    protected boolean isValidDomain(final String domain) {
         // see if domain is an IP address in brackets
-        Matcher ipDomainMatcher = IP_DOMAIN_PATTERN.matcher(domain);
+        final Matcher ipDomainMatcher = IP_DOMAIN_PATTERN.matcher(domain);
 
         if (ipDomainMatcher.matches()) {
-            InetAddressValidator inetAddressValidator =
+            final InetAddressValidator inetAddressValidator =
                     InetAddressValidator.getInstance();
             return inetAddressValidator.isValid(ipDomainMatcher.group(1));
         }
@@ -228,7 +228,7 @@ public class EmailValidator implements Serializable {
      * @param user being validated
      * @return true if the user name is valid.
      */
-    protected boolean isValidUser(String user) {
+    protected boolean isValidUser(final String user) {
         
         if (user == null || user.length() > MAX_USERNAME_LEN) {
             return false;

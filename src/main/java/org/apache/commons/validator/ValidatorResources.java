@@ -134,7 +134,7 @@ public class ValidatorResources implements Serializable {
      * @throws IOException if an I/O error occurs processing the XML files
      * @since Validator 1.1
      */
-    public ValidatorResources(InputStream in) throws IOException, SAXException {
+    public ValidatorResources(final InputStream in) throws IOException, SAXException {
         this(new InputStream[]{in});
     }
 
@@ -149,10 +149,10 @@ public class ValidatorResources implements Serializable {
      * @throws IOException if an I/O error occurs processing the XML files
      * @since Validator 1.1
      */
-    public ValidatorResources(InputStream[] streams)
+    public ValidatorResources(final InputStream[] streams)
             throws IOException, SAXException {
 
-        Digester digester = initDigester();
+        final Digester digester = initDigester();
         for (int i = 0; i < streams.length; i++) {
             if (streams[i] == null) {
                 throw new IllegalArgumentException("Stream[" + i + "] is null");
@@ -173,7 +173,7 @@ public class ValidatorResources implements Serializable {
      * @throws IOException if an I/O error occurs processing the XML files
      * @since Validator 1.2
      */
-    public ValidatorResources(String uri) throws IOException, SAXException {
+    public ValidatorResources(final String uri) throws IOException, SAXException {
         this(new String[]{uri});
     }
 
@@ -187,11 +187,11 @@ public class ValidatorResources implements Serializable {
      * @throws IOException if an I/O error occurs processing the XML files
      * @since Validator 1.2
      */
-    public ValidatorResources(String[] uris)
+    public ValidatorResources(final String[] uris)
             throws IOException, SAXException {
 
-        Digester digester = initDigester();
-        for (String element : uris) {
+        final Digester digester = initDigester();
+        for (final String element : uris) {
             digester.push(this);
             digester.parse(element);
         }
@@ -209,7 +209,7 @@ public class ValidatorResources implements Serializable {
      * @throws IOException if an I/O error occurs processing the XML files
      * @since Validator 1.3.1
      */
-    public ValidatorResources(URL url)
+    public ValidatorResources(final URL url)
             throws IOException, SAXException {
         this(new URL[]{url});
     }
@@ -224,11 +224,11 @@ public class ValidatorResources implements Serializable {
      * @throws IOException if an I/O error occurs processing the XML files
      * @since Validator 1.3.1
      */
-    public ValidatorResources(URL[] urls)
+    public ValidatorResources(final URL[] urls)
             throws IOException, SAXException {
 
-        Digester digester = initDigester();
-        for (URL url : urls) {
+        final Digester digester = initDigester();
+        for (final URL url : urls) {
             digester.push(this);
             digester.parse(url);
         }
@@ -248,7 +248,7 @@ public class ValidatorResources implements Serializable {
         if (getLog().isDebugEnabled()) {
             getLog().debug("Loading rules from '" + rulesUrl + "'");
         }
-        Digester digester = DigesterLoader.createDigester(rulesUrl);
+        final Digester digester = DigesterLoader.createDigester(rulesUrl);
         digester.setNamespaceAware(true);
         digester.setValidating(true);
         digester.setUseContextClassLoader(true);
@@ -258,7 +258,7 @@ public class ValidatorResources implements Serializable {
 
         // register DTDs
         for (int i = 0; i < REGISTRATIONS.length; i += 2) {
-            URL url = this.getClass().getResource(REGISTRATIONS[i + 1]);
+            final URL url = this.getClass().getResource(REGISTRATIONS[i + 1]);
             if (url != null) {
                 digester.register(REGISTRATIONS[i], url.toString());
             }
@@ -275,15 +275,15 @@ public class ValidatorResources implements Serializable {
      * versions of the DTD prior to Validator 1.2.0 to continue
      * working.
      */
-    private void addOldArgRules(Digester digester) {
+    private void addOldArgRules(final Digester digester) {
 
         // Create a new rule to process args elements
-        Rule rule = new Rule() {
+        final Rule rule = new Rule() {
             @Override
-            public void begin(String namespace, String name,
-                               Attributes attributes) throws Exception {
+            public void begin(final String namespace, final String name,
+                              final Attributes attributes) throws Exception {
                 // Create the Arg
-                Arg arg = new Arg();
+                final Arg arg = new Arg();
                 arg.setKey(attributes.getValue("key"));
                 arg.setName(attributes.getValue("name"));
                 if ("false".equalsIgnoreCase(attributes.getValue("resource"))) {
@@ -292,7 +292,7 @@ public class ValidatorResources implements Serializable {
                 try {
                     final int length = "arg".length(); // skip the arg prefix
                     arg.setPosition(Integer.parseInt(name.substring(length)));
-                } catch (Exception ex) {
+                } catch (final Exception ex) {
                     getLog().error("Error parsing Arg position: "
                                + name + " " + arg + " " + ex);
                 }
@@ -317,8 +317,8 @@ public class ValidatorResources implements Serializable {
      * @param fs The form set to add.
      * @since Validator 1.1
      */
-    public void addFormSet(FormSet fs) {
-        String key = this.buildKey(fs);
+    public void addFormSet(final FormSet fs) {
+        final String key = this.buildKey(fs);
         if (key.length() == 0) {// there can only be one default formset
             if (getLog().isWarnEnabled() && defaultFormSet != null) {
                 // warn the user he might not get the expected results
@@ -326,7 +326,7 @@ public class ValidatorResources implements Serializable {
             }
             defaultFormSet = fs;
         } else {
-            FormSet formset = getFormSets().get(key);
+            final FormSet formset = getFormSets().get(key);
             if (formset == null) {// it hasn't been included yet
                 if (getLog().isDebugEnabled()) {
                     getLog().debug("Adding FormSet '" + fs.toString() + "'.");
@@ -346,7 +346,7 @@ public class ValidatorResources implements Serializable {
      * @param name The constant name.
      * @param value The constant value.
      */
-    public void addConstant(String name, String value) {
+    public void addConstant(final String name, final String value) {
         if (getLog().isDebugEnabled()) {
             getLog().debug("Adding Global Constant: " + name + "," + value);
         }
@@ -361,7 +361,7 @@ public class ValidatorResources implements Serializable {
      * in the <code>ValidatorAction</code>.
      * @param va The validator action.
      */
-    public void addValidatorAction(ValidatorAction va) {
+    public void addValidatorAction(final ValidatorAction va) {
         va.init();
 
         getActions().put(va.getName(), va);
@@ -376,7 +376,7 @@ public class ValidatorResources implements Serializable {
      * @param key The validator action key.
      * @return The validator action.
      */
-    public ValidatorAction getValidatorAction(String key) {
+    public ValidatorAction getValidatorAction(final String key) {
         return getActions().get(key);
     }
 
@@ -394,7 +394,7 @@ public class ValidatorResources implements Serializable {
      * @param fs The Form Set.
      * @return generated key for a formset.
      */
-    protected String buildKey(FormSet fs) {
+    protected String buildKey(final FormSet fs) {
         return
                 this.buildLocale(fs.getLanguage(), fs.getCountry(), fs.getVariant());
     }
@@ -402,7 +402,7 @@ public class ValidatorResources implements Serializable {
     /**
      * Assembles a Locale code from the given parts.
      */
-    private String buildLocale(String lang, String country, String variant) {
+    private String buildLocale(final String lang, final String country, final String variant) {
         String key = ((lang != null && lang.length() > 0) ? lang : "");
         key += ((country != null && country.length() > 0) ? "_" + country : "");
         key += ((variant != null && variant.length() > 0) ? "_" + variant : "");
@@ -424,7 +424,7 @@ public class ValidatorResources implements Serializable {
      * @return The validator Form.
      * @since Validator 1.1
      */
-    public Form getForm(Locale locale, String formKey) {
+    public Form getForm(final Locale locale, final String formKey) {
         return this.getForm(locale.getLanguage(), locale.getCountry(), locale
                 .getVariant(), formKey);
     }
@@ -446,27 +446,27 @@ public class ValidatorResources implements Serializable {
      * @return The validator Form.
      * @since Validator 1.1
      */
-    public Form getForm(String language, String country, String variant,
-            String formKey) {
+    public Form getForm(final String language, final String country, final String variant,
+                        final String formKey) {
 
         Form form = null;
 
         // Try language/country/variant
         String key = this.buildLocale(language, country, variant);
         if (key.length() > 0) {
-            FormSet formSet = getFormSets().get(key);
+            final FormSet formSet = getFormSets().get(key);
             if (formSet != null) {
                 form = formSet.getForm(formKey);
             }
         }
-        String localeKey  = key;
+        final String localeKey  = key;
 
 
         // Try language/country
         if (form == null) {
             key = buildLocale(language, country, null);
             if (key.length() > 0) {
-                FormSet formSet = getFormSets().get(key);
+                final FormSet formSet = getFormSets().get(key);
                 if (formSet != null) {
                     form = formSet.getForm(formKey);
                 }
@@ -477,7 +477,7 @@ public class ValidatorResources implements Serializable {
         if (form == null) {
             key = buildLocale(language, null, null);
             if (key.length() > 0) {
-                FormSet formSet = getFormSets().get(key);
+                final FormSet formSet = getFormSets().get(key);
                 if (formSet != null) {
                     form = formSet.getForm(formKey);
                 }
@@ -534,13 +534,13 @@ public class ValidatorResources implements Serializable {
         }
         defaultFormSet.process(getConstants());
         // Loop through FormSets and merge if necessary
-        for (String key : getFormSets().keySet()) {
-            FormSet fs = getFormSets().get(key);
+        for (final String key : getFormSets().keySet()) {
+            final FormSet fs = getFormSets().get(key);
             fs.merge(getParent(fs));
         }
 
         // Process Fully Constructed FormSets
-        for (FormSet fs : getFormSets().values()) {
+        for (final FormSet fs : getFormSets().values()) {
             if (!fs.isProcessed()) {
                 fs.process(getConstants());
             }
@@ -557,7 +557,7 @@ public class ValidatorResources implements Serializable {
      *            the formSet we want to get the parent from
      * @return fs's parent
      */
-    private FormSet getParent(FormSet fs) {
+    private FormSet getParent(final FormSet fs) {
 
         FormSet parent = null;
         if (fs.getType() == FormSet.LANGUAGE_FORMSET) {
@@ -591,9 +591,9 @@ public class ValidatorResources implements Serializable {
      * @return The FormSet for a locale.
      * @since Validator 1.2
      */
-    FormSet getFormSet(String language, String country, String variant) {
+    FormSet getFormSet(final String language, final String country, final String variant) {
 
-        String key = buildLocale(language, country, variant);
+        final String key = buildLocale(language, country, variant);
 
         if (key.length() == 0) {
             return defaultFormSet;

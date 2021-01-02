@@ -69,18 +69,18 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
      * <code>false</code>
      */
     @Override
-    public boolean isValid(String code) {
+    public boolean isValid(final String code) {
         if (code == null || code.length() < MIN_CODE_LEN) {
             return false;
         }
-        String check = code.substring(2,4); // CHECKSTYLE IGNORE MagicNumber
+        final String check = code.substring(2,4); // CHECKSTYLE IGNORE MagicNumber
         if ("00".equals(check) || "01".equals(check) || "99".equals(check)) {
             return false;
         }
         try {
-            int modulusResult = calculateModulus(code);
+            final int modulusResult = calculateModulus(code);
             return (modulusResult == 1);
-        } catch (CheckDigitException  ex) {
+        } catch (final CheckDigitException  ex) {
             return false;
         }
     }
@@ -103,9 +103,9 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
                     (code == null ? 0 : code.length()));
         }
         code = code.substring(0, 2) + "00" + code.substring(4); // CHECKSTYLE IGNORE MagicNumber
-        int modulusResult = calculateModulus(code);
-        int charValue = (98 - modulusResult); // CHECKSTYLE IGNORE MagicNumber
-        String checkDigit = Integer.toString(charValue);
+        final int modulusResult = calculateModulus(code);
+        final int charValue = (98 - modulusResult); // CHECKSTYLE IGNORE MagicNumber
+        final String checkDigit = Integer.toString(charValue);
         return (charValue > 9 ? checkDigit : "0" + checkDigit); // CHECKSTYLE IGNORE MagicNumber
     }
 
@@ -117,11 +117,11 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
      * @throws CheckDigitException if an error occurs calculating the modulus
      * for the specified code
      */
-    private int calculateModulus(String code) throws CheckDigitException {
-        String reformattedCode = code.substring(4) + code.substring(0, 4); // CHECKSTYLE IGNORE MagicNumber
+    private int calculateModulus(final String code) throws CheckDigitException {
+        final String reformattedCode = code.substring(4) + code.substring(0, 4); // CHECKSTYLE IGNORE MagicNumber
         long total = 0;
         for (int i = 0; i < reformattedCode.length(); i++) {
-            int charValue = Character.getNumericValue(reformattedCode.charAt(i));
+            final int charValue = Character.getNumericValue(reformattedCode.charAt(i));
             if (charValue < 0 || charValue > MAX_ALPHANUMERIC_VALUE) {
                 throw new CheckDigitException("Invalid Character[" +
                         i + "] = '" + charValue + "'");

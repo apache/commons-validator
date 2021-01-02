@@ -56,7 +56,7 @@ public class ISINCheckDigitTest extends AbstractCheckDigitTest {
         invalid = new String[] {"0378#3100"};
     }
 
-    private static String invalidCheckDigits[] =
+    private static final String[] invalidCheckDigits =
                              {"US037833100O", // proper check digit is '5', see above
                               "BMG8571G109D", // proper check digit is '6', see above
                               "AU0000XVGZAD", // proper check digit is '3', see above

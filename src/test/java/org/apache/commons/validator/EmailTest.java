@@ -34,12 +34,12 @@ public class EmailTest extends AbstractCommonTest {
      * The key used to retrieve the set of validation
      * rules from the xml file.
      */
-    protected static String FORM_KEY = "emailForm";
+    protected static final String FORM_KEY = "emailForm";
 
    /**
     * The key used to retrieve the validator action.
     */
-   protected static String ACTION = "email";
+   protected static final String ACTION = "email";
 
 
    public EmailTest(String name) {                  
@@ -327,7 +327,7 @@ protected void setUp() throws IOException, SAXException {
      * Mail::RFC822::Address & RFC::RFC822::Address perl test.pl
      * For traceability don't combine these test values with other tests.
      */
-    ResultPair[] testEmailFromPerl = {
+    final ResultPair[] testEmailFromPerl = {
         new ResultPair("abigail@example.com", true),
         new ResultPair("abigail@example.com ", true),
         new ResultPair(" abigail@example.com", true),

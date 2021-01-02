@@ -104,7 +104,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @param formatType The <code>NumberFormat</code> type to
      *        create for validation, default is STANDARD_FORMAT.
      */
-    public IntegerValidator(boolean strict, int formatType) {
+    public IntegerValidator(final boolean strict, final int formatType) {
         super(strict, formatType, false);
     }
 
@@ -116,7 +116,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @return The parsed <code>Integer</code> if valid or <code>null</code>
      *  if invalid.
      */
-    public Integer validate(String value) {
+    public Integer validate(final String value) {
         return (Integer)parse(value, (String)null, (Locale)null);
     }
 
@@ -128,7 +128,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @param pattern The pattern used to validate the value against.
      * @return The parsed <code>Integer</code> if valid or <code>null</code> if invalid.
      */
-    public Integer validate(String value, String pattern) {
+    public Integer validate(final String value, final String pattern) {
         return (Integer)parse(value, pattern, (Locale)null);
     }
 
@@ -140,7 +140,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the number format, system default if null.
      * @return The parsed <code>Integer</code> if valid or <code>null</code> if invalid.
      */
-    public Integer validate(String value, Locale locale) {
+    public Integer validate(final String value, final Locale locale) {
         return (Integer)parse(value, (String)null, locale);
     }
 
@@ -154,7 +154,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the date format, system default if null.
      * @return The parsed <code>Integer</code> if valid or <code>null</code> if invalid.
      */
-    public Integer validate(String value, String pattern, Locale locale) {
+    public Integer validate(final String value, final String pattern, final Locale locale) {
         return (Integer)parse(value, pattern, locale);
     }
 
@@ -167,7 +167,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(int value, int min, int max) {
+    public boolean isInRange(final int value, final int min, final int max) {
         return (value >= min && value <= max);
     }
 
@@ -180,7 +180,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(Integer value, int min, int max) {
+    public boolean isInRange(final Integer value, final int min, final int max) {
         return isInRange(value.intValue(), min, max);
     }
 
@@ -192,7 +192,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(int value, int min) {
+    public boolean minValue(final int value, final int min) {
         return (value >= min);
     }
 
@@ -204,7 +204,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(Integer value, int min) {
+    public boolean minValue(final Integer value, final int min) {
         return minValue(value.intValue(), min);
     }
 
@@ -216,7 +216,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(int value, int max) {
+    public boolean maxValue(final int value, final int max) {
         return (value <= max);
     }
 
@@ -228,7 +228,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(Integer value, int max) {
+    public boolean maxValue(final Integer value, final int max) {
         return maxValue(value.intValue(), max);
     }
 
@@ -242,11 +242,11 @@ public class IntegerValidator extends AbstractNumberValidator {
      *   <code>Integer</code> if valid or <code>null</code> if invalid.
      */
     @Override
-    protected Object processParsedValue(Object value, Format formatter) {
+    protected Object processParsedValue(final Object value, final Format formatter) {
 
         // Parsed value will be Long if it fits in a long and is not fractional
         if (value instanceof Long) {
-            long longValue = ((Long)value).longValue();
+            final long longValue = ((Long)value).longValue();
             if (longValue >= Integer.MIN_VALUE && 
                 longValue <= Integer.MAX_VALUE) {
                 return Integer.valueOf((int)longValue);

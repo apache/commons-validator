@@ -34,7 +34,7 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
     * The key used to retrieve the set of validation 
     * rules from the xml file.
     */
-   protected static String FORM_KEY = "typeForm";   
+   protected static final String FORM_KEY = "typeForm";
 
    /**
     * The key used to retrieve the validator action.

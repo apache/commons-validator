@@ -198,7 +198,7 @@ protected void setUp() {
     * all of which must be individually valid for the entire URL to be considered
     * valid.
     */
-   ResultPair[] testUrlScheme = {new ResultPair("http://", true),
+   final ResultPair[] testUrlScheme = {new ResultPair("http://", true),
                                new ResultPair("ftp://", true),
                                new ResultPair("h3t://", true),
                                new ResultPair("3ht://", false),
@@ -208,7 +208,7 @@ protected void setUp() {
                                new ResultPair("://", false),
                                new ResultPair("", true)};
 
-   ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
+   final ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
                                   new ResultPair("go.com", true),
                                   new ResultPair("go.au", true),
                                   new ResultPair("0.0.0.0", true),
@@ -227,7 +227,7 @@ protected void setUp() {
                                   new ResultPair("aaa", false),
                                   new ResultPair("", false)
    };
-   ResultPair[] testUrlPort = {new ResultPair(":80", true),
+   final ResultPair[] testUrlPort = {new ResultPair(":80", true),
                              new ResultPair(":65535", true),
                              new ResultPair(":0", true),
                              new ResultPair("", true),
@@ -235,7 +235,7 @@ protected void setUp() {
                              new ResultPair(":65636", true),
                              new ResultPair(":65a", false)
    };
-   ResultPair[] testPath = {new ResultPair("/test1", true),
+   final ResultPair[] testPath = {new ResultPair("/test1", true),
                           new ResultPair("/t123", true),
                           new ResultPair("/$23", true),
                           new ResultPair("/..", false),
@@ -247,7 +247,7 @@ protected void setUp() {
                           new ResultPair("/test1//file", false)
    };
    //Test allow2slash, noFragment
-   ResultPair[] testUrlPathOptions = {new ResultPair("/test1", true),
+   final ResultPair[] testUrlPathOptions = {new ResultPair("/test1", true),
                                     new ResultPair("/t123", true),
                                     new ResultPair("/$23", true),
                                     new ResultPair("/..", false),
@@ -264,17 +264,17 @@ protected void setUp() {
                                     new ResultPair("/#/file", false)
    };
 
-   ResultPair[] testUrlQuery = {new ResultPair("?action=view", true),
+   final ResultPair[] testUrlQuery = {new ResultPair("?action=view", true),
                               new ResultPair("?action=edit&mode=up", true),
                               new ResultPair("", true)
    };
 
-   Object[] testUrlParts = {testUrlScheme, testUrlAuthority, testUrlPort, testPath, testUrlQuery};
-   Object[] testUrlPartsOptions = {testUrlScheme, testUrlAuthority, testUrlPort, testUrlPathOptions, testUrlQuery};
-   int[] testPartsIndex = {0, 0, 0, 0, 0};
+   final Object[] testUrlParts = {testUrlScheme, testUrlAuthority, testUrlPort, testPath, testUrlQuery};
+   final Object[] testUrlPartsOptions = {testUrlScheme, testUrlAuthority, testUrlPort, testUrlPathOptions, testUrlQuery};
+   final int[] testPartsIndex = {0, 0, 0, 0, 0};
 
    //---------------- Test data for individual url parts ----------------
-   ResultPair[] testScheme = {new ResultPair("http", true),
+   final ResultPair[] testScheme = {new ResultPair("http", true),
                             new ResultPair("ftp", false),
                             new ResultPair("httpd", false),
                             new ResultPair("telnet", false)};

@@ -50,7 +50,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @param dateStyle the date style to use for Locale validation.
      * @param timeStyle the time style to use for Locale validation.
      */
-    public AbstractCalendarValidator(boolean strict, int dateStyle, int timeStyle) {
+    public AbstractCalendarValidator(final boolean strict, final int dateStyle, final int timeStyle) {
         super(strict);
         this.dateStyle = dateStyle;
         this.timeStyle = timeStyle;
@@ -65,8 +65,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return <code>true</code> if the value is valid.
      */
     @Override
-    public boolean isValid(String value, String pattern, Locale locale) {
-        Object parsedValue = parse(value, pattern, locale, (TimeZone)null);
+    public boolean isValid(final String value, final String pattern, final Locale locale) {
+        final Object parsedValue = parse(value, pattern, locale, (TimeZone)null);
         return (parsedValue == null ? false : true);
     }
 
@@ -79,7 +79,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *  system default if null (unless value is a <code>Calendar</code>.
      * @return The value formatted as a <code>String</code>.
      */
-    public String format(Object value, TimeZone timeZone) {
+    public String format(final Object value, final TimeZone timeZone) {
         return format(value, (String)null, (Locale)null, timeZone);
     }
 
@@ -93,7 +93,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *  system default if null (unless value is a <code>Calendar</code>.
      * @return The value formatted as a <code>String</code>.
      */
-    public String format(Object value, String pattern, TimeZone timeZone) {
+    public String format(final Object value, final String pattern, final TimeZone timeZone) {
         return format(value, pattern, (Locale)null, timeZone);
     }
 
@@ -107,7 +107,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *  system default if null (unless value is a <code>Calendar</code>.
      * @return The value formatted as a <code>String</code>.
      */
-    public String format(Object value, Locale locale, TimeZone timeZone) {
+    public String format(final Object value, final Locale locale, final TimeZone timeZone) {
         return format(value, (String)null, locale, timeZone);
     }
 
@@ -121,7 +121,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return The value formatted as a <code>String</code>.
      */
     @Override
-    public String format(Object value, String pattern, Locale locale) {
+    public String format(final Object value, final String pattern, final Locale locale) {
         return format(value, pattern, locale, (TimeZone)null);
     }
 
@@ -136,8 +136,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *  system default if null (unless value is a <code>Calendar</code>.
      * @return The value formatted as a <code>String</code>.
      */
-    public String format(Object value, String pattern, Locale locale, TimeZone timeZone) {
-        DateFormat formatter = (DateFormat)getFormat(pattern, locale);
+    public String format(final Object value, final String pattern, final Locale locale, final TimeZone timeZone) {
+        final DateFormat formatter = (DateFormat)getFormat(pattern, locale);
         if (timeZone != null) {
             formatter.setTimeZone(timeZone);
         } else if (value instanceof Calendar) {
@@ -154,7 +154,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return The formatted value.
      */
     @Override
-    protected String format(Object value, Format formatter) {
+    protected String format(Object value, final Format formatter) {
         if (value == null) {
             return null;
         } else if (value instanceof Calendar) {
@@ -173,13 +173,13 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @param timeZone The Time Zone used to parse the date, system default if null.
      * @return The parsed value if valid or <code>null</code> if invalid.
      */
-    protected Object parse(String value, String pattern, Locale locale, TimeZone timeZone) {
+    protected Object parse(String value, final String pattern, final Locale locale, final TimeZone timeZone) {
 
         value = (value == null ? null : value.trim());
         if (value == null || value.length() == 0) {
             return null;
         }
-        DateFormat formatter = (DateFormat)getFormat(pattern, locale);
+        final DateFormat formatter = (DateFormat)getFormat(pattern, locale);
         if (timeZone != null) {
             formatter.setTimeZone(timeZone);
         }
@@ -209,15 +209,15 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return The <code>DateFormat</code> to created.
      */
     @Override
-    protected Format getFormat(String pattern, Locale locale) {
+    protected Format getFormat(final String pattern, final Locale locale) {
         DateFormat formatter = null;
-        boolean usePattern = (pattern != null && pattern.length() > 0);
+        final boolean usePattern = (pattern != null && pattern.length() > 0);
         if (!usePattern) {
             formatter = (DateFormat)getFormat(locale);
         } else if (locale == null) {
             formatter = new SimpleDateFormat(pattern);
         } else {
-            DateFormatSymbols symbols = new DateFormatSymbols(locale);
+            final DateFormatSymbols symbols = new DateFormatSymbols(locale);
             formatter = new SimpleDateFormat(pattern, symbols);
         }
         formatter.setLenient(false);
@@ -231,7 +231,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *        system default if null.
      * @return The <code>DateFormat</code> to created.
      */
-    protected Format getFormat(Locale locale) {
+    protected Format getFormat(final Locale locale) {
 
         DateFormat formatter = null;
         if (dateStyle >= 0 && timeStyle >= 0) {
@@ -247,7 +247,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
                 formatter = DateFormat.getTimeInstance(timeStyle, locale);
             }
         } else {
-            int useDateStyle = dateStyle >= 0 ? dateStyle : DateFormat.SHORT;
+            final int useDateStyle = dateStyle >= 0 ? dateStyle : DateFormat.SHORT;
             if (locale == null) {
                 formatter = DateFormat.getDateInstance(useDateStyle);
             } else {
@@ -271,7 +271,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return Zero if the first value is equal to the second, -1
      *         if it is less than the second or +1 if it is greater than the second.
      */
-    protected int compare(Calendar value, Calendar compare, int field) {
+    protected int compare(final Calendar value, final Calendar compare, final int field) {
 
         int result;
 
@@ -327,7 +327,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return Zero if the first value is equal to the second, -1
      *         if it is less than the second or +1 if it is greater than the second.
      */
-    protected int compareTime(Calendar value, Calendar compare, int field) {
+    protected int compareTime(final Calendar value, final Calendar compare, final int field) {
 
         int result;
 
@@ -368,9 +368,9 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return Zero if the first quarter is equal to the second, -1
      *         if it is less than the second or +1 if it is greater than the second.
      */
-    protected int compareQuarters(Calendar value, Calendar compare, int monthOfFirstQuarter) {
-        int valueQuarter   = calculateQuarter(value, monthOfFirstQuarter);
-        int compareQuarter = calculateQuarter(compare, monthOfFirstQuarter);
+    protected int compareQuarters(final Calendar value, final Calendar compare, final int monthOfFirstQuarter) {
+        final int valueQuarter   = calculateQuarter(value, monthOfFirstQuarter);
+        final int compareQuarter = calculateQuarter(compare, monthOfFirstQuarter);
         if (valueQuarter < compareQuarter) {
             return -1;
         } else if (valueQuarter > compareQuarter) {
@@ -387,15 +387,15 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @param monthOfFirstQuarter The  month that the first quarter starts.
      * @return The calculated quarter.
      */
-    private int calculateQuarter(Calendar calendar, int monthOfFirstQuarter) {
+    private int calculateQuarter(final Calendar calendar, final int monthOfFirstQuarter) {
         // Add Year
         int year = calendar.get(Calendar.YEAR);
 
-        int month = (calendar.get(Calendar.MONTH) + 1);
-        int relativeMonth = (month >= monthOfFirstQuarter)
+        final int month = (calendar.get(Calendar.MONTH) + 1);
+        final int relativeMonth = (month >= monthOfFirstQuarter)
                           ? (month - monthOfFirstQuarter)
                           : (month + (12 - monthOfFirstQuarter)); // CHECKSTYLE IGNORE MagicNumber
-        int quarter = ((relativeMonth / 3) + 1); // CHECKSTYLE IGNORE MagicNumber
+        final int quarter = ((relativeMonth / 3) + 1); // CHECKSTYLE IGNORE MagicNumber
         // adjust the year if the quarter doesn't start in January
         if (month < monthOfFirstQuarter) {
             --year;
@@ -414,8 +414,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return Zero if the first calendar's field is equal to the seconds, -1
      *         if it is less than the seconds or +1 if it is greater than the seconds.
      */
-    private int calculateCompareResult(Calendar value, Calendar compare, int field) {
-        int difference = value.get(field) - compare.get(field);
+    private int calculateCompareResult(final Calendar value, final Calendar compare, final int field) {
+        final int difference = value.get(field) - compare.get(field);
         if (difference < 0) {
             return -1;
         } else if (difference > 0) {

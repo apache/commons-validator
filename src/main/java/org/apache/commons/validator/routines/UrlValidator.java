@@ -199,7 +199,7 @@ public class UrlValidator implements Serializable {
      *        be specified. Setting the ALLOW_ALL_SCHEMES option will
      *        ignore the contents of schemes.
      */
-    public UrlValidator(String[] schemes) {
+    public UrlValidator(final String[] schemes) {
         this(schemes, 0L);
     }
 
@@ -209,7 +209,7 @@ public class UrlValidator implements Serializable {
      * this class.  To set multiple options you simply add them together.  For example,
      * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
      */
-    public UrlValidator(long options) {
+    public UrlValidator(final long options) {
         this(null, null, options);
     }
 
@@ -220,7 +220,7 @@ public class UrlValidator implements Serializable {
      * this class.  To set multiple options you simply add them together.  For example,
      * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
      */
-    public UrlValidator(String[] schemes, long options) {
+    public UrlValidator(final String[] schemes, final long options) {
         this(schemes, null, options);
     }
 
@@ -233,7 +233,7 @@ public class UrlValidator implements Serializable {
      * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
      * enables both of those options.
      */
-    public UrlValidator(RegexValidator authorityValidator, long options) {
+    public UrlValidator(final RegexValidator authorityValidator, final long options) {
         this(null, authorityValidator, options);
     }
 
@@ -246,7 +246,7 @@ public class UrlValidator implements Serializable {
      * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
      * enables both of those options.
      */
-    public UrlValidator(String[] schemes, RegexValidator authorityValidator, long options) {
+    public UrlValidator(final String[] schemes, final RegexValidator authorityValidator, final long options) {
         this(schemes, authorityValidator, options, DomainValidator.getInstance(isOn(ALLOW_LOCAL_URLS, options)));
     }
 
@@ -261,7 +261,7 @@ public class UrlValidator implements Serializable {
      * @param domainValidator the DomainValidator to use; must agree with ALLOW_LOCAL_URLS setting
      * @since 1.7
      */
-    public UrlValidator(String[] schemes, RegexValidator authorityValidator, long options, DomainValidator domainValidator) {
+    public UrlValidator(String[] schemes, final RegexValidator authorityValidator, final long options, final DomainValidator domainValidator) {
         this.options = options;
         if (domainValidator == null) {
             throw new IllegalArgumentException("DomainValidator must not be null");
@@ -278,7 +278,7 @@ public class UrlValidator implements Serializable {
                 schemes = DEFAULT_SCHEMES;
             }
             allowedSchemes = new HashSet<>(schemes.length);
-            for (String scheme : schemes) {
+            for (final String scheme : schemes) {
                 allowedSchemes.add(scheme.toLowerCase(Locale.ENGLISH));
             }
         }
@@ -296,25 +296,25 @@ public class UrlValidator implements Serializable {
      * value is considered invalid.
      * @return true if the url is valid.
      */
-    public boolean isValid(String value) {
+    public boolean isValid(final String value) {
         if (value == null) {
             return false;
         }
 
-        URI uri; // ensure value is a valid URI
+        final URI uri; // ensure value is a valid URI
         try {
             uri = new URI(value);
-        } catch (URISyntaxException e) {
+        } catch (final URISyntaxException e) {
             return false;
         }
         // OK, perfom additional validation
 
-        String scheme = uri.getScheme();
+        final String scheme = uri.getScheme();
         if (!isValidScheme(scheme)) {
             return false;
         }
 
-        String authority = uri.getRawAuthority();
+        final String authority = uri.getRawAuthority();
         if ("file".equals(scheme) && (authority == null || "".equals(authority))) {// Special case - file: allows an empty authority
             return true; // this is a local file - nothing more to do here
         } else if ("file".equals(scheme) && authority != null && authority.contains(":")) {
@@ -350,7 +350,7 @@ public class UrlValidator implements Serializable {
      * invalid.
      * @return true if valid.
      */
-    protected boolean isValidScheme(String scheme) {
+    protected boolean isValidScheme(final String scheme) {
         if (scheme == null) {
             return false;
         }
@@ -376,7 +376,7 @@ public class UrlValidator implements Serializable {
      * @param authority Authority value to validate, alllows IDN
      * @return true if authority (hostname and port) is valid.
      */
-    protected boolean isValidAuthority(String authority) {
+    protected boolean isValidAuthority(final String authority) {
         if (authority == null) {
             return false;
         }
@@ -388,44 +388,44 @@ public class UrlValidator implements Serializable {
         // convert to ASCII if possible
         final String authorityASCII = DomainValidator.unicodeToASCII(authority);
 
-        Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authorityASCII);
+        final Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authorityASCII);
         if (!authorityMatcher.matches()) {
             return false;
         }
 
         // We have to process IPV6 separately because that is parsed in a different group
-        String ipv6 = authorityMatcher.group(PARSE_AUTHORITY_IPV6);
+        final String ipv6 = authorityMatcher.group(PARSE_AUTHORITY_IPV6);
         if (ipv6 != null) {
-            InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
+            final InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
                 if (!inetAddressValidator.isValidInet6Address(ipv6)) {
                     return false;
                 }
         } else {
-            String hostLocation = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
+            final String hostLocation = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
             // check if authority is hostname or IP address:
             // try a hostname first since that's much more likely
             if (!this.domainValidator.isValid(hostLocation)) {
                 // try an IPv4 address
-                InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
+                final InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
                 if (!inetAddressValidator.isValidInet4Address(hostLocation)) {
                     // isn't IPv4, so the URL is invalid
                     return false;
                 }
             }
-            String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
+            final String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
             if (port != null && port.length() > 0) {
                 try {
-                    int iPort = Integer.parseInt(port);
+                    final int iPort = Integer.parseInt(port);
                     if (iPort < 0 || iPort > MAX_UNSIGNED_16_BIT_INT) {
                         return false;
                     }
-                } catch (NumberFormatException nfe) {
+                } catch (final NumberFormatException nfe) {
                     return false; // this can happen for big numbers
                 }
             }
         }
 
-        String extra = authorityMatcher.group(PARSE_AUTHORITY_EXTRA);
+        final String extra = authorityMatcher.group(PARSE_AUTHORITY_EXTRA);
         if (extra != null && extra.trim().length() > 0){
             return false;
         }
@@ -438,7 +438,7 @@ public class UrlValidator implements Serializable {
      * @param path Path value to validate.
      * @return true if path is valid.
      */
-    protected boolean isValidPath(String path) {
+    protected boolean isValidPath(final String path) {
         if (path == null) {
             return false;
         }
@@ -449,17 +449,17 @@ public class UrlValidator implements Serializable {
 
         try {
             // Don't omit host otherwise leading path may be taken as host if it starts with //
-            URI uri = new URI(null,"localhost",path,null);
-            String norm = uri.normalize().getPath();
+            final URI uri = new URI(null,"localhost",path,null);
+            final String norm = uri.normalize().getPath();
             if (norm.startsWith("/../") // Trying to go via the parent dir 
              || norm.equals("/..")) {   // Trying to go to the parent dir
                 return false;
             }
-        } catch (URISyntaxException e) {
+        } catch (final URISyntaxException e) {
             return false;
         }
         
-        int slash2Count = countToken("//", path);
+        final int slash2Count = countToken("//", path);
         if (isOff(ALLOW_2_SLASHES) && (slash2Count > 0)) {
             return false;
         }
@@ -472,7 +472,7 @@ public class UrlValidator implements Serializable {
      * @param query Query value to validate.
      * @return true if query is valid.
      */
-    protected boolean isValidQuery(String query) {
+    protected boolean isValidQuery(final String query) {
         if (query == null) {
             return true;
         }
@@ -485,7 +485,7 @@ public class UrlValidator implements Serializable {
      * @param fragment Fragment value to validate.
      * @return true if fragment is valid.
      */
-    protected boolean isValidFragment(String fragment) {
+    protected boolean isValidFragment(final String fragment) {
         if (fragment == null) {
             return true;
         }
@@ -499,7 +499,7 @@ public class UrlValidator implements Serializable {
      * @param target Target value to count tokens in.
      * @return the number of tokens.
      */
-    protected int countToken(String token, String target) {
+    protected int countToken(final String token, final String target) {
         int tokenIndex = 0;
         int count = 0;
         while (tokenIndex != -1) {
@@ -520,7 +520,7 @@ public class UrlValidator implements Serializable {
      *
      * @return whether the specified flag value is on.
      */
-    private boolean isOn(long flag) {
+    private boolean isOn(final long flag) {
         return (options & flag) > 0;
     }
 
@@ -533,7 +533,7 @@ public class UrlValidator implements Serializable {
      *
      * @return whether the specified flag value is on.
      */
-    private static boolean isOn(long flag, long options) {
+    private static boolean isOn(final long flag, final long options) {
         return (options & flag) > 0;
     }
 
@@ -545,7 +545,7 @@ public class UrlValidator implements Serializable {
      *
      * @return whether the specified flag value is off.
      */
-    private boolean isOff(long flag) {
+    private boolean isOff(final long flag) {
         return (options & flag) == 0;
     }
 

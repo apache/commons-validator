@@ -52,7 +52,7 @@ public class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
         invalid = new String[] {"0378#3100"};
     }
 
-    private static String invalidCheckDigits[] = {"DUS0421CW",
+    private static final String[] invalidCheckDigits = {"DUS0421CW",
                                                   "DUS0421CN",
                                                   "DUS0421CE"
     };
@@ -63,7 +63,7 @@ public class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
         }
     }
 
-    private static String validCheckDigits[] = {"DUS0421C5"};
+    private static final String[] validCheckDigits = {"DUS0421C5"};
 
     public void testVALIDATOR_336_ValidCheckDigits() {
         for (String validCheckDigit : validCheckDigits) {

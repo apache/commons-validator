@@ -41,7 +41,7 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
     protected static final TimeZone EET = TimeZone.getTimeZone("EET"); // + 2 hours
     protected static final TimeZone UTC = TimeZone.getTimeZone("UTC"); // + 2 hours
 
-    protected String[] patternValid = new String[] {
+    protected final String[] patternValid = new String[] {
                        "2005-01-01" 
                       ,"2005-12-31"
                       ,"2004-02-29"    // valid leap
@@ -49,7 +49,7 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
                       ,"05-12-31"
                       ,"2005-1-1"
                       ,"05-1-1"};
-    protected String[] localeValid = new String[] {
+    protected final String[] localeValid = new String[] {
                        "01/01/2005" 
                       ,"12/31/2005"
                       ,"02/29/2004"    // valid leap
@@ -57,7 +57,7 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
                       ,"12/31/05"
                       ,"1/1/2005"
                       ,"1/1/05"};
-    protected Date[] patternExpect = new Date[] {
+    protected final Date[] patternExpect = new Date[] {
                       createDate(null, 20050101, 0)
                      ,createDate(null, 20051231, 0)
                      ,createDate(null, 20040229, 0)
@@ -65,7 +65,7 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
                      ,createDate(null, 20051231, 0)
                      ,createDate(null, 20050101, 0)
                      ,createDate(null, 20050101, 0)};
-    protected String[] patternInvalid = new String[] {
+    protected final String[] patternInvalid = new String[] {
                          "2005-00-01"  // zero month
                         ,"2005-01-00"  // zero day 
                         ,"2005-13-03"  // month invalid
@@ -79,7 +79,7 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
                         ,"2005-01"     // invalid pattern
                         ,"2005--01"    // invalid pattern
                         ,"2005-01-"};  // invalid pattern
-    protected String[] localeInvalid = new String[] {
+    protected final String[] localeInvalid = new String[] {
                          "01/00/2005"  // zero month
                         ,"00/01/2005"  // zero day 
                         ,"13/01/2005"  // month invalid

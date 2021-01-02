@@ -34,24 +34,24 @@ public class ExtensionTest extends TestCase {
      * The key used to retrieve the set of validation
      * rules from the xml file.
     */
-    protected static String FORM_KEY = "nameForm";
+    protected static final String FORM_KEY = "nameForm";
 
     /**
      * The key used to retrieve the set of validation
      * rules from the xml file.
     */
-    protected static String FORM_KEY2 = "nameForm2";
+    protected static final String FORM_KEY2 = "nameForm2";
 
     /**
      * The key used to retrieve the set of validation
      * rules from the xml file.
     */
-    protected static String CHECK_MSG_KEY = "nameForm.lastname.displayname";
+    protected static final String CHECK_MSG_KEY = "nameForm.lastname.displayname";
 
     /**
      * The key used to retrieve the validator action.
     */
-    protected static String ACTION = "required";
+    protected static final String ACTION = "required";
 
     /**
      * Resources used for validation tests.

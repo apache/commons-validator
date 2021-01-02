@@ -80,7 +80,7 @@ public class Arg implements Cloneable, Serializable {
         try {
             return super.clone();
 
-        } catch(CloneNotSupportedException e) {
+        } catch(final CloneNotSupportedException e) {
             throw new RuntimeException(e.toString());
         }
     }
@@ -131,7 +131,7 @@ public class Arg implements Cloneable, Serializable {
      * @param bundle The new bundle name.
      * @since Validator 1.1
      */
-    public void setBundle(String bundle) {
+    public void setBundle(final String bundle) {
         this.bundle = bundle;
     }
 
@@ -139,7 +139,7 @@ public class Arg implements Cloneable, Serializable {
      * Sets the key/value.
      * @param key They to access the argument.
      */
-    public void setKey(String key) {
+    public void setKey(final String key) {
         this.key = key;
     }
 
@@ -147,7 +147,7 @@ public class Arg implements Cloneable, Serializable {
      * Sets the name of the dependency.
      * @param name the name of the dependency.
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -155,7 +155,7 @@ public class Arg implements Cloneable, Serializable {
      * Set this argument's replacement position.
      * @param position set this argument's replacement position.
      */
-    public void setPosition(int position) {
+    public void setPosition(final int position) {
         this.position = position;
     }
 
@@ -163,7 +163,7 @@ public class Arg implements Cloneable, Serializable {
      * Sets whether or not the key is a resource.
      * @param resource If true indicates the key is a resource.
      */
-    public void setResource(boolean resource) {
+    public void setResource(final boolean resource) {
         this.resource = resource;
     }
 
@@ -173,7 +173,7 @@ public class Arg implements Cloneable, Serializable {
      */
     @Override
     public String toString() {
-        StringBuilder results = new StringBuilder();
+        final StringBuilder results = new StringBuilder();
 
         results.append("Arg: name=");
         results.append(name);

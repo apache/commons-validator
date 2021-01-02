@@ -31,7 +31,7 @@ public class ExceptionTest extends AbstractCommonTest {
      * The key used to retrieve the set of validation 
      * rules from the xml file.
      */
-    protected static String FORM_KEY = "exceptionForm";
+    protected static final String FORM_KEY = "exceptionForm";
 
     /**
      * The key used to retrieve the validator action.

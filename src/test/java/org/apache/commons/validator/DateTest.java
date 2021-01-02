@@ -32,12 +32,12 @@ public class DateTest extends AbstractCommonTest {
      * The key used to retrieve the set of validation
      * rules from the xml file.
      */
-    protected String FORM_KEY = "dateForm";
+    protected final String FORM_KEY = "dateForm";
     
     /**
      * The key used to retrieve the validator action.
      */
-    protected String ACTION = "date";
+    protected final String ACTION = "date";
 
 
     public DateTest(String name) {

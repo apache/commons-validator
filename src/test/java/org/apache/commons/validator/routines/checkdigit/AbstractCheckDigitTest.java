@@ -37,7 +37,7 @@ import junit.framework.TestCase;
 public abstract class AbstractCheckDigitTest extends TestCase {
 
     /** logging instance */
-    protected Log log = LogFactory.getLog(getClass());
+    protected final Log log = LogFactory.getLog(getClass());
 
     /** Check digit routine being tested */
     protected int checkDigitLth = 1;

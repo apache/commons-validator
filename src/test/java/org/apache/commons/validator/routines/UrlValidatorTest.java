@@ -589,7 +589,7 @@ public class UrlValidatorTest {
     * all of which must be individually valid for the entire URL to be considered
     * valid.
     */
-   ResultPair[] testUrlScheme = {new ResultPair("http://", true),
+   final ResultPair[] testUrlScheme = {new ResultPair("http://", true),
                                new ResultPair("ftp://", true),
                                new ResultPair("h3t://", true),
                                new ResultPair("3ht://", false),
@@ -598,7 +598,7 @@ public class UrlValidatorTest {
                                new ResultPair("http/", false),
                                new ResultPair("://", false)};
 
-   ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
+   final ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
                                   new ResultPair("www.google.com.", true),
                                   new ResultPair("go.com", true),
                                   new ResultPair("go.au", true),
@@ -619,7 +619,7 @@ public class UrlValidatorTest {
                                   new ResultPair("aaa", false),
                                   new ResultPair("", false)
    };
-   ResultPair[] testUrlPort = {new ResultPair(":80", true),
+   final ResultPair[] testUrlPort = {new ResultPair(":80", true),
                              new ResultPair(":65535", true), // max possible
                              new ResultPair(":65536", false), // max possible +1
                              new ResultPair(":0", true),
@@ -629,7 +629,7 @@ public class UrlValidatorTest {
                              new ResultPair(":999999999999999999", false),
                              new ResultPair(":65a", false)
    };
-   ResultPair[] testPath = {new ResultPair("/test1", true),
+   final ResultPair[] testPath = {new ResultPair("/test1", true),
                           new ResultPair("/t123", true),
                           new ResultPair("/$23", true),
                           new ResultPair("/..", false),
@@ -641,7 +641,7 @@ public class UrlValidatorTest {
                           new ResultPair("/test1//file", false)
    };
    //Test allow2slash, noFragment
-   ResultPair[] testUrlPathOptions = {new ResultPair("/test1", true),
+   final ResultPair[] testUrlPathOptions = {new ResultPair("/test1", true),
                                     new ResultPair("/t123", true),
                                     new ResultPair("/$23", true),
                                     new ResultPair("/..", false),
@@ -658,21 +658,21 @@ public class UrlValidatorTest {
                                     new ResultPair("/#/file", false)
    };
 
-   ResultPair[] testUrlQuery = {new ResultPair("?action=view", true),
+   final ResultPair[] testUrlQuery = {new ResultPair("?action=view", true),
                               new ResultPair("?action=edit&mode=up", true),
                               new ResultPair("", true)
    };
 
-   Object[] testUrlParts = {testUrlScheme, testUrlAuthority, testUrlPort, testPath, testUrlQuery};
-   Object[] testUrlPartsOptions = {testUrlScheme, testUrlAuthority, testUrlPort, testUrlPathOptions, testUrlQuery};
-   int[] testPartsIndex = {0, 0, 0, 0, 0};
+   final Object[] testUrlParts = {testUrlScheme, testUrlAuthority, testUrlPort, testPath, testUrlQuery};
+   final Object[] testUrlPartsOptions = {testUrlScheme, testUrlAuthority, testUrlPort, testUrlPathOptions, testUrlQuery};
+   final int[] testPartsIndex = {0, 0, 0, 0, 0};
 
    //---------------- Test data for individual url parts ----------------
    private final String[] schemes = {"http", "gopher", "g0-To+.",
                                       "not_valid" // TODO this will need to be dropped if the ctor validates schemes
                                     };
 
-   ResultPair[] testScheme = {new ResultPair("http", true),
+   final ResultPair[] testScheme = {new ResultPair("http", true),
                             new ResultPair("ftp", false),
                             new ResultPair("httpd", false),
                             new ResultPair("gopher", true),

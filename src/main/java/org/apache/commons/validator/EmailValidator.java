@@ -85,7 +85,7 @@ public class EmailValidator {
      * value is considered invalid.
      * @return true if the email address is valid.
      */
-    public boolean isValid(String email) {
+    public boolean isValid(final String email) {
         return org.apache.commons.validator.routines.EmailValidator.getInstance().isValid(email);
     }
 
@@ -94,14 +94,14 @@ public class EmailValidator {
      * @param domain being validated.
      * @return true if the email address's domain is valid.
      */
-    protected boolean isValidDomain(String domain) {
+    protected boolean isValidDomain(final String domain) {
         boolean symbolic = false;
 
         // see if domain is an IP address in brackets
-        Matcher ipDomainMatcher = IP_DOMAIN_PATTERN.matcher(domain);
+        final Matcher ipDomainMatcher = IP_DOMAIN_PATTERN.matcher(domain);
 
         if (ipDomainMatcher.matches()) {
-            InetAddressValidator inetAddressValidator =
+            final InetAddressValidator inetAddressValidator =
                     InetAddressValidator.getInstance();
             if (inetAddressValidator.isValid(ipDomainMatcher.group(1))) {
                 return true;
@@ -127,7 +127,7 @@ public class EmailValidator {
      * @param user being validated
      * @return true if the user name is valid.
      */
-    protected boolean isValidUser(String user) {
+    protected boolean isValidUser(final String user) {
         return USER_PATTERN.matcher(user).matches(); 
     }
 
@@ -136,10 +136,10 @@ public class EmailValidator {
      * @param ipAddress IP address
      * @return true if the ip address is valid.
      */
-    protected boolean isValidIpAddress(String ipAddress) {
-        Matcher ipAddressMatcher = IP_DOMAIN_PATTERN.matcher(ipAddress);
+    protected boolean isValidIpAddress(final String ipAddress) {
+        final Matcher ipAddressMatcher = IP_DOMAIN_PATTERN.matcher(ipAddress);
         for (int i = 1; i <= 4; i++) { // CHECKSTYLE IGNORE MagicNumber
-            String ipSegment = ipAddressMatcher.group(i);
+            final String ipSegment = ipAddressMatcher.group(i);
             if (ipSegment == null || ipSegment.length() <= 0) {
                 return false;
             }
@@ -148,7 +148,7 @@ public class EmailValidator {
 
             try {
                 iIpSegment = Integer.parseInt(ipSegment);
-            } catch(NumberFormatException e) {
+            } catch(final NumberFormatException e) {
                 return false;
             }
 
@@ -166,15 +166,15 @@ public class EmailValidator {
      * @return true if the symbolic domain name is valid.
      */
     protected boolean isValidSymbolicDomain(String domain) {
-        String[] domainSegment = new String[10]; // CHECKSTYLE IGNORE MagicNumber
+        final String[] domainSegment = new String[10]; // CHECKSTYLE IGNORE MagicNumber
         boolean match = true;
         int i = 0;
-        Matcher atomMatcher = ATOM_PATTERN.matcher(domain);
+        final Matcher atomMatcher = ATOM_PATTERN.matcher(domain);
         while (match) {
             match = atomMatcher.matches();
             if (match) {
                 domainSegment[i] = atomMatcher.group(1);
-                int l = domainSegment[i].length() + 1;
+                final int l = domainSegment[i].length() + 1;
                 domain =
                         (l >= domain.length())
                         ? ""
@@ -184,14 +184,14 @@ public class EmailValidator {
             } 
         }
 
-        int len = i;
+        final int len = i;
         
         // Make sure there's a host name preceding the domain.
         if (len < 2) {
             return false;
         }
         
-        String tld = domainSegment[len - 1];
+        final String tld = domainSegment[len - 1];
         if (tld.length() > 1) {
             if (! TLD_PATTERN.matcher(tld).matches()) {
                 return false;
@@ -210,10 +210,10 @@ public class EmailValidator {
      * @param emailStr The email address
      * @return address with comments removed.
     */
-    protected String stripComments(String emailStr)  {
+    protected String stripComments(final String emailStr)  {
      String result = emailStr;
-     String commentPat = "^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/";
-     Pattern commentMatcher = Pattern.compile(commentPat);
+     final String commentPat = "^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/";
+     final Pattern commentMatcher = Pattern.compile(commentPat);
      
      while (commentMatcher.matcher(result).matches()) {
         result = result.replaceFirst(commentPat, "\1 ");

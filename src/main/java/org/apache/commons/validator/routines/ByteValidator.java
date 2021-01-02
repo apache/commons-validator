@@ -104,7 +104,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @param formatType The <code>NumberFormat</code> type to
      *        create for validation, default is STANDARD_FORMAT.
      */
-    public ByteValidator(boolean strict, int formatType) {
+    public ByteValidator(final boolean strict, final int formatType) {
         super(strict, formatType, false);
     }
 
@@ -116,7 +116,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @return The parsed <code>Byte</code> if valid or <code>null</code>
      *  if invalid.
      */
-    public Byte validate(String value) {
+    public Byte validate(final String value) {
         return (Byte)parse(value, (String)null, (Locale)null);
     }
 
@@ -128,7 +128,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @param pattern The pattern used to validate the value against.
      * @return The parsed <code>Byte</code> if valid or <code>null</code> if invalid.
      */
-    public Byte validate(String value, String pattern) {
+    public Byte validate(final String value, final String pattern) {
         return (Byte)parse(value, pattern, (Locale)null);
     }
 
@@ -140,7 +140,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the number format, system default if null.
      * @return The parsed <code>Byte</code> if valid or <code>null</code> if invalid.
      */
-    public Byte validate(String value, Locale locale) {
+    public Byte validate(final String value, final Locale locale) {
         return (Byte)parse(value, (String)null, locale);
     }
 
@@ -154,7 +154,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the date format, system default if null.
      * @return The parsed <code>Byte</code> if valid or <code>null</code> if invalid.
      */
-    public Byte validate(String value, String pattern, Locale locale) {
+    public Byte validate(final String value, final String pattern, final Locale locale) {
         return (Byte)parse(value, pattern, locale);
     }
 
@@ -167,7 +167,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(byte value, byte min, byte max) {
+    public boolean isInRange(final byte value, final byte min, final byte max) {
         return (value >= min && value <= max);
     }
 
@@ -180,7 +180,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(Byte value, byte min, byte max) {
+    public boolean isInRange(final Byte value, final byte min, final byte max) {
         return isInRange(value.byteValue(), min, max);
     }
 
@@ -192,7 +192,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(byte value, byte min) {
+    public boolean minValue(final byte value, final byte min) {
         return (value >= min);
     }
 
@@ -204,7 +204,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(Byte value, byte min) {
+    public boolean minValue(final Byte value, final byte min) {
         return minValue(value.byteValue(), min);
     }
 
@@ -216,7 +216,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(byte value, byte max) {
+    public boolean maxValue(final byte value, final byte max) {
         return (value <= max);
     }
 
@@ -228,7 +228,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(Byte value, byte max) {
+    public boolean maxValue(final Byte value, final byte max) {
         return maxValue(value.byteValue(), max);
     }
 
@@ -242,11 +242,11 @@ public class ByteValidator extends AbstractNumberValidator {
      *   <code>Byte</code> if valid or <code>null</code> if invalid.
      */
     @Override
-    protected Object processParsedValue(Object value, Format formatter) {
+    protected Object processParsedValue(final Object value, final Format formatter) {
 
         // Parsed value will be Long if it fits in a long and is not fractional
         if (value instanceof Long) {
-            long longValue = ((Long)value).longValue();
+            final long longValue = ((Long)value).longValue();
             if (longValue >= Byte.MIN_VALUE && 
                 longValue <= Byte.MAX_VALUE) {
                 return Byte.valueOf((byte)longValue);

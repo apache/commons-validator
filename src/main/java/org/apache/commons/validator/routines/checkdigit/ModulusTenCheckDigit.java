@@ -126,7 +126,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      * @param postitionWeight the weighted values to apply based on the
      *            character position
      */
-    public ModulusTenCheckDigit(int[] postitionWeight) {
+    public ModulusTenCheckDigit(final int[] postitionWeight) {
         this(postitionWeight, false, false);
     }
 
@@ -139,7 +139,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      * @param useRightPos <code>true</code> if use positionWeights from right to
      *            left
      */
-    public ModulusTenCheckDigit(int[] postitionWeight, boolean useRightPos) {
+    public ModulusTenCheckDigit(final int[] postitionWeight, final boolean useRightPos) {
         this(postitionWeight, useRightPos, false);
     }
 
@@ -155,7 +155,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      * @param sumWeightedDigits <code>true</code> if sum the digits of the
      *            weighted value
      */
-    public ModulusTenCheckDigit(int[] postitionWeight, boolean useRightPos, boolean sumWeightedDigits) {
+    public ModulusTenCheckDigit(final int[] postitionWeight, final boolean useRightPos, final boolean sumWeightedDigits) {
         super(10); // CHECKSTYLE IGNORE MagicNumber
         this.postitionWeight = Arrays.copyOf(postitionWeight, postitionWeight.length);
         this.useRightPos = useRightPos;
@@ -172,7 +172,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      *         <code>false</code>
      */
     @Override
-    public boolean isValid(String code) {
+    public boolean isValid(final String code) {
         if (code == null || code.length() == 0) {
             return false;
         }
@@ -199,8 +199,8 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      *             negative number
      */
     @Override
-    protected int toInt(char character, int leftPos, int rightPos) throws CheckDigitException {
-        int num = Character.getNumericValue(character);
+    protected int toInt(final char character, final int leftPos, final int rightPos) throws CheckDigitException {
+        final int num = Character.getNumericValue(character);
         if (num < 0) {
             throw new CheckDigitException("Invalid Character[" + leftPos + "] = '" + character + "'");
         }
@@ -219,9 +219,9 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     @Override
-    protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        int pos = useRightPos ? rightPos : leftPos;
-        int weight = postitionWeight[(pos - 1) % postitionWeight.length];
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
+        final int pos = useRightPos ? rightPos : leftPos;
+        final int weight = postitionWeight[(pos - 1) % postitionWeight.length];
         int weightedValue = charValue * weight;
         if (sumWeightedDigits) {
             weightedValue = ModulusCheckDigit.sumDigits(weightedValue);
