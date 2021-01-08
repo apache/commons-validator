@@ -551,9 +551,7 @@ public class ValidatorAction implements Serializable {
                         getValidationClassInstance(),
                         paramValues);
 
-            } catch (IllegalArgumentException e) {
-                throw new ValidatorException(e.getMessage());
-            } catch (IllegalAccessException e) {
+            } catch (IllegalArgumentException | IllegalAccessException e) {
                 throw new ValidatorException(e.getMessage());
             } catch (InvocationTargetException e) {
 
@@ -692,16 +690,7 @@ public class ValidatorAction implements Serializable {
             if (this.instance == null) {
                 try {
                     this.instance = this.validationClass.newInstance();
-                } catch (InstantiationException e) {
-                    String msg1 =
-                        "Couldn't create instance of "
-                            + this.classname
-                            + ".  "
-                            + e.getMessage();
-
-                    throw new ValidatorException(msg1);
-
-                } catch (IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException e) {
                     String msg1 =
                         "Couldn't create instance of "
                             + this.classname
