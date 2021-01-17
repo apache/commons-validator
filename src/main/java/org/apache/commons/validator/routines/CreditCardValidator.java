@@ -465,7 +465,7 @@ public class CreditCardValidator implements Serializable {
                 // must be numeric (rest of validation is done later)
                 new RegexValidator("(\\d+)") {
                     private static final long serialVersionUID = 1L;
-                    private CreditCardRange[] ccr = creditCardRanges.clone();
+                    private final CreditCardRange[] ccr = creditCardRanges.clone();
                     @Override
                     // must return full string
                     public String validate(String value) {
