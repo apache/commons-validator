@@ -76,7 +76,7 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
      */
     @Override
     public boolean isValid(String code) {
-        if (code == null || code.length() == 0) {
+        if (code == null || code.isEmpty()) {
             return false;
         }
         try {
@@ -96,7 +96,7 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
      */
     @Override
     public String calculate(String code) throws CheckDigitException {
-        if (code == null || code.length() == 0) {
+        if (code == null || code.isEmpty()) {
             throw new CheckDigitException("Code is missing");
         }
         int checksum = calculateChecksum(code, false);

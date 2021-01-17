@@ -53,7 +53,7 @@ public class GenericValidator implements Serializable {
      * @return true if blank or null.
      */
     public static boolean isBlankOrNull(String value) {
-        return ((value == null) || (value.trim().length() == 0));
+        return value == null || value.trim().isEmpty();
     }
 
     /**

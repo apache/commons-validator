@@ -330,7 +330,7 @@ public class Field implements Cloneable, Serializable {
      */
     public void addArg(Arg arg) {
         // TODO this first if check can go away after arg0, etc. are removed from dtd
-        if (arg == null || arg.getKey() == null || arg.getKey().length() == 0) {
+        if (arg == null || arg.getKey() == null || arg.getKey().isEmpty()) {
             return;
         }
 

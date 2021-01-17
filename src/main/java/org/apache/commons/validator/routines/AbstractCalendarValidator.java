@@ -176,7 +176,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     protected Object parse(String value, String pattern, Locale locale, TimeZone timeZone) {
 
         value = (value == null ? null : value.trim());
-        if (value == null || value.length() == 0) {
+        if (value == null || value.isEmpty()) {
             return null;
         }
         DateFormat formatter = (DateFormat)getFormat(pattern, locale);

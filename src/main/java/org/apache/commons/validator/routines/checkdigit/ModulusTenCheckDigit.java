@@ -173,7 +173,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      */
     @Override
     public boolean isValid(String code) {
-        if (code == null || code.length() == 0) {
+        if (code == null || code.isEmpty()) {
             return false;
         }
         if (!Character.isDigit(code.charAt(code.length() - 1))) {

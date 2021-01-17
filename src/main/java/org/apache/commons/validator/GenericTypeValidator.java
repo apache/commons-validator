@@ -431,7 +431,7 @@ public class GenericTypeValidator implements Serializable {
 
         if (value == null
                 || datePattern == null
-                || datePattern.length() == 0) {
+                || datePattern.isEmpty()) {
             return null;
         }
 

@@ -155,7 +155,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     protected Object parse(String value, String pattern, Locale locale) {
 
         value = (value == null ? null : value.trim());
-        if (value == null || value.length() == 0) {
+        if (value == null || value.isEmpty()) {
             return null;
         }
         Format formatter = getFormat(pattern, locale);

@@ -65,7 +65,7 @@ public final class ISBNCheckDigit implements CheckDigit, Serializable {
      */
     @Override
     public String calculate(String code) throws CheckDigitException {
-        if (code == null || code.length() == 0) {
+        if (code == null || code.isEmpty()) {
             throw new CheckDigitException("ISBN Code is missing");
         } else if (code.length() == 9) { // CHECKSTYLE IGNORE MagicNumber
             return ISBN10_CHECK_DIGIT.calculate(code);

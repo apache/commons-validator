@@ -414,7 +414,7 @@ public class CreditCardValidator implements Serializable {
      * @return Whether the card number is valid.
      */
     public boolean isValid(String card) {
-        if (card == null || card.length() == 0) {
+        if (card == null || card.isEmpty()) {
             return false;
         }
         for (CodeValidator cardType : cardTypes) {
@@ -432,7 +432,7 @@ public class CreditCardValidator implements Serializable {
      * if invalid.
      */
     public Object validate(String card) {
-        if (card == null || card.length() == 0) {
+        if (card == null || card.isEmpty()) {
             return null;
         }
         Object result = null;

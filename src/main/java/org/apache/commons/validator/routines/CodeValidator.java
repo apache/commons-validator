@@ -253,7 +253,7 @@ public final class CodeValidator implements Serializable {
         }
 
         String code = input.trim();
-        if (code.length() == 0) {
+        if (code.isEmpty()) {
             return null;
         }
 

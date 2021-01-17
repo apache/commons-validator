@@ -319,7 +319,7 @@ public class ValidatorResources implements Serializable {
      */
     public void addFormSet(FormSet fs) {
         String key = this.buildKey(fs);
-        if (key.length() == 0) {// there can only be one default formset
+        if (key.isEmpty()) {// there can only be one default formset
             if (getLog().isWarnEnabled() && defaultFormSet != null) {
                 // warn the user he might not get the expected results
                 getLog().warn("Overriding default FormSet definition.");
@@ -595,7 +595,7 @@ public class ValidatorResources implements Serializable {
 
         String key = buildLocale(language, country, variant);
 
-        if (key.length() == 0) {
+        if (key.isEmpty()) {
             return defaultFormSet;
         }
 
