@@ -231,14 +231,14 @@ public class GenericValidatorImpl {
             }
             String dependVal = ValidatorUtils.getValueAsString(form, dependProp);
             if (dependTest.equals(FIELD_TEST_NULL)) {
-                if ((dependVal != null) && (dependVal.length() > 0)) {
+                if ((dependVal != null) && (!dependVal.isEmpty())) {
                     this_required = false;
                 } else {
                     this_required = true;
                 }
             }
             if (dependTest.equals(FIELD_TEST_NOTNULL)) {
-                if ((dependVal != null) && (dependVal.length() > 0)) {
+                if ((dependVal != null) && (!dependVal.isEmpty())) {
                     this_required = true;
                 } else {
                     this_required = false;
@@ -255,7 +255,7 @@ public class GenericValidatorImpl {
             i++;
         }
         if (required) {
-            if ((value != null) && (value.length() > 0)) {
+            if ((value != null) && (!value.isEmpty())) {
                 return true;
             } else {
                 return false;

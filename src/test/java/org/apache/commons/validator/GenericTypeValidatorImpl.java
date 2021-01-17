@@ -237,9 +237,9 @@ public class GenericTypeValidatorImpl {
       String datePatternStrict = field.getVarValue("datePatternStrict");
       
       Date result = null;
-      if (datePattern != null && datePattern.length() > 0) {
+      if (datePattern != null && !datePattern.isEmpty()) {
             result = GenericTypeValidator.formatDate(value, datePattern, false);
-        } else if (datePatternStrict != null && datePatternStrict.length() > 0) {
+        } else if (datePatternStrict != null && !datePatternStrict.isEmpty()) {
             result = GenericTypeValidator.formatDate(value, datePatternStrict, true);
         } 
 

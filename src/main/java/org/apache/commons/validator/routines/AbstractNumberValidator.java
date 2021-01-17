@@ -188,7 +188,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     protected Format getFormat(String pattern, Locale locale) {
 
         NumberFormat formatter = null;
-        boolean usePattern = (pattern != null && pattern.length() > 0);
+        boolean usePattern = pattern != null && !pattern.isEmpty();
         if (!usePattern) {
             formatter = (NumberFormat)getFormat(locale);
         } else if (locale == null) {

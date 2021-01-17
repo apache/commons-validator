@@ -114,7 +114,7 @@ public final class CodeValidator implements Serializable {
      */
     public CodeValidator(String regex, int minLength, int maxLength,
             CheckDigit checkdigit) {
-        if (regex != null && regex.length() > 0) {
+        if (regex != null && !regex.isEmpty()) {
             this.regexValidator = new RegexValidator(regex);
         } else {
             this.regexValidator = null;

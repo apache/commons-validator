@@ -305,18 +305,18 @@ public class FormSet implements Serializable {
      */
     public String displayKey() {
         StringBuilder results = new StringBuilder();
-        if (language != null && language.length() > 0) {
+        if (language != null && !language.isEmpty()) {
             results.append("language=");
             results.append(language);
         }
-        if (country != null && country.length() > 0) {
+        if (country != null && !country.isEmpty()) {
             if (results.length() > 0) {
                results.append(", ");
             }
             results.append("country=");
             results.append(country);
         }
-        if (variant != null && variant.length() > 0) {
+        if (variant != null && !variant.isEmpty()) {
             if (results.length() > 0) {
                results.append(", ");
             }

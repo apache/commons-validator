@@ -257,7 +257,7 @@ public class Field implements Cloneable, Serializable {
         while (st.hasMoreTokens()) {
             String depend = st.nextToken().trim();
 
-            if (depend != null && depend.length() > 0) {
+            if (depend != null && !depend.isEmpty()) {
                 this.dependencyList.add(depend);
             }
         }
@@ -541,7 +541,7 @@ public class Field implements Cloneable, Serializable {
      * @return Whether the Field is indexed.
      */
     public boolean isIndexed() {
-        return (indexedListProperty != null && indexedListProperty.length() > 0);
+        return (indexedListProperty != null && !indexedListProperty.isEmpty());
     }
 
     /**

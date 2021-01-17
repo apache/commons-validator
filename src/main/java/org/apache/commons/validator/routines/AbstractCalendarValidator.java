@@ -211,7 +211,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     @Override
     protected Format getFormat(String pattern, Locale locale) {
         DateFormat formatter = null;
-        boolean usePattern = (pattern != null && pattern.length() > 0);
+        boolean usePattern = pattern != null && !pattern.isEmpty();
         if (!usePattern) {
             formatter = (DateFormat)getFormat(locale);
         } else if (locale == null) {

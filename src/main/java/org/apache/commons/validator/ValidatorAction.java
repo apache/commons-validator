@@ -226,7 +226,7 @@ public class ValidatorAction implements Serializable {
         while (st.hasMoreTokens()) {
             String value = st.nextToken().trim();
 
-            if (value != null && value.length() > 0) {
+            if (value != null && !value.isEmpty()) {
                 this.methodParameterList.add(value);
             }
         }
@@ -254,7 +254,7 @@ public class ValidatorAction implements Serializable {
         while (st.hasMoreTokens()) {
             String depend = st.nextToken().trim();
 
-            if (depend != null && depend.length() > 0) {
+            if (depend != null && !depend.isEmpty()) {
                 this.dependencyList.add(depend);
             }
         }
