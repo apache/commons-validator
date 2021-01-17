@@ -140,7 +140,7 @@ public class EmailValidator {
         Matcher ipAddressMatcher = IP_DOMAIN_PATTERN.matcher(ipAddress);
         for (int i = 1; i <= 4; i++) { // CHECKSTYLE IGNORE MagicNumber
             String ipSegment = ipAddressMatcher.group(i);
-            if (ipSegment == null || ipSegment.length() <= 0) {
+            if (ipSegment == null || ipSegment.isEmpty()) {
                 return false;
             }
 
