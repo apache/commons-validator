@@ -296,28 +296,28 @@ public class ISBNValidatorTest extends TestCase {
         try {
             input = "123456789 ";
             validator.convertToISBN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'"); 
+            fail("Expected IllegalArgumentException for '" + input + "'");
         } catch (IllegalArgumentException e) {
             // expected result
         }
         try {
             input = "12345678901";
             validator.convertToISBN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'"); 
+            fail("Expected IllegalArgumentException for '" + input + "'");
         } catch (IllegalArgumentException e) {
             // expected result
         }
         try {
             input = "";
             validator.convertToISBN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'"); 
+            fail("Expected IllegalArgumentException for '" + input + "'");
         } catch (IllegalArgumentException e) {
             // expected result
         }
         try {
             input = "X234567890";
             validator.convertToISBN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'"); 
+            fail("Expected IllegalArgumentException for '" + input + "'");
         } catch (IllegalArgumentException e) {
             // expected result
         }

@@ -16,15 +16,15 @@
  */
 package org.apache.commons.validator;
 
-/**                                                       
- * Value object for storing a value to run tests on. 
+/**
+ * Value object for storing a value to run tests on.
  *
  * @version $Revision$
  */
 public class ValueBean {
-   
+
    protected String value = null;
-   
+
    /**
     * Gets the value.
     */
@@ -38,5 +38,5 @@ public class ValueBean {
    public void setValue(String value) {
       this.value = value;
    }
-      
-}                                                         
+
+}

@@ -57,26 +57,26 @@ import org.apache.commons.validator.routines.CodeValidator;
  * <p>
  * <b>Note:</b> This implementation can be combined with the
  * {@link CodeValidator} in order to ensure the length and characters are valid.
- * 
+ *
  * <h2>Example Usage</h2>
  * <p>
  * This implementation was added after a number of Modulus 10 routines and these
  * are shown re-implemented using this routine below:
- * 
+ *
  * <p>
  * <b>ABA Number</b> Check Digit Routine (equivalent of
  * {@link ABANumberCheckDigit}). Weighting factors are <code>[1, 7, 3]</code>
  * applied from right to left.
- * 
+ *
  * <pre>
  * CheckDigit routine = new ModulusTenCheckDigit(new int[] { 1, 7, 3 }, true);
  * </pre>
- * 
+ *
  * <p>
  * <b>CUSIP</b> Check Digit Routine (equivalent of {@link CUSIPCheckDigit}).
  * Weighting factors are <code>[1, 2]</code> applied from right to left and the
  * digits of the <i>weighted value</i> are summed.
- * 
+ *
  * <pre>
  * CheckDigit routine = new ModulusTenCheckDigit(new int[] { 1, 2 }, true, true);
  * </pre>
@@ -85,7 +85,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * <b>EAN-13 / UPC</b> Check Digit Routine (equivalent of
  * {@link EAN13CheckDigit}). Weighting factors are <code>[1, 3]</code> applied
  * from right to left.
- * 
+ *
  * <pre>
  * CheckDigit routine = new ModulusTenCheckDigit(new int[] { 1, 3 }, true);
  * </pre>
@@ -94,7 +94,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * <b>Luhn</b> Check Digit Routine (equivalent of {@link LuhnCheckDigit}).
  * Weighting factors are <code>[1, 2]</code> applied from right to left and the
  * digits of the <i>weighted value</i> are summed.
- * 
+ *
  * <pre>
  * CheckDigit routine = new ModulusTenCheckDigit(new int[] { 1, 2 }, true, true);
  * </pre>
@@ -103,7 +103,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * <b>SEDOL</b> Check Digit Routine (equivalent of {@link SedolCheckDigit}).
  * Weighting factors are <code>[1, 3, 1, 7, 3, 9, 1]</code> applied from left to
  * right.
- * 
+ *
  * <pre>
  * CheckDigit routine = new ModulusTenCheckDigit(new int[] { 1, 3, 1, 7, 3, 9, 1 });
  * </pre>
@@ -122,7 +122,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     /**
      * Construct a modulus 10 Check Digit routine with the specified weighting
      * from left to right.
-     * 
+     *
      * @param postitionWeight the weighted values to apply based on the
      *            character position
      */
@@ -133,7 +133,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     /**
      * Construct a modulus 10 Check Digit routine with the specified weighting,
      * indicating whether its from the left or right.
-     * 
+     *
      * @param postitionWeight the weighted values to apply based on the
      *            character position
      * @param useRightPos <code>true</code> if use positionWeights from right to
@@ -147,7 +147,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      * Construct a modulus 10 Check Digit routine with the specified weighting,
      * indicating whether its from the left or right and whether the weighted
      * digits should be summed.
-     * 
+     *
      * @param postitionWeight the weighted values to apply based on the
      *            character position
      * @param useRightPos <code>true</code> if use positionWeights from right to

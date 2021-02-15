@@ -24,7 +24,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * @since Validator 1.4
  */
 public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
-    
+
     /**
      * Constructor
      * @param name test name
@@ -89,6 +89,6 @@ public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
             assertEquals("calculate() Lth 13", "Invalid ISBN Length = 13", e.getMessage());
         }
     }
-    
+
 
 }

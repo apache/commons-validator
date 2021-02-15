@@ -247,7 +247,7 @@ public class ByteValidator extends AbstractNumberValidator {
         // Parsed value will be Long if it fits in a long and is not fractional
         if (value instanceof Long) {
             long longValue = ((Long)value).longValue();
-            if (longValue >= Byte.MIN_VALUE && 
+            if (longValue >= Byte.MIN_VALUE &&
                 longValue <= Byte.MAX_VALUE) {
                 return Byte.valueOf((byte)longValue);
             }

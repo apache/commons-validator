@@ -73,7 +73,7 @@ import java.util.ArrayList;
  * This can be combined with a list of {@code CodeValidator}s
  * </p>
  * <p>
- * More information can be found in Michael Gilleland's essay 
+ * More information can be found in Michael Gilleland's essay
  * <a href="http://web.archive.org/web/20120614072656/http://www.merriampark.com/anatomycc.htm">Anatomy of Credit Card Numbers</a>.
  * </p>
  *
@@ -134,7 +134,7 @@ public class CreditCardValidator implements Serializable {
          * The low and high parameters may be different lengths.
          * e.g. Discover "644" and "65".
          * </p>
-         * @param low the low digits of the IIN range 
+         * @param low the low digits of the IIN range
          * @param high the high digits of the IIN range
          * @param lengths array of valid lengths
          */
@@ -262,7 +262,7 @@ public class CreditCardValidator implements Serializable {
     /** Mastercard Card Validator */
     public static final CodeValidator MASTERCARD_VALIDATOR = new CodeValidator(MASTERCARD_REGEX, LUHN_VALIDATOR);
 
-    /** 
+    /**
      * Mastercard Card Validator (pre Oct 2016)
      * @deprecated for use until Oct 2016 only
      */
@@ -278,7 +278,7 @@ public class CreditCardValidator implements Serializable {
 
     /** VPay (Visa) Card Validator
      * <p>
-     * 4xxxxx (13-19) 
+     * 4xxxxx (13-19)
      * @since 1.5.0
      */
     public static final CodeValidator VPAY_VALIDATOR = new CodeValidator("^(4)(\\d{12,18})$", LUHN_VALIDATOR);

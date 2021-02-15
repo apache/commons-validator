@@ -252,7 +252,7 @@ public class FieldTest extends TestCase {
     private Arg createArg(String key) {
         Arg arg = new Arg();
         arg.setKey(key);
-        return arg; 
+        return arg;
     }
 
     /**
@@ -261,7 +261,7 @@ public class FieldTest extends TestCase {
     private Arg createArg(String key, int position) {
         Arg arg = createArg(key);
         arg.setPosition(position);
-        return arg; 
+        return arg;
     }
 
     /**
@@ -270,7 +270,7 @@ public class FieldTest extends TestCase {
     private Arg createArg(String key, String name) {
         Arg arg = createArg(key);
         arg.setName(name);
-        return arg; 
+        return arg;
     }
 
     /**
@@ -279,7 +279,7 @@ public class FieldTest extends TestCase {
     private Arg createArg(String key, String name, int position) {
         Arg arg = createArg(key, name);
         arg.setPosition(position);
-        return arg; 
+        return arg;
     }
 
 }

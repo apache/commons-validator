@@ -43,7 +43,7 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  * nor do they generally check the format/length).
  * To be sure that you are passing valid input to a method use {@link #validate(String)} as follows:
  * <pre>
- * Object valid = validator.validate(input); 
+ * Object valid = validator.validate(input);
  * if (valid != null) {
  *    some_method(valid.toString());
  * }
@@ -63,7 +63,7 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  * expression (i.e. use the <code>(?:   )</code> notation).
  * <br>
  * Or just avoid using parentheses except for the parts you want to capture
- * 
+ *
  * @version $Revision$
  * @since Validator 1.4
  */

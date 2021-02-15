@@ -21,7 +21,7 @@ import java.io.IOException;
 import org.xml.sax.SAXException;
 import org.apache.commons.validator.ValidatorResources;
 
-/**                                                       
+/**
  * Custom ValidatorResources implementation.
  *
  * @version $Revision$
@@ -33,7 +33,7 @@ public class CustomValidatorResources extends ValidatorResources {
     /**
      * Create a custom ValidatorResources object from an uri
      *
-     * @param in InputStream for the validation.xml configuration file. 
+     * @param in InputStream for the validation.xml configuration file.
      * @throws SAXException if the validation XML files are not valid or well formed.
      * @throws IOException  if an I/O error occurs processing the XML files
      */

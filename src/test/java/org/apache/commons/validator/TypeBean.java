@@ -16,9 +16,9 @@
  */
 package org.apache.commons.validator;
 
-/**                                                       
- * Value object that contains different fields to test type conversion 
- * validation. 
+/**
+ * Value object that contains different fields to test type conversion
+ * validation.
  *
  * @version $Revision$
  */
@@ -36,15 +36,15 @@ public class TypeBean {
     public String getByte() {
         return sByte;
     }
-    
+
     public void setByte(String sByte) {
         this.sByte = sByte;
     }
-    
+
     public String getShort() {
         return sShort;
     }
-    
+
     public void setShort(String sShort) {
         this.sShort = sShort;
     }
@@ -52,7 +52,7 @@ public class TypeBean {
     public String getInteger() {
         return sInteger;
     }
-    
+
     public void setInteger(String sInteger) {
         this.sInteger = sInteger;
     }
@@ -60,7 +60,7 @@ public class TypeBean {
     public String getLong() {
         return sLong;
     }
-    
+
     public void setLong(String sLong) {
         this.sLong = sLong;
     }
@@ -68,7 +68,7 @@ public class TypeBean {
     public String getFloat() {
         return sFloat;
     }
-    
+
     public void setFloat(String sFloat) {
         this.sFloat = sFloat;
     }
@@ -76,7 +76,7 @@ public class TypeBean {
     public String getDouble() {
         return sDouble;
     }
-    
+
     public void setDouble(String sDouble) {
         this.sDouble = sDouble;
     }
@@ -84,7 +84,7 @@ public class TypeBean {
     public String getDate() {
         return sDate;
     }
-    
+
     public void setDate(String sDate) {
         this.sDate = sDate;
     }
@@ -92,7 +92,7 @@ public class TypeBean {
     public String getCreditCard() {
         return sCreditCard;
     }
-    
+
     public void setCreditCard(String sCreditCard) {
         this.sCreditCard = sCreditCard;
     }

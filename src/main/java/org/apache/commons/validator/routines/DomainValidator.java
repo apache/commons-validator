@@ -176,7 +176,7 @@ public class DomainValidator implements Serializable {
     final String[] mygenericTLDsMinus;
     final String[] mylocalTLDsPlus;
     final String[] mylocalTLDsMinus;
-    /* 
+    /*
      * N.B. It is vital that instances are immutable.
      * This is because the default instances are shared.
     */
@@ -187,7 +187,7 @@ public class DomainValidator implements Serializable {
     // result in different settings for the shared default instances
 
     /**
-     * Private constructor. 
+     * Private constructor.
     */
     private DomainValidator(boolean allowLocal) {
         this.allowLocal = allowLocal;
@@ -204,7 +204,7 @@ public class DomainValidator implements Serializable {
      * Private constructor, allowing local overrides
      * @since 1.7
     */
-    private DomainValidator(boolean allowLocal,  List<Item> items) { 
+    private DomainValidator(boolean allowLocal,  List<Item> items) {
         this.allowLocal = allowLocal;
 
         // default to class overrides
@@ -2008,7 +2008,7 @@ public class DomainValidator implements Serializable {
      * This field is used to detect whether the getInstance has been called.
      * After this, the method updateTLDOverride is not allowed to be called.
      * This field does not need to be volatile since it is only accessed from
-     * synchronized methods. 
+     * synchronized methods.
      */
     private static boolean inUse = false;
 
@@ -2059,8 +2059,8 @@ public class DomainValidator implements Serializable {
         INFRASTRUCTURE_RO,
         /** Get a copy of the local table */
         LOCAL_RO,
-        /** 
-         * Update (or get a copy of) the LOCAL_TLDS_PLUS table containing additional local TLDs 
+        /**
+         * Update (or get a copy of) the LOCAL_TLDS_PLUS table containing additional local TLDs
          * @since 1.7
          */
         LOCAL_PLUS,
@@ -2080,7 +2080,7 @@ public class DomainValidator implements Serializable {
         final ArrayType type;
         final String[] values;
         /**
-         * 
+         *
          * @param type ArrayType, e.g. GENERIC_PLUS, LOCAL_PLUS
          * @param values array of TLDs. Will be lower-cased and sorted
          */
@@ -2236,7 +2236,7 @@ public class DomainValidator implements Serializable {
     /**
      * Converts potentially Unicode input to punycode.
      * If conversion fails, returns the original input.
-     * 
+     *
      * @param input the string to convert, not null
      * @return converted input, or original input if conversion fails
      */

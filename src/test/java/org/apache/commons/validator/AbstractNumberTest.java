@@ -26,13 +26,13 @@ import org.xml.sax.SAXException;
  * @version $Revision$
  */
 abstract public class AbstractNumberTest extends AbstractCommonTest {
-    
+
     /**
      * The key used to retrieve the set of validation
      * rules from the xml file.
      */
     protected String FORM_KEY;
-    
+
     /**
      * The key used to retrieve the validator action.
      */
@@ -44,7 +44,7 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
     }
 
     /**
-     * Load <code>ValidatorResources</code> from 
+     * Load <code>ValidatorResources</code> from
      * validator-numeric.xml.
      */
     @Override

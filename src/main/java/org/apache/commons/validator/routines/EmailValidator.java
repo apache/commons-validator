@@ -229,11 +229,11 @@ public class EmailValidator implements Serializable {
      * @return true if the user name is valid.
      */
     protected boolean isValidUser(String user) {
-        
+
         if (user == null || user.length() > MAX_USERNAME_LEN) {
             return false;
         }
-        
+
         return USER_PATTERN.matcher(user).matches();
     }
 

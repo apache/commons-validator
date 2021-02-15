@@ -136,7 +136,7 @@ public class EmailValidatorTest {
         // But not in the domain name
         assertFalse(validator.isValid("foo+bar@example+3.com"));
 
-        // Domains with only special characters aren't allowed (VALIDATOR-286) 
+        // Domains with only special characters aren't allowed (VALIDATOR-286)
         assertFalse(validator.isValid("test@%*.com"));
         assertFalse(validator.isValid("test@^&#.com"));
 
@@ -218,10 +218,10 @@ public class EmailValidatorTest {
         }
         assertFalse("Test control char 127", validator.isValid("foo" + ((char)127) + "bar@domain.com"));
     }
-    
+
     /**
      * Test that @localhost and @localhost.localdomain
-     *  addresses are declared as valid when requested. 
+     *  addresses are declared as valid when requested.
      */
     @Test
     public void testEmailLocalhost() {
@@ -229,7 +229,7 @@ public class EmailValidatorTest {
        EmailValidator noLocal = EmailValidator.getInstance(false);
        EmailValidator allowLocal = EmailValidator.getInstance(true);
        assertEquals(validator, noLocal);
-       
+
        // Depends on the validator
        assertTrue(
              "@localhost.localdomain should be accepted but wasn't",
@@ -239,7 +239,7 @@ public class EmailValidatorTest {
              "@localhost should be accepted but wasn't",
              allowLocal.isValid("joe@localhost")
        );
-       
+
        assertFalse(
              "@localhost.localdomain should be accepted but wasn't",
              noLocal.isValid("joe@localhost.localdomain")
@@ -249,10 +249,10 @@ public class EmailValidatorTest {
              noLocal.isValid("joe@localhost")
        );
     }
-    
+
     /**
      * VALIDATOR-296 - A / or a ! is valid in the user part,
-     *  but not in the domain part 
+     *  but not in the domain part
      */
     @Test
     public void testEmailWithSlashes() {

@@ -20,7 +20,7 @@ import java.util.Locale;
 
 /**
  * Test Case for LongValidator.
- * 
+ *
  * @version $Revision$
  */
 public class LongValidatorTest extends AbstractNumberValidatorTest {
@@ -58,7 +58,7 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
         min = null;
         minMinusOne = null;
 
-        
+
         // testInvalidStrict()
         invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2", LONG_MAX_1, LONG_MIN_1, NINES};
 
@@ -94,7 +94,7 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
         String germanPatternVal = "1.23.45";
         String localeVal  = "12.345";
         String defaultVal = "12,345";
-        String XXXX    = "XXXX"; 
+        String XXXX    = "XXXX";
         Long expected = Long.valueOf(12345);
         assertEquals("validate(A) default", expected, LongValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, LongValidator.getInstance().validate(localeVal, locale));

@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 
 /**
  * CodeValidatorTest.java.
- *    
+ *
  * @version $Revision$
  * @since Validator 1.4
  */
@@ -100,7 +100,7 @@ public class CodeValidatorTest extends TestCase {
         assertEquals("No Length 20", length_20, validator.validate(length_20));
         assertEquals("No Length 21", length_21, validator.validate(length_21));
         assertEquals("No Length 22", length_22, validator.validate(length_22));
-        
+
         validator = new CodeValidator((String)null, 11, -1, (CheckDigit)null);
         assertEquals("Min 11 - min", 11, validator.getMinLength());
         assertEquals("Min 11 - max", -1, validator.getMaxLength());
@@ -110,7 +110,7 @@ public class CodeValidatorTest extends TestCase {
         assertEquals("Min 11 - 20", length_20, validator.validate(length_20));
         assertEquals("Min 11 - 21", length_21, validator.validate(length_21));
         assertEquals("Min 11 - 22", length_22, validator.validate(length_22));
-        
+
         validator = new CodeValidator((String)null, -1, 21, (CheckDigit)null);
         assertEquals("Max 21 - min", -1, validator.getMinLength());
         assertEquals("Max 21 - max", 21, validator.getMaxLength());
@@ -120,7 +120,7 @@ public class CodeValidatorTest extends TestCase {
         assertEquals("Max 21 - 20", length_20, validator.validate(length_20));
         assertEquals("Max 21 - 21", length_21, validator.validate(length_21));
         assertEquals("Max 21 - 22", null,      validator.validate(length_22));
-        
+
         validator = new CodeValidator((String)null, 11, 21, (CheckDigit)null);
         assertEquals("Min 11 / Max 21 - min", 11, validator.getMinLength());
         assertEquals("Min 11 / Max 21 - max", 21, validator.getMaxLength());

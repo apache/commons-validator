@@ -16,8 +16,8 @@
  */
 package org.apache.commons.validator;
 
-/**                                                       
- * Value object that contains a first name and last name. 
+/**
+ * Value object that contains a first name and last name.
  *
  * @version $Revision$
  */

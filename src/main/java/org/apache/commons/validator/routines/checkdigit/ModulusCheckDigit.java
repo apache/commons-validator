@@ -82,7 +82,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
     /**
      * Calculate a modulus <i>Check Digit</i> for a code which does not yet have one.
      *
-     * @param code The code for which to calculate the Check Digit; 
+     * @param code The code for which to calculate the Check Digit;
      * the check digit should not be included
      * @return The calculated Check Digit
      * @throws CheckDigitException if an error occurs calculating the check digit
