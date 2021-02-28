@@ -148,12 +148,11 @@ public class InetAddressValidator implements Serializable {
         parts = parts[0].split("%", -1);
         if (parts.length > 2) {
             return false;
-        } else if (parts.length == 2){
-            // The id syntax is implemenatation independent, but it presumably cannot allow:
-            // whitespace, '/' or '%'
-            if (!parts[1].matches("[^\\s/%]+")) {
-                return false; // invalid id
-            }
+        } else 
+        // The id syntax is implementation independent, but it presumably cannot allow:
+        // whitespace, '/' or '%'
+        if ((parts.length == 2) && !parts[1].matches("[^\\s/%]+")) {
+            return false; // invalid id
         }
         inet6Address = parts[0];
         boolean containsCompressedZeroes = inet6Address.contains("::");

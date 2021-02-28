@@ -385,10 +385,8 @@ public class DomainValidatorTest extends TestCase {
                 }
                 ianaTlds.add(asciiTld);
                 // Don't merge these conditions; generateUnicodeTlds is final so needs to be separate to avoid a warning
-                if (generateUnicodeTlds) {
-                    if (!unicodeTld.equals(asciiTld)) {
-                        ianaTlds.add(unicodeTld);
-                    }
+                if (generateUnicodeTlds && !unicodeTld.equals(asciiTld)) {
+                    ianaTlds.add(unicodeTld);
                 }
             }
         }
