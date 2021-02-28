@@ -472,7 +472,7 @@ public class ValidatorAction implements Serializable {
 
         jsName.append(".validate");
         jsName.append(name.substring(0, 1).toUpperCase());
-        jsName.append(name.substring(1, name.length()));
+        jsName.append(name.substring(1));
 
         return jsName.toString();
     }
