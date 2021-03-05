@@ -99,19 +99,16 @@ public class EmailValidator implements Serializable {
      * @return singleton instance of this validator
      */
     public static EmailValidator getInstance(boolean allowLocal, boolean allowTld) {
-        if(allowLocal) {
+        if (allowLocal) {
             if (allowTld) {
                 return EMAIL_VALIDATOR_WITH_LOCAL_WITH_TLD;
-            } else {
-                return EMAIL_VALIDATOR_WITH_LOCAL;
             }
-        } else {
-            if (allowTld) {
-                return EMAIL_VALIDATOR_WITH_TLD;
-            } else {
-                return EMAIL_VALIDATOR;
-            }
+            return EMAIL_VALIDATOR_WITH_LOCAL;
         }
+        if (allowTld) {
+            return EMAIL_VALIDATOR_WITH_TLD;
+        }
+        return EMAIL_VALIDATOR;
     }
 
     /**
@@ -138,12 +135,11 @@ public class EmailValidator implements Serializable {
         this.allowTld = allowTld;
         if (domainValidator == null) {
             throw new IllegalArgumentException("DomainValidator cannot be null");
-        } else {
-            if (domainValidator.isAllowLocal() != allowLocal) {
-                throw new IllegalArgumentException("DomainValidator must agree with allowLocal setting");
-            }
-            this.domainValidator = domainValidator;
         }
+        if (domainValidator.isAllowLocal() != allowLocal) {
+            throw new IllegalArgumentException("DomainValidator must agree with allowLocal setting");
+        }
+        this.domainValidator = domainValidator;
     }
 
     /**
@@ -217,9 +213,8 @@ public class EmailValidator implements Serializable {
         // Domain is symbolic name
         if (allowTld) {
             return domainValidator.isValid(domain) || (!domain.startsWith(".") && domainValidator.isValidTld(domain));
-        } else {
-            return domainValidator.isValid(domain);
         }
+        return domainValidator.isValid(domain);
     }
 
     /**

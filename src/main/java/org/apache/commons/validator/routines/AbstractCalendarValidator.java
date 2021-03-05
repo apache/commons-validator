@@ -157,7 +157,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     protected String format(Object value, Format formatter) {
         if (value == null) {
             return null;
-        } else if (value instanceof Calendar) {
+        }
+        if (value instanceof Calendar) {
             value = ((Calendar)value).getTime();
         }
         return formatter.format(value);
@@ -373,11 +374,11 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
         int compareQuarter = calculateQuarter(compare, monthOfFirstQuarter);
         if (valueQuarter < compareQuarter) {
             return -1;
-        } else if (valueQuarter > compareQuarter) {
-            return 1;
-        } else {
-            return 0;
         }
+        if (valueQuarter > compareQuarter) {
+            return 1;
+        }
+        return 0;
     }
 
     /**
@@ -418,10 +419,10 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
         int difference = value.get(field) - compare.get(field);
         if (difference < 0) {
             return -1;
-        } else if (difference > 0) {
-            return 1;
-        } else {
-            return 0;
         }
+        if (difference > 0) {
+            return 1;
+        }
+        return 0;
     }
 }

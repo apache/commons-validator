@@ -122,19 +122,17 @@ public class FormSet implements Serializable {
             }
             return VARIANT_FORMSET;
         }
-        else if (getCountry() != null) {
+        if (getCountry() != null) {
             if (getLanguage() == null) {
                 throw new NullPointerException(
                     "When country is specified, language must be specified.");
             }
             return COUNTRY_FORMSET;
         }
-        else if (getLanguage() != null) {
+        if (getLanguage() != null) {
             return LANGUAGE_FORMSET;
         }
-        else {
-            return GLOBAL_FORMSET;
-        }
+        return GLOBAL_FORMSET;
     }
 
     /**

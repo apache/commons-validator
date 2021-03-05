@@ -115,12 +115,12 @@ public class ValidatorUtils {
         if (value instanceof String[]) {
             return ((String[]) value).length > 0 ? value.toString() : "";
 
-        } else if (value instanceof Collection) {
+        }
+        if (value instanceof Collection) {
             return ((Collection<?>) value).isEmpty() ? "" : value.toString();
 
-        } else {
-            return value.toString();
         }
+        return value.toString();
 
     }
 

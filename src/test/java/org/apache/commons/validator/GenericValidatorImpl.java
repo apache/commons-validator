@@ -48,12 +48,12 @@ public class GenericValidatorImpl {
         if ("RUNTIME".equals(value)) {
             throw new RuntimeException("RUNTIME-EXCEPTION");
 
-        } else if ("CHECKED".equals(value)) {
+        }
+        if ("CHECKED".equals(value)) {
             throw new Exception("CHECKED-EXCEPTION");
 
-        } else {
-            throw new ValidatorException("VALIDATOR-EXCEPTION");
         }
+        throw new ValidatorException("VALIDATOR-EXCEPTION");
     }
 
    /**
@@ -257,9 +257,8 @@ public class GenericValidatorImpl {
         if (required) {
             if ((value != null) && (!value.isEmpty())) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         }
         return true;
     }

@@ -111,11 +111,10 @@ public class EmailValidator {
             symbolic = DOMAIN_PATTERN.matcher(domain).matches();
         }
 
-        if (symbolic) {
-            if (!isValidSymbolicDomain(domain)) {
-                return false;
-            }
-        } else {
+        if (!symbolic) {
+            return false;
+        }
+        if (!isValidSymbolicDomain(domain)) {
             return false;
         }
 
@@ -192,11 +191,10 @@ public class EmailValidator {
         }
 
         String tld = domainSegment[len - 1];
-        if (tld.length() > 1) {
-            if (! TLD_PATTERN.matcher(tld).matches()) {
-                return false;
-            }
-        } else {
+        if (tld.length() <= 1) {
+            return false;
+        }
+        if (! TLD_PATTERN.matcher(tld).matches()) {
             return false;
         }
 

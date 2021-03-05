@@ -317,13 +317,13 @@ public class UrlValidator implements Serializable {
         String authority = uri.getRawAuthority();
         if ("file".equals(scheme) && (authority == null || "".equals(authority))) {// Special case - file: allows an empty authority
             return true; // this is a local file - nothing more to do here
-        } else if ("file".equals(scheme) && authority != null && authority.contains(":")) {
+        }
+        if ("file".equals(scheme) && authority != null && authority.contains(":")) {
             return false;
-        } else {
-            // Validate the authority
-            if (!isValidAuthority(authority)) {
-                return false;
-            }
+        }
+        // Validate the authority
+        if (!isValidAuthority(authority)) {
+            return false;
         }
 
         if (!isValidPath(uri.getRawPath())) {

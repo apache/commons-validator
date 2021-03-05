@@ -276,9 +276,8 @@ public class RegexValidatorTest extends TestCase {
         if (expect == null || result == null) {
             if (expect == null && result == null) {
                 return; // valid, both null
-            } else {
-                fail(label + " Null expect=" + expect + " result=" + result);
             }
+            fail(label + " Null expect=" + expect + " result=" + result);
             return; // not strictly necessary, but prevents possible NPE below
         }
 

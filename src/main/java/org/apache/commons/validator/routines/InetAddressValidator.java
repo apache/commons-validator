@@ -135,20 +135,19 @@ public class InetAddressValidator implements Serializable {
             return false; // can only have one prefix specifier
         }
         if (parts.length == 2) {
-            if (parts[1].matches("\\d{1,3}")) { // Need to eliminate signs
-                int bits = Integer.parseInt(parts[1]); // cannot fail because of RE check
-                if (bits < 0 || bits > MAX_BYTE) {
-                    return false; // out of range
-                }
-            } else {
+            if (!parts[1].matches("\\d{1,3}")) {
                 return false; // not a valid number
+            }
+            int bits = Integer.parseInt(parts[1]); // cannot fail because of RE check
+            if (bits < 0 || bits > MAX_BYTE) {
+                return false; // out of range
             }
         }
         // remove zone-id
         parts = parts[0].split("%", -1);
         if (parts.length > 2) {
             return false;
-        } else
+        }
         // The id syntax is implementation independent, but it presumably cannot allow:
         // whitespace, '/' or '%'
         if ((parts.length == 2) && !parts[1].matches("[^\\s/%]+")) {

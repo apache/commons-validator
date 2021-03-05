@@ -558,7 +558,8 @@ public class ValidatorAction implements Serializable {
                 if (e.getTargetException() instanceof Exception) {
                     throw (Exception) e.getTargetException();
 
-                } else if (e.getTargetException() instanceof Error) {
+                }
+                if (e.getTargetException() instanceof Error) {
                     throw (Error) e.getTargetException();
                 }
             }

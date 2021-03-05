@@ -342,12 +342,11 @@ public class DomainValidatorTest extends TestCase {
         String line;
         final String header;
         line = br.readLine(); // header
-        if (line.startsWith("# Version ")) {
-            header = line.substring(2);
-        } else {
+        if (!line.startsWith("# Version ")) {
             br.close();
             throw new IOException("File does not have expected Version header");
         }
+        header = line.substring(2);
         final boolean generateUnicodeTlds = false; // Change this to generate Unicode TLDs as well
 
         // Parse html page to get entries

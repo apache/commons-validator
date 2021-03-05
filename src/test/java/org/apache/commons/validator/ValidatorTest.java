@@ -226,17 +226,15 @@ public class ValidatorTest extends TestCase {
    public static boolean isCapLetter(Object bean, Field field, List<String> l) {
       String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      if (value != null && value.length() == 1) {
-         if (value.charAt(0) >= 'A' && value.charAt(0) <= 'Z') {
-            return true;
-         } else {
-            l.add("Error");
-            return false;
-         }
-      } else {
+      if ((value == null) || (value.length() != 1)) {
          l.add("Error");
          return false;
       }
+    if (value.charAt(0) >= 'A' && value.charAt(0) <= 'Z') {
+        return true;
+     }
+    l.add("Error");
+    return false;
    }
 
    /**

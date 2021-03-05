@@ -762,12 +762,12 @@ public class Field implements Cloneable, Serializable {
         if (indexProp instanceof Collection) {
             return ((Collection<?>) indexProp).toArray();
 
-        } else if (indexProp.getClass().isArray()) {
+        }
+        if (indexProp.getClass().isArray()) {
             return (Object[]) indexProp;
 
-        } else {
-            throw new ValidatorException(this.getKey() + " is not indexed");
         }
+        throw new ValidatorException(this.getKey() + " is not indexed");
 
     }
     /**
@@ -790,13 +790,14 @@ public class Field implements Cloneable, Serializable {
 
         if (indexProp == null) {
             return 0;
-        } else if (indexProp instanceof Collection) {
-            return ((Collection<?>)indexProp).size();
-        } else if (indexProp.getClass().isArray()) {
-            return ((Object[])indexProp).length;
-        } else {
-            throw new ValidatorException(this.getKey() + " is not indexed");
         }
+        if (indexProp instanceof Collection) {
+            return ((Collection<?>)indexProp).size();
+        }
+        if (indexProp.getClass().isArray()) {
+            return ((Object[])indexProp).length;
+        }
+        throw new ValidatorException(this.getKey() + " is not indexed");
 
     }
 
