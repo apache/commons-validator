@@ -48,7 +48,7 @@ public class ISBNValidator {
      * considered invalid.
      * @return true if the string is a valid ISBN code.
      */
-    public boolean isValid(String isbn) {
+    public boolean isValid(final String isbn) {
         return org.apache.commons.validator.routines.ISBNValidator.getInstance().isValidISBN10(isbn);
     }
 

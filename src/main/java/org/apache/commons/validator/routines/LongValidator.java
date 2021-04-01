@@ -103,7 +103,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @param formatType The <code>NumberFormat</code> type to
      *        create for validation, default is STANDARD_FORMAT.
      */
-    public LongValidator(boolean strict, int formatType) {
+    public LongValidator(final boolean strict, final int formatType) {
         super(strict, formatType, false);
     }
 
@@ -115,7 +115,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @return The parsed <code>Long</code> if valid or <code>null</code>
      *  if invalid.
      */
-    public Long validate(String value) {
+    public Long validate(final String value) {
         return (Long)parse(value, (String)null, (Locale)null);
     }
 
@@ -127,7 +127,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @param pattern The pattern used to validate the value against.
      * @return The parsed <code>Long</code> if valid or <code>null</code> if invalid.
      */
-    public Long validate(String value, String pattern) {
+    public Long validate(final String value, final String pattern) {
         return (Long)parse(value, pattern, (Locale)null);
     }
 
@@ -139,7 +139,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the number format, system default if null.
      * @return The parsed <code>Long</code> if valid or <code>null</code> if invalid.
      */
-    public Long validate(String value, Locale locale) {
+    public Long validate(final String value, final Locale locale) {
         return (Long)parse(value, (String)null, locale);
     }
 
@@ -153,7 +153,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the date format, system default if null.
      * @return The parsed <code>Long</code> if valid or <code>null</code> if invalid.
      */
-    public Long validate(String value, String pattern, Locale locale) {
+    public Long validate(final String value, final String pattern, final Locale locale) {
         return (Long)parse(value, pattern, locale);
     }
 
@@ -166,7 +166,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(long value, long min, long max) {
+    public boolean isInRange(final long value, final long min, final long max) {
         return (value >= min && value <= max);
     }
 
@@ -179,7 +179,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(Long value, long min, long max) {
+    public boolean isInRange(final Long value, final long min, final long max) {
         return isInRange(value.longValue(), min, max);
     }
 
@@ -191,7 +191,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(long value, long min) {
+    public boolean minValue(final long value, final long min) {
         return (value >= min);
     }
 
@@ -203,7 +203,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(Long value, long min) {
+    public boolean minValue(final Long value, final long min) {
         return minValue(value.longValue(), min);
     }
 
@@ -215,7 +215,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(long value, long max) {
+    public boolean maxValue(final long value, final long max) {
         return (value <= max);
     }
 
@@ -227,7 +227,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(Long value, long max) {
+    public boolean maxValue(final Long value, final long max) {
         return maxValue(value.longValue(), max);
     }
 
@@ -240,7 +240,7 @@ public class LongValidator extends AbstractNumberValidator {
      *         <code>Long</code>.
      */
     @Override
-    protected Object processParsedValue(Object value, Format formatter) {
+    protected Object processParsedValue(final Object value, final Format formatter) {
 
         // Parsed value will be Long if it fits in a long and is not fractional
         if (value instanceof Long) {

@@ -62,12 +62,12 @@ public final class ISSNCheckDigit extends ModulusCheckDigit {
     }
 
     @Override
-    protected int weightedValue(int charValue, int leftPos, int rightPos) throws CheckDigitException {
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) throws CheckDigitException {
         return charValue * (9 - leftPos); // CHECKSTYLE IGNORE MagicNumber
     }
 
     @Override
-    protected String toCheckDigit(int charValue) throws CheckDigitException {
+    protected String toCheckDigit(final int charValue) throws CheckDigitException {
         if (charValue == 10) { // CHECKSTYLE IGNORE MagicNumber
             return "X";
         }
@@ -75,7 +75,7 @@ public final class ISSNCheckDigit extends ModulusCheckDigit {
     }
 
     @Override
-    protected int toInt(char character, int leftPos, int rightPos)
+    protected int toInt(final char character, final int leftPos, final int rightPos)
             throws CheckDigitException {
         if (rightPos == 1 && character == 'X') {
             return 10; // CHECKSTYLE IGNORE MagicNumber

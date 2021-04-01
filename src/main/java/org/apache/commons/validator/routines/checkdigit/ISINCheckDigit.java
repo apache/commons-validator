@@ -68,16 +68,16 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      * for the specified code
      */
     @Override
-    protected int calculateModulus(String code, boolean includesCheckDigit) throws CheckDigitException {
-        StringBuilder transformed = new  StringBuilder(code.length() * 2); // CHECKSTYLE IGNORE MagicNumber
+    protected int calculateModulus(final String code, final boolean includesCheckDigit) throws CheckDigitException {
+        final StringBuilder transformed = new  StringBuilder(code.length() * 2); // CHECKSTYLE IGNORE MagicNumber
         if (includesCheckDigit) {
-            char checkDigit = code.charAt(code.length()-1); // fetch the last character
+            final char checkDigit = code.charAt(code.length()-1); // fetch the last character
             if (!Character.isDigit(checkDigit)){
                 throw new CheckDigitException("Invalid checkdigit["+ checkDigit+ "] in " + code);
             }
         }
         for (int i = 0; i < code.length(); i++) {
-            int charValue = Character.getNumericValue(code.charAt(i));
+            final int charValue = Character.getNumericValue(code.charAt(i));
             if (charValue < 0 || charValue > MAX_ALPHANUMERIC_VALUE) {
                 throw new CheckDigitException("Invalid Character[" +
                         (i + 1) + "] = '" + charValue + "'");
@@ -103,9 +103,9 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     @Override
-    protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        int weight = POSITION_WEIGHT[rightPos % 2]; // CHECKSTYLE IGNORE MagicNumber
-        int weightedValue = charValue * weight;
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
+        final int weight = POSITION_WEIGHT[rightPos % 2]; // CHECKSTYLE IGNORE MagicNumber
+        final int weightedValue = charValue * weight;
         return ModulusCheckDigit.sumDigits(weightedValue);
     }
 }
