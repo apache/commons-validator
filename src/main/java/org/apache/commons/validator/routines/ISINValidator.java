@@ -70,6 +70,9 @@ public class ISINValidator implements Serializable {
             "XB", // internal NSD Russia
             "XC", // internal WM Datenservice Germany
             "XD", // internal SIX Financial Information Ltd.
+            // depricated ISO Codes - but still valid as ISIN. See LocaleISOData.java
+            "AN", // Netherlands Antilles
+            "CS", // Serbia and Montenegro
         };
 
     static {

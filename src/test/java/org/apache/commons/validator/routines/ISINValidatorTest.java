@@ -48,6 +48,7 @@ public class ISINValidatorTest extends TestCase {
             "XAC8614YAB92",
             "XC0001458477",
             "XD0209061296",
+            "AN8068571086",
             };
 
     private final String[] invalidFormat = new String[] {
