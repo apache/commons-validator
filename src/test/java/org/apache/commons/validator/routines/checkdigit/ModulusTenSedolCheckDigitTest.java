@@ -50,7 +50,7 @@ public class ModulusTenSedolCheckDigitTest extends AbstractCheckDigitTest {
         zeroSum = "0000000";
     }
 
-    private static String invalidCheckDigits[] = {
+    private static final String[] INVALID_CHECK_DIGITS = {
                 "026349E", // proper check digit is '4', see above
                 "087061C", // proper check digit is '2', see above
                 "B06LQ9H", // proper check digit is '7', see above
@@ -59,7 +59,7 @@ public class ModulusTenSedolCheckDigitTest extends AbstractCheckDigitTest {
                };
 
     public void testVALIDATOR_346() {
-        for (String invalidCheckDigit : invalidCheckDigits) {
+        for (String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));
         }
     }

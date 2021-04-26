@@ -247,7 +247,7 @@ public class IntegerValidator extends AbstractNumberValidator {
         // Parsed value will be Long if it fits in a long and is not fractional
         if (value instanceof Long) {
             long longValue = ((Long)value).longValue();
-            if (longValue >= Integer.MIN_VALUE && 
+            if (longValue >= Integer.MIN_VALUE &&
                 longValue <= Integer.MAX_VALUE) {
                 return Integer.valueOf((int)longValue);
             }

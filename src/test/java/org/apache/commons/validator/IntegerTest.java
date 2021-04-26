@@ -19,7 +19,7 @@ package org.apache.commons.validator;
 
 
 
-/**                                                       
+/**
  * Performs Validation Test for <code>int</code> validations.
  *
  * @version $Revision$

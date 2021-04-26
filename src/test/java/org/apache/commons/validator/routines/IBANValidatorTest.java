@@ -181,7 +181,7 @@ public class IBANValidatorTest {
     @Test
     public void testGetValidator() {
         assertNotNull("GB", VALIDATOR.getValidator("GB"));
-        assertNull("gb", VALIDATOR.getValidator("gb"));        
+        assertNull("gb", VALIDATOR.getValidator("gb"));
     }
 
     @Test(expected=IllegalStateException.class)
@@ -265,7 +265,7 @@ public class IBANValidatorTest {
                         cc.get(i),
                         newLength,
                         newRE,
-                        country.get(i));              
+                        country.get(i));
             } else {
                 String currentLength = Integer.toString(valre.lengthOfIBAN);
                 String currentRE = valre.validator.toString()
@@ -280,7 +280,7 @@ public class IBANValidatorTest {
                             cc.get(i),
                             newLength,
                             newRE,
-                            country.get(i));              
+                            country.get(i));
                 }
 
             }
@@ -299,7 +299,7 @@ public class IBANValidatorTest {
                 ccode,
                 length,
                 fmt,
-                country);        
+                country);
     }
 
     // Unfortunately Java only returns the last match of repeated patterns
@@ -325,37 +325,36 @@ public class IBANValidatorTest {
 
     private static String fmtRE(String iban_pat, int iban_len) {
         Matcher m = IBAN_PAT.matcher(iban_pat);
-        if (m.matches()) {
-            StringBuilder sb = new StringBuilder();
-            String cc = m.group(1); // country code
-            int totalLen = cc.length();
-            sb.append(cc);
-            int len = Integer.parseInt(m.group(2)); // length of part
-            String curType = m.group(3); // part type
-            for (int i = 4; i <= m.groupCount(); i += 2) {
-                if (m.group(i) == null) { // reached an optional group
-                    break;
-                }
-                int count = Integer.parseInt(m.group(i));
-                String type = m.group(i+1);
-                if (type.equals(curType)) { // more of the same type
-                    len += count;                    
-                } else {
-                    sb.append(formatToRE(curType,len));
-                    totalLen += len;
-                    curType = type;
-                    len = count;
-                }
-            }
-            sb.append(formatToRE(curType,len));
-            totalLen += len;
-            if (iban_len != totalLen) {
-                throw new IllegalArgumentException("IBAN pattern " + iban_pat + " does not match length " + iban_len);                
-            }
-            return sb.toString();
-        } else {
+        if (!m.matches()) {
             throw new IllegalArgumentException("Unexpected IBAN pattern " + iban_pat);
         }
+        StringBuilder sb = new StringBuilder();
+        String cc = m.group(1); // country code
+        int totalLen = cc.length();
+        sb.append(cc);
+        int len = Integer.parseInt(m.group(2)); // length of part
+        String curType = m.group(3); // part type
+        for (int i = 4; i <= m.groupCount(); i += 2) {
+            if (m.group(i) == null) { // reached an optional group
+                break;
+            }
+            int count = Integer.parseInt(m.group(i));
+            String type = m.group(i+1);
+            if (type.equals(curType)) { // more of the same type
+                len += count;
+            } else {
+                sb.append(formatToRE(curType,len));
+                totalLen += len;
+                curType = type;
+                len = count;
+            }
+        }
+        sb.append(formatToRE(curType,len));
+        totalLen += len;
+        if (iban_len != totalLen) {
+            throw new IllegalArgumentException("IBAN pattern " + iban_pat + " does not match length " + iban_len);
+        }
+        return sb.toString();
     }
 
     public static void main(String [] a) throws Exception {

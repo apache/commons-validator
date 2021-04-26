@@ -122,19 +122,17 @@ public class FormSet implements Serializable {
             }
             return VARIANT_FORMSET;
         }
-        else if (getCountry() != null) {
+        if (getCountry() != null) {
             if (getLanguage() == null) {
                 throw new NullPointerException(
                     "When country is specified, language must be specified.");
             }
             return COUNTRY_FORMSET;
         }
-        else if (getLanguage() != null) {
+        if (getLanguage() != null) {
             return LANGUAGE_FORMSET;
         }
-        else {
-            return GLOBAL_FORMSET;
-        }
+        return GLOBAL_FORMSET;
     }
 
     /**
@@ -305,18 +303,18 @@ public class FormSet implements Serializable {
      */
     public String displayKey() {
         StringBuilder results = new StringBuilder();
-        if (language != null && language.length() > 0) {
+        if (language != null && !language.isEmpty()) {
             results.append("language=");
             results.append(language);
         }
-        if (country != null && country.length() > 0) {
+        if (country != null && !country.isEmpty()) {
             if (results.length() > 0) {
                results.append(", ");
             }
             results.append("country=");
             results.append(country);
         }
-        if (variant != null && variant.length() > 0) {
+        if (variant != null && !variant.isEmpty()) {
             if (results.length() > 0) {
                results.append(", ");
             }

@@ -157,7 +157,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     protected String format(Object value, Format formatter) {
         if (value == null) {
             return null;
-        } else if (value instanceof Calendar) {
+        }
+        if (value instanceof Calendar) {
             value = ((Calendar)value).getTime();
         }
         return formatter.format(value);
@@ -176,7 +177,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     protected Object parse(String value, String pattern, Locale locale, TimeZone timeZone) {
 
         value = (value == null ? null : value.trim());
-        if (value == null || value.length() == 0) {
+        if (value == null || value.isEmpty()) {
             return null;
         }
         DateFormat formatter = (DateFormat)getFormat(pattern, locale);
@@ -211,7 +212,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     @Override
     protected Format getFormat(String pattern, Locale locale) {
         DateFormat formatter = null;
-        boolean usePattern = (pattern != null && pattern.length() > 0);
+        boolean usePattern = pattern != null && !pattern.isEmpty();
         if (!usePattern) {
             formatter = (DateFormat)getFormat(locale);
         } else if (locale == null) {
@@ -373,11 +374,11 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
         int compareQuarter = calculateQuarter(compare, monthOfFirstQuarter);
         if (valueQuarter < compareQuarter) {
             return -1;
-        } else if (valueQuarter > compareQuarter) {
-            return 1;
-        } else {
-            return 0;
         }
+        if (valueQuarter > compareQuarter) {
+            return 1;
+        }
+        return 0;
     }
 
     /**
@@ -418,10 +419,10 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
         int difference = value.get(field) - compare.get(field);
         if (difference < 0) {
             return -1;
-        } else if (difference > 0) {
-            return 1;
-        } else {
-            return 0;
         }
+        if (difference > 0) {
+            return 1;
+        }
+        return 0;
     }
 }

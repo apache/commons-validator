@@ -713,6 +713,6 @@ public class UrlValidatorTest {
           }
           System.out.printf("isValid: %s%n",uv.isValid(arg));
       }
-   }   
+   }
 
 }

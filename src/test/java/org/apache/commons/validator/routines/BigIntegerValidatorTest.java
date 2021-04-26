@@ -21,7 +21,7 @@ import java.util.Locale;
 
 /**
  * Test Case for BigIntegerValidator.
- * 
+ *
  * @version $Revision$
  */
 public class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
@@ -84,7 +84,7 @@ public class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
         String germanPatternVal = "1.23.45";
         String localeVal  = "12.345";
         String defaultVal = "12,345";
-        String XXXX    = "XXXX"; 
+        String XXXX    = "XXXX";
         BigInteger expected = new BigInteger("12345");
         assertEquals("validate(A) default", expected, BigIntegerValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, BigIntegerValidator.getInstance().validate(localeVal, locale));

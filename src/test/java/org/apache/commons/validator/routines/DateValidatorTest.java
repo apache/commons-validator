@@ -23,7 +23,7 @@ import java.util.TimeZone;
 
 /**
  * Test Case for DateValidator.
- * 
+ *
  * @version $Revision$
  */
 public class DateValidatorTest extends AbstractCalendarValidatorTest {
@@ -59,7 +59,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
             assertTrue("java.locale.providers must start with COMPAT", localeProviders.startsWith("COMPAT"));
         }
         String txt = "3/20/15 10:59:00 PM";  // This relies on the locale format prior to Java 9 to parse correctly
-        DateFormat dateformat= DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, Locale.US); 
+        DateFormat dateformat= DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, Locale.US);
         dateformat.setTimeZone(TimeZone.getTimeZone("GMT"));
         Date date = dateformat.parse(txt);
         assertNotNull(date);
@@ -76,7 +76,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
         String germanPattern = "dd MMM yyyy";
         String localeVal  = "31.12.2005";
         String defaultVal = "12/31/05";
-        String XXXX    = "XXXX"; 
+        String XXXX    = "XXXX";
         Date expected = createCalendar(null, 20051231, 0).getTime();
 
         assertEquals("validate(A) default", expected, DateValidator.getInstance().validate(defaultVal));
@@ -100,7 +100,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
         assertFalse("isValid(B) both",    DateValidator.getInstance().isValid("31 Dec 2005", germanPattern, Locale.GERMAN));
 
         // Test Time Zone
-        TimeZone zone = (TimeZone.getDefault().getRawOffset() == EET.getRawOffset() ? EST : EET); 
+        TimeZone zone = (TimeZone.getDefault().getRawOffset() == EET.getRawOffset() ? EST : EET);
         Date expectedZone = createCalendar(zone, 20051231, 0).getTime();
         assertFalse("default/zone same "+zone, expected.getTime() == expectedZone.getTime());
 
@@ -143,35 +143,35 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
         assertEquals("date EQ", 0,  dateValidator.compareDates(value, diffHour, GMT));    // same day, diff hour
         assertEquals("date GT", 1,  dateValidator.compareDates(value, date20050822, GMT)); // -1 day
 
-        assertEquals("week LT", -1, dateValidator.compareWeeks(value, date20050830, GMT)); // +1 week 
+        assertEquals("week LT", -1, dateValidator.compareWeeks(value, date20050830, GMT)); // +1 week
         assertEquals("week =1", 0,  dateValidator.compareWeeks(value, date20050824, GMT)); // +1 day
         assertEquals("week =2", 0,  dateValidator.compareWeeks(value, date20050822, GMT)); // same week
         assertEquals("week =3", 0,  dateValidator.compareWeeks(value, date20050822, GMT)); // -1 day
         assertEquals("week GT", 1,  dateValidator.compareWeeks(value, date20050816, GMT)); // -1 week
 
-        assertEquals("mnth LT", -1, dateValidator.compareMonths(value, date20050901, GMT)); // +1 month 
-        assertEquals("mnth =1", 0,  dateValidator.compareMonths(value, date20050830, GMT)); // +1 week 
+        assertEquals("mnth LT", -1, dateValidator.compareMonths(value, date20050901, GMT)); // +1 month
+        assertEquals("mnth =1", 0,  dateValidator.compareMonths(value, date20050830, GMT)); // +1 week
         assertEquals("mnth =2", 0,  dateValidator.compareMonths(value, date20050801, GMT)); // same month
         assertEquals("mnth =3", 0,  dateValidator.compareMonths(value, date20050816, GMT)); // -1 week
         assertEquals("mnth GT", 1,  dateValidator.compareMonths(value, date20050731, GMT)); // -1 month
 
-        assertEquals("qtrA <1", -1, dateValidator.compareQuarters(value, date20051101, GMT)); // +1 quarter (Feb) 
-        assertEquals("qtrA <2", -1, dateValidator.compareQuarters(value, date20051001, GMT)); // +1 quarter 
-        assertEquals("qtrA =1", 0,  dateValidator.compareQuarters(value, date20050901, GMT)); // +1 month 
+        assertEquals("qtrA <1", -1, dateValidator.compareQuarters(value, date20051101, GMT)); // +1 quarter (Feb)
+        assertEquals("qtrA <2", -1, dateValidator.compareQuarters(value, date20051001, GMT)); // +1 quarter
+        assertEquals("qtrA =1", 0,  dateValidator.compareQuarters(value, date20050901, GMT)); // +1 month
         assertEquals("qtrA =2", 0,  dateValidator.compareQuarters(value, date20050701, GMT)); // same quarter
         assertEquals("qtrA =3", 0,  dateValidator.compareQuarters(value, date20050731, GMT)); // -1 month
         assertEquals("qtrA GT", 1,  dateValidator.compareQuarters(value, date20050630, GMT)); // -1 quarter
 
         // Change quarter 1 to start in Feb
-        assertEquals("qtrB LT", -1, dateValidator.compareQuarters(value, date20051101, GMT, 2)); // +1 quarter (Feb) 
-        assertEquals("qtrB =1", 0,  dateValidator.compareQuarters(value, date20051001, GMT, 2));  // same quarter 
-        assertEquals("qtrB =2", 0,  dateValidator.compareQuarters(value, date20050901, GMT, 2)); // +1 month 
+        assertEquals("qtrB LT", -1, dateValidator.compareQuarters(value, date20051101, GMT, 2)); // +1 quarter (Feb)
+        assertEquals("qtrB =1", 0,  dateValidator.compareQuarters(value, date20051001, GMT, 2));  // same quarter
+        assertEquals("qtrB =2", 0,  dateValidator.compareQuarters(value, date20050901, GMT, 2)); // +1 month
         assertEquals("qtrB =3", 1,  dateValidator.compareQuarters(value, date20050701, GMT, 2)); // same quarter
         assertEquals("qtrB =4", 1,  dateValidator.compareQuarters(value, date20050731, GMT, 2)); // -1 month
         assertEquals("qtrB GT", 1,  dateValidator.compareQuarters(value, date20050630, GMT, 2)); // -1 quarter
         assertEquals("qtrB prev", 1,  dateValidator.compareQuarters(value, date20050110, GMT, 2)); // Jan Prev year qtr
 
-        assertEquals("year LT", -1, dateValidator.compareYears(value, date20060101, GMT)); // +1 year 
+        assertEquals("year LT", -1, dateValidator.compareYears(value, date20060101, GMT)); // +1 year
         assertEquals("year EQ", 0,  dateValidator.compareYears(value, date20050101, GMT)); // same year
         assertEquals("year GT", 1,  dateValidator.compareYears(value, date20041231, GMT)); // -1 year
 

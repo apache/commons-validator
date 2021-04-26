@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.Locale;
 
 
-/**                                                       
+/**
  * Tests entity imports.
  *
  * @version $Revision$
@@ -38,7 +38,7 @@ public class EntityImportTest extends AbstractCommonTest {
         URL url = getClass().getResource("EntityImportTest-config.xml");
         ValidatorResources resources = new ValidatorResources(url.toExternalForm());
         assertNotNull("Form should be found", resources.getForm(Locale.getDefault(), "byteForm"));
-    }  
+    }
 
     /**
      * Tests loading ValidatorResources from a URL

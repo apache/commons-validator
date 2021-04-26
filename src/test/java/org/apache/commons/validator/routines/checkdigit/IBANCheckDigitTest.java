@@ -235,12 +235,12 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                         this.getClass().getResourceAsStream("IBANtests.txt"),"ASCII"))) {
             String line;
             while((line=rdr.readLine()) != null) {
-                if (!line.startsWith("#") && line.length() > 0) {
+                if (!line.startsWith("#") && !line.isEmpty()) {
                     if (line.startsWith("-")) {
                         line = line.substring(1);
-                        Assert.assertFalse(line, routine.isValid(line.replaceAll(" ", "")));
+                        Assert.assertFalse(line, routine.isValid(line.replace(" ", "")));
                     } else {
-                        Assert.assertTrue(line, routine.isValid(line.replaceAll(" ", "")));
+                        Assert.assertTrue(line, routine.isValid(line.replace(" ", "")));
                     }
                 }
             }

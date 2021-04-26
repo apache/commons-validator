@@ -21,7 +21,7 @@ import java.util.Locale;
 
 /**
  * Test Case for FloatValidator.
- * 
+ *
  * @version $Revision$
  */
 public class FloatValidatorTest extends AbstractNumberValidatorTest {
@@ -84,7 +84,7 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
         String localeVal  = "12.345";
         String germanPatternVal = "1.23.45";
         String defaultVal = "12,345";
-        String XXXX    = "XXXX"; 
+        String XXXX    = "XXXX";
         Float expected = Float.valueOf(12345);
         assertEquals("validate(A) default", expected, FloatValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, FloatValidator.getInstance().validate(localeVal, locale));
@@ -126,7 +126,7 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
         assertEquals("Smallest -ve", smallestNegative, FloatValidator.getInstance().validate(strSmallestNegative, pattern));
 
         // Validate Too Small +ve
-        Double tooSmallPositive = Double.valueOf(((double)Float.MIN_VALUE / (double)10)); 
+        Double tooSmallPositive = Double.valueOf(((double)Float.MIN_VALUE / (double)10));
         String strTooSmallPositive = fmt.format(tooSmallPositive);
         assertFalse("Too small +ve", FloatValidator.getInstance().isValid(strTooSmallPositive, pattern));
 

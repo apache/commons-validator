@@ -43,7 +43,7 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  * nor do they generally check the format/length).
  * To be sure that you are passing valid input to a method use {@link #validate(String)} as follows:
  * <pre>
- * Object valid = validator.validate(input); 
+ * Object valid = validator.validate(input);
  * if (valid != null) {
  *    some_method(valid.toString());
  * }
@@ -63,7 +63,7 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  * expression (i.e. use the <code>(?:   )</code> notation).
  * <br>
  * Or just avoid using parentheses except for the parts you want to capture
- * 
+ *
  * @version $Revision$
  * @since Validator 1.4
  */
@@ -114,7 +114,7 @@ public final class CodeValidator implements Serializable {
      */
     public CodeValidator(String regex, int minLength, int maxLength,
             CheckDigit checkdigit) {
-        if (regex != null && regex.length() > 0) {
+        if (regex != null && !regex.isEmpty()) {
             this.regexValidator = new RegexValidator(regex);
         } else {
             this.regexValidator = null;
@@ -253,7 +253,7 @@ public final class CodeValidator implements Serializable {
         }
 
         String code = input.trim();
-        if (code.length() == 0) {
+        if (code.isEmpty()) {
             return null;
         }
 

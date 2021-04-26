@@ -24,11 +24,11 @@ import java.text.DecimalFormatSymbols;
 
 /**
  * Test Case for CurrencyValidator.
- * 
+ *
  * @version $Revision$
  */
 public class CurrencyValidatorTest extends TestCase {
-    
+
     private static final char CURRENCY_SYMBOL = '\u00A4';
 
     private String US_DOLLAR;

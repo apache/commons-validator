@@ -52,21 +52,21 @@ public class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
         invalid = new String[] {"0378#3100"};
     }
 
-    private static String invalidCheckDigits[] = {"DUS0421CW",
+    private static final String[] INVALID_CHECK_DIGITS = {"DUS0421CW",
                                                   "DUS0421CN",
                                                   "DUS0421CE"
     };
 
     public void testVALIDATOR_336_InvalidCheckDigits() {
-        for (String invalidCheckDigit : invalidCheckDigits) {
+        for (String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));
         }
     }
 
-    private static String validCheckDigits[] = {"DUS0421C5"};
+    private static final String[] VALID_CHECK_DIGITS = {"DUS0421C5"};
 
     public void testVALIDATOR_336_ValidCheckDigits() {
-        for (String validCheckDigit : validCheckDigits) {
+        for (String validCheckDigit : VALID_CHECK_DIGITS) {
             assertTrue("Should fail: " + validCheckDigit, routine.isValid(validCheckDigit));
         }
     }

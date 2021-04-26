@@ -20,7 +20,7 @@ import java.util.Locale;
 
 /**
  * Test Case for ByteValidator.
- * 
+ *
  * @version $Revision$
  */
 public class ByteValidatorTest extends AbstractNumberValidatorTest {
@@ -91,7 +91,7 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
         String germanPatternVal = "1.23";
         String localeVal  = ".123";
         String defaultVal = ",123";
-        String XXXX    = "XXXX"; 
+        String XXXX    = "XXXX";
         Byte expected = Byte.valueOf((byte)123);
         assertEquals("validate(A) default", expected, ByteValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, ByteValidator.getInstance().validate(localeVal, locale));

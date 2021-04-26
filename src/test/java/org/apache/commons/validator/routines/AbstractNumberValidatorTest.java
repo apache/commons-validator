@@ -27,7 +27,7 @@ import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 /**
  * Base Number Test Case.
- * 
+ *
  * @version $Revision$
  */
 public abstract class AbstractNumberValidatorTest extends TestCase {

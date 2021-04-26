@@ -21,7 +21,7 @@ import java.util.Locale;
 
 /**
  * Test Case for BigDecimalValidator.
- * 
+ *
  * @version $Revision$
  */
 public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
@@ -86,7 +86,7 @@ public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
         String germanPatternVal = "1.23.45";
         String localeVal        = "12.345";
         String defaultVal       = "12,345";
-        String XXXX             = "XXXX"; 
+        String XXXX             = "XXXX";
         BigDecimal expected = new BigDecimal(12345);
         assertEquals("validate(A) default", expected, BigDecimalValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, BigDecimalValidator.getInstance().validate(localeVal, locale));
@@ -120,7 +120,7 @@ public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
         BigDecimal number19 = new BigDecimal("19");
         BigDecimal number20 = new BigDecimal("20");
         BigDecimal number21 = new BigDecimal("21");
-        
+
         float min = 10;
         float max = 20;
 

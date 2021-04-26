@@ -319,7 +319,7 @@ public class ValidatorResources implements Serializable {
      */
     public void addFormSet(FormSet fs) {
         String key = this.buildKey(fs);
-        if (key.length() == 0) {// there can only be one default formset
+        if (key.isEmpty()) {// there can only be one default formset
             if (getLog().isWarnEnabled() && defaultFormSet != null) {
                 // warn the user he might not get the expected results
                 getLog().warn("Overriding default FormSet definition.");
@@ -403,9 +403,9 @@ public class ValidatorResources implements Serializable {
      * Assembles a Locale code from the given parts.
      */
     private String buildLocale(String lang, String country, String variant) {
-        String key = ((lang != null && lang.length() > 0) ? lang : "");
-        key += ((country != null && country.length() > 0) ? "_" + country : "");
-        key += ((variant != null && variant.length() > 0) ? "_" + variant : "");
+        String key = ((lang != null && !lang.isEmpty()) ? lang : "");
+        key += ((country != null && !country.isEmpty()) ? "_" + country : "");
+        key += ((variant != null && !variant.isEmpty()) ? "_" + variant : "");
         return key;
     }
 
@@ -453,7 +453,7 @@ public class ValidatorResources implements Serializable {
 
         // Try language/country/variant
         String key = this.buildLocale(language, country, variant);
-        if (key.length() > 0) {
+        if (!key.isEmpty()) {
             FormSet formSet = getFormSets().get(key);
             if (formSet != null) {
                 form = formSet.getForm(formKey);
@@ -465,7 +465,7 @@ public class ValidatorResources implements Serializable {
         // Try language/country
         if (form == null) {
             key = buildLocale(language, country, null);
-            if (key.length() > 0) {
+            if (!key.isEmpty()) {
                 FormSet formSet = getFormSets().get(key);
                 if (formSet != null) {
                     form = formSet.getForm(formKey);
@@ -476,7 +476,7 @@ public class ValidatorResources implements Serializable {
         // Try language
         if (form == null) {
             key = buildLocale(language, null, null);
-            if (key.length() > 0) {
+            if (!key.isEmpty()) {
                 FormSet formSet = getFormSets().get(key);
                 if (formSet != null) {
                     form = formSet.getForm(formKey);
@@ -595,7 +595,7 @@ public class ValidatorResources implements Serializable {
 
         String key = buildLocale(language, country, variant);
 
-        if (key.length() == 0) {
+        if (key.isEmpty()) {
             return defaultFormSet;
         }
 
