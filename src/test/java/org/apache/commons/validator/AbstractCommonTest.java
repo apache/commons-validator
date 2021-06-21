@@ -29,7 +29,7 @@ import org.xml.sax.SAXException;
  * @version $Revision$
  */
 abstract public class AbstractCommonTest extends TestCase {
-    
+
     /**
      * Resources used for validation tests.
      */

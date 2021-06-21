@@ -23,7 +23,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * @since 1.5.0
  */
 public class ISSNCheckDigitTest extends AbstractCheckDigitTest {
-    
+
     /**
      * Constructor
      * @param name test name

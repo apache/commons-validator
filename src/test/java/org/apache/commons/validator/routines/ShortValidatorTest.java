@@ -20,7 +20,7 @@ import java.util.Locale;
 
 /**
  * Test Case for ShortValidator.
- * 
+ *
  * @version $Revision$
  */
 public class ShortValidatorTest extends AbstractNumberValidatorTest {
@@ -83,7 +83,7 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
         String germanPatternVal = "1.23.45";
         String localeVal  = "12.345";
         String defaultVal = "12,345";
-        String XXXX    = "XXXX"; 
+        String XXXX    = "XXXX";
         Short expected = Short.valueOf((short)12345);
         assertEquals("validate(A) default", expected, ShortValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, ShortValidator.getInstance().validate(localeVal, locale));

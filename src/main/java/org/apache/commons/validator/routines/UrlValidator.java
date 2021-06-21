@@ -111,7 +111,7 @@ public class UrlValidator implements Serializable {
     private static final Pattern SCHEME_PATTERN = Pattern.compile(SCHEME_REGEX);
 
     // Drop numeric, and  "+-." for now
-    // TODO does not allow for optional userinfo. 
+    // TODO does not allow for optional userinfo.
     // Validation of character set is done by isValidAuthority
     private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\."; // allows for IPV4 but not IPV6
     // Allow for IPv4 mapped addresses: ::FFF:123.123.123.123
@@ -317,13 +317,13 @@ public class UrlValidator implements Serializable {
         String authority = uri.getRawAuthority();
         if ("file".equals(scheme) && (authority == null || "".equals(authority))) {// Special case - file: allows an empty authority
             return true; // this is a local file - nothing more to do here
-        } else if ("file".equals(scheme) && authority != null && authority.contains(":")) {
+        }
+        if ("file".equals(scheme) && authority != null && authority.contains(":")) {
             return false;
-        } else {
-            // Validate the authority
-            if (!isValidAuthority(authority)) {
-                return false;
-            }
+        }
+        // Validate the authority
+        if (!isValidAuthority(authority)) {
+            return false;
         }
 
         if (!isValidPath(uri.getRawPath())) {
@@ -413,7 +413,7 @@ public class UrlValidator implements Serializable {
                 }
             }
             String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
-            if (port != null && port.length() > 0) {
+            if (port != null && !port.isEmpty()) {
                 try {
                     int iPort = Integer.parseInt(port);
                     if (iPort < 0 || iPort > MAX_UNSIGNED_16_BIT_INT) {
@@ -426,7 +426,7 @@ public class UrlValidator implements Serializable {
         }
 
         String extra = authorityMatcher.group(PARSE_AUTHORITY_EXTRA);
-        if (extra != null && extra.trim().length() > 0){
+        if (extra != null && !extra.trim().isEmpty()){
             return false;
         }
 
@@ -451,14 +451,14 @@ public class UrlValidator implements Serializable {
             // Don't omit host otherwise leading path may be taken as host if it starts with //
             URI uri = new URI(null,"localhost",path,null);
             String norm = uri.normalize().getPath();
-            if (norm.startsWith("/../") // Trying to go via the parent dir 
+            if (norm.startsWith("/../") // Trying to go via the parent dir
              || norm.equals("/..")) {   // Trying to go to the parent dir
                 return false;
             }
         } catch (URISyntaxException e) {
             return false;
         }
-        
+
         int slash2Count = countToken("//", path);
         if (isOff(ALLOW_2_SLASHES) && (slash2Count > 0)) {
             return false;

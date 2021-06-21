@@ -65,7 +65,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
     /**
      * Array of invalid code values
      *
-     * These are currently passed to both 
+     * These are currently passed to both
      * CheckDigit.calculate(expects a string without checkdigit)
      * which is expected to throw an exception
      * However that only applies if the string is syntactically incorrect;
@@ -73,7 +73,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
      * CheckDigit.isValid(expects a string including checkdigit)
      * which is expected to return false
      *
-     * See https://issues.apache.org/jira/browse/VALIDATOR-344 for some dicussion on this 
+     * See https://issues.apache.org/jira/browse/VALIDATOR-344 for some dicussion on this
      */
     protected String[] invalid = new String[] {"12345678A"};
 
@@ -237,7 +237,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
      * Test zero sum
      */
     public void testZeroSum() {
-        
+
         assertFalse("isValid() Zero Sum", routine.isValid(zeroSum));
 
         try {
@@ -300,7 +300,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
                 }
             }
         }
-        
+
         return list.toArray(new String[list.size()]);
     }
 

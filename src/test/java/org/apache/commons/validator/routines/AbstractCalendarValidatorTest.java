@@ -29,7 +29,7 @@ import java.util.TimeZone;
 
 /**
  * Base Calendar Test Case.
- * 
+ *
  * @version $Revision$
  */
 public abstract class AbstractCalendarValidatorTest extends TestCase {
@@ -42,18 +42,18 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
     protected static final TimeZone UTC = TimeZone.getTimeZone("UTC"); // + 2 hours
 
     protected String[] patternValid = new String[] {
-                       "2005-01-01" 
+                       "2005-01-01"
                       ,"2005-12-31"
                       ,"2004-02-29"    // valid leap
-                      ,"2005-04-30" 
+                      ,"2005-04-30"
                       ,"05-12-31"
                       ,"2005-1-1"
                       ,"05-1-1"};
     protected String[] localeValid = new String[] {
-                       "01/01/2005" 
+                       "01/01/2005"
                       ,"12/31/2005"
                       ,"02/29/2004"    // valid leap
-                      ,"04/30/2005" 
+                      ,"04/30/2005"
                       ,"12/31/05"
                       ,"1/1/2005"
                       ,"1/1/05"};
@@ -67,10 +67,10 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
                      ,createDate(null, 20050101, 0)};
     protected String[] patternInvalid = new String[] {
                          "2005-00-01"  // zero month
-                        ,"2005-01-00"  // zero day 
+                        ,"2005-01-00"  // zero day
                         ,"2005-13-03"  // month invalid
-                        ,"2005-04-31"  // invalid day 
-                        ,"2005-03-32"  // invalid day 
+                        ,"2005-04-31"  // invalid day
+                        ,"2005-03-32"  // invalid day
                         ,"2005-02-29"  // invalid leap
                         ,"200X-01-01"  // invalid char
                         ,"2005-0X-01"  // invalid char
@@ -81,10 +81,10 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
                         ,"2005-01-"};  // invalid pattern
     protected String[] localeInvalid = new String[] {
                          "01/00/2005"  // zero month
-                        ,"00/01/2005"  // zero day 
+                        ,"00/01/2005"  // zero day
                         ,"13/01/2005"  // month invalid
-                        ,"04/31/2005"  // invalid day 
-                        ,"03/32/2005"  // invalid day 
+                        ,"04/31/2005"  // invalid day
+                        ,"03/32/2005"  // invalid day
                         ,"02/29/2005"  // invalid leap
                         ,"01/01/200X"  // invalid char
                         ,"01/0X/2005"  // invalid char
@@ -220,7 +220,7 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
 
     /**
      * Create a calendar instance for a specified time zone, date and time.
-     * 
+     *
      * @param zone The time zone
      * @param date The date in yyyyMMdd format
      * @param time the time in HH:mm:ss format
@@ -247,7 +247,7 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
 
     /**
      * Create a date instance for a specified time zone, date and time.
-     * 
+     *
      * @param zone The time zone
      * @param date The date in yyyyMMdd format
      * @param time the time in HH:mm:ss format

@@ -28,15 +28,15 @@ import org.apache.commons.validator.routines.checkdigit.ISSNCheckDigit;
  * uniquely identify a serial publication.
  * <pre>
  * The format is:
- * 
+ *
  * ISSN dddd-dddC
  * where:
  * d = decimal digit (0-9)
  * C = checksum (0-9 or X)
- * 
+ *
  * The checksum is formed by adding the first 7 digits multiplied by
  * the position in the entire number (counting from the right).
- * 
+ *
  * For example, abcd-efg would be 8a + 7b + 6c + 5d + 4e +3f +2g.
  * The check digit is modulus 11, where the value 10 is represented by 'X'
  * For example:
@@ -45,7 +45,7 @@ import org.apache.commons.validator.routines.checkdigit.ISSNCheckDigit;
  *
  * This class strips off the 'ISSN ' prefix if it is present before passing
  * the remainder to the checksum routine.
- * 
+ *
  * </pre>
  * <p>
  * Note: the {@link #isValid(String)} and {@link #validate(String)} methods strip off any leading
@@ -53,7 +53,7 @@ import org.apache.commons.validator.routines.checkdigit.ISSNCheckDigit;
  * To ensure that only a valid code (without 'ISSN ' prefix) is passed to a method,
  * use the following code:
  * <pre>
- * Object valid = validator.validate(input); 
+ * Object valid = validator.validate(input);
  * if (valid != null) {
  *    some_method(valid.toString());
  * }
@@ -136,14 +136,14 @@ public class ISSNValidator implements Serializable {
      * method.
      *
      * @param issn The ISSN code to convert
-     * @param suffix the two digit suffix, e.g. "00" 
+     * @param suffix the two digit suffix, e.g. "00"
      * @return A converted EAN-13 code or <code>null</code>
      * if the input ISSN code is not valid
      */
     public String convertToEAN13(String issn, String suffix) {
 
         if (suffix == null || !suffix.matches("\\d\\d")) {
-            throw new IllegalArgumentException("Suffix must be two digits: '" + suffix + "'");            
+            throw new IllegalArgumentException("Suffix must be two digits: '" + suffix + "'");
         }
 
         Object result = validate(issn);

@@ -177,8 +177,8 @@ public class DomainValidatorTest extends TestCase {
     }
 
     public void testDomainNoDots() {// rfc1123
-        assertTrue("a (alpha) should validate", validator.isValidDomainSyntax("a"));        
-        assertTrue("9 (alphanum) should validate", validator.isValidDomainSyntax("9"));        
+        assertTrue("a (alpha) should validate", validator.isValidDomainSyntax("a"));
+        assertTrue("9 (alphanum) should validate", validator.isValidDomainSyntax("9"));
         assertTrue("c-z (alpha - alpha) should validate", validator.isValidDomainSyntax("c-z"));
 
         assertFalse("c- (alpha -) should fail", validator.isValidDomainSyntax("c-"));
@@ -194,26 +194,26 @@ public class DomainValidatorTest extends TestCase {
     public void testValidator306() {
         final String longString = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz0123456789A";
         assertEquals(63, longString.length()); // 26 * 2 + 11
-        
+
         assertTrue("63 chars label should validate", validator.isValidDomainSyntax(longString+".com"));
         assertFalse("64 chars label should fail", validator.isValidDomainSyntax(longString+"x.com"));
 
         assertTrue("63 chars TLD should validate", validator.isValidDomainSyntax("test."+longString));
         assertFalse("64 chars TLD should fail", validator.isValidDomainSyntax("test.x"+longString));
-        
-        final String longDomain = 
+
+        final String longDomain =
                 longString
                 + "." + longString
                 + "." + longString
                 + "." + longString.substring(0,61)
-                ; 
+                ;
         assertEquals(253, longDomain.length());
         assertTrue("253 chars domain should validate", validator.isValidDomainSyntax(longDomain));
         assertFalse("254 chars domain should fail", validator.isValidDomainSyntax(longDomain+"x"));
     }
 
     // Check that IDN.toASCII behaves as it should (when wrapped by DomainValidator.unicodeToASCII)
-    // Tests show that method incorrectly trims a trailing "." character 
+    // Tests show that method incorrectly trims a trailing "." character
     public void testUnicodeToASCII() {
         String[] asciidots = {
                 "",
@@ -269,7 +269,7 @@ public class DomainValidatorTest extends TestCase {
         };
         for(String t : props) {
             System.out.println(t + "=" + System.getProperty(t));
-        }    
+        }
         System.out.println("<<DomainValidatorTest.testIsIDNtoASCIIBroken()");
         assertTrue(true); // dummy assertion to satisfy lint
     }
@@ -342,12 +342,11 @@ public class DomainValidatorTest extends TestCase {
         String line;
         final String header;
         line = br.readLine(); // header
-        if (line.startsWith("# Version ")) {
-            header = line.substring(2);
-        } else {
+        if (!line.startsWith("# Version ")) {
             br.close();
             throw new IOException("File does not have expected Version header");
         }
+        header = line.substring(2);
         final boolean generateUnicodeTlds = false; // Change this to generate Unicode TLDs as well
 
         // Parse html page to get entries
@@ -385,10 +384,8 @@ public class DomainValidatorTest extends TestCase {
                 }
                 ianaTlds.add(asciiTld);
                 // Don't merge these conditions; generateUnicodeTlds is final so needs to be separate to avoid a warning
-                if (generateUnicodeTlds) {
-                    if (!unicodeTld.equals(asciiTld)) {
-                        ianaTlds.add(unicodeTld);                    
-                    }                    
+                if (generateUnicodeTlds && !unicodeTld.equals(asciiTld)) {
+                    ianaTlds.add(unicodeTld);
                 }
             }
         }
@@ -451,7 +448,7 @@ public class DomainValidatorTest extends TestCase {
                 String com = "??";
                 line = br.readLine();
                 while (line.matches("^\\s*$")) { // extra blank lines introduced
-                    line = br.readLine();                    
+                    line = br.readLine();
                 }
                 Matcher t = type.matcher(line);
                 if (t.lookingAt()) {
@@ -497,7 +494,7 @@ public class DomainValidatorTest extends TestCase {
         final long modTime;
         // For testing purposes, don't download files more than once an hour
         if (f.canRead()) {
-            modTime = f.lastModified();                        
+            modTime = f.lastModified();
             if (modTime > System.currentTimeMillis()-HOUR) {
                 System.out.println("Skipping download - found recent " + f);
                 return modTime;
@@ -552,7 +549,7 @@ public class DomainValidatorTest extends TestCase {
                     return true;
                 }
             }
-            in.close();        
+            in.close();
         } catch (IOException e) {
         } finally {
             closeQuietly(in);

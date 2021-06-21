@@ -39,7 +39,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * </p>
  *
  * <h2>Implementations</h2>
- * See the 
+ * See the
  * <a href="package-summary.html">Package Summary</a> for a full
  * list of implementations provided within Commons Validator.
  *

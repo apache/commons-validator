@@ -95,7 +95,7 @@ public class InetAddressValidator implements Serializable {
 
         // verify that address subgroups are legal
         for (String ipSegment : groups) {
-            if (ipSegment == null || ipSegment.length() == 0) {
+            if (ipSegment == null || ipSegment.isEmpty()) {
                 return false;
             }
 
@@ -124,7 +124,7 @@ public class InetAddressValidator implements Serializable {
      * Validates an IPv6 address. Returns true if valid.
      * @param inet6Address the IPv6 address to validate
      * @return true if the argument contains a valid IPv6 address
-     * 
+     *
      * @since 1.4.1
      */
     public boolean isValidInet6Address(String inet6Address) {
@@ -135,25 +135,23 @@ public class InetAddressValidator implements Serializable {
             return false; // can only have one prefix specifier
         }
         if (parts.length == 2) {
-            if (parts[1].matches("\\d{1,3}")) { // Need to eliminate signs
-                int bits = Integer.parseInt(parts[1]); // cannot fail because of RE check
-                if (bits < 0 || bits > MAX_BYTE) {
-                    return false; // out of range
-                }
-            } else {
+            if (!parts[1].matches("\\d{1,3}")) {
                 return false; // not a valid number
+            }
+            int bits = Integer.parseInt(parts[1]); // cannot fail because of RE check
+            if (bits < 0 || bits > MAX_BYTE) {
+                return false; // out of range
             }
         }
         // remove zone-id
         parts = parts[0].split("%", -1);
         if (parts.length > 2) {
             return false;
-        } else if (parts.length == 2){
-            // The id syntax is implemenatation independent, but it presumably cannot allow:
-            // whitespace, '/' or '%'
-            if (!parts[1].matches("[^\\s/%]+")) {
-                return false; // invalid id
-            }
+        }
+        // The id syntax is implementation independent, but it presumably cannot allow:
+        // whitespace, '/' or '%'
+        if ((parts.length == 2) && !parts[1].matches("[^\\s/%]+")) {
+            return false; // invalid id
         }
         inet6Address = parts[0];
         boolean containsCompressedZeroes = inet6Address.contains("::");
@@ -182,7 +180,7 @@ public class InetAddressValidator implements Serializable {
         int emptyOctets = 0; // consecutive empty chunks
         for (int index = 0; index < octets.length; index++) {
             String octet = octets[index];
-            if (octet.length() == 0) {
+            if (octet.isEmpty()) {
                 emptyOctets++;
                 if (emptyOctets > 1) {
                     return false;

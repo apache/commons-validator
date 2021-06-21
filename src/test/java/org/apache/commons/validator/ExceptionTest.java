@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import org.xml.sax.SAXException;
 
-/**                                                       
+/**
  * Performs Validation Test for exception handling.
  *
  * @version $Revision$
@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
 public class ExceptionTest extends AbstractCommonTest {
 
     /**
-     * The key used to retrieve the set of validation 
+     * The key used to retrieve the set of validation
      * rules from the xml file.
      */
     protected static String FORM_KEY = "exceptionForm";
@@ -43,7 +43,7 @@ public class ExceptionTest extends AbstractCommonTest {
     }
 
     /**
-     * Load <code>ValidatorResources</code> from 
+     * Load <code>ValidatorResources</code> from
      * validator-exception.xml.
      */
     @Override
@@ -52,7 +52,7 @@ public class ExceptionTest extends AbstractCommonTest {
     }
 
     /**
-     * Tests handling of checked exceptions - should become 
+     * Tests handling of checked exceptions - should become
      * ValidatorExceptions.
      */
     public void testValidatorException() {
@@ -60,10 +60,10 @@ public class ExceptionTest extends AbstractCommonTest {
         ValueBean info = new ValueBean();
         info.setValue("VALIDATOR");
 
-        // Construct validator based on the loaded resources 
+        // Construct validator based on the loaded resources
         // and the form key
         Validator validator = new Validator(resources, FORM_KEY);
-        // add the name bean to the validator as a resource 
+        // add the name bean to the validator as a resource
         // for the validations to be performed on.
         validator.setParameter(Validator.BEAN_PARAM, info);
 
@@ -89,10 +89,10 @@ public class ExceptionTest extends AbstractCommonTest {
         ValueBean info = new ValueBean();
         info.setValue("RUNTIME");
 
-        // Construct validator based on the loaded resources 
+        // Construct validator based on the loaded resources
         // and the form key
         Validator validator = new Validator(resources, FORM_KEY);
-        // add the name bean to the validator as a resource 
+        // add the name bean to the validator as a resource
         // for the validations to be performed on.
         validator.setParameter(Validator.BEAN_PARAM, info);
 
@@ -108,7 +108,7 @@ public class ExceptionTest extends AbstractCommonTest {
     }
 
     /**
-     * Tests handling of checked exceptions - should become 
+     * Tests handling of checked exceptions - should become
      * ValidatorExceptions.
      *
      * N.B. This test has been removed (renamed) as it currently
@@ -121,15 +121,15 @@ public class ExceptionTest extends AbstractCommonTest {
         ValueBean info = new ValueBean();
         info.setValue("CHECKED");
 
-        // Construct validator based on the loaded resources 
+        // Construct validator based on the loaded resources
         // and the form key
         Validator validator = new Validator(resources, FORM_KEY);
-        // add the name bean to the validator as a resource 
+        // add the name bean to the validator as a resource
         // for the validations to be performed on.
         validator.setParameter(Validator.BEAN_PARAM, info);
 
         // Get results of the validation which can throw ValidatorException
-        
+
         // Tests Validator 1.x exception handling
         try {
             validator.validate();
@@ -138,7 +138,7 @@ public class ExceptionTest extends AbstractCommonTest {
         } catch (Exception e) {
             assertTrue("CHECKED-EXCEPTION".equals(e.getMessage()));
         }
-        
+
         // This will be true in Validator 2.0
 //        try {
 //            validator.validate();

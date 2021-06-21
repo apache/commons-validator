@@ -20,7 +20,7 @@ import java.util.Locale;
 
 /**
  * Test Case for DoubleValidator.
- * 
+ *
  * @version $Revision$
  */
 public class DoubleValidatorTest extends AbstractNumberValidatorTest {
@@ -83,7 +83,7 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
         String germanPatternVal = "1.23.45";
         String localeVal  = "12.345";
         String defaultVal = "12,345";
-        String XXXX    = "XXXX"; 
+        String XXXX    = "XXXX";
         Double expected = Double.valueOf(12345);
         assertEquals("validate(A) default", expected, DoubleValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, DoubleValidator.getInstance().validate(localeVal, locale));

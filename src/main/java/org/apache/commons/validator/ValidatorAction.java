@@ -226,7 +226,7 @@ public class ValidatorAction implements Serializable {
         while (st.hasMoreTokens()) {
             String value = st.nextToken().trim();
 
-            if (value != null && value.length() > 0) {
+            if (value != null && !value.isEmpty()) {
                 this.methodParameterList.add(value);
             }
         }
@@ -254,7 +254,7 @@ public class ValidatorAction implements Serializable {
         while (st.hasMoreTokens()) {
             String depend = st.nextToken().trim();
 
-            if (depend != null && depend.length() > 0) {
+            if (depend != null && !depend.isEmpty()) {
                 this.dependencyList.add(depend);
             }
         }
@@ -472,7 +472,7 @@ public class ValidatorAction implements Serializable {
 
         jsName.append(".validate");
         jsName.append(name.substring(0, 1).toUpperCase());
-        jsName.append(name.substring(1, name.length()));
+        jsName.append(name.substring(1));
 
         return jsName.toString();
     }
@@ -551,16 +551,15 @@ public class ValidatorAction implements Serializable {
                         getValidationClassInstance(),
                         paramValues);
 
-            } catch (IllegalArgumentException e) {
-                throw new ValidatorException(e.getMessage());
-            } catch (IllegalAccessException e) {
+            } catch (IllegalArgumentException | IllegalAccessException e) {
                 throw new ValidatorException(e.getMessage());
             } catch (InvocationTargetException e) {
 
                 if (e.getTargetException() instanceof Exception) {
                     throw (Exception) e.getTargetException();
 
-                } else if (e.getTargetException() instanceof Error) {
+                }
+                if (e.getTargetException() instanceof Error) {
                     throw (Error) e.getTargetException();
                 }
             }
@@ -692,16 +691,7 @@ public class ValidatorAction implements Serializable {
             if (this.instance == null) {
                 try {
                     this.instance = this.validationClass.newInstance();
-                } catch (InstantiationException e) {
-                    String msg1 =
-                        "Couldn't create instance of "
-                            + this.classname
-                            + ".  "
-                            + e.getMessage();
-
-                    throw new ValidatorException(msg1);
-
-                } catch (IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException e) {
                     String msg1 =
                         "Couldn't create instance of "
                             + this.classname

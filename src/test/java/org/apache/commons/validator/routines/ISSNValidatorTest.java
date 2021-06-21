@@ -31,7 +31,7 @@ import junit.framework.TestCase;
 public class ISSNValidatorTest extends TestCase {
 
     private static final ISSNValidator VALIDATOR = ISSNValidator.getInstance();
-    
+
     private final String[] validFormat = new String[] {
             "ISSN 0317-8471",
             "1050-124X",
@@ -76,7 +76,7 @@ public class ISSNValidatorTest extends TestCase {
      */
     public void testIsValidISSN() {
         for(String f : validFormat) {
-            assertTrue(f, VALIDATOR.isValid(f));            
+            assertTrue(f, VALIDATOR.isValid(f));
         }
     }
 
@@ -92,7 +92,7 @@ public class ISSNValidatorTest extends TestCase {
      */
     public void testInvalid() {
         for(String f : invalidFormat) {
-            assertFalse(f, VALIDATOR.isValid(f));            
+            assertFalse(f, VALIDATOR.isValid(f));
         }
     }
 
@@ -105,44 +105,44 @@ public class ISSNValidatorTest extends TestCase {
             assertNull(VALIDATOR.convertToEAN13(null, null));
             fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException expected) {
-            
+
         }
         try {
             assertNull(VALIDATOR.convertToEAN13(null, ""));
             fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException expected) {
-            
+
         }
         try {
             assertNull(VALIDATOR.convertToEAN13(null, "0"));
             fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException expected) {
-            
+
         }
         try {
             assertNull(VALIDATOR.convertToEAN13(null, "A"));
             fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException expected) {
-            
+
         }
         try {
             assertNull(VALIDATOR.convertToEAN13(null, "AA"));
             fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException expected) {
-            
+
         }
         try {
             assertNull(VALIDATOR.convertToEAN13(null, "999"));
             fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException expected) {
-            
+
         }
     }
 
     /**
      * Test isValid() ISSN codes and convert them
      */
-    public void testIsValidISSNConvert() {        
+    public void testIsValidISSNConvert() {
         CheckDigit ean13cd = EAN13CheckDigit.EAN13_CHECK_DIGIT;
         Random r = new Random();
         for(String f : validFormat) {

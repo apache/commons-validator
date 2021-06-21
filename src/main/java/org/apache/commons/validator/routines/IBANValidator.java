@@ -30,7 +30,7 @@ import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
  * </p>
  * <p>
  * This can get out of date, but the set can be adjusted by creating a validator and using the
- * {@link #setValidator(String, int, String)} or 
+ * {@link #setValidator(String, int, String)} or
  * {@link #setValidator(Validator)}
  * method to add (or remove) an entry.
  * </p>
@@ -118,7 +118,7 @@ public class IBANValidator {
      * The TXT file can be used to determine changes which can be cross-checked in the PDF file.
      * [3] http://www.europeanpaymentscouncil.eu/documents/ECBS%20IBAN%20standard%20EBS204_V3.2.pdf
      */
-    
+
     private static final Validator[] DEFAULT_FORMATS = {
             new Validator("AD", 24, "AD\\d{10}[A-Z0-9]{12}"                 ), // Andorra
             new Validator("AE", 23, "AE\\d{21}"                             ), // United Arab Emirates (The)
@@ -262,7 +262,7 @@ public class IBANValidator {
 
     /**
      * Gets a copy of the default Validators.
-     * 
+     *
      * @return a copy of the default Validator array
      */
     public Validator[] getDefaultValidators() {
@@ -271,9 +271,9 @@ public class IBANValidator {
 
     /**
      * Get the Validator for a given IBAN
-     * 
+     *
      * @param code a string starting with the ISO country code (e.g. an IBAN)
-     * 
+     *
      * @return the validator or {@code null} if there is not one registered.
      */
     public Validator getValidator(String code) {
@@ -287,7 +287,7 @@ public class IBANValidator {
     /**
      * Installs a validator.
      * Will replace any existing entry which has the same countryCode
-     * 
+     *
      * @param validator the instance to install.
      * @return the previous Validator, or {@code null} if there was none
      * @throws IllegalStateException if an attempt is made to modify the singleton validator
@@ -302,7 +302,7 @@ public class IBANValidator {
     /**
      * Installs a validator.
      * Will replace any existing entry which has the same countryCode.
-     * 
+     *
      * @param countryCode the country code
      * @param length the length of the IBAN. Must be &ge; 8 and &le; 32.
      * If the length is &lt; 0, the validator is removed, and the format is not used.

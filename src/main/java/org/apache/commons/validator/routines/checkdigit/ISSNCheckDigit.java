@@ -20,14 +20,14 @@ package org.apache.commons.validator.routines.checkdigit;
  * International Standard Serial Number (ISSN)
  * is an eight-digit serial number used to
  * uniquely identify a serial publication.
- * <pre> 
+ * <pre>
  * The format is:
- * 
+ *
  * ISSN dddd-dddC
  * where:
  * d = decimal digit (0-9)
  * C = checksum (0-9 or X)
- * 
+ *
  * The checksum is formed by adding the first 7 digits multiplied by
  * the position in the entire number (counting from the right).
  * For example, abcd-efg would be 8a + 7b + 6c + 5d + 4e +3f +2g.

@@ -104,11 +104,7 @@ public class ValidatorUtils {
         try {
             value = PropertyUtils.getProperty(bean, property);
 
-        } catch(IllegalAccessException e) {
-            LOG.error(e.getMessage(), e);
-        } catch(InvocationTargetException e) {
-            LOG.error(e.getMessage(), e);
-        } catch(NoSuchMethodException e) {
+        } catch(IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             LOG.error(e.getMessage(), e);
         }
 
@@ -119,12 +115,12 @@ public class ValidatorUtils {
         if (value instanceof String[]) {
             return ((String[]) value).length > 0 ? value.toString() : "";
 
-        } else if (value instanceof Collection) {
+        }
+        if (value instanceof Collection) {
             return ((Collection<?>) value).isEmpty() ? "" : value.toString();
 
-        } else {
-            return value.toString();
         }
+        return value.toString();
 
     }
 

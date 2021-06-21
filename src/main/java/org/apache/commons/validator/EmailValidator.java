@@ -54,7 +54,7 @@ public class EmailValidator {
 // NOT USED   private static final Pattern EMAIL_PATTERN = Pattern.compile("^(.+)@(.+)$");
     private static final Pattern IP_DOMAIN_PATTERN = Pattern.compile("^\\[(.*)\\]$");
     private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
-            
+
     private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
     private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
     private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
@@ -111,11 +111,10 @@ public class EmailValidator {
             symbolic = DOMAIN_PATTERN.matcher(domain).matches();
         }
 
-        if (symbolic) {
-            if (!isValidSymbolicDomain(domain)) {
-                return false;
-            }
-        } else {
+        if (!symbolic) {
+            return false;
+        }
+        if (!isValidSymbolicDomain(domain)) {
             return false;
         }
 
@@ -128,7 +127,7 @@ public class EmailValidator {
      * @return true if the user name is valid.
      */
     protected boolean isValidUser(String user) {
-        return USER_PATTERN.matcher(user).matches(); 
+        return USER_PATTERN.matcher(user).matches();
     }
 
     /**
@@ -140,7 +139,7 @@ public class EmailValidator {
         Matcher ipAddressMatcher = IP_DOMAIN_PATTERN.matcher(ipAddress);
         for (int i = 1; i <= 4; i++) { // CHECKSTYLE IGNORE MagicNumber
             String ipSegment = ipAddressMatcher.group(i);
-            if (ipSegment == null || ipSegment.length() <= 0) {
+            if (ipSegment == null || ipSegment.isEmpty()) {
                 return false;
             }
 
@@ -181,22 +180,21 @@ public class EmailValidator {
                         : domain.substring(l);
 
                 i++;
-            } 
+            }
         }
 
         int len = i;
-        
+
         // Make sure there's a host name preceding the domain.
         if (len < 2) {
             return false;
         }
-        
+
         String tld = domainSegment[len - 1];
-        if (tld.length() > 1) {
-            if (! TLD_PATTERN.matcher(tld).matches()) {
-                return false;
-            }
-        } else {
+        if (tld.length() <= 1) {
+            return false;
+        }
+        if (! TLD_PATTERN.matcher(tld).matches()) {
             return false;
         }
 
@@ -214,7 +212,7 @@ public class EmailValidator {
      String result = emailStr;
      String commentPat = "^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/";
      Pattern commentMatcher = Pattern.compile(commentPat);
-     
+
      while (commentMatcher.matcher(result).matches()) {
         result = result.replaceFirst(commentPat, "\1 ");
      }

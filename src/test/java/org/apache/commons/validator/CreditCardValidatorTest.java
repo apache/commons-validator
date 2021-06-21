@@ -26,7 +26,7 @@ import junit.framework.TestCase;
  */
 @Deprecated
 public class CreditCardValidatorTest extends TestCase {
-    
+
     private static final String VALID_VISA = "4417123456789113";
     private static final String VALID_SHORT_VISA = "4222222222222";
     private static final String VALID_AMEX = "378282246310005";
@@ -43,7 +43,7 @@ public class CreditCardValidatorTest extends TestCase {
 
     public void testIsValid() {
         CreditCardValidator ccv = new CreditCardValidator();
-        
+
         assertFalse(ccv.isValid(null));
         assertFalse(ccv.isValid(""));
         assertFalse(ccv.isValid("123456789012"));   // too short
@@ -55,12 +55,12 @@ public class CreditCardValidatorTest extends TestCase {
         assertTrue(ccv.isValid(VALID_AMEX));
         assertTrue(ccv.isValid(VALID_MASTERCARD));
         assertTrue(ccv.isValid(VALID_DISCOVER));
-        
+
         // disallow Visa so it should fail even with good number
         ccv = new CreditCardValidator(CreditCardValidator.AMEX);
         assertFalse(ccv.isValid("4417123456789113"));
     }
-    
+
     public void testAddAllowedCardType() {
         CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.NONE);
         // Turned off all cards so even valid numbers should fail
@@ -68,12 +68,12 @@ public class CreditCardValidatorTest extends TestCase {
         assertFalse(ccv.isValid(VALID_AMEX));
         assertFalse(ccv.isValid(VALID_MASTERCARD));
         assertFalse(ccv.isValid(VALID_DISCOVER));
-        
+
         // test our custom type
         ccv.addAllowedCardType(new DinersClub());
         assertTrue(ccv.isValid(VALID_DINERS));
     }
-    
+
     /**
      * Test a custom implementation of CreditCardType.
      */

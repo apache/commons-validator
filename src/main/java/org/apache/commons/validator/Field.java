@@ -257,7 +257,7 @@ public class Field implements Cloneable, Serializable {
         while (st.hasMoreTokens()) {
             String depend = st.nextToken().trim();
 
-            if (depend != null && depend.length() > 0) {
+            if (depend != null && !depend.isEmpty()) {
                 this.dependencyList.add(depend);
             }
         }
@@ -330,7 +330,7 @@ public class Field implements Cloneable, Serializable {
      */
     public void addArg(Arg arg) {
         // TODO this first if check can go away after arg0, etc. are removed from dtd
-        if (arg == null || arg.getKey() == null || arg.getKey().length() == 0) {
+        if (arg == null || arg.getKey() == null || arg.getKey().isEmpty()) {
             return;
         }
 
@@ -541,7 +541,7 @@ public class Field implements Cloneable, Serializable {
      * @return Whether the Field is indexed.
      */
     public boolean isIndexed() {
-        return (indexedListProperty != null && indexedListProperty.length() > 0);
+        return (indexedListProperty != null && !indexedListProperty.isEmpty());
     }
 
     /**
@@ -762,12 +762,12 @@ public class Field implements Cloneable, Serializable {
         if (indexProp instanceof Collection) {
             return ((Collection<?>) indexProp).toArray();
 
-        } else if (indexProp.getClass().isArray()) {
+        }
+        if (indexProp.getClass().isArray()) {
             return (Object[]) indexProp;
 
-        } else {
-            throw new ValidatorException(this.getKey() + " is not indexed");
         }
+        throw new ValidatorException(this.getKey() + " is not indexed");
 
     }
     /**
@@ -790,13 +790,14 @@ public class Field implements Cloneable, Serializable {
 
         if (indexProp == null) {
             return 0;
-        } else if (indexProp instanceof Collection) {
-            return ((Collection<?>)indexProp).size();
-        } else if (indexProp.getClass().isArray()) {
-            return ((Object[])indexProp).length;
-        } else {
-            throw new ValidatorException(this.getKey() + " is not indexed");
         }
+        if (indexProp instanceof Collection) {
+            return ((Collection<?>)indexProp).size();
+        }
+        if (indexProp.getClass().isArray()) {
+            return ((Object[])indexProp).length;
+        }
+        throw new ValidatorException(this.getKey() + " is not indexed");
 
     }
 

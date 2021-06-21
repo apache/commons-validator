@@ -20,7 +20,7 @@ import java.util.Locale;
 
 /**
  * Test Case for IntegerValidator.
- * 
+ *
  * @version $Revision$
  */
 public class IntegerValidatorTest extends AbstractNumberValidatorTest {
@@ -91,7 +91,7 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
         String germanPatternVal = "1.23.45";
         String localeVal  = "12.345";
         String defaultVal = "12,345";
-        String XXXX    = "XXXX"; 
+        String XXXX    = "XXXX";
         Integer expected = Integer.valueOf(12345);
         assertEquals("validate(A) default", expected, IntegerValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, IntegerValidator.getInstance().validate(localeVal, locale));

@@ -71,7 +71,7 @@ public class DateValidator {
 
         if (value == null
                 || datePattern == null
-                || datePattern.length() <= 0) {
+                || datePattern.isEmpty()) {
 
             return false;
         }

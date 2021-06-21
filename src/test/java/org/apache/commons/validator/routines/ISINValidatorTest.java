@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 public class ISINValidatorTest extends TestCase {
 
     private static final ISINValidator VALIDATOR_TRUE = ISINValidator.getInstance(true);
-    
+
     private static final ISINValidator VALIDATOR_FALSE = ISINValidator.getInstance(false);
 
     private final String[] validFormat = new String[] {
@@ -55,7 +55,7 @@ public class ISINValidatorTest extends TestCase {
             "AU0000XVGZAD", // proper check digit is '3', see above
             "GB000263494I", // proper check digit is '6', see above
             "FR000402625C", // proper check digit is '0', see above
-            "DK000976334H", // proper check digit is '4', see above            
+            "DK000976334H", // proper check digit is '4', see above
             "3133EHHF3", // see VALIDATOR-422 Valid check-digit, but not valid ISIN
             "AU0000xvgzA3", // disallow lower case NSIN
             "gb0002634946", // disallow lower case ISO code
@@ -63,7 +63,7 @@ public class ISINValidatorTest extends TestCase {
 
     // Invalid codes if country checking is enabled
     private final String[] invalidFormatTrue = new String[] {
-            "AA0000000006", // Invalid country code            
+            "AA0000000006", // Invalid country code
             };
 
     public ISINValidatorTest(String name) {
@@ -72,28 +72,28 @@ public class ISINValidatorTest extends TestCase {
 
     public void testIsValidTrue() {
         for(String f : validFormat) {
-            assertTrue(f, VALIDATOR_TRUE.isValid(f));            
+            assertTrue(f, VALIDATOR_TRUE.isValid(f));
         }
     }
 
     public void testInvalidTrue() {
         for(String f : invalidFormat) {
-            assertFalse(f, VALIDATOR_TRUE.isValid(f));            
+            assertFalse(f, VALIDATOR_TRUE.isValid(f));
         }
         for(String f : invalidFormatTrue) {
-            assertFalse(f, VALIDATOR_TRUE.isValid(f));            
+            assertFalse(f, VALIDATOR_TRUE.isValid(f));
         }
     }
 
     public void testIsValidFalse() {
         for(String f : validFormat) {
-            assertTrue(f, VALIDATOR_FALSE.isValid(f));            
+            assertTrue(f, VALIDATOR_FALSE.isValid(f));
         }
     }
 
     public void testInvalidFalse() {
         for(String f : invalidFormat) {
-            assertFalse(f, VALIDATOR_FALSE.isValid(f));            
+            assertFalse(f, VALIDATOR_FALSE.isValid(f));
         }
     }
 

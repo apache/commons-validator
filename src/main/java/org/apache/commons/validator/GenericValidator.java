@@ -53,7 +53,7 @@ public class GenericValidator implements Serializable {
      * @return true if blank or null.
      */
     public static boolean isBlankOrNull(String value) {
-        return ((value == null) || (value.trim().length() == 0));
+        return value == null || value.trim().isEmpty();
     }
 
     /**
@@ -64,7 +64,7 @@ public class GenericValidator implements Serializable {
      * @return true if matches the regular expression.
      */
     public static boolean matchRegexp(String value, String regexp) {
-        if (regexp == null || regexp.length() <= 0) {
+        if (regexp == null || regexp.isEmpty()) {
             return false;
         }
 

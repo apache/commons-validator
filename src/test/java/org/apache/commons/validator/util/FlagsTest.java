@@ -73,7 +73,7 @@ public class FlagsTest extends TestCase {
         f.turnOffAll();
         assertEquals(0, f.getFlags());
     }
-    
+
     public void testClear() {
         Flags f = new Flags(98432);
         f.clear();
@@ -89,14 +89,14 @@ public class FlagsTest extends TestCase {
     public void testIsOn_isFalseWhenNotAllFlagsInArgumentAreOn() {
         Flags first = new Flags(1);
         long firstAndSecond = 3;
-        
-        assertFalse(first.isOn(firstAndSecond)); 
+
+        assertFalse(first.isOn(firstAndSecond));
     }
 
     public void testIsOn_isTrueWhenHighOrderBitIsSetAndQueried() {
         Flags allOn = new Flags(~0);
         long highOrderBit = 0x8000000000000000L;
-        
+
         assertTrue(allOn.isOn(highOrderBit));
     }
 
