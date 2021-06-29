@@ -43,16 +43,16 @@ public class FormSet implements Serializable {
      * Whether or not the this <code>FormSet</code> was processed for replacing
      * variables in strings with their values.
      */
-    private boolean processed = false;
+    private boolean processed;
 
     /** Language component of <code>Locale</code> (required). */
-    private String language = null;
+    private String language;
 
     /** Country component of <code>Locale</code> (optional). */
-    private String country = null;
+    private String country;
 
     /** Variant component of <code>Locale</code> (optional). */
-    private String variant = null;
+    private String variant;
 
     /**
      * A <code>Map</code> of <code>Form</code>s using the name field of the

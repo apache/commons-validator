@@ -80,32 +80,32 @@ public class Field implements Cloneable, Serializable {
     /**
      * The Field's property name.
      */
-    protected String property = null;
+    protected String property;
 
     /**
      * The Field's indexed property name.
      */
-    protected String indexedProperty = null;
+    protected String indexedProperty;
 
     /**
      * The Field's indexed list property name.
      */
-    protected String indexedListProperty = null;
+    protected String indexedListProperty;
 
     /**
      * The Field's unique key.
      */
-    protected String key = null;
+    protected String key;
 
     /**
      * A comma separated list of validator's this field depends on.
      */
-    protected String depends = null;
+    protected String depends;
 
     /**
      * The Page Number
      */
-    protected int page = 0;
+    protected int page;
 
     /**
      * The flag that indicates whether scripting should be generated
@@ -117,7 +117,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * The order of the Field in the Form.
      */
-    protected int fieldOrder = 0;
+    protected int fieldOrder;
 
     /**
      * Internal representation of this.depends String as a List.  This List

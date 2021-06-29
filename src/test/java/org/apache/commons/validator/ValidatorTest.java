@@ -260,8 +260,8 @@ public class ValidatorTest extends TestCase {
    }
 
    public class TestBean {
-      private String letter = null;
-      private String date = null;
+      private String letter;
+      private String date;
 
       public String getLetter() {
          return letter;

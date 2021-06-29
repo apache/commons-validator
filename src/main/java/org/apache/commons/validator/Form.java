@@ -43,7 +43,7 @@ public class Form implements Serializable {
     private static final long serialVersionUID = 6445211789563796371L;
 
     /** The name/key the set of validation rules is stored under. */
-    protected String name = null;
+    protected String name;
 
     /**
      * List of <code>Field</code>s. Used to maintain the order they were added
@@ -65,13 +65,13 @@ public class Form implements Serializable {
      *
      * @since   Validator 1.2.0
      */
-    protected String inherit = null;
+    protected String inherit;
 
     /**
      * Whether or not the this <code>Form</code> was processed for replacing
      * variables in strings with their values.
      */
-    private boolean processed = false;
+    private boolean processed;
 
     /**
      * Gets the name/key of the set of validation rules.
