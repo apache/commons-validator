@@ -44,7 +44,7 @@ public class ValidatorResults implements Serializable {
      *
      * @param results ValidatorResults to merge.
      */
-    public void merge(ValidatorResults results) {
+    public void merge(final ValidatorResults results) {
         this.hResults.putAll(results.hResults);
     }
 
@@ -55,7 +55,7 @@ public class ValidatorResults implements Serializable {
      * @param validatorName The name of the validator.
      * @param result The result of the validation.
      */
-    public void add(Field field, String validatorName, boolean result) {
+    public void add(final Field field, final String validatorName, final boolean result) {
         this.add(field, validatorName, result, null);
     }
 
@@ -68,10 +68,10 @@ public class ValidatorResults implements Serializable {
      * @param value The value returned by the validator.
      */
     public void add(
-            Field field,
-            String validatorName,
-            boolean result,
-            Object value) {
+            final Field field,
+            final String validatorName,
+            final boolean result,
+            final Object value) {
 
         ValidatorResult validatorResult = this.getValidatorResult(field.getKey());
 
@@ -110,7 +110,7 @@ public class ValidatorResults implements Serializable {
      *
      * @return The result of a specified key.
      */
-    public ValidatorResult getValidatorResult(String key) {
+    public ValidatorResult getValidatorResult(final String key) {
         return this.hResults.get(key);
     }
 
@@ -130,14 +130,14 @@ public class ValidatorResults implements Serializable {
      * @return Map of objections returned by validators.
      */
     public Map<String, Object> getResultValueMap() {
-        Map<String, Object> results = new HashMap<>();
+        final Map<String, Object> results = new HashMap<>();
 
-        for (String propertyKey : hResults.keySet()) {
-            ValidatorResult vr = this.getValidatorResult(propertyKey);
+        for (final String propertyKey : hResults.keySet()) {
+            final ValidatorResult vr = this.getValidatorResult(propertyKey);
 
-            for (Iterator<String> x = vr.getActions(); x.hasNext();) {
-                String actionKey = x.next();
-                Object result = vr.getResult(actionKey);
+            for (final Iterator<String> x = vr.getActions(); x.hasNext();) {
+                final String actionKey = x.next();
+                final Object result = vr.getResult(actionKey);
 
                 if (result != null && !(result instanceof Boolean)) {
                     results.put(propertyKey, result);

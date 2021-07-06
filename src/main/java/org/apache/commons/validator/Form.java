@@ -87,7 +87,7 @@ public class Form implements Serializable {
      *
      * @param name  The new name value
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -96,7 +96,7 @@ public class Form implements Serializable {
      *
      * @param f  The field
      */
-    public void addField(Field f) {
+    public void addField(final Field f) {
         this.lFields.add(f);
         getFieldMap().put(f.getKey(), f);
     }
@@ -119,7 +119,7 @@ public class Form implements Serializable {
      * @return           The field value
      * @since            Validator 1.1
      */
-    public Field getField(String fieldName) {
+    public Field getField(final String fieldName) {
         return getFieldMap().get(fieldName);
     }
 
@@ -130,7 +130,7 @@ public class Form implements Serializable {
      * @return           True if this form contains the field by the given name
      * @since            Validator 1.1
      */
-    public boolean containsField(String fieldName) {
+    public boolean containsField(final String fieldName) {
         return getFieldMap().containsKey(fieldName);
     }
 
@@ -142,22 +142,22 @@ public class Form implements Serializable {
      * @param depends  the form we want to merge
      * @since          Validator 1.2.0
      */
-    protected void merge(Form depends) {
+    protected void merge(final Form depends) {
 
-        List<Field> templFields = new ArrayList<>();
-        @SuppressWarnings("unchecked") // FastHashMap is not generic
+        final List<Field> templFields = new ArrayList<>();
+        @SuppressWarnings("unchecked") final // FastHashMap is not generic
         Map<String, Field> temphFields = new FastHashMap();
-        Iterator<Field> dependsIt = depends.getFields().iterator();
+        final Iterator<Field> dependsIt = depends.getFields().iterator();
         while (dependsIt.hasNext()) {
-            Field defaultField = dependsIt.next();
+            final Field defaultField = dependsIt.next();
             if (defaultField != null) {
-                String fieldKey = defaultField.getKey();
+                final String fieldKey = defaultField.getKey();
                 if (!this.containsField(fieldKey)) {
                     templFields.add(defaultField);
                     temphFields.put(fieldKey, defaultField);
                 }
                 else {
-                    Field old = getField(fieldKey);
+                    final Field old = getField(fieldKey);
                     getFieldMap().remove(fieldKey);
                     lFields.remove(old);
                     templFields.add(old);
@@ -177,20 +177,20 @@ public class Form implements Serializable {
      * @param forms            Map of forms
      * @since                  Validator 1.2.0
      */
-    protected void process(Map<String, String> globalConstants, Map<String, String> constants, Map<String, Form> forms) {
+    protected void process(final Map<String, String> globalConstants, final Map<String, String> constants, final Map<String, Form> forms) {
         if (isProcessed()) {
             return;
         }
 
         int n = 0;//we want the fields from its parent first
         if (isExtending()) {
-            Form parent = forms.get(inherit);
+            final Form parent = forms.get(inherit);
             if (parent != null) {
                 if (!parent.isProcessed()) {
                     //we want to go all the way up the tree
                     parent.process(constants, globalConstants, forms);
                 }
-                for (Field f : parent.getFields()) {
+                for (final Field f : parent.getFields()) {
                     //we want to be able to override any fields we like
                     if (getFieldMap().get(f.getKey()) == null) {
                         lFields.add(n, f);
@@ -202,8 +202,8 @@ public class Form implements Serializable {
         }
         hFields.setFast(true);
         //no need to reprocess parent's fields, we iterate from 'n'
-        for (Iterator<Field> i = lFields.listIterator(n); i.hasNext(); ) {
-            Field f = i.next();
+        for (final Iterator<Field> i = lFields.listIterator(n); i.hasNext(); ) {
+            final Field f = i.next();
             f.process(globalConstants, constants);
         }
 
@@ -217,13 +217,13 @@ public class Form implements Serializable {
      */
     @Override
     public String toString() {
-        StringBuilder results = new StringBuilder();
+        final StringBuilder results = new StringBuilder();
 
         results.append("Form: ");
         results.append(name);
         results.append("\n");
 
-        for (Field lField : lFields) {
+        for (final Field lField : lFields) {
             results.append("\tField: \n");
             results.append(lField);
             results.append("\n");
@@ -245,7 +245,7 @@ public class Form implements Serializable {
      *      validation messages.
      * @throws ValidatorException
      */
-    ValidatorResults validate(Map<String, Object> params, Map<String, ValidatorAction> actions, int page)
+    ValidatorResults validate(final Map<String, Object> params, final Map<String, ValidatorAction> actions, final int page)
         throws ValidatorException {
         return validate(params, actions, page, null);
     }
@@ -264,14 +264,14 @@ public class Form implements Serializable {
      * @throws ValidatorException
      * @since 1.2.0
      */
-    ValidatorResults validate(Map<String, Object> params, Map<String, ValidatorAction> actions, int page, String fieldName)
+    ValidatorResults validate(final Map<String, Object> params, final Map<String, ValidatorAction> actions, final int page, final String fieldName)
         throws ValidatorException {
-        ValidatorResults results = new ValidatorResults();
+        final ValidatorResults results = new ValidatorResults();
         params.put(Validator.VALIDATOR_RESULTS_PARAM, results);
 
         // Only validate a single field if specified
         if (fieldName != null) {
-            Field field = getFieldMap().get(fieldName);
+            final Field field = getFieldMap().get(fieldName);
 
             if (field == null) {
                throw new ValidatorException("Unknown field "+fieldName+" in form "+getName());
@@ -282,9 +282,9 @@ public class Form implements Serializable {
                results.merge(field.validate(params, actions));
             }
         } else {
-            Iterator<Field> fields = this.lFields.iterator();
+            final Iterator<Field> fields = this.lFields.iterator();
             while (fields.hasNext()) {
-                Field field = fields.next();
+                final Field field = fields.next();
 
                 params.put(Validator.FIELD_PARAM, field);
 
@@ -324,7 +324,7 @@ public class Form implements Serializable {
      * @param inherit  The new extends value
      * @since          Validator 1.2.0
      */
-    public void setExtends(String inherit) {
+    public void setExtends(final String inherit) {
         this.inherit = inherit;
     }
 

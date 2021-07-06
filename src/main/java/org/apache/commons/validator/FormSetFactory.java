@@ -41,13 +41,13 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
      * @throws Exception If an error occurs creating the FormSet.
      */
     @Override
-    public Object createObject(Attributes attributes) throws Exception {
+    public Object createObject(final Attributes attributes) throws Exception {
 
-        ValidatorResources resources = (ValidatorResources)digester.peek(0);
+        final ValidatorResources resources = (ValidatorResources)digester.peek(0);
 
-        String language = attributes.getValue("language");
-        String country  = attributes.getValue("country");
-        String variant  = attributes.getValue("variant");
+        final String language = attributes.getValue("language");
+        final String country  = attributes.getValue("country");
+        final String variant  = attributes.getValue("variant");
 
         return createFormSet(resources, language, country, variant);
 
@@ -64,10 +64,10 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
      * @return The FormSet for a locale.
      * @since Validator 1.2
      */
-    private FormSet createFormSet(ValidatorResources resources,
-                                  String language,
-                                  String country,
-                                  String variant) throws Exception {
+    private FormSet createFormSet(final ValidatorResources resources,
+                                  final String language,
+                                  final String country,
+                                  final String variant) throws Exception {
 
         // Retrieve existing FormSet for the language/country/variant
         FormSet formSet = resources.getFormSet(language, country, variant);

@@ -84,7 +84,7 @@ public final class CodeValidator implements Serializable {
      * @param regex The format regular expression
      * @param checkdigit The check digit validation routine
      */
-    public CodeValidator(String regex, CheckDigit checkdigit) {
+    public CodeValidator(final String regex, final CheckDigit checkdigit) {
         this(regex, -1, -1, checkdigit);
     }
 
@@ -98,7 +98,7 @@ public final class CodeValidator implements Serializable {
      *  (sets the mimimum/maximum to the same)
      * @param checkdigit The check digit validation routine
      */
-    public CodeValidator(String regex, int length, CheckDigit checkdigit) {
+    public CodeValidator(final String regex, final int length, final CheckDigit checkdigit) {
         this(regex, length, length, checkdigit);
     }
 
@@ -112,8 +112,8 @@ public final class CodeValidator implements Serializable {
      * @param maxLength The maximum length of the code
      * @param checkdigit The check digit validation routine
      */
-    public CodeValidator(String regex, int minLength, int maxLength,
-            CheckDigit checkdigit) {
+    public CodeValidator(final String regex, final int minLength, final int maxLength,
+                         final CheckDigit checkdigit) {
         if (regex != null && !regex.isEmpty()) {
             this.regexValidator = new RegexValidator(regex);
         } else {
@@ -131,7 +131,7 @@ public final class CodeValidator implements Serializable {
      * @param regexValidator The format regular expression validator
      * @param checkdigit The check digit validation routine.
      */
-    public CodeValidator(RegexValidator regexValidator, CheckDigit checkdigit) {
+    public CodeValidator(final RegexValidator regexValidator, final CheckDigit checkdigit) {
         this(regexValidator, -1, -1, checkdigit);
     }
 
@@ -144,7 +144,7 @@ public final class CodeValidator implements Serializable {
      *  (sets the mimimum/maximum to the same value)
      * @param checkdigit The check digit validation routine
      */
-    public CodeValidator(RegexValidator regexValidator, int length, CheckDigit checkdigit) {
+    public CodeValidator(final RegexValidator regexValidator, final int length, final CheckDigit checkdigit) {
         this(regexValidator, length, length, checkdigit);
     }
 
@@ -157,8 +157,8 @@ public final class CodeValidator implements Serializable {
      * @param maxLength The maximum length of the code
      * @param checkdigit The check digit validation routine
      */
-    public CodeValidator(RegexValidator regexValidator, int minLength, int maxLength,
-            CheckDigit checkdigit) {
+    public CodeValidator(final RegexValidator regexValidator, final int minLength, final int maxLength,
+                         final CheckDigit checkdigit) {
         this.regexValidator = regexValidator;
         this.minLength = minLength;
         this.maxLength = maxLength;
@@ -230,7 +230,7 @@ public final class CodeValidator implements Serializable {
      * @return <code>true</code> if valid, otherwise
      * <code>false</code>
      */
-    public boolean isValid(String input) {
+    public boolean isValid(final String input) {
         return (validate(input) != null);
     }
 
@@ -246,7 +246,7 @@ public final class CodeValidator implements Serializable {
      * @return The code if valid, otherwise <code>null</code>
      * if invalid
      */
-    public Object validate(String input) {
+    public Object validate(final String input) {
 
         if (input == null) {
             return null;

@@ -69,7 +69,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     @Override
-    protected int weightedValue(int charValue, int leftPos, int rightPos) {
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
         return charValue * rightPos;
     }
 
@@ -86,7 +86,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
      * @throws CheckDigitException if an error occurs.
      */
     @Override
-    protected int toInt(char character, int leftPos, int rightPos)
+    protected int toInt(final char character, final int leftPos, final int rightPos)
             throws CheckDigitException {
         if (rightPos == 1 && character == 'X') {
             return 10;  // CHECKSTYLE IGNORE MagicNumber
@@ -104,7 +104,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
      * @throws CheckDigitException if an error occurs.
      */
     @Override
-    protected String toCheckDigit(int charValue)
+    protected String toCheckDigit(final int charValue)
             throws CheckDigitException {
         if (charValue == 10) {  // CHECKSTYLE IGNORE MagicNumber
             return "X";

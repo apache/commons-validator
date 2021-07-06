@@ -85,7 +85,7 @@ public class Var implements Cloneable, Serializable {
      * @param value Variable value.
      * @param jsType Variable Javascript type.
      */
-    public Var(String name, String value, String jsType) {
+    public Var(final String name, final String value, final String jsType) {
         this.name = name;
         this.value = value;
         this.jsType = jsType;
@@ -103,7 +103,7 @@ public class Var implements Cloneable, Serializable {
      * Sets the name of the variable.
      * @param name The name of the variable.
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -119,7 +119,7 @@ public class Var implements Cloneable, Serializable {
      * Sets the value of the variable.
      * @param value The value of the variable.
      */
-    public void setValue(String value) {
+    public void setValue(final String value) {
         this.value = value;
     }
 
@@ -137,7 +137,7 @@ public class Var implements Cloneable, Serializable {
      * @param resource If true indicates the value is a resource.
      * @since Validator 1.2.0
      */
-    public void setResource(boolean resource) {
+    public void setResource(final boolean resource) {
         this.resource = resource;
     }
 
@@ -155,7 +155,7 @@ public class Var implements Cloneable, Serializable {
      * @param bundle The new bundle name.
      * @since Validator 1.2.0
      */
-    public void setBundle(String bundle) {
+    public void setBundle(final String bundle) {
         this.bundle = bundle;
     }
 
@@ -171,7 +171,7 @@ public class Var implements Cloneable, Serializable {
      * Sets the JavaScript type of the variable.
      * @param jsType The Javascript type of the variable.
      */
-    public void setJsType(String jsType) {
+    public void setJsType(final String jsType) {
         this.jsType = jsType;
     }
 
@@ -184,7 +184,7 @@ public class Var implements Cloneable, Serializable {
         try {
             return super.clone();
 
-        } catch(CloneNotSupportedException e) {
+        } catch(final CloneNotSupportedException e) {
             throw new RuntimeException(e.toString());
         }
     }
@@ -195,7 +195,7 @@ public class Var implements Cloneable, Serializable {
      */
     @Override
     public String toString() {
-        StringBuilder results = new StringBuilder();
+        final StringBuilder results = new StringBuilder();
 
         results.append("Var: name=");
         results.append(name);

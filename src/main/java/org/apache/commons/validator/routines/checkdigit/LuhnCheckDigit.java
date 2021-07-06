@@ -68,9 +68,9 @@ public final class LuhnCheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     @Override
-    protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        int weight = POSITION_WEIGHT[rightPos % 2]; // CHECKSTYLE IGNORE MagicNumber
-        int weightedValue = charValue * weight;
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
+        final int weight = POSITION_WEIGHT[rightPos % 2]; // CHECKSTYLE IGNORE MagicNumber
+        final int weightedValue = charValue * weight;
         return weightedValue > 9 ? (weightedValue - 9) : weightedValue; // CHECKSTYLE IGNORE MagicNumber
     }
 }

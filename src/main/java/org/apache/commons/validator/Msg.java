@@ -70,7 +70,7 @@ public class Msg implements Cloneable, Serializable {
      * @param bundle The new bundle name.
      * @since Validator 1.1
      */
-    public void setBundle(String bundle) {
+    public void setBundle(final String bundle) {
         this.bundle = bundle;
     }
 
@@ -86,7 +86,7 @@ public class Msg implements Cloneable, Serializable {
      * Sets the name of the dependency.
      * @param name The dependency name.
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -102,7 +102,7 @@ public class Msg implements Cloneable, Serializable {
      * Sets the key/value.
      * @param key The message key/value.
      */
-    public void setKey(String key) {
+    public void setKey(final String key) {
         this.key = key;
     }
 
@@ -120,7 +120,7 @@ public class Msg implements Cloneable, Serializable {
      * @param resource If true indicates the key is a resource.
      * @since Validator 1.1.4
      */
-    public void setResource(boolean resource) {
+    public void setResource(final boolean resource) {
         this.resource = resource;
     }
 
@@ -133,7 +133,7 @@ public class Msg implements Cloneable, Serializable {
         try {
             return super.clone();
 
-        } catch(CloneNotSupportedException e) {
+        } catch(final CloneNotSupportedException e) {
             throw new RuntimeException(e.toString());
         }
     }
@@ -144,7 +144,7 @@ public class Msg implements Cloneable, Serializable {
      */
     @Override
     public String toString() {
-        StringBuilder results = new StringBuilder();
+        final StringBuilder results = new StringBuilder();
 
         results.append("Msg: name=");
         results.append(name);

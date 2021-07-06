@@ -38,7 +38,7 @@ public class ValidatorException extends Exception {
      *
      * @param    message The error message.
      */
-    public ValidatorException(String message) {
+    public ValidatorException(final String message) {
         super(message);
     }
 

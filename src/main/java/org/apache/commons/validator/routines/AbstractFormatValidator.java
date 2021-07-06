@@ -42,7 +42,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @param strict <code>true</code> if strict
      *        <code>Format</code> parsing should be used.
      */
-    public AbstractFormatValidator(boolean strict) {
+    public AbstractFormatValidator(final boolean strict) {
         this.strict = strict;
     }
 
@@ -73,7 +73,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @return <code>true</code> if the value is valid.
      */
-    public boolean isValid(String value) {
+    public boolean isValid(final String value) {
         return isValid(value, (String)null, (Locale)null);
     }
 
@@ -84,7 +84,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @param pattern The pattern used to validate the value against.
      * @return <code>true</code> if the value is valid.
      */
-    public boolean isValid(String value, String pattern) {
+    public boolean isValid(final String value, final String pattern) {
         return isValid(value, pattern, (Locale)null);
     }
 
@@ -95,7 +95,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @param locale The locale to use for the Format, defaults to the default
      * @return <code>true</code> if the value is valid.
      */
-    public boolean isValid(String value, Locale locale) {
+    public boolean isValid(final String value, final Locale locale) {
         return isValid(value, (String)null, locale);
     }
 
@@ -116,7 +116,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @return The value formatted as a <code>String</code>.
      */
-    public String format(Object value) {
+    public String format(final Object value) {
         return format(value, (String)null, (Locale)null);
     }
 
@@ -128,7 +128,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @param pattern The pattern used to format the value.
      * @return The value formatted as a <code>String</code>.
      */
-    public String format(Object value, String pattern) {
+    public String format(final Object value, final String pattern) {
         return format(value, pattern, (Locale)null);
     }
 
@@ -140,7 +140,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @param locale The locale to use for the Format.
      * @return The value formatted as a <code>String</code>.
      */
-    public String format(Object value, Locale locale) {
+    public String format(final Object value, final Locale locale) {
         return format(value, (String)null, locale);
     }
 
@@ -153,8 +153,8 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @param locale The locale to use for the Format.
      * @return The value formatted as a <code>String</code>.
      */
-    public String format(Object value, String pattern, Locale locale) {
-        Format formatter = getFormat(pattern, locale);
+    public String format(final Object value, final String pattern, final Locale locale) {
+        final Format formatter = getFormat(pattern, locale);
         return format(value, formatter);
     }
 
@@ -165,7 +165,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @param formatter The Format to use.
      * @return The formatted value.
      */
-    protected String format(Object value, Format formatter) {
+    protected String format(final Object value, final Format formatter) {
         return formatter.format(value);
     }
 
@@ -176,9 +176,9 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @param formatter The Format to parse the value with.
      * @return The parsed value if valid or <code>null</code> if invalid.
      */
-    protected Object parse(String value, Format formatter) {
+    protected Object parse(final String value, final Format formatter) {
 
-        ParsePosition pos = new ParsePosition(0);
+        final ParsePosition pos = new ParsePosition(0);
         Object parsedValue = formatter.parseObject(value, pos);
         if (pos.getErrorIndex() > -1) {
             return null;

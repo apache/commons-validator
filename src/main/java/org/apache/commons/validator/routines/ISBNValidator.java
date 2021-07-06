@@ -125,7 +125,7 @@ public class ISBNValidator implements Serializable {
      * if valid ISBN-10 codes should be returned unchanged.
      * @return A singleton instance of the ISBN validator.
      */
-    public static ISBNValidator getInstance(boolean convert) {
+    public static ISBNValidator getInstance(final boolean convert) {
         return (convert ? ISBN_VALIDATOR : ISBN_VALIDATOR_NO_CONVERT);
     }
 
@@ -145,7 +145,7 @@ public class ISBNValidator implements Serializable {
      * should be converted to ISBN-13 codes or <code>false</code>
      * if valid ISBN-10 codes should be returned unchanged.
      */
-    public ISBNValidator(boolean convert) {
+    public ISBNValidator(final boolean convert) {
         this.convert = convert;
     }
 
@@ -156,7 +156,7 @@ public class ISBNValidator implements Serializable {
      * @return <code>true</code> if a valid ISBN-10 or
      * ISBN-13 code, otherwise <code>false</code>.
      */
-    public boolean isValid(String code) {
+    public boolean isValid(final String code) {
         return (isValidISBN13(code) || isValidISBN10(code));
     }
 
@@ -167,7 +167,7 @@ public class ISBNValidator implements Serializable {
      * @return <code>true</code> if a valid ISBN-10
      * code, otherwise <code>false</code>.
      */
-    public boolean isValidISBN10(String code) {
+    public boolean isValidISBN10(final String code) {
         return isbn10Validator.isValid(code);
     }
 
@@ -178,7 +178,7 @@ public class ISBNValidator implements Serializable {
      * @return <code>true</code> if a valid ISBN-13
      * code, otherwise <code>false</code>.
      */
-    public boolean isValidISBN13(String code) {
+    public boolean isValidISBN13(final String code) {
         return isbn13Validator.isValid(code);
     }
 
@@ -194,7 +194,7 @@ public class ISBNValidator implements Serializable {
      * @param code The code to validate.
      * @return A valid ISBN code if valid, otherwise <code>null</code>.
      */
-    public String validate(String code) {
+    public String validate(final String code) {
         String result = validateISBN13(code);
         if (result == null) {
             result = validateISBN10(code);
@@ -215,8 +215,8 @@ public class ISBNValidator implements Serializable {
      * @return A valid ISBN-10 code if valid,
      * otherwise <code>null</code>.
      */
-    public String validateISBN10(String code) {
-        Object result = isbn10Validator.validate(code);
+    public String validateISBN10(final String code) {
+        final Object result = isbn10Validator.validate(code);
         return (result == null ? null : result.toString());
     }
 
@@ -230,8 +230,8 @@ public class ISBNValidator implements Serializable {
      * @return A valid ISBN-13 code if valid,
      * otherwise <code>null</code>.
      */
-    public String validateISBN13(String code) {
-        Object result = isbn13Validator.validate(code);
+    public String validateISBN13(final String code) {
+        final Object result = isbn13Validator.validate(code);
         return (result == null ? null : result.toString());
     }
 
@@ -245,13 +245,13 @@ public class ISBNValidator implements Serializable {
      * @return A converted ISBN-13 code or <code>null</code>
      * if the ISBN-10 code is not valid
      */
-    public String convertToISBN13(String isbn10) {
+    public String convertToISBN13(final String isbn10) {
 
         if (isbn10 == null) {
             return null;
         }
 
-        String input = isbn10.trim();
+        final String input = isbn10.trim();
         if (input.length() != ISBN_10_LEN) {
             throw new IllegalArgumentException("Invalid length " + input.length() + " for '" + input + "'");
         }
@@ -259,10 +259,10 @@ public class ISBNValidator implements Serializable {
         // Calculate the new ISBN-13 code (drop the original checkdigit)
         String isbn13 = "978" + input.substring(0, ISBN_10_LEN - 1);
         try {
-            String checkDigit = isbn13Validator.getCheckDigit().calculate(isbn13);
+            final String checkDigit = isbn13Validator.getCheckDigit().calculate(isbn13);
             isbn13 += checkDigit;
             return isbn13;
-        } catch (CheckDigitException e) {
+        } catch (final CheckDigitException e) {
             throw new IllegalArgumentException("Check digit error for '" + input + "' - " + e.getMessage());
         }
 

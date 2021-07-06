@@ -77,7 +77,7 @@ public class PercentValidator extends BigDecimalValidator {
      * @param strict <code>true</code> if strict
      *        <code>Format</code> parsing should be used.
      */
-    public PercentValidator(boolean strict) {
+    public PercentValidator(final boolean strict) {
         super(strict, PERCENT_FORMAT, true);
     }
 
@@ -95,7 +95,7 @@ public class PercentValidator extends BigDecimalValidator {
      * @return The parsed value if valid or <code>null</code> if invalid.
      */
     @Override
-    protected Object parse(String value, Format formatter) {
+    protected Object parse(final String value, final Format formatter) {
 
         // Initial parse of the value
         BigDecimal parsedValue = (BigDecimal)super.parse(value, formatter);
@@ -104,10 +104,10 @@ public class PercentValidator extends BigDecimalValidator {
         }
 
         // Re-parse using a pattern without the percent symbol
-        DecimalFormat decimalFormat = (DecimalFormat)formatter;
-        String pattern = decimalFormat.toPattern();
+        final DecimalFormat decimalFormat = (DecimalFormat)formatter;
+        final String pattern = decimalFormat.toPattern();
         if (pattern.indexOf(PERCENT_SYMBOL) >= 0) {
-            StringBuilder buffer = new StringBuilder(pattern.length());
+            final StringBuilder buffer = new StringBuilder(pattern.length());
             for (int i = 0; i < pattern.length(); i++) {
                 if (pattern.charAt(i) != PERCENT_SYMBOL) {
                     buffer.append(pattern.charAt(i));

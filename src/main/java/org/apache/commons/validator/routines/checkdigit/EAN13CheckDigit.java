@@ -71,8 +71,8 @@ public final class EAN13CheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     @Override
-    protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        int weight = POSITION_WEIGHT[rightPos % 2];
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
+        final int weight = POSITION_WEIGHT[rightPos % 2];
         return charValue * weight;
     }
 }

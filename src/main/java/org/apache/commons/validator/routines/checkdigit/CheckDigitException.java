@@ -37,7 +37,7 @@ public class CheckDigitException extends Exception {
      *
      * @param msg The error message.
      */
-    public CheckDigitException(String msg) {
+    public CheckDigitException(final String msg) {
         super(msg);
     }
 
@@ -48,7 +48,7 @@ public class CheckDigitException extends Exception {
      * @param msg The error message.
      * @param cause The underlying cause of the error
      */
-    public CheckDigitException(String msg, Throwable cause) {
+    public CheckDigitException(final String msg, final Throwable cause) {
         super(msg, cause);
     }
 
