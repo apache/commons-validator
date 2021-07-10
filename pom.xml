@@ -27,7 +27,7 @@
 
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <version>1.8-SNAPSHOT</version>
+  <version>1.8.brickst</version>
   <name>Apache Commons Validator</name>
   <description>
     Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
@@ -40,7 +40,7 @@
     <commons.componentid>validator</commons.componentid>
     <commons.module.name>org.apache.commons.validator</commons.module.name>
     <!-- Re-generate the download page using: mvn commons:download-page -->
-    <commons.release.version>1.7</commons.release.version>
+    <commons.release.version>1.8.brickst</commons.release.version>
     <commons.rc.version>RC2</commons.rc.version>
     <commons.release.desc>(requires JDK ${maven.compiler.target})</commons.release.desc>
     <commons.bc.version>1.6</commons.bc.version>
@@ -51,8 +51,8 @@
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-validator</commons.scmPubUrl>
 
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <commons.release.isDistModule>true</commons.release.isDistModule>
@@ -131,12 +131,19 @@
     </plugins>
   </build>
 
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+
   <dependencies>
 
     <dependency>
-      <groupId>commons-beanutils</groupId>
+      <groupId>com.github.BrickStreetSoftware</groupId>
       <artifactId>commons-beanutils</artifactId>
-      <version>1.9.4</version>
+      <version>c5585f2</version>
     </dependency>
 
     <dependency>
@@ -160,12 +167,6 @@
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
       <version>1.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2.2</version>
     </dependency>
 
     <!-- Needed for IBANValidatorTest -->

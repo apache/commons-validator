@@ -23,8 +23,8 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.collections.FastHashMap; // DEPRECATED
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rule;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
@@ -43,11 +43,6 @@ import org.xml.sax.Attributes;
  * <p><strong>Note</strong> - Classes that extend this class
  * must be Serializable so that instances may be used in distributable
  * application server environments.</p>
- *
- * <p>
- * The use of FastHashMap is deprecated and will be replaced in a future
- * release.
- * </p>
  *
  * @version $Revision$
  */
@@ -89,7 +84,7 @@ public class ValidatorResources implements Serializable {
      * @deprecated Subclasses should use getFormSets() instead.
      */
     @Deprecated
-    protected FastHashMap hFormSets = new FastHashMap(); // <String, FormSet>
+    protected ConcurrentHashMap<String,FormSet> hFormSets = new ConcurrentHashMap<>(); // <String, FormSet>
 
     /**
      * <code>Map</code> of global constant values with
@@ -97,7 +92,7 @@ public class ValidatorResources implements Serializable {
      * @deprecated Subclasses should use getConstants() instead.
      */
     @Deprecated
-    protected FastHashMap hConstants = new FastHashMap(); // <String, String>
+    protected ConcurrentHashMap<String,String> hConstants = new ConcurrentHashMap<>(); // <String, String>
 
     /**
      * <code>Map</code> of <code>ValidatorAction</code>s with
@@ -105,7 +100,7 @@ public class ValidatorResources implements Serializable {
      * @deprecated Subclasses should use getActions() instead.
      */
     @Deprecated
-    protected FastHashMap hActions = new FastHashMap(); // <String, ValidatorAction>
+    protected ConcurrentHashMap<String,ValidatorAction> hActions = new ConcurrentHashMap<>(); // <String, ValidatorAction>
 
     /**
      * The default locale on our server.
@@ -515,10 +510,6 @@ public class ValidatorResources implements Serializable {
      * this method when finished.
      */
     public void process() {
-        hFormSets.setFast(true);
-        hConstants.setFast(true);
-        hActions.setFast(true);
-
         this.processForms();
     }
 
@@ -607,7 +598,6 @@ public class ValidatorResources implements Serializable {
      * @return Map of Form sets
      * @since Validator 1.2.0
      */
-    @SuppressWarnings("unchecked") // FastHashMap is not generic
     protected Map<String, FormSet> getFormSets() {
         return hFormSets;
     }
@@ -617,7 +607,6 @@ public class ValidatorResources implements Serializable {
      * @return Map of Constants
      * @since Validator 1.2.0
      */
-    @SuppressWarnings("unchecked") // FastHashMap is not generic
     protected Map<String, String> getConstants() {
         return hConstants;
     }
@@ -627,7 +616,6 @@ public class ValidatorResources implements Serializable {
      * @return Map of Validator Actions
      * @since Validator 1.2.0
      */
-    @SuppressWarnings("unchecked") // FastHashMap is not generic
     protected Map<String, ValidatorAction> getActions() {
         return hActions;
     }
