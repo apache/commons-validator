@@ -185,6 +185,7 @@ public class IBANValidator {
             new Validator("RS", 22, "RS\\d{20}"                             ), // Serbia
             new Validator("SA", 24, "SA\\d{4}[A-Z0-9]{18}"                  ), // Saudi Arabia
             new Validator("SC", 31, "SC\\d{2}[A-Z]{4}\\d{20}[A-Z]{3}"       ), // Seychelles
+            new Validator("SD", 18, "SD\\d{16}"                             ), // Sudan
             new Validator("SE", 24, "SE\\d{22}"                             ), // Sweden
             new Validator("SI", 19, "SI\\d{17}"                             ), // Slovenia
             new Validator("SK", 24, "SK\\d{22}"                             ), // Slovakia
@@ -206,7 +207,7 @@ public class IBANValidator {
     /**
      * Return a singleton instance of the IBAN validator using the default formats
      *
-     * @return A singleton instance of the ISBN validator
+     * @return A singleton instance of the IBAN validator
      */
     public static IBANValidator getInstance() {
         return DEFAULT_IBAN_VALIDATOR;
