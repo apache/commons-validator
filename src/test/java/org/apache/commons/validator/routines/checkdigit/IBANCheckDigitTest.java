@@ -116,6 +116,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                 "SA0380000000608010167519",      // Saudi Arabia
                 "SC18SSCB11010000000000001497USD",// Seychelles
                 "SE3550000000054910000003",      // Sweden
+                "SD2129010501234001",            // Sudan
                 "SI56191000000123438",           // Slovenia
                 "SK3112000000198742637541",      // Slovak Republic
                 "SM86U0322509800000000270100",   // San Marino
