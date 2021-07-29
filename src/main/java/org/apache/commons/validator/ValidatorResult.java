@@ -89,7 +89,7 @@ public class ValidatorResult implements Serializable {
      */
     public boolean isValid(String validatorName) {
         ResultStatus status = hAction.get(validatorName);
-        return (status == null) ? false : status.isValid();
+        return status != null && status.isValid();
     }
 
     /**

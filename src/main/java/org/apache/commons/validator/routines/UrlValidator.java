@@ -318,7 +318,7 @@ public class UrlValidator implements Serializable {
         if ("file".equals(scheme) && (authority == null || "".equals(authority))) {// Special case - file: allows an empty authority
             return true; // this is a local file - nothing more to do here
         }
-        if ("file".equals(scheme) && authority != null && authority.contains(":")) {
+        if ("file".equals(scheme) && authority.contains(":")) {
             return false;
         }
         // Validate the authority

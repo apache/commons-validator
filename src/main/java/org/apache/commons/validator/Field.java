@@ -257,7 +257,7 @@ public class Field implements Cloneable, Serializable {
         while (st.hasMoreTokens()) {
             String depend = st.nextToken().trim();
 
-            if (depend != null && !depend.isEmpty()) {
+            if (!depend.isEmpty()) {
                 this.dependencyList.add(depend);
             }
         }
