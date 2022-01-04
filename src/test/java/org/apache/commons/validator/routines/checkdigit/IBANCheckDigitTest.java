@@ -25,7 +25,7 @@ import org.junit.Assert;
 
 
 /**
- * EAN-13 Check Digit Test.
+ * IBAN Check Digit Test.
  *
  * @version $Revision$
  * @since Validator 1.4
@@ -59,6 +59,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                 "BE68539007547034",              // Belgium
                 "BG80BNBG96611020345678",        // Bulgaria
                 "BH67BMAG00001299123456",        // Bahrain
+                "BI4210000100010000332045181",   // Burundi
                 "BR1800000000141455123924100C2", // Brazil
                 "BY13NBRB3600900000002Z00AB00",  // Belarus
                 "CH3900700115201849173",         // Switzerland

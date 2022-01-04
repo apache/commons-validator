@@ -129,6 +129,7 @@ public class IBANValidator {
             new Validator("BE", 16, "BE\\d{14}"                             ), // Belgium
             new Validator("BG", 22, "BG\\d{2}[A-Z]{4}\\d{6}[A-Z0-9]{8}"     ), // Bulgaria
             new Validator("BH", 22, "BH\\d{2}[A-Z]{4}[A-Z0-9]{14}"          ), // Bahrain
+            new Validator("BI", 27, "BI\\d{25}"                             ), // Burundi
             new Validator("BR", 29, "BR\\d{25}[A-Z]{1}[A-Z0-9]{1}"          ), // Brazil
             new Validator("BY", 28, "BY\\d{2}[A-Z0-9]{4}\\d{4}[A-Z0-9]{16}" ), // Republic of Belarus
             new Validator("CH", 21, "CH\\d{7}[A-Z0-9]{12}"                  ), // Switzerland
