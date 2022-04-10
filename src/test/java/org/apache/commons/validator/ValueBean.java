@@ -23,7 +23,7 @@ package org.apache.commons.validator;
  */
 public class ValueBean {
 
-   protected String value = null;
+   protected String value;
 
    /**
     * Gets the value.

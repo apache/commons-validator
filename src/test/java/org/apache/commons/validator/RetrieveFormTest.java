@@ -32,7 +32,7 @@ public class RetrieveFormTest extends TestCase {
     /**
      * Resources used for validation tests.
      */
-    private ValidatorResources resources = null;
+    private ValidatorResources resources;
 
     /**
      * Prefix for the forms.
