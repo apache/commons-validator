@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>52</version>
+    <version>53</version>
   </parent>
 
   <groupId>commons-validator</groupId>
@@ -117,7 +117,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${commons.checkstyle-plugin.version}</version>
         <configuration>
           <configLocation>${basedir}/checkstyle.xml</configLocation>
           <!-- Needed to define config_loc -->
@@ -128,7 +127,6 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>${commons.spotbugs.version}</version>
       </plugin>
     </plugins>
   </build>
