@@ -57,7 +57,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <commons.release.isDistModule>true</commons.release.isDistModule>
 
-    <commons.japicmp.version>0.15.3</commons.japicmp.version>
+    <commons.japicmp.version>0.15.7</commons.japicmp.version>
   </properties> 
 
   <scm>
