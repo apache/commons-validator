@@ -22,18 +22,14 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.collections.FastHashMap;// DEPRECATED
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <p>
  *
  * This contains a set of validation rules for a form/JavaBean. The information
  * is contained in a list of <code>Field</code> objects. Instances of this class
- * are configured with a &lt;form&gt; xml element. </p> <p>
- *
- * The use of FastHashMap is deprecated and will be replaced in a future
- * release. </p>
+ * are configured with a &lt;form&gt; xml element. </p>
  *
  * @version $Revision$
  */
@@ -57,8 +53,7 @@ public class Form implements Serializable {
      *
      * @deprecated   Subclasses should use getFieldMap() instead.
      */
-    @Deprecated
-    protected FastHashMap hFields = new FastHashMap(); // <String, Field>
+    protected ConcurrentHashMap<String,Field> hFields = new ConcurrentHashMap<>(); // <String, Field>
 
     /**
      * The name/key of the form which this form extends from.
@@ -145,8 +140,7 @@ public class Form implements Serializable {
     protected void merge(Form depends) {
 
         List<Field> templFields = new ArrayList<>();
-        @SuppressWarnings("unchecked") // FastHashMap is not generic
-        Map<String, Field> temphFields = new FastHashMap();
+	Map<String, Field> temphFields = new ConcurrentHashMap<String,Field>();
         Iterator<Field> dependsIt = depends.getFields().iterator();
         while (dependsIt.hasNext()) {
             Field defaultField = dependsIt.next();
@@ -200,7 +194,6 @@ public class Form implements Serializable {
                 }
             }
         }
-        hFields.setFast(true);
         //no need to reprocess parent's fields, we iterate from 'n'
         for (Iterator<Field> i = lFields.listIterator(n); i.hasNext(); ) {
             Field f = i.next();
@@ -344,7 +337,6 @@ public class Form implements Serializable {
      * @return   The fieldMap value
      * @since    Validator 1.2.0
      */
-    @SuppressWarnings("unchecked") // FastHashMap is not generic
     protected Map<String, Field> getFieldMap() {
         return hFields;
     }
