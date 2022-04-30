@@ -69,6 +69,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="VALIDATOR-477" type="update" dev="sebb">
       Add IBAN validator for LY – Libya
     </action>
+    <action  type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+      Add github/codeql-action.
+    </action>
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Dependabot">
       Bump actions/checkout from 2.3.1 to 3, #38, #47, #70.
