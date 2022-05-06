@@ -75,13 +75,13 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
      * otherwise <code>false</code>
      */
     @Override
-    public boolean isValid(String code) {
+    public boolean isValid(final String code) {
         if (code == null || code.isEmpty()) {
             return false;
         }
         try {
             return (calculateChecksum(code, true) == 0);
-        } catch (CheckDigitException e) {
+        } catch (final CheckDigitException e) {
             return false;
         }
     }
@@ -95,11 +95,11 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
      * the check digit for the specified code
      */
     @Override
-    public String calculate(String code) throws CheckDigitException {
+    public String calculate(final String code) throws CheckDigitException {
         if (code == null || code.isEmpty()) {
             throw new CheckDigitException("Code is missing");
         }
-        int checksum = calculateChecksum(code, false);
+        final int checksum = calculateChecksum(code, false);
         return Integer.toString(INV_TABLE[checksum]);
     }
 
@@ -111,16 +111,16 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
      * @return The checksum value
      * @throws CheckDigitException if the code contains an invalid character (i.e. not numeric)
      */
-    private int calculateChecksum(String code, boolean includesCheckDigit) throws CheckDigitException {
+    private int calculateChecksum(final String code, final boolean includesCheckDigit) throws CheckDigitException {
         int checksum = 0;
         for (int i = 0; i < code.length(); i++) {
-            int idx = code.length() - (i + 1);
-            int num = Character.getNumericValue(code.charAt(idx));
+            final int idx = code.length() - (i + 1);
+            final int num = Character.getNumericValue(code.charAt(idx));
             if (num < 0 || num > 9) { // CHECKSTYLE IGNORE MagicNumber
                 throw new CheckDigitException("Invalid Character[" +
                         i + "] = '" + ((int)code.charAt(idx)) + "'");
             }
-            int pos = includesCheckDigit ? i : i + 1;
+            final int pos = includesCheckDigit ? i : i + 1;
             checksum = D_TABLE[checksum][P_TABLE[pos % 8][num]]; // CHECKSTYLE IGNORE MagicNumber
         }
         return checksum;

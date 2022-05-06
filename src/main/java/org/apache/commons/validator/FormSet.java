@@ -144,13 +144,13 @@ public class FormSet implements Serializable {
      * @param depends  FormSet to be merged
      * @since          Validator 1.2.0
      */
-    protected void merge(FormSet depends) {
+    protected void merge(final FormSet depends) {
         if (depends != null) {
-            Map<String, Form> pForms = getForms();
-            Map<String, Form> dForms = depends.getForms();
-            for (Entry<String, Form> entry : dForms.entrySet()) {
-                String key = entry.getKey();
-                Form pForm = pForms.get(key);
+            final Map<String, Form> pForms = getForms();
+            final Map<String, Form> dForms = depends.getForms();
+            for (final Entry<String, Form> entry : dForms.entrySet()) {
+                final String key = entry.getKey();
+                final Form pForm = pForms.get(key);
                 if (pForm != null) {//merge, but principal 'rules', don't overwrite
                     // anything
                     pForm.merge(entry.getValue());
@@ -187,7 +187,7 @@ public class FormSet implements Serializable {
      *
      * @param language  The new language value
      */
-    public void setLanguage(String language) {
+    public void setLanguage(final String language) {
         this.language = language;
     }
 
@@ -205,7 +205,7 @@ public class FormSet implements Serializable {
      *
      * @param country  The new country value
      */
-    public void setCountry(String country) {
+    public void setCountry(final String country) {
         this.country = country;
     }
 
@@ -223,7 +223,7 @@ public class FormSet implements Serializable {
      *
      * @param variant  The new variant value
      */
-    public void setVariant(String variant) {
+    public void setVariant(final String variant) {
         this.variant = variant;
     }
 
@@ -233,7 +233,7 @@ public class FormSet implements Serializable {
      * @param name   The constant name
      * @param value  The constant value
      */
-    public void addConstant(String name, String value) {
+    public void addConstant(final String name, final String value) {
 
         if (constants.containsKey(name)) {
             getLog().error("Constant '" + name +  "' already exists in FormSet["
@@ -250,9 +250,9 @@ public class FormSet implements Serializable {
      *
      * @param f  The form
      */
-    public void addForm(Form f) {
+    public void addForm(final Form f) {
 
-        String formName = f.getName();
+        final String formName = f.getName();
         if (forms.containsKey(formName)) {
             getLog().error("Form '" + formName + "' already exists in FormSet["
                       + this.displayKey() + "] - ignoring.");
@@ -269,7 +269,7 @@ public class FormSet implements Serializable {
      * @param formName  The form name
      * @return          The form
      */
-    public Form getForm(String formName) {
+    public Form getForm(final String formName) {
         return this.forms.get(formName);
     }
 
@@ -288,8 +288,8 @@ public class FormSet implements Serializable {
      *
      * @param globalConstants  Global constants
      */
-    synchronized void process(Map<String, String> globalConstants) {
-        for (Form f : forms.values()) {
+    synchronized void process(final Map<String, String> globalConstants) {
+        for (final Form f : forms.values()) {
             f.process(globalConstants, constants, forms);
         }
 
@@ -302,7 +302,7 @@ public class FormSet implements Serializable {
      * @return   A string representation of the key
      */
     public String displayKey() {
-        StringBuilder results = new StringBuilder();
+        final StringBuilder results = new StringBuilder();
         if (language != null && !language.isEmpty()) {
             results.append("language=");
             results.append(language);
@@ -335,7 +335,7 @@ public class FormSet implements Serializable {
      */
     @Override
     public String toString() {
-        StringBuilder results = new StringBuilder();
+        final StringBuilder results = new StringBuilder();
 
         results.append("FormSet: language=");
         results.append(language);
@@ -345,7 +345,7 @@ public class FormSet implements Serializable {
         results.append(variant);
         results.append("\n");
 
-        for (Object name : getForms().values()) {
+        for (final Object name : getForms().values()) {
             results.append("   ");
             results.append(name);
             results.append("\n");

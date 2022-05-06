@@ -75,7 +75,7 @@ public class IBANValidator {
          * @param len the length of the IBAN
          * @param format the regex to use to check the format
          */
-        public Validator(String cc, int len, String format) {
+        public Validator(final String cc, final int len, final String format) {
             if (!(cc.length() == 2 && Character.isUpperCase(cc.charAt(0)) && Character.isUpperCase(cc.charAt(1)))) {
                 throw new IllegalArgumentException("Invalid country Code; must be exactly 2 upper-case characters");
             }
@@ -224,13 +224,13 @@ public class IBANValidator {
      *
      * @param formatMap map of IBAN formats
      */
-    public IBANValidator(Validator[] formatMap) {
+    public IBANValidator(final Validator[] formatMap) {
         this.formatValidators = createValidators(formatMap);
     }
 
-    private Map<String, Validator> createValidators(Validator[] formatMap) {
-        Map<String, Validator> m = new ConcurrentHashMap<>();
-        for(Validator v : formatMap) {
+    private Map<String, Validator> createValidators(final Validator[] formatMap) {
+        final Map<String, Validator> m = new ConcurrentHashMap<>();
+        for(final Validator v : formatMap) {
             m.put(v.countryCode, v);
         }
         return m;
@@ -242,8 +242,8 @@ public class IBANValidator {
      * @param code The value validation is being performed on
      * @return <code>true</code> if the value is valid
      */
-    public boolean isValid(String code) {
-        Validator formatValidator = getValidator(code);
+    public boolean isValid(final String code) {
+        final Validator formatValidator = getValidator(code);
         if (formatValidator == null || code.length() != formatValidator.lengthOfIBAN || !formatValidator.validator.isValid(code)) {
             return false;
         }
@@ -256,7 +256,7 @@ public class IBANValidator {
      * @param code the code to check
      * @return true if there is a validator
      */
-    public boolean hasValidator(String code) {
+    public boolean hasValidator(final String code) {
         return getValidator(code) != null;
     }
 
@@ -276,11 +276,11 @@ public class IBANValidator {
      *
      * @return the validator or {@code null} if there is not one registered.
      */
-    public Validator getValidator(String code) {
+    public Validator getValidator(final String code) {
         if (code == null || code.length() < 2) { // ensure we can extract the code
             return null;
         }
-        String key = code.substring(0, 2);
+        final String key = code.substring(0, 2);
         return formatValidators.get(key);
     }
 
@@ -292,7 +292,7 @@ public class IBANValidator {
      * @return the previous Validator, or {@code null} if there was none
      * @throws IllegalStateException if an attempt is made to modify the singleton validator
      */
-    public Validator setValidator(Validator validator) {
+    public Validator setValidator(final Validator validator) {
         if (this == DEFAULT_IBAN_VALIDATOR) {
             throw new IllegalStateException("The singleton validator cannot be modified");
         }
@@ -311,7 +311,7 @@ public class IBANValidator {
      * @throws IllegalArgumentException if there is a problem
      * @throws IllegalStateException if an attempt is made to modify the singleton validator
      */
-    public Validator setValidator(String countryCode, int length, String format) {
+    public Validator setValidator(final String countryCode, final int length, final String format) {
         if (this == DEFAULT_IBAN_VALIDATOR) {
             throw new IllegalStateException("The singleton validator cannot be modified");
         }
