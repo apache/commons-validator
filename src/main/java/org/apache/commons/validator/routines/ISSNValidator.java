@@ -195,8 +195,7 @@ public class ISSNValidator implements Serializable {
             String issnBase = input.substring(3,10); // TODO: how to derive these
             //CHECKSTYLE:ON: MagicNumber
             String checkDigit = ISSNCheckDigit.ISSN_CHECK_DIGIT.calculate(issnBase);
-            String issn = issnBase + checkDigit;
-            return issn;
+            return issnBase + checkDigit;
         } catch (CheckDigitException e) { // Should not happen
             throw new IllegalArgumentException("Check digit error for '" + ean13 + "' - " + e.getMessage());
         }

@@ -67,7 +67,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     @Override
     public boolean isValid(String value, String pattern, Locale locale) {
         Object parsedValue = parse(value, pattern, locale, (TimeZone)null);
-        return (parsedValue == null ? false : true);
+        return (parsedValue != null);
     }
 
     /**
@@ -372,13 +372,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     protected int compareQuarters(Calendar value, Calendar compare, int monthOfFirstQuarter) {
         int valueQuarter   = calculateQuarter(value, monthOfFirstQuarter);
         int compareQuarter = calculateQuarter(compare, monthOfFirstQuarter);
-        if (valueQuarter < compareQuarter) {
-            return -1;
-        }
-        if (valueQuarter > compareQuarter) {
-            return 1;
-        }
-        return 0;
+        return Integer.compare(valueQuarter, compareQuarter);
     }
 
     /**
@@ -417,12 +411,6 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      */
     private int calculateCompareResult(Calendar value, Calendar compare, int field) {
         int difference = value.get(field) - compare.get(field);
-        if (difference < 0) {
-            return -1;
-        }
-        if (difference > 0) {
-            return 1;
-        }
-        return 0;
+        return Integer.compare(difference, 0);
     }
 }
