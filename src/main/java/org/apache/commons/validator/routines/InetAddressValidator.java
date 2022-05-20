@@ -72,7 +72,7 @@ public class InetAddressValidator implements Serializable {
     }
 
     /**
-     * Checks if the specified string is a valid IP address.
+     * <p>Checks if the specified string is a valid IPv4 or IPv6 address.</p>
      * @param inetAddress the string to validate
      * @return true if the string validates as an IP address
      */
