@@ -65,7 +65,11 @@ The <action> type attribute can be add,update,fix,remove.
 
   <body>
   <release version="1.8" date="20YY-MM-DD" description="">
-    <!--  ADD -->
+   <!-- FIX -->
+    <action type="fix" dev="ggregory" due-to="Gennaro Napolitano">
+      Update Javadoc for InetAddressValidator isValid #76
+    </action>
+   <!-- ADD -->
     <action issue="VALIDATOR-477" type="update" dev="sebb">
       Add IBAN validator for LY – Libya
     </action>
