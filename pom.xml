@@ -172,8 +172,8 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-csv</artifactId>
-      <!-- 1.6 needed for Java 7+ -->
-      <version>1.6</version>
+      <!-- 1.9.0 needed for Java 7+ -->
+      <version>1.9.0</version>
       <scope>test</scope>
     </dependency>
 
