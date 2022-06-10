@@ -27,7 +27,7 @@ package org.apache.commons.validator;
 public class IntegerTest extends AbstractNumberTest {
 
 
-    public IntegerTest(String name) {
+    public IntegerTest(final String name) {
         super(name);
         FORM_KEY = "intForm";
         ACTION = "int";
@@ -38,7 +38,7 @@ public class IntegerTest extends AbstractNumberTest {
      */
     public void testInt() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue("0");
 
         valueTest(info, true);
@@ -49,7 +49,7 @@ public class IntegerTest extends AbstractNumberTest {
      */
     public void testIntMin() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Integer.toString(Integer.MIN_VALUE));
 
         valueTest(info, true);
@@ -60,7 +60,7 @@ public class IntegerTest extends AbstractNumberTest {
      */
     public void testIntegerMax() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Integer.toString(Integer.MAX_VALUE));
 
         valueTest(info, true);
@@ -71,7 +71,7 @@ public class IntegerTest extends AbstractNumberTest {
      */
     public void testIntFailure() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
 
         valueTest(info, false);
     }
@@ -81,7 +81,7 @@ public class IntegerTest extends AbstractNumberTest {
      */
     public void testIntBeyondMin() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Integer.MIN_VALUE + "1");
 
         valueTest(info, false);
@@ -92,7 +92,7 @@ public class IntegerTest extends AbstractNumberTest {
      */
     public void testIntBeyondMax() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Integer.MAX_VALUE + "1");
 
         valueTest(info, false);

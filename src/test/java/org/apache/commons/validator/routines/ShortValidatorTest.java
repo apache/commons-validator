@@ -29,7 +29,7 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
      * Constructor
      * @param name test name
      */
-    public ShortValidatorTest(String name) {
+    public ShortValidatorTest(final String name) {
         super(name);
     }
 
@@ -77,14 +77,14 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
      * Test ShortValidator validate Methods
      */
     public void testShortValidatorMethods() {
-        Locale locale     = Locale.GERMAN;
-        String pattern    = "0,00,00";
-        String patternVal = "1,23,45";
-        String germanPatternVal = "1.23.45";
-        String localeVal  = "12.345";
-        String defaultVal = "12,345";
-        String XXXX    = "XXXX";
-        Short expected = Short.valueOf((short)12345);
+        final Locale locale     = Locale.GERMAN;
+        final String pattern    = "0,00,00";
+        final String patternVal = "1,23,45";
+        final String germanPatternVal = "1.23.45";
+        final String localeVal  = "12.345";
+        final String defaultVal = "12,345";
+        final String XXXX    = "XXXX";
+        final Short expected = Short.valueOf((short)12345);
         assertEquals("validate(A) default", expected, ShortValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, ShortValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, ShortValidator.getInstance().validate(patternVal, pattern));
@@ -110,15 +110,15 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
      * Test Short Range/Min/Max
      */
     public void testShortRangeMinMax() {
-        ShortValidator validator = (ShortValidator)strictValidator;
-        Short number9  = validator.validate("9", "#");
-        Short number10 = validator.validate("10", "#");
-        Short number11 = validator.validate("11", "#");
-        Short number19 = validator.validate("19", "#");
-        Short number20 = validator.validate("20", "#");
-        Short number21 = validator.validate("21", "#");
-        short min = (short)10;
-        short max = (short)20;
+        final ShortValidator validator = (ShortValidator)strictValidator;
+        final Short number9  = validator.validate("9", "#");
+        final Short number10 = validator.validate("10", "#");
+        final Short number11 = validator.validate("11", "#");
+        final Short number19 = validator.validate("19", "#");
+        final Short number20 = validator.validate("20", "#");
+        final Short number21 = validator.validate("21", "#");
+        final short min = (short)10;
+        final short max = (short)20;
 
         // Test isInRange()
         assertFalse("isInRange() < min",   validator.isInRange(number9,  min, max));

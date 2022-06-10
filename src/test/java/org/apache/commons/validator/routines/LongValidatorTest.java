@@ -39,7 +39,7 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
      * Constructor
      * @param name test name
      */
-    public LongValidatorTest(String name) {
+    public LongValidatorTest(final String name) {
         super(name);
     }
 
@@ -88,14 +88,14 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
      * Test LongValidator validate Methods
      */
     public void testLongValidatorMethods() {
-        Locale locale     = Locale.GERMAN;
-        String pattern    = "0,00,00";
-        String patternVal = "1,23,45";
-        String germanPatternVal = "1.23.45";
-        String localeVal  = "12.345";
-        String defaultVal = "12,345";
-        String XXXX    = "XXXX";
-        Long expected = Long.valueOf(12345);
+        final Locale locale     = Locale.GERMAN;
+        final String pattern    = "0,00,00";
+        final String patternVal = "1,23,45";
+        final String germanPatternVal = "1.23.45";
+        final String localeVal  = "12.345";
+        final String defaultVal = "12,345";
+        final String XXXX    = "XXXX";
+        final Long expected = Long.valueOf(12345);
         assertEquals("validate(A) default", expected, LongValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, LongValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, LongValidator.getInstance().validate(patternVal, pattern));
@@ -121,13 +121,13 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
      * Test Long Range/Min/Max
      */
     public void testLongRangeMinMax() {
-        LongValidator validator = (LongValidator)strictValidator;
-        Long number9  = validator.validate("9", "#");
-        Long number10 = validator.validate("10", "#");
-        Long number11 = validator.validate("11", "#");
-        Long number19 = validator.validate("19", "#");
-        Long number20 = validator.validate("20", "#");
-        Long number21 = validator.validate("21", "#");
+        final LongValidator validator = (LongValidator)strictValidator;
+        final Long number9  = validator.validate("9", "#");
+        final Long number10 = validator.validate("10", "#");
+        final Long number11 = validator.validate("11", "#");
+        final Long number19 = validator.validate("19", "#");
+        final Long number20 = validator.validate("20", "#");
+        final Long number21 = validator.validate("21", "#");
 
         // Test isInRange()
         assertFalse("isInRange() < min",   validator.isInRange(number9,  10, 20));

@@ -28,7 +28,7 @@ public class ModulusTenABACheckDigitTest extends AbstractCheckDigitTest {
      * Constructor
      * @param name test name
      */
-    public ModulusTenABACheckDigitTest(String name) {
+    public ModulusTenABACheckDigitTest(final String name) {
         super(name);
     }
 

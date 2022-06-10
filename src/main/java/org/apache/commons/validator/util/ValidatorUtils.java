@@ -53,21 +53,21 @@ public class ValidatorUtils {
      *
      * @return The modified value.
      */
-    public static String replace(String value, String key, String replaceValue) {
+    public static String replace(String value, final String key, final String replaceValue) {
 
         if (value == null || key == null || replaceValue == null) {
             return value;
         }
 
-        int pos = value.indexOf(key);
+        final int pos = value.indexOf(key);
 
         if (pos < 0) {
             return value;
         }
 
-        int length = value.length();
-        int start = pos;
-        int end = pos + key.length();
+        final int length = value.length();
+        final int start = pos;
+        final int end = pos + key.length();
 
         if (length == key.length()) {
             value = replaceValue;
@@ -98,7 +98,7 @@ public class ValidatorUtils {
      *
      * @return The value of the property.
      */
-    public static String getValueAsString(Object bean, String property) {
+    public static String getValueAsString(final Object bean, final String property) {
         Object value = null;
 
         try {
@@ -137,15 +137,16 @@ public class ValidatorUtils {
      * copyMap() instead.
      */
     @Deprecated
-    public static FastHashMap copyFastHashMap(FastHashMap map) {
-        FastHashMap results = new FastHashMap();
+    public static FastHashMap copyFastHashMap(final FastHashMap map) {
+        final FastHashMap results = new FastHashMap();
 
         @SuppressWarnings("unchecked") // FastHashMap is not generic
+        final
         Iterator<Entry<String, ?>> i = map.entrySet().iterator();
         while (i.hasNext()) {
-            Entry<String, ?> entry = i.next();
-            String key = entry.getKey();
-            Object value = entry.getValue();
+            final Entry<String, ?> entry = i.next();
+            final String key = entry.getKey();
+            final Object value = entry.getValue();
 
             if (value instanceof Msg) {
                 results.put(key, ((Msg) value).clone());
@@ -171,14 +172,14 @@ public class ValidatorUtils {
      *
      * @return A copy of the <code>Map</code> that was passed in.
      */
-    public static Map<String, Object> copyMap(Map<String, Object> map) {
-        Map<String, Object> results = new HashMap<>();
+    public static Map<String, Object> copyMap(final Map<String, Object> map) {
+        final Map<String, Object> results = new HashMap<>();
 
-        Iterator<Entry<String, Object>> i = map.entrySet().iterator();
+        final Iterator<Entry<String, Object>> i = map.entrySet().iterator();
         while (i.hasNext()) {
-            Entry<String, Object> entry = i.next();
-            String key = entry.getKey();
-            Object value = entry.getValue();
+            final Entry<String, Object> entry = i.next();
+            final String key = entry.getKey();
+            final Object value = entry.getValue();
 
             if (value instanceof Msg) {
                 results.put(key, ((Msg) value).clone());

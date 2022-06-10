@@ -38,7 +38,7 @@ public class ExceptionTest extends AbstractCommonTest {
      */
     protected static String ACTION = "raiseException";
 
-    public ExceptionTest(String name) {
+    public ExceptionTest(final String name) {
         super(name);
     }
 
@@ -57,12 +57,12 @@ public class ExceptionTest extends AbstractCommonTest {
      */
     public void testValidatorException() {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue("VALIDATOR");
 
         // Construct validator based on the loaded resources
         // and the form key
-        Validator validator = new Validator(resources, FORM_KEY);
+        final Validator validator = new Validator(resources, FORM_KEY);
         // add the name bean to the validator as a resource
         // for the validations to be performed on.
         validator.setParameter(Validator.BEAN_PARAM, info);
@@ -71,7 +71,7 @@ public class ExceptionTest extends AbstractCommonTest {
         try {
             validator.validate();
             fail("ValidatorException should occur here!");
-        } catch (ValidatorException expected) {
+        } catch (final ValidatorException expected) {
             assertTrue("VALIDATOR-EXCEPTION".equals(expected.getMessage()));
         }
     }
@@ -86,12 +86,12 @@ public class ExceptionTest extends AbstractCommonTest {
      */
     public void XtestRuntimeException() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue("RUNTIME");
 
         // Construct validator based on the loaded resources
         // and the form key
-        Validator validator = new Validator(resources, FORM_KEY);
+        final Validator validator = new Validator(resources, FORM_KEY);
         // add the name bean to the validator as a resource
         // for the validations to be performed on.
         validator.setParameter(Validator.BEAN_PARAM, info);
@@ -100,7 +100,7 @@ public class ExceptionTest extends AbstractCommonTest {
         try {
             validator.validate();
             //fail("RuntimeException should occur here!");
-        } catch (RuntimeException expected) {
+        } catch (final RuntimeException expected) {
             fail("RuntimeExceptions should be treated as validation failures in Validator 1.x.");
             // This will be true in Validator 2.0
             //assertTrue("RUNTIME-EXCEPTION".equals(expected.getMessage()));
@@ -118,12 +118,12 @@ public class ExceptionTest extends AbstractCommonTest {
      */
     public void XtestCheckedException() {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue("CHECKED");
 
         // Construct validator based on the loaded resources
         // and the form key
-        Validator validator = new Validator(resources, FORM_KEY);
+        final Validator validator = new Validator(resources, FORM_KEY);
         // add the name bean to the validator as a resource
         // for the validations to be performed on.
         validator.setParameter(Validator.BEAN_PARAM, info);
@@ -133,9 +133,9 @@ public class ExceptionTest extends AbstractCommonTest {
         // Tests Validator 1.x exception handling
         try {
             validator.validate();
-        } catch (ValidatorException expected) {
+        } catch (final ValidatorException expected) {
             fail("Checked exceptions are not wrapped in ValidatorException in Validator 1.x.");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertTrue("CHECKED-EXCEPTION".equals(e.getMessage()));
         }
 

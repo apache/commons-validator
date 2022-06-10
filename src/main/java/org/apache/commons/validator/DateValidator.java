@@ -67,7 +67,7 @@ public class DateValidator {
      * @param strict Whether or not to have an exact match of the datePattern.
      * @return true if the date is valid.
      */
-    public boolean isValid(String value, String datePattern, boolean strict) {
+    public boolean isValid(final String value, final String datePattern, final boolean strict) {
 
         if (value == null
                 || datePattern == null
@@ -76,12 +76,12 @@ public class DateValidator {
             return false;
         }
 
-        SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+        final SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
         formatter.setLenient(false);
 
         try {
             formatter.parse(value);
-        } catch(ParseException e) {
+        } catch(final ParseException e) {
             return false;
         }
 
@@ -102,7 +102,7 @@ public class DateValidator {
      * system default if null.
      * @return true if the date is valid.
      */
-    public boolean isValid(String value, Locale locale) {
+    public boolean isValid(final String value, final Locale locale) {
 
         if (value == null) {
             return false;
@@ -122,7 +122,7 @@ public class DateValidator {
 
         try {
             formatter.parse(value);
-        } catch(ParseException e) {
+        } catch(final ParseException e) {
             return false;
         }
 

@@ -62,7 +62,7 @@ public class ExtensionTest extends TestCase {
      * Constructor de ExtensionTest.
      * @param arg0
      */
-    public ExtensionTest(String arg0) {
+    public ExtensionTest(final String arg0) {
         super(arg0);
     }
 
@@ -87,11 +87,11 @@ public class ExtensionTest extends TestCase {
     */
     public void testRequired() throws ValidatorException {
        // Create bean to run test on.
-       NameBean name = new NameBean();
+       final NameBean name = new NameBean();
 
        // Construct validator based on the loaded resources
        // and the form key
-       Validator validator = new Validator(resources, FORM_KEY);
+       final Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
        validator.setParameter(Validator.BEAN_PARAM, name);
@@ -101,12 +101,12 @@ public class ExtensionTest extends TestCase {
        // but we aren't catching for testing
        // since no validation methods we use
        // throw this
-       ValidatorResults results = validator.validate();
+       final ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
-       ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
        assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
        assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
@@ -122,23 +122,23 @@ public class ExtensionTest extends TestCase {
     */
     public void testRequiredFirstNameBlank() throws ValidatorException {
        // Create bean to run test on.
-       NameBean name = new NameBean();
+       final NameBean name = new NameBean();
        name.setFirstName("");
 
        // Construct validator based on the loaded resources
        // and the form key
-       Validator validator = new Validator(resources, FORM_KEY);
+       final Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = validator.validate();
+       final ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
-       ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
        assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
        assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
@@ -154,23 +154,23 @@ public class ExtensionTest extends TestCase {
     */
     public void testRequiredFirstName() throws ValidatorException {
        // Create bean to run test on.
-       NameBean name = new NameBean();
+       final NameBean name = new NameBean();
        name.setFirstName("Joe");
 
        // Construct validator based on the loaded resources
        // and the form key
-       Validator validator = new Validator(resources, FORM_KEY);
+       final Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = validator.validate();
+       final ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
-       ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
        assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
        assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
@@ -186,23 +186,23 @@ public class ExtensionTest extends TestCase {
     */
     public void testRequiredLastNameBlank() throws ValidatorException {
        // Create bean to run test on.
-       NameBean name = new NameBean();
+       final NameBean name = new NameBean();
        name.setLastName("");
 
        // Construct validator based on the loaded resources
        // and the form key
-       Validator validator = new Validator(resources, FORM_KEY);
+       final Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = validator.validate();
+       final ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
-       ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
        assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
        assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
@@ -218,23 +218,23 @@ public class ExtensionTest extends TestCase {
     */
     public void testRequiredLastName() throws ValidatorException {
        // Create bean to run test on.
-       NameBean name = new NameBean();
+       final NameBean name = new NameBean();
        name.setLastName("Smith");
 
        // Construct validator based on the loaded resources
        // and the form key
-       Validator validator = new Validator(resources, FORM_KEY);
+       final Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = validator.validate();
+       final ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
-       ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
        assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
        assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
@@ -251,24 +251,24 @@ public class ExtensionTest extends TestCase {
     */
     public void testRequiredName() throws ValidatorException {
        // Create bean to run test on.
-       NameBean name = new NameBean();
+       final NameBean name = new NameBean();
        name.setFirstName("Joe");
        name.setLastName("Smith");
 
        // Construct validator based on the loaded resources
        // and the form key
-       Validator validator = new Validator(resources, FORM_KEY);
+       final Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = validator.validate();
+       final ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
-       ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
        assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
        assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
@@ -287,23 +287,23 @@ public class ExtensionTest extends TestCase {
     public void testOverrideRule() throws ValidatorException {
 
        // Create bean to run test on.
-       NameBean name = new NameBean();
+       final NameBean name = new NameBean();
        name.setLastName("Smith");
 
        // Construct validator based on the loaded resources
        // and the form key
-       Validator validator = new Validator(resources, FORM_KEY2);
+       final Validator validator = new Validator(resources, FORM_KEY2);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = validator.validate();
+       final ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
-       ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
        assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
        assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have '" + CHECK_MSG_KEY + " as a key.", firstNameResult.field.getArg(0).getKey().equals(CHECK_MSG_KEY));
 
@@ -317,8 +317,8 @@ public class ExtensionTest extends TestCase {
     */
     public void testOrder() {
 
-       Form form = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY);
-       Form form2 = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY2);
+       final Form form = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY);
+       final Form form2 = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY2);
 
        assertNotNull(FORM_KEY + " is null.", form);
        assertTrue("There should only be 2 fields in " + FORM_KEY, form.getFields().size() == 2);

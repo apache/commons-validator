@@ -33,7 +33,7 @@ public class CodeValidatorTest extends TestCase {
      * Construct a test with the specified name.
      * @param name The name of the test
      */
-    public CodeValidatorTest(String name) {
+    public CodeValidatorTest(final String name) {
         super(name);
     }
 
@@ -58,8 +58,8 @@ public class CodeValidatorTest extends TestCase {
      */
     public void testCheckDigit() {
         CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
-        String invalidEAN = "9781930110992";
-        String validEAN   = "9781930110991";
+        final String invalidEAN = "9781930110992";
+        final String validEAN   = "9781930110991";
 
         // Test no CheckDigit (i.e. null)
         assertNull("No CheckDigit", validator.getCheckDigit());
@@ -84,12 +84,12 @@ public class CodeValidatorTest extends TestCase {
      */
     public void testLength() {
         CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
-        String length_10  = "1234567890";
-        String length_11  = "12345678901";
-        String length_12  = "123456789012";
-        String length_20  = "12345678901234567890";
-        String length_21  = "123456789012345678901";
-        String length_22  = "1234567890123456789012";
+        final String length_10  = "1234567890";
+        final String length_11  = "12345678901";
+        final String length_12  = "123456789012";
+        final String length_20  = "12345678901234567890";
+        final String length_21  = "123456789012345678901";
+        final String length_22  = "1234567890123456789012";
 
         assertEquals("No min", -1, validator.getMinLength());
         assertEquals("No max", -1, validator.getMaxLength());
@@ -145,11 +145,11 @@ public class CodeValidatorTest extends TestCase {
     public void testRegex() {
         CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
 
-        String value2  = "12";
-        String value3  = "123";
-        String value4  = "1234";
-        String value5  = "12345";
-        String invalid = "12a4";
+        final String value2  = "12";
+        final String value3  = "123";
+        final String value4  = "1234";
+        final String value5  = "12345";
+        final String invalid = "12a4";
 
         // No Regular Expression
         assertNull("No Regex", validator.getRegexValidator());
@@ -190,7 +190,7 @@ public class CodeValidatorTest extends TestCase {
      * Test Regular Expression.
      */
     public void testNoInput() {
-        CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
+        final CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
         assertEquals("Null",         null, validator.validate(null));
         assertEquals("Zero Length",  null, validator.validate(""));
         assertEquals("Spaces",       null, validator.validate("   "));
@@ -205,7 +205,7 @@ public class CodeValidatorTest extends TestCase {
     }
 
     public void testValidator294_2() {
-        CodeValidator validator = new CodeValidator((String)null, -1, 0, (CheckDigit)null);
+        final CodeValidator validator = new CodeValidator((String)null, -1, 0, (CheckDigit)null);
         assertEquals("Null",         null, validator.validate(null));
     }
 
@@ -214,7 +214,7 @@ public class CodeValidatorTest extends TestCase {
      */
     public void testConstructors() {
         CodeValidator validator;
-        RegexValidator regex = new RegexValidator("^[0-9]*$");
+        final RegexValidator regex = new RegexValidator("^[0-9]*$");
 
         // Constructor 1
         validator = new CodeValidator(regex, EAN13CheckDigit.EAN13_CHECK_DIGIT);

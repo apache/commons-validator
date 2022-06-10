@@ -41,7 +41,7 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
     */
    protected static String ACTION = "byte";
 
-   public GenericTypeValidatorTest(String name) {
+   public GenericTypeValidatorTest(final String name) {
        super(name);
    }
 
@@ -64,7 +64,7 @@ protected void tearDown() {
     */
    public void testType() throws ValidatorException {
       // Create bean to run test on.
-      TypeBean info = new TypeBean();
+      final TypeBean info = new TypeBean();
       info.setByte("12");
       info.setShort("129");
       info.setInteger("-144");
@@ -74,7 +74,7 @@ protected void tearDown() {
 
       // Construct validator based on the loaded resources
       // and the form key
-      Validator validator = new Validator(resources, FORM_KEY);
+      final Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource
       // for the validations to be performed on.
       validator.setParameter(Validator.BEAN_PARAM, info);
@@ -84,11 +84,11 @@ protected void tearDown() {
       // but we aren't catching for testing
       // since no validation methods we use
       // throw this
-      ValidatorResults results = validator.validate();
+      final ValidatorResults results = validator.validate();
 
       assertNotNull("Results are null.", results);
 
-      Map<String, ?> hResultValues = results.getResultValueMap();
+      final Map<String, ?> hResultValues = results.getResultValueMap();
 
       assertTrue("Expecting byte result to be an instance of Byte.", (hResultValues.get("byte") instanceof Byte));
       assertTrue("Expecting short result to be an instance of Short.", (hResultValues.get("short") instanceof Short));
@@ -97,8 +97,8 @@ protected void tearDown() {
       assertTrue("Expecting float result to be an instance of Float.", (hResultValues.get("float") instanceof Float));
       assertTrue("Expecting double result to be an instance of Double.", (hResultValues.get("double") instanceof Double));
 
-      for (String key : hResultValues.keySet()) {
-         Object value = hResultValues.get(key);
+      for (final String key : hResultValues.keySet()) {
+         final Object value = hResultValues.get(key);
 
          assertNotNull("value ValidatorResults.getResultValueMap() should not be null.", value);
       }
@@ -116,7 +116,7 @@ protected void tearDown() {
     */
    public void testUSLocale() throws ValidatorException {
       // Create bean to run test on.
-      TypeBean info = new TypeBean();
+      final TypeBean info = new TypeBean();
       info.setByte("12");
       info.setShort("129");
       info.setInteger("-144");
@@ -132,7 +132,7 @@ protected void tearDown() {
     */
    public void testFRLocale() throws ValidatorException {
       // Create bean to run test on.
-      TypeBean info = new TypeBean();
+      final TypeBean info = new TypeBean();
       info.setByte("12");
       info.setShort("-129");
       info.setInteger("1443");
@@ -140,7 +140,7 @@ protected void tearDown() {
       info.setFloat("12,1555");
       info.setDouble("129,1551511111");
       info.setDate("21/12/2010");
-      Map<String, ?> map = localeTest(info, Locale.FRENCH);
+      final Map<String, ?> map = localeTest(info, Locale.FRENCH);
       assertTrue("float value not correct", ((Float)map.get("float")).intValue() == 12);
       assertTrue("double value not correct", ((Double)map.get("double")).intValue() == 129);
   }
@@ -148,11 +148,11 @@ protected void tearDown() {
   /**
     * Tests the locale.
     */
-   private Map<String, ?> localeTest(TypeBean info, Locale locale) throws ValidatorException {
+   private Map<String, ?> localeTest(final TypeBean info, final Locale locale) throws ValidatorException {
 
       // Construct validator based on the loaded resources
       // and the form key
-      Validator validator = new Validator(resources, "typeLocaleForm");
+      final Validator validator = new Validator(resources, "typeLocaleForm");
       // add the name bean to the validator as a resource
       // for the validations to be performed on.
       validator.setParameter(Validator.BEAN_PARAM, info);
@@ -163,11 +163,11 @@ protected void tearDown() {
       // but we aren't catching for testing
       // since no validation methods we use
       // throw this
-      ValidatorResults results = validator.validate();
+      final ValidatorResults results = validator.validate();
 
       assertNotNull("Results are null.", results);
 
-      Map<String, ?> hResultValues = results.getResultValueMap();
+      final Map<String, ?> hResultValues = results.getResultValueMap();
 
       assertTrue("Expecting byte result to be an instance of Byte for locale: "+locale, (hResultValues.get("byte") instanceof Byte));
       assertTrue("Expecting short result to be an instance of Short for locale: "+locale, (hResultValues.get("short") instanceof Short));
@@ -177,8 +177,8 @@ protected void tearDown() {
       assertTrue("Expecting double result to be an instance of Double for locale: "+locale, (hResultValues.get("double") instanceof Double));
       assertTrue("Expecting date result to be an instance of Date for locale: "+locale, (hResultValues.get("date") instanceof Date));
 
-      for (String key : hResultValues.keySet()) {
-         Object value = hResultValues.get(key);
+      for (final String key : hResultValues.keySet()) {
+         final Object value = hResultValues.get(key);
 
          assertNotNull("value ValidatorResults.getResultValueMap() should not be null for locale: "+locale, value);
       }

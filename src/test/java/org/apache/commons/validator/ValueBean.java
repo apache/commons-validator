@@ -35,7 +35,7 @@ public class ValueBean {
    /**
     * Sets the value.
     */
-   public void setValue(String value) {
+   public void setValue(final String value) {
       this.value = value;
    }
 

@@ -153,7 +153,7 @@ public class IBANValidatorTest {
 
     @Test
     public void testValid() {
-        for(String f : validIBANFormat) {
+        for(final String f : validIBANFormat) {
             assertTrue("Checksum fail: "+f, IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(f));
             assertTrue("Missing validator: "+f, VALIDATOR.hasValidator(f));
             assertTrue(f, VALIDATOR.isValid(f));
@@ -162,7 +162,7 @@ public class IBANValidatorTest {
 
     @Test
     public void testInValid() {
-        for(String f : invalidIBANFormat) {
+        for(final String f : invalidIBANFormat) {
             assertFalse(f, VALIDATOR.isValid(f));
         }
     }
@@ -196,33 +196,33 @@ public class IBANValidatorTest {
 
     @Test(expected=IllegalArgumentException.class)
     public void testSetValidatorLC() {
-        IBANValidator validator = new IBANValidator();
+        final IBANValidator validator = new IBANValidator();
         assertNotNull(validator.setValidator("gb", 15, "GB"));
     }
 
     @Test(expected=IllegalArgumentException.class)
     public void testSetValidatorLen7() {
-        IBANValidator validator = new IBANValidator();
+        final IBANValidator validator = new IBANValidator();
         assertNotNull(validator.setValidator("GB", 7, "GB"));
     }
 
     @Test(expected=IllegalArgumentException.class)
     public void testSetValidatorLen35() {
-        IBANValidator validator = new IBANValidator();
+        final IBANValidator validator = new IBANValidator();
         assertNotNull(validator.setValidator("GB", 35, "GB")); // valid params, but immutable validator
     }
 
     @Test
     public void testSetValidatorLen_1() {
-        IBANValidator validator = new IBANValidator();
+        final IBANValidator validator = new IBANValidator();
         assertNotNull("should be present",validator.setValidator("GB", -1, ""));
         assertNull("no longer present",validator.setValidator("GB", -1, ""));
     }
 
     @Test
     public void testSorted() {
-        IBANValidator validator = new IBANValidator();
-        Validator[] vals = validator.getDefaultValidators();
+        final IBANValidator validator = new IBANValidator();
+        final Validator[] vals = validator.getDefaultValidators();
         assertNotNull(vals);
         for(int i=1; i < vals.length; i++) {
             if (vals[i].countryCode.compareTo(vals[i-1].countryCode) <= 0) {
@@ -231,18 +231,18 @@ public class IBANValidatorTest {
         }
     }
 
-    private static int checkIBAN(File file, IBANValidator val) throws Exception {
+    private static int checkIBAN(final File file, final IBANValidator val) throws Exception {
         // The IBAN Registry (TXT) file is a TAB-separated file
         // Rows are the entry types, columns are the countries
-        CSVFormat format = CSVFormat.DEFAULT.withDelimiter('\t');
-        Reader rdr = new InputStreamReader(new FileInputStream(file), "ISO_8859_1");
-        CSVParser p = new CSVParser(rdr, format);
+        final CSVFormat format = CSVFormat.DEFAULT.withDelimiter('\t');
+        final Reader rdr = new InputStreamReader(new FileInputStream(file), "ISO_8859_1");
+        final CSVParser p = new CSVParser(rdr, format);
         CSVRecord country = null;
         CSVRecord cc = null;
         CSVRecord structure = null;
         CSVRecord length = null;
-        for (CSVRecord o : p) {
-            String item = o.get(0);
+        for (final CSVRecord o : p) {
+            final String item = o.get(0);
             if ("Name of country".equals(item)) {
                 country = o;
             } else if ("IBAN prefix country code (ISO 3166)".equals(item)) {
@@ -256,8 +256,8 @@ public class IBANValidatorTest {
         for (int i=1; i < country.size(); i++) {
           try {
 
-            String newLength = length.get(i).split("!")[0]; // El Salvador currently has "28!n"
-            String newRE = fmtRE(structure.get(i), Integer.parseInt(newLength));
+            final String newLength = length.get(i).split("!")[0]; // El Salvador currently has "28!n"
+            final String newRE = fmtRE(structure.get(i), Integer.parseInt(newLength));
             final Validator valre = val.getValidator(cc.get(i));
             if (valre == null) {
                 System.out.println("// Missing entry:");
@@ -267,8 +267,8 @@ public class IBANValidatorTest {
                         newRE,
                         country.get(i));
             } else {
-                String currentLength = Integer.toString(valre.lengthOfIBAN);
-                String currentRE = valre.validator.toString()
+                final String currentLength = Integer.toString(valre.lengthOfIBAN);
+                final String currentRE = valre.validator.toString()
                         .replaceAll("^.+?\\{(.+)}","$1") // Extract RE from RegexValidator{re} string
                         .replace("\\d","\\\\d"); // convert \d to \\d
                 // The above assumes that the RegexValidator contains a single Regex
@@ -285,7 +285,7 @@ public class IBANValidatorTest {
 
             }
 
-          } catch (IllegalArgumentException e) {
+          } catch (final IllegalArgumentException e) {
             e.printStackTrace();
           }
         }
@@ -293,8 +293,8 @@ public class IBANValidatorTest {
         return country.size();
     }
 
-    private static void printEntry(String ccode, String length, String ib, String country) {
-        String fmt = String.format("\"%s\"", ib);
+    private static void printEntry(final String ccode, final String length, final String ib, final String country) {
+        final String fmt = String.format("\"%s\"", ib);
         System.out.printf("            new Validator(\"%s\", %s, %-40s), // %s\n",
                 ccode,
                 length,
@@ -309,8 +309,8 @@ public class IBANValidatorTest {
             "([A-Z]{2})"+IBAN_PART+IBAN_PART+IBAN_PART+IBAN_PART+"?"+IBAN_PART+"?"+IBAN_PART+"?"+IBAN_PART+"?");
 
     // convert IBAN type string and length to regex
-    private static String formatToRE(String type, int len) {
-        char ctype = type.charAt(0); // assume type.length() == 1
+    private static String formatToRE(final String type, final int len) {
+        final char ctype = type.charAt(0); // assume type.length() == 1
         switch(ctype) {
         case 'n':
             return String.format("\\\\d{%d}",len);
@@ -323,13 +323,13 @@ public class IBANValidatorTest {
         }
     }
 
-    private static String fmtRE(String iban_pat, int iban_len) {
-        Matcher m = IBAN_PAT.matcher(iban_pat);
+    private static String fmtRE(final String iban_pat, final int iban_len) {
+        final Matcher m = IBAN_PAT.matcher(iban_pat);
         if (!m.matches()) {
             throw new IllegalArgumentException("Unexpected IBAN pattern " + iban_pat);
         }
-        StringBuilder sb = new StringBuilder();
-        String cc = m.group(1); // country code
+        final StringBuilder sb = new StringBuilder();
+        final String cc = m.group(1); // country code
         int totalLen = cc.length();
         sb.append(cc);
         int len = Integer.parseInt(m.group(2)); // length of part
@@ -338,8 +338,8 @@ public class IBANValidatorTest {
             if (m.group(i) == null) { // reached an optional group
                 break;
             }
-            int count = Integer.parseInt(m.group(i));
-            String type = m.group(i+1);
+            final int count = Integer.parseInt(m.group(i));
+            final String type = m.group(i+1);
             if (type.equals(curType)) { // more of the same type
                 len += count;
             } else {
@@ -357,9 +357,9 @@ public class IBANValidatorTest {
         return sb.toString();
     }
 
-    public static void main(String [] a) throws Exception {
-        IBANValidator validator = new IBANValidator();
-        File iban_tsv = new File("target","iban-registry.tsv");
+    public static void main(final String [] a) throws Exception {
+        final IBANValidator validator = new IBANValidator();
+        final File iban_tsv = new File("target","iban-registry.tsv");
         int countries = 0;
         if (iban_tsv.canRead()) {
             countries = checkIBAN(iban_tsv, validator);

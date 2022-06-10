@@ -29,7 +29,7 @@ public class EAN13CheckDigitTest extends AbstractCheckDigitTest {
      * Constructor
      * @param name test name
      */
-    public EAN13CheckDigitTest(String name) {
+    public EAN13CheckDigitTest(final String name) {
         super(name);
     }
 

@@ -29,7 +29,7 @@ public class SedolCheckDigitTest extends AbstractCheckDigitTest {
      * Constructor
      * @param name test name
      */
-    public SedolCheckDigitTest(String name) {
+    public SedolCheckDigitTest(final String name) {
         super(name);
     }
 
@@ -60,7 +60,7 @@ public class SedolCheckDigitTest extends AbstractCheckDigitTest {
                };
 
     public void testVALIDATOR_346() {
-        for (String invalidCheckDigit : INVALID_CHECK_DIGITS) {
+        for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));
         }
     }

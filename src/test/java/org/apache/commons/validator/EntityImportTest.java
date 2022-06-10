@@ -27,7 +27,7 @@ import java.util.Locale;
  */
 public class EntityImportTest extends AbstractCommonTest {
 
-    public EntityImportTest(String name) {
+    public EntityImportTest(final String name) {
         super(name);
     }
 
@@ -35,8 +35,8 @@ public class EntityImportTest extends AbstractCommonTest {
      * Tests the entity import loading the <code>byteForm</code> form.
      */
     public void testEntityImport() throws Exception {
-        URL url = getClass().getResource("EntityImportTest-config.xml");
-        ValidatorResources resources = new ValidatorResources(url.toExternalForm());
+        final URL url = getClass().getResource("EntityImportTest-config.xml");
+        final ValidatorResources resources = new ValidatorResources(url.toExternalForm());
         assertNotNull("Form should be found", resources.getForm(Locale.getDefault(), "byteForm"));
     }
 
@@ -44,8 +44,8 @@ public class EntityImportTest extends AbstractCommonTest {
      * Tests loading ValidatorResources from a URL
      */
     public void testParseURL() throws Exception {
-        URL url = getClass().getResource("EntityImportTest-config.xml");
-        ValidatorResources resources = new ValidatorResources(url);
+        final URL url = getClass().getResource("EntityImportTest-config.xml");
+        final ValidatorResources resources = new ValidatorResources(url);
         assertNotNull("Form should be found", resources.getForm(Locale.getDefault(), "byteForm"));
     }
 }

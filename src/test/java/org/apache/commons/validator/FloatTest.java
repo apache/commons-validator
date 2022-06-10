@@ -24,7 +24,7 @@ package org.apache.commons.validator;
  */
 public class FloatTest extends AbstractNumberTest {
 
-    public FloatTest(String name) {
+    public FloatTest(final String name) {
         super(name);
         ACTION = "float";
         FORM_KEY = "floatForm";
@@ -35,7 +35,7 @@ public class FloatTest extends AbstractNumberTest {
      */
     public void testFloat() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue("0");
 
         valueTest(info, true);
@@ -46,7 +46,7 @@ public class FloatTest extends AbstractNumberTest {
      */
     public void testFloatMin() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Float.toString(Float.MIN_VALUE));
 
         valueTest(info, true);
@@ -57,7 +57,7 @@ public class FloatTest extends AbstractNumberTest {
      */
     public void testFloatMax() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Float.toString(Float.MAX_VALUE));
 
         valueTest(info, true);
@@ -68,7 +68,7 @@ public class FloatTest extends AbstractNumberTest {
      */
     public void testFloatFailure() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
 
         valueTest(info, false);
     }

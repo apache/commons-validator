@@ -58,7 +58,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @param allowFractions <code>true</code> if fractions are
      *        allowed or <code>false</code> if integers only.
      */
-    public AbstractNumberValidator(boolean strict, int formatType, boolean allowFractions) {
+    public AbstractNumberValidator(final boolean strict, final int formatType, final boolean allowFractions) {
         super(strict);
         this.allowFractions = allowFractions;
         this.formatType = formatType;
@@ -95,8 +95,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @return <code>true</code> if the value is valid.
      */
     @Override
-    public boolean isValid(String value, String pattern, Locale locale) {
-        Object parsedValue = parse(value, pattern, locale);
+    public boolean isValid(final String value, final String pattern, final Locale locale) {
+        final Object parsedValue = parse(value, pattern, locale);
         return (parsedValue == null ? false : true);
     }
 
@@ -109,7 +109,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(Number value, Number min, Number max) {
+    public boolean isInRange(final Number value, final Number min, final Number max) {
         return (minValue(value, min) && maxValue(value, max));
     }
 
@@ -121,7 +121,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(Number value, Number min) {
+    public boolean minValue(final Number value, final Number min) {
         if (isAllowFractions()) {
             return (value.doubleValue() >= min.doubleValue());
         }
@@ -136,7 +136,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(Number value, Number max) {
+    public boolean maxValue(final Number value, final Number max) {
         if (isAllowFractions()) {
             return (value.doubleValue() <= max.doubleValue());
         }
@@ -152,13 +152,13 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @param locale The locale to use for the date format, system default if null.
      * @return The parsed value if valid or <code>null</code> if invalid.
      */
-    protected Object parse(String value, String pattern, Locale locale) {
+    protected Object parse(String value, final String pattern, final Locale locale) {
 
         value = (value == null ? null : value.trim());
         if (value == null || value.isEmpty()) {
             return null;
         }
-        Format formatter = getFormat(pattern, locale);
+        final Format formatter = getFormat(pattern, locale);
         return parse(value, formatter);
 
     }
@@ -185,16 +185,16 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @return The <code>NumberFormat</code> to created.
      */
     @Override
-    protected Format getFormat(String pattern, Locale locale) {
+    protected Format getFormat(final String pattern, final Locale locale) {
 
         NumberFormat formatter = null;
-        boolean usePattern = pattern != null && !pattern.isEmpty();
+        final boolean usePattern = pattern != null && !pattern.isEmpty();
         if (!usePattern) {
             formatter = (NumberFormat)getFormat(locale);
         } else if (locale == null) {
             formatter =  new DecimalFormat(pattern);
         } else {
-            DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
+            final DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
             formatter = new DecimalFormat(pattern, symbols);
         }
 
@@ -211,21 +211,21 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      *        multiplier of.
      * @return The multiplying factor for the format..
      */
-    protected int determineScale(NumberFormat format) {
+    protected int determineScale(final NumberFormat format) {
         if (!isStrict()) {
             return -1;
         }
         if (!isAllowFractions() || format.isParseIntegerOnly()) {
             return 0;
         }
-        int minimumFraction = format.getMinimumFractionDigits();
-        int maximumFraction = format.getMaximumFractionDigits();
+        final int minimumFraction = format.getMinimumFractionDigits();
+        final int maximumFraction = format.getMaximumFractionDigits();
         if (minimumFraction != maximumFraction) {
             return -1;
         }
         int scale = minimumFraction;
         if (format instanceof DecimalFormat) {
-            int multiplier = ((DecimalFormat)format).getMultiplier();
+            final int multiplier = ((DecimalFormat)format).getMultiplier();
             if (multiplier == 100) { // CHECKSTYLE IGNORE MagicNumber
                 scale += 2; // CHECKSTYLE IGNORE MagicNumber
             } else if (multiplier == 1000) { // CHECKSTYLE IGNORE MagicNumber
@@ -244,7 +244,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      *   system default if null.
      * @return The <code>NumberFormat</code> to created.
      */
-    protected Format getFormat(Locale locale) {
+    protected Format getFormat(final Locale locale) {
         NumberFormat formatter = null;
         switch (formatType) {
         case CURRENCY_FORMAT:

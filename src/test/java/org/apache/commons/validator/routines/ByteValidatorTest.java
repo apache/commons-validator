@@ -37,7 +37,7 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
      * Constructor
      * @param name test name
      */
-    public ByteValidatorTest(String name) {
+    public ByteValidatorTest(final String name) {
         super(name);
     }
 
@@ -85,14 +85,14 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
      * Test ByteValidator validate Methods
      */
     public void testByteValidatorMethods() {
-        Locale locale     = Locale.GERMAN;
-        String pattern    = "0,00";
-        String patternVal = "1,23";
-        String germanPatternVal = "1.23";
-        String localeVal  = ".123";
-        String defaultVal = ",123";
-        String XXXX    = "XXXX";
-        Byte expected = Byte.valueOf((byte)123);
+        final Locale locale     = Locale.GERMAN;
+        final String pattern    = "0,00";
+        final String patternVal = "1,23";
+        final String germanPatternVal = "1.23";
+        final String localeVal  = ".123";
+        final String defaultVal = ",123";
+        final String XXXX    = "XXXX";
+        final Byte expected = Byte.valueOf((byte)123);
         assertEquals("validate(A) default", expected, ByteValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, ByteValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, ByteValidator.getInstance().validate(patternVal, pattern));
@@ -118,15 +118,15 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
      * Test Byte Range/Min/Max
      */
     public void testByteRangeMinMax() {
-        ByteValidator validator = (ByteValidator)strictValidator;
-        Byte number9  = validator.validate("9", "#");
-        Byte number10 = validator.validate("10", "#");
-        Byte number11 = validator.validate("11", "#");
-        Byte number19 = validator.validate("19", "#");
-        Byte number20 = validator.validate("20", "#");
-        Byte number21 = validator.validate("21", "#");
-        byte min = (byte)10;
-        byte max = (byte)20;
+        final ByteValidator validator = (ByteValidator)strictValidator;
+        final Byte number9  = validator.validate("9", "#");
+        final Byte number10 = validator.validate("10", "#");
+        final Byte number11 = validator.validate("11", "#");
+        final Byte number19 = validator.validate("19", "#");
+        final Byte number20 = validator.validate("20", "#");
+        final Byte number21 = validator.validate("21", "#");
+        final byte min = (byte)10;
+        final byte max = (byte)20;
 
         // Test isInRange()
         assertFalse("isInRange() < min",   validator.isInRange(number9,  min, max));

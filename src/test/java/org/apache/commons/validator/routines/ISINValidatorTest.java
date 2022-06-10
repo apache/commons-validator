@@ -66,33 +66,33 @@ public class ISINValidatorTest extends TestCase {
             "AA0000000006", // Invalid country code
             };
 
-    public ISINValidatorTest(String name) {
+    public ISINValidatorTest(final String name) {
         super(name);
     }
 
     public void testIsValidTrue() {
-        for(String f : validFormat) {
+        for(final String f : validFormat) {
             assertTrue(f, VALIDATOR_TRUE.isValid(f));
         }
     }
 
     public void testInvalidTrue() {
-        for(String f : invalidFormat) {
+        for(final String f : invalidFormat) {
             assertFalse(f, VALIDATOR_TRUE.isValid(f));
         }
-        for(String f : invalidFormatTrue) {
+        for(final String f : invalidFormatTrue) {
             assertFalse(f, VALIDATOR_TRUE.isValid(f));
         }
     }
 
     public void testIsValidFalse() {
-        for(String f : validFormat) {
+        for(final String f : validFormat) {
             assertTrue(f, VALIDATOR_FALSE.isValid(f));
         }
     }
 
     public void testInvalidFalse() {
-        for(String f : invalidFormat) {
+        for(final String f : invalidFormat) {
             assertFalse(f, VALIDATOR_FALSE.isValid(f));
         }
     }

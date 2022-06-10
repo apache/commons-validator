@@ -41,7 +41,7 @@ public class LocaleTest extends AbstractCommonTest {
      *
      * @param name  param
      */
-    public LocaleTest(String name) {
+    public LocaleTest(final String name) {
         super(name);
     }
 
@@ -72,7 +72,7 @@ public class LocaleTest extends AbstractCommonTest {
     public void testLocale1()
         throws ValidatorException {
         // Create bean to run test on.
-        NameBean name = new NameBean();
+        final NameBean name = new NameBean();
         name.setFirstName("");
         name.setLastName("");
 
@@ -88,7 +88,7 @@ public class LocaleTest extends AbstractCommonTest {
     public void testLocale2()
         throws ValidatorException {
         // Create bean to run test on.
-        NameBean name = new NameBean();
+        final NameBean name = new NameBean();
         name.setFirstName("");
         name.setLastName("");
 
@@ -104,7 +104,7 @@ public class LocaleTest extends AbstractCommonTest {
     public void testLocale3()
         throws ValidatorException {
         // Create bean to run test on.
-        NameBean name = new NameBean();
+        final NameBean name = new NameBean();
         name.setFirstName("");
         name.setLastName("");
 
@@ -121,7 +121,7 @@ public class LocaleTest extends AbstractCommonTest {
     public void testLocale4()
         throws ValidatorException {
         // Create bean to run test on.
-        NameBean name = new NameBean();
+        final NameBean name = new NameBean();
         name.setFirstName("");
         name.setLastName("");
 
@@ -136,7 +136,7 @@ public class LocaleTest extends AbstractCommonTest {
     public void testLocale5()
         throws ValidatorException {
         // Create bean to run test on.
-        NameBean name = new NameBean();
+        final NameBean name = new NameBean();
         name.setFirstName("");
         name.setLastName("");
 
@@ -153,12 +153,12 @@ public class LocaleTest extends AbstractCommonTest {
      * @param middleGood              param
      * @throws ValidatorException  If something goes wrong
      */
-    private void valueTest(Object name, Locale loc, boolean firstGood, boolean lastGood, boolean middleGood)
+    private void valueTest(final Object name, final Locale loc, final boolean firstGood, final boolean lastGood, final boolean middleGood)
         throws ValidatorException {
 
         // Construct validator based on the loaded resources
         // and the form key
-        Validator validator = new Validator(resources, FORM_KEY);
+        final Validator validator = new Validator(resources, FORM_KEY);
         // add the name bean to the validator as a resource
         // for the validations to be performed on.
         validator.setParameter(Validator.BEAN_PARAM, name);
@@ -168,13 +168,13 @@ public class LocaleTest extends AbstractCommonTest {
         // but we aren't catching for testing
         // since no validation methods we use
         // throw this
-        ValidatorResults results = validator.validate();
+        final ValidatorResults results = validator.validate();
 
         assertNotNull("Results are null.", results);
 
-        ValidatorResult resultlast = results.getValidatorResult("lastName");
-        ValidatorResult resultfirst = results.getValidatorResult("firstName");
-        ValidatorResult resultmiddle = results.getValidatorResult("middleName");
+        final ValidatorResult resultlast = results.getValidatorResult("lastName");
+        final ValidatorResult resultfirst = results.getValidatorResult("firstName");
+        final ValidatorResult resultmiddle = results.getValidatorResult("middleName");
 
         if (firstGood) {
             assertNull(resultfirst);

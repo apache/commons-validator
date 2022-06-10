@@ -29,7 +29,7 @@ public class ISINCheckDigitTest extends AbstractCheckDigitTest {
      * Constructor
      * @param name test name
      */
-    public ISINCheckDigitTest(String name) {
+    public ISINCheckDigitTest(final String name) {
         super(name);
     }
 
@@ -66,7 +66,7 @@ public class ISINCheckDigitTest extends AbstractCheckDigitTest {
                               };
 
     public void testVALIDATOR_345() {
-        for (String invalidCheckDigit : INVALID_CHECK_DIGITS) {
+        for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));
         }
     }

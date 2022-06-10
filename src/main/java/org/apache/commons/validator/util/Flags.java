@@ -58,7 +58,7 @@ public class Flags implements Serializable, Cloneable {
      *
      * @param flags collection of boolean flags to represent.
      */
-    public Flags(long flags) {
+    public Flags(final long flags) {
         this.flags = flags;
     }
 
@@ -79,7 +79,7 @@ public class Flags implements Serializable, Cloneable {
      *
      * @return whether the specified flag value is on.
      */
-    public boolean isOn(long flag) {
+    public boolean isOn(final long flag) {
         return (this.flags & flag) == flag;
     }
 
@@ -91,7 +91,7 @@ public class Flags implements Serializable, Cloneable {
      *
      * @return whether the specified flag value is off.
      */
-    public boolean isOff(long flag) {
+    public boolean isOff(final long flag) {
         return (this.flags & flag) == 0;
     }
 
@@ -101,7 +101,7 @@ public class Flags implements Serializable, Cloneable {
      *
      * @param flag Flag value to turn on.
      */
-    public void turnOn(long flag) {
+    public void turnOn(final long flag) {
         this.flags |= flag;
     }
 
@@ -111,7 +111,7 @@ public class Flags implements Serializable, Cloneable {
      *
      * @param flag Flag value to turn off.
      */
-    public void turnOff(long flag) {
+    public void turnOff(final long flag) {
         this.flags &= ~flag;
     }
 
@@ -147,7 +147,7 @@ public class Flags implements Serializable, Cloneable {
     public Object clone() {
         try {
             return super.clone();
-        } catch(CloneNotSupportedException e) {
+        } catch(final CloneNotSupportedException e) {
             throw new RuntimeException("Couldn't clone Flags object.");
         }
     }
@@ -160,7 +160,7 @@ public class Flags implements Serializable, Cloneable {
      * @return whether the objects are equal.
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (!(obj instanceof Flags)) {
             return false;
         }
@@ -169,7 +169,7 @@ public class Flags implements Serializable, Cloneable {
             return true;
         }
 
-        Flags f = (Flags) obj;
+        final Flags f = (Flags) obj;
 
         return this.flags == f.flags;
     }
@@ -194,7 +194,7 @@ public class Flags implements Serializable, Cloneable {
      */
     @Override
     public String toString() {
-        StringBuilder bin = new StringBuilder(Long.toBinaryString(this.flags));
+        final StringBuilder bin = new StringBuilder(Long.toBinaryString(this.flags));
         for (int i = 64 - bin.length(); i > 0; i--) { // CHECKSTYLE IGNORE MagicNumber
             bin.insert(0, "0");
         }

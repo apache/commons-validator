@@ -31,7 +31,7 @@ public class CustomValidatorResourcesTest extends TestCase {
      * Construct a test case with the specified name.
      * @param name Name of the test
      */
-    public CustomValidatorResourcesTest(String name) {
+    public CustomValidatorResourcesTest(final String name) {
         super(name);
     }
 
@@ -57,14 +57,14 @@ public class CustomValidatorResourcesTest extends TestCase {
         InputStream in = null;
         try {
             in = this.getClass().getResourceAsStream("TestNumber-config.xml");
-        } catch(Exception e) {
+        } catch(final Exception e) {
             fail("Error loading resources: " + e);
         } finally {
             try {
                 if (in != null) {
                     in.close();
                 }
-            } catch(Exception e) {
+            } catch(final Exception e) {
             }
         }
     }

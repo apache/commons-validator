@@ -104,7 +104,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @param formatType The <code>NumberFormat</code> type to
      *        create for validation, default is STANDARD_FORMAT.
      */
-    public DoubleValidator(boolean strict, int formatType) {
+    public DoubleValidator(final boolean strict, final int formatType) {
         super(strict, formatType, true);
     }
 
@@ -116,7 +116,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @return The parsed <code>Double</code> if valid or <code>null</code>
      *  if invalid.
      */
-    public Double validate(String value) {
+    public Double validate(final String value) {
         return (Double)parse(value, (String)null, (Locale)null);
     }
 
@@ -128,7 +128,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @param pattern The pattern used to validate the value against.
      * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
      */
-    public Double validate(String value, String pattern) {
+    public Double validate(final String value, final String pattern) {
         return (Double)parse(value, pattern, (Locale)null);
     }
 
@@ -140,7 +140,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the number format, system default if null.
      * @return The parsed <code>Double</code> if valid or <code>null</code> if invalid.
      */
-    public Double validate(String value, Locale locale) {
+    public Double validate(final String value, final Locale locale) {
         return (Double)parse(value, (String)null, locale);
     }
 
@@ -154,7 +154,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the date format, system default if null.
      * @return The parsed <code>Double</code> if valid or <code>null</code> if invalid.
      */
-    public Double validate(String value, String pattern, Locale locale) {
+    public Double validate(final String value, final String pattern, final Locale locale) {
         return (Double)parse(value, pattern, locale);
     }
 
@@ -167,7 +167,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(double value, double min, double max) {
+    public boolean isInRange(final double value, final double min, final double max) {
         return (value >= min && value <= max);
     }
 
@@ -180,7 +180,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(Double value, double min, double max) {
+    public boolean isInRange(final Double value, final double min, final double max) {
         return isInRange(value.doubleValue(), min, max);
     }
 
@@ -192,7 +192,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(double value, double min) {
+    public boolean minValue(final double value, final double min) {
         return (value >= min);
     }
 
@@ -204,7 +204,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(Double value, double min) {
+    public boolean minValue(final Double value, final double min) {
         return minValue(value.doubleValue(), min);
     }
 
@@ -216,7 +216,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(double value, double max) {
+    public boolean maxValue(final double value, final double max) {
         return (value <= max);
     }
 
@@ -228,7 +228,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(Double value, double max) {
+    public boolean maxValue(final Double value, final double max) {
         return maxValue(value.doubleValue(), max);
     }
 
@@ -241,7 +241,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * or <code>null</code> if invalid.
      */
     @Override
-    protected Object processParsedValue(Object value, Format formatter) {
+    protected Object processParsedValue(final Object value, final Format formatter) {
 
         if (value instanceof Double) {
             return value;

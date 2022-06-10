@@ -25,7 +25,7 @@
       public final String item;
       public final boolean valid;
 
-      public ResultPair(String item, boolean valid) {
+      public ResultPair(final String item, final boolean valid) {
          this.item = item;
          this.valid = valid;  //Whether the individual part of url is valid.
       }

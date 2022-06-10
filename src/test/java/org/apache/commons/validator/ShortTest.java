@@ -24,7 +24,7 @@ package org.apache.commons.validator;
  */
 public class ShortTest extends AbstractNumberTest {
 
-   public ShortTest(String name) {
+   public ShortTest(final String name) {
        super(name);
       FORM_KEY = "shortForm";
       ACTION = "short";
@@ -35,7 +35,7 @@ public class ShortTest extends AbstractNumberTest {
     */
    public void testShortMin() throws ValidatorException {
       // Create bean to run test on.
-      ValueBean info = new ValueBean();
+      final ValueBean info = new ValueBean();
       info.setValue(Short.toString(Short.MIN_VALUE));
 
       valueTest(info, true);
@@ -46,7 +46,7 @@ public class ShortTest extends AbstractNumberTest {
     */
    public void testShortMax() throws ValidatorException {
       // Create bean to run test on.
-      ValueBean info = new ValueBean();
+      final ValueBean info = new ValueBean();
       info.setValue(Short.toString(Short.MAX_VALUE));
 
       valueTest(info, true);
@@ -57,7 +57,7 @@ public class ShortTest extends AbstractNumberTest {
     */
    public void testShortBeyondMin() throws ValidatorException {
       // Create bean to run test on.
-      ValueBean info = new ValueBean();
+      final ValueBean info = new ValueBean();
       info.setValue(Short.MIN_VALUE + "1");
 
       valueTest(info, false);
@@ -68,7 +68,7 @@ public class ShortTest extends AbstractNumberTest {
     */
    public void testShortBeyondMax() throws ValidatorException {
       // Create bean to run test on.
-      ValueBean info = new ValueBean();
+      final ValueBean info = new ValueBean();
       info.setValue(Short.MAX_VALUE + "1");
 
       valueTest(info, false);

@@ -77,8 +77,8 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     @Override
-    protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        int weight = POSITION_WEIGHT[rightPos % 3]; // CHECKSTYLE IGNORE MagicNumber
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
+        final int weight = POSITION_WEIGHT[rightPos % 3]; // CHECKSTYLE IGNORE MagicNumber
         return charValue * weight;
     }
 

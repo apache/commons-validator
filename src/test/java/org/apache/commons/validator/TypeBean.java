@@ -37,7 +37,7 @@ public class TypeBean {
         return sByte;
     }
 
-    public void setByte(String sByte) {
+    public void setByte(final String sByte) {
         this.sByte = sByte;
     }
 
@@ -45,7 +45,7 @@ public class TypeBean {
         return sShort;
     }
 
-    public void setShort(String sShort) {
+    public void setShort(final String sShort) {
         this.sShort = sShort;
     }
 
@@ -53,7 +53,7 @@ public class TypeBean {
         return sInteger;
     }
 
-    public void setInteger(String sInteger) {
+    public void setInteger(final String sInteger) {
         this.sInteger = sInteger;
     }
 
@@ -61,7 +61,7 @@ public class TypeBean {
         return sLong;
     }
 
-    public void setLong(String sLong) {
+    public void setLong(final String sLong) {
         this.sLong = sLong;
     }
 
@@ -69,7 +69,7 @@ public class TypeBean {
         return sFloat;
     }
 
-    public void setFloat(String sFloat) {
+    public void setFloat(final String sFloat) {
         this.sFloat = sFloat;
     }
 
@@ -77,7 +77,7 @@ public class TypeBean {
         return sDouble;
     }
 
-    public void setDouble(String sDouble) {
+    public void setDouble(final String sDouble) {
         this.sDouble = sDouble;
     }
 
@@ -85,7 +85,7 @@ public class TypeBean {
         return sDate;
     }
 
-    public void setDate(String sDate) {
+    public void setDate(final String sDate) {
         this.sDate = sDate;
     }
 
@@ -93,7 +93,7 @@ public class TypeBean {
         return sCreditCard;
     }
 
-    public void setCreditCard(String sCreditCard) {
+    public void setCreditCard(final String sCreditCard) {
         this.sCreditCard = sCreditCard;
     }
 

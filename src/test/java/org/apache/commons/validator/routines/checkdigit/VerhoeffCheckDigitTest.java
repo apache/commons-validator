@@ -28,7 +28,7 @@ public class VerhoeffCheckDigitTest extends AbstractCheckDigitTest {
      * Construct a new test.
      * @param name test name
      */
-    public VerhoeffCheckDigitTest(String name) {
+    public VerhoeffCheckDigitTest(final String name) {
         super(name);
     }
 

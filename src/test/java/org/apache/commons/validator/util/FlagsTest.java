@@ -35,22 +35,22 @@ public class FlagsTest extends TestCase {
     /**
      * Constructor for FlagsTest.
      */
-    public FlagsTest(String name) {
+    public FlagsTest(final String name) {
         super(name);
     }
 
     public void testHashCode() {
-        Flags f = new Flags(45);
+        final Flags f = new Flags(45);
         assertEquals(f.hashCode(), 45);
     }
 
     public void testGetFlags() {
-        Flags f = new Flags(45);
+        final Flags f = new Flags(45);
         assertEquals(f.getFlags(), 45);
     }
 
     public void testIsOnOff() {
-        Flags f = new Flags();
+        final Flags f = new Flags();
         f.turnOn(LONG_FLAG);
         f.turnOn(INT_FLAG);
         assertTrue(f.isOn(LONG_FLAG));
@@ -69,33 +69,33 @@ public class FlagsTest extends TestCase {
     }
 
     public void testTurnOffAll() {
-        Flags f = new Flags(98432);
+        final Flags f = new Flags(98432);
         f.turnOffAll();
         assertEquals(0, f.getFlags());
     }
 
     public void testClear() {
-        Flags f = new Flags(98432);
+        final Flags f = new Flags(98432);
         f.clear();
         assertEquals(0, f.getFlags());
     }
 
     public void testTurnOnAll() {
-        Flags f = new Flags();
+        final Flags f = new Flags();
         f.turnOnAll();
         assertEquals(~0, f.getFlags());
     }
 
     public void testIsOn_isFalseWhenNotAllFlagsInArgumentAreOn() {
-        Flags first = new Flags(1);
-        long firstAndSecond = 3;
+        final Flags first = new Flags(1);
+        final long firstAndSecond = 3;
 
         assertFalse(first.isOn(firstAndSecond));
     }
 
     public void testIsOn_isTrueWhenHighOrderBitIsSetAndQueried() {
-        Flags allOn = new Flags(~0);
-        long highOrderBit = 0x8000000000000000L;
+        final Flags allOn = new Flags(~0);
+        final long highOrderBit = 0x8000000000000000L;
 
         assertTrue(allOn.isOn(highOrderBit));
     }
@@ -116,7 +116,7 @@ public class FlagsTest extends TestCase {
      * Test for String toString()
      */
     public void testToString() {
-        Flags f = new Flags();
+        final Flags f = new Flags();
         String s = f.toString();
         assertEquals(64, s.length());
 

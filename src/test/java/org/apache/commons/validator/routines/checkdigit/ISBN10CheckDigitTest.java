@@ -29,7 +29,7 @@ public class ISBN10CheckDigitTest extends AbstractCheckDigitTest {
      * Constructor
      * @param name test name
      */
-    public ISBN10CheckDigitTest(String name) {
+    public ISBN10CheckDigitTest(final String name) {
         super(name);
     }
 

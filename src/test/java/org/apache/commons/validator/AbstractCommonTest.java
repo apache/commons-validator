@@ -35,7 +35,7 @@ abstract public class AbstractCommonTest extends TestCase {
      */
     protected ValidatorResources resources = null;
 
-    public AbstractCommonTest(String string) {
+    public AbstractCommonTest(final String string) {
         super(string);
     }
 
@@ -43,7 +43,7 @@ abstract public class AbstractCommonTest extends TestCase {
      * Load <code>ValidatorResources</code> from
      * validator-numeric.xml.
      */
-    protected void loadResources(String file) throws IOException, SAXException {
+    protected void loadResources(final String file) throws IOException, SAXException {
         // Load resources
         try (InputStream in = this.getClass().getResourceAsStream(file)) {
             resources = new ValidatorResources(in);

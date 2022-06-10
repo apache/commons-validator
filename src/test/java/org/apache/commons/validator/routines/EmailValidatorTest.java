@@ -156,7 +156,7 @@ public class EmailValidatorTest {
 
     @Test
     public void testValidator235() {
-        String version = System.getProperty("java.version");
+        final String version = System.getProperty("java.version");
         if (version.compareTo("1.6") < 0) {
             System.out.println("Cannot run Unicode IDN tests");
             return; // Cannot run the test
@@ -226,8 +226,8 @@ public class EmailValidatorTest {
     @Test
     public void testEmailLocalhost() {
        // Check the default is not to allow
-       EmailValidator noLocal = EmailValidator.getInstance(false);
-       EmailValidator allowLocal = EmailValidator.getInstance(true);
+       final EmailValidator noLocal = EmailValidator.getInstance(false);
+       final EmailValidator allowLocal = EmailValidator.getInstance(true);
        assertEquals(validator, noLocal);
 
        // Depends on the validator
@@ -493,10 +493,10 @@ public class EmailValidatorTest {
     @Test
     public void testEmailFromPerl()  {
         int errors = 0;
-        for (ResultPair element : testEmailFromPerl) {
-            String item = element.item;
-            boolean exp =  element.valid;
-            boolean act = validator.isValid(item);
+        for (final ResultPair element : testEmailFromPerl) {
+            final String item = element.item;
+            final boolean exp =  element.valid;
+            final boolean act = validator.isValid(item);
             if (act != exp) {
                 System.out.printf("%s: expected %s actual %s%n", item, exp, act);
                 errors += 1;
@@ -551,13 +551,13 @@ public class EmailValidatorTest {
      */
     @Test
     public void testEmailAtTLD() {
-        EmailValidator val = EmailValidator.getInstance(false, true);
+        final EmailValidator val = EmailValidator.getInstance(false, true);
         assertTrue(val.isValid("test@com"));
     }
 
     @Test
     public void testValidator359() {
-        EmailValidator val = EmailValidator.getInstance(false, true);
+        final EmailValidator val = EmailValidator.getInstance(false, true);
         assertFalse(val.isValid("test@.com"));
     }
 
@@ -573,28 +573,28 @@ public class EmailValidatorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testValidator473_2() { // reject null DomainValidator with mismatched allowLocal
-        List<DomainValidator.Item> items = new ArrayList<>();
+        final List<DomainValidator.Item> items = new ArrayList<>();
         new EmailValidator(false, false, DomainValidator.getInstance(true, items));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testValidator473_3() { // reject null DomainValidator with mismatched allowLocal
-        List<DomainValidator.Item> items = new ArrayList<>();
+        final List<DomainValidator.Item> items = new ArrayList<>();
         new EmailValidator(true, false, DomainValidator.getInstance(false, items));
     }
 
     @Test
     public void testValidator473_4() { // Show that can override domain validation
         assertFalse(validator.isValidDomain("test.local"));
-        List<DomainValidator.Item> items = new ArrayList<>();
+        final List<DomainValidator.Item> items = new ArrayList<>();
         items.add(new DomainValidator.Item(DomainValidator.ArrayType.GENERIC_PLUS, new String[]{"local"}));
-        EmailValidator val = new EmailValidator(true, false, DomainValidator.getInstance(true, items));
+        final EmailValidator val = new EmailValidator(true, false, DomainValidator.getInstance(true, items));
         assertTrue(val.isValidDomain("test.local"));
     }
 
-    public static void main(String[] args) {
-        EmailValidator validator = EmailValidator.getInstance();
-        for(String arg : args) {
+    public static void main(final String[] args) {
+        final EmailValidator validator = EmailValidator.getInstance();
+        for(final String arg : args) {
             System.out.printf("%s: %s%n", arg, validator.isValid(arg));
         }
     }

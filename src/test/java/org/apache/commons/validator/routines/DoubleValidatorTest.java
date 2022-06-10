@@ -29,7 +29,7 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
      * Constructor
      * @param name test name
      */
-    public DoubleValidatorTest(String name) {
+    public DoubleValidatorTest(final String name) {
         super(name);
     }
 
@@ -77,14 +77,14 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
      * Test DoubleValidator validate Methods
      */
     public void testDoubleValidatorMethods() {
-        Locale locale     = Locale.GERMAN;
-        String pattern    = "0,00,00";
-        String patternVal = "1,23,45";
-        String germanPatternVal = "1.23.45";
-        String localeVal  = "12.345";
-        String defaultVal = "12,345";
-        String XXXX    = "XXXX";
-        Double expected = Double.valueOf(12345);
+        final Locale locale     = Locale.GERMAN;
+        final String pattern    = "0,00,00";
+        final String patternVal = "1,23,45";
+        final String germanPatternVal = "1.23.45";
+        final String localeVal  = "12.345";
+        final String defaultVal = "12,345";
+        final String XXXX    = "XXXX";
+        final Double expected = Double.valueOf(12345);
         assertEquals("validate(A) default", expected, DoubleValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, DoubleValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, DoubleValidator.getInstance().validate(patternVal, pattern));
@@ -110,13 +110,13 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
      * Test Double Range/Min/Max
      */
     public void testDoubleRangeMinMax() {
-        DoubleValidator validator = (DoubleValidator)strictValidator;
-        Double number9  = validator.validate("9", "#");
-        Double number10 = validator.validate("10", "#");
-        Double number11 = validator.validate("11", "#");
-        Double number19 = validator.validate("19", "#");
-        Double number20 = validator.validate("20", "#");
-        Double number21 = validator.validate("21", "#");
+        final DoubleValidator validator = (DoubleValidator)strictValidator;
+        final Double number9  = validator.validate("9", "#");
+        final Double number10 = validator.validate("10", "#");
+        final Double number11 = validator.validate("11", "#");
+        final Double number19 = validator.validate("19", "#");
+        final Double number20 = validator.validate("20", "#");
+        final Double number21 = validator.validate("21", "#");
 
         // Test isInRange()
         assertFalse("isInRange() < min",   validator.isInRange(number9,  10, 20));

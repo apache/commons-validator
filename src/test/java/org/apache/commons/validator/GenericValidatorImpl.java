@@ -63,8 +63,8 @@ public class GenericValidatorImpl {
     * has a length greater than zero, <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static boolean validateRequired(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static boolean validateRequired(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return !GenericValidator.isBlankOrNull(value);
    }
@@ -78,8 +78,8 @@ public class GenericValidatorImpl {
     *                           to a <code>byte</code> <code>true</code> is returned.
     *                           Otherwise <code>false</code>.
     */
-   public static boolean validateByte(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static boolean validateByte(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isByte(value);
    }
@@ -93,8 +93,8 @@ public class GenericValidatorImpl {
     *                           to a <code>short</code> <code>true</code> is returned.
     *                           Otherwise <code>false</code>.
     */
-   public static boolean validateShort(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static boolean validateShort(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isShort(value);
    }
@@ -108,8 +108,8 @@ public class GenericValidatorImpl {
     *                           to a <code>int</code> <code>true</code> is returned.
     *                           Otherwise <code>false</code>.
     */
-   public static boolean validateInt(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static boolean validateInt(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isInt(value);
    }
@@ -122,8 +122,8 @@ public class GenericValidatorImpl {
     * @return   boolean     If the integer field is greater than zero, returns
     *                        true, otherwise returns false.
     */
-   public static boolean validatePositive(Object bean , Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static boolean validatePositive(final Object bean , final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatInt(value).intValue() > 0;
    }
@@ -137,8 +137,8 @@ public class GenericValidatorImpl {
     *                           to a <code>long</code> <code>true</code> is returned.
     *                           Otherwise <code>false</code>.
     */
-   public static boolean validateLong(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static boolean validateLong(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isLong(value);
    }
@@ -152,8 +152,8 @@ public class GenericValidatorImpl {
     *                           to a <code>float</code> <code>true</code> is returned.
     *                           Otherwise <code>false</code>.
     */
-   public static boolean validateFloat(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static boolean validateFloat(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isFloat(value);
    }
@@ -167,8 +167,8 @@ public class GenericValidatorImpl {
     *                           to a <code>double</code> <code>true</code> is returned.
     *                           Otherwise <code>false</code>.
     */
-   public static boolean validateDouble(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static boolean validateDouble(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isDouble(value);
    }
@@ -182,8 +182,8 @@ public class GenericValidatorImpl {
     *                           <code>true</code> is returned.
     *                           Otherwise <code>false</code>.
     */
-   public static boolean validateEmail(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static boolean validateEmail(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericValidator.isEmail(value);
    }
@@ -193,11 +193,11 @@ public class GenericValidatorImpl {
   public final static String FIELD_TEST_EQUAL = "EQUAL";
 
     public static boolean validateRequiredIf(
-        Object bean,
-        Field field,
-        Validator validator) {
+        final Object bean,
+        final Field field,
+        final Validator validator) {
 
-        Object form = validator.getParameterValue(Validator.BEAN_PARAM);
+        final Object form = validator.getParameterValue(Validator.BEAN_PARAM);
         String value = null;
         boolean required = false;
         if (isStringOrNull(bean)) {
@@ -215,21 +215,21 @@ public class GenericValidatorImpl {
         }
         while (!GenericValidator.isBlankOrNull(field.getVarValue("field[" + i + "]"))) {
             String dependProp = field.getVarValue("field[" + i + "]");
-            String dependTest = field.getVarValue("fieldTest[" + i + "]");
-            String dependTestValue = field.getVarValue("fieldValue[" + i + "]");
+            final String dependTest = field.getVarValue("fieldTest[" + i + "]");
+            final String dependTestValue = field.getVarValue("fieldValue[" + i + "]");
             String dependIndexed = field.getVarValue("fieldIndexed[" + i + "]");
             if (dependIndexed == null) {
                 dependIndexed = "false";
             }
             boolean this_required = false;
             if (field.isIndexed() && dependIndexed.equalsIgnoreCase("true")) {
-                String key = field.getKey();
+                final String key = field.getKey();
                 if ((key.contains("[")) && (key.contains("]"))) {
-                    String ind = key.substring(0, key.indexOf(".") + 1);
+                    final String ind = key.substring(0, key.indexOf(".") + 1);
                     dependProp = ind + dependProp;
                 }
             }
-            String dependVal = ValidatorUtils.getValueAsString(form, dependProp);
+            final String dependVal = ValidatorUtils.getValueAsString(form, dependProp);
             if (dependTest.equals(FIELD_TEST_NULL)) {
                 if ((dependVal != null) && (!dependVal.isEmpty())) {
                     this_required = false;
@@ -263,7 +263,7 @@ public class GenericValidatorImpl {
         return true;
     }
 
-  private static boolean isStringOrNull(Object o) {
+  private static boolean isStringOrNull(final Object o) {
     if (o == null) {
         return true; // TODO this condition is not exercised by any tests currently
     }

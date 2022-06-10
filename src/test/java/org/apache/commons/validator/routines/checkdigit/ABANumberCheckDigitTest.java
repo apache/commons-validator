@@ -29,7 +29,7 @@ public class ABANumberCheckDigitTest extends AbstractCheckDigitTest {
      * Constructor
      * @param name test name
      */
-    public ABANumberCheckDigitTest(String name) {
+    public ABANumberCheckDigitTest(final String name) {
         super(name);
     }
 

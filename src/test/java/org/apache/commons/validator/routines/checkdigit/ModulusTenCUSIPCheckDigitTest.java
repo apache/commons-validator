@@ -28,7 +28,7 @@ public class ModulusTenCUSIPCheckDigitTest extends AbstractCheckDigitTest {
      * Construct a new test.
      * @param name test name
      */
-    public ModulusTenCUSIPCheckDigitTest(String name) {
+    public ModulusTenCUSIPCheckDigitTest(final String name) {
         super(name);
     }
 
@@ -57,7 +57,7 @@ public class ModulusTenCUSIPCheckDigitTest extends AbstractCheckDigitTest {
     };
 
     public void testVALIDATOR_336_InvalidCheckDigits() {
-        for (String invalidCheckDigit : INVALID_CHECK_DIGITS) {
+        for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));
         }
     }
@@ -65,7 +65,7 @@ public class ModulusTenCUSIPCheckDigitTest extends AbstractCheckDigitTest {
     private static final String[] VALID_CHECK_DIGITS = {"DUS0421C5"};
 
     public void testVALIDATOR_336_ValidCheckDigits() {
-        for (String validCheckDigit : VALID_CHECK_DIGITS) {
+        for (final String validCheckDigit : VALID_CHECK_DIGITS) {
             assertTrue("Should fail: " + validCheckDigit, routine.isValid(validCheckDigit));
         }
     }

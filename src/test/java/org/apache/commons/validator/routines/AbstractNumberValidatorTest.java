@@ -62,7 +62,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
      * Constructor
      * @param name test name
      */
-    public AbstractNumberValidatorTest(String name) {
+    public AbstractNumberValidatorTest(final String name) {
         super(name);
     }
 
@@ -97,7 +97,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
      * Test Min/Max values allowed
      */
     public void testValidateMinMax() {
-        DecimalFormat fmt = new DecimalFormat("#");
+        final DecimalFormat fmt = new DecimalFormat("#");
         if (max != null) {
             assertEquals("Test Max",   max, validator.parse(fmt.format(max), "#", null));
             assertNull("Test Max + 1",      validator.parse(fmt.format(maxPlusOne), "#", null));
@@ -111,7 +111,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
      */
     public void testInvalidStrict() {
         for (int i = 0; i < invalidStrict.length; i++) {
-            String text = "idx=["+i+"] value=[" + invalidStrict[i] + "]";
+            final String text = "idx=["+i+"] value=[" + invalidStrict[i] + "]";
             assertNull("(A) "  + text, strictValidator.parse(invalidStrict[i], null, Locale.US));
             assertFalse("(B) " + text, strictValidator.isValid(invalidStrict[i], null, Locale.US));
             assertNull("(C) "  + text, strictValidator.parse(invalidStrict[i], testPattern, null));
@@ -124,7 +124,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
      */
     public void testInvalidNotStrict() {
         for (int i = 0; i < invalid.length; i++) {
-            String text = "idx=["+i+"] value=[" + invalid[i] + "]";
+            final String text = "idx=["+i+"] value=[" + invalid[i] + "]";
             assertNull("(A) "  + text, validator.parse(invalid[i], null, Locale.US));
             assertFalse("(B) " + text, validator.isValid(invalid[i], null, Locale.US));
             assertNull("(C) "  + text, validator.parse(invalid[i], testPattern, null));
@@ -137,7 +137,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
      */
     public void testValidStrict() {
         for (int i = 0; i < validStrict.length; i++) {
-            String text = "idx=["+i+"] value=[" + validStrictCompare[i] + "]";
+            final String text = "idx=["+i+"] value=[" + validStrictCompare[i] + "]";
             assertEquals("(A) "  + text, validStrictCompare[i], strictValidator.parse(validStrict[i], null, Locale.US));
             assertTrue("(B) "    + text,                        strictValidator.isValid(validStrict[i], null, Locale.US));
             assertEquals("(C) "  + text, validStrictCompare[i], strictValidator.parse(validStrict[i], testPattern, null));
@@ -150,7 +150,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
      */
     public void testValidNotStrict() {
         for (int i = 0; i < valid.length; i++) {
-            String text = "idx=["+i+"] value=[" + validCompare[i] + "]";
+            final String text = "idx=["+i+"] value=[" + validCompare[i] + "]";
             assertEquals("(A) "  + text, validCompare[i], validator.parse(valid[i], null, Locale.US));
             assertTrue("(B) "    + text,                  validator.isValid(valid[i], null, Locale.US));
             assertEquals("(C) "  + text, validCompare[i], validator.parse(valid[i], testPattern, null));
@@ -179,7 +179,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
      * Test format() methods
      */
     public void testFormat() {
-        Number number = new BigDecimal("1234.5");
+        final Number number = new BigDecimal("1234.5");
         assertEquals("US Locale, US Format", "1,234.5", strictValidator.format(number, Locale.US));
         assertEquals("DE Locale, DE Format", "1.234,5", strictValidator.format(number, Locale.GERMAN));
         assertEquals("Pattern #,#0.00", "12,34.50",  strictValidator.format(number, "#,#0.00"));
@@ -189,12 +189,12 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
      * Test Range/Min/Max
      */
     public void testRangeMinMax() {
-        Number number9 = Integer.valueOf(9);
-        Number number10 = Integer.valueOf(10);
-        Number number11 = Integer.valueOf(11);
-        Number number19 = Integer.valueOf(19);
-        Number number20 = Integer.valueOf(20);
-        Number number21 = Integer.valueOf(21);
+        final Number number9 = Integer.valueOf(9);
+        final Number number10 = Integer.valueOf(10);
+        final Number number11 = Integer.valueOf(11);
+        final Number number19 = Integer.valueOf(19);
+        final Number number20 = Integer.valueOf(20);
+        final Number number21 = Integer.valueOf(21);
 
         // Test isInRange()
         assertFalse("isInRange() < min",   strictValidator.isInRange(number9 ,  number10, number20));
@@ -219,25 +219,25 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
      */
     public void testSerialization() {
         // Serialize the check digit routine
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            final ObjectOutputStream oos = new ObjectOutputStream(baos);
             oos.writeObject(validator);
             oos.flush();
             oos.close();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             fail(validator.getClass().getName() + " error during serialization: " + e);
         }
 
         // Deserialize the test object
         Object result = null;
         try {
-            ByteArrayInputStream bais =
+            final ByteArrayInputStream bais =
                 new ByteArrayInputStream(baos.toByteArray());
-            ObjectInputStream ois = new ObjectInputStream(bais);
+            final ObjectInputStream ois = new ObjectInputStream(bais);
             result = ois.readObject();
             bais.close();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             fail(validator.getClass().getName() + " error during deserialization: " + e);
         }
         assertNotNull(result);

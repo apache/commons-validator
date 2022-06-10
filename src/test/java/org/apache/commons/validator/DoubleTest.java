@@ -24,7 +24,7 @@ package org.apache.commons.validator;
  */
 public class DoubleTest extends AbstractNumberTest {
 
-    public DoubleTest(String name) {
+    public DoubleTest(final String name) {
         super(name);
         ACTION = "double";
         FORM_KEY = "doubleForm";
@@ -36,7 +36,7 @@ public class DoubleTest extends AbstractNumberTest {
      */
     public void testDouble() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue("0");
 
         valueTest(info, true);
@@ -47,7 +47,7 @@ public class DoubleTest extends AbstractNumberTest {
      */
     public void testDoubleMin() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Double.toString(Double.MIN_VALUE));
 
         valueTest(info, true);
@@ -58,7 +58,7 @@ public class DoubleTest extends AbstractNumberTest {
      */
     public void testDoubleMax() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Double.toString(Double.MAX_VALUE));
 
         valueTest(info, true);
@@ -69,7 +69,7 @@ public class DoubleTest extends AbstractNumberTest {
      */
     public void testDoubleFailure() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
 
         valueTest(info, false);
     }

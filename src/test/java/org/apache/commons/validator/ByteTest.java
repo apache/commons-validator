@@ -25,7 +25,7 @@ package org.apache.commons.validator;
  */
 public class ByteTest extends AbstractNumberTest {
 
-    public ByteTest(String name) {
+    public ByteTest(final String name) {
         super(name);
         ACTION = "byte";
         FORM_KEY = "byteForm";
@@ -36,7 +36,7 @@ public class ByteTest extends AbstractNumberTest {
      */
     public void testByte() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue("0");
 
         valueTest(info, true);
@@ -47,7 +47,7 @@ public class ByteTest extends AbstractNumberTest {
      */
     public void testByteMin() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Byte.toString(Byte.MIN_VALUE));
 
         valueTest(info, true);
@@ -58,7 +58,7 @@ public class ByteTest extends AbstractNumberTest {
      */
     public void testByteMax() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Byte.toString(Byte.MAX_VALUE));
 
         valueTest(info, true);
@@ -69,7 +69,7 @@ public class ByteTest extends AbstractNumberTest {
      */
     public void testByteFailure() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
 
         valueTest(info, false);
     }
@@ -79,7 +79,7 @@ public class ByteTest extends AbstractNumberTest {
      */
     public void testByteBeyondMin() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Byte.MIN_VALUE + "1");
 
         valueTest(info, false);
@@ -90,7 +90,7 @@ public class ByteTest extends AbstractNumberTest {
      */
     public void testByteBeyondMax() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Byte.MAX_VALUE + "1");
 
         valueTest(info, false);

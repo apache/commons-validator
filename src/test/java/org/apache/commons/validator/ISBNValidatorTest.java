@@ -33,12 +33,12 @@ public class ISBNValidatorTest extends TestCase {
     private static final String VALID_ISBN_X = "0-201-63385-X";
     private static final String INVALID_ISBN = "068-556-98-45";
 
-    public ISBNValidatorTest(String name) {
+    public ISBNValidatorTest(final String name) {
         super(name);
     }
 
     public void testIsValid() throws Exception {
-        ISBNValidator validator = new ISBNValidator();
+        final ISBNValidator validator = new ISBNValidator();
         assertFalse(validator.isValid(null));
         assertFalse(validator.isValid(""));
         assertFalse(validator.isValid("1"));

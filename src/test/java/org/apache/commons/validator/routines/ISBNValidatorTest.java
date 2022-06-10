@@ -99,7 +99,7 @@ public class ISBNValidatorTest extends TestCase {
      * Create a test case with the specified name.
      * @param name The name of the test
      */
-    public ISBNValidatorTest(String name) {
+    public ISBNValidatorTest(final String name) {
         super(name);
     }
 
@@ -107,7 +107,7 @@ public class ISBNValidatorTest extends TestCase {
      * Test Valid ISBN-10 formats.
      */
     public void testValidISBN10Format() {
-        Pattern pattern = Pattern.compile(ISBNValidator.ISBN10_REGEX);
+        final Pattern pattern = Pattern.compile(ISBNValidator.ISBN10_REGEX);
         for (int i = 0; i < validISBN10Format.length; i++) {
             assertTrue("Pattern[" + i + "]=" + validISBN10Format[i], pattern.matcher(validISBN10Format[i]).matches());
         }
@@ -117,8 +117,8 @@ public class ISBNValidatorTest extends TestCase {
      * Test Invalid ISBN-10 formats.
      */
     public void testInvalidISBN10Format() {
-        ISBNValidator validator = ISBNValidator.getInstance();
-        Pattern pattern = Pattern.compile(ISBNValidator.ISBN10_REGEX);
+        final ISBNValidator validator = ISBNValidator.getInstance();
+        final Pattern pattern = Pattern.compile(ISBNValidator.ISBN10_REGEX);
         for (int i = 0; i < invalidISBN10Format.length; i++) {
             assertFalse("Pattern[" + i + "]=" + invalidISBN10Format[i],       pattern.matcher(invalidISBN10Format[i]).matches());
             assertFalse("isValidISBN10[" + i + "]=" + invalidISBN10Format[i], validator.isValidISBN10(invalidISBN10Format[i]));
@@ -130,7 +130,7 @@ public class ISBNValidatorTest extends TestCase {
      * Test Valid ISBN-13 formats.
      */
     public void testValidISBN13Format() {
-        Pattern pattern = Pattern.compile(ISBNValidator.ISBN13_REGEX);
+        final Pattern pattern = Pattern.compile(ISBNValidator.ISBN13_REGEX);
         for (int i = 0; i < validISBN13Format.length; i++) {
             assertTrue("Pattern[" + i + "]=" + validISBN13Format[i], pattern.matcher(validISBN13Format[i]).matches());
         }
@@ -140,8 +140,8 @@ public class ISBNValidatorTest extends TestCase {
      * Test Invalid ISBN-13 formats.
      */
     public void testInvalidISBN13Format() {
-        Pattern pattern = Pattern.compile(ISBNValidator.ISBN13_REGEX);
-        ISBNValidator validator = ISBNValidator.getInstance();
+        final Pattern pattern = Pattern.compile(ISBNValidator.ISBN13_REGEX);
+        final ISBNValidator validator = ISBNValidator.getInstance();
         for (int i = 0; i < invalidISBN13Format.length; i++) {
             assertFalse("Pattern[" + i + "]=" + invalidISBN13Format[i],       pattern.matcher(invalidISBN13Format[i]).matches());
             assertFalse("isValidISBN13[" + i + "]=" + invalidISBN13Format[i], validator.isValidISBN13(invalidISBN13Format[i]));
@@ -153,7 +153,7 @@ public class ISBNValidatorTest extends TestCase {
      * Test isValid() ISBN-10 codes
      */
     public void testIsValidISBN10() {
-        ISBNValidator validator = ISBNValidator.getInstance();
+        final ISBNValidator validator = ISBNValidator.getInstance();
         assertTrue("isValidISBN10-1", validator.isValidISBN10("1930110995"));
         assertTrue("isValidISBN10-2", validator.isValidISBN10("1-930110-99-5"));
         assertTrue("isValidISBN10-3", validator.isValidISBN10("1 930110 99 5"));
@@ -173,7 +173,7 @@ public class ISBNValidatorTest extends TestCase {
      * Test isValid() ISBN-13 codes
      */
     public void testIsValidISBN13() {
-        ISBNValidator validator = ISBNValidator.getInstance();
+        final ISBNValidator validator = ISBNValidator.getInstance();
         assertTrue("isValidISBN13-1", validator.isValidISBN13("9781930110991"));
         assertTrue("isValidISBN13-2", validator.isValidISBN13("978-1-930110-99-1"));
         assertTrue("isValidISBN13-3", validator.isValidISBN13("978 1 930110 99 1"));
@@ -193,7 +193,7 @@ public class ISBNValidatorTest extends TestCase {
      * Test validate() ISBN-10 codes (don't convert)
      */
     public void testValidateISBN10() {
-        ISBNValidator validator = ISBNValidator.getInstance(false);
+        final ISBNValidator validator = ISBNValidator.getInstance(false);
         assertEquals("validateISBN10-1", "1930110995", validator.validateISBN10("1930110995"));
         assertEquals("validateISBN10-2", "1930110995", validator.validateISBN10("1-930110-99-5"));
         assertEquals("validateISBN10-3", "1930110995", validator.validateISBN10("1 930110 99 5"));
@@ -213,7 +213,7 @@ public class ISBNValidatorTest extends TestCase {
      * Test validate() ISBN-10 codes (convert)
      */
     public void testValidateISBN10Convert() {
-        ISBNValidator validator = ISBNValidator.getInstance();
+        final ISBNValidator validator = ISBNValidator.getInstance();
         assertEquals("validate-1", "9781930110991", validator.validate("1930110995"));
         assertEquals("validate-2", "9781930110991", validator.validate("1-930110-99-5"));
         assertEquals("validate-3", "9781930110991", validator.validate("1 930110 99 5"));
@@ -226,7 +226,7 @@ public class ISBNValidatorTest extends TestCase {
      * Test validate() ISBN-13 codes
      */
     public void testValidateISBN13() {
-        ISBNValidator validator = ISBNValidator.getInstance();
+        final ISBNValidator validator = ISBNValidator.getInstance();
         assertEquals("validateISBN13-1", "9781930110991", validator.validateISBN13("9781930110991"));
         assertEquals("validateISBN13-2", "9781930110991", validator.validateISBN13("978-1-930110-99-1"));
         assertEquals("validateISBN13-3", "9781930110991", validator.validateISBN13("978 1 930110 99 1"));
@@ -246,7 +246,7 @@ public class ISBNValidatorTest extends TestCase {
      * Test null values
      */
     public void testNull() {
-        ISBNValidator validator = ISBNValidator.getInstance();
+        final ISBNValidator validator = ISBNValidator.getInstance();
         assertFalse("isValid",        validator.isValid(null));
         assertFalse("isValidISBN10",  validator.isValidISBN10(null));
         assertFalse("isValidISBN13",  validator.isValidISBN13(null));
@@ -260,7 +260,7 @@ public class ISBNValidatorTest extends TestCase {
      * Test Invalid ISBN-10 codes
      */
     public void testInvalid() {
-        ISBNValidator validator = ISBNValidator.getInstance();
+        final ISBNValidator validator = ISBNValidator.getInstance();
         String baseCode = "193011099";
         assertFalse("ISBN10-0", validator.isValid(baseCode + "0"));
         assertFalse("ISBN10-1", validator.isValid(baseCode + "1"));
@@ -291,34 +291,34 @@ public class ISBNValidatorTest extends TestCase {
      * Test method for {@link org.apache.commons.validator.routines.ISBNValidator#convertToISBN13(java.lang.String)}.
      */
     public void testConversionErrors() {
-        ISBNValidator validator = ISBNValidator.getInstance();
+        final ISBNValidator validator = ISBNValidator.getInstance();
         String input = null;
         try {
             input = "123456789 ";
             validator.convertToISBN13(input);
             fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             // expected result
         }
         try {
             input = "12345678901";
             validator.convertToISBN13(input);
             fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             // expected result
         }
         try {
             input = "";
             validator.convertToISBN13(input);
             fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             // expected result
         }
         try {
             input = "X234567890";
             validator.convertToISBN13(input);
             fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             // expected result
         }
     }

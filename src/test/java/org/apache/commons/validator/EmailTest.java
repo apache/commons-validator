@@ -42,7 +42,7 @@ public class EmailTest extends AbstractCommonTest {
    protected static String ACTION = "email";
 
 
-   public EmailTest(String name) {
+   public EmailTest(final String name) {
        super(name);
    }
 
@@ -60,7 +60,7 @@ protected void setUp() throws IOException, SAXException {
     */
    public void testEmail() throws ValidatorException {
       // Create bean to run test on.
-      ValueBean info = new ValueBean();
+      final ValueBean info = new ValueBean();
 
       info.setValue("jsmith@apache.org");
       valueTest(info, true);
@@ -70,7 +70,7 @@ protected void setUp() throws IOException, SAXException {
     * Tests the email validation with numeric domains.
     */
     public void testEmailWithNumericAddress() throws ValidatorException {
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue("someone@[216.109.118.76]");
         valueTest(info, true);
         info.setValue("someone@yahoo.com");
@@ -82,7 +82,7 @@ protected void setUp() throws IOException, SAXException {
      */
     public void testEmailExtension() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
 
         info.setValue("jsmith@apache.org");
         valueTest(info, true);
@@ -115,7 +115,7 @@ protected void setUp() throws IOException, SAXException {
     */
    public void testEmailWithDash() throws ValidatorException {
       // Create bean to run test on.
-      ValueBean info = new ValueBean();
+      final ValueBean info = new ValueBean();
 
       info.setValue("andy.noble@data-workshop.com");
       valueTest(info, true);
@@ -136,7 +136,7 @@ protected void setUp() throws IOException, SAXException {
     */
    public void testEmailWithDotEnd() throws ValidatorException {
       // Create bean to run test on.
-      ValueBean info = new ValueBean();
+      final ValueBean info = new ValueBean();
 
       info.setValue("andy.noble@data-workshop.com.");
       valueTest(info, false);
@@ -149,7 +149,7 @@ protected void setUp() throws IOException, SAXException {
      */
     public void testEmailWithBogusCharacter() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
 
         info.setValue("andy.noble@\u008fdata-workshop.com");
         valueTest(info, false);
@@ -170,7 +170,7 @@ protected void setUp() throws IOException, SAXException {
     * Tests the email validation with commas.
     */
     public void testEmailWithCommas() throws ValidatorException {
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue("joeblow@apa,che.org");
         valueTest(info, false);
         info.setValue("joeblow@apache.o,rg");
@@ -184,7 +184,7 @@ protected void setUp() throws IOException, SAXException {
     * Tests the email validation with spaces.
     */
     public void testEmailWithSpaces() throws ValidatorException {
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue("joeblow @apache.org");
         valueTest(info, false);
         info.setValue("joeblow@ apache.org");
@@ -207,7 +207,7 @@ protected void setUp() throws IOException, SAXException {
     * (i.e. Ascii chars 0 - 31 and 127)
     */
     public void testEmailWithControlChars() {
-        EmailValidator validator = new EmailValidator();
+        final EmailValidator validator = new EmailValidator();
         for (char c = 0; c < 32; c++) {
             assertFalse("Test control char " + ((int)c), validator.isValid("foo" + c + "bar@domain.com"));
         }
@@ -219,14 +219,14 @@ protected void setUp() throws IOException, SAXException {
     */
    public void testEmailAtTLD() throws ValidatorException {
       // Create bean to run test on.
-      ValueBean info = new ValueBean();
+      final ValueBean info = new ValueBean();
 
       info.setValue("m@de");
       valueTest(info, false);
 
-       org.apache.commons.validator.routines.EmailValidator validator =
+       final org.apache.commons.validator.routines.EmailValidator validator =
                org.apache.commons.validator.routines.EmailValidator.getInstance(true, true);
-      boolean result = validator.isValid("m@de");
+      final boolean result = validator.isValid("m@de");
       assertTrue("Result should have been true", result);
 
    }
@@ -236,7 +236,7 @@ protected void setUp() throws IOException, SAXException {
      *  addresses aren't declared valid by default
      */
     public void testEmailLocalhost() throws ValidatorException {
-       ValueBean info = new ValueBean();
+       final ValueBean info = new ValueBean();
        info.setValue("joe@localhost");
        valueTest(info, false);
        info.setValue("joe@localhost.localdomain");
@@ -253,7 +253,7 @@ protected void setUp() throws IOException, SAXException {
      * @throws ValidatorException
      */
     public void _testEmailUserName() throws ValidatorException {
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue("joe1blow@apache.org");
         valueTest(info, true);
         info.setValue("joe$blow@apache.org");
@@ -408,8 +408,8 @@ protected void setUp() throws IOException, SAXException {
      * The real solution is to fix the email parsing.
      */
     public void _testEmailFromPerl() throws ValidatorException {
-        ValueBean info = new ValueBean();
-        for (ResultPair element : testEmailFromPerl) {
+        final ValueBean info = new ValueBean();
+        for (final ResultPair element : testEmailFromPerl) {
             info.setValue(element.item);
             valueTest(info, element.valid);
         }
@@ -421,10 +421,10 @@ protected void setUp() throws IOException, SAXException {
     * @param info    Value to run test on.
     * @param passed    Whether or not the test is expected to pass.
     */
-   private void valueTest(ValueBean info, boolean passed) throws ValidatorException {
+   private void valueTest(final ValueBean info, final boolean passed) throws ValidatorException {
       // Construct validator based on the loaded resources
       // and the form key
-      Validator validator = new Validator(resources, FORM_KEY);
+      final Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource
       // for the validations to be performed on.
       validator.setParameter(Validator.BEAN_PARAM, info);
@@ -434,11 +434,11 @@ protected void setUp() throws IOException, SAXException {
       // but we aren't catching for testing
       // since no validation methods we use
       // throw this
-      ValidatorResults results = validator.validate();
+      final ValidatorResults results = validator.validate();
 
       assertNotNull("Results are null.", results);
 
-      ValidatorResult result = results.getValidatorResult("value");
+      final ValidatorResult result = results.getValidatorResult("value");
 
       assertNotNull(ACTION + " value ValidatorResult should not be null.", result);
       assertTrue("Value "+info.getValue()+" ValidatorResult should contain the '" + ACTION +"' action.", result.containsAction(ACTION));

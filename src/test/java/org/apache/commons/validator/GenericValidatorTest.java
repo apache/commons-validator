@@ -28,7 +28,7 @@ public class GenericValidatorTest extends TestCase {
     /**
      * Constructor for GenericValidatorTest.
      */
-    public GenericValidatorTest(String name) {
+    public GenericValidatorTest(final String name) {
         super(name);
     }
 

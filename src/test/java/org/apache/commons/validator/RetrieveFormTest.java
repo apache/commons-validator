@@ -48,7 +48,7 @@ public class RetrieveFormTest extends TestCase {
      * Constructor for FormTest.
      * @param name
      */
-    public RetrieveFormTest(String name) {
+    public RetrieveFormTest(final String name) {
         super(name);
     }
 
@@ -57,14 +57,14 @@ public class RetrieveFormTest extends TestCase {
      */
     @Override
     protected void setUp() throws IOException, SAXException {
-        InputStream[] streams =
+        final InputStream[] streams =
             {
             this.getClass().getResourceAsStream(
                 "RetrieveFormTest-config.xml")};
 
         this.resources = new ValidatorResources(streams);
 
-        for (InputStream stream : streams) {
+        for (final InputStream stream : streams) {
             stream.close();
         }
     }
@@ -74,7 +74,7 @@ public class RetrieveFormTest extends TestCase {
     */
     public void testDefaultForm() {
 
-        String formKey = FORM_PREFIX + "default";
+        final String formKey = FORM_PREFIX + "default";
 
         // *** US locale ***
         checkForm(Locale.US, formKey, "default");
@@ -102,7 +102,7 @@ public class RetrieveFormTest extends TestCase {
     */
     public void testLanguageForm() {
 
-        String formKey = FORM_PREFIX + "language";
+        final String formKey = FORM_PREFIX + "language";
 
         // *** US locale ***
         checkForm(Locale.US, formKey, "default");
@@ -131,7 +131,7 @@ public class RetrieveFormTest extends TestCase {
     */
     public void testLanguageCountryForm() {
 
-        String formKey = FORM_PREFIX + "language_country";
+        final String formKey = FORM_PREFIX + "language_country";
 
         // *** US locale ***
         checkForm(Locale.US, formKey, "default");
@@ -158,7 +158,7 @@ public class RetrieveFormTest extends TestCase {
     */
     public void testLanguageCountryVariantForm() {
 
-        String formKey = FORM_PREFIX + "language_country_variant";
+        final String formKey = FORM_PREFIX + "language_country_variant";
 
         // *** US locale ***
         checkForm(Locale.US, formKey, "default");
@@ -185,7 +185,7 @@ public class RetrieveFormTest extends TestCase {
     */
     public void testFormNotFound() {
 
-        String formKey = "INVALID_NAME";
+        final String formKey = "INVALID_NAME";
 
         // *** US locale ***
         checkFormNotFound(Locale.US, formKey);
@@ -208,24 +208,24 @@ public class RetrieveFormTest extends TestCase {
 
     }
 
-    private void checkForm(Locale locale, String formKey, String expectedVarValue) {
+    private void checkForm(final Locale locale, final String formKey, final String expectedVarValue) {
 
         // Retrieve the Form
-        Form testForm = resources.getForm(locale, formKey);
+        final Form testForm = resources.getForm(locale, formKey);
         assertNotNull("Form '" +formKey+"' null for locale " + locale, testForm);
 
         // Validate the expected Form is retrieved by checking the "localeVar"
         // value of the field.
-        Field testField = testForm.getField("testProperty");
+        final Field testField = testForm.getField("testProperty");
         assertEquals("Incorrect Form '"   + formKey  + "' for locale '" + locale + "'",
                      expectedVarValue,
                      testField.getVarValue("localeVar"));
     }
 
-    private void checkFormNotFound(Locale locale, String formKey) {
+    private void checkFormNotFound(final Locale locale, final String formKey) {
 
         // Retrieve the Form
-        Form testForm = resources.getForm(locale, formKey);
+        final Form testForm = resources.getForm(locale, formKey);
         assertNull("Form '" +formKey+"' not null for locale " + locale, testForm);
 
     }

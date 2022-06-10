@@ -37,7 +37,7 @@ public class CustomValidatorResources extends ValidatorResources {
      * @throws SAXException if the validation XML files are not valid or well formed.
      * @throws IOException  if an I/O error occurs processing the XML files
      */
-    public CustomValidatorResources(InputStream in) throws IOException, SAXException {
+    public CustomValidatorResources(final InputStream in) throws IOException, SAXException {
         super(in);
     }
 
