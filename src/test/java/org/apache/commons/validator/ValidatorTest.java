@@ -259,7 +259,7 @@ public class ValidatorTest extends TestCase {
       return date;
    }
 
-   public class TestBean {
+   public static class TestBean {
       private String letter = null;
       private String date = null;
 

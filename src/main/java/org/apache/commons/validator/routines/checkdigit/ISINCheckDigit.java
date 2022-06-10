@@ -49,7 +49,7 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
     public static final CheckDigit ISIN_CHECK_DIGIT = new ISINCheckDigit();
 
     /** weighting given to digits depending on their right position */
-    private static final int[] POSITION_WEIGHT = new int[] {2, 1};
+    private static final int[] POSITION_WEIGHT = {2, 1};
 
     /**
      * Construct an ISIN Indetifier Check Digit routine.

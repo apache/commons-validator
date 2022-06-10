@@ -75,7 +75,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
      *
      * See https://issues.apache.org/jira/browse/VALIDATOR-344 for some dicussion on this
      */
-    protected String[] invalid = new String[] {"12345678A"};
+    protected String[] invalid = {"12345678A"};
 
     /** code value which sums to zero */
     protected String zeroSum = "0000000000";

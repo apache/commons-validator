@@ -39,7 +39,7 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
     public static final CheckDigit VERHOEFF_CHECK_DIGIT = new VerhoeffCheckDigit();
 
     /** D - multiplication table */
-    private static final int[][] D_TABLE = new int[][] {
+    private static final int[][] D_TABLE = {
         {0,  1,  2,  3,  4,  5,  6,  7,  8,  9},
         {1,  2,  3,  4,  0,  6,  7,  8,  9,  5},
         {2,  3,  4,  0,  1,  7,  8,  9,  5,  6},
@@ -52,7 +52,7 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
         {9,  8,  7,  6,  5,  4,  3,  2,  1,  0}};
 
     /** P - permutation table */
-    private static final int[][] P_TABLE = new int[][] {
+    private static final int[][] P_TABLE = {
         {0,  1,  2,  3,  4,  5,  6,  7,  8,  9},
         {1,  5,  7,  6,  2,  8,  3,  0,  9,  4},
         {5,  8,  0,  3,  7,  9,  6,  1,  4,  2},
@@ -63,8 +63,7 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
         {7,  0,  4,  6,  9,  1,  3,  2,  5,  8}};
 
     /** inv: inverse table */
-    private static final int[] INV_TABLE = new int[]
-        {0,  4,  3,  2,  1,  5,  6,  7,  8,  9};
+    private static final int[] INV_TABLE = {0,  4,  3,  2,  1,  5,  6,  7,  8,  9};
 
 
     /**

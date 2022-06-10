@@ -35,7 +35,7 @@ public class TimeValidatorTest extends TestCase {
 
     protected TimeValidator validator;
 
-    protected String[] patternValid = new String[] {
+    protected String[] patternValid = {
                        "23-59-59"
                       ,"00-00-00"
                       ,"00-00-01"
@@ -43,7 +43,7 @@ public class TimeValidatorTest extends TestCase {
                       ,"1-12-1"
                       ,"10-49-18"
                       ,"16-23-46"};
-    protected Date[] patternExpect = new Date[] {
+    protected Date[] patternExpect = {
                        createDate(null, 235959, 0)
                       ,createDate(null, 0, 0)
                       ,createDate(null, 1, 0)
@@ -51,7 +51,7 @@ public class TimeValidatorTest extends TestCase {
                       ,createDate(null, 11201, 0)
                       ,createDate(null, 104918, 0)
                       ,createDate(null, 162346, 0)};
-    protected String[] localeValid = new String[] {
+    protected String[] localeValid = {
                       "23:59"
                      ,"00:00"
                      ,"00:01"
@@ -59,7 +59,7 @@ public class TimeValidatorTest extends TestCase {
                      ,"1:12"
                      ,"10:49"
                      ,"16:23"};
-    protected Date[] localeExpect = new Date[] {
+    protected Date[] localeExpect = {
                       createDate(null, 235900, 0)
                      ,createDate(null, 0, 0)
                      ,createDate(null, 100, 0)
@@ -67,7 +67,7 @@ public class TimeValidatorTest extends TestCase {
                      ,createDate(null, 11200, 0)
                      ,createDate(null, 104900, 0)
                      ,createDate(null, 162300, 0)};
-    protected String[] patternInvalid = new String[] {
+    protected String[] patternInvalid = {
                          "24-00-00"  // midnight
                         ,"24-00-01"  // past midnight
                         ,"25-02-03"  // invalid hour
@@ -81,7 +81,7 @@ public class TimeValidatorTest extends TestCase {
                         ,"10-10"     // invalid pattern
                         ,"10--10"    // invalid pattern
                         ,"10-10-"};  // invalid pattern
-    protected String[] localeInvalid = new String[] {
+    protected String[] localeInvalid = {
                          "24:00"  // midnight
                         ,"24:00"  // past midnight
                         ,"25:02"  // invalid hour

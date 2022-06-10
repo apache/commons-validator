@@ -26,7 +26,7 @@ import junit.framework.TestCase;
  */
 public class ISBNValidatorTest extends TestCase {
 
-    private final String[] validISBN10Format = new String[] {
+    private final String[] validISBN10Format = {
             "1234567890",
             "123456789X",
             "12345-1234567-123456-X",
@@ -35,7 +35,7 @@ public class ISBNValidatorTest extends TestCase {
             "1 2 3 4",
             };
 
-    private final String[] invalidISBN10Format = new String[] {
+    private final String[] invalidISBN10Format = {
             "",                        // empty
             "   ",                     // empty
             "1",                       // too short
@@ -58,7 +58,7 @@ public class ISBNValidatorTest extends TestCase {
             "068-556-98-45"            // format
             };
 
-    private final String[] validISBN13Format = new String[] {
+    private final String[] validISBN13Format = {
             "9781234567890",
             "9791234567890",
             "978-12345-1234567-123456-1",
@@ -71,7 +71,7 @@ public class ISBNValidatorTest extends TestCase {
             "979 1 2 3 4",
             };
 
-    private final String[] invalidISBN13Format = new String[] {
+    private final String[] invalidISBN13Format = {
             "",                            // empty
             "   ",                         // empty
             "1",                           // too short

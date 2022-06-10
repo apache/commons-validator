@@ -52,7 +52,7 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
     public static final CheckDigit ABAN_CHECK_DIGIT = new ABANumberCheckDigit();
 
     /** weighting given to digits depending on their right position */
-    private static final int[] POSITION_WEIGHT = new int[] {3, 1, 7};
+    private static final int[] POSITION_WEIGHT = {3, 1, 7};
 
     /**
      * Construct a modulus 10 Check Digit routine for ABA Numbers.

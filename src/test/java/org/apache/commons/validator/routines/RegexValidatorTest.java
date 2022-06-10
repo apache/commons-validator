@@ -38,7 +38,7 @@ public class RegexValidatorTest extends TestCase {
     private static final String REGEX_1 = "^" + COMPONENT_1 + SEPARATOR_1 + COMPONENT_2 + SEPARATOR_1 + COMPONENT_3 + "$";
     private static final String REGEX_2 = "^" + COMPONENT_1 + SEPARATOR_2 + COMPONENT_2 + SEPARATOR_2 + COMPONENT_3 + "$";
     private static final String REGEX_3 = "^" + COMPONENT_1 + COMPONENT_2 + COMPONENT_3 + "$";
-    private static final String[] MULTIPLE_REGEX = new String[] {REGEX_1, REGEX_2, REGEX_3};
+    private static final String[] MULTIPLE_REGEX = {REGEX_1, REGEX_2, REGEX_3};
 
     /**
      * Constrct a new test case.
@@ -106,7 +106,7 @@ public class RegexValidatorTest extends TestCase {
         // ------------ Set up test values
         String value = "aac FDE 321";
         String expect = "aacFDE321";
-        String[] array = new String[] {"aac", "FDE", "321"};
+        String[] array = {"aac", "FDE", "321"};
 
         // isValid()
         assertEquals("Sensitive isValid() Multiple", true,  multiple.isValid(value));
@@ -147,7 +147,7 @@ public class RegexValidatorTest extends TestCase {
         // ------------ Set up test values
         String value = "AAC FDE 321";
         String expect = "AACFDE321";
-        String[] array = new String[] {"AAC", "FDE", "321"};
+        String[] array = {"AAC", "FDE", "321"};
 
         // isValid()
         assertEquals("isValid() Multiple", true,  multiple.isValid(value));
@@ -223,7 +223,7 @@ public class RegexValidatorTest extends TestCase {
         }
 
         // Multiple Regular Expression - Array has Null
-        String[] expressions = new String[] {"ABC", null};
+        String[] expressions = {"ABC", null};
         try {
             new RegexValidator(expressions);
             fail("Array has Null - expected IllegalArgumentException");

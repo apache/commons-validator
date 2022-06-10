@@ -49,7 +49,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
     public static final CheckDigit SEDOL_CHECK_DIGIT = new SedolCheckDigit();
 
     /** weighting given to digits depending on their right position */
-    private static final int[] POSITION_WEIGHT = new int[] {1, 3, 1, 7, 3, 9, 1};
+    private static final int[] POSITION_WEIGHT = {1, 3, 1, 7, 3, 9, 1};
 
     /**
      * Construct a modulus 11 Check Digit routine for ISBN-10.

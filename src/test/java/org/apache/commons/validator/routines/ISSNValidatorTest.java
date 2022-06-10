@@ -32,7 +32,7 @@ public class ISSNValidatorTest extends TestCase {
 
     private static final ISSNValidator VALIDATOR = ISSNValidator.getInstance();
 
-    private final String[] validFormat = new String[] {
+    private final String[] validFormat = {
             "ISSN 0317-8471",
             "1050-124X",
             "ISSN 1562-6865",
@@ -49,7 +49,7 @@ public class ISSNValidatorTest extends TestCase {
             "1144-875X",
             };
 
-    private final String[] invalidFormat = new String[] {
+    private final String[] invalidFormat = {
             "",                        // empty
             "   ",                     // empty
             "ISBN 0317-8471",          // wrong prefix

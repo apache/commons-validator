@@ -58,9 +58,9 @@ public class RetrieveFormTest extends TestCase {
     @Override
     protected void setUp() throws IOException, SAXException {
         InputStream[] streams =
-            new InputStream[] {
-                this.getClass().getResourceAsStream(
-                    "RetrieveFormTest-config.xml")};
+            {
+            this.getClass().getResourceAsStream(
+                "RetrieveFormTest-config.xml")};
 
         this.resources = new ValidatorResources(streams);
 

@@ -29,7 +29,7 @@ public class ISINValidatorTest extends TestCase {
 
     private static final ISINValidator VALIDATOR_FALSE = ISINValidator.getInstance(false);
 
-    private final String[] validFormat = new String[] {
+    private final String[] validFormat = {
             "US0378331005",
             "BMG8571G1096",
             "AU0000XVGZA3",
@@ -46,7 +46,7 @@ public class ISINValidatorTest extends TestCase {
             "XS0000000009",
             };
 
-    private final String[] invalidFormat = new String[] {
+    private final String[] invalidFormat = {
             null,
             "",                        // empty
             "   ",                     // empty
@@ -62,7 +62,7 @@ public class ISINValidatorTest extends TestCase {
             };
 
     // Invalid codes if country checking is enabled
-    private final String[] invalidFormatTrue = new String[] {
+    private final String[] invalidFormatTrue = {
             "AA0000000006", // Invalid country code
             };
 

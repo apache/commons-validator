@@ -45,7 +45,7 @@ public class IBANValidatorTest {
     // It's not clear whether IBANs can contain lower case characters
     // so we test for both where possible
     // Note that the BIC near the start of the code is always upper case or digits
-    private final String[] validIBANFormat = new String[] {
+    private final String[] validIBANFormat = {
             "AD1200012030200359100100",
             "AE070331234567890123456",
             "AL47212110090000000235698741",
@@ -133,7 +133,7 @@ public class IBANValidatorTest {
             "XK051212012345678906",
     };
 
-    private final String[] invalidIBANFormat = new String[] {
+    private final String[] invalidIBANFormat = {
             "",                        // empty
             "   ",                     // empty
             "A",                       // too short
@@ -270,7 +270,7 @@ public class IBANValidatorTest {
                 String currentLength = Integer.toString(valre.lengthOfIBAN);
                 String currentRE = valre.validator.toString()
                         .replaceAll("^.+?\\{(.+)}","$1") // Extract RE from RegexValidator{re} string
-                        .replaceAll("\\\\d","\\\\\\\\d"); // convert \d to \\d
+                        .replace("\\d","\\\\d"); // convert \d to \\d
                 // The above assumes that the RegexValidator contains a single Regex
                 if (currentRE.equals(newRE) && currentLength.equals(newLength)) {
 

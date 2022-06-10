@@ -77,7 +77,7 @@ public class CreditCardValidatorTest extends TestCase {
     /**
      * Test a custom implementation of CreditCardType.
      */
-    private class DinersClub implements CreditCardValidator.CreditCardType {
+    private static class DinersClub implements CreditCardValidator.CreditCardType {
         private static final String PREFIX = "300,301,302,303,304,305,";
         @Override
         public boolean matches(String card) {

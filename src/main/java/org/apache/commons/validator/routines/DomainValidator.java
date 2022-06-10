@@ -67,7 +67,7 @@ public class DomainValidator implements Serializable {
     /** Maximum allowable length ({@value}) of a domain name */
     private static final int MAX_DOMAIN_LENGTH = 253;
 
-    private static final String[] EMPTY_STRING_ARRAY = new String[0];
+    private static final String[] EMPTY_STRING_ARRAY = {};
 
     private static final long serialVersionUID = -4407125112880174009L;
 
@@ -411,12 +411,12 @@ public class DomainValidator implements Serializable {
     // .um  country-code    Not assigned
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static final String[] INFRASTRUCTURE_TLDS = new String[] {
+    private static final String[] INFRASTRUCTURE_TLDS = {
         "arpa",               // internet infrastructure
     };
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static final String[] GENERIC_TLDS = new String[] {
+    private static final String[] GENERIC_TLDS = {
         // Taken from Version 2020073100, Last Updated Fri Jul 31 07:07:01 2020 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
@@ -1682,7 +1682,7 @@ public class DomainValidator implements Serializable {
 };
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static final String[] COUNTRY_CODE_TLDS = new String[] {
+    private static final String[] COUNTRY_CODE_TLDS = {
         // Taken from Version 2020051000, Last Updated Sun May 10 07:07:01 2020 UTC
         "ac",                 // Ascension Island
         "ad",                 // Andorra
@@ -1996,7 +1996,7 @@ public class DomainValidator implements Serializable {
     };
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static final String[] LOCAL_TLDS = new String[] {
+    private static final String[] LOCAL_TLDS = {
        "localdomain",         // Also widely used as localhost.localdomain
        "localhost",           // RFC2606 defined
     };

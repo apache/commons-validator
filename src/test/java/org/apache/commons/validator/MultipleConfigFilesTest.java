@@ -61,11 +61,11 @@ public class MultipleConfigFilesTest extends TestCase {
     @Override
     protected void setUp() throws IOException, SAXException {
         InputStream[] streams =
-            new InputStream[] {
-                this.getClass().getResourceAsStream(
-                    "MultipleConfigFilesTest-1-config.xml"),
-                this.getClass().getResourceAsStream(
-                    "MultipleConfigFilesTest-2-config.xml")};
+            {
+            this.getClass().getResourceAsStream(
+                "MultipleConfigFilesTest-1-config.xml"),
+            this.getClass().getResourceAsStream(
+                "MultipleConfigFilesTest-2-config.xml")};
 
         this.resources = new ValidatorResources(streams);
 
