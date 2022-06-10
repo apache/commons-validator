@@ -106,13 +106,11 @@ protected void setUp() {
          if (printStatus) {
             if (printIndex) {
                System.out.print(testPartsIndextoString());
-            } else {
-               if (result == expected) {
+            } else if (result == expected) {
                   System.out.print('.');
                } else {
                   System.out.print('X');
                }
-            }
             printed++;
             if (printed == statusPerLine) {
                System.out.println();

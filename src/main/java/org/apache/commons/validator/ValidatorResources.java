@@ -495,11 +495,9 @@ public class ValidatorResources implements Serializable {
                 getLog().warn("Form '" + formKey + "' not found for locale '" +
                          localeKey + "'");
             }
-        } else {
-            if (getLog().isDebugEnabled()) {
-                getLog().debug("Form '" + formKey + "' found in formset '" +
-                          key + "' for locale '" + localeKey + "'");
-            }
+        } else if (getLog().isDebugEnabled()) {
+            getLog().debug("Form '" + formKey + "' found in formset '" +
+                      key + "' for locale '" + localeKey + "'");
         }
 
         return form;

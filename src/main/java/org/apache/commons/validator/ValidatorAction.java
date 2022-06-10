@@ -687,19 +687,17 @@ public class ValidatorAction implements Serializable {
         if (Modifier.isStatic(this.validationMethod.getModifiers())) {
             this.instance = null;
 
-        } else {
-            if (this.instance == null) {
-                try {
-                    this.instance = this.validationClass.newInstance();
-                } catch (InstantiationException | IllegalAccessException e) {
-                    String msg1 =
-                        "Couldn't create instance of "
-                            + this.classname
-                            + ".  "
-                            + e.getMessage();
+        } else if (this.instance == null) {
+            try {
+                this.instance = this.validationClass.newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {
+                String msg1 =
+                    "Couldn't create instance of "
+                        + this.classname
+                        + ".  "
+                        + e.getMessage();
 
-                    throw new ValidatorException(msg1);
-                }
+                throw new ValidatorException(msg1);
             }
         }
 
