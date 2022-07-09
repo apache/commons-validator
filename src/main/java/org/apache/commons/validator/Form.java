@@ -148,9 +148,7 @@ public class Form implements Serializable {
         @SuppressWarnings("unchecked") // FastHashMap is not generic
         final
         Map<String, Field> temphFields = new FastHashMap();
-        final Iterator<Field> dependsIt = depends.getFields().iterator();
-        while (dependsIt.hasNext()) {
-            final Field defaultField = dependsIt.next();
+        for (final Field defaultField : depends.getFields()) {
             if (defaultField != null) {
                 final String fieldKey = defaultField.getKey();
                 if (!this.containsField(fieldKey)) {
@@ -283,9 +281,7 @@ public class Form implements Serializable {
                results.merge(field.validate(params, actions));
             }
         } else {
-            final Iterator<Field> fields = this.lFields.iterator();
-            while (fields.hasNext()) {
-                final Field field = fields.next();
+            for (final Field field : this.lFields) {
 
                 params.put(Validator.FIELD_PARAM, field);
 

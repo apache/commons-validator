@@ -608,11 +608,8 @@ public class Field implements Cloneable, Serializable {
      * Replace the vars value with the key/value pairs passed in.
      */
     private void processVars(final String key, final String replaceValue) {
-        final Iterator<String> i = getVarMap().keySet().iterator();
-        while (i.hasNext()) {
-            final String varKey = i.next();
+        for (final String varKey : getVarMap().keySet()) {
             final Var var = this.getVar(varKey);
-
             var.setValue(ValidatorUtils.replace(var.getValue(), key, replaceValue));
         }
 
@@ -639,18 +636,12 @@ public class Field implements Cloneable, Serializable {
      */
     private void processArg(final String key, final String replaceValue) {
         for (final Map<String, Arg> argMap : this.args) {
-
             if (argMap == null) {
                 continue;
             }
-
-            final Iterator<Arg> iter = argMap.values().iterator();
-            while (iter.hasNext()) {
-                final Arg arg = iter.next();
-
+            for (final Arg arg : argMap.values()) {
                 if (arg != null) {
-                    arg.setKey(
-                            ValidatorUtils.replace(arg.getKey(), key, replaceValue));
+                    arg.setKey(ValidatorUtils.replace(arg.getKey(), key, replaceValue));
                 }
             }
         }
@@ -696,13 +687,7 @@ public class Field implements Cloneable, Serializable {
             }
 
             final Map<String, Arg> argMap = new HashMap<>(this.args[i]);
-            final Iterator<Entry<String, Arg>> iter = argMap.entrySet().iterator();
-            while (iter.hasNext()) {
-                final Entry<String, Arg> entry = iter.next();
-                final String validatorName = entry.getKey();
-                final Arg arg = entry.getValue();
-                argMap.put(validatorName, (Arg) arg.clone());
-            }
+            argMap.forEach((validatorName, arg) -> argMap.put(validatorName, (Arg) arg.clone()));
             field.args[i] = argMap;
         }
 
@@ -851,10 +836,7 @@ public class Field implements Cloneable, Serializable {
             return true;
         }
 
-        final Iterator<String> iter = dependentValidators.iterator();
-        while (iter.hasNext()) {
-            final String depend = iter.next();
-
+        for (final String depend : dependentValidators) {
             final ValidatorAction action = actions.get(depend);
             if (action == null) {
                 this.handleMissingAction(depend);
@@ -896,9 +878,7 @@ public class Field implements Cloneable, Serializable {
 
             final ValidatorResults results = new ValidatorResults();
             synchronized(dependencyList) {
-                final Iterator<String> dependencies = this.dependencyList.iterator();
-                while (dependencies.hasNext()) {
-                    final String depend = dependencies.next();
+                for (final String depend : this.dependencyList) {
 
                     final ValidatorAction action = actions.get(depend);
                     if (action == null) {

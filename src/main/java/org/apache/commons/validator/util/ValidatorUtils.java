@@ -129,7 +129,7 @@ public class ValidatorUtils {
      * are <code>Msg</code>, <code>Arg</code>,
      * or <code>Var</code>.  Otherwise it is a shallow copy.
      *
-     * @param map <code>FastHashMap</code> to copy.
+     * @param fastHashMap <code>FastHashMap</code> to copy.
      * @return FastHashMap A copy of the <code>FastHashMap</code> that was
      * passed in.
      * @deprecated This method is not part of Validator's public API.  Validator
@@ -137,17 +137,11 @@ public class ValidatorUtils {
      * copyMap() instead.
      */
     @Deprecated
-    public static FastHashMap copyFastHashMap(final FastHashMap map) {
+    public static FastHashMap copyFastHashMap(final FastHashMap fastHashMap) {
         final FastHashMap results = new FastHashMap();
-
         @SuppressWarnings("unchecked") // FastHashMap is not generic
-        final
-        Iterator<Entry<String, ?>> i = map.entrySet().iterator();
-        while (i.hasNext()) {
-            final Entry<String, ?> entry = i.next();
-            final String key = entry.getKey();
-            final Object value = entry.getValue();
-
+        final HashMap<String, ?> map = fastHashMap;
+        map.forEach((key, value) -> {
             if (value instanceof Msg) {
                 results.put(key, ((Msg) value).clone());
             } else if (value instanceof Arg) {
@@ -157,8 +151,7 @@ public class ValidatorUtils {
             } else {
                 results.put(key, value);
             }
-        }
-
+        });
         results.setFast(true);
         return results;
     }
@@ -174,13 +167,7 @@ public class ValidatorUtils {
      */
     public static Map<String, Object> copyMap(final Map<String, Object> map) {
         final Map<String, Object> results = new HashMap<>();
-
-        final Iterator<Entry<String, Object>> i = map.entrySet().iterator();
-        while (i.hasNext()) {
-            final Entry<String, Object> entry = i.next();
-            final String key = entry.getKey();
-            final Object value = entry.getValue();
-
+        map.forEach((key, value) -> {
             if (value instanceof Msg) {
                 results.put(key, ((Msg) value).clone());
             } else if (value instanceof Arg) {
@@ -190,7 +177,7 @@ public class ValidatorUtils {
             } else {
                 results.put(key, value);
             }
-        }
+        });
         return results;
     }
 
