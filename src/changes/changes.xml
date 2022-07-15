@@ -80,6 +80,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="update" dev="ggregory" due-to="Gary Gregory">
       Bump Java from 7 to 8.
     </action>
+    <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+      Bump actions/cache from 2 to 3.0.5 #71.
+    </action>
     <action type="update" dev="ggregory" due-to="Dependabot">
       Bump actions/checkout from 2.3.1 to 3, #38, #47, #70.
     </action>
@@ -91,9 +94,6 @@ The <action> type attribute can be add,update,fix,remove.
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot">
       Bump maven-pmd-plugin from 3.13.0 to 3.16.0 #69
-    </action>
-    <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
-      Bump actions/cache from 2 to 3.0.4 #71.
     </action>
     <action type="update" dev="ggregory" due-to="Gary Gregory">
       Bump commons-parent from 52 to 53.
