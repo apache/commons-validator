@@ -81,7 +81,7 @@ The <action> type attribute can be add,update,fix,remove.
       Bump Java from 7 to 8.
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
-      Bump actions/cache from 2 to 3.0.7 #71.
+      Bump actions/cache from 2 to 3.0.8 #71.
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot">
       Bump actions/checkout from 2.3.1 to 3, #38, #47, #70.
