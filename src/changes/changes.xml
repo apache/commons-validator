@@ -727,7 +727,7 @@ http://commons.apache.org/validator/dependencies.html
     <action dev="niallp" type="add">
      <p>Add new routines package containing standard validations - first
       step in the process of clearly separating standard validation
-      functions which can be used independantly, from the framework
+      functions which can be used independently, from the framework
       aspect of Commons Validator.</p>
      <p>New validators added for Date, Time, Calendar, Byte, Short,
       Integer, Long, Float, Double, BigInteger, BigDecimal,
