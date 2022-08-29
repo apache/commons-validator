@@ -141,7 +141,7 @@ public class Flags implements Serializable, Cloneable {
      * Clone this Flags object.
      *
      * @return a copy of this object.
-     * @see java.lang.Object#clone()
+     * @see Object#clone()
      */
     @Override
     public Object clone() {
@@ -155,7 +155,7 @@ public class Flags implements Serializable, Cloneable {
     /**
      * Tests if two Flags objects are in the same state.
      * @param obj object being tested
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @see Object#equals(Object)
      *
      * @return whether the objects are equal.
      */
@@ -176,7 +176,7 @@ public class Flags implements Serializable, Cloneable {
 
     /**
      * The hash code is based on the current state of the flags.
-     * @see java.lang.Object#hashCode()
+     * @see Object#hashCode()
      *
      * @return the hash code for this object.
      */
