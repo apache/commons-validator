@@ -62,7 +62,7 @@ public class Form implements Serializable {
     /**
      * The name/key of the form which this form extends from.
      *
-     * @since   Validator 1.2.0
+     * @since 1.2.0
      */
     protected String inherit = null;
 
@@ -116,7 +116,7 @@ public class Form implements Serializable {
      *
      * @param fieldName  The field name
      * @return           The field value
-     * @since            Validator 1.1
+     * @since 1.1
      */
     public Field getField(final String fieldName) {
         return getFieldMap().get(fieldName);
@@ -127,7 +127,7 @@ public class Form implements Serializable {
      *
      * @param fieldName  The field name
      * @return           True if this form contains the field by the given name
-     * @since            Validator 1.1
+     * @since 1.1
      */
     public boolean containsField(final String fieldName) {
         return getFieldMap().containsKey(fieldName);
@@ -139,7 +139,7 @@ public class Form implements Serializable {
      * in the way the fields are ordered.
      *
      * @param depends  the form we want to merge
-     * @since          Validator 1.2.0
+     * @since 1.2.0
      */
     protected void merge(final Form depends) {
 
@@ -173,7 +173,7 @@ public class Form implements Serializable {
      * @param globalConstants  A map of global constants
      * @param constants        Local constants
      * @param forms            Map of forms
-     * @since                  Validator 1.2.0
+     * @since 1.2.0
      */
     protected void process(final Map<String, String> globalConstants, final Map<String, String> constants, final Map<String, Form> forms) {
         if (isProcessed()) {
@@ -298,7 +298,7 @@ public class Form implements Serializable {
      * variables in strings with their values.
      *
      * @return   The processed value
-     * @since    Validator 1.2.0
+     * @since 1.2.0
      */
     public boolean isProcessed() {
         return processed;
@@ -308,7 +308,7 @@ public class Form implements Serializable {
      * Gets the name/key of the parent set of validation rules.
      *
      * @return   The extends value
-     * @since    Validator 1.2.0
+     * @since 1.2.0
      */
     public String getExtends() {
         return inherit;
@@ -318,7 +318,7 @@ public class Form implements Serializable {
      * Sets the name/key of the parent set of validation rules.
      *
      * @param inherit  The new extends value
-     * @since          Validator 1.2.0
+     * @since 1.2.0
      */
     public void setExtends(final String inherit) {
         this.inherit = inherit;
@@ -328,7 +328,7 @@ public class Form implements Serializable {
      * Get extends flag.
      *
      * @return   The extending value
-     * @since    Validator 1.2.0
+     * @since 1.2.0
      */
     public boolean isExtending() {
         return inherit != null;
@@ -338,7 +338,7 @@ public class Form implements Serializable {
      * Returns a Map of String field keys to Field objects.
      *
      * @return   The fieldMap value
-     * @since    Validator 1.2.0
+     * @since 1.2.0
      */
     @SuppressWarnings("unchecked") // FastHashMap is not generic
     protected Map<String, Field> getFieldMap() {
