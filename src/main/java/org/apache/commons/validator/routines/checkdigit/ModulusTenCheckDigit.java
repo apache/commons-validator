@@ -108,7 +108,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * CheckDigit routine = new ModulusTenCheckDigit(new int[] { 1, 3, 1, 7, 3, 9, 1 });
  * </pre>
  *
- * @since Validator 1.6
+ * @since 1.6
  * @version $Revision: 1739356 $
  */
 public final class ModulusTenCheckDigit extends ModulusCheckDigit {

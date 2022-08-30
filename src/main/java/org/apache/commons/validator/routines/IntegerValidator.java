@@ -59,7 +59,7 @@ import java.util.Locale;
  *       <li>using a specified pattern with a specified <code>Locale</code></li>
  *    </ul>
  *
- * @since Validator 1.3.0
+ * @since 1.3.0
  */
 public class IntegerValidator extends AbstractNumberValidator {
 

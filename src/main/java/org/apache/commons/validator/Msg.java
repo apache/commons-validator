@@ -33,7 +33,7 @@ public class Msg implements Cloneable, Serializable {
     /**
      * The resource bundle name that this Msg's <code>key</code> should be
      * resolved in (optional).
-     * @since Validator 1.1
+     * @since 1.1
      */
     protected String bundle = null;
 
@@ -51,14 +51,14 @@ public class Msg implements Cloneable, Serializable {
      * Whether or not the key is a message resource (optional).  Defaults to
      * true.  If it is 'true', the value will try to be resolved as a message
      * resource.
-     * @since Validator 1.1.4
+     * @since 1.1.4
      */
     protected boolean resource = true;
 
     /**
      * Returns the resource bundle name.
      * @return The bundle name.
-     * @since Validator 1.1
+     * @since 1.1
      */
     public String getBundle() {
         return this.bundle;
@@ -67,7 +67,7 @@ public class Msg implements Cloneable, Serializable {
     /**
      * Sets the resource bundle name.
      * @param bundle The new bundle name.
-     * @since Validator 1.1
+     * @since 1.1
      */
     public void setBundle(final String bundle) {
         this.bundle = bundle;
@@ -108,7 +108,7 @@ public class Msg implements Cloneable, Serializable {
     /**
      * Tests whether or not the key is a resource key or literal value.
      * @return <code>true</code> if key is a resource key.
-     * @since Validator 1.1.4
+     * @since 1.1.4
      */
     public boolean isResource() {
         return this.resource;
@@ -117,7 +117,7 @@ public class Msg implements Cloneable, Serializable {
     /**
      * Sets whether or not the key is a resource.
      * @param resource If true indicates the key is a resource.
-     * @since Validator 1.1.4
+     * @since 1.1.4
      */
     public void setResource(final boolean resource) {
         this.resource = resource;

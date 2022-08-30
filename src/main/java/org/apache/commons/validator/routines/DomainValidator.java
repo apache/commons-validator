@@ -59,7 +59,7 @@ import java.util.Locale;
  * {@link java.net.InetAddress} for that functionality.)
  * </p>
  *
- * @since Validator 1.4
+ * @since 1.4
  */
 public class DomainValidator implements Serializable {
 

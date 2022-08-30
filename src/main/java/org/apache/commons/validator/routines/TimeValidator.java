@@ -79,7 +79,7 @@ import java.util.TimeZone;
  *       <li>using the format for the <i>default</i> <code>Locale</code></li>
  *    </ul>
  *
- * @since Validator 1.3.0
+ * @since 1.3.0
  */
 public class TimeValidator extends AbstractCalendarValidator {
 

@@ -131,7 +131,7 @@ public class ValidatorResources implements Serializable {
      * @throws SAXException if the validation XML files are not valid or well
      * formed.
      * @throws IOException if an I/O error occurs processing the XML files
-     * @since Validator 1.1
+     * @since 1.1
      */
     public ValidatorResources(final InputStream in) throws IOException, SAXException {
         this(new InputStream[]{in});
@@ -146,7 +146,7 @@ public class ValidatorResources implements Serializable {
      * @throws SAXException if the validation XML files are not valid or well
      * formed.
      * @throws IOException if an I/O error occurs processing the XML files
-     * @since Validator 1.1
+     * @since 1.1
      */
     public ValidatorResources(final InputStream[] streams)
             throws IOException, SAXException {
@@ -170,7 +170,7 @@ public class ValidatorResources implements Serializable {
      * @throws SAXException if the validation XML files are not valid or well
      * formed.
      * @throws IOException if an I/O error occurs processing the XML files
-     * @since Validator 1.2
+     * @since 1.2
      */
     public ValidatorResources(final String uri) throws IOException, SAXException {
         this(new String[]{uri});
@@ -184,7 +184,7 @@ public class ValidatorResources implements Serializable {
      * @throws SAXException if the validation XML files are not valid or well
      * formed.
      * @throws IOException if an I/O error occurs processing the XML files
-     * @since Validator 1.2
+     * @since 1.2
      */
     public ValidatorResources(final String[] uris)
             throws IOException, SAXException {
@@ -206,7 +206,7 @@ public class ValidatorResources implements Serializable {
      * @throws SAXException if the validation XML file are not valid or well
      * formed.
      * @throws IOException if an I/O error occurs processing the XML files
-     * @since Validator 1.3.1
+     * @since 1.3.1
      */
     public ValidatorResources(final URL url)
             throws IOException, SAXException {
@@ -221,7 +221,7 @@ public class ValidatorResources implements Serializable {
      * @throws SAXException if the validation XML files are not valid or well
      * formed.
      * @throws IOException if an I/O error occurs processing the XML files
-     * @since Validator 1.3.1
+     * @since 1.3.1
      */
     public ValidatorResources(final URL[] urls)
             throws IOException, SAXException {
@@ -314,7 +314,7 @@ public class ValidatorResources implements Serializable {
      * object.  It will be associated with the <code>Locale</code> of the
      * <code>FormSet</code>.
      * @param fs The form set to add.
-     * @since Validator 1.1
+     * @since 1.1
      */
     public void addFormSet(final FormSet fs) {
         final String key = this.buildKey(fs);
@@ -421,7 +421,7 @@ public class ValidatorResources implements Serializable {
      * @param locale The Locale.
      * @param formKey The key for the Form.
      * @return The validator Form.
-     * @since Validator 1.1
+     * @since 1.1
      */
     public Form getForm(final Locale locale, final String formKey) {
         return this.getForm(locale.getLanguage(), locale.getCountry(), locale
@@ -443,7 +443,7 @@ public class ValidatorResources implements Serializable {
      * @param variant The locale's language variant.
      * @param formKey The key for the Form.
      * @return The validator Form.
-     * @since Validator 1.1
+     * @since 1.1
      */
     public Form getForm(final String language, final String country, final String variant,
             final String formKey) {
@@ -586,7 +586,7 @@ public class ValidatorResources implements Serializable {
      * @param country The locale's country.
      * @param variant The locale's language variant.
      * @return The FormSet for a locale.
-     * @since Validator 1.2
+     * @since 1.2
      */
     FormSet getFormSet(final String language, final String country, final String variant) {
 
@@ -602,7 +602,7 @@ public class ValidatorResources implements Serializable {
     /**
      * Returns a Map of String locale keys to Lists of their FormSets.
      * @return Map of Form sets
-     * @since Validator 1.2.0
+     * @since 1.2.0
      */
     @SuppressWarnings("unchecked") // FastHashMap is not generic
     protected Map<String, FormSet> getFormSets() {
@@ -612,7 +612,7 @@ public class ValidatorResources implements Serializable {
     /**
      * Returns a Map of String constant names to their String values.
      * @return Map of Constants
-     * @since Validator 1.2.0
+     * @since 1.2.0
      */
     @SuppressWarnings("unchecked") // FastHashMap is not generic
     protected Map<String, String> getConstants() {
@@ -622,7 +622,7 @@ public class ValidatorResources implements Serializable {
     /**
      * Returns a Map of String ValidatorAction names to their ValidatorAction.
      * @return Map of Validator Actions
-     * @since Validator 1.2.0
+     * @since 1.2.0
      */
     @SuppressWarnings("unchecked") // FastHashMap is not generic
     protected Map<String, ValidatorAction> getActions() {

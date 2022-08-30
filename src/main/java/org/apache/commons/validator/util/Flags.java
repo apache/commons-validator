@@ -123,7 +123,7 @@ public class Flags implements Serializable, Cloneable {
 
     /**
      * Turn off all flags.  This is a synonym for <code>turnOffAll()</code>.
-     * @since Validator 1.1.1
+     * @since 1.1.1
      */
     public void clear() {
         this.flags = 0;

@@ -27,7 +27,7 @@ import java.io.Serializable;
  * <p>This is a <i>base</i> class for building Date and Number
  *    Validators using format parsing.</p>
  *
- * @since Validator 1.3.0
+ * @since 1.3.0
  */
 public abstract class AbstractFormatValidator implements Serializable {
 

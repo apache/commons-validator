@@ -42,7 +42,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * The resource bundle name that this Arg's <code>key</code> should be
      * resolved in (optional).
-     * @since Validator 1.1
+     * @since 1.1
      */
     protected String bundle = null;
 
@@ -59,7 +59,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * This argument's position in the message. Set postion=0 to
      * make a replacement in this string: "some msg {0}".
-     * @since Validator 1.1
+     * @since 1.1
      */
     protected int position = -1;
 
@@ -87,7 +87,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * Returns the resource bundle name.
      * @return the bundle name.
-     * @since Validator 1.1
+     * @since 1.1
      */
     public String getBundle() {
         return this.bundle;
@@ -128,7 +128,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * Sets the resource bundle name.
      * @param bundle The new bundle name.
-     * @since Validator 1.1
+     * @since 1.1
      */
     public void setBundle(final String bundle) {
         this.bundle = bundle;

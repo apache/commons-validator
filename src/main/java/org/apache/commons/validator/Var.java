@@ -125,7 +125,7 @@ public class Var implements Cloneable, Serializable {
     /**
      * Tests whether or not the value is a resource key or literal value.
      * @return <code>true</code> if value is a resource key.
-     * @since Validator 1.2.0
+     * @since 1.2.0
      */
     public boolean isResource() {
         return this.resource;
@@ -134,7 +134,7 @@ public class Var implements Cloneable, Serializable {
     /**
      * Sets whether or not the value is a resource.
      * @param resource If true indicates the value is a resource.
-     * @since Validator 1.2.0
+     * @since 1.2.0
      */
     public void setResource(final boolean resource) {
         this.resource = resource;
@@ -143,7 +143,7 @@ public class Var implements Cloneable, Serializable {
     /**
      * Returns the resource bundle name.
      * @return The bundle name.
-     * @since Validator 1.2.0
+     * @since 1.2.0
      */
     public String getBundle() {
         return this.bundle;
@@ -152,7 +152,7 @@ public class Var implements Cloneable, Serializable {
     /**
      * Sets the resource bundle name.
      * @param bundle The new bundle name.
-     * @since Validator 1.2.0
+     * @since 1.2.0
      */
     public void setBundle(final String bundle) {
         this.bundle = bundle;

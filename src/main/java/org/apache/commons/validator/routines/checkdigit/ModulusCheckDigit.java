@@ -30,7 +30,7 @@ import java.io.Serializable;
  * <code>toChar()</code> methods.
  * <p>
  *
- * @since Validator 1.4
+ * @since 1.4
  */
 public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
 

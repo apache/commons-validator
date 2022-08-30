@@ -64,7 +64,7 @@ import java.util.regex.Matcher;
  * to the {@link Pattern} API are safe to use in a multi-threaded environment.
  * </p>
  *
- * @since Validator 1.4
+ * @since 1.4
  */
 public class RegexValidator implements Serializable {
 

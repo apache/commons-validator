@@ -109,7 +109,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * The flag that indicates whether scripting should be generated
      * by the client for client-side validation.
-     * @since Validator 1.4
+     * @since 1.4
      */
     protected boolean clientValidation = true;
 
@@ -142,7 +142,7 @@ public class Field implements Cloneable, Serializable {
      * Holds Maps of arguments.  args[0] returns the Map for the first
      * replacement argument.  Start with a 0 length array so that it will
      * only grow to the size of the highest argument position.
-     * @since Validator 1.1
+     * @since 1.1
      */
     @SuppressWarnings("unchecked") // cannot instantiate generic array, so have to assume this is OK
     protected Map<String, Arg>[] args = new Map[0];
@@ -282,7 +282,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Retrieve a message object.
-     * @since Validator 1.1.4
+     * @since 1.1.4
      * @param key Validation key.
      * @return A validation message for a specified validator.
      */
@@ -293,7 +293,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * The <code>Field</code>'s messages are returned as an
      * unmodifiable <code>Map</code>.
-     * @since Validator 1.1.4
+     * @since 1.1.4
      * @return Map of validation messages for the field.
      */
     public Map<String, Msg> getMessages() {
@@ -305,7 +305,7 @@ public class Field implements Cloneable, Serializable {
      * for this field. The default is <code>true</code>
      * @return <code>true</code> for scripting; otherwise false
      * @see #setClientValidation(boolean)
-     * @since Validator 1.4
+     * @since 1.4
      */
     public boolean isClientValidation() {
         return this.clientValidation;
@@ -316,7 +316,7 @@ public class Field implements Cloneable, Serializable {
      * be generated for this field.
      * @param clientValidation the scripting flag
      * @see #isClientValidation()
-     * @since Validator 1.4
+     * @since 1.4
      */
     public void setClientValidation(final boolean clientValidation) {
         this.clientValidation = clientValidation;
@@ -324,7 +324,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Add an <code>Arg</code> to the replacement argument list.
-     * @since Validator 1.1
+     * @since 1.1
      * @param arg Validation message's argument.
      */
     public void addArg(final Arg arg) {
@@ -411,7 +411,7 @@ public class Field implements Cloneable, Serializable {
      * Gets the default <code>Arg</code> object at the given position.
      * @param position Validation message argument's position.
      * @return The default Arg or null if not found.
-     * @since Validator 1.1
+     * @since 1.1
      */
     public Arg getArg(final int position) {
         return this.getArg(DEFAULT_ARG, position);
@@ -425,7 +425,7 @@ public class Field implements Cloneable, Serializable {
      * Arg for the given position (if any) will be retrieved.
      * @param position The Arg number to find.
      * @return The Arg with the given name and position or null if not found.
-     * @since Validator 1.1
+     * @since 1.1
      */
     public Arg getArg(final String key, final int position) {
         if ((position >= this.args.length) || (this.args[position] == null)) {
@@ -448,7 +448,7 @@ public class Field implements Cloneable, Serializable {
      * @param key The validator's args to retrieve.
      * @return An Arg[] sorted by the Args' positions (i.e. the Arg at index 0
      * has a position of 0).
-     * @since Validator 1.1.1
+     * @since 1.1.1
      */
     public Arg[] getArgs(final String key){
         final Arg[] argList = new Arg[this.args.length];
@@ -912,7 +912,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Returns a Map of String Msg names to Msg objects.
-     * @since Validator 1.2.0
+     * @since 1.2.0
      * @return A Map of the Field's messages.
      */
     @SuppressWarnings("unchecked") // FastHashMap does not support generics
@@ -922,7 +922,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Returns a Map of String Var names to Var objects.
-     * @since Validator 1.2.0
+     * @since 1.2.0
      * @return A Map of the Field's variables.
      */
     @SuppressWarnings("unchecked") // FastHashMap does not support generics

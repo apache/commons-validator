@@ -24,7 +24,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Factory class used by Digester to create FormSet's.
  *
- * @since Validator 1.2
+ * @since 1.2
  */
 public class FormSetFactory extends AbstractObjectCreationFactory {
 
@@ -61,7 +61,7 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
      * @param country The locale's country.
      * @param variant The locale's language variant.
      * @return The FormSet for a locale.
-     * @since Validator 1.2
+     * @since 1.2
      */
     private FormSet createFormSet(final ValidatorResources resources,
                                   final String language,

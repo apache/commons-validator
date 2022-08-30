@@ -64,7 +64,7 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  * <br>
  * Or just avoid using parentheses except for the parts you want to capture
  *
- * @since Validator 1.4
+ * @since 1.4
  */
 public final class CodeValidator implements Serializable {
 

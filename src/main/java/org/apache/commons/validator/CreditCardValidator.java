@@ -48,7 +48,7 @@ import org.apache.commons.validator.util.Flags;
  * <a href="http://www.merriampark.com/anatomycc.htm">here</a>.
  * </p>
  *
- * @since Validator 1.1
+ * @since 1.1
  * @deprecated Use the new CreditCardValidator in the routines package. This class
  * will be removed in a future release.
  */
@@ -67,7 +67,7 @@ public class CreditCardValidator {
      * v.isValid(aCardNumber);
      * </code>
      * </pre>
-     * @since Validator 1.1.2
+     * @since 1.1.2
      */
     public static final int NONE = 0;
 
@@ -156,7 +156,7 @@ public class CreditCardValidator {
      * Adds an allowed CreditCardType that participates in the card
      * validation algorithm.
      * @param type The type that is now allowed to pass validation.
-     * @since Validator 1.1.2
+     * @since 1.1.2
      */
     public void addAllowedCardType(final CreditCardType type){
         this.cardTypes.add(type);
@@ -195,7 +195,7 @@ public class CreditCardValidator {
     /**
      * CreditCardType implementations define how validation is performed
      * for one type/brand of credit card.
-     * @since Validator 1.1.2
+     * @since 1.1.2
      */
     public interface CreditCardType {
 

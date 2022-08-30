@@ -31,7 +31,7 @@ import junit.framework.TestCase;
 /**
  * Luhn Check Digit Test.
  *
- * @since Validator 1.4
+ * @since 1.4
  */
 public abstract class AbstractCheckDigitTest extends TestCase {
 

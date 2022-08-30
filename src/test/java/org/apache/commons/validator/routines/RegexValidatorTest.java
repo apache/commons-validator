@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 /**
  * Test Case for RegexValidatorTest.
  *
- * @since Validator 1.4
+ * @since 1.4
  */
 public class RegexValidatorTest extends TestCase {
 

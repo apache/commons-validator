@@ -37,7 +37,7 @@ package org.apache.commons.validator.routines.checkdigit;
  *       Standard Book Number (ISBN)</a>.</li>
  * </ul>
  *
- * @since Validator 1.4
+ * @since 1.4
  */
 public final class EAN13CheckDigit extends ModulusCheckDigit {
 
