@@ -39,7 +39,6 @@ import java.text.Format;
  *    you want the currency converted to. One thing to note - only the CurrencyValidator
  *    implements <i>lenient</i> behavior regarding the currency symbol.</p>
  *
- * @version $Revision$
  * @since Validator 1.3.0
  */
 public class CurrencyValidator extends BigDecimalValidator {

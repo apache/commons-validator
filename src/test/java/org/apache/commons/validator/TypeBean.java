@@ -20,7 +20,6 @@ package org.apache.commons.validator;
  * Value object that contains different fields to test type conversion
  * validation.
  *
- * @version $Revision$
  */
 public class TypeBean {
 

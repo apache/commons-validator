@@ -23,7 +23,6 @@ import java.io.Serializable;
  * passing in information to a pluggable validator.  Instances of this class are
  * configured with a &lt;var&gt; xml element.
  *
- * @version $Revision$
  */
 public class Var implements Cloneable, Serializable {
 

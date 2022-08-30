@@ -42,7 +42,6 @@ import java.math.BigDecimal;
  *    and BigInteger) since percentages are converted to fractions (i.e <code>50%</code> is
  *    converted to <code>0.5</code>).</p>
  *
- * @version $Revision$
  * @since Validator 1.3.0
  */
 public class PercentValidator extends BigDecimalValidator {

@@ -24,7 +24,6 @@ import org.xml.sax.SAXException;
 /**
  * Performs Validation Test for locale validations.
  *
- * @version $Revision$
  */
 public class LocaleTest extends AbstractCommonTest {
 

@@ -24,7 +24,6 @@ import org.xml.sax.SAXException;
  * Performs Validation Test for e-mail validations.
  *
  *
- * @version $Revision$
  * @deprecated to be removed when target class is removed
  */
 @Deprecated

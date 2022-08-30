@@ -23,7 +23,6 @@ import org.apache.commons.validator.routines.CreditCardValidator.CreditCardRange
 /**
  * Test the CreditCardValidator class.
  *
- * @version $Revision$
  */
 public class CreditCardValidatorTest extends TestCase {
 

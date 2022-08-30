@@ -24,7 +24,6 @@ import org.xml.sax.SAXException;
 /**
  * This TestCase is a confirmation of the parameter of the validator's method.
  *
- * @version $Revision$
  */
 public class ParameterTest extends AbstractCommonTest {
 

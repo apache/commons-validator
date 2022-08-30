@@ -26,7 +26,6 @@ import junit.framework.TestCase;
  * definitions (validator-extension.xml), plus an extra check on overriding rules and
  * another one checking it mantains correct order when extending.</p>
  *
- * @version $Revision$
  */
 public class ExtensionTest extends TestCase {
 

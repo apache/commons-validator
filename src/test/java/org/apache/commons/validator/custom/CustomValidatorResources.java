@@ -24,7 +24,6 @@ import org.apache.commons.validator.ValidatorResources;
 /**
  * Custom ValidatorResources implementation.
  *
- * @version $Revision$
  */
 public class CustomValidatorResources extends ValidatorResources {
 

@@ -49,7 +49,6 @@ import org.xml.sax.Attributes;
  * release.
  * </p>
  *
- * @version $Revision$
  */
 //TODO mutable non-private fields
 public class ValidatorResources implements Serializable {

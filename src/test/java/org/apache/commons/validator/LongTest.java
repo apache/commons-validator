@@ -20,7 +20,6 @@ package org.apache.commons.validator;
 /**
  * Performs Validation Test for <code>long</code> validations.
  *
- * @version $Revision$
  */
 public class LongTest extends AbstractNumberTest {
 

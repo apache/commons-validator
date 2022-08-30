@@ -30,7 +30,6 @@ import org.junit.Test;
 /**
  * Performs Validation Test for url validations.
  *
- * @version $Revision$
  */
 public class UrlValidatorTest {
 

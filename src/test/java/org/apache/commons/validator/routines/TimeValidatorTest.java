@@ -26,7 +26,6 @@ import java.util.TimeZone;
 /**
  * Test Case for TimeValidator.
  *
- * @version $Revision$
  */
 public class TimeValidatorTest extends TestCase {
 

@@ -30,7 +30,6 @@ import java.util.regex.Pattern;
  * This implementation is not guaranteed to catch all possible errors in an email address.
  * </p>.
  *
- * @version $Revision$
  * @since Validator 1.4
  */
 public class EmailValidator implements Serializable {

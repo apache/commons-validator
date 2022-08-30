@@ -71,7 +71,6 @@ import java.util.regex.Pattern;
  *  Uniform Resource Identifiers (URI): Generic Syntax
  * </a>
  *
- * @version $Revision$
  * @since Validator 1.4
  */
 public class UrlValidator implements Serializable {

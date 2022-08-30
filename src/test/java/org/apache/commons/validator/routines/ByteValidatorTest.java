@@ -21,7 +21,6 @@ import java.util.Locale;
 /**
  * Test Case for ByteValidator.
  *
- * @version $Revision$
  */
 public class ByteValidatorTest extends AbstractNumberValidatorTest {
 

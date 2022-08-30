@@ -20,7 +20,6 @@ package org.apache.commons.validator.routines.checkdigit;
 /**
  * ISBN-10/ISBN-13 Check Digit Test.
  *
- * @version $Revision$
  * @since Validator 1.4
  */
 public class ISBNCheckDigitTest extends AbstractCheckDigitTest {

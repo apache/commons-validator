@@ -30,7 +30,6 @@ import org.junit.Test;
  * Performs Validation Test for e-mail validations.
  *
  *
- * @version $Revision$
  */
 public class EmailValidatorTest {
 

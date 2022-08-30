@@ -23,7 +23,6 @@ import junit.framework.TestCase;
 /**
  * Test ValidatorResources.
  *
- * @version $Revision$
  */
 public class ValidatorResourcesTest extends TestCase {
 

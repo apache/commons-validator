@@ -21,7 +21,6 @@ import java.util.Locale;
 /**
  * Test Case for ShortValidator.
  *
- * @version $Revision$
  */
 public class ShortValidatorTest extends AbstractNumberValidatorTest {
 

@@ -77,7 +77,6 @@ import java.util.ArrayList;
  * <a href="http://web.archive.org/web/20120614072656/http://www.merriampark.com/anatomycc.htm">Anatomy of Credit Card Numbers</a>.
  * </p>
  *
- * @version $Revision$
  * @since Validator 1.4
  */
 public class CreditCardValidator implements Serializable {

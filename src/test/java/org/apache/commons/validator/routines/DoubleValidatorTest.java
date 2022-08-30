@@ -21,7 +21,6 @@ import java.util.Locale;
 /**
  * Test Case for DoubleValidator.
  *
- * @version $Revision$
  */
 public class DoubleValidatorTest extends AbstractNumberValidatorTest {
 

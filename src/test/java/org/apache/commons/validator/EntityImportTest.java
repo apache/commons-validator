@@ -23,7 +23,6 @@ import java.util.Locale;
 /**
  * Tests entity imports.
  *
- * @version $Revision$
  */
 public class EntityImportTest extends AbstractCommonTest {
 

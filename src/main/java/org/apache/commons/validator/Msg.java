@@ -24,7 +24,6 @@ import java.io.Serializable;
  * stored in the <code>ValidatorAction</code> (aka pluggable validator).
  * Instances of this class are configured with a &lt;msg&gt; xml element.
  *
- * @version $Revision$
  */
 //TODO mutable non-private fields
 public class Msg implements Cloneable, Serializable {

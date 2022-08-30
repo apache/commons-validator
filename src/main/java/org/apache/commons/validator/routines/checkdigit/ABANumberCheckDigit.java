@@ -41,7 +41,6 @@ package org.apache.commons.validator.routines.checkdigit;
  *  Routing transit number</a>.
  * </p>
  *
- * @version $Revision$
  * @since Validator 1.4
  */
 public final class ABANumberCheckDigit extends ModulusCheckDigit {

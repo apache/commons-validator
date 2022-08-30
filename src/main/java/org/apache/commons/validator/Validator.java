@@ -26,7 +26,6 @@ import java.util.Map;
  * <code>ValidatorResources</code> is used to define the validators
  * (validation methods) and the validation rules for a JavaBean.
  *
- * @version $Revision$
  */
 // TODO mutable fields should be made private and accessed via suitable methods only
 public class Validator implements Serializable {

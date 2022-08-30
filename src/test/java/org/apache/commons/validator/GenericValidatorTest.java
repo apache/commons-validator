@@ -21,7 +21,6 @@ import junit.framework.TestCase;
 /**
  * Test the GenericValidator class.
  *
- * @version $Revision$
  */
 public class GenericValidatorTest extends TestCase {
 

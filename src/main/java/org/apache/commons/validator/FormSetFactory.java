@@ -24,7 +24,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Factory class used by Digester to create FormSet's.
  *
- * @version $Revision$
  * @since Validator 1.2
  */
 public class FormSetFactory extends AbstractObjectCreationFactory {

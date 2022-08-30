@@ -21,7 +21,6 @@ import java.util.Locale;
 /**
  * Test Case for LongValidator.
  *
- * @version $Revision$
  */
 public class LongValidatorTest extends AbstractNumberValidatorTest {
 

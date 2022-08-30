@@ -25,7 +25,6 @@ import org.xml.sax.SAXException;
  * Test that the new Var attributes and the
  * digester rule changes work.
  *
- * @version $Revision$
  */
 public class VarTest extends AbstractCommonTest {
 

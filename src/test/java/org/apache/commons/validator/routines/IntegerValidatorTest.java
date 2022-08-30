@@ -21,7 +21,6 @@ import java.util.Locale;
 /**
  * Test Case for IntegerValidator.
  *
- * @version $Revision$
  */
 public class IntegerValidatorTest extends AbstractNumberValidatorTest {
 

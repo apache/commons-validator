@@ -61,7 +61,6 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigitException;
  * All other 979 prefixed EAN-13 numbers have not yet been assigned to an agency. The
  * validator validates all 13 digit codes with 978 or 979 prefixes.
  *
- * @version $Revision$
  * @since Validator 1.4
  */
 public class ISBNValidator implements Serializable {

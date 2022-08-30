@@ -23,7 +23,6 @@ import org.xml.sax.SAXException;
 /**
  * Test ValidatorResults.
  *
- * @version $Revision$
  */
 public class ValidatorResultsTest extends AbstractCommonTest {
 

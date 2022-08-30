@@ -42,7 +42,6 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * release.
  * </p>
  *
- * @version $Revision$
  * @see org.apache.commons.validator.Form
  */
 // TODO mutable non-private fields

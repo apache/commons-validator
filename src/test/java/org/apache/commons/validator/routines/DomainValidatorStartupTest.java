@@ -30,7 +30,6 @@ import org.bitstrings.test.junit.runner.ClassLoaderPerTestRunner;
 /**
  * Startup Tests for the DomainValidator.
  *
- * @version $Revision$
  */
 @RunWith( ClassLoaderPerTestRunner.class )
 public class DomainValidatorStartupTest {

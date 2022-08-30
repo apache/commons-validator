@@ -28,7 +28,6 @@ import java.io.Serializable;
  * See <a href="http://en.wikipedia.org/wiki/Verhoeff_algorithm">Wikipedia
  *  - Verhoeff algorithm</a> for more details.
  *
- * @version $Revision$
  * @since Validator 1.4
  */
 public final class VerhoeffCheckDigit implements CheckDigit, Serializable {

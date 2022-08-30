@@ -30,7 +30,6 @@ import org.apache.commons.validator.util.ValidatorUtils;
 /**
  * Performs Validation Test.
  *
- * @version $Revision$
  */
 public class ValidatorTest extends TestCase {
 

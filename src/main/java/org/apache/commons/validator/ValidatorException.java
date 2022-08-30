@@ -21,7 +21,6 @@ package org.apache.commons.validator;
  * <code>Exception</code>s thrown during calls to
  * <code>Validator.validate()</code> are considered errors.
  *
- * @version $Revision$
  */
 public class ValidatorException extends Exception {
 

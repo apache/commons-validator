@@ -22,7 +22,6 @@ import junit.framework.TestCase;
 /**
  * Test cases for InetAddressValidator.
  *
- * @version $Revision$
  */
 public class InetAddressValidatorTest extends TestCase {
 

@@ -20,7 +20,6 @@ package org.apache.commons.validator.routines.checkdigit;
 /**
  * ModulusTenCheckDigit EAN-13 Test.
  *
- * @version $Revision$
  */
 public class ModulusTenEAN13CheckDigitTest extends AbstractCheckDigitTest {
 

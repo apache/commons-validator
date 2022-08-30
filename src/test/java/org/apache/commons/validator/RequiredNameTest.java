@@ -24,7 +24,6 @@ import org.xml.sax.SAXException;
 /**
  * Performs Validation Test.
  *
- * @version $Revision$
  */
 public class RequiredNameTest extends AbstractCommonTest {
 

@@ -23,7 +23,6 @@ import org.apache.commons.validator.util.ValidatorUtils;
 /**
  * Contains validation methods for different unit tests.
  *
- * @version $Revision$
  */
 public class GenericTypeValidatorImpl {
 

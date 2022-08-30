@@ -26,7 +26,6 @@ import java.util.TimeZone;
 /**
  * Test Case for CalendarValidator.
  *
- * @version $Revision$
  */
 public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
 

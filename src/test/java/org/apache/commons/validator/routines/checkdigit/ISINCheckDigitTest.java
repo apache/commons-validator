@@ -20,7 +20,6 @@ package org.apache.commons.validator.routines.checkdigit;
 /**
  * ISIN Check Digit Test.
  *
- * @version $Revision$
  * @since Validator 1.4
  */
 public class ISINCheckDigitTest extends AbstractCheckDigitTest {

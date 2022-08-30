@@ -38,7 +38,6 @@ import org.apache.commons.validator.Var;
  * release.
  * </p>
  *
- * @version $Revision$
  */
 public class ValidatorUtils {
 

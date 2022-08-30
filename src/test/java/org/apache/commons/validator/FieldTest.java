@@ -21,7 +21,6 @@ import junit.framework.TestCase;
 /**
  * Test <code>Field</code> objects.
  *
- * @version $Revision$
  */
 public class FieldTest extends TestCase {
 

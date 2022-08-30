@@ -19,7 +19,6 @@
 /**
  * Groups tests and expected results.
  *
- * @version $Revision$
  */
  public class ResultPair {
       public final String item;
