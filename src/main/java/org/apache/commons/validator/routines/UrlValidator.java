@@ -307,7 +307,7 @@ public class UrlValidator implements Serializable {
         } catch (final URISyntaxException e) {
             return false;
         }
-        // OK, perfom additional validation
+        // OK, perform additional validation
 
         final String scheme = uri.getScheme();
         if (!isValidScheme(scheme)) {
