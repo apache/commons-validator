@@ -97,7 +97,7 @@ public class FormSet implements Serializable {
      * Has this formSet been merged?
      *
      * @return   true if it has been merged
-     * @since    Validator 1.2.0
+     * @since 1.2.0
      */
     protected boolean isMerged() {
         return merged;
@@ -109,7 +109,7 @@ public class FormSet implements Serializable {
      * .
      *
      * @return                       The type value
-     * @since                        Validator 1.2.0
+     * @since 1.2.0
      * @throws NullPointerException  if there is inconsistency in the locale
      *      definition (not sure about this)
      */
@@ -141,7 +141,7 @@ public class FormSet implements Serializable {
      * merge a "parent" formSet.
      *
      * @param depends  FormSet to be merged
-     * @since          Validator 1.2.0
+     * @since 1.2.0
      */
     protected void merge(final FormSet depends) {
         if (depends != null) {
