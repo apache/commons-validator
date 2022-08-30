@@ -260,7 +260,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if a field is a valid url address.</p>
+     * <p>Checks if a field is a valid URL address.</p>
      * If you need to modify what is considered valid then
      * consider using the UrlValidator directly.
      *

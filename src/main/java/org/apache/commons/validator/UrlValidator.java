@@ -48,22 +48,22 @@ import org.apache.commons.validator.util.Flags;
  *    String[] schemes = {"http","https"}.
  *    UrlValidator urlValidator = new UrlValidator(schemes);
  *    if (urlValidator.isValid("ftp://foo.bar.com/")) {
- *       System.out.println("url is valid");
+ *       System.out.println("URL is valid");
  *    } else {
- *       System.out.println("url is invalid");
+ *       System.out.println("URL is invalid");
  *    }
  *
- *    prints "url is invalid"
+ *    prints "URL is invalid"
  *   If instead the default constructor is used.
  *
  *    UrlValidator urlValidator = new UrlValidator();
  *    if (urlValidator.isValid("ftp://foo.bar.com/")) {
- *       System.out.println("url is valid");
+ *       System.out.println("URL is valid");
  *    } else {
- *       System.out.println("url is invalid");
+ *       System.out.println("URL is invalid");
  *    }
  *
- *   prints out "url is valid"
+ *   prints out "URL is valid"
  *  </pre>
  *
  * @see
@@ -192,7 +192,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Behavior of validation is modified by passing in several strings options:
-     * @param schemes Pass in one or more url schemes to consider valid, passing in
+     * @param schemes Pass in one or more URL schemes to consider valid, passing in
      *        a null will default to "http,https,ftp" being valid.
      *        If a non-null schemes is specified then all valid schemes must
      *        be specified. Setting the ALLOW_ALL_SCHEMES option will
@@ -234,11 +234,11 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if a field has a valid url address.</p>
+     * <p>Checks if a field has a valid URL address.</p>
      *
      * @param value The value validation is being performed on.  A <code>null</code>
      * value is considered invalid.
-     * @return true if the url is valid.
+     * @return true if the URL is valid.
      */
     public boolean isValid(final String value) {
         if (value == null) {
