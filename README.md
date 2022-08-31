@@ -44,7 +44,7 @@ Apache Commons Validator
 ===================
 
 [![Build Status](https://travis-ci.org/apache/commons-validator.svg)](https://travis-ci.org/apache/commons-validator)
-[![Coverage Status](https://coveralls.io/repos/apache/commons-validator/badge.svg)](https://coveralls.io/r/apache/commons-validator)
+[![Coverage Status](https://codecov.io/gh/apache/commons-validator/branch/master/graph/badge.svg)](https://app.codecov.io/gh/apache/commons-validator)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/commons-validator/commons-validator/badge.svg)](https://maven-badges.herokuapp.com/maven-central/commons-validator/commons-validator/)
 [![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.7.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.7)
 [![CodeQL](https://github.com/apache/commons-validator/workflows/CodeQL/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml?query=workflow%3ACodeQL)
