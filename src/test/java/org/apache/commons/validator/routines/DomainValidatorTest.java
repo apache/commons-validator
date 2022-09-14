@@ -32,9 +32,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -418,9 +418,7 @@ public class DomainValidatorTest extends TestCase {
         if (header != null) {
             System.out.println("        // Taken from " + header);
         }
-        final Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
-        while(it.hasNext()){
-            final Map.Entry<String, String> me = it.next();
+        for (Entry<String, String> me : map.entrySet()) {
             System.out.println("        \"" + me.getKey() + "\", // " + me.getValue());
         }
         System.out.println("\nDone");
