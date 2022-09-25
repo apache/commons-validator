@@ -93,7 +93,7 @@ The <action> type attribute can be add,update,fix,remove.
       Bump actions/setup-java from 1.4.0 to 3, #42, #72.
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
-      Bump junit from 4.13 to 4.13.2 #44.
+      Bump junit from 4.13 to 5.9.1 Vintage #44.
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot">
       Bump maven-pmd-plugin from 3.13.0 to 3.19.0 #69, #77, #80, #81.
