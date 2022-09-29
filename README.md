@@ -43,7 +43,7 @@
 Apache Commons Validator
 ===================
 
-[![Build Status](https://travis-ci.org/apache/commons-validator.svg)](https://travis-ci.org/apache/commons-validator)
+[![GitHub Actions Status](https://github.com/apache/commons-validator/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-validator/actions)
 [![Coverage Status](https://codecov.io/gh/apache/commons-validator/branch/master/graph/badge.svg)](https://app.codecov.io/gh/apache/commons-validator)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/commons-validator/commons-validator/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/commons-validator/commons-validator/?gav=true)
 [![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.7.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.7)
