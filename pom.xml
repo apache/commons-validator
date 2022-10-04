@@ -59,7 +59,8 @@
 
     <commons.junit.version>5.9.1</commons.junit.version>
     <commons.japicmp.version>0.16.0</commons.japicmp.version>
-  </properties> 
+    <commons.findbugs.version>3.0.5</commons.findbugs.version>
+  </properties>
 
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-validator</connection>
