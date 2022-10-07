@@ -129,6 +129,7 @@ public class IBANValidator {
             new Validator("BE", 16, "BE\\d{14}"                             ), // Belgium
             new Validator("BG", 22, "BG\\d{2}[A-Z]{4}\\d{6}[A-Z0-9]{8}"     ), // Bulgaria
             new Validator("BH", 22, "BH\\d{2}[A-Z]{4}[A-Z0-9]{14}"          ), // Bahrain
+            new Validator("BI", 27, "BI\\d{25}"                             ), // Burundi
             new Validator("BR", 29, "BR\\d{25}[A-Z]{1}[A-Z0-9]{1}"          ), // Brazil
             new Validator("BY", 28, "BY\\d{2}[A-Z0-9]{4}\\d{4}[A-Z0-9]{16}" ), // Republic of Belarus
             new Validator("CH", 21, "CH\\d{7}[A-Z0-9]{12}"                  ), // Switzerland
@@ -136,6 +137,7 @@ public class IBANValidator {
             new Validator("CY", 28, "CY\\d{10}[A-Z0-9]{16}"                 ), // Cyprus
             new Validator("CZ", 24, "CZ\\d{22}"                             ), // Czechia
             new Validator("DE", 22, "DE\\d{20}"                             ), // Germany
+            new Validator("DJ", 27, "DJ\\d{25}"                             ), // Djibouti
             new Validator("DK", 18, "DK\\d{16}"                             ), // Denmark
             new Validator("DO", 28, "DO\\d{2}[A-Z0-9]{4}\\d{20}"            ), // Dominican Republic
             new Validator("EE", 20, "EE\\d{18}"                             ), // Estonia
@@ -183,8 +185,10 @@ public class IBANValidator {
             new Validator("QA", 29, "QA\\d{2}[A-Z]{4}[A-Z0-9]{21}"          ), // Qatar
             new Validator("RO", 24, "RO\\d{2}[A-Z]{4}[A-Z0-9]{16}"          ), // Romania
             new Validator("RS", 22, "RS\\d{20}"                             ), // Serbia
+            new Validator("RU", 33, "RU\\d{31}"                             ), // Russia
             new Validator("SA", 24, "SA\\d{4}[A-Z0-9]{18}"                  ), // Saudi Arabia
             new Validator("SC", 31, "SC\\d{2}[A-Z]{4}\\d{20}[A-Z]{3}"       ), // Seychelles
+            new Validator("SD", 18, "SD\\d{16}"                             ), // Sudan
             new Validator("SE", 24, "SE\\d{22}"                             ), // Sweden
             new Validator("SI", 19, "SI\\d{17}"                             ), // Slovenia
             new Validator("SK", 24, "SK\\d{22}"                             ), // Slovakia
