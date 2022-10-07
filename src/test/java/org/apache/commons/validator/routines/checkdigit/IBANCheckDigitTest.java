@@ -58,6 +58,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                 "BE68539007547034",              // Belgium
                 "BG80BNBG96611020345678",        // Bulgaria
                 "BH67BMAG00001299123456",        // Bahrain
+                "BI43220001131012345678912345",  // Burundi
                 "BR1800000000141455123924100C2", // Brazil
                 "BY13NBRB3600900000002Z00AB00",  // Belarus
                 "CH3900700115201849173",         // Switzerland
@@ -66,6 +67,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                 "CY17002001280000001200527600",  // Cyprus
                 "CZ6508000000192000145399",      // Czechoslovakia
                 "DE89370400440532013000",        // Germany
+                "DJ2110002010010409943020008",   // Djibouti
                 "DK5000400440116243",            // Denmark
                 "DO28BAGR00000001212453611324",  // Dominican Republic
                 "EE382200221020145685",          // Estonia
@@ -112,8 +114,10 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                 "QA58DOHB00001234567890ABCDEFG", // Qatar
                 "RO49AAAA1B31007593840000",      // Romania
                 "RS35260005601001611379",        // Serbia
+                "RU0204452560040702810412345678901",// Russia
                 "SA0380000000608010167519",      // Saudi Arabia
                 "SC18SSCB11010000000000001497USD",// Seychelles
+                "SD8811123456789012",            // Sudan
                 "SE3550000000054910000003",      // Sweden
                 "SI56191000000123438",           // Slovenia
                 "SK3112000000198742637541",      // Slovak Republic
