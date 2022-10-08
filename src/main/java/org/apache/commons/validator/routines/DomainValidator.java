@@ -59,15 +59,14 @@ import java.util.Locale;
  * {@link java.net.InetAddress} for that functionality.)
  * </p>
  *
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public class DomainValidator implements Serializable {
 
     /** Maximum allowable length ({@value}) of a domain name */
     private static final int MAX_DOMAIN_LENGTH = 253;
 
-    private static final String[] EMPTY_STRING_ARRAY = new String[0];
+    private static final String[] EMPTY_STRING_ARRAY = {};
 
     private static final long serialVersionUID = -4407125112880174009L;
 
@@ -142,7 +141,7 @@ public class DomainValidator implements Serializable {
      * @param allowLocal Should local addresses be considered valid?
      * @return the singleton instance of this validator
      */
-    public static synchronized DomainValidator getInstance(boolean allowLocal) {
+    public static synchronized DomainValidator getInstance(final boolean allowLocal) {
         inUse = true;
         if(allowLocal) {
             return LazyHolder.DOMAIN_VALIDATOR_WITH_LOCAL;
@@ -164,7 +163,7 @@ public class DomainValidator implements Serializable {
      * @return an instance of this validator
      * @since 1.7
      */
-    public static synchronized DomainValidator getInstance(boolean allowLocal, List<Item> items) {
+    public static synchronized DomainValidator getInstance(final boolean allowLocal, final List<Item> items) {
         inUse = true;
         return new DomainValidator(allowLocal, items);
     }
@@ -189,7 +188,7 @@ public class DomainValidator implements Serializable {
     /**
      * Private constructor.
     */
-    private DomainValidator(boolean allowLocal) {
+    private DomainValidator(final boolean allowLocal) {
         this.allowLocal = allowLocal;
         // link to class overrides
         mycountryCodeTLDsMinus = countryCodeTLDsMinus;
@@ -204,7 +203,7 @@ public class DomainValidator implements Serializable {
      * Private constructor, allowing local overrides
      * @since 1.7
     */
-    private DomainValidator(boolean allowLocal,  List<Item> items) {
+    private DomainValidator(final boolean allowLocal,  final List<Item> items) {
         this.allowLocal = allowLocal;
 
         // default to class overrides
@@ -216,8 +215,8 @@ public class DomainValidator implements Serializable {
         String[] localPlus = localTLDsPlus;
 
         // apply the instance overrides
-        for(Item item: items) {
-            String [] copy = new String[item.values.length];
+        for(final Item item: items) {
+            final String [] copy = new String[item.values.length];
             // Comparisons are always done with lower-case entries
             for (int i = 0; i < item.values.length; i++) {
                 copy[i] = item.values[i].toLowerCase(Locale.ENGLISH);
@@ -281,7 +280,7 @@ public class DomainValidator implements Serializable {
         if (domain.length() > MAX_DOMAIN_LENGTH) {
             return false;
         }
-        String[] groups = domainRegex.match(domain);
+        final String[] groups = domainRegex.match(domain);
         if (groups != null && groups.length > 0) {
             return isValidTld(groups[0]);
         }
@@ -302,7 +301,7 @@ public class DomainValidator implements Serializable {
         if (domain.length() > MAX_DOMAIN_LENGTH) {
             return false;
         }
-        String[] groups = domainRegex.match(domain);
+        final String[] groups = domainRegex.match(domain);
         return (groups != null && groups.length > 0)
                 || hostnameRegex.isValid(domain);
     }
@@ -318,7 +317,7 @@ public class DomainValidator implements Serializable {
      * @param tld the parameter to check for TLD status, not null
      * @return true if the parameter is a TLD
      */
-    public boolean isValidTld(String tld) {
+    public boolean isValidTld(final String tld) {
         if(allowLocal && isValidLocalTld(tld)) {
             return true;
         }
@@ -334,7 +333,7 @@ public class DomainValidator implements Serializable {
      * @param iTld the parameter to check for infrastructure TLD status, not null
      * @return true if the parameter is an infrastructure TLD
      */
-    public boolean isValidInfrastructureTld(String iTld) {
+    public boolean isValidInfrastructureTld(final String iTld) {
         final String key = chompLeadingDot(unicodeToASCII(iTld).toLowerCase(Locale.ENGLISH));
         return arrayContains(INFRASTRUCTURE_TLDS, key);
     }
@@ -346,7 +345,7 @@ public class DomainValidator implements Serializable {
      * @param gTld the parameter to check for generic TLD status, not null
      * @return true if the parameter is a generic TLD
      */
-    public boolean isValidGenericTld(String gTld) {
+    public boolean isValidGenericTld(final String gTld) {
         final String key = chompLeadingDot(unicodeToASCII(gTld).toLowerCase(Locale.ENGLISH));
         return (arrayContains(GENERIC_TLDS, key) || arrayContains(mygenericTLDsPlus, key))
                 && !arrayContains(mygenericTLDsMinus, key);
@@ -359,7 +358,7 @@ public class DomainValidator implements Serializable {
      * @param ccTld the parameter to check for country code TLD status, not null
      * @return true if the parameter is a country code TLD
      */
-    public boolean isValidCountryCodeTld(String ccTld) {
+    public boolean isValidCountryCodeTld(final String ccTld) {
         final String key = chompLeadingDot(unicodeToASCII(ccTld).toLowerCase(Locale.ENGLISH));
         return (arrayContains(COUNTRY_CODE_TLDS, key) || arrayContains(mycountryCodeTLDsPlus, key))
                 && !arrayContains(mycountryCodeTLDsMinus, key);
@@ -372,7 +371,7 @@ public class DomainValidator implements Serializable {
      * @param lTld the parameter to check for local TLD status, not null
      * @return true if the parameter is an local TLD
      */
-    public boolean isValidLocalTld(String lTld) {
+    public boolean isValidLocalTld(final String lTld) {
         final String key = chompLeadingDot(unicodeToASCII(lTld).toLowerCase(Locale.ENGLISH));
         return (arrayContains(LOCAL_TLDS, key) || arrayContains(mylocalTLDsPlus, key))
                 && !arrayContains(mylocalTLDsMinus, key);
@@ -388,7 +387,7 @@ public class DomainValidator implements Serializable {
         return this.allowLocal;
     }
 
-    private String chompLeadingDot(String str) {
+    private String chompLeadingDot(final String str) {
         if (str.startsWith(".")) {
             return str.substring(1);
         }
@@ -411,12 +410,12 @@ public class DomainValidator implements Serializable {
     // .um  country-code    Not assigned
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static final String[] INFRASTRUCTURE_TLDS = new String[] {
+    private static final String[] INFRASTRUCTURE_TLDS = {
         "arpa",               // internet infrastructure
     };
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static final String[] GENERIC_TLDS = new String[] {
+    private static final String[] GENERIC_TLDS = {
         // Taken from Version 2020073100, Last Updated Fri Jul 31 07:07:01 2020 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
@@ -1682,7 +1681,7 @@ public class DomainValidator implements Serializable {
 };
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static final String[] COUNTRY_CODE_TLDS = new String[] {
+    private static final String[] COUNTRY_CODE_TLDS = {
         // Taken from Version 2020051000, Last Updated Sun May 10 07:07:01 2020 UTC
         "ac",                 // Ascension Island
         "ad",                 // Andorra
@@ -1996,7 +1995,7 @@ public class DomainValidator implements Serializable {
     };
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static final String[] LOCAL_TLDS = new String[] {
+    private static final String[] LOCAL_TLDS = {
        "localdomain",         // Also widely used as localhost.localdomain
        "localhost",           // RFC2606 defined
     };
@@ -2084,7 +2083,7 @@ public class DomainValidator implements Serializable {
          * @param type ArrayType, e.g. GENERIC_PLUS, LOCAL_PLUS
          * @param values array of TLDs. Will be lower-cased and sorted
          */
-        public Item(ArrayType type, String[] values) {
+        public Item(final ArrayType type, final String[] values) {
             this.type = type;
             this.values = values; // no need to copy here
         }
@@ -2115,11 +2114,11 @@ public class DomainValidator implements Serializable {
      * @throws IllegalArgumentException if one of the read-only tables is requested
      * @since 1.5.0
      */
-    public static synchronized void updateTLDOverride(ArrayType table, String [] tlds) {
+    public static synchronized void updateTLDOverride(final ArrayType table, final String [] tlds) {
         if (inUse) {
             throw new IllegalStateException("Can only invoke this method before calling getInstance");
         }
-        String [] copy = new String[tlds.length];
+        final String [] copy = new String[tlds.length];
         // Comparisons are always done with lower-case entries
         for (int i = 0; i < tlds.length; i++) {
             copy[i] = tlds[i].toLowerCase(Locale.ENGLISH);
@@ -2161,7 +2160,7 @@ public class DomainValidator implements Serializable {
      * @throws IllegalArgumentException if the table type is unexpected (should not happen)
      * @since 1.5.1
      */
-    public static synchronized String [] getTLDEntries(ArrayType table) {
+    public static synchronized String [] getTLDEntries(final ArrayType table) {
         final String[] array;
         switch(table) {
         case COUNTRY_CODE_MINUS:
@@ -2207,7 +2206,7 @@ public class DomainValidator implements Serializable {
      * @throws IllegalArgumentException if the table type is unexpected, e.g. GENERIC_RO
      * @since 1.7
      */
-    public String [] getOverrides(ArrayType table) {
+    public String [] getOverrides(final ArrayType table) {
         final String[] array;
         switch(table) {
         case COUNTRY_CODE_MINUS:
@@ -2241,7 +2240,7 @@ public class DomainValidator implements Serializable {
      * @return converted input, or original input if conversion fails
      */
     // Needed by UrlValidator
-    static String unicodeToASCII(String input) {
+    static String unicodeToASCII(final String input) {
         if (isOnlyASCII(input)) { // skip possibly expensive processing
             return input;
         }
@@ -2259,7 +2258,7 @@ public class DomainValidator implements Serializable {
             //            characters MUST be recognized as dots: U+002E (full stop), U+3002
             //            (ideographic full stop), U+FF0E (fullwidth full stop), U+FF61
             //            (halfwidth ideographic full stop).
-            char lastChar = input.charAt(length-1);// fetch original last char
+            final char lastChar = input.charAt(length-1);// fetch original last char
             switch(lastChar) {
                 case '\u002E': // "." full stop
                 case '\u3002': // ideographic full stop
@@ -2269,7 +2268,7 @@ public class DomainValidator implements Serializable {
                 default:
                     return ascii;
             }
-        } catch (IllegalArgumentException e) { // input is not valid
+        } catch (final IllegalArgumentException e) { // input is not valid
             return input;
         }
     }
@@ -2286,7 +2285,7 @@ public class DomainValidator implements Serializable {
      * Check if input contains only ASCII
      * Treats null as all ASCII
      */
-    private static boolean isOnlyASCII(String input) {
+    private static boolean isOnlyASCII(final String input) {
         if (input == null) {
             return true;
         }
@@ -2305,7 +2304,7 @@ public class DomainValidator implements Serializable {
      * @param key the key to find
      * @return {@code true} if the array contains the key
      */
-    private static boolean arrayContains(String[] sortedArray, String key) {
+    private static boolean arrayContains(final String[] sortedArray, final String key) {
         return Arrays.binarySearch(sortedArray, key) >= 0;
     }
 }

@@ -31,8 +31,7 @@ import java.io.Serializable;
  * ISBN number (rather than this 10 digit ISBN number) which uses the EAN-13 / UPC
  * standard.
  *
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public final class ISBNCheckDigit implements CheckDigit, Serializable {
 
@@ -64,7 +63,7 @@ public final class ISBNCheckDigit implements CheckDigit, Serializable {
      * check digit.
      */
     @Override
-    public String calculate(String code) throws CheckDigitException {
+    public String calculate(final String code) throws CheckDigitException {
         if (code == null || code.isEmpty()) {
             throw new CheckDigitException("ISBN Code is missing");
         }
@@ -92,7 +91,7 @@ public final class ISBNCheckDigit implements CheckDigit, Serializable {
      * a valid ISBN-13 check digit - otherwise <code>false</code>.
      */
     @Override
-    public boolean isValid(String code) {
+    public boolean isValid(final String code) {
         if (code == null) {
             return false;
         }

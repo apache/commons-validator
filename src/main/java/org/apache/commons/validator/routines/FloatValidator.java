@@ -59,8 +59,7 @@ import java.util.Locale;
  *       <li>using a specified pattern with a specified <code>Locale</code></li>
  *    </ul>
  *
- * @version $Revision$
- * @since Validator 1.3.0
+ * @since 1.3.0
  */
 public class FloatValidator extends AbstractNumberValidator {
 
@@ -104,7 +103,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @param formatType The <code>NumberFormat</code> type to
      *        create for validation, default is STANDARD_FORMAT.
      */
-    public FloatValidator(boolean strict, int formatType) {
+    public FloatValidator(final boolean strict, final int formatType) {
         super(strict, formatType, true);
     }
 
@@ -116,7 +115,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @return The parsed <code>Float</code> if valid or <code>null</code>
      *  if invalid.
      */
-    public Float validate(String value) {
+    public Float validate(final String value) {
         return (Float)parse(value, (String)null, (Locale)null);
     }
 
@@ -128,7 +127,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @param pattern The pattern used to validate the value against.
      * @return The parsed <code>Float</code> if valid or <code>null</code> if invalid.
      */
-    public Float validate(String value, String pattern) {
+    public Float validate(final String value, final String pattern) {
         return (Float)parse(value, pattern, (Locale)null);
     }
 
@@ -140,7 +139,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the number format, system default if null.
      * @return The parsed <code>Float</code> if valid or <code>null</code> if invalid.
      */
-    public Float validate(String value, Locale locale) {
+    public Float validate(final String value, final Locale locale) {
         return (Float)parse(value, (String)null, locale);
     }
 
@@ -154,7 +153,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the date format, system default if null.
      * @return The parsed <code>Float</code> if valid or <code>null</code> if invalid.
      */
-    public Float validate(String value, String pattern, Locale locale) {
+    public Float validate(final String value, final String pattern, final Locale locale) {
         return (Float)parse(value, pattern, locale);
     }
 
@@ -167,7 +166,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(float value, float min, float max) {
+    public boolean isInRange(final float value, final float min, final float max) {
         return (value >= min && value <= max);
     }
 
@@ -180,7 +179,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(Float value, float min, float max) {
+    public boolean isInRange(final Float value, final float min, final float max) {
         return isInRange(value.floatValue(), min, max);
     }
 
@@ -192,7 +191,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(float value, float min) {
+    public boolean minValue(final float value, final float min) {
         return (value >= min);
     }
 
@@ -204,7 +203,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(Float value, float min) {
+    public boolean minValue(final Float value, final float min) {
         return minValue(value.floatValue(), min);
     }
 
@@ -216,7 +215,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(float value, float max) {
+    public boolean maxValue(final float value, final float max) {
         return (value <= max);
     }
 
@@ -228,7 +227,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(Float value, float max) {
+    public boolean maxValue(final Float value, final float max) {
         return maxValue(value.floatValue(), max);
     }
 
@@ -242,9 +241,9 @@ public class FloatValidator extends AbstractNumberValidator {
      *   <code>Float</code> if valid or <code>null</code> if invalid.
      */
     @Override
-    protected Object processParsedValue(Object value, Format formatter) {
+    protected Object processParsedValue(final Object value, final Format formatter) {
 
-        double doubleValue = ((Number)value).doubleValue();
+        final double doubleValue = ((Number)value).doubleValue();
 
         if (doubleValue > 0) {
             if (doubleValue < Float.MIN_VALUE) {
@@ -254,7 +253,7 @@ public class FloatValidator extends AbstractNumberValidator {
                 return null;
             }
         } else  if (doubleValue < 0){
-            double posDouble = doubleValue * -1;
+            final double posDouble = doubleValue * -1;
             if (posDouble < Float.MIN_VALUE) {
                 return null;
             }

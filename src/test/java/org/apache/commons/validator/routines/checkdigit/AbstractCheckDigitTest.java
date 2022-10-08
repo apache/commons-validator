@@ -31,8 +31,7 @@ import junit.framework.TestCase;
 /**
  * Luhn Check Digit Test.
  *
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public abstract class AbstractCheckDigitTest extends TestCase {
 
@@ -75,7 +74,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
      *
      * See https://issues.apache.org/jira/browse/VALIDATOR-344 for some dicussion on this
      */
-    protected String[] invalid = new String[] {"12345678A"};
+    protected String[] invalid = {"12345678A"};
 
     /** code value which sums to zero */
     protected String zeroSum = "0000000000";
@@ -87,7 +86,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
      * Constructor
      * @param name test name
      */
-    public AbstractCheckDigitTest(String name) {
+    public AbstractCheckDigitTest(final String name) {
         super(name);
     }
 
@@ -135,7 +134,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
         }
 
         // test invalid check digit values
-        String[] invalidCheckDigits = createInvalidCodes(valid);
+        final String[] invalidCheckDigits = createInvalidCodes(valid);
         for (int i = 0; i < invalidCheckDigits.length; i++) {
             if (log.isDebugEnabled()) {
                 log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "]");
@@ -154,14 +153,14 @@ public abstract class AbstractCheckDigitTest extends TestCase {
 
         // test valid values
         for (int i = 0; i < valid.length; i++) {
-            String code = removeCheckDigit(valid[i]);
-            String expected = checkDigit(valid[i]);
+            final String code = removeCheckDigit(valid[i]);
+            final String expected = checkDigit(valid[i]);
             try {
                 if (log.isDebugEnabled()) {
                     log.debug("   " + i + " Testing Valid Check Digit, Code=[" + code + "] expected=[" + expected + "]");
                 }
                 assertEquals("valid[" + i +"]: " + valid[i], expected, routine.calculate(code));
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 fail("valid[" + i +"]=" + valid[i] + " threw " + e);
             }
         }
@@ -184,13 +183,13 @@ public abstract class AbstractCheckDigitTest extends TestCase {
                 if (log.isDebugEnabled()) {
                     log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + code + "]");
                 }
-                String expected = checkDigit(code);
-                String actual = routine.calculate(removeCheckDigit(code));
+                final String expected = checkDigit(code);
+                final String actual = routine.calculate(removeCheckDigit(code));
                 // If exception not thrown, check that the digit is incorrect instead
                 if (expected.equals(actual)) {
                     fail("Expected mismatch for " + code + " expected " + expected + " actual " + actual);
                 }
-            } catch (CheckDigitException e) {
+            } catch (final CheckDigitException e) {
                 // possible failure messages:
                 // Invalid ISBN Length ...
                 // Invalid Character[ ...
@@ -220,7 +219,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
         try {
             routine.calculate(null);
             fail("calculate() Null - expected exception");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertEquals("calculate() Null", missingMessage, e.getMessage());
         }
 
@@ -228,7 +227,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
         try {
             routine.calculate("");
             fail("calculate() Zero Length - expected exception");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertEquals("calculate() Zero Length",  missingMessage, e.getMessage());
         }
     }
@@ -243,7 +242,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
         try {
             routine.calculate(zeroSum);
             fail("Zero Sum - expected exception");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertEquals("isValid() Zero Sum",  "Invalid code, sum is zero", e.getMessage());
         }
 
@@ -254,25 +253,25 @@ public abstract class AbstractCheckDigitTest extends TestCase {
      */
     public void testSerialization() {
         // Serialize the check digit routine
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            final ObjectOutputStream oos = new ObjectOutputStream(baos);
             oos.writeObject(routine);
             oos.flush();
             oos.close();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             fail(routine.getClass().getName() + " error during serialization: " + e);
         }
 
         // Deserialize the test object
         Object result = null;
         try {
-            ByteArrayInputStream bais =
+            final ByteArrayInputStream bais =
                 new ByteArrayInputStream(baos.toByteArray());
-            ObjectInputStream ois = new ObjectInputStream(bais);
+            final ObjectInputStream ois = new ObjectInputStream(bais);
             result = ois.readObject();
             bais.close();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             fail(routine.getClass().getName() + " error during deserialization: " + e);
         }
         assertNotNull(result);
@@ -286,15 +285,15 @@ public abstract class AbstractCheckDigitTest extends TestCase {
      * @param codes Codes with valid check digits
      * @return Codes with invalid check digits
      */
-    protected String[] createInvalidCodes(String[] codes) {
-        List<String> list = new ArrayList<>();
+    protected String[] createInvalidCodes(final String[] codes) {
+        final List<String> list = new ArrayList<>();
 
         // create invalid check digit values
-        for (String fullCode : codes) {
-            String code = removeCheckDigit(fullCode);
-            String check = checkDigit(fullCode);
+        for (final String fullCode : codes) {
+            final String code = removeCheckDigit(fullCode);
+            final String check = checkDigit(fullCode);
             for (int j = 0; j < POSSIBLE_CHECK_DIGITS.length(); j++) {
-                String curr = POSSIBLE_CHECK_DIGITS.substring(j, j + 1);//"" + Character.forDigit(j, 10);
+                final String curr = POSSIBLE_CHECK_DIGITS.substring(j, j + 1);//"" + Character.forDigit(j, 10);
                 if (!curr.equals(check)) {
                     list.add(code + curr);
                 }
@@ -310,7 +309,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
      * @param code The code
      * @return The code without the check digit
      */
-    protected String removeCheckDigit(String code) {
+    protected String removeCheckDigit(final String code) {
         if (code == null || code.length() <= checkDigitLth) {
             return null;
         }
@@ -323,11 +322,11 @@ public abstract class AbstractCheckDigitTest extends TestCase {
      * @param code The code
      * @return The check digit
      */
-    protected String checkDigit(String code) {
+    protected String checkDigit(final String code) {
         if (code == null || code.length() <= checkDigitLth) {
             return "";
         }
-        int start = code.length() - checkDigitLth;
+        final int start = code.length() - checkDigitLth;
         return code.substring(start);
     }
 

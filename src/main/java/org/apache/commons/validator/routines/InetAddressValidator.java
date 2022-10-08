@@ -31,8 +31,7 @@ import java.util.List;
  * This class is a Singleton; you can retrieve the instance via the {@link #getInstance()} method.
  * </p>
  *
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public class InetAddressValidator implements Serializable {
 
@@ -72,11 +71,11 @@ public class InetAddressValidator implements Serializable {
     }
 
     /**
-     * Checks if the specified string is a valid IP address.
+     * Checks if the specified string is a valid IPv4 or IPv6 address.
      * @param inetAddress the string to validate
      * @return true if the string validates as an IP address
      */
-    public boolean isValid(String inetAddress) {
+    public boolean isValid(final String inetAddress) {
         return isValidInet4Address(inetAddress) || isValidInet6Address(inetAddress);
     }
 
@@ -85,16 +84,16 @@ public class InetAddressValidator implements Serializable {
      * @param inet4Address the IPv4 address to validate
      * @return true if the argument contains a valid IPv4 address
      */
-    public boolean isValidInet4Address(String inet4Address) {
+    public boolean isValidInet4Address(final String inet4Address) {
         // verify that address conforms to generic IPv4 format
-        String[] groups = ipv4Validator.match(inet4Address);
+        final String[] groups = ipv4Validator.match(inet4Address);
 
         if (groups == null) {
             return false;
         }
 
         // verify that address subgroups are legal
-        for (String ipSegment : groups) {
+        for (final String ipSegment : groups) {
             if (ipSegment == null || ipSegment.isEmpty()) {
                 return false;
             }
@@ -103,7 +102,7 @@ public class InetAddressValidator implements Serializable {
 
             try {
                 iIpSegment = Integer.parseInt(ipSegment);
-            } catch(NumberFormatException e) {
+            } catch(final NumberFormatException e) {
                 return false;
             }
 
@@ -138,7 +137,7 @@ public class InetAddressValidator implements Serializable {
             if (!parts[1].matches("\\d{1,3}")) {
                 return false; // not a valid number
             }
-            int bits = Integer.parseInt(parts[1]); // cannot fail because of RE check
+            final int bits = Integer.parseInt(parts[1]); // cannot fail because of RE check
             if (bits < 0 || bits > MAX_BYTE) {
                 return false; // out of range
             }
@@ -154,7 +153,7 @@ public class InetAddressValidator implements Serializable {
             return false; // invalid id
         }
         inet6Address = parts[0];
-        boolean containsCompressedZeroes = inet6Address.contains("::");
+        final boolean containsCompressedZeroes = inet6Address.contains("::");
         if (containsCompressedZeroes && (inet6Address.indexOf("::") != inet6Address.lastIndexOf("::"))) {
             return false;
         }
@@ -164,7 +163,7 @@ public class InetAddressValidator implements Serializable {
         }
         String[] octets = inet6Address.split(":");
         if (containsCompressedZeroes) {
-            List<String> octetList = new ArrayList<>(Arrays.asList(octets));
+            final List<String> octetList = new ArrayList<>(Arrays.asList(octets));
             if (inet6Address.endsWith("::")) {
                 // String.split() drops ending empty segments
                 octetList.add("");
@@ -179,7 +178,7 @@ public class InetAddressValidator implements Serializable {
         int validOctets = 0;
         int emptyOctets = 0; // consecutive empty chunks
         for (int index = 0; index < octets.length; index++) {
-            String octet = octets[index];
+            final String octet = octets[index];
             if (octet.isEmpty()) {
                 emptyOctets++;
                 if (emptyOctets > 1) {
@@ -201,7 +200,7 @@ public class InetAddressValidator implements Serializable {
                 int octetInt = 0;
                 try {
                     octetInt = Integer.parseInt(octet, BASE_16);
-                } catch (NumberFormatException e) {
+                } catch (final NumberFormatException e) {
                     return false;
                 }
                 if (octetInt < 0 || octetInt > MAX_UNSIGNED_SHORT) {

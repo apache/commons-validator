@@ -22,7 +22,6 @@ import java.util.Locale;
 /**
  * Test Case for BigDecimalValidator.
  *
- * @version $Revision$
  */
 public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
 
@@ -30,7 +29,7 @@ public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
      * Constructor
      * @param name test name
      */
-    public BigDecimalValidatorTest(String name) {
+    public BigDecimalValidatorTest(final String name) {
         super(name);
     }
 
@@ -57,8 +56,8 @@ public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
 
         // testValid()
         testNumber    = new BigDecimal("1234.5");
-        Number testNumber2 = new BigDecimal(".1");
-        Number testNumber3 = new BigDecimal("12345.67899");
+        final Number testNumber2 = new BigDecimal(".1");
+        final Number testNumber3 = new BigDecimal("12345.67899");
         testZero      = new BigDecimal("0");
         validStrict          = new String[] {"0", "1234.5", "1,234.5", ".1", "12345.678990"};
         validStrictCompare   = new Number[] {testZero, testNumber, testNumber, testNumber2, testNumber3};
@@ -80,14 +79,14 @@ public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
      * Test BigDecimalValidator validate Methods
      */
     public void testBigDecimalValidatorMethods() {
-        Locale locale           = Locale.GERMAN;
-        String pattern          = "0,00,00";
-        String patternVal       = "1,23,45";
-        String germanPatternVal = "1.23.45";
-        String localeVal        = "12.345";
-        String defaultVal       = "12,345";
-        String XXXX             = "XXXX";
-        BigDecimal expected = new BigDecimal(12345);
+        final Locale locale           = Locale.GERMAN;
+        final String pattern          = "0,00,00";
+        final String patternVal       = "1,23,45";
+        final String germanPatternVal = "1.23.45";
+        final String localeVal        = "12.345";
+        final String defaultVal       = "12,345";
+        final String XXXX             = "XXXX";
+        final BigDecimal expected = new BigDecimal(12345);
         assertEquals("validate(A) default", expected, BigDecimalValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, BigDecimalValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, BigDecimalValidator.getInstance().validate(patternVal, pattern));
@@ -113,16 +112,16 @@ public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
      * Test BigDecimal Range/Min/Max
      */
     public void testBigDecimalRangeMinMax() {
-        BigDecimalValidator validator = new BigDecimalValidator(true, AbstractNumberValidator.STANDARD_FORMAT, true);
-        BigDecimal number9  = new BigDecimal("9");
-        BigDecimal number10 = new BigDecimal("10");
-        BigDecimal number11 = new BigDecimal("11");
-        BigDecimal number19 = new BigDecimal("19");
-        BigDecimal number20 = new BigDecimal("20");
-        BigDecimal number21 = new BigDecimal("21");
+        final BigDecimalValidator validator = new BigDecimalValidator(true, AbstractNumberValidator.STANDARD_FORMAT, true);
+        final BigDecimal number9  = new BigDecimal("9");
+        final BigDecimal number10 = new BigDecimal("10");
+        final BigDecimal number11 = new BigDecimal("11");
+        final BigDecimal number19 = new BigDecimal("19");
+        final BigDecimal number20 = new BigDecimal("20");
+        final BigDecimal number21 = new BigDecimal("21");
 
-        float min = 10;
-        float max = 20;
+        final float min = 10;
+        final float max = 20;
 
         // Test isInRange()
         assertFalse("isInRange(A) < min",   validator.isInRange(number9,  min, max));

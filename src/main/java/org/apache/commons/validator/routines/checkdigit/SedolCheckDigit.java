@@ -36,8 +36,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * for more details.
  * </p>
  *
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public final class SedolCheckDigit extends ModulusCheckDigit {
 
@@ -49,7 +48,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
     public static final CheckDigit SEDOL_CHECK_DIGIT = new SedolCheckDigit();
 
     /** weighting given to digits depending on their right position */
-    private static final int[] POSITION_WEIGHT = new int[] {1, 3, 1, 7, 3, 9, 1};
+    private static final int[] POSITION_WEIGHT = {1, 3, 1, 7, 3, 9, 1};
 
     /**
      * Construct a modulus 11 Check Digit routine for ISBN-10.
@@ -68,7 +67,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * for the specified code
      */
     @Override
-    protected int calculateModulus(String code, boolean includesCheckDigit) throws CheckDigitException {
+    protected int calculateModulus(final String code, final boolean includesCheckDigit) throws CheckDigitException {
         if (code.length() > POSITION_WEIGHT.length) {
             throw new CheckDigitException("Invalid Code Length = " + code.length());
         }
@@ -85,7 +84,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     @Override
-    protected int weightedValue(int charValue, int leftPos, int rightPos) {
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
         return charValue * POSITION_WEIGHT[leftPos - 1];
     }
 
@@ -99,9 +98,9 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * @throws CheckDigitException if character is not alphanumeric
      */
     @Override
-    protected int toInt(char character, int leftPos, int rightPos)
+    protected int toInt(final char character, final int leftPos, final int rightPos)
             throws CheckDigitException {
-        int charValue = Character.getNumericValue(character);
+        final int charValue = Character.getNumericValue(character);
         // the check digit is only allowed to reach 9
         final int charMax = rightPos == 1 ? 9 : MAX_ALPHANUMERIC_VALUE; // CHECKSTYLE IGNORE MagicNumber
         if (charValue < 0 || charValue > charMax) {

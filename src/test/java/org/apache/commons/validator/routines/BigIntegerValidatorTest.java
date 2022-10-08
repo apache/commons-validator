@@ -22,7 +22,6 @@ import java.util.Locale;
 /**
  * Test Case for BigIntegerValidator.
  *
- * @version $Revision$
  */
 public class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
 
@@ -30,7 +29,7 @@ public class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
      * Constructor
      * @param name test name
      */
-    public BigIntegerValidatorTest(String name) {
+    public BigIntegerValidatorTest(final String name) {
         super(name);
     }
 
@@ -78,14 +77,14 @@ public class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
      * Test BigIntegerValidator validate Methods
      */
     public void testBigIntegerValidatorMethods() {
-        Locale locale     = Locale.GERMAN;
-        String pattern    = "0,00,00";
-        String patternVal = "1,23,45";
-        String germanPatternVal = "1.23.45";
-        String localeVal  = "12.345";
-        String defaultVal = "12,345";
-        String XXXX    = "XXXX";
-        BigInteger expected = new BigInteger("12345");
+        final Locale locale     = Locale.GERMAN;
+        final String pattern    = "0,00,00";
+        final String patternVal = "1,23,45";
+        final String germanPatternVal = "1.23.45";
+        final String localeVal  = "12.345";
+        final String defaultVal = "12,345";
+        final String XXXX    = "XXXX";
+        final BigInteger expected = new BigInteger("12345");
         assertEquals("validate(A) default", expected, BigIntegerValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, BigIntegerValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, BigIntegerValidator.getInstance().validate(patternVal, pattern));
@@ -111,13 +110,13 @@ public class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
      * Test BigInteger Range/Min/Max
      */
     public void testBigIntegerRangeMinMax() {
-        BigIntegerValidator validator = (BigIntegerValidator)strictValidator;
-        BigInteger number9  = validator.validate("9", "#");
-        BigInteger number10 = validator.validate("10", "#");
-        BigInteger number11 = validator.validate("11", "#");
-        BigInteger number19 = validator.validate("19", "#");
-        BigInteger number20 = validator.validate("20", "#");
-        BigInteger number21 = validator.validate("21", "#");
+        final BigIntegerValidator validator = (BigIntegerValidator)strictValidator;
+        final BigInteger number9  = validator.validate("9", "#");
+        final BigInteger number10 = validator.validate("10", "#");
+        final BigInteger number11 = validator.validate("11", "#");
+        final BigInteger number19 = validator.validate("19", "#");
+        final BigInteger number20 = validator.validate("20", "#");
+        final BigInteger number21 = validator.validate("21", "#");
 
         // Test isInRange()
         assertFalse("isInRange() < min",   validator.isInRange(number9,  10, 20));

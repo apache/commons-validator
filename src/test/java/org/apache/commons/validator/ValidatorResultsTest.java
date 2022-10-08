@@ -23,7 +23,6 @@ import org.xml.sax.SAXException;
 /**
  * Test ValidatorResults.
  *
- * @version $Revision$
  */
 public class ValidatorResultsTest extends AbstractCommonTest {
 
@@ -39,7 +38,7 @@ public class ValidatorResultsTest extends AbstractCommonTest {
    /**
     * Constructor.
     */
-   public ValidatorResultsTest(String name) {
+   public ValidatorResultsTest(final String name) {
        super(name);
    }
 
@@ -69,10 +68,10 @@ protected void tearDown() {
    public void testAllValid() throws ValidatorException {
 
       // Create bean to run test on.
-      NameBean bean = createNameBean();
+      final NameBean bean = createNameBean();
 
       // Validate.
-      ValidatorResults results = validate(bean);
+      final ValidatorResults results = validate(bean);
 
       // Check results
       checkValidatorResult(results, firstNameField,  "required", true);
@@ -93,10 +92,10 @@ protected void tearDown() {
       lastName = null;
 
       // Create bean to run test on.
-      NameBean bean = createNameBean();
+      final NameBean bean = createNameBean();
 
       // Validate.
-      ValidatorResults results = validate(bean);
+      final ValidatorResults results = validate(bean);
 
       // Check results
       checkValidatorResult(results, firstNameField,  "required", true);
@@ -111,8 +110,8 @@ protected void tearDown() {
    /**
     * Check a validator has not been run for a field and the result.
     */
-   private void checkNotRun(ValidatorResults results, String field, String action) {
-      ValidatorResult result = results.getValidatorResult(field);
+   private void checkNotRun(final ValidatorResults results, final String field, final String action) {
+      final ValidatorResult result = results.getValidatorResult(field);
       assertNotNull(field + " result",  result);
       assertFalse(field + "[" + action + "] run", result.containsAction(action));
       // System.out.println(field + "[" + action + "] not run");
@@ -121,8 +120,8 @@ protected void tearDown() {
    /**
     * Check a validator has run for a field and the result.
     */
-   private void checkValidatorResult(ValidatorResults results, String field, String action, boolean expected) {
-      ValidatorResult result = results.getValidatorResult(field);
+   private void checkValidatorResult(final ValidatorResults results, final String field, final String action, final boolean expected) {
+      final ValidatorResult result = results.getValidatorResult(field);
       // System.out.println(field + "[" + action + "]=" + result.isValid(action));
       assertNotNull(field + " result",  result);
       assertTrue(field + "[" + action + "] not run", result.containsAction(action));
@@ -133,7 +132,7 @@ protected void tearDown() {
     * Create a NameBean.
     */
    private NameBean createNameBean() {
-      NameBean name = new NameBean();
+      final NameBean name = new NameBean();
       name.setFirstName(firstName);
       name.setMiddleName(middleName);
       name.setLastName(lastName);
@@ -143,18 +142,18 @@ protected void tearDown() {
    /**
     * Validate results.
     */
-   private ValidatorResults validate(Object bean) throws ValidatorException  {
+   private ValidatorResults validate(final Object bean) throws ValidatorException  {
 
       // Construct validator based on the loaded resources
       // and the form key
-      Validator validator = new Validator(resources, FORM_KEY);
+      final Validator validator = new Validator(resources, FORM_KEY);
 
       // add the name bean to the validator as a resource
       // for the validations to be performed on.
       validator.setParameter(Validator.BEAN_PARAM, bean);
 
       // Get results of the validation.
-      ValidatorResults results = validator.validate();
+      final ValidatorResults results = validator.validate();
 
       return results;
 

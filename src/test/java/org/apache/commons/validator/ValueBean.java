@@ -19,7 +19,6 @@ package org.apache.commons.validator;
 /**
  * Value object for storing a value to run tests on.
  *
- * @version $Revision$
  */
 public class ValueBean {
 
@@ -35,7 +34,7 @@ public class ValueBean {
    /**
     * Sets the value.
     */
-   public void setValue(String value) {
+   public void setValue(final String value) {
       this.value = value;
    }
 

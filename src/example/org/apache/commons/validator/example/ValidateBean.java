@@ -18,8 +18,6 @@ package org.apache.commons.validator.example;
 
 /**                                                       
  * A simple bean to use with the Validator Example.
- *
- * @version $Revision$
  */
 public class ValidateBean {
 

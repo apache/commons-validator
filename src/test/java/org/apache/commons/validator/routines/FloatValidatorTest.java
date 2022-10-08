@@ -22,7 +22,6 @@ import java.util.Locale;
 /**
  * Test Case for FloatValidator.
  *
- * @version $Revision$
  */
 public class FloatValidatorTest extends AbstractNumberValidatorTest {
 
@@ -30,7 +29,7 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
      * Constructor
      * @param name test name
      */
-    public FloatValidatorTest(String name) {
+    public FloatValidatorTest(final String name) {
         super(name);
     }
 
@@ -78,14 +77,14 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
      * Test FloatValidator validate Methods
      */
     public void testFloatValidatorMethods() {
-        Locale locale     = Locale.GERMAN;
-        String pattern    = "0,00,00";
-        String patternVal = "1,23,45";
-        String localeVal  = "12.345";
-        String germanPatternVal = "1.23.45";
-        String defaultVal = "12,345";
-        String XXXX    = "XXXX";
-        Float expected = Float.valueOf(12345);
+        final Locale locale     = Locale.GERMAN;
+        final String pattern    = "0,00,00";
+        final String patternVal = "1,23,45";
+        final String localeVal  = "12.345";
+        final String germanPatternVal = "1.23.45";
+        final String defaultVal = "12,345";
+        final String XXXX    = "XXXX";
+        final Float expected = Float.valueOf(12345);
         assertEquals("validate(A) default", expected, FloatValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, FloatValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, FloatValidator.getInstance().validate(patternVal, pattern));
@@ -112,27 +111,27 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
      * (slightly different from max/min which are the largest +ve/-ve
      */
     public void testFloatSmallestValues() {
-        String pattern = "#.#################################################################";
-        DecimalFormat fmt = new DecimalFormat(pattern);
+        final String pattern = "#.#################################################################";
+        final DecimalFormat fmt = new DecimalFormat(pattern);
 
         // Validate Smallest +ve value
-        Float smallestPositive  = Float.valueOf(Float.MIN_VALUE);
-        String strSmallestPositive = fmt.format(smallestPositive);
+        final Float smallestPositive  = Float.valueOf(Float.MIN_VALUE);
+        final String strSmallestPositive = fmt.format(smallestPositive);
         assertEquals("Smallest +ve", smallestPositive, FloatValidator.getInstance().validate(strSmallestPositive, pattern));
 
         // Validate Smallest -ve value
-        Float smallestNegative  = Float.valueOf(Float.MIN_VALUE * -1);
-        String strSmallestNegative = fmt.format(smallestNegative);
+        final Float smallestNegative  = Float.valueOf(Float.MIN_VALUE * -1);
+        final String strSmallestNegative = fmt.format(smallestNegative);
         assertEquals("Smallest -ve", smallestNegative, FloatValidator.getInstance().validate(strSmallestNegative, pattern));
 
         // Validate Too Small +ve
-        Double tooSmallPositive = Double.valueOf(((double)Float.MIN_VALUE / (double)10));
-        String strTooSmallPositive = fmt.format(tooSmallPositive);
+        final Double tooSmallPositive = Double.valueOf(((double)Float.MIN_VALUE / (double)10));
+        final String strTooSmallPositive = fmt.format(tooSmallPositive);
         assertFalse("Too small +ve", FloatValidator.getInstance().isValid(strTooSmallPositive, pattern));
 
         // Validate Too Small -ve
-        Double tooSmallNegative = Double.valueOf(tooSmallPositive.doubleValue() * -1);
-        String strTooSmallNegative = fmt.format(tooSmallNegative);
+        final Double tooSmallNegative = Double.valueOf(tooSmallPositive.doubleValue() * -1);
+        final String strTooSmallNegative = fmt.format(tooSmallNegative);
         assertFalse("Too small -ve", FloatValidator.getInstance().isValid(strTooSmallNegative, pattern));
     }
 
@@ -140,13 +139,13 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
      * Test Float Range/Min/Max
      */
     public void testFloatRangeMinMax() {
-        FloatValidator validator = (FloatValidator)strictValidator;
-        Float number9  = validator.validate("9", "#");
-        Float number10 = validator.validate("10", "#");
-        Float number11 = validator.validate("11", "#");
-        Float number19 = validator.validate("19", "#");
-        Float number20 = validator.validate("20", "#");
-        Float number21 = validator.validate("21", "#");
+        final FloatValidator validator = (FloatValidator)strictValidator;
+        final Float number9  = validator.validate("9", "#");
+        final Float number10 = validator.validate("10", "#");
+        final Float number11 = validator.validate("11", "#");
+        final Float number19 = validator.validate("19", "#");
+        final Float number20 = validator.validate("20", "#");
+        final Float number21 = validator.validate("21", "#");
 
         // Test isInRange()
         assertFalse("isInRange() < min",   validator.isInRange(number9,  10, 20));

@@ -19,8 +19,7 @@ package org.apache.commons.validator.routines.checkdigit;
 /**
  * Verhoeff Check Digit Test.
  *
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public class VerhoeffCheckDigitTest extends AbstractCheckDigitTest {
 
@@ -28,7 +27,7 @@ public class VerhoeffCheckDigitTest extends AbstractCheckDigitTest {
      * Construct a new test.
      * @param name test name
      */
-    public VerhoeffCheckDigitTest(String name) {
+    public VerhoeffCheckDigitTest(final String name) {
         super(name);
     }
 

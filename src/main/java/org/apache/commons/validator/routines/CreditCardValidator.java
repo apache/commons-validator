@@ -77,8 +77,7 @@ import java.util.ArrayList;
  * <a href="http://web.archive.org/web/20120614072656/http://www.merriampark.com/anatomycc.htm">Anatomy of Credit Card Numbers</a>.
  * </p>
  *
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public class CreditCardValidator implements Serializable {
 
@@ -115,7 +114,7 @@ public class CreditCardValidator implements Serializable {
          * @param minLen the minimum length of the entire number
          * @param maxLen the maximum length of the entire number
          */
-        public CreditCardRange(String low, String high, int minLen, int maxLen) {
+        public CreditCardRange(final String low, final String high, final int minLen, final int maxLen) {
             this.low = low;
             this.high = high;
             this.minLen = minLen;
@@ -138,7 +137,7 @@ public class CreditCardValidator implements Serializable {
          * @param high the high digits of the IIN range
          * @param lengths array of valid lengths
          */
-        public CreditCardRange(String low, String high, int [] lengths) {
+        public CreditCardRange(final String low, final String high, final int [] lengths) {
             this.low = low;
             this.high = high;
             this.minLen = -1;
@@ -298,7 +297,7 @@ public class CreditCardValidator implements Serializable {
      * CreditCardValidator.VISA + CreditCardValidator.AMEX to specify that
      * those are the only valid card types.
      */
-    public CreditCardValidator(long options) {
+    public CreditCardValidator(final long options) {
         if (isOn(options, VISA)) {
             this.cardTypes.add(VISA_VALIDATOR);
         }
@@ -332,7 +331,7 @@ public class CreditCardValidator implements Serializable {
      * Create a new CreditCardValidator with the specified {@link CodeValidator}s.
      * @param creditCardValidators Set of valid code validators
      */
-    public CreditCardValidator(CodeValidator[] creditCardValidators) {
+    public CreditCardValidator(final CodeValidator[] creditCardValidators) {
         if (creditCardValidators == null) {
             throw new IllegalArgumentException("Card validators are missing");
         }
@@ -344,7 +343,7 @@ public class CreditCardValidator implements Serializable {
      * @param creditCardRanges Set of valid code validators
      * @since 1.6
      */
-    public CreditCardValidator(CreditCardRange[] creditCardRanges) {
+    public CreditCardValidator(final CreditCardRange[] creditCardRanges) {
         if (creditCardRanges == null) {
             throw new IllegalArgumentException("Card ranges are missing");
         }
@@ -361,7 +360,7 @@ public class CreditCardValidator implements Serializable {
      * @param creditCardRanges Set of valid code validators
      * @since 1.6
      */
-    public CreditCardValidator(CodeValidator[] creditCardValidators, CreditCardRange[] creditCardRanges) {
+    public CreditCardValidator(final CodeValidator[] creditCardValidators, final CreditCardRange[] creditCardRanges) {
         if (creditCardValidators == null) {
             throw new IllegalArgumentException("Card validators are missing");
         }
@@ -381,7 +380,7 @@ public class CreditCardValidator implements Serializable {
      * @return the validator
      * @since 1.6
      */
-    public static CreditCardValidator genericCreditCardValidator(int minLen, int maxLen) {
+    public static CreditCardValidator genericCreditCardValidator(final int minLen, final int maxLen) {
         return new CreditCardValidator(new CodeValidator[] {new CodeValidator("(\\d+)", minLen, maxLen, LUHN_VALIDATOR)});
     }
 
@@ -393,7 +392,7 @@ public class CreditCardValidator implements Serializable {
      * @return the validator
      * @since 1.6
      */
-    public static CreditCardValidator genericCreditCardValidator(int length) {
+    public static CreditCardValidator genericCreditCardValidator(final int length) {
         return genericCreditCardValidator(length, length);
     }
 
@@ -413,11 +412,11 @@ public class CreditCardValidator implements Serializable {
      * @param card The card number to validate.
      * @return Whether the card number is valid.
      */
-    public boolean isValid(String card) {
+    public boolean isValid(final String card) {
         if (card == null || card.isEmpty()) {
             return false;
         }
-        for (CodeValidator cardType : cardTypes) {
+        for (final CodeValidator cardType : cardTypes) {
             if (cardType.isValid(card)) {
                 return true;
             }
@@ -431,12 +430,12 @@ public class CreditCardValidator implements Serializable {
      * @return The card number if valid or <code>null</code>
      * if invalid.
      */
-    public Object validate(String card) {
+    public Object validate(final String card) {
         if (card == null || card.isEmpty()) {
             return null;
         }
         Object result = null;
-        for (CodeValidator cardType : cardTypes) {
+        for (final CodeValidator cardType : cardTypes) {
             result = cardType.validate(card);
             if (result != null) {
                 return result;
@@ -447,9 +446,9 @@ public class CreditCardValidator implements Serializable {
     }
 
     // package protected for unit test access
-    static boolean validLength(int valueLength, CreditCardRange range) {
+    static boolean validLength(final int valueLength, final CreditCardRange range) {
         if (range.lengths != null) {
-            for(int length : range.lengths) {
+            for(final int length : range.lengths) {
                 if (valueLength == length) {
                     return true;
                 }
@@ -468,10 +467,10 @@ public class CreditCardValidator implements Serializable {
                     private final CreditCardRange[] ccr = creditCardRanges.clone();
                     @Override
                     // must return full string
-                    public String validate(String value) {
+                    public String validate(final String value) {
                         if (super.match(value) != null) {
-                            int length = value.length();
-                            for(CreditCardRange range : ccr) {
+                            final int length = value.length();
+                            for(final CreditCardRange range : ccr) {
                                 if (validLength(length, range)) {
                                     if (range.high == null) { // single prefix only
                                         if (value.startsWith(range.low)) {
@@ -489,11 +488,11 @@ public class CreditCardValidator implements Serializable {
                         return null;
                     }
                     @Override
-                    public boolean isValid(String value) {
+                    public boolean isValid(final String value) {
                         return validate(value) != null;
                     }
                     @Override
-                    public String[] match(String value) {
+                    public String[] match(final String value) {
                         return new String[]{validate(value)};
                     }
                 }, digitCheck);
@@ -508,7 +507,7 @@ public class CreditCardValidator implements Serializable {
      *
      * @return whether the specified flag value is on.
      */
-    private boolean isOn(long options, long flag) {
+    private boolean isOn(final long options, final long flag) {
         return (options & flag) > 0;
     }
 

@@ -20,7 +20,6 @@ package org.apache.commons.validator.routines.checkdigit;
 /**
  * ModulusTenCheckDigit SEDOL Test.
  *
- * @version $Revision$
  */
 public class ModulusTenSedolCheckDigitTest extends AbstractCheckDigitTest {
 
@@ -28,7 +27,7 @@ public class ModulusTenSedolCheckDigitTest extends AbstractCheckDigitTest {
      * Constructor
      * @param name test name
      */
-    public ModulusTenSedolCheckDigitTest(String name) {
+    public ModulusTenSedolCheckDigitTest(final String name) {
         super(name);
     }
 
@@ -59,7 +58,7 @@ public class ModulusTenSedolCheckDigitTest extends AbstractCheckDigitTest {
                };
 
     public void testVALIDATOR_346() {
-        for (String invalidCheckDigit : INVALID_CHECK_DIGITS) {
+        for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));
         }
     }

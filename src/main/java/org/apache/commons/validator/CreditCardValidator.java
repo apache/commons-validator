@@ -48,8 +48,7 @@ import org.apache.commons.validator.util.Flags;
  * <a href="http://www.merriampark.com/anatomycc.htm">here</a>.
  * </p>
  *
- * @version $Revision$
- * @since Validator 1.1
+ * @since 1.1
  * @deprecated Use the new CreditCardValidator in the routines package. This class
  * will be removed in a future release.
  */
@@ -68,7 +67,7 @@ public class CreditCardValidator {
      * v.isValid(aCardNumber);
      * </code>
      * </pre>
-     * @since Validator 1.1.2
+     * @since 1.1.2
      */
     public static final int NONE = 0;
 
@@ -110,8 +109,8 @@ public class CreditCardValidator {
      * CreditCardValidator.VISA + CreditCardValidator.AMEX to specify that
      * those are the only valid card types.
      */
-    public CreditCardValidator(int options) {
-        Flags f = new Flags(options);
+    public CreditCardValidator(final int options) {
+        final Flags f = new Flags(options);
         if (f.isOn(VISA)) {
             this.cardTypes.add(new Visa());
         }
@@ -134,7 +133,7 @@ public class CreditCardValidator {
      * @param card The card number to validate.
      * @return Whether the card number is valid.
      */
-    public boolean isValid(String card) {
+    public boolean isValid(final String card) {
         if ((card == null) || (card.length() < 13) || (card.length() > 19)) {
             return false;
         }
@@ -143,8 +142,8 @@ public class CreditCardValidator {
             return false;
         }
 
-        for (Object cardType : this.cardTypes) {
-            CreditCardType type = (CreditCardType) cardType;
+        for (final Object cardType : this.cardTypes) {
+            final CreditCardType type = (CreditCardType) cardType;
             if (type.matches(card)) {
                 return true;
             }
@@ -157,9 +156,9 @@ public class CreditCardValidator {
      * Adds an allowed CreditCardType that participates in the card
      * validation algorithm.
      * @param type The type that is now allowed to pass validation.
-     * @since Validator 1.1.2
+     * @since 1.1.2
      */
-    public void addAllowedCardType(CreditCardType type){
+    public void addAllowedCardType(final CreditCardType type){
         this.cardTypes.add(type);
     }
 
@@ -168,16 +167,16 @@ public class CreditCardValidator {
      * @param cardNumber Credit Card Number.
      * @return Whether the card number passes the luhnCheck.
      */
-    protected boolean luhnCheck(String cardNumber) {
+    protected boolean luhnCheck(final String cardNumber) {
         // number must be validated as 0..9 numeric first!!
-        int digits = cardNumber.length();
-        int oddOrEven = digits & 1;
+        final int digits = cardNumber.length();
+        final int oddOrEven = digits & 1;
         long sum = 0;
         for (int count = 0; count < digits; count++) {
             int digit = 0;
             try {
                 digit = Integer.parseInt(cardNumber.charAt(count) + "");
-            } catch(NumberFormatException e) {
+            } catch(final NumberFormatException e) {
                 return false;
             }
 
@@ -196,7 +195,7 @@ public class CreditCardValidator {
     /**
      * CreditCardType implementations define how validation is performed
      * for one type/brand of credit card.
-     * @since Validator 1.1.2
+     * @since 1.1.2
      */
     public interface CreditCardType {
 
@@ -222,7 +221,7 @@ public class CreditCardValidator {
     private static class Visa implements CreditCardType {
         private static final String PREFIX = "4";
         @Override
-        public boolean matches(String card) {
+        public boolean matches(final String card) {
             return (
                 card.substring(0, 1).equals(PREFIX)
                     && (card.length() == 13 || card.length() == 16));
@@ -232,8 +231,8 @@ public class CreditCardValidator {
     private static class Amex implements CreditCardType {
         private static final String PREFIX = "34,37,";
         @Override
-        public boolean matches(String card) {
-            String prefix2 = card.substring(0, 2) + ",";
+        public boolean matches(final String card) {
+            final String prefix2 = card.substring(0, 2) + ",";
             return ((PREFIX.contains(prefix2)) && (card.length() == 15));
         }
     }
@@ -241,7 +240,7 @@ public class CreditCardValidator {
     private static class Discover implements CreditCardType {
         private static final String PREFIX = "6011";
         @Override
-        public boolean matches(String card) {
+        public boolean matches(final String card) {
             return (card.substring(0, 4).equals(PREFIX) && (card.length() == 16));
         }
     }
@@ -249,8 +248,8 @@ public class CreditCardValidator {
     private static class Mastercard implements CreditCardType {
         private static final String PREFIX = "51,52,53,54,55,";
         @Override
-        public boolean matches(String card) {
-            String prefix2 = card.substring(0, 2) + ",";
+        public boolean matches(final String card) {
+            final String prefix2 = card.substring(0, 2) + ",";
             return ((PREFIX.contains(prefix2)) && (card.length() == 16));
         }
     }

@@ -41,8 +41,7 @@ package org.apache.commons.validator.routines.checkdigit;
  *  Routing transit number</a>.
  * </p>
  *
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public final class ABANumberCheckDigit extends ModulusCheckDigit {
 
@@ -52,7 +51,7 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
     public static final CheckDigit ABAN_CHECK_DIGIT = new ABANumberCheckDigit();
 
     /** weighting given to digits depending on their right position */
-    private static final int[] POSITION_WEIGHT = new int[] {3, 1, 7};
+    private static final int[] POSITION_WEIGHT = {3, 1, 7};
 
     /**
      * Construct a modulus 10 Check Digit routine for ABA Numbers.
@@ -77,8 +76,8 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     @Override
-    protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        int weight = POSITION_WEIGHT[rightPos % 3]; // CHECKSTYLE IGNORE MagicNumber
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
+        final int weight = POSITION_WEIGHT[rightPos % 3]; // CHECKSTYLE IGNORE MagicNumber
         return charValue * weight;
     }
 

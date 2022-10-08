@@ -28,7 +28,7 @@ public class ISSNCheckDigitTest extends AbstractCheckDigitTest {
      * Constructor
      * @param name test name
      */
-    public ISSNCheckDigitTest(String name) {
+    public ISSNCheckDigitTest(final String name) {
         super(name);
     }
 

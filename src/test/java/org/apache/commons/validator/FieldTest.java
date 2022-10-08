@@ -21,7 +21,6 @@ import junit.framework.TestCase;
 /**
  * Test <code>Field</code> objects.
  *
- * @version $Revision$
  */
 public class FieldTest extends TestCase {
 
@@ -38,7 +37,7 @@ public class FieldTest extends TestCase {
      * FieldTest constructor.
      * @param name
      */
-    public FieldTest(String name) {
+    public FieldTest(final String name) {
         super(name);
     }
 
@@ -249,8 +248,8 @@ public class FieldTest extends TestCase {
     /**
      * Convenience Method - create argument (no name or position specified)
      */
-    private Arg createArg(String key) {
-        Arg arg = new Arg();
+    private Arg createArg(final String key) {
+        final Arg arg = new Arg();
         arg.setKey(key);
         return arg;
     }
@@ -258,8 +257,8 @@ public class FieldTest extends TestCase {
     /**
      * Convenience Method - create argument (no name, position specified)
      */
-    private Arg createArg(String key, int position) {
-        Arg arg = createArg(key);
+    private Arg createArg(final String key, final int position) {
+        final Arg arg = createArg(key);
         arg.setPosition(position);
         return arg;
     }
@@ -267,8 +266,8 @@ public class FieldTest extends TestCase {
     /**
      * Convenience Method - create argument (name specified, no position)
      */
-    private Arg createArg(String key, String name) {
-        Arg arg = createArg(key);
+    private Arg createArg(final String key, final String name) {
+        final Arg arg = createArg(key);
         arg.setName(name);
         return arg;
     }
@@ -276,8 +275,8 @@ public class FieldTest extends TestCase {
     /**
      * Convenience Method - create argument (name & position specified)
      */
-    private Arg createArg(String key, String name, int position) {
-        Arg arg = createArg(key, name);
+    private Arg createArg(final String key, final String name, final int position) {
+        final Arg arg = createArg(key, name);
         arg.setPosition(position);
         return arg;
     }
