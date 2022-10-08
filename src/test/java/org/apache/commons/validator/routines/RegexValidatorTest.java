@@ -23,8 +23,7 @@ import junit.framework.TestCase;
 /**
  * Test Case for RegexValidatorTest.
  *
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public class RegexValidatorTest extends TestCase {
 
@@ -38,13 +37,13 @@ public class RegexValidatorTest extends TestCase {
     private static final String REGEX_1 = "^" + COMPONENT_1 + SEPARATOR_1 + COMPONENT_2 + SEPARATOR_1 + COMPONENT_3 + "$";
     private static final String REGEX_2 = "^" + COMPONENT_1 + SEPARATOR_2 + COMPONENT_2 + SEPARATOR_2 + COMPONENT_3 + "$";
     private static final String REGEX_3 = "^" + COMPONENT_1 + COMPONENT_2 + COMPONENT_3 + "$";
-    private static final String[] MULTIPLE_REGEX = new String[] {REGEX_1, REGEX_2, REGEX_3};
+    private static final String[] MULTIPLE_REGEX = {REGEX_1, REGEX_2, REGEX_3};
 
     /**
      * Constrct a new test case.
      * @param name The name of the test
      */
-    public RegexValidatorTest(String name) {
+    public RegexValidatorTest(final String name) {
         super(name);
     }
 
@@ -68,8 +67,8 @@ public class RegexValidatorTest extends TestCase {
      * Test instance methods with single regular expression.
      */
     public void testSingle() {
-        RegexValidator sensitive   = new RegexValidator(REGEX);
-        RegexValidator insensitive = new RegexValidator(REGEX, false);
+        final RegexValidator sensitive   = new RegexValidator(REGEX);
+        final RegexValidator insensitive = new RegexValidator(REGEX, false);
 
         // isValid()
         assertEquals("Sensitive isValid() valid",     true,   sensitive.isValid("ac-DE-1"));
@@ -98,15 +97,15 @@ public class RegexValidatorTest extends TestCase {
     public void testMultipleSensitive() {
 
         // ------------ Set up Sensitive Validators
-        RegexValidator multiple   = new RegexValidator(MULTIPLE_REGEX);
-        RegexValidator single1   = new RegexValidator(REGEX_1);
-        RegexValidator single2   = new RegexValidator(REGEX_2);
-        RegexValidator single3   = new RegexValidator(REGEX_3);
+        final RegexValidator multiple   = new RegexValidator(MULTIPLE_REGEX);
+        final RegexValidator single1   = new RegexValidator(REGEX_1);
+        final RegexValidator single2   = new RegexValidator(REGEX_2);
+        final RegexValidator single3   = new RegexValidator(REGEX_3);
 
         // ------------ Set up test values
         String value = "aac FDE 321";
-        String expect = "aacFDE321";
-        String[] array = new String[] {"aac", "FDE", "321"};
+        final String expect = "aacFDE321";
+        final String[] array = {"aac", "FDE", "321"};
 
         // isValid()
         assertEquals("Sensitive isValid() Multiple", true,  multiple.isValid(value));
@@ -139,15 +138,15 @@ public class RegexValidatorTest extends TestCase {
     public void testMultipleInsensitive() {
 
         // ------------ Set up In-sensitive Validators
-        RegexValidator multiple = new RegexValidator(MULTIPLE_REGEX, false);
-        RegexValidator single1   = new RegexValidator(REGEX_1, false);
-        RegexValidator single2   = new RegexValidator(REGEX_2, false);
-        RegexValidator single3   = new RegexValidator(REGEX_3, false);
+        final RegexValidator multiple = new RegexValidator(MULTIPLE_REGEX, false);
+        final RegexValidator single1   = new RegexValidator(REGEX_1, false);
+        final RegexValidator single2   = new RegexValidator(REGEX_2, false);
+        final RegexValidator single3   = new RegexValidator(REGEX_3, false);
 
         // ------------ Set up test values
         String value = "AAC FDE 321";
-        String expect = "AACFDE321";
-        String[] array = new String[] {"AAC", "FDE", "321"};
+        final String expect = "AACFDE321";
+        final String[] array = {"AAC", "FDE", "321"};
 
         // isValid()
         assertEquals("isValid() Multiple", true,  multiple.isValid(value));
@@ -179,7 +178,7 @@ public class RegexValidatorTest extends TestCase {
      */
     public void testNullValue() {
 
-        RegexValidator validator = new RegexValidator(REGEX);
+        final RegexValidator validator = new RegexValidator(REGEX);
         assertEquals("Instance isValid()",  false, validator.isValid(null));
         assertEquals("Instance validate()", null,  validator.validate(null));
         assertEquals("Instance match()",    null,  validator.match(null));
@@ -194,7 +193,7 @@ public class RegexValidatorTest extends TestCase {
         try {
             new RegexValidator((String)null);
             fail("Single Null - expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Single Null", "Regular expression[0] is missing", e.getMessage());
         }
 
@@ -202,7 +201,7 @@ public class RegexValidatorTest extends TestCase {
         try {
             new RegexValidator("");
             fail("Single Zero Length - expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Single Zero Length", "Regular expression[0] is missing", e.getMessage());
         }
 
@@ -210,7 +209,7 @@ public class RegexValidatorTest extends TestCase {
         try {
             new RegexValidator((String[])null);
             fail("Null Array - expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Null Array", "Regular expressions are missing", e.getMessage());
         }
 
@@ -218,16 +217,16 @@ public class RegexValidatorTest extends TestCase {
         try {
             new RegexValidator(new String[0]);
             fail("Zero Length Array - expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Zero Length Array", "Regular expressions are missing", e.getMessage());
         }
 
         // Multiple Regular Expression - Array has Null
-        String[] expressions = new String[] {"ABC", null};
+        String[] expressions = {"ABC", null};
         try {
             new RegexValidator(expressions);
             fail("Array has Null - expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Array has Null", "Regular expression[1] is missing", e.getMessage());
         }
 
@@ -236,7 +235,7 @@ public class RegexValidatorTest extends TestCase {
         try {
             new RegexValidator(expressions);
             fail("Array has Zero Length - expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             assertEquals("Array has Zero Length", "Regular expression[0] is missing", e.getMessage());
         }
     }
@@ -245,10 +244,10 @@ public class RegexValidatorTest extends TestCase {
      * Test exceptions
      */
     public void testExceptions() {
-        String invalidRegex = "^([abCD12]*$";
+        final String invalidRegex = "^([abCD12]*$";
         try {
             new RegexValidator(invalidRegex);
-        } catch (PatternSyntaxException e) {
+        } catch (final PatternSyntaxException e) {
             // expected
         }
     }
@@ -257,10 +256,10 @@ public class RegexValidatorTest extends TestCase {
      * Test toString() method
      */
     public void testToString() {
-        RegexValidator single = new RegexValidator(REGEX);
+        final RegexValidator single = new RegexValidator(REGEX);
         assertEquals("Single", "RegexValidator{" + REGEX + "}", single.toString());
 
-        RegexValidator multiple = new RegexValidator(new String[] {REGEX, REGEX});
+        final RegexValidator multiple = new RegexValidator(new String[] {REGEX, REGEX});
         assertEquals("Multiple", "RegexValidator{" + REGEX + "," + REGEX + "}", multiple.toString());
     }
 
@@ -270,7 +269,7 @@ public class RegexValidatorTest extends TestCase {
      * @param expect Expected array
      * @param result Actual array
      */
-    private void checkArray(String label, String[] expect, String[] result) {
+    private void checkArray(final String label, final String[] expect, final String[] result) {
 
         // Handle nulls
         if (expect == null || result == null) {

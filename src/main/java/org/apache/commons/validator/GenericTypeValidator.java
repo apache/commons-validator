@@ -32,7 +32,6 @@ import org.apache.commons.logging.LogFactory;
  * This class contains basic methods for performing validations that return the
  * correctly typed class based on the validation performed.
  *
- * @version $Revision$
  */
 public class GenericTypeValidator implements Serializable {
 
@@ -46,14 +45,14 @@ public class GenericTypeValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @return the converted Byte value.
      */
-    public static Byte formatByte(String value) {
+    public static Byte formatByte(final String value) {
         if (value == null) {
             return null;
         }
 
         try {
             return Byte.valueOf(value);
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
             return null;
         }
 
@@ -67,7 +66,7 @@ public class GenericTypeValidator implements Serializable {
      *               null)
      * @return the converted Byte value.
      */
-    public static Byte formatByte(String value, Locale locale) {
+    public static Byte formatByte(final String value, final Locale locale) {
         Byte result = null;
 
         if (value != null) {
@@ -78,8 +77,8 @@ public class GenericTypeValidator implements Serializable {
                 formatter = NumberFormat.getNumberInstance(Locale.getDefault());
             }
             formatter.setParseIntegerOnly(true);
-            ParsePosition pos = new ParsePosition(0);
-            Number num = formatter.parse(value, pos);
+            final ParsePosition pos = new ParsePosition(0);
+            final Number num = formatter.parse(value, pos);
 
             // If there was no error      and we used the whole string
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
@@ -98,14 +97,14 @@ public class GenericTypeValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @return the converted Short value.
      */
-    public static Short formatShort(String value) {
+    public static Short formatShort(final String value) {
         if (value == null) {
             return null;
         }
 
         try {
             return Short.valueOf(value);
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
             return null;
         }
 
@@ -119,7 +118,7 @@ public class GenericTypeValidator implements Serializable {
      *               null)
      * @return the converted Short value.
      */
-    public static Short formatShort(String value, Locale locale) {
+    public static Short formatShort(final String value, final Locale locale) {
         Short result = null;
 
         if (value != null) {
@@ -130,8 +129,8 @@ public class GenericTypeValidator implements Serializable {
                 formatter = NumberFormat.getNumberInstance(Locale.getDefault());
             }
             formatter.setParseIntegerOnly(true);
-            ParsePosition pos = new ParsePosition(0);
-            Number num = formatter.parse(value, pos);
+            final ParsePosition pos = new ParsePosition(0);
+            final Number num = formatter.parse(value, pos);
 
             // If there was no error      and we used the whole string
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
@@ -150,14 +149,14 @@ public class GenericTypeValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @return the converted Integer value.
      */
-    public static Integer formatInt(String value) {
+    public static Integer formatInt(final String value) {
         if (value == null) {
             return null;
         }
 
         try {
             return Integer.valueOf(value);
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
             return null;
         }
 
@@ -171,7 +170,7 @@ public class GenericTypeValidator implements Serializable {
      *               null)
      * @return the converted Integer value.
      */
-    public static Integer formatInt(String value, Locale locale) {
+    public static Integer formatInt(final String value, final Locale locale) {
         Integer result = null;
 
         if (value != null) {
@@ -182,8 +181,8 @@ public class GenericTypeValidator implements Serializable {
                 formatter = NumberFormat.getNumberInstance(Locale.getDefault());
             }
             formatter.setParseIntegerOnly(true);
-            ParsePosition pos = new ParsePosition(0);
-            Number num = formatter.parse(value, pos);
+            final ParsePosition pos = new ParsePosition(0);
+            final Number num = formatter.parse(value, pos);
 
             // If there was no error      and we used the whole string
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
@@ -202,14 +201,14 @@ public class GenericTypeValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @return the converted Long value.
      */
-    public static Long formatLong(String value) {
+    public static Long formatLong(final String value) {
         if (value == null) {
             return null;
         }
 
         try {
             return Long.valueOf(value);
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
             return null;
         }
 
@@ -223,7 +222,7 @@ public class GenericTypeValidator implements Serializable {
      *               null)
      * @return the converted Long value.
      */
-    public static Long formatLong(String value, Locale locale) {
+    public static Long formatLong(final String value, final Locale locale) {
         Long result = null;
 
         if (value != null) {
@@ -234,8 +233,8 @@ public class GenericTypeValidator implements Serializable {
                 formatter = NumberFormat.getNumberInstance(Locale.getDefault());
             }
             formatter.setParseIntegerOnly(true);
-            ParsePosition pos = new ParsePosition(0);
-            Number num = formatter.parse(value, pos);
+            final ParsePosition pos = new ParsePosition(0);
+            final Number num = formatter.parse(value, pos);
 
             // If there was no error      and we used the whole string
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
@@ -254,14 +253,14 @@ public class GenericTypeValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @return the converted Float value.
      */
-    public static Float formatFloat(String value) {
+    public static Float formatFloat(final String value) {
         if (value == null) {
             return null;
         }
 
         try {
             return Float.valueOf(value);
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
             return null;
         }
 
@@ -275,7 +274,7 @@ public class GenericTypeValidator implements Serializable {
      *               null)
      * @return the converted Float value.
      */
-    public static Float formatFloat(String value, Locale locale) {
+    public static Float formatFloat(final String value, final Locale locale) {
         Float result = null;
 
         if (value != null) {
@@ -285,8 +284,8 @@ public class GenericTypeValidator implements Serializable {
             } else {
                 formatter = NumberFormat.getInstance(Locale.getDefault());
             }
-            ParsePosition pos = new ParsePosition(0);
-            Number num = formatter.parse(value, pos);
+            final ParsePosition pos = new ParsePosition(0);
+            final Number num = formatter.parse(value, pos);
 
             // If there was no error      and we used the whole string
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
@@ -305,14 +304,14 @@ public class GenericTypeValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @return the converted Double value.
      */
-    public static Double formatDouble(String value) {
+    public static Double formatDouble(final String value) {
         if (value == null) {
             return null;
         }
 
         try {
             return Double.valueOf(value);
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
             return null;
         }
 
@@ -326,7 +325,7 @@ public class GenericTypeValidator implements Serializable {
      *               null)
      * @return the converted Double value.
      */
-    public static Double formatDouble(String value, Locale locale) {
+    public static Double formatDouble(final String value, final Locale locale) {
         Double result = null;
 
         if (value != null) {
@@ -336,8 +335,8 @@ public class GenericTypeValidator implements Serializable {
             } else {
                 formatter = NumberFormat.getInstance(Locale.getDefault());
             }
-            ParsePosition pos = new ParsePosition(0);
-            Number num = formatter.parse(value, pos);
+            final ParsePosition pos = new ParsePosition(0);
+            final Number num = formatter.parse(value, pos);
 
             // If there was no error      and we used the whole string
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
@@ -361,7 +360,7 @@ public class GenericTypeValidator implements Serializable {
      * @param locale The Locale to use to parse the date (system default if null)
      * @return the converted Date value.
      */
-    public static Date formatDate(String value, Locale locale) {
+    public static Date formatDate(final String value, final Locale locale) {
         Date date = null;
 
         if (value == null) {
@@ -395,11 +394,11 @@ public class GenericTypeValidator implements Serializable {
             // Firstly, try with the short form
             try {
                 date = formatterShort.parse(value);
-            } catch (ParseException e) {
+            } catch (final ParseException e) {
                 // Fall back on the default one
                 date = formatterDefault.parse(value);
             }
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             // Bad date, so LOG and return null
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Date parse failed value=[" + value + "], " +
@@ -426,7 +425,7 @@ public class GenericTypeValidator implements Serializable {
      *                    datePattern.
      * @return the converted Date value.
      */
-    public static Date formatDate(String value, String datePattern, boolean strict) {
+    public static Date formatDate(final String value, final String datePattern, final boolean strict) {
         Date date = null;
 
         if (value == null
@@ -436,7 +435,7 @@ public class GenericTypeValidator implements Serializable {
         }
 
         try {
-            SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+            final SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
             formatter.setLenient(false);
 
             date = formatter.parse(value);
@@ -444,7 +443,7 @@ public class GenericTypeValidator implements Serializable {
             if (strict && datePattern.length() != value.length()) {
                 date = null;
             }
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             // Bad date so return null
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Date parse failed value=[" + value + "], " +
@@ -465,7 +464,7 @@ public class GenericTypeValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @return the converted Credit Card number.
      */
-    public static Long formatCreditCard(String value) {
+    public static Long formatCreditCard(final String value) {
         return GenericValidator.isCreditCard(value) ? Long.valueOf(value) : null;
     }
 

@@ -39,8 +39,7 @@ import java.text.Format;
  *    you want the currency converted to. One thing to note - only the CurrencyValidator
  *    implements <i>lenient</i> behavior regarding the currency symbol.</p>
  *
- * @version $Revision$
- * @since Validator 1.3.0
+ * @since 1.3.0
  */
 public class CurrencyValidator extends BigDecimalValidator {
 
@@ -74,7 +73,7 @@ public class CurrencyValidator extends BigDecimalValidator {
      * @param allowFractions <code>true</code> if fractions are
      *        allowed or <code>false</code> if integers only.
      */
-    public CurrencyValidator(boolean strict, boolean allowFractions) {
+    public CurrencyValidator(final boolean strict, final boolean allowFractions) {
         super(strict, CURRENCY_FORMAT, allowFractions);
     }
 
@@ -92,7 +91,7 @@ public class CurrencyValidator extends BigDecimalValidator {
      * @return The parsed value if valid or <code>null</code> if invalid.
      */
     @Override
-    protected Object parse(String value, Format formatter) {
+    protected Object parse(final String value, final Format formatter) {
 
         // Initial parse of the value
         Object parsedValue = super.parse(value, formatter);
@@ -101,10 +100,10 @@ public class CurrencyValidator extends BigDecimalValidator {
         }
 
         // Re-parse using a pattern without the currency symbol
-        DecimalFormat decimalFormat = (DecimalFormat)formatter;
-        String pattern = decimalFormat.toPattern();
+        final DecimalFormat decimalFormat = (DecimalFormat)formatter;
+        final String pattern = decimalFormat.toPattern();
         if (pattern.indexOf(CURRENCY_SYMBOL) >= 0) {
-            StringBuilder buffer = new StringBuilder(pattern.length());
+            final StringBuilder buffer = new StringBuilder(pattern.length());
             for (int i = 0; i < pattern.length(); i++) {
                 if (pattern.charAt(i) != CURRENCY_SYMBOL) {
                     buffer.append(pattern.charAt(i));

@@ -24,7 +24,6 @@ import org.xml.sax.SAXException;
 /**
  * This TestCase is a confirmation of the parameter of the validator's method.
  *
- * @version $Revision$
  */
 public class ParameterTest extends AbstractCommonTest {
 
@@ -39,7 +38,7 @@ public class ParameterTest extends AbstractCommonTest {
     /**
      * Constructor.
      */
-    public ParameterTest(String name) {
+    public ParameterTest(final String name) {
         super(name);
     }
 
@@ -69,9 +68,9 @@ public class ParameterTest extends AbstractCommonTest {
     public void testAllValid() {
 
         // Create bean to run test on.
-        NameBean bean = createNameBean();
+        final NameBean bean = createNameBean();
 
-        Validator validator = new Validator(resources, FORM_KEY);
+        final Validator validator = new Validator(resources, FORM_KEY);
 
         // add the name bean to the validator as a resource
         // for the validations to be performed on.
@@ -81,7 +80,7 @@ public class ParameterTest extends AbstractCommonTest {
         // Get results of the validation.
         try {
             validator.validate();
-        } catch(Exception e) {
+        } catch(final Exception e) {
             fail("Validator.validate() threw " + e);
         }
         assertParameterValue(validator, Validator.BEAN_PARAM, Object.class);
@@ -96,9 +95,9 @@ public class ParameterTest extends AbstractCommonTest {
                 ValidatorResults.class);
     }
 
-    private void assertParameterValue(Validator validator, String name,
-            Class<?> type) {
-        Object value = validator.getParameterValue(name);
+    private void assertParameterValue(final Validator validator, final String name,
+            final Class<?> type) {
+        final Object value = validator.getParameterValue(name);
         assertNotNull("Expected '" + type.getName() + "' but was null", value);
         assertTrue("Expected '" + type.getName() + "' but was '" + value.getClass().getName() + "'",
                    type.isInstance(value));
@@ -108,7 +107,7 @@ public class ParameterTest extends AbstractCommonTest {
      * Create a NameBean.
      */
     private NameBean createNameBean() {
-        NameBean name = new NameBean();
+        final NameBean name = new NameBean();
         name.setFirstName(firstName);
         name.setMiddleName(middleName);
         name.setLastName(lastName);

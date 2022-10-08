@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 /**
  * Test Case for PercentValidator.
  *
- * @version $Revision$
  */
 public class PercentValidatorTest extends TestCase {
 
@@ -33,7 +32,7 @@ public class PercentValidatorTest extends TestCase {
      * Constructor
      * @param name test name
      */
-    public PercentValidatorTest(String name) {
+    public PercentValidatorTest(final String name) {
         super(name);
     }
 
@@ -66,13 +65,13 @@ public class PercentValidatorTest extends TestCase {
      */
     public void testValid() {
         // Set the default Locale
-        Locale origDefault = Locale.getDefault();
+        final Locale origDefault = Locale.getDefault();
         Locale.setDefault(Locale.UK);
 
-        BigDecimalValidator validator = PercentValidator.getInstance();
-        BigDecimal expected = new BigDecimal("0.12");
-        BigDecimal negative = new BigDecimal("-0.12");
-        BigDecimal hundred  = new BigDecimal("1.00");
+        final BigDecimalValidator validator = PercentValidator.getInstance();
+        final BigDecimal expected = new BigDecimal("0.12");
+        final BigDecimal negative = new BigDecimal("-0.12");
+        final BigDecimal hundred  = new BigDecimal("1.00");
 
         assertEquals("Default locale", expected, validator.validate("12%"));
         assertEquals("Default negtve", negative, validator.validate("-12%"));
@@ -97,7 +96,7 @@ public class PercentValidatorTest extends TestCase {
      * Test Invalid percentage values
      */
     public void testInvalid() {
-        BigDecimalValidator validator = PercentValidator.getInstance();
+        final BigDecimalValidator validator = PercentValidator.getInstance();
 
         // Invalid Missing
         assertFalse("isValid() Null Value",    validator.isValid(null));

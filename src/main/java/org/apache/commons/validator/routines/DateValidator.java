@@ -79,8 +79,7 @@ import java.util.TimeZone;
  *       <li>using the format for the <i>default</i> <code>Locale</code></li>
  *    </ul>
  *
- * @version $Revision$
- * @since Validator 1.3.0
+ * @since 1.3.0
  */
 public class DateValidator extends AbstractCalendarValidator {
 
@@ -112,7 +111,7 @@ public class DateValidator extends AbstractCalendarValidator {
      *        <code>Format</code> parsing should be used.
      * @param dateStyle the date style to use for Locale validation.
      */
-    public DateValidator(boolean strict, int dateStyle) {
+    public DateValidator(final boolean strict, final int dateStyle) {
         super(strict, dateStyle, -1);
     }
 
@@ -124,7 +123,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * @return The parsed <code>Date</code> if valid or <code>null</code>
      *  if invalid.
      */
-    public Date validate(String value) {
+    public Date validate(final String value) {
         return (Date)parse(value, (String)null, (Locale)null, (TimeZone)null);
     }
 
@@ -136,7 +135,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * @param timeZone The Time Zone used to parse the date, system default if null.
      * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
      */
-    public Date validate(String value, TimeZone timeZone) {
+    public Date validate(final String value, final TimeZone timeZone) {
         return (Date)parse(value, (String)null, (Locale)null, timeZone);
     }
 
@@ -149,7 +148,7 @@ public class DateValidator extends AbstractCalendarValidator {
      *        default for the <code>Locale</code> if <code>null</code>.
      * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
      */
-    public Date validate(String value, String pattern) {
+    public Date validate(final String value, final String pattern) {
         return (Date)parse(value, pattern, (Locale)null, (TimeZone)null);
     }
 
@@ -163,7 +162,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * @param timeZone The Time Zone used to parse the date, system default if null.
      * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
      */
-    public Date validate(String value, String pattern, TimeZone timeZone) {
+    public Date validate(final String value, final String pattern, final TimeZone timeZone) {
         return (Date)parse(value, pattern, (Locale)null, timeZone);
     }
 
@@ -175,7 +174,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * @param locale The locale to use for the date format, system default if null.
      * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
      */
-    public Date validate(String value, Locale locale) {
+    public Date validate(final String value, final Locale locale) {
         return (Date)parse(value, (String)null, locale, (TimeZone)null);
     }
 
@@ -188,7 +187,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * @param timeZone The Time Zone used to parse the date, system default if null.
      * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
      */
-    public Date validate(String value, Locale locale, TimeZone timeZone) {
+    public Date validate(final String value, final Locale locale, final TimeZone timeZone) {
         return (Date)parse(value, (String)null, locale, timeZone);
     }
 
@@ -202,7 +201,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * @param locale The locale to use for the date format, system default if null.
      * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
      */
-    public Date validate(String value, String pattern, Locale locale) {
+    public Date validate(final String value, final String pattern, final Locale locale) {
         return (Date)parse(value, pattern, locale, (TimeZone)null);
     }
 
@@ -217,7 +216,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * @param timeZone The Time Zone used to parse the date, system default if null.
      * @return The parsed <code>Date</code> if valid or <code>null</code> if invalid.
      */
-    public Date validate(String value, String pattern, Locale locale, TimeZone timeZone) {
+    public Date validate(final String value, final String pattern, final Locale locale, final TimeZone timeZone) {
         return (Date)parse(value, pattern, locale, timeZone);
     }
 
@@ -231,9 +230,9 @@ public class DateValidator extends AbstractCalendarValidator {
      * date is less than the seconds and +1 if the first
      * date is greater than.
      */
-    public int compareDates(Date value, Date compare, TimeZone timeZone) {
-        Calendar calendarValue   = getCalendar(value, timeZone);
-        Calendar calendarCompare = getCalendar(compare, timeZone);
+    public int compareDates(final Date value, final Date compare, final TimeZone timeZone) {
+        final Calendar calendarValue   = getCalendar(value, timeZone);
+        final Calendar calendarCompare = getCalendar(compare, timeZone);
         return compare(calendarValue, calendarCompare, Calendar.DATE);
     }
 
@@ -247,9 +246,9 @@ public class DateValidator extends AbstractCalendarValidator {
      * parameter's week is less than the seconds and +1 if the first
      * parameter's week is greater than.
      */
-    public int compareWeeks(Date value, Date compare, TimeZone timeZone) {
-        Calendar calendarValue   = getCalendar(value, timeZone);
-        Calendar calendarCompare = getCalendar(compare, timeZone);
+    public int compareWeeks(final Date value, final Date compare, final TimeZone timeZone) {
+        final Calendar calendarValue   = getCalendar(value, timeZone);
+        final Calendar calendarCompare = getCalendar(compare, timeZone);
         return compare(calendarValue, calendarCompare, Calendar.WEEK_OF_YEAR);
     }
 
@@ -263,9 +262,9 @@ public class DateValidator extends AbstractCalendarValidator {
      * parameter's month is less than the seconds and +1 if the first
      * parameter's month is greater than.
      */
-    public int compareMonths(Date value, Date compare, TimeZone timeZone) {
-        Calendar calendarValue   = getCalendar(value, timeZone);
-        Calendar calendarCompare = getCalendar(compare, timeZone);
+    public int compareMonths(final Date value, final Date compare, final TimeZone timeZone) {
+        final Calendar calendarValue   = getCalendar(value, timeZone);
+        final Calendar calendarCompare = getCalendar(compare, timeZone);
         return compare(calendarValue, calendarCompare, Calendar.MONTH);
     }
 
@@ -279,7 +278,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * parameter's quarter is less than the seconds and +1 if the first
      * parameter's quarter is greater than.
      */
-    public int compareQuarters(Date value, Date compare, TimeZone timeZone) {
+    public int compareQuarters(final Date value, final Date compare, final TimeZone timeZone) {
         return compareQuarters(value, compare, timeZone, 1);
     }
 
@@ -294,9 +293,9 @@ public class DateValidator extends AbstractCalendarValidator {
      * parameter's quarter is less than the seconds and +1 if the first
      * parameter's quarter is greater than.
      */
-    public int compareQuarters(Date value, Date compare, TimeZone timeZone, int monthOfFirstQuarter) {
-        Calendar calendarValue   = getCalendar(value, timeZone);
-        Calendar calendarCompare = getCalendar(compare, timeZone);
+    public int compareQuarters(final Date value, final Date compare, final TimeZone timeZone, final int monthOfFirstQuarter) {
+        final Calendar calendarValue   = getCalendar(value, timeZone);
+        final Calendar calendarCompare = getCalendar(compare, timeZone);
         return super.compareQuarters(calendarValue, calendarCompare, monthOfFirstQuarter);
     }
 
@@ -310,9 +309,9 @@ public class DateValidator extends AbstractCalendarValidator {
      * parameter's year is less than the seconds and +1 if the first
      * parameter's year is greater than.
      */
-    public int compareYears(Date value, Date compare, TimeZone timeZone) {
-        Calendar calendarValue   = getCalendar(value, timeZone);
-        Calendar calendarCompare = getCalendar(compare, timeZone);
+    public int compareYears(final Date value, final Date compare, final TimeZone timeZone) {
+        final Calendar calendarValue   = getCalendar(value, timeZone);
+        final Calendar calendarCompare = getCalendar(compare, timeZone);
         return compare(calendarValue, calendarCompare, Calendar.YEAR);
     }
 
@@ -324,7 +323,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * @return The parsed value converted to a <code>Calendar</code>.
      */
     @Override
-    protected Object processParsedValue(Object value, Format formatter) {
+    protected Object processParsedValue(final Object value, final Format formatter) {
         return value;
     }
 
@@ -334,7 +333,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * @param value The date value to be converted.
      * @return The converted <code>Calendar</code>.
      */
-    private Calendar getCalendar(Date value, TimeZone timeZone) {
+    private Calendar getCalendar(final Date value, final TimeZone timeZone) {
 
         Calendar calendar = null;
         if (timeZone != null) {

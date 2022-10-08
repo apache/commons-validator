@@ -42,8 +42,6 @@ import org.xml.sax.SAXException;
  * the Struts Validator Framework.  However, should you wish to use
  * the Validator against raw Beans in a pure Java application, you
  * can see everything you need to know to get it working here.
- *
- * @version $Revision$
  */
 public class ValidateExample {
 

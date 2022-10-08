@@ -20,8 +20,7 @@ package org.apache.commons.validator.routines.checkdigit;
 /**
  * ISBN-10/ISBN-13 Check Digit Test.
  *
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
 
@@ -29,7 +28,7 @@ public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
      * Constructor
      * @param name test name
      */
-    public ISBNCheckDigitTest(String name) {
+    public ISBNCheckDigitTest(final String name) {
         super(name);
     }
 
@@ -64,28 +63,28 @@ public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
         try {
             routine.calculate("12345678");
             fail("calculate() Lth 8 - expected exception");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertEquals("calculate() Lth 8", "Invalid ISBN Length = 8", e.getMessage());
         }
 
         try {
             routine.calculate("1234567890");
             fail("calculate() Lth 10 - expected exception");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertEquals("calculate() Lth 10", "Invalid ISBN Length = 10", e.getMessage());
         }
 
         try {
             routine.calculate("12345678901");
             fail("calculate() Lth 11 - expected exception");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertEquals("calculate() Lth 11", "Invalid ISBN Length = 11", e.getMessage());
         }
 
         try {
             routine.calculate("1234567890123");
             fail("calculate() Lth 13 - expected exception");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertEquals("calculate() Lth 13", "Invalid ISBN Length = 13", e.getMessage());
         }
     }

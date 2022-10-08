@@ -25,7 +25,6 @@ import java.text.DecimalFormatSymbols;
 /**
  * Test Case for CurrencyValidator.
  *
- * @version $Revision$
  */
 public class CurrencyValidatorTest extends TestCase {
 
@@ -38,7 +37,7 @@ public class CurrencyValidatorTest extends TestCase {
      * Constructor
      * @param name test name
      */
-    public CurrencyValidatorTest(String name) {
+    public CurrencyValidatorTest(final String name) {
         super(name);
     }
 
@@ -71,14 +70,14 @@ public class CurrencyValidatorTest extends TestCase {
      */
     public void testValid() {
         // Set the default Locale
-        Locale origDefault = Locale.getDefault();
+        final Locale origDefault = Locale.getDefault();
         Locale.setDefault(Locale.UK);
 
-        BigDecimalValidator validator = CurrencyValidator.getInstance();
-        BigDecimal expected   = new BigDecimal("1234.56");
-        BigDecimal negative   = new BigDecimal("-1234.56");
-        BigDecimal noDecimal  = new BigDecimal("1234.00");
-        BigDecimal oneDecimal = new BigDecimal("1234.50");
+        final BigDecimalValidator validator = CurrencyValidator.getInstance();
+        final BigDecimal expected   = new BigDecimal("1234.56");
+        final BigDecimal negative   = new BigDecimal("-1234.56");
+        final BigDecimal noDecimal  = new BigDecimal("1234.00");
+        final BigDecimal oneDecimal = new BigDecimal("1234.50");
 
         assertEquals("Default locale", expected, validator.validate(UK_POUND + "1,234.56"));
 
@@ -104,7 +103,7 @@ public class CurrencyValidatorTest extends TestCase {
      * Test Invalid currency values
      */
     public void testInvalid() {
-        BigDecimalValidator validator = CurrencyValidator.getInstance();
+        final BigDecimalValidator validator = CurrencyValidator.getInstance();
 
         // Invalid Missing
         assertFalse("isValid() Null Value",    validator.isValid(null));
@@ -126,12 +125,12 @@ public class CurrencyValidatorTest extends TestCase {
      */
     public void testIntegerValid() {
         // Set the default Locale
-        Locale origDefault = Locale.getDefault();
+        final Locale origDefault = Locale.getDefault();
         Locale.setDefault(Locale.UK);
 
-        CurrencyValidator validator = new CurrencyValidator();
-        BigDecimal expected = new BigDecimal("1234.00");
-        BigDecimal negative = new BigDecimal("-1234.00");
+        final CurrencyValidator validator = new CurrencyValidator();
+        final BigDecimal expected = new BigDecimal("1234.00");
+        final BigDecimal negative = new BigDecimal("-1234.00");
 
         assertEquals("Default locale", expected, validator.validate(UK_POUND +"1,234"));
 
@@ -149,7 +148,7 @@ public class CurrencyValidatorTest extends TestCase {
      * Test Invalid integer (non decimal) currency values
      */
     public void testIntegerInvalid() {
-        CurrencyValidator validator = new CurrencyValidator(true, false);
+        final CurrencyValidator validator = new CurrencyValidator(true, false);
 
         // Invalid UK - has decimals
         assertFalse("UK positive",    validator.isValid(UK_POUND + "1,234.56",   Locale.UK));
@@ -166,14 +165,14 @@ public class CurrencyValidatorTest extends TestCase {
      */
     public void testPattern() {
         // Set the default Locale
-        Locale origDefault = Locale.getDefault();
+        final Locale origDefault = Locale.getDefault();
         Locale.setDefault(Locale.UK);
 
-        BigDecimalValidator validator = CurrencyValidator.getInstance();
-        String basicPattern = CURRENCY_SYMBOL + "#,##0.000";
-        String pattern = basicPattern + ";[" + basicPattern +"]";
-        BigDecimal expected   = new BigDecimal("1234.567");
-        BigDecimal negative   = new BigDecimal("-1234.567");
+        final BigDecimalValidator validator = CurrencyValidator.getInstance();
+        final String basicPattern = CURRENCY_SYMBOL + "#,##0.000";
+        final String pattern = basicPattern + ";[" + basicPattern +"]";
+        final BigDecimal expected   = new BigDecimal("1234.567");
+        final BigDecimal negative   = new BigDecimal("-1234.567");
 
         // Test Pattern
         assertEquals("default",        expected,   validator.validate(UK_POUND + "1,234.567", pattern));

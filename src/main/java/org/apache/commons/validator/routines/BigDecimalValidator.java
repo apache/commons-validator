@@ -63,8 +63,7 @@ import java.util.Locale;
  *       <li>using a specified pattern with a specified <code>Locale</code></li>
  *    </ul>
  *
- * @version $Revision$
- * @since Validator 1.3.0
+ * @since 1.3.0
  */
 public class BigDecimalValidator extends AbstractNumberValidator {
 
@@ -93,7 +92,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * @param strict <code>true</code> if strict
      *        <code>Format</code> parsing should be used.
      */
-    public BigDecimalValidator(boolean strict) {
+    public BigDecimalValidator(final boolean strict) {
         this(strict, STANDARD_FORMAT, true);
     }
 
@@ -120,8 +119,8 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * @param allowFractions <code>true</code> if fractions are
      *        allowed or <code>false</code> if integers only.
      */
-    protected BigDecimalValidator(boolean strict, int formatType,
-            boolean allowFractions) {
+    protected BigDecimalValidator(final boolean strict, final int formatType,
+            final boolean allowFractions) {
         super(strict, formatType, allowFractions);
     }
 
@@ -133,7 +132,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * @return The parsed <code>BigDecimal</code> if valid or <code>null</code>
      *  if invalid.
      */
-    public BigDecimal validate(String value) {
+    public BigDecimal validate(final String value) {
         return (BigDecimal)parse(value, (String)null, (Locale)null);
     }
 
@@ -146,7 +145,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      *        default for the <code>Locale</code> if <code>null</code>.
      * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
      */
-    public BigDecimal validate(String value, String pattern) {
+    public BigDecimal validate(final String value, final String pattern) {
         return (BigDecimal)parse(value, pattern, (Locale)null);
     }
 
@@ -158,7 +157,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the number format, system default if null.
      * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
      */
-    public BigDecimal validate(String value, Locale locale) {
+    public BigDecimal validate(final String value, final Locale locale) {
         return (BigDecimal)parse(value, (String)null, locale);
     }
 
@@ -172,7 +171,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the date format, system default if null.
      * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
      */
-    public BigDecimal validate(String value, String pattern, Locale locale) {
+    public BigDecimal validate(final String value, final String pattern, final Locale locale) {
         return (BigDecimal)parse(value, pattern, locale);
     }
 
@@ -185,7 +184,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(BigDecimal value, double min, double max) {
+    public boolean isInRange(final BigDecimal value, final double min, final double max) {
         return (value.doubleValue() >= min && value.doubleValue() <= max);
     }
 
@@ -197,7 +196,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(BigDecimal value, double min) {
+    public boolean minValue(final BigDecimal value, final double min) {
         return (value.doubleValue() >= min);
     }
 
@@ -209,7 +208,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(BigDecimal value, double max) {
+    public boolean maxValue(final BigDecimal value, final double max) {
         return (value.doubleValue() <= max);
     }
 
@@ -222,7 +221,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      *         <code>BigDecimal</code>.
      */
     @Override
-    protected Object processParsedValue(Object value, Format formatter) {
+    protected Object processParsedValue(final Object value, final Format formatter) {
         BigDecimal decimal = null;
         if (value instanceof Long) {
             decimal = BigDecimal.valueOf(((Long)value).longValue());
@@ -230,7 +229,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
             decimal = new BigDecimal(value.toString());
         }
 
-        int scale = determineScale((NumberFormat)formatter);
+        final int scale = determineScale((NumberFormat)formatter);
         if (scale >= 0) {
             decimal = decimal.setScale(scale, BigDecimal.ROUND_DOWN);
         }

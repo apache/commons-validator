@@ -24,7 +24,6 @@ import java.util.TimeZone;
 /**
  * Test Case for DateValidator.
  *
- * @version $Revision$
  */
 public class DateValidatorTest extends AbstractCalendarValidatorTest {
 
@@ -34,7 +33,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
      * Constructor
      * @param name test name
      */
-    public DateValidatorTest(String name) {
+    public DateValidatorTest(final String name) {
         super(name);
     }
 
@@ -54,14 +53,14 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
      * If not, the parse will fail
      */
     public void testLocaleProviders() throws Exception {
-        String localeProviders = System.getProperty("java.locale.providers");
+        final String localeProviders = System.getProperty("java.locale.providers");
         if (localeProviders != null) { // may be null before Java 9
             assertTrue("java.locale.providers must start with COMPAT", localeProviders.startsWith("COMPAT"));
         }
-        String txt = "3/20/15 10:59:00 PM";  // This relies on the locale format prior to Java 9 to parse correctly
-        DateFormat dateformat= DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, Locale.US);
+        final String txt = "3/20/15 10:59:00 PM";  // This relies on the locale format prior to Java 9 to parse correctly
+        final DateFormat dateformat= DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, Locale.US);
         dateformat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date date = dateformat.parse(txt);
+        final Date date = dateformat.parse(txt);
         assertNotNull(date);
     }
     /**
@@ -69,15 +68,15 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
      */
     public void testDateValidatorMethods() {
         Locale.setDefault(Locale.US);
-        Locale locale     = Locale.GERMAN;
-        String pattern    = "yyyy-MM-dd";
-        String patternVal = "2005-12-31";
-        String germanVal     = "31 Dez 2005";
-        String germanPattern = "dd MMM yyyy";
-        String localeVal  = "31.12.2005";
-        String defaultVal = "12/31/05";
-        String XXXX    = "XXXX";
-        Date expected = createCalendar(null, 20051231, 0).getTime();
+        final Locale locale     = Locale.GERMAN;
+        final String pattern    = "yyyy-MM-dd";
+        final String patternVal = "2005-12-31";
+        final String germanVal     = "31 Dez 2005";
+        final String germanPattern = "dd MMM yyyy";
+        final String localeVal  = "31.12.2005";
+        final String defaultVal = "12/31/05";
+        final String XXXX    = "XXXX";
+        final Date expected = createCalendar(null, 20051231, 0).getTime();
 
         assertEquals("validate(A) default", expected, DateValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, DateValidator.getInstance().validate(localeVal, locale));
@@ -100,8 +99,8 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
         assertFalse("isValid(B) both",    DateValidator.getInstance().isValid("31 Dec 2005", germanPattern, Locale.GERMAN));
 
         // Test Time Zone
-        TimeZone zone = (TimeZone.getDefault().getRawOffset() == EET.getRawOffset() ? EST : EET);
-        Date expectedZone = createCalendar(zone, 20051231, 0).getTime();
+        final TimeZone zone = (TimeZone.getDefault().getRawOffset() == EET.getRawOffset() ? EST : EET);
+        final Date expectedZone = createCalendar(zone, 20051231, 0).getTime();
         assertFalse("default/zone same "+zone, expected.getTime() == expectedZone.getTime());
 
         assertEquals("validate(C) default", expectedZone, DateValidator.getInstance().validate(defaultVal, zone));
@@ -114,30 +113,30 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
      * Test compare date methods
      */
     public void testCompare() {
-        int sameTime  = 124522;
-        int testDate = 20050823;
-        Date diffHour    = createDate(GMT, testDate, 115922);    // same date, different time
+        final int sameTime  = 124522;
+        final int testDate = 20050823;
+        final Date diffHour    = createDate(GMT, testDate, 115922);    // same date, different time
 
-        Date value        = createDate(GMT, testDate, sameTime);   // test value
-        Date date20050824 = createDate(GMT, 20050824, sameTime);   // +1 day
-        Date date20050822 = createDate(GMT, 20050822, sameTime);   // -1 day
+        final Date value        = createDate(GMT, testDate, sameTime);   // test value
+        final Date date20050824 = createDate(GMT, 20050824, sameTime);   // +1 day
+        final Date date20050822 = createDate(GMT, 20050822, sameTime);   // -1 day
 
-        Date date20050830 = createDate(GMT, 20050830, sameTime);   // +1 week
-        Date date20050816 = createDate(GMT, 20050816, sameTime);   // -1 week
+        final Date date20050830 = createDate(GMT, 20050830, sameTime);   // +1 week
+        final Date date20050816 = createDate(GMT, 20050816, sameTime);   // -1 week
 
-        Date date20050901 = createDate(GMT, 20050901, sameTime);   // +1 month
-        Date date20050801 = createDate(GMT, 20050801, sameTime);   // same month
-        Date date20050731 = createDate(GMT, 20050731, sameTime);   // -1 month
+        final Date date20050901 = createDate(GMT, 20050901, sameTime);   // +1 month
+        final Date date20050801 = createDate(GMT, 20050801, sameTime);   // same month
+        final Date date20050731 = createDate(GMT, 20050731, sameTime);   // -1 month
 
-        Date date20051101 = createDate(GMT, 20051101, sameTime);   // +1 quarter (Feb Start)
-        Date date20051001 = createDate(GMT, 20051001, sameTime);   // +1 quarter
-        Date date20050701 = createDate(GMT, 20050701, sameTime);   // same quarter
-        Date date20050630 = createDate(GMT, 20050630, sameTime);   // -1 quarter
-        Date date20050110 = createDate(GMT, 20050110, sameTime);   // Previous Year qtr (Fen start)
+        final Date date20051101 = createDate(GMT, 20051101, sameTime);   // +1 quarter (Feb Start)
+        final Date date20051001 = createDate(GMT, 20051001, sameTime);   // +1 quarter
+        final Date date20050701 = createDate(GMT, 20050701, sameTime);   // same quarter
+        final Date date20050630 = createDate(GMT, 20050630, sameTime);   // -1 quarter
+        final Date date20050110 = createDate(GMT, 20050110, sameTime);   // Previous Year qtr (Fen start)
 
-        Date date20060101 = createDate(GMT, 20060101, sameTime);   // +1 year
-        Date date20050101 = createDate(GMT, 20050101, sameTime);   // same year
-        Date date20041231 = createDate(GMT, 20041231, sameTime);   // -1 year
+        final Date date20060101 = createDate(GMT, 20060101, sameTime);   // +1 year
+        final Date date20050101 = createDate(GMT, 20050101, sameTime);   // same year
+        final Date date20041231 = createDate(GMT, 20041231, sameTime);   // -1 year
 
         assertEquals("date LT", -1, dateValidator.compareDates(value, date20050824, GMT)); // +1 day
         assertEquals("date EQ", 0,  dateValidator.compareDates(value, diffHour, GMT));    // same day, diff hour
@@ -176,7 +175,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
         assertEquals("year GT", 1,  dateValidator.compareYears(value, date20041231, GMT)); // -1 year
 
         // Compare using alternative TimeZone
-        Date sameDayTwoAm    = createDate(GMT, testDate, 20000);
+        final Date sameDayTwoAm    = createDate(GMT, testDate, 20000);
         assertEquals("date LT", -1, dateValidator.compareDates(value, date20050824, EST)); // +1 day
         assertEquals("date EQ", 0,  dateValidator.compareDates(value, diffHour, EST));    // same day, diff hour
         assertEquals("date EQ", 1,  dateValidator.compareDates(value, sameDayTwoAm, EST));    // same day, diff hour

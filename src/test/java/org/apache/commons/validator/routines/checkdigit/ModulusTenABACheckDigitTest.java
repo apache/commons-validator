@@ -20,7 +20,6 @@ package org.apache.commons.validator.routines.checkdigit;
 /**
  * ModulusTenCheckDigit ABA Number Check Digit Test.
  *
- * @version $Revision$
  */
 public class ModulusTenABACheckDigitTest extends AbstractCheckDigitTest {
 
@@ -28,7 +27,7 @@ public class ModulusTenABACheckDigitTest extends AbstractCheckDigitTest {
      * Constructor
      * @param name test name
      */
-    public ModulusTenABACheckDigitTest(String name) {
+    public ModulusTenABACheckDigitTest(final String name) {
         super(name);
     }
 

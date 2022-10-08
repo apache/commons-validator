@@ -21,7 +21,6 @@ import java.util.Locale;
 /**
  * Test Case for IntegerValidator.
  *
- * @version $Revision$
  */
 public class IntegerValidatorTest extends AbstractNumberValidatorTest {
 
@@ -38,7 +37,7 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
      * Constructor
      * @param name test name
      */
-    public IntegerValidatorTest(String name) {
+    public IntegerValidatorTest(final String name) {
         super(name);
     }
 
@@ -85,14 +84,14 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
      * Test IntegerValidator validate Methods
      */
     public void testIntegerValidatorMethods() {
-        Locale locale     = Locale.GERMAN;
-        String pattern    = "0,00,00";
-        String patternVal = "1,23,45";
-        String germanPatternVal = "1.23.45";
-        String localeVal  = "12.345";
-        String defaultVal = "12,345";
-        String XXXX    = "XXXX";
-        Integer expected = Integer.valueOf(12345);
+        final Locale locale     = Locale.GERMAN;
+        final String pattern    = "0,00,00";
+        final String patternVal = "1,23,45";
+        final String germanPatternVal = "1.23.45";
+        final String localeVal  = "12.345";
+        final String defaultVal = "12,345";
+        final String XXXX    = "XXXX";
+        final Integer expected = Integer.valueOf(12345);
         assertEquals("validate(A) default", expected, IntegerValidator.getInstance().validate(defaultVal));
         assertEquals("validate(A) locale ", expected, IntegerValidator.getInstance().validate(localeVal, locale));
         assertEquals("validate(A) pattern", expected, IntegerValidator.getInstance().validate(patternVal, pattern));
@@ -118,13 +117,13 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
      * Test Integer Range/Min/Max
      */
     public void testIntegerRangeMinMax() {
-        IntegerValidator validator = (IntegerValidator)strictValidator;
-        Integer number9  = validator.validate("9", "#");
-        Integer number10 = validator.validate("10", "#");
-        Integer number11 = validator.validate("11", "#");
-        Integer number19 = validator.validate("19", "#");
-        Integer number20 = validator.validate("20", "#");
-        Integer number21 = validator.validate("21", "#");
+        final IntegerValidator validator = (IntegerValidator)strictValidator;
+        final Integer number9  = validator.validate("9", "#");
+        final Integer number10 = validator.validate("10", "#");
+        final Integer number11 = validator.validate("11", "#");
+        final Integer number19 = validator.validate("19", "#");
+        final Integer number20 = validator.validate("20", "#");
+        final Integer number21 = validator.validate("21", "#");
 
         // Test isInRange()
         assertFalse("isInRange() < min",   validator.isInRange(number9,  10, 20));

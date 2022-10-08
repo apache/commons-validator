@@ -59,8 +59,7 @@ import java.util.Locale;
  *       <li>using a specified pattern with a specified <code>Locale</code></li>
  *    </ul>
  *
- * @version $Revision$
- * @since Validator 1.3.0
+ * @since 1.3.0
  */
 public class ShortValidator extends AbstractNumberValidator {
 
@@ -104,7 +103,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @param formatType The <code>NumberFormat</code> type to
      *        create for validation, default is STANDARD_FORMAT.
      */
-    public ShortValidator(boolean strict, int formatType) {
+    public ShortValidator(final boolean strict, final int formatType) {
         super(strict, formatType, false);
     }
 
@@ -116,7 +115,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @return The parsed <code>Short</code> if valid or <code>null</code>
      *  if invalid.
      */
-    public Short validate(String value) {
+    public Short validate(final String value) {
         return (Short)parse(value, (String)null, (Locale)null);
     }
 
@@ -128,7 +127,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @param pattern The pattern used to validate the value against.
      * @return The parsed <code>Short</code> if valid or <code>null</code> if invalid.
      */
-    public Short validate(String value, String pattern) {
+    public Short validate(final String value, final String pattern) {
         return (Short)parse(value, pattern, (Locale)null);
     }
 
@@ -140,7 +139,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the number format, system default if null.
      * @return The parsed <code>Short</code> if valid or <code>null</code> if invalid.
      */
-    public Short validate(String value, Locale locale) {
+    public Short validate(final String value, final Locale locale) {
         return (Short)parse(value, (String)null, locale);
     }
 
@@ -154,7 +153,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the date format, system default if null.
      * @return The parsed <code>Short</code> if valid or <code>null</code> if invalid.
      */
-    public Short validate(String value, String pattern, Locale locale) {
+    public Short validate(final String value, final String pattern, final Locale locale) {
         return (Short)parse(value, pattern, locale);
     }
 
@@ -167,7 +166,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(short value, short min, short max) {
+    public boolean isInRange(final short value, final short min, final short max) {
         return (value >= min && value <= max);
     }
 
@@ -180,7 +179,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(Short value, short min, short max) {
+    public boolean isInRange(final Short value, final short min, final short max) {
         return isInRange(value.shortValue(), min, max);
     }
 
@@ -192,7 +191,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(short value, short min) {
+    public boolean minValue(final short value, final short min) {
         return (value >= min);
     }
 
@@ -204,7 +203,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(Short value, short min) {
+    public boolean minValue(final Short value, final short min) {
         return minValue(value.shortValue(), min);
     }
 
@@ -216,7 +215,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(short value, short max) {
+    public boolean maxValue(final short value, final short max) {
         return (value <= max);
     }
 
@@ -228,7 +227,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(Short value, short max) {
+    public boolean maxValue(final Short value, final short max) {
         return maxValue(value.shortValue(), max);
     }
 
@@ -242,9 +241,9 @@ public class ShortValidator extends AbstractNumberValidator {
      *   <code>Short</code> if valid or <code>null</code> if invalid.
      */
     @Override
-    protected Object processParsedValue(Object value, Format formatter) {
+    protected Object processParsedValue(final Object value, final Format formatter) {
 
-        long longValue = ((Number)value).longValue();
+        final long longValue = ((Number)value).longValue();
 
         if (longValue < Short.MIN_VALUE ||
             longValue > Short.MAX_VALUE) {

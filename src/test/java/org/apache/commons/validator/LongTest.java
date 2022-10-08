@@ -20,11 +20,10 @@ package org.apache.commons.validator;
 /**
  * Performs Validation Test for <code>long</code> validations.
  *
- * @version $Revision$
  */
 public class LongTest extends AbstractNumberTest {
 
-    public LongTest(String name) {
+    public LongTest(final String name) {
         super(name);
         FORM_KEY = "longForm";
         ACTION = "long";
@@ -35,7 +34,7 @@ public class LongTest extends AbstractNumberTest {
      */
     public void testLong() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue("0");
 
         valueTest(info, true);
@@ -46,7 +45,7 @@ public class LongTest extends AbstractNumberTest {
      */
     public void testLongMin() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Long.toString(Long.MIN_VALUE));
 
         valueTest(info, true);
@@ -57,7 +56,7 @@ public class LongTest extends AbstractNumberTest {
      */
     public void testLongMax() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Long.toString(Long.MAX_VALUE));
 
         valueTest(info, true);
@@ -68,7 +67,7 @@ public class LongTest extends AbstractNumberTest {
      */
     public void testLongFailure() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
 
         valueTest(info, false);
     }
@@ -78,7 +77,7 @@ public class LongTest extends AbstractNumberTest {
      */
     public void testLongBeyondMin() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Long.MIN_VALUE + "1");
 
         valueTest(info, false);
@@ -89,7 +88,7 @@ public class LongTest extends AbstractNumberTest {
      */
     public void testLongBeyondMax() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue(Long.MAX_VALUE + "1");
 
         valueTest(info, false);

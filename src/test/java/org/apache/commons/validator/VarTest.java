@@ -25,7 +25,6 @@ import org.xml.sax.SAXException;
  * Test that the new Var attributes and the
  * digester rule changes work.
  *
- * @version $Revision$
  */
 public class VarTest extends AbstractCommonTest {
 
@@ -42,7 +41,7 @@ public class VarTest extends AbstractCommonTest {
 
 
 
-   public VarTest(String name) {
+   public VarTest(final String name) {
        super(name);
    }
 
@@ -65,15 +64,15 @@ protected void tearDown() {
     */
    public void testVars() {
 
-       Form form = resources.getForm(Locale.getDefault(), FORM_KEY);
+       final Form form = resources.getForm(Locale.getDefault(), FORM_KEY);
 
        // Get field 1
-       Field field1 = form.getField("field-1");
+       final Field field1 = form.getField("field-1");
        assertNotNull("field-1 is null.", field1);
        assertEquals("field-1 property is wrong", "field-1", field1.getProperty());
 
        // Get var-1-1
-       Var var11 = field1.getVar("var-1-1");
+       final Var var11 = field1.getVar("var-1-1");
        assertNotNull("var-1-1 is null.", var11);
        assertEquals("var-1-1 name is wrong", "var-1-1", var11.getName());
        assertEquals("var-1-1 value is wrong", "value-1-1", var11.getValue());
@@ -82,12 +81,12 @@ protected void tearDown() {
        assertNull("var-1-1 bundle is not null.", var11.getBundle());
 
        // Get field 2
-       Field field2 = form.getField("field-2");
+       final Field field2 = form.getField("field-2");
        assertNotNull("field-2 is null.", field2);
        assertEquals("field-2 property is wrong", "field-2", field2.getProperty());
 
        // Get var-2-1
-       Var var21 = field2.getVar("var-2-1");
+       final Var var21 = field2.getVar("var-2-1");
        assertNotNull("var-2-1 is null.", var21);
        assertEquals("var-2-1 name is wrong", "var-2-1", var21.getName());
        assertEquals("var-2-1 value is wrong", "value-2-1", var21.getValue());
@@ -96,7 +95,7 @@ protected void tearDown() {
        assertEquals("var-2-1 bundle is wrong", "bundle-2-1", var21.getBundle());
 
        // Get var-2-2
-       Var var22 = field2.getVar("var-2-2");
+       final Var var22 = field2.getVar("var-2-2");
        assertNotNull("var-2-2 is null.", var22);
        assertEquals("var-2-2 name is wrong", "var-2-2", var22.getName());
        assertEquals("var-2-2 value is wrong", "value-2-2", var22.getValue());
