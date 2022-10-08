@@ -79,8 +79,7 @@ import java.util.TimeZone;
  *       <li>using the format for the <i>default</i> <code>Locale</code></li>
  *    </ul>
  *
- * @version $Revision$
- * @since Validator 1.3.0
+ * @since 1.3.0
  */
 public class TimeValidator extends AbstractCalendarValidator {
 
@@ -112,7 +111,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      *        <code>Format</code> parsing should be used.
      * @param timeStyle the time style to use for Locale validation.
      */
-    public TimeValidator(boolean strict, int timeStyle) {
+    public TimeValidator(final boolean strict, final int timeStyle) {
         super(strict, -1, timeStyle);
     }
 
@@ -124,7 +123,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * @return The parsed <code>Calendar</code> if valid or <code>null</code>
      *  if invalid.
      */
-    public Calendar validate(String value) {
+    public Calendar validate(final String value) {
         return (Calendar)parse(value, (String)null, (Locale)null, (TimeZone)null);
     }
 
@@ -136,7 +135,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * @param timeZone The Time Zone used to parse the time, system default if null.
      * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
      */
-    public Calendar validate(String value, TimeZone timeZone) {
+    public Calendar validate(final String value, final TimeZone timeZone) {
         return (Calendar)parse(value, (String)null, (Locale)null, timeZone);
     }
 
@@ -148,7 +147,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * @param pattern The pattern used to validate the value against.
      * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
      */
-    public Calendar validate(String value, String pattern) {
+    public Calendar validate(final String value, final String pattern) {
         return (Calendar)parse(value, pattern, (Locale)null, (TimeZone)null);
     }
 
@@ -161,7 +160,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * @param timeZone The Time Zone used to parse the time, system default if null.
      * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
      */
-    public Calendar validate(String value, String pattern, TimeZone timeZone) {
+    public Calendar validate(final String value, final String pattern, final TimeZone timeZone) {
         return (Calendar)parse(value, pattern, (Locale)null, timeZone);
     }
 
@@ -173,7 +172,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * @param locale The locale to use for the time format, system default if null.
      * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
      */
-    public Calendar validate(String value, Locale locale) {
+    public Calendar validate(final String value, final Locale locale) {
         return (Calendar)parse(value, (String)null, locale, (TimeZone)null);
     }
 
@@ -186,7 +185,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * @param timeZone The Time Zone used to parse the time, system default if null.
      * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
      */
-    public Calendar validate(String value, Locale locale, TimeZone timeZone) {
+    public Calendar validate(final String value, final Locale locale, final TimeZone timeZone) {
         return (Calendar)parse(value, (String)null, locale, timeZone);
     }
 
@@ -200,7 +199,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * @param locale The locale to use for the date format, system default if null.
      * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
      */
-    public Calendar validate(String value, String pattern, Locale locale) {
+    public Calendar validate(final String value, final String pattern, final Locale locale) {
         return (Calendar)parse(value, pattern, locale, (TimeZone)null);
     }
 
@@ -215,7 +214,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * @param timeZone The Time Zone used to parse the date, system default if null.
      * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
      */
-    public Calendar validate(String value, String pattern, Locale locale, TimeZone timeZone) {
+    public Calendar validate(final String value, final String pattern, final Locale locale, final TimeZone timeZone) {
         return (Calendar)parse(value, pattern, locale, timeZone);
     }
 
@@ -228,7 +227,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * time is less than the seconds and +1 if the first
      * time is greater than.
      */
-    public int compareTime(Calendar value, Calendar compare) {
+    public int compareTime(final Calendar value, final Calendar compare) {
         return compareTime(value, compare, Calendar.MILLISECOND);
     }
 
@@ -241,7 +240,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * parameter's seconds are less than the seconds and +1 if the first
      * parameter's seconds are greater than.
      */
-    public int compareSeconds(Calendar value, Calendar compare) {
+    public int compareSeconds(final Calendar value, final Calendar compare) {
         return compareTime(value, compare, Calendar.SECOND);
     }
 
@@ -254,7 +253,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * parameter's minutes are less than the seconds and +1 if the first
      * parameter's minutes are greater than.
      */
-    public int compareMinutes(Calendar value, Calendar compare) {
+    public int compareMinutes(final Calendar value, final Calendar compare) {
         return compareTime(value, compare, Calendar.MINUTE);
     }
 
@@ -267,7 +266,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * parameter's hour is less than the seconds and +1 if the first
      * parameter's hour is greater than.
      */
-    public int compareHours(Calendar value, Calendar compare) {
+    public int compareHours(final Calendar value, final Calendar compare) {
         return compareTime(value, compare, Calendar.HOUR_OF_DAY);
     }
 
@@ -279,7 +278,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * @return The parsed value converted to a <code>Calendar</code>.
      */
     @Override
-    protected Object processParsedValue(Object value, Format formatter) {
+    protected Object processParsedValue(final Object value, final Format formatter) {
         return ((DateFormat)formatter).getCalendar();
     }
 }

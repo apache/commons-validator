@@ -27,8 +27,7 @@ import org.junit.Assert;
 /**
  * EAN-13 Check Digit Test.
  *
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public class IBANCheckDigitTest extends AbstractCheckDigitTest {
 
@@ -36,7 +35,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      * Constructor
      * @param name test name
      */
-    public IBANCheckDigitTest(String name) {
+    public IBANCheckDigitTest(final String name) {
         super(name);
         checkDigitLth = 2;
     }
@@ -186,15 +185,15 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      * @return Codes with invalid check digits
      */
     @Override
-    protected String[] createInvalidCodes(String[] codes) {
-        List<String> list = new ArrayList<>();
+    protected String[] createInvalidCodes(final String[] codes) {
+        final List<String> list = new ArrayList<>();
 
         // create invalid check digit values
-        for (String code2 : codes) {
-            String code = removeCheckDigit(code2);
-            String check  = checkDigit(code2);
+        for (final String code2 : codes) {
+            final String code = removeCheckDigit(code2);
+            final String check  = checkDigit(code2);
             for (int j = 2; j <= 98; j++) { // check digits can be from 02-98 (00 and 01 are not possible)
-                String curr =  j > 9 ? "" + j : "0" + j;
+                final String curr =  j > 9 ? "" + j : "0" + j;
                 if (!curr.equals(check)) {
                     list.add(code.substring(0, 2) + curr + code.substring(4));
                 }
@@ -211,7 +210,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      * @return The code with the zeroed check digits
      */
     @Override
-    protected String removeCheckDigit(String code) {
+    protected String removeCheckDigit(final String code) {
         return code.substring(0, 2) + "00" + code.substring(4);
     }
 
@@ -222,7 +221,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      * @return The check digit
      */
     @Override
-    protected String checkDigit(String code) {
+    protected String checkDigit(final String code) {
         if (code == null || code.length() <= checkDigitLth) {
             return "";
         }

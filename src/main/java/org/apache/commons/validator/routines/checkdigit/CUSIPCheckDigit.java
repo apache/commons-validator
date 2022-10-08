@@ -36,8 +36,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * for more details.
  * </p>
  *
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public final class CUSIPCheckDigit extends ModulusCheckDigit {
 
@@ -47,7 +46,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
     public static final CheckDigit CUSIP_CHECK_DIGIT = new CUSIPCheckDigit();
 
     /** weighting given to digits depending on their right position */
-    private static final int[] POSITION_WEIGHT = new int[] {2, 1};
+    private static final int[] POSITION_WEIGHT = {2, 1};
 
     /**
      * Construct an CUSIP Indetifier Check Digit routine.
@@ -66,9 +65,9 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      * @throws CheckDigitException if character is not alphanumeric
      */
     @Override
-    protected int toInt(char character, int leftPos, int rightPos)
+    protected int toInt(final char character, final int leftPos, final int rightPos)
             throws CheckDigitException {
-        int charValue = Character.getNumericValue(character);
+        final int charValue = Character.getNumericValue(character);
         // the final character is only allowed to reach 9
         final int charMax = rightPos == 1 ? 9 : 35;  // CHECKSTYLE IGNORE MagicNumber
         if (charValue < 0 || charValue > charMax) {
@@ -92,9 +91,9 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     @Override
-    protected int weightedValue(int charValue, int leftPos, int rightPos) {
-        int weight = POSITION_WEIGHT[rightPos % 2];
-        int weightedValue = (charValue * weight);
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
+        final int weight = POSITION_WEIGHT[rightPos % 2];
+        final int weightedValue = (charValue * weight);
         return ModulusCheckDigit.sumDigits(weightedValue);
     }
 }

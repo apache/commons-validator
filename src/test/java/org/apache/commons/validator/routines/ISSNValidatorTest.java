@@ -32,7 +32,7 @@ public class ISSNValidatorTest extends TestCase {
 
     private static final ISSNValidator VALIDATOR = ISSNValidator.getInstance();
 
-    private final String[] validFormat = new String[] {
+    private final String[] validFormat = {
             "ISSN 0317-8471",
             "1050-124X",
             "ISSN 1562-6865",
@@ -49,7 +49,7 @@ public class ISSNValidatorTest extends TestCase {
             "1144-875X",
             };
 
-    private final String[] invalidFormat = new String[] {
+    private final String[] invalidFormat = {
             "",                        // empty
             "   ",                     // empty
             "ISBN 0317-8471",          // wrong prefix
@@ -67,7 +67,7 @@ public class ISSNValidatorTest extends TestCase {
      * Create a test case with the specified name.
      * @param name The name of the test
      */
-    public ISSNValidatorTest(String name) {
+    public ISSNValidatorTest(final String name) {
         super(name);
     }
 
@@ -75,7 +75,7 @@ public class ISSNValidatorTest extends TestCase {
      * Test isValid() ISSN codes
      */
     public void testIsValidISSN() {
-        for(String f : validFormat) {
+        for(final String f : validFormat) {
             assertTrue(f, VALIDATOR.isValid(f));
         }
     }
@@ -91,7 +91,7 @@ public class ISSNValidatorTest extends TestCase {
      * Test Invalid ISSN codes
      */
     public void testInvalid() {
-        for(String f : invalidFormat) {
+        for(final String f : invalidFormat) {
             assertFalse(f, VALIDATOR.isValid(f));
         }
     }
@@ -104,37 +104,37 @@ public class ISSNValidatorTest extends TestCase {
         try {
             assertNull(VALIDATOR.convertToEAN13(null, null));
             fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {
+        } catch (final IllegalArgumentException expected) {
 
         }
         try {
             assertNull(VALIDATOR.convertToEAN13(null, ""));
             fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {
+        } catch (final IllegalArgumentException expected) {
 
         }
         try {
             assertNull(VALIDATOR.convertToEAN13(null, "0"));
             fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {
+        } catch (final IllegalArgumentException expected) {
 
         }
         try {
             assertNull(VALIDATOR.convertToEAN13(null, "A"));
             fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {
+        } catch (final IllegalArgumentException expected) {
 
         }
         try {
             assertNull(VALIDATOR.convertToEAN13(null, "AA"));
             fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {
+        } catch (final IllegalArgumentException expected) {
 
         }
         try {
             assertNull(VALIDATOR.convertToEAN13(null, "999"));
             fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {
+        } catch (final IllegalArgumentException expected) {
 
         }
     }
@@ -143,11 +143,11 @@ public class ISSNValidatorTest extends TestCase {
      * Test isValid() ISSN codes and convert them
      */
     public void testIsValidISSNConvert() {
-        CheckDigit ean13cd = EAN13CheckDigit.EAN13_CHECK_DIGIT;
-        Random r = new Random();
-        for(String f : validFormat) {
-            String suffix = String.format("%02d", r.nextInt(100));
-            String ean13 = VALIDATOR.convertToEAN13(f, suffix);
+        final CheckDigit ean13cd = EAN13CheckDigit.EAN13_CHECK_DIGIT;
+        final Random r = new Random();
+        for(final String f : validFormat) {
+            final String suffix = String.format("%02d", r.nextInt(100));
+            final String ean13 = VALIDATOR.convertToEAN13(f, suffix);
             assertTrue(ean13, ean13cd.isValid(ean13));
         }
         // internet samples
@@ -166,21 +166,21 @@ public class ISSNValidatorTest extends TestCase {
             input = "9780072129519";
             VALIDATOR.extractFromEAN13(input);
             fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             // expected result
         }
         try {
             input = "9791090636071";
             VALIDATOR.extractFromEAN13(input);
             fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             // expected result
         }
         try {
             input = "03178471";
             VALIDATOR.extractFromEAN13(input);
             fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             // expected result
         }
     }

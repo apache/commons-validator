@@ -25,8 +25,7 @@ package org.apache.commons.validator;
  * <b>NOTE:</b> This has been replaced by the new
  *  {@link org.apache.commons.validator.routines.ISBNValidator}.
  *
- * @version $Revision$
- * @since Validator 1.2.0
+ * @since 1.2.0
  * @deprecated Use the new ISBNValidator in the routines package
  */
 @Deprecated
@@ -48,7 +47,7 @@ public class ISBNValidator {
      * considered invalid.
      * @return true if the string is a valid ISBN code.
      */
-    public boolean isValid(String isbn) {
+    public boolean isValid(final String isbn) {
         return org.apache.commons.validator.routines.ISBNValidator.getInstance().isValidISBN10(isbn);
     }
 

@@ -23,7 +23,6 @@ import org.xml.sax.SAXException;
 /**
  * Performs Validation Test.
  *
- * @version $Revision$
  */
 public class MultipleTest extends AbstractCommonTest {
 
@@ -40,7 +39,7 @@ public class MultipleTest extends AbstractCommonTest {
 
 
 
-   public MultipleTest(String name) {
+   public MultipleTest(final String name) {
        super(name);
    }
 
@@ -63,11 +62,11 @@ protected void tearDown() {
     */
    public void testBothBlank() throws ValidatorException {
       // Create bean to run test on.
-      NameBean name = new NameBean();
+      final NameBean name = new NameBean();
 
       // Construct validator based on the loaded resources
       // and the form key
-      Validator validator = new Validator(resources, FORM_KEY);
+      final Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource
       // for the validations to be performed on.
       validator.setParameter(Validator.BEAN_PARAM, name);
@@ -77,12 +76,12 @@ protected void tearDown() {
       // but we aren't catching for testing
       // since no validation methods we use
       // throw this
-      ValidatorResults results = validator.validate();
+      final ValidatorResults results = validator.validate();
 
       assertNotNull("Results are null.", results);
 
-      ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-      ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
       assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
       assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
@@ -99,24 +98,24 @@ protected void tearDown() {
     */
    public void testRequiredFirstNameBlankLastNameShort() throws ValidatorException {
       // Create bean to run test on.
-      NameBean name = new NameBean();
+      final NameBean name = new NameBean();
       name.setFirstName("");
       name.setLastName("Test");
 
       // Construct validator based on the loaded resources
       // and the form key
-      Validator validator = new Validator(resources, FORM_KEY);
+      final Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource
       // for the validations to be performed on.
       validator.setParameter(Validator.BEAN_PARAM, name);
 
       // Get results of the validation.
-      ValidatorResults results = validator.validate();
+      final ValidatorResults results = validator.validate();
 
       assertNotNull("Results are null.", results);
 
-      ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-      ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
       assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
       assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
@@ -132,24 +131,24 @@ protected void tearDown() {
     */
    public void testRequiredLastNameShort() throws ValidatorException {
       // Create bean to run test on.
-      NameBean name = new NameBean();
+      final NameBean name = new NameBean();
       name.setFirstName("Test");
       name.setLastName("Test");
 
       // Construct validator based on the loaded resources
       // and the form key
-      Validator validator = new Validator(resources, FORM_KEY);
+      final Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource
       // for the validations to be performed on.
       validator.setParameter(Validator.BEAN_PARAM, name);
 
       // Get results of the validation.
-      ValidatorResults results = validator.validate();
+      final ValidatorResults results = validator.validate();
 
       assertNotNull("Results are null.", results);
 
-      ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-      ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
       assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
       assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
@@ -165,24 +164,24 @@ protected void tearDown() {
     */
    public void testRequiredLastNameLong() throws ValidatorException {
       // Create bean to run test on.
-      NameBean name = new NameBean();
+      final NameBean name = new NameBean();
       name.setFirstName("Joe");
       name.setLastName("12345678");
 
       // Construct validator based on the loaded resources
       // and the form key
-      Validator validator = new Validator(resources, FORM_KEY);
+      final Validator validator = new Validator(resources, FORM_KEY);
       // add the name bean to the validator as a resource
       // for the validations to be performed on.
       validator.setParameter(Validator.BEAN_PARAM, name);
 
       // Get results of the validation.
-      ValidatorResults results = validator.validate();
+      final ValidatorResults results = validator.validate();
 
       assertNotNull("Results are null.", results);
 
-      ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-      ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
       assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
       assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
@@ -201,21 +200,21 @@ protected void tearDown() {
     */
    public void testFailingFirstDependentValidator() throws ValidatorException {
        // Create bean to run test on.
-       NameBean name = new NameBean();
+       final NameBean name = new NameBean();
 
        // Construct validator based on the loaded resources
        // and the form key
-       Validator validator = new Validator(resources, FORM_KEY);
+       final Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = validator.validate();
+       final ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
-       ValidatorResult middleNameResult = results.getValidatorResult("middleName");
+       final ValidatorResult middleNameResult = results.getValidatorResult("middleName");
 
        assertNotNull("Middle Name ValidatorResult should not be null.", middleNameResult);
 
@@ -236,22 +235,22 @@ protected void tearDown() {
     */
    public void testFailingNextDependentValidator() throws ValidatorException {
        // Create bean to run test on.
-       NameBean name = new NameBean();
+       final NameBean name = new NameBean();
        name.setMiddleName("TEST");
 
        // Construct validator based on the loaded resources
        // and the form key
-       Validator validator = new Validator(resources, FORM_KEY);
+       final Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = validator.validate();
+       final ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
-       ValidatorResult middleNameResult = results.getValidatorResult("middleName");
+       final ValidatorResult middleNameResult = results.getValidatorResult("middleName");
 
        assertNotNull("Middle Name ValidatorResult should not be null.", middleNameResult);
 
@@ -272,22 +271,22 @@ protected void tearDown() {
     */
    public void testPassingDependentsFailingMain() throws ValidatorException {
        // Create bean to run test on.
-       NameBean name = new NameBean();
+       final NameBean name = new NameBean();
        name.setMiddleName("-2534");
 
        // Construct validator based on the loaded resources
        // and the form key
-       Validator validator = new Validator(resources, FORM_KEY);
+       final Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = validator.validate();
+       final ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
-       ValidatorResult middleNameResult = results.getValidatorResult("middleName");
+       final ValidatorResult middleNameResult = results.getValidatorResult("middleName");
 
        assertNotNull("Middle Name ValidatorResult should not be null.", middleNameResult);
 
@@ -309,22 +308,22 @@ protected void tearDown() {
     */
    public void testPassingDependentsPassingMain() throws ValidatorException {
        // Create bean to run test on.
-       NameBean name = new NameBean();
+       final NameBean name = new NameBean();
        name.setMiddleName("2534");
 
        // Construct validator based on the loaded resources
        // and the form key
-       Validator validator = new Validator(resources, FORM_KEY);
+       final Validator validator = new Validator(resources, FORM_KEY);
        // add the name bean to the validator as a resource
        // for the validations to be performed on.
        validator.setParameter(Validator.BEAN_PARAM, name);
 
        // Get results of the validation.
-       ValidatorResults results = validator.validate();
+       final ValidatorResults results = validator.validate();
 
        assertNotNull("Results are null.", results);
 
-       ValidatorResult middleNameResult = results.getValidatorResult("middleName");
+       final ValidatorResult middleNameResult = results.getValidatorResult("middleName");
 
        assertNotNull("Middle Name ValidatorResult should not be null.", middleNameResult);
 

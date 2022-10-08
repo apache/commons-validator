@@ -42,7 +42,6 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * release.
  * </p>
  *
- * @version $Revision$
  * @see org.apache.commons.validator.Form
  */
 // TODO mutable non-private fields
@@ -110,7 +109,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * The flag that indicates whether scripting should be generated
      * by the client for client-side validation.
-     * @since Validator 1.4
+     * @since 1.4
      */
     protected boolean clientValidation = true;
 
@@ -143,7 +142,7 @@ public class Field implements Cloneable, Serializable {
      * Holds Maps of arguments.  args[0] returns the Map for the first
      * replacement argument.  Start with a 0 length array so that it will
      * only grow to the size of the highest argument position.
-     * @since Validator 1.1
+     * @since 1.1
      */
     @SuppressWarnings("unchecked") // cannot instantiate generic array, so have to assume this is OK
     protected Map<String, Arg>[] args = new Map[0];
@@ -162,7 +161,7 @@ public class Field implements Cloneable, Serializable {
      * validation.
      * @param page The page number.
      */
-    public void setPage(int page) {
+    public void setPage(final int page) {
         this.page = page;
     }
 
@@ -178,7 +177,7 @@ public class Field implements Cloneable, Serializable {
      * Sets the position of the <code>Field</code> in the validation list.
      * @param fieldOrder The field position.
      */
-    public void setFieldOrder(int fieldOrder) {
+    public void setFieldOrder(final int fieldOrder) {
         this.fieldOrder = fieldOrder;
     }
 
@@ -194,7 +193,7 @@ public class Field implements Cloneable, Serializable {
      * Sets the property name of the field.
      * @param property The field's property name.
      */
-    public void setProperty(String property) {
+    public void setProperty(final String property) {
         this.property = property;
     }
 
@@ -212,7 +211,7 @@ public class Field implements Cloneable, Serializable {
      * Sets the indexed property name of the field.
      * @param indexedProperty The field's indexed property name.
      */
-    public void setIndexedProperty(String indexedProperty) {
+    public void setIndexedProperty(final String indexedProperty) {
         this.indexedProperty = indexedProperty;
     }
 
@@ -232,7 +231,7 @@ public class Field implements Cloneable, Serializable {
      * Sets the indexed property name of the field.
      * @param indexedListProperty The field's indexed List property name.
      */
-    public void setIndexedListProperty(String indexedListProperty) {
+    public void setIndexedListProperty(final String indexedListProperty) {
         this.indexedListProperty = indexedListProperty;
     }
 
@@ -248,14 +247,14 @@ public class Field implements Cloneable, Serializable {
      * Sets the validation rules for this field as a comma separated list.
      * @param depends A comma separated list of validator names.
      */
-    public void setDepends(String depends) {
+    public void setDepends(final String depends) {
         this.depends = depends;
 
         this.dependencyList.clear();
 
-        StringTokenizer st = new StringTokenizer(depends, ",");
+        final StringTokenizer st = new StringTokenizer(depends, ",");
         while (st.hasMoreTokens()) {
-            String depend = st.nextToken().trim();
+            final String depend = st.nextToken().trim();
 
             if (depend != null && !depend.isEmpty()) {
                 this.dependencyList.add(depend);
@@ -267,7 +266,7 @@ public class Field implements Cloneable, Serializable {
      * Add a <code>Msg</code> to the <code>Field</code>.
      * @param msg A validation message.
      */
-    public void addMsg(Msg msg) {
+    public void addMsg(final Msg msg) {
         getMsgMap().put(msg.getName(), msg);
     }
 
@@ -276,25 +275,25 @@ public class Field implements Cloneable, Serializable {
      * @param key Validation key.
      * @return A validation message for a specified validator.
      */
-    public String getMsg(String key) {
-        Msg msg = getMessage(key);
+    public String getMsg(final String key) {
+        final Msg msg = getMessage(key);
         return (msg == null) ? null : msg.getKey();
     }
 
     /**
      * Retrieve a message object.
-     * @since Validator 1.1.4
+     * @since 1.1.4
      * @param key Validation key.
      * @return A validation message for a specified validator.
      */
-    public Msg getMessage(String key) {
+    public Msg getMessage(final String key) {
         return getMsgMap().get(key);
     }
 
     /**
      * The <code>Field</code>'s messages are returned as an
      * unmodifiable <code>Map</code>.
-     * @since Validator 1.1.4
+     * @since 1.1.4
      * @return Map of validation messages for the field.
      */
     public Map<String, Msg> getMessages() {
@@ -306,7 +305,7 @@ public class Field implements Cloneable, Serializable {
      * for this field. The default is <code>true</code>
      * @return <code>true</code> for scripting; otherwise false
      * @see #setClientValidation(boolean)
-     * @since Validator 1.4
+     * @since 1.4
      */
     public boolean isClientValidation() {
         return this.clientValidation;
@@ -317,18 +316,18 @@ public class Field implements Cloneable, Serializable {
      * be generated for this field.
      * @param clientValidation the scripting flag
      * @see #isClientValidation()
-     * @since Validator 1.4
+     * @since 1.4
      */
-    public void setClientValidation(boolean clientValidation) {
+    public void setClientValidation(final boolean clientValidation) {
         this.clientValidation = clientValidation;
     }
 
     /**
      * Add an <code>Arg</code> to the replacement argument list.
-     * @since Validator 1.1
+     * @since 1.1
      * @param arg Validation message's argument.
      */
-    public void addArg(Arg arg) {
+    public void addArg(final Arg arg) {
         // TODO this first if check can go away after arg0, etc. are removed from dtd
         if (arg == null || arg.getKey() == null || arg.getKey().isEmpty()) {
             return;
@@ -354,9 +353,9 @@ public class Field implements Cloneable, Serializable {
     /**
      * Calculate the position of the Arg
      */
-    private void determineArgPosition(Arg arg) {
+    private void determineArgPosition(final Arg arg) {
 
-        int position = arg.getPosition();
+        final int position = arg.getPosition();
 
         // position has been explicity set
         if (position >= 0) {
@@ -371,7 +370,7 @@ public class Field implements Cloneable, Serializable {
 
         // determine the position of the last argument with
         // the same name or the last default argument
-        String keyName = arg.getName() == null ? DEFAULT_ARG : arg.getName();
+        final String keyName = arg.getName() == null ? DEFAULT_ARG : arg.getName();
         int lastPosition = -1;
         int lastDefault  = -1;
         for (int i = 0; i < args.length; i++) {
@@ -398,9 +397,10 @@ public class Field implements Cloneable, Serializable {
      * @param arg Determine if the args array is long enough to store this arg's
      * position.
      */
-    private void ensureArgsCapacity(Arg arg) {
+    private void ensureArgsCapacity(final Arg arg) {
         if (arg.getPosition() >= this.args.length) {
             @SuppressWarnings("unchecked") // cannot check this at compile time, but it is OK
+            final
             Map<String, Arg>[] newArgs = new Map[arg.getPosition() + 1];
             System.arraycopy(this.args, 0, newArgs, 0, this.args.length);
             this.args = newArgs;
@@ -411,9 +411,9 @@ public class Field implements Cloneable, Serializable {
      * Gets the default <code>Arg</code> object at the given position.
      * @param position Validation message argument's position.
      * @return The default Arg or null if not found.
-     * @since Validator 1.1
+     * @since 1.1
      */
-    public Arg getArg(int position) {
+    public Arg getArg(final int position) {
         return this.getArg(DEFAULT_ARG, position);
     }
 
@@ -425,14 +425,14 @@ public class Field implements Cloneable, Serializable {
      * Arg for the given position (if any) will be retrieved.
      * @param position The Arg number to find.
      * @return The Arg with the given name and position or null if not found.
-     * @since Validator 1.1
+     * @since 1.1
      */
-    public Arg getArg(String key, int position) {
+    public Arg getArg(final String key, final int position) {
         if ((position >= this.args.length) || (this.args[position] == null)) {
             return null;
         }
 
-        Arg arg = args[position].get(key);
+        final Arg arg = args[position].get(key);
 
         // Didn't find default arg so exit, otherwise we would get into
         // infinite recursion
@@ -448,10 +448,10 @@ public class Field implements Cloneable, Serializable {
      * @param key The validator's args to retrieve.
      * @return An Arg[] sorted by the Args' positions (i.e. the Arg at index 0
      * has a position of 0).
-     * @since Validator 1.1.1
+     * @since 1.1.1
      */
-    public Arg[] getArgs(String key){
-        Arg[] argList = new Arg[this.args.length];
+    public Arg[] getArgs(final String key){
+        final Arg[] argList = new Arg[this.args.length];
 
         for (int i = 0; i < this.args.length; i++) {
             argList[i] = this.getArg(key, i);
@@ -464,7 +464,7 @@ public class Field implements Cloneable, Serializable {
      * Add a <code>Var</code> to the <code>Field</code>.
      * @param v The Validator Argument.
      */
-    public void addVar(Var v) {
+    public void addVar(final Var v) {
         this.getVarMap().put(v.getName(), v);
     }
 
@@ -475,7 +475,7 @@ public class Field implements Cloneable, Serializable {
      * @param value The Argument's value.
      * @param jsType The Javascript type.
      */
-    public void addVar(String name, String value, String jsType) {
+    public void addVar(final String name, final String value, final String jsType) {
         this.addVar(new Var(name, value, jsType));
     }
 
@@ -484,7 +484,7 @@ public class Field implements Cloneable, Serializable {
      * @param mainKey The Variable's key
      * @return the Variable
      */
-    public Var getVar(String mainKey) {
+    public Var getVar(final String mainKey) {
         return getVarMap().get(mainKey);
     }
 
@@ -493,10 +493,10 @@ public class Field implements Cloneable, Serializable {
      * @param mainKey The Variable's key
      * @return the Variable's value
      */
-    public String getVarValue(String mainKey) {
+    public String getVarValue(final String mainKey) {
         String value = null;
 
-        Var v = getVarMap().get(mainKey);
+        final Var v = getVarMap().get(mainKey);
         if (v != null) {
             value = v.getValue();
         }
@@ -530,7 +530,7 @@ public class Field implements Cloneable, Serializable {
      * the key temporarily to have a unique key for an indexed field.
      * @param key a unique key for the field
      */
-    public void setKey(String key) {
+    public void setKey(final String key) {
         this.key = key;
     }
 
@@ -559,17 +559,17 @@ public class Field implements Cloneable, Serializable {
      * Replace constants with values in fields and process the depends field
      * to create the dependency <code>Map</code>.
      */
-    void process(Map<String, String> globalConstants, Map<String, String> constants) {
+    void process(final Map<String, String> globalConstants, final Map<String, String> constants) {
         this.hMsgs.setFast(false);
         this.hVars.setFast(true);
 
         this.generateKey();
 
         // Process FormSet Constants
-        for (Entry<String, String> entry : constants.entrySet()) {
-            String key1 = entry.getKey();
-            String key2 = TOKEN_START + key1 + TOKEN_END;
-            String replaceValue = entry.getValue();
+        for (final Entry<String, String> entry : constants.entrySet()) {
+            final String key1 = entry.getKey();
+            final String key2 = TOKEN_START + key1 + TOKEN_END;
+            final String replaceValue = entry.getValue();
 
             property = ValidatorUtils.replace(property, key2, replaceValue);
 
@@ -579,10 +579,10 @@ public class Field implements Cloneable, Serializable {
         }
 
         // Process Global Constants
-        for (Entry<String, String> entry : globalConstants.entrySet()) {
-            String key1 = entry.getKey();
-            String key2 = TOKEN_START + key1 + TOKEN_END;
-            String replaceValue = entry.getValue();
+        for (final Entry<String, String> entry : globalConstants.entrySet()) {
+            final String key1 = entry.getKey();
+            final String key2 = TOKEN_START + key1 + TOKEN_END;
+            final String replaceValue = entry.getValue();
 
             property = ValidatorUtils.replace(property, key2, replaceValue);
 
@@ -592,10 +592,10 @@ public class Field implements Cloneable, Serializable {
         }
 
         // Process Var Constant Replacement
-        for (String key1 : getVarMap().keySet()) {
-            String key2 = TOKEN_START + TOKEN_VAR + key1 + TOKEN_END;
-            Var var = this.getVar(key1);
-            String replaceValue = var.getValue();
+        for (final String key1 : getVarMap().keySet()) {
+            final String key2 = TOKEN_START + TOKEN_VAR + key1 + TOKEN_END;
+            final Var var = this.getVar(key1);
+            final String replaceValue = var.getValue();
 
             this.processMessageComponents(key2, replaceValue);
         }
@@ -606,12 +606,9 @@ public class Field implements Cloneable, Serializable {
     /**
      * Replace the vars value with the key/value pairs passed in.
      */
-    private void processVars(String key, String replaceValue) {
-        Iterator<String> i = getVarMap().keySet().iterator();
-        while (i.hasNext()) {
-            String varKey = i.next();
-            Var var = this.getVar(varKey);
-
+    private void processVars(final String key, final String replaceValue) {
+        for (final String varKey : getVarMap().keySet()) {
+            final Var var = this.getVar(varKey);
             var.setValue(ValidatorUtils.replace(var.getValue(), key, replaceValue));
         }
 
@@ -620,11 +617,11 @@ public class Field implements Cloneable, Serializable {
     /**
      * Replace the args key value with the key/value pairs passed in.
      */
-    private void processMessageComponents(String key, String replaceValue) {
-        String varKey = TOKEN_START + TOKEN_VAR;
+    private void processMessageComponents(final String key, final String replaceValue) {
+        final String varKey = TOKEN_START + TOKEN_VAR;
         // Process Messages
         if (key != null && !key.startsWith(varKey)) {
-            for (Msg msg : getMsgMap().values()) {
+            for (final Msg msg : getMsgMap().values()) {
                 msg.setKey(ValidatorUtils.replace(msg.getKey(), key, replaceValue));
             }
         }
@@ -636,20 +633,14 @@ public class Field implements Cloneable, Serializable {
      * Replace the arg <code>Collection</code> key value with the key/value
      * pairs passed in.
      */
-    private void processArg(String key, String replaceValue) {
-        for (Map<String, Arg> argMap : this.args) {
-
+    private void processArg(final String key, final String replaceValue) {
+        for (final Map<String, Arg> argMap : this.args) {
             if (argMap == null) {
                 continue;
             }
-
-            Iterator<Arg> iter = argMap.values().iterator();
-            while (iter.hasNext()) {
-                Arg arg = iter.next();
-
+            for (final Arg arg : argMap.values()) {
                 if (arg != null) {
-                    arg.setKey(
-                            ValidatorUtils.replace(arg.getKey(), key, replaceValue));
+                    arg.setKey(ValidatorUtils.replace(arg.getKey(), key, replaceValue));
                 }
             }
         }
@@ -660,7 +651,7 @@ public class Field implements Cloneable, Serializable {
      * @param validatorName Name of the validator to check.
      * @return Whether the field is dependant on a validator.
      */
-    public boolean isDependency(String validatorName) {
+    public boolean isDependency(final String validatorName) {
         return this.dependencyList.contains(validatorName);
     }
 
@@ -682,7 +673,7 @@ public class Field implements Cloneable, Serializable {
         Field field = null;
         try {
             field = (Field) super.clone();
-        } catch(CloneNotSupportedException e) {
+        } catch(final CloneNotSupportedException e) {
             throw new RuntimeException(e.toString());
         }
 
@@ -694,14 +685,8 @@ public class Field implements Cloneable, Serializable {
                 continue;
             }
 
-            Map<String, Arg> argMap = new HashMap<>(this.args[i]);
-            Iterator<Entry<String, Arg>> iter = argMap.entrySet().iterator();
-            while (iter.hasNext()) {
-                Entry<String, Arg> entry = iter.next();
-                String validatorName = entry.getKey();
-                Arg arg = entry.getValue();
-                argMap.put(validatorName, (Arg) arg.clone());
-            }
+            final Map<String, Arg> argMap = new HashMap<>(this.args[i]);
+            argMap.forEach((validatorName, arg) -> argMap.put(validatorName, (Arg) arg.clone()));
             field.args[i] = argMap;
         }
 
@@ -717,7 +702,7 @@ public class Field implements Cloneable, Serializable {
      */
     @Override
     public String toString() {
-        StringBuilder results = new StringBuilder();
+        final StringBuilder results = new StringBuilder();
 
         results.append("\t\tkey = " + key + "\n");
         results.append("\t\tproperty = " + property + "\n");
@@ -729,7 +714,7 @@ public class Field implements Cloneable, Serializable {
 
         if (hVars != null) {
             results.append("\t\tVars:\n");
-            for (Object key1 : getVarMap().keySet()) {
+            for (final Object key1 : getVarMap().keySet()) {
                 results.append("\t\t\t");
                 results.append(key1);
                 results.append("=");
@@ -748,7 +733,7 @@ public class Field implements Cloneable, Serializable {
      * @throws ValidatorException If there's an error looking up the property
      * or, the property found is not indexed.
      */
-    Object[] getIndexedProperty(Object bean) throws ValidatorException {
+    Object[] getIndexedProperty(final Object bean) throws ValidatorException {
         Object indexProp = null;
 
         try {
@@ -777,7 +762,7 @@ public class Field implements Cloneable, Serializable {
      * @throws ValidatorException If there's an error looking up the property
      * or, the property found is not indexed.
      */
-    private int getIndexedPropertySize(Object bean) throws ValidatorException {
+    private int getIndexedPropertySize(final Object bean) throws ValidatorException {
         Object indexProp = null;
 
         try {
@@ -807,14 +792,14 @@ public class Field implements Cloneable, Serializable {
      * @return true if the validation succeeded.
      */
     private boolean validateForRule(
-        ValidatorAction va,
-        ValidatorResults results,
-        Map<String, ValidatorAction> actions,
-        Map<String, Object> params,
-        int pos)
+        final ValidatorAction va,
+        final ValidatorResults results,
+        final Map<String, ValidatorAction> actions,
+        final Map<String, Object> params,
+        final int pos)
         throws ValidatorException {
 
-        ValidatorResult result = results.getValidatorResult(this.getKey());
+        final ValidatorResult result = results.getValidatorResult(this.getKey());
         if (result != null && result.containsAction(va.getName())) {
             return result.isValid(va.getName());
         }
@@ -837,24 +822,21 @@ public class Field implements Cloneable, Serializable {
      * @throws ValidatorException If there's an error running a validator
      */
     private boolean runDependentValidators(
-        ValidatorAction va,
-        ValidatorResults results,
-        Map<String, ValidatorAction> actions,
-        Map<String, Object> params,
-        int pos)
+        final ValidatorAction va,
+        final ValidatorResults results,
+        final Map<String, ValidatorAction> actions,
+        final Map<String, Object> params,
+        final int pos)
         throws ValidatorException {
 
-        List<String> dependentValidators = va.getDependencyList();
+        final List<String> dependentValidators = va.getDependencyList();
 
         if (dependentValidators.isEmpty()) {
             return true;
         }
 
-        Iterator<String> iter = dependentValidators.iterator();
-        while (iter.hasNext()) {
-            String depend = iter.next();
-
-            ValidatorAction action = actions.get(depend);
+        for (final String depend : dependentValidators) {
+            final ValidatorAction action = actions.get(depend);
             if (action == null) {
                 this.handleMissingAction(depend);
             }
@@ -878,33 +860,31 @@ public class Field implements Cloneable, Serializable {
      * this field.
      * @throws ValidatorException If an error occurs during validation.
      */
-    public ValidatorResults validate(Map<String, Object> params, Map<String, ValidatorAction> actions)
+    public ValidatorResults validate(final Map<String, Object> params, final Map<String, ValidatorAction> actions)
         throws ValidatorException {
 
         if (this.getDepends() == null) {
             return new ValidatorResults();
         }
 
-        ValidatorResults allResults = new ValidatorResults();
+        final ValidatorResults allResults = new ValidatorResults();
 
-        Object bean = params.get(Validator.BEAN_PARAM);
-        int numberOfFieldsToValidate =
+        final Object bean = params.get(Validator.BEAN_PARAM);
+        final int numberOfFieldsToValidate =
             this.isIndexed() ? this.getIndexedPropertySize(bean) : 1;
 
         for (int fieldNumber = 0; fieldNumber < numberOfFieldsToValidate; fieldNumber++) {
 
-            ValidatorResults results = new ValidatorResults();
+            final ValidatorResults results = new ValidatorResults();
             synchronized(dependencyList) {
-                Iterator<String> dependencies = this.dependencyList.iterator();
-                while (dependencies.hasNext()) {
-                    String depend = dependencies.next();
+                for (final String depend : this.dependencyList) {
 
-                    ValidatorAction action = actions.get(depend);
+                    final ValidatorAction action = actions.get(depend);
                     if (action == null) {
                         this.handleMissingAction(depend);
                     }
 
-                    boolean good =
+                    final boolean good =
                         validateForRule(action, results, actions, params, fieldNumber);
 
                     if (!good) {
@@ -925,14 +905,14 @@ public class Field implements Cloneable, Serializable {
      * @param name The name of the validator in the depends list.
      * @throws ValidatorException
      */
-    private void handleMissingAction(String name) throws ValidatorException {
+    private void handleMissingAction(final String name) throws ValidatorException {
         throw new ValidatorException("No ValidatorAction named " + name
                 + " found for field " + this.getProperty());
     }
 
     /**
      * Returns a Map of String Msg names to Msg objects.
-     * @since Validator 1.2.0
+     * @since 1.2.0
      * @return A Map of the Field's messages.
      */
     @SuppressWarnings("unchecked") // FastHashMap does not support generics
@@ -942,7 +922,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Returns a Map of String Var names to Var objects.
-     * @since Validator 1.2.0
+     * @since 1.2.0
      * @return A Map of the Field's variables.
      */
     @SuppressWarnings("unchecked") // FastHashMap does not support generics

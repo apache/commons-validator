@@ -26,7 +26,6 @@ import java.util.Iterator;
  * This contains the results of a set of validation rules processed
  * on a JavaBean.
  *
- * @version $Revision$
  */
 //TODO mutable non-private fields
 public class ValidatorResult implements Serializable {
@@ -50,7 +49,7 @@ public class ValidatorResult implements Serializable {
      * validated.
      * @param field Field that was validated.
      */
-    public ValidatorResult(Field field) {
+    public ValidatorResult(final Field field) {
         this.field = field;
     }
 
@@ -59,7 +58,7 @@ public class ValidatorResult implements Serializable {
      * @param validatorName Name of the validator.
      * @param result Whether the validation passed or failed.
      */
-    public void add(String validatorName, boolean result) {
+    public void add(final String validatorName, final boolean result) {
         this.add(validatorName, result, null);
     }
 
@@ -69,7 +68,7 @@ public class ValidatorResult implements Serializable {
      * @param result Whether the validation passed or failed.
      * @param value Value returned by the validator.
      */
-    public void add(String validatorName, boolean result, Object value) {
+    public void add(final String validatorName, final boolean result, final Object value) {
         hAction.put(validatorName, new ResultStatus(result, value));
     }
 
@@ -78,7 +77,7 @@ public class ValidatorResult implements Serializable {
      * @param validatorName Name of the validator.
      * @return true if the validator is in the result.
      */
-    public boolean containsAction(String validatorName) {
+    public boolean containsAction(final String validatorName) {
         return hAction.containsKey(validatorName);
     }
 
@@ -87,8 +86,8 @@ public class ValidatorResult implements Serializable {
      * @param validatorName Name of the validator.
      * @return true if the validation passed.
      */
-    public boolean isValid(String validatorName) {
-        ResultStatus status = hAction.get(validatorName);
+    public boolean isValid(final String validatorName) {
+        final ResultStatus status = hAction.get(validatorName);
         return (status == null) ? false : status.isValid();
     }
 
@@ -97,8 +96,8 @@ public class ValidatorResult implements Serializable {
      * @param validatorName Name of the validator.
      * @return The validation result.
      */
-    public Object getResult(String validatorName) {
-        ResultStatus status = hAction.get(validatorName);
+    public Object getResult(final String validatorName) {
+        final ResultStatus status = hAction.get(validatorName);
         return (status == null) ? null : status.getResult();
     }
 
@@ -146,7 +145,7 @@ public class ValidatorResult implements Serializable {
         * @param valid Whether the validator passed or failed.
         * @param result Value returned by the validator.
         */
-        public ResultStatus(boolean valid, Object result) {
+        public ResultStatus(final boolean valid, final Object result) {
             this.valid = valid;
             this.result = result;
         }
@@ -160,7 +159,7 @@ public class ValidatorResult implements Serializable {
          * @deprecated Use {@code ResultStatus(boolean, Object)} instead
          */
         @Deprecated
-        public ResultStatus(ValidatorResult ignored, boolean valid, Object result) {
+        public ResultStatus(final ValidatorResult ignored, final boolean valid, final Object result) {
             this(valid, result);
         }
 
@@ -176,7 +175,7 @@ public class ValidatorResult implements Serializable {
          * Sets whether or not the validation passed.
          * @param valid Whether the validation passed.
          */
-        public void setValid(boolean valid) {
+        public void setValid(final boolean valid) {
             this.valid = valid;
         }
 
@@ -196,7 +195,7 @@ public class ValidatorResult implements Serializable {
          * typed value of a date validation for example.
          * @param result The value returned by the validation.
          */
-        public void setResult(Object result) {
+        public void setResult(final Object result) {
             this.result = result;
         }
 

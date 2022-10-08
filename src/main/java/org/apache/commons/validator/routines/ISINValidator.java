@@ -77,11 +77,11 @@ public class ISINValidator implements Serializable {
      * @param checkCountryCode whether to check the country-code prefix or not
      * @return A singleton instance of the appropriate ISIN validator.
      */
-    public static ISINValidator getInstance(boolean checkCountryCode) {
+    public static ISINValidator getInstance(final boolean checkCountryCode) {
         return checkCountryCode ? ISIN_VALIDATOR_TRUE : ISIN_VALIDATOR_FALSE;
     }
 
-    private ISINValidator(boolean checkCountryCode) {
+    private ISINValidator(final boolean checkCountryCode) {
         this.checkCountryCode = checkCountryCode;
     }
 
@@ -92,7 +92,7 @@ public class ISINValidator implements Serializable {
      * @return <code>true</code> if a valid ISIN
      * code, otherwise <code>false</code>.
      */
-    public boolean isValid(String code) {
+    public boolean isValid(final String code) {
         final boolean valid = VALIDATOR.isValid(code);
         if (valid && checkCountryCode) {
             return checkCode(code.substring(0,2));
@@ -106,7 +106,7 @@ public class ISINValidator implements Serializable {
      * @param code The code to validate.
      * @return A valid ISIN code if valid, otherwise <code>null</code>.
      */
-    public Object validate(String code) {
+    public Object validate(final String code) {
         final Object validate = VALIDATOR.validate(code);
         if (validate != null && checkCountryCode) {
             return checkCode(code.substring(0,2)) ? validate : null;
@@ -114,7 +114,7 @@ public class ISINValidator implements Serializable {
         return validate;
     }
 
-    private boolean checkCode(String code) {
+    private boolean checkCode(final String code) {
         return Arrays.binarySearch(CCODES, code) >= 0
                ||
                Arrays.binarySearch(SPECIALS, code) >= 0

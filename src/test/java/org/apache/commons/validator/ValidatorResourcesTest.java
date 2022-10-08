@@ -23,14 +23,13 @@ import junit.framework.TestCase;
 /**
  * Test ValidatorResources.
  *
- * @version $Revision$
  */
 public class ValidatorResourcesTest extends TestCase {
 
     /**
      * Constructor.
      */
-    public ValidatorResourcesTest(String name) {
+    public ValidatorResourcesTest(final String name) {
         super(name);
     }
 
@@ -42,7 +41,7 @@ public class ValidatorResourcesTest extends TestCase {
         try {
             new ValidatorResources((InputStream)null);
             fail("Expected IllegalArgumentException");
-        } catch(IllegalArgumentException e) {
+        } catch(final IllegalArgumentException e) {
             // expected result
             // System.out.println("Exception: " + e);
         }

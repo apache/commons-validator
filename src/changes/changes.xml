@@ -65,17 +65,56 @@ The <action> type attribute can be add,update,fix,remove.
 
   <body>
   <release version="1.8" date="20YY-MM-DD" description="">
-    <action issue="VALIDATOR-477" type="update" dev="sebb">
-    Add IBAN validator for LY – Libya
+   <!-- FIX -->
+    <action type="fix" dev="ggregory" due-to="Gennaro Napolitano">
+      Update Javadoc for InetAddressValidator isValid #76
     </action>
-    <action type="update" dev="ggregory" due-to="Dependabot">
-    Update actions/checkout from v2.3.1 to v2.3.4, #38, #47.
+    <action issue ="VALIDATOR-479" type="fix" dev="ggregory" due-to="Gyoo">
+      Fix typo in /routines/package-summary.html #79.
+    </action>
+   <!-- ADD -->
+    <action issue="VALIDATOR-477" type="update" dev="sebb">
+      Add IBAN validator for LY – Libya
+    </action>
+    <action type="add" dev="ggregory" due-to="Dependabot, Gary Gregory">
+      Add github/codeql-action.
+    </action>
+    <action type="remove" dev="ggregory" due-to="John Patrick, Gary Gregory">
+      Remove FindBugs, SpotBugs is in use #87.
+    </action>
+    <!-- UPDATE -->
+    <action type="update" dev="ggregory" due-to="Gary Gregory">
+      Bump Java from 7 to 8.
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
-    Bump actions/setup-java from v1.4.0 to v2, #42.
+      Bump actions/cache from 2 to 3.0.10 #71, #84. #90.
+    </action>
+    <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+      Bump actions/checkout from 2.3.1 to 3.0.2, #38, #47, #70.
+    </action>
+    <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+      Bump actions/setup-java from 1.4.0 to 3.5.1 #42, #72.
+    </action>
+    <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+      Bump junit from 4.13 to 5.9.1 Vintage #44.
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot">
-    Bump junit from 4.13 to 4.13.1 #44.
+      Bump maven-pmd-plugin from 3.13.0 to 3.19.0 #69, #77, #80, #81.
+    </action>
+    <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">
+      Bump commons-parent from 52 to 54, #83.
+    </action>
+    <action type="update" dev="ggregory" due-to="Gary Gregory">
+      Bump japicmp-maven-plugin from 0.15.3 to 0.15.7.
+    </action>
+    <action type="update" dev="ggregory" due-to="Dependabot">
+      Bump maven-antrun-plugin from 3.0.0 to 3.1.0 #74.
+    </action>
+    <action type="update" dev="ggregory" due-to="Gary Gregory">
+      Bump commons-csv from 1.6 to 1.9.0.
+    </action>
+    <action type="update" dev="ggregory" due-to="Gary Gregory">
+      Bump japicmp-maven-plugin from 0.15.7 to 0.16.0.
     </action>
   </release>
   
@@ -697,7 +736,7 @@ http://commons.apache.org/validator/dependencies.html
     <action dev="niallp" type="add">
      <p>Add new routines package containing standard validations - first
       step in the process of clearly separating standard validation
-      functions which can be used independantly, from the framework
+      functions which can be used independently, from the framework
       aspect of Commons Validator.</p>
      <p>New validators added for Date, Time, Calendar, Byte, Short,
       Integer, Long, Float, Double, BigInteger, BigDecimal,

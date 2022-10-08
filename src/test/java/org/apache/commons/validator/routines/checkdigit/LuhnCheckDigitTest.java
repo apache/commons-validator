@@ -20,8 +20,7 @@ package org.apache.commons.validator.routines.checkdigit;
 /**
  * Luhn Check Digit Test.
  *
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
 
@@ -36,7 +35,7 @@ public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
      * Constructor
      * @param name test name
      */
-    public LuhnCheckDigitTest(String name) {
+    public LuhnCheckDigitTest(final String name) {
         super(name);
     }
 

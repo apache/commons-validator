@@ -24,7 +24,6 @@ import org.apache.commons.validator.ValidatorResources;
 /**
  * Custom ValidatorResources implementation.
  *
- * @version $Revision$
  */
 public class CustomValidatorResources extends ValidatorResources {
 
@@ -37,7 +36,7 @@ public class CustomValidatorResources extends ValidatorResources {
      * @throws SAXException if the validation XML files are not valid or well formed.
      * @throws IOException  if an I/O error occurs processing the XML files
      */
-    public CustomValidatorResources(InputStream in) throws IOException, SAXException {
+    public CustomValidatorResources(final InputStream in) throws IOException, SAXException {
         super(in);
     }
 

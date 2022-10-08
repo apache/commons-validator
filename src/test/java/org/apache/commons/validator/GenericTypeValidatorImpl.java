@@ -23,7 +23,6 @@ import org.apache.commons.validator.util.ValidatorUtils;
 /**
  * Contains validation methods for different unit tests.
  *
- * @version $Revision$
  */
 public class GenericTypeValidatorImpl {
 
@@ -36,8 +35,8 @@ public class GenericTypeValidatorImpl {
     * to a <code>byte</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Byte validateByte(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static Byte validateByte(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatByte(value);
    }
@@ -51,8 +50,8 @@ public class GenericTypeValidatorImpl {
     * to a <code>byte</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Byte validateByte(Object bean, Field field, Locale locale) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static Byte validateByte(final Object bean, final Field field, final Locale locale) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatByte(value, locale);
    }
@@ -66,8 +65,8 @@ public class GenericTypeValidatorImpl {
     * to a <code>short</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Short validateShort(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static Short validateShort(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatShort(value);
    }
@@ -81,8 +80,8 @@ public class GenericTypeValidatorImpl {
     * to a <code>short</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Short validateShort(Object bean, Field field, Locale locale) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static Short validateShort(final Object bean, final Field field, final Locale locale) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatShort(value, locale);
    }
@@ -96,8 +95,8 @@ public class GenericTypeValidatorImpl {
     * to a <code>int</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Integer validateInt(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static Integer validateInt(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatInt(value);
    }
@@ -111,8 +110,8 @@ public class GenericTypeValidatorImpl {
     * to a <code>int</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Integer validateInt(Object bean, Field field, Locale locale) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static Integer validateInt(final Object bean, final Field field, final Locale locale) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatInt(value, locale);
    }
@@ -126,8 +125,8 @@ public class GenericTypeValidatorImpl {
     * to a <code>long</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Long validateLong(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static Long validateLong(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatLong(value);
    }
@@ -141,8 +140,8 @@ public class GenericTypeValidatorImpl {
     * to a <code>long</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Long validateLong(Object bean, Field field, Locale locale) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static Long validateLong(final Object bean, final Field field, final Locale locale) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatLong(value, locale);
    }
@@ -156,8 +155,8 @@ public class GenericTypeValidatorImpl {
     * to a <code>float</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Float validateFloat(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static Float validateFloat(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatFloat(value);
    }
@@ -171,8 +170,8 @@ public class GenericTypeValidatorImpl {
     * to a <code>float</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Float validateFloat(Object bean, Field field, Locale locale) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static Float validateFloat(final Object bean, final Field field, final Locale locale) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatFloat(value, locale);
    }
@@ -186,8 +185,8 @@ public class GenericTypeValidatorImpl {
     * to a <code>double</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Double validateDouble(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static Double validateDouble(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatDouble(value);
    }
@@ -201,8 +200,8 @@ public class GenericTypeValidatorImpl {
     * to a <code>double</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Double validateDouble(Object bean, Field field, Locale locale) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static Double validateDouble(final Object bean, final Field field, final Locale locale) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatDouble(value, locale);
    }
@@ -216,8 +215,8 @@ public class GenericTypeValidatorImpl {
     * to a <code>date</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Date validateDate(Object bean, Field field, Locale locale) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+   public static Date validateDate(final Object bean, final Field field, final Locale locale) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
       return GenericTypeValidator.formatDate(value, locale);
    }
@@ -231,10 +230,10 @@ public class GenericTypeValidatorImpl {
     * to a <code>date</code> <code>true</code> is returned.
     * Otherwise <code>false</code>.
     */
-   public static Date validateDate(Object bean, Field field) {
-      String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
-      String datePattern = field.getVarValue("datePattern");
-      String datePatternStrict = field.getVarValue("datePatternStrict");
+   public static Date validateDate(final Object bean, final Field field) {
+      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+      final String datePattern = field.getVarValue("datePattern");
+      final String datePatternStrict = field.getVarValue("datePatternStrict");
 
       Date result = null;
       if (datePattern != null && !datePattern.isEmpty()) {

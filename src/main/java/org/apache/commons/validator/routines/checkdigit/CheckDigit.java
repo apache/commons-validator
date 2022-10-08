@@ -44,8 +44,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * list of implementations provided within Commons Validator.
  *
  * @see org.apache.commons.validator.routines.CodeValidator
- * @version $Revision$
- * @since Validator 1.4
+ * @since 1.4
  */
 public interface CheckDigit {
 

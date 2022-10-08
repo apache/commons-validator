@@ -23,7 +23,6 @@ import org.xml.sax.SAXException;
 /**
  * Abstracts number unit tests methods.
  *
- * @version $Revision$
  */
 abstract public class AbstractNumberTest extends AbstractCommonTest {
 
@@ -39,7 +38,7 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
     protected String ACTION;
 
 
-    public AbstractNumberTest(String name) {
+    public AbstractNumberTest(final String name) {
         super(name);
     }
 
@@ -62,7 +61,7 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
      */
     public void testNumber() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         info.setValue("0");
         valueTest(info, true);
     }
@@ -72,7 +71,7 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
      */
     public void testNumberFailure() throws ValidatorException {
         // Create bean to run test on.
-        ValueBean info = new ValueBean();
+        final ValueBean info = new ValueBean();
         valueTest(info, false);
     }
 
@@ -82,10 +81,10 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
      * @param    info    Value to run test on.
      * @param    passed    Whether or not the test is expected to pass.
      */
-    protected void valueTest(Object info, boolean passed) throws ValidatorException {
+    protected void valueTest(final Object info, final boolean passed) throws ValidatorException {
         // Construct validator based on the loaded resources
         // and the form key
-        Validator validator = new Validator(resources, FORM_KEY);
+        final Validator validator = new Validator(resources, FORM_KEY);
         // add the name bean to the validator as a resource
         // for the validations to be performed on.
         validator.setParameter(Validator.BEAN_PARAM, info);
@@ -95,11 +94,11 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
         // but we aren't catching for testing
         // since no validation methods we use
         // throw this
-        ValidatorResults results = validator.validate();
+        final ValidatorResults results = validator.validate();
 
         assertNotNull("Results are null.", results);
 
-        ValidatorResult result = results.getValidatorResult("value");
+        final ValidatorResult result = results.getValidatorResult("value");
 
         assertNotNull(ACTION + " value ValidatorResult should not be null.", result);
         assertTrue(ACTION + " value ValidatorResult should contain the '" + ACTION + "' action.", result.containsAction(ACTION));

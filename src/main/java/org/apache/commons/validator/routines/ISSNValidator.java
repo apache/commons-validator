@@ -99,7 +99,7 @@ public class ISSNValidator implements Serializable {
      * @return A valid EAN code if valid, otherwise <code>null</code>.
      * @since 1.7
      */
-    public Object validateEan(String code) {
+    public Object validateEan(final String code) {
         return EAN_VALIDATOR.validate(code);
     }
 
@@ -110,7 +110,7 @@ public class ISSNValidator implements Serializable {
      * @return <code>true</code> if a valid ISSN
      * code, otherwise <code>false</code>.
      */
-    public boolean isValid(String code) {
+    public boolean isValid(final String code) {
         return VALIDATOR.isValid(code);
     }
 
@@ -123,7 +123,7 @@ public class ISSNValidator implements Serializable {
      * @param code The code to validate.
      * @return A valid ISSN code if valid, otherwise <code>null</code>.
      */
-    public Object validate(String code) {
+    public Object validate(final String code) {
         return VALIDATOR.validate(code);
     }
 
@@ -140,13 +140,13 @@ public class ISSNValidator implements Serializable {
      * @return A converted EAN-13 code or <code>null</code>
      * if the input ISSN code is not valid
      */
-    public String convertToEAN13(String issn, String suffix) {
+    public String convertToEAN13(final String issn, final String suffix) {
 
         if (suffix == null || !suffix.matches("\\d\\d")) {
             throw new IllegalArgumentException("Suffix must be two digits: '" + suffix + "'");
         }
 
-        Object result = validate(issn);
+        final Object result = validate(issn);
         if (result == null) {
             return null;
         }
@@ -155,10 +155,10 @@ public class ISSNValidator implements Serializable {
         final String input = result.toString();
         String ean13 = ISSN_PREFIX + input.substring(0, input.length() -1) + suffix;
         try {
-            String checkDigit = EAN13CheckDigit.EAN13_CHECK_DIGIT.calculate(ean13);
+            final String checkDigit = EAN13CheckDigit.EAN13_CHECK_DIGIT.calculate(ean13);
             ean13 += checkDigit;
             return ean13;
-        } catch (CheckDigitException e) { // Should not happen
+        } catch (final CheckDigitException e) { // Should not happen
             throw new IllegalArgumentException("Check digit error for '" + ean13 + "' - " + e.getMessage());
         }
 
@@ -176,7 +176,7 @@ public class ISSNValidator implements Serializable {
      * if the input ISSN EAN-13 code is not valid
      * @since 1.7
      */
-    public String extractFromEAN13(String ean13) {
+    public String extractFromEAN13(final String ean13) {
         String input = ean13.trim();
         if (input.length() != EAN_ISSN_LEN ) {
             throw new IllegalArgumentException("Invalid length " + input.length() + " for '" + input + "'");
@@ -184,7 +184,7 @@ public class ISSNValidator implements Serializable {
         if (!input.startsWith(ISSN_PREFIX)) {
             throw new IllegalArgumentException("Prefix must be " + ISSN_PREFIX + " to contain an ISSN: '" + ean13 + "'");
         }
-        Object result = validateEan(input);
+        final Object result = validateEan(input);
         if (result == null) {
             return null;
         }
@@ -192,12 +192,12 @@ public class ISSNValidator implements Serializable {
         input = result.toString();
         try {
             //CHECKSTYLE:OFF: MagicNumber
-            String issnBase = input.substring(3,10); // TODO: how to derive these
+            final String issnBase = input.substring(3,10); // TODO: how to derive these
             //CHECKSTYLE:ON: MagicNumber
-            String checkDigit = ISSNCheckDigit.ISSN_CHECK_DIGIT.calculate(issnBase);
-            String issn = issnBase + checkDigit;
+            final String checkDigit = ISSNCheckDigit.ISSN_CHECK_DIGIT.calculate(issnBase);
+            final String issn = issnBase + checkDigit;
             return issn;
-        } catch (CheckDigitException e) { // Should not happen
+        } catch (final CheckDigitException e) { // Should not happen
             throw new IllegalArgumentException("Check digit error for '" + ean13 + "' - " + e.getMessage());
         }
     }

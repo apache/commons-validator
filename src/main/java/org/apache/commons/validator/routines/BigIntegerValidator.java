@@ -60,8 +60,7 @@ import java.util.Locale;
  *       <li>using a specified pattern with a specified <code>Locale</code></li>
  *    </ul>
  *
- * @version $Revision$
- * @since Validator 1.3.0
+ * @since 1.3.0
  */
 public class BigIntegerValidator extends AbstractNumberValidator {
 
@@ -105,7 +104,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * @param formatType The <code>NumberFormat</code> type to
      *        create for validation, default is STANDARD_FORMAT.
      */
-    public BigIntegerValidator(boolean strict, int formatType) {
+    public BigIntegerValidator(final boolean strict, final int formatType) {
         super(strict, formatType, false);
     }
 
@@ -117,7 +116,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * @return The parsed <code>BigInteger</code> if valid or <code>null</code>
      *  if invalid.
      */
-    public BigInteger validate(String value) {
+    public BigInteger validate(final String value) {
         return (BigInteger)parse(value, (String)null, (Locale)null);
     }
 
@@ -129,7 +128,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * @param pattern The pattern used to validate the value against.
      * @return The parsed <code>BigInteger</code> if valid or <code>null</code> if invalid.
      */
-    public BigInteger validate(String value, String pattern) {
+    public BigInteger validate(final String value, final String pattern) {
         return (BigInteger)parse(value, pattern, (Locale)null);
     }
 
@@ -141,7 +140,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the number format, system default if null.
      * @return The parsed <code>BigInteger</code> if valid or <code>null</code> if invalid.
      */
-    public BigInteger validate(String value, Locale locale) {
+    public BigInteger validate(final String value, final Locale locale) {
         return (BigInteger)parse(value, (String)null, locale);
     }
 
@@ -155,7 +154,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * @param locale The locale to use for the date format, system default if null.
      * @return The parsed <code>BigInteger</code> if valid or <code>null</code> if invalid.
      */
-    public BigInteger validate(String value, String pattern, Locale locale) {
+    public BigInteger validate(final String value, final String pattern, final Locale locale) {
         return (BigInteger)parse(value, pattern, locale);
     }
 
@@ -168,7 +167,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is within the
      *         specified range.
      */
-    public boolean isInRange(BigInteger value, long min, long max) {
+    public boolean isInRange(final BigInteger value, final long min, final long max) {
         return (value.longValue() >= min && value.longValue() <= max);
     }
 
@@ -180,7 +179,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is greater than
      *         or equal to the minimum.
      */
-    public boolean minValue(BigInteger value, long min) {
+    public boolean minValue(final BigInteger value, final long min) {
         return (value.longValue() >= min);
     }
 
@@ -192,7 +191,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * @return <code>true</code> if the value is less than
      *         or equal to the maximum.
      */
-    public boolean maxValue(BigInteger value, long max) {
+    public boolean maxValue(final BigInteger value, final long max) {
         return (value.longValue() <= max);
     }
 
@@ -205,7 +204,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      *         <code>BigInteger</code>.
      */
     @Override
-    protected Object processParsedValue(Object value, Format formatter) {
+    protected Object processParsedValue(final Object value, final Format formatter) {
         return BigInteger.valueOf(((Number)value).longValue());
     }
 }

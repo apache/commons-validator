@@ -26,7 +26,6 @@ import java.util.Map;
  * <code>ValidatorResources</code> is used to define the validators
  * (validation methods) and the validation rules for a JavaBean.
  *
- * @version $Revision$
  */
 // TODO mutable fields should be made private and accessed via suitable methods only
 public class Validator implements Serializable {
@@ -143,7 +142,7 @@ public class Validator implements Serializable {
      *
      * @param resources <code>ValidatorResources</code> to use during validation.
      */
-    public Validator(ValidatorResources resources) {
+    public Validator(final ValidatorResources resources) {
         this(resources, null);
     }
 
@@ -156,7 +155,7 @@ public class Validator implements Serializable {
      * @param resources <code>ValidatorResources</code> to use during validation.
      * @param formName Key used for retrieving the set of validation rules.
      */
-    public Validator(ValidatorResources resources, String formName) {
+    public Validator(final ValidatorResources resources, final String formName) {
         if (resources == null) {
             throw new IllegalArgumentException("Resources cannot be null.");
         }
@@ -176,7 +175,7 @@ public class Validator implements Serializable {
      * @param fieldName Key used for retrieving the set of validation rules for a field
      * @since 1.2.0
      */
-    public Validator(ValidatorResources resources, String formName, String fieldName) {
+    public Validator(final ValidatorResources resources, final String formName, final String fieldName) {
         if (resources == null) {
             throw new IllegalArgumentException("Resources cannot be null.");
         }
@@ -195,7 +194,7 @@ public class Validator implements Serializable {
      * @param parameterValue The instance that will be passed into the
      * validation method.
      */
-    public void setParameter(String parameterClassName, Object parameterValue) {
+    public void setParameter(final String parameterClassName, final Object parameterValue) {
         this.parameters.put(parameterClassName, parameterValue);
     }
 
@@ -207,7 +206,7 @@ public class Validator implements Serializable {
      * validation method that corresponds to the value/instance passed in with it.
      * @return value of the specified parameter.
      */
-    public Object getParameterValue(String parameterClassName) {
+    public Object getParameterValue(final String parameterClassName) {
         return this.parameters.get(parameterClassName);
     }
 
@@ -223,7 +222,7 @@ public class Validator implements Serializable {
      * Sets the form name which is the key to a set of validation rules.
      * @param formName the name of the form.
      */
-    public void setFormName(String formName) {
+    public void setFormName(final String formName) {
         this.formName = formName;
     }
 
@@ -233,7 +232,7 @@ public class Validator implements Serializable {
      * @param fieldName The name of the field in a form set
      * @since 1.2.0
      */
-    public void setFieldName(String fieldName) {
+    public void setFieldName(final String fieldName) {
         this.fieldName = fieldName;
     }
 
@@ -262,7 +261,7 @@ public class Validator implements Serializable {
      *
      * @param page the page number.
      */
-    public void setPage(int page) {
+    public void setPage(final int page) {
         this.page = page;
     }
 
@@ -299,7 +298,7 @@ public class Validator implements Serializable {
      *
      * @param use determines whether to use Context ClassLoader.
      */
-    public void setUseContextClassLoader(boolean use) {
+    public void setUseContextClassLoader(final boolean use) {
         this.useContextClassLoader = use;
     }
 
@@ -320,7 +319,7 @@ public class Validator implements Serializable {
         }
 
         if (this.useContextClassLoader) {
-            ClassLoader contextLoader = Thread.currentThread().getContextClassLoader();
+            final ClassLoader contextLoader = Thread.currentThread().getContextClassLoader();
             if (contextLoader != null) {
                 return contextLoader;
             }
@@ -336,7 +335,7 @@ public class Validator implements Serializable {
      * @param classLoader The new class loader to use, or <code>null</code>
      *  to revert to the standard rules
      */
-    public void setClassLoader(ClassLoader classLoader) {
+    public void setClassLoader(final ClassLoader classLoader) {
         this.classLoader = classLoader;
     }
 
@@ -357,7 +356,7 @@ public class Validator implements Serializable {
 
         this.setParameter(VALIDATOR_PARAM, this);
 
-        Form form = this.resources.getForm(locale, this.formName);
+        final Form form = this.resources.getForm(locale, this.formName);
         if (form != null) {
             this.setParameter(FORM_PARAM, form);
             return form.validate(
@@ -384,7 +383,7 @@ public class Validator implements Serializable {
      * all fields.
      * @param onlyReturnErrors whether only failed fields are returned.
      */
-    public void setOnlyReturnErrors(boolean onlyReturnErrors) {
+    public void setOnlyReturnErrors(final boolean onlyReturnErrors) {
         this.onlyReturnErrors = onlyReturnErrors;
     }
 

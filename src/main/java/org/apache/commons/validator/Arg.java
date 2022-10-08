@@ -33,7 +33,6 @@ import java.io.Serializable;
  * </p>
  * <p>Instances of this class are configured with an &lt;arg&gt; xml element.</p>
  *
- * @version $Revision$
  */
 //TODO mutable non-private fields
 public class Arg implements Cloneable, Serializable {
@@ -43,7 +42,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * The resource bundle name that this Arg's <code>key</code> should be
      * resolved in (optional).
-     * @since Validator 1.1
+     * @since 1.1
      */
     protected String bundle = null;
 
@@ -60,7 +59,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * This argument's position in the message. Set postion=0 to
      * make a replacement in this string: "some msg {0}".
-     * @since Validator 1.1
+     * @since 1.1
      */
     protected int position = -1;
 
@@ -80,7 +79,7 @@ public class Arg implements Cloneable, Serializable {
         try {
             return super.clone();
 
-        } catch(CloneNotSupportedException e) {
+        } catch(final CloneNotSupportedException e) {
             throw new RuntimeException(e.toString());
         }
     }
@@ -88,7 +87,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * Returns the resource bundle name.
      * @return the bundle name.
-     * @since Validator 1.1
+     * @since 1.1
      */
     public String getBundle() {
         return this.bundle;
@@ -129,9 +128,9 @@ public class Arg implements Cloneable, Serializable {
     /**
      * Sets the resource bundle name.
      * @param bundle The new bundle name.
-     * @since Validator 1.1
+     * @since 1.1
      */
-    public void setBundle(String bundle) {
+    public void setBundle(final String bundle) {
         this.bundle = bundle;
     }
 
@@ -139,7 +138,7 @@ public class Arg implements Cloneable, Serializable {
      * Sets the key/value.
      * @param key They to access the argument.
      */
-    public void setKey(String key) {
+    public void setKey(final String key) {
         this.key = key;
     }
 
@@ -147,7 +146,7 @@ public class Arg implements Cloneable, Serializable {
      * Sets the name of the dependency.
      * @param name the name of the dependency.
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -155,7 +154,7 @@ public class Arg implements Cloneable, Serializable {
      * Set this argument's replacement position.
      * @param position set this argument's replacement position.
      */
-    public void setPosition(int position) {
+    public void setPosition(final int position) {
         this.position = position;
     }
 
@@ -163,7 +162,7 @@ public class Arg implements Cloneable, Serializable {
      * Sets whether or not the key is a resource.
      * @param resource If true indicates the key is a resource.
      */
-    public void setResource(boolean resource) {
+    public void setResource(final boolean resource) {
         this.resource = resource;
     }
 
@@ -173,7 +172,7 @@ public class Arg implements Cloneable, Serializable {
      */
     @Override
     public String toString() {
-        StringBuilder results = new StringBuilder();
+        final StringBuilder results = new StringBuilder();
 
         results.append("Arg: name=");
         results.append(name);
