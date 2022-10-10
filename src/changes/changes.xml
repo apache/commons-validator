@@ -76,15 +76,18 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="VALIDATOR-477" type="update" dev="sebb">
       Add IBAN validator for LY – Libya
     </action>
-    <action  type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+    <action type="add" dev="ggregory" due-to="Dependabot, Gary Gregory">
       Add github/codeql-action.
+    </action>
+    <action type="remove" dev="ggregory" due-to="John Patrick, Gary Gregory">
+      Remove FindBugs, SpotBugs is in use #87.
     </action>
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory">
       Bump Java from 7 to 8.
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
-      Bump actions/cache from 2 to 3.0.8 #71.
+      Bump actions/cache from 2 to 3.0.10 #71, #84. #90.
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
       Bump actions/checkout from 2.3.1 to 3.0.2, #38, #47, #70.
