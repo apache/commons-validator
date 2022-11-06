@@ -32,6 +32,7 @@ public class CreditCardValidatorTest extends TestCase {
     private static final String VALID_MASTERCARD = "5105105105105100";
     private static final String VALID_DISCOVER = "6011000990139424";
     private static final String VALID_DINERS = "30569309025904";
+    private static final String VALID_MIR = "2202717467772647";
 
     /**
      * Constructor for CreditCardValidatorTest.
@@ -49,11 +50,13 @@ public class CreditCardValidatorTest extends TestCase {
         assertFalse(ccv.isValid("12345678901234567890"));   // too long
         assertFalse(ccv.isValid("4417123456789112"));
         assertFalse(ccv.isValid("4417q23456w89113"));
+        assertFalse(ccv.isValid("2202717467772646")); // MIR with invalid checksum
         assertTrue(ccv.isValid(VALID_VISA));
         assertTrue(ccv.isValid(VALID_SHORT_VISA));
         assertTrue(ccv.isValid(VALID_AMEX));
         assertTrue(ccv.isValid(VALID_MASTERCARD));
         assertTrue(ccv.isValid(VALID_DISCOVER));
+        assertTrue(ccv.isValid(VALID_MIR));
 
         // disallow Visa so it should fail even with good number
         ccv = new CreditCardValidator(CreditCardValidator.AMEX);

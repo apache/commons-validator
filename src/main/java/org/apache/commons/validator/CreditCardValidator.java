@@ -92,6 +92,11 @@ public class CreditCardValidator {
     public static final int DISCOVER = 1 << 3;
 
     /**
+     * Option specifying that MIR cards are allowed.
+     */
+    public static final int MIR = 1 << 4;
+
+    /**
      * The CreditCardTypes that are allowed to pass validation.
      */
     private final Collection<CreditCardType> cardTypes = new ArrayList<>();
@@ -100,7 +105,7 @@ public class CreditCardValidator {
      * Create a new CreditCardValidator with default options.
      */
     public CreditCardValidator() {
-        this(AMEX + VISA + MASTERCARD + DISCOVER);
+        this(AMEX + VISA + MASTERCARD + DISCOVER + MIR);
     }
 
     /**
@@ -125,6 +130,10 @@ public class CreditCardValidator {
 
         if (f.isOn(DISCOVER)) {
             this.cardTypes.add(new Discover());
+        }
+
+        if (f.isOn(MIR)) {
+            this.cardTypes.add(new Mir());
         }
     }
 
@@ -251,6 +260,14 @@ public class CreditCardValidator {
         public boolean matches(final String card) {
             final String prefix2 = card.substring(0, 2) + ",";
             return ((PREFIX.contains(prefix2)) && (card.length() == 16));
+        }
+    }
+
+    private static class Mir implements CreditCardType {
+        private static final String PREFIX = "220";
+        @Override
+        public boolean matches(final String card) {
+            return (card.startsWith(PREFIX) && (card.length() == 16));
         }
     }
 
