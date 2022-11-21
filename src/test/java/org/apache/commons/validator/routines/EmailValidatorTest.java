@@ -16,6 +16,9 @@
  */
 package org.apache.commons.validator.routines;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ import org.apache.commons.validator.ResultPair;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
 
 /**
  * Performs Validation Test for e-mail validations.
@@ -565,21 +569,27 @@ public class EmailValidatorTest {
         assertTrue(validator.isValid("abc@school.school"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testValidator473_1() { // reject null DomainValidator
-        new EmailValidator(false, false, null);
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
+                new EmailValidator(false, false, null));
+        assertThat(thrown.getMessage(), is(equalTo("DomainValidator cannot be null")));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testValidator473_2() { // reject null DomainValidator with mismatched allowLocal
         final List<DomainValidator.Item> items = new ArrayList<>();
-        new EmailValidator(false, false, DomainValidator.getInstance(true, items));
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
+                new EmailValidator(false, false, DomainValidator.getInstance(true, items)));
+        assertThat(thrown.getMessage(), is(equalTo("DomainValidator must agree with allowLocal setting")));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testValidator473_3() { // reject null DomainValidator with mismatched allowLocal
         final List<DomainValidator.Item> items = new ArrayList<>();
-        new EmailValidator(true, false, DomainValidator.getInstance(false, items));
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
+                new EmailValidator(true, false, DomainValidator.getInstance(false, items)));
+        assertThat(thrown.getMessage(), is(equalTo("DomainValidator must agree with allowLocal setting")));
     }
 
     @Test
