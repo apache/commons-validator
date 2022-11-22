@@ -75,7 +75,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * Calculates the <i>weighted</i> value of a charcter in the
+     * Calculates the <i>weighted</i> value of a character in the
      * code at a specified position.
      *
      * @param charValue The numeric value of the character.
