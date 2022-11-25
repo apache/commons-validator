@@ -300,7 +300,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
             }
         }
 
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     /**

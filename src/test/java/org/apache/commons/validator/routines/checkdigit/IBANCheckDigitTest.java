@@ -200,7 +200,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
             }
         }
 
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     /**
