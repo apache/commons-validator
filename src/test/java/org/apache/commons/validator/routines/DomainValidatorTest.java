@@ -400,10 +400,10 @@ public class DomainValidatorTest extends TestCase {
             }
         }
         if (!missingTLD.isEmpty()) {
-            printMap(header, missingTLD, "TLD");
+            printMap(header, missingTLD, "GENERIC_TLDS");
         }
         if (!missingCC.isEmpty()) {
-            printMap(header, missingCC, "CC");
+            printMap(header, missingCC, "COUNTRY_CODE_TLDS");
         }
         // Check if internal tables contain any additional entries
         isInIanaList("INFRASTRUCTURE_TLDS", ianaTlds);
