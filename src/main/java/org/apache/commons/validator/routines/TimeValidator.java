@@ -177,7 +177,7 @@ public class TimeValidator extends AbstractCalendarValidator {
     }
 
     /**
-     * <p>Validate/convert a time using the specified specified <code>Locale</code>
+     * <p>Validate/convert a time using the specified <code>Locale</code>
      *    and <code>TimeZone</code>.
      *
      * @param value The value validation is being performed on.
