@@ -288,7 +288,7 @@ public class IBANValidatorTest {
                         country.get(i));
             } else {
                 final String currentLength = Integer.toString(valre.lengthOfIBAN);
-                final String currentRE = valre.validator.toString()
+                final String currentRE = valre.getRegexValidator().toString()
                         .replaceAll("^.+?\\{(.+)}","$1") // Extract RE from RegexValidator{re} string
                         .replace("\\d","\\\\d"); // convert \d to \\d
                 // The above assumes that the RegexValidator contains a single Regex

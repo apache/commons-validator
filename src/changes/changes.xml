@@ -85,6 +85,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="VALIDATOR-486" type="add" dev="ggregory" due-to="tatiana-scda, Gary Gregory">
       Add new countries to IBAN list: DJ, RU #88.
     </action>
+    <action type="add" dev="ggregory" due-to="Arnaud Fournier, Gary Gregory">
+      Add IBANValidator.Validator.getRegexValidator().
+    </action>
     <!-- REMOVE -->
     <action type="remove" dev="ggregory" due-to="John Patrick, Gary Gregory">
       Remove FindBugs, SpotBugs is in use #87.

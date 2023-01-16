@@ -66,7 +66,7 @@ public class IBANValidator {
         private static final int MIN_LEN = 8;
         private static final int MAX_LEN = 34; // defined by [3]
         final String countryCode;
-        final RegexValidator validator;
+        final RegexValidator regexValidator;
         final int lengthOfIBAN; // used to avoid unnecessary regex matching
 
         /**
@@ -87,7 +87,17 @@ public class IBANValidator {
             }
             this.countryCode = cc;
             this.lengthOfIBAN = len;
-            this.validator = new RegexValidator(format);
+            this.regexValidator = new RegexValidator(format);
+        }
+
+        /**
+         * Gets the RegexValidator.
+         *
+         * @return the RegexValidator.
+         * @since 1.8
+         */
+        public RegexValidator getRegexValidator() {
+            return regexValidator;
         }
     }
 
@@ -248,7 +258,7 @@ public class IBANValidator {
      */
     public boolean isValid(final String code) {
         final Validator formatValidator = getValidator(code);
-        if (formatValidator == null || code.length() != formatValidator.lengthOfIBAN || !formatValidator.validator.isValid(code)) {
+        if (formatValidator == null || code.length() != formatValidator.lengthOfIBAN || !formatValidator.regexValidator.isValid(code)) {
             return false;
         }
         return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code);
