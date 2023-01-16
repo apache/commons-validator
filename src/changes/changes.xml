@@ -79,10 +79,10 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="add" dev="ggregory" due-to="Dependabot, Gary Gregory">
       Add github/codeql-action.
     </action>
-    <action issue="VALIDATOR-477" type="update" dev="sebb" due-to="sebb, homebeaver">
+    <action issue="VALIDATOR-477" type="adda" dev="sebb" due-to="sebb, homebeaver">
       Add IBAN validators for LY – Libya, SD, BI, #67.
     </action>
-    <action issue="VALIDATOR-486" type="update" dev="sebb" due-to="tatiana-scda, Gary Gregory">
+    <action issue="VALIDATOR-486" type="add" dev="ggregory" due-to="tatiana-scda, Gary Gregory">
       Add new countries to IBAN list: DJ, RU #88.
     </action>
     <!-- REMOVE -->
