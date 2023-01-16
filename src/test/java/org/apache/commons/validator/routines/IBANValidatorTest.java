@@ -77,6 +77,10 @@ public class IBANValidatorTest {
                     length = o;
                 }
             }
+            assertNotNull(country);
+            assertNotNull(length);
+            assertNotNull(structure);
+            assertNotNull(cc);
             for (int i = 1; i < country.size(); i++) {
                 try {
 
