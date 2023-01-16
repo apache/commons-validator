@@ -111,7 +111,7 @@ public class IBANValidator {
      * [2] http://www.swift.com/dsp/resources/documents/IBAN_Registry.pdf (404)
      * => https://www.swift.com/sites/default/files/resources/iban_registry.pdf
      * The above is an old version (62, Jan 2016)
-     * As at May 2020, the current IBAN standards are located at:
+     * As of May 2020, the current IBAN standards are located at:
      * https://www.swift.com/standards/data-standards/iban
      * The above page contains links for the PDF and TXT (CSV) versions of the registry
      * Warning: these may not agree -- in the past there have been discrepancies.
