@@ -137,6 +137,7 @@ public class IBANValidator {
             new Validator("CY", 28, "CY\\d{10}[A-Z0-9]{16}"                 ), // Cyprus
             new Validator("CZ", 24, "CZ\\d{22}"                             ), // Czechia
             new Validator("DE", 22, "DE\\d{20}"                             ), // Germany
+            new Validator("DJ", 27, "DJ\\d{25}"                             ), // Djibouti
             new Validator("DK", 18, "DK\\d{16}"                             ), // Denmark
             new Validator("DO", 28, "DO\\d{2}[A-Z0-9]{4}\\d{20}"            ), // Dominican Republic
             new Validator("EE", 20, "EE\\d{18}"                             ), // Estonia

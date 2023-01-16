@@ -67,6 +67,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                 "CY17002001280000001200527600",  // Cyprus
                 "CZ6508000000192000145399",      // Czechoslovakia
                 "DE89370400440532013000",        // Germany
+                "DJ2100010000000154000100186",   // Djibouti
                 "DK5000400440116243",            // Denmark
                 "DO28BAGR00000001212453611324",  // Dominican Republic
                 "EE382200221020145685",          // Estonia
