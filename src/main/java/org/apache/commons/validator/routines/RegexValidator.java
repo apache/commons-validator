@@ -131,6 +131,16 @@ public class RegexValidator implements Serializable {
     }
 
     /**
+     * Gets a copy of the Patterns.
+     *
+     * @return a copy of the Patterns.
+     * @since 1.8
+     */
+    public Pattern[] getPatterns() {
+        return patterns.clone();
+    }
+
+    /**
      * Validate a value against the set of regular expressions.
      *
      * @param value The value to validate.

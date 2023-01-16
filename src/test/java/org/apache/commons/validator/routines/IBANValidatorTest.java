@@ -39,7 +39,6 @@ import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.validator.routines.IBANValidator.Validator;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 import org.junit.Test;
-import org.junit.function.ThrowingRunnable;
 
 /**
  * IBANValidator Test Case.
@@ -299,6 +298,11 @@ public class IBANValidatorTest {
             "ST68000200010192194210112", // ditto
             "SV62CENR0000000000000700025", // ditto
     };
+
+    @Test
+    public void testGetRegexValidatortPatterns() {
+        assertNotNull("GB", VALIDATOR.getValidator("GB").getRegexValidator().getPatterns());
+    }
 
     @Test
     public void testGetValidator() {

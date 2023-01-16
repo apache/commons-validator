@@ -16,6 +16,7 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import junit.framework.TestCase;
@@ -103,6 +104,15 @@ public class RegexValidatorTest extends TestCase {
         }
     }
 
+    public void testGetPatterns() {
+        final RegexValidator regexValidator = new RegexValidator(MULTIPLE_REGEX);
+        assertNotSame(regexValidator.getPatterns(), regexValidator.getPatterns());
+        final Pattern[] patterns = regexValidator.getPatterns();
+        assertEquals(REGEX_1, patterns[0].pattern());
+        assertEquals(REGEX_2, patterns[1].pattern());
+        assertEquals(REGEX_3, patterns[2].pattern());
+    }
+
     /**
      * Test exceptions
      */
@@ -158,7 +168,7 @@ public class RegexValidatorTest extends TestCase {
             assertEquals("Array has Zero Length", "Regular expression[0] is missing", e.getMessage());
         }
     }
-
+    
     /**
      * Test with multiple regular expressions (case in-sensitive).
      */
