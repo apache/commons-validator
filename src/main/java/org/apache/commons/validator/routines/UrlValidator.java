@@ -237,7 +237,7 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Customizable constructor. Validation behavior is modifed by passing in options.
+     * Customizable constructor. Validation behavior is modified by passing in options.
      * @param schemes the set of valid schemes. Ignored if the ALLOW_ALL_SCHEMES option is set.
      * @param authorityValidator Regular expression validator used to validate the authority part
      * @param options Validation options. Set using the public constants of this class.
@@ -250,7 +250,7 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Customizable constructor. Validation behavior is modifed by passing in options.
+     * Customizable constructor. Validation behavior is modified by passing in options.
      * @param schemes the set of valid schemes. Ignored if the ALLOW_ALL_SCHEMES option is set.
      * @param authorityValidator Regular expression validator used to validate the authority part
      * @param options Validation options. Set using the public constants of this class.

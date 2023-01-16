@@ -42,7 +42,7 @@ import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
  * ibv.setValidator("XX", 12, "XX\\d{10}")
  * </pre>
  * <p>
- * The singleton default instance cannot be modifed in this way.
+ * The singleton default instance cannot be modified in this way.
  * </p>
  * @since 1.5.0
  */
