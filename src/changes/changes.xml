@@ -76,7 +76,7 @@ The <action> type attribute can be add,update,fix,remove.
       Use JUnit 5 assertThrows() #92, #93, #94, #95.
     </action>
     <!-- ADD -->
-    <action issue="VALIDATOR-477" type="update" dev="sebb", due-to="sebb, homebeaver">
+    <action issue="VALIDATOR-477" type="update" dev="sebb" due-to="sebb, homebeaver">
       Add IBAN validator for LY – Libya, SD, BI, #67.
     </action>
     <action type="add" dev="ggregory" due-to="Dependabot, Gary Gregory">
