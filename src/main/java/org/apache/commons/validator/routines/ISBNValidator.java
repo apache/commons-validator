@@ -125,7 +125,7 @@ public class ISBNValidator implements Serializable {
      * @return A singleton instance of the ISBN validator.
      */
     public static ISBNValidator getInstance(final boolean convert) {
-        return (convert ? ISBN_VALIDATOR : ISBN_VALIDATOR_NO_CONVERT);
+        return convert ? ISBN_VALIDATOR : ISBN_VALIDATOR_NO_CONVERT;
     }
 
     /**
@@ -156,7 +156,7 @@ public class ISBNValidator implements Serializable {
      * ISBN-13 code, otherwise <code>false</code>.
      */
     public boolean isValid(final String code) {
-        return (isValidISBN13(code) || isValidISBN10(code));
+        return isValidISBN13(code) || isValidISBN10(code);
     }
 
     /**
@@ -216,7 +216,7 @@ public class ISBNValidator implements Serializable {
      */
     public String validateISBN10(final String code) {
         final Object result = isbn10Validator.validate(code);
-        return (result == null ? null : result.toString());
+        return result == null ? null : result.toString();
     }
 
     /**
@@ -231,7 +231,7 @@ public class ISBNValidator implements Serializable {
      */
     public String validateISBN13(final String code) {
         final Object result = isbn13Validator.validate(code);
-        return (result == null ? null : result.toString());
+        return result == null ? null : result.toString();
     }
 
     /**
