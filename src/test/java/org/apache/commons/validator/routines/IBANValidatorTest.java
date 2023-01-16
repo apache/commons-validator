@@ -60,61 +60,54 @@ public class IBANValidatorTest {
         // Rows are the entry types, columns are the countries
         final CSVFormat format = CSVFormat.DEFAULT.withDelimiter('\t');
         final Reader rdr = new InputStreamReader(new FileInputStream(file), "ISO_8859_1");
-        final CSVParser p = new CSVParser(rdr, format);
-        CSVRecord country = null;
-        CSVRecord cc = null;
-        CSVRecord structure = null;
-        CSVRecord length = null;
-        for (final CSVRecord o : p) {
-            final String item = o.get(0);
-            if ("Name of country".equals(item)) {
-                country = o;
-            } else if ("IBAN prefix country code (ISO 3166)".equals(item)) {
-                cc = o;
-            } else if ("IBAN structure".equals(item)) {
-                structure = o;
-            } else if ("IBAN length".equals(item)) {
-                length = o;
-            }
-        }
-        for (int i=1; i < country.size(); i++) {
-          try {
-
-            final String newLength = length.get(i).split("!")[0]; // El Salvador currently has "28!n"
-            final String newRE = fmtRE(structure.get(i), Integer.parseInt(newLength));
-            final Validator valre = val.getValidator(cc.get(i));
-            if (valre == null) {
-                System.out.println("// Missing entry:");
-                printEntry(
-                        cc.get(i),
-                        newLength,
-                        newRE,
-                        country.get(i));
-            } else {
-                final String currentLength = Integer.toString(valre.lengthOfIBAN);
-                final String currentRE = valre.getRegexValidator().toString()
-                        .replaceAll("^.+?\\{(.+)}","$1") // Extract RE from RegexValidator{re} string
-                        .replace("\\d","\\\\d"); // convert \d to \\d
-                // The above assumes that the RegexValidator contains a single Regex
-                if (currentRE.equals(newRE) && currentLength.equals(newLength)) {
-
-                } else {
-                    System.out.println("// Expected: " + newRE + ", " + newLength + " Actual: " + currentRE + ", " + currentLength);
-                    printEntry(
-                            cc.get(i),
-                            newLength,
-                            newRE,
-                            country.get(i));
+        try (final CSVParser p = new CSVParser(rdr, format)) {
+            CSVRecord country = null;
+            CSVRecord cc = null;
+            CSVRecord structure = null;
+            CSVRecord length = null;
+            for (final CSVRecord o : p) {
+                final String item = o.get(0);
+                if ("Name of country".equals(item)) {
+                    country = o;
+                } else if ("IBAN prefix country code (ISO 3166)".equals(item)) {
+                    cc = o;
+                } else if ("IBAN structure".equals(item)) {
+                    structure = o;
+                } else if ("IBAN length".equals(item)) {
+                    length = o;
                 }
-
             }
+            for (int i = 1; i < country.size(); i++) {
+                try {
 
-          } catch (final IllegalArgumentException e) {
-            e.printStackTrace();
-          }
+                    final String newLength = length.get(i).split("!")[0]; // El Salvador currently has "28!n"
+                    final String newRE = fmtRE(structure.get(i), Integer.parseInt(newLength));
+                    final Validator valre = val.getValidator(cc.get(i));
+                    if (valre == null) {
+                        System.out.println("// Missing entry:");
+                        printEntry(cc.get(i), newLength, newRE, country.get(i));
+                    } else {
+                        final String currentLength = Integer.toString(valre.lengthOfIBAN);
+                        final String currentRE = valre.getRegexValidator().toString().replaceAll("^.+?\\{(.+)}", "$1") // Extract RE from RegexValidator{re}
+                                                                                                                       // string
+                                .replace("\\d", "\\\\d"); // convert \d to \\d
+                        // The above assumes that the RegexValidator contains a single Regex
+                        if (currentRE.equals(newRE) && currentLength.equals(newLength)) {
+
+                        } else {
+                            System.out.println("// Expected: " + newRE + ", " + newLength + " Actual: " + currentRE + ", " + currentLength);
+                            printEntry(cc.get(i), newLength, newRE, country.get(i));
+                        }
+
+                    }
+
+                } catch (final IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
+            }
+            p.close();
+            return country.size();
         }
-        p.close();
-        return country.size();
     }
 
     private static String fmtRE(final String iban_pat, final int iban_len) {
