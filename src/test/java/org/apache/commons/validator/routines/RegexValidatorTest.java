@@ -191,7 +191,7 @@ public class RegexValidatorTest extends TestCase {
 
         // Single Regular Expression - null
         try {
-            new RegexValidator((String)null);
+            new RegexValidator((String) null);
             fail("Single Null - expected IllegalArgumentException");
         } catch (final IllegalArgumentException e) {
             assertEquals("Single Null", "Regular expression[0] is missing", e.getMessage());
@@ -207,7 +207,7 @@ public class RegexValidatorTest extends TestCase {
 
         // Multiple Regular Expression - Null array
         try {
-            new RegexValidator((String[])null);
+            new RegexValidator((String[]) null);
             fail("Null Array - expected IllegalArgumentException");
         } catch (final IllegalArgumentException e) {
             assertEquals("Null Array", "Regular expressions are missing", e.getMessage());
@@ -222,7 +222,7 @@ public class RegexValidatorTest extends TestCase {
         }
 
         // Multiple Regular Expression - Array has Null
-        String[] expressions = {"ABC", null};
+        String[] expressions = { "ABC", null };
         try {
             new RegexValidator(expressions);
             fail("Array has Null - expected IllegalArgumentException");
@@ -231,7 +231,7 @@ public class RegexValidatorTest extends TestCase {
         }
 
         // Multiple Regular Expression - Array has Zero Length
-        expressions = new String[] {"", "ABC"};
+        expressions = new String[] { "", "ABC" };
         try {
             new RegexValidator(expressions);
             fail("Array has Zero Length - expected IllegalArgumentException");
