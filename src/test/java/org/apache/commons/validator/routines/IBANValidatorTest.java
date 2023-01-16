@@ -58,7 +58,7 @@ public class IBANValidatorTest {
     private static int checkIBAN(final File file, final IBANValidator val) throws Exception {
         // The IBAN Registry (TXT) file is a TAB-separated file
         // Rows are the entry types, columns are the countries
-        final CSVFormat format = CSVFormat.DEFAULT.withDelimiter('\t');
+        final CSVFormat format = CSVFormat.DEFAULT.builder().setDelimiter('\t').build();
         final Reader rdr = new InputStreamReader(new FileInputStream(file), "ISO_8859_1");
         try (final CSVParser p = new CSVParser(rdr, format)) {
             CSVRecord country = null;
