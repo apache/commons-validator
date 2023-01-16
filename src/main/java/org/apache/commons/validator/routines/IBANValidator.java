@@ -19,6 +19,7 @@ package org.apache.commons.validator.routines;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 
@@ -48,7 +49,7 @@ import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
  */
 public class IBANValidator {
 
-    private final Map<String, Validator> formatValidators;
+    private final ConcurrentMap<String, Validator> formatValidators;
 
     /**
      * The validation class
@@ -242,8 +243,8 @@ public class IBANValidator {
         this.formatValidators = createValidators(formatMap);
     }
 
-    private Map<String, Validator> createValidators(final Validator[] formatMap) {
-        final Map<String, Validator> m = new ConcurrentHashMap<>();
+    private ConcurrentMap<String, Validator> createValidators(final Validator[] formatMap) {
+        final ConcurrentMap<String, Validator> m = new ConcurrentHashMap<>();
         for(final Validator v : formatMap) {
             m.put(v.countryCode, v);
         }
