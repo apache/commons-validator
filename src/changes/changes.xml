@@ -72,13 +72,17 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue ="VALIDATOR-479" type="fix" dev="ggregory" due-to="Gyoo">
       Fix typo in /routines/package-summary.html #79.
     </action>
-   <!-- ADD -->
-    <action issue="VALIDATOR-477" type="update" dev="sebb">
-      Add IBAN validator for LY – Libya
+    <action type="fix" dev="ggregory" due-to="John Patrick">
+      Use JUnit 5 assertThrows() #92, #93, #94, #95.
+    </action>
+    <!-- ADD -->
+    <action issue="VALIDATOR-477" type="update" dev="sebb", due-to="sebb, homebeaver">
+      Add IBAN validator for LY – Libya, SD, BI, #67.
     </action>
     <action type="add" dev="ggregory" due-to="Dependabot, Gary Gregory">
       Add github/codeql-action.
     </action>
+    <!-- REMOVE -->
     <action type="remove" dev="ggregory" due-to="John Patrick, Gary Gregory">
       Remove FindBugs, SpotBugs is in use #87.
     </action>
@@ -87,13 +91,16 @@ The <action> type attribute can be add,update,fix,remove.
       Bump Java from 7 to 8.
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
-      Bump actions/cache from 2 to 3.0.10 #71, #84. #90.
+      Bump actions/cache from 2 to 3.0.11 #71, #84. #90, #91.
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
       Bump actions/checkout from 2.3.1 to 3.0.2, #38, #47, #70.
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
-      Bump actions/setup-java from 1.4.0 to 3.5.1 #42, #72.
+      Bump actions/setup-java from 1.4.0 to 3.6.0 #42, #72, #98.
+    </action>
+    <action type="update" dev="ggregory" due-to="Dependabot">
+      Bump actions/upload-artifact from 3.1.0 to 3.1.1 #96.
     </action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
       Bump junit from 4.13 to 5.9.1 Vintage #44.
@@ -102,7 +109,7 @@ The <action> type attribute can be add,update,fix,remove.
       Bump maven-pmd-plugin from 3.13.0 to 3.19.0 #69, #77, #80, #81.
     </action>
     <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">
-      Bump commons-parent from 52 to 54, #83.
+      Bump commons-parent from 52 to 56, #83, #107, #111.
     </action>
     <action type="update" dev="ggregory" due-to="Gary Gregory">
       Bump japicmp-maven-plugin from 0.15.3 to 0.15.7.

@@ -56,7 +56,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * Calculates the <i>weighted</i> value of a charcter in the
+     * Calculates the <i>weighted</i> value of a character in the
      * code at a specified position.
      *
      * <p>For ISBN-10 (from right to left) digits are weighted

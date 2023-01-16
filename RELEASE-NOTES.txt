@@ -36,7 +36,7 @@ DEPENDENCIES
 For the current list of dependencies, please see http://commons.apache.org/validator/dependencies.html
 
 For complete information on Apache Commons Validator, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons Validator website:
+patches, or suggestions for improvement, see the Apache Commons Validator website:
 
 http://commons.apache.org/proper/commons-validator/
 

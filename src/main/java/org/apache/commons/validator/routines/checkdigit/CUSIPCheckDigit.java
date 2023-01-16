@@ -78,7 +78,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * <p>Calculates the <i>weighted</i> value of a charcter in the
+     * <p>Calculates the <i>weighted</i> value of a character in the
      * code at a specified position.</p>
      *
      * <p>For CUSIP (from right to left) <b>odd</b> digits are weighted

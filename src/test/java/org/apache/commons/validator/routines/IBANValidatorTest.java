@@ -16,9 +16,13 @@
  */
 package org.apache.commons.validator.routines;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -35,6 +39,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.validator.routines.IBANValidator.Validator;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
 
 /**
  * IBANValidator Test Case.
@@ -99,6 +104,7 @@ public class IBANValidatorTest {
             "LU280019400644750000",
             "LY83002048000020100120361",
             "LV80BANK0000435195001",
+            "LY83002048000020100120361",
             "MC5811222000010123456789030",
             "MD24AG000225100013104168",
             "ME25505000012345678951",
@@ -188,32 +194,42 @@ public class IBANValidatorTest {
         assertNull("gb", VALIDATOR.getValidator("gb"));
     }
 
-    @Test(expected=IllegalStateException.class)
+    @Test
     public void testSetDefaultValidator1() {
-        assertNotNull(VALIDATOR.setValidator("GB", 15, "GB"));
+        final IllegalStateException thrown = assertThrows(IllegalStateException.class, () ->
+                VALIDATOR.setValidator("GB", 15, "GB"));
+        assertThat(thrown.getMessage(), is(equalTo("The singleton validator cannot be modified")));
     }
 
-    @Test(expected=IllegalStateException.class)
+    @Test
     public void testSetDefaultValidator2() {
-        assertNotNull(VALIDATOR.setValidator("GB", -1, "GB"));
+        final IllegalStateException thrown = assertThrows(IllegalStateException.class, () ->
+                VALIDATOR.setValidator("GB", -1, "GB"));
+        assertThat(thrown.getMessage(), is(equalTo("The singleton validator cannot be modified")));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testSetValidatorLC() {
         final IBANValidator validator = new IBANValidator();
-        assertNotNull(validator.setValidator("gb", 15, "GB"));
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
+                validator.setValidator("gb", 15, "GB"));
+        assertThat(thrown.getMessage(), is(equalTo("Invalid country Code; must be exactly 2 upper-case characters")));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testSetValidatorLen7() {
         final IBANValidator validator = new IBANValidator();
-        assertNotNull(validator.setValidator("GB", 7, "GB"));
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
+                validator.setValidator("GB", 7, "GB"));
+        assertThat(thrown.getMessage(), is(equalTo("Invalid length parameter, must be in range 8 to 34 inclusive: 7")));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testSetValidatorLen35() {
         final IBANValidator validator = new IBANValidator();
-        assertNotNull(validator.setValidator("GB", 35, "GB")); // valid params, but immutable validator
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
+                validator.setValidator("GB", 35, "GB"));
+        assertThat(thrown.getMessage(), is(equalTo("Invalid length parameter, must be in range 8 to 34 inclusive: 35")));
     }
 
     @Test

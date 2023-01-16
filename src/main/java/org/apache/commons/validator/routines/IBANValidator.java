@@ -42,7 +42,7 @@ import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
  * ibv.setValidator("XX", 12, "XX\\d{10}")
  * </pre>
  * <p>
- * The singleton default instance cannot be modifed in this way.
+ * The singleton default instance cannot be modified in this way.
  * </p>
  * @since 1.5.0
  */
@@ -111,7 +111,7 @@ public class IBANValidator {
      * [2] http://www.swift.com/dsp/resources/documents/IBAN_Registry.pdf (404)
      * => https://www.swift.com/sites/default/files/resources/iban_registry.pdf
      * The above is an old version (62, Jan 2016)
-     * As at May 2020, the current IBAN standards are located at:
+     * As of May 2020, the current IBAN standards are located at:
      * https://www.swift.com/standards/data-standards/iban
      * The above page contains links for the PDF and TXT (CSV) versions of the registry
      * Warning: these may not agree -- in the past there have been discrepancies.
@@ -210,7 +210,7 @@ public class IBANValidator {
     /**
      * Return a singleton instance of the IBAN validator using the default formats
      *
-     * @return A singleton instance of the ISBN validator
+     * @return A singleton instance of the IBAN validator
      */
     public static IBANValidator getInstance() {
         return DEFAULT_IBAN_VALIDATOR;
