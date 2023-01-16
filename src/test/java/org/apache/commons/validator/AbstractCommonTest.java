@@ -32,7 +32,7 @@ abstract public class AbstractCommonTest extends TestCase {
     /**
      * Resources used for validation tests.
      */
-    protected ValidatorResources resources = null;
+    protected ValidatorResources resources;
 
     public AbstractCommonTest(final String string) {
         super(string);

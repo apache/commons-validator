@@ -214,7 +214,7 @@ Validator validator = new Validator(resources, "nameForm");
 validator.setParameter(Validator.BEAN_PARAM, name);
 
 // Get results of the validation.
-Map results = null;
+Map results;
 
 // throws ValidatorException (catch clause not shown here)
 results = validator.validate();

@@ -107,7 +107,7 @@ public class DateValidator {
             return false;
         }
 
-        DateFormat formatter = null;
+        DateFormat formatter;
         if (locale != null) {
             formatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
         } else {

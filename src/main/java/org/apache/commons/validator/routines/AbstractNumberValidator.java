@@ -186,7 +186,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     @Override
     protected Format getFormat(final String pattern, final Locale locale) {
 
-        NumberFormat formatter = null;
+        NumberFormat formatter;
         final boolean usePattern = pattern != null && !pattern.isEmpty();
         if (!usePattern) {
             formatter = (NumberFormat)getFormat(locale);
@@ -244,7 +244,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @return The <code>NumberFormat</code> to created.
      */
     protected Format getFormat(final Locale locale) {
-        NumberFormat formatter = null;
+        NumberFormat formatter;
         switch (formatType) {
         case CURRENCY_FORMAT:
             if (locale == null) {

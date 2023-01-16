@@ -33,7 +33,7 @@ public class MultipleConfigFilesTest extends TestCase {
     /**
      * Resources used for validation tests.
      */
-    private ValidatorResources resources = null;
+    private ValidatorResources resources;
 
     /**
      * The key used to retrieve the set of validation

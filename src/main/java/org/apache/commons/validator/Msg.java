@@ -35,17 +35,17 @@ public class Msg implements Cloneable, Serializable {
      * resolved in (optional).
      * @since 1.1
      */
-    protected String bundle = null;
+    protected String bundle;
 
     /**
      * The key or value of the argument.
      */
-    protected String key = null;
+    protected String key;
 
     /**
      * The name dependency that this argument goes with (optional).
      */
-    protected String name = null;
+    protected String name;
 
     /**
      * Whether or not the key is a message resource (optional).  Defaults to

@@ -44,7 +44,7 @@ public class Flags implements Serializable, Cloneable {
     /**
      * Represents the current flag state.
      */
-    private long flags = 0;
+    private long flags;
 
     /**
      * Create a new Flags object.

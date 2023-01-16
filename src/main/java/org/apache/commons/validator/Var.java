@@ -49,27 +49,27 @@ public class Var implements Cloneable, Serializable {
     /**
      * The name of the variable.
      */
-    private String name = null;
+    private String name;
 
     /**
      * The key or value the variable.
      */
-    private String value = null;
+    private String value;
 
     /**
      * The optional JavaScript type of the variable.
      */
-    private String jsType = null;
+    private String jsType;
 
     /**
      * Whether the variable is a resource [false]
      */
-    private boolean resource = false;
+    private boolean resource;
 
     /**
      * The bundle for a variable (when resource = 'true').
      */
-    private String bundle = null;
+    private String bundle;
 
     /**
      * Default Constructor.

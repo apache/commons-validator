@@ -55,7 +55,7 @@ public class ExtensionTest extends TestCase {
     /**
      * Resources used for validation tests.
     */
-    private ValidatorResources resources = null;
+    private ValidatorResources resources;
 
     /**
      * Constructor de ExtensionTest.

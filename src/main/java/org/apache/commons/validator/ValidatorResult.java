@@ -42,7 +42,7 @@ public class ValidatorResult implements Serializable {
      * <code>Field</code> being validated.
      * TODO This variable is not used.  Need to investigate removing it.
      */
-    protected Field field = null;
+    protected Field field;
 
     /**
      * Constructs a <code>ValidatorResult</code> with the associated field being
@@ -137,8 +137,8 @@ public class ValidatorResult implements Serializable {
 
         private static final long serialVersionUID = 4076665918535320007L;
 
-        private boolean valid = false;
-        private Object result = null;
+        private boolean valid;
+        private Object result;
 
        /**
         * Construct a Result status.

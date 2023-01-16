@@ -54,29 +54,29 @@ public class ValidatorAction implements Serializable {
     /**
      * The name of the validation.
      */
-    private String name = null;
+    private String name;
 
     /**
      * The full class name of the class containing
      * the validation method associated with this action.
      */
-    private String classname = null;
+    private String classname;
 
     /**
      * The Class object loaded from the classname.
      */
-    private Class<?> validationClass = null;
+    private Class<?> validationClass;
 
     /**
      * The full method name of the validation to be performed.  The method
      * must be thread safe.
      */
-    private String method = null;
+    private String method;
 
     /**
      * The Method object loaded from the method name.
      */
-    private Method validationMethod = null;
+    private Method validationMethod;
 
     /**
      * <p>
@@ -102,44 +102,44 @@ public class ValidatorAction implements Serializable {
     /**
      * The Class objects for each entry in methodParameterList.
      */
-    private Class<?>[] parameterClasses = null;
+    private Class<?>[] parameterClasses;
 
     /**
      * The other <code>ValidatorAction</code>s that this one depends on.  If
      * any errors occur in an action that this one depends on, this action will
      * not be processsed.
      */
-    private String depends = null;
+    private String depends;
 
     /**
      * The default error message associated with this action.
      */
-    private String msg = null;
+    private String msg;
 
     /**
      * An optional field to contain the name to be used if JavaScript is
      * generated.
      */
-    private String jsFunctionName = null;
+    private String jsFunctionName;
 
     /**
      * An optional field to contain the class path to be used to retrieve the
      * JavaScript function.
      */
-    private String jsFunction = null;
+    private String jsFunction;
 
     /**
      * An optional field to containing a JavaScript representation of the
      * java method assocated with this action.
      */
-    private String javascript = null;
+    private String javascript;
 
     /**
      * If the java method matching the correct signature isn't static, the
      * instance is stored in the action.  This assumes the method is thread
      * safe.
      */
-    private Object instance = null;
+    private Object instance;
 
     /**
      * An internal List representation of the other <code>ValidatorAction</code>s

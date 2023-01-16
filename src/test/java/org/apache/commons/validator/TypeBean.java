@@ -23,14 +23,14 @@ package org.apache.commons.validator;
  */
 public class TypeBean {
 
-    private String sByte = null;
-    private String sShort = null;
-    private String sInteger = null;
-    private String sLong = null;
-    private String sFloat = null;
-    private String sDouble = null;
-    private String sDate = null;
-    private String sCreditCard = null;
+    private String sByte;
+    private String sShort;
+    private String sInteger;
+    private String sLong;
+    private String sFloat;
+    private String sDouble;
+    private String sDate;
+    private String sCreditCard;
 
     public String getByte() {
         return sByte;

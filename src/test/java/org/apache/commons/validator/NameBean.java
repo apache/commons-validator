@@ -22,11 +22,11 @@ package org.apache.commons.validator;
  */
 public class NameBean {
 
-    protected String firstName = null;
+    protected String firstName;
 
-    protected String middleName = null;
+    protected String middleName;
 
-    protected String lastName = null;
+    protected String lastName;
 
     public String getFirstName() {
         return firstName;

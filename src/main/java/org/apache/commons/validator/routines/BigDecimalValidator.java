@@ -222,7 +222,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
-        BigDecimal decimal = null;
+        BigDecimal decimal;
         if (value instanceof Long) {
             decimal = BigDecimal.valueOf(((Long)value).longValue());
         } else {

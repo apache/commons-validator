@@ -91,18 +91,18 @@ public class Validator implements Serializable {
     /**
      * The Validator Resources.
      */
-    protected ValidatorResources resources = null;
+    protected ValidatorResources resources;
 
     /**
      * The name of the form to validate
      */
-    protected String formName = null;
+    protected String formName;
 
     /**
      * The name of the field on the form to validate
      * @since 1.2.0
      */
-    protected String fieldName = null;
+    protected String fieldName;
 
     /**
      * Maps validation method parameter class names to the objects to be passed
@@ -113,7 +113,7 @@ public class Validator implements Serializable {
     /**
      * The current page number to validate.
      */
-    protected int page = 0;
+    protected int page;
 
     /**
      * The class loader to use for instantiating application objects.
@@ -121,18 +121,18 @@ public class Validator implements Serializable {
      * used to load Digester itself, is used, based on the value of the
      * <code>useContextClassLoader</code> variable.
      */
-    protected transient ClassLoader classLoader = null;
+    protected transient ClassLoader classLoader;
 
     /**
      * Whether or not to use the Context ClassLoader when loading classes
      * for instantiating new objects.  Default is <code>false</code>.
      */
-    protected boolean useContextClassLoader = false;
+    protected boolean useContextClassLoader;
 
     /**
      * Set this to true to not return Fields that pass validation.  Only return failures.
      */
-    protected boolean onlyReturnErrors = false;
+    protected boolean onlyReturnErrors;
 
     /**
      * Construct a <code>Validator</code> that will
