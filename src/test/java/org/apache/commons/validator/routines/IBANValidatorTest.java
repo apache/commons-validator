@@ -278,6 +278,7 @@ public class IBANValidatorTest {
             "VA59001123000012345678",
             "VG96VPVG0000012345678901",
             "XK051212012345678906",
+            "YT3120041010050500013M02606"
     };
 
     private final String[] invalidIBANFormat = {

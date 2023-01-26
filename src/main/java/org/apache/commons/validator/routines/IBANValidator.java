@@ -213,6 +213,7 @@ public class IBANValidator {
             new Validator("VA", 22, "VA\\d{20}"                             ), // Vatican City State
             new Validator("VG", 24, "VG\\d{2}[A-Z]{4}\\d{16}"               ), // Virgin Islands
             new Validator("XK", 20, "XK\\d{18}"                             ), // Kosovo
+            new Validator("YT", 27, "YT\\d{12}[A-Z0-9]{11}\\d{2}"           )  // Mayotte
     };
 
     /** The singleton instance which uses the default formats */
