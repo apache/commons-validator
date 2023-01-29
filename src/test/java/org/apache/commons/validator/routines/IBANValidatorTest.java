@@ -187,6 +187,7 @@ public class IBANValidatorTest {
     // It's not clear whether IBANs can contain lower case characters
     // so we test for both where possible
     // Note that the BIC near the start of the code is always upper case or digits
+    // @formatter:off
     private static final String[] VALID_IBAN_FIXTURES = {
             "AD1200012030200359100100",
             "AE070331234567890123456",
@@ -216,9 +217,29 @@ public class IBANValidatorTest {
             "ES9121000418450200051332",
             "FI2112345600000785",
             "FI5542345670000081",
+              // FI other
+              "AX2112345600000785", // FI other
+              "AX5542345670000081", // FI other
             "FO6264600001631634",
             "FR1420041010050500013M02606",
+              // FR 'other'             
+              "BL6820041010050500013M02606", // FR other
+              "GF4120041010050500013M02606", // FR other
+              "GP1120041010050500013M02606", // FR other
+              "MF8420041010050500013M02606", // FR other
+              "MQ5120041010050500013M02606", // FR other
+              "NC8420041010050500013M02606", // FR other
+              "PF5720041010050500013M02606", // FR other
+              "PM3620041010050500013M02606", // FR other
+              "RE4220041010050500013M02606", // FR other
+              "TF2120041010050500013M02606", // FR other
+              "WF9120041010050500013M02606", // FR other
+              "YT3120041010050500013M02606", // FR other
             "GB29NWBK60161331926819",
+              // GB 'other'            
+//              "IM...", // GB other
+//              "JE...", // GB other
+//              "GG...", // GB other
             "GE29NB0000000101904917",
             "GI75NWBK000000007099453",
             "GL8964710001000206",
@@ -279,7 +300,9 @@ public class IBANValidatorTest {
             "VG96VPVG0000012345678901",
             "XK051212012345678906",
     };
+    // @formatter:on
 
+    // @formatter:off
     private static final String[] INVALID_IBAN_FIXTURES = {
             "",                        // empty
             "   ",                     // empty
@@ -295,6 +318,7 @@ public class IBANValidatorTest {
             "ST68000200010192194210112", // ditto
             "SV62CENR0000000000000700025", // ditto
     };
+    // @formatter:on
 
     @Test
     public void testGetRegexValidatortPatterns() {

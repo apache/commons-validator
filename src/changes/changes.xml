@@ -91,6 +91,15 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="add" dev="ggregory" due-to="Arnaud Fournier, Gary Gregory">
       Add RegexValidator.getPatterns().
     </action>
+    <action type="add" dev="ggregory" due-to="Gary Gregory, rossmills3, sebbASF">
+      Add country codes listed as other countries and territories in the IBAN registry for Finland: AX.
+    </action>
+    <action type="add" dev="ggregory" due-to="Gary Gregory, rossmills3, sebbASF">
+      Add country codes listed as other countries and territories in the IBAN registry for France: GF, GP, MQ, RE, PF, TF, YT, NC, BL, MF, PM, WF.
+    </action>
+    <action type="add" dev="ggregory" due-to="Gary Gregory, rossmills3, sebbASF">
+      Add country codes listed as other countries and territories in the IBAN registry for United Kingdom: IM, JE, GG.
+    </action>
     <!-- REMOVE -->
     <action type="remove" dev="ggregory" due-to="John Patrick, Gary Gregory">
       Remove FindBugs, SpotBugs is in use #87.

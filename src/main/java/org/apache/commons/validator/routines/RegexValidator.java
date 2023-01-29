@@ -17,8 +17,9 @@
 package org.apache.commons.validator.routines;
 
 import java.io.Serializable;
-import java.util.regex.Pattern;
+import java.util.List;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <b>Regular Expression</b> validation (using the JRE's regular expression support).
@@ -73,6 +74,17 @@ public class RegexValidator implements Serializable {
     private final Pattern[] patterns;
 
     /**
+     * Constructs a <i>case sensitive</i> validator that matches any one
+     * in the list of regular expressions.
+     *
+     * @param regexs The set of regular expressions this validator will
+     * validate against
+     */
+    RegexValidator(final List<String> regexs) {
+        this(regexs.toArray(new String[] {}), true);
+    }
+
+    /**
      * Constructs a <i>case sensitive</i> validator for a single
      * regular expression.
      *
@@ -98,12 +110,12 @@ public class RegexValidator implements Serializable {
 
     /**
      * Constructs a <i>case sensitive</i> validator that matches any one
-     * of the set of regular expressions.
+     * in the array of regular expressions.
      *
      * @param regexs The set of regular expressions this validator will
      * validate against
      */
-    public RegexValidator(final String[] regexs) {
+    public RegexValidator(final String... regexs) {
         this(regexs, true);
     }
 
