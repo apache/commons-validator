@@ -52,8 +52,8 @@ public class IBANValidatorTest {
     // Use a manual repeat instead
     private static final String IBAN_PART = "(?:(\\d+)!([acn]))"; // Assume all parts are fixed length
 
-    private static final Pattern IBAN_PAT = Pattern.compile(
-            "([A-Z]{2})"+IBAN_PART+IBAN_PART+IBAN_PART+IBAN_PART+"?"+IBAN_PART+"?"+IBAN_PART+"?"+IBAN_PART+"?");
+    private static final Pattern IBAN_PAT = Pattern
+            .compile("([A-Z]{2})" + IBAN_PART + IBAN_PART + IBAN_PART + IBAN_PART + "?" + IBAN_PART + "?" + IBAN_PART + "?" + IBAN_PART + "?");
 
     private static int checkIBAN(final File file, final IBANValidator val) throws Exception {
         // The IBAN Registry (TXT) file is a TAB-separated file
@@ -130,17 +130,17 @@ public class IBANValidatorTest {
                 break;
             }
             final int count = Integer.parseInt(m.group(i));
-            final String type = m.group(i+1);
+            final String type = m.group(i + 1);
             if (type.equals(curType)) { // more of the same type
                 len += count;
             } else {
-                sb.append(formatToRE(curType,len));
+                sb.append(formatToRE(curType, len));
                 totalLen += len;
                 curType = type;
                 len = count;
             }
         }
-        sb.append(formatToRE(curType,len));
+        sb.append(formatToRE(curType, len));
         totalLen += len;
         if (iban_len != totalLen) {
             throw new IllegalArgumentException("IBAN pattern " + iban_pat + " does not match length " + iban_len);
@@ -151,21 +151,21 @@ public class IBANValidatorTest {
     // convert IBAN type string and length to regex
     private static String formatToRE(final String type, final int len) {
         final char ctype = type.charAt(0); // assume type.length() == 1
-        switch(ctype) {
+        switch (ctype) {
         case 'n':
-            return String.format("\\\\d{%d}",len);
+            return String.format("\\\\d{%d}", len);
         case 'a':
-            return String.format("[A-Z]{%d}",len);
+            return String.format("[A-Z]{%d}", len);
         case 'c':
-            return String.format("[A-Z0-9]{%d}",len);
+            return String.format("[A-Z0-9]{%d}", len);
         default:
             throw new IllegalArgumentException("Unexpected type " + type);
         }
     }
 
-    public static void main(final String [] a) throws Exception {
+    public static void main(final String[] a) throws Exception {
         final IBANValidator validator = new IBANValidator();
-        final File iban_tsv = new File("target","iban-registry.tsv");
+        final File iban_tsv = new File("target", "iban-registry.tsv");
         int countries = 0;
         if (iban_tsv.canRead()) {
             countries = checkIBAN(iban_tsv, validator);
@@ -339,57 +339,53 @@ public class IBANValidatorTest {
 
     @Test
     public void testInValid() {
-        for(final String f : INVALID_IBAN_FIXTURES) {
+        for (final String f : INVALID_IBAN_FIXTURES) {
             assertFalse(f, VALIDATOR.isValid(f));
         }
     }
 
     @Test
     public void testNull() {
-        assertFalse("isValid(null)",  VALIDATOR.isValid(null));
+        assertFalse("isValid(null)", VALIDATOR.isValid(null));
     }
 
     @Test
     public void testSetDefaultValidator1() {
-        final IllegalStateException thrown = assertThrows(IllegalStateException.class, () ->
-                VALIDATOR.setValidator("GB", 15, "GB"));
+        final IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> VALIDATOR.setValidator("GB", 15, "GB"));
         assertThat(thrown.getMessage(), is(equalTo("The singleton validator cannot be modified")));
     }
 
     @Test
     public void testSetDefaultValidator2() {
-        final IllegalStateException thrown = assertThrows(IllegalStateException.class, () ->
-                VALIDATOR.setValidator("GB", -1, "GB"));
+        final IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> VALIDATOR.setValidator("GB", -1, "GB"));
         assertThat(thrown.getMessage(), is(equalTo("The singleton validator cannot be modified")));
     }
 
     @Test
     public void testSetValidatorLC() {
         final IBANValidator validator = new IBANValidator();
-        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                validator.setValidator("gb", 15, "GB"));
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("gb", 15, "GB"));
         assertThat(thrown.getMessage(), is(equalTo("Invalid country Code; must be exactly 2 upper-case characters")));
     }
 
     @Test
     public void testSetValidatorLen_1() {
         final IBANValidator validator = new IBANValidator();
-        assertNotNull("should be present",validator.setValidator("GB", -1, ""));
-        assertNull("no longer present",validator.setValidator("GB", -1, ""));
+        assertNotNull("should be present", validator.setValidator("GB", -1, ""));
+        assertNull("no longer present", validator.setValidator("GB", -1, ""));
     }
+
     @Test
     public void testSetValidatorLen35() {
         final IBANValidator validator = new IBANValidator();
-        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                validator.setValidator("GB", 35, "GB"));
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("GB", 35, "GB"));
         assertThat(thrown.getMessage(), is(equalTo("Invalid length parameter, must be in range 8 to 34 inclusive: 35")));
     }
 
     @Test
     public void testSetValidatorLen7() {
         final IBANValidator validator = new IBANValidator();
-        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                validator.setValidator("GB", 7, "GB"));
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("GB", 7, "GB"));
         assertThat(thrown.getMessage(), is(equalTo("Invalid length parameter, must be in range 8 to 34 inclusive: 7")));
     }
 
