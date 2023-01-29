@@ -78,7 +78,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
         }
         try {
             final int modulusResult = calculateModulus(code);
-            return (modulusResult == 1);
+            return modulusResult == 1;
         } catch (final CheckDigitException  ex) {
             return false;
         }
@@ -103,9 +103,9 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
         }
         code = code.substring(0, 2) + "00" + code.substring(4); // CHECKSTYLE IGNORE MagicNumber
         final int modulusResult = calculateModulus(code);
-        final int charValue = (98 - modulusResult); // CHECKSTYLE IGNORE MagicNumber
+        final int charValue = 98 - modulusResult; // CHECKSTYLE IGNORE MagicNumber
         final String checkDigit = Integer.toString(charValue);
-        return (charValue > 9 ? checkDigit : "0" + checkDigit); // CHECKSTYLE IGNORE MagicNumber
+        return charValue > 9 ? checkDigit : "0" + checkDigit; // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**
@@ -130,7 +130,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
                 total = total % MODULUS;
             }
         }
-        return (int)(total % MODULUS);
+        return (int) (total % MODULUS);
     }
 
 }
