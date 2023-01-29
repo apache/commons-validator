@@ -187,7 +187,7 @@ public class IBANValidatorTest {
     // It's not clear whether IBANs can contain lower case characters
     // so we test for both where possible
     // Note that the BIC near the start of the code is always upper case or digits
-    private final String[] validIBANFormat = {
+    private static final String[] VALID_IBAN_FIXTURES = {
             "AD1200012030200359100100",
             "AE070331234567890123456",
             "AL47212110090000000235698741",
@@ -280,7 +280,7 @@ public class IBANValidatorTest {
             "XK051212012345678906",
     };
 
-    private final String[] invalidIBANFormat = {
+    private static final String[] INVALID_IBAN_FIXTURES = {
             "",                        // empty
             "   ",                     // empty
             "A",                       // too short
@@ -315,7 +315,7 @@ public class IBANValidatorTest {
 
     @Test
     public void testInValid() {
-        for(final String f : invalidIBANFormat) {
+        for(final String f : INVALID_IBAN_FIXTURES) {
             assertFalse(f, VALIDATOR.isValid(f));
         }
     }
@@ -383,7 +383,7 @@ public class IBANValidatorTest {
 
     @Test
     public void testValid() {
-        for (final String f : validIBANFormat) {
+        for (final String f : VALID_IBAN_FIXTURES) {
             assertTrue("Checksum fail: " + f, IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(f));
             assertTrue("Missing validator: " + f, VALIDATOR.hasValidator(f));
             assertTrue(f, VALIDATOR.isValid(f));
