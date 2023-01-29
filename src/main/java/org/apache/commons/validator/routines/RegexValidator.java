@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 /**
- * <b>Regular Expression</b> validation (using JDK 1.4+ regex support).
+ * <b>Regular Expression</b> validation (using the JRE's regular expression support).
  * <p>
  * Construct the validator either for a single regular expression or a set (array) of
  * regular expressions. By default validation is <i>case sensitive</i> but constructors
@@ -73,7 +73,7 @@ public class RegexValidator implements Serializable {
     private final Pattern[] patterns;
 
     /**
-     * Construct a <i>case sensitive</i> validator for a single
+     * Constructs a <i>case sensitive</i> validator for a single
      * regular expression.
      *
      * @param regex The regular expression this validator will
@@ -84,7 +84,7 @@ public class RegexValidator implements Serializable {
     }
 
     /**
-     * Construct a validator for a single regular expression
+     * Constructs a validator for a single regular expression
      * with the specified case sensitivity.
      *
      * @param regex The regular expression this validator will
@@ -93,11 +93,11 @@ public class RegexValidator implements Serializable {
      * sensitive</i>, otherwise matching is <i>case in-sensitive</i>
      */
     public RegexValidator(final String regex, final boolean caseSensitive) {
-        this(new String[] {regex}, caseSensitive);
+        this(new String[] { regex }, caseSensitive);
     }
 
     /**
-     * Construct a <i>case sensitive</i> validator that matches any one
+     * Constructs a <i>case sensitive</i> validator that matches any one
      * of the set of regular expressions.
      *
      * @param regexs The set of regular expressions this validator will
@@ -108,7 +108,7 @@ public class RegexValidator implements Serializable {
     }
 
     /**
-     * Construct a validator that matches any one of the set of regular
+     * Constructs a validator that matches any one of the set of regular
      * expressions with the specified case sensitivity.
      *
      * @param regexs The set of regular expressions this validator will
@@ -121,12 +121,12 @@ public class RegexValidator implements Serializable {
             throw new IllegalArgumentException("Regular expressions are missing");
         }
         patterns = new Pattern[regexs.length];
-        final int flags =  (caseSensitive ? 0: Pattern.CASE_INSENSITIVE);
+        final int flags = (caseSensitive ? 0 : Pattern.CASE_INSENSITIVE);
         for (int i = 0; i < regexs.length; i++) {
             if (regexs[i] == null || regexs[i].isEmpty()) {
                 throw new IllegalArgumentException("Regular expression[" + i + "] is missing");
             }
-            patterns[i] =  Pattern.compile(regexs[i], flags);
+            patterns[i] = Pattern.compile(regexs[i], flags);
         }
     }
 
@@ -141,7 +141,7 @@ public class RegexValidator implements Serializable {
     }
 
     /**
-     * Validate a value against the set of regular expressions.
+     * Validates a value against the set of regular expressions.
      *
      * @param value The value to validate.
      * @return <code>true</code> if the value is valid
@@ -160,7 +160,7 @@ public class RegexValidator implements Serializable {
     }
 
     /**
-     * Validate a value against the set of regular expressions
+     * Validates a value against the set of regular expressions
      * returning the array of matched groups.
      *
      * @param value The value to validate.
@@ -177,7 +177,7 @@ public class RegexValidator implements Serializable {
                 final int count = matcher.groupCount();
                 final String[] groups = new String[count];
                 for (int j = 0; j < count; j++) {
-                    groups[j] = matcher.group(j+1);
+                    groups[j] = matcher.group(j + 1);
                 }
                 return groups;
             }
@@ -187,7 +187,7 @@ public class RegexValidator implements Serializable {
 
 
     /**
-     * Validate a value against the set of regular expressions
+     * Validates a value against the set of regular expressions
      * returning a String value of the aggregated groups.
      *
      * @param value The value to validate.
@@ -219,8 +219,8 @@ public class RegexValidator implements Serializable {
     }
 
     /**
-     * Provide a String representation of this validator.
-     * @return A String representation of this validator
+     * Provides a String representation of this validator.
+     * @return A String representation of this validator.
      */
     @Override
     public String toString() {
