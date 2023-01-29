@@ -77,8 +77,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
             return false;
         }
         try {
-            final int modulusResult = calculateModulus(code);
-            return modulusResult == 1;
+            return calculateModulus(code) == 1;
         } catch (final CheckDigitException ex) {
             return false;
         }
