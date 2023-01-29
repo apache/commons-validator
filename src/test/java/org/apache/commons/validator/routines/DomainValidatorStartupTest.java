@@ -26,7 +26,6 @@ import java.util.List;
 
 import org.apache.commons.validator.routines.DomainValidator.ArrayType;
 import org.junit.Test;
-import org.junit.function.ThrowingRunnable;
 import org.junit.runner.RunWith;
 
 import org.bitstrings.test.junit.runner.ClassLoaderPerTestRunner;
