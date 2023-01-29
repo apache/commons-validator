@@ -68,27 +68,27 @@ public class IBANValidator {
         private static final int MAX_LEN = 34; // defined by [3]
         final String countryCode;
         final RegexValidator regexValidator;
-        final int lengthOfIBAN; // used to avoid unnecessary regex matching
+        final int ibanLength; // used to avoid unnecessary regex matching
 
         /**
          * Creates the validator
-         * @param cc the country code
-         * @param len the length of the IBAN
-         * @param format the regex to use to check the format
+         * @param countryCode the country code
+         * @param ibanLength the length of the IBAN
+         * @param regex the regex to use to check the format
          */
-        public Validator(final String cc, final int len, final String format) {
-            if (!(cc.length() == 2 && Character.isUpperCase(cc.charAt(0)) && Character.isUpperCase(cc.charAt(1)))) {
+        public Validator(final String countryCode, final int ibanLength, final String regex) {
+            if (!(countryCode.length() == 2 && Character.isUpperCase(countryCode.charAt(0)) && Character.isUpperCase(countryCode.charAt(1)))) {
                 throw new IllegalArgumentException("Invalid country Code; must be exactly 2 upper-case characters");
             }
-            if (len > MAX_LEN || len < MIN_LEN) {
-                throw new IllegalArgumentException("Invalid length parameter, must be in range "+MIN_LEN+" to "+MAX_LEN+" inclusive: " +len);
+            if (ibanLength > MAX_LEN || ibanLength < MIN_LEN) {
+                throw new IllegalArgumentException("Invalid length parameter, must be in range " + MIN_LEN + " to " + MAX_LEN + " inclusive: " + ibanLength);
             }
-            if (!format.startsWith(cc)) {
-                throw new IllegalArgumentException("countryCode '"+cc+"' does not agree with format: " + format);
+            if (!regex.startsWith(countryCode)) {
+                throw new IllegalArgumentException("countryCode '" + countryCode + "' does not agree with format: " + regex);
             }
-            this.countryCode = cc;
-            this.lengthOfIBAN = len;
-            this.regexValidator = new RegexValidator(format);
+            this.countryCode = countryCode;
+            this.ibanLength = ibanLength;
+            this.regexValidator = new RegexValidator(regex);
         }
 
         /**
@@ -259,7 +259,7 @@ public class IBANValidator {
      */
     public boolean isValid(final String code) {
         final Validator formatValidator = getValidator(code);
-        if (formatValidator == null || code.length() != formatValidator.lengthOfIBAN || !formatValidator.regexValidator.isValid(code)) {
+        if (formatValidator == null || code.length() != formatValidator.ibanLength || !formatValidator.regexValidator.isValid(code)) {
             return false;
         }
         return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code);

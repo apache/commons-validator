@@ -91,7 +91,7 @@ public class IBANValidatorTest {
                         System.out.println("// Missing entry:");
                         printEntry(cc.get(i), newLength, newRE, country.get(i));
                     } else {
-                        final String currentLength = Integer.toString(valre.lengthOfIBAN);
+                        final String currentLength = Integer.toString(valre.ibanLength);
                         final String currentRE = valre.getRegexValidator().toString().replaceAll("^.+?\\{(.+)}", "$1") // Extract RE from RegexValidator{re}
                                                                                                                        // string
                                 .replace("\\d", "\\\\d"); // convert \d to \\d
@@ -374,18 +374,18 @@ public class IBANValidatorTest {
         final IBANValidator validator = new IBANValidator();
         final Validator[] vals = validator.getDefaultValidators();
         assertNotNull(vals);
-        for(int i=1; i < vals.length; i++) {
-            if (vals[i].countryCode.compareTo(vals[i-1].countryCode) <= 0) {
-                fail("Not sorted: "+vals[i].countryCode+ " <= " + vals[i-1].countryCode);
+        for (int i = 1; i < vals.length; i++) {
+            if (vals[i].countryCode.compareTo(vals[i - 1].countryCode) <= 0) {
+                fail("Not sorted: " + vals[i].countryCode + " <= " + vals[i - 1].countryCode);
             }
         }
     }
 
     @Test
     public void testValid() {
-        for(final String f : validIBANFormat) {
-            assertTrue("Checksum fail: "+f, IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(f));
-            assertTrue("Missing validator: "+f, VALIDATOR.hasValidator(f));
+        for (final String f : validIBANFormat) {
+            assertTrue("Checksum fail: " + f, IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(f));
+            assertTrue("Missing validator: " + f, VALIDATOR.hasValidator(f));
             assertTrue(f, VALIDATOR.isValid(f));
         }
     }
