@@ -18,7 +18,6 @@
 
 /**
  * Groups tests and expected results.
- *
  */
  public class ResultPair {
       public final String item;
@@ -26,6 +25,6 @@
 
       public ResultPair(final String item, final boolean valid) {
          this.item = item;
-         this.valid = valid;  //Whether the individual part of url is valid.
+         this.valid = valid; // Whether the individual part of URL is valid.
       }
    }
