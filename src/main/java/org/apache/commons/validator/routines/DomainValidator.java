@@ -169,12 +169,12 @@ public class DomainValidator implements Serializable {
     }
 
     // intance variables allowing local overrides
-    final String[] mycountryCodeTLDsMinus;
-    final String[] mycountryCodeTLDsPlus;
-    final String[] mygenericTLDsPlus;
-    final String[] mygenericTLDsMinus;
-    final String[] mylocalTLDsPlus;
-    final String[] mylocalTLDsMinus;
+    final String[] myCountryCodeTLDsMinus;
+    final String[] myCountryCodeTLDsPlus;
+    final String[] myGenericTLDsPlus;
+    final String[] myGenericTLDsMinus;
+    final String[] myLocalTLDsPlus;
+    final String[] myLocalTLDsMinus;
     /*
      * N.B. It is vital that instances are immutable.
      * This is because the default instances are shared.
@@ -191,12 +191,12 @@ public class DomainValidator implements Serializable {
     private DomainValidator(final boolean allowLocal) {
         this.allowLocal = allowLocal;
         // link to class overrides
-        mycountryCodeTLDsMinus = countryCodeTLDsMinus;
-        mycountryCodeTLDsPlus = countryCodeTLDsPlus;
-        mygenericTLDsPlus = genericTLDsPlus;
-        mygenericTLDsMinus = genericTLDsMinus;
-        mylocalTLDsPlus = localTLDsPlus;
-        mylocalTLDsMinus = localTLDsMinus;
+        myCountryCodeTLDsMinus = countryCodeTLDsMinus;
+        myCountryCodeTLDsPlus = countryCodeTLDsPlus;
+        myGenericTLDsPlus = genericTLDsPlus;
+        myGenericTLDsMinus = genericTLDsMinus;
+        myLocalTLDsPlus = localTLDsPlus;
+        myLocalTLDsMinus = localTLDsMinus;
     }
 
     /**
@@ -253,12 +253,12 @@ public class DomainValidator implements Serializable {
         }
 
         // init the instance overrides
-        mycountryCodeTLDsMinus = ccMinus;
-        mycountryCodeTLDsPlus = ccPlus;
-        mygenericTLDsMinus = genMinus;
-        mygenericTLDsPlus = genPlus;
-        mylocalTLDsMinus = localMinus;
-        mylocalTLDsPlus = localPlus;
+        myCountryCodeTLDsMinus = ccMinus;
+        myCountryCodeTLDsPlus = ccPlus;
+        myGenericTLDsMinus = genMinus;
+        myGenericTLDsPlus = genPlus;
+        myLocalTLDsMinus = localMinus;
+        myLocalTLDsPlus = localPlus;
     }
 
     /**
@@ -347,8 +347,8 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidGenericTld(final String gTld) {
         final String key = chompLeadingDot(unicodeToASCII(gTld).toLowerCase(Locale.ENGLISH));
-        return (arrayContains(GENERIC_TLDS, key) || arrayContains(mygenericTLDsPlus, key))
-                && !arrayContains(mygenericTLDsMinus, key);
+        return (arrayContains(GENERIC_TLDS, key) || arrayContains(myGenericTLDsPlus, key))
+                && !arrayContains(myGenericTLDsMinus, key);
     }
 
     /**
@@ -360,8 +360,8 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidCountryCodeTld(final String ccTld) {
         final String key = chompLeadingDot(unicodeToASCII(ccTld).toLowerCase(Locale.ENGLISH));
-        return (arrayContains(COUNTRY_CODE_TLDS, key) || arrayContains(mycountryCodeTLDsPlus, key))
-                && !arrayContains(mycountryCodeTLDsMinus, key);
+        return (arrayContains(COUNTRY_CODE_TLDS, key) || arrayContains(myCountryCodeTLDsPlus, key))
+                && !arrayContains(myCountryCodeTLDsMinus, key);
     }
 
     /**
@@ -373,8 +373,8 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidLocalTld(final String lTld) {
         final String key = chompLeadingDot(unicodeToASCII(lTld).toLowerCase(Locale.ENGLISH));
-        return (arrayContains(LOCAL_TLDS, key) || arrayContains(mylocalTLDsPlus, key))
-                && !arrayContains(mylocalTLDsMinus, key);
+        return (arrayContains(LOCAL_TLDS, key) || arrayContains(myLocalTLDsPlus, key))
+                && !arrayContains(myLocalTLDsMinus, key);
     }
 
     /**
@@ -2214,22 +2214,22 @@ public class DomainValidator implements Serializable {
         final String[] array;
         switch(table) {
         case COUNTRY_CODE_MINUS:
-            array = mycountryCodeTLDsMinus;
+            array = myCountryCodeTLDsMinus;
             break;
         case COUNTRY_CODE_PLUS:
-            array = mycountryCodeTLDsPlus;
+            array = myCountryCodeTLDsPlus;
             break;
         case GENERIC_MINUS:
-            array = mygenericTLDsMinus;
+            array = myGenericTLDsMinus;
             break;
         case GENERIC_PLUS:
-            array = mygenericTLDsPlus;
+            array = myGenericTLDsPlus;
             break;
         case LOCAL_MINUS:
-            array = mylocalTLDsMinus;
+            array = myLocalTLDsMinus;
             break;
         case LOCAL_PLUS:
-            array = mylocalTLDsPlus;
+            array = myLocalTLDsPlus;
             break;
         default:
             throw new IllegalArgumentException(UNEXPECTED_ENUM_VALUE + table);
