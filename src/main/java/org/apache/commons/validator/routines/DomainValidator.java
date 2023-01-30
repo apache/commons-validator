@@ -168,7 +168,7 @@ public class DomainValidator implements Serializable {
         return new DomainValidator(allowLocal, items);
     }
 
-    // intance variables allowing local overrides
+    // instance variables allowing local overrides
     final String[] myCountryCodeTLDsMinus;
     final String[] myCountryCodeTLDsPlus;
     final String[] myGenericTLDsPlus;
