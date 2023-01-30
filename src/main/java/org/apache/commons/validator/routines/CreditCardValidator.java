@@ -235,7 +235,7 @@ public class CreditCardValidator implements Serializable {
      * 6011xx (16) <br>
      * 644xxx - 65xxxx (16) <br>
      */
-    private static final RegexValidator DISCOVER_REGEX = new RegexValidator(new String[] {"^(6011\\d{12,13})$", "^(64[4-9]\\d{13})$", "^(65\\d{14})$", "^(62[2-8]\\d{13})$"});
+    private static final RegexValidator DISCOVER_REGEX = new RegexValidator("^(6011\\d{12,13})$", "^(64[4-9]\\d{13})$", "^(65\\d{14})$", "^(62[2-8]\\d{13})$");
 
     /** Discover Card Validator */
     public static final CodeValidator DISCOVER_VALIDATOR = new CodeValidator(DISCOVER_REGEX, LUHN_VALIDATOR);
@@ -247,7 +247,6 @@ public class CreditCardValidator implements Serializable {
      * 51xxx - 55xxx (16) <br>
      */
     private static final RegexValidator MASTERCARD_REGEX = new RegexValidator(
-        new String[] {
             "^(5[1-5]\\d{14})$",  // 51 - 55 (pre Oct 2016)
             // valid from October 2016
             "^(2221\\d{12})$",    // 222100 - 222199
@@ -255,8 +254,8 @@ public class CreditCardValidator implements Serializable {
             "^(22[3-9]\\d{13})$", // 223000 - 229999
             "^(2[3-6]\\d{14})$",  // 230000 - 269999
             "^(27[01]\\d{13})$",  // 270000 - 271999
-            "^(2720\\d{12})$",    // 272000 - 272099
-        });
+            "^(2720\\d{12})$"     // 272000 - 272099
+        );
 
     /** Mastercard Card Validator */
     public static final CodeValidator MASTERCARD_VALIDATOR = new CodeValidator(MASTERCARD_REGEX, LUHN_VALIDATOR);
@@ -493,7 +492,7 @@ public class CreditCardValidator implements Serializable {
                     }
                     @Override
                     public String[] match(final String value) {
-                        return new String[]{validate(value)};
+                        return new String[] { validate(value) };
                     }
                 }, digitCheck);
     }

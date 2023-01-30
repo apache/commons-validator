@@ -173,7 +173,7 @@ public class ValidatorResources implements Serializable {
      * @since 1.2
      */
     public ValidatorResources(final String uri) throws IOException, SAXException {
-        this(new String[]{uri});
+        this(new String[] { uri });
     }
 
     /**
@@ -186,7 +186,7 @@ public class ValidatorResources implements Serializable {
      * @throws IOException if an I/O error occurs processing the XML files
      * @since 1.2
      */
-    public ValidatorResources(final String[] uris)
+    public ValidatorResources(final String... uris)
             throws IOException, SAXException {
 
         final Digester digester = initDigester();

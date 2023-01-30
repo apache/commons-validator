@@ -2099,7 +2099,7 @@ public class DomainValidator implements Serializable {
      * <p>
      * For example:
      * <p>
-     * {@code DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, new String[]{"apache"})}
+     * {@code DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "apache")}
      * <p>
      * To clear an override array, provide an empty array.
      *
