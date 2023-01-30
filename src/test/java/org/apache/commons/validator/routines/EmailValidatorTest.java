@@ -596,7 +596,7 @@ public class EmailValidatorTest {
     public void testValidator473_4() { // Show that can override domain validation
         assertFalse(validator.isValidDomain("test.local"));
         final List<DomainValidator.Item> items = new ArrayList<>();
-        items.add(new DomainValidator.Item(DomainValidator.ArrayType.GENERIC_PLUS, new String[]{"local"}));
+        items.add(new DomainValidator.Item(DomainValidator.ArrayType.GENERIC_PLUS, "local"));
         final EmailValidator val = new EmailValidator(true, false, DomainValidator.getInstance(true, items));
         assertTrue(val.isValidDomain("test.local"));
     }

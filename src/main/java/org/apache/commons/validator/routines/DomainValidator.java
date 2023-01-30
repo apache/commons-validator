@@ -2087,7 +2087,7 @@ public class DomainValidator implements Serializable {
          * @param type ArrayType, e.g. GENERIC_PLUS, LOCAL_PLUS
          * @param values array of TLDs. Will be lower-cased and sorted
          */
-        public Item(final ArrayType type, final String[] values) {
+        public Item(final ArrayType type, final String... values) {
             this.type = type;
             this.values = values; // no need to copy here
         }
@@ -2118,7 +2118,7 @@ public class DomainValidator implements Serializable {
      * @throws IllegalArgumentException if one of the read-only tables is requested
      * @since 1.5.0
      */
-    public static synchronized void updateTLDOverride(final ArrayType table, final String [] tlds) {
+    public static synchronized void updateTLDOverride(final ArrayType table, final String... tlds) {
         if (inUse) {
             throw new IllegalStateException("Can only invoke this method before calling getInstance");
         }
