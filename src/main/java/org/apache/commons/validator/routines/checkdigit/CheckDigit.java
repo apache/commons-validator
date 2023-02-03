@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.apache.commons.validator.routines.CodeValidator;
+
 /**
  * <b>Check Digit</b> calculation and validation.
  * <p>
@@ -35,7 +37,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * and then convert them to the new ISBN-13 standard.
  * </p>
  * <p>
- * CheckDigit is used by the new generic @link CodeValidator} implementation.
+ * CheckDigit is used by the new generic {@link CodeValidator} implementation.
  * </p>
  *
  * <h2>Implementations</h2>
