@@ -118,9 +118,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
-          <configLocation>${basedir}/checkstyle.xml</configLocation>
+          <configLocation>${basedir}/src/conf/checkstyle.xml</configLocation>
           <!-- Needed to define config_loc -->
-          <propertyExpansion>config_loc=${basedir}</propertyExpansion>
+          <propertyExpansion>config_loc=${basedir}/src/conf</propertyExpansion>
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
       </plugin>
@@ -198,9 +198,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
-          <configLocation>${basedir}/checkstyle.xml</configLocation>
+          <configLocation>${basedir}/src/conf/checkstyle.xml</configLocation>
           <!-- Needed to define config_loc -->
-          <propertyExpansion>config_loc=${basedir}</propertyExpansion>
+          <propertyExpansion>config_loc=${basedir}/src/conf</propertyExpansion>
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
         <reportSets>
