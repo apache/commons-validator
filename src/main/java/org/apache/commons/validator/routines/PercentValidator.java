@@ -16,9 +16,9 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.Format;
-import java.math.BigDecimal;
 
 /**
  * <p><b>Percentage Validation</b> and Conversion routines (<code>java.math.BigDecimal</code>).</p>

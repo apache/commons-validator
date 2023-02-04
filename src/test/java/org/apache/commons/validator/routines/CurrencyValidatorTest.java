@@ -16,11 +16,11 @@
  */
 package org.apache.commons.validator.routines;
 
-import junit.framework.TestCase;
-
-import java.util.Locale;
 import java.math.BigDecimal;
 import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
+import junit.framework.TestCase;
 
 /**
  * Test Case for CurrencyValidator.

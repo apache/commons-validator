@@ -16,10 +16,10 @@
  */
 package org.apache.commons.validator;
 
-import org.xml.sax.Attributes;
 import org.apache.commons.digester.AbstractObjectCreationFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.xml.sax.Attributes;
 
 /**
  * Factory class used by Digester to create FormSet's.

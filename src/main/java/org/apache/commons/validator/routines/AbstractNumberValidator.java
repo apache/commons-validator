@@ -16,10 +16,10 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.Format;
 import java.text.NumberFormat;
-import java.text.DecimalFormat;
 import java.util.Locale;
 
 /**

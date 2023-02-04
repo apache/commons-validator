@@ -19,8 +19,10 @@ package org.apache.commons.validator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
-import junit.framework.TestCase;
+
 import org.xml.sax.SAXException;
+
+import junit.framework.TestCase;
 
 /**
  * Tests retrieving forms using different Locales.

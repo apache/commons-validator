@@ -16,10 +16,10 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.io.Serializable;
 import java.text.Format;
 import java.text.ParsePosition;
 import java.util.Locale;
-import java.io.Serializable;
 
 /**
  * <p>Abstract class for <i>Format</i> based Validation.</p>

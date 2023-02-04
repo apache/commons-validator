@@ -16,12 +16,13 @@
  */
 package org.apache.commons.validator.routines;
 
-import org.apache.commons.validator.routines.checkdigit.CheckDigit;
-import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
+
+import org.apache.commons.validator.routines.checkdigit.CheckDigit;
+import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 
 /**
  * Perform credit card validations.

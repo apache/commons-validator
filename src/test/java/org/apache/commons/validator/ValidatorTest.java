@@ -23,9 +23,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.validator.util.ValidatorUtils;
+
+import junit.framework.TestCase;
 
 /**
  * Performs Validation Test.

@@ -19,8 +19,8 @@ package org.apache.commons.validator;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * This contains the results of a set of validation rules processed

@@ -16,10 +16,10 @@
  */
 package org.apache.commons.validator;
 
-import org.apache.commons.validator.routines.InetAddressValidator;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.validator.routines.InetAddressValidator;
 
 /**
  * <p>Perform email validations.</p>

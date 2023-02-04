@@ -16,15 +16,15 @@
  */
 package org.apache.commons.validator.routines;
 
-import junit.framework.TestCase;
-
-import java.util.Locale;
-import java.text.DecimalFormat;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.Locale;
+
+import junit.framework.TestCase;
 /**
  * Base Number Test Case.
  *

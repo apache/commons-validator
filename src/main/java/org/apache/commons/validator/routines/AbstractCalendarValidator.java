@@ -16,9 +16,9 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.Format;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;

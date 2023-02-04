@@ -16,9 +16,10 @@
  */
 package org.apache.commons.validator.routines;
 
-import junit.framework.TestCase;
-import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 import org.apache.commons.validator.routines.CreditCardValidator.CreditCardRange;
+import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
+
+import junit.framework.TestCase;
 
 /**
  * Test the CreditCardValidator class.

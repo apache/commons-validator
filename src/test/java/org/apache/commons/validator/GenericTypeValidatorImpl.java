@@ -16,7 +16,8 @@
  */
 package org.apache.commons.validator;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Locale;
 
 import org.apache.commons.validator.util.ValidatorUtils;
 

@@ -16,12 +16,12 @@
  */
 package org.apache.commons.validator.routines;
 
-import junit.framework.TestCase;
-
-import java.util.Date;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import junit.framework.TestCase;
 
 /**
  * Test Case for TimeValidator.

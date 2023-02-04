@@ -16,16 +16,16 @@
  */
 package org.apache.commons.validator.routines;
 
-import junit.framework.TestCase;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Date;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import junit.framework.TestCase;
 
 /**
  * Base Calendar Test Case.

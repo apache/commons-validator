@@ -17,9 +17,10 @@
 package org.apache.commons.validator.routines;
 
 import java.io.Serializable;
+
+import org.apache.commons.validator.routines.checkdigit.CheckDigitException;
 import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
-import org.apache.commons.validator.routines.checkdigit.CheckDigitException;
 
 /**
  * <b>ISBN-10</b> and <b>ISBN-13</b> Code Validation.

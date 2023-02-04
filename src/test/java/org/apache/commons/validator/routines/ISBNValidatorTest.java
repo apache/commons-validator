@@ -17,6 +17,7 @@
 package org.apache.commons.validator.routines;
 
 import java.util.regex.Pattern;
+
 import junit.framework.TestCase;
 
 /**

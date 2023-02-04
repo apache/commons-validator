@@ -19,9 +19,9 @@ package org.apache.commons.validator;
 import java.io.IOException;
 import java.io.InputStream;
 
-import junit.framework.TestCase;
-
 import org.xml.sax.SAXException;
+
+import junit.framework.TestCase;
 
 /**
  * Tests that validator rules split between 2 different XML files get

@@ -19,16 +19,19 @@ package org.apache.commons.validator.routines;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.validator.routines.DomainValidator.ArrayType;
+import org.bitstrings.test.junit.runner.ClassLoaderPerTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import org.bitstrings.test.junit.runner.ClassLoaderPerTestRunner;
 
 /**
  * Startup Tests for the DomainValidator.

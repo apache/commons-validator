@@ -16,10 +16,11 @@
  */
 package org.apache.commons.validator.custom;
 
-import java.io.InputStream;
 import java.io.IOException;
-import org.xml.sax.SAXException;
+import java.io.InputStream;
+
 import org.apache.commons.validator.ValidatorResources;
+import org.xml.sax.SAXException;
 
 /**
  * Custom ValidatorResources implementation.
