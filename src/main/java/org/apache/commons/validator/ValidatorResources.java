@@ -30,8 +30,8 @@ import org.apache.commons.digester.Rule;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.xml.sax.SAXException;
 import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
 
 /**
  * <p>
@@ -173,7 +173,7 @@ public class ValidatorResources implements Serializable {
      * @since 1.2
      */
     public ValidatorResources(final String uri) throws IOException, SAXException {
-        this(new String[]{uri});
+        this(new String[] { uri });
     }
 
     /**
@@ -186,7 +186,7 @@ public class ValidatorResources implements Serializable {
      * @throws IOException if an I/O error occurs processing the XML files
      * @since 1.2
      */
-    public ValidatorResources(final String[] uris)
+    public ValidatorResources(final String... uris)
             throws IOException, SAXException {
 
         final Digester digester = initDigester();
@@ -328,7 +328,7 @@ public class ValidatorResources implements Serializable {
             final FormSet formset = getFormSets().get(key);
             if (formset == null) {// it hasn't been included yet
                 if (getLog().isDebugEnabled()) {
-                    getLog().debug("Adding FormSet '" + fs.toString() + "'.");
+                    getLog().debug("Adding FormSet '" + fs + "'.");
                 }
             } else if (getLog().isWarnEnabled()) {// warn the user he might not
                                                 // get the expected results
