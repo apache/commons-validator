@@ -33,7 +33,6 @@ import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
 import org.xml.sax.Attributes;
 
-
 /**
  * <p>
  * General purpose class for storing <code>FormSet</code> objects based
@@ -174,7 +173,7 @@ public class ValidatorResources implements Serializable {
      * @since 1.2
      */
     public ValidatorResources(final String uri) throws IOException, SAXException {
-        this(new String[] { uri });
+        this(new String[]{uri});
     }
 
     /**
