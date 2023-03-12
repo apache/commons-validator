@@ -328,7 +328,7 @@ public class ValidatorResources implements Serializable {
             final FormSet formset = getFormSets().get(key);
             if (formset == null) {// it hasn't been included yet
                 if (getLog().isDebugEnabled()) {
-                    getLog().debug("Adding FormSet '" + fs.toString() + "'.");
+                    getLog().debug("Adding FormSet '" + fs + "'.");
                 }
             } else if (getLog().isWarnEnabled()) {// warn the user he might not
                                                 // get the expected results
