@@ -30,8 +30,9 @@ import org.apache.commons.digester.Rule;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.Attributes;
+
 
 /**
  * <p>
@@ -186,7 +187,7 @@ public class ValidatorResources implements Serializable {
      * @throws IOException if an I/O error occurs processing the XML files
      * @since 1.2
      */
-    public ValidatorResources(final String... uris)
+    public ValidatorResources(final String[] uris)
             throws IOException, SAXException {
 
         final Digester digester = initDigester();
