@@ -109,7 +109,6 @@ import org.apache.commons.validator.routines.CodeValidator;
  * </pre>
  *
  * @since 1.6
- * @version $Revision: 1739356 $
  */
 public final class ModulusTenCheckDigit extends ModulusCheckDigit {
 
