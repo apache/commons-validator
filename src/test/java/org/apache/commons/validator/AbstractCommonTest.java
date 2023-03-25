@@ -25,7 +25,6 @@ import junit.framework.TestCase;
 
 /**
  * Consolidates reading in XML config file into parent class.
- *
  */
 abstract public class AbstractCommonTest extends TestCase {
 

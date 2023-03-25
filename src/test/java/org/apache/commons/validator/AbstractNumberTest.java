@@ -22,7 +22,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Abstracts number unit tests methods.
- *
  */
 abstract public class AbstractNumberTest extends AbstractCommonTest {
 

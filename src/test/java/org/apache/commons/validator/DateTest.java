@@ -23,7 +23,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Abstracts date unit tests methods.
- *
  */
 public class DateTest extends AbstractCommonTest {
 

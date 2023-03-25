@@ -23,7 +23,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Performs Validation Test for locale validations.
- *
  */
 public class LocaleTest extends AbstractCommonTest {
 

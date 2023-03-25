@@ -25,7 +25,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Performs Validation Test for type validations.
- *
  */
 public class GenericTypeValidatorTest extends AbstractCommonTest {
 

@@ -22,7 +22,6 @@ import java.util.Locale;
 import junit.framework.TestCase;
 /**
  * Test Case for PercentValidator.
- *
  */
 public class PercentValidatorTest extends TestCase {
 

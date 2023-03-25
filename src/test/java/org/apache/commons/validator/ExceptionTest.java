@@ -22,7 +22,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Performs Validation Test for exception handling.
- *
  */
 public class ExceptionTest extends AbstractCommonTest {
 

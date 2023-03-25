@@ -20,7 +20,6 @@ import java.util.Locale;
 
 /**
  * Test Case for ShortValidator.
- *
  */
 public class ShortValidatorTest extends AbstractNumberValidatorTest {
 

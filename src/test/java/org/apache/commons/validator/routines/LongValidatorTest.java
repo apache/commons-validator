@@ -20,7 +20,6 @@ import java.util.Locale;
 
 /**
  * Test Case for LongValidator.
- *
  */
 public class LongValidatorTest extends AbstractNumberValidatorTest {
 

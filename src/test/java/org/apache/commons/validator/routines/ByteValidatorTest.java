@@ -20,7 +20,6 @@ import java.util.Locale;
 
 /**
  * Test Case for ByteValidator.
- *
  */
 public class ByteValidatorTest extends AbstractNumberValidatorTest {
 

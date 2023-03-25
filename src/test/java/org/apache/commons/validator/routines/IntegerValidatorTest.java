@@ -20,7 +20,6 @@ import java.util.Locale;
 
 /**
  * Test Case for IntegerValidator.
- *
  */
 public class IntegerValidatorTest extends AbstractNumberValidatorTest {
 

@@ -20,7 +20,6 @@ import java.util.Locale;
 
 /**
  * Test Case for DoubleValidator.
- *
  */
 public class DoubleValidatorTest extends AbstractNumberValidatorTest {
 

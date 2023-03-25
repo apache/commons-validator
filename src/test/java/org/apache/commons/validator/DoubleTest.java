@@ -19,7 +19,6 @@ package org.apache.commons.validator;
 
 /**
  * Performs Validation Test for <code>double</code> validations.
- *
  */
 public class DoubleTest extends AbstractNumberTest {
 

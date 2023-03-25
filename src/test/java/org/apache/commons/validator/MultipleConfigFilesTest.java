@@ -26,7 +26,6 @@ import junit.framework.TestCase;
 /**
  * Tests that validator rules split between 2 different XML files get
  * merged properly.
- *
  */
 public class MultipleConfigFilesTest extends TestCase {
 

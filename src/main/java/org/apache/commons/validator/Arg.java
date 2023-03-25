@@ -32,7 +32,6 @@ import java.io.Serializable;
  * The resource field defaults to 'true'.
  * </p>
  * <p>Instances of this class are configured with an &lt;arg&gt; xml element.</p>
- *
  */
 //TODO mutable non-private fields
 public class Arg implements Cloneable, Serializable {

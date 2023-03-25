@@ -23,7 +23,6 @@ import java.util.TimeZone;
 
 /**
  * Test Case for DateValidator.
- *
  */
 public class DateValidatorTest extends AbstractCalendarValidatorTest {
 

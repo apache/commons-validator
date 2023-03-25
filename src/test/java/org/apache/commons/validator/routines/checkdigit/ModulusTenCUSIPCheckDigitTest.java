@@ -19,7 +19,6 @@ package org.apache.commons.validator.routines.checkdigit;
 
 /**
  * ModulusTenCheckDigit CUSIP Test.
- *
  */
 public class ModulusTenCUSIPCheckDigitTest extends AbstractCheckDigitTest {
 

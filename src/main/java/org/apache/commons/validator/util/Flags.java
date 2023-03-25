@@ -35,7 +35,6 @@ import java.io.Serializable;
  * There cannot be a flag with a value of 3 because that represents Flag 1
  * and Flag 2 both being on/true.
  * </p>
- *
  */
 public class Flags implements Serializable, Cloneable {
 

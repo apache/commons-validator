@@ -40,7 +40,6 @@ import org.apache.commons.validator.util.ValidatorUtils;
  * be defined in an xml file with the &lt;validator&gt; element.
  *
  * <strong>Note</strong>: The validation method is assumed to be thread safe.
- *
  */
 public class ValidatorAction implements Serializable {
 

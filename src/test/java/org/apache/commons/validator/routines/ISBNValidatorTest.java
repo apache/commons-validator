@@ -22,7 +22,6 @@ import junit.framework.TestCase;
 
 /**
  * ISBNValidator Test Case.
- *
  */
 public class ISBNValidatorTest extends TestCase {
 

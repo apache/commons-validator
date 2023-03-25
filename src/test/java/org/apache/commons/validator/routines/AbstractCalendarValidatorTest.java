@@ -29,7 +29,6 @@ import junit.framework.TestCase;
 
 /**
  * Base Calendar Test Case.
- *
  */
 public abstract class AbstractCalendarValidatorTest extends TestCase {
 

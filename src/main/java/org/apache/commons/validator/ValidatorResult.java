@@ -25,7 +25,6 @@ import java.util.Map;
 /**
  * This contains the results of a set of validation rules processed
  * on a JavaBean.
- *
  */
 //TODO mutable non-private fields
 public class ValidatorResult implements Serializable {

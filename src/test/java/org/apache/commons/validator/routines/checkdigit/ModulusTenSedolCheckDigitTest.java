@@ -19,7 +19,6 @@ package org.apache.commons.validator.routines.checkdigit;
 
 /**
  * ModulusTenCheckDigit SEDOL Test.
- *
  */
 public class ModulusTenSedolCheckDigitTest extends AbstractCheckDigitTest {
 

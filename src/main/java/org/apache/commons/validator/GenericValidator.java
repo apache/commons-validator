@@ -27,7 +27,6 @@ import org.apache.commons.validator.routines.UrlValidator;
 
 /**
  * This class contains basic methods for performing validations.
- *
  */
 public class GenericValidator implements Serializable {
 

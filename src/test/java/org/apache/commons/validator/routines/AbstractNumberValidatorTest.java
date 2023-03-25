@@ -27,7 +27,6 @@ import java.util.Locale;
 import junit.framework.TestCase;
 /**
  * Base Number Test Case.
- *
  */
 public abstract class AbstractNumberValidatorTest extends TestCase {
 

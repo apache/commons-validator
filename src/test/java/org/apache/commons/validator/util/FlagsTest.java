@@ -20,7 +20,6 @@ import junit.framework.TestCase;
 
 /**
  * Test the Flags class.
- *
  */
 public class FlagsTest extends TestCase {
 

@@ -18,7 +18,6 @@ package org.apache.commons.validator;
 
 /**
  * Value object that contains a first name and last name.
- *
  */
 public class NameBean {
 

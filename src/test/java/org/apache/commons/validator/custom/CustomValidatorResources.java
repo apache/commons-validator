@@ -24,7 +24,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Custom ValidatorResources implementation.
- *
  */
 public class CustomValidatorResources extends ValidatorResources {
 

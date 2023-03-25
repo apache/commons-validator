@@ -22,7 +22,6 @@ import junit.framework.TestCase;
 
 /**
  * Test custom ValidatorResources.
- *
  */
 public class CustomValidatorResourcesTest extends TestCase {
 

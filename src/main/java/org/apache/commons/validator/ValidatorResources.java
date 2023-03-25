@@ -48,7 +48,6 @@ import org.xml.sax.SAXException;
  * The use of FastHashMap is deprecated and will be replaced in a future
  * release.
  * </p>
- *
  */
 //TODO mutable non-private fields
 public class ValidatorResources implements Serializable {

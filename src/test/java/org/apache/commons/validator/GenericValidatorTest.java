@@ -20,7 +20,6 @@ import junit.framework.TestCase;
 
 /**
  * Test the GenericValidator class.
- *
  */
 public class GenericValidatorTest extends TestCase {
 

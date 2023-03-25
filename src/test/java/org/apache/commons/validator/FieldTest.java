@@ -20,7 +20,6 @@ import junit.framework.TestCase;
 
 /**
  * Test <code>Field</code> objects.
- *
  */
 public class FieldTest extends TestCase {
 

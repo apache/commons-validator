@@ -18,7 +18,6 @@ package org.apache.commons.validator;
 
 /**
  * Value object for storing a value to run tests on.
- *
  */
 public class ValueBean {
 

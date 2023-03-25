@@ -29,7 +29,6 @@ import org.apache.commons.logging.LogFactory;
  * Holds a set of <code>Form</code>s stored associated with a <code>Locale</code>
  * based on the country, language, and variant specified. Instances of this
  * class are configured with a &lt;formset&gt; xml element.
- *
  */
 public class FormSet implements Serializable {
 

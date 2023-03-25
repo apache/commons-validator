@@ -25,7 +25,6 @@ import java.util.Map;
  * Validations are processed by the validate method. An instance of
  * <code>ValidatorResources</code> is used to define the validators
  * (validation methods) and the validation rules for a JavaBean.
- *
  */
 // TODO mutable fields should be made private and accessed via suitable methods only
 public class Validator implements Serializable {

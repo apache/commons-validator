@@ -46,7 +46,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for the DomainValidator.
- *
  */
 public class DomainValidatorTest extends TestCase {
 

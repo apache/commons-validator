@@ -22,7 +22,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Performs Validation Test.
- *
  */
 public class MultipleTest extends AbstractCommonTest {
 

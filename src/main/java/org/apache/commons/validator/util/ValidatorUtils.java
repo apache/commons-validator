@@ -35,7 +35,6 @@ import org.apache.commons.validator.Var;
  * The use of FastHashMap is deprecated and will be replaced in a future
  * release.
  * </p>
- *
  */
 public class ValidatorUtils {
 

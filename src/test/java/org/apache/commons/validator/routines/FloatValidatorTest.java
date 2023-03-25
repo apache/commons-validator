@@ -21,7 +21,6 @@ import java.util.Locale;
 
 /**
  * Test Case for FloatValidator.
- *
  */
 public class FloatValidatorTest extends AbstractNumberValidatorTest {
 

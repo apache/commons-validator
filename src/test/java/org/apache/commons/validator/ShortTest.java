@@ -19,7 +19,6 @@ package org.apache.commons.validator;
 
 /**
  * Performs Validation Test for <code>short</code> validations.
- *
  */
 public class ShortTest extends AbstractNumberTest {
 

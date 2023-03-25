@@ -18,7 +18,6 @@ package org.apache.commons.validator;
 
 /**
  * Contains validation methods for different unit tests.
- *
  */
 public class ParameterValidatorImpl {
 

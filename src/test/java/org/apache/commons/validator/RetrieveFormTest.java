@@ -26,7 +26,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests retrieving forms using different Locales.
- *
  */
 public class RetrieveFormTest extends TestCase {
 

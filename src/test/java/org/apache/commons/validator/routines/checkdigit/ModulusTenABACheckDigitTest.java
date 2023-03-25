@@ -19,7 +19,6 @@ package org.apache.commons.validator.routines.checkdigit;
 
 /**
  * ModulusTenCheckDigit ABA Number Check Digit Test.
- *
  */
 public class ModulusTenABACheckDigitTest extends AbstractCheckDigitTest {
 

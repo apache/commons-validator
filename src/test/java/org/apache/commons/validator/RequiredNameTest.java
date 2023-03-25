@@ -23,7 +23,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Performs Validation Test.
- *
  */
 public class RequiredNameTest extends AbstractCommonTest {
 

@@ -29,7 +29,6 @@ import junit.framework.TestCase;
 
 /**
  * Performs Validation Test.
- *
  */
 public class ValidatorTest extends TestCase {
 

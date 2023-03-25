@@ -21,7 +21,6 @@ import java.util.Locale;
 
 /**
  * Test Case for BigIntegerValidator.
- *
  */
 public class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
 

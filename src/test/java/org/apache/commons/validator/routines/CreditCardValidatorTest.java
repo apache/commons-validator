@@ -23,7 +23,6 @@ import junit.framework.TestCase;
 
 /**
  * Test the CreditCardValidator class.
- *
  */
 public class CreditCardValidatorTest extends TestCase {
 

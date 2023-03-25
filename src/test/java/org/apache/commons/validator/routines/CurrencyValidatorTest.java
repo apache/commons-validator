@@ -24,7 +24,6 @@ import junit.framework.TestCase;
 
 /**
  * Test Case for CurrencyValidator.
- *
  */
 public class CurrencyValidatorTest extends TestCase {
 

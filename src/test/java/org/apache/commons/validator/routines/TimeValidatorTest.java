@@ -25,7 +25,6 @@ import junit.framework.TestCase;
 
 /**
  * Test Case for TimeValidator.
- *
  */
 public class TimeValidatorTest extends TestCase {
 
