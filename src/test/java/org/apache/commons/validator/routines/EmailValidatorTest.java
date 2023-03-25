@@ -34,7 +34,6 @@ import org.junit.Test;
 
 /**
  * Performs Validation Test for e-mail validations.
- *
  */
 public class EmailValidatorTest {
 
