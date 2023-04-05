@@ -12,6 +12,7 @@
 #WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #See the License for the specific language governing permissions and
 #limitations under the License.
+#prova
 FROM maven:3.9.0-eclipse-temurin-17 as base
 WORKDIR /app
 COPY src ./
