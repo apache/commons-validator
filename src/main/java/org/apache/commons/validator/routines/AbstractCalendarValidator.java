@@ -36,6 +36,9 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
 
     private static final long serialVersionUID = -1410008585975827379L;
 
+    private final int TOTAL_MONTHS_IN_YEAR=12;
+    private final int MONTHS_IN_QUARTER=3;
+    private final int DECADE=10;
     private final int dateStyle;
 
     private final int timeStyle;
@@ -389,18 +392,19 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      */
     private int calculateQuarter(final Calendar calendar, final int monthOfFirstQuarter) {
         // Add Year
+
         int year = calendar.get(Calendar.YEAR);
 
         final int month = (calendar.get(Calendar.MONTH) + 1);
         final int relativeMonth = (month >= monthOfFirstQuarter)
                           ? (month - monthOfFirstQuarter)
-                          : (month + (12 - monthOfFirstQuarter)); // CHECKSTYLE IGNORE MagicNumber
-        final int quarter = ((relativeMonth / 3) + 1); // CHECKSTYLE IGNORE MagicNumber
+                          : (month + (TOTAL_MONTHS_IN_YEAR - monthOfFirstQuarter)); // CHECKSTYLE IGNORE MagicNumber
+        final int quarter = ((relativeMonth / MONTHS_IN_QUARTER) + 1); // CHECKSTYLE IGNORE MagicNumber
         // adjust the year if the quarter doesn't start in January
         if (month < monthOfFirstQuarter) {
             --year;
         }
-        return (year * 10) + quarter; // CHECKSTYLE IGNORE MagicNumber
+        return (year * DECADE) + quarter; // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**

@@ -80,14 +80,18 @@ public class GenericTypeValidator implements Serializable {
             final Number num = formatter.parse(value, pos);
 
             // If there was no error      and we used the whole string
-            if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
-                    num.doubleValue() >= Byte.MIN_VALUE &&
-                    num.doubleValue() <= Byte.MAX_VALUE) {
+            if (isValidByte(num,pos,value)) {
                 result = Byte.valueOf(num.byteValue());
             }
         }
 
         return result;
+    }
+
+    private static boolean isValidByte(final Number num,ParsePosition pos,final String value) {
+        return pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
+                num.doubleValue() >= Byte.MIN_VALUE &&
+                num.doubleValue() <= Byte.MAX_VALUE;
     }
 
     /**
@@ -132,14 +136,18 @@ public class GenericTypeValidator implements Serializable {
             final Number num = formatter.parse(value, pos);
 
             // If there was no error      and we used the whole string
-            if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
-                    num.doubleValue() >= Short.MIN_VALUE &&
-                    num.doubleValue() <= Short.MAX_VALUE) {
+            if (isValidShort(num,pos,value)) {
                 result = Short.valueOf(num.shortValue());
             }
         }
 
         return result;
+    }
+
+    private static boolean isValidShort(final Number num,final ParsePosition pos, final String value){
+        return pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
+                num.doubleValue() >= Short.MIN_VALUE &&
+                num.doubleValue() <= Short.MAX_VALUE;
     }
 
     /**
@@ -184,14 +192,18 @@ public class GenericTypeValidator implements Serializable {
             final Number num = formatter.parse(value, pos);
 
             // If there was no error      and we used the whole string
-            if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
-                    num.doubleValue() >= Integer.MIN_VALUE &&
-                    num.doubleValue() <= Integer.MAX_VALUE) {
+            if (isValidInteger(num,pos,value)) {
                 result = Integer.valueOf(num.intValue());
             }
         }
 
         return result;
+    }
+
+    private static boolean isValidInteger(final Number num, final ParsePosition pos, final String value){
+        return pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
+                num.doubleValue() >= Integer.MIN_VALUE &&
+                num.doubleValue() <= Integer.MAX_VALUE;
     }
 
     /**
@@ -236,14 +248,18 @@ public class GenericTypeValidator implements Serializable {
             final Number num = formatter.parse(value, pos);
 
             // If there was no error      and we used the whole string
-            if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
-                    num.doubleValue() >= Long.MIN_VALUE &&
-                    num.doubleValue() <= Long.MAX_VALUE) {
+            if (isValidLong(num,pos,value)) {
                 result = Long.valueOf(num.longValue());
             }
         }
 
         return result;
+    }
+
+    private static boolean isValidLong(final Number num,final ParsePosition pos, final String value){
+        return pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
+                num.doubleValue() >= Long.MIN_VALUE &&
+                num.doubleValue() <= Long.MAX_VALUE;
     }
 
     /**
@@ -287,14 +303,18 @@ public class GenericTypeValidator implements Serializable {
             final Number num = formatter.parse(value, pos);
 
             // If there was no error      and we used the whole string
-            if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
-                    num.doubleValue() >= (Float.MAX_VALUE * -1) &&
-                    num.doubleValue() <= Float.MAX_VALUE) {
+            if (isValidFloat(num,pos,value)) {
                 result = Float.valueOf(num.floatValue());
             }
         }
 
         return result;
+    }
+
+    private static boolean isValidFloat(final Number num, final ParsePosition pos, final String value){
+        return pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
+                num.doubleValue() >= (Float.MAX_VALUE * -1) &&
+                num.doubleValue() <= Float.MAX_VALUE;
     }
 
     /**
@@ -338,14 +358,18 @@ public class GenericTypeValidator implements Serializable {
             final Number num = formatter.parse(value, pos);
 
             // If there was no error      and we used the whole string
-            if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
-                    num.doubleValue() >= (Double.MAX_VALUE * -1) &&
-                    num.doubleValue() <= Double.MAX_VALUE) {
+            if (isValidDouble(num,pos,value)) {
                 result = Double.valueOf(num.doubleValue());
             }
         }
 
         return result;
+    }
+
+    private static boolean isValidDouble(final Number num, final ParsePosition pos,final String value){
+        return pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
+                num.doubleValue() >= (Double.MAX_VALUE * -1) &&
+                num.doubleValue() <= Double.MAX_VALUE;
     }
 
     /**
@@ -427,9 +451,7 @@ public class GenericTypeValidator implements Serializable {
     public static Date formatDate(final String value, final String datePattern, final boolean strict) {
         Date date = null;
 
-        if (value == null
-                || datePattern == null
-                || datePattern.isEmpty()) {
+        if (isDateStringInvalid(value,datePattern)) {
             return null;
         }
 
@@ -452,6 +474,12 @@ public class GenericTypeValidator implements Serializable {
         }
 
         return date;
+    }
+
+    private static boolean isDateStringInvalid(final String value, final String datePattern){
+        return value == null
+                || datePattern == null
+                || datePattern.isEmpty();
     }
 
     /**

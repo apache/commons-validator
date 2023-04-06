@@ -17,6 +17,7 @@
 package org.apache.commons.validator.routines;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -68,6 +69,12 @@ import java.util.Locale;
 public class BigDecimalValidator extends AbstractNumberValidator {
 
     private static final long serialVersionUID = -670320911490506772L;
+
+    private static final int SCALE_INCREMENT_FOR_HUNDRED_MULTIPLIER = 2;
+    private static final int SCALE_INCREMENT_FOR_THOUSAND_MULTIPLIER = 3;
+    private static final int SCALE_INCREMENT_FOR_PERCENT_FORMAT = 2;
+    private static final int MULTIPLIER_HUNDRED=100;
+    private static final int MULTIPLIER_THOUSAND=1000;
 
     private static final BigDecimalValidator VALIDATOR = new BigDecimalValidator();
 
@@ -236,4 +243,33 @@ public class BigDecimalValidator extends AbstractNumberValidator {
 
         return decimal;
     }
+
+    //Push down refactoring technique
+    protected int determineScale(final NumberFormat format) {
+
+        if (!isStrict()) {
+            return -1;
+        }
+        if (!isAllowFractions() || format.isParseIntegerOnly()) {
+            return 0;
+        }
+        final int minimumFraction = format.getMinimumFractionDigits();
+        final int maximumFraction = format.getMaximumFractionDigits();
+        if (minimumFraction != maximumFraction) {
+            return -1;
+        }
+        int scale = minimumFraction;
+        if (format instanceof DecimalFormat) {
+            final int multiplier = ((DecimalFormat)format).getMultiplier();
+            if (multiplier == MULTIPLIER_HUNDRED) { // CHECKSTYLE IGNORE MagicNumber
+                scale += SCALE_INCREMENT_FOR_HUNDRED_MULTIPLIER; // CHECKSTYLE IGNORE MagicNumber
+            } else if (multiplier == MULTIPLIER_THOUSAND) { // CHECKSTYLE IGNORE MagicNumber
+                scale += SCALE_INCREMENT_FOR_THOUSAND_MULTIPLIER; // CHECKSTYLE IGNORE MagicNumber
+            }
+        } else if (formatType == PERCENT_FORMAT) {
+            scale += SCALE_INCREMENT_FOR_PERCENT_FORMAT; // CHECKSTYLE IGNORE MagicNumber
+        }
+        return scale;
+    }
+
 }

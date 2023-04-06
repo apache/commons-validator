@@ -61,6 +61,10 @@ public class ValidatorUtils {
             return value;
         }
 
+        return replaceValueInString(value, key, replaceValue, pos);
+   }
+
+    private static String replaceValueInString(String value, String key, String replaceValue, int pos) {
         final int length = value.length();
         final int start = pos;
         final int end = pos + key.length();
@@ -74,8 +78,8 @@ public class ValidatorUtils {
         } else {
             value =
                     value.substring(0, start)
-                    + replaceValue
-                    + replace(value.substring(end), key, replaceValue);
+                            + replaceValue
+                            + replaceValueInString(value.substring(end), key, replaceValue, pos);
         }
 
         return value;

@@ -43,8 +43,10 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     /** Percent <code>NumberFormat</code> type */
     public static final int PERCENT_FORMAT  = 2;
 
+
+
     private final boolean allowFractions;
-    private final int     formatType;
+    protected final int  formatType;
 
     /**
      * Construct an instance with specified <i>strict</i>
@@ -210,31 +212,32 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      *        multiplier of.
      * @return The multiplying factor for the format..
      */
-    protected int determineScale(final NumberFormat format) {
-        if (!isStrict()) {
-            return -1;
-        }
-        if (!isAllowFractions() || format.isParseIntegerOnly()) {
-            return 0;
-        }
-        final int minimumFraction = format.getMinimumFractionDigits();
-        final int maximumFraction = format.getMaximumFractionDigits();
-        if (minimumFraction != maximumFraction) {
-            return -1;
-        }
-        int scale = minimumFraction;
-        if (format instanceof DecimalFormat) {
-            final int multiplier = ((DecimalFormat)format).getMultiplier();
-            if (multiplier == 100) { // CHECKSTYLE IGNORE MagicNumber
-                scale += 2; // CHECKSTYLE IGNORE MagicNumber
-            } else if (multiplier == 1000) { // CHECKSTYLE IGNORE MagicNumber
-                scale += 3; // CHECKSTYLE IGNORE MagicNumber
-            }
-        } else if (formatType == PERCENT_FORMAT) {
-            scale += 2; // CHECKSTYLE IGNORE MagicNumber
-        }
-        return scale;
-    }
+//    protected int determineScale(final NumberFormat format) {
+//
+//        if (!isStrict()) {
+//            return -1;
+//        }
+//        if (!isAllowFractions() || format.isParseIntegerOnly()) {
+//            return 0;
+//        }
+//        final int minimumFraction = format.getMinimumFractionDigits();
+//        final int maximumFraction = format.getMaximumFractionDigits();
+//        if (minimumFraction != maximumFraction) {
+//            return -1;
+//        }
+//        int scale = minimumFraction;
+//        if (format instanceof DecimalFormat) {
+//            final int multiplier = ((DecimalFormat)format).getMultiplier();
+//            if (multiplier == MULTIPLIER_HUNDRED) { // CHECKSTYLE IGNORE MagicNumber
+//                scale += SCALE_INCREMENT_FOR_HUNDRED_MULTIPLIER; // CHECKSTYLE IGNORE MagicNumber
+//            } else if (multiplier == MULTIPLIER_THOUSAND) { // CHECKSTYLE IGNORE MagicNumber
+//                scale += SCALE_INCREMENT_FOR_THOUSAND_MULTIPLIER; // CHECKSTYLE IGNORE MagicNumber
+//            }
+//        } else if (formatType == PERCENT_FORMAT) {
+//            scale += SCALE_INCREMENT_FOR_PERCENT_FORMAT; // CHECKSTYLE IGNORE MagicNumber
+//        }
+//        return scale;
+//    }
 
     /**
      * <p>Returns a <code>NumberFormat</code> for the specified Locale.</p>

@@ -2245,35 +2245,76 @@ public class DomainValidator implements Serializable {
      */
     // Needed by UrlValidator
     static String unicodeToASCII(final String input) {
+//        if (isOnlyASCII(input)) { // skip possibly expensive processing
+//            return input;
+//        }
+//        try {
+//            final String ascii = IDN.toASCII(input);
+//            if (IDNBUGHOLDER.IDN_TOASCII_PRESERVES_TRAILING_DOTS) {
+//                return ascii;
+//            }
+//            final int length = input.length();
+//            if (length == 0) {// check there is a last character
+//                return input;
+//            }
+//            // RFC3490 3.1. 1)
+//            //            Whenever dots are used as label separators, the following
+//            //            characters MUST be recognized as dots: U+002E (full stop), U+3002
+//            //            (ideographic full stop), U+FF0E (fullwidth full stop), U+FF61
+//            //            (halfwidth ideographic full stop).
+//            final char lastChar = input.charAt(length-1);// fetch original last char
+//            switch(lastChar) {
+//                case '\u002E': // "." full stop
+//                case '\u3002': // ideographic full stop
+//                case '\uFF0E': // fullwidth full stop
+//                case '\uFF61': // halfwidth ideographic full stop
+//                    return ascii + "."; // restore the missing stop
+//                default:
+//                    return ascii;
+//            }
+//        } catch (final IllegalArgumentException e) { // input is not valid
+//            return input;
+//        }
         if (isOnlyASCII(input)) { // skip possibly expensive processing
             return input;
         }
+
+        final String ascii = toASCIICode(input);
+        if (IDNBUGHOLDER.IDN_TOASCII_PRESERVES_TRAILING_DOTS) {
+            return ascii;
+        }
+
+        return addTrailingDotIfMissing(input, ascii);
+    }
+
+    private static String toASCIICode(final String input) {
         try {
-            final String ascii = IDN.toASCII(input);
-            if (IDNBUGHOLDER.IDN_TOASCII_PRESERVES_TRAILING_DOTS) {
-                return ascii;
-            }
-            final int length = input.length();
-            if (length == 0) {// check there is a last character
-                return input;
-            }
-            // RFC3490 3.1. 1)
-            //            Whenever dots are used as label separators, the following
-            //            characters MUST be recognized as dots: U+002E (full stop), U+3002
-            //            (ideographic full stop), U+FF0E (fullwidth full stop), U+FF61
-            //            (halfwidth ideographic full stop).
-            final char lastChar = input.charAt(length-1);// fetch original last char
-            switch(lastChar) {
-                case '\u002E': // "." full stop
-                case '\u3002': // ideographic full stop
-                case '\uFF0E': // fullwidth full stop
-                case '\uFF61': // halfwidth ideographic full stop
-                    return ascii + "."; // restore the missing stop
-                default:
-                    return ascii;
-            }
+            return IDN.toASCII(input);
         } catch (final IllegalArgumentException e) { // input is not valid
             return input;
+        }
+    }
+
+    private static String addTrailingDotIfMissing(final String input, final String ascii) {
+        final int length = input.length();
+        if (length == 0) {// check there is a last character
+            return input;
+        }
+
+        // RFC3490 3.1. 1)
+        // Whenever dots are used as label separators, the following
+        // characters MUST be recognized as dots: U+002E (full stop), U+3002
+        // (ideographic full stop), U+FF0E (fullwidth full stop), U+FF61
+        // (halfwidth ideographic full stop).
+        final char lastChar = input.charAt(length - 1);// fetch original last char
+        switch (lastChar) {
+            case '\u002E': // "." full stop
+            case '\u3002': // ideographic full stop
+            case '\uFF0E': // fullwidth full stop
+            case '\uFF61': // halfwidth ideographic full stop
+                return ascii + "."; // restore the missing stop
+            default:
+                return ascii;
         }
     }
 

@@ -254,8 +254,9 @@ public class ValidatorResources implements Serializable {
         // Add rules for arg0-arg3 elements
         addOldArgRules(digester);
 
+        final int loopIncrementer =2;
         // register DTDs
-        for (int i = 0; i < REGISTRATIONS.length; i += 2) {
+        for (int i = 0; i < REGISTRATIONS.length; i += loopIncrementer) {
             final URL url = this.getClass().getResource(REGISTRATIONS[i + 1]);
             if (url != null) {
                 digester.register(REGISTRATIONS[i], url.toString());
@@ -448,56 +449,55 @@ public class ValidatorResources implements Serializable {
             final String formKey) {
 
         Form form = null;
-
+        FormProvider formProvider=null;
         // Try language/country/variant
         String key = this.buildLocale(language, country, variant);
         if (!key.isEmpty()) {
-            final FormSet formSet = getFormSets().get(key);
-            if (formSet != null) {
-                form = formSet.getForm(formKey);
+//            final FormSet formSet = getFormSets().get(key);
+//            if (formSet != null) {
+//                form = formSet.getForm(formKey);
+            formProvider = new LanguageCountryVariantFormProvider(language,country,variant,getFormSets());
+            form = formProvider.getForm(formKey);
             }
-        }
+
         final String localeKey  = key;
 
 
         // Try language/country
         if (form == null) {
-            key = buildLocale(language, country, null);
-            if (!key.isEmpty()) {
-                final FormSet formSet = getFormSets().get(key);
-                if (formSet != null) {
-                    form = formSet.getForm(formKey);
-                }
-            }
+//            key = buildLocale(language, country, null);
+//            if (!key.isEmpty()) {
+//                final FormSet formSet = getFormSets().get(key);
+//                if (formSet != null) {
+//                    form = formSet.getForm(formKey);
+//                }
+//            }
+            formProvider = new LanguageCountryFormProvider(language,country,getFormSets());
+            form = formProvider.getForm(formKey);
         }
 
         // Try language
         if (form == null) {
-            key = buildLocale(language, null, null);
-            if (!key.isEmpty()) {
-                final FormSet formSet = getFormSets().get(key);
-                if (formSet != null) {
-                    form = formSet.getForm(formKey);
-                }
-            }
+//            key = buildLocale(language, null, null);
+//            if (!key.isEmpty()) {
+//                final FormSet formSet = getFormSets().get(key);
+//                if (formSet != null) {
+//                    form = formSet.getForm(formKey);
+//                }
+//            }
+            formProvider = new LanguageFormProvider(language,getFormSets());
+            form = formProvider.getForm(formKey);
         }
 
         // Try default formset
         if (form == null) {
-            form = defaultFormSet.getForm(formKey);
+//            form = defaultFormSet.getForm(formKey);
             key = "default";
+            formProvider = new DefaultFormProvider(defaultFormSet,getFormSets());
+            form = formProvider.getForm(formKey);
         }
 
-        if (form == null) {
-            if (getLog().isWarnEnabled()) {
-                getLog().warn("Form '" + formKey + "' not found for locale '" +
-                         localeKey + "'");
-            }
-        } else if (getLog().isDebugEnabled()) {
-            getLog().debug("Form '" + formKey + "' found in formset '" +
-                      key + "' for locale '" + localeKey + "'");
-        }
-
+        formProvider.logFormInfo(getLog(),form,key,localeKey,formKey);
         return form;
 
     }
@@ -556,25 +556,27 @@ public class ValidatorResources implements Serializable {
     private FormSet getParent(final FormSet fs) {
 
         FormSet parent = null;
-        if (fs.getType() == FormSet.LANGUAGE_FORMSET) {
-            parent = defaultFormSet;
-        } else if (fs.getType() == FormSet.COUNTRY_FORMSET) {
-            parent = getFormSets().get(buildLocale(fs.getLanguage(),
-                    null, null));
-            if (parent == null) {
-                parent = defaultFormSet;
-            }
-        } else if (fs.getType() == FormSet.VARIANT_FORMSET) {
-            parent = getFormSets().get(buildLocale(fs.getLanguage(), fs
-                    .getCountry(), null));
-            if (parent == null) {
-                parent = getFormSets().get(buildLocale(fs.getLanguage(),
-                        null, null));
-                if (parent == null) {
-                    parent = defaultFormSet;
-                }
-            }
-        }
+//        if (fs.getType() == FormSet.LANGUAGE_FORMSET) {
+//            parent = defaultFormSet;
+//        } else if (fs.getType() == FormSet.COUNTRY_FORMSET) {
+//            parent = getFormSets().get(buildLocale(fs.getLanguage(),
+//                    null, null));
+//            if (parent == null) {
+//                parent = defaultFormSet;
+//            }
+//        } else if (fs.getType() == FormSet.VARIANT_FORMSET) {
+//            parent = getFormSets().get(buildLocale(fs.getLanguage(), fs
+//                    .getCountry(), null));
+//            if (parent == null) {
+//                parent = getFormSets().get(buildLocale(fs.getLanguage(),
+//                        null, null));
+//                if (parent == null) {
+//                    parent = defaultFormSet;
+//                }
+//            }
+//        }
+        FormSetHierarchy formSetHierarchy = FormSetHierarchy.getInstance(fs,defaultFormSet,getFormSets());
+        parent = formSetHierarchy.getParent();
         return parent;
     }
 

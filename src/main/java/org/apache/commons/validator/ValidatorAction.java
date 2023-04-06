@@ -50,6 +50,8 @@ public class ValidatorAction implements Serializable {
      */
     private transient Log log = LogFactory.getLog(ValidatorAction.class);
 
+    private transient ValidatorActionUtils validatorActionUtils;
+
     /**
      * The name of the validation.
      */
@@ -354,125 +356,9 @@ public class ValidatorAction implements Serializable {
      * Initialize based on set.
      */
     protected void init() {
-        this.loadJavascriptFunction();
-    }
-
-    /**
-     * Load the javascript function specified by the given path.  For this
-     * implementation, the <code>jsFunction</code> property should contain a
-     * fully qualified package and script name, separated by periods, to be
-     * loaded from the class loader that created this instance.
-     *
-     * TODO if the path begins with a '/' the path will be intepreted as
-     * absolute, and remain unchanged.  If this fails then it will attempt to
-     * treat the path as a file path.  It is assumed the script ends with a
-     * '.js'.
-     */
-    protected synchronized void loadJavascriptFunction() {
-
-        if (this.javascriptAlreadyLoaded()) {
-            return;
-        }
-
-        if (getLog().isTraceEnabled()) {
-            getLog().trace("  Loading function begun");
-        }
-
-        if (this.jsFunction == null) {
-            this.jsFunction = this.generateJsFunction();
-        }
-
-        final String javascriptFileName = this.formatJavascriptFileName();
-
-        if (getLog().isTraceEnabled()) {
-            getLog().trace("  Loading js function '" + javascriptFileName + "'");
-        }
-
-        this.javascript = this.readJavascriptFile(javascriptFileName);
-
-        if (getLog().isTraceEnabled()) {
-            getLog().trace("  Loading javascript function completed");
-        }
-
-    }
-
-    /**
-     * Read a javascript function from a file.
-     * @param javascriptFileName The file containing the javascript.
-     * @return The javascript function or null if it could not be loaded.
-     */
-    private String readJavascriptFile(final String javascriptFileName) {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        if (classLoader == null) {
-            classLoader = this.getClass().getClassLoader();
-        }
-
-        InputStream is = classLoader.getResourceAsStream(javascriptFileName);
-        if (is == null) {
-            is = this.getClass().getResourceAsStream(javascriptFileName);
-        }
-
-        if (is == null) {
-            getLog().debug("  Unable to read javascript name "+javascriptFileName);
-            return null;
-        }
-
-        final StringBuilder buffer = new StringBuilder();
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(is)); // TODO encoding
-        try {
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line).append("\n");
-            }
-
-        } catch(final IOException e) {
-            getLog().error("Error reading javascript file.", e);
-
-        } finally {
-            try {
-                reader.close();
-            } catch(final IOException e) {
-                getLog().error("Error closing stream to javascript file.", e);
-            }
-        }
-
-        final String function = buffer.toString();
-        return function.equals("") ? null : function;
-    }
-
-    /**
-     * @return A filename suitable for passing to a
-     * ClassLoader.getResourceAsStream() method.
-     */
-    private String formatJavascriptFileName() {
-        String fname = this.jsFunction.substring(1);
-
-        if (!this.jsFunction.startsWith("/")) {
-            fname = jsFunction.replace('.', '/') + ".js";
-        }
-
-        return fname;
-    }
-
-    /**
-     * @return true if the javascript for this action has already been loaded.
-     */
-    private boolean javascriptAlreadyLoaded() {
-        return (this.javascript != null);
-    }
-
-    /**
-     * Used to generate the javascript name when it is not specified.
-     */
-    private String generateJsFunction() {
-        final StringBuilder jsName =
-                new StringBuilder("org.apache.commons.validator.javascript");
-
-        jsName.append(".validate");
-        jsName.append(name.substring(0, 1).toUpperCase());
-        jsName.append(name.substring(1));
-
-        return jsName.toString();
+        validatorActionUtils = new ValidatorActionUtils();
+        //this.loadJavascriptFunction();
+        validatorActionUtils.loadJavascriptFunction(jsFunction,javascript,log,name);
     }
 
     /**

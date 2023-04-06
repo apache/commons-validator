@@ -157,8 +157,7 @@ public class InetAddressValidator implements Serializable {
         if (containsCompressedZeroes && (inet6Address.indexOf("::") != inet6Address.lastIndexOf("::"))) {
             return false;
         }
-        if ((inet6Address.startsWith(":") && !inet6Address.startsWith("::"))
-                || (inet6Address.endsWith(":") && !inet6Address.endsWith("::"))) {
+        if (ifInetAddressStartsWithColon(inet6Address)) {
             return false;
         }
         String[] octets = inet6Address.split(":");
@@ -209,9 +208,18 @@ public class InetAddressValidator implements Serializable {
             }
             validOctets++;
         }
-        if (validOctets > IPV6_MAX_HEX_GROUPS || (validOctets < IPV6_MAX_HEX_GROUPS && !containsCompressedZeroes)) {
+        if (isValidOctetsInvalidForIpv6(validOctets,containsCompressedZeroes)) {
             return false;
         }
         return true;
+    }
+
+    private boolean isValidOctetsInvalidForIpv6(int validOctets,boolean containsCompressedZeroes){
+        return validOctets > IPV6_MAX_HEX_GROUPS || (validOctets < IPV6_MAX_HEX_GROUPS && !containsCompressedZeroes);
+    }
+
+    private boolean ifInetAddressStartsWithColon(String inet6Address){
+        return (inet6Address.startsWith(":") && !inet6Address.startsWith("::"))
+                || (inet6Address.endsWith(":") && !inet6Address.endsWith("::"));
     }
 }
