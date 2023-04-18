@@ -100,7 +100,7 @@ public class ValidatorUtils {
         try {
             value = PropertyUtils.getProperty(bean, property);
 
-        } catch(IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             LOG.error(e.getMessage(), e);
         }
 

@@ -145,7 +145,7 @@ public class Flags implements Serializable, Cloneable {
     public Object clone() {
         try {
             return super.clone();
-        } catch(final CloneNotSupportedException e) {
+        } catch (final CloneNotSupportedException e) {
             throw new RuntimeException("Couldn't clone Flags object.");
         }
     }

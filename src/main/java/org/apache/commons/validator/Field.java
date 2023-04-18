@@ -672,7 +672,7 @@ public class Field implements Cloneable, Serializable {
         Field field = null;
         try {
             field = (Field) super.clone();
-        } catch(final CloneNotSupportedException e) {
+        } catch (final CloneNotSupportedException e) {
             throw new RuntimeException(e.toString());
         }
 
@@ -739,7 +739,7 @@ public class Field implements Cloneable, Serializable {
             indexProp =
                 PropertyUtils.getProperty(bean, this.getIndexedListProperty());
 
-        } catch(IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
+        } catch (IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
             throw new ValidatorException(e.getMessage());
         }
 
@@ -768,7 +768,7 @@ public class Field implements Cloneable, Serializable {
             indexProp =
                 PropertyUtils.getProperty(bean, this.getIndexedListProperty());
 
-        } catch(IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
+        } catch (IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
             throw new ValidatorException(e.getMessage());
         }
 

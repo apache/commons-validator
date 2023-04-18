@@ -146,7 +146,7 @@ public class EmailValidator {
 
             try {
                 iIpSegment = Integer.parseInt(ipSegment);
-            } catch(final NumberFormatException e) {
+            } catch (final NumberFormatException e) {
                 return false;
             }
 

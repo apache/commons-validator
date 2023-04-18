@@ -80,7 +80,7 @@ public class DateValidator {
 
         try {
             formatter.parse(value);
-        } catch(final ParseException e) {
+        } catch (final ParseException e) {
             return false;
         }
 
@@ -121,7 +121,7 @@ public class DateValidator {
 
         try {
             formatter.parse(value);
-        } catch(final ParseException e) {
+        } catch (final ParseException e) {
             return false;
         }
 

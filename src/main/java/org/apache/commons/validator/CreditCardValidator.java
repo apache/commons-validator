@@ -176,7 +176,7 @@ public class CreditCardValidator {
             int digit = 0;
             try {
                 digit = Integer.parseInt(cardNumber.charAt(count) + "");
-            } catch(final NumberFormatException e) {
+            } catch (final NumberFormatException e) {
                 return false;
             }
 

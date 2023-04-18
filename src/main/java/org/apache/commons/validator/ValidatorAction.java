@@ -425,13 +425,13 @@ public class ValidatorAction implements Serializable {
                 buffer.append(line).append("\n");
             }
 
-        } catch(final IOException e) {
+        } catch (final IOException e) {
             getLog().error("Error reading javascript file.", e);
 
         } finally {
             try {
                 reader.close();
-            } catch(final IOException e) {
+            } catch (final IOException e) {
                 getLog().error("Error closing stream to javascript file.", e);
             }
         }
