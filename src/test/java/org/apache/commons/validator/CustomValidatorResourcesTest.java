@@ -55,14 +55,14 @@ public class CustomValidatorResourcesTest extends TestCase {
         InputStream in = null;
         try {
             in = this.getClass().getResourceAsStream("TestNumber-config.xml");
-        } catch(final Exception e) {
+        } catch (final Exception e) {
             fail("Error loading resources: " + e);
         } finally {
             try {
                 if (in != null) {
                     in.close();
                 }
-            } catch(final Exception e) {
+            } catch (final Exception e) {
             }
         }
     }

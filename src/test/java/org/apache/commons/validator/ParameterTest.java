@@ -79,7 +79,7 @@ public class ParameterTest extends AbstractCommonTest {
         // Get results of the validation.
         try {
             validator.validate();
-        } catch(final Exception e) {
+        } catch (final Exception e) {
             fail("Validator.validate() threw " + e);
         }
         assertParameterValue(validator, Validator.BEAN_PARAM, Object.class);

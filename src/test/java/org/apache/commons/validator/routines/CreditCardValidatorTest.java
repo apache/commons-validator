@@ -142,7 +142,7 @@ public class CreditCardValidatorTest extends TestCase {
         try {
             new CreditCardValidator((CodeValidator[]) null);
             fail("Expected IllegalArgumentException");
-        } catch(final IllegalArgumentException iae) {
+        } catch (final IllegalArgumentException iae) {
             // expected result
         }
     }

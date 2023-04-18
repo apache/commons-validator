@@ -40,7 +40,7 @@ public class ValidatorResourcesTest extends TestCase {
         try {
             new ValidatorResources((InputStream)null);
             fail("Expected IllegalArgumentException");
-        } catch(final IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             // expected result
             // System.out.println("Exception: " + e);
         }
