@@ -123,7 +123,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Tests whether or not the value is a resource key or literal value.
-     * @return <code>true</code> if value is a resource key.
+     * @return {@code true} if value is a resource key.
      * @since 1.2.0
      */
     public boolean isResource() {

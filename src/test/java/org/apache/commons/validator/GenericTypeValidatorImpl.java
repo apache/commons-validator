@@ -32,8 +32,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>byte</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>byte</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Byte validateByte(final Object bean, final Field field) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -47,8 +47,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>byte</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>byte</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Byte validateByte(final Object bean, final Field field, final Locale locale) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -62,8 +62,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>short</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>short</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Short validateShort(final Object bean, final Field field) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -77,8 +77,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>short</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>short</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Short validateShort(final Object bean, final Field field, final Locale locale) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -92,8 +92,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>int</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>int</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Integer validateInt(final Object bean, final Field field) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -107,8 +107,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>int</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>int</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Integer validateInt(final Object bean, final Field field, final Locale locale) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -122,8 +122,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>long</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>long</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Long validateLong(final Object bean, final Field field) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -137,8 +137,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>long</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>long</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Long validateLong(final Object bean, final Field field, final Locale locale) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -152,8 +152,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>float</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>float</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Float validateFloat(final Object bean, final Field field) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -167,8 +167,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>float</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>float</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Float validateFloat(final Object bean, final Field field, final Locale locale) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -182,8 +182,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>double</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>double</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Double validateDouble(final Object bean, final Field field) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -197,8 +197,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>double</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>double</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Double validateDouble(final Object bean, final Field field, final Locale locale) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -212,8 +212,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>date</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>date</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Date validateDate(final Object bean, final Field field, final Locale locale) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -227,8 +227,8 @@ public class GenericTypeValidatorImpl {
     * @param bean The value validation is being performed on.
     * @param field the field to use
     * @return boolean If the field can be successfully converted
-    * to a <code>date</code> <code>true</code> is returned.
-    * Otherwise <code>false</code>.
+    * to a <code>date</code> {@code true} is returned.
+    * Otherwise {@code false}.
     */
    public static Date validateDate(final Object bean, final Field field) {
       final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());

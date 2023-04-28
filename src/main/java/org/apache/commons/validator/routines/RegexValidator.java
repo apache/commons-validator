@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
  * </pre>
  *
  * <ul>
- *   <li>Validate <code>true</code> or <code>false</code>:</li>
+ *   <li>Validate {@code true} or {@code false}:</li>
  *   <li>
  *     <ul>
  *       <li><code>boolean valid = validator.isValid(value);</code></li>
@@ -101,7 +101,7 @@ public class RegexValidator implements Serializable {
      *
      * @param regex The regular expression this validator will
      * validate against
-     * @param caseSensitive when <code>true</code> matching is <i>case
+     * @param caseSensitive when {@code true} matching is <i>case
      * sensitive</i>, otherwise matching is <i>case in-sensitive</i>
      */
     public RegexValidator(final String regex, final boolean caseSensitive) {
@@ -125,7 +125,7 @@ public class RegexValidator implements Serializable {
      *
      * @param regexs The set of regular expressions this validator will
      * validate against
-     * @param caseSensitive when <code>true</code> matching is <i>case
+     * @param caseSensitive when {@code true} matching is <i>case
      * sensitive</i>, otherwise matching is <i>case in-sensitive</i>
      */
     public RegexValidator(final String[] regexs, final boolean caseSensitive) {
@@ -156,8 +156,8 @@ public class RegexValidator implements Serializable {
      * Validates a value against the set of regular expressions.
      *
      * @param value The value to validate.
-     * @return <code>true</code> if the value is valid
-     * otherwise <code>false</code>.
+     * @return {@code true} if the value is valid
+     * otherwise {@code false}.
      */
     public boolean isValid(final String value) {
         if (value == null) {

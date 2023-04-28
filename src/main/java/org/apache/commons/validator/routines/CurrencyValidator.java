@@ -68,10 +68,10 @@ public class CurrencyValidator extends BigDecimalValidator {
     /**
      * Construct an instance with the specified strict setting.
      *
-     * @param strict <code>true</code> if strict
+     * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
-     * @param allowFractions <code>true</code> if fractions are
-     *        allowed or <code>false</code> if integers only.
+     * @param allowFractions {@code true} if fractions are
+     *        allowed or {@code false} if integers only.
      */
     public CurrencyValidator(final boolean strict, final boolean allowFractions) {
         super(strict, CURRENCY_FORMAT, allowFractions);

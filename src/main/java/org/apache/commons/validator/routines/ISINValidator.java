@@ -89,8 +89,8 @@ public class ISINValidator implements Serializable {
      * Check the code is a valid ISIN code after any transformation
      * by the validate routine.
      * @param code The code to validate.
-     * @return <code>true</code> if a valid ISIN
-     * code, otherwise <code>false</code>.
+     * @return {@code true} if a valid ISIN
+     * code, otherwise {@code false}.
      */
     public boolean isValid(final String code) {
         final boolean valid = VALIDATOR.isValid(code);

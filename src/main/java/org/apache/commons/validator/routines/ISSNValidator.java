@@ -107,8 +107,8 @@ public class ISSNValidator implements Serializable {
      * Check the code is a valid ISSN code after any transformation
      * by the validate routine.
      * @param code The code to validate.
-     * @return <code>true</code> if a valid ISSN
-     * code, otherwise <code>false</code>.
+     * @return {@code true} if a valid ISSN
+     * code, otherwise {@code false}.
      */
     public boolean isValid(final String code) {
         return VALIDATOR.isValid(code);

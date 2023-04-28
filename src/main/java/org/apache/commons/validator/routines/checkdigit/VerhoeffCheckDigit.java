@@ -69,8 +69,8 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
      * Validate the Verhoeff <i>Check Digit</i> for a code.
      *
      * @param code The code to validate
-     * @return <code>true</code> if the check digit is valid,
-     * otherwise <code>false</code>
+     * @return {@code true} if the check digit is valid,
+     * otherwise {@code false}
      */
     @Override
     public boolean isValid(final String code) {

@@ -135,7 +135,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      *
      * @param postitionWeight the weighted values to apply based on the
      *            character position
-     * @param useRightPos <code>true</code> if use positionWeights from right to
+     * @param useRightPos {@code true} if use positionWeights from right to
      *            left
      */
     public ModulusTenCheckDigit(final int[] postitionWeight, final boolean useRightPos) {
@@ -149,9 +149,9 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      *
      * @param postitionWeight the weighted values to apply based on the
      *            character position
-     * @param useRightPos <code>true</code> if use positionWeights from right to
+     * @param useRightPos {@code true} if use positionWeights from right to
      *            left
-     * @param sumWeightedDigits <code>true</code> if sum the digits of the
+     * @param sumWeightedDigits {@code true} if sum the digits of the
      *            weighted value
      */
     public ModulusTenCheckDigit(final int[] postitionWeight, final boolean useRightPos, final boolean sumWeightedDigits) {
@@ -167,8 +167,8 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      * Note: assumes last digit is the check digit
      *
      * @param code The code to validate
-     * @return <code>true</code> if the check digit is valid, otherwise
-     *         <code>false</code>
+     * @return {@code true} if the check digit is valid, otherwise
+     *         {@code false}
      */
     @Override
     public boolean isValid(final String code) {

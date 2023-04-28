@@ -480,7 +480,7 @@
  * </p>
  * <ul>
  * <li><code>isValid(<i>code</i>)</code> - validates the check digit of a code,
- * returning <code>true</code> or <code>false</code>.</li>
+ * returning {@code true} or {@code false}.</li>
  * <li><code>calculate(<i>code</i>)</code> - calulates the check digit for a code
  * returning the check digit character.</li>
  * </ul>
@@ -605,7 +605,7 @@
  * <ul>
  * <li><code>isValid(<i>value</i>)</code> - returns a boolean</li>
  * <li><code>validate(<i>value</i>)</code> - returns a reformatted ISBN code
- * (converts ISBN-10 to ISBN-13 if the <i>convert</i> option is <code>true</code>).</li>
+ * (converts ISBN-10 to ISBN-13 if the <i>convert</i> option is {@code true}).</li>
  * </ul>
  * </li>
  * </ul>

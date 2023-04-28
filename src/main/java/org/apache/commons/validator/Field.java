@@ -301,8 +301,8 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Determines whether client-side scripting should be generated
-     * for this field. The default is <code>true</code>
-     * @return <code>true</code> for scripting; otherwise false
+     * for this field. The default is {@code true}
+     * @return {@code true} for scripting; otherwise false
      * @see #setClientValidation(boolean)
      * @since 1.4
      */
@@ -535,8 +535,8 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * If there is a value specified for the indexedProperty field then
-     * <code>true</code> will be returned.  Otherwise it will be
-     * <code>false</code>.
+     * {@code true} will be returned.  Otherwise it will be
+     * {@code false}.
      * @return Whether the Field is indexed.
      */
     public boolean isIndexed() {

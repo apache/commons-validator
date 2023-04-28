@@ -50,12 +50,12 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * Construct an instance with specified <i>strict</i>
      * and <i>decimal</i> parameters.
      *
-     * @param strict <code>true</code> if strict
+     * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
      * @param formatType The <code>NumberFormat</code> type to
      *        create for validation, default is STANDARD_FORMAT.
-     * @param allowFractions <code>true</code> if fractions are
-     *        allowed or <code>false</code> if integers only.
+     * @param allowFractions {@code true} if fractions are
+     *        allowed or {@code false} if integers only.
      */
     public AbstractNumberValidator(final boolean strict, final int formatType, final boolean allowFractions) {
         super(strict);
@@ -67,8 +67,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * <p>Indicates whether the number being validated is
      *    a decimal or integer.</p>
      *
-     * @return <code>true</code> if decimals are allowed
-     *       or <code>false</code> if the number is an integer.
+     * @return {@code true} if decimals are allowed
+     *       or {@code false} if the number is an integer.
      */
     public boolean isAllowFractions() {
         return allowFractions;
@@ -91,7 +91,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @param pattern The pattern used to validate the value against, or the
      *        default for the <code>Locale</code> if <code>null</code>.
      * @param locale The locale to use for the date format, system default if null.
-     * @return <code>true</code> if the value is valid.
+     * @return {@code true} if the value is valid.
      */
     @Override
     public boolean isValid(final String value, final String pattern, final Locale locale) {
@@ -105,7 +105,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @param value The value validation is being performed on.
      * @param min The minimum value of the range.
      * @param max The maximum value of the range.
-     * @return <code>true</code> if the value is within the
+     * @return {@code true} if the value is within the
      *         specified range.
      */
     public boolean isInRange(final Number value, final Number min, final Number max) {
@@ -117,7 +117,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      *
      * @param value The value validation is being performed on.
      * @param min The minimum value.
-     * @return <code>true</code> if the value is greater than
+     * @return {@code true} if the value is greater than
      *         or equal to the minimum.
      */
     public boolean minValue(final Number value, final Number min) {
@@ -132,7 +132,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      *
      * @param value The value validation is being performed on.
      * @param max The maximum value.
-     * @return <code>true</code> if the value is less than
+     * @return {@code true} if the value is less than
      *         or equal to the maximum.
      */
     public boolean maxValue(final Number value, final Number max) {

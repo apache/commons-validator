@@ -64,8 +64,8 @@ public interface CheckDigit {
      * Validates the check digit for the code.
      *
      * @param code The code to validate, the string must include the check digit.
-     * @return <code>true</code> if the check digit is valid, otherwise
-     * <code>false</code>.
+     * @return {@code true} if the check digit is valid, otherwise
+     * {@code false}.
      */
     boolean isValid(String code);
 

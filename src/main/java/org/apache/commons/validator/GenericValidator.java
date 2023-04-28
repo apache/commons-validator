@@ -132,7 +132,7 @@ public class GenericValidator implements Serializable {
     /**
      * <p>Checks if the field is a valid date.  The <code>Locale</code> is
      * used with <code>java.text.DateFormat</code>.  The setLenient method
-     * is set to <code>false</code> for all.</p>
+     * is set to {@code false} for all.</p>
      *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the date format, defaults to the
@@ -148,7 +148,7 @@ public class GenericValidator implements Serializable {
      * <code>java.text.SimpleDateFormat</code>.  If strict is true, then the
      * length will be checked so '2/12/1999' will not pass validation with
      * the format 'MM/dd/yyyy' because the month isn't two digits.
-     * The setLenient method is set to <code>false</code> for all.</p>
+     * The setLenient method is set to {@code false} for all.</p>
      *
      * @param value The value validation is being performed on.
      * @param datePattern The pattern passed to <code>SimpleDateFormat</code>.

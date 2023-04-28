@@ -280,7 +280,7 @@ public class IBANValidator {
      * Validate an IBAN Code
      *
      * @param code The value validation is being performed on
-     * @return <code>true</code> if the value is valid
+     * @return {@code true} if the value is valid
      */
     public boolean isValid(final String code) {
         final Validator formatValidator = getValidator(code);

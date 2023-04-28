@@ -44,7 +44,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * Construct an instance with the specified <i>strict</i>,
      * <i>time</i> and <i>date</i> style parameters.
      *
-     * @param strict <code>true</code> if strict
+     * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
      * @param dateStyle the date style to use for Locale validation.
      * @param timeStyle the time style to use for Locale validation.
@@ -61,7 +61,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
      * @param locale The locale to use for the Format, defaults to the default
-     * @return <code>true</code> if the value is valid.
+     * @return {@code true} if the value is valid.
      */
     @Override
     public boolean isValid(final String value, final String pattern, final Locale locale) {

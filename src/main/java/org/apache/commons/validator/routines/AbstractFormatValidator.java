@@ -38,7 +38,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     /**
      * Construct an instance with the specified strict setting.
      *
-     * @param strict <code>true</code> if strict
+     * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
      */
     public AbstractFormatValidator(final boolean strict) {
@@ -55,11 +55,11 @@ public abstract class AbstractFormatValidator implements Serializable {
      *    value of <code>01/01/20x0</code> using a pattern
      *    of <code>dd/MM/yyyy</code> will result in a year
      *    of <code>20</code> if <code>strict</code> is set
-     *    to <code>false</code>, whereas setting <code>strict</code>
-     *    to <code>true</code> will cause this value to fail
+     *    to {@code false}, whereas setting <code>strict</code>
+     *    to {@code true} will cause this value to fail
      *    validation.</p>
      *
-     * @return <code>true</code> if strict <code>Format</code>
+     * @return {@code true} if strict <code>Format</code>
      *         parsing should be used.
      */
     public boolean isStrict() {
@@ -70,7 +70,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * <p>Validate using the default <code>Locale</code>.
      *
      * @param value The value validation is being performed on.
-     * @return <code>true</code> if the value is valid.
+     * @return {@code true} if the value is valid.
      */
     public boolean isValid(final String value) {
         return isValid(value, (String)null, (Locale)null);
@@ -81,7 +81,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against.
-     * @return <code>true</code> if the value is valid.
+     * @return {@code true} if the value is valid.
      */
     public boolean isValid(final String value, final String pattern) {
         return isValid(value, pattern, (Locale)null);
@@ -92,7 +92,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the Format, defaults to the default
-     * @return <code>true</code> if the value is valid.
+     * @return {@code true} if the value is valid.
      */
     public boolean isValid(final String value, final Locale locale) {
         return isValid(value, (String)null, locale);
@@ -104,7 +104,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
      * @param locale The locale to use for the Format, defaults to the default
-     * @return <code>true</code> if the value is valid.
+     * @return {@code true} if the value is valid.
      */
     public abstract boolean isValid(String value, String pattern, Locale locale);
 

@@ -98,7 +98,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      *           <i>percent</i> number formats (the default).</li>
      *    </ul>
      *
-     * @param strict <code>true</code> if strict
+     * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
      * @param formatType The <code>NumberFormat</code> type to
      *        create for validation, default is STANDARD_FORMAT.
@@ -163,7 +163,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @param value The <code>Number</code> value to check.
      * @param min The minimum value of the range.
      * @param max The maximum value of the range.
-     * @return <code>true</code> if the value is within the
+     * @return {@code true} if the value is within the
      *         specified range.
      */
     public boolean isInRange(final double value, final double min, final double max) {
@@ -176,7 +176,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @param value The <code>Number</code> value to check.
      * @param min The minimum value of the range.
      * @param max The maximum value of the range.
-     * @return <code>true</code> if the value is within the
+     * @return {@code true} if the value is within the
      *         specified range.
      */
     public boolean isInRange(final Double value, final double min, final double max) {
@@ -188,7 +188,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      *
      * @param value The value validation is being performed on.
      * @param min The minimum value.
-     * @return <code>true</code> if the value is greater than
+     * @return {@code true} if the value is greater than
      *         or equal to the minimum.
      */
     public boolean minValue(final double value, final double min) {
@@ -200,7 +200,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      *
      * @param value The value validation is being performed on.
      * @param min The minimum value.
-     * @return <code>true</code> if the value is greater than
+     * @return {@code true} if the value is greater than
      *         or equal to the minimum.
      */
     public boolean minValue(final Double value, final double min) {
@@ -212,7 +212,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      *
      * @param value The value validation is being performed on.
      * @param max The maximum value.
-     * @return <code>true</code> if the value is less than
+     * @return {@code true} if the value is less than
      *         or equal to the maximum.
      */
     public boolean maxValue(final double value, final double max) {
@@ -224,7 +224,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      *
      * @param value The value validation is being performed on.
      * @param max The maximum value.
-     * @return <code>true</code> if the value is less than
+     * @return {@code true} if the value is less than
      *         or equal to the maximum.
      */
     public boolean maxValue(final Double value, final double max) {

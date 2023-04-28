@@ -215,8 +215,8 @@ public final class CodeValidator implements Serializable {
     }
 
     /**
-     * Validate the code returning either <code>true</code>
-     * or <code>false</code>.
+     * Validate the code returning either {@code true}
+     * or {@code false}.
      * <p>
      * This calls {@link #validate(String)} and returns false
      * if the return value is null, true otherwise.
@@ -226,8 +226,8 @@ public final class CodeValidator implements Serializable {
      * change the input as part of the validation.
      *
      * @param input The code to validate
-     * @return <code>true</code> if valid, otherwise
-     * <code>false</code>
+     * @return {@code true} if valid, otherwise
+     * {@code false}
      */
     public boolean isValid(final String input) {
         return (validate(input) != null);

@@ -34,7 +34,7 @@ import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
  * characters removed if valid or <code>null</code> if invalid.
  * <p>
  * This validator also provides the facility to convert ISBN-10 codes to
- * ISBN-13 if the <code>convert</code> property is <code>true</code>.
+ * ISBN-13 if the <code>convert</code> property is {@code true}.
  * <p>
  * From 1st January 2007 the book industry will start to use a new 13 digit
  * ISBN number (rather than this 10 digit ISBN number). ISBN-13 codes are
@@ -120,8 +120,8 @@ public class ISBNValidator implements Serializable {
      * Return a singleton instance of the ISBN validator specifying
      * whether ISBN-10 codes should be converted to ISBN-13.
      *
-     * @param convert <code>true</code> if valid ISBN-10 codes
-     * should be converted to ISBN-13 codes or <code>false</code>
+     * @param convert {@code true} if valid ISBN-10 codes
+     * should be converted to ISBN-13 codes or {@code false}
      * if valid ISBN-10 codes should be returned unchanged.
      * @return A singleton instance of the ISBN validator.
      */
@@ -141,8 +141,8 @@ public class ISBNValidator implements Serializable {
      * Construct an ISBN validator indicating whether
      * ISBN-10 codes should be converted to ISBN-13.
      *
-     * @param convert <code>true</code> if valid ISBN-10 codes
-     * should be converted to ISBN-13 codes or <code>false</code>
+     * @param convert {@code true} if valid ISBN-10 codes
+     * should be converted to ISBN-13 codes or {@code false}
      * if valid ISBN-10 codes should be returned unchanged.
      */
     public ISBNValidator(final boolean convert) {
@@ -153,8 +153,8 @@ public class ISBNValidator implements Serializable {
      * Check the code is either a valid ISBN-10 or ISBN-13 code.
      *
      * @param code The code to validate.
-     * @return <code>true</code> if a valid ISBN-10 or
-     * ISBN-13 code, otherwise <code>false</code>.
+     * @return {@code true} if a valid ISBN-10 or
+     * ISBN-13 code, otherwise {@code false}.
      */
     public boolean isValid(final String code) {
         return isValidISBN13(code) || isValidISBN10(code);
@@ -164,8 +164,8 @@ public class ISBNValidator implements Serializable {
      * Check the code is a valid ISBN-10 code.
      *
      * @param code The code to validate.
-     * @return <code>true</code> if a valid ISBN-10
-     * code, otherwise <code>false</code>.
+     * @return {@code true} if a valid ISBN-10
+     * code, otherwise {@code false}.
      */
     public boolean isValidISBN10(final String code) {
         return isbn10Validator.isValid(code);
@@ -175,8 +175,8 @@ public class ISBNValidator implements Serializable {
      * Check the code is a valid ISBN-13 code.
      *
      * @param code The code to validate.
-     * @return <code>true</code> if a valid ISBN-13
-     * code, otherwise <code>false</code>.
+     * @return {@code true} if a valid ISBN-13
+     * code, otherwise {@code false}.
      */
     public boolean isValidISBN13(final String code) {
         return isbn13Validator.isValid(code);
@@ -189,7 +189,7 @@ public class ISBNValidator implements Serializable {
      * formatting characters removed (i.e. space or hyphen).
      * <p>
      * Converts an ISBN-10 codes to ISBN-13 if
-     * <code>convertToISBN13</code> is <code>true</code>.
+     * <code>convertToISBN13</code> is {@code true}.
      *
      * @param code The code to validate.
      * @return A valid ISBN code if valid, otherwise <code>null</code>.

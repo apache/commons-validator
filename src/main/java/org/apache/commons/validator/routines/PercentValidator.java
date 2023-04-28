@@ -73,7 +73,7 @@ public class PercentValidator extends BigDecimalValidator {
     /**
      * Construct an instance with the specified strict setting.
      *
-     * @param strict <code>true</code> if strict
+     * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
      */
     public PercentValidator(final boolean strict) {

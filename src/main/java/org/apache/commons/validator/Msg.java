@@ -106,7 +106,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Tests whether or not the key is a resource key or literal value.
-     * @return <code>true</code> if key is a resource key.
+     * @return {@code true} if key is a resource key.
      * @since 1.1.4
      */
     public boolean isResource() {

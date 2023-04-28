@@ -107,7 +107,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * Construct an instance with the specified <i>strict</i>
      * and <i>time style</i> parameters.
      *
-     * @param strict <code>true</code> if strict
+     * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
      * @param timeStyle the time style to use for Locale validation.
      */

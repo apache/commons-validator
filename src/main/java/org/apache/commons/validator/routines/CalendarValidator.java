@@ -110,7 +110,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
      * Construct an instance with the specified <i>strict</i>
      * and <i>date style</i> parameters.
      *
-     * @param strict <code>true</code> if strict
+     * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
      * @param dateStyle the date style to use for Locale validation.
      */

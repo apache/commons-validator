@@ -89,8 +89,8 @@ public class ValidatorResults implements Serializable {
     }
 
     /**
-     * Return <code>true</code> if there are no messages recorded
-     * in this collection, or <code>false</code> otherwise.
+     * Return {@code true} if there are no messages recorded
+     * in this collection, or {@code false} otherwise.
      *
      * @return Whether these results are empty.
      */
