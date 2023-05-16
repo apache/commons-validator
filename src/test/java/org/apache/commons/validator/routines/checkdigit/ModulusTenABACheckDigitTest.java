@@ -34,8 +34,7 @@ public class ModulusTenABACheckDigitTest extends AbstractCheckDigitTest {
      * Set up routine & valid codes.
      */
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    protected void setUp() {
         routine = new ModulusTenCheckDigit(new int[] { 1, 7, 3 }, true);
         valid = new String[] {
                 "123456780",

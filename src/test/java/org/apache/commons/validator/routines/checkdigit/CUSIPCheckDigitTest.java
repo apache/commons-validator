@@ -36,8 +36,7 @@ public class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
      * Set up routine & valid codes.
      */
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    protected void setUp() {
         routine = CUSIPCheckDigit.CUSIP_CHECK_DIGIT;
         valid = new String[] {"037833100",
                               "931142103",

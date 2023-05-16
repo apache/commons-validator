@@ -104,8 +104,7 @@ public class TimeValidatorTest extends TestCase {
     }
 
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    protected void setUp() {
         validator = new TimeValidator();
         defaultZone = TimeZone.getDefault();
         origDefault = Locale.getDefault();
@@ -113,11 +112,9 @@ public class TimeValidatorTest extends TestCase {
 
     /**
      * Tear down
-     * @throws Exception
      */
     @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    protected void tearDown() {
         validator = null;
         Locale.setDefault(origDefault);
         TimeZone.setDefault(defaultZone);

@@ -40,7 +40,7 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
     }
 
     @Override
-    protected void setUp() throws Exception {
+    protected void setUp() {
         super.setUp();
 
         validator       = new ByteValidator(false, 0);

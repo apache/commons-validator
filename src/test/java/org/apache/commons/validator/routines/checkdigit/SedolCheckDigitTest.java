@@ -36,8 +36,7 @@ public class SedolCheckDigitTest extends AbstractCheckDigitTest {
      * Set up routine & valid codes.
      */
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    protected void setUp() {
         routine = SedolCheckDigit.SEDOL_CHECK_DIGIT;
         valid = new String[] {
                 "0263494",

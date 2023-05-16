@@ -34,8 +34,7 @@ public class ModulusTenSedolCheckDigitTest extends AbstractCheckDigitTest {
      * Set up routine & valid codes.
      */
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    protected void setUp() {
         routine = new ModulusTenCheckDigit(new int[] { 1, 3, 1, 7, 3, 9, 1 });
         valid = new String[] {
                 "0263494",

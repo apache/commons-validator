@@ -65,20 +65,15 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
     }
 
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
+    protected void setUp() {
         Locale.setDefault(Locale.US);
-
     }
 
     /**
      * Tear down
-     * @throws Exception
      */
     @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    protected void tearDown() {
         validator = null;
         strictValidator = null;
     }

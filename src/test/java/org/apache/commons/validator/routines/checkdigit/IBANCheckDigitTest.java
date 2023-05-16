@@ -44,8 +44,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      * Set up routine & valid codes.
      */
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    protected void setUp() {
         routine = IBANCheckDigit.IBAN_CHECK_DIGIT;
         valid  = new String[]  {
                 "AD1200012030200359100100",      // Andorra

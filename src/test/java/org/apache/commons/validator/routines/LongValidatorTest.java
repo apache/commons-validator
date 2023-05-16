@@ -42,7 +42,7 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
     }
 
     @Override
-    protected void setUp() throws Exception {
+    protected void setUp() {
         super.setUp();
 
         validator       = new LongValidator(false, 0);

@@ -32,7 +32,7 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
     }
 
     @Override
-    protected void setUp() throws Exception {
+    protected void setUp() {
         super.setUp();
 
         validator       = new ShortValidator(false, 0);

@@ -36,8 +36,7 @@ public class ISINCheckDigitTest extends AbstractCheckDigitTest {
      * Set up routine & valid codes.
      */
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    protected void setUp() {
         routine = ISINCheckDigit.ISIN_CHECK_DIGIT;
         valid = new String[] {"US0378331005",
                               "BMG8571G1096",

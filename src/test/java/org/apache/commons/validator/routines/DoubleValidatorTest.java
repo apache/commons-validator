@@ -32,7 +32,7 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
     }
 
     @Override
-    protected void setUp() throws Exception {
+    protected void setUp() {
         super.setUp();
 
         validator       = new DoubleValidator(false, 0);

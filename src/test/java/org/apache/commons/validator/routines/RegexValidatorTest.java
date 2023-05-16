@@ -77,22 +77,6 @@ public class RegexValidatorTest extends TestCase {
     }
 
     /**
-     * Set Up.
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    /**
-     * Tear Down.
-     */
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
-
-    /**
      * Test exceptions
      */
     public void testExceptions() {

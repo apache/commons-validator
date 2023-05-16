@@ -42,10 +42,9 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     }
 
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    protected void setUp() {
         calValidator = new CalendarValidator();
-        validator         = calValidator;
+        validator = calValidator;
     }
 
     /**

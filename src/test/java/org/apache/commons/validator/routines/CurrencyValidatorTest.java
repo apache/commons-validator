@@ -41,19 +41,9 @@ public class CurrencyValidatorTest extends TestCase {
     }
 
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    protected void setUp() {
         US_DOLLAR = (new DecimalFormatSymbols(Locale.US)).getCurrencySymbol();
         UK_POUND  = (new DecimalFormatSymbols(Locale.UK)).getCurrencySymbol();
-    }
-
-    /**
-     * Tear down
-     * @throws Exception
-     */
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     /**

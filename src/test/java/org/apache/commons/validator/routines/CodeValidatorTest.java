@@ -37,22 +37,6 @@ public class CodeValidatorTest extends TestCase {
     }
 
     /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    /**
-     * @see junit.framework.TestCase#tearDown()
-     */
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
-
-    /**
      * Test Check Digit.
      */
     public void testCheckDigit() {
