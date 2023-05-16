@@ -274,12 +274,10 @@ public class ValidatorResources implements Serializable {
      * working.
      */
     private void addOldArgRules(final Digester digester) {
-
         // Create a new rule to process args elements
         final Rule rule = new Rule() {
             @Override
-            public void begin(final String namespace, final String name,
-                               final Attributes attributes) throws Exception {
+            public void begin(final String namespace, final String name, final Attributes attributes) {
                 // Create the Arg
                 final Arg arg = new Arg();
                 arg.setKey(attributes.getValue("key"));
@@ -291,12 +289,11 @@ public class ValidatorResources implements Serializable {
                     final int length = "arg".length(); // skip the arg prefix
                     arg.setPosition(Integer.parseInt(name.substring(length)));
                 } catch (final Exception ex) {
-                    getLog().error("Error parsing Arg position: "
-                               + name + " " + arg + " " + ex);
+                    getLog().error("Error parsing Arg position: " + name + " " + arg + " " + ex);
                 }
 
                 // Add the arg to the parent field
-                ((Field)getDigester().peek(0)).addArg(arg);
+                ((Field) getDigester().peek(0)).addArg(arg);
             }
         };
 
