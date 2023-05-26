@@ -72,7 +72,7 @@
            <ul>
              <li>
                Create a new instance of the
-               <code>org.apache.commons.validator.Validator</code> class. Currently
+               <code>org.apache.commons.validator2.Validator</code> class. Currently
                Validator instances may be safely reused if the current
                ValidatorResources are the same, as long as you have completed any
                previous validation, and you do not try to utilize a particular
@@ -84,7 +84,7 @@
              </li>
              <li>
                Call the validate method on
-               <code>org.apache.commons.validator.Validator</code>.
+               <code>org.apache.commons.validator2.Validator</code>.
              </li>
            </ul>
       </subsection>

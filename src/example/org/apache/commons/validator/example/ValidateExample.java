@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.validator.example;
+package org.apache.commons.validator2.example;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,14 +23,14 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.apache.commons.validator.Field;
-import org.apache.commons.validator.Form;
-import org.apache.commons.validator.Validator;
-import org.apache.commons.validator.ValidatorAction;
-import org.apache.commons.validator.ValidatorException;
-import org.apache.commons.validator.ValidatorResources;
-import org.apache.commons.validator.ValidatorResult;
-import org.apache.commons.validator.ValidatorResults;
+import org.apache.commons.validator2.Field;
+import org.apache.commons.validator2.Form;
+import org.apache.commons.validator2.Validator;
+import org.apache.commons.validator2.ValidatorAction;
+import org.apache.commons.validator2.ValidatorException;
+import org.apache.commons.validator2.ValidatorResources;
+import org.apache.commons.validator2.ValidatorResult;
+import org.apache.commons.validator2.ValidatorResults;
 import org.xml.sax.SAXException;
 
 /**                                                       

@@ -1,0 +1,741 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * This package contains <i>independent</i> validation routines.
+ * <h2>Table of Contents</h2>
+ * <ul>
+ * <li>1. <a href="#overview">Overview</a></li>
+ * <li>2. <a href="#date">Date and Time Validators</a>
+ * <ul>
+ * <li>2.1 <a href="#date.overview">Overview</a></li>
+ * <li>2.2 <a href="#date.validate">Validating a Date Value</a></li>
+ * <li>2.3 <a href="#date.format">Formatting</a></li>
+ * <li>2.4 <a href="#date.timezone">Time Zones</a></li>
+ * <li>2.5 <a href="#date.compare">Comparing Dates and Times</a></li>
+ * </ul>
+ * </li>
+ * <li>3. <a href="#numeric">Numeric Validators</a>
+ * <ul>
+ * <li>3.1 <a href="#numeric.overview">Overview</a></li>
+ * <li>3.2 <a href="#numeric.validate">Validating a Numeric Value</a></li>
+ * <li>3.3 <a href="#numeric.format">Formatting</a></li>
+ * <li>3.4 <a href="#numeric.compare">Comparing Numbers</a></li>
+ * <li>3.5 <a href="#numeric.currency">Currency Validation</a></li>
+ * <li>3.6 <a href="#numeric.percent">Percent Validation</a></li>
+ * </ul>
+ * </li>
+ * <li>4. <a href="#other">Other Validators</a>
+ * <ul>
+ * <li>4.1 <a href="#other.overview">Overview</a></li>
+ * <li>4.2 <a href="#other.regex">Regular Expression validation</a></li>
+ * <li>4.3 <a href="#other.checkdigit">Check Digit Validation/Calculation</a></li>
+ * <li>4.4 <a href="#other.code">General Code Validation</a></li>
+ * <li>4.5 <a href="#other.isbn">ISBN Validation</a></li>
+ * <li>4.6 <a href="#other.inet">IP Address Validation</a></li>
+ * <li>4.7 <a href="#other.email">Email Address Validation</a></li>
+ * <li>4.8 <a href="#other.url">URL Validation</a></li>
+ * <li>4.9 <a href="#other.domain">Domain Name Validation</a></li>
+ * </ul>
+ * </li>
+ * </ul>
+ * <a id="overview"></a>
+ * <h2>1. Overview</h2>
+ * <p>
+ * Commons Validator serves two purposes:
+ * </p>
+ * <ul>
+ * <li>To provide standard, independent validation routines/functions.</li>
+ * <li>To provide a <i>mini</i> framework for Validation.</li>
+ * </ul>
+ * <p>
+ * This package has been created, since version 1.3.0, in an attempt to clearly
+ * separate these two concerns and is the location for the standard, independent
+ * validation routines/functions in <em>Commons Validator</em>.
+ * </p>
+ * <p>
+ * The contents of this package have no dependencies on the framework aspect of
+ * Commons Validator and can be used on their own.
+ * </p>
+ * <a id="date"></a>
+ * <h2>2. Date and Time Validators</h2>
+ * <a id="date.overview"></a>
+ * <h2>2.1 Overview</h2>
+ * <p>
+ * The date and time validators either validate according to a specified <i>format</i>
+ * or use a standard <i>format</i> for a specified <code>Locale</code>.
+ * </p>
+ * <ul>
+ * <li><a href="DateValidator.html">Date Validator</a> - validates dates
+ * converting to a <code>java.util.Date</code> type.</li>
+ * <li><a href="CalendarValidator.html">Calendar Validator</a> - validates dates
+ * converting to a <code>java.util.Calendar</code> type.</li>
+ * <li><a href="TimeValidator.html">Time Validator</a> - validates times
+ * converting to a <code>java.util.Calendar</code> type.</li>
+ * </ul>
+ * <a id="date.validate"></a>
+ * <h2>2.2 Validating a Date Value</h2>
+ * <p>
+ * You can either use one of the <code>isValid()</code> methods to just determine
+ * if a date is valid, or use one of the <code>validate()</code> methods to
+ * validate a date and convert it to a <code>java.util.Date</code>...
+ * </p>
+ * <pre>
+ * // Get the Date validator
+ * DateValidator validator = DateValidator.getInstance();
+ * // Validate/Convert the date
+ * Date fooDate = validator.validate(fooString, "dd/MM/yyyy");
+ * if (fooDate == null) {
+ * // error...not a valid date
+ * return;
+ * }
+ * </pre>
+ * <p>The following methods are provided to validate a date/time (return a boolean result):
+ * </p>
+ * <ul>
+ * <li><code>isValid(<i>value</i>)</code></li>
+ * <li><code>isValid(<i>value</i>, <i>pattern</i>)</code></li>
+ * <li><code>isValid(<i>value</i>, Locale)</code></li>
+ * <li><code>isValid(<i>value</i>, <i>pattern</i>, Locale)</code></li>
+ * </ul>
+ * <p>The following methods are provided to validate a date/time and convert it to either a
+ * <code>java.util.Date</code> or <code>java.util.Calendar</code>:
+ * </p>
+ * <ul>
+ * <li><code>validate(<i>value</i>)</code></li>
+ * <li><code>validate(<i>value</i>, <i>pattern</i>)</code></li>
+ * <li><code>validate(<i>value</i>, Locale)</code></li>
+ * <li><code>validate(<i>value</i>, <i>pattern</i>, Locale)</code></li>
+ * </ul>
+ * <a id="date.format"></a>
+ * <h2>2.3 Formatting</h2>
+ * <p>
+ * Formatting and validating are two sides of the same coin. Typically
+ * <i>input</i> values which are converted from Strings according to a
+ * specified <i>format</i> also have to be rendered for <i>output</i> in
+ * the same format. These validators provide the mechanism for formatting from
+ * date/time objects to Strings. The following methods are provided to format
+ * date/time values as Strings:
+ * </p>
+ * <ul>
+ * <li><code>format(<i>date/calendar</i>)</code></li>
+ * <li><code>format(<i>date/calendar</i>, <i>pattern</i>)</code></li>
+ * <li><code>format(<i>date/calendar</i>, Locale)</code></li>
+ * <li><code>format(<i>date/calendar</i>, <i>pattern</i>, Locale)</code></li>
+ * </ul>
+ * <a id="date.timezone"></a>
+ * <h2>2.4 Time Zones</h2>
+ * <p>
+ * If the date being parsed relates to a different time zone than the
+ * system default, you can specify the <code>TimeZone</code> to use when
+ * validating/converting:
+ * </p>
+ * <pre>
+ * // Get the GMT time zone
+ * TimeZone GMT = TimeZone.getInstance("GMT");
+ * // Validate/Convert the date using GMT
+ * Date fooDate = validator.validate(fooString, "dd/MM/yyyy", GMT);
+ * </pre>
+ * <p>The following Time Zone <i>flavours</i> of the Validation/Conversion methods
+ * are provided:</p>
+ * <ul>
+ * <li><code>validate(<i>value</i>, TimeZone)</code></li>
+ * <li><code>validate(<i>value</i>, <i>pattern</i>, TimeZone)</code></li>
+ * <li><code>validate(<i>value</i>, Locale, TimeZone)</code></li>
+ * <li><code>validate(<i>value</i>, <i>pattern</i>, Locale, TimeZone)</code></li>
+ * </ul>
+ * <a id="date.compare"></a>
+ * <h2>2.5 Comparing Dates and Times</h2>
+ * <p>
+ * As well as validating that a value is a valid date or time, these validators
+ * also provide <i>date comparison</i> functions. The <code>DateValidator</code>
+ * and <code>CalendarValidator</code> provide functions for comparing years,
+ * quarters, months, weeks and dates and the <code>TimeValidator</code> provides
+ * functions for comparing hours, minutes, seconds and milliseconds.
+ * For example, to check that a date is in the current month, you could use
+ * the <code>compareMonths()</code> method, which compares the year and month
+ * components of a date:
+ * </p>
+ * <pre>
+ * // Check if the date is in the current month
+ * int compare = validator.compareMonths(fooDate, new Date(), null);
+ * if (compare == 0) {
+ * // do current month processing
+ * return;
+ * }
+ * // Check if the date is in the previous quarter
+ * compare = validator.compareQuarters(fooDate, new Date(), null);
+ * if (compare &lt; 0) {
+ * // do previous quarter processing
+ * return;
+ * }
+ * // Check if the date is in the next year
+ * compare = validator.compareYears(fooDate, new Date(), null);
+ * if (compare &gt; 0) {
+ * // do next year processing
+ * return;
+ * }
+ * </pre>
+ * <a id="numeric"></a>
+ * <h2>3 Numeric Validators</h2>
+ * <a id="numeric.overview"></a>
+ * <h2>3.1 Overview</h2>
+ * <p>
+ * The numeric validators either validate according to a specified <i>format</i>
+ * or use a standard <i>format</i> for a specified <code>Locale</code> or use
+ * a <i>custom</i> format for a specified <code>Locale</code>.
+ * </p>
+ * <ul>
+ * <li><a href="ByteValidator.html">Byte Validator</a> - validates numbers
+ * converting to a <code>java.lang.Byte</code> type.</li>
+ * <li><a href="ShortValidator.html">Short Validator</a> - validates numbers
+ * converting to a <code>java.lang.Short</code> type.</li>
+ * <li><a href="IntegerValidator.html">Integer Validator</a> - validates numbers
+ * converting to a <code>java.lang.Integer</code> type.</li>
+ * <li><a href="LongValidator.html">Long Validator</a> - validates numbers
+ * converting to a <code>java.lang.Long</code> type.</li>
+ * <li><a href="FloatValidator.html">Float Validator</a> - validates numbers
+ * converting to a <code>java.lang.Float</code> type.</li>
+ * <li><a href="DoubleValidator.html">Double Validator</a> - validates numbers
+ * converting to a <code>java.lang.Double</code> type.</li>
+ * <li><a href="BigIntegerValidator.html">BigInteger Validator</a> - validates numbers
+ * converting to a <code>java.math.BigInteger</code> type.</li>
+ * <li><a href="BigDecimalValidator.html">BigDecimal Validator</a> - validates numbers
+ * converting to a <code>java.math.BigDecimal</code> type.</li>
+ * </ul>
+ * <a id="numeric.validate"></a>
+ * <h2>3.2 Validating a Numeric Value</h2>
+ * <p>
+ * You can either use one of the <code>isValid()</code> methods to just determine
+ * if a number is valid, or use one of the <code>validate()</code> methods to
+ * validate a number and convert it to an appropriate type.
+ * </p>
+ * <p>
+ * The following example validates an integer against a custom pattern
+ * for the <i>German</i> locale. Please note the format is specified using
+ * the standard symbols for <code>java.text.DecimalFormat</code> so although
+ * the decimal separator is indicated as a period (".") in the format, the
+ * validator will check using the German decimal separator - which is a comma (",").
+ * </p>
+ * <pre>
+ * // Get the Integer validator
+ * IntegerValidator validator = IntegerValidator.getInstance();
+ * // Validate/Convert the number
+ * Integer fooInteger = validator.validate(fooString, "#,##0.00", Locale.GERMAN);
+ * if (fooInteger == null) {
+ * // error...not a valid Integer
+ * return;
+ * }
+ * </pre>
+ * <p>The following methods are provided to validate a number (return a boolean result):</p>
+ * <ul>
+ * <li><code>isValid(<i>value</i>)</code></li>
+ * <li><code>isValid(<i>value</i>, <i>pattern</i>)</code></li>
+ * <li><code>isValid(<i>value</i>, Locale)</code></li>
+ * <li><code>isValid(<i>value</i>, <i>pattern</i>, Locale)</code></li>
+ * </ul>
+ * <p>The following methods are provided to validate a number and convert it one of
+ * the <code>java.lang.Number</code> implementations:</p>
+ * <ul>
+ * <li><code>validate(<i>value</i>)</code></li>
+ * <li><code>validate(<i>value</i>, <i>pattern</i>)</code></li>
+ * <li><code>validate(<i>value</i>, Locale)</code></li>
+ * <li><code>validate(<i>value</i>, <i>pattern</i>, Locale)</code></li>
+ * </ul>
+ * <a id="numeric.format"></a>
+ * <h2>3.3 Formatting</h2>
+ * <p>
+ * Formatting and validating are two sides of the same coin. Typically
+ * <i>input</i> values which are converted from Strings according to a
+ * specified <i>format</i> also have to be rendered for <i>output</i> in
+ * the same format. These validators provide the mechanism for formatting from
+ * numeric objects to Strings. The following methods are provided to format
+ * numeric values as Strings:
+ * </p>
+ * <ul>
+ * <li><code>format(<i>number</i>)</code></li>
+ * <li><code>format(<i>number</i>, <i>pattern</i>)</code></li>
+ * <li><code>format(<i>number</i>, Locale)</code></li>
+ * <li><code>format(<i>number</i>, <i>pattern</i>, Locale)</code></li>
+ * </ul>
+ * <a id="numeric.compare"></a>
+ * <h2>3.4 Comparing Numbers</h2>
+ * <p>
+ * As well as validating that a value is a valid number, these validators
+ * also provide functions for validating the <i>minimum</i>, <i>maximum</i>
+ * and <i>range</i> of a value.
+ * </p>
+ * <pre>
+ * // Check the number is between 25 and 75
+ * if (validator.isInRange(fooInteger, 25, 75) {
+ * // valid...in the specified range
+ * return;
+ * }
+ * </pre>
+ * <a id="numeric.currency"></a>
+ * <h2>3.5 Currency Validation</h2>
+ * <p>
+ * A default <a href="CurrencyValidator.html">Currency Validator</a>
+ * implementation is provided, although all the <i>numeric</i> validators
+ * support currency validation. The default implementation converts
+ * currency amounts to a <code>java.math.BigDecimal</code> and additionally
+ * it provides <i>lenient</i> currency symbol validation. That is, currency
+ * amounts are valid with <i>or</i> without the currency symbol.
+ * </p>
+ * <pre>
+ * BigDecimalValidator validator = CurrencyValidator.getInstance();
+ * BigDecimal fooAmount = validator.validate("$12,500.00", Locale.US);
+ * if (fooAmount == null) {
+ * // error...not a valid currency amount
+ * return;
+ * }
+ * // Check the amount is a minimum of $1,000
+ * if (validator.minValue(fooAmount, 1000) {
+ * // valid...in the specified range
+ * return;
+ * }
+ * </pre>
+ * <p>
+ * If, for example, you want to use the <a href="IntegerValidator.html">Integer
+ * Validator</a> to validate a currency, then you can simply create a
+ * new instance with the appropriate <i>format style</i>. Note that
+ * the other validators do not support the <i>lenient</i> currency symbol
+ * validation.
+ * </p>
+ * <pre>
+ * IntegerValidator validator =
+ * new IntegerValidator(true, IntegerValidator.CURRENCY_FORMAT);
+ * String pattern = "#,###" + '\u00A4' + '\u00A4';  // Use international symbol
+ * Integer fooAmount = validator.validate("10.100EUR", pattern, Locale.GERMAN);
+ * if (fooAmount == null) {
+ * // error...not a valid currency amount
+ * return;
+ * }
+ * </pre>
+ * <a id="numeric.percent"></a>
+ * <h2>3.6 Percent Validation</h2>
+ * <p>
+ * A default <a href="PercentValidator.html">Percent Validator</a>
+ * implementation is provided, although the <i>Float</i>,
+ * <i>Double</i> and <i>BigDecimal</i> validators also support
+ * percent validation. The default implementation converts
+ * percent amounts to a <code>java.math.BigDecimal</code> and additionally
+ * it provides <i>lenient</i> percent symbol validation. That is, percent
+ * amounts are valid with <i>or</i> without the percent symbol.
+ * </p>
+ * <pre>
+ * BigDecimalValidator validator = PercentValidator.getInstance();
+ * BigDecimal fooPercent = validator.validate("20%", Locale.US);
+ * if (fooPercent == null) {
+ * // error...not a valid percent
+ * return;
+ * }
+ * // Check the percent is between 10% and 90%
+ * if (validator.isInRange(fooPercent, 0.1, 0.9) {
+ * // valid...in the specified range
+ * return;
+ * }
+ * </pre>
+ * <p>
+ * If, for example, you want to use the <a href="FloatValidator.html">Float
+ * Validator</a> to validate a percent, then you can simply create a
+ * new instance with the appropriate <i>format style</i>. Note that
+ * the other validators do not support the <i>lenient</i> percent symbol
+ * validation.
+ * </p>
+ * <pre>
+ * FloatValidator validator =
+ * new FloatValidator(true, FloatValidator.PERCENT_FORMAT);
+ * Float fooPercent = validator.validate("20%", "###%");
+ * if (fooPercent == null) {
+ * // error...not a valid percent
+ * return;
+ * }
+ * </pre>
+ * <p>
+ * <strong>Note</strong>: in theory the other numeric validators besides
+ * <i>Float</i>, <i>Double</i> and <i>BigDecimal</i> (i.e. <i>Byte</i>,
+ * <i>Short</i>, <i>Integer</i>, <i>Long</i> and <i>BigInteger</i>)
+ * also support percent validation. However, since they don't allow fractions
+ * they will only work with percentages greater than 100%.
+ * </p>
+ * <a id="other"></a>
+ * <h2>4. Other Validators</h2>
+ * <a id="other.overview"></a>
+ * <h2>4.1 Overview</h2>
+ * <p>
+ * This section lists other available validators.
+ * </p>
+ * <ul>
+ * <li><a href="#other.regex">Regular Expressions</a> - validates
+ * using Java 1.4+ regular expression support</li>
+ * <li><a href="#other.checkdigit">Check Digit</a> - validates/calculates
+ * check digits (i.e. EAN/UPC, credit card, ISBN).</li>
+ * <li><a href="#other.code">Code Validation</a> - provides generic
+ * code validation - format, minimum/maximum length and check digit.</li>
+ * <li><a href="#other.isbn">ISBN Validation</a> - provides ISBN-10
+ * and ISBN-13 validation.</li>
+ * <li><a href="#other.inet">IP Address Validation</a> - provides IPv4 address
+ * validation.</li>
+ * <li><a href="#other.email">Email Address Validation</a> - provides email
+ * address validation according to RFC 822 standards.</li>
+ * <li><a href="#other.url">URL Validation</a> - provides URL validation on
+ * scheme, domain, and authority.</li>
+ * <li><a href="#other.domain">Domain Name Validation</a> - provides domain
+ * name and IANA TLD validation.</li>
+ * </ul>
+ * <a id="other.regex"></a>
+ * <h2>4.2 Regular Expression Validation</h2>
+ * <p>
+ * Regular expression validation can be done either by using the <i>static</i>
+ * methods provied by <a href="RegexValidator.html">RegexValidator</a> or
+ * by creating a new instance, which caches and re-uses compiled Patterns.
+ * </p>
+ * <ul>
+ * <li><b>Method Flavours</b> - three <i>flavours</i> of validation metods are provided:</li>
+ * <li>
+ * <ul>
+ * <li><code>isValid()</code> methods return true/false to indicate
+ * whether validation was successful.</li>
+ * <li><code>validate()</code> methods return a <code>String</code>
+ * value of the matched <i>groups</i> aggregated together or
+ * <code>null</code> if invalid.</li>
+ * <li><code>match()</code> methods return a <code>String</code> array
+ * of the matched <i>groups</i> or <code>null</code> if invalid.</li>
+ * </ul>
+ * </li>
+ * <li><b>Case Sensitivity</b> - matching can be done in either a <i>case
+ * sensitive</i> or <i>case in-sensitive</i> way.</li>
+ * <li><b>Multiple Expressions</b> - instances of the
+ * <a href="RegexValidator.html">RegexValidator</a>
+ * can be created to either match against a single regular expression
+ * or set (String array) of regular expressions.</li>
+ * </ul>
+ * <p>
+ * Below is an example of using one of the static methods to validate,
+ * matching in a <i>case insensitive</i> manner and returning a String
+ * of the matched groups (which doesn't include the hyphen).
+ * </p>
+ * <pre>
+ * // set up the parameters
+ * boolean caseSensitive   = false;
+ * String regex            = "^([A-Z]*)(?:\\-)([A-Z]*)$";
+ * // validate - result should be a String of value "abcdef"
+ * String result = RegexValidator.validate("abc-def", regex, caseSensitive);
+ * </pre>
+ * <p>The following static methods are provided for regular expression validation:
+ * </p>
+ * <ul>
+ * <li><code>isValid(<i>value</i>, <i>regex</i>)</code></li>
+ * <li><code>isValid(<i>value</i>, <i>regex</i>, <i>caseSensitive</i>)</code></li>
+ * <li><code>validate(<i>value</i>, <i>regex</i>)</code></li>
+ * <li><code>validate(<i>value</i>, <i>regex</i>, <i>caseSensitive</i>)</code></li>
+ * <li><code>match(<i>value</i>, <i>regex</i>)</code></li>
+ * <li><code>match(<i>value</i>, <i>regex</i>, <i>caseSensitive</i>)</code></li>
+ * </ul>
+ * <p>
+ * Below is an example of creating an instance of
+ * <a href="RegexValidator.html">RegexValidator</a> matching in a <i>case insensitive</i>
+ * manner against a set of regular expressions:
+ * </p>
+ * <pre>
+ * // set up the parameters
+ * boolean caseSensitive = false;
+ * String regex1   = "^([A-Z]*)(?:\\-)([A-Z]*)*$"
+ * String regex2   = "^([A-Z]*)$";
+ * String[] regexs = new String[] {regex1, regex1};
+ * // Create the validator
+ * RegexValidator validator = new RegexValidator(regexs, caseSensitive);
+ * // Validate true/false
+ * boolean valid = validator.isValid("abc-def");
+ * // Validate and return a String
+ * String result = validator.validate("abc-def");
+ * // Validate and return a String[]
+ * String[] groups = validator.match("abc-def");
+ * </pre>
+ * <p>See the
+ * <a href="RegexValidator.html">RegexValidator</a> javadoc for a full list
+ * of the available constructors.
+ * </p>
+ * <a id="other.checkdigit"></a>
+ * <h2>4.3 Check Digit validation/calculation</h2>
+ * <p>
+ * <a href="checkdigit/CheckDigit.html">CheckDigit</a> defines a new
+ * type for the calculation and validation of check digits with the
+ * following methods:
+ * </p>
+ * <ul>
+ * <li><code>isValid(<i>code</i>)</code> - validates the check digit of a code,
+ * returning {@code true} or {@code false}.</li>
+ * <li><code>calculate(<i>code</i>)</code> - calulates the check digit for a code
+ * returning the check digit character.</li>
+ * </ul>
+ * <p>
+ * The following implementations are provided:
+ * </p>
+ * <ul>
+ * <li><a href="checkdigit/ABANumberheckDigit.html">ABANumberCheckDigit</a>
+ * for <b>ABA Number</b> (or <b>Routing Transit Number</b> (RTN)) check digit calculation.</li>
+ * <li><a href="checkdigit/CUSIPCheckDigit.html">CUSIPCheckDigit</a>
+ * for <b>CUSIP</b> (North American Securities) check digit calculation.</li>
+ * <li><a href="checkdigit/EAN13CheckDigit.html">EAN13CheckDigit</a>
+ * for <b>EAN-13</b>, <b>UPC</b>, <b>ISBN-13</b> check digit calculation.</li>
+ * <li><a href="checkdigit/ISBNCheckDigit.html">ISBNCheckDigit</a>
+ * for <b>ISBN-10</b> and <b>ISBN-13</b> check digit calculation.</li>
+ * <li><a href="checkdigit/ISBN10CheckDigit.html">ISBN10CheckDigit</a>
+ * for <b>ISBN-10</b> check digit calculation.</li>
+ * <li><a href="checkdigit/ISINCheckDigit.html">ISINCheckDigit</a>
+ * for <b>ISIN</b> International Securities Identifying Number check digit calculation.</li>
+ * <li><a href="checkdigit/LuhnCheckDigit.html">LuhnCheckDigit</a>
+ * for <b>Luhn</b> check digit calculation - used by <b>credit cards</b>.</li>
+ * <li><a href="checkdigit/ModulusCheckDigit.html">ModulusCheckDigit</a>
+ * - <b>abstract</b> class for custom <b>modulus</b> check digit
+ * implementations.</li>
+ * <li><a href="checkdigit/SedolCheckDigit.html">SedolCheckDigit</a>
+ * for <b>SEDOL</b> (UK Securities) check digit calculation.</li>
+ * <li><a href="checkdigit/VerhoeffCheckDigit.html">VerhoeffCheckDigit</a>
+ * for <b>Verhoeff</b> (Dihedral) check digit calculation.</li>
+ * </ul>
+ * <p>
+ * The following examples show validating the check digit of a code:
+ * </p>
+ * <pre>
+ * // Luhn check digit validation
+ * boolean valid = LuhnCheckDigit.INSTANCE.isValid(code);
+ * // EAN / UPC / ISBN-13 check digit validation
+ * boolean valid = EAN13CheckDigit.INSTANCE.isValid(code);
+ * // ISBN-10 check digit validation
+ * boolean valid = ISBNCheckDigit.ISBN10.isValid(code);
+ * boolean valid = ISBN10CheckDigit.INSTANCE.isValid(code);
+ * // ISBN-13 check digit validation
+ * boolean valid = ISBNCheckDigit.ISBN13.isValid(code);
+ * // ISBN-10 or ISBN-13 check digit validation
+ * boolean valid = ISBNCheckDigit.ISBN.isValid(code);
+ * </pre>
+ * <p>
+ * The following examples show calulating the check digit of a code:
+ * </p>
+ * <pre>
+ * // Luhn check digit validation
+ * char checkdigit = LuhnCheckDigit.INSTANCE.calculate(code);
+ * // EAN / UPC / ISBN-13 check digit validation
+ * char checkdigit = EAN13CheckDigit.INSTANCE.calculate(code);
+ * // ISBN-10 check digit validation
+ * char checkdigit = ISBNCheckDigit.ISBN10.isValid(code);
+ * char checkdigit = ISBN10CheckDigit.INSTANCE.calculate(code);
+ * // ISBN-13 check digit validation
+ * char checkdigit = ISBNCheckDigit.ISBN13.calculate(code);
+ * // ISBN-10 or ISBN-13 check digit validation
+ * char checkdigit = ISBNCheckDigit.ISBN.calculate(code);
+ * </pre>
+ * <a id="other.code"></a>
+ * <h2>4.4 General Code validation</h2>
+ * <p>
+ * <a href="CodeValidator.html">CodeValidator</a> provides a generic
+ * implementation for validating codes. It performs the following
+ * validations on a code:
+ * </p>
+ * <ul>
+ * <li><b>Format</b> - the format of the code is validated using
+ * a <i>regular expression</i> (see  <a href="RegexValidator.html">RegexValidator</a>).</li>
+ * <li><b>Length</b> - the minimum/maximum length of the code is
+ * checked - after being parsed by the regular expression - with which
+ * <i>format</i> characters can be removed with the use of
+ * <i>non-capturing</i> groups.</li>
+ * <li><b>Check Digit</b> - a <a href="checkdigit/CheckDigit.html">CheckDigit</a>
+ * routine checks that code's check digit is valid.</li>
+ * </ul>
+ * <p>
+ * For example to create a validator to validate EAN-13 codes (numeric,
+ * with a length of 13):
+ * </p>
+ * <pre>
+ * // Create an EAN-13 code validator
+ * CodeValidator validator = new CodeValidator("^[0-9]*$", 13, EAN13CheckDigit.INSTANCE);
+ * // Validate an EAN-13 code
+ * if (!validator.isValid(code)) {
+ * ... // invalid
+ * }
+ * </pre>
+ * <a id="other.isbn"></a>
+ * <h2>4.5 ISBN validation</h2>
+ * <p>
+ * <a href="ISBNValidator.html">ISBNValidator</a> provides ISBN-10
+ * and ISBN-13 validation and can <i>optionally</i> convert
+ * ISBN-10 codes to ISBN-13.
+ * </p>
+ * <ul>
+ * <li><b>ISBN-10</b> - validates using a
+ * <a href="CodeValidator.html">CodeValidator</a> with the
+ * <a href="checkdigit/ISBN10CheckDigit.html">ISBN10CheckDigit</a>
+ * routine.</li>
+ * <li>
+ * <ul>
+ * <li><code>isValidISBN10(<i>value</i>)</code> - returns a boolean</li>
+ * <li><code>validateISBN10(<i>value</i>)</code> - returns a reformatted ISBN-10 code</li>
+ * </ul>
+ * </li>
+ * <li><b>ISBN-13</b> - validates using a
+ * <a href="CodeValidator.html">CodeValidator</a> with the
+ * <a href="checkdigit/EAN13CheckDigit.html">EAN13CheckDigit</a>
+ * routine.</li>
+ * <li>
+ * <ul>
+ * <li><code>isValidISBN13(<i>value</i>)</code> - returns a boolean</li>
+ * <li><code>validateISBN13(<i>value</i>)</code> - returns a reformatted ISBN-13 code</li>
+ * </ul>
+ * </li>
+ * <li><b>ISBN-10</b> and <b>ISBN-13</b> - validates codes are either
+ * valid ISBN-10 or valid ISBN-13 - optionally can convert ISBN-10 codes to ISBN-13.</li>
+ * <li>
+ * <ul>
+ * <li><code>isValid(<i>value</i>)</code> - returns a boolean</li>
+ * <li><code>validate(<i>value</i>)</code> - returns a reformatted ISBN code
+ * (converts ISBN-10 to ISBN-13 if the <i>convert</i> option is {@code true}).</li>
+ * </ul>
+ * </li>
+ * </ul>
+ * <p>
+ * For example to validate
+ * </p>
+ * <pre>
+ * // Validate an ISBN-10 or ISBN-13 code
+ * if (!ISBNValidator.getInstance().isValid(code)) {
+ * ... // invalid
+ * }
+ * // Validate an ISBN-10 or ISBN-13 code (converting to ISBN-13)
+ * String code = ISBNValidator.getInstance().validate(code);
+ * // Validate an ISBN-10 or ISBN-13 code (not converting)
+ * String code = ISBNValidator.getInstance(false).validate(code);
+ * </pre>
+ * <a id="other.inet"></a>
+ * <h2>4.6 IP Address Validation</h2>
+ * <p>
+ * <a href="InetAddressValidator.html">InetAddressValidator</a> provides
+ * IPv4 address validation.
+ * </p>
+ * <p>
+ * For example:
+ * </p>
+ * <pre>
+ * // Get an InetAddressValidator
+ * InetAddressValidator validator = InetAddressValidator.getInstance();
+ * // Validate an IPv4 address
+ * if (!validator.isValid(candidateInetAddress)) {
+ * ... // invalid
+ * }
+ * </pre>
+ * <a id="other.email"></a>
+ * <h2>4.7 Email Address Validation</h2>
+ * <p>
+ * <a href="EmailValidator.html">EmailValidator</a> provides email address
+ * validation according to RFC 822 standards.
+ * </p>
+ * <p>
+ * For example:
+ * </p>
+ * <pre>
+ * // Get an EmailValidator
+ * EmailValidator validator = EmailValidator.getInstance();
+ * // Validate an email address
+ * boolean isAddressValid = validator.isValid("user@apache.org");
+ * // Validate a variable containing an email address
+ * if (!validator.isValid(addressFromUserForm)) {
+ * webController.sendRedirect(ERROR_REDIRECT, "Email address isn't valid");
+ * // etc.
+ * }
+ * </pre>
+ * <a id="other.url"></a>
+ * <h2>4.8 URL Validation</h2>
+ * <p>
+ * <a href="UrlValidator.html">UrlValidator</a> provides URL validation by
+ * checking the scheme, authority, path, query, and fragment in turn. Clients
+ * may specify valid schemes to be used in validating in addition to or instead of
+ * the default values (HTTP, HTTPS, FTP). The UrlValidator also supports options
+ * that change the parsing rules; for example, the ALLOW_2_SLASHES option instructs
+ * the Validator to allow consecutive slash characters in the path component, which
+ * is considered an error by default.
+ * For more information on the available options, see the UrlValidator documentation.
+ * </p>
+ * <p>
+ * For example:
+ * </p>
+ * <pre>
+ * // Get an UrlValidator
+ * UrlValidator defaultValidator = new UrlValidator(); // default schemes
+ * if (defaultValidator.isValid("http://www.apache.org")) {
+ * ... // valid
+ * }
+ * if (!defaultValidator.isValid("http//www.oops.com")) {
+ * ... // invalid
+ * }
+ * // Get an UrlValidator with custom schemes
+ * String[] customSchemes = { "sftp", "scp", "https" };
+ * UrlValidator customValidator = new UrlValidator(customSchemes);
+ * if (!customValidator.isValid("http://www.apache.org")) {
+ * ... // invalid due to insecure protocol
+ * }
+ * // Get an UrlValidator that allows double slashes in the path
+ * UrlValidator doubleSlashValidator = new UrlValidator(UrlValidator.ALLOW_2_SLASHES);
+ * if (doubleSlashValidator.isValid("http://www.apache.org//projects")) {
+ * ... // valid only in this Validator instance
+ * }
+ * </pre>
+ * <a id="other.domain"></a>
+ * <h2>4.9 Domain Name Validation</h2>
+ * <p>
+ * <a href="DomainValidator.html">DomainValidator</a> provides validation of Internet
+ * domain names as specified by RFC1034/RFC1123 and according to the IANA-recognized
+ * list of top-level domains (TLDs). Clients may validate an entire domain name, a
+ * TLD of any category, or a TLD within a specific category.
+ * </p>
+ * <p>
+ * For example:
+ * </p>
+ * <pre>
+ * // Get a DomainValidator
+ * DomainValidator validator = DomainValidator.getInstance();
+ * // Validate a domain name
+ * if (validator.isValid("www.apache.org")) {
+ * ... // valid
+ * }
+ * if (!validator.isValid("www.apache.wrong")) {
+ * ... // invalid
+ * }
+ * // Validate a TLD
+ * if (validator.isValidTld(".com")) {
+ * ... // valid
+ * }
+ * if (validator.isValidTld("org")) {
+ * ... // valid, the leading dot is optional
+ * }
+ * if (validator.isValidTld(".us")) {
+ * ... // valid, country code TLDs are also accepted
+ * }
+ * // Validate TLDs in categories
+ * if (validator.isValidGenericTld(".name")) {
+ * ... // valid
+ * }
+ * if (!validator.isValidGenericTld(".uk")) {
+ * ... // invalid, .uk is a country code TLD
+ * }
+ * if (!validator.isValidCountryCodeTld(".info")) {
+ * ... // invalid, .info is a generic TLD
+ * }
+ * </pre>
+ */
+package org.apache.commons.validator2.routines;

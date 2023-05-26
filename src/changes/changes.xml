@@ -381,7 +381,7 @@ http://commons.apache.org/validator/dependencies.html
     To disable the new ranges, use option MASTERCARD_PRE_OCT2016 or validator MASTERCARD_VALIDATOR_PRE_OCT2016
     </action>
     <action issue="VALIDATOR-386" type="fix" dev="sebb" due-to="Auke van Leeuwen">
-    org.apache.commons.validator.routines.DomainValidator.ArrayType is not public
+        org.apache.commons.validator2.routines.DomainValidator.ArrayType is not public
     </action>
     <action issue="VALIDATOR-359" type="fix" dev="sebb" due-to="Dora Kinghorn">
     EmailValidator does not catch invalid email address like dora@.com
@@ -1240,7 +1240,7 @@ http://commons.apache.org/validator/dependencies.html
 
   <release version="1.0.1" date="2002-12-16" description="1.0 Maintenance Release">
     <action dev="martinc" type="fix" issue="VALIDATOR-84" due-to="Pierre Chardin">
-    Serialization problem with org.apache.commons.validator.ValidatorResult$ResultStatus.
+        Serialization problem with org.apache.commons.validator2.ValidatorResult$ResultStatus.
     </action>
     <action dev="turner" type="fix" issue="VALIDATOR-68" due-to="Bjorn-H. Moritz">
     ValidatorResources.get-method not working properly.

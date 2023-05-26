@@ -21,15 +21,15 @@
 <form-validation>
    <global>
       <validator name="int"
-                 classname="org.apache.commons.validator.TestTypeValidator"
+                 classname="org.apache.commons.validator2.TestTypeValidator"
                  method="validateInt"
-                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 methodParams="java.lang.Object,org.apache.commons.validator2.Field"
                  msg="errors.int"/>
 
       <validator name="required"
-                 classname="org.apache.commons.validator.TestValidator"
+                 classname="org.apache.commons.validator2.TestValidator"
                  method="validateRequired"
-                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 methodParams="java.lang.Object,org.apache.commons.validator2.Field"
                  msg="errors.required"/>
    </global>
    <formset>
