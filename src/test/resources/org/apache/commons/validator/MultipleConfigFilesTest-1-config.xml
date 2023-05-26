@@ -1,0 +1,84 @@
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE form-validation PUBLIC
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.4.0//EN"
+     "http://commons.apache.org/dtds/validator_1_4_0.dtd">
+     
+<!--
+    This first config file only contains the validator definitions.  This 
+    separation is how Struts does things.
+-->
+<form-validation>
+   <global>
+      <validator name="int"
+                 classname="org.apache.commons.validator.GenericValidatorImpl"
+                 method="validateInt"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+                 
+      <validator name="required"
+                 classname="org.apache.commons.validator.GenericValidatorImpl"
+                 method="validateRequired"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+   </global>  
+
+   <formset>
+
+      <constant>
+         <constant-name>testConstName1</constant-name>
+         <constant-value>testConstValue1</constant-value>
+      </constant>
+
+      <form name="testForm1">
+         <field property="testProperty1" depends="required">
+             <var>
+                 <var-name>var11</var-name>
+                 <var-value>${testConstName1}</var-value>
+             </var>
+             <var>
+                 <var-name>var12</var-name>
+                 <var-value>${testConstName2}</var-value>
+             </var>
+         </field>    
+      </form>
+
+   </formset>
+
+   <formset language="fr">
+
+      <constant>
+         <constant-name>testConstName1_fr</constant-name>
+         <constant-value>testConstValue1_fr</constant-value>
+      </constant>
+
+      <form name="testForm1_fr">
+         <field property="testProperty1_fr" depends="required">
+             <var>
+                 <var-name>var11_fr</var-name>
+                 <var-value>${testConstName1_fr}</var-value>
+             </var>
+             <var>
+                 <var-name>var12_fr</var-name>
+                 <var-value>${testConstName2_fr}</var-value>
+             </var>
+         </field>    
+      </form>
+
+   </formset>
+
+</form-validation>

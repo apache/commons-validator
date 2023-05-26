@@ -1,0 +1,122 @@
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE form-validation PUBLIC
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.4.0//EN"
+     "http://commons.apache.org/dtds/validator_1_4_0.dtd">
+     
+<form-validation>
+   <global>
+      <validator name="byte"
+                 classname="org.apache.commons.validator.GenericTypeValidatorImpl"
+                 method="validateByte"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+
+      <validator name="byteLocale"
+                 classname="org.apache.commons.validator.GenericTypeValidatorImpl"
+                 method="validateByte"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale"
+                 msg=""/>
+
+      <validator name="short"
+                 classname="org.apache.commons.validator.GenericTypeValidatorImpl"
+                 method="validateShort"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+
+      <validator name="shortLocale"
+                 classname="org.apache.commons.validator.GenericTypeValidatorImpl"
+                 method="validateShort"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale"
+                 msg=""/>
+
+      <validator name="int"
+                 classname="org.apache.commons.validator.GenericTypeValidatorImpl"
+                 method="validateInt"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+
+      <validator name="intLocale"
+                 classname="org.apache.commons.validator.GenericTypeValidatorImpl"
+                 method="validateInt"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale"
+                 msg=""/>
+
+      <validator name="long"
+                 classname="org.apache.commons.validator.GenericTypeValidatorImpl"
+                 method="validateLong"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+ 
+      <validator name="longLocale"
+                 classname="org.apache.commons.validator.GenericTypeValidatorImpl"
+                 method="validateLong"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale "
+                 msg=""/>
+
+      <validator name="float"
+                 classname="org.apache.commons.validator.GenericTypeValidatorImpl"
+                 method="validateFloat"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+
+      <validator name="floatLocale"
+                 classname="org.apache.commons.validator.GenericTypeValidatorImpl"
+                 method="validateFloat"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale"
+                 msg=""/>
+
+      <validator name="double"
+                 classname="org.apache.commons.validator.GenericTypeValidatorImpl"
+                 method="validateDouble"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+
+      <validator name="doubleLocale"
+                 classname="org.apache.commons.validator.GenericTypeValidatorImpl"
+                 method="validateDouble"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale"
+                 msg=""/>
+                 
+      <validator name="date"
+                 classname="org.apache.commons.validator.GenericTypeValidatorImpl"
+                 method="validateDate"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field,java.util.Locale"
+                 msg=""/>
+           
+
+   </global>
+   <formset>
+      <form name="typeForm">
+         <field property="byte" depends="byte"/>    
+         <field property="short" depends="short"/>    
+         <field property="integer" depends="int"/>
+         <field property="long" depends="long"/>    
+         <field property="float" depends="float"/>    
+         <field property="double" depends="double"/>
+      </form>
+      <form name="typeLocaleForm">
+         <field property="byte" depends="byteLocale"/>    
+         <field property="short" depends="shortLocale"/>    
+         <field property="integer" depends="intLocale"/>
+         <field property="long" depends="longLocale"/>    
+         <field property="float" depends="floatLocale"/>    
+         <field property="double" depends="doubleLocale"/>
+         <field property="date" depends="date" />
+      </form>
+   </formset>   
+</form-validation>

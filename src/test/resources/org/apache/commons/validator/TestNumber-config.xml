@@ -1,0 +1,80 @@
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE form-validation PUBLIC
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.4.0//EN"
+     "http://commons.apache.org/dtds/validator_1_4_0.dtd">
+     
+<form-validation>
+   <global>
+      <validator name="byte"
+                 classname="org.apache.commons.validator.GenericValidatorImpl"
+                 method="validateByte"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+
+      <validator name="short"
+                 classname="org.apache.commons.validator.GenericValidatorImpl"
+                 method="validateShort"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+
+      <validator name="int"
+                 classname="org.apache.commons.validator.GenericValidatorImpl"
+                 method="validateInt"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+
+      <validator name="long"
+                 classname="org.apache.commons.validator.GenericValidatorImpl"
+                 method="validateLong"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+
+      <validator name="float"
+                 classname="org.apache.commons.validator.GenericValidatorImpl"
+                 method="validateFloat"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+
+      <validator name="double"
+                 classname="org.apache.commons.validator.GenericValidatorImpl"
+                 method="validateDouble"
+                 methodParams="java.lang.Object,org.apache.commons.validator.Field"
+                 msg=""/>
+
+   </global>
+   <formset>
+      <form name="byteForm">
+         <field property="value" depends="byte"/>
+      </form>
+      <form name="shortForm">
+         <field property="value" depends="short"/>
+      </form>
+      <form name="intForm">
+         <field property="value" depends="int"/>    
+      </form>
+      <form name="longForm">
+         <field property="value" depends="long"/>    
+      </form>
+      <form name="floatForm">
+         <field property="value" depends="float"/>
+      </form>
+      <form name="doubleForm">
+         <field property="value" depends="double"/>
+      </form>
+   </formset>   
+</form-validation>
