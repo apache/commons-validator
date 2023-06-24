@@ -58,7 +58,7 @@
  * what method and class will be called to perform the validation
  * for a required field.  Validation rules can be grouped together
  * based on locale and a JavaBean/Form that the rules are associated
- * with.  The framework has basic support for user defined constants
+ * with.  The framework has basic support for user-defined constants
  * which can be used in some field attributes.
  * </p>
  * <p>
