@@ -673,7 +673,7 @@ public class Field implements Cloneable, Serializable {
         try {
             field = (Field) super.clone();
         } catch (final CloneNotSupportedException e) {
-            throw new RuntimeException(e.toString());
+            throw new UnsupportedOperationException(e.toString(), e);
         }
 
         @SuppressWarnings("unchecked") // empty array always OK; cannot check this at compile time

@@ -183,7 +183,7 @@ public class Var implements Cloneable, Serializable {
             return super.clone();
 
         } catch (final CloneNotSupportedException e) {
-            throw new RuntimeException(e.toString());
+            throw new UnsupportedOperationException(e.toString(), e);
         }
     }
 
