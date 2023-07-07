@@ -276,7 +276,7 @@ public class Field implements Cloneable, Serializable {
      */
     public String getMsg(final String key) {
         final Msg msg = getMessage(key);
-        return (msg == null) ? null : msg.getKey();
+        return msg == null ? null : msg.getKey();
     }
 
     /**
@@ -427,7 +427,7 @@ public class Field implements Cloneable, Serializable {
      * @since 1.1
      */
     public Arg getArg(final String key, final int position) {
-        if ((position >= this.args.length) || (this.args[position] == null)) {
+        if (position >= this.args.length || this.args[position] == null) {
             return null;
         }
 
@@ -435,11 +435,11 @@ public class Field implements Cloneable, Serializable {
 
         // Didn't find default arg so exit, otherwise we would get into
         // infinite recursion
-        if ((arg == null) && key.equals(DEFAULT_ARG)) {
+        if (arg == null && key.equals(DEFAULT_ARG)) {
             return null;
         }
 
-        return (arg == null) ? this.getArg(position) : arg;
+        return arg == null ? this.getArg(position) : arg;
     }
 
     /**
@@ -540,7 +540,7 @@ public class Field implements Cloneable, Serializable {
      * @return Whether the Field is indexed.
      */
     public boolean isIndexed() {
-        return (indexedListProperty != null && !indexedListProperty.isEmpty());
+        return indexedListProperty != null && !indexedListProperty.isEmpty();
     }
 
     /**
