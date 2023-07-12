@@ -299,7 +299,8 @@ public class ValidatorAction implements Serializable {
      * <p>
      * This is optional and can be used <strong>instead</strong> of the setJavascript().
      * Attempting to call both <code>setJsFunction</code> and <code>setJavascript</code>
-     * will result in an <code>IllegalStateException</code> being thrown. </p>
+     * will result in an <code>IllegalStateException</code> being thrown.
+     * </p>
      * <p>
      * If <strong>neither</strong> setJsFunction or setJavascript is set then
      * validator will attempt to load the default javascript definition.
