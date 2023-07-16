@@ -41,11 +41,14 @@ public class EmailValidator implements Serializable {
     private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
     private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    private static final String EMAIL_CHARACTERS = "(.+)@(\\S+)";
+    private static final String EMAIL_REGEX = "^" + EMAIL_CHARACTERS + "$";
     private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
     private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+    private static final String FULL_NAME_EMAIL_REGEX = "^(.+)<" + EMAIL_CHARACTERS + ">$";
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+    private static final Pattern EMAIL_WITH_FULL_NAME_PATTERN = Pattern.compile(FULL_NAME_EMAIL_REGEX);
     private static final Pattern IP_DOMAIN_PATTERN = Pattern.compile(IP_DOMAIN_REGEX);
     private static final Pattern USER_PATTERN = Pattern.compile(USER_REGEX);
 
@@ -179,15 +182,28 @@ public class EmailValidator implements Serializable {
 
         // Check the whole email address structure
         final Matcher emailMatcher = EMAIL_PATTERN.matcher(email);
-        if (!emailMatcher.matches()) {
+        final Matcher fullnameEmailMatcher = EMAIL_WITH_FULL_NAME_PATTERN.matcher(email);
+        final boolean fullnameEmailMatches = fullnameEmailMatcher.matches();
+        if (!fullnameEmailMatches && !emailMatcher.matches()) {
             return false;
         }
 
-        if (!isValidUser(emailMatcher.group(1))) {
-            return false;
-        }
+        String userPart = null;
+        String domainPart = null;
 
-        if (!isValidDomain(emailMatcher.group(2))) {
+        if (fullnameEmailMatches) {
+            userPart = fullnameEmailMatcher.group(2);
+            domainPart = fullnameEmailMatcher.group(3);
+        }
+        else {
+            userPart = emailMatcher.group(1);
+            domainPart = emailMatcher.group(2);
+        }
+        return checkForValidUserAndDomain(userPart, domainPart);
+    }
+
+    private boolean checkForValidUserAndDomain(String userPart, String domainPart) {
+        if (!isValidUser(userPart) || !isValidDomain(domainPart)) {
             return false;
         }
 

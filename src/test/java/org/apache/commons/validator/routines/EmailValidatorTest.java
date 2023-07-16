@@ -407,6 +407,8 @@ public class EmailValidatorTest {
         assertFalse(validator.isValid("Abc@def@example.com"));
 
         assertTrue(validator.isValid("space\\ monkey@example.com"));
+
+        assertTrue(validator.isValid("Abigail Jones <abigail@example.com>"));
     }
 
     /**
