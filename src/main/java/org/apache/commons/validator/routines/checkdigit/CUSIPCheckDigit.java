@@ -49,7 +49,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
     private static final int[] POSITION_WEIGHT = {2, 1};
 
     /**
-     * Construct an CUSIP Indetifier Check Digit routine.
+     * Construct a CUSIP Identifier Check Digit routine.
      */
     public CUSIPCheckDigit() {
         super(10); // CHECKSTYLE IGNORE MagicNumber
@@ -62,7 +62,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The position of the character in the code, counting from right to left
      * @return The integer value of the character
-     * @throws CheckDigitException if character is not alphanumeric
+     * @throws CheckDigitException if the character is not alphanumeric
      */
     @Override
     protected int toInt(final char character, final int leftPos, final int rightPos)
@@ -87,7 +87,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      *
      * @param charValue The numeric value of the character.
      * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
+     * @param rightPos The position of the character in the code, counting from right to left
      * @return The weighted value of the character.
      */
     @Override
