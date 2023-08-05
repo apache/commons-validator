@@ -319,10 +319,10 @@ public class ExtensionTest extends TestCase {
        final Form form2 = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY2);
 
        assertNotNull(FORM_KEY + " is null.", form);
-       assertTrue("There should only be 2 fields in " + FORM_KEY, form.getFields().size() == 2);
+       assertEquals("There should only be 2 fields in " + FORM_KEY, 2, form.getFields().size());
 
        assertNotNull(FORM_KEY2 + " is null.", form2);
-       assertTrue("There should only be 2 fields in " + FORM_KEY2, form2.getFields().size() == 2);
+       assertEquals("There should only be 2 fields in " + FORM_KEY2, 2, form2.getFields().size());
 
        //get the first field
        Field fieldFirstName = form.getFields().get(0);

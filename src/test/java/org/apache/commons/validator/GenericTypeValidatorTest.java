@@ -139,8 +139,8 @@ protected void tearDown() {
       info.setDouble("129,1551511111");
       info.setDate("21/12/2010");
       final Map<String, ?> map = localeTest(info, Locale.FRENCH);
-      assertTrue("float value not correct", ((Float)map.get("float")).intValue() == 12);
-      assertTrue("double value not correct", ((Double)map.get("double")).intValue() == 129);
+      assertEquals("float value not correct", 12, ((Float)map.get("float")).intValue());
+      assertEquals("double value not correct", 129, ((Double)map.get("double")).intValue());
   }
 
   /**
