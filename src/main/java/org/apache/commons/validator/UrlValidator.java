@@ -336,7 +336,7 @@ public class UrlValidator implements Serializable {
             final char[] chars = hostIP.toCharArray();
             int size = 1;
             for (final char element : chars) {
-                if(element == '.') {
+                if (element == '.') {
                     size++;
                 }
             }
