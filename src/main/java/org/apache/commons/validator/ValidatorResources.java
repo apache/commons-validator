@@ -23,8 +23,8 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.collections.FastHashMap; // DEPRECATED
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rule;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
@@ -43,11 +43,6 @@ import org.xml.sax.SAXException;
  * <p><strong>Note</strong> - Classes that extend this class
  * must be Serializable so that instances may be used in distributable
  * application server environments.</p>
- *
- * <p>
- * The use of FastHashMap is deprecated and will be replaced in a future
- * release.
- * </p>
  */
 //TODO mutable non-private fields
 public class ValidatorResources implements Serializable {
@@ -62,7 +57,7 @@ public class ValidatorResources implements Serializable {
      * the versions of the configuration file DTDs that we know about.  There
      * <strong>MUST</strong> be an even number of Strings in this list!
      */
-    private static final String REGISTRATIONS[] = {
+    private static final String[] REGISTRATIONS = {
         "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN",
         "/org/apache/commons/validator/resources/validator_1_0.dtd",
         "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0.1//EN",
@@ -84,26 +79,23 @@ public class ValidatorResources implements Serializable {
     /**
      * <code>Map</code> of <code>FormSet</code>s stored under
      * a <code>Locale</code> key (expressed as a String).
-     * @deprecated Subclasses should use getFormSets() instead.
+     * Subclasses should use getFormSets() instead.
      */
-    @Deprecated
-    protected FastHashMap hFormSets = new FastHashMap(); // <String, FormSet>
+    protected Map<String, FormSet> hFormSets = new ConcurrentHashMap<>(); // <String, FormSet>
 
     /**
      * <code>Map</code> of global constant values with
      * the name of the constant as the key.
-     * @deprecated Subclasses should use getConstants() instead.
+     * Subclasses should use getConstants() instead.
      */
-    @Deprecated
-    protected FastHashMap hConstants = new FastHashMap(); // <String, String>
+    protected Map<String, String> hConstants = new ConcurrentHashMap<>(); // <String, String>
 
     /**
      * <code>Map</code> of <code>ValidatorAction</code>s with
      * the name of the <code>ValidatorAction</code> as the key.
-     * @deprecated Subclasses should use getActions() instead.
+     * Subclasses should use getActions() instead.
      */
-    @Deprecated
-    protected FastHashMap hActions = new FastHashMap(); // <String, ValidatorAction>
+    protected Map<String, ValidatorAction> hActions = new ConcurrentHashMap<>(); // <String, ValidatorAction>
 
     /**
      * The default locale on our server.
@@ -127,8 +119,7 @@ public class ValidatorResources implements Serializable {
      *
      * @param in InputStream to a validation.xml configuration file.  It's the client's
      * responsibility to close this stream.
-     * @throws SAXException if the validation XML files are not valid or well
-     * formed.
+     * @throws SAXException if the validation XML files are not valid or well-formed.
      * @throws IOException if an I/O error occurs processing the XML files
      * @since 1.1
      */
@@ -367,7 +358,7 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Get a <code>ValidatorAction</code> based on it's name.
+     * Get a <code>ValidatorAction</code> based on its name.
      * @param key The validator action key.
      * @return The validator action.
      */
@@ -500,7 +491,7 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Process the <code>ValidatorResources</code> object. Currently sets the
+     * Process the <code>ValidatorResources</code> object. Currently, sets the
      * <code>FastHashMap</code> s to the 'fast' mode and call the processes
      * all other resources. <strong>Note </strong>: The framework calls this
      * automatically when ValidatorResources is created from an XML file. If you
@@ -508,10 +499,6 @@ public class ValidatorResources implements Serializable {
      * this method when finished.
      */
     public void process() {
-        hFormSets.setFast(true);
-        hConstants.setFast(true);
-        hActions.setFast(true);
-
         this.processForms();
     }
 
@@ -600,7 +587,6 @@ public class ValidatorResources implements Serializable {
      * @return Map of Form sets
      * @since 1.2.0
      */
-    @SuppressWarnings("unchecked") // FastHashMap is not generic
     protected Map<String, FormSet> getFormSets() {
         return hFormSets;
     }
@@ -610,7 +596,6 @@ public class ValidatorResources implements Serializable {
      * @return Map of Constants
      * @since 1.2.0
      */
-    @SuppressWarnings("unchecked") // FastHashMap is not generic
     protected Map<String, String> getConstants() {
         return hConstants;
     }
@@ -620,14 +605,13 @@ public class ValidatorResources implements Serializable {
      * @return Map of Validator Actions
      * @since 1.2.0
      */
-    @SuppressWarnings("unchecked") // FastHashMap is not generic
     protected Map<String, ValidatorAction> getActions() {
         return hActions;
     }
 
     /**
      * Accessor method for Log instance.
-     *
+     * <p>
      * The Log instance variable is transient and
      * accessing it through this method ensures it
      * is re-initialized when this instance is

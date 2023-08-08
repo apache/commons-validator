@@ -22,8 +22,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.collections.FastHashMap;// DEPRECATED
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <p>
@@ -53,11 +52,9 @@ public class Form implements Serializable {
 
     /**
      * Map of <code>Field</code>s keyed on their property value.
-     *
-     * @deprecated   Subclasses should use getFieldMap() instead.
+     * Subclasses should use getFieldMap() instead.
      */
-    @Deprecated
-    protected FastHashMap hFields = new FastHashMap(); // <String, Field>
+    protected Map<String, Field> hFields = new ConcurrentHashMap<>(); // <String, Field>
 
     /**
      * The name/key of the form which this form extends from.
@@ -144,9 +141,7 @@ public class Form implements Serializable {
     protected void merge(final Form depends) {
 
         final List<Field> templFields = new ArrayList<>();
-        @SuppressWarnings("unchecked") // FastHashMap is not generic
-        final
-        Map<String, Field> temphFields = new FastHashMap();
+        final Map<String, Field> temphFields = new ConcurrentHashMap<>();
         for (final Field defaultField : depends.getFields()) {
             if (defaultField != null) {
                 final String fieldKey = defaultField.getKey();
@@ -198,7 +193,6 @@ public class Form implements Serializable {
                 }
             }
         }
-        hFields.setFast(true);
         //no need to reprocess parent's fields, we iterate from 'n'
         for (final Iterator<Field> i = lFields.listIterator(n); i.hasNext(); ) {
             final Field f = i.next();
@@ -340,7 +334,6 @@ public class Form implements Serializable {
      * @return   The fieldMap value
      * @since 1.2.0
      */
-    @SuppressWarnings("unchecked") // FastHashMap is not generic
     protected Map<String, Field> getFieldMap() {
         return hFields;
     }

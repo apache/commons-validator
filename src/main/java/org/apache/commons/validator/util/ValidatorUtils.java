@@ -16,25 +16,20 @@
  */
 package org.apache.commons.validator.util;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.FastHashMap; // DEPRECATED
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.Arg;
 import org.apache.commons.validator.Msg;
 import org.apache.commons.validator.Var;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Basic utility methods.
- * <p>
- * The use of FastHashMap is deprecated and will be replaced in a future
- * release.
- * </p>
  */
 public class ValidatorUtils {
 
@@ -121,38 +116,6 @@ public class ValidatorUtils {
     }
 
     /**
-     * Makes a deep copy of a <code>FastHashMap</code> if the values
-     * are <code>Msg</code>, <code>Arg</code>,
-     * or <code>Var</code>.  Otherwise it is a shallow copy.
-     *
-     * @param fastHashMap <code>FastHashMap</code> to copy.
-     * @return FastHashMap A copy of the <code>FastHashMap</code> that was
-     * passed in.
-     * @deprecated This method is not part of Validator's public API.  Validator
-     * will use it internally until FastHashMap references are removed.  Use
-     * copyMap() instead.
-     */
-    @Deprecated
-    public static FastHashMap copyFastHashMap(final FastHashMap fastHashMap) {
-        final FastHashMap results = new FastHashMap();
-        @SuppressWarnings("unchecked") // FastHashMap is not generic
-        final HashMap<String, ?> map = fastHashMap;
-        map.forEach((key, value) -> {
-            if (value instanceof Msg) {
-                results.put(key, ((Msg) value).clone());
-            } else if (value instanceof Arg) {
-                results.put(key, ((Arg) value).clone());
-            } else if (value instanceof Var) {
-                results.put(key, ((Var) value).clone());
-            } else {
-                results.put(key, value);
-            }
-        });
-        results.setFast(true);
-        return results;
-    }
-
-    /**
      * Makes a deep copy of a <code>Map</code> if the values are
      * <code>Msg</code>, <code>Arg</code>, or <code>Var</code>.  Otherwise,
      * it is a shallow copy.
@@ -161,15 +124,15 @@ public class ValidatorUtils {
      *
      * @return A copy of the <code>Map</code> that was passed in.
      */
-    public static Map<String, Object> copyMap(final Map<String, Object> map) {
-        final Map<String, Object> results = new HashMap<>();
+    public static <T> Map<String, T> copyMap(final Map<String, T> map, Class<T> tClass) {
+        final Map<String, T> results = new HashMap<>();
         map.forEach((key, value) -> {
             if (value instanceof Msg) {
-                results.put(key, ((Msg) value).clone());
+                results.put(key, tClass.cast(((Msg) value).clone()));
             } else if (value instanceof Arg) {
-                results.put(key, ((Arg) value).clone());
+                results.put(key, tClass.cast(((Arg) value).clone()));
             } else if (value instanceof Var) {
-                results.put(key, ((Var) value).clone());
+                results.put(key, tClass.cast(((Var) value).clone()));
             } else {
                 results.put(key, value);
             }
