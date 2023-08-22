@@ -143,7 +143,7 @@ public class DomainValidator implements Serializable {
      */
     public static synchronized DomainValidator getInstance(final boolean allowLocal) {
         inUse = true;
-        if(allowLocal) {
+        if (allowLocal) {
             return LazyHolder.DOMAIN_VALIDATOR_WITH_LOCAL;
         }
         return LazyHolder.DOMAIN_VALIDATOR;
@@ -318,7 +318,7 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is a TLD
      */
     public boolean isValidTld(final String tld) {
-        if(allowLocal && isValidLocalTld(tld)) {
+        if (allowLocal && isValidLocalTld(tld)) {
             return true;
         }
         return isValidInfrastructureTld(tld)
