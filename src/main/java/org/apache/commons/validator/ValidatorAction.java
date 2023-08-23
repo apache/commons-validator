@@ -716,7 +716,7 @@ public class ValidatorAction implements Serializable {
         final int beanIndex = this.methodParameterList.indexOf(Validator.BEAN_PARAM);
         final int fieldIndex = this.methodParameterList.indexOf(Validator.FIELD_PARAM);
 
-        final Object indexedList[] = field.getIndexedProperty(paramValues[beanIndex]);
+        final Object[] indexedList = field.getIndexedProperty(paramValues[beanIndex]);
 
         // Set current iteration object to the parameter array
         paramValues[beanIndex] = indexedList[pos];

@@ -62,7 +62,7 @@ public class ValidatorResources implements Serializable {
      * the versions of the configuration file DTDs that we know about.  There
      * <strong>MUST</strong> be an even number of Strings in this list!
      */
-    private static final String REGISTRATIONS[] = {
+    private static final String[] REGISTRATIONS = {
         "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN",
         "/org/apache/commons/validator/resources/validator_1_0.dtd",
         "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0.1//EN",

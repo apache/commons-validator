@@ -251,7 +251,7 @@ public class DomainValidatorTest extends TestCase {
         final String input = ".";
         final boolean ok = input.equals(IDN.toASCII(input));
         System.out.println("IDN.toASCII is " + (ok? "OK" : "BROKEN"));
-        final String props[] = {
+        final String[] props = {
         "java.version", //    Java Runtime Environment version
         "java.vendor", // Java Runtime Environment vendor
         "java.vm.specification.version", //   Java Virtual Machine specification version
@@ -509,7 +509,7 @@ public class DomainValidatorTest extends TestCase {
             System.out.println("Already have most recent " + tldurl);
         } else {
             System.out.println("Downloading " + tldurl);
-            final byte buff[] = new byte[1024];
+            final byte[] buff = new byte[1024];
             final InputStream is = hc.getInputStream();
 
             final FileOutputStream fos = new FileOutputStream(f);
