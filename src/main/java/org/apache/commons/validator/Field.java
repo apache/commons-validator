@@ -123,7 +123,7 @@ public class Field implements Cloneable, Serializable {
      * synchronized so a call to setDepends() (which clears the List) won't
      * interfere with a call to isDependency().
      */
-    private final List<String> dependencyList = Collections.synchronizedList(new ArrayList<String>());
+    private final List<String> dependencyList = Collections.synchronizedList(new ArrayList<>());
 
     /**
      * @deprecated Subclasses should use getVarMap() instead.
