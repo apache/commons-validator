@@ -16,4 +16,6 @@ FROM maven:3.9.0-eclipse-temurin-17 as base
 WORKDIR /app
 COPY src ./
 COPY pom.xml ./
-CMD ["mvn", "clean", "install", "-Drat.skip=true"]
+
+CMD ["mvn", "install", "-Drat.skip=true"]
+
