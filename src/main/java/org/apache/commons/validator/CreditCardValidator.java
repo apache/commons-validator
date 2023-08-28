@@ -189,7 +189,7 @@ public class CreditCardValidator {
             sum += digit;
         }
 
-        return (sum == 0) ? false : (sum % 10 == 0);
+        return sum != 0 && (sum % 10 == 0);
     }
 
     /**
