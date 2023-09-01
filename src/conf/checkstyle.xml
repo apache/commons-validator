@@ -16,10 +16,8 @@
  limitations under the License.
 -->
 <!DOCTYPE module PUBLIC
-    "-//Checkstyle//DTD Checkstyle Configuration 1.2//EN"
-    "https://checkstyle.org/dtds/configuration_1_2.dtd">
-
-
+    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <!--
   
   These checks still need to be Voted on for Validator, but
@@ -38,7 +36,6 @@
   is a high priority goal for the development team.
 
 -->
-
 <module name="Checker">
 
    <module name="TreeWalker">
