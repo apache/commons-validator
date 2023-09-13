@@ -124,7 +124,7 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
         assertEquals("Smallest -ve", smallestNegative, FloatValidator.getInstance().validate(strSmallestNegative, pattern));
 
         // Validate Too Small +ve
-        final Double tooSmallPositive = Double.valueOf(((double)Float.MIN_VALUE / (double)10));
+        final Double tooSmallPositive = Double.valueOf((double)Float.MIN_VALUE / (double)10);
         final String strTooSmallPositive = fmt.format(tooSmallPositive);
         assertFalse("Too small +ve", FloatValidator.getInstance().isValid(strTooSmallPositive, pattern));
 

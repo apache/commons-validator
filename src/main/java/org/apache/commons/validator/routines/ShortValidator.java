@@ -167,7 +167,7 @@ public class ShortValidator extends AbstractNumberValidator {
      *         specified range.
      */
     public boolean isInRange(final short value, final short min, final short max) {
-        return (value >= min && value <= max);
+        return value >= min && value <= max;
     }
 
     /**
@@ -192,7 +192,7 @@ public class ShortValidator extends AbstractNumberValidator {
      *         or equal to the minimum.
      */
     public boolean minValue(final short value, final short min) {
-        return (value >= min);
+        return value >= min;
     }
 
     /**
@@ -216,7 +216,7 @@ public class ShortValidator extends AbstractNumberValidator {
      *         or equal to the maximum.
      */
     public boolean maxValue(final short value, final short max) {
-        return (value <= max);
+        return value <= max;
     }
 
     /**

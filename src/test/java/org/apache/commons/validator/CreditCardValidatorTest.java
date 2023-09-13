@@ -81,7 +81,7 @@ public class CreditCardValidatorTest extends TestCase {
         @Override
         public boolean matches(final String card) {
             final String prefix = card.substring(0, 3) + ",";
-            return ((PREFIX.contains(prefix)) && (card.length() == 14));
+            return PREFIX.contains(prefix) && card.length() == 14;
         }
     }
 

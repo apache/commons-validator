@@ -167,7 +167,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      *         specified range.
      */
     public boolean isInRange(final double value, final double min, final double max) {
-        return (value >= min && value <= max);
+        return value >= min && value <= max;
     }
 
     /**
@@ -192,7 +192,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      *         or equal to the minimum.
      */
     public boolean minValue(final double value, final double min) {
-        return (value >= min);
+        return value >= min;
     }
 
     /**
@@ -216,7 +216,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      *         or equal to the maximum.
      */
     public boolean maxValue(final double value, final double max) {
-        return (value <= max);
+        return value <= max;
     }
 
     /**

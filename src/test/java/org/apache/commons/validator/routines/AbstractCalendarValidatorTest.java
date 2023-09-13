@@ -216,17 +216,17 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
     protected static Calendar createCalendar(final TimeZone zone, final int date, final int time) {
         final Calendar calendar = zone == null ? Calendar.getInstance()
                                          : Calendar.getInstance(zone);
-        final int year = ((date / 10000) * 10000);
-        final int mth  = ((date / 100) * 100) - year;
+        final int year = date / 10000 * 10000;
+        final int mth  = date / 100 * 100 - year;
         final int day = date - (year + mth);
-        final int hour = ((time / 10000) * 10000);
-        final int min  = ((time / 100) * 100) - hour;
+        final int hour = time / 10000 * 10000;
+        final int min  = time / 100 * 100 - hour;
         final int sec  = time - (hour + min);
-        calendar.set(Calendar.YEAR,  (year / 10000));
-        calendar.set(Calendar.MONTH, ((mth / 100) - 1));
+        calendar.set(Calendar.YEAR,  year / 10000);
+        calendar.set(Calendar.MONTH, mth / 100 - 1);
         calendar.set(Calendar.DATE,  day);
-        calendar.set(Calendar.HOUR_OF_DAY,  (hour / 10000));
-        calendar.set(Calendar.MINUTE, (min / 100));
+        calendar.set(Calendar.HOUR_OF_DAY,  hour / 10000);
+        calendar.set(Calendar.MINUTE, min / 100);
         calendar.set(Calendar.SECOND,  sec);
         calendar.set(Calendar.MILLISECOND,  0);
         return calendar;

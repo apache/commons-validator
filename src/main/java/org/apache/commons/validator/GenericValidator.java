@@ -76,7 +76,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value can be converted to a Byte.
      */
     public static boolean isByte(final String value) {
-        return (GenericTypeValidator.formatByte(value) != null);
+        return GenericTypeValidator.formatByte(value) != null;
     }
 
     /**
@@ -86,7 +86,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value can be converted to a Short.
      */
     public static boolean isShort(final String value) {
-        return (GenericTypeValidator.formatShort(value) != null);
+        return GenericTypeValidator.formatShort(value) != null;
     }
 
     /**
@@ -96,7 +96,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value can be converted to an Integer.
      */
     public static boolean isInt(final String value) {
-        return (GenericTypeValidator.formatInt(value) != null);
+        return GenericTypeValidator.formatInt(value) != null;
     }
 
     /**
@@ -106,7 +106,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value can be converted to a Long.
      */
     public static boolean isLong(final String value) {
-        return (GenericTypeValidator.formatLong(value) != null);
+        return GenericTypeValidator.formatLong(value) != null;
     }
 
     /**
@@ -116,7 +116,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value can be converted to a Float.
      */
     public static boolean isFloat(final String value) {
-        return (GenericTypeValidator.formatFloat(value) != null);
+        return GenericTypeValidator.formatFloat(value) != null;
     }
 
     /**
@@ -126,7 +126,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value can be converted to a Double.
      */
     public static boolean isDouble(final String value) {
-        return (GenericTypeValidator.formatDouble(value) != null);
+        return GenericTypeValidator.formatDouble(value) != null;
     }
 
     /**
@@ -170,7 +170,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is in the specified range.
     */
     public static boolean isInRange(final byte value, final byte min, final byte max) {
-        return ((value >= min) && (value <= max));
+        return value >= min && value <= max;
     }
 
     /**
@@ -183,7 +183,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is in the specified range.
      */
     public static boolean isInRange(final int value, final int min, final int max) {
-        return ((value >= min) && (value <= max));
+        return value >= min && value <= max;
     }
 
     /**
@@ -196,7 +196,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is in the specified range.
      */
     public static boolean isInRange(final float value, final float min, final float max) {
-        return ((value >= min) && (value <= max));
+        return value >= min && value <= max;
     }
 
     /**
@@ -209,7 +209,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is in the specified range.
      */
     public static boolean isInRange(final short value, final short min, final short max) {
-        return ((value >= min) && (value <= max));
+        return value >= min && value <= max;
     }
 
     /**
@@ -222,7 +222,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is in the specified range.
      */
     public static boolean isInRange(final long value, final long min, final long max) {
-        return ((value >= min) && (value <= max));
+        return value >= min && value <= max;
     }
 
     /**
@@ -235,7 +235,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is in the specified range.
      */
     public static boolean isInRange(final double value, final double min, final double max) {
-        return ((value >= min) && (value <= max));
+        return value >= min && value <= max;
     }
 
     /**
@@ -277,7 +277,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value's length is less than the specified maximum.
      */
     public static boolean maxLength(final String value, final int max) {
-        return (value.length() <= max);
+        return value.length() <= max;
     }
 
     /**
@@ -290,7 +290,7 @@ public class GenericValidator implements Serializable {
      */
     public static boolean maxLength(final String value, final int max, final int lineEndLength) {
         final int adjustAmount = adjustForLineEnding(value, lineEndLength);
-        return ((value.length() + adjustAmount) <= max);
+        return value.length() + adjustAmount <= max;
     }
 
     /**
@@ -301,7 +301,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value's length is more than the specified minimum.
      */
     public static boolean minLength(final String value, final int min) {
-        return (value.length() >= min);
+        return value.length() >= min;
     }
 
     /**
@@ -314,7 +314,7 @@ public class GenericValidator implements Serializable {
      */
     public static boolean minLength(final String value, final int min, final int lineEndLength) {
         final int adjustAmount = adjustForLineEnding(value, lineEndLength);
-        return ((value.length() + adjustAmount) >= min);
+        return value.length() + adjustAmount >= min;
     }
 
     /**
@@ -337,7 +337,7 @@ public class GenericValidator implements Serializable {
                 rCount++;
             }
         }
-        return ((nCount * lineEndLength) - (rCount + nCount));
+        return nCount * lineEndLength - (rCount + nCount);
     }
 
     // See http://issues.apache.org/bugzilla/show_bug.cgi?id=29015 WRT the "value" methods
@@ -350,7 +350,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is &gt;= the specified minimum.
      */
     public static boolean minValue(final int value, final int min) {
-        return (value >= min);
+        return value >= min;
     }
 
     /**
@@ -361,7 +361,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is &gt;= the specified minimum.
      */
     public static boolean minValue(final long value, final long min) {
-        return (value >= min);
+        return value >= min;
     }
 
     /**
@@ -372,7 +372,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is &gt;= the specified minimum.
      */
     public static boolean minValue(final double value, final double min) {
-        return (value >= min);
+        return value >= min;
     }
 
     /**
@@ -383,7 +383,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is &gt;= the specified minimum.
      */
     public static boolean minValue(final float value, final float min) {
-        return (value >= min);
+        return value >= min;
     }
 
     /**
@@ -394,7 +394,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is &lt;= the specified maximum.
      */
     public static boolean maxValue(final int value, final int max) {
-        return (value <= max);
+        return value <= max;
     }
 
     /**
@@ -405,7 +405,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is &lt;= the specified maximum.
      */
     public static boolean maxValue(final long value, final long max) {
-        return (value <= max);
+        return value <= max;
     }
 
     /**
@@ -416,7 +416,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is &lt;= the specified maximum.
      */
     public static boolean maxValue(final double value, final double max) {
-        return (value <= max);
+        return value <= max;
     }
 
     /**
@@ -427,7 +427,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is &lt;= the specified maximum.
      */
     public static boolean maxValue(final float value, final float max) {
-        return (value <= max);
+        return value <= max;
     }
 
 }

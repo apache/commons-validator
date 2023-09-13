@@ -88,12 +88,12 @@ protected void tearDown() {
 
       final Map<String, ?> hResultValues = results.getResultValueMap();
 
-      assertTrue("Expecting byte result to be an instance of Byte.", (hResultValues.get("byte") instanceof Byte));
-      assertTrue("Expecting short result to be an instance of Short.", (hResultValues.get("short") instanceof Short));
-      assertTrue("Expecting integer result to be an instance of Integer.", (hResultValues.get("integer") instanceof Integer));
-      assertTrue("Expecting long result to be an instance of Long.", (hResultValues.get("long") instanceof Long));
-      assertTrue("Expecting float result to be an instance of Float.", (hResultValues.get("float") instanceof Float));
-      assertTrue("Expecting double result to be an instance of Double.", (hResultValues.get("double") instanceof Double));
+      assertTrue("Expecting byte result to be an instance of Byte.", hResultValues.get("byte") instanceof Byte);
+      assertTrue("Expecting short result to be an instance of Short.", hResultValues.get("short") instanceof Short);
+      assertTrue("Expecting integer result to be an instance of Integer.", hResultValues.get("integer") instanceof Integer);
+      assertTrue("Expecting long result to be an instance of Long.", hResultValues.get("long") instanceof Long);
+      assertTrue("Expecting float result to be an instance of Float.", hResultValues.get("float") instanceof Float);
+      assertTrue("Expecting double result to be an instance of Double.", hResultValues.get("double") instanceof Double);
 
       for (final String key : hResultValues.keySet()) {
          final Object value = hResultValues.get(key);
@@ -167,13 +167,13 @@ protected void tearDown() {
 
       final Map<String, ?> hResultValues = results.getResultValueMap();
 
-      assertTrue("Expecting byte result to be an instance of Byte for locale: "+locale, (hResultValues.get("byte") instanceof Byte));
-      assertTrue("Expecting short result to be an instance of Short for locale: "+locale, (hResultValues.get("short") instanceof Short));
-      assertTrue("Expecting integer result to be an instance of Integer for locale: "+locale, (hResultValues.get("integer") instanceof Integer));
-      assertTrue("Expecting long result to be an instance of Long for locale: "+locale, (hResultValues.get("long") instanceof Long));
-      assertTrue("Expecting float result to be an instance of Float for locale: "+locale, (hResultValues.get("float") instanceof Float));
-      assertTrue("Expecting double result to be an instance of Double for locale: "+locale, (hResultValues.get("double") instanceof Double));
-      assertTrue("Expecting date result to be an instance of Date for locale: "+locale, (hResultValues.get("date") instanceof Date));
+      assertTrue("Expecting byte result to be an instance of Byte for locale: "+locale, hResultValues.get("byte") instanceof Byte);
+      assertTrue("Expecting short result to be an instance of Short for locale: "+locale, hResultValues.get("short") instanceof Short);
+      assertTrue("Expecting integer result to be an instance of Integer for locale: "+locale, hResultValues.get("integer") instanceof Integer);
+      assertTrue("Expecting long result to be an instance of Long for locale: "+locale, hResultValues.get("long") instanceof Long);
+      assertTrue("Expecting float result to be an instance of Float for locale: "+locale, hResultValues.get("float") instanceof Float);
+      assertTrue("Expecting double result to be an instance of Double for locale: "+locale, hResultValues.get("double") instanceof Double);
+      assertTrue("Expecting date result to be an instance of Date for locale: "+locale, hResultValues.get("date") instanceof Date);
 
       for (final String key : hResultValues.keySet()) {
          final Object value = hResultValues.get(key);

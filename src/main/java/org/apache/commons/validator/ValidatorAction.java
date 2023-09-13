@@ -459,7 +459,7 @@ public class ValidatorAction implements Serializable {
      * @return true if the javascript for this action has already been loaded.
      */
     private boolean javascriptAlreadyLoaded() {
-        return (this.javascript != null);
+        return this.javascript != null;
     }
 
     /**
@@ -564,7 +564,7 @@ public class ValidatorAction implements Serializable {
             }
 
             final boolean valid = this.isValid(result);
-            if (!valid || (valid && !onlyReturnErrors(params))) {
+            if (!valid || valid && !onlyReturnErrors(params)) {
                 results.add(field, this.name, valid, result);
             }
 

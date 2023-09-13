@@ -167,7 +167,7 @@ public class ByteValidator extends AbstractNumberValidator {
      *         specified range.
      */
     public boolean isInRange(final byte value, final byte min, final byte max) {
-        return (value >= min && value <= max);
+        return value >= min && value <= max;
     }
 
     /**
@@ -192,7 +192,7 @@ public class ByteValidator extends AbstractNumberValidator {
      *         or equal to the minimum.
      */
     public boolean minValue(final byte value, final byte min) {
-        return (value >= min);
+        return value >= min;
     }
 
     /**
@@ -216,7 +216,7 @@ public class ByteValidator extends AbstractNumberValidator {
      *         or equal to the maximum.
      */
     public boolean maxValue(final byte value, final byte max) {
-        return (value <= max);
+        return value <= max;
     }
 
     /**

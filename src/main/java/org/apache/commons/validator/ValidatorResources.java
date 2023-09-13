@@ -398,9 +398,9 @@ public class ValidatorResources implements Serializable {
      * Assembles a Locale code from the given parts.
      */
     private String buildLocale(final String lang, final String country, final String variant) {
-        String key = ((lang != null && !lang.isEmpty()) ? lang : "");
-        key += ((country != null && !country.isEmpty()) ? "_" + country : "");
-        key += ((variant != null && !variant.isEmpty()) ? "_" + variant : "");
+        String key = lang != null && !lang.isEmpty() ? lang : "";
+        key += country != null && !country.isEmpty() ? "_" + country : "";
+        key += variant != null && !variant.isEmpty() ? "_" + variant : "";
         return key;
     }
 

@@ -167,7 +167,7 @@ public class FloatValidator extends AbstractNumberValidator {
      *         specified range.
      */
     public boolean isInRange(final float value, final float min, final float max) {
-        return (value >= min && value <= max);
+        return value >= min && value <= max;
     }
 
     /**
@@ -192,7 +192,7 @@ public class FloatValidator extends AbstractNumberValidator {
      *         or equal to the minimum.
      */
     public boolean minValue(final float value, final float min) {
-        return (value >= min);
+        return value >= min;
     }
 
     /**
@@ -216,7 +216,7 @@ public class FloatValidator extends AbstractNumberValidator {
      *         or equal to the maximum.
      */
     public boolean maxValue(final float value, final float max) {
-        return (value <= max);
+        return value <= max;
     }
 
     /**

@@ -166,7 +166,7 @@ public class LongValidator extends AbstractNumberValidator {
      *         specified range.
      */
     public boolean isInRange(final long value, final long min, final long max) {
-        return (value >= min && value <= max);
+        return value >= min && value <= max;
     }
 
     /**
@@ -191,7 +191,7 @@ public class LongValidator extends AbstractNumberValidator {
      *         or equal to the minimum.
      */
     public boolean minValue(final long value, final long min) {
-        return (value >= min);
+        return value >= min;
     }
 
     /**
@@ -215,7 +215,7 @@ public class LongValidator extends AbstractNumberValidator {
      *         or equal to the maximum.
      */
     public boolean maxValue(final long value, final long max) {
-        return (value <= max);
+        return value <= max;
     }
 
     /**

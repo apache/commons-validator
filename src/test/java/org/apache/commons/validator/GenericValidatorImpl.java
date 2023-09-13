@@ -222,21 +222,21 @@ public class GenericValidatorImpl {
             boolean this_required = false;
             if (field.isIndexed() && dependIndexed.equalsIgnoreCase("true")) {
                 final String key = field.getKey();
-                if ((key.contains("[")) && (key.contains("]"))) {
+                if (key.contains("[") && key.contains("]")) {
                     final String ind = key.substring(0, key.indexOf(".") + 1);
                     dependProp = ind + dependProp;
                 }
             }
             final String dependVal = ValidatorUtils.getValueAsString(form, dependProp);
             if (dependTest.equals(FIELD_TEST_NULL)) {
-                if ((dependVal != null) && (!dependVal.isEmpty())) {
+                if (dependVal != null && !dependVal.isEmpty()) {
                     this_required = false;
                 } else {
                     this_required = true;
                 }
             }
             if (dependTest.equals(FIELD_TEST_NOTNULL)) {
-                if ((dependVal != null) && (!dependVal.isEmpty())) {
+                if (dependVal != null && !dependVal.isEmpty()) {
                     this_required = true;
                 } else {
                     this_required = false;
@@ -253,7 +253,7 @@ public class GenericValidatorImpl {
             i++;
         }
         if (required) {
-            if ((value != null) && (!value.isEmpty())) {
+            if (value != null && !value.isEmpty()) {
                 return true;
             }
             return false;
@@ -265,7 +265,7 @@ public class GenericValidatorImpl {
     if (o == null) {
         return true; // TODO this condition is not exercised by any tests currently
     }
-    return (o instanceof String);
+    return o instanceof String;
   }
 
 }

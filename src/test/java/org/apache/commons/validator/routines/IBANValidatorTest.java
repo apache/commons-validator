@@ -222,7 +222,7 @@ public class IBANValidatorTest {
               "AX5542345670000081", // FI other
             "FO6264600001631634",
             "FR1420041010050500013M02606",
-              // FR 'other'             
+              // FR 'other'
               "BL6820041010050500013M02606", // FR other
               "GF4120041010050500013M02606", // FR other
               "GP1120041010050500013M02606", // FR other
@@ -236,7 +236,7 @@ public class IBANValidatorTest {
               "WF9120041010050500013M02606", // FR other
               "YT3120041010050500013M02606", // FR other
             "GB29NWBK60161331926819",
-              // GB 'other'            
+              // GB 'other'
 //              "IM...", // GB other
 //              "JE...", // GB other
 //              "GG...", // GB other

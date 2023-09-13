@@ -265,7 +265,7 @@ public class UrlValidator implements Serializable {
         if (domainValidator == null) {
             throw new IllegalArgumentException("DomainValidator must not be null");
         }
-        if (domainValidator.isAllowLocal() != ((options & ALLOW_LOCAL_URLS) > 0)){
+        if (domainValidator.isAllowLocal() != (options & ALLOW_LOCAL_URLS) > 0){
             throw new IllegalArgumentException("DomainValidator disagrees with ALLOW_LOCAL_URLS setting");
         }
         this.domainValidator = domainValidator;
@@ -459,7 +459,7 @@ public class UrlValidator implements Serializable {
         }
 
         final int slash2Count = countToken("//", path);
-        if (isOff(ALLOW_2_SLASHES) && (slash2Count > 0)) {
+        if (isOff(ALLOW_2_SLASHES) && slash2Count > 0) {
             return false;
         }
 

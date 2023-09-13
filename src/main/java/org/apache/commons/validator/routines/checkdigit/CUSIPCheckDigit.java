@@ -93,7 +93,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
         final int weight = POSITION_WEIGHT[rightPos % 2];
-        final int weightedValue = (charValue * weight);
+        final int weightedValue = charValue * weight;
         return ModulusCheckDigit.sumDigits(weightedValue);
     }
 }

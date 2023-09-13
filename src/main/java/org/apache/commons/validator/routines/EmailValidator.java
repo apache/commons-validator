@@ -211,7 +211,7 @@ public class EmailValidator implements Serializable {
         }
         // Domain is symbolic name
         if (allowTld) {
-            return domainValidator.isValid(domain) || (!domain.startsWith(".") && domainValidator.isValidTld(domain));
+            return domainValidator.isValid(domain) || !domain.startsWith(".") && domainValidator.isValidTld(domain);
         }
         return domainValidator.isValid(domain);
     }

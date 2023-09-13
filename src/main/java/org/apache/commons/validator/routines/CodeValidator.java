@@ -230,7 +230,7 @@ public final class CodeValidator implements Serializable {
      * {@code false}
      */
     public boolean isValid(final String input) {
-        return (validate(input) != null);
+        return validate(input) != null;
     }
 
     /**
@@ -265,8 +265,8 @@ public final class CodeValidator implements Serializable {
         }
 
         // check the length (must be done after validate as that can change the code)
-        if ((minLength >= 0 && code.length() < minLength) ||
-            (maxLength >= 0 && code.length() > maxLength)) {
+        if (minLength >= 0 && code.length() < minLength ||
+            maxLength >= 0 && code.length() > maxLength) {
             return null;
         }
 

@@ -170,7 +170,7 @@ public class UrlValidatorTest {
 
     @Test
     public void testValidator248() {
-        final RegexValidator regex = new RegexValidator(new String[] {"localhost", ".*\\.my-testing"});
+        final RegexValidator regex = new RegexValidator("localhost", ".*\\.my-testing");
         UrlValidator validator = new UrlValidator(regex, 0);
 
         assertTrue("localhost URL should validate",
@@ -393,7 +393,7 @@ public class UrlValidatorTest {
       for (int testPartsIndexIndex = testPartsIndex.length - 1; testPartsIndexIndex >= 0; --testPartsIndexIndex) {
          int index = testPartsIndex[testPartsIndexIndex];
          final ResultPair[] part = (ResultPair[]) testParts[testPartsIndexIndex];
-         maxIndex &= (index == (part.length - 1));
+         maxIndex &= index == part.length - 1;
          if (carry) {
             if (index < part.length - 1) {
                index++;
@@ -407,7 +407,7 @@ public class UrlValidatorTest {
       }
 
 
-      return (!maxIndex);
+      return !maxIndex;
    }
 
    private String testPartsIndextoString() {

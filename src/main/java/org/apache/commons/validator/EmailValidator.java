@@ -174,7 +174,7 @@ public class EmailValidator {
                 domainSegment[i] = atomMatcher.group(1);
                 final int l = domainSegment[i].length() + 1;
                 domain =
-                        (l >= domain.length())
+                        l >= domain.length()
                         ? ""
                         : domain.substring(l);
 

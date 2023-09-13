@@ -150,11 +150,11 @@ protected void setUp() {
                carry = true;
             }
          }
-         maxIndex &= (index == (part.length - 1));
+         maxIndex &= index == part.length - 1;
       }
 
 
-      return (!maxIndex);
+      return !maxIndex;
    }
 
    private String testPartsIndextoString() {

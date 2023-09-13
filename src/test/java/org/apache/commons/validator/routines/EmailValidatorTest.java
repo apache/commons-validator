@@ -217,9 +217,9 @@ public class EmailValidatorTest {
     @Test
     public void testEmailWithControlChars()  {
         for (char c = 0; c < 32; c++) {
-            assertFalse("Test control char " + ((int)c), validator.isValid("foo" + c + "bar@domain.com"));
+            assertFalse("Test control char " + (int)c, validator.isValid("foo" + c + "bar@domain.com"));
         }
-        assertFalse("Test control char 127", validator.isValid("foo" + ((char)127) + "bar@domain.com"));
+        assertFalse("Test control char 127", validator.isValid("foo" + (char)127 + "bar@domain.com"));
     }
 
     /**

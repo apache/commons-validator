@@ -96,7 +96,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     @Override
     public boolean isValid(final String value, final String pattern, final Locale locale) {
         final Object parsedValue = parse(value, pattern, locale);
-        return (parsedValue == null ? false : true);
+        return parsedValue == null ? false : true;
     }
 
     /**
@@ -109,7 +109,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      *         specified range.
      */
     public boolean isInRange(final Number value, final Number min, final Number max) {
-        return (minValue(value, min) && maxValue(value, max));
+        return minValue(value, min) && maxValue(value, max);
     }
 
     /**
@@ -122,9 +122,9 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      */
     public boolean minValue(final Number value, final Number min) {
         if (isAllowFractions()) {
-            return (value.doubleValue() >= min.doubleValue());
+            return value.doubleValue() >= min.doubleValue();
         }
-        return (value.longValue() >= min.longValue());
+        return value.longValue() >= min.longValue();
     }
 
     /**
@@ -137,9 +137,9 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      */
     public boolean maxValue(final Number value, final Number max) {
         if (isAllowFractions()) {
-            return (value.doubleValue() <= max.doubleValue());
+            return value.doubleValue() <= max.doubleValue();
         }
-        return (value.longValue() <= max.longValue());
+        return value.longValue() <= max.longValue();
     }
 
     /**
@@ -153,7 +153,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      */
     protected Object parse(String value, final String pattern, final Locale locale) {
 
-        value = (value == null ? null : value.trim());
+        value = value == null ? null : value.trim();
         if (value == null || value.isEmpty()) {
             return null;
         }

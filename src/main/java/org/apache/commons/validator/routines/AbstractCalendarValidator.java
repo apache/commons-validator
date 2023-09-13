@@ -66,7 +66,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     @Override
     public boolean isValid(final String value, final String pattern, final Locale locale) {
         final Object parsedValue = parse(value, pattern, locale, (TimeZone)null);
-        return (parsedValue == null ? false : true);
+        return parsedValue == null ? false : true;
     }
 
     /**
@@ -175,7 +175,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      */
     protected Object parse(String value, final String pattern, final Locale locale, final TimeZone timeZone) {
 
-        value = (value == null ? null : value.trim());
+        value = value == null ? null : value.trim();
         if (value == null || value.isEmpty()) {
             return null;
         }
@@ -304,9 +304,9 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
 
         // Compare Date
         result = calculateCompareResult(value, compare, Calendar.DATE);
-        if (result != 0 || (field == Calendar.DATE ||
+        if (result != 0 || field == Calendar.DATE ||
                           field == Calendar.DAY_OF_WEEK ||
-                          field == Calendar.DAY_OF_WEEK_IN_MONTH)) {
+                          field == Calendar.DAY_OF_WEEK_IN_MONTH) {
             return result;
         }
 
@@ -333,7 +333,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
 
         // Compare Hour
         result = calculateCompareResult(value, compare, Calendar.HOUR_OF_DAY);
-        if (result != 0 || (field == Calendar.HOUR || field == Calendar.HOUR_OF_DAY)) {
+        if (result != 0 || field == Calendar.HOUR || field == Calendar.HOUR_OF_DAY) {
             return result;
         }
 
@@ -391,16 +391,16 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
         // Add Year
         int year = calendar.get(Calendar.YEAR);
 
-        final int month = (calendar.get(Calendar.MONTH) + 1);
-        final int relativeMonth = (month >= monthOfFirstQuarter)
-                          ? (month - monthOfFirstQuarter)
-                          : (month + (12 - monthOfFirstQuarter)); // CHECKSTYLE IGNORE MagicNumber
-        final int quarter = ((relativeMonth / 3) + 1); // CHECKSTYLE IGNORE MagicNumber
+        final int month = calendar.get(Calendar.MONTH) + 1;
+        final int relativeMonth = month >= monthOfFirstQuarter
+                          ? month - monthOfFirstQuarter
+                          : month + 12 - monthOfFirstQuarter; // CHECKSTYLE IGNORE MagicNumber
+        final int quarter = relativeMonth / 3 + 1; // CHECKSTYLE IGNORE MagicNumber
         // adjust the year if the quarter doesn't start in January
         if (month < monthOfFirstQuarter) {
             --year;
         }
-        return (year * 10) + quarter; // CHECKSTYLE IGNORE MagicNumber
+        return year * 10 + quarter; // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**

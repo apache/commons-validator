@@ -91,7 +91,7 @@ public class IBANValidator {
          * @param ibanLength the length of the IBAN
          * @param regexWithoutCC the regex to use to check the format, the regex MUST NOT start with the country code.
          */
-        Validator(final String countryCode, final int ibanLength, final String regexWithoutCC, String... otherCountryCodes) {
+        Validator(final String countryCode, final int ibanLength, final String regexWithoutCC, final String... otherCountryCodes) {
             if (!(countryCode.length() == 2 && Character.isUpperCase(countryCode.charAt(0)) && Character.isUpperCase(countryCode.charAt(1)))) {
                 throw new IllegalArgumentException("Invalid country Code; must be exactly 2 upper-case characters");
             }
@@ -104,7 +104,7 @@ public class IBANValidator {
             }
             this.countryCode = countryCode;
             this.otherCountryCodes = otherCountryCodes.clone();
-            List<String> regexList = new ArrayList<>(this.otherCountryCodes.length + 1);
+            final List<String> regexList = new ArrayList<>(this.otherCountryCodes.length + 1);
             regexList.add(countryCode + regexWithoutCC);
             for (String otherCc : otherCountryCodes) {
                 regexList.add(otherCc + regexWithoutCC);

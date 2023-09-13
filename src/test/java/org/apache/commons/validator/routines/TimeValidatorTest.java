@@ -309,14 +309,14 @@ public class TimeValidatorTest extends TestCase {
     protected static Calendar createTime(final TimeZone zone, final int time, final int millisecond) {
         final Calendar calendar = zone == null ? Calendar.getInstance()
                                          : Calendar.getInstance(zone);
-        final int hour = ((time / 10000) * 10000);
-        final int min  = ((time / 100) * 100) - hour;
+        final int hour = time / 10000 * 10000;
+        final int min  = time / 100 * 100 - hour;
         final int sec  = time - (hour + min);
         calendar.set(Calendar.YEAR,  1970);
         calendar.set(Calendar.MONTH, 0);
         calendar.set(Calendar.DATE,  1);
-        calendar.set(Calendar.HOUR_OF_DAY,  (hour / 10000));
-        calendar.set(Calendar.MINUTE, (min / 100));
+        calendar.set(Calendar.HOUR_OF_DAY,  hour / 10000);
+        calendar.set(Calendar.MINUTE, min / 100);
         calendar.set(Calendar.SECOND,  sec);
         calendar.set(Calendar.MILLISECOND,  millisecond);
         return calendar;

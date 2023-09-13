@@ -134,7 +134,7 @@ public class CreditCardValidator {
      * @return Whether the card number is valid.
      */
     public boolean isValid(final String card) {
-        if ((card == null) || (card.length() < 13) || (card.length() > 19)) {
+        if (card == null || card.length() < 13 || card.length() > 19) {
             return false;
         }
 
@@ -180,7 +180,7 @@ public class CreditCardValidator {
                 return false;
             }
 
-            if (((count & 1) ^ oddOrEven) == 0) { // not
+            if ((count & 1 ^ oddOrEven) == 0) { // not
                 digit *= 2;
                 if (digit > 9) {
                     digit -= 9;
@@ -189,7 +189,7 @@ public class CreditCardValidator {
             sum += digit;
         }
 
-        return (sum == 0) ? false : (sum % 10 == 0);
+        return sum == 0 ? false : sum % 10 == 0;
     }
 
     /**
@@ -222,9 +222,8 @@ public class CreditCardValidator {
         private static final String PREFIX = "4";
         @Override
         public boolean matches(final String card) {
-            return (
-                card.substring(0, 1).equals(PREFIX)
-                    && (card.length() == 13 || card.length() == 16));
+            return card.substring(0, 1).equals(PREFIX)
+                && (card.length() == 13 || card.length() == 16);
         }
     }
 
@@ -233,7 +232,7 @@ public class CreditCardValidator {
         @Override
         public boolean matches(final String card) {
             final String prefix2 = card.substring(0, 2) + ",";
-            return ((PREFIX.contains(prefix2)) && (card.length() == 15));
+            return PREFIX.contains(prefix2) && card.length() == 15;
         }
     }
 
@@ -241,7 +240,7 @@ public class CreditCardValidator {
         private static final String PREFIX = "6011";
         @Override
         public boolean matches(final String card) {
-            return (card.substring(0, 4).equals(PREFIX) && (card.length() == 16));
+            return card.substring(0, 4).equals(PREFIX) && card.length() == 16;
         }
     }
 
@@ -250,7 +249,7 @@ public class CreditCardValidator {
         @Override
         public boolean matches(final String card) {
             final String prefix2 = card.substring(0, 2) + ",";
-            return ((PREFIX.contains(prefix2)) && (card.length() == 16));
+            return PREFIX.contains(prefix2) && card.length() == 16;
         }
     }
 

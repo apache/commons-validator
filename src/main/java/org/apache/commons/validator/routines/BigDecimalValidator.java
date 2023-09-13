@@ -185,7 +185,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      *         specified range.
      */
     public boolean isInRange(final BigDecimal value, final double min, final double max) {
-        return (value.doubleValue() >= min && value.doubleValue() <= max);
+        return value.doubleValue() >= min && value.doubleValue() <= max;
     }
 
     /**
@@ -197,7 +197,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      *         or equal to the minimum.
      */
     public boolean minValue(final BigDecimal value, final double min) {
-        return (value.doubleValue() >= min);
+        return value.doubleValue() >= min;
     }
 
     /**
@@ -209,7 +209,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      *         or equal to the maximum.
      */
     public boolean maxValue(final BigDecimal value, final double max) {
-        return (value.doubleValue() <= max);
+        return value.doubleValue() <= max;
     }
 
     /**

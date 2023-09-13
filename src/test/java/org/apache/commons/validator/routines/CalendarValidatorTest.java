@@ -82,7 +82,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         assertFalse("isValid(B) both",    CalendarValidator.getInstance().isValid("31 Dec 2005", germanPattern, Locale.GERMAN));
 
         // Test Time Zone
-        final TimeZone zone = (TimeZone.getDefault().getRawOffset() == EET.getRawOffset() ? EST : EET);
+        final TimeZone zone = TimeZone.getDefault().getRawOffset() == EET.getRawOffset() ? EST : EET;
         final Date expectedZone = createCalendar(zone, 20051231, 0).getTime();
         assertFalse("default/EET same ", expected.getTime() == expectedZone.getTime());
 

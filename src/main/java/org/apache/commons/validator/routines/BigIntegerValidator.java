@@ -168,7 +168,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      *         specified range.
      */
     public boolean isInRange(final BigInteger value, final long min, final long max) {
-        return (value.longValue() >= min && value.longValue() <= max);
+        return value.longValue() >= min && value.longValue() <= max;
     }
 
     /**
@@ -180,7 +180,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      *         or equal to the minimum.
      */
     public boolean minValue(final BigInteger value, final long min) {
-        return (value.longValue() >= min);
+        return value.longValue() >= min;
     }
 
     /**
@@ -192,7 +192,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      *         or equal to the maximum.
      */
     public boolean maxValue(final BigInteger value, final long max) {
-        return (value.longValue() <= max);
+        return value.longValue() <= max;
     }
 
     /**

@@ -352,7 +352,7 @@ public class UrlValidator implements Serializable {
                     domainSegment[segmentCount] = atomMatcher.group(1);
                     segmentLength = domainSegment[segmentCount].length() + 1;
                     hostIP =
-                            (segmentLength >= hostIP.length())
+                            segmentLength >= hostIP.length()
                             ? ""
                             : hostIP.substring(segmentLength);
 
@@ -407,13 +407,13 @@ public class UrlValidator implements Serializable {
         }
 
         final int slash2Count = countToken("//", path);
-        if (options.isOff(ALLOW_2_SLASHES) && (slash2Count > 0)) {
+        if (options.isOff(ALLOW_2_SLASHES) && slash2Count > 0) {
             return false;
         }
 
         final int slashCount = countToken("/", path);
         final int dot2Count = countToken("..", path);
-        if (dot2Count > 0 && (slashCount - slash2Count - 1) <= dot2Count){
+        if (dot2Count > 0 && slashCount - slash2Count - 1 <= dot2Count){
             return false;
         }
 

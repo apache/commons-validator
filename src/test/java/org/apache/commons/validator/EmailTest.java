@@ -208,9 +208,9 @@ protected void setUp() throws IOException, SAXException {
     public void testEmailWithControlChars() {
         final EmailValidator validator = new EmailValidator();
         for (char c = 0; c < 32; c++) {
-            assertFalse("Test control char " + ((int)c), validator.isValid("foo" + c + "bar@domain.com"));
+            assertFalse("Test control char " + (int)c, validator.isValid("foo" + c + "bar@domain.com"));
         }
-        assertFalse("Test control char 127", validator.isValid("foo" + ((char)127) + "bar@domain.com"));
+        assertFalse("Test control char 127", validator.isValid("foo" + (char)127 + "bar@domain.com"));
     }
 
    /**
@@ -441,6 +441,6 @@ protected void setUp() throws IOException, SAXException {
 
       assertNotNull(ACTION + " value ValidatorResult should not be null.", result);
       assertTrue("Value "+info.getValue()+" ValidatorResult should contain the '" + ACTION +"' action.", result.containsAction(ACTION));
-      assertTrue("Value "+info.getValue()+"ValidatorResult for the '" + ACTION +"' action should have " + (passed ? "passed" : "failed") + ".", (passed ? result.isValid(ACTION) : !result.isValid(ACTION)));
+      assertTrue("Value "+info.getValue()+"ValidatorResult for the '" + ACTION +"' action should have " + (passed ? "passed" : "failed") + ".", passed ? result.isValid(ACTION) : !result.isValid(ACTION));
     }
 }

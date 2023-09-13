@@ -128,7 +128,7 @@ public class RegexValidatorTest extends TestCase {
 
         // Multiple Regular Expression - Zero Length array
         try {
-            new RegexValidator(new String[0]);
+            new RegexValidator();
             fail("Zero Length Array - expected IllegalArgumentException");
         } catch (final IllegalArgumentException e) {
             assertEquals("Zero Length Array", "Regular expressions are missing", e.getMessage());
@@ -152,7 +152,7 @@ public class RegexValidatorTest extends TestCase {
             assertEquals("Array has Zero Length", "Regular expression[0] is missing", e.getMessage());
         }
     }
-    
+
     /**
      * Test with multiple regular expressions (case in-sensitive).
      */
@@ -270,8 +270,8 @@ public class RegexValidatorTest extends TestCase {
         checkArray("Sensitive match() invalid",   null,                           sensitive.match("AB-de-1"));
         checkArray("Insensitive match() valid",   new String[] {"AB", "de", "1"}, insensitive.match("AB-de-1"));
         checkArray("Insensitive match() invalid", null,                           insensitive.match("ABd-de-1"));
-        assertEquals("validate one", "ABC", (new RegexValidator("^([A-Z]*)$")).validate("ABC"));
-        checkArray("match one", new String[] {"ABC"}, (new RegexValidator("^([A-Z]*)$")).match("ABC"));
+        assertEquals("validate one", "ABC", new RegexValidator("^([A-Z]*)$").validate("ABC"));
+        checkArray("match one", new String[] {"ABC"}, new RegexValidator("^([A-Z]*)$").match("ABC"));
     }
 
     /**
@@ -281,7 +281,7 @@ public class RegexValidatorTest extends TestCase {
         final RegexValidator single = new RegexValidator(REGEX);
         assertEquals("Single", "RegexValidator{" + REGEX + "}", single.toString());
 
-        final RegexValidator multiple = new RegexValidator(new String[] {REGEX, REGEX});
+        final RegexValidator multiple = new RegexValidator(REGEX, REGEX);
         assertEquals("Multiple", "RegexValidator{" + REGEX + "," + REGEX + "}", multiple.toString());
     }
 

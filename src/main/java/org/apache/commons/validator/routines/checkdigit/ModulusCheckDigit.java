@@ -72,7 +72,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
         }
         try {
             final int modulusResult = calculateModulus(code, true);
-            return (modulusResult == 0);
+            return modulusResult == 0;
         } catch (final CheckDigitException  ex) {
             return false;
         }

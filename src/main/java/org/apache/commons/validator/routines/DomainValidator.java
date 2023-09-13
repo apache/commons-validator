@@ -302,7 +302,7 @@ public class DomainValidator implements Serializable {
             return false;
         }
         final String[] groups = domainRegex.match(domain);
-        return (groups != null && groups.length > 0)
+        return groups != null && groups.length > 0
                 || hostnameRegex.isValid(domain);
     }
 

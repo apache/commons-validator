@@ -101,7 +101,7 @@ public class DateTest extends AbstractCommonTest {
 
         assertNotNull(ACTION + " value ValidatorResult should not be null.", result);
         assertTrue(ACTION + " value ValidatorResult should contain the '" + ACTION + "' action.", result.containsAction(ACTION));
-        assertTrue(ACTION + " value ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".", (passed ? result.isValid(ACTION) : !result.isValid(ACTION)));
+        assertTrue(ACTION + " value ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".", passed ? result.isValid(ACTION) : !result.isValid(ACTION));
     }
 
 
