@@ -159,17 +159,14 @@ public class Flags implements Serializable, Cloneable {
      */
     @Override
     public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (!(obj instanceof Flags)) {
             return false;
         }
-
-        if (obj == this) {
-            return true;
-        }
-
-        final Flags f = (Flags) obj;
-
-        return this.flags == f.flags;
+        Flags other = (Flags) obj;
+        return flags == other.flags;
     }
 
     /**
