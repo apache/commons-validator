@@ -688,8 +688,8 @@ public class ValidatorAction implements Serializable {
 
         } else if (this.instance == null) {
             try {
-                this.instance = this.validationClass.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
+                this.instance = this.validationClass.getConstructor().newInstance();
+            } catch (ReflectiveOperationException e) {
                 final String msg1 =
                     "Couldn't create instance of "
                         + this.classname
