@@ -211,8 +211,8 @@ public class EmailValidatorTest {
     }
 
    /**
-    * Tests the email validation with ascii control characters.
-    * (i.e. Ascii chars 0 - 31 and 127)
+    * Tests the email validation with ASCII control characters.
+    * (i.e. ASCII chars 0 - 31 and 127)
     */
     @Test
     public void testEmailWithControlChars()  {
