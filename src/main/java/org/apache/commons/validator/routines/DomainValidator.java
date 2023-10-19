@@ -2082,8 +2082,9 @@ public class DomainValidator implements Serializable {
     public static class Item {
         final ArrayType type;
         final String[] values;
+
         /**
-         *
+         * Constructs a new instance.
          * @param type ArrayType, e.g. GENERIC_PLUS, LOCAL_PLUS
          * @param values array of TLDs. Will be lower-cased and sorted
          */
