@@ -21,14 +21,12 @@ import java.io.Serializable;
 /**
  * Abstract <b>Modulus</b> Check digit calculation/validation.
  * <p>
- * Provides a <i>base</i> class for building <i>modulus</i> Check
- * Digit routines.
+ * Provides a <i>base</i> class for building <i>modulus</i> Check Digit routines.
+ * </p>
  * <p>
- * This implementation only handles <i>single-digit numeric</i> codes, such as
- * <b>EAN-13</b>. For <i>alphanumeric</i> codes such as <b>EAN-128</b> you
- * will need to implement/override the <code>toInt()</code> and
- * <code>toChar()</code> methods.
- * <p>
+ * This implementation only handles <i>single-digit numeric</i> codes, such as <b>EAN-13</b>. For <i>alphanumeric</i> codes such as <b>EAN-128</b> you will need
+ * to implement/override the <code>toInt()</code> and <code>toChar()</code> methods.
+ * </p>
  *
  * @since 1.4
  */
