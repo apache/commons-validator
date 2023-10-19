@@ -352,7 +352,7 @@ public class ValidatorResources implements Serializable {
     /**
      * Add a <code>ValidatorAction</code> to the resource.  It also creates an
      * instance of the class based on the <code>ValidatorAction</code>s
-     * classname and retrieves the <code>Method</code> instance and sets them
+     * class name and retrieves the <code>Method</code> instance and sets them
      * in the <code>ValidatorAction</code>.
      * @param va The validator action.
      */
