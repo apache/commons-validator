@@ -181,7 +181,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Sets the class of the validator action.
-     * @param class name Class name of the validator Action.
+     * @param className Class name of the validator Action.
      * @deprecated Use {@link #setClassName(String)}.
      */
     @Deprecated
@@ -191,7 +191,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * Sets the class of the validator action.
-     * @param class name Class name of the validator Action.
+     * @param className Class name of the validator Action.
      */
     public void setClassName(final String className) {
         this.className = className;
