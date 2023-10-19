@@ -452,7 +452,7 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * @return A filename suitable for passing to a
+     * @return A file name suitable for passing to a
      * ClassLoader.getResourceAsStream() method.
      */
     private String formatJavascriptFileName() {
