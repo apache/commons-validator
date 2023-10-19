@@ -59,10 +59,10 @@ public class ValidatorAction implements Serializable {
      * The full class name of the class containing
      * the validation method associated with this action.
      */
-    private String classname;
+    private String className;
 
     /**
-     * The Class object loaded from the classname.
+     * The Class object loaded from the class name.
      */
     private Class<?> validationClass;
 
@@ -176,15 +176,25 @@ public class ValidatorAction implements Serializable {
      * @return Class name of the validator Action.
      */
     public String getClassname() {
-        return classname;
+        return className;
     }
 
     /**
      * Sets the class of the validator action.
-     * @param classname Class name of the validator Action.
+     * @param class name Class name of the validator Action.
+     * @deprecated Use {@link #setClassName(String)}.
      */
-    public void setClassname(final String classname) {
-        this.classname = classname;
+    @Deprecated
+    public void setClassname(final String className) {
+        this.className = className;
+    }
+
+    /**
+     * Sets the class of the validator action.
+     * @param class name Class name of the validator Action.
+     */
+    public void setClassName(final String className) {
+        this.className = className;
     }
 
     /**
@@ -622,7 +632,7 @@ public class ValidatorAction implements Serializable {
         }
 
         try {
-            this.validationClass = loader.loadClass(this.classname);
+            this.validationClass = loader.loadClass(this.className);
         } catch (final ClassNotFoundException e) {
             throw new ValidatorException(e.toString());
         }
@@ -692,7 +702,7 @@ public class ValidatorAction implements Serializable {
             } catch (ReflectiveOperationException e) {
                 final String msg1 =
                     "Couldn't create instance of "
-                        + this.classname
+                        + this.className
                         + ".  "
                         + e.getMessage();
 

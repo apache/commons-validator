@@ -163,60 +163,115 @@ public class ValidatorTest extends TestCase {
         return resources;
     }
 
-   /**
-    * Verify that one value generates an error and the other passes.  The validation
-    * method being tested returns a <code>boolean</code> value.
-    */
-   public void testManualBoolean() {
-      final ValidatorResources resources = new ValidatorResources();
+    /**
+     * Verify that one value generates an error and the other passes.  The validation
+     * method being tested returns a <code>boolean</code> value.
+     */
+    public void testManualBoolean() {
+       final ValidatorResources resources = new ValidatorResources();
 
-      final ValidatorAction va = new ValidatorAction();
-      va.setName("capLetter");
-      va.setClassname("org.apache.commons.validator.ValidatorTest");
-      va.setMethod("isCapLetter");
-      va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field,java.util.List");
+       final ValidatorAction va = new ValidatorAction();
+       va.setName("capLetter");
+       va.setClassName("org.apache.commons.validator.ValidatorTest");
+       va.setMethod("isCapLetter");
+       va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field,java.util.List");
 
-      final FormSet fs = new FormSet();
-      final Form form = new Form();
-      form.setName("testForm");
-      final Field field = new Field();
-      field.setProperty("letter");
-      field.setDepends("capLetter");
-      form.addField(field);
-      fs.addForm(form);
+       final FormSet fs = new FormSet();
+       final Form form = new Form();
+       form.setName("testForm");
+       final Field field = new Field();
+       field.setProperty("letter");
+       field.setDepends("capLetter");
+       form.addField(field);
+       fs.addForm(form);
 
-      resources.addValidatorAction(va);
-      resources.addFormSet(fs);
-      resources.process();
+       resources.addValidatorAction(va);
+       resources.addFormSet(fs);
+       resources.process();
 
-      final List<?> l = new ArrayList<>();
+       final List<?> l = new ArrayList<>();
 
-      final TestBean bean = new TestBean();
-      bean.setLetter("A");
+       final TestBean bean = new TestBean();
+       bean.setLetter("A");
 
-      final Validator validator = new Validator(resources, "testForm");
-      validator.setParameter(Validator.BEAN_PARAM, bean);
-      validator.setParameter("java.util.List", l);
+       final Validator validator = new Validator(resources, "testForm");
+       validator.setParameter(Validator.BEAN_PARAM, bean);
+       validator.setParameter("java.util.List", l);
 
-      try {
-         validator.validate();
-      } catch (final Exception e) {
-         fail("An exception was thrown while calling Validator.validate()");
-      }
+       try {
+          validator.validate();
+       } catch (final Exception e) {
+          fail("An exception was thrown while calling Validator.validate()");
+       }
 
-      assertEquals("Validation of the letter 'A'.", 0, l.size());
+       assertEquals("Validation of the letter 'A'.", 0, l.size());
 
-      l.clear();
-      bean.setLetter("AA");
+       l.clear();
+       bean.setLetter("AA");
 
-      try {
-         validator.validate();
-      } catch (final Exception e) {
-         fail("An exception was thrown while calling Validator.validate()");
-      }
+       try {
+          validator.validate();
+       } catch (final Exception e) {
+          fail("An exception was thrown while calling Validator.validate()");
+       }
 
-      assertEquals("Validation of the letter 'AA'.", 1, l.size());
-   }
+       assertEquals("Validation of the letter 'AA'.", 1, l.size());
+    }
+
+    /**
+     * Verify that one value generates an error and the other passes.  The validation
+     * method being tested returns a <code>boolean</code> value.
+     */
+    public void testManualBooleanDeprecated() {
+       final ValidatorResources resources = new ValidatorResources();
+
+       final ValidatorAction va = new ValidatorAction();
+       va.setName("capLetter");
+       va.setClassname("org.apache.commons.validator.ValidatorTest");
+       va.setMethod("isCapLetter");
+       va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field,java.util.List");
+
+       final FormSet fs = new FormSet();
+       final Form form = new Form();
+       form.setName("testForm");
+       final Field field = new Field();
+       field.setProperty("letter");
+       field.setDepends("capLetter");
+       form.addField(field);
+       fs.addForm(form);
+
+       resources.addValidatorAction(va);
+       resources.addFormSet(fs);
+       resources.process();
+
+       final List<?> l = new ArrayList<>();
+
+       final TestBean bean = new TestBean();
+       bean.setLetter("A");
+
+       final Validator validator = new Validator(resources, "testForm");
+       validator.setParameter(Validator.BEAN_PARAM, bean);
+       validator.setParameter("java.util.List", l);
+
+       try {
+          validator.validate();
+       } catch (final Exception e) {
+          fail("An exception was thrown while calling Validator.validate()");
+       }
+
+       assertEquals("Validation of the letter 'A'.", 0, l.size());
+
+       l.clear();
+       bean.setLetter("AA");
+
+       try {
+          validator.validate();
+       } catch (final Exception e) {
+          fail("An exception was thrown while calling Validator.validate()");
+       }
+
+       assertEquals("Validation of the letter 'AA'.", 1, l.size());
+    }
 
    /**
     * Checks if the field is one upper case letter between 'A' and 'Z'.
