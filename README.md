@@ -43,11 +43,11 @@
 Apache Commons Validator
 ===================
 
-[![GitHub Actions Status](https://github.com/apache/commons-validator/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-validator/actions)
+[![Java CI](https://github.com/apache/commons-validator/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/maven.yml)
 [![Coverage Status](https://codecov.io/gh/apache/commons-validator/branch/master/graph/badge.svg)](https://app.codecov.io/gh/apache/commons-validator)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/commons-validator/commons-validator/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/commons-validator/commons-validator/?gav=true)
 [![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.7.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.7)
-[![CodeQL](https://github.com/apache/commons-validator/workflows/CodeQL/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml?query=workflow%3ACodeQL)
+[![CodeQL](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml)
 
 Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
     It may be used standalone or with a framework like Struts.
