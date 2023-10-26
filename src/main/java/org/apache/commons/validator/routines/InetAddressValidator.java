@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * <p><b>InetAddress</b> validation and conversion routines (<code>java.net.InetAddress</code>).</p>
@@ -61,6 +62,9 @@ public class InetAddressValidator implements Serializable {
 
     /** IPv4 RegexValidator */
     private final RegexValidator ipv4Validator = new RegexValidator(IPV4_REGEX);
+    
+    private static final Pattern DIGITS_PATTERN = Pattern.compile("\\d{1,3}");
+    private static final Pattern ID_CHECK_PATTERN = Pattern.compile("[^\\s/%]+");
 
     /**
      * Returns the singleton instance of this validator.
@@ -134,7 +138,7 @@ public class InetAddressValidator implements Serializable {
             return false; // can only have one prefix specifier
         }
         if (parts.length == 2) {
-            if (!parts[1].matches("\\d{1,3}")) {
+            if (!DIGITS_PATTERN.matcher(parts[1]).matches()) {
                 return false; // not a valid number
             }
             final int bits = Integer.parseInt(parts[1]); // cannot fail because of RE check
@@ -149,7 +153,7 @@ public class InetAddressValidator implements Serializable {
         }
         // The id syntax is implementation independent, but it presumably cannot allow:
         // whitespace, '/' or '%'
-        if (parts.length == 2 && !parts[1].matches("[^\\s/%]+")) {
+        if (parts.length == 2 && !ID_CHECK_PATTERN.matcher(parts[1]).matches()) {
             return false; // invalid id
         }
         inet6Address = parts[0];
