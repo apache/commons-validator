@@ -150,7 +150,7 @@
  * // Validate/Convert the date using GMT
  * Date fooDate = validator.validate(fooString, "dd/MM/yyyy", GMT);
  * </pre>
- * <p>The following Time Zone <i>flavours</i> of the Validation/Conversion methods
+ * <p>The following Time Zone <i>flavors</i> of the Validation/Conversion methods
  * are provided:</p>
  * <ul>
  * <li><code>validate(<i>value</i>, TimeZone)</code></li>
@@ -406,7 +406,7 @@
  * by creating a new instance, which caches and re-uses compiled Patterns.
  * </p>
  * <ul>
- * <li><b>Method Flavours</b> - three <i>flavours</i> of validation metods are provided:</li>
+ * <li><b>Method Flavours</b> - three <i>flavors</i> of validation metods are provided:</li>
  * <li>
  * <ul>
  * <li><code>isValid()</code> methods return true/false to indicate
