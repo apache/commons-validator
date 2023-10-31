@@ -37,7 +37,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
     }
 
     /**
-     * Set Up.
+     * Sets up test fixtures.
      */
     @Override
     protected void setUp() {
