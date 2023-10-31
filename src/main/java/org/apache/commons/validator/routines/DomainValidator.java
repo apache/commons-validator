@@ -2018,8 +2018,8 @@ public class DomainValidator implements Serializable {
     /*
      * These arrays are mutable.
      * They can only be updated by the updateTLDOverride method, and readers must first get an instance
-     * using the getInstance methods which are all (now) synchronised.
-     * The only other access is via getTLDEntries which is now synchronised.
+     * using the getInstance methods which are all (now) synchronized.
+     * The only other access is via getTLDEntries which is now synchronized.
      */
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static String[] countryCodeTLDsPlus = EMPTY_STRING_ARRAY;
