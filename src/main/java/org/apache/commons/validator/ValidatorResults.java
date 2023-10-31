@@ -122,7 +122,7 @@ public class ValidatorResults implements Serializable {
     }
 
     /**
-     * Get a <code>Map</code> of any <code>Object</code>s returned from
+     * Gets a <code>Map</code> of any <code>Object</code>s returned from
      * validation routines.
      *
      * @return Map of objections returned by validators.

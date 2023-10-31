@@ -2054,13 +2054,13 @@ public class DomainValidator implements Serializable {
         COUNTRY_CODE_PLUS,
         /** Update (or get a copy of) the COUNTRY_CODE_TLDS_MINUS table containing deleted country code TLDs */
         COUNTRY_CODE_MINUS,
-        /** Get a copy of the generic TLDS table */
+        /** Gets a copy of the generic TLDS table */
         GENERIC_RO,
-        /** Get a copy of the country code table */
+        /** Gets a copy of the country code table */
         COUNTRY_CODE_RO,
-        /** Get a copy of the infrastructure table */
+        /** Gets a copy of the infrastructure table */
         INFRASTRUCTURE_RO,
-        /** Get a copy of the local table */
+        /** Gets a copy of the local table */
         LOCAL_RO,
         /**
          * Update (or get a copy of) the LOCAL_TLDS_PLUS table containing additional local TLDs
@@ -2159,7 +2159,7 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Get a copy of a class level internal array.
+     * Gets a copy of a class level internal array.
      * @param table the array type (any of the enum values)
      * @return a copy of the array
      * @throws IllegalArgumentException if the table type is unexpected (should not happen)
@@ -2205,7 +2205,7 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Get a copy of an instance level internal array.
+     * Gets a copy of an instance level internal array.
      * @param table the array type (any of the enum values)
      * @return a copy of the array
      * @throws IllegalArgumentException if the table type is unexpected, e.g. GENERIC_RO

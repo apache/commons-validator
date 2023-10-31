@@ -367,7 +367,7 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Get a <code>ValidatorAction</code> based on it's name.
+     * Gets a <code>ValidatorAction</code> based on it's name.
      * @param key The validator action key.
      * @return The validator action.
      */
@@ -376,7 +376,7 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Get an unmodifiable <code>Map</code> of the <code>ValidatorAction</code>s.
+     * Gets an unmodifiable <code>Map</code> of the <code>ValidatorAction</code>s.
      * @return Map of validator actions.
      */
     public Map<String, ValidatorAction> getValidatorActions() {

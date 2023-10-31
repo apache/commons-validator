@@ -310,7 +310,7 @@ public class IBANValidator {
     }
 
     /**
-     * Get the Validator for a given IBAN
+     * Gets the Validator for a given IBAN
      *
      * @param code a string starting with the ISO country code (e.g. an IBAN)
      *

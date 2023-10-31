@@ -325,7 +325,7 @@ public class Form implements Serializable {
     }
 
     /**
-     * Get extends flag.
+     * Gets extends flag.
      *
      * @return   The extending value
      * @since 1.2.0
