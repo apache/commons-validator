@@ -33,7 +33,7 @@ public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
     }
 
     /**
-     * Set up routine & valid codes.
+     * Sets up routine & valid codes.
      */
     @Override
     protected void setUp() {
@@ -51,7 +51,7 @@ public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
     }
 
     /**
-     * Set up routine & valid codes.
+     * Sets up routine & valid codes.
      */
     public void testInvalidLength() {
         assertFalse("isValid() Lth 9 ", routine.isValid("123456789"));

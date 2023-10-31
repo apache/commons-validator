@@ -150,7 +150,7 @@ public class Arg implements Cloneable, Serializable {
     }
 
     /**
-     * Set this argument's replacement position.
+     * Sets this argument's replacement position.
      * @param position set this argument's replacement position.
      */
     public void setPosition(final int position) {

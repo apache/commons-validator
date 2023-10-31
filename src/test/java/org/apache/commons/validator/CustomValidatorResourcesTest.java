@@ -34,7 +34,7 @@ public class CustomValidatorResourcesTest extends TestCase {
     }
 
     /**
-     * Set up.
+     * Sets up.
      */
     @Override
     protected void setUp() {

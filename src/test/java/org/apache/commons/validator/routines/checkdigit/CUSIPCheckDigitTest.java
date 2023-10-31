@@ -33,7 +33,7 @@ public class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
     }
 
     /**
-     * Set up routine & valid codes.
+     * Sets up routine & valid codes.
      */
     @Override
     protected void setUp() {

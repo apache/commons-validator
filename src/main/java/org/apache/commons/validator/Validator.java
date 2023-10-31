@@ -129,7 +129,7 @@ public class Validator implements Serializable {
     protected boolean useContextClassLoader;
 
     /**
-     * Set this to true to not return Fields that pass validation.  Only return failures.
+     * Sets this to true to not return Fields that pass validation.  Only return failures.
      */
     protected boolean onlyReturnErrors;
 
@@ -185,7 +185,7 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Set a parameter of a pluggable validation method.
+     * Sets a parameter of a pluggable validation method.
      *
      * @param parameterClassName The full class name of the parameter of the
      * validation method that corresponds to the value/instance passed in with it.
@@ -328,7 +328,7 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Set the class loader to be used for instantiating application objects
+     * Sets the class loader to be used for instantiating application objects
      * when required.
      *
      * @param classLoader The new class loader to use, or <code>null</code>

@@ -33,7 +33,7 @@ public class ISSNCheckDigitTest extends AbstractCheckDigitTest {
     }
 
     /**
-     * Set up routine & valid codes.
+     * Sets up routine & valid codes.
      */
     @Override
     protected void setUp() {
