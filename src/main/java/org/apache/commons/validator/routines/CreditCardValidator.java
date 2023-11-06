@@ -200,6 +200,10 @@ public class CreditCardValidator implements Serializable {
     @Deprecated
     public static final long MASTERCARD_PRE_OCT2016 = 1 << 6; // CHECKSTYLE IGNORE MagicNumber
 
+    /**
+     * Option specifying that MIR cards are allowed
+     */
+    public static final long MIR = 1 << 7;
 
     /**
      * The CreditCardTypes that are allowed to pass validation.
@@ -282,6 +286,7 @@ public class CreditCardValidator implements Serializable {
      */
     public static final CodeValidator VPAY_VALIDATOR = new CodeValidator("^(4)(\\d{12,18})$", LUHN_VALIDATOR);
 
+    public static final CodeValidator MIR_VALIDATOR = new CodeValidator("^(220\\d{13})$", LUHN_VALIDATOR);
     /**
      * Create a new CreditCardValidator with default options.
      * The default options are:
@@ -324,6 +329,10 @@ public class CreditCardValidator implements Serializable {
 
         if (isOn(options, DINERS)) {
             this.cardTypes.add(DINERS_VALIDATOR);
+        }
+
+        if (isOn(options, MIR)) {
+            this.cardTypes.add(MIR_VALIDATOR);
         }
     }
 

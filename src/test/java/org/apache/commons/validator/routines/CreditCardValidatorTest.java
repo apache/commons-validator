@@ -43,6 +43,8 @@ public class CreditCardValidatorTest extends TestCase {
     private static final String VALID_VPAY       = "4370000000000061"; // 16
     private static final String VALID_VPAY2      = "4370000000000012";
     private static final String ERROR_VPAY       = "4370000000000069";
+    private static final String VALID_MIR        = "2203368778544108";
+    private static final String ERROR_MIR        = "2203368778544107";
 
     private static final String [] VALID_CARDS = {
         VALID_VISA,
@@ -55,6 +57,7 @@ public class CreditCardValidatorTest extends TestCase {
         VALID_VPAY,
         VALID_VPAY2,
         "60115564485789458", // VALIDATOR-403
+        VALID_MIR
     };
 
     private static final String [] ERROR_CARDS = {
@@ -71,6 +74,7 @@ public class CreditCardValidatorTest extends TestCase {
         "12345678901", // too short (11)
         "12345678901234567890", // too long (20)
         "4417123456789112", // invalid check digit
+        ERROR_MIR
     };
 
     /**
@@ -588,6 +592,7 @@ public class CreditCardValidatorTest extends TestCase {
                 CreditCardValidator.VISA_VALIDATOR,
                 CreditCardValidator.MASTERCARD_VALIDATOR,
                 CreditCardValidator.DISCOVER_VALIDATOR,
+                CreditCardValidator.MIR_VALIDATOR
             },
             // Add missing validator
             new CreditCardRange[]{
