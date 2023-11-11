@@ -96,7 +96,7 @@ public class TimeValidator extends AbstractCalendarValidator {
     }
 
     /**
-     * Construct a <i>strict</i> instance with <i>short</i>
+     * Constructs a <i>strict</i> instance with <i>short</i>
      * time style.
      */
     public TimeValidator() {
@@ -104,7 +104,7 @@ public class TimeValidator extends AbstractCalendarValidator {
     }
 
     /**
-     * Construct an instance with the specified <i>strict</i>
+     * Constructs an instance with the specified <i>strict</i>
      * and <i>time style</i> parameters.
      *
      * @param strict {@code true} if strict

@@ -59,14 +59,14 @@ public class CurrencyValidator extends BigDecimalValidator {
     }
 
     /**
-     * Construct a <i>strict</i> instance.
+     * Constructs a <i>strict</i> instance.
      */
     public CurrencyValidator() {
         this(true, true);
     }
 
     /**
-     * Construct an instance with the specified strict setting.
+     * Constructs an instance with the specified strict setting.
      *
      * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.

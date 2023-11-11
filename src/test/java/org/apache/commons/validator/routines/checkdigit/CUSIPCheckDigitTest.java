@@ -25,7 +25,7 @@ package org.apache.commons.validator.routines.checkdigit;
 public class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
-     * Construct a new test.
+     * Constructs a new test.
      * @param name test name
      */
     public CUSIPCheckDigitTest(final String name) {

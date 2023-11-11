@@ -140,7 +140,7 @@ public class ValidatorResult implements Serializable {
         private Object result;
 
        /**
-        * Construct a Result status.
+        * Constructs a Result status.
         * @param valid Whether the validator passed or failed.
         * @param result Value returned by the validator.
         */

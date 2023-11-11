@@ -23,7 +23,7 @@ package org.apache.commons.validator.routines.checkdigit;
 public class ModulusTenCUSIPCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
-     * Construct a new test.
+     * Constructs a new test.
      * @param name test name
      */
     public ModulusTenCUSIPCheckDigitTest(final String name) {

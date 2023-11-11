@@ -76,7 +76,7 @@ public final class CodeValidator implements Serializable {
     private final CheckDigit checkdigit;
 
     /**
-     * Construct a code validator with a specified regular
+     * Constructs a code validator with a specified regular
      * expression and {@link CheckDigit}.
      * The RegexValidator validator is created to be case-sensitive
      *
@@ -88,7 +88,7 @@ public final class CodeValidator implements Serializable {
     }
 
     /**
-     * Construct a code validator with a specified regular
+     * Constructs a code validator with a specified regular
      * expression, length and {@link CheckDigit}.
      * The RegexValidator validator is created to be case-sensitive
      *
@@ -102,7 +102,7 @@ public final class CodeValidator implements Serializable {
     }
 
     /**
-     * Construct a code validator with a specified regular
+     * Constructs a code validator with a specified regular
      * expression, minimum/maximum length and {@link CheckDigit} validation.
      * The RegexValidator validator is created to be case-sensitive
      *
@@ -124,7 +124,7 @@ public final class CodeValidator implements Serializable {
     }
 
     /**
-     * Construct a code validator with a specified regular expression,
+     * Constructs a code validator with a specified regular expression,
      * validator and {@link CheckDigit} validation.
      *
      * @param regexValidator The format regular expression validator
@@ -135,7 +135,7 @@ public final class CodeValidator implements Serializable {
     }
 
     /**
-     * Construct a code validator with a specified regular expression,
+     * Constructs a code validator with a specified regular expression,
      * validator, length and {@link CheckDigit} validation.
      *
      * @param regexValidator The format regular expression validator
@@ -148,7 +148,7 @@ public final class CodeValidator implements Serializable {
     }
 
     /**
-     * Construct a code validator with a specified regular expression
+     * Constructs a code validator with a specified regular expression
      * validator, minimum/maximum length and {@link CheckDigit} validation.
      *
      * @param regexValidator The format regular expression validator

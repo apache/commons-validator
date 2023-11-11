@@ -55,7 +55,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
     private static final long MODULUS = 97;
 
     /**
-     * Construct Check Digit routine for IBAN Numbers.
+     * Constructs Check Digit routine for IBAN Numbers.
      */
     public IBANCheckDigit() {
     }

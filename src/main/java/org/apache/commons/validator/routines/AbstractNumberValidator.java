@@ -47,7 +47,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     private final int     formatType;
 
     /**
-     * Construct an instance with specified <i>strict</i>
+     * Constructs an instance with specified <i>strict</i>
      * and <i>decimal</i> parameters.
      *
      * @param strict {@code true} if strict

@@ -130,7 +130,7 @@ public class ISBNValidator implements Serializable {
     }
 
     /**
-     * Construct an ISBN validator which converts ISBN-10 codes
+     * Constructs an ISBN validator which converts ISBN-10 codes
      * to ISBN-13.
      */
     public ISBNValidator() {
@@ -138,7 +138,7 @@ public class ISBNValidator implements Serializable {
     }
 
     /**
-     * Construct an ISBN validator indicating whether
+     * Constructs an ISBN validator indicating whether
      * ISBN-10 codes should be converted to ISBN-13.
      *
      * @param convert {@code true} if valid ISBN-10 codes

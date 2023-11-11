@@ -75,7 +75,7 @@ public class LongValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Construct a <i>strict</i> instance.
+     * Constructs a <i>strict</i> instance.
      */
     public LongValidator() {
         this(true, STANDARD_FORMAT);

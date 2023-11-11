@@ -39,7 +39,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
     private final int modulus;
 
     /**
-     * Construct a {@link CheckDigit} routine for a specified modulus.
+     * Constructs a {@link CheckDigit} routine for a specified modulus.
      *
      * @param modulus The modulus value to use for the check digit calculation
      */

@@ -47,7 +47,7 @@ public final class LuhnCheckDigit extends ModulusCheckDigit {
     private static final int[] POSITION_WEIGHT = {2, 1};
 
     /**
-     * Construct a modulus 10 Luhn Check Digit routine.
+     * Constructs a modulus 10 Luhn Check Digit routine.
      */
     public LuhnCheckDigit() {
         super(10); // CHECKSTYLE IGNORE MagicNumber

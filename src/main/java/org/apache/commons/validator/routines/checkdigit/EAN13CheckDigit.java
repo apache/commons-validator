@@ -50,7 +50,7 @@ public final class EAN13CheckDigit extends ModulusCheckDigit {
     private static final int[] POSITION_WEIGHT = {3, 1};
 
     /**
-     * Construct a modulus 10 Check Digit routine for EAN/UPC.
+     * Constructs a modulus 10 Check Digit routine for EAN/UPC.
      */
     public EAN13CheckDigit() {
         super(10);  // CHECKSTYLE IGNORE MagicNumber

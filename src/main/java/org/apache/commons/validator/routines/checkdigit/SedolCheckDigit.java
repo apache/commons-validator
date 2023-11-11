@@ -51,7 +51,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
     private static final int[] POSITION_WEIGHT = {1, 3, 1, 7, 3, 9, 1};
 
     /**
-     * Construct a modulus 11 Check Digit routine for ISBN-10.
+     * Constructs a modulus 11 Check Digit routine for ISBN-10.
      */
     public SedolCheckDigit() {
         super(10); // CHECKSTYLE IGNORE MagicNumber

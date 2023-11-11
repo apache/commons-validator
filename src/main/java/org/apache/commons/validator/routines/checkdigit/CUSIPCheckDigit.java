@@ -49,7 +49,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
     private static final int[] POSITION_WEIGHT = {2, 1};
 
     /**
-     * Construct a CUSIP Identifier Check Digit routine.
+     * Constructs a CUSIP Identifier Check Digit routine.
      */
     public CUSIPCheckDigit() {
         super(10); // CHECKSTYLE IGNORE MagicNumber

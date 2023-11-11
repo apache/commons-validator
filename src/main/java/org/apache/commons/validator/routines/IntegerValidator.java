@@ -76,7 +76,7 @@ public class IntegerValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Construct a <i>strict</i> instance.
+     * Constructs a <i>strict</i> instance.
      */
     public IntegerValidator() {
         this(true, STANDARD_FORMAT);

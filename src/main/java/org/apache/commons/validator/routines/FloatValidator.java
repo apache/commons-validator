@@ -76,7 +76,7 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Construct a <i>strict</i> instance.
+     * Constructs a <i>strict</i> instance.
      */
     public FloatValidator() {
         this(true, STANDARD_FORMAT);

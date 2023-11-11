@@ -76,7 +76,7 @@ public class ByteValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Construct a <i>strict</i> instance.
+     * Constructs a <i>strict</i> instance.
      */
     public ByteValidator() {
         this(true, STANDARD_FORMAT);

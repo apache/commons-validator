@@ -41,7 +41,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     private final int timeStyle;
 
     /**
-     * Construct an instance with the specified <i>strict</i>,
+     * Constructs an instance with the specified <i>strict</i>,
      * <i>time</i> and <i>date</i> style parameters.
      *
      * @param strict {@code true} if strict

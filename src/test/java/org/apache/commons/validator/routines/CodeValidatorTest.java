@@ -29,7 +29,7 @@ import junit.framework.TestCase;
 public class CodeValidatorTest extends TestCase {
 
     /**
-     * Construct a test with the specified name.
+     * Constructs a test with the specified name.
      * @param name The name of the test
      */
     public CodeValidatorTest(final String name) {

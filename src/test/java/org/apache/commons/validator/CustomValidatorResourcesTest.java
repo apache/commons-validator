@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 public class CustomValidatorResourcesTest extends TestCase {
 
     /**
-     * Construct a test case with the specified name.
+     * Constructs a test case with the specified name.
      * @param name Name of the test
      */
     public CustomValidatorResourcesTest(final String name) {

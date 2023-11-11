@@ -119,7 +119,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     private final boolean sumWeightedDigits;
 
     /**
-     * Construct a modulus 10 Check Digit routine with the specified weighting
+     * Constructs a modulus 10 Check Digit routine with the specified weighting
      * from left to right.
      *
      * @param postitionWeight the weighted values to apply based on the
@@ -130,7 +130,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * Construct a modulus 10 Check Digit routine with the specified weighting,
+     * Constructs a modulus 10 Check Digit routine with the specified weighting,
      * indicating whether its from the left or right.
      *
      * @param postitionWeight the weighted values to apply based on the
@@ -143,7 +143,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * Construct a modulus 10 Check Digit routine with the specified weighting,
+     * Constructs a modulus 10 Check Digit routine with the specified weighting,
      * indicating whether its from the left or right and whether the weighted
      * digits should be summed.
      *

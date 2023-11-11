@@ -76,7 +76,7 @@ public class ShortValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Construct a <i>strict</i> instance.
+     * Constructs a <i>strict</i> instance.
      */
     public ShortValidator() {
         this(true, STANDARD_FORMAT);

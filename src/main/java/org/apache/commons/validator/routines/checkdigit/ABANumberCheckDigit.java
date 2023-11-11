@@ -54,7 +54,7 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
     private static final int[] POSITION_WEIGHT = {3, 1, 7};
 
     /**
-     * Construct a modulus 10 Check Digit routine for ABA Numbers.
+     * Constructs a modulus 10 Check Digit routine for ABA Numbers.
      */
     public ABANumberCheckDigit() {
         super(10); // CHECKSTYLE IGNORE MagicNumber

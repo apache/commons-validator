@@ -76,7 +76,7 @@ public class DoubleValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Construct a <i>strict</i> instance.
+     * Constructs a <i>strict</i> instance.
      */
     public DoubleValidator() {
         this(true, STANDARD_FORMAT);

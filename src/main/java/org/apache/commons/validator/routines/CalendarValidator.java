@@ -99,7 +99,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
     }
 
     /**
-     * Construct a <i>strict</i> instance with <i>short</i>
+     * Constructs a <i>strict</i> instance with <i>short</i>
      * date style.
      */
     public CalendarValidator() {
@@ -107,7 +107,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
     }
 
     /**
-     * Construct an instance with the specified <i>strict</i>
+     * Constructs an instance with the specified <i>strict</i>
      * and <i>date style</i> parameters.
      *
      * @param strict {@code true} if strict

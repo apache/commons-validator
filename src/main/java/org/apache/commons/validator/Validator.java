@@ -134,7 +134,7 @@ public class Validator implements Serializable {
     protected boolean onlyReturnErrors;
 
     /**
-     * Construct a <code>Validator</code> that will
+     * Constructs a <code>Validator</code> that will
      * use the <code>ValidatorResources</code>
      * passed in to retrieve pluggable validators
      * the different sets of validation rules.
@@ -146,7 +146,7 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Construct a <code>Validator</code> that will
+     * Constructs a <code>Validator</code> that will
      * use the <code>ValidatorResources</code>
      * passed in to retrieve pluggable validators
      * the different sets of validation rules.
@@ -164,7 +164,7 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Construct a <code>Validator</code> that will
+     * Constructs a <code>Validator</code> that will
      * use the <code>ValidatorResources</code>
      * passed in to retrieve pluggable validators
      * the different sets of validation rules.

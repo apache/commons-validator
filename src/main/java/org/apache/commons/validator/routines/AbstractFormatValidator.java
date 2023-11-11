@@ -36,7 +36,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     private final boolean strict;
 
     /**
-     * Construct an instance with the specified strict setting.
+     * Constructs an instance with the specified strict setting.
      *
      * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
