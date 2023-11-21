@@ -468,7 +468,7 @@
  * String[] groups = validator.match("abc-def");
  * </pre>
  * <p>See the
- * <a href="RegexValidator.html">RegexValidator</a> javadoc for a full list
+ * <a href="RegexValidator.html">RegexValidator</a> Javadoc for a full list
  * of the available constructors.
  * </p>
  * <a id="other.checkdigit"></a>
