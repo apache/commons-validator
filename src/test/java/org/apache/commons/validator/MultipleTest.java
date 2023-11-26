@@ -36,8 +36,6 @@ public class MultipleTest extends AbstractCommonTest {
     */
    protected static String ACTION = "required";
 
-
-
    public MultipleTest(final String name) {
        super(name);
    }

@@ -153,7 +153,6 @@ protected void setUp() {
          maxIndex &= index == part.length - 1;
       }
 
-
       return !maxIndex;
    }
 
@@ -275,6 +274,5 @@ protected void setUp() {
                             new ResultPair("ftp", false),
                             new ResultPair("httpd", false),
                             new ResultPair("telnet", false)};
-
 
 }

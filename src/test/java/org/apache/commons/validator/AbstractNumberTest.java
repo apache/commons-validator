@@ -36,7 +36,6 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
      */
     protected String ACTION;
 
-
     public AbstractNumberTest(final String name) {
         super(name);
     }
@@ -103,6 +102,5 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
         assertTrue(ACTION + " value ValidatorResult should contain the '" + ACTION + "' action.", result.containsAction(ACTION));
         assertTrue(ACTION + " value ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".", passed ? result.isValid(ACTION) : !result.isValid(ACTION));
     }
-
 
 }

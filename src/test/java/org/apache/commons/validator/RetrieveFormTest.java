@@ -205,7 +205,6 @@ public class RetrieveFormTest extends TestCase {
         // *** Candian French Variant locale ***
         checkFormNotFound(CANADA_FRENCH_XXX, formKey);
 
-
     }
 
     private void checkForm(final Locale locale, final String formKey, final String expectedVarValue) {

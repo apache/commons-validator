@@ -200,7 +200,6 @@ public class CreditCardValidator implements Serializable {
     @Deprecated
     public static final long MASTERCARD_PRE_OCT2016 = 1 << 6; // CHECKSTYLE IGNORE MagicNumber
 
-
     /**
      * The CreditCardTypes that are allowed to pass validation.
      */

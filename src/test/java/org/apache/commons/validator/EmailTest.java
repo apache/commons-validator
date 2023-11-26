@@ -40,7 +40,6 @@ public class EmailTest extends AbstractCommonTest {
     */
    protected static String ACTION = "email";
 
-
    public EmailTest(final String name) {
        super(name);
    }
@@ -125,7 +124,6 @@ protected void setUp() throws IOException, SAXException {
        valueTest(info,false);
        info.setValue("andy-noble@data-workshop.co-m");
        valueTest(info, false);
-
 
    }
 

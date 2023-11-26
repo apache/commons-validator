@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.junit.Assert;
 
-
 /**
  * IBAN Check Digit Test.
  *

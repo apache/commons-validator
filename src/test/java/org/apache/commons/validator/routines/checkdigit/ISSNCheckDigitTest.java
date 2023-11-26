@@ -16,7 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-
 /**
  * ISSN Check Digit Test.
  *

@@ -456,7 +456,6 @@ public class ValidatorResources implements Serializable {
         }
         final String localeKey  = key;
 
-
         // Try language/country
         if (form == null) {
             key = buildLocale(language, country, null);

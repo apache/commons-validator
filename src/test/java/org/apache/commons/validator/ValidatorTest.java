@@ -136,7 +136,6 @@ public class ValidatorTest extends TestCase {
         assertTrue(results.getPropertyNames().contains(property));
    }
 
-
     private ValidatorResources setupDateResources(final String property, final String action) {
 
         final ValidatorResources resources = new ValidatorResources();

@@ -16,7 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-
 /**
  * ISIN Check Digit Test.
  *

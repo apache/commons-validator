@@ -138,7 +138,6 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
     protected abstract int weightedValue(int charValue, int leftPos, int rightPos)
             throws CheckDigitException;
 
-
     /**
      * Convert a character at a specified position to an integer value.
      * <p>

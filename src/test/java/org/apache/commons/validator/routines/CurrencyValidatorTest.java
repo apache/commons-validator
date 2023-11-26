@@ -148,7 +148,6 @@ public class CurrencyValidatorTest extends TestCase {
         assertFalse("US negative",    validator.isValid("(" + US_DOLLAR + "1,234.56)",  Locale.US));
     }
 
-
     /**
      * Test currency values with a pattern
      */

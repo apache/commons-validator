@@ -16,7 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-
 /**
  * ISBN-10/ISBN-13 Check Digit Test.
  *
@@ -87,6 +86,5 @@ public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
             assertEquals("calculate() Lth 13", "Invalid ISBN Length = 13", e.getMessage());
         }
     }
-
 
 }

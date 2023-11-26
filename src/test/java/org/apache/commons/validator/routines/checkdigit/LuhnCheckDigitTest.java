@@ -16,7 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-
 /**
  * Luhn Check Digit Test.
  *

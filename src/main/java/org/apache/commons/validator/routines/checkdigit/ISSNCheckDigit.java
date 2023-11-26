@@ -48,7 +48,6 @@ package org.apache.commons.validator.routines.checkdigit;
  */
 public final class ISSNCheckDigit extends ModulusCheckDigit {
 
-
     private static final long serialVersionUID = 1L;
 
     /** Singleton ISSN Check Digit instance */

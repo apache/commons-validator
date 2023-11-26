@@ -277,7 +277,6 @@ public class ExtensionTest extends TestCase {
        assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have passed.", lastNameResult.isValid(ACTION));
     }
 
-
     /**
      * Tests if we can override a rule. We "can" override a rule if the message shown
      * when the firstName required test fails and the lastName test is null.
@@ -307,7 +306,6 @@ public class ExtensionTest extends TestCase {
 
        assertNull("Last Name ValidatorResult should be null.", lastNameResult);
     }
-
 
     /**
      * Tests if the order is mantained when extending a form. Parent form fields should

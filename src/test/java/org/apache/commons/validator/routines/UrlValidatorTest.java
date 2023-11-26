@@ -406,7 +406,6 @@ public class UrlValidatorTest {
          }
       }
 
-
       return !maxIndex;
    }
 
@@ -525,7 +524,6 @@ public class UrlValidatorTest {
        url = "http://FEDC:BA98:7654:3210:FEDC:BA98:7654:3210:80/index.html";
        assertFalse("IPv6 address without [] should not validate: " + url, validator.isValid(url));
     }
-
 
    @Test
    public void testValidator353() { // userinfo
@@ -688,7 +686,6 @@ public class UrlValidatorTest {
                             new ResultPair("not_valid", false), // underscore not allowed
                             new ResultPair("HtTp", true),
                             new ResultPair("telnet", false)};
-
 
     /**
      * Validator for checking URL parsing

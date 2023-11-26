@@ -23,7 +23,6 @@ import junit.framework.TestCase;
  */
 public class FieldTest extends TestCase {
 
-
     protected Field field;
 
     /**

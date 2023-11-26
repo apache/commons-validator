@@ -64,7 +64,6 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
     /** inv: inverse table */
     private static final int[] INV_TABLE = {0,  4,  3,  2,  1,  5,  6,  7,  8,  9};
 
-
     /**
      * Validate the Verhoeff <i>Check Digit</i> for a code.
      *

@@ -97,7 +97,6 @@ public class ISBNValidator implements Serializable {
     /** ISBN Code Validator (which converts ISBN-10 codes to ISBN-13 */
     private static final ISBNValidator ISBN_VALIDATOR_NO_CONVERT = new ISBNValidator(false);
 
-
     /** ISBN-10 Code Validator */
     private final CodeValidator isbn10Validator = new CodeValidator(ISBN10_REGEX, 10, ISBN10CheckDigit.ISBN10_CHECK_DIGIT);
 

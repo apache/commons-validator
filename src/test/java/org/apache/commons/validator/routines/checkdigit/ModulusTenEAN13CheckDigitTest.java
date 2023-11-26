@@ -16,7 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-
 /**
  * ModulusTenCheckDigit EAN-13 Test.
  */

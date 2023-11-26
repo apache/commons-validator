@@ -16,7 +16,6 @@
  */
 package org.apache.commons.validator;
 
-
 /**
  * Performs Validation Test for <code>float</code> validations.
  */

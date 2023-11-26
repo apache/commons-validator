@@ -71,7 +71,6 @@ public class EmailValidator implements Serializable {
      */
     private static final EmailValidator EMAIL_VALIDATOR_WITH_LOCAL = new EmailValidator(true, false);
 
-
     /**
      * Singleton instance of this class, which does
      *  consider local addresses valid.

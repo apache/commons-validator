@@ -38,8 +38,6 @@ public class VarTest extends AbstractCommonTest {
     */
    protected static String ACTION = "byte";
 
-
-
    public VarTest(final String name) {
        super(name);
    }

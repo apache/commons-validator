@@ -197,7 +197,6 @@ public class RegexValidator implements Serializable {
         return null;
     }
 
-
     /**
      * Validates a value against the set of regular expressions
      * returning a String value of the aggregated groups.

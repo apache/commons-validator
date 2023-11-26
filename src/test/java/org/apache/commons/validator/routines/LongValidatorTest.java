@@ -56,7 +56,6 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
         min = null;
         minMinusOne = null;
 
-
         // testInvalidStrict()
         invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2", LONG_MAX_1, LONG_MIN_1, NINES};
 

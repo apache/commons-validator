@@ -336,7 +336,6 @@ public class EmailValidatorTest {
 
         assertTrue(validator.isValid("=@apache.org")); // = ditto
 
-
         //UnQuoted Special characters are invalid
 
         assertFalse(validator.isValid("joe.@apache.org")); // . not allowed at end of local part
@@ -358,7 +357,6 @@ public class EmailValidatorTest {
         assertFalse(validator.isValid("joe,@apache.org"));
 
         assertFalse(validator.isValid("joe;@apache.org"));
-
 
         //Quoted Special characters are valid
         assertTrue(validator.isValid("\"joe.\"@apache.org"));

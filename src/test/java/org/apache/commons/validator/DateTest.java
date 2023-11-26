@@ -37,7 +37,6 @@ public class DateTest extends AbstractCommonTest {
      */
     protected String ACTION = "date";
 
-
     public DateTest(final String name) {
         super(name);
     }
@@ -72,7 +71,6 @@ public class DateTest extends AbstractCommonTest {
         valueTest(info, false);
     }
 
-
     /**
      * Utlity class to run a test on a value.
      *
@@ -103,6 +101,5 @@ public class DateTest extends AbstractCommonTest {
         assertTrue(ACTION + " value ValidatorResult should contain the '" + ACTION + "' action.", result.containsAction(ACTION));
         assertTrue(ACTION + " value ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".", passed ? result.isValid(ACTION) : !result.isValid(ACTION));
     }
-
 
 }

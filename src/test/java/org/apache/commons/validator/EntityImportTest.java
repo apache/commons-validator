@@ -19,7 +19,6 @@ package org.apache.commons.validator;
 import java.net.URL;
 import java.util.Locale;
 
-
 /**
  * Tests entity imports.
  */
