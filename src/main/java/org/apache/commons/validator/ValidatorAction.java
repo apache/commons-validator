@@ -129,12 +129,12 @@ public class ValidatorAction implements Serializable {
 
     /**
      * An optional field to containing a JavaScript representation of the
-     * java method assocated with this action.
+     * Java method assocated with this action.
      */
     private String javascript;
 
     /**
-     * If the java method matching the correct signature isn't static, the
+     * If the Java method matching the correct signature isn't static, the
      * instance is stored in the action.  This assumes the method is thread
      * safe.
      */
@@ -340,7 +340,7 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Gets the Javascript equivalent of the java class and method
+     * Gets the Javascript equivalent of the Java class and method
      * associated with this action.
      * @return The Javascript validation.
      */
@@ -349,7 +349,7 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Sets the Javascript equivalent of the java class and method
+     * Sets the Javascript equivalent of the Java class and method
      * associated with this action.
      * @param javascript The Javascript validation.
      */
