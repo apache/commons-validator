@@ -79,6 +79,19 @@
 
   <build>
     <defaultGoal>clean verify apache-rat:check japicmp:cmp checkstyle:check javadoc:javadoc</defaultGoal>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <configuration>
+            <threshold>Normal</threshold>
+            <effort>Default</effort>
+            <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
+         </configuration>
+        </plugin>
+      </plugins>
+	</pluginManagement>
     <resources>
       <resource>
         <directory>${basedir}</directory>
