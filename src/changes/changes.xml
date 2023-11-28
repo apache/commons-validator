@@ -87,6 +87,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="Gary Gregory">
       Fix SpotBugs [ERROR] Medium: Class org.apache.commons.validator.routines.CreditCardValidator$1 defines non-transient non-serializable instance field ccr [org.apache.commons.validator.routines.CreditCardValidator$1] In CreditCardValidator.java SE_BAD_FIELD.
     </action>
+    <action type="fix" dev="ggregory" due-to="Gary Gregory">
+      Fix SpotBugs [ERROR] High: Class org.apache.commons.validator.ValidatorAction defines non-transient non-serializable instance field validationMethod [org.apache.commons.validator.ValidatorAction] In ValidatorAction.java SE_BAD_FIELD.
+    </action>
     <!-- ADD -->
     <action type="add" dev="ggregory" due-to="Dependabot, Gary Gregory">
       Add github/codeql-action.

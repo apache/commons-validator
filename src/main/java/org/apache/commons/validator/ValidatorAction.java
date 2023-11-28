@@ -75,7 +75,7 @@ public class ValidatorAction implements Serializable {
     /**
      * The Method object loaded from the method name.
      */
-    private Method validationMethod;
+    private transient Method validationMethod;
 
     /**
      * <p>
