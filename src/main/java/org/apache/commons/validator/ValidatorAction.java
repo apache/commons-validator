@@ -211,7 +211,7 @@ public class ValidatorAction implements Serializable {
     /**
      * @return A file name suitable for passing to a {@link ClassLoader#getResourceAsStream(String)} method.
      */
-    private String formatJavascriptFileName() {
+    private String formatJavaScriptFileName() {
         String fname = this.jsFunction.substring(1);
 
         if (!this.jsFunction.startsWith("/")) {
@@ -222,7 +222,7 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Used to generate the javascript name when it is not specified.
+     * Used to generate the JavaScript name when it is not specified.
      */
     private String generateJsFunction() {
         final StringBuilder jsName = new StringBuilder("org.apache.commons.validator.javascript");
@@ -270,18 +270,18 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Gets the Javascript equivalent of the Java class and method associated with this action.
+     * Gets the JavaScript equivalent of the Java class and method associated with this action.
      * 
-     * @return The Javascript validation.
+     * @return The JavaScript validation.
      */
     public synchronized String getJavascript() {
         return javascript;
     }
 
     /**
-     * Gets the Javascript function name. This is optional and can be used instead of validator action name for the name of the Javascript function/object.
+     * Gets the JavaScript function name. This is optional and can be used instead of validator action name for the name of the JavaScript function/object.
      * 
-     * @return The Javascript function name.
+     * @return The JavaScript function name.
      */
     public String getJsFunctionName() {
         return jsFunctionName;
@@ -435,14 +435,14 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * @return true if the javascript for this action has already been loaded.
+     * @return true if the JavaScript for this action has already been loaded.
      */
-    private boolean javascriptAlreadyLoaded() {
+    private boolean javaScriptAlreadyLoaded() {
         return this.javascript != null;
     }
 
     /**
-     * Load the javascript function specified by the given path. For this implementation, the <code>jsFunction</code> property should contain a fully qualified
+     * Load the JavaScript function specified by the given path. For this implementation, the <code>jsFunction</code> property should contain a fully qualified
      * package and script name, separated by periods, to be loaded from the class loader that created this instance.
      *
      * TODO if the path begins with a '/' the path will be intepreted as absolute, and remain unchanged. If this fails then it will attempt to treat the path as
@@ -450,7 +450,7 @@ public class ValidatorAction implements Serializable {
      */
     protected synchronized void loadJavascriptFunction() {
 
-        if (this.javascriptAlreadyLoaded()) {
+        if (this.javaScriptAlreadyLoaded()) {
             return;
         }
 
@@ -462,16 +462,16 @@ public class ValidatorAction implements Serializable {
             this.jsFunction = this.generateJsFunction();
         }
 
-        final String javascriptFileName = this.formatJavascriptFileName();
+        final String javaScriptFileName = this.formatJavaScriptFileName();
 
         if (getLog().isTraceEnabled()) {
-            getLog().trace("  Loading js function '" + javascriptFileName + "'");
+            getLog().trace("  Loading js function '" + javaScriptFileName + "'");
         }
 
-        this.javascript = this.readJavascriptFile(javascriptFileName);
+        this.javascript = this.readJavaScriptFile(javaScriptFileName);
 
         if (getLog().isTraceEnabled()) {
-            getLog().trace("  Loading javascript function completed");
+            getLog().trace("  Loading JavaScript function completed");
         }
 
     }
@@ -574,12 +574,12 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Reads a javascript function from a file.
+     * Reads a JavaScript function from a file.
      *
-     * @param javaScriptFileName The file containing the javascript.
-     * @return The javascript function or null if it could not be loaded.
+     * @param javaScriptFileName The file containing the JavaScript.
+     * @return The JavaScript function or null if it could not be loaded.
      */
-    private String readJavascriptFile(final String javaScriptFileName) {
+    private String readJavaScriptFile(final String javaScriptFileName) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         if (classLoader == null) {
             classLoader = getClass().getClassLoader();
@@ -592,13 +592,13 @@ public class ValidatorAction implements Serializable {
                     buffer.append(line).append("\n");
                 }
             } catch (final IOException e) {
-                getLog().error("Error reading javascript file.", e);
+                getLog().error("Error reading JavaScript file.", e);
 
             }
             final String function = buffer.toString();
             return function.isEmpty() ? null : function;
         } catch (IOException e) {
-            getLog().error("Error closing stream to javascript file.", e);
+            getLog().error("Error closing stream to JavaScript file.", e);
             return null;
         }
     }
@@ -644,26 +644,26 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Sets the Javascript equivalent of the Java class and method associated with this action.
+     * Sets the JavaScript equivalent of the Java class and method associated with this action.
      * 
-     * @param javascript The Javascript validation.
+     * @param javaScript The JavaScript validation.
      */
-    public synchronized void setJavascript(final String javascript) {
+    public synchronized void setJavascript(final String javaScript) {
         if (jsFunction != null) {
             throw new IllegalStateException("Cannot call setJavascript() after calling setJsFunction()");
         }
 
-        this.javascript = javascript;
+        this.javascript = javaScript;
     }
 
     /**
-     * Sets the fully qualified class path of the Javascript function.
+     * Sets the fully qualified class path of the JavaScript function.
      * <p>
      * This is optional and can be used <strong>instead</strong> of the setJavascript(). Attempting to call both <code>setJsFunction</code> and
      * <code>setJavascript</code> will result in an <code>IllegalStateException</code> being thrown.
      * </p>
      * <p>
-     * If <strong>neither</strong> setJsFunction or setJavascript is set then validator will attempt to load the default javascript definition.
+     * If <strong>neither</strong> setJsFunction or setJavascript is set then validator will attempt to load the default JavaScript definition.
      * </p>
      * 
      * <pre>
@@ -678,10 +678,10 @@ public class ValidatorAction implements Serializable {
      *    &lt;validator name="tire"&gt;
      *      Validator will use the name attribute to try and load
      *         org.apache.commons.validator.javascript.validateTire.js
-     *      which is the default javascript definition.
+     *      which is the default JavaScript definition.
      * </pre>
      * 
-     * @param jsFunction The Javascript function's fully qualified class path.
+     * @param jsFunction The JavaScript function's fully qualified class path.
      */
     public synchronized void setJsFunction(final String jsFunction) {
         if (javascript != null) {
@@ -692,9 +692,9 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Sets the Javascript function name. This is optional and can be used instead of validator action name for the name of the Javascript function/object.
+     * Sets the JavaScript function name. This is optional and can be used instead of validator action name for the name of the JavaScript function/object.
      * 
-     * @param jsFunctionName The Javascript function name.
+     * @param jsFunctionName The JavaScript function name.
      */
     public void setJsFunctionName(final String jsFunctionName) {
         this.jsFunctionName = jsFunctionName;
