@@ -448,7 +448,7 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * @return A file name suitable for passing to a ClassLoader.getResourceAsStream() method.
+     * @return A file name suitable for passing to a {@link ClassLoader#getResourceAsStream(String)} method.
      */
     private String formatJavascriptFileName() {
         String fname = this.jsFunction.substring(1);
