@@ -21,6 +21,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.junit.Test;
+
 /**
  * Test Case for DateValidator.
  */
@@ -48,6 +50,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
     /**
      * Test compare date methods
      */
+    @Test
     public void testCompare() {
         final int sameTime  = 124522;
         final int testDate = 20050823;
@@ -120,6 +123,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
     /**
      * Test DateValidator validate Methods
      */
+    @Test
     public void testDateValidatorMethods() {
         Locale.setDefault(Locale.US);
         final Locale locale     = Locale.GERMAN;
@@ -167,6 +171,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
      * Check that locale providers are set up correctly
      * If not, the parse will fail
      */
+    @Test
     public void testLocaleProviders() throws Exception {
         final String localeProviders = System.getProperty("java.locale.providers");
         if (localeProviders != null) { // may be null before Java 9

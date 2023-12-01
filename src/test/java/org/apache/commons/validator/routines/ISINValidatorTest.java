@@ -18,6 +18,8 @@ package org.apache.commons.validator.routines;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * ISINValidator Test Case.
  *
@@ -70,12 +72,14 @@ public class ISINValidatorTest extends TestCase {
         super(name);
     }
 
+    @Test
     public void testInvalidFalse() {
         for(final String f : invalidFormat) {
             assertFalse(f, VALIDATOR_FALSE.isValid(f));
         }
     }
 
+    @Test
     public void testInvalidTrue() {
         for(final String f : invalidFormat) {
             assertFalse(f, VALIDATOR_TRUE.isValid(f));
@@ -85,12 +89,14 @@ public class ISINValidatorTest extends TestCase {
         }
     }
 
+    @Test
     public void testIsValidFalse() {
         for(final String f : validFormat) {
             assertTrue(f, VALIDATOR_FALSE.isValid(f));
         }
     }
 
+    @Test
     public void testIsValidTrue() {
         for(final String f : validFormat) {
             assertTrue(f, VALIDATOR_TRUE.isValid(f));

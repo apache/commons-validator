@@ -18,6 +18,8 @@ package org.apache.commons.validator;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Test the GenericValidator class.
  */
@@ -30,6 +32,7 @@ public class GenericValidatorTest extends TestCase {
         super(name);
     }
 
+    @Test
     public void testMaxLength() {
 
         // Use 0 for line end length
@@ -51,6 +54,7 @@ public class GenericValidatorTest extends TestCase {
         assertTrue("Max=7 End=2",  GenericValidator.maxLength("12345\n\r", 7, 2));
     }
 
+    @Test
     public void testMinLength() {
 
         // Use 0 for line end length

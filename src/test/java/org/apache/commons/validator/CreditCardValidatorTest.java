@@ -18,6 +18,8 @@ package org.apache.commons.validator;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Test the CreditCardValidator class.
  *
@@ -52,6 +54,7 @@ public class CreditCardValidatorTest extends TestCase {
         super(name);
     }
 
+    @Test
     public void testAddAllowedCardType() {
         final CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.NONE);
         // Turned off all cards so even valid numbers should fail
@@ -65,6 +68,7 @@ public class CreditCardValidatorTest extends TestCase {
         assertTrue(ccv.isValid(VALID_DINERS));
     }
 
+    @Test
     public void testIsValid() {
         CreditCardValidator ccv = new CreditCardValidator();
 

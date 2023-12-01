@@ -19,6 +19,8 @@ package org.apache.commons.validator.routines;
 import java.math.BigInteger;
 import java.util.Locale;
 
+import org.junit.Test;
+
 /**
  * Test Case for BigIntegerValidator.
  */
@@ -75,6 +77,7 @@ public class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test BigInteger Range/Min/Max
      */
+    @Test
     public void testBigIntegerRangeMinMax() {
         final BigIntegerValidator validator = (BigIntegerValidator)strictValidator;
         final BigInteger number9  = validator.validate("9", "#");
@@ -105,6 +108,7 @@ public class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test BigIntegerValidator validate Methods
      */
+    @Test
     public void testBigIntegerValidatorMethods() {
         final Locale locale     = Locale.GERMAN;
         final String pattern    = "0,00,00";

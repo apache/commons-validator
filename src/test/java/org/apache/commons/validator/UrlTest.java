@@ -18,6 +18,8 @@ package org.apache.commons.validator;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Performs Validation Test for url validations.
  *
@@ -166,7 +168,8 @@ protected void setUp() {
          testPartsIndex[index] = 0;
       }
    }
-   public void testIsValid() {
+   @Test
+    public void testIsValid() {
         testIsValid(testUrlParts, UrlValidator.ALLOW_ALL_SCHEMES);
         setUp();
         final int options =
@@ -182,7 +185,8 @@ protected void setUp() {
     *
     * @param testObjects Used to create a url.
     */
-   public void testIsValid(final Object[] testObjects, final int options) {
+   @Test
+    public void testIsValid(final Object[] testObjects, final int options) {
       final UrlValidator urlVal = new UrlValidator(null, options);
       assertTrue(urlVal.isValid("http://www.google.com"));
       assertTrue(urlVal.isValid("http://www.google.com/"));
@@ -223,7 +227,8 @@ protected void setUp() {
       }
    }
 
-   public void testIsValidScheme() {
+   @Test
+    public void testIsValidScheme() {
       if (printStatus) {
          System.out.print("\n testIsValidScheme() ");
       }
@@ -260,16 +265,19 @@ protected void setUp() {
       return carryMsg.toString();
 
    }
-   public void testValidateUrl() {
+   @Test
+    public void testValidateUrl() {
       assertTrue(true);
    }
-   public void testValidator202() {
+   @Test
+    public void testValidator202() {
        final String[] schemes = {"http","https"};
        final UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.NO_FRAGMENTS);
        urlValidator.isValid("http://www.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.log");
    }
 
-   public void testValidator204() {
+   @Test
+    public void testValidator204() {
        final String[] schemes = {"http","https"};
        final UrlValidator urlValidator = new UrlValidator(schemes);
        assertTrue(urlValidator.isValid("http://tech.yahoo.com/rc/desktops/102;_ylt=Ao8yevQHlZ4On0O3ZJGXLEQFLZA5"));

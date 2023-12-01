@@ -18,6 +18,8 @@ package org.apache.commons.validator.routines;
 
 import java.util.Locale;
 
+import org.junit.Test;
+
 /**
  * Test Case for LongValidator.
  */
@@ -84,6 +86,7 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test Long Range/Min/Max
      */
+    @Test
     public void testLongRangeMinMax() {
         final LongValidator validator = (LongValidator)strictValidator;
         final Long number9  = validator.validate("9", "#");
@@ -114,6 +117,7 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test LongValidator validate Methods
      */
+    @Test
     public void testLongValidatorMethods() {
         final Locale locale     = Locale.GERMAN;
         final String pattern    = "0,00,00";

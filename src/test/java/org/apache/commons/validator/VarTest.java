@@ -19,6 +19,7 @@ package org.apache.commons.validator;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -59,7 +60,8 @@ protected void tearDown() {
    /**
     * With nothing provided, we should fail both because both are required.
     */
-   public void testVars() {
+   @Test
+    public void testVars() {
 
        final Form form = resources.getForm(Locale.getDefault(), FORM_KEY);
 

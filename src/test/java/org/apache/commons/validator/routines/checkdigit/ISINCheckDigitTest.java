@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.junit.Test;
+
 /**
  * ISIN Check Digit Test.
  *
@@ -62,6 +64,7 @@ public class ISINCheckDigitTest extends AbstractCheckDigitTest {
         invalid = new String[] {"0378#3100"};
     }
 
+    @Test
     public void testVALIDATOR_345() {
         for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));

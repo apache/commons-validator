@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.junit.Test;
+
 /**
  * ModulusTenCheckDigit SEDOL Test.
  */
@@ -54,6 +56,7 @@ public class ModulusTenSedolCheckDigitTest extends AbstractCheckDigitTest {
         zeroSum = "0000000";
     }
 
+    @Test
     public void testVALIDATOR_346() {
         for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));

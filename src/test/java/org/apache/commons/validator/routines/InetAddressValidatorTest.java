@@ -19,6 +19,8 @@ package org.apache.commons.validator.routines;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Test cases for InetAddressValidator.
  */
@@ -42,6 +44,7 @@ public class InetAddressValidatorTest extends TestCase {
     /**
      * Test obviously broken IPs.
      */
+    @Test
     public void testBrokenInetAddresses() {
         assertFalse("IP with characters should be invalid",     validator.isValid("124.14.32.abc"));
         // TODO: there is some debate as to whether leading zeros should be allowed
@@ -55,6 +58,7 @@ public class InetAddressValidatorTest extends TestCase {
     /**
      * Test valid and invalid IPs from each address class.
      */
+    @Test
     public void testInetAddressesByClass() {
         assertTrue("class A IP should be valid",              validator.isValid("24.25.231.12"));
         assertFalse("illegal class A IP should be invalid",   validator.isValid("2.41.32.324"));
@@ -75,6 +79,7 @@ public class InetAddressValidatorTest extends TestCase {
     /**
      * Test IPs that point to real, well-known hosts (without actually looking them up).
      */
+    @Test
     public void testInetAddressesFromTheWild() {
         assertTrue("www.apache.org IP should be valid",       validator.isValid("140.211.11.130"));
         assertTrue("www.l.google.com IP should be valid",     validator.isValid("72.14.253.103"));
@@ -88,6 +93,7 @@ public class InetAddressValidatorTest extends TestCase {
      * <a href="http://download.dartware.com/thirdparty/test-ipv6-regex.pl">Perl script</a>.</p>
      *
      */
+    @Test
     public void testIPv6() {
         // The original Perl script contained a lot of duplicate tests.
         // I removed the duplicates I noticed, but there may be more.
@@ -592,15 +598,18 @@ public class InetAddressValidatorTest extends TestCase {
     /**
      * Test reserved IPs.
      */
+    @Test
     public void testReservedInetAddresses() {
         assertTrue("localhost IP should be valid",            validator.isValid("127.0.0.1"));
         assertTrue("broadcast IP should be valid",            validator.isValid("255.255.255.255"));
     }
 
+    @Test
     public void testVALIDATOR_335() {
         assertTrue("2001:0438:FFFE:0000:0000:0000:0000:0A35 should be valid",       validator.isValid("2001:0438:FFFE:0000:0000:0000:0000:0A35"));
     }
 
+    @Test
     public void testVALIDATOR_419() {
         String addr;
         addr = "0:0:0:0:0:0:13.1.68.3";
@@ -621,6 +630,7 @@ public class InetAddressValidatorTest extends TestCase {
     /**
      * Inet6Address may also contain a scope id
      */
+    @Test
     public void testVALIDATOR_445() {
         final String [] valid = {
             "2001:0000:1234:0000:0000:C1C0:ABCD:0876",

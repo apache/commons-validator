@@ -18,6 +18,7 @@ package org.apache.commons.validator;
 
 import java.io.IOException;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -57,7 +58,8 @@ protected void tearDown() {
    /**
     * With nothing provided, we should fail both because both are required.
     */
-   public void testBothBlank() throws ValidatorException {
+   @Test
+    public void testBothBlank() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
 
@@ -96,7 +98,8 @@ protected void tearDown() {
     *
     * @throws ValidatorException
     */
-   public void testFailingFirstDependentValidator() throws ValidatorException {
+   @Test
+    public void testFailingFirstDependentValidator() throws ValidatorException {
        // Create bean to run test on.
        final NameBean name = new NameBean();
 
@@ -131,7 +134,8 @@ protected void tearDown() {
     *
     * @throws ValidatorException
     */
-   public void testFailingNextDependentValidator() throws ValidatorException {
+   @Test
+    public void testFailingNextDependentValidator() throws ValidatorException {
        // Create bean to run test on.
        final NameBean name = new NameBean();
        name.setMiddleName("TEST");
@@ -167,7 +171,8 @@ protected void tearDown() {
     *
     * @throws ValidatorException
     */
-   public void testPassingDependentsFailingMain() throws ValidatorException {
+   @Test
+    public void testPassingDependentsFailingMain() throws ValidatorException {
        // Create bean to run test on.
        final NameBean name = new NameBean();
        name.setMiddleName("-2534");
@@ -204,7 +209,8 @@ protected void tearDown() {
     *
     * @throws ValidatorException
     */
-   public void testPassingDependentsPassingMain() throws ValidatorException {
+   @Test
+    public void testPassingDependentsPassingMain() throws ValidatorException {
        // Create bean to run test on.
        final NameBean name = new NameBean();
        name.setMiddleName("2534");
@@ -238,7 +244,8 @@ protected void tearDown() {
    /**
     * If the first name fails required, and the second test fails int, we should get two errors.
     */
-   public void testRequiredFirstNameBlankLastNameShort() throws ValidatorException {
+   @Test
+    public void testRequiredFirstNameBlankLastNameShort() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
       name.setFirstName("");
@@ -271,7 +278,8 @@ protected void tearDown() {
    /**
     * If first name is ok and last name is ok and is an int, no errors.
     */
-   public void testRequiredLastNameLong() throws ValidatorException {
+   @Test
+    public void testRequiredLastNameLong() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
       name.setFirstName("Joe");
@@ -304,7 +312,8 @@ protected void tearDown() {
    /**
     * If the first name is there, and the last name fails int, we should get one error.
     */
-   public void testRequiredLastNameShort() throws ValidatorException {
+   @Test
+    public void testRequiredLastNameShort() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
       name.setFirstName("Test");

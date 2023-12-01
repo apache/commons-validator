@@ -27,6 +27,8 @@ import java.util.TimeZone;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Base Calendar Test Case.
  */
@@ -151,6 +153,7 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
     /**
      * Test Invalid Dates with "locale" validation
      */
+    @Test
     public void testFormat() {
 
         // Create a Date or Calendar
@@ -163,6 +166,7 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
     /**
      * Test Invalid Dates with "locale" validation
      */
+    @Test
     public void testLocaleInvalid() {
         for (int i = 0; i < localeInvalid.length; i++) {
             final String text = i + " value=[" +localeInvalid[i]+"] passed ";
@@ -175,6 +179,7 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
     /**
      * Test Valid Dates with "locale" validation
      */
+    @Test
     public void testLocaleValid() {
         for (int i = 0; i < localeValid.length; i++) {
             final String text = i + " value=[" +localeValid[i]+"] failed ";
@@ -191,6 +196,7 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
     /**
      * Test Invalid Dates with "pattern" validation
      */
+    @Test
     public void testPatternInvalid() {
         for (int i = 0; i < patternInvalid.length; i++) {
             final String text = i + " value=[" +patternInvalid[i]+"] passed ";
@@ -203,6 +209,7 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
     /**
      * Test Valid Dates with "pattern" validation
      */
+    @Test
     public void testPatternValid() {
         for (int i = 0; i < patternValid.length; i++) {
             final String text = i + " value=[" +patternValid[i]+"] failed ";
@@ -219,6 +226,7 @@ public abstract class AbstractCalendarValidatorTest extends TestCase {
     /**
      * Test validator serialization.
      */
+    @Test
     public void testSerialization() {
         // Serialize the check digit routine
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();

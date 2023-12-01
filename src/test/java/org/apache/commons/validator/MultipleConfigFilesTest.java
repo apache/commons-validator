@@ -21,6 +21,7 @@ import java.io.InputStream;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -75,7 +76,8 @@ public class MultipleConfigFilesTest extends TestCase {
    /**
 * With nothing provided, we should fail both because both are required.
 */
-public void testBothBlank() throws ValidatorException {
+@Test
+    public void testBothBlank() throws ValidatorException {
     // Create bean to run test on.
     final NameBean name = new NameBean();
 
@@ -112,7 +114,8 @@ public void testBothBlank() throws ValidatorException {
         * Check the forms and constants from different config files have
         * been merged into the same FormSet.
         */
-        public void testMergedConfig() {
+        @Test
+    public void testMergedConfig() {
     
             // *********** Default Locale *******************
     
@@ -158,6 +161,7 @@ public void testBothBlank() throws ValidatorException {
     /**
      * If the first name fails required, and the second test fails int, we should get two errors.
     */
+    @Test
     public void testRequiredFirstNameBlankLastNameShort()
         throws ValidatorException {
         // Create bean to run test on.
@@ -192,6 +196,7 @@ public void testBothBlank() throws ValidatorException {
     /**
      * If first name is ok and last name is ok and is an int, no errors.
     */
+    @Test
     public void testRequiredLastNameLong() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
@@ -225,6 +230,7 @@ public void testBothBlank() throws ValidatorException {
     /**
      * If the first name is there, and the last name fails int, we should get one error.
     */
+    @Test
     public void testRequiredLastNameShort() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();

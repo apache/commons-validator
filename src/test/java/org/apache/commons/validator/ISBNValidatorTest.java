@@ -18,6 +18,8 @@ package org.apache.commons.validator;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * ISBNValidator Test Case.
  *
@@ -36,6 +38,7 @@ public class ISBNValidatorTest extends TestCase {
         super(name);
     }
 
+    @Test
     public void testIsValid() throws Exception {
         final ISBNValidator validator = new ISBNValidator();
         assertFalse(validator.isValid(null));

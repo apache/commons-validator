@@ -21,6 +21,8 @@ import java.util.regex.PatternSyntaxException;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Test Case for RegexValidatorTest.
  *
@@ -79,6 +81,7 @@ public class RegexValidatorTest extends TestCase {
     /**
      * Test exceptions
      */
+    @Test
     public void testExceptions() {
         final String invalidRegex = "^([abCD12]*$";
         try {
@@ -88,6 +91,7 @@ public class RegexValidatorTest extends TestCase {
         }
     }
 
+    @Test
     public void testGetPatterns() {
         final RegexValidator regexValidator = new RegexValidator(MULTIPLE_REGEX);
         assertNotSame(regexValidator.getPatterns(), regexValidator.getPatterns());
@@ -100,6 +104,7 @@ public class RegexValidatorTest extends TestCase {
     /**
      * Test exceptions
      */
+    @Test
     public void testMissingRegex() {
 
         // Single Regular Expression - null
@@ -156,6 +161,7 @@ public class RegexValidatorTest extends TestCase {
     /**
      * Test with multiple regular expressions (case in-sensitive).
      */
+    @Test
     public void testMultipleInsensitive() {
 
         // ------------ Set up In-sensitive Validators
@@ -197,6 +203,7 @@ public class RegexValidatorTest extends TestCase {
     /**
      * Test with multiple regular expressions (case sensitive).
      */
+    @Test
     public void testMultipleSensitive() {
 
         // ------------ Set up Sensitive Validators
@@ -238,6 +245,7 @@ public class RegexValidatorTest extends TestCase {
     /**
      * Test Null value
      */
+    @Test
     public void testNullValue() {
 
         final RegexValidator validator = new RegexValidator(REGEX);
@@ -249,6 +257,7 @@ public class RegexValidatorTest extends TestCase {
     /**
      * Test instance methods with single regular expression.
      */
+    @Test
     public void testSingle() {
         final RegexValidator sensitive   = new RegexValidator(REGEX);
         final RegexValidator insensitive = new RegexValidator(REGEX, false);
@@ -277,6 +286,7 @@ public class RegexValidatorTest extends TestCase {
     /**
      * Test toString() method
      */
+    @Test
     public void testToString() {
         final RegexValidator single = new RegexValidator(REGEX);
         assertEquals("Single", "RegexValidator{" + REGEX + "}", single.toString());

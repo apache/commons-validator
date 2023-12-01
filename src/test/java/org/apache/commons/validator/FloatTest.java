@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator;
 
+import org.junit.Test;
+
 /**
  * Performs Validation Test for <code>float</code> validations.
  */
@@ -30,6 +32,7 @@ public class FloatTest extends AbstractNumberTest {
     /**
      * Tests the float validation.
      */
+    @Test
     public void testFloat() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -41,6 +44,7 @@ public class FloatTest extends AbstractNumberTest {
     /**
      * Tests the float validation failure.
      */
+    @Test
     public void testFloatFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -51,6 +55,7 @@ public class FloatTest extends AbstractNumberTest {
     /**
      * Tests the float validation.
      */
+    @Test
     public void testFloatMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -62,6 +67,7 @@ public class FloatTest extends AbstractNumberTest {
     /**
      * Tests the float validation.
      */
+    @Test
     public void testFloatMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();

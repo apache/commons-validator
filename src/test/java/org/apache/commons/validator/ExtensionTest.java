@@ -20,6 +20,8 @@ import java.io.InputStream;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * <p>Performs tests for extension in form definitions. Performs the same tests
  * RequiredNameTest does but with an equivalent validation definition with extension
@@ -84,6 +86,7 @@ public class ExtensionTest extends TestCase {
      * Tests if the order is mantained when extending a form. Parent form fields should
      * preceed self form fields, except if we override the rules.
     */
+    @Test
     public void testOrder() {
 
        final Form form = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY);
@@ -115,6 +118,7 @@ public class ExtensionTest extends TestCase {
      * Tests if we can override a rule. We "can" override a rule if the message shown
      * when the firstName required test fails and the lastName test is null.
     */
+    @Test
     public void testOverrideRule() throws ValidatorException {
 
        // Create bean to run test on.
@@ -144,6 +148,7 @@ public class ExtensionTest extends TestCase {
     /**
      * Tests the required validation failure.
     */
+    @Test
     public void testRequired() throws ValidatorException {
        // Create bean to run test on.
        final NameBean name = new NameBean();
@@ -179,6 +184,7 @@ public class ExtensionTest extends TestCase {
     /**
      * Tests the required validation for first name.
     */
+    @Test
     public void testRequiredFirstName() throws ValidatorException {
        // Create bean to run test on.
        final NameBean name = new NameBean();
@@ -211,6 +217,7 @@ public class ExtensionTest extends TestCase {
     /**
      * Tests the required validation for first name if it is blank.
     */
+    @Test
     public void testRequiredFirstNameBlank() throws ValidatorException {
        // Create bean to run test on.
        final NameBean name = new NameBean();
@@ -243,6 +250,7 @@ public class ExtensionTest extends TestCase {
     /**
      * Tests the required validation for last name.
     */
+    @Test
     public void testRequiredLastName() throws ValidatorException {
        // Create bean to run test on.
        final NameBean name = new NameBean();
@@ -276,6 +284,7 @@ public class ExtensionTest extends TestCase {
     /**
      * Tests the required validation for last name if it is blank.
     */
+    @Test
     public void testRequiredLastNameBlank() throws ValidatorException {
        // Create bean to run test on.
        final NameBean name = new NameBean();
@@ -308,6 +317,7 @@ public class ExtensionTest extends TestCase {
     /**
      * Tests the required validation for first and last name.
     */
+    @Test
     public void testRequiredName() throws ValidatorException {
        // Create bean to run test on.
        final NameBean name = new NameBean();

@@ -23,6 +23,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.junit.Test;
+
 /**
  * Test Case for CalendarValidator.
  */
@@ -50,6 +52,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     /**
      * Test adjustToTimeZone() method
      */
+    @Test
     public void testAdjustToTimeZone() {
 
         final Calendar calEST = createCalendar(EST, DATE_2005_11_23, TIME_12_03_45);
@@ -97,6 +100,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     /**
      * Test CalendarValidator validate Methods
      */
+    @Test
     public void testCalendarValidatorMethods() {
         Locale.setDefault(Locale.US);
         final Locale locale     = Locale.GERMAN;
@@ -142,6 +146,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     /**
      * Test compare date methods
      */
+    @Test
     public void testCompare() {
         final int sameTime = 124522;
         final int testDate = 20050823;
@@ -224,6 +229,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     /**
      * Test Date/Time style Validator (there isn't an implementation for this)
      */
+    @Test
     public void testDateTimeStyle() {
         // Set the default Locale
         final Locale origDefault = Locale.getDefault();
@@ -249,6 +255,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
      * Test format methods
      */
     @Override
+    @Test
     public void testFormat() {
         // Set the default Locale
         final Locale origDefault = Locale.getDefault();

@@ -18,6 +18,7 @@ package org.apache.commons.validator;
 
 import java.io.IOException;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -57,6 +58,7 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
     /**
      * Tests the number validation.
      */
+    @Test
     public void testNumber() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -67,6 +69,7 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
     /**
      * Tests the float validation failure.
      */
+    @Test
     public void testNumberFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();

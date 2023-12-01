@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.junit.Test;
+
 /**
  * ModulusTenCheckDigit CUSIP Test.
  */
@@ -54,12 +56,14 @@ public class ModulusTenCUSIPCheckDigitTest extends AbstractCheckDigitTest {
         invalid = new String[] {"0378#3100"};
     }
 
+    @Test
     public void testVALIDATOR_336_InvalidCheckDigits() {
         for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));
         }
     }
 
+    @Test
     public void testVALIDATOR_336_ValidCheckDigits() {
         for (final String validCheckDigit : VALID_CHECK_DIGITS) {
             assertTrue("Should fail: " + validCheckDigit, routine.isValid(validCheckDigit));

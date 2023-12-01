@@ -20,6 +20,8 @@ import java.math.BigDecimal;
 import java.util.Locale;
 
 import junit.framework.TestCase;
+
+import org.junit.Test;
 /**
  * Test Case for PercentValidator.
  */
@@ -51,6 +53,7 @@ public class PercentValidatorTest extends TestCase {
     /**
      * Test Format Type
      */
+    @Test
     public void testFormatType() {
         assertEquals("Format Type A", 2, PercentValidator.getInstance().getFormatType());
         assertEquals("Format Type B", AbstractNumberValidator.PERCENT_FORMAT, PercentValidator.getInstance().getFormatType());
@@ -59,6 +62,7 @@ public class PercentValidatorTest extends TestCase {
     /**
      * Test Invalid percentage values
      */
+    @Test
     public void testInvalid() {
         final BigDecimalValidator validator = PercentValidator.getInstance();
 
@@ -80,6 +84,7 @@ public class PercentValidatorTest extends TestCase {
     /**
      * Test Valid percentage values
      */
+    @Test
     public void testValid() {
         // Set the default Locale
         final Locale origDefault = Locale.getDefault();

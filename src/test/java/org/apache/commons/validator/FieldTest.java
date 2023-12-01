@@ -18,6 +18,8 @@ package org.apache.commons.validator;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Test <code>Field</code> objects.
  */
@@ -93,6 +95,7 @@ public class FieldTest extends TestCase {
     /**
      * test Field with only 'default' arguments, position specified for one argument
      */
+    @Test
     public void testDefaultOnePosition() {
 
         field.addArg(createArg("default-position-0"));
@@ -110,6 +113,7 @@ public class FieldTest extends TestCase {
     /**
      * test Field with only 'default' arguments, no positions specified.
      */
+    @Test
     public void testDefaultPositionImplied() {
 
         field.addArg(createArg("default-position-0"));
@@ -126,6 +130,7 @@ public class FieldTest extends TestCase {
     /**
      * test Field with only 'default' arguments, some position specified.
      */
+    @Test
     public void testDefaultSomePositions() {
 
         field.addArg(createArg("default-position-0"));
@@ -144,6 +149,7 @@ public class FieldTest extends TestCase {
     /**
      * test Field with only 'default' arguments, positions specified.
      */
+    @Test
     public void testDefaultUsingPositions() {
 
         field.addArg(createArg("default-position-1", 1));
@@ -160,6 +166,7 @@ public class FieldTest extends TestCase {
     /**
      * test Field with no arguments
      */
+    @Test
     public void testEmptyArgs() {
 
         assertEquals("Empty Args(1) ", 0, field.getArgs("required").length);
@@ -169,6 +176,7 @@ public class FieldTest extends TestCase {
     /**
      * test Field with a 'default' argument overriden without positions specified.
      */
+    @Test
     public void testOverridePositionImplied() {
 
         field.addArg(createArg("default-position-0"));
@@ -198,6 +206,7 @@ public class FieldTest extends TestCase {
     /**
      * test Field with a 'default' argument overriden with some positions specified
      */
+    @Test
     public void testOverrideSomePosition() {
 
         field.addArg(createArg("default-position-0"));
@@ -232,6 +241,7 @@ public class FieldTest extends TestCase {
     /**
      * test Field with a 'default' argument overriden using 'position' property
      */
+    @Test
     public void testOverrideUsingPositionA() {
 
         field.addArg(createArg("default-position-0"));
@@ -255,6 +265,7 @@ public class FieldTest extends TestCase {
     /**
      * test Field with a 'default' argument overriden using 'position' property
      */
+    @Test
     public void testOverrideUsingPositionB() {
 
         field.addArg(createArg("required-position-3", "required", 3));

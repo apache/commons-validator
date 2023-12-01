@@ -26,6 +26,7 @@ import java.util.Locale;
 import junit.framework.TestCase;
 
 import org.apache.commons.validator.util.ValidatorUtils;
+import org.junit.Test;
 
 /**
  * Performs Validation Test.
@@ -126,6 +127,7 @@ public class ValidatorTest extends TestCase {
      * Verify that one value generates an error and the other passes.  The validation
      * method being tested returns a <code>boolean</code> value.
      */
+    @Test
     public void testManualBoolean() {
        final ValidatorResources resources = new ValidatorResources();
 
@@ -181,6 +183,7 @@ public class ValidatorTest extends TestCase {
      * Verify that one value generates an error and the other passes.  The validation
      * method being tested returns a <code>boolean</code> value.
      */
+    @Test
     public void testManualBooleanDeprecated() {
        final ValidatorResources resources = new ValidatorResources();
 
@@ -236,7 +239,8 @@ public class ValidatorTest extends TestCase {
     * Verify that one value generates an error and the other passes.  The validation
     * method being tested returns an object (<code>null</code> will be considered an error).
     */
-   public void testManualObject() {
+   @Test
+    public void testManualObject() {
         //     property name of the method we are validating
         final String property = "date";
         // name of ValidatorAction
@@ -285,7 +289,8 @@ public class ValidatorTest extends TestCase {
 
    }
 
-   public void testOnlyReturnErrors() throws ValidatorException {
+   @Test
+    public void testOnlyReturnErrors() throws ValidatorException {
         //     property name of the method we are validating
         final String property = "date";
         // name of ValidatorAction
@@ -311,7 +316,8 @@ public class ValidatorTest extends TestCase {
         assertFalse(results.getPropertyNames().contains(property));
    }
 
-   public void testOnlyValidateField() throws ValidatorException {
+   @Test
+    public void testOnlyValidateField() throws ValidatorException {
         //     property name of the method we are validating
         final String property = "date";
         // name of ValidatorAction

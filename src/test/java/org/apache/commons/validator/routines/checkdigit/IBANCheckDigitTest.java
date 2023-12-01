@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * IBAN Check Digit Test.
@@ -210,6 +211,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
 
     }
 
+    @Test
     public void testOther() throws Exception {
         try (BufferedReader rdr = new BufferedReader(
                 new InputStreamReader(
@@ -232,6 +234,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      * Test zero sum
      */
     @Override
+    @Test
     public void testZeroSum() {
         // ignore, don't run this test
 

@@ -22,6 +22,7 @@ import junit.framework.TestCase;
 
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
+import org.junit.Test;
 
 /**
  * ISSNValidator Test Case.
@@ -75,6 +76,7 @@ public class ISSNValidatorTest extends TestCase {
      * Test Invalid EAN-13 ISSN prefix codes
      * Test Input length
      */
+    @Test
     public void testConversionErrors() {
         String input = null;
         try {
@@ -103,6 +105,7 @@ public class ISSNValidatorTest extends TestCase {
     /**
      * Test Invalid ISSN codes
      */
+    @Test
     public void testInvalid() {
         for(final String f : invalidFormat) {
             assertFalse(f, VALIDATOR.isValid(f));
@@ -112,6 +115,7 @@ public class ISSNValidatorTest extends TestCase {
     /**
      *  Test valid EAN-13 ISSN codes and extract the ISSN
      */
+    @Test
     public void testIsValidExtract() {
         assertEquals("12345679", VALIDATOR.extractFromEAN13("9771234567003"));
         assertEquals("00014664", VALIDATOR.extractFromEAN13("9770001466006"));
@@ -122,6 +126,7 @@ public class ISSNValidatorTest extends TestCase {
     /**
      * Test isValid() ISSN codes
      */
+    @Test
     public void testIsValidISSN() {
         for(final String f : validFormat) {
             assertTrue(f, VALIDATOR.isValid(f));
@@ -131,6 +136,7 @@ public class ISSNValidatorTest extends TestCase {
     /**
      * Test isValid() ISSN codes and convert them
      */
+    @Test
     public void testIsValidISSNConvert() {
         final CheckDigit ean13cd = EAN13CheckDigit.EAN13_CHECK_DIGIT;
         final Random r = new Random();
@@ -145,10 +151,12 @@ public class ISSNValidatorTest extends TestCase {
         assertEquals("9771234567003", VALIDATOR.convertToEAN13("1234-5679", "00"));
     }
 
+    @Test
     public void testIsValidISSNConvertNull() {
         assertNull(VALIDATOR.convertToEAN13(null, "00"));
     }
 
+    @Test
     public void testIsValidISSNConvertSuffix() {
         try {
             assertNull(VALIDATOR.convertToEAN13(null, null));
@@ -191,12 +199,14 @@ public class ISSNValidatorTest extends TestCase {
     /**
      * Test null values
      */
+    @Test
     public void testNull() {
         assertFalse("isValid",  VALIDATOR.isValid(null));
     }
     /**
      * Test Invalid EAN-13 ISSN codes
      */
+    @Test
     public void testValidCheckDigitEan13() {
         assertNull(VALIDATOR.extractFromEAN13("9771234567001"));
         assertNull(VALIDATOR.extractFromEAN13("9771234567002"));

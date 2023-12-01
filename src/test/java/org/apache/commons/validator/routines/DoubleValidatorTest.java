@@ -18,6 +18,8 @@ package org.apache.commons.validator.routines;
 
 import java.util.Locale;
 
+import org.junit.Test;
+
 /**
  * Test Case for DoubleValidator.
  */
@@ -74,6 +76,7 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test Double Range/Min/Max
      */
+    @Test
     public void testDoubleRangeMinMax() {
         final DoubleValidator validator = (DoubleValidator)strictValidator;
         final Double number9  = validator.validate("9", "#");
@@ -104,6 +107,7 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test DoubleValidator validate Methods
      */
+    @Test
     public void testDoubleValidatorMethods() {
         final Locale locale     = Locale.GERMAN;
         final String pattern    = "0,00,00";

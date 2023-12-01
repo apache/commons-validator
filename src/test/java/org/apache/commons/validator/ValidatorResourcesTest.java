@@ -20,6 +20,8 @@ import java.io.InputStream;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Test ValidatorResources.
  */
@@ -35,6 +37,7 @@ public class ValidatorResourcesTest extends TestCase {
     /**
      * Test null Input Stream for Validator Resources.
      */
+    @Test
     public void testNullInputStream() throws Exception {
 
         try {

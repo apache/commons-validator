@@ -19,6 +19,7 @@ package org.apache.commons.validator;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -83,6 +84,7 @@ public class ParameterTest extends AbstractCommonTest {
     /**
      * Test all validations ran and passed.
      */
+    @Test
     public void testAllValid() {
 
         // Create bean to run test on.

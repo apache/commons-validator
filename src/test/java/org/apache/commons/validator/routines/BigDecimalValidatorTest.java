@@ -19,6 +19,8 @@ package org.apache.commons.validator.routines;
 import java.math.BigDecimal;
 import java.util.Locale;
 
+import org.junit.Test;
+
 /**
  * Test Case for BigDecimalValidator.
  */
@@ -77,6 +79,7 @@ public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test BigDecimal Range/Min/Max
      */
+    @Test
     public void testBigDecimalRangeMinMax() {
         final BigDecimalValidator validator = new BigDecimalValidator(true, AbstractNumberValidator.STANDARD_FORMAT, true);
         final BigDecimal number9  = new BigDecimal("9");
@@ -110,6 +113,7 @@ public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test BigDecimalValidator validate Methods
      */
+    @Test
     public void testBigDecimalValidatorMethods() {
         final Locale locale           = Locale.GERMAN;
         final String pattern          = "0,00,00";

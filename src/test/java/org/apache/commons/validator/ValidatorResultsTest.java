@@ -18,6 +18,7 @@ package org.apache.commons.validator;
 
 import java.io.IOException;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -96,7 +97,8 @@ protected void tearDown() {
    /**
     * Test all validations ran and passed.
     */
-   public void testAllValid() throws ValidatorException {
+   @Test
+    public void testAllValid() throws ValidatorException {
 
       // Create bean to run test on.
       final NameBean bean = createNameBean();
@@ -117,7 +119,8 @@ protected void tearDown() {
    /**
     * Test some validations failed and some didn't run.
     */
-   public void testErrors() throws ValidatorException {
+   @Test
+    public void testErrors() throws ValidatorException {
 
       middleName = "XXX";
       lastName = null;

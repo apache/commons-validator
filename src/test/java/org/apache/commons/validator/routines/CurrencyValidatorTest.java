@@ -22,6 +22,8 @@ import java.util.Locale;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Test Case for CurrencyValidator.
  */
@@ -49,6 +51,7 @@ public class CurrencyValidatorTest extends TestCase {
     /**
      * Test Format Type
      */
+    @Test
     public void testFormatType() {
         assertEquals("Format Type A", 1, CurrencyValidator.getInstance().getFormatType());
         assertEquals("Format Type B", AbstractNumberValidator.CURRENCY_FORMAT, CurrencyValidator.getInstance().getFormatType());
@@ -57,6 +60,7 @@ public class CurrencyValidatorTest extends TestCase {
     /**
      * Test Invalid integer (non decimal) currency values
      */
+    @Test
     public void testIntegerInvalid() {
         final CurrencyValidator validator = new CurrencyValidator(true, false);
 
@@ -72,6 +76,7 @@ public class CurrencyValidatorTest extends TestCase {
     /**
      * Test Valid integer (non-decimal) currency values
      */
+    @Test
     public void testIntegerValid() {
         // Set the default Locale
         final Locale origDefault = Locale.getDefault();
@@ -96,6 +101,7 @@ public class CurrencyValidatorTest extends TestCase {
     /**
      * Test Invalid currency values
      */
+    @Test
     public void testInvalid() {
         final BigDecimalValidator validator = CurrencyValidator.getInstance();
 
@@ -117,6 +123,7 @@ public class CurrencyValidatorTest extends TestCase {
     /**
      * Test currency values with a pattern
      */
+    @Test
     public void testPattern() {
         // Set the default Locale
         final Locale origDefault = Locale.getDefault();
@@ -151,6 +158,7 @@ public class CurrencyValidatorTest extends TestCase {
     /**
      * Test Valid currency values
      */
+    @Test
     public void testValid() {
         // Set the default Locale
         final Locale origDefault = Locale.getDefault();

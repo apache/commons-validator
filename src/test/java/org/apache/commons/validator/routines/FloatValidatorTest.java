@@ -19,6 +19,8 @@ package org.apache.commons.validator.routines;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
+import org.junit.Test;
+
 /**
  * Test Case for FloatValidator.
  */
@@ -75,6 +77,7 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test Float Range/Min/Max
      */
+    @Test
     public void testFloatRangeMinMax() {
         final FloatValidator validator = (FloatValidator)strictValidator;
         final Float number9  = validator.validate("9", "#");
@@ -106,6 +109,7 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
      * Test Float validation for values too small to handle.
      * (slightly different from max/min which are the largest +ve/-ve
      */
+    @Test
     public void testFloatSmallestValues() {
         final String pattern = "#.#################################################################";
         final DecimalFormat fmt = new DecimalFormat(pattern);
@@ -134,6 +138,7 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test FloatValidator validate Methods
      */
+    @Test
     public void testFloatValidatorMethods() {
         final Locale locale     = Locale.GERMAN;
         final String pattern    = "0,00,00";

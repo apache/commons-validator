@@ -18,6 +18,8 @@ package org.apache.commons.validator.routines;
 
 import java.util.Locale;
 
+import org.junit.Test;
+
 /**
  * Test Case for ByteValidator.
  */
@@ -82,6 +84,7 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test Byte Range/Min/Max
      */
+    @Test
     public void testByteRangeMinMax() {
         final ByteValidator validator = (ByteValidator)strictValidator;
         final Byte number9  = validator.validate("9", "#");
@@ -114,6 +117,7 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test ByteValidator validate Methods
      */
+    @Test
     public void testByteValidatorMethods() {
         final Locale locale     = Locale.GERMAN;
         final String pattern    = "0,00";

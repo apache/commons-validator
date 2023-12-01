@@ -18,6 +18,8 @@ package org.apache.commons.validator.routines;
 
 import java.util.Locale;
 
+import org.junit.Test;
+
 /**
  * Test Case for ShortValidator.
  */
@@ -74,6 +76,7 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test Short Range/Min/Max
      */
+    @Test
     public void testShortRangeMinMax() {
         final ShortValidator validator = (ShortValidator)strictValidator;
         final Short number9  = validator.validate("9", "#");
@@ -106,6 +109,7 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test ShortValidator validate Methods
      */
+    @Test
     public void testShortValidatorMethods() {
         final Locale locale     = Locale.GERMAN;
         final String pattern    = "0,00,00";

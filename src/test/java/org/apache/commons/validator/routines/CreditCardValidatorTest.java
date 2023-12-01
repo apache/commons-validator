@@ -20,6 +20,7 @@ import junit.framework.TestCase;
 
 import org.apache.commons.validator.routines.CreditCardValidator.CreditCardRange;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
+import org.junit.Test;
 
 /**
  * Test the CreditCardValidator class.
@@ -80,6 +81,7 @@ public class CreditCardValidatorTest extends TestCase {
         super(name);
     }
 
+    @Test
     public void testAddAllowedCardType() {
         final CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.NONE);
         // Turned off all cards so even valid numbers should fail
@@ -93,6 +95,7 @@ public class CreditCardValidatorTest extends TestCase {
     /**
      * Test the Amex Card option
      */
+    @Test
     public void testAmexOption() {
         final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.AMEX);
         assertFalse("Invalid",        validator.isValid(ERROR_AMEX));
@@ -110,6 +113,7 @@ public class CreditCardValidatorTest extends TestCase {
     /**
      * Test the Amex Card validator
      */
+    @Test
     public void testAmexValidator() {
 
         final CodeValidator validator = CreditCardValidator.AMEX_VALIDATOR;
@@ -155,6 +159,7 @@ public class CreditCardValidatorTest extends TestCase {
     /**
      * Test the CodeValidator array constructor
      */
+    @Test
     public void testArrayConstructor() {
         final CreditCardValidator ccv = new CreditCardValidator(new CodeValidator[]
                {CreditCardValidator.VISA_VALIDATOR, CreditCardValidator.AMEX_VALIDATOR});
@@ -182,6 +187,7 @@ public class CreditCardValidatorTest extends TestCase {
     /**
      * Test the Diners Card option
      */
+    @Test
     public void testDinersOption() {
         final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.DINERS);
         assertFalse("Invalid",        validator.isValid(ERROR_DINERS));
@@ -199,6 +205,7 @@ public class CreditCardValidatorTest extends TestCase {
     /**
      * Test the Diners Card validator
      */
+    @Test
     public void testDinersValidator() {
 
         final CodeValidator validator = CreditCardValidator.DINERS_VALIDATOR;
@@ -262,6 +269,7 @@ public class CreditCardValidatorTest extends TestCase {
     /**
      * Test the Discover Card option
      */
+    @Test
     public void testDiscoverOption() {
         final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.DISCOVER);
         assertFalse("Invalid",        validator.isValid(ERROR_DISCOVER));
@@ -282,6 +290,7 @@ public class CreditCardValidatorTest extends TestCase {
     /**
      * Test the Discover Card validator
      */
+    @Test
     public void testDiscoverValidator() {
 
         final CodeValidator validator = CreditCardValidator.DISCOVER_VALIDATOR;
@@ -336,6 +345,7 @@ public class CreditCardValidatorTest extends TestCase {
 
     }
 
+    @Test
     public void testDisjointRange() {
         CreditCardValidator ccv = new CreditCardValidator(
             new CreditCardRange[]{
@@ -359,6 +369,7 @@ public class CreditCardValidatorTest extends TestCase {
         assertTrue(ccv.isValid(VALID_DINERS));
     }
 
+    @Test
     public void testGeneric() {
         final CreditCardValidator ccv = CreditCardValidator.genericCreditCardValidator();
         for(final String s : VALID_CARDS) {
@@ -369,6 +380,7 @@ public class CreditCardValidatorTest extends TestCase {
         }
     }
 
+    @Test
     public void testIsValid() {
         CreditCardValidator ccv = new CreditCardValidator();
 
@@ -402,6 +414,7 @@ public class CreditCardValidatorTest extends TestCase {
     /**
      * Test the Mastercard Card option
      */
+    @Test
     public void testMastercardOption() {
         final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.MASTERCARD);
         assertFalse("Invalid",        validator.isValid(ERROR_MASTERCARD));
@@ -419,6 +432,7 @@ public class CreditCardValidatorTest extends TestCase {
     /**
      * Test using separators
      */
+    @Test
     public void testMastercardUsingSeparators() {
 
         final String MASTERCARD_REGEX_SEP = "^(5[1-5]\\d{2})(?:[- ])?(\\d{4})(?:[- ])?(\\d{4})(?:[- ])?(\\d{4})$";
@@ -449,6 +463,7 @@ public class CreditCardValidatorTest extends TestCase {
     /**
      * Test the Mastercard Card validator
      */
+    @Test
     public void testMastercardValidator() {
 
         final CodeValidator validator = CreditCardValidator.MASTERCARD_VALIDATOR;
@@ -503,6 +518,7 @@ public class CreditCardValidatorTest extends TestCase {
         assertFalse("272100",rev.isValid("272100"+PAD));
     }
 
+    @Test
     public void testRangeGenerator() {
         final CreditCardValidator ccv = new CreditCardValidator(
             new CodeValidator[] {
@@ -528,6 +544,7 @@ public class CreditCardValidatorTest extends TestCase {
         }
     }
 
+    @Test
     public void testRangeGeneratorNoLuhn() {
         final CodeValidator cv = CreditCardValidator.createRangeValidator(
             new CreditCardRange[]{
@@ -549,6 +566,7 @@ public class CreditCardValidatorTest extends TestCase {
         assertFalse(cv.isValid("66000000"));
     }
 
+    @Test
     public void testValidLength() {
         assertTrue(CreditCardValidator.validLength(14, new CreditCardRange("", "", 14, 14)));
         assertFalse(CreditCardValidator.validLength(15, new CreditCardRange("", "", 14, 14)));
@@ -570,6 +588,7 @@ public class CreditCardValidatorTest extends TestCase {
     /**
      * Test the Visa Card option
      */
+    @Test
     public void testVisaOption() {
         final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.VISA);
         assertFalse("Invalid",        validator.isValid(ERROR_VISA));
@@ -589,6 +608,7 @@ public class CreditCardValidatorTest extends TestCase {
     /**
      * Test the Visa Card validator
      */
+    @Test
     public void testVisaValidator() {
 
         final CodeValidator validator = CreditCardValidator.VISA_VALIDATOR;
@@ -631,6 +651,7 @@ public class CreditCardValidatorTest extends TestCase {
         assertTrue("Valid-E",         validator.isValid("4012888888881881"));
     }
 
+    @Test
     public void testVPayOption() {
         final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.VPAY);
         assertTrue("Valid",           validator.isValid(VALID_VPAY));

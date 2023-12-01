@@ -27,6 +27,7 @@ import junit.framework.TestCase;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Test;
 
 /**
  * Luhn Check Digit Test.
@@ -156,6 +157,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
     /**
      * Test calculate() for invalid values.
      */
+    @Test
     public void testCalculateInvalid() {
 
         if (log.isDebugEnabled()) {
@@ -189,6 +191,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
     /**
      * Test calculate() for valid values.
      */
+    @Test
     public void testCalculateValid() {
         if (log.isDebugEnabled()) {
             log.debug("testCalculateValid() for " + routine.getClass().getName());
@@ -213,6 +216,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
     /**
      * Test isValid() for invalid values.
      */
+    @Test
     public void testIsValidFalse() {
         if (log.isDebugEnabled()) {
             log.debug("testIsValidFalse() for " + routine.getClass().getName());
@@ -239,6 +243,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
     /**
      * Test isValid() for valid values.
      */
+    @Test
     public void testIsValidTrue() {
         if (log.isDebugEnabled()) {
             log.debug("testIsValidTrue() for " + routine.getClass().getName());
@@ -255,6 +260,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
 /**
      * Test missing code
      */
+    @Test
     public void testMissingCode() {
 
         // isValid() null
@@ -287,6 +293,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
     /**
      * Test check digit serialization.
      */
+    @Test
     public void testSerialization() {
         // Serialize the check digit routine
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -316,6 +323,7 @@ public abstract class AbstractCheckDigitTest extends TestCase {
     /**
      * Test zero sum
      */
+    @Test
     public void testZeroSum() {
 
         assertFalse("isValid() Zero Sum", routine.isValid(zeroSum));

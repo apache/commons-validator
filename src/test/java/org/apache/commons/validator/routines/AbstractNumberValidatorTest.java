@@ -25,6 +25,8 @@ import java.text.DecimalFormat;
 import java.util.Locale;
 
 import junit.framework.TestCase;
+
+import org.junit.Test;
 /**
  * Base Number Test Case.
  */
@@ -81,6 +83,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
     /**
      * Test format() methods
      */
+    @Test
     public void testFormat() {
         final Number number = new BigDecimal("1234.5");
         assertEquals("US Locale, US Format", "1,234.5", strictValidator.format(number, Locale.US));
@@ -91,6 +94,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
     /**
      * Test Format Type
      */
+    @Test
     public void testFormatType() {
         assertEquals("Format Type A", 0, validator.getFormatType());
         assertEquals("Format Type B", AbstractNumberValidator.STANDARD_FORMAT, validator.getFormatType());
@@ -99,6 +103,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
     /**
      * Test Invalid, strict=false
      */
+    @Test
     public void testInvalidNotStrict() {
         for (int i = 0; i < invalid.length; i++) {
             final String text = "idx=["+i+"] value=[" + invalid[i] + "]";
@@ -112,6 +117,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
     /**
      * Test Invalid, strict=true
      */
+    @Test
     public void testInvalidStrict() {
         for (int i = 0; i < invalidStrict.length; i++) {
             final String text = "idx=["+i+"] value=[" + invalidStrict[i] + "]";
@@ -125,6 +131,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
     /**
      * Test Range/Min/Max
      */
+    @Test
     public void testRangeMinMax() {
         final Number number9 = Integer.valueOf(9);
         final Number number10 = Integer.valueOf(10);
@@ -154,6 +161,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
     /**
      * Test validator serialization.
      */
+    @Test
     public void testSerialization() {
         // Serialize the check digit routine
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -183,6 +191,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
     /**
      * Test different Locale
      */
+    @Test
     public void testValidateLocale() {
 
         assertEquals("US Locale, US Format", testNumber, strictValidator.parse(testStringUS, null, Locale.US));
@@ -200,6 +209,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
     /**
      * Test Min/Max values allowed
      */
+    @Test
     public void testValidateMinMax() {
         final DecimalFormat fmt = new DecimalFormat("#");
         if (max != null) {
@@ -213,6 +223,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
     /**
      * Test Valid, strict=false
      */
+    @Test
     public void testValidNotStrict() {
         for (int i = 0; i < valid.length; i++) {
             final String text = "idx=["+i+"] value=[" + validCompare[i] + "]";
@@ -226,6 +237,7 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
     /**
      * Test Valid, strict=true
      */
+    @Test
     public void testValidStrict() {
         for (int i = 0; i < validStrict.length; i++) {
             final String text = "idx=["+i+"] value=[" + validStrictCompare[i] + "]";

@@ -23,6 +23,8 @@ import java.util.TimeZone;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Test Case for TimeValidator.
  */
@@ -160,6 +162,7 @@ public class TimeValidatorTest extends TestCase {
     /**
      * Test compare date methods
      */
+    @Test
     public void testCompare() {
         final int testTime = 154523;
         final int min = 100;
@@ -205,6 +208,7 @@ public class TimeValidatorTest extends TestCase {
     /**
      * Test Invalid Dates with "locale" validation
      */
+    @Test
     public void testFormat() {
         // Set the default Locale
         Locale.setDefault(Locale.UK);
@@ -220,6 +224,7 @@ public class TimeValidatorTest extends TestCase {
     /**
      * Test Invalid Dates with "locale" validation
      */
+    @Test
     public void testLocaleInvalid() {
         for (int i = 0; i < localeInvalid.length; i++) {
             final String text = i + " value=[" +localeInvalid[i]+"] passed ";
@@ -232,6 +237,7 @@ public class TimeValidatorTest extends TestCase {
     /**
      * Test Valid Dates with "locale" validation
      */
+    @Test
     public void testLocaleValid() {
         for (int i = 0; i < localeValid.length; i++) {
             final String text = i + " value=[" +localeValid[i]+"] failed ";
@@ -246,6 +252,7 @@ public class TimeValidatorTest extends TestCase {
     /**
      * Test Invalid Dates with "pattern" validation
      */
+    @Test
     public void testPatternInvalid() {
         for (int i = 0; i < patternInvalid.length; i++) {
             final String text = i + " value=[" +patternInvalid[i]+"] passed ";
@@ -258,6 +265,7 @@ public class TimeValidatorTest extends TestCase {
     /**
      * Test Valid Dates with "pattern" validation
      */
+    @Test
     public void testPatternValid() {
         for (int i = 0; i < patternValid.length; i++) {
             final String text = i + " value=[" +patternValid[i]+"] failed ";
@@ -272,6 +280,7 @@ public class TimeValidatorTest extends TestCase {
     /**
      * Test time zone methods.
      */
+    @Test
     public void testTimeZone() {
         // Set the default Locale & TimeZone
         Locale.setDefault(Locale.UK);

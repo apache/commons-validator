@@ -18,6 +18,7 @@ package org.apache.commons.validator;
 
 import java.io.IOException;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -53,6 +54,7 @@ public class ExceptionTest extends AbstractCommonTest {
      * Tests handling of checked exceptions - should become
      * ValidatorExceptions.
      */
+    @Test
     public void testValidatorException() {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();

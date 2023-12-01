@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.junit.Test;
+
 /**
  * Verhoeff Check Digit Test.
  *
@@ -48,6 +50,7 @@ public class VerhoeffCheckDigitTest extends AbstractCheckDigitTest {
      * Test zero sum
      */
     @Override
+    @Test
     public void testZeroSum() {
         // ignore, don't run this test
     }

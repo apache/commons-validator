@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator;
 
+import org.junit.Test;
+
 /**
  * Performs Validation Test for <code>byte</code> validations.
  */
@@ -30,6 +32,7 @@ public class ByteTest extends AbstractNumberTest {
     /**
      * Tests the byte validation.
      */
+    @Test
     public void testByte() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -41,6 +44,7 @@ public class ByteTest extends AbstractNumberTest {
     /**
      * Tests the byte validation failure.
      */
+    @Test
     public void testByteBeyondMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -52,6 +56,7 @@ public class ByteTest extends AbstractNumberTest {
     /**
      * Tests the byte validation failure.
      */
+    @Test
     public void testByteBeyondMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -63,6 +68,7 @@ public class ByteTest extends AbstractNumberTest {
     /**
      * Tests the byte validation failure.
      */
+    @Test
     public void testByteFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -73,6 +79,7 @@ public class ByteTest extends AbstractNumberTest {
     /**
      * Tests the byte validation.
      */
+    @Test
     public void testByteMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -84,6 +91,7 @@ public class ByteTest extends AbstractNumberTest {
     /**
      * Tests the byte validation.
      */
+    @Test
     public void testByteMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();

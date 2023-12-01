@@ -18,6 +18,7 @@ package org.apache.commons.validator;
 
 import java.io.IOException;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -57,7 +58,8 @@ protected void tearDown() {
    /**
     * Tests the required validation failure.
     */
-   public void testRequired() throws ValidatorException {
+   @Test
+    public void testRequired() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
 
@@ -92,7 +94,8 @@ protected void tearDown() {
    /**
     * Tests the required validation for first name.
     */
-   public void testRequiredFirstName() throws ValidatorException {
+   @Test
+    public void testRequiredFirstName() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
       name.setFirstName("Joe");
@@ -124,7 +127,8 @@ protected void tearDown() {
    /**
     * Tests the required validation for first name if it is blank.
     */
-   public void testRequiredFirstNameBlank() throws ValidatorException {
+   @Test
+    public void testRequiredFirstNameBlank() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
       name.setFirstName("");
@@ -156,7 +160,8 @@ protected void tearDown() {
    /**
     * Tests the required validation for last name.
     */
-   public void testRequiredLastName() throws ValidatorException {
+   @Test
+    public void testRequiredLastName() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
       name.setLastName("Smith");
@@ -189,7 +194,8 @@ protected void tearDown() {
    /**
     * Tests the required validation for last name if it is blank.
     */
-   public void testRequiredLastNameBlank() throws ValidatorException {
+   @Test
+    public void testRequiredLastNameBlank() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
       name.setLastName("");
@@ -221,7 +227,8 @@ protected void tearDown() {
    /**
     * Tests the required validation for first and last name.
     */
-   public void testRequiredName() throws ValidatorException {
+   @Test
+    public void testRequiredName() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
       name.setFirstName("Joe");

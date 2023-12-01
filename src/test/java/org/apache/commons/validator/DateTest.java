@@ -19,6 +19,7 @@ package org.apache.commons.validator;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -54,6 +55,7 @@ public class DateTest extends AbstractCommonTest {
     /**
      * Tests the date validation.
      */
+    @Test
     public void testInvalidDate() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -64,6 +66,7 @@ public class DateTest extends AbstractCommonTest {
     /**
      * Tests the date validation.
      */
+    @Test
     public void testValidDate() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();

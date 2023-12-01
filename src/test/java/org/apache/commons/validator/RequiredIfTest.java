@@ -18,6 +18,7 @@ package org.apache.commons.validator;
 
 import java.io.IOException;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -58,7 +59,8 @@ protected void tearDown() {
     * With nothing provided, we should pass since the fields only fail on
     * null if the other field is non-blank.
     */
-   public void testRequired() throws ValidatorException {
+   @Test
+    public void testRequired() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
 
@@ -93,7 +95,8 @@ protected void tearDown() {
    /**
     * Tests the required validation for last name.
     */
-   public void testRequiredFirstName() throws ValidatorException {
+   @Test
+    public void testRequiredFirstName() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
       name.setFirstName("Test");
@@ -126,7 +129,8 @@ protected void tearDown() {
    /**
     * Tests the required validation for first name if it is blank.
     */
-   public void testRequiredFirstNameBlank() throws ValidatorException {
+   @Test
+    public void testRequiredFirstNameBlank() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
       name.setFirstName("");
@@ -159,7 +163,8 @@ protected void tearDown() {
    /**
     * Tests the required validation for last name.
     */
-   public void testRequiredLastName() throws ValidatorException {
+   @Test
+    public void testRequiredLastName() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
       name.setFirstName("Joe");
@@ -193,7 +198,8 @@ protected void tearDown() {
    /**
     * Tests the required validation for last name if it is blank.
     */
-   public void testRequiredLastNameBlank() throws ValidatorException {
+   @Test
+    public void testRequiredLastNameBlank() throws ValidatorException {
       // Create bean to run test on.
       final NameBean name = new NameBean();
       name.setFirstName("Joe");

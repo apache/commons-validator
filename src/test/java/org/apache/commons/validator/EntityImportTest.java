@@ -19,6 +19,8 @@ package org.apache.commons.validator;
 import java.net.URL;
 import java.util.Locale;
 
+import org.junit.Test;
+
 /**
  * Tests entity imports.
  */
@@ -31,6 +33,7 @@ public class EntityImportTest extends AbstractCommonTest {
     /**
      * Tests the entity import loading the <code>byteForm</code> form.
      */
+    @Test
     public void testEntityImport() throws Exception {
         final URL url = getClass().getResource("EntityImportTest-config.xml");
         final ValidatorResources resources = new ValidatorResources(url.toExternalForm());
@@ -40,6 +43,7 @@ public class EntityImportTest extends AbstractCommonTest {
     /**
      * Tests loading ValidatorResources from a URL
      */
+    @Test
     public void testParseURL() throws Exception {
         final URL url = getClass().getResource("EntityImportTest-config.xml");
         final ValidatorResources resources = new ValidatorResources(url);

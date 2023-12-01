@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator;
 
+import org.junit.Test;
+
 /**
  * Performs Validation Test for <code>int</code> validations.
  */
@@ -30,6 +32,7 @@ public class IntegerTest extends AbstractNumberTest {
     /**
      * Tests the int validation.
      */
+    @Test
     public void testInt() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -41,6 +44,7 @@ public class IntegerTest extends AbstractNumberTest {
     /**
      * Tests the int validation failure.
      */
+    @Test
     public void testIntBeyondMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -52,6 +56,7 @@ public class IntegerTest extends AbstractNumberTest {
     /**
      * Tests the int validation failure.
      */
+    @Test
     public void testIntBeyondMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -63,6 +68,7 @@ public class IntegerTest extends AbstractNumberTest {
     /**
      * Tests the int validation.
      */
+    @Test
     public void testIntegerMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -74,6 +80,7 @@ public class IntegerTest extends AbstractNumberTest {
     /**
      * Tests the int validation failure.
      */
+    @Test
     public void testIntFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -84,6 +91,7 @@ public class IntegerTest extends AbstractNumberTest {
     /**
      * Tests the int validation.
      */
+    @Test
     public void testIntMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();

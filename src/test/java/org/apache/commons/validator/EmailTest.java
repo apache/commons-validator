@@ -18,6 +18,7 @@ package org.apache.commons.validator;
 
 import java.io.IOException;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -228,7 +229,8 @@ public void _testEmailUserName() throws ValidatorException {
    /**
     * Tests the e-mail validation.
     */
-   public void testEmail() throws ValidatorException {
+   @Test
+    public void testEmail() throws ValidatorException {
       // Create bean to run test on.
       final ValueBean info = new ValueBean();
 
@@ -239,7 +241,8 @@ public void _testEmailUserName() throws ValidatorException {
    /**
     * Tests the e-mail validation with a user at a TLD
     */
-   public void testEmailAtTLD() throws ValidatorException {
+   @Test
+    public void testEmailAtTLD() throws ValidatorException {
       // Create bean to run test on.
       final ValueBean info = new ValueBean();
 
@@ -256,6 +259,7 @@ public void _testEmailUserName() throws ValidatorException {
     /**
      * Tests the e-mail validation.
      */
+    @Test
     public void testEmailExtension() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -289,7 +293,8 @@ public void _testEmailUserName() throws ValidatorException {
  * Test that @localhost and @localhost.localdomain
  *  addresses aren't declared valid by default
  */
-public void testEmailLocalhost() throws ValidatorException {
+@Test
+    public void testEmailLocalhost() throws ValidatorException {
    final ValueBean info = new ValueBean();
    info.setValue("joe@localhost");
    valueTest(info, false);
@@ -301,7 +306,8 @@ public void testEmailLocalhost() throws ValidatorException {
  * Tests the e-mail validation with an RCS-noncompliant character in
  * the address.
  */
-public void testEmailWithBogusCharacter() throws ValidatorException {
+@Test
+    public void testEmailWithBogusCharacter() throws ValidatorException {
     // Create bean to run test on.
     final ValueBean info = new ValueBean();
 
@@ -323,6 +329,7 @@ public void testEmailWithBogusCharacter() throws ValidatorException {
    /**
     * Tests the email validation with commas.
     */
+    @Test
     public void testEmailWithCommas() throws ValidatorException {
         final ValueBean info = new ValueBean();
         info.setValue("joeblow@apa,che.org");
@@ -338,6 +345,7 @@ public void testEmailWithBogusCharacter() throws ValidatorException {
     * Tests the email validation with ASCII control characters.
     * (i.e. ASCII chars 0 - 31 and 127)
     */
+    @Test
     public void testEmailWithControlChars() {
         final EmailValidator validator = new EmailValidator();
         for (char c = 0; c < 32; c++) {
@@ -350,7 +358,8 @@ public void testEmailWithBogusCharacter() throws ValidatorException {
         * <p>Tests the e-mail validation with a dash in
         * the address.</p>
         */
-       public void testEmailWithDash() throws ValidatorException {
+       @Test
+    public void testEmailWithDash() throws ValidatorException {
           // Create bean to run test on.
           final ValueBean info = new ValueBean();
     
@@ -370,7 +379,8 @@ public void testEmailWithBogusCharacter() throws ValidatorException {
         * Tests the e-mail validation with a dot at the end of
         * the address.
         */
-       public void testEmailWithDotEnd() throws ValidatorException {
+       @Test
+    public void testEmailWithDotEnd() throws ValidatorException {
           // Create bean to run test on.
           final ValueBean info = new ValueBean();
     
@@ -382,7 +392,8 @@ public void testEmailWithBogusCharacter() throws ValidatorException {
     /**
         * Tests the email validation with numeric domains.
         */
-        public void testEmailWithNumericAddress() throws ValidatorException {
+        @Test
+    public void testEmailWithNumericAddress() throws ValidatorException {
             final ValueBean info = new ValueBean();
             info.setValue("someone@[216.109.118.76]");
             valueTest(info, true);
@@ -393,7 +404,8 @@ public void testEmailWithBogusCharacter() throws ValidatorException {
     /**
         * Tests the email validation with spaces.
         */
-        public void testEmailWithSpaces() throws ValidatorException {
+        @Test
+    public void testEmailWithSpaces() throws ValidatorException {
             final ValueBean info = new ValueBean();
             info.setValue("joeblow @apache.org");
             valueTest(info, false);

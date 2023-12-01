@@ -18,6 +18,8 @@ package org.apache.commons.validator.routines;
 
 import java.util.Locale;
 
+import org.junit.Test;
+
 /**
  * Test Case for IntegerValidator.
  */
@@ -82,6 +84,7 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test Integer Range/Min/Max
      */
+    @Test
     public void testIntegerRangeMinMax() {
         final IntegerValidator validator = (IntegerValidator)strictValidator;
         final Integer number9  = validator.validate("9", "#");
@@ -112,6 +115,7 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
     /**
      * Test IntegerValidator validate Methods
      */
+    @Test
     public void testIntegerValidatorMethods() {
         final Locale locale     = Locale.GERMAN;
         final String pattern    = "0,00,00";
@@ -141,6 +145,7 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
         assertFalse("isValid(B) pattern", IntegerValidator.getInstance().isValid(XXXX, pattern));
         assertFalse("isValid(B) both",    IntegerValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
     }
+    @Test
     public void testMinMaxValues() {
         assertTrue("2147483647 is max integer", validator.isValid("2147483647"));
         assertFalse("2147483648 > max integer", validator.isValid("2147483648"));

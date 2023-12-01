@@ -20,6 +20,7 @@ import junit.framework.TestCase;
 
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
+import org.junit.Test;
 
 /**
  * CodeValidatorTest.java.
@@ -39,6 +40,7 @@ public class CodeValidatorTest extends TestCase {
     /**
      * Test Check Digit.
      */
+    @Test
     public void testCheckDigit() {
         CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
         final String invalidEAN = "9781930110992";
@@ -65,6 +67,7 @@ public class CodeValidatorTest extends TestCase {
     /**
      * Test Regular Expression.
      */
+    @Test
     public void testConstructors() {
         CodeValidator validator;
         final RegexValidator regex = new RegexValidator("^[0-9]*$");
@@ -115,6 +118,7 @@ public class CodeValidatorTest extends TestCase {
     /**
      * Test the minimum/maximum length
      */
+    @Test
     public void testLength() {
         CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
         final String length_10  = "1234567890";
@@ -175,6 +179,7 @@ public class CodeValidatorTest extends TestCase {
     /**
      * Test Regular Expression.
      */
+    @Test
     public void testNoInput() {
         final CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
         assertEquals("Null",         null, validator.validate(null));
@@ -186,6 +191,7 @@ public class CodeValidatorTest extends TestCase {
     /**
      * Test Regular Expression.
      */
+    @Test
     public void testRegex() {
         CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
 
@@ -230,6 +236,7 @@ public class CodeValidatorTest extends TestCase {
 
     }
 
+    @Test
     public void testValidator294_1() {
         CodeValidator validator = new CodeValidator((String)null, 0, -1, (CheckDigit)null);
         assertEquals("Null",         null, validator.validate(null));
@@ -237,6 +244,7 @@ public class CodeValidatorTest extends TestCase {
         assertEquals("Null",         null, validator.validate(null));
     }
 
+    @Test
     public void testValidator294_2() {
         final CodeValidator validator = new CodeValidator((String)null, -1, 0, (CheckDigit)null);
         assertEquals("Null",         null, validator.validate(null));

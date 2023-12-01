@@ -19,6 +19,7 @@ package org.apache.commons.validator;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -67,6 +68,7 @@ public class LocaleTest extends AbstractCommonTest {
      *
      * @throws ValidatorException  If something goes wrong
      */
+    @Test
     public void testLocale1()
         throws ValidatorException {
         // Create bean to run test on.
@@ -83,6 +85,7 @@ public class LocaleTest extends AbstractCommonTest {
      *
      * @throws ValidatorException  If something goes wrong
      */
+    @Test
     public void testLocale2()
         throws ValidatorException {
         // Create bean to run test on.
@@ -99,6 +102,7 @@ public class LocaleTest extends AbstractCommonTest {
      *
      * @throws ValidatorException  If something goes wrong
      */
+    @Test
     public void testLocale3()
         throws ValidatorException {
         // Create bean to run test on.
@@ -116,6 +120,7 @@ public class LocaleTest extends AbstractCommonTest {
      *
      * @throws ValidatorException  If something goes wrong
      */
+    @Test
     public void testLocale4()
         throws ValidatorException {
         // Create bean to run test on.
@@ -131,6 +136,7 @@ public class LocaleTest extends AbstractCommonTest {
      *
      * @throws ValidatorException  If something goes wrong
      */
+    @Test
     public void testLocale5()
         throws ValidatorException {
         // Create bean to run test on.

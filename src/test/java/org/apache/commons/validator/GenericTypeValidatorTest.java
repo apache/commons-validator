@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -100,7 +101,8 @@ protected void tearDown() {
    /**
     * Tests the fr locale.
     */
-   public void testFRLocale() throws ValidatorException {
+   @Test
+    public void testFRLocale() throws ValidatorException {
       // Create bean to run test on.
       final TypeBean info = new TypeBean();
       info.setByte("12");
@@ -118,7 +120,8 @@ protected void tearDown() {
    /**
     * Tests the byte validation.
     */
-   public void testType() throws ValidatorException {
+   @Test
+    public void testType() throws ValidatorException {
       // Create bean to run test on.
       final TypeBean info = new TypeBean();
       info.setByte("12");
@@ -170,7 +173,8 @@ protected void tearDown() {
   /**
     * Tests the us locale
     */
-   public void testUSLocale() throws ValidatorException {
+   @Test
+    public void testUSLocale() throws ValidatorException {
       // Create bean to run test on.
       final TypeBean info = new TypeBean();
       info.setByte("12");

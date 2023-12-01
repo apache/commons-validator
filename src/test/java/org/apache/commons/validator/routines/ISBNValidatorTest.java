@@ -20,6 +20,8 @@ import java.util.regex.Pattern;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * ISBNValidator Test Case.
  */
@@ -105,6 +107,7 @@ public class ISBNValidatorTest extends TestCase {
     /**
      * Test method for {@link org.apache.commons.validator.routines.ISBNValidator#convertToISBN13(java.lang.String)}.
      */
+    @Test
     public void testConversionErrors() {
         final ISBNValidator validator = ISBNValidator.getInstance();
         String input = null;
@@ -141,6 +144,7 @@ public class ISBNValidatorTest extends TestCase {
     /**
      * Test Invalid ISBN-10 codes
      */
+    @Test
     public void testInvalid() {
         final ISBNValidator validator = ISBNValidator.getInstance();
         String baseCode = "193011099";
@@ -172,6 +176,7 @@ public class ISBNValidatorTest extends TestCase {
     /**
      * Test Invalid ISBN-10 formats.
      */
+    @Test
     public void testInvalidISBN10Format() {
         final ISBNValidator validator = ISBNValidator.getInstance();
         final Pattern pattern = Pattern.compile(ISBNValidator.ISBN10_REGEX);
@@ -185,6 +190,7 @@ public class ISBNValidatorTest extends TestCase {
     /**
      * Test Invalid ISBN-13 formats.
      */
+    @Test
     public void testInvalidISBN13Format() {
         final Pattern pattern = Pattern.compile(ISBNValidator.ISBN13_REGEX);
         final ISBNValidator validator = ISBNValidator.getInstance();
@@ -198,6 +204,7 @@ public class ISBNValidatorTest extends TestCase {
     /**
      * Test isValid() ISBN-10 codes
      */
+    @Test
     public void testIsValidISBN10() {
         final ISBNValidator validator = ISBNValidator.getInstance();
         assertTrue("isValidISBN10-1", validator.isValidISBN10("1930110995"));
@@ -218,6 +225,7 @@ public class ISBNValidatorTest extends TestCase {
     /**
      * Test isValid() ISBN-13 codes
      */
+    @Test
     public void testIsValidISBN13() {
         final ISBNValidator validator = ISBNValidator.getInstance();
         assertTrue("isValidISBN13-1", validator.isValidISBN13("9781930110991"));
@@ -238,6 +246,7 @@ public class ISBNValidatorTest extends TestCase {
     /**
      * Test null values
      */
+    @Test
     public void testNull() {
         final ISBNValidator validator = ISBNValidator.getInstance();
         assertFalse("isValid",        validator.isValid(null));
@@ -252,6 +261,7 @@ public class ISBNValidatorTest extends TestCase {
     /**
      * Test validate() ISBN-10 codes (don't convert)
      */
+    @Test
     public void testValidateISBN10() {
         final ISBNValidator validator = ISBNValidator.getInstance(false);
         assertEquals("validateISBN10-1", "1930110995", validator.validateISBN10("1930110995"));
@@ -272,6 +282,7 @@ public class ISBNValidatorTest extends TestCase {
     /**
      * Test validate() ISBN-10 codes (convert)
      */
+    @Test
     public void testValidateISBN10Convert() {
         final ISBNValidator validator = ISBNValidator.getInstance();
         assertEquals("validate-1", "9781930110991", validator.validate("1930110995"));
@@ -285,6 +296,7 @@ public class ISBNValidatorTest extends TestCase {
     /**
      * Test validate() ISBN-13 codes
      */
+    @Test
     public void testValidateISBN13() {
         final ISBNValidator validator = ISBNValidator.getInstance();
         assertEquals("validateISBN13-1", "9781930110991", validator.validateISBN13("9781930110991"));
@@ -305,6 +317,7 @@ public class ISBNValidatorTest extends TestCase {
     /**
      * Test Valid ISBN-10 formats.
      */
+    @Test
     public void testValidISBN10Format() {
         final Pattern pattern = Pattern.compile(ISBNValidator.ISBN10_REGEX);
         for (int i = 0; i < validISBN10Format.length; i++) {
@@ -315,6 +328,7 @@ public class ISBNValidatorTest extends TestCase {
     /**
      * Test Valid ISBN-13 formats.
      */
+    @Test
     public void testValidISBN13Format() {
         final Pattern pattern = Pattern.compile(ISBNValidator.ISBN13_REGEX);
         for (int i = 0; i < validISBN13Format.length; i++) {

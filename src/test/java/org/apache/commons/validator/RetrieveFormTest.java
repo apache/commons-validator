@@ -22,6 +22,7 @@ import java.util.Locale;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -94,6 +95,7 @@ protected void setUp() throws IOException, SAXException {
    /**
     * Test a form defined only in the "default" formset.
     */
+    @Test
     public void testDefaultForm() {
 
         final String formKey = FORM_PREFIX + "default";
@@ -121,6 +123,7 @@ protected void setUp() throws IOException, SAXException {
    /**
     * Test a form not defined
     */
+    @Test
     public void testFormNotFound() {
 
         final String formKey = "INVALID_NAME";
@@ -150,6 +153,7 @@ protected void setUp() throws IOException, SAXException {
     * where just the "language" is specified and formset where
     * the language and country are specified.
     */
+    @Test
     public void testLanguageCountryForm() {
 
         final String formKey = FORM_PREFIX + "language_country";
@@ -177,7 +181,8 @@ protected void setUp() throws IOException, SAXException {
     /**
         * Test a form defined in all the formsets
         */
-        public void testLanguageCountryVariantForm() {
+        @Test
+    public void testLanguageCountryVariantForm() {
     
             final String formKey = FORM_PREFIX + "language_country_variant";
     
@@ -205,7 +210,8 @@ protected void setUp() throws IOException, SAXException {
         * Test a form defined in the "default" formset and formsets
         * where just the "language" is specified.
         */
-        public void testLanguageForm() {
+        @Test
+    public void testLanguageForm() {
     
             final String formKey = FORM_PREFIX + "language";
     

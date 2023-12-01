@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator;
 
+import org.junit.Test;
+
 /**
  * Performs Validation Test for <code>long</code> validations.
  */
@@ -30,6 +32,7 @@ public class LongTest extends AbstractNumberTest {
     /**
      * Tests the long validation.
      */
+    @Test
     public void testLong() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -41,6 +44,7 @@ public class LongTest extends AbstractNumberTest {
     /**
      * Tests the long validation failure.
      */
+    @Test
     public void testLongBeyondMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -52,6 +56,7 @@ public class LongTest extends AbstractNumberTest {
     /**
      * Tests the long validation failure.
      */
+    @Test
     public void testLongBeyondMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -63,6 +68,7 @@ public class LongTest extends AbstractNumberTest {
     /**
      * Tests the long validation failure.
      */
+    @Test
     public void testLongFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -73,6 +79,7 @@ public class LongTest extends AbstractNumberTest {
     /**
      * Tests the long validation.
      */
+    @Test
     public void testLongMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -84,6 +91,7 @@ public class LongTest extends AbstractNumberTest {
     /**
      * Tests the long validation.
      */
+    @Test
     public void testLongMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
