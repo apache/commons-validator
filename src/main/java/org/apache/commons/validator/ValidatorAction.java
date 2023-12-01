@@ -135,385 +135,6 @@ public class ValidatorAction implements Serializable {
     private final List<String> methodParameterList = new ArrayList<>();
 
     /**
-     * Gets the name of the validator action.
-     * 
-     * @return Validator Action name.
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the name of the validator action.
-     * 
-     * @param name Validator Action name.
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    /**
-     * Gets the class of the validator action.
-     * 
-     * @return Class name of the validator Action.
-     */
-    public String getClassname() {
-        return className;
-    }
-
-    /**
-     * Sets the class of the validator action.
-     * 
-     * @param className Class name of the validator Action.
-     * @deprecated Use {@link #setClassName(String)}.
-     */
-    @Deprecated
-    public void setClassname(final String className) {
-        this.className = className;
-    }
-
-    /**
-     * Sets the class of the validator action.
-     * 
-     * @param className Class name of the validator Action.
-     */
-    public void setClassName(final String className) {
-        this.className = className;
-    }
-
-    /**
-     * Gets the name of method being called for the validator action.
-     * 
-     * @return The method name.
-     */
-    public String getMethod() {
-        return method;
-    }
-
-    /**
-     * Sets the name of method being called for the validator action.
-     * 
-     * @param method The method name.
-     */
-    public void setMethod(final String method) {
-        this.method = method;
-    }
-
-    /**
-     * Gets the method parameters for the method.
-     * 
-     * @return Method's parameters.
-     */
-    public String getMethodParams() {
-        return methodParams;
-    }
-
-    /**
-     * Sets the method parameters for the method.
-     * 
-     * @param methodParams A comma separated list of parameters.
-     */
-    public void setMethodParams(final String methodParams) {
-        this.methodParams = methodParams;
-
-        this.methodParameterList.clear();
-
-        final StringTokenizer st = new StringTokenizer(methodParams, ",");
-        while (st.hasMoreTokens()) {
-            final String value = st.nextToken().trim();
-
-            if (value != null && !value.isEmpty()) {
-                this.methodParameterList.add(value);
-            }
-        }
-    }
-
-    /**
-     * Gets the dependencies of the validator action as a comma separated list of validator names.
-     * 
-     * @return The validator action's dependencies.
-     */
-    public String getDepends() {
-        return this.depends;
-    }
-
-    /**
-     * Sets the dependencies of the validator action.
-     * 
-     * @param depends A comma separated list of validator names.
-     */
-    public void setDepends(final String depends) {
-        this.depends = depends;
-
-        this.dependencyList.clear();
-
-        final StringTokenizer st = new StringTokenizer(depends, ",");
-        while (st.hasMoreTokens()) {
-            final String depend = st.nextToken().trim();
-
-            if (depend != null && !depend.isEmpty()) {
-                this.dependencyList.add(depend);
-            }
-        }
-    }
-
-    /**
-     * Gets the message associated with the validator action.
-     * 
-     * @return The message for the validator action.
-     */
-    public String getMsg() {
-        return msg;
-    }
-
-    /**
-     * Sets the message associated with the validator action.
-     * 
-     * @param msg The message for the validator action.
-     */
-    public void setMsg(final String msg) {
-        this.msg = msg;
-    }
-
-    /**
-     * Gets the Javascript function name. This is optional and can be used instead of validator action name for the name of the Javascript function/object.
-     * 
-     * @return The Javascript function name.
-     */
-    public String getJsFunctionName() {
-        return jsFunctionName;
-    }
-
-    /**
-     * Sets the Javascript function name. This is optional and can be used instead of validator action name for the name of the Javascript function/object.
-     * 
-     * @param jsFunctionName The Javascript function name.
-     */
-    public void setJsFunctionName(final String jsFunctionName) {
-        this.jsFunctionName = jsFunctionName;
-    }
-
-    /**
-     * Sets the fully qualified class path of the Javascript function.
-     * <p>
-     * This is optional and can be used <strong>instead</strong> of the setJavascript(). Attempting to call both <code>setJsFunction</code> and
-     * <code>setJavascript</code> will result in an <code>IllegalStateException</code> being thrown.
-     * </p>
-     * <p>
-     * If <strong>neither</strong> setJsFunction or setJavascript is set then validator will attempt to load the default javascript definition.
-     * </p>
-     * 
-     * <pre>
-     * <b>Examples</b>
-     *   If in the validator.xml :
-     * #1:
-     *      &lt;validator name="tire"
-     *            jsFunction="com.yourcompany.project.tireFuncion"&gt;
-     *     Validator will attempt to load com.yourcompany.project.validateTireFunction.js from
-     *     its class path.
-     * #2:
-     *    &lt;validator name="tire"&gt;
-     *      Validator will use the name attribute to try and load
-     *         org.apache.commons.validator.javascript.validateTire.js
-     *      which is the default javascript definition.
-     * </pre>
-     * 
-     * @param jsFunction The Javascript function's fully qualified class path.
-     */
-    public synchronized void setJsFunction(final String jsFunction) {
-        if (javascript != null) {
-            throw new IllegalStateException("Cannot call setJsFunction() after calling setJavascript()");
-        }
-
-        this.jsFunction = jsFunction;
-    }
-
-    /**
-     * Gets the Javascript equivalent of the Java class and method associated with this action.
-     * 
-     * @return The Javascript validation.
-     */
-    public synchronized String getJavascript() {
-        return javascript;
-    }
-
-    /**
-     * Sets the Javascript equivalent of the Java class and method associated with this action.
-     * 
-     * @param javascript The Javascript validation.
-     */
-    public synchronized void setJavascript(final String javascript) {
-        if (jsFunction != null) {
-            throw new IllegalStateException("Cannot call setJavascript() after calling setJsFunction()");
-        }
-
-        this.javascript = javascript;
-    }
-
-    /**
-     * Initialize based on set.
-     */
-    protected void init() {
-        this.loadJavascriptFunction();
-    }
-
-    /**
-     * Load the javascript function specified by the given path. For this implementation, the <code>jsFunction</code> property should contain a fully qualified
-     * package and script name, separated by periods, to be loaded from the class loader that created this instance.
-     *
-     * TODO if the path begins with a '/' the path will be intepreted as absolute, and remain unchanged. If this fails then it will attempt to treat the path as
-     * a file path. It is assumed the script ends with a '.js'.
-     */
-    protected synchronized void loadJavascriptFunction() {
-
-        if (this.javascriptAlreadyLoaded()) {
-            return;
-        }
-
-        if (getLog().isTraceEnabled()) {
-            getLog().trace("  Loading function begun");
-        }
-
-        if (this.jsFunction == null) {
-            this.jsFunction = this.generateJsFunction();
-        }
-
-        final String javascriptFileName = this.formatJavascriptFileName();
-
-        if (getLog().isTraceEnabled()) {
-            getLog().trace("  Loading js function '" + javascriptFileName + "'");
-        }
-
-        this.javascript = this.readJavascriptFile(javascriptFileName);
-
-        if (getLog().isTraceEnabled()) {
-            getLog().trace("  Loading javascript function completed");
-        }
-
-    }
-
-    /**
-     * Reads a javascript function from a file.
-     *
-     * @param javaScriptFileName The file containing the javascript.
-     * @return The javascript function or null if it could not be loaded.
-     */
-    private String readJavascriptFile(final String javaScriptFileName) {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        if (classLoader == null) {
-            classLoader = getClass().getClassLoader();
-        }
-        try (InputStream is = openInputStream(javaScriptFileName, classLoader)) {
-            if (is == null) {
-                getLog().debug("  Unable to read javascript name " + javaScriptFileName);
-                return null;
-            }
-            final StringBuilder buffer = new StringBuilder();
-            // TODO encoding
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    buffer.append(line).append("\n");
-                }
-            } catch (final IOException e) {
-                getLog().error("Error reading javascript file.", e);
-
-            }
-            final String function = buffer.toString();
-            return function.isEmpty() ? null : function;
-        } catch (IOException e) {
-            getLog().error("Error closing stream to javascript file.", e);
-            return null;
-        }
-    }
-
-    /**
-     * Opens an input stream for reading the specified resource.
-     * <p>
-     * The search order is described in the documentation for {@link ClassLoader#getResource(String)}.
-     * </p>
-     *
-     * @param name The resource name
-     * @return An input stream for reading the resource, or {@code null} if the resource could not be found
-     */
-    private InputStream openInputStream(final String javaScriptFileName, ClassLoader classLoader) {
-        InputStream is = null;
-        if (classLoader != null) {
-            is = classLoader.getResourceAsStream(javaScriptFileName);
-        }
-        if (is == null) {
-            return getClass().getResourceAsStream(javaScriptFileName);
-        }
-        return is;
-    }
-
-    /**
-     * @return A file name suitable for passing to a {@link ClassLoader#getResourceAsStream(String)} method.
-     */
-    private String formatJavascriptFileName() {
-        String fname = this.jsFunction.substring(1);
-
-        if (!this.jsFunction.startsWith("/")) {
-            fname = jsFunction.replace('.', '/') + ".js";
-        }
-
-        return fname;
-    }
-
-    /**
-     * @return true if the javascript for this action has already been loaded.
-     */
-    private boolean javascriptAlreadyLoaded() {
-        return this.javascript != null;
-    }
-
-    /**
-     * Used to generate the javascript name when it is not specified.
-     */
-    private String generateJsFunction() {
-        final StringBuilder jsName = new StringBuilder("org.apache.commons.validator.javascript");
-
-        jsName.append(".validate");
-        jsName.append(name.substring(0, 1).toUpperCase());
-        jsName.append(name.substring(1));
-
-        return jsName.toString();
-    }
-
-    /**
-     * Checks whether or not the value passed in is in the depends field.
-     * 
-     * @param validatorName Name of the dependency to check.
-     * @return Whether the named validator is a dependant.
-     */
-    public boolean isDependency(final String validatorName) {
-        return this.dependencyList.contains(validatorName);
-    }
-
-    /**
-     * Returns the dependent validator names as an unmodifiable <code>List</code>.
-     * 
-     * @return List of the validator action's depedents.
-     */
-    public List<String> getDependencyList() {
-        return Collections.unmodifiableList(this.dependencyList);
-    }
-
-    /**
-     * Returns a string representation of the object.
-     * 
-     * @return a string representation.
-     */
-    @Override
-    public String toString() {
-        final StringBuilder results = new StringBuilder("ValidatorAction: ");
-        results.append(name);
-        results.append("\n");
-
-        return results.toString();
-    }
-
-    /**
      * Dynamically runs the validation method for this validator and returns true if the data is valid.
      * 
      * @param field
@@ -588,68 +209,132 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Load the Method object for the configured validation method name.
-     * 
-     * @throws ValidatorException
+     * @return A file name suitable for passing to a {@link ClassLoader#getResourceAsStream(String)} method.
      */
-    private void loadValidationMethod() throws ValidatorException {
-        if (this.validationMethod != null) {
-            return;
+    private String formatJavascriptFileName() {
+        String fname = this.jsFunction.substring(1);
+
+        if (!this.jsFunction.startsWith("/")) {
+            fname = jsFunction.replace('.', '/') + ".js";
         }
 
-        try {
-            this.validationMethod = this.validationClass.getMethod(this.method, this.parameterClasses);
-
-        } catch (final NoSuchMethodException e) {
-            throw new ValidatorException("No such validation method: " + e.getMessage());
-        }
+        return fname;
     }
 
     /**
-     * Load the Class object for the configured validation class name.
-     * 
-     * @param loader The ClassLoader used to load the Class object.
-     * @throws ValidatorException
+     * Used to generate the javascript name when it is not specified.
      */
-    private void loadValidationClass(final ClassLoader loader) throws ValidatorException {
+    private String generateJsFunction() {
+        final StringBuilder jsName = new StringBuilder("org.apache.commons.validator.javascript");
 
-        if (this.validationClass != null) {
-            return;
-        }
+        jsName.append(".validate");
+        jsName.append(name.substring(0, 1).toUpperCase());
+        jsName.append(name.substring(1));
 
-        try {
-            this.validationClass = loader.loadClass(this.className);
-        } catch (final ClassNotFoundException e) {
-            throw new ValidatorException(e.toString());
-        }
+        return jsName.toString();
     }
 
     /**
-     * Converts a List of parameter class names into their Class objects. Stores the output in {@link #parameterClasses}. This array is in the same order as the
-     * given List and is suitable for passing to the validation method.
-     * 
-     * @throws ValidatorException if a class cannot be loaded.
+     * Returns the ClassLoader set in the Validator contained in the parameter Map.
      */
-    private void loadParameterClasses(final ClassLoader loader) throws ValidatorException {
+    private ClassLoader getClassLoader(final Map<String, Object> params) {
+        final Validator v = getValidator(params);
+        return v.getClassLoader();
+    }
 
-        if (this.parameterClasses != null) {
-            return;
+    /**
+     * Gets the class of the validator action.
+     * 
+     * @return Class name of the validator Action.
+     */
+    public String getClassname() {
+        return className;
+    }
+
+    /**
+     * Returns the dependent validator names as an unmodifiable <code>List</code>.
+     * 
+     * @return List of the validator action's depedents.
+     */
+    public List<String> getDependencyList() {
+        return Collections.unmodifiableList(this.dependencyList);
+    }
+
+    /**
+     * Gets the dependencies of the validator action as a comma separated list of validator names.
+     * 
+     * @return The validator action's dependencies.
+     */
+    public String getDepends() {
+        return this.depends;
+    }
+
+    /**
+     * Gets the Javascript equivalent of the Java class and method associated with this action.
+     * 
+     * @return The Javascript validation.
+     */
+    public synchronized String getJavascript() {
+        return javascript;
+    }
+
+    /**
+     * Gets the Javascript function name. This is optional and can be used instead of validator action name for the name of the Javascript function/object.
+     * 
+     * @return The Javascript function name.
+     */
+    public String getJsFunctionName() {
+        return jsFunctionName;
+    }
+
+    /**
+     * Accessor method for Log instance.
+     *
+     * The Log instance variable is transient and accessing it through this method ensures it is re-initialized when this instance is de-serialized.
+     *
+     * @return The Log instance.
+     */
+    private Log getLog() {
+        if (log == null) {
+            log = LogFactory.getLog(ValidatorAction.class);
         }
+        return log;
+    }
 
-        final Class<?>[] parameterClasses = new Class[this.methodParameterList.size()];
+    /**
+     * Gets the name of method being called for the validator action.
+     * 
+     * @return The method name.
+     */
+    public String getMethod() {
+        return method;
+    }
 
-        for (int i = 0; i < this.methodParameterList.size(); i++) {
-            final String paramClassName = this.methodParameterList.get(i);
+    /**
+     * Gets the method parameters for the method.
+     * 
+     * @return Method's parameters.
+     */
+    public String getMethodParams() {
+        return methodParams;
+    }
 
-            try {
-                parameterClasses[i] = loader.loadClass(paramClassName);
+    /**
+     * Gets the message associated with the validator action.
+     * 
+     * @return The message for the validator action.
+     */
+    public String getMsg() {
+        return msg;
+    }
 
-            } catch (final ClassNotFoundException e) {
-                throw new ValidatorException(e.getMessage());
-            }
-        }
-
-        this.parameterClasses = parameterClasses;
+    /**
+     * Gets the name of the validator action.
+     * 
+     * @return Validator Action name.
+     */
+    public String getName() {
+        return name;
     }
 
     /**
@@ -691,6 +376,10 @@ public class ValidatorAction implements Serializable {
         return this.instance;
     }
 
+    private Validator getValidator(final Map<String, Object> params) {
+        return (Validator) params.get(Validator.VALIDATOR_PARAM);
+    }
+
     /**
      * Modifies the paramValue array with indexed fields.
      *
@@ -717,6 +406,23 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
+     * Initialize based on set.
+     */
+    protected void init() {
+        this.loadJavascriptFunction();
+    }
+
+    /**
+     * Checks whether or not the value passed in is in the depends field.
+     * 
+     * @param validatorName Name of the dependency to check.
+     * @return Whether the named validator is a dependant.
+     */
+    public boolean isDependency(final String validatorName) {
+        return this.dependencyList.contains(validatorName);
+    }
+
+    /**
      * If the result object is a <code>Boolean</code>, it will return its value. If not it will return {@code false} if the object is <code>null</code> and
      * {@code true} if it isn't.
      */
@@ -729,32 +435,330 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Returns the ClassLoader set in the Validator contained in the parameter Map.
+     * @return true if the javascript for this action has already been loaded.
      */
-    private ClassLoader getClassLoader(final Map<String, Object> params) {
-        final Validator v = (Validator) params.get(Validator.VALIDATOR_PARAM);
-        return v.getClassLoader();
+    private boolean javascriptAlreadyLoaded() {
+        return this.javascript != null;
+    }
+
+    /**
+     * Load the javascript function specified by the given path. For this implementation, the <code>jsFunction</code> property should contain a fully qualified
+     * package and script name, separated by periods, to be loaded from the class loader that created this instance.
+     *
+     * TODO if the path begins with a '/' the path will be intepreted as absolute, and remain unchanged. If this fails then it will attempt to treat the path as
+     * a file path. It is assumed the script ends with a '.js'.
+     */
+    protected synchronized void loadJavascriptFunction() {
+
+        if (this.javascriptAlreadyLoaded()) {
+            return;
+        }
+
+        if (getLog().isTraceEnabled()) {
+            getLog().trace("  Loading function begun");
+        }
+
+        if (this.jsFunction == null) {
+            this.jsFunction = this.generateJsFunction();
+        }
+
+        final String javascriptFileName = this.formatJavascriptFileName();
+
+        if (getLog().isTraceEnabled()) {
+            getLog().trace("  Loading js function '" + javascriptFileName + "'");
+        }
+
+        this.javascript = this.readJavascriptFile(javascriptFileName);
+
+        if (getLog().isTraceEnabled()) {
+            getLog().trace("  Loading javascript function completed");
+        }
+
+    }
+
+    /**
+     * Converts a List of parameter class names into their Class objects. Stores the output in {@link #parameterClasses}. This array is in the same order as the
+     * given List and is suitable for passing to the validation method.
+     * 
+     * @throws ValidatorException if a class cannot be loaded.
+     */
+    private void loadParameterClasses(final ClassLoader loader) throws ValidatorException {
+
+        if (this.parameterClasses != null) {
+            return;
+        }
+
+        final Class<?>[] parameterClasses = new Class[this.methodParameterList.size()];
+
+        for (int i = 0; i < this.methodParameterList.size(); i++) {
+            final String paramClassName = this.methodParameterList.get(i);
+
+            try {
+                parameterClasses[i] = loader.loadClass(paramClassName);
+
+            } catch (final ClassNotFoundException e) {
+                throw new ValidatorException(e.getMessage());
+            }
+        }
+
+        this.parameterClasses = parameterClasses;
+    }
+
+    /**
+     * Load the Class object for the configured validation class name.
+     * 
+     * @param loader The ClassLoader used to load the Class object.
+     * @throws ValidatorException
+     */
+    private void loadValidationClass(final ClassLoader loader) throws ValidatorException {
+
+        if (this.validationClass != null) {
+            return;
+        }
+
+        try {
+            this.validationClass = loader.loadClass(this.className);
+        } catch (final ClassNotFoundException e) {
+            throw new ValidatorException(e.toString());
+        }
+    }
+
+    /**
+     * Load the Method object for the configured validation method name.
+     * 
+     * @throws ValidatorException
+     */
+    private void loadValidationMethod() throws ValidatorException {
+        if (this.validationMethod != null) {
+            return;
+        }
+
+        try {
+            this.validationMethod = this.validationClass.getMethod(this.method, this.parameterClasses);
+
+        } catch (final NoSuchMethodException e) {
+            throw new ValidatorException("No such validation method: " + e.getMessage());
+        }
     }
 
     /**
      * Returns the onlyReturnErrors setting in the Validator contained in the parameter Map.
      */
     private boolean onlyReturnErrors(final Map<String, Object> params) {
-        final Validator v = (Validator) params.get(Validator.VALIDATOR_PARAM);
+        final Validator v = getValidator(params);
         return v.getOnlyReturnErrors();
     }
 
     /**
-     * Accessor method for Log instance.
+     * Opens an input stream for reading the specified resource.
+     * <p>
+     * The search order is described in the documentation for {@link ClassLoader#getResource(String)}.
+     * </p>
      *
-     * The Log instance variable is transient and accessing it through this method ensures it is re-initialized when this instance is de-serialized.
-     *
-     * @return The Log instance.
+     * @param name The resource name
+     * @return An input stream for reading the resource, or {@code null} if the resource could not be found
      */
-    private Log getLog() {
-        if (log == null) {
-            log = LogFactory.getLog(ValidatorAction.class);
+    private InputStream openInputStream(final String javaScriptFileName, ClassLoader classLoader) {
+        InputStream is = null;
+        if (classLoader != null) {
+            is = classLoader.getResourceAsStream(javaScriptFileName);
         }
-        return log;
+        if (is == null) {
+            return getClass().getResourceAsStream(javaScriptFileName);
+        }
+        return is;
+    }
+
+    /**
+     * Reads a javascript function from a file.
+     *
+     * @param javaScriptFileName The file containing the javascript.
+     * @return The javascript function or null if it could not be loaded.
+     */
+    private String readJavascriptFile(final String javaScriptFileName) {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        if (classLoader == null) {
+            classLoader = getClass().getClassLoader();
+        }
+        try (InputStream is = openInputStream(javaScriptFileName, classLoader)) {
+            if (is == null) {
+                getLog().debug("  Unable to read javascript name " + javaScriptFileName);
+                return null;
+            }
+            final StringBuilder buffer = new StringBuilder();
+            // TODO encoding
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line).append("\n");
+                }
+            } catch (final IOException e) {
+                getLog().error("Error reading javascript file.", e);
+
+            }
+            final String function = buffer.toString();
+            return function.isEmpty() ? null : function;
+        } catch (IOException e) {
+            getLog().error("Error closing stream to javascript file.", e);
+            return null;
+        }
+    }
+
+    /**
+     * Sets the class of the validator action.
+     * 
+     * @param className Class name of the validator Action.
+     * @deprecated Use {@link #setClassName(String)}.
+     */
+    @Deprecated
+    public void setClassname(final String className) {
+        this.className = className;
+    }
+
+    /**
+     * Sets the class of the validator action.
+     * 
+     * @param className Class name of the validator Action.
+     */
+    public void setClassName(final String className) {
+        this.className = className;
+    }
+
+    /**
+     * Sets the dependencies of the validator action.
+     * 
+     * @param depends A comma separated list of validator names.
+     */
+    public void setDepends(final String depends) {
+        this.depends = depends;
+
+        this.dependencyList.clear();
+
+        final StringTokenizer st = new StringTokenizer(depends, ",");
+        while (st.hasMoreTokens()) {
+            final String depend = st.nextToken().trim();
+
+            if (depend != null && !depend.isEmpty()) {
+                this.dependencyList.add(depend);
+            }
+        }
+    }
+
+    /**
+     * Sets the Javascript equivalent of the Java class and method associated with this action.
+     * 
+     * @param javascript The Javascript validation.
+     */
+    public synchronized void setJavascript(final String javascript) {
+        if (jsFunction != null) {
+            throw new IllegalStateException("Cannot call setJavascript() after calling setJsFunction()");
+        }
+
+        this.javascript = javascript;
+    }
+
+    /**
+     * Sets the fully qualified class path of the Javascript function.
+     * <p>
+     * This is optional and can be used <strong>instead</strong> of the setJavascript(). Attempting to call both <code>setJsFunction</code> and
+     * <code>setJavascript</code> will result in an <code>IllegalStateException</code> being thrown.
+     * </p>
+     * <p>
+     * If <strong>neither</strong> setJsFunction or setJavascript is set then validator will attempt to load the default javascript definition.
+     * </p>
+     * 
+     * <pre>
+     * <b>Examples</b>
+     *   If in the validator.xml :
+     * #1:
+     *      &lt;validator name="tire"
+     *            jsFunction="com.yourcompany.project.tireFuncion"&gt;
+     *     Validator will attempt to load com.yourcompany.project.validateTireFunction.js from
+     *     its class path.
+     * #2:
+     *    &lt;validator name="tire"&gt;
+     *      Validator will use the name attribute to try and load
+     *         org.apache.commons.validator.javascript.validateTire.js
+     *      which is the default javascript definition.
+     * </pre>
+     * 
+     * @param jsFunction The Javascript function's fully qualified class path.
+     */
+    public synchronized void setJsFunction(final String jsFunction) {
+        if (javascript != null) {
+            throw new IllegalStateException("Cannot call setJsFunction() after calling setJavascript()");
+        }
+
+        this.jsFunction = jsFunction;
+    }
+
+    /**
+     * Sets the Javascript function name. This is optional and can be used instead of validator action name for the name of the Javascript function/object.
+     * 
+     * @param jsFunctionName The Javascript function name.
+     */
+    public void setJsFunctionName(final String jsFunctionName) {
+        this.jsFunctionName = jsFunctionName;
+    }
+
+    /**
+     * Sets the name of method being called for the validator action.
+     * 
+     * @param method The method name.
+     */
+    public void setMethod(final String method) {
+        this.method = method;
+    }
+
+    /**
+     * Sets the method parameters for the method.
+     * 
+     * @param methodParams A comma separated list of parameters.
+     */
+    public void setMethodParams(final String methodParams) {
+        this.methodParams = methodParams;
+
+        this.methodParameterList.clear();
+
+        final StringTokenizer st = new StringTokenizer(methodParams, ",");
+        while (st.hasMoreTokens()) {
+            final String value = st.nextToken().trim();
+
+            if (value != null && !value.isEmpty()) {
+                this.methodParameterList.add(value);
+            }
+        }
+    }
+
+    /**
+     * Sets the message associated with the validator action.
+     * 
+     * @param msg The message for the validator action.
+     */
+    public void setMsg(final String msg) {
+        this.msg = msg;
+    }
+
+    /**
+     * Sets the name of the validator action.
+     * 
+     * @param name Validator Action name.
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     * 
+     * @return a string representation.
+     */
+    @Override
+    public String toString() {
+        final StringBuilder results = new StringBuilder("ValidatorAction: ");
+        results.append(name);
+        results.append("\n");
+
+        return results.toString();
     }
 }
