@@ -444,9 +444,9 @@ public class ValidatorAction implements Serializable {
     }
 
     private InputStream openInputStream(final String javaScriptFileName, ClassLoader classLoader) {
-        InputStream is = classLoader.getResourceAsStream(javaScriptFileName);
+        final InputStream is = classLoader.getResourceAsStream(javaScriptFileName);
         if (is == null) {
-            is = this.getClass().getResourceAsStream(javaScriptFileName);
+            return getClass().getResourceAsStream(javaScriptFileName);
         }
         return is;
     }
