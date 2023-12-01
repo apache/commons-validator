@@ -51,7 +51,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
     }
 
     /**
-     * The modulus can be > 10 provided that the implementing class overrides toCheckDigit and toInt (for example as in ISBN10CheckDigit).
+     * The modulus can be greater than 10 provided that the implementing class overrides toCheckDigit and toInt (for example as in ISBN10CheckDigit).
      */
     private final int modulus;
 
