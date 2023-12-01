@@ -100,7 +100,8 @@ public class CreditCardValidator implements Serializable {
          * The low and high parameters may be shorter than the length
          * of an IIN (currently 6 digits) in which case subsequent digits
          * are ignored and may range from 0-9.
-         * <br>
+         * </p>
+         * <p>
          * The low and high parameters may be different lengths.
          * e.g. Discover "644" and "65".
          * </p>
@@ -124,7 +125,8 @@ public class CreditCardValidator implements Serializable {
          * The low and high parameters may be shorter than the length
          * of an IIN (currently 6 digits) in which case subsequent digits
          * are ignored and may range from 0-9.
-         * <br>
+         * </p>
+         * <p>
          * The low and high parameters may be different lengths.
          * e.g. Discover "644" and "65".
          * </p>
@@ -207,28 +209,31 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * American Express (Amex) Card Validator
-     * <p>
-     * 34xxxx (15) <br>
-     * 37xxxx (15) <br>
+     * <ul>
+     * <li>34xxxx (15)</li>
+     * <li>37xxxx (15)</li>
+     * </ul>
      */
     public static final CodeValidator AMEX_VALIDATOR = new CodeValidator("^(3[47]\\d{13})$", LUHN_VALIDATOR);
 
     /**
      * Diners Card Validator
-     * <p>
-     * 300xxx - 305xxx (14) <br>
-     * 3095xx (14) <br>
-     * 36xxxx (14) <br>
-     * 38xxxx (14) <br>
-     * 39xxxx (14) <br>
+     * <ul>
+     * <li>300xxx - 305xxx (14)</li>
+     * <li>3095xx (14)</li>
+     * <li>36xxxx (14)</li>
+     * <li>38xxxx (14)</li>
+     * <li>39xxxx (14)</li>
+     * </ul>
      */
     public static final CodeValidator DINERS_VALIDATOR = new CodeValidator("^(30[0-5]\\d{11}|3095\\d{10}|36\\d{12}|3[8-9]\\d{12})$", LUHN_VALIDATOR);
 
     /**
      * Discover Card regular expressions
-     * <p>
-     * 6011xx (16) <br>
-     * 644xxx - 65xxxx (16) <br>
+     * <ul>
+     * <li>6011xx (16)</li>
+     * <li>644xxx - 65xxxx (16)</li>
+     * </ul>
      */
     private static final RegexValidator DISCOVER_REGEX = new RegexValidator("^(6011\\d{12,13})$", "^(64[4-9]\\d{13})$", "^(65\\d{14})$", "^(62[2-8]\\d{13})$");
 
@@ -237,9 +242,10 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Mastercard regular expressions
-     * <p>
-     * 2221xx - 2720xx (16) <br>
-     * 51xxx - 55xxx (16) <br>
+     * <ul>
+     * <li>2221xx - 2720xx (16)</li>
+     * <li>51xxx - 55xxx (16)</li>
+     * </ul>
      */
     private static final RegexValidator MASTERCARD_REGEX = new RegexValidator(
             "^(5[1-5]\\d{14})$",  // 51 - 55 (pre Oct 2016)
@@ -266,12 +272,15 @@ public class CreditCardValidator implements Serializable {
      * Visa Card Validator
      * <p>
      * 4xxxxx (13 or 16)
+     * </p>
      */
     public static final CodeValidator VISA_VALIDATOR = new CodeValidator("^(4)(\\d{12}|\\d{15})$", LUHN_VALIDATOR);
 
-    /** VPay (Visa) Card Validator
+    /**
+     * VPay (Visa) Card Validator
      * <p>
      * 4xxxxx (13-19)
+     * </p>
      * @since 1.5.0
      */
     public static final CodeValidator VPAY_VALIDATOR = new CodeValidator("^(4)(\\d{12,18})$", LUHN_VALIDATOR);
@@ -317,7 +326,7 @@ public class CreditCardValidator implements Serializable {
     }
 
     /**
-     * Create a new generic CreditCardValidator which validates the syntax and check digit only.
+     * Creates a new generic CreditCardValidator which validates the syntax and check digit only.
      * Does not check the Issuer Identification Number (IIN)
      *
      * @return the validator
@@ -328,7 +337,7 @@ public class CreditCardValidator implements Serializable {
     }
 
     /**
-     * Create a new generic CreditCardValidator which validates the syntax and check digit only.
+     * Creates a new generic CreditCardValidator which validates the syntax and check digit only.
      * Does not check the Issuer Identification Number (IIN)
      *
      * @param length exact length
@@ -340,7 +349,7 @@ public class CreditCardValidator implements Serializable {
     }
 
     /**
-     * Create a new generic CreditCardValidator which validates the syntax and check digit only.
+     * Creates a new generic CreditCardValidator which validates the syntax and check digit only.
      * Does not check the Issuer Identification Number (IIN)
      *
      * @param minLen minimum allowed length
@@ -371,7 +380,7 @@ public class CreditCardValidator implements Serializable {
     private final List<CodeValidator> cardTypes = new ArrayList<>();
 
     /**
-     * Create a new CreditCardValidator with default options.
+     * Constructs a new CreditCardValidator with default options.
      * The default options are:
      * AMEX, VISA, MASTERCARD and DISCOVER
      */
@@ -380,7 +389,7 @@ public class CreditCardValidator implements Serializable {
     }
 
     /**
-     * Create a new CreditCardValidator with the specified {@link CodeValidator}s.
+     * Constructs a new CreditCardValidator with the specified {@link CodeValidator}s.
      * @param creditCardValidators Set of valid code validators
      */
     public CreditCardValidator(final CodeValidator[] creditCardValidators) {
@@ -391,7 +400,7 @@ public class CreditCardValidator implements Serializable {
     }
 
     /**
-     * Create a new CreditCardValidator with the specified {@link CodeValidator}s
+     * Constructs a new CreditCardValidator with the specified {@link CodeValidator}s
      * and {@link CreditCardRange}s.
      * <p>
      * This can be used to combine predefined validators such as {@link #MASTERCARD_VALIDATOR}
@@ -412,7 +421,7 @@ public class CreditCardValidator implements Serializable {
     }
 
     /**
-     * Create a new CreditCardValidator with the specified {@link CreditCardRange}s.
+     * Constructs a new CreditCardValidator with the specified {@link CreditCardRange}s.
      * @param creditCardRanges Set of valid code validators
      * @since 1.6
      */
@@ -424,7 +433,7 @@ public class CreditCardValidator implements Serializable {
     }
 
     /**
-     * Create a new CreditCardValidator with the specified options.
+     * Constructs a new CreditCardValidator with the specified options.
      * @param options Pass in
      * CreditCardValidator.VISA + CreditCardValidator.AMEX to specify that
      * those are the only valid card types.
