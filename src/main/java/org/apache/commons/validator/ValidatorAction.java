@@ -408,47 +408,46 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Read a javascript function from a file.
-     * @param javascriptFileName The file containing the javascript.
+     * Reads a javascript function from a file.
+     *
+     * @param javaScriptFileName The file containing the javascript.
      * @return The javascript function or null if it could not be loaded.
      */
-    private String readJavascriptFile(final String javascriptFileName) {
+    private String readJavascriptFile(final String javaScriptFileName) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         if (classLoader == null) {
-            classLoader = this.getClass().getClassLoader();
+            classLoader = getClass().getClassLoader();
         }
+        try (InputStream is = openInputStream(javaScriptFileName, classLoader)) {
+            if (is == null) {
+                getLog().debug("  Unable to read javascript name " + javaScriptFileName);
+                return null;
+            }
+            final StringBuilder buffer = new StringBuilder();
+            final BufferedReader reader = new BufferedReader(new InputStreamReader(is)); // TODO encoding
+            try {
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line).append("\n");
+                }
+            } catch (final IOException e) {
+                getLog().error("Error reading javascript file.", e);
 
-        InputStream is = classLoader.getResourceAsStream(javascriptFileName);
-        if (is == null) {
-            is = this.getClass().getResourceAsStream(javascriptFileName);
-        }
-
-        if (is == null) {
-            getLog().debug("  Unable to read javascript name "+javascriptFileName);
+            }
+            final String function = buffer.toString();
+            return function.isEmpty() ? null : function;
+        } catch (IOException e) {
+            getLog().error("Error closing stream to javascript file.", e);
             return null;
         }
+    }
 
-        final StringBuilder buffer = new StringBuilder();
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(is)); // TODO encoding
-        try {
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line).append("\n");
-            }
-
-        } catch (final IOException e) {
-            getLog().error("Error reading javascript file.", e);
-
-        } finally {
-            try {
-                reader.close();
-            } catch (final IOException e) {
-                getLog().error("Error closing stream to javascript file.", e);
-            }
+    private InputStream openInputStream(final String javaScriptFileName, ClassLoader classLoader) {
+        InputStream is = classLoader.getResourceAsStream(javaScriptFileName);
+        if (is == null) {
+            is = this.getClass().getResourceAsStream(javaScriptFileName);
         }
-
-        final String function = buffer.toString();
-        return function.equals("") ? null : function;
+        return is;
     }
 
     /**
