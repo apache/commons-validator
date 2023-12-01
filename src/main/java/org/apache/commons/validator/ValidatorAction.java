@@ -427,6 +427,15 @@ public class ValidatorAction implements Serializable {
         }
     }
 
+    /**
+     * Opens an input stream for reading the specified resource.
+     * <p>
+     * The search order is described in the documentation for {@link ClassLoader#getResource(String)}.
+     * </p>
+     *
+     * @param name The resource name
+     * @return An input stream for reading the resource, or {@code null} if the resource could not be found
+     */
     private InputStream openInputStream(final String javaScriptFileName, ClassLoader classLoader) {
         InputStream is = null;
         if (classLoader != null) {
