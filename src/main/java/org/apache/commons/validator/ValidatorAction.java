@@ -332,7 +332,7 @@ public class ValidatorAction implements Serializable {
      * </pre>
      * @param jsFunction The Javascript function's fully qualified class path.
      */
-    public void setJsFunction(final String jsFunction) {
+    public synchronized void setJsFunction(final String jsFunction) {
         if (javascript != null) {
             throw new IllegalStateException("Cannot call setJsFunction() after calling setJavascript()");
         }
@@ -345,7 +345,7 @@ public class ValidatorAction implements Serializable {
      * associated with this action.
      * @return The Javascript validation.
      */
-    public String getJavascript() {
+    public synchronized String getJavascript() {
         return javascript;
     }
 
@@ -354,7 +354,7 @@ public class ValidatorAction implements Serializable {
      * associated with this action.
      * @param javascript The Javascript validation.
      */
-    public void setJavascript(final String javascript) {
+    public synchronized void setJavascript(final String javascript) {
         if (jsFunction != null) {
             throw new IllegalStateException("Cannot call setJavascript() after calling setJsFunction()");
         }
