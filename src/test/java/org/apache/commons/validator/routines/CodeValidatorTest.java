@@ -16,10 +16,10 @@
  */
 package org.apache.commons.validator.routines;
 
+import junit.framework.TestCase;
+
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
-
-import junit.framework.TestCase;
 
 /**
  * CodeValidatorTest.java.

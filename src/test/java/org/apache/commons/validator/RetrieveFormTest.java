@@ -20,9 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
-import org.xml.sax.SAXException;
-
 import junit.framework.TestCase;
+
+import org.xml.sax.SAXException;
 
 /**
  * Tests retrieving forms using different Locales.

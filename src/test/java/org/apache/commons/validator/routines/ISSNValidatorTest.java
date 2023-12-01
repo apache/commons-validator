@@ -18,10 +18,10 @@ package org.apache.commons.validator.routines;
 
 import java.util.Random;
 
+import junit.framework.TestCase;
+
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
-
-import junit.framework.TestCase;
 
 /**
  * ISSNValidator Test Case.

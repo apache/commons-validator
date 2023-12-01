@@ -40,9 +40,9 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.validator.routines.DomainValidator.ArrayType;
-
 import junit.framework.TestCase;
+
+import org.apache.commons.validator.routines.DomainValidator.ArrayType;
 
 /**
  * Tests for the DomainValidator.

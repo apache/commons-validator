@@ -19,9 +19,9 @@ package org.apache.commons.validator;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.xml.sax.SAXException;
-
 import junit.framework.TestCase;
+
+import org.xml.sax.SAXException;
 
 /**
  * Consolidates reading in XML config file into parent class.
