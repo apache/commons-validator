@@ -16,10 +16,16 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.IOException;
 import java.util.Locale;
 
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -35,19 +41,10 @@ public class ParameterTest extends AbstractCommonTest {
 
     private String lastName;
 
-    /**
-     * Constructor.
-     */
-    public ParameterTest(final String name) {
-        super(name);
-    }
-
-    private void assertParameterValue(final Validator validator, final String name,
-            final Class<?> type) {
+    private void assertParameterValue(final Validator validator, final String name, final Class<?> type) {
         final Object value = validator.getParameterValue(name);
-        assertNotNull("Expected '" + type.getName() + "' but was null", value);
-        assertTrue("Expected '" + type.getName() + "' but was '" + value.getClass().getName() + "'",
-                   type.isInstance(value));
+        assertNotNull(value, () -> "Expected '" + type.getName() + "' but was null");
+        assertTrue(type.isInstance(value), () -> "Expected '" + type.getName() + "' but was '" + value.getClass().getName() + "'");
     }
 
     /**
@@ -62,10 +59,9 @@ public class ParameterTest extends AbstractCommonTest {
     }
 
     /**
-     * Load <code>ValidatorResources</code> from
-     * ValidatorResultsTest-config.xml.
+     * Load <code>ValidatorResources</code> from ValidatorResultsTest-config.xml.
      */
-    @Override
+    @BeforeEach
     protected void setUp() throws IOException, SAXException {
         // Load resources
         loadResources("ParameterTest-config.xml");
@@ -77,7 +73,7 @@ public class ParameterTest extends AbstractCommonTest {
 
     }
 
-    @Override
+    @AfterEach
     protected void tearDown() {
     }
 
@@ -107,11 +103,8 @@ public class ParameterTest extends AbstractCommonTest {
         assertParameterValue(validator, Validator.FIELD_PARAM, Field.class);
         assertParameterValue(validator, Validator.FORM_PARAM, Form.class);
         assertParameterValue(validator, Validator.LOCALE_PARAM, Locale.class);
-        assertParameterValue(validator, Validator.VALIDATOR_ACTION_PARAM,
-                ValidatorAction.class);
-        assertParameterValue(validator, Validator.VALIDATOR_PARAM,
-                Validator.class);
-        assertParameterValue(validator, Validator.VALIDATOR_RESULTS_PARAM,
-                ValidatorResults.class);
+        assertParameterValue(validator, Validator.VALIDATOR_ACTION_PARAM, ValidatorAction.class);
+        assertParameterValue(validator, Validator.VALIDATOR_PARAM, Validator.class);
+        assertParameterValue(validator, Validator.VALIDATOR_RESULTS_PARAM, ValidatorResults.class);
     }
 }

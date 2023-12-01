@@ -16,92 +16,93 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.util.Locale;
 
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 /**
- * Test that the new Var attributes and the
- * digester rule changes work.
+ * Test that the new Var attributes and the digester rule changes work.
  */
 public class VarTest extends AbstractCommonTest {
 
-   /**
-    * The key used to retrieve the set of validation
-    * rules from the xml file.
-    */
-   protected static String FORM_KEY = "testForm";
+    /**
+     * The key used to retrieve the set of validation rules from the xml file.
+     */
+    protected static String FORM_KEY = "testForm";
 
-   /**
-    * The key used to retrieve the validator action.
-    */
-   protected static String ACTION = "byte";
+    /**
+     * The key used to retrieve the validator action.
+     */
+    protected static String ACTION = "byte";
 
-   public VarTest(final String name) {
-       super(name);
-   }
+    /**
+     * Load <code>ValidatorResources</code> from validator-multipletest.xml.
+     */
+    @BeforeEach
+    protected void setUp() throws IOException, SAXException {
+        // Load resources
+        loadResources("VarTest-config.xml");
+    }
 
-   /**
-    * Load <code>ValidatorResources</code> from
-    * validator-multipletest.xml.
-    */
-   @Override
-protected void setUp() throws IOException, SAXException {
-      // Load resources
-      loadResources("VarTest-config.xml");
-   }
+    @AfterEach
+    protected void tearDown() {
+    }
 
-   @Override
-protected void tearDown() {
-   }
-
-   /**
-    * With nothing provided, we should fail both because both are required.
-    */
-   @Test
+    /**
+     * With nothing provided, we should fail both because both are required.
+     */
+    @Test
     public void testVars() {
 
-       final Form form = resources.getForm(Locale.getDefault(), FORM_KEY);
+        final Form form = resources.getForm(Locale.getDefault(), FORM_KEY);
 
-       // Get field 1
-       final Field field1 = form.getField("field-1");
-       assertNotNull("field-1 is null.", field1);
-       assertEquals("field-1 property is wrong", "field-1", field1.getProperty());
+        // Get field 1
+        final Field field1 = form.getField("field-1");
+        assertNotNull(field1, "field-1 is null.");
+        assertEquals(field1.getProperty(), "field-1", "field-1 property is wrong");
 
-       // Get var-1-1
-       final Var var11 = field1.getVar("var-1-1");
-       assertNotNull("var-1-1 is null.", var11);
-       assertEquals("var-1-1 name is wrong", "var-1-1", var11.getName());
-       assertEquals("var-1-1 value is wrong", "value-1-1", var11.getValue());
-       assertEquals("var-1-1 jstype is wrong", "jstype-1-1", var11.getJsType());
-       assertFalse("var-1-1 resource is true", var11.isResource());
-       assertNull("var-1-1 bundle is not null.", var11.getBundle());
+        // Get var-1-1
+        final Var var11 = field1.getVar("var-1-1");
+        assertNotNull(var11, "var-1-1 is null.");
+        assertEquals(var11.getName(), "var-1-1", "var-1-1 name is wrong");
+        assertEquals(var11.getValue(), "value-1-1", "var-1-1 value is wrong");
+        assertEquals(var11.getJsType(), "jstype-1-1", "var-1-1 jstype is wrong");
+        assertFalse(var11.isResource(), "var-1-1 resource is true");
+        assertNull(var11.getBundle(), "var-1-1 bundle is not null.");
 
-       // Get field 2
-       final Field field2 = form.getField("field-2");
-       assertNotNull("field-2 is null.", field2);
-       assertEquals("field-2 property is wrong", "field-2", field2.getProperty());
+        // Get field 2
+        final Field field2 = form.getField("field-2");
+        assertNotNull(field2, "field-2 is null.");
+        assertEquals(field2.getProperty(), "field-2", "field-2 property is wrong");
 
-       // Get var-2-1
-       final Var var21 = field2.getVar("var-2-1");
-       assertNotNull("var-2-1 is null.", var21);
-       assertEquals("var-2-1 name is wrong", "var-2-1", var21.getName());
-       assertEquals("var-2-1 value is wrong", "value-2-1", var21.getValue());
-       assertEquals("var-2-1 jstype is wrong", "jstype-2-1", var21.getJsType());
-       assertTrue("var-2-1 resource is false", var21.isResource());
-       assertEquals("var-2-1 bundle is wrong", "bundle-2-1", var21.getBundle());
+        // Get var-2-1
+        final Var var21 = field2.getVar("var-2-1");
+        assertNotNull(var21, "var-2-1 is null.");
+        assertEquals(var21.getName(), "var-2-1", "var-2-1 name is wrong");
+        assertEquals(var21.getValue(), "value-2-1", "var-2-1 value is wrong");
+        assertEquals("jstype-2-1", var21.getJsType(), "var-2-1 jstype is wrong");
+        assertTrue(var21.isResource(), "var-2-1 resource is false");
+        assertEquals(var21.getBundle(), "bundle-2-1", "var-2-1 bundle is wrong");
 
-       // Get var-2-2
-       final Var var22 = field2.getVar("var-2-2");
-       assertNotNull("var-2-2 is null.", var22);
-       assertEquals("var-2-2 name is wrong", "var-2-2", var22.getName());
-       assertEquals("var-2-2 value is wrong", "value-2-2", var22.getValue());
-       assertNull("var-2-2 jstype is not null", var22.getJsType());
-       assertFalse("var-2-2 resource is true", var22.isResource());
-       assertEquals("var-2-2 bundle is wrong", "bundle-2-2", var22.getBundle());
+        // Get var-2-2
+        final Var var22 = field2.getVar("var-2-2");
+        assertNotNull(var22, "var-2-2 is null.");
+        assertEquals(var22.getName(), "var-2-2", "var-2-2 name is wrong");
+        assertEquals(var22.getValue(), "value-2-2", "var-2-2 value is wrong");
+        assertNull(var22.getJsType(), "var-2-2 jstype is not null");
+        assertFalse(var22.isResource(), "var-2-2 resource is true");
+        assertEquals(var22.getBundle(), "bundle-2-2", "var-2-2 bundle is wrong");
 
-   }
+    }
 
 }

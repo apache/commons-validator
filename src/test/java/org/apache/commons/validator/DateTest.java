@@ -16,10 +16,14 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.util.Locale;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -28,8 +32,7 @@ import org.xml.sax.SAXException;
 public class DateTest extends AbstractCommonTest {
 
     /**
-     * The key used to retrieve the set of validation
-     * rules from the xml file.
+     * The key used to retrieve the set of validation rules from the xml file.
      */
     protected String FORM_KEY = "dateForm";
 
@@ -38,15 +41,10 @@ public class DateTest extends AbstractCommonTest {
      */
     protected String ACTION = "date";
 
-    public DateTest(final String name) {
-        super(name);
-    }
-
     /**
-     * Load <code>ValidatorResources</code> from
-     * validator-numeric.xml.
+     * Load <code>ValidatorResources</code> from validator-numeric.xml.
      */
-    @Override
+    @BeforeEach
     protected void setUp() throws IOException, SAXException {
         // Load resources
         loadResources("DateTest-config.xml");
@@ -77,8 +75,8 @@ public class DateTest extends AbstractCommonTest {
     /**
      * Utlity class to run a test on a value.
      *
-     * @param    info    Value to run test on.
-     * @param    passed    Whether or not the test is expected to pass.
+     * @param info   Value to run test on.
+     * @param passed Whether or not the test is expected to pass.
      */
     protected void valueTest(final Object info, final boolean passed) throws ValidatorException {
         // Construct validator based on the loaded resources
@@ -96,13 +94,14 @@ public class DateTest extends AbstractCommonTest {
         // throw this
         final ValidatorResults results = validator.validate();
 
-        assertNotNull("Results are null.", results);
+        assertNotNull(results, "Results are null.");
 
         final ValidatorResult result = results.getValidatorResult("value");
 
-        assertNotNull(ACTION + " value ValidatorResult should not be null.", result);
-        assertTrue(ACTION + " value ValidatorResult should contain the '" + ACTION + "' action.", result.containsAction(ACTION));
-        assertTrue(ACTION + " value ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".", passed ? result.isValid(ACTION) : !result.isValid(ACTION));
+        assertNotNull(result, () -> ACTION + " value ValidatorResult should not be null.");
+        assertTrue(result.containsAction(ACTION), () -> ACTION + " value ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(passed ? result.isValid(ACTION) : !result.isValid(ACTION),
+                () -> ACTION + " value ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".");
     }
 
 }

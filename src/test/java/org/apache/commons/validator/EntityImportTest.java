@@ -16,19 +16,17 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.net.URL;
 import java.util.Locale;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests entity imports.
  */
 public class EntityImportTest extends AbstractCommonTest {
-
-    public EntityImportTest(final String name) {
-        super(name);
-    }
 
     /**
      * Tests the entity import loading the <code>byteForm</code> form.
@@ -37,7 +35,7 @@ public class EntityImportTest extends AbstractCommonTest {
     public void testEntityImport() throws Exception {
         final URL url = getClass().getResource("EntityImportTest-config.xml");
         final ValidatorResources resources = new ValidatorResources(url.toExternalForm());
-        assertNotNull("Form should be found", resources.getForm(Locale.getDefault(), "byteForm"));
+        assertNotNull(resources.getForm(Locale.getDefault(), "byteForm"), "Form should be found");
     }
 
     /**
@@ -47,6 +45,6 @@ public class EntityImportTest extends AbstractCommonTest {
     public void testParseURL() throws Exception {
         final URL url = getClass().getResource("EntityImportTest-config.xml");
         final ValidatorResources resources = new ValidatorResources(url);
-        assertNotNull("Form should be found", resources.getForm(Locale.getDefault(), "byteForm"));
+        assertNotNull(resources.getForm(Locale.getDefault(), "byteForm"), "Form should be found");
     }
 }

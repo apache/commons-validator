@@ -16,36 +16,30 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.InputStream;
 
-import junit.framework.TestCase;
-
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test custom ValidatorResources.
  */
-public class CustomValidatorResourcesTest extends TestCase {
-
-    /**
-     * Constructs a test case with the specified name.
-     * @param name Name of the test
-     */
-    public CustomValidatorResourcesTest(final String name) {
-        super(name);
-    }
+public class CustomValidatorResourcesTest {
 
     /**
      * Sets up.
      */
-    @Override
+    @BeforeEach
     protected void setUp() {
     }
 
     /**
      * Tear Down
      */
-    @Override
+    @AfterEach
     protected void tearDown() {
     }
 

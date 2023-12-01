@@ -16,15 +16,14 @@
  */
 package org.apache.commons.validator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Performs Validation Test for <code>float</code> validations.
  */
 public class FloatTest extends AbstractNumberTest {
 
-    public FloatTest(final String name) {
-        super(name);
+    public FloatTest() {
         ACTION = "float";
         FORM_KEY = "floatForm";
     }

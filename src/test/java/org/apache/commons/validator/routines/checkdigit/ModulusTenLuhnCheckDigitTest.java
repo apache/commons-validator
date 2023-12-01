@@ -16,39 +16,27 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.junit.jupiter.api.BeforeEach;
+
 /**
  * ModulusTenCheckDigit Luhn Test.
  */
 public class ModulusTenLuhnCheckDigitTest extends AbstractCheckDigitTest {
 
-    private static final String VALID_VISA       = "4417123456789113";
+    private static final String VALID_VISA = "4417123456789113";
     private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX       = "378282246310005";
+    private static final String VALID_AMEX = "378282246310005";
     private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER   = "6011000990139424";
-    private static final String VALID_DINERS     = "30569309025904";
-
-    /**
-     * Constructor
-     * @param name test name
-     */
-    public ModulusTenLuhnCheckDigitTest(final String name) {
-        super(name);
-    }
+    private static final String VALID_DISCOVER = "6011000990139424";
+    private static final String VALID_DINERS = "30569309025904";
 
     /**
      * Sets up routine & valid codes.
      */
-    @Override
+    @BeforeEach
     protected void setUp() {
-        routine = new ModulusTenCheckDigit(new int[] {1, 2}, true, true);
+        routine = new ModulusTenCheckDigit(new int[] { 1, 2 }, true, true);
 
-        valid = new String[] {
-                VALID_VISA,
-                VALID_SHORT_VISA,
-                VALID_AMEX,
-                VALID_MASTERCARD,
-                VALID_DISCOVER,
-                VALID_DINERS};
+        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS };
     }
 }

@@ -16,7 +16,12 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * ISBN-10/ISBN-13 Check Digit Test.
@@ -26,27 +31,14 @@ import org.junit.Test;
 public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
-     * Constructor
-     * @param name test name
-     */
-    public ISBNCheckDigitTest(final String name) {
-        super(name);
-    }
-
-    /**
      * Sets up routine & valid codes.
      */
-    @Override
+    @BeforeEach
     protected void setUp() {
         routine = ISBNCheckDigit.ISBN_CHECK_DIGIT;
-        valid = new String[] {
-                "9780072129519",
-                "9780764558313",
-                "1930110995",
-                "020163385X",
-                "1590596277",    // ISBN-10 Ubuntu Book
-                "9781590596272"  // ISBN-13 Ubuntu Book
-                };
+        valid = new String[] { "9780072129519", "9780764558313", "1930110995", "020163385X", "1590596277", // ISBN-10 Ubuntu Book
+                "9781590596272" // ISBN-13 Ubuntu Book
+        };
         missingMessage = "ISBN Code is missing";
         zeroSum = "000000000000";
     }
@@ -56,37 +48,37 @@ public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
      */
     @Test
     public void testInvalidLength() {
-        assertFalse("isValid() Lth 9 ", routine.isValid("123456789"));
-        assertFalse("isValid() Lth 11", routine.isValid("12345678901"));
-        assertFalse("isValid() Lth 12", routine.isValid("123456789012"));
-        assertFalse("isValid() Lth 14", routine.isValid("12345678901234"));
+        assertFalse(routine.isValid("123456789"), "isValid() Lth 9 ");
+        assertFalse(routine.isValid("12345678901"), "isValid() Lth 11");
+        assertFalse(routine.isValid("123456789012"), "isValid() Lth 12");
+        assertFalse(routine.isValid("12345678901234"), "isValid() Lth 14");
 
         try {
             routine.calculate("12345678");
             fail("calculate() Lth 8 - expected exception");
         } catch (final Exception e) {
-            assertEquals("calculate() Lth 8", "Invalid ISBN Length = 8", e.getMessage());
+            assertEquals(e.getMessage(), "Invalid ISBN Length = 8", "calculate() Lth 8");
         }
 
         try {
             routine.calculate("1234567890");
             fail("calculate() Lth 10 - expected exception");
         } catch (final Exception e) {
-            assertEquals("calculate() Lth 10", "Invalid ISBN Length = 10", e.getMessage());
+            assertEquals("Invalid ISBN Length = 10", e.getMessage(), "calculate() Lth 10");
         }
 
         try {
             routine.calculate("12345678901");
             fail("calculate() Lth 11 - expected exception");
         } catch (final Exception e) {
-            assertEquals("calculate() Lth 11", "Invalid ISBN Length = 11", e.getMessage());
+            assertEquals("Invalid ISBN Length = 11", e.getMessage(), "calculate() Lth 11");
         }
 
         try {
             routine.calculate("1234567890123");
             fail("calculate() Lth 13 - expected exception");
         } catch (final Exception e) {
-            assertEquals("calculate() Lth 13", "Invalid ISBN Length = 13", e.getMessage());
+            assertEquals("Invalid ISBN Length = 13", e.getMessage(), "calculate() Lth 13");
         }
     }
 

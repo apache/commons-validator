@@ -16,12 +16,18 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -29,162 +35,157 @@ import org.xml.sax.SAXException;
  */
 public class GenericTypeValidatorTest extends AbstractCommonTest {
 
-   /**
-    * The key used to retrieve the set of validation
-    * rules from the xml file.
-    */
-   protected static String FORM_KEY = "typeForm";
+    /**
+     * The key used to retrieve the set of validation rules from the xml file.
+     */
+    protected static String FORM_KEY = "typeForm";
 
-   /**
-    * The key used to retrieve the validator action.
-    */
-   protected static String ACTION = "byte";
+    /**
+     * The key used to retrieve the validator action.
+     */
+    protected static String ACTION = "byte";
 
-   public GenericTypeValidatorTest(final String name) {
-       super(name);
-   }
+    /**
+     * Tests the locale.
+     */
+    private Map<String, ?> localeTest(final TypeBean info, final Locale locale) throws ValidatorException {
 
-   /**
-    * Tests the locale.
-    */
-   private Map<String, ?> localeTest(final TypeBean info, final Locale locale) throws ValidatorException {
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, "typeLocaleForm");
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, info);
+        validator.setParameter("java.util.Locale", locale);
 
-      // Construct validator based on the loaded resources
-      // and the form key
-      final Validator validator = new Validator(resources, "typeLocaleForm");
-      // add the name bean to the validator as a resource
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, info);
-      validator.setParameter("java.util.Locale", locale);
+        // Get results of the validation.
+        // throws ValidatorException,
+        // but we aren't catching for testing
+        // since no validation methods we use
+        // throw this
+        final ValidatorResults results = validator.validate();
 
-      // Get results of the validation.
-      // throws ValidatorException,
-      // but we aren't catching for testing
-      // since no validation methods we use
-      // throw this
-      final ValidatorResults results = validator.validate();
+        assertNotNull(results, "Results are null.");
 
-      assertNotNull("Results are null.", results);
+        final Map<String, ?> hResultValues = results.getResultValueMap();
 
-      final Map<String, ?> hResultValues = results.getResultValueMap();
+        assertTrue(hResultValues.get("byte") instanceof Byte, () -> "Expecting byte result to be an instance of Byte for locale: " + locale);
+        assertTrue(hResultValues.get("short") instanceof Short, () -> "Expecting short result to be an instance of Short for locale: " + locale);
+        assertTrue(hResultValues.get("integer") instanceof Integer, () -> "Expecting integer result to be an instance of Integer for locale: " + locale);
+        assertTrue(hResultValues.get("long") instanceof Long, () -> "Expecting long result to be an instance of Long for locale: " + locale);
+        assertTrue(hResultValues.get("float") instanceof Float, () -> "Expecting float result to be an instance of Float for locale: " + locale);
+        assertTrue(hResultValues.get("double") instanceof Double, () -> "Expecting double result to be an instance of Double for locale: " + locale);
+        assertTrue(hResultValues.get("date") instanceof Date, () -> "Expecting date result to be an instance of Date for locale: " + locale);
 
-      assertTrue("Expecting byte result to be an instance of Byte for locale: "+locale, hResultValues.get("byte") instanceof Byte);
-      assertTrue("Expecting short result to be an instance of Short for locale: "+locale, hResultValues.get("short") instanceof Short);
-      assertTrue("Expecting integer result to be an instance of Integer for locale: "+locale, hResultValues.get("integer") instanceof Integer);
-      assertTrue("Expecting long result to be an instance of Long for locale: "+locale, hResultValues.get("long") instanceof Long);
-      assertTrue("Expecting float result to be an instance of Float for locale: "+locale, hResultValues.get("float") instanceof Float);
-      assertTrue("Expecting double result to be an instance of Double for locale: "+locale, hResultValues.get("double") instanceof Double);
-      assertTrue("Expecting date result to be an instance of Date for locale: "+locale, hResultValues.get("date") instanceof Date);
+        for (final String key : hResultValues.keySet()) {
+            final Object value = hResultValues.get(key);
 
-      for (final String key : hResultValues.keySet()) {
-         final Object value = hResultValues.get(key);
+            assertNotNull(value, () -> "value ValidatorResults.getResultValueMap() should not be null for locale: " + locale);
+        }
+        return hResultValues;
+    }
 
-         assertNotNull("value ValidatorResults.getResultValueMap() should not be null for locale: "+locale, value);
-      }
-      return hResultValues;
-   }
+    /**
+     * Load <code>ValidatorResources</code> from validator-type.xml.
+     */
+    @BeforeEach
+    protected void setUp() throws IOException, SAXException {
+        // Load resources
+        loadResources("GenericTypeValidatorTest-config.xml");
+    }
 
-   /**
-    * Load <code>ValidatorResources</code> from
-    * validator-type.xml.
-    */
-   @Override
-protected void setUp() throws IOException, SAXException {
-      // Load resources
-      loadResources("GenericTypeValidatorTest-config.xml");
-   }
+    @AfterEach
+    protected void tearDown() {
+    }
 
-   @Override
-protected void tearDown() {
-   }
-
-   /**
-    * Tests the fr locale.
-    */
-   @Test
+    /**
+     * Tests the fr locale.
+     */
+    @Test
     public void testFRLocale() throws ValidatorException {
-      // Create bean to run test on.
-      final TypeBean info = new TypeBean();
-      info.setByte("12");
-      info.setShort("-129");
-      info.setInteger("1443");
-      info.setLong("88000");
-      info.setFloat("12,1555");
-      info.setDouble("129,1551511111");
-      info.setDate("21/12/2010");
-      final Map<String, ?> map = localeTest(info, Locale.FRENCH);
-      assertEquals("float value not correct", 12, ((Float)map.get("float")).intValue());
-      assertEquals("double value not correct", 129, ((Double)map.get("double")).intValue());
-  }
+        // Create bean to run test on.
+        final TypeBean info = new TypeBean();
+        info.setByte("12");
+        info.setShort("-129");
+        info.setInteger("1443");
+        info.setLong("88000");
+        info.setFloat("12,1555");
+        info.setDouble("129,1551511111");
+        info.setDate("21/12/2010");
+        final Map<String, ?> map = localeTest(info, Locale.FRENCH);
+        assertEquals(12, ((Float) map.get("float")).intValue(), "float value not correct");
+        assertEquals(129, ((Double) map.get("double")).intValue(), "double value not correct");
+    }
 
-   /**
-    * Tests the byte validation.
-    */
-   @Test
+    /**
+     * Tests the byte validation.
+     */
+    @Test
     public void testType() throws ValidatorException {
-      // Create bean to run test on.
-      final TypeBean info = new TypeBean();
-      info.setByte("12");
-      info.setShort("129");
-      info.setInteger("-144");
-      info.setLong("88000");
-      info.setFloat("12.1555f");
-      info.setDouble("129.1551511111d");
+        // Create bean to run test on.
+        final TypeBean info = new TypeBean();
+        info.setByte("12");
+        info.setShort("129");
+        info.setInteger("-144");
+        info.setLong("88000");
+        info.setFloat("12.1555f");
+        info.setDouble("129.1551511111d");
 
-      // Construct validator based on the loaded resources
-      // and the form key
-      final Validator validator = new Validator(resources, FORM_KEY);
-      // add the name bean to the validator as a resource
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, info);
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, info);
 
-      // Get results of the validation.
-      // throws ValidatorException,
-      // but we aren't catching for testing
-      // since no validation methods we use
-      // throw this
-      final ValidatorResults results = validator.validate();
+        // Get results of the validation.
+        // throws ValidatorException,
+        // but we aren't catching for testing
+        // since no validation methods we use
+        // throw this
+        final ValidatorResults results = validator.validate();
 
-      assertNotNull("Results are null.", results);
+        assertNotNull(results, "Results are null.");
 
-      final Map<String, ?> hResultValues = results.getResultValueMap();
+        final Map<String, ?> hResultValues = results.getResultValueMap();
 
-      assertTrue("Expecting byte result to be an instance of Byte.", hResultValues.get("byte") instanceof Byte);
-      assertTrue("Expecting short result to be an instance of Short.", hResultValues.get("short") instanceof Short);
-      assertTrue("Expecting integer result to be an instance of Integer.", hResultValues.get("integer") instanceof Integer);
-      assertTrue("Expecting long result to be an instance of Long.", hResultValues.get("long") instanceof Long);
-      assertTrue("Expecting float result to be an instance of Float.", hResultValues.get("float") instanceof Float);
-      assertTrue("Expecting double result to be an instance of Double.", hResultValues.get("double") instanceof Double);
+        assertTrue(hResultValues.get("byte") instanceof Byte, "Expecting byte result to be an instance of Byte.");
+        assertTrue(hResultValues.get("short") instanceof Short, "Expecting short result to be an instance of Short.");
+        assertTrue(hResultValues.get("integer") instanceof Integer, "Expecting integer result to be an instance of Integer.");
+        assertTrue(hResultValues.get("long") instanceof Long, "Expecting long result to be an instance of Long.");
+        assertTrue(hResultValues.get("float") instanceof Float, "Expecting float result to be an instance of Float.");
+        assertTrue(hResultValues.get("double") instanceof Double, "Expecting double result to be an instance of Double.");
 
-      for (final String key : hResultValues.keySet()) {
-         final Object value = hResultValues.get(key);
+        for (final String key : hResultValues.keySet()) {
+            final Object value = hResultValues.get(key);
 
-         assertNotNull("value ValidatorResults.getResultValueMap() should not be null.", value);
-      }
+            assertNotNull(value, "value ValidatorResults.getResultValueMap() should not be null.");
+        }
 
-      //ValidatorResult result = results.getValidatorResult("value");
+        // ValidatorResult result = results.getValidatorResult("value");
 
-      //assertNotNull(ACTION + " value ValidatorResult should not be null.", result);
-      //assertTrue(ACTION + " value ValidatorResult should contain the '" + ACTION +"' action.", result.containsAction(ACTION));
-      //assertTrue(ACTION + " value ValidatorResult for the '" + ACTION +"' action should have " + (passed ? "passed" : "failed") + ".", (passed ? result.isValid(ACTION) : !result.isValid(ACTION)));
+        // assertNotNull(ACTION + " value ValidatorResult should not be null.", result);
+        // assertTrue(ACTION + " value ValidatorResult should contain the '" + ACTION +"' action.", result.containsAction(ACTION));
+        // assertTrue(ACTION + " value ValidatorResult for the '" + ACTION +"' action should have " + (passed ? "passed" : "failed") + ".", (passed ?
+        // result.isValid(ACTION) : !result.isValid(ACTION)));
 
-   }
+    }
 
-  /**
-    * Tests the us locale
-    */
-   @Test
+    /**
+     * Tests the us locale
+     */
+    @Test
     public void testUSLocale() throws ValidatorException {
-      // Create bean to run test on.
-      final TypeBean info = new TypeBean();
-      info.setByte("12");
-      info.setShort("129");
-      info.setInteger("-144");
-      info.setLong("88000");
-      info.setFloat("12.1555");
-      info.setDouble("129.1551511111");
-      info.setDate("12/21/2010");
-      localeTest(info, Locale.US);
-   }
+        // Create bean to run test on.
+        final TypeBean info = new TypeBean();
+        info.setByte("12");
+        info.setShort("129");
+        info.setInteger("-144");
+        info.setLong("88000");
+        info.setFloat("12.1555");
+        info.setDouble("129.1551511111");
+        info.setDate("12/21/2010");
+        localeTest(info, Locale.US);
+    }
 
 }

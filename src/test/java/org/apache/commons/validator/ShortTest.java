@@ -16,64 +16,63 @@
  */
 package org.apache.commons.validator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Performs Validation Test for <code>short</code> validations.
  */
 public class ShortTest extends AbstractNumberTest {
 
-   public ShortTest(final String name) {
-       super(name);
-      FORM_KEY = "shortForm";
-      ACTION = "short";
-   }
+    public ShortTest() {
+        FORM_KEY = "shortForm";
+        ACTION = "short";
+    }
 
-   /**
-    * Tests the short validation failure.
-    */
-   @Test
+    /**
+     * Tests the short validation failure.
+     */
+    @Test
     public void testShortBeyondMax() throws ValidatorException {
-      // Create bean to run test on.
-      final ValueBean info = new ValueBean();
-      info.setValue(Short.MAX_VALUE + "1");
+        // Create bean to run test on.
+        final ValueBean info = new ValueBean();
+        info.setValue(Short.MAX_VALUE + "1");
 
-      valueTest(info, false);
-   }
+        valueTest(info, false);
+    }
 
-   /**
-    * Tests the short validation failure.
-    */
-   @Test
+    /**
+     * Tests the short validation failure.
+     */
+    @Test
     public void testShortBeyondMin() throws ValidatorException {
-      // Create bean to run test on.
-      final ValueBean info = new ValueBean();
-      info.setValue(Short.MIN_VALUE + "1");
+        // Create bean to run test on.
+        final ValueBean info = new ValueBean();
+        info.setValue(Short.MIN_VALUE + "1");
 
-      valueTest(info, false);
-   }
+        valueTest(info, false);
+    }
 
-   /**
-    * Tests the short validation.
-    */
-   @Test
+    /**
+     * Tests the short validation.
+     */
+    @Test
     public void testShortMax() throws ValidatorException {
-      // Create bean to run test on.
-      final ValueBean info = new ValueBean();
-      info.setValue(Short.toString(Short.MAX_VALUE));
+        // Create bean to run test on.
+        final ValueBean info = new ValueBean();
+        info.setValue(Short.toString(Short.MAX_VALUE));
 
-      valueTest(info, true);
-   }
+        valueTest(info, true);
+    }
 
-   /**
-    * Tests the short validation.
-    */
-   @Test
+    /**
+     * Tests the short validation.
+     */
+    @Test
     public void testShortMin() throws ValidatorException {
-      // Create bean to run test on.
-      final ValueBean info = new ValueBean();
-      info.setValue(Short.toString(Short.MIN_VALUE));
+        // Create bean to run test on.
+        final ValueBean info = new ValueBean();
+        info.setValue(Short.toString(Short.MIN_VALUE));
 
-      valueTest(info, true);
-   }
+        valueTest(info, true);
+    }
 }

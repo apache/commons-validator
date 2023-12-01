@@ -16,14 +16,16 @@
  */
 package org.apache.commons.validator.util;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the Flags class.
  */
-public class FlagsTest extends TestCase {
+public class FlagsTest {
 
     /**
      * Declare some flags for testing.
@@ -31,13 +33,6 @@ public class FlagsTest extends TestCase {
     private static final long LONG_FLAG = 1;
     private static final long LONG_FLAG_2 = 2;
     private static final int INT_FLAG = 4;
-
-    /**
-     * Constructor for FlagsTest.
-     */
-    public FlagsTest(final String name) {
-        super(name);
-    }
 
     @Test
     public void testClear() {
@@ -115,9 +110,7 @@ public class FlagsTest extends TestCase {
         s = f.toString();
         assertEquals(64, s.length());
 
-        assertEquals(
-            "0000000000000000000000000000000000000000000000000000000000000100",
-            s);
+        assertEquals("0000000000000000000000000000000000000000000000000000000000000100", s);
     }
 
     @Test

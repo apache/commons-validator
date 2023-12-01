@@ -26,222 +26,194 @@ import org.apache.commons.validator.util.ValidatorUtils;
  */
 public class GenericTypeValidatorImpl {
 
-   /**
-    * Checks if the field can be successfully converted to a <code>byte</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>byte</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Byte validateByte(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field can be successfully converted to a <code>byte</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>byte</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Byte validateByte(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return GenericTypeValidator.formatByte(value);
-   }
+        return GenericTypeValidator.formatByte(value);
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>byte</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>byte</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Byte validateByte(final Object bean, final Field field, final Locale locale) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field can be successfully converted to a <code>byte</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>byte</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Byte validateByte(final Object bean, final Field field, final Locale locale) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return GenericTypeValidator.formatByte(value, locale);
-   }
+        return GenericTypeValidator.formatByte(value, locale);
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>date</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>date</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Date validateDate(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
-      final String datePattern = field.getVarValue("datePattern");
-      final String datePatternStrict = field.getVarValue("datePatternStrict");
+    /**
+     * Checks if the field can be successfully converted to a <code>date</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>date</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Date validateDate(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+        final String datePattern = field.getVarValue("datePattern");
+        final String datePatternStrict = field.getVarValue("datePatternStrict");
 
-      Date result = null;
-      if (datePattern != null && !datePattern.isEmpty()) {
+        Date result = null;
+        if (datePattern != null && !datePattern.isEmpty()) {
             result = GenericTypeValidator.formatDate(value, datePattern, false);
         } else if (datePatternStrict != null && !datePatternStrict.isEmpty()) {
             result = GenericTypeValidator.formatDate(value, datePatternStrict, true);
         }
 
-      return result;
-   }
+        return result;
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>date</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>date</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Date validateDate(final Object bean, final Field field, final Locale locale) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field can be successfully converted to a <code>date</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>date</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Date validateDate(final Object bean, final Field field, final Locale locale) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return GenericTypeValidator.formatDate(value, locale);
-   }
+        return GenericTypeValidator.formatDate(value, locale);
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>double</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>double</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Double validateDouble(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field can be successfully converted to a <code>double</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>double</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Double validateDouble(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return GenericTypeValidator.formatDouble(value);
-   }
+        return GenericTypeValidator.formatDouble(value);
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>double</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>double</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Double validateDouble(final Object bean, final Field field, final Locale locale) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field can be successfully converted to a <code>double</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>double</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Double validateDouble(final Object bean, final Field field, final Locale locale) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return GenericTypeValidator.formatDouble(value, locale);
-   }
+        return GenericTypeValidator.formatDouble(value, locale);
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>float</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>float</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Float validateFloat(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field can be successfully converted to a <code>float</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>float</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Float validateFloat(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return GenericTypeValidator.formatFloat(value);
-   }
+        return GenericTypeValidator.formatFloat(value);
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>float</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>float</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Float validateFloat(final Object bean, final Field field, final Locale locale) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field can be successfully converted to a <code>float</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>float</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Float validateFloat(final Object bean, final Field field, final Locale locale) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return GenericTypeValidator.formatFloat(value, locale);
-   }
+        return GenericTypeValidator.formatFloat(value, locale);
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>int</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>int</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Integer validateInt(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field can be successfully converted to a <code>int</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>int</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Integer validateInt(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return GenericTypeValidator.formatInt(value);
-   }
+        return GenericTypeValidator.formatInt(value);
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>int</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>int</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Integer validateInt(final Object bean, final Field field, final Locale locale) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field can be successfully converted to a <code>int</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>int</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Integer validateInt(final Object bean, final Field field, final Locale locale) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return GenericTypeValidator.formatInt(value, locale);
-   }
+        return GenericTypeValidator.formatInt(value, locale);
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>long</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>long</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Long validateLong(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field can be successfully converted to a <code>long</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>long</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Long validateLong(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return GenericTypeValidator.formatLong(value);
-   }
+        return GenericTypeValidator.formatLong(value);
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>long</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>long</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Long validateLong(final Object bean, final Field field, final Locale locale) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field can be successfully converted to a <code>long</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>long</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Long validateLong(final Object bean, final Field field, final Locale locale) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return GenericTypeValidator.formatLong(value, locale);
-   }
+        return GenericTypeValidator.formatLong(value, locale);
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>short</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>short</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Short validateShort(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field can be successfully converted to a <code>short</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>short</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Short validateShort(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return GenericTypeValidator.formatShort(value);
-   }
+        return GenericTypeValidator.formatShort(value);
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>short</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return boolean If the field can be successfully converted
-    * to a <code>short</code> {@code true} is returned.
-    * Otherwise {@code false}.
-    */
-   public static Short validateShort(final Object bean, final Field field, final Locale locale) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field can be successfully converted to a <code>short</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>short</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static Short validateShort(final Object bean, final Field field, final Locale locale) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return GenericTypeValidator.formatShort(value, locale);
-   }
+        return GenericTypeValidator.formatShort(value, locale);
+    }
 }

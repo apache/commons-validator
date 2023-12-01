@@ -16,28 +16,26 @@
  */
 package org.apache.commons.validator.routines;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Locale;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test Case for DoubleValidator.
  */
 public class DoubleValidatorTest extends AbstractNumberValidatorTest {
 
-    /**
-     * Constructor
-     * @param name test name
-     */
-    public DoubleValidatorTest(final String name) {
-        super(name);
-    }
-
-    @Override
+    @BeforeEach
     protected void setUp() {
         super.setUp();
 
-        validator       = new DoubleValidator(false, 0);
+        validator = new DoubleValidator(false, 0);
         strictValidator = new DoubleValidator();
 
         testPattern = "#,###.#";
@@ -49,18 +47,18 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
         minMinusOne = null;
 
         // testInvalidStrict()
-        invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2"};
+        invalidStrict = new String[] { null, "", "X", "X12", "12X", "1X2" };
 
         // testInvalidNotStrict()
-        invalid       = new String[] {null, "", "X", "X12"};
+        invalid = new String[] { null, "", "X", "X12" };
 
         // testValid()
-        testNumber    = Double.valueOf(1234.5);
-        testZero      = Double.valueOf(0);
-        validStrict          = new String[] {"0", "1234.5", "1,234.5"};
-        validStrictCompare   = new Number[] {testZero, testNumber, testNumber};
-        valid                = new String[] {"0", "1234.5", "1,234.5", "1,234.5", "1234.5X"};
-        validCompare         = new Number[] {testZero, testNumber, testNumber, testNumber, testNumber};
+        testNumber = Double.valueOf(1234.5);
+        testZero = Double.valueOf(0);
+        validStrict = new String[] { "0", "1234.5", "1,234.5" };
+        validStrictCompare = new Number[] { testZero, testNumber, testNumber };
+        valid = new String[] { "0", "1234.5", "1,234.5", "1,234.5", "1234.5X" };
+        validCompare = new Number[] { testZero, testNumber, testNumber, testNumber, testNumber };
 
         testStringUS = "1,234.5";
         testStringDE = "1.234,5";
@@ -68,7 +66,7 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
         // Localized Pattern test
         localeValue = testStringDE;
         localePattern = "#.###,#";
-        testLocale    = Locale.GERMANY;
+        testLocale = Locale.GERMANY;
         localeExpected = testNumber;
 
     }
@@ -78,8 +76,8 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
      */
     @Test
     public void testDoubleRangeMinMax() {
-        final DoubleValidator validator = (DoubleValidator)strictValidator;
-        final Double number9  = validator.validate("9", "#");
+        final DoubleValidator validator = (DoubleValidator) strictValidator;
+        final Double number9 = validator.validate("9", "#");
         final Double number10 = validator.validate("10", "#");
         final Double number11 = validator.validate("11", "#");
         final Double number19 = validator.validate("19", "#");
@@ -87,21 +85,21 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
         final Double number21 = validator.validate("21", "#");
 
         // Test isInRange()
-        assertFalse("isInRange() < min",   validator.isInRange(number9,  10, 20));
-        assertTrue("isInRange() = min",    validator.isInRange(number10, 10, 20));
-        assertTrue("isInRange() in range", validator.isInRange(number11, 10, 20));
-        assertTrue("isInRange() = max",    validator.isInRange(number20, 10, 20));
-        assertFalse("isInRange() > max",   validator.isInRange(number21, 10, 20));
+        assertFalse(validator.isInRange(number9, 10, 20), "isInRange() < min");
+        assertTrue(validator.isInRange(number10, 10, 20), "isInRange() = min");
+        assertTrue(validator.isInRange(number11, 10, 20), "isInRange() in range");
+        assertTrue(validator.isInRange(number20, 10, 20), "isInRange() = max");
+        assertFalse(validator.isInRange(number21, 10, 20), "isInRange() > max");
 
         // Test minValue()
-        assertFalse("minValue() < min",    validator.minValue(number9,  10));
-        assertTrue("minValue() = min",     validator.minValue(number10, 10));
-        assertTrue("minValue() > min",     validator.minValue(number11, 10));
+        assertFalse(validator.minValue(number9, 10), "minValue() < min");
+        assertTrue(validator.minValue(number10, 10), "minValue() = min");
+        assertTrue(validator.minValue(number11, 10), "minValue() > min");
 
         // Test minValue()
-        assertTrue("maxValue() < max",     validator.maxValue(number19, 20));
-        assertTrue("maxValue() = max",     validator.maxValue(number20, 20));
-        assertFalse("maxValue() > max",    validator.maxValue(number21, 20));
+        assertTrue(validator.maxValue(number19, 20), "maxValue() < max");
+        assertTrue(validator.maxValue(number20, 20), "maxValue() = max");
+        assertFalse(validator.maxValue(number21, 20), "maxValue() > max");
     }
 
     /**
@@ -109,32 +107,32 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
      */
     @Test
     public void testDoubleValidatorMethods() {
-        final Locale locale     = Locale.GERMAN;
-        final String pattern    = "0,00,00";
+        final Locale locale = Locale.GERMAN;
+        final String pattern = "0,00,00";
         final String patternVal = "1,23,45";
         final String germanPatternVal = "1.23.45";
-        final String localeVal  = "12.345";
+        final String localeVal = "12.345";
         final String defaultVal = "12,345";
-        final String XXXX    = "XXXX";
+        final String XXXX = "XXXX";
         final Double expected = Double.valueOf(12345);
-        assertEquals("validate(A) default", expected, DoubleValidator.getInstance().validate(defaultVal));
-        assertEquals("validate(A) locale ", expected, DoubleValidator.getInstance().validate(localeVal, locale));
-        assertEquals("validate(A) pattern", expected, DoubleValidator.getInstance().validate(patternVal, pattern));
-        assertEquals("validate(A) both",    expected, DoubleValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN));
+        assertEquals(expected, DoubleValidator.getInstance().validate(defaultVal), "validate(A) default");
+        assertEquals(expected, DoubleValidator.getInstance().validate(localeVal, locale), "validate(A) locale");
+        assertEquals(expected, DoubleValidator.getInstance().validate(patternVal, pattern), "validate(A) pattern");
+        assertEquals(expected, DoubleValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN), "validate(A) both");
 
-        assertTrue("isValid(A) default", DoubleValidator.getInstance().isValid(defaultVal));
-        assertTrue("isValid(A) locale ", DoubleValidator.getInstance().isValid(localeVal, locale));
-        assertTrue("isValid(A) pattern", DoubleValidator.getInstance().isValid(patternVal, pattern));
-        assertTrue("isValid(A) both",    DoubleValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN));
+        assertTrue(DoubleValidator.getInstance().isValid(defaultVal), "isValid(A) default");
+        assertTrue(DoubleValidator.getInstance().isValid(localeVal, locale), "isValid(A) locale");
+        assertTrue(DoubleValidator.getInstance().isValid(patternVal, pattern), "isValid(A) pattern");
+        assertTrue(DoubleValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN), "isValid(A) both");
 
-        assertNull("validate(B) default", DoubleValidator.getInstance().validate(XXXX));
-        assertNull("validate(B) locale ", DoubleValidator.getInstance().validate(XXXX, locale));
-        assertNull("validate(B) pattern", DoubleValidator.getInstance().validate(XXXX, pattern));
-        assertNull("validate(B) both",    DoubleValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN));
+        assertNull(DoubleValidator.getInstance().validate(XXXX), "validate(B) default");
+        assertNull(DoubleValidator.getInstance().validate(XXXX, locale), "validate(B) locale ");
+        assertNull(DoubleValidator.getInstance().validate(XXXX, pattern), "validate(B) pattern");
+        assertNull(DoubleValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN), "validate(B) both");
 
-        assertFalse("isValid(B) default", DoubleValidator.getInstance().isValid(XXXX));
-        assertFalse("isValid(B) locale ", DoubleValidator.getInstance().isValid(XXXX, locale));
-        assertFalse("isValid(B) pattern", DoubleValidator.getInstance().isValid(XXXX, pattern));
-        assertFalse("isValid(B) both",    DoubleValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
+        assertFalse(DoubleValidator.getInstance().isValid(XXXX), "isValid(B) default");
+        assertFalse(DoubleValidator.getInstance().isValid(XXXX, locale), "isValid(B) locale");
+        assertFalse(DoubleValidator.getInstance().isValid(XXXX, pattern), "isValid(B) pattern");
+        assertFalse(DoubleValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN), "isValid(B) both");
     }
 }

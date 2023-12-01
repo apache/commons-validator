@@ -17,8 +17,7 @@
 package org.apache.commons.validator;
 
 /**
- * Value object that contains different fields to test type conversion
- * validation.
+ * Value object that contains different fields to test type conversion validation.
  */
 public class TypeBean {
 

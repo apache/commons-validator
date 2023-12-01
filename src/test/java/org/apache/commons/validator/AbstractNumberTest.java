@@ -16,19 +16,23 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 /**
  * Abstracts number unit tests methods.
  */
-abstract public class AbstractNumberTest extends AbstractCommonTest {
+public abstract class AbstractNumberTest extends AbstractCommonTest {
 
     /**
-     * The key used to retrieve the set of validation
-     * rules from the xml file.
+     * The key used to retrieve the set of validation rules from the xml file.
      */
     protected String FORM_KEY;
 
@@ -37,21 +41,16 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
      */
     protected String ACTION;
 
-    public AbstractNumberTest(final String name) {
-        super(name);
-    }
-
     /**
-     * Load <code>ValidatorResources</code> from
-     * validator-numeric.xml.
+     * Load <code>ValidatorResources</code> from validator-numeric.xml.
      */
-    @Override
+    @BeforeEach
     protected void setUp() throws IOException, SAXException {
         // Load resources
         loadResources("TestNumber-config.xml");
     }
 
-    @Override
+    @AfterEach
     protected void tearDown() {
     }
 
@@ -79,8 +78,8 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
     /**
      * Utility class to run a test on a value.
      *
-     * @param    info    Value to run test on.
-     * @param    passed    Whether or not the test is expected to pass.
+     * @param info   Value to run test on.
+     * @param passed Whether or not the test is expected to pass.
      */
     protected void valueTest(final Object info, final boolean passed) throws ValidatorException {
         // Construct validator based on the loaded resources
@@ -97,13 +96,14 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
         // throw this
         final ValidatorResults results = validator.validate();
 
-        assertNotNull("Results are null.", results);
+        assertNotNull(results, "Results are null.");
 
         final ValidatorResult result = results.getValidatorResult("value");
 
-        assertNotNull(ACTION + " value ValidatorResult should not be null.", result);
-        assertTrue(ACTION + " value ValidatorResult should contain the '" + ACTION + "' action.", result.containsAction(ACTION));
-        assertTrue(ACTION + " value ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".", passed ? result.isValid(ACTION) : !result.isValid(ACTION));
+        assertNotNull(result, () -> ACTION + " value ValidatorResult should not be null.");
+        assertTrue(result.containsAction(ACTION), () -> ACTION + " value ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(passed ? result.isValid(ACTION) : !result.isValid(ACTION),
+                () -> ACTION + " value ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".");
     }
 
 }

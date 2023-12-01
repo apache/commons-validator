@@ -16,15 +16,14 @@
  */
 package org.apache.commons.validator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Performs Validation Test for <code>byte</code> validations.
  */
 public class ByteTest extends AbstractNumberTest {
 
-    public ByteTest(final String name) {
-        super(name);
+    public ByteTest() {
         ACTION = "byte";
         FORM_KEY = "byteForm";
     }

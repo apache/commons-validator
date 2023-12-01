@@ -19,12 +19,12 @@ package org.apache.commons.validator.routines;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,10 +38,11 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.validator.routines.IBANValidator.Validator;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * IBANValidator Test Case.
+ * 
  * @since 1.5.0
  */
 public class IBANValidatorTest {
@@ -313,40 +314,36 @@ public class IBANValidatorTest {
 
     private static void printEntry(final String ccode, final String length, final String ib, final String country) {
         final String fmt = String.format("\"%s\"", ib);
-        System.out.printf("            new Validator(\"%s\", %s, %-40s), // %s\n",
-                ccode,
-                length,
-                fmt,
-                country);
+        System.out.printf("            new Validator(\"%s\", %s, %-40s), // %s\n", ccode, length, fmt, country);
     }
 
     @Test
     public void testGetRegexValidatortPatterns() {
-        assertNotNull("GB", VALIDATOR.getValidator("GB").getRegexValidator().getPatterns());
+        assertNotNull(VALIDATOR.getValidator("GB").getRegexValidator().getPatterns(), "GB");
     }
 
     @Test
     public void testGetValidator() {
-        assertNotNull("GB", VALIDATOR.getValidator("GB"));
-        assertNull("gb", VALIDATOR.getValidator("gb"));
+        assertNotNull(VALIDATOR.getValidator("GB"), "GB");
+        assertNull(VALIDATOR.getValidator("gb"), "gb");
     }
 
     @Test
     public void testHasValidator() {
-        assertTrue("GB", VALIDATOR.hasValidator("GB"));
-        assertFalse("gb", VALIDATOR.hasValidator("gb"));
+        assertTrue(VALIDATOR.hasValidator("GB"), "GB");
+        assertFalse(VALIDATOR.hasValidator("gb"), "gb");
     }
 
     @Test
     public void testInValid() {
         for (final String f : INVALID_IBAN_FIXTURES) {
-            assertFalse(f, VALIDATOR.isValid(f));
+            assertFalse(VALIDATOR.isValid(f), f);
         }
     }
 
     @Test
     public void testNull() {
-        assertFalse("isValid(null)", VALIDATOR.isValid(null));
+        assertFalse(VALIDATOR.isValid(null), "isValid(null)");
     }
 
     @Test
@@ -371,8 +368,8 @@ public class IBANValidatorTest {
     @Test
     public void testSetValidatorLen_1() {
         final IBANValidator validator = new IBANValidator();
-        assertNotNull("should be present", validator.setValidator("GB", -1, ""));
-        assertNull("no longer present", validator.setValidator("GB", -1, ""));
+        assertNotNull(validator.setValidator("GB", -1, ""), "should be present");
+        assertNull(validator.setValidator("GB", -1, ""), "no longer present");
     }
 
     @Test
@@ -404,9 +401,9 @@ public class IBANValidatorTest {
     @Test
     public void testValid() {
         for (final String f : VALID_IBAN_FIXTURES) {
-            assertTrue("Checksum fail: " + f, IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(f));
-            assertTrue("Missing validator: " + f, VALIDATOR.hasValidator(f));
-            assertTrue(f, VALIDATOR.isValid(f));
+            assertTrue(IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(f), "Checksum fail: " + f);
+            assertTrue(VALIDATOR.hasValidator(f), "Missing validator: " + f);
+            assertTrue(VALIDATOR.isValid(f), f);
         }
     }
 }

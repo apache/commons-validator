@@ -16,9 +16,13 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -27,8 +31,7 @@ import org.xml.sax.SAXException;
 public class ExceptionTest extends AbstractCommonTest {
 
     /**
-     * The key used to retrieve the set of validation
-     * rules from the xml file.
+     * The key used to retrieve the set of validation rules from the xml file.
      */
     protected static String FORM_KEY = "exceptionForm";
 
@@ -37,22 +40,16 @@ public class ExceptionTest extends AbstractCommonTest {
      */
     protected static String ACTION = "raiseException";
 
-    public ExceptionTest(final String name) {
-        super(name);
-    }
-
     /**
-     * Load <code>ValidatorResources</code> from
-     * validator-exception.xml.
+     * Load <code>ValidatorResources</code> from validator-exception.xml.
      */
-    @Override
+    @BeforeEach
     protected void setUp() throws IOException, SAXException {
         loadResources("ExceptionTest-config.xml");
     }
 
     /**
-     * Tests handling of checked exceptions - should become
-     * ValidatorExceptions.
+     * Tests handling of checked exceptions - should become ValidatorExceptions.
      */
     @Test
     public void testValidatorException() {
@@ -77,13 +74,10 @@ public class ExceptionTest extends AbstractCommonTest {
     }
 
     /**
-     * Tests handling of checked exceptions - should become
-     * ValidatorExceptions.
+     * Tests handling of checked exceptions - should become ValidatorExceptions.
      *
-     * N.B. This test has been removed (renamed) as it currently
-     *      serves no purpose. If/When exception handling
-     *      is changed in Validator 2.0 it can be reconsidered
-     *      then.
+     * N.B. This test has been removed (renamed) as it currently serves no purpose. If/When exception handling is changed in Validator 2.0 it can be
+     * reconsidered then.
      */
     public void XtestCheckedException() {
         // Create bean to run test on.
@@ -120,10 +114,8 @@ public class ExceptionTest extends AbstractCommonTest {
     /**
      * Tests handling of runtime exceptions.
      *
-     * N.B. This test has been removed (renamed) as it currently
-     *      serves no purpose. If/When exception handling
-     *      is changed in Validator 2.0 it can be reconsidered
-     *      then.
+     * N.B. This test has been removed (renamed) as it currently serves no purpose. If/When exception handling is changed in Validator 2.0 it can be
+     * reconsidered then.
      */
     public void XtestRuntimeException() throws ValidatorException {
         // Create bean to run test on.
@@ -140,11 +132,11 @@ public class ExceptionTest extends AbstractCommonTest {
         // Get results of the validation which can throw ValidatorException
         try {
             validator.validate();
-            //fail("RuntimeException should occur here!");
+            // fail("RuntimeException should occur here!");
         } catch (final RuntimeException expected) {
             fail("RuntimeExceptions should be treated as validation failures in Validator 1.x.");
             // This will be true in Validator 2.0
-            //assertTrue("RUNTIME-EXCEPTION".equals(expected.getMessage()));
+            // assertTrue("RUNTIME-EXCEPTION".equals(expected.getMessage()));
         }
     }
 }

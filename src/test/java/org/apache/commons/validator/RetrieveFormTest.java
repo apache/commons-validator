@@ -16,19 +16,22 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
-import junit.framework.TestCase;
-
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 /**
  * Tests retrieving forms using different Locales.
  */
-public class RetrieveFormTest extends TestCase {
+public class RetrieveFormTest {
 
     /**
      * Prefix for the forms.
@@ -45,56 +48,43 @@ public class RetrieveFormTest extends TestCase {
      */
     private ValidatorResources resources;
 
-    /**
-     * Constructor for FormTest.
-     * @param name
-     */
-    public RetrieveFormTest(final String name) {
-        super(name);
-    }
-
     private void checkForm(final Locale locale, final String formKey, final String expectedVarValue) {
 
         // Retrieve the Form
         final Form testForm = resources.getForm(locale, formKey);
-        assertNotNull("Form '" +formKey+"' null for locale " + locale, testForm);
+        assertNotNull(testForm, "Form '" + formKey + "' null for locale " + locale);
 
         // Validate the expected Form is retrieved by checking the "localeVar"
         // value of the field.
         final Field testField = testForm.getField("testProperty");
-        assertEquals("Incorrect Form '"   + formKey  + "' for locale '" + locale + "'",
-                     expectedVarValue,
-                     testField.getVarValue("localeVar"));
+        assertEquals(expectedVarValue, testField.getVarValue("localeVar"), "Incorrect Form '" + formKey + "' for locale '" + locale + "'");
     }
 
-   private void checkFormNotFound(final Locale locale, final String formKey) {
+    private void checkFormNotFound(final Locale locale, final String formKey) {
 
-    // Retrieve the Form
-    final Form testForm = resources.getForm(locale, formKey);
-    assertNull("Form '" +formKey+"' not null for locale " + locale, testForm);
+        // Retrieve the Form
+        final Form testForm = resources.getForm(locale, formKey);
+        assertNull(testForm, "Form '" + formKey + "' not null for locale " + locale);
 
-}
-
-   /**
- * Load <code>ValidatorResources</code> from multiple xml files.
- */
-@Override
-protected void setUp() throws IOException, SAXException {
-    final InputStream[] streams =
-        {
-        this.getClass().getResourceAsStream(
-            "RetrieveFormTest-config.xml")};
-
-    this.resources = new ValidatorResources(streams);
-
-    for (final InputStream stream : streams) {
-        stream.close();
     }
-}
 
-   /**
-    * Test a form defined only in the "default" formset.
-    */
+    /**
+     * Load <code>ValidatorResources</code> from multiple xml files.
+     */
+    @BeforeEach
+    protected void setUp() throws IOException, SAXException {
+        final InputStream[] streams = { this.getClass().getResourceAsStream("RetrieveFormTest-config.xml") };
+
+        this.resources = new ValidatorResources(streams);
+
+        for (final InputStream stream : streams) {
+            stream.close();
+        }
+    }
+
+    /**
+     * Test a form defined only in the "default" formset.
+     */
     @Test
     public void testDefaultForm() {
 
@@ -120,9 +110,9 @@ protected void setUp() throws IOException, SAXException {
 
     }
 
-   /**
-    * Test a form not defined
-    */
+    /**
+     * Test a form not defined
+     */
     @Test
     public void testFormNotFound() {
 
@@ -148,11 +138,9 @@ protected void setUp() throws IOException, SAXException {
 
     }
 
-   /**
-    * Test a form defined in the "default" formset, formsets
-    * where just the "language" is specified and formset where
-    * the language and country are specified.
-    */
+    /**
+     * Test a form defined in the "default" formset, formsets where just the "language" is specified and formset where the language and country are specified.
+     */
     @Test
     public void testLanguageCountryForm() {
 
@@ -179,60 +167,59 @@ protected void setUp() throws IOException, SAXException {
     }
 
     /**
-        * Test a form defined in all the formsets
-        */
-        @Test
+     * Test a form defined in all the formsets
+     */
+    @Test
     public void testLanguageCountryVariantForm() {
-    
-            final String formKey = FORM_PREFIX + "language_country_variant";
-    
-            // *** US locale ***
-            checkForm(Locale.US, formKey, "default");
-    
-            // *** French locale ***
-            checkForm(Locale.FRENCH, formKey, "fr");
-    
-            // *** France locale ***
-            checkForm(Locale.FRANCE, formKey, "fr_FR");
-    
-            // *** Candian (English) locale ***
-            checkForm(Locale.CANADA, formKey, "default");
-    
-            // *** Candian French locale ***
-            checkForm(Locale.CANADA_FRENCH, formKey, "fr_CA");
-    
-            // *** Candian French Variant locale ***
-            checkForm(CANADA_FRENCH_XXX, formKey, "fr_CA_XXX");
-    
-        }
+
+        final String formKey = FORM_PREFIX + "language_country_variant";
+
+        // *** US locale ***
+        checkForm(Locale.US, formKey, "default");
+
+        // *** French locale ***
+        checkForm(Locale.FRENCH, formKey, "fr");
+
+        // *** France locale ***
+        checkForm(Locale.FRANCE, formKey, "fr_FR");
+
+        // *** Candian (English) locale ***
+        checkForm(Locale.CANADA, formKey, "default");
+
+        // *** Candian French locale ***
+        checkForm(Locale.CANADA_FRENCH, formKey, "fr_CA");
+
+        // *** Candian French Variant locale ***
+        checkForm(CANADA_FRENCH_XXX, formKey, "fr_CA_XXX");
+
+    }
 
     /**
-        * Test a form defined in the "default" formset and formsets
-        * where just the "language" is specified.
-        */
-        @Test
+     * Test a form defined in the "default" formset and formsets where just the "language" is specified.
+     */
+    @Test
     public void testLanguageForm() {
-    
-            final String formKey = FORM_PREFIX + "language";
-    
-            // *** US locale ***
-            checkForm(Locale.US, formKey, "default");
-    
-            // *** French locale ***
-            checkForm(Locale.FRENCH, formKey, "fr");
-    
-            // *** France locale ***
-            checkForm(Locale.FRANCE, formKey, "fr");
-    
-            // *** Candian (English) locale ***
-            checkForm(Locale.CANADA, formKey, "default");
-    
-            // *** Candian French locale ***
-            checkForm(Locale.CANADA_FRENCH, formKey, "fr");
-    
-            // *** Candian French Variant locale ***
-            checkForm(CANADA_FRENCH_XXX, formKey, "fr");
-    
-        }
+
+        final String formKey = FORM_PREFIX + "language";
+
+        // *** US locale ***
+        checkForm(Locale.US, formKey, "default");
+
+        // *** French locale ***
+        checkForm(Locale.FRENCH, formKey, "fr");
+
+        // *** France locale ***
+        checkForm(Locale.FRANCE, formKey, "fr");
+
+        // *** Candian (English) locale ***
+        checkForm(Locale.CANADA, formKey, "default");
+
+        // *** Candian French locale ***
+        checkForm(Locale.CANADA_FRENCH, formKey, "fr");
+
+        // *** Candian French Variant locale ***
+        checkForm(CANADA_FRENCH_XXX, formKey, "fr");
+
+    }
 
 }

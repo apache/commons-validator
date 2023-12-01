@@ -16,15 +16,14 @@
  */
 package org.apache.commons.validator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Performs Validation Test for <code>double</code> validations.
  */
 public class DoubleTest extends AbstractNumberTest {
 
-    public DoubleTest(final String name) {
-        super(name);
+    public DoubleTest() {
         ACTION = "double";
         FORM_KEY = "doubleForm";
     }

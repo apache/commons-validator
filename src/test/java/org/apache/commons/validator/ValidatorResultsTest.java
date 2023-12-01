@@ -16,9 +16,16 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -26,139 +33,131 @@ import org.xml.sax.SAXException;
  */
 public class ValidatorResultsTest extends AbstractCommonTest {
 
-   private static final String FORM_KEY = "nameForm";
-   private static final String firstNameField  = "firstName";
-   private static final String middleNameField = "middleName";
-   private static final String lastNameField   = "lastName";
+    private static final String FORM_KEY = "nameForm";
+    private static final String firstNameField = "firstName";
+    private static final String middleNameField = "middleName";
+    private static final String lastNameField = "lastName";
 
-   private String firstName;
-   private String middleName;
-   private String lastName;
+    private String firstName;
+    private String middleName;
+    private String lastName;
 
-   /**
-    * Constructor.
-    */
-   public ValidatorResultsTest(final String name) {
-       super(name);
-   }
+    /**
+     * Check a validator has not been run for a field and the result.
+     */
+    private void checkNotRun(final ValidatorResults results, final String field, final String action) {
+        final ValidatorResult result = results.getValidatorResult(field);
+        assertNotNull(result, () -> field + " result");
+        assertFalse(result.containsAction(action), () -> field + "[" + action + "] run");
+        // System.out.println(field + "[" + action + "] not run");
+    }
 
-   /**
-    * Check a validator has not been run for a field and the result.
-    */
-   private void checkNotRun(final ValidatorResults results, final String field, final String action) {
-      final ValidatorResult result = results.getValidatorResult(field);
-      assertNotNull(field + " result",  result);
-      assertFalse(field + "[" + action + "] run", result.containsAction(action));
-      // System.out.println(field + "[" + action + "] not run");
-   }
+    /**
+     * Check a validator has run for a field and the result.
+     */
+    private void checkValidatorResult(final ValidatorResults results, final String field, final String action, final boolean expected) {
+        final ValidatorResult result = results.getValidatorResult(field);
+        // System.out.println(field + "[" + action + "]=" + result.isValid(action));
+        assertNotNull(result, () -> field + " result");
+        assertTrue(result.containsAction(action), () -> field + "[" + action + "] not run");
+        assertEquals(expected, result.isValid(action), () -> field + "[" + action + "] result");
+    }
 
-   /**
-    * Check a validator has run for a field and the result.
-    */
-   private void checkValidatorResult(final ValidatorResults results, final String field, final String action, final boolean expected) {
-      final ValidatorResult result = results.getValidatorResult(field);
-      // System.out.println(field + "[" + action + "]=" + result.isValid(action));
-      assertNotNull(field + " result",  result);
-      assertTrue(field + "[" + action + "] not run", result.containsAction(action));
-      assertEquals(field + "[" + action + "] result", expected, result.isValid(action));
-   }
+    /**
+     * Create a NameBean.
+     */
+    private NameBean createNameBean() {
+        final NameBean name = new NameBean();
+        name.setFirstName(firstName);
+        name.setMiddleName(middleName);
+        name.setLastName(lastName);
+        return name;
+    }
 
-   /**
-    * Create a NameBean.
-    */
-   private NameBean createNameBean() {
-      final NameBean name = new NameBean();
-      name.setFirstName(firstName);
-      name.setMiddleName(middleName);
-      name.setLastName(lastName);
-      return name;
-   }
+    /**
+     * Load <code>ValidatorResources</code> from ValidatorResultsTest-config.xml.
+     */
+    @BeforeEach
+    protected void setUp() throws IOException, SAXException {
+        // Load resources
+        loadResources("ValidatorResultsTest-config.xml");
 
-   /**
-    * Load <code>ValidatorResources</code> from
-    * ValidatorResultsTest-config.xml.
-    */
-   @Override
-protected void setUp() throws IOException, SAXException {
-      // Load resources
-      loadResources("ValidatorResultsTest-config.xml");
+        // initialize values
+        firstName = "foo";
+        middleName = "123";
+        lastName = "456";
 
-      // initialize values
-      firstName  = "foo";
-      middleName = "123";
-      lastName   = "456";
+    }
 
-   }
+    @AfterEach
+    protected void tearDown() {
+    }
 
-   @Override
-protected void tearDown() {
-   }
-
-   /**
-    * Test all validations ran and passed.
-    */
-   @Test
+    /**
+     * Test all validations ran and passed.
+     */
+    @Test
     public void testAllValid() throws ValidatorException {
 
-      // Create bean to run test on.
-      final NameBean bean = createNameBean();
+        // Create bean to run test on.
+        final NameBean bean = createNameBean();
 
-      // Validate.
-      final ValidatorResults results = validate(bean);
+        // Validate.
+        final ValidatorResults results = validate(bean);
 
-      // Check results
-      checkValidatorResult(results, firstNameField,  "required", true);
-      checkValidatorResult(results, middleNameField, "required", true);
-      checkValidatorResult(results, middleNameField, "int",      true);
-      checkValidatorResult(results, middleNameField, "positive", true);
-      checkValidatorResult(results, lastNameField,   "required", true);
-      checkValidatorResult(results, lastNameField,   "int",      true);
+        // Check results
+        checkValidatorResult(results, firstNameField, "required", true);
+        checkValidatorResult(results, middleNameField, "required", true);
+        checkValidatorResult(results, middleNameField, "int", true);
+        checkValidatorResult(results, middleNameField, "positive", true);
+        checkValidatorResult(results, lastNameField, "required", true);
+        checkValidatorResult(results, lastNameField, "int", true);
 
-   }
+    }
 
-   /**
-    * Test some validations failed and some didn't run.
-    */
-   @Test
+    /**
+     * Test some validations failed and some didn't run.
+     */
+    @Test
     public void testErrors() throws ValidatorException {
 
-      middleName = "XXX";
-      lastName = null;
+        middleName = "XXX";
+        lastName = null;
 
-      // Create bean to run test on.
-      final NameBean bean = createNameBean();
+        // Create bean to run test on.
+        final NameBean bean = createNameBean();
 
-      // Validate.
-      final ValidatorResults results = validate(bean);
+        // Validate.
+        final ValidatorResults results = validate(bean);
 
-      // Check results
-      checkValidatorResult(results, firstNameField,  "required", true);
-      checkValidatorResult(results, middleNameField, "required", true);
-      checkValidatorResult(results, middleNameField, "int",      false);
-      checkNotRun(results, middleNameField, "positive");
-      checkValidatorResult(results, lastNameField,   "required", false);
-      checkNotRun(results, lastNameField,   "int");
+        // Check results
+        checkValidatorResult(results, firstNameField, "required", true);
+        checkValidatorResult(results, middleNameField, "required", true);
+        checkValidatorResult(results, middleNameField, "int", false);
+        checkNotRun(results, middleNameField, "positive");
+        checkValidatorResult(results, lastNameField, "required", false);
+        checkNotRun(results, lastNameField, "int");
 
-   }
+    }
 
-   /**
-    * Validate results.
-    */
-   private ValidatorResults validate(final Object bean) throws ValidatorException  {
+    /**
+     * Validate results.
+     */
+    private ValidatorResults validate(final Object bean) throws ValidatorException {
 
-      // Construct validator based on the loaded resources
-      // and the form key
-      final Validator validator = new Validator(resources, FORM_KEY);
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
 
-      // add the name bean to the validator as a resource
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, bean);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, bean);
 
-      // Get results of the validation.
-      final ValidatorResults results = validator.validate();
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
 
-      return results;
+        return results;
 
-   }
+    }
 
 }

@@ -66,7 +66,7 @@ public class DomainValidatorStartupTest {
 
         // show we can override them for a new instance
         final List<DomainValidator.Item> items = new ArrayList<>();
-        items.add(new DomainValidator.Item(ArrayType.GENERIC_MINUS, "" ));
+        items.add(new DomainValidator.Item(ArrayType.GENERIC_MINUS, ""));
         items.add(new DomainValidator.Item(ArrayType.COUNTRY_CODE_MINUS, ""));
         validator = DomainValidator.getInstance(false, items);
         assertTrue(validator.isValidGenericTld("gp"));

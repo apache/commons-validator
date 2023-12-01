@@ -16,28 +16,25 @@
  */
 package org.apache.commons.validator.routines;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.math.BigDecimal;
 import java.util.Locale;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
 /**
  * Test Case for PercentValidator.
  */
-public class PercentValidatorTest extends TestCase {
+public class PercentValidatorTest {
 
     protected PercentValidator validator;
 
-    /**
-     * Constructor
-     * @param name test name
-     */
-    public PercentValidatorTest(final String name) {
-        super(name);
-    }
-
-    @Override
+    @BeforeEach
     protected void setUp() {
         validator = new PercentValidator();
     }
@@ -45,7 +42,7 @@ public class PercentValidatorTest extends TestCase {
     /**
      * Tear down
      */
-    @Override
+    @AfterEach
     protected void tearDown() {
         validator = null;
     }
@@ -55,8 +52,8 @@ public class PercentValidatorTest extends TestCase {
      */
     @Test
     public void testFormatType() {
-        assertEquals("Format Type A", 2, PercentValidator.getInstance().getFormatType());
-        assertEquals("Format Type B", AbstractNumberValidator.PERCENT_FORMAT, PercentValidator.getInstance().getFormatType());
+        assertEquals(2, PercentValidator.getInstance().getFormatType(), "Format Type A");
+        assertEquals(AbstractNumberValidator.PERCENT_FORMAT, PercentValidator.getInstance().getFormatType(), "Format Type B");
     }
 
     /**
@@ -67,18 +64,18 @@ public class PercentValidatorTest extends TestCase {
         final BigDecimalValidator validator = PercentValidator.getInstance();
 
         // Invalid Missing
-        assertFalse("isValid() Null Value",    validator.isValid(null));
-        assertFalse("isValid() Empty Value",   validator.isValid(""));
-        assertNull("validate() Null Value",    validator.validate(null));
-        assertNull("validate() Empty Value",   validator.validate(""));
+        assertFalse(validator.isValid(null), "isValid() Null Value");
+        assertFalse(validator.isValid(""), "isValid() Empty Value");
+        assertNull(validator.validate(null), "validate() Null Value");
+        assertNull(validator.validate(""), "validate() Empty Value");
 
         // Invalid UK
-        assertFalse("UK wrong symbol",    validator.isValid("12@",   Locale.UK)); // ???
-        assertFalse("UK wrong negative",  validator.isValid("(12%)", Locale.UK));
+        assertFalse(validator.isValid("12@", Locale.UK), "UK wrong symbol"); // ???
+        assertFalse(validator.isValid("(12%)", Locale.UK), "UK wrong negative");
 
         // Invalid US - can't find a Locale with different symbols!
-        assertFalse("US wrong symbol",    validator.isValid("12@",   Locale.US)); // ???
-        assertFalse("US wrong negative",  validator.isValid("(12%)", Locale.US));
+        assertFalse(validator.isValid("12@", Locale.US), "US wrong symbol"); // ???
+        assertFalse(validator.isValid("(12%)", Locale.US), "US wrong negative");
     }
 
     /**
@@ -93,22 +90,22 @@ public class PercentValidatorTest extends TestCase {
         final BigDecimalValidator validator = PercentValidator.getInstance();
         final BigDecimal expected = new BigDecimal("0.12");
         final BigDecimal negative = new BigDecimal("-0.12");
-        final BigDecimal hundred  = new BigDecimal("1.00");
+        final BigDecimal hundred = new BigDecimal("1.00");
 
-        assertEquals("Default locale", expected, validator.validate("12%"));
-        assertEquals("Default negtve", negative, validator.validate("-12%"));
+        assertEquals(expected, validator.validate("12%"), "Default locale");
+        assertEquals(negative, validator.validate("-12%"), "Default negtve");
 
         // Invalid UK
-        assertEquals("UK locale",      expected, validator.validate("12%",   Locale.UK));
-        assertEquals("UK negative",    negative, validator.validate("-12%",  Locale.UK));
-        assertEquals("UK No symbol",   expected, validator.validate("12",    Locale.UK));
+        assertEquals(expected, validator.validate("12%", Locale.UK), "UK locale");
+        assertEquals(negative, validator.validate("-12%", Locale.UK), "UK negative");
+        assertEquals(expected, validator.validate("12", Locale.UK), "UK No symbol");
 
         // Invalid US - can't find a Locale with different symbols!
-        assertEquals("US locale",      expected, validator.validate("12%",   Locale.US));
-        assertEquals("US negative",    negative, validator.validate("-12%",  Locale.US));
-        assertEquals("US No symbol",   expected, validator.validate("12",    Locale.US));
+        assertEquals(expected, validator.validate("12%", Locale.US), "US locale");
+        assertEquals(negative, validator.validate("-12%", Locale.US), "US negative");
+        assertEquals(expected, validator.validate("12", Locale.US), "US No symbol");
 
-        assertEquals("100%",           hundred, validator.validate("100%"));
+        assertEquals(hundred, validator.validate("100%"), "100%");
 
         // Restore the original default
         Locale.setDefault(origDefault);

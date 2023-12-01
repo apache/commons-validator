@@ -16,23 +16,16 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.InputStream;
 
-import junit.framework.TestCase;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test ValidatorResources.
  */
-public class ValidatorResourcesTest extends TestCase {
-
-    /**
-     * Constructor.
-     */
-    public ValidatorResourcesTest(final String name) {
-        super(name);
-    }
+public class ValidatorResourcesTest {
 
     /**
      * Test null Input Stream for Validator Resources.
@@ -41,7 +34,7 @@ public class ValidatorResourcesTest extends TestCase {
     public void testNullInputStream() throws Exception {
 
         try {
-            new ValidatorResources((InputStream)null);
+            new ValidatorResources((InputStream) null);
             fail("Expected IllegalArgumentException");
         } catch (final IllegalArgumentException e) {
             // expected result

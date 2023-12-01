@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.junit.jupiter.api.BeforeEach;
+
 /**
  * EAN-13 Check Digit Test.
  *
@@ -24,24 +26,12 @@ package org.apache.commons.validator.routines.checkdigit;
 public class EAN13CheckDigitTest extends AbstractCheckDigitTest {
 
     /**
-     * Constructor
-     * @param name test name
-     */
-    public EAN13CheckDigitTest(final String name) {
-        super(name);
-    }
-
-    /**
      * Sets up routine & valid codes.
      */
-    @Override
+    @BeforeEach
     protected void setUp() {
         routine = EAN13CheckDigit.EAN13_CHECK_DIGIT;
-        valid = new String[] {
-                "9780072129519",
-                "9780764558313",
-                "4025515373438",
-                "0095673400332"};
+        valid = new String[] { "9780072129519", "9780764558313", "4025515373438", "0095673400332" };
     }
 
 }

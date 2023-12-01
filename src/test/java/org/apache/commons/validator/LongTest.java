@@ -16,15 +16,14 @@
  */
 package org.apache.commons.validator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Performs Validation Test for <code>long</code> validations.
  */
 public class LongTest extends AbstractNumberTest {
 
-    public LongTest(final String name) {
-        super(name);
+    public LongTest() {
         FORM_KEY = "longForm";
         ACTION = "long";
     }

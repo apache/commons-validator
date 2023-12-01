@@ -16,15 +16,14 @@
  */
 package org.apache.commons.validator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Performs Validation Test for <code>int</code> validations.
  */
 public class IntegerTest extends AbstractNumberTest {
 
-    public IntegerTest(final String name) {
-        super(name);
+    public IntegerTest() {
         FORM_KEY = "intForm";
         ACTION = "int";
     }
