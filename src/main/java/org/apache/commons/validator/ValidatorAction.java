@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -425,7 +426,7 @@ public class ValidatorAction implements Serializable {
             }
             final StringBuilder buffer = new StringBuilder();
             // TODO encoding
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
                 String line = null;
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line).append("\n");
