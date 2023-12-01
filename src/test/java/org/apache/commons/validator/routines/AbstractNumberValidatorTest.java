@@ -79,37 +79,21 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
     }
 
     /**
+     * Test format() methods
+     */
+    public void testFormat() {
+        final Number number = new BigDecimal("1234.5");
+        assertEquals("US Locale, US Format", "1,234.5", strictValidator.format(number, Locale.US));
+        assertEquals("DE Locale, DE Format", "1.234,5", strictValidator.format(number, Locale.GERMAN));
+        assertEquals("Pattern #,#0.00", "12,34.50",  strictValidator.format(number, "#,#0.00"));
+    }
+
+    /**
      * Test Format Type
      */
     public void testFormatType() {
         assertEquals("Format Type A", 0, validator.getFormatType());
         assertEquals("Format Type B", AbstractNumberValidator.STANDARD_FORMAT, validator.getFormatType());
-    }
-
-    /**
-     * Test Min/Max values allowed
-     */
-    public void testValidateMinMax() {
-        final DecimalFormat fmt = new DecimalFormat("#");
-        if (max != null) {
-            assertEquals("Test Max",   max, validator.parse(fmt.format(max), "#", null));
-            assertNull("Test Max + 1",      validator.parse(fmt.format(maxPlusOne), "#", null));
-            assertEquals("Test Min",   min, validator.parse(fmt.format(min), "#", null));
-            assertNull("Test min - 1",      validator.parse(fmt.format(minMinusOne), "#", null));
-        }
-    }
-
-    /**
-     * Test Invalid, strict=true
-     */
-    public void testInvalidStrict() {
-        for (int i = 0; i < invalidStrict.length; i++) {
-            final String text = "idx=["+i+"] value=[" + invalidStrict[i] + "]";
-            assertNull("(A) "  + text, strictValidator.parse(invalidStrict[i], null, Locale.US));
-            assertFalse("(B) " + text, strictValidator.isValid(invalidStrict[i], null, Locale.US));
-            assertNull("(C) "  + text, strictValidator.parse(invalidStrict[i], testPattern, null));
-            assertFalse("(D) " + text, strictValidator.isValid(invalidStrict[i], testPattern, null));
-        }
     }
 
     /**
@@ -126,56 +110,16 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
     }
 
     /**
-     * Test Valid, strict=true
+     * Test Invalid, strict=true
      */
-    public void testValidStrict() {
-        for (int i = 0; i < validStrict.length; i++) {
-            final String text = "idx=["+i+"] value=[" + validStrictCompare[i] + "]";
-            assertEquals("(A) "  + text, validStrictCompare[i], strictValidator.parse(validStrict[i], null, Locale.US));
-            assertTrue("(B) "    + text,                        strictValidator.isValid(validStrict[i], null, Locale.US));
-            assertEquals("(C) "  + text, validStrictCompare[i], strictValidator.parse(validStrict[i], testPattern, null));
-            assertTrue("(D) "    + text,                        strictValidator.isValid(validStrict[i], testPattern, null));
+    public void testInvalidStrict() {
+        for (int i = 0; i < invalidStrict.length; i++) {
+            final String text = "idx=["+i+"] value=[" + invalidStrict[i] + "]";
+            assertNull("(A) "  + text, strictValidator.parse(invalidStrict[i], null, Locale.US));
+            assertFalse("(B) " + text, strictValidator.isValid(invalidStrict[i], null, Locale.US));
+            assertNull("(C) "  + text, strictValidator.parse(invalidStrict[i], testPattern, null));
+            assertFalse("(D) " + text, strictValidator.isValid(invalidStrict[i], testPattern, null));
         }
-    }
-
-    /**
-     * Test Valid, strict=false
-     */
-    public void testValidNotStrict() {
-        for (int i = 0; i < valid.length; i++) {
-            final String text = "idx=["+i+"] value=[" + validCompare[i] + "]";
-            assertEquals("(A) "  + text, validCompare[i], validator.parse(valid[i], null, Locale.US));
-            assertTrue("(B) "    + text,                  validator.isValid(valid[i], null, Locale.US));
-            assertEquals("(C) "  + text, validCompare[i], validator.parse(valid[i], testPattern, null));
-            assertTrue("(D) "    + text,                  validator.isValid(valid[i], testPattern, null));
-        }
-    }
-
-    /**
-     * Test different Locale
-     */
-    public void testValidateLocale() {
-
-        assertEquals("US Locale, US Format", testNumber, strictValidator.parse(testStringUS, null, Locale.US));
-        assertNull("US Locale, DE Format", strictValidator.parse(testStringDE, null, Locale.US));
-
-        // Default German Locale
-        assertEquals("DE Locale, DE Format", testNumber, strictValidator.parse(testStringDE, null, Locale.GERMAN));
-        assertNull("DE Locale, US Format", strictValidator.parse(testStringUS, null, Locale.GERMAN));
-
-        // Default Locale has been set to Locale.US in setup()
-        assertEquals("Default Locale, US Format", testNumber, strictValidator.parse(testStringUS, null, null));
-        assertNull("Default Locale, DE Format", strictValidator.parse(testStringDE, null, null));
-    }
-
-    /**
-     * Test format() methods
-     */
-    public void testFormat() {
-        final Number number = new BigDecimal("1234.5");
-        assertEquals("US Locale, US Format", "1,234.5", strictValidator.format(number, Locale.US));
-        assertEquals("DE Locale, DE Format", "1.234,5", strictValidator.format(number, Locale.GERMAN));
-        assertEquals("Pattern #,#0.00", "12,34.50",  strictValidator.format(number, "#,#0.00"));
     }
 
     /**
@@ -234,6 +178,62 @@ public abstract class AbstractNumberValidatorTest extends TestCase {
             fail(validator.getClass().getName() + " error during deserialization: " + e);
         }
         assertNotNull(result);
+    }
+
+    /**
+     * Test different Locale
+     */
+    public void testValidateLocale() {
+
+        assertEquals("US Locale, US Format", testNumber, strictValidator.parse(testStringUS, null, Locale.US));
+        assertNull("US Locale, DE Format", strictValidator.parse(testStringDE, null, Locale.US));
+
+        // Default German Locale
+        assertEquals("DE Locale, DE Format", testNumber, strictValidator.parse(testStringDE, null, Locale.GERMAN));
+        assertNull("DE Locale, US Format", strictValidator.parse(testStringUS, null, Locale.GERMAN));
+
+        // Default Locale has been set to Locale.US in setup()
+        assertEquals("Default Locale, US Format", testNumber, strictValidator.parse(testStringUS, null, null));
+        assertNull("Default Locale, DE Format", strictValidator.parse(testStringDE, null, null));
+    }
+
+    /**
+     * Test Min/Max values allowed
+     */
+    public void testValidateMinMax() {
+        final DecimalFormat fmt = new DecimalFormat("#");
+        if (max != null) {
+            assertEquals("Test Max",   max, validator.parse(fmt.format(max), "#", null));
+            assertNull("Test Max + 1",      validator.parse(fmt.format(maxPlusOne), "#", null));
+            assertEquals("Test Min",   min, validator.parse(fmt.format(min), "#", null));
+            assertNull("Test min - 1",      validator.parse(fmt.format(minMinusOne), "#", null));
+        }
+    }
+
+    /**
+     * Test Valid, strict=false
+     */
+    public void testValidNotStrict() {
+        for (int i = 0; i < valid.length; i++) {
+            final String text = "idx=["+i+"] value=[" + validCompare[i] + "]";
+            assertEquals("(A) "  + text, validCompare[i], validator.parse(valid[i], null, Locale.US));
+            assertTrue("(B) "    + text,                  validator.isValid(valid[i], null, Locale.US));
+            assertEquals("(C) "  + text, validCompare[i], validator.parse(valid[i], testPattern, null));
+            assertTrue("(D) "    + text,                  validator.isValid(valid[i], testPattern, null));
+        }
+    }
+
+    /**
+     * Test Valid, strict=true
+     */
+    public void testValidStrict() {
+        for (int i = 0; i < validStrict.length; i++) {
+            final String text = "idx=["+i+"] value=[" + validStrictCompare[i] + "]";
+            assertEquals("(A) "  + text, validStrictCompare[i], strictValidator.parse(validStrict[i], null, Locale.US));
+            assertTrue("(B) "    + text,                        strictValidator.isValid(validStrict[i], null, Locale.US));
+            assertEquals("(C) "  + text, validStrictCompare[i], strictValidator.parse(validStrict[i], testPattern, null));
+            assertTrue("(D) "    + text,                        strictValidator.isValid(validStrict[i], testPattern, null));
+        }
     }
 
 }

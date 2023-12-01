@@ -41,86 +41,6 @@ public class ValidatorUtils {
     private static final Log LOG = LogFactory.getLog(ValidatorUtils.class);
 
     /**
-     * <p>Replace part of a <code>String</code> with another value.</p>
-     *
-     * @param value <code>String</code> to perform the replacement on.
-     * @param key The name of the constant.
-     * @param replaceValue The value of the constant.
-     *
-     * @return The modified value.
-     */
-    public static String replace(String value, final String key, final String replaceValue) {
-
-        if (value == null || key == null || replaceValue == null) {
-            return value;
-        }
-
-        final int pos = value.indexOf(key);
-
-        if (pos < 0) {
-            return value;
-        }
-
-        final int length = value.length();
-        final int start = pos;
-        final int end = pos + key.length();
-
-        if (length == key.length()) {
-            value = replaceValue;
-
-        } else if (end == length) {
-            value = value.substring(0, start) + replaceValue;
-
-        } else {
-            value =
-                    value.substring(0, start)
-                    + replaceValue
-                    + replace(value.substring(end), key, replaceValue);
-        }
-
-        return value;
-    }
-
-    /**
-     * Convenience method for getting a value from a bean property as a
-     * <code>String</code>.  If the property is a <code>String[]</code> or
-     * <code>Collection</code> and it is empty, an empty <code>String</code>
-     * "" is returned.  Otherwise, property.toString() is returned.  This method
-     * may return <code>null</code> if there was an error retrieving the
-     * property.
-     *
-     * @param bean The bean object.
-     * @param property The name of the property to access.
-     *
-     * @return The value of the property.
-     */
-    public static String getValueAsString(final Object bean, final String property) {
-        Object value = null;
-
-        try {
-            value = PropertyUtils.getProperty(bean, property);
-
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            LOG.error(e.getMessage(), e);
-        }
-
-        if (value == null) {
-            return null;
-        }
-
-        if (value instanceof String[]) {
-            return ((String[]) value).length > 0 ? value.toString() : "";
-
-        }
-        if (value instanceof Collection) {
-            return ((Collection<?>) value).isEmpty() ? "" : value.toString();
-
-        }
-        return value.toString();
-
-    }
-
-    /**
      * Makes a deep copy of a <code>FastHashMap</code> if the values
      * are <code>Msg</code>, <code>Arg</code>,
      * or <code>Var</code>.  Otherwise it is a shallow copy.
@@ -175,6 +95,86 @@ public class ValidatorUtils {
             }
         });
         return results;
+    }
+
+    /**
+     * Convenience method for getting a value from a bean property as a
+     * <code>String</code>.  If the property is a <code>String[]</code> or
+     * <code>Collection</code> and it is empty, an empty <code>String</code>
+     * "" is returned.  Otherwise, property.toString() is returned.  This method
+     * may return <code>null</code> if there was an error retrieving the
+     * property.
+     *
+     * @param bean The bean object.
+     * @param property The name of the property to access.
+     *
+     * @return The value of the property.
+     */
+    public static String getValueAsString(final Object bean, final String property) {
+        Object value = null;
+
+        try {
+            value = PropertyUtils.getProperty(bean, property);
+
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            LOG.error(e.getMessage(), e);
+        }
+
+        if (value == null) {
+            return null;
+        }
+
+        if (value instanceof String[]) {
+            return ((String[]) value).length > 0 ? value.toString() : "";
+
+        }
+        if (value instanceof Collection) {
+            return ((Collection<?>) value).isEmpty() ? "" : value.toString();
+
+        }
+        return value.toString();
+
+    }
+
+    /**
+     * <p>Replace part of a <code>String</code> with another value.</p>
+     *
+     * @param value <code>String</code> to perform the replacement on.
+     * @param key The name of the constant.
+     * @param replaceValue The value of the constant.
+     *
+     * @return The modified value.
+     */
+    public static String replace(String value, final String key, final String replaceValue) {
+
+        if (value == null || key == null || replaceValue == null) {
+            return value;
+        }
+
+        final int pos = value.indexOf(key);
+
+        if (pos < 0) {
+            return value;
+        }
+
+        final int length = value.length();
+        final int start = pos;
+        final int end = pos + key.length();
+
+        if (length == key.length()) {
+            value = replaceValue;
+
+        } else if (end == length) {
+            value = value.substring(0, start) + replaceValue;
+
+        } else {
+            value =
+                    value.substring(0, start)
+                    + replaceValue
+                    + replace(value.substring(end), key, replaceValue);
+        }
+
+        return value;
     }
 
 }

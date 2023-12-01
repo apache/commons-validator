@@ -65,25 +65,6 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
     private static final int[] INV_TABLE = {0,  4,  3,  2,  1,  5,  6,  7,  8,  9};
 
     /**
-     * Validate the Verhoeff <i>Check Digit</i> for a code.
-     *
-     * @param code The code to validate
-     * @return {@code true} if the check digit is valid,
-     * otherwise {@code false}
-     */
-    @Override
-    public boolean isValid(final String code) {
-        if (code == null || code.isEmpty()) {
-            return false;
-        }
-        try {
-            return calculateChecksum(code, true) == 0;
-        } catch (final CheckDigitException e) {
-            return false;
-        }
-    }
-
-    /**
      * Calculate a Verhoeff <i>Check Digit</i> for a code.
      *
      * @param code The code to calculate the Check Digit for
@@ -121,6 +102,25 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
             checksum = D_TABLE[checksum][P_TABLE[pos % 8][num]]; // CHECKSTYLE IGNORE MagicNumber
         }
         return checksum;
+    }
+
+    /**
+     * Validate the Verhoeff <i>Check Digit</i> for a code.
+     *
+     * @param code The code to validate
+     * @return {@code true} if the check digit is valid,
+     * otherwise {@code false}
+     */
+    @Override
+    public boolean isValid(final String code) {
+        if (code == null || code.isEmpty()) {
+            return false;
+        }
+        try {
+            return calculateChecksum(code, true) == 0;
+        } catch (final CheckDigitException e) {
+            return false;
+        }
     }
 
 }

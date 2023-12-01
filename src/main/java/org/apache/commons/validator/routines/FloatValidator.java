@@ -108,56 +108,6 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a <code>Float</code> using the default
-     *    <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @return The parsed <code>Float</code> if valid or <code>null</code>
-     *  if invalid.
-     */
-    public Float validate(final String value) {
-        return (Float)parse(value, (String)null, (Locale)null);
-    }
-
-    /**
-     * <p>Validate/convert a <code>Float</code> using the
-     *    specified <i>pattern</i>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
-     * @return The parsed <code>Float</code> if valid or <code>null</code> if invalid.
-     */
-    public Float validate(final String value, final String pattern) {
-        return (Float)parse(value, pattern, (Locale)null);
-    }
-
-    /**
-     * <p>Validate/convert a <code>Float</code> using the
-     *    specified <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param locale The locale to use for the number format, system default if null.
-     * @return The parsed <code>Float</code> if valid or <code>null</code> if invalid.
-     */
-    public Float validate(final String value, final Locale locale) {
-        return (Float)parse(value, (String)null, locale);
-    }
-
-    /**
-     * <p>Validate/convert a <code>Float</code> using the
-     *    specified pattern and/ or <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
-     * @param locale The locale to use for the date format, system default if null.
-     * @return The parsed <code>Float</code> if valid or <code>null</code> if invalid.
-     */
-    public Float validate(final String value, final String pattern, final Locale locale) {
-        return (Float)parse(value, pattern, locale);
-    }
-
-    /**
      * Check if the value is within a specified range.
      *
      * @param value The <code>Number</code> value to check.
@@ -184,30 +134,6 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Check if the value is greater than or equal to a minimum.
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum value.
-     * @return {@code true} if the value is greater than
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final float value, final float min) {
-        return value >= min;
-    }
-
-    /**
-     * Check if the value is greater than or equal to a minimum.
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum value.
-     * @return {@code true} if the value is greater than
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final Float value, final float min) {
-        return minValue(value.floatValue(), min);
-    }
-
-    /**
      * Check if the value is less than or equal to a maximum.
      *
      * @param value The value validation is being performed on.
@@ -229,6 +155,30 @@ public class FloatValidator extends AbstractNumberValidator {
      */
     public boolean maxValue(final Float value, final float max) {
         return maxValue(value.floatValue(), max);
+    }
+
+    /**
+     * Check if the value is greater than or equal to a minimum.
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than
+     *         or equal to the minimum.
+     */
+    public boolean minValue(final float value, final float min) {
+        return value >= min;
+    }
+
+    /**
+     * Check if the value is greater than or equal to a minimum.
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than
+     *         or equal to the minimum.
+     */
+    public boolean minValue(final Float value, final float min) {
+        return minValue(value.floatValue(), min);
     }
 
     /**
@@ -264,6 +214,56 @@ public class FloatValidator extends AbstractNumberValidator {
 
         return Float.valueOf((float)doubleValue);
 
+    }
+
+    /**
+     * <p>Validate/convert a <code>Float</code> using the default
+     *    <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @return The parsed <code>Float</code> if valid or <code>null</code>
+     *  if invalid.
+     */
+    public Float validate(final String value) {
+        return (Float)parse(value, (String)null, (Locale)null);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Float</code> using the
+     *    specified <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param locale The locale to use for the number format, system default if null.
+     * @return The parsed <code>Float</code> if valid or <code>null</code> if invalid.
+     */
+    public Float validate(final String value, final Locale locale) {
+        return (Float)parse(value, (String)null, locale);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Float</code> using the
+     *    specified <i>pattern</i>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against.
+     * @return The parsed <code>Float</code> if valid or <code>null</code> if invalid.
+     */
+    public Float validate(final String value, final String pattern) {
+        return (Float)parse(value, pattern, (Locale)null);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Float</code> using the
+     *    specified pattern and/ or <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
+     * @param locale The locale to use for the date format, system default if null.
+     * @return The parsed <code>Float</code> if valid or <code>null</code> if invalid.
+     */
+    public Float validate(final String value, final String pattern, final Locale locale) {
+        return (Float)parse(value, pattern, locale);
     }
 
 }

@@ -108,56 +108,6 @@ public class ByteValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a <code>Byte</code> using the default
-     *    <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @return The parsed <code>Byte</code> if valid or <code>null</code>
-     *  if invalid.
-     */
-    public Byte validate(final String value) {
-        return (Byte)parse(value, (String)null, (Locale)null);
-    }
-
-    /**
-     * <p>Validate/convert a <code>Byte</code> using the
-     *    specified <i>pattern</i>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
-     * @return The parsed <code>Byte</code> if valid or <code>null</code> if invalid.
-     */
-    public Byte validate(final String value, final String pattern) {
-        return (Byte)parse(value, pattern, (Locale)null);
-    }
-
-    /**
-     * <p>Validate/convert a <code>Byte</code> using the
-     *    specified <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param locale The locale to use for the number format, system default if null.
-     * @return The parsed <code>Byte</code> if valid or <code>null</code> if invalid.
-     */
-    public Byte validate(final String value, final Locale locale) {
-        return (Byte)parse(value, (String)null, locale);
-    }
-
-    /**
-     * <p>Validate/convert a <code>Byte</code> using the
-     *    specified pattern and/ or <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
-     * @param locale The locale to use for the date format, system default if null.
-     * @return The parsed <code>Byte</code> if valid or <code>null</code> if invalid.
-     */
-    public Byte validate(final String value, final String pattern, final Locale locale) {
-        return (Byte)parse(value, pattern, locale);
-    }
-
-    /**
      * Check if the value is within a specified range.
      *
      * @param value The <code>Number</code> value to check.
@@ -181,30 +131,6 @@ public class ByteValidator extends AbstractNumberValidator {
      */
     public boolean isInRange(final Byte value, final byte min, final byte max) {
         return isInRange(value.byteValue(), min, max);
-    }
-
-    /**
-     * Check if the value is greater than or equal to a minimum.
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum value.
-     * @return {@code true} if the value is greater than
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final byte value, final byte min) {
-        return value >= min;
-    }
-
-    /**
-     * Check if the value is greater than or equal to a minimum.
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum value.
-     * @return {@code true} if the value is greater than
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final Byte value, final byte min) {
-        return minValue(value.byteValue(), min);
     }
 
     /**
@@ -232,6 +158,30 @@ public class ByteValidator extends AbstractNumberValidator {
     }
 
     /**
+     * Check if the value is greater than or equal to a minimum.
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than
+     *         or equal to the minimum.
+     */
+    public boolean minValue(final byte value, final byte min) {
+        return value >= min;
+    }
+
+    /**
+     * Check if the value is greater than or equal to a minimum.
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than
+     *         or equal to the minimum.
+     */
+    public boolean minValue(final Byte value, final byte min) {
+        return minValue(value.byteValue(), min);
+    }
+
+    /**
      * <p>Perform further validation and convert the <code>Number</code> to
      * a <code>Byte</code>.</p>
      *
@@ -252,6 +202,56 @@ public class ByteValidator extends AbstractNumberValidator {
             }
         }
         return null;
+    }
+
+    /**
+     * <p>Validate/convert a <code>Byte</code> using the default
+     *    <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @return The parsed <code>Byte</code> if valid or <code>null</code>
+     *  if invalid.
+     */
+    public Byte validate(final String value) {
+        return (Byte)parse(value, (String)null, (Locale)null);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Byte</code> using the
+     *    specified <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param locale The locale to use for the number format, system default if null.
+     * @return The parsed <code>Byte</code> if valid or <code>null</code> if invalid.
+     */
+    public Byte validate(final String value, final Locale locale) {
+        return (Byte)parse(value, (String)null, locale);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Byte</code> using the
+     *    specified <i>pattern</i>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against.
+     * @return The parsed <code>Byte</code> if valid or <code>null</code> if invalid.
+     */
+    public Byte validate(final String value, final String pattern) {
+        return (Byte)parse(value, pattern, (Locale)null);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Byte</code> using the
+     *    specified pattern and/ or <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
+     * @param locale The locale to use for the date format, system default if null.
+     * @return The parsed <code>Byte</code> if valid or <code>null</code> if invalid.
+     */
+    public Byte validate(final String value, final String pattern, final Locale locale) {
+        return (Byte)parse(value, pattern, locale);
     }
 
 }

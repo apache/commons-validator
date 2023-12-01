@@ -23,6 +23,15 @@ package org.apache.commons.validator.routines.checkdigit;
  */
 public class ISINCheckDigitTest extends AbstractCheckDigitTest {
 
+    private static final String[] INVALID_CHECK_DIGITS =
+                             {"US037833100O", // proper check digit is '5', see above
+                              "BMG8571G109D", // proper check digit is '6', see above
+                              "AU0000XVGZAD", // proper check digit is '3', see above
+                              "GB000263494I", // proper check digit is '6', see above
+                              "FR000402625C", // proper check digit is '0', see above
+                              "DK000976334H", // proper check digit is '4', see above
+                              };
+
     /**
      * Constructor
      * @param name test name
@@ -52,15 +61,6 @@ public class ISINCheckDigitTest extends AbstractCheckDigitTest {
                               };
         invalid = new String[] {"0378#3100"};
     }
-
-    private static final String[] INVALID_CHECK_DIGITS =
-                             {"US037833100O", // proper check digit is '5', see above
-                              "BMG8571G109D", // proper check digit is '6', see above
-                              "AU0000XVGZAD", // proper check digit is '3', see above
-                              "GB000263494I", // proper check digit is '6', see above
-                              "FR000402625C", // proper check digit is '0', see above
-                              "DK000976334H", // proper check digit is '4', see above
-                              };
 
     public void testVALIDATOR_345() {
         for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {

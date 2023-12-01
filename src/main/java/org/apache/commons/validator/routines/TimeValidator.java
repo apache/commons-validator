@@ -116,6 +116,70 @@ public class TimeValidator extends AbstractCalendarValidator {
     }
 
     /**
+     * <p>Compare Hours.</p>
+     *
+     * @param value The <code>Calendar</code> value to check.
+     * @param compare The <code>Calendar</code> to compare the value to.
+     * @return Zero if the hours are equal, -1 if first
+     * parameter's hour is less than the seconds and +1 if the first
+     * parameter's hour is greater than.
+     */
+    public int compareHours(final Calendar value, final Calendar compare) {
+        return compareTime(value, compare, Calendar.HOUR_OF_DAY);
+    }
+
+    /**
+     * <p>Compare Minutes (hours and minutes).</p>
+     *
+     * @param value The <code>Calendar</code> value to check.
+     * @param compare The <code>Calendar</code> to compare the value to.
+     * @return Zero if the hours are equal, -1 if first
+     * parameter's minutes are less than the seconds and +1 if the first
+     * parameter's minutes are greater than.
+     */
+    public int compareMinutes(final Calendar value, final Calendar compare) {
+        return compareTime(value, compare, Calendar.MINUTE);
+    }
+
+    /**
+     * <p>Compare Seconds (hours, minutes and seconds).</p>
+     *
+     * @param value The <code>Calendar</code> value to check.
+     * @param compare The <code>Calendar</code> to compare the value to.
+     * @return Zero if the hours are equal, -1 if first
+     * parameter's seconds are less than the seconds and +1 if the first
+     * parameter's seconds are greater than.
+     */
+    public int compareSeconds(final Calendar value, final Calendar compare) {
+        return compareTime(value, compare, Calendar.SECOND);
+    }
+
+    /**
+     * <p>Compare Times (hour, minute, second and millisecond - not date).</p>
+     *
+     * @param value The <code>Calendar</code> value to check.
+     * @param compare The <code>Calendar</code> to compare the value to.
+     * @return Zero if the hours are equal, -1 if first
+     * time is less than the seconds and +1 if the first
+     * time is greater than.
+     */
+    public int compareTime(final Calendar value, final Calendar compare) {
+        return compareTime(value, compare, Calendar.MILLISECOND);
+    }
+
+    /**
+     * <p>Convert the parsed <code>Date</code> to a <code>Calendar</code>.</p>
+     *
+     * @param value The parsed <code>Date</code> object created.
+     * @param formatter The Format used to parse the value with.
+     * @return The parsed value converted to a <code>Calendar</code>.
+     */
+    @Override
+    protected Object processParsedValue(final Object value, final Format formatter) {
+        return ((DateFormat)formatter).getCalendar();
+    }
+
+    /**
      * <p>Validate/convert a time using the default <code>Locale</code>
      *    and <code>TimeZone</code>.
      *
@@ -125,43 +189,6 @@ public class TimeValidator extends AbstractCalendarValidator {
      */
     public Calendar validate(final String value) {
         return (Calendar)parse(value, (String)null, (Locale)null, (TimeZone)null);
-    }
-
-    /**
-     * <p>Validate/convert a time using the specified <code>TimeZone</code>
-     *    and default <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param timeZone The Time Zone used to parse the time, system default if null.
-     * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
-     */
-    public Calendar validate(final String value, final TimeZone timeZone) {
-        return (Calendar)parse(value, (String)null, (Locale)null, timeZone);
-    }
-
-    /**
-     * <p>Validate/convert a time using the specified <i>pattern</i> and
-     *    default <code>TimeZone</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
-     * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
-     */
-    public Calendar validate(final String value, final String pattern) {
-        return (Calendar)parse(value, pattern, (Locale)null, (TimeZone)null);
-    }
-
-    /**
-     * <p>Validate/convert a time using the specified <i>pattern</i>
-     *    and <code>TimeZone</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
-     * @param timeZone The Time Zone used to parse the time, system default if null.
-     * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
-     */
-    public Calendar validate(final String value, final String pattern, final TimeZone timeZone) {
-        return (Calendar)parse(value, pattern, (Locale)null, timeZone);
     }
 
     /**
@@ -187,6 +214,18 @@ public class TimeValidator extends AbstractCalendarValidator {
      */
     public Calendar validate(final String value, final Locale locale, final TimeZone timeZone) {
         return (Calendar)parse(value, (String)null, locale, timeZone);
+    }
+
+    /**
+     * <p>Validate/convert a time using the specified <i>pattern</i> and
+     *    default <code>TimeZone</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against.
+     * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
+     */
+    public Calendar validate(final String value, final String pattern) {
+        return (Calendar)parse(value, pattern, (Locale)null, (TimeZone)null);
     }
 
     /**
@@ -219,66 +258,27 @@ public class TimeValidator extends AbstractCalendarValidator {
     }
 
     /**
-     * <p>Compare Times (hour, minute, second and millisecond - not date).</p>
+     * <p>Validate/convert a time using the specified <i>pattern</i>
+     *    and <code>TimeZone</code>.
      *
-     * @param value The <code>Calendar</code> value to check.
-     * @param compare The <code>Calendar</code> to compare the value to.
-     * @return Zero if the hours are equal, -1 if first
-     * time is less than the seconds and +1 if the first
-     * time is greater than.
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against.
+     * @param timeZone The Time Zone used to parse the time, system default if null.
+     * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
      */
-    public int compareTime(final Calendar value, final Calendar compare) {
-        return compareTime(value, compare, Calendar.MILLISECOND);
+    public Calendar validate(final String value, final String pattern, final TimeZone timeZone) {
+        return (Calendar)parse(value, pattern, (Locale)null, timeZone);
     }
 
     /**
-     * <p>Compare Seconds (hours, minutes and seconds).</p>
+     * <p>Validate/convert a time using the specified <code>TimeZone</code>
+     *    and default <code>Locale</code>.
      *
-     * @param value The <code>Calendar</code> value to check.
-     * @param compare The <code>Calendar</code> to compare the value to.
-     * @return Zero if the hours are equal, -1 if first
-     * parameter's seconds are less than the seconds and +1 if the first
-     * parameter's seconds are greater than.
+     * @param value The value validation is being performed on.
+     * @param timeZone The Time Zone used to parse the time, system default if null.
+     * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
      */
-    public int compareSeconds(final Calendar value, final Calendar compare) {
-        return compareTime(value, compare, Calendar.SECOND);
-    }
-
-    /**
-     * <p>Compare Minutes (hours and minutes).</p>
-     *
-     * @param value The <code>Calendar</code> value to check.
-     * @param compare The <code>Calendar</code> to compare the value to.
-     * @return Zero if the hours are equal, -1 if first
-     * parameter's minutes are less than the seconds and +1 if the first
-     * parameter's minutes are greater than.
-     */
-    public int compareMinutes(final Calendar value, final Calendar compare) {
-        return compareTime(value, compare, Calendar.MINUTE);
-    }
-
-    /**
-     * <p>Compare Hours.</p>
-     *
-     * @param value The <code>Calendar</code> value to check.
-     * @param compare The <code>Calendar</code> to compare the value to.
-     * @return Zero if the hours are equal, -1 if first
-     * parameter's hour is less than the seconds and +1 if the first
-     * parameter's hour is greater than.
-     */
-    public int compareHours(final Calendar value, final Calendar compare) {
-        return compareTime(value, compare, Calendar.HOUR_OF_DAY);
-    }
-
-    /**
-     * <p>Convert the parsed <code>Date</code> to a <code>Calendar</code>.</p>
-     *
-     * @param value The parsed <code>Date</code> object created.
-     * @param formatter The Format used to parse the value with.
-     * @return The parsed value converted to a <code>Calendar</code>.
-     */
-    @Override
-    protected Object processParsedValue(final Object value, final Format formatter) {
-        return ((DateFormat)formatter).getCalendar();
+    public Calendar validate(final String value, final TimeZone timeZone) {
+        return (Calendar)parse(value, (String)null, (Locale)null, timeZone);
     }
 }

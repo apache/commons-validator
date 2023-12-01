@@ -31,8 +31,43 @@ public class TimeValidatorTest extends TestCase {
     protected static final TimeZone GMT = TimeZone.getTimeZone("GMT"); // 0 offset
     protected static final TimeZone EST = TimeZone.getTimeZone("EST"); // - 5 hours
 
-    protected TimeValidator validator;
+    /**
+     * Create a date instance for a specified time zone, date and time.
+     *
+     * @param zone The time zone
+     * @param time the time in HH:mm:ss format
+     * @param millisecond the milliseconds
+     * @return the new Date instance.
+     */
+    protected static Date createDate(final TimeZone zone, final int time, final int millisecond) {
+        final Calendar calendar = createTime(zone, time, millisecond);
+        return calendar.getTime();
+    }
 
+    /**
+     * Create a calendar instance for a specified time zone, date and time.
+     *
+     * @param zone The time zone
+     * @param time the time in HH:mm:ss format
+     * @param millisecond the milliseconds
+     * @return the new Calendar instance.
+     */
+    protected static Calendar createTime(final TimeZone zone, final int time, final int millisecond) {
+        final Calendar calendar = zone == null ? Calendar.getInstance()
+                                         : Calendar.getInstance(zone);
+        final int hour = time / 10000 * 10000;
+        final int min  = time / 100 * 100 - hour;
+        final int sec  = time - (hour + min);
+        calendar.set(Calendar.YEAR,  1970);
+        calendar.set(Calendar.MONTH, 0);
+        calendar.set(Calendar.DATE,  1);
+        calendar.set(Calendar.HOUR_OF_DAY,  hour / 10000);
+        calendar.set(Calendar.MINUTE, min / 100);
+        calendar.set(Calendar.SECOND,  sec);
+        calendar.set(Calendar.MILLISECOND,  millisecond);
+        return calendar;
+    }
+    protected TimeValidator validator;
     protected String[] patternValid = {
                        "23-59-59"
                       ,"00-00-00"
@@ -65,6 +100,7 @@ public class TimeValidatorTest extends TestCase {
                      ,createDate(null, 11200, 0)
                      ,createDate(null, 104900, 0)
                      ,createDate(null, 162300, 0)};
+
     protected String[] patternInvalid = {
                          "24-00-00"  // midnight
                         ,"24-00-01"  // past midnight
@@ -93,6 +129,7 @@ public class TimeValidatorTest extends TestCase {
                         ,"10:1:"};  // invalid pattern
 
     private Locale origDefault;
+
     private TimeZone defaultZone;
 
     /**
@@ -121,28 +158,74 @@ public class TimeValidatorTest extends TestCase {
     }
 
     /**
-     * Test Valid Dates with "pattern" validation
+     * Test compare date methods
      */
-    public void testPatternValid() {
-        for (int i = 0; i < patternValid.length; i++) {
-            final String text = i + " value=[" +patternValid[i]+"] failed ";
-            final Calendar calendar = validator.validate(patternValid[i], "HH-mm-ss");
-            assertNotNull("validateObj() " + text,  calendar);
-            final Date date = calendar.getTime();
-            assertTrue("isValid() " + text,  validator.isValid(patternValid[i], "HH-mm-ss"));
-            assertEquals("compare " + text, patternExpect[i], date);
-        }
+    public void testCompare() {
+        final int testTime = 154523;
+        final int min = 100;
+        final int hour = 10000;
+
+        final Calendar milliGreater = createTime(GMT, testTime, 500); // > milli sec
+        final Calendar value        = createTime(GMT, testTime, 400); // test value
+        final Calendar milliLess    = createTime(GMT, testTime, 300); // < milli sec
+
+        final Calendar secGreater   = createTime(GMT, testTime + 1, 100);   // +1 sec
+        final Calendar secLess      = createTime(GMT, testTime - 1, 100);   // -1 sec
+
+        final Calendar minGreater   = createTime(GMT, testTime + min, 100);   // +1 min
+        final Calendar minLess      = createTime(GMT, testTime - min, 100);   // -1 min
+
+        final Calendar hourGreater  = createTime(GMT, testTime + hour, 100);   // +1 hour
+        final Calendar hourLess     = createTime(GMT, testTime - hour, 100);   // -1 hour
+
+        assertEquals("mili LT", -1, validator.compareTime(value, milliGreater)); // > milli
+        assertEquals("mili EQ", 0,  validator.compareTime(value, value));        // same time
+        assertEquals("mili GT", 1,  validator.compareTime(value, milliLess));    // < milli
+
+        assertEquals("secs LT", -1, validator.compareSeconds(value, secGreater));   // +1 sec
+        assertEquals("secs =1", 0,  validator.compareSeconds(value, milliGreater)); // > milli
+        assertEquals("secs =2", 0,  validator.compareSeconds(value, value));        // same time
+        assertEquals("secs =3", 0,  validator.compareSeconds(value, milliLess));    // < milli
+        assertEquals("secs GT", 1,  validator.compareSeconds(value, secLess));      // -1 sec
+
+        assertEquals("mins LT", -1, validator.compareMinutes(value, minGreater));   // +1 min
+        assertEquals("mins =1", 0,  validator.compareMinutes(value, secGreater));   // +1 sec
+        assertEquals("mins =2", 0,  validator.compareMinutes(value, value));        // same time
+        assertEquals("mins =3", 0,  validator.compareMinutes(value, secLess));      // -1 sec
+        assertEquals("mins GT", 1,  validator.compareMinutes(value, minLess));      // -1 min
+
+        assertEquals("hour LT", -1, validator.compareHours(value, hourGreater));   // +1 hour
+        assertEquals("hour =1", 0,  validator.compareHours(value, minGreater));   // +1 min
+        assertEquals("hour =2", 0,  validator.compareHours(value, value));        // same time
+        assertEquals("hour =3", 0,  validator.compareHours(value, minLess));      // -1 min
+        assertEquals("hour GT", 1,  validator.compareHours(value, hourLess));      // -1 hour
+
     }
 
     /**
-     * Test Invalid Dates with "pattern" validation
+     * Test Invalid Dates with "locale" validation
      */
-    public void testPatternInvalid() {
-        for (int i = 0; i < patternInvalid.length; i++) {
-            final String text = i + " value=[" +patternInvalid[i]+"] passed ";
-            final Object date = validator.validate(patternInvalid[i], "HH-mm-ss");
+    public void testFormat() {
+        // Set the default Locale
+        Locale.setDefault(Locale.UK);
+
+        final Object test = TimeValidator.getInstance().validate("16:49:23", "HH:mm:ss");
+        assertNotNull("Test Date ", test);
+        assertEquals("Format pattern", "16-49-23", validator.format(test, "HH-mm-ss"));
+        assertEquals("Format locale",  "4:49 PM",  validator.format(test, Locale.US));
+        assertEquals("Format default", "16:49",  validator.format(test));
+
+    }
+
+    /**
+     * Test Invalid Dates with "locale" validation
+     */
+    public void testLocaleInvalid() {
+        for (int i = 0; i < localeInvalid.length; i++) {
+            final String text = i + " value=[" +localeInvalid[i]+"] passed ";
+            final Object date = validator.validate(localeInvalid[i], Locale.US);
             assertNull("validate() " + text + date,  date);
-            assertFalse("isValid() " + text,  validator.isValid(patternInvalid[i], "HH-mm-ss"));
+            assertFalse("isValid() " + text,  validator.isValid(localeInvalid[i], Locale.UK));
         }
     }
 
@@ -161,14 +244,28 @@ public class TimeValidatorTest extends TestCase {
     }
 
     /**
-     * Test Invalid Dates with "locale" validation
+     * Test Invalid Dates with "pattern" validation
      */
-    public void testLocaleInvalid() {
-        for (int i = 0; i < localeInvalid.length; i++) {
-            final String text = i + " value=[" +localeInvalid[i]+"] passed ";
-            final Object date = validator.validate(localeInvalid[i], Locale.US);
+    public void testPatternInvalid() {
+        for (int i = 0; i < patternInvalid.length; i++) {
+            final String text = i + " value=[" +patternInvalid[i]+"] passed ";
+            final Object date = validator.validate(patternInvalid[i], "HH-mm-ss");
             assertNull("validate() " + text + date,  date);
-            assertFalse("isValid() " + text,  validator.isValid(localeInvalid[i], Locale.UK));
+            assertFalse("isValid() " + text,  validator.isValid(patternInvalid[i], "HH-mm-ss"));
+        }
+    }
+
+    /**
+     * Test Valid Dates with "pattern" validation
+     */
+    public void testPatternValid() {
+        for (int i = 0; i < patternValid.length; i++) {
+            final String text = i + " value=[" +patternValid[i]+"] failed ";
+            final Calendar calendar = validator.validate(patternValid[i], "HH-mm-ss");
+            assertNotNull("validateObj() " + text,  calendar);
+            final Date date = calendar.getTime();
+            assertTrue("isValid() " + text,  validator.isValid(patternValid[i], "HH-mm-ss"));
+            assertEquals("compare " + text, patternExpect[i], date);
         }
     }
 
@@ -236,102 +333,5 @@ public class TimeValidatorTest extends TestCase {
         assertEquals("pattern minute", 05, result.get(Calendar.MINUTE));
         result = null;
 
-    }
-
-    /**
-     * Test Invalid Dates with "locale" validation
-     */
-    public void testFormat() {
-        // Set the default Locale
-        Locale.setDefault(Locale.UK);
-
-        final Object test = TimeValidator.getInstance().validate("16:49:23", "HH:mm:ss");
-        assertNotNull("Test Date ", test);
-        assertEquals("Format pattern", "16-49-23", validator.format(test, "HH-mm-ss"));
-        assertEquals("Format locale",  "4:49 PM",  validator.format(test, Locale.US));
-        assertEquals("Format default", "16:49",  validator.format(test));
-
-    }
-
-    /**
-     * Test compare date methods
-     */
-    public void testCompare() {
-        final int testTime = 154523;
-        final int min = 100;
-        final int hour = 10000;
-
-        final Calendar milliGreater = createTime(GMT, testTime, 500); // > milli sec
-        final Calendar value        = createTime(GMT, testTime, 400); // test value
-        final Calendar milliLess    = createTime(GMT, testTime, 300); // < milli sec
-
-        final Calendar secGreater   = createTime(GMT, testTime + 1, 100);   // +1 sec
-        final Calendar secLess      = createTime(GMT, testTime - 1, 100);   // -1 sec
-
-        final Calendar minGreater   = createTime(GMT, testTime + min, 100);   // +1 min
-        final Calendar minLess      = createTime(GMT, testTime - min, 100);   // -1 min
-
-        final Calendar hourGreater  = createTime(GMT, testTime + hour, 100);   // +1 hour
-        final Calendar hourLess     = createTime(GMT, testTime - hour, 100);   // -1 hour
-
-        assertEquals("mili LT", -1, validator.compareTime(value, milliGreater)); // > milli
-        assertEquals("mili EQ", 0,  validator.compareTime(value, value));        // same time
-        assertEquals("mili GT", 1,  validator.compareTime(value, milliLess));    // < milli
-
-        assertEquals("secs LT", -1, validator.compareSeconds(value, secGreater));   // +1 sec
-        assertEquals("secs =1", 0,  validator.compareSeconds(value, milliGreater)); // > milli
-        assertEquals("secs =2", 0,  validator.compareSeconds(value, value));        // same time
-        assertEquals("secs =3", 0,  validator.compareSeconds(value, milliLess));    // < milli
-        assertEquals("secs GT", 1,  validator.compareSeconds(value, secLess));      // -1 sec
-
-        assertEquals("mins LT", -1, validator.compareMinutes(value, minGreater));   // +1 min
-        assertEquals("mins =1", 0,  validator.compareMinutes(value, secGreater));   // +1 sec
-        assertEquals("mins =2", 0,  validator.compareMinutes(value, value));        // same time
-        assertEquals("mins =3", 0,  validator.compareMinutes(value, secLess));      // -1 sec
-        assertEquals("mins GT", 1,  validator.compareMinutes(value, minLess));      // -1 min
-
-        assertEquals("hour LT", -1, validator.compareHours(value, hourGreater));   // +1 hour
-        assertEquals("hour =1", 0,  validator.compareHours(value, minGreater));   // +1 min
-        assertEquals("hour =2", 0,  validator.compareHours(value, value));        // same time
-        assertEquals("hour =3", 0,  validator.compareHours(value, minLess));      // -1 min
-        assertEquals("hour GT", 1,  validator.compareHours(value, hourLess));      // -1 hour
-
-    }
-
-    /**
-     * Create a calendar instance for a specified time zone, date and time.
-     *
-     * @param zone The time zone
-     * @param time the time in HH:mm:ss format
-     * @param millisecond the milliseconds
-     * @return the new Calendar instance.
-     */
-    protected static Calendar createTime(final TimeZone zone, final int time, final int millisecond) {
-        final Calendar calendar = zone == null ? Calendar.getInstance()
-                                         : Calendar.getInstance(zone);
-        final int hour = time / 10000 * 10000;
-        final int min  = time / 100 * 100 - hour;
-        final int sec  = time - (hour + min);
-        calendar.set(Calendar.YEAR,  1970);
-        calendar.set(Calendar.MONTH, 0);
-        calendar.set(Calendar.DATE,  1);
-        calendar.set(Calendar.HOUR_OF_DAY,  hour / 10000);
-        calendar.set(Calendar.MINUTE, min / 100);
-        calendar.set(Calendar.SECOND,  sec);
-        calendar.set(Calendar.MILLISECOND,  millisecond);
-        return calendar;
-    }
-
-    /**
-     * Create a date instance for a specified time zone, date and time.
-     *
-     * @param zone The time zone
-     * @param time the time in HH:mm:ss format
-     * @param millisecond the milliseconds
-     * @return the new Date instance.
-     */
-    protected static Date createDate(final TimeZone zone, final int time, final int millisecond) {
-        final Calendar calendar = createTime(zone, time, millisecond);
-        return calendar.getTime();
     }
 }

@@ -31,24 +31,24 @@ public class NameBean {
         return firstName;
     }
 
-    public void setFirstName(final String firstName) {
-        this.firstName = firstName;
+    public String getLastName() {
+        return lastName;
     }
 
     public String getMiddleName() {
         return middleName;
     }
 
-    public void setMiddleName(final String middleName) {
-        this.middleName = middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
     }
 
     public void setLastName(final String lastName) {
         this.lastName = lastName;
+    }
+
+    public void setMiddleName(final String middleName) {
+        this.middleName = middleName;
     }
 
 }

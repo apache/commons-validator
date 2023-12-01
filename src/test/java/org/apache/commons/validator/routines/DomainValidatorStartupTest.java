@@ -40,6 +40,49 @@ import org.junit.runner.RunWith;
 public class DomainValidatorStartupTest {
 
     @Test
+    public void testCannotUpdate() {
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "ch"); // OK
+        final DomainValidator dv = DomainValidator.getInstance();
+        assertNotNull(dv);
+        try {
+            DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "ch");
+            fail("Expected IllegalStateException");
+        } catch (final IllegalStateException ise) {
+            // expected
+        }
+    }
+
+    @Test
+    public void testInstanceOverride() { // Show that the instance picks up static values
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "gp");
+        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, "com");
+        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_PLUS, "cp");
+        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, "ch");
+        DomainValidator validator = DomainValidator.getInstance(false);
+        assertTrue(validator.isValidGenericTld("gp"));
+        assertFalse(validator.isValidGenericTld("com"));
+        assertTrue(validator.isValidCountryCodeTld("cp"));
+        assertFalse(validator.isValidCountryCodeTld("ch"));
+
+        // show we can override them for a new instance
+        final List<DomainValidator.Item> items = new ArrayList<>();
+        items.add(new DomainValidator.Item(ArrayType.GENERIC_MINUS, "" ));
+        items.add(new DomainValidator.Item(ArrayType.COUNTRY_CODE_MINUS, ""));
+        validator = DomainValidator.getInstance(false, items);
+        assertTrue(validator.isValidGenericTld("gp"));
+        assertTrue(validator.isValidGenericTld("com")); // Should be true again
+        assertTrue(validator.isValidCountryCodeTld("cp"));
+        assertTrue(validator.isValidCountryCodeTld("ch")); // Should be true again
+
+        // Show the class overrides are unaffected
+        validator = DomainValidator.getInstance(false);
+        assertTrue(validator.isValidGenericTld("gp"));
+        assertFalse(validator.isValidGenericTld("com"));
+        assertTrue(validator.isValidCountryCodeTld("cp"));
+        assertFalse(validator.isValidCountryCodeTld("ch"));
+    }
+
+    @Test
     public void testUpdateBaseArrayCC() {
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_RO, "com"));
@@ -186,48 +229,5 @@ public class DomainValidatorStartupTest {
         assertTrue(validator.isValidLocalTld("pvt"));
         assertTrue(validator.isValid("abc.local"));
         assertTrue(validator.isValid("abc.pvt"));
-    }
-
-    @Test
-    public void testCannotUpdate() {
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "ch"); // OK
-        final DomainValidator dv = DomainValidator.getInstance();
-        assertNotNull(dv);
-        try {
-            DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "ch");
-            fail("Expected IllegalStateException");
-        } catch (final IllegalStateException ise) {
-            // expected
-        }
-    }
-
-    @Test
-    public void testInstanceOverride() { // Show that the instance picks up static values
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "gp");
-        DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, "com");
-        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_PLUS, "cp");
-        DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, "ch");
-        DomainValidator validator = DomainValidator.getInstance(false);
-        assertTrue(validator.isValidGenericTld("gp"));
-        assertFalse(validator.isValidGenericTld("com"));
-        assertTrue(validator.isValidCountryCodeTld("cp"));
-        assertFalse(validator.isValidCountryCodeTld("ch"));
-
-        // show we can override them for a new instance
-        final List<DomainValidator.Item> items = new ArrayList<>();
-        items.add(new DomainValidator.Item(ArrayType.GENERIC_MINUS, "" ));
-        items.add(new DomainValidator.Item(ArrayType.COUNTRY_CODE_MINUS, ""));
-        validator = DomainValidator.getInstance(false, items);
-        assertTrue(validator.isValidGenericTld("gp"));
-        assertTrue(validator.isValidGenericTld("com")); // Should be true again
-        assertTrue(validator.isValidCountryCodeTld("cp"));
-        assertTrue(validator.isValidCountryCodeTld("ch")); // Should be true again
-
-        // Show the class overrides are unaffected
-        validator = DomainValidator.getInstance(false);
-        assertTrue(validator.isValidGenericTld("gp"));
-        assertFalse(validator.isValidGenericTld("com"));
-        assertTrue(validator.isValidCountryCodeTld("cp"));
-        assertFalse(validator.isValidCountryCodeTld("ch"));
     }
 }

@@ -26,20 +26,146 @@ import junit.framework.TestCase;
 @Deprecated
 public class UrlTest extends TestCase {
 
+   static boolean incrementTestPartsIndex(final int[] testPartsIndex, final Object[] testParts) {
+      boolean carry = true;  //add 1 to lowest order part.
+      boolean maxIndex = true;
+      for (int testPartsIndexIndex = testPartsIndex.length - 1; testPartsIndexIndex >= 0; --testPartsIndexIndex) {
+         int index = testPartsIndex[testPartsIndexIndex];
+         final ResultPair[] part = (ResultPair[]) testParts[testPartsIndexIndex];
+         if (carry) {
+            if (index < part.length - 1) {
+               index++;
+               testPartsIndex[testPartsIndexIndex] = index;
+               carry = false;
+            } else {
+               testPartsIndex[testPartsIndexIndex] = 0;
+               carry = true;
+            }
+         }
+         maxIndex &= index == part.length - 1;
+      }
+
+      return !maxIndex;
+   }
+   /**
+    * Only used to debug the unit tests.
+    * @param argv
+    */
+   public static void main(final String[] argv) {
+
+      final UrlTest fct = new UrlTest("url test");
+      fct.setUp();
+      fct.testIsValid();
+      fct.testIsValidScheme();
+   }
+
    private final boolean printStatus = false;
+
    private final boolean printIndex = false;//print index that indicates current scheme,host,port,path, query test were using.
+
+   //-------------------- Test data for creating a composite URL
+   /**
+    * The data given below approximates the 4 parts of a URL
+    * <scheme>://<authority><path>?<query> except that the port number
+    * is broken out of authority to increase the number of permutations.
+    * A complete URL is composed of a scheme+authority+port+path+query,
+    * all of which must be individually valid for the entire URL to be considered
+    * valid.
+    */
+   ResultPair[] testUrlScheme = {new ResultPair("http://", true),
+                               new ResultPair("ftp://", true),
+                               new ResultPair("h3t://", true),
+                               new ResultPair("3ht://", false),
+                               new ResultPair("http:/", false),
+                               new ResultPair("http:", false),
+                               new ResultPair("http/", false),
+                               new ResultPair("://", false),
+                               new ResultPair("", true)};
+
+   ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
+                                  new ResultPair("go.com", true),
+                                  new ResultPair("go.au", true),
+                                  new ResultPair("0.0.0.0", true),
+                                  new ResultPair("255.255.255.255", true),
+                                  new ResultPair("256.256.256.256", false),
+                                  new ResultPair("255.com", true),
+                                  new ResultPair("1.2.3.4.5", false),
+                                  new ResultPair("1.2.3.4.", false),
+                                  new ResultPair("1.2.3", false),
+                                  new ResultPair(".1.2.3.4", false),
+                                  new ResultPair("go.a", false),
+                                  new ResultPair("go.a1a", true),
+                                  new ResultPair("go.1aa", false),
+                                  new ResultPair("aaa.", false),
+                                  new ResultPair(".aaa", false),
+                                  new ResultPair("aaa", false),
+                                  new ResultPair("", false)
+   };
+
+   ResultPair[] testUrlPort = {new ResultPair(":80", true),
+                             new ResultPair(":65535", true),
+                             new ResultPair(":0", true),
+                             new ResultPair("", true),
+                             new ResultPair(":-1", false),
+                             new ResultPair(":65636", true),
+                             new ResultPair(":65a", false)
+   };
+
+   ResultPair[] testPath = {new ResultPair("/test1", true),
+                          new ResultPair("/t123", true),
+                          new ResultPair("/$23", true),
+                          new ResultPair("/..", false),
+                          new ResultPair("/../", false),
+                          new ResultPair("/test1/", true),
+                          new ResultPair("", true),
+                          new ResultPair("/test1/file", true),
+                          new ResultPair("/..//file", false),
+                          new ResultPair("/test1//file", false)
+   };
+
+   //Test allow2slash, noFragment
+   ResultPair[] testUrlPathOptions = {new ResultPair("/test1", true),
+                                    new ResultPair("/t123", true),
+                                    new ResultPair("/$23", true),
+                                    new ResultPair("/..", false),
+                                    new ResultPair("/../", false),
+                                    new ResultPair("/test1/", true),
+                                    new ResultPair("/#", false),
+                                    new ResultPair("", true),
+                                    new ResultPair("/test1/file", true),
+                                    new ResultPair("/t123/file", true),
+                                    new ResultPair("/$23/file", true),
+                                    new ResultPair("/../file", false),
+                                    new ResultPair("/..//file", false),
+                                    new ResultPair("/test1//file", true),
+                                    new ResultPair("/#/file", false)
+   };
+
+   ResultPair[] testUrlQuery = {new ResultPair("?action=view", true),
+                              new ResultPair("?action=edit&mode=up", true),
+                              new ResultPair("", true)
+   };
+
+   Object[] testUrlParts = {testUrlScheme, testUrlAuthority, testUrlPort, testPath, testUrlQuery};
+
+   Object[] testUrlPartsOptions = {testUrlScheme, testUrlAuthority, testUrlPort, testUrlPathOptions, testUrlQuery};
+
+   int[] testPartsIndex = {0, 0, 0, 0, 0};
+   //---------------- Test data for individual url parts ----------------
+   ResultPair[] testScheme = {new ResultPair("http", true),
+                            new ResultPair("ftp", false),
+                            new ResultPair("httpd", false),
+                            new ResultPair("telnet", false)};
 
    public UrlTest(final String testName) {
       super(testName);
    }
-
    @Override
 protected void setUp() {
       for (int index = 0; index < testPartsIndex.length - 1; index++) {
          testPartsIndex[index] = 0;
       }
    }
-
    public void testIsValid() {
         testIsValid(testUrlParts, UrlValidator.ALLOW_ALL_SCHEMES);
         setUp();
@@ -50,31 +176,6 @@ protected void setUp() {
 
         testIsValid(testUrlPartsOptions, options);
    }
-
-   public void testIsValidScheme() {
-      if (printStatus) {
-         System.out.print("\n testIsValidScheme() ");
-      }
-      final String[] schemes = {"http", "gopher"};
-      //UrlValidator urlVal = new UrlValidator(schemes,false,false,false);
-      final UrlValidator urlVal = new UrlValidator(schemes, 0);
-      for (final ResultPair testPair : testScheme) {
-         final boolean result = urlVal.isValidScheme(testPair.item);
-         assertEquals(testPair.item, testPair.valid, result);
-         if (printStatus) {
-            if (result == testPair.valid) {
-               System.out.print('.');
-            } else {
-               System.out.print('X');
-            }
-         }
-      }
-      if (printStatus) {
-         System.out.println();
-      }
-
-   }
-
    /**
     * Create set of tests by taking the testUrlXXX arrays and
     * running through all possible permutations of their combinations.
@@ -122,38 +223,28 @@ protected void setUp() {
       }
    }
 
-   public void testValidator202() {
-       final String[] schemes = {"http","https"};
-       final UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.NO_FRAGMENTS);
-       urlValidator.isValid("http://www.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.log");
-   }
-
-   public void testValidator204() {
-       final String[] schemes = {"http","https"};
-       final UrlValidator urlValidator = new UrlValidator(schemes);
-       assertTrue(urlValidator.isValid("http://tech.yahoo.com/rc/desktops/102;_ylt=Ao8yevQHlZ4On0O3ZJGXLEQFLZA5"));
-   }
-
-   static boolean incrementTestPartsIndex(final int[] testPartsIndex, final Object[] testParts) {
-      boolean carry = true;  //add 1 to lowest order part.
-      boolean maxIndex = true;
-      for (int testPartsIndexIndex = testPartsIndex.length - 1; testPartsIndexIndex >= 0; --testPartsIndexIndex) {
-         int index = testPartsIndex[testPartsIndexIndex];
-         final ResultPair[] part = (ResultPair[]) testParts[testPartsIndexIndex];
-         if (carry) {
-            if (index < part.length - 1) {
-               index++;
-               testPartsIndex[testPartsIndexIndex] = index;
-               carry = false;
+   public void testIsValidScheme() {
+      if (printStatus) {
+         System.out.print("\n testIsValidScheme() ");
+      }
+      final String[] schemes = {"http", "gopher"};
+      //UrlValidator urlVal = new UrlValidator(schemes,false,false,false);
+      final UrlValidator urlVal = new UrlValidator(schemes, 0);
+      for (final ResultPair testPair : testScheme) {
+         final boolean result = urlVal.isValidScheme(testPair.item);
+         assertEquals(testPair.item, testPair.valid, result);
+         if (printStatus) {
+            if (result == testPair.valid) {
+               System.out.print('.');
             } else {
-               testPartsIndex[testPartsIndexIndex] = 0;
-               carry = true;
+               System.out.print('X');
             }
          }
-         maxIndex &= index == part.length - 1;
+      }
+      if (printStatus) {
+         System.out.println();
       }
 
-      return !maxIndex;
    }
 
    private String testPartsIndextoString() {
@@ -169,110 +260,19 @@ protected void setUp() {
       return carryMsg.toString();
 
    }
-
    public void testValidateUrl() {
       assertTrue(true);
    }
-
-   /**
-    * Only used to debug the unit tests.
-    * @param argv
-    */
-   public static void main(final String[] argv) {
-
-      final UrlTest fct = new UrlTest("url test");
-      fct.setUp();
-      fct.testIsValid();
-      fct.testIsValidScheme();
+   public void testValidator202() {
+       final String[] schemes = {"http","https"};
+       final UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.NO_FRAGMENTS);
+       urlValidator.isValid("http://www.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.logoworks.comwww.log");
    }
-   //-------------------- Test data for creating a composite URL
-   /**
-    * The data given below approximates the 4 parts of a URL
-    * <scheme>://<authority><path>?<query> except that the port number
-    * is broken out of authority to increase the number of permutations.
-    * A complete URL is composed of a scheme+authority+port+path+query,
-    * all of which must be individually valid for the entire URL to be considered
-    * valid.
-    */
-   ResultPair[] testUrlScheme = {new ResultPair("http://", true),
-                               new ResultPair("ftp://", true),
-                               new ResultPair("h3t://", true),
-                               new ResultPair("3ht://", false),
-                               new ResultPair("http:/", false),
-                               new ResultPair("http:", false),
-                               new ResultPair("http/", false),
-                               new ResultPair("://", false),
-                               new ResultPair("", true)};
 
-   ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
-                                  new ResultPair("go.com", true),
-                                  new ResultPair("go.au", true),
-                                  new ResultPair("0.0.0.0", true),
-                                  new ResultPair("255.255.255.255", true),
-                                  new ResultPair("256.256.256.256", false),
-                                  new ResultPair("255.com", true),
-                                  new ResultPair("1.2.3.4.5", false),
-                                  new ResultPair("1.2.3.4.", false),
-                                  new ResultPair("1.2.3", false),
-                                  new ResultPair(".1.2.3.4", false),
-                                  new ResultPair("go.a", false),
-                                  new ResultPair("go.a1a", true),
-                                  new ResultPair("go.1aa", false),
-                                  new ResultPair("aaa.", false),
-                                  new ResultPair(".aaa", false),
-                                  new ResultPair("aaa", false),
-                                  new ResultPair("", false)
-   };
-   ResultPair[] testUrlPort = {new ResultPair(":80", true),
-                             new ResultPair(":65535", true),
-                             new ResultPair(":0", true),
-                             new ResultPair("", true),
-                             new ResultPair(":-1", false),
-                             new ResultPair(":65636", true),
-                             new ResultPair(":65a", false)
-   };
-   ResultPair[] testPath = {new ResultPair("/test1", true),
-                          new ResultPair("/t123", true),
-                          new ResultPair("/$23", true),
-                          new ResultPair("/..", false),
-                          new ResultPair("/../", false),
-                          new ResultPair("/test1/", true),
-                          new ResultPair("", true),
-                          new ResultPair("/test1/file", true),
-                          new ResultPair("/..//file", false),
-                          new ResultPair("/test1//file", false)
-   };
-   //Test allow2slash, noFragment
-   ResultPair[] testUrlPathOptions = {new ResultPair("/test1", true),
-                                    new ResultPair("/t123", true),
-                                    new ResultPair("/$23", true),
-                                    new ResultPair("/..", false),
-                                    new ResultPair("/../", false),
-                                    new ResultPair("/test1/", true),
-                                    new ResultPair("/#", false),
-                                    new ResultPair("", true),
-                                    new ResultPair("/test1/file", true),
-                                    new ResultPair("/t123/file", true),
-                                    new ResultPair("/$23/file", true),
-                                    new ResultPair("/../file", false),
-                                    new ResultPair("/..//file", false),
-                                    new ResultPair("/test1//file", true),
-                                    new ResultPair("/#/file", false)
-   };
-
-   ResultPair[] testUrlQuery = {new ResultPair("?action=view", true),
-                              new ResultPair("?action=edit&mode=up", true),
-                              new ResultPair("", true)
-   };
-
-   Object[] testUrlParts = {testUrlScheme, testUrlAuthority, testUrlPort, testPath, testUrlQuery};
-   Object[] testUrlPartsOptions = {testUrlScheme, testUrlAuthority, testUrlPort, testUrlPathOptions, testUrlQuery};
-   int[] testPartsIndex = {0, 0, 0, 0, 0};
-
-   //---------------- Test data for individual url parts ----------------
-   ResultPair[] testScheme = {new ResultPair("http", true),
-                            new ResultPair("ftp", false),
-                            new ResultPair("httpd", false),
-                            new ResultPair("telnet", false)};
+   public void testValidator204() {
+       final String[] schemes = {"http","https"};
+       final UrlValidator urlValidator = new UrlValidator(schemes);
+       assertTrue(urlValidator.isValid("http://tech.yahoo.com/rc/desktops/102;_ylt=Ao8yevQHlZ4On0O3ZJGXLEQFLZA5"));
+   }
 
 }

@@ -121,15 +121,6 @@ public class EmailValidator {
     }
 
     /**
-     * Returns true if the user component of an email address is valid.
-     * @param user being validated
-     * @return true if the user name is valid.
-     */
-    protected boolean isValidUser(final String user) {
-        return USER_PATTERN.matcher(user).matches();
-    }
-
-    /**
      * Validates an IP address. Returns true if valid.
      * @param ipAddress IP address
      * @return true if the ip address is valid.
@@ -198,6 +189,15 @@ public class EmailValidator {
         }
 
         return true;
+    }
+
+    /**
+     * Returns true if the user component of an email address is valid.
+     * @param user being validated
+     * @return true if the user name is valid.
+     */
+    protected boolean isValidUser(final String user) {
+        return USER_PATTERN.matcher(user).matches();
     }
     /**
      *   Recursively remove comments, and replace with a single space.  The simpler

@@ -44,6 +44,29 @@ public class GenericValidator implements Serializable {
         new CreditCardValidator();
 
     /**
+     * Calculate an adjustment amount for line endings.
+     *
+     * See Bug 37962 for the rational behind this.
+     *
+     * @param value The value validation is being performed on.
+     * @param lineEndLength The length to use for line endings.
+     * @return the adjustment amount.
+     */
+    private static int adjustForLineEnding(final String value, final int lineEndLength) {
+        int nCount = 0;
+        int rCount = 0;
+        for (int i = 0; i < value.length(); i++) {
+            if (value.charAt(i) == '\n') {
+                nCount++;
+            }
+            if (value.charAt(i) == '\r') {
+                rCount++;
+            }
+        }
+        return nCount * lineEndLength - (rCount + nCount);
+    }
+
+    /**
      * <p>Checks if the field isn't null and length of the field is greater
      * than zero not including whitespace.</p>
      *
@@ -52,21 +75,6 @@ public class GenericValidator implements Serializable {
      */
     public static boolean isBlankOrNull(final String value) {
         return value == null || value.trim().isEmpty();
-    }
-
-    /**
-     * <p>Checks if the value matches the regular expression.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param regexp The regular expression.
-     * @return true if matches the regular expression.
-     */
-    public static boolean matchRegexp(final String value, final String regexp) {
-        if (regexp == null || regexp.isEmpty()) {
-            return false;
-        }
-
-        return Pattern.matches(regexp, value);
     }
 
     /**
@@ -80,53 +88,12 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value can safely be converted to a short primitive.</p>
-     *
+     * Checks if the field is a valid credit card number.
      * @param value The value validation is being performed on.
-     * @return true if the value can be converted to a Short.
+     * @return true if the value is valid Credit Card Number.
      */
-    public static boolean isShort(final String value) {
-        return GenericTypeValidator.formatShort(value) != null;
-    }
-
-    /**
-     * <p>Checks if the value can safely be converted to a int primitive.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @return true if the value can be converted to an Integer.
-     */
-    public static boolean isInt(final String value) {
-        return GenericTypeValidator.formatInt(value) != null;
-    }
-
-    /**
-     * <p>Checks if the value can safely be converted to a long primitive.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @return true if the value can be converted to a Long.
-     */
-    public static boolean isLong(final String value) {
-        return GenericTypeValidator.formatLong(value) != null;
-    }
-
-    /**
-     * <p>Checks if the value can safely be converted to a float primitive.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @return true if the value can be converted to a Float.
-     */
-    public static boolean isFloat(final String value) {
-        return GenericTypeValidator.formatFloat(value) != null;
-    }
-
-    /**
-     * <p>Checks if the value can safely be converted to a double primitive.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @return true if the value can be converted to a Double.
-     */
-    public static boolean isDouble(final String value) {
-        return GenericTypeValidator.formatDouble(value) != null;
+    public static boolean isCreditCard(final String value) {
+        return CREDIT_CARD_VALIDATOR.isValid(value);
     }
 
     /**
@@ -161,6 +128,36 @@ public class GenericValidator implements Serializable {
     }
 
     /**
+     * <p>Checks if the value can safely be converted to a double primitive.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @return true if the value can be converted to a Double.
+     */
+    public static boolean isDouble(final String value) {
+        return GenericTypeValidator.formatDouble(value) != null;
+    }
+
+    /**
+     * <p>Checks if a field has a valid e-mail address.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @return true if the value is valid Email Address.
+     */
+    public static boolean isEmail(final String value) {
+        return EmailValidator.getInstance().isValid(value);
+    }
+
+    /**
+     * <p>Checks if the value can safely be converted to a float primitive.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @return true if the value can be converted to a Float.
+     */
+    public static boolean isFloat(final String value) {
+        return GenericTypeValidator.formatFloat(value) != null;
+    }
+
+    /**
     * <p>Checks if a value is within a range (min &amp; max specified
     * in the vars attribute).</p>
     *
@@ -182,7 +179,7 @@ public class GenericValidator implements Serializable {
      * @param max The maximum value of the range.
      * @return true if the value is in the specified range.
      */
-    public static boolean isInRange(final int value, final int min, final int max) {
+    public static boolean isInRange(final double value, final double min, final double max) {
         return value >= min && value <= max;
     }
 
@@ -208,7 +205,7 @@ public class GenericValidator implements Serializable {
      * @param max The maximum value of the range.
      * @return true if the value is in the specified range.
      */
-    public static boolean isInRange(final short value, final short min, final short max) {
+    public static boolean isInRange(final int value, final int min, final int max) {
         return value >= min && value <= max;
     }
 
@@ -234,27 +231,38 @@ public class GenericValidator implements Serializable {
      * @param max The maximum value of the range.
      * @return true if the value is in the specified range.
      */
-    public static boolean isInRange(final double value, final double min, final double max) {
+    public static boolean isInRange(final short value, final short min, final short max) {
         return value >= min && value <= max;
     }
 
     /**
-     * Checks if the field is a valid credit card number.
+     * <p>Checks if the value can safely be converted to a int primitive.</p>
+     *
      * @param value The value validation is being performed on.
-     * @return true if the value is valid Credit Card Number.
+     * @return true if the value can be converted to an Integer.
      */
-    public static boolean isCreditCard(final String value) {
-        return CREDIT_CARD_VALIDATOR.isValid(value);
+    public static boolean isInt(final String value) {
+        return GenericTypeValidator.formatInt(value) != null;
     }
 
     /**
-     * <p>Checks if a field has a valid e-mail address.</p>
+     * <p>Checks if the value can safely be converted to a long primitive.</p>
      *
      * @param value The value validation is being performed on.
-     * @return true if the value is valid Email Address.
+     * @return true if the value can be converted to a Long.
      */
-    public static boolean isEmail(final String value) {
-        return EmailValidator.getInstance().isValid(value);
+    public static boolean isLong(final String value) {
+        return GenericTypeValidator.formatLong(value) != null;
+    }
+
+    /**
+     * <p>Checks if the value can safely be converted to a short primitive.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @return true if the value can be converted to a Short.
+     */
+    public static boolean isShort(final String value) {
+        return GenericTypeValidator.formatShort(value) != null;
     }
 
     /**
@@ -267,6 +275,21 @@ public class GenericValidator implements Serializable {
      */
     public static boolean isUrl(final String value) {
         return URL_VALIDATOR.isValid(value);
+    }
+
+    /**
+     * <p>Checks if the value matches the regular expression.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param regexp The regular expression.
+     * @return true if matches the regular expression.
+     */
+    public static boolean matchRegexp(final String value, final String regexp) {
+        if (regexp == null || regexp.isEmpty()) {
+            return false;
+        }
+
+        return Pattern.matches(regexp, value);
     }
 
     /**
@@ -294,6 +317,52 @@ public class GenericValidator implements Serializable {
     }
 
     /**
+     * <p>Checks if the value is less than or equal to the max.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max The maximum numeric value.
+     * @return true if the value is &lt;= the specified maximum.
+     */
+    public static boolean maxValue(final double value, final double max) {
+        return value <= max;
+    }
+
+    /**
+     * <p>Checks if the value is less than or equal to the max.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max The maximum numeric value.
+     * @return true if the value is &lt;= the specified maximum.
+     */
+    public static boolean maxValue(final float value, final float max) {
+        return value <= max;
+    }
+
+    // See http://issues.apache.org/bugzilla/show_bug.cgi?id=29015 WRT the "value" methods
+
+    /**
+     * <p>Checks if the value is less than or equal to the max.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max The maximum numeric value.
+     * @return true if the value is &lt;= the specified maximum.
+     */
+    public static boolean maxValue(final int value, final int max) {
+        return value <= max;
+    }
+
+    /**
+     * <p>Checks if the value is less than or equal to the max.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max The maximum numeric value.
+     * @return true if the value is &lt;= the specified maximum.
+     */
+    public static boolean maxValue(final long value, final long max) {
+        return value <= max;
+    }
+
+    /**
      * <p>Checks if the value's length is greater than or equal to the min.</p>
      *
      * @param value The value validation is being performed on.
@@ -315,53 +384,6 @@ public class GenericValidator implements Serializable {
     public static boolean minLength(final String value, final int min, final int lineEndLength) {
         final int adjustAmount = adjustForLineEnding(value, lineEndLength);
         return value.length() + adjustAmount >= min;
-    }
-
-    /**
-     * Calculate an adjustment amount for line endings.
-     *
-     * See Bug 37962 for the rational behind this.
-     *
-     * @param value The value validation is being performed on.
-     * @param lineEndLength The length to use for line endings.
-     * @return the adjustment amount.
-     */
-    private static int adjustForLineEnding(final String value, final int lineEndLength) {
-        int nCount = 0;
-        int rCount = 0;
-        for (int i = 0; i < value.length(); i++) {
-            if (value.charAt(i) == '\n') {
-                nCount++;
-            }
-            if (value.charAt(i) == '\r') {
-                rCount++;
-            }
-        }
-        return nCount * lineEndLength - (rCount + nCount);
-    }
-
-    // See http://issues.apache.org/bugzilla/show_bug.cgi?id=29015 WRT the "value" methods
-
-    /**
-     * <p>Checks if the value is greater than or equal to the min.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum numeric value.
-     * @return true if the value is &gt;= the specified minimum.
-     */
-    public static boolean minValue(final int value, final int min) {
-        return value >= min;
-    }
-
-    /**
-     * <p>Checks if the value is greater than or equal to the min.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum numeric value.
-     * @return true if the value is &gt;= the specified minimum.
-     */
-    public static boolean minValue(final long value, final long min) {
-        return value >= min;
     }
 
     /**
@@ -387,47 +409,25 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value is less than or equal to the max.</p>
+     * <p>Checks if the value is greater than or equal to the min.</p>
      *
      * @param value The value validation is being performed on.
-     * @param max The maximum numeric value.
-     * @return true if the value is &lt;= the specified maximum.
+     * @param min The minimum numeric value.
+     * @return true if the value is &gt;= the specified minimum.
      */
-    public static boolean maxValue(final int value, final int max) {
-        return value <= max;
+    public static boolean minValue(final int value, final int min) {
+        return value >= min;
     }
 
     /**
-     * <p>Checks if the value is less than or equal to the max.</p>
+     * <p>Checks if the value is greater than or equal to the min.</p>
      *
      * @param value The value validation is being performed on.
-     * @param max The maximum numeric value.
-     * @return true if the value is &lt;= the specified maximum.
+     * @param min The minimum numeric value.
+     * @return true if the value is &gt;= the specified minimum.
      */
-    public static boolean maxValue(final long value, final long max) {
-        return value <= max;
-    }
-
-    /**
-     * <p>Checks if the value is less than or equal to the max.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param max The maximum numeric value.
-     * @return true if the value is &lt;= the specified maximum.
-     */
-    public static boolean maxValue(final double value, final double max) {
-        return value <= max;
-    }
-
-    /**
-     * <p>Checks if the value is less than or equal to the max.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param max The maximum numeric value.
-     * @return true if the value is &lt;= the specified maximum.
-     */
-    public static boolean maxValue(final float value, final float max) {
-        return value <= max;
+    public static boolean minValue(final long value, final long min) {
+        return value >= min;
     }
 
 }

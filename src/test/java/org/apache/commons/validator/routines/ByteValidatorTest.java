@@ -80,6 +80,38 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
+     * Test Byte Range/Min/Max
+     */
+    public void testByteRangeMinMax() {
+        final ByteValidator validator = (ByteValidator)strictValidator;
+        final Byte number9  = validator.validate("9", "#");
+        final Byte number10 = validator.validate("10", "#");
+        final Byte number11 = validator.validate("11", "#");
+        final Byte number19 = validator.validate("19", "#");
+        final Byte number20 = validator.validate("20", "#");
+        final Byte number21 = validator.validate("21", "#");
+        final byte min = (byte)10;
+        final byte max = (byte)20;
+
+        // Test isInRange()
+        assertFalse("isInRange() < min",   validator.isInRange(number9,  min, max));
+        assertTrue("isInRange() = min",    validator.isInRange(number10, min, max));
+        assertTrue("isInRange() in range", validator.isInRange(number11, min, max));
+        assertTrue("isInRange() = max",    validator.isInRange(number20, min, max));
+        assertFalse("isInRange() > max",   validator.isInRange(number21, min, max));
+
+        // Test minValue()
+        assertFalse("minValue() < min",    validator.minValue(number9,  min));
+        assertTrue("minValue() = min",     validator.minValue(number10, min));
+        assertTrue("minValue() > min",     validator.minValue(number11, min));
+
+        // Test minValue()
+        assertTrue("maxValue() < max",     validator.maxValue(number19, max));
+        assertTrue("maxValue() = max",     validator.maxValue(number20, max));
+        assertFalse("maxValue() > max",    validator.maxValue(number21, max));
+    }
+
+    /**
      * Test ByteValidator validate Methods
      */
     public void testByteValidatorMethods() {
@@ -110,37 +142,5 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
         assertFalse("isValid(B) locale ", ByteValidator.getInstance().isValid(XXXX, locale));
         assertFalse("isValid(B) pattern", ByteValidator.getInstance().isValid(XXXX, pattern));
         assertFalse("isValid(B) both",    ByteValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
-    }
-
-    /**
-     * Test Byte Range/Min/Max
-     */
-    public void testByteRangeMinMax() {
-        final ByteValidator validator = (ByteValidator)strictValidator;
-        final Byte number9  = validator.validate("9", "#");
-        final Byte number10 = validator.validate("10", "#");
-        final Byte number11 = validator.validate("11", "#");
-        final Byte number19 = validator.validate("19", "#");
-        final Byte number20 = validator.validate("20", "#");
-        final Byte number21 = validator.validate("21", "#");
-        final byte min = (byte)10;
-        final byte max = (byte)20;
-
-        // Test isInRange()
-        assertFalse("isInRange() < min",   validator.isInRange(number9,  min, max));
-        assertTrue("isInRange() = min",    validator.isInRange(number10, min, max));
-        assertTrue("isInRange() in range", validator.isInRange(number11, min, max));
-        assertTrue("isInRange() = max",    validator.isInRange(number20, min, max));
-        assertFalse("isInRange() > max",   validator.isInRange(number21, min, max));
-
-        // Test minValue()
-        assertFalse("minValue() < min",    validator.minValue(number9,  min));
-        assertTrue("minValue() = min",     validator.minValue(number10, min));
-        assertTrue("minValue() > min",     validator.minValue(number11, min));
-
-        // Test minValue()
-        assertTrue("maxValue() < max",     validator.maxValue(number19, max));
-        assertTrue("maxValue() = max",     validator.maxValue(number20, max));
-        assertFalse("maxValue() > max",    validator.maxValue(number21, max));
     }
 }

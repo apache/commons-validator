@@ -96,6 +96,17 @@ public class RegexValidator implements Serializable {
     }
 
     /**
+     * Constructs a <i>case sensitive</i> validator that matches any one
+     * in the array of regular expressions.
+     *
+     * @param regexs The set of regular expressions this validator will
+     * validate against
+     */
+    public RegexValidator(final String... regexs) {
+        this(regexs, true);
+    }
+
+    /**
      * Constructs a validator for a single regular expression
      * with the specified case sensitivity.
      *
@@ -106,17 +117,6 @@ public class RegexValidator implements Serializable {
      */
     public RegexValidator(final String regex, final boolean caseSensitive) {
         this(new String[] { regex }, caseSensitive);
-    }
-
-    /**
-     * Constructs a <i>case sensitive</i> validator that matches any one
-     * in the array of regular expressions.
-     *
-     * @param regexs The set of regular expressions this validator will
-     * validate against
-     */
-    public RegexValidator(final String... regexs) {
-        this(regexs, true);
     }
 
     /**
@@ -198,6 +198,24 @@ public class RegexValidator implements Serializable {
     }
 
     /**
+     * Provides a String representation of this validator.
+     * @return A String representation of this validator.
+     */
+    @Override
+    public String toString() {
+        final StringBuilder buffer = new StringBuilder();
+        buffer.append("RegexValidator{");
+        for (int i = 0; i < patterns.length; i++) {
+            if (i > 0) {
+                buffer.append(",");
+            }
+            buffer.append(patterns[i].pattern());
+        }
+        buffer.append("}");
+        return buffer.toString();
+    }
+
+    /**
      * Validates a value against the set of regular expressions
      * returning a String value of the aggregated groups.
      *
@@ -227,24 +245,6 @@ public class RegexValidator implements Serializable {
             }
         }
         return null;
-    }
-
-    /**
-     * Provides a String representation of this validator.
-     * @return A String representation of this validator.
-     */
-    @Override
-    public String toString() {
-        final StringBuilder buffer = new StringBuilder();
-        buffer.append("RegexValidator{");
-        for (int i = 0; i < patterns.length; i++) {
-            if (i > 0) {
-                buffer.append(",");
-            }
-            buffer.append(patterns[i].pattern());
-        }
-        buffer.append("}");
-        return buffer.toString();
     }
 
 }

@@ -73,36 +73,33 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * Test FloatValidator validate Methods
+     * Test Float Range/Min/Max
      */
-    public void testFloatValidatorMethods() {
-        final Locale locale     = Locale.GERMAN;
-        final String pattern    = "0,00,00";
-        final String patternVal = "1,23,45";
-        final String localeVal  = "12.345";
-        final String germanPatternVal = "1.23.45";
-        final String defaultVal = "12,345";
-        final String XXXX    = "XXXX";
-        final Float expected = Float.valueOf(12345);
-        assertEquals("validate(A) default", expected, FloatValidator.getInstance().validate(defaultVal));
-        assertEquals("validate(A) locale ", expected, FloatValidator.getInstance().validate(localeVal, locale));
-        assertEquals("validate(A) pattern", expected, FloatValidator.getInstance().validate(patternVal, pattern));
-        assertEquals("validate(A) both",    expected, FloatValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN));
+    public void testFloatRangeMinMax() {
+        final FloatValidator validator = (FloatValidator)strictValidator;
+        final Float number9  = validator.validate("9", "#");
+        final Float number10 = validator.validate("10", "#");
+        final Float number11 = validator.validate("11", "#");
+        final Float number19 = validator.validate("19", "#");
+        final Float number20 = validator.validate("20", "#");
+        final Float number21 = validator.validate("21", "#");
 
-        assertTrue("isValid(A) default", FloatValidator.getInstance().isValid(defaultVal));
-        assertTrue("isValid(A) locale ", FloatValidator.getInstance().isValid(localeVal, locale));
-        assertTrue("isValid(A) pattern", FloatValidator.getInstance().isValid(patternVal, pattern));
-        assertTrue("isValid(A) both",    FloatValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN));
+        // Test isInRange()
+        assertFalse("isInRange() < min",   validator.isInRange(number9,  10, 20));
+        assertTrue("isInRange() = min",    validator.isInRange(number10, 10, 20));
+        assertTrue("isInRange() in range", validator.isInRange(number11, 10, 20));
+        assertTrue("isInRange() = max",    validator.isInRange(number20, 10, 20));
+        assertFalse("isInRange() > max",   validator.isInRange(number21, 10, 20));
 
-        assertNull("validate(B) default", FloatValidator.getInstance().validate(XXXX));
-        assertNull("validate(B) locale ", FloatValidator.getInstance().validate(XXXX, locale));
-        assertNull("validate(B) pattern", FloatValidator.getInstance().validate(XXXX, pattern));
-        assertNull("validate(B) both",    FloatValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN));
+        // Test minValue()
+        assertFalse("minValue() < min",    validator.minValue(number9,  10));
+        assertTrue("minValue() = min",     validator.minValue(number10, 10));
+        assertTrue("minValue() > min",     validator.minValue(number11, 10));
 
-        assertFalse("isValid(B) default", FloatValidator.getInstance().isValid(XXXX));
-        assertFalse("isValid(B) locale ", FloatValidator.getInstance().isValid(XXXX, locale));
-        assertFalse("isValid(B) pattern", FloatValidator.getInstance().isValid(XXXX, pattern));
-        assertFalse("isValid(B) both",    FloatValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
+        // Test minValue()
+        assertTrue("maxValue() < max",     validator.maxValue(number19, 20));
+        assertTrue("maxValue() = max",     validator.maxValue(number20, 20));
+        assertFalse("maxValue() > max",    validator.maxValue(number21, 20));
     }
 
     /**
@@ -135,32 +132,35 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * Test Float Range/Min/Max
+     * Test FloatValidator validate Methods
      */
-    public void testFloatRangeMinMax() {
-        final FloatValidator validator = (FloatValidator)strictValidator;
-        final Float number9  = validator.validate("9", "#");
-        final Float number10 = validator.validate("10", "#");
-        final Float number11 = validator.validate("11", "#");
-        final Float number19 = validator.validate("19", "#");
-        final Float number20 = validator.validate("20", "#");
-        final Float number21 = validator.validate("21", "#");
+    public void testFloatValidatorMethods() {
+        final Locale locale     = Locale.GERMAN;
+        final String pattern    = "0,00,00";
+        final String patternVal = "1,23,45";
+        final String localeVal  = "12.345";
+        final String germanPatternVal = "1.23.45";
+        final String defaultVal = "12,345";
+        final String XXXX    = "XXXX";
+        final Float expected = Float.valueOf(12345);
+        assertEquals("validate(A) default", expected, FloatValidator.getInstance().validate(defaultVal));
+        assertEquals("validate(A) locale ", expected, FloatValidator.getInstance().validate(localeVal, locale));
+        assertEquals("validate(A) pattern", expected, FloatValidator.getInstance().validate(patternVal, pattern));
+        assertEquals("validate(A) both",    expected, FloatValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN));
 
-        // Test isInRange()
-        assertFalse("isInRange() < min",   validator.isInRange(number9,  10, 20));
-        assertTrue("isInRange() = min",    validator.isInRange(number10, 10, 20));
-        assertTrue("isInRange() in range", validator.isInRange(number11, 10, 20));
-        assertTrue("isInRange() = max",    validator.isInRange(number20, 10, 20));
-        assertFalse("isInRange() > max",   validator.isInRange(number21, 10, 20));
+        assertTrue("isValid(A) default", FloatValidator.getInstance().isValid(defaultVal));
+        assertTrue("isValid(A) locale ", FloatValidator.getInstance().isValid(localeVal, locale));
+        assertTrue("isValid(A) pattern", FloatValidator.getInstance().isValid(patternVal, pattern));
+        assertTrue("isValid(A) both",    FloatValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN));
 
-        // Test minValue()
-        assertFalse("minValue() < min",    validator.minValue(number9,  10));
-        assertTrue("minValue() = min",     validator.minValue(number10, 10));
-        assertTrue("minValue() > min",     validator.minValue(number11, 10));
+        assertNull("validate(B) default", FloatValidator.getInstance().validate(XXXX));
+        assertNull("validate(B) locale ", FloatValidator.getInstance().validate(XXXX, locale));
+        assertNull("validate(B) pattern", FloatValidator.getInstance().validate(XXXX, pattern));
+        assertNull("validate(B) both",    FloatValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN));
 
-        // Test minValue()
-        assertTrue("maxValue() < max",     validator.maxValue(number19, 20));
-        assertTrue("maxValue() = max",     validator.maxValue(number20, 20));
-        assertFalse("maxValue() > max",    validator.maxValue(number21, 20));
+        assertFalse("isValid(B) default", FloatValidator.getInstance().isValid(XXXX));
+        assertFalse("isValid(B) locale ", FloatValidator.getInstance().isValid(XXXX, locale));
+        assertFalse("isValid(B) pattern", FloatValidator.getInstance().isValid(XXXX, pattern));
+        assertFalse("isValid(B) both",    FloatValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
     }
 }

@@ -55,37 +55,26 @@ public class Msg implements Cloneable, Serializable {
     protected boolean resource = true;
 
     /**
+     * Creates and returns a copy of this object.
+     * @return A copy of the Msg.
+     */
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+
+        } catch (final CloneNotSupportedException e) {
+            throw new UnsupportedOperationException(e.toString(), e);
+        }
+    }
+
+    /**
      * Returns the resource bundle name.
      * @return The bundle name.
      * @since 1.1
      */
     public String getBundle() {
         return this.bundle;
-    }
-
-    /**
-     * Sets the resource bundle name.
-     * @param bundle The new bundle name.
-     * @since 1.1
-     */
-    public void setBundle(final String bundle) {
-        this.bundle = bundle;
-    }
-
-    /**
-     * Gets the name of the dependency.
-     * @return The dependency name.
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the name of the dependency.
-     * @param name The dependency name.
-     */
-    public void setName(final String name) {
-        this.name = name;
     }
 
     /**
@@ -97,11 +86,11 @@ public class Msg implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the key/value.
-     * @param key The message key/value.
+     * Gets the name of the dependency.
+     * @return The dependency name.
      */
-    public void setKey(final String key) {
-        this.key = key;
+    public String getName() {
+        return name;
     }
 
     /**
@@ -114,26 +103,37 @@ public class Msg implements Cloneable, Serializable {
     }
 
     /**
+     * Sets the resource bundle name.
+     * @param bundle The new bundle name.
+     * @since 1.1
+     */
+    public void setBundle(final String bundle) {
+        this.bundle = bundle;
+    }
+
+    /**
+     * Sets the key/value.
+     * @param key The message key/value.
+     */
+    public void setKey(final String key) {
+        this.key = key;
+    }
+
+    /**
+     * Sets the name of the dependency.
+     * @param name The dependency name.
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
      * Sets whether or not the key is a resource.
      * @param resource If true indicates the key is a resource.
      * @since 1.1.4
      */
     public void setResource(final boolean resource) {
         this.resource = resource;
-    }
-
-    /**
-     * Creates and returns a copy of this object.
-     * @return A copy of the Msg.
-     */
-    @Override
-    public Object clone() {
-        try {
-            return super.clone();
-
-        } catch (final CloneNotSupportedException e) {
-            throw new UnsupportedOperationException(e.toString(), e);
-        }
     }
 
     /**

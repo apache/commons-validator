@@ -46,67 +46,6 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
     }
 
     /**
-     * Check that locale providers are set up correctly
-     * If not, the parse will fail
-     */
-    public void testLocaleProviders() throws Exception {
-        final String localeProviders = System.getProperty("java.locale.providers");
-        if (localeProviders != null) { // may be null before Java 9
-            assertTrue("java.locale.providers must start with COMPAT", localeProviders.startsWith("COMPAT"));
-        }
-        final String txt = "3/20/15 10:59:00 PM";  // This relies on the locale format prior to Java 9 to parse correctly
-        final DateFormat dateformat= DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, Locale.US);
-        dateformat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        final Date date = dateformat.parse(txt);
-        assertNotNull(date);
-    }
-    /**
-     * Test DateValidator validate Methods
-     */
-    public void testDateValidatorMethods() {
-        Locale.setDefault(Locale.US);
-        final Locale locale     = Locale.GERMAN;
-        final String pattern    = "yyyy-MM-dd";
-        final String patternVal = "2005-12-31";
-        final String germanVal     = "31 Dez 2005";
-        final String germanPattern = "dd MMM yyyy";
-        final String localeVal  = "31.12.2005";
-        final String defaultVal = "12/31/05";
-        final String XXXX    = "XXXX";
-        final Date expected = createCalendar(null, 20051231, 0).getTime();
-
-        assertEquals("validate(A) default", expected, DateValidator.getInstance().validate(defaultVal));
-        assertEquals("validate(A) locale ", expected, DateValidator.getInstance().validate(localeVal, locale));
-        assertEquals("validate(A) pattern", expected, DateValidator.getInstance().validate(patternVal, pattern));
-        assertEquals("validate(A) both",    expected, DateValidator.getInstance().validate(germanVal, germanPattern, Locale.GERMAN));
-
-        assertTrue("isValid(A) default", DateValidator.getInstance().isValid(defaultVal));
-        assertTrue("isValid(A) locale ", DateValidator.getInstance().isValid(localeVal, locale));
-        assertTrue("isValid(A) pattern", DateValidator.getInstance().isValid(patternVal, pattern));
-        assertTrue("isValid(A) both",    DateValidator.getInstance().isValid(germanVal, germanPattern, Locale.GERMAN));
-
-        assertNull("validate(B) default", DateValidator.getInstance().validate(XXXX));
-        assertNull("validate(B) locale ", DateValidator.getInstance().validate(XXXX, locale));
-        assertNull("validate(B) pattern", DateValidator.getInstance().validate(XXXX, pattern));
-        assertNull("validate(B) both",    DateValidator.getInstance().validate("31 Dec 2005", germanPattern, Locale.GERMAN));
-
-        assertFalse("isValid(B) default", DateValidator.getInstance().isValid(XXXX));
-        assertFalse("isValid(B) locale ", DateValidator.getInstance().isValid(XXXX, locale));
-        assertFalse("isValid(B) pattern", DateValidator.getInstance().isValid(XXXX, pattern));
-        assertFalse("isValid(B) both",    DateValidator.getInstance().isValid("31 Dec 2005", germanPattern, Locale.GERMAN));
-
-        // Test Time Zone
-        final TimeZone zone = TimeZone.getDefault().getRawOffset() == EET.getRawOffset() ? EST : EET;
-        final Date expectedZone = createCalendar(zone, 20051231, 0).getTime();
-        assertFalse("default/zone same "+zone, expected.getTime() == expectedZone.getTime());
-
-        assertEquals("validate(C) default", expectedZone, DateValidator.getInstance().validate(defaultVal, zone));
-        assertEquals("validate(C) locale ", expectedZone, DateValidator.getInstance().validate(localeVal, locale, zone));
-        assertEquals("validate(C) pattern", expectedZone, DateValidator.getInstance().validate(patternVal, pattern, zone));
-        assertEquals("validate(C) both",    expectedZone, DateValidator.getInstance().validate(germanVal, germanPattern, Locale.GERMAN, zone));
-    }
-
-    /**
      * Test compare date methods
      */
     public void testCompare() {
@@ -177,5 +116,66 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
         assertEquals("date EQ", 0,  dateValidator.compareDates(value, diffHour, EST));    // same day, diff hour
         assertEquals("date EQ", 1,  dateValidator.compareDates(value, sameDayTwoAm, EST));    // same day, diff hour
         assertEquals("date GT", 1,  dateValidator.compareDates(value, date20050822, EST)); // -1 day
+    }
+    /**
+     * Test DateValidator validate Methods
+     */
+    public void testDateValidatorMethods() {
+        Locale.setDefault(Locale.US);
+        final Locale locale     = Locale.GERMAN;
+        final String pattern    = "yyyy-MM-dd";
+        final String patternVal = "2005-12-31";
+        final String germanVal     = "31 Dez 2005";
+        final String germanPattern = "dd MMM yyyy";
+        final String localeVal  = "31.12.2005";
+        final String defaultVal = "12/31/05";
+        final String XXXX    = "XXXX";
+        final Date expected = createCalendar(null, 20051231, 0).getTime();
+
+        assertEquals("validate(A) default", expected, DateValidator.getInstance().validate(defaultVal));
+        assertEquals("validate(A) locale ", expected, DateValidator.getInstance().validate(localeVal, locale));
+        assertEquals("validate(A) pattern", expected, DateValidator.getInstance().validate(patternVal, pattern));
+        assertEquals("validate(A) both",    expected, DateValidator.getInstance().validate(germanVal, germanPattern, Locale.GERMAN));
+
+        assertTrue("isValid(A) default", DateValidator.getInstance().isValid(defaultVal));
+        assertTrue("isValid(A) locale ", DateValidator.getInstance().isValid(localeVal, locale));
+        assertTrue("isValid(A) pattern", DateValidator.getInstance().isValid(patternVal, pattern));
+        assertTrue("isValid(A) both",    DateValidator.getInstance().isValid(germanVal, germanPattern, Locale.GERMAN));
+
+        assertNull("validate(B) default", DateValidator.getInstance().validate(XXXX));
+        assertNull("validate(B) locale ", DateValidator.getInstance().validate(XXXX, locale));
+        assertNull("validate(B) pattern", DateValidator.getInstance().validate(XXXX, pattern));
+        assertNull("validate(B) both",    DateValidator.getInstance().validate("31 Dec 2005", germanPattern, Locale.GERMAN));
+
+        assertFalse("isValid(B) default", DateValidator.getInstance().isValid(XXXX));
+        assertFalse("isValid(B) locale ", DateValidator.getInstance().isValid(XXXX, locale));
+        assertFalse("isValid(B) pattern", DateValidator.getInstance().isValid(XXXX, pattern));
+        assertFalse("isValid(B) both",    DateValidator.getInstance().isValid("31 Dec 2005", germanPattern, Locale.GERMAN));
+
+        // Test Time Zone
+        final TimeZone zone = TimeZone.getDefault().getRawOffset() == EET.getRawOffset() ? EST : EET;
+        final Date expectedZone = createCalendar(zone, 20051231, 0).getTime();
+        assertFalse("default/zone same "+zone, expected.getTime() == expectedZone.getTime());
+
+        assertEquals("validate(C) default", expectedZone, DateValidator.getInstance().validate(defaultVal, zone));
+        assertEquals("validate(C) locale ", expectedZone, DateValidator.getInstance().validate(localeVal, locale, zone));
+        assertEquals("validate(C) pattern", expectedZone, DateValidator.getInstance().validate(patternVal, pattern, zone));
+        assertEquals("validate(C) both",    expectedZone, DateValidator.getInstance().validate(germanVal, germanPattern, Locale.GERMAN, zone));
+    }
+
+    /**
+     * Check that locale providers are set up correctly
+     * If not, the parse will fail
+     */
+    public void testLocaleProviders() throws Exception {
+        final String localeProviders = System.getProperty("java.locale.providers");
+        if (localeProviders != null) { // may be null before Java 9
+            assertTrue("java.locale.providers must start with COMPAT", localeProviders.startsWith("COMPAT"));
+        }
+        final String txt = "3/20/15 10:59:00 PM";  // This relies on the locale format prior to Java 9 to parse correctly
+        final DateFormat dateformat= DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, Locale.US);
+        dateformat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        final Date date = dateformat.parse(txt);
+        assertNotNull(date);
     }
 }

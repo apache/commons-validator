@@ -40,6 +40,56 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
     }
 
     /**
+     * Returns the check digit (i.e. last character) for a code.
+     *
+     * @param code The code
+     * @return The check digit
+     */
+    @Override
+    protected String checkDigit(final String code) {
+        if (code == null || code.length() <= checkDigitLth) {
+            return "";
+        }
+       return code.substring(2, 4);
+    }
+
+    /**
+     * Returns an array of codes with invalid check digits.
+     *
+     * @param codes Codes with valid check digits
+     * @return Codes with invalid check digits
+     */
+    @Override
+    protected String[] createInvalidCodes(final String[] codes) {
+        final List<String> list = new ArrayList<>();
+
+        // create invalid check digit values
+        for (final String code2 : codes) {
+            final String code = removeCheckDigit(code2);
+            final String check  = checkDigit(code2);
+            for (int j = 2; j <= 98; j++) { // check digits can be from 02-98 (00 and 01 are not possible)
+                final String curr =  j > 9 ? "" + j : "0" + j;
+                if (!curr.equals(check)) {
+                    list.add(code.substring(0, 2) + curr + code.substring(4));
+                }
+            }
+        }
+
+        return list.toArray(new String[0]);
+    }
+
+    /**
+     * Returns a code with the Check Digits (i.e. characters 3&4) set to "00".
+     *
+     * @param code The code
+     * @return The code with the zeroed check digits
+     */
+    @Override
+    protected String removeCheckDigit(final String code) {
+        return code.substring(0, 2) + "00" + code.substring(4);
+    }
+
+    /**
      * Sets up routine & valid codes.
      */
     @Override
@@ -160,6 +210,24 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
 
     }
 
+    public void testOther() throws Exception {
+        try (BufferedReader rdr = new BufferedReader(
+                new InputStreamReader(
+                        this.getClass().getResourceAsStream("IBANtests.txt"),"ASCII"))) {
+            String line;
+            while((line=rdr.readLine()) != null) {
+                if (!line.startsWith("#") && !line.isEmpty()) {
+                    if (line.startsWith("-")) {
+                        line = line.substring(1);
+                        Assert.assertFalse(line, routine.isValid(line.replace(" ", "")));
+                    } else {
+                        Assert.assertTrue(line, routine.isValid(line.replace(" ", "")));
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * Test zero sum
      */
@@ -179,73 +247,5 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
 //        } catch (CheckDigitException e) {
 //            e.printStackTrace();
 //        }
-    }
-
-    /**
-     * Returns an array of codes with invalid check digits.
-     *
-     * @param codes Codes with valid check digits
-     * @return Codes with invalid check digits
-     */
-    @Override
-    protected String[] createInvalidCodes(final String[] codes) {
-        final List<String> list = new ArrayList<>();
-
-        // create invalid check digit values
-        for (final String code2 : codes) {
-            final String code = removeCheckDigit(code2);
-            final String check  = checkDigit(code2);
-            for (int j = 2; j <= 98; j++) { // check digits can be from 02-98 (00 and 01 are not possible)
-                final String curr =  j > 9 ? "" + j : "0" + j;
-                if (!curr.equals(check)) {
-                    list.add(code.substring(0, 2) + curr + code.substring(4));
-                }
-            }
-        }
-
-        return list.toArray(new String[0]);
-    }
-
-    /**
-     * Returns a code with the Check Digits (i.e. characters 3&4) set to "00".
-     *
-     * @param code The code
-     * @return The code with the zeroed check digits
-     */
-    @Override
-    protected String removeCheckDigit(final String code) {
-        return code.substring(0, 2) + "00" + code.substring(4);
-    }
-
-    /**
-     * Returns the check digit (i.e. last character) for a code.
-     *
-     * @param code The code
-     * @return The check digit
-     */
-    @Override
-    protected String checkDigit(final String code) {
-        if (code == null || code.length() <= checkDigitLth) {
-            return "";
-        }
-       return code.substring(2, 4);
-    }
-
-    public void testOther() throws Exception {
-        try (BufferedReader rdr = new BufferedReader(
-                new InputStreamReader(
-                        this.getClass().getResourceAsStream("IBANtests.txt"),"ASCII"))) {
-            String line;
-            while((line=rdr.readLine()) != null) {
-                if (!line.startsWith("#") && !line.isEmpty()) {
-                    if (line.startsWith("-")) {
-                        line = line.substring(1);
-                        Assert.assertFalse(line, routine.isValid(line.replace(" ", "")));
-                    } else {
-                        Assert.assertTrue(line, routine.isValid(line.replace(" ", "")));
-                    }
-                }
-            }
-        }
     }
 }

@@ -72,6 +72,36 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
+     * Test Double Range/Min/Max
+     */
+    public void testDoubleRangeMinMax() {
+        final DoubleValidator validator = (DoubleValidator)strictValidator;
+        final Double number9  = validator.validate("9", "#");
+        final Double number10 = validator.validate("10", "#");
+        final Double number11 = validator.validate("11", "#");
+        final Double number19 = validator.validate("19", "#");
+        final Double number20 = validator.validate("20", "#");
+        final Double number21 = validator.validate("21", "#");
+
+        // Test isInRange()
+        assertFalse("isInRange() < min",   validator.isInRange(number9,  10, 20));
+        assertTrue("isInRange() = min",    validator.isInRange(number10, 10, 20));
+        assertTrue("isInRange() in range", validator.isInRange(number11, 10, 20));
+        assertTrue("isInRange() = max",    validator.isInRange(number20, 10, 20));
+        assertFalse("isInRange() > max",   validator.isInRange(number21, 10, 20));
+
+        // Test minValue()
+        assertFalse("minValue() < min",    validator.minValue(number9,  10));
+        assertTrue("minValue() = min",     validator.minValue(number10, 10));
+        assertTrue("minValue() > min",     validator.minValue(number11, 10));
+
+        // Test minValue()
+        assertTrue("maxValue() < max",     validator.maxValue(number19, 20));
+        assertTrue("maxValue() = max",     validator.maxValue(number20, 20));
+        assertFalse("maxValue() > max",    validator.maxValue(number21, 20));
+    }
+
+    /**
      * Test DoubleValidator validate Methods
      */
     public void testDoubleValidatorMethods() {
@@ -102,35 +132,5 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
         assertFalse("isValid(B) locale ", DoubleValidator.getInstance().isValid(XXXX, locale));
         assertFalse("isValid(B) pattern", DoubleValidator.getInstance().isValid(XXXX, pattern));
         assertFalse("isValid(B) both",    DoubleValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
-    }
-
-    /**
-     * Test Double Range/Min/Max
-     */
-    public void testDoubleRangeMinMax() {
-        final DoubleValidator validator = (DoubleValidator)strictValidator;
-        final Double number9  = validator.validate("9", "#");
-        final Double number10 = validator.validate("10", "#");
-        final Double number11 = validator.validate("11", "#");
-        final Double number19 = validator.validate("19", "#");
-        final Double number20 = validator.validate("20", "#");
-        final Double number21 = validator.validate("21", "#");
-
-        // Test isInRange()
-        assertFalse("isInRange() < min",   validator.isInRange(number9,  10, 20));
-        assertTrue("isInRange() = min",    validator.isInRange(number10, 10, 20));
-        assertTrue("isInRange() in range", validator.isInRange(number11, 10, 20));
-        assertTrue("isInRange() = max",    validator.isInRange(number20, 10, 20));
-        assertFalse("isInRange() > max",   validator.isInRange(number21, 10, 20));
-
-        // Test minValue()
-        assertFalse("minValue() < min",    validator.minValue(number9,  10));
-        assertTrue("minValue() = min",     validator.minValue(number10, 10));
-        assertTrue("minValue() > min",     validator.minValue(number11, 10));
-
-        // Test minValue()
-        assertTrue("maxValue() < max",     validator.maxValue(number19, 20));
-        assertTrue("maxValue() = max",     validator.maxValue(number20, 20));
-        assertFalse("maxValue() > max",    validator.maxValue(number21, 20));
     }
 }

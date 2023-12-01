@@ -40,62 +40,16 @@ public class InetAddressValidatorTest extends TestCase {
     }
 
     /**
-     * Test IPs that point to real, well-known hosts (without actually looking them up).
+     * Test obviously broken IPs.
      */
-    public void testInetAddressesFromTheWild() {
-        assertTrue("www.apache.org IP should be valid",       validator.isValid("140.211.11.130"));
-        assertTrue("www.l.google.com IP should be valid",     validator.isValid("72.14.253.103"));
-        assertTrue("fsf.org IP should be valid",              validator.isValid("199.232.41.5"));
-        assertTrue("appscs.ign.com IP should be valid",       validator.isValid("216.35.123.87"));
-    }
-
-    public void testVALIDATOR_335() {
-        assertTrue("2001:0438:FFFE:0000:0000:0000:0000:0A35 should be valid",       validator.isValid("2001:0438:FFFE:0000:0000:0000:0000:0A35"));
-    }
-
-    public void testVALIDATOR_419() {
-        String addr;
-        addr = "0:0:0:0:0:0:13.1.68.3";
-        assertTrue(addr, validator.isValid(addr));
-        addr = "0:0:0:0:0:FFFF:129.144.52.38";
-        assertTrue(addr, validator.isValid(addr));
-        addr = "::13.1.68.3";
-        assertTrue(addr, validator.isValid(addr));
-        addr = "::FFFF:129.144.52.38";
-        assertTrue(addr, validator.isValid(addr));
-
-        addr = "::ffff:192.168.1.1:192.168.1.1";
-        assertFalse(addr, validator.isValid(addr));
-        addr = "::192.168.1.1:192.168.1.1";
-        assertFalse(addr, validator.isValid(addr));
-    }
-
-    /**
-     * Inet6Address may also contain a scope id
-     */
-    public void testVALIDATOR_445() {
-        final String [] valid = {
-            "2001:0000:1234:0000:0000:C1C0:ABCD:0876",
-            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/123",
-            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/0",
-            "2001:0000:1234:0000:0000:C1C0:ABCD:0876%0",
-            "2001:0000:1234:0000:0000:C1C0:ABCD:0876%abcdefgh",
-            };
-        final String [] invalid = {
-            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/129", // too big
-            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/-0", // sign not allowed
-            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/+0", // sign not allowed
-            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/10O", // non-digit
-            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/0%0", // /bits before %node-id
-            "2001:0000:1234:0000:0000:C1C0:ABCD:0876%abc defgh", // space in node id
-            "2001:0000:1234:0000:0000:C1C0:ABCD:0876%abc%defgh", // '%' in node id
-            };
-        for(final String item : valid) {
-            assertTrue(String.format("%s should be valid", item), validator.isValid(item));
-        }
-        for(final String item : invalid) {
-            assertFalse(String.format("%s should be invalid", item), validator.isValid(item));
-        }
+    public void testBrokenInetAddresses() {
+        assertFalse("IP with characters should be invalid",     validator.isValid("124.14.32.abc"));
+        // TODO: there is some debate as to whether leading zeros should be allowed
+        // They are ambiguous: does the leading 0 mean octal?
+        assertFalse("IP with leading zeroes should be invalid", validator.isValid("124.14.32.01"));
+        assertFalse("IP with three groups should be invalid",   validator.isValid("23.64.12"));
+        assertFalse("IP with five groups should be invalid",    validator.isValid("26.34.23.77.234"));
+        assertFalse("IP empty string should be invalid", validator.isValidInet6Address(""));// empty string
     }
 
     /**
@@ -119,24 +73,13 @@ public class InetAddressValidatorTest extends TestCase {
     }
 
     /**
-     * Test reserved IPs.
+     * Test IPs that point to real, well-known hosts (without actually looking them up).
      */
-    public void testReservedInetAddresses() {
-        assertTrue("localhost IP should be valid",            validator.isValid("127.0.0.1"));
-        assertTrue("broadcast IP should be valid",            validator.isValid("255.255.255.255"));
-    }
-
-    /**
-     * Test obviously broken IPs.
-     */
-    public void testBrokenInetAddresses() {
-        assertFalse("IP with characters should be invalid",     validator.isValid("124.14.32.abc"));
-        // TODO: there is some debate as to whether leading zeros should be allowed
-        // They are ambiguous: does the leading 0 mean octal?
-        assertFalse("IP with leading zeroes should be invalid", validator.isValid("124.14.32.01"));
-        assertFalse("IP with three groups should be invalid",   validator.isValid("23.64.12"));
-        assertFalse("IP with five groups should be invalid",    validator.isValid("26.34.23.77.234"));
-        assertFalse("IP empty string should be invalid", validator.isValidInet6Address(""));// empty string
+    public void testInetAddressesFromTheWild() {
+        assertTrue("www.apache.org IP should be valid",       validator.isValid("140.211.11.130"));
+        assertTrue("www.l.google.com IP should be valid",     validator.isValid("72.14.253.103"));
+        assertTrue("fsf.org IP should be valid",              validator.isValid("199.232.41.5"));
+        assertTrue("appscs.ign.com IP should be valid",       validator.isValid("216.35.123.87"));
     }
 
     /**
@@ -644,6 +587,63 @@ public class InetAddressValidatorTest extends TestCase {
         assertTrue("IPV6 ::0:a:b:c:d:e:f should be valid", validator.isValidInet6Address("::0:a:b:c:d:e:f")); // syntactically correct, but bad form (::0:... could be combined)
         assertTrue("IPV6 a:b:c:d:e:f:0:: should be valid", validator.isValidInet6Address("a:b:c:d:e:f:0::"));
         assertFalse("IPV6 ':10.0.0.1 should be invalid", validator.isValidInet6Address("':10.0.0.1"));
+    }
+
+    /**
+     * Test reserved IPs.
+     */
+    public void testReservedInetAddresses() {
+        assertTrue("localhost IP should be valid",            validator.isValid("127.0.0.1"));
+        assertTrue("broadcast IP should be valid",            validator.isValid("255.255.255.255"));
+    }
+
+    public void testVALIDATOR_335() {
+        assertTrue("2001:0438:FFFE:0000:0000:0000:0000:0A35 should be valid",       validator.isValid("2001:0438:FFFE:0000:0000:0000:0000:0A35"));
+    }
+
+    public void testVALIDATOR_419() {
+        String addr;
+        addr = "0:0:0:0:0:0:13.1.68.3";
+        assertTrue(addr, validator.isValid(addr));
+        addr = "0:0:0:0:0:FFFF:129.144.52.38";
+        assertTrue(addr, validator.isValid(addr));
+        addr = "::13.1.68.3";
+        assertTrue(addr, validator.isValid(addr));
+        addr = "::FFFF:129.144.52.38";
+        assertTrue(addr, validator.isValid(addr));
+
+        addr = "::ffff:192.168.1.1:192.168.1.1";
+        assertFalse(addr, validator.isValid(addr));
+        addr = "::192.168.1.1:192.168.1.1";
+        assertFalse(addr, validator.isValid(addr));
+    }
+
+    /**
+     * Inet6Address may also contain a scope id
+     */
+    public void testVALIDATOR_445() {
+        final String [] valid = {
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876",
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/123",
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/0",
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876%0",
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876%abcdefgh",
+            };
+        final String [] invalid = {
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/129", // too big
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/-0", // sign not allowed
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/+0", // sign not allowed
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/10O", // non-digit
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876/0%0", // /bits before %node-id
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876%abc defgh", // space in node id
+            "2001:0000:1234:0000:0000:C1C0:ABCD:0876%abc%defgh", // '%' in node id
+            };
+        for(final String item : valid) {
+            assertTrue(String.format("%s should be valid", item), validator.isValid(item));
+        }
+        for(final String item : invalid) {
+            assertFalse(String.format("%s should be invalid", item), validator.isValid(item));
+        }
     }
 }
 

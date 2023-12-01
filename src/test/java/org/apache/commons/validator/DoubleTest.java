@@ -39,14 +39,13 @@ public class DoubleTest extends AbstractNumberTest {
     }
 
     /**
-     * Tests the double validation.
+     * Tests the double validation failure.
      */
-    public void testDoubleMin() throws ValidatorException {
+    public void testDoubleFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
-        info.setValue(Double.toString(Double.MIN_VALUE));
 
-        valueTest(info, true);
+        valueTest(info, false);
     }
 
     /**
@@ -61,13 +60,14 @@ public class DoubleTest extends AbstractNumberTest {
     }
 
     /**
-     * Tests the double validation failure.
+     * Tests the double validation.
      */
-    public void testDoubleFailure() throws ValidatorException {
+    public void testDoubleMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
+        info.setValue(Double.toString(Double.MIN_VALUE));
 
-        valueTest(info, false);
+        valueTest(info, true);
     }
 
 }

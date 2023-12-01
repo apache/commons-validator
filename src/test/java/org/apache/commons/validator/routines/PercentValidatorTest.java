@@ -57,6 +57,27 @@ public class PercentValidatorTest extends TestCase {
     }
 
     /**
+     * Test Invalid percentage values
+     */
+    public void testInvalid() {
+        final BigDecimalValidator validator = PercentValidator.getInstance();
+
+        // Invalid Missing
+        assertFalse("isValid() Null Value",    validator.isValid(null));
+        assertFalse("isValid() Empty Value",   validator.isValid(""));
+        assertNull("validate() Null Value",    validator.validate(null));
+        assertNull("validate() Empty Value",   validator.validate(""));
+
+        // Invalid UK
+        assertFalse("UK wrong symbol",    validator.isValid("12@",   Locale.UK)); // ???
+        assertFalse("UK wrong negative",  validator.isValid("(12%)", Locale.UK));
+
+        // Invalid US - can't find a Locale with different symbols!
+        assertFalse("US wrong symbol",    validator.isValid("12@",   Locale.US)); // ???
+        assertFalse("US wrong negative",  validator.isValid("(12%)", Locale.US));
+    }
+
+    /**
      * Test Valid percentage values
      */
     public void testValid() {
@@ -86,27 +107,6 @@ public class PercentValidatorTest extends TestCase {
 
         // Restore the original default
         Locale.setDefault(origDefault);
-    }
-
-    /**
-     * Test Invalid percentage values
-     */
-    public void testInvalid() {
-        final BigDecimalValidator validator = PercentValidator.getInstance();
-
-        // Invalid Missing
-        assertFalse("isValid() Null Value",    validator.isValid(null));
-        assertFalse("isValid() Empty Value",   validator.isValid(""));
-        assertNull("validate() Null Value",    validator.validate(null));
-        assertNull("validate() Empty Value",   validator.validate(""));
-
-        // Invalid UK
-        assertFalse("UK wrong symbol",    validator.isValid("12@",   Locale.UK)); // ???
-        assertFalse("UK wrong negative",  validator.isValid("(12%)", Locale.UK));
-
-        // Invalid US - can't find a Locale with different symbols!
-        assertFalse("US wrong symbol",    validator.isValid("12@",   Locale.US)); // ???
-        assertFalse("US wrong negative",  validator.isValid("(12%)", Locale.US));
     }
 
 }

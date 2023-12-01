@@ -39,14 +39,25 @@ public class IntegerTest extends AbstractNumberTest {
     }
 
     /**
-     * Tests the int validation.
+     * Tests the int validation failure.
      */
-    public void testIntMin() throws ValidatorException {
+    public void testIntBeyondMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
-        info.setValue(Integer.toString(Integer.MIN_VALUE));
+        info.setValue(Integer.MAX_VALUE + "1");
 
-        valueTest(info, true);
+        valueTest(info, false);
+    }
+
+    /**
+     * Tests the int validation failure.
+     */
+    public void testIntBeyondMin() throws ValidatorException {
+        // Create bean to run test on.
+        final ValueBean info = new ValueBean();
+        info.setValue(Integer.MIN_VALUE + "1");
+
+        valueTest(info, false);
     }
 
     /**
@@ -71,25 +82,14 @@ public class IntegerTest extends AbstractNumberTest {
     }
 
     /**
-     * Tests the int validation failure.
+     * Tests the int validation.
      */
-    public void testIntBeyondMin() throws ValidatorException {
+    public void testIntMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
-        info.setValue(Integer.MIN_VALUE + "1");
+        info.setValue(Integer.toString(Integer.MIN_VALUE));
 
-        valueTest(info, false);
-    }
-
-    /**
-     * Tests the int validation failure.
-     */
-    public void testIntBeyondMax() throws ValidatorException {
-        // Create bean to run test on.
-        final ValueBean info = new ValueBean();
-        info.setValue(Integer.MAX_VALUE + "1");
-
-        valueTest(info, false);
+        valueTest(info, true);
     }
 
 }

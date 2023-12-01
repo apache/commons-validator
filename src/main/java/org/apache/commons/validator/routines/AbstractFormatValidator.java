@@ -46,6 +46,77 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
+     * <p>Format an object into a <code>String</code> using
+     * the default Locale.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @return The value formatted as a <code>String</code>.
+     */
+    public String format(final Object value) {
+        return format(value, (String)null, (Locale)null);
+    }
+
+    /**
+     * <p>Format a value with the specified <code>Format</code>.</p>
+     *
+     * @param value The value to be formatted.
+     * @param formatter The Format to use.
+     * @return The formatted value.
+     */
+    protected String format(final Object value, final Format formatter) {
+        return formatter.format(value);
+    }
+
+    /**
+     * <p>Format an object into a <code>String</code> using
+     * the specified Locale.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param locale The locale to use for the Format.
+     * @return The value formatted as a <code>String</code>.
+     */
+    public String format(final Object value, final Locale locale) {
+        return format(value, (String)null, locale);
+    }
+
+    /**
+     * <p>Format an object into a <code>String</code> using
+     * the specified pattern.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to format the value.
+     * @return The value formatted as a <code>String</code>.
+     */
+    public String format(final Object value, final String pattern) {
+        return format(value, pattern, (Locale)null);
+    }
+
+    /**
+     * <p>Format an object using the specified pattern and/or
+     *    <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to format the value.
+     * @param locale The locale to use for the Format.
+     * @return The value formatted as a <code>String</code>.
+     */
+    public String format(final Object value, final String pattern, final Locale locale) {
+        final Format formatter = getFormat(pattern, locale);
+        return format(value, formatter);
+    }
+
+    /**
+     * <p>Returns a <code>Format</code> for the specified <i>pattern</i>
+     *    and/or <code>Locale</code>.</p>
+     *
+     * @param pattern The pattern used to validate the value against or
+     *        <code>null</code> to use the default for the <code>Locale</code>.
+     * @param locale The locale to use for the currency format, system default if null.
+     * @return The <code>NumberFormat</code> to created.
+     */
+    protected abstract Format getFormat(String pattern, Locale locale);
+
+    /**
      * <p>Indicates whether validated values should adhere
      *    strictly to the <code>Format</code> used.</p>
      *
@@ -77,17 +148,6 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Validate using the specified <i>pattern</i>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
-     * @return {@code true} if the value is valid.
-     */
-    public boolean isValid(final String value, final String pattern) {
-        return isValid(value, pattern, (Locale)null);
-    }
-
-    /**
      * <p>Validate using the specified <code>Locale</code>.
      *
      * @param value The value validation is being performed on.
@@ -99,6 +159,17 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
+     * <p>Validate using the specified <i>pattern</i>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against.
+     * @return {@code true} if the value is valid.
+     */
+    public boolean isValid(final String value, final String pattern) {
+        return isValid(value, pattern, (Locale)null);
+    }
+
+    /**
      * <p>Validate using the specified pattern and/or <code>Locale</code>.
      *
      * @param value The value validation is being performed on.
@@ -107,66 +178,6 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @return {@code true} if the value is valid.
      */
     public abstract boolean isValid(String value, String pattern, Locale locale);
-
-    /**
-     * <p>Format an object into a <code>String</code> using
-     * the default Locale.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @return The value formatted as a <code>String</code>.
-     */
-    public String format(final Object value) {
-        return format(value, (String)null, (Locale)null);
-    }
-
-    /**
-     * <p>Format an object into a <code>String</code> using
-     * the specified pattern.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to format the value.
-     * @return The value formatted as a <code>String</code>.
-     */
-    public String format(final Object value, final String pattern) {
-        return format(value, pattern, (Locale)null);
-    }
-
-    /**
-     * <p>Format an object into a <code>String</code> using
-     * the specified Locale.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param locale The locale to use for the Format.
-     * @return The value formatted as a <code>String</code>.
-     */
-    public String format(final Object value, final Locale locale) {
-        return format(value, (String)null, locale);
-    }
-
-    /**
-     * <p>Format an object using the specified pattern and/or
-     *    <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to format the value.
-     * @param locale The locale to use for the Format.
-     * @return The value formatted as a <code>String</code>.
-     */
-    public String format(final Object value, final String pattern, final Locale locale) {
-        final Format formatter = getFormat(pattern, locale);
-        return format(value, formatter);
-    }
-
-    /**
-     * <p>Format a value with the specified <code>Format</code>.</p>
-     *
-     * @param value The value to be formatted.
-     * @param formatter The Format to use.
-     * @return The formatted value.
-     */
-    protected String format(final Object value, final Format formatter) {
-        return formatter.format(value);
-    }
 
     /**
      * <p>Parse the value with the specified <code>Format</code>.</p>
@@ -205,16 +216,5 @@ public abstract class AbstractFormatValidator implements Serializable {
      *         if valid or <code>null</code> if invalid.
      */
     protected abstract Object processParsedValue(Object value, Format formatter);
-
-    /**
-     * <p>Returns a <code>Format</code> for the specified <i>pattern</i>
-     *    and/or <code>Locale</code>.</p>
-     *
-     * @param pattern The pattern used to validate the value against or
-     *        <code>null</code> to use the default for the <code>Locale</code>.
-     * @param locale The locale to use for the currency format, system default if null.
-     * @return The <code>NumberFormat</code> to created.
-     */
-    protected abstract Format getFormat(String pattern, Locale locale);
 
 }

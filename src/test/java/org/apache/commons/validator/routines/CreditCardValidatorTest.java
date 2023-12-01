@@ -80,36 +80,6 @@ public class CreditCardValidatorTest extends TestCase {
         super(name);
     }
 
-    public void testIsValid() {
-        CreditCardValidator ccv = new CreditCardValidator();
-
-        assertNull(ccv.validate(null));
-
-        assertFalse(ccv.isValid(null));
-        assertFalse(ccv.isValid(""));
-        assertFalse(ccv.isValid("123456789012"));   // too short
-        assertFalse(ccv.isValid("12345678901234567890"));   // too long
-        assertFalse(ccv.isValid("4417123456789112"));
-        assertFalse(ccv.isValid("4417q23456w89113"));
-        assertTrue(ccv.isValid(VALID_VISA));
-        assertTrue(ccv.isValid(VALID_SHORT_VISA));
-        assertTrue(ccv.isValid(VALID_AMEX));
-        assertTrue(ccv.isValid(VALID_MASTERCARD));
-        assertTrue(ccv.isValid(VALID_DISCOVER));
-        assertTrue(ccv.isValid(VALID_DISCOVER65));
-
-        assertFalse(ccv.isValid(ERROR_VISA));
-        assertFalse(ccv.isValid(ERROR_SHORT_VISA));
-        assertFalse(ccv.isValid(ERROR_AMEX));
-        assertFalse(ccv.isValid(ERROR_MASTERCARD));
-        assertFalse(ccv.isValid(ERROR_DISCOVER));
-        assertFalse(ccv.isValid(ERROR_DISCOVER65));
-
-        // disallow Visa so it should fail even with good number
-        ccv = new CreditCardValidator(CreditCardValidator.AMEX);
-        assertFalse(ccv.isValid("4417123456789113"));
-    }
-
     public void testAddAllowedCardType() {
         final CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.NONE);
         // Turned off all cards so even valid numbers should fail
@@ -121,30 +91,20 @@ public class CreditCardValidatorTest extends TestCase {
     }
 
     /**
-     * Test the CodeValidator array constructor
+     * Test the Amex Card option
      */
-    public void testArrayConstructor() {
-        final CreditCardValidator ccv = new CreditCardValidator(new CodeValidator[]
-               {CreditCardValidator.VISA_VALIDATOR, CreditCardValidator.AMEX_VALIDATOR});
+    public void testAmexOption() {
+        final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.AMEX);
+        assertFalse("Invalid",        validator.isValid(ERROR_AMEX));
+        assertNull("validate()",      validator.validate(ERROR_AMEX));
+        assertEquals(VALID_AMEX,      validator.validate(VALID_AMEX));
 
-        assertTrue(ccv.isValid(VALID_VISA));
-        assertTrue(ccv.isValid(VALID_SHORT_VISA));
-        assertTrue(ccv.isValid(VALID_AMEX));
-        assertFalse(ccv.isValid(VALID_MASTERCARD));
-        assertFalse(ccv.isValid(VALID_DISCOVER));
-
-        assertFalse(ccv.isValid(ERROR_VISA));
-        assertFalse(ccv.isValid(ERROR_SHORT_VISA));
-        assertFalse(ccv.isValid(ERROR_AMEX));
-        assertFalse(ccv.isValid(ERROR_MASTERCARD));
-        assertFalse(ccv.isValid(ERROR_DISCOVER));
-
-        try {
-            new CreditCardValidator((CodeValidator[]) null);
-            fail("Expected IllegalArgumentException");
-        } catch (final IllegalArgumentException iae) {
-            // expected result
-        }
+        assertTrue("Amex",            validator.isValid(VALID_AMEX));
+        assertFalse("Diners",         validator.isValid(VALID_DINERS));
+        assertFalse("Discover",       validator.isValid(VALID_DISCOVER));
+        assertFalse("Mastercard",     validator.isValid(VALID_MASTERCARD));
+        assertFalse("Visa",           validator.isValid(VALID_VISA));
+        assertFalse("Visa Short",     validator.isValid(VALID_SHORT_VISA));
     }
 
     /**
@@ -193,16 +153,43 @@ public class CreditCardValidatorTest extends TestCase {
     }
 
     /**
-     * Test the Amex Card option
+     * Test the CodeValidator array constructor
      */
-    public void testAmexOption() {
-        final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.AMEX);
-        assertFalse("Invalid",        validator.isValid(ERROR_AMEX));
-        assertNull("validate()",      validator.validate(ERROR_AMEX));
-        assertEquals(VALID_AMEX,      validator.validate(VALID_AMEX));
+    public void testArrayConstructor() {
+        final CreditCardValidator ccv = new CreditCardValidator(new CodeValidator[]
+               {CreditCardValidator.VISA_VALIDATOR, CreditCardValidator.AMEX_VALIDATOR});
 
-        assertTrue("Amex",            validator.isValid(VALID_AMEX));
-        assertFalse("Diners",         validator.isValid(VALID_DINERS));
+        assertTrue(ccv.isValid(VALID_VISA));
+        assertTrue(ccv.isValid(VALID_SHORT_VISA));
+        assertTrue(ccv.isValid(VALID_AMEX));
+        assertFalse(ccv.isValid(VALID_MASTERCARD));
+        assertFalse(ccv.isValid(VALID_DISCOVER));
+
+        assertFalse(ccv.isValid(ERROR_VISA));
+        assertFalse(ccv.isValid(ERROR_SHORT_VISA));
+        assertFalse(ccv.isValid(ERROR_AMEX));
+        assertFalse(ccv.isValid(ERROR_MASTERCARD));
+        assertFalse(ccv.isValid(ERROR_DISCOVER));
+
+        try {
+            new CreditCardValidator((CodeValidator[]) null);
+            fail("Expected IllegalArgumentException");
+        } catch (final IllegalArgumentException iae) {
+            // expected result
+        }
+    }
+
+    /**
+     * Test the Diners Card option
+     */
+    public void testDinersOption() {
+        final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.DINERS);
+        assertFalse("Invalid",        validator.isValid(ERROR_DINERS));
+        assertNull("validate()",      validator.validate(ERROR_DINERS));
+        assertEquals(VALID_DINERS,    validator.validate(VALID_DINERS));
+
+        assertFalse("Amex",           validator.isValid(VALID_AMEX));
+        assertTrue("Diners",          validator.isValid(VALID_DINERS));
         assertFalse("Discover",       validator.isValid(VALID_DISCOVER));
         assertFalse("Mastercard",     validator.isValid(VALID_MASTERCARD));
         assertFalse("Visa",           validator.isValid(VALID_VISA));
@@ -273,17 +260,20 @@ public class CreditCardValidatorTest extends TestCase {
     }
 
     /**
-     * Test the Diners Card option
+     * Test the Discover Card option
      */
-    public void testDinersOption() {
-        final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.DINERS);
-        assertFalse("Invalid",        validator.isValid(ERROR_DINERS));
-        assertNull("validate()",      validator.validate(ERROR_DINERS));
-        assertEquals(VALID_DINERS,    validator.validate(VALID_DINERS));
+    public void testDiscoverOption() {
+        final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.DISCOVER);
+        assertFalse("Invalid",        validator.isValid(ERROR_DISCOVER));
+        assertFalse("Invalid65",      validator.isValid(ERROR_DISCOVER65));
+        assertNull("validate()",      validator.validate(ERROR_DISCOVER));
+        assertEquals(VALID_DISCOVER,  validator.validate(VALID_DISCOVER));
+        assertEquals(VALID_DISCOVER65, validator.validate(VALID_DISCOVER65));
 
         assertFalse("Amex",           validator.isValid(VALID_AMEX));
-        assertTrue("Diners",          validator.isValid(VALID_DINERS));
-        assertFalse("Discover",       validator.isValid(VALID_DISCOVER));
+        assertFalse("Diners",         validator.isValid(VALID_DINERS));
+        assertTrue("Discover",        validator.isValid(VALID_DISCOVER));
+        assertTrue("Discover",        validator.isValid(VALID_DISCOVER65));
         assertFalse("Mastercard",     validator.isValid(VALID_MASTERCARD));
         assertFalse("Visa",           validator.isValid(VALID_VISA));
         assertFalse("Visa Short",     validator.isValid(VALID_SHORT_VISA));
@@ -346,24 +336,114 @@ public class CreditCardValidatorTest extends TestCase {
 
     }
 
+    public void testDisjointRange() {
+        CreditCardValidator ccv = new CreditCardValidator(
+            new CreditCardRange[]{
+                    new CreditCardRange("305", "4", new int[]{13, 16}),
+                }
+            );
+        assertEquals(13, VALID_SHORT_VISA.length());
+        assertEquals(16, VALID_VISA.length());
+        assertEquals(14, VALID_DINERS.length());
+        assertTrue(ccv.isValid(VALID_SHORT_VISA));
+        assertTrue(ccv.isValid(VALID_VISA));
+        assertFalse(ccv.isValid(ERROR_SHORT_VISA));
+        assertFalse(ccv.isValid(ERROR_VISA));
+        assertFalse(ccv.isValid(VALID_DINERS));
+        ccv = new CreditCardValidator(
+            new CreditCardRange[]{
+                    // add 14 as a valid length
+                    new CreditCardRange("305", "4", new int[]{13, 14, 16}),
+                }
+            );
+        assertTrue(ccv.isValid(VALID_DINERS));
+    }
+
+    public void testGeneric() {
+        final CreditCardValidator ccv = CreditCardValidator.genericCreditCardValidator();
+        for(final String s : VALID_CARDS) {
+            assertTrue(s, ccv.isValid(s));
+        }
+        for(final String s : ERROR_CARDS) {
+            assertFalse(s, ccv.isValid(s));
+        }
+    }
+
+    public void testIsValid() {
+        CreditCardValidator ccv = new CreditCardValidator();
+
+        assertNull(ccv.validate(null));
+
+        assertFalse(ccv.isValid(null));
+        assertFalse(ccv.isValid(""));
+        assertFalse(ccv.isValid("123456789012"));   // too short
+        assertFalse(ccv.isValid("12345678901234567890"));   // too long
+        assertFalse(ccv.isValid("4417123456789112"));
+        assertFalse(ccv.isValid("4417q23456w89113"));
+        assertTrue(ccv.isValid(VALID_VISA));
+        assertTrue(ccv.isValid(VALID_SHORT_VISA));
+        assertTrue(ccv.isValid(VALID_AMEX));
+        assertTrue(ccv.isValid(VALID_MASTERCARD));
+        assertTrue(ccv.isValid(VALID_DISCOVER));
+        assertTrue(ccv.isValid(VALID_DISCOVER65));
+
+        assertFalse(ccv.isValid(ERROR_VISA));
+        assertFalse(ccv.isValid(ERROR_SHORT_VISA));
+        assertFalse(ccv.isValid(ERROR_AMEX));
+        assertFalse(ccv.isValid(ERROR_MASTERCARD));
+        assertFalse(ccv.isValid(ERROR_DISCOVER));
+        assertFalse(ccv.isValid(ERROR_DISCOVER65));
+
+        // disallow Visa so it should fail even with good number
+        ccv = new CreditCardValidator(CreditCardValidator.AMEX);
+        assertFalse(ccv.isValid("4417123456789113"));
+    }
+
     /**
-     * Test the Discover Card option
+     * Test the Mastercard Card option
      */
-    public void testDiscoverOption() {
-        final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.DISCOVER);
-        assertFalse("Invalid",        validator.isValid(ERROR_DISCOVER));
-        assertFalse("Invalid65",      validator.isValid(ERROR_DISCOVER65));
-        assertNull("validate()",      validator.validate(ERROR_DISCOVER));
-        assertEquals(VALID_DISCOVER,  validator.validate(VALID_DISCOVER));
-        assertEquals(VALID_DISCOVER65, validator.validate(VALID_DISCOVER65));
+    public void testMastercardOption() {
+        final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.MASTERCARD);
+        assertFalse("Invalid",        validator.isValid(ERROR_MASTERCARD));
+        assertNull("validate()",      validator.validate(ERROR_MASTERCARD));
+        assertEquals(VALID_MASTERCARD, validator.validate(VALID_MASTERCARD));
 
         assertFalse("Amex",           validator.isValid(VALID_AMEX));
         assertFalse("Diners",         validator.isValid(VALID_DINERS));
-        assertTrue("Discover",        validator.isValid(VALID_DISCOVER));
-        assertTrue("Discover",        validator.isValid(VALID_DISCOVER65));
-        assertFalse("Mastercard",     validator.isValid(VALID_MASTERCARD));
+        assertFalse("Discover",       validator.isValid(VALID_DISCOVER));
+        assertTrue("Mastercard",      validator.isValid(VALID_MASTERCARD));
         assertFalse("Visa",           validator.isValid(VALID_VISA));
         assertFalse("Visa Short",     validator.isValid(VALID_SHORT_VISA));
+    }
+
+    /**
+     * Test using separators
+     */
+    public void testMastercardUsingSeparators() {
+
+        final String MASTERCARD_REGEX_SEP = "^(5[1-5]\\d{2})(?:[- ])?(\\d{4})(?:[- ])?(\\d{4})(?:[- ])?(\\d{4})$";
+        final CodeValidator validator = new CodeValidator(MASTERCARD_REGEX_SEP, LuhnCheckDigit.LUHN_CHECK_DIGIT);
+        final RegexValidator regex    = validator.getRegexValidator();
+
+        // ****** Test Regular Expression ******
+        // length 16 and start with a "51-55"
+        assertEquals("Number",  "5134567890123456", regex.validate("5134567890123456"));
+        assertEquals("Hyphen",  "5134567890123456", regex.validate("5134-5678-9012-3456"));
+        assertEquals("Space",   "5134567890123456", regex.validate("5134 5678 9012 3456"));
+        assertEquals("MixedA",  "5134567890123456", regex.validate("5134-5678 9012-3456"));
+        assertEquals("MixedB",  "5134567890123456", regex.validate("5134 5678-9012 3456"));
+
+        assertFalse("Invalid Separator A",  regex.isValid("5134.5678.9012.3456"));
+        assertFalse("Invalid Separator B",  regex.isValid("5134_5678_9012_3456"));
+        assertFalse("Invalid Grouping A",   regex.isValid("513-45678-9012-3456"));
+        assertFalse("Invalid Grouping B",   regex.isValid("5134-567-89012-3456"));
+        assertFalse("Invalid Grouping C",   regex.isValid("5134-5678-901-23456"));
+
+        // *********** Test Validator **********
+        assertEquals("Valid-A", "5500000000000004", validator.validate("5500-0000-0000-0004"));
+        assertEquals("Valid-B", "5424000000000015", validator.validate("5424 0000 0000 0015"));
+        assertEquals("Valid-C", "5301250070000191", validator.validate("5301-250070000191"));
+        assertEquals("Valid-D", "5123456789012346", validator.validate("5123456789012346"));
     }
 
     /**
@@ -423,21 +503,87 @@ public class CreditCardValidatorTest extends TestCase {
         assertFalse("272100",rev.isValid("272100"+PAD));
     }
 
+    public void testRangeGenerator() {
+        final CreditCardValidator ccv = new CreditCardValidator(
+            new CodeValidator[] {
+                CreditCardValidator.AMEX_VALIDATOR,
+                CreditCardValidator.VISA_VALIDATOR,
+                CreditCardValidator.MASTERCARD_VALIDATOR,
+                CreditCardValidator.DISCOVER_VALIDATOR,
+            },
+            // Add missing validator
+            new CreditCardRange[]{
+                new CreditCardRange("300", "305", 14, 14), // Diners
+                new CreditCardRange("3095", null, 14, 14), // Diners
+                new CreditCardRange("36",   null, 14, 14), // Diners
+                new CreditCardRange("38",   "39", 14, 14), // Diners
+            }
+            // we don't have any VPAY examples yet that aren't handled by VISA
+            );
+        for(final String s : VALID_CARDS) {
+            assertTrue(s, ccv.isValid(s));
+        }
+        for(final String s : ERROR_CARDS) {
+            assertFalse(s, ccv.isValid(s));
+        }
+    }
+
+    public void testRangeGeneratorNoLuhn() {
+        final CodeValidator cv = CreditCardValidator.createRangeValidator(
+            new CreditCardRange[]{
+                new CreditCardRange("1",null,6,7),
+                new CreditCardRange("644","65", 8, 8)
+            },
+            null);
+        assertTrue(cv.isValid("1990000"));
+        assertTrue(cv.isValid("199000"));
+        assertFalse(cv.isValid("000000"));
+        assertFalse(cv.isValid("099999"));
+        assertFalse(cv.isValid("200000"));
+
+        assertFalse(cv.isValid("64399999"));
+        assertTrue(cv.isValid("64400000"));
+        assertTrue(cv.isValid("64900000"));
+        assertTrue(cv.isValid("65000000"));
+        assertTrue(cv.isValid("65999999"));
+        assertFalse(cv.isValid("66000000"));
+    }
+
+    public void testValidLength() {
+        assertTrue(CreditCardValidator.validLength(14, new CreditCardRange("", "", 14, 14)));
+        assertFalse(CreditCardValidator.validLength(15, new CreditCardRange("", "", 14, 14)));
+        assertFalse(CreditCardValidator.validLength(13, new CreditCardRange("", "", 14, 14)));
+
+        assertFalse(CreditCardValidator.validLength(14, new CreditCardRange("", "", 15, 17)));
+        assertTrue(CreditCardValidator.validLength(15, new CreditCardRange("", "", 15, 17)));
+        assertTrue(CreditCardValidator.validLength(16, new CreditCardRange("", "", 15, 17)));
+        assertTrue(CreditCardValidator.validLength(17, new CreditCardRange("", "", 15, 17)));
+        assertFalse(CreditCardValidator.validLength(18, new CreditCardRange("", "", 15, 17)));
+
+        assertFalse(CreditCardValidator.validLength(14, new CreditCardRange("", "", new int[]{15, 17})));
+        assertTrue(CreditCardValidator.validLength(15, new CreditCardRange("", "", new int[]{15, 17})));
+        assertFalse(CreditCardValidator.validLength(16, new CreditCardRange("", "", new int[]{15, 17})));
+        assertTrue(CreditCardValidator.validLength(17, new CreditCardRange("", "", new int[]{15, 17})));
+        assertFalse(CreditCardValidator.validLength(18, new CreditCardRange("", "", new int[]{15, 17})));
+    }
+
     /**
-     * Test the Mastercard Card option
+     * Test the Visa Card option
      */
-    public void testMastercardOption() {
-        final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.MASTERCARD);
-        assertFalse("Invalid",        validator.isValid(ERROR_MASTERCARD));
-        assertNull("validate()",      validator.validate(ERROR_MASTERCARD));
-        assertEquals(VALID_MASTERCARD, validator.validate(VALID_MASTERCARD));
+    public void testVisaOption() {
+        final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.VISA);
+        assertFalse("Invalid",        validator.isValid(ERROR_VISA));
+        assertFalse("Invalid-S",      validator.isValid(ERROR_SHORT_VISA));
+        assertNull("validate()",      validator.validate(ERROR_VISA));
+        assertEquals(VALID_VISA,      validator.validate(VALID_VISA));
+        assertEquals(VALID_SHORT_VISA, validator.validate(VALID_SHORT_VISA));
 
         assertFalse("Amex",           validator.isValid(VALID_AMEX));
         assertFalse("Diners",         validator.isValid(VALID_DINERS));
         assertFalse("Discover",       validator.isValid(VALID_DISCOVER));
-        assertTrue("Mastercard",      validator.isValid(VALID_MASTERCARD));
-        assertFalse("Visa",           validator.isValid(VALID_VISA));
-        assertFalse("Visa Short",     validator.isValid(VALID_SHORT_VISA));
+        assertFalse("Mastercard",     validator.isValid(VALID_MASTERCARD));
+        assertTrue("Visa",            validator.isValid(VALID_VISA));
+        assertTrue("Visa Short",      validator.isValid(VALID_SHORT_VISA));
     }
 
     /**
@@ -485,25 +631,6 @@ public class CreditCardValidatorTest extends TestCase {
         assertTrue("Valid-E",         validator.isValid("4012888888881881"));
     }
 
-    /**
-     * Test the Visa Card option
-     */
-    public void testVisaOption() {
-        final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.VISA);
-        assertFalse("Invalid",        validator.isValid(ERROR_VISA));
-        assertFalse("Invalid-S",      validator.isValid(ERROR_SHORT_VISA));
-        assertNull("validate()",      validator.validate(ERROR_VISA));
-        assertEquals(VALID_VISA,      validator.validate(VALID_VISA));
-        assertEquals(VALID_SHORT_VISA, validator.validate(VALID_SHORT_VISA));
-
-        assertFalse("Amex",           validator.isValid(VALID_AMEX));
-        assertFalse("Diners",         validator.isValid(VALID_DINERS));
-        assertFalse("Discover",       validator.isValid(VALID_DISCOVER));
-        assertFalse("Mastercard",     validator.isValid(VALID_MASTERCARD));
-        assertTrue("Visa",            validator.isValid(VALID_VISA));
-        assertTrue("Visa Short",      validator.isValid(VALID_SHORT_VISA));
-    }
-
     public void testVPayOption() {
         final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.VPAY);
         assertTrue("Valid",           validator.isValid(VALID_VPAY));
@@ -518,132 +645,5 @@ public class CreditCardValidatorTest extends TestCase {
         assertFalse("Mastercard",     validator.isValid(VALID_MASTERCARD));
         assertTrue("Visa",            validator.isValid(VALID_VISA));
         assertTrue("Visa Short",      validator.isValid(VALID_SHORT_VISA));
-    }
-
-    /**
-     * Test using separators
-     */
-    public void testMastercardUsingSeparators() {
-
-        final String MASTERCARD_REGEX_SEP = "^(5[1-5]\\d{2})(?:[- ])?(\\d{4})(?:[- ])?(\\d{4})(?:[- ])?(\\d{4})$";
-        final CodeValidator validator = new CodeValidator(MASTERCARD_REGEX_SEP, LuhnCheckDigit.LUHN_CHECK_DIGIT);
-        final RegexValidator regex    = validator.getRegexValidator();
-
-        // ****** Test Regular Expression ******
-        // length 16 and start with a "51-55"
-        assertEquals("Number",  "5134567890123456", regex.validate("5134567890123456"));
-        assertEquals("Hyphen",  "5134567890123456", regex.validate("5134-5678-9012-3456"));
-        assertEquals("Space",   "5134567890123456", regex.validate("5134 5678 9012 3456"));
-        assertEquals("MixedA",  "5134567890123456", regex.validate("5134-5678 9012-3456"));
-        assertEquals("MixedB",  "5134567890123456", regex.validate("5134 5678-9012 3456"));
-
-        assertFalse("Invalid Separator A",  regex.isValid("5134.5678.9012.3456"));
-        assertFalse("Invalid Separator B",  regex.isValid("5134_5678_9012_3456"));
-        assertFalse("Invalid Grouping A",   regex.isValid("513-45678-9012-3456"));
-        assertFalse("Invalid Grouping B",   regex.isValid("5134-567-89012-3456"));
-        assertFalse("Invalid Grouping C",   regex.isValid("5134-5678-901-23456"));
-
-        // *********** Test Validator **********
-        assertEquals("Valid-A", "5500000000000004", validator.validate("5500-0000-0000-0004"));
-        assertEquals("Valid-B", "5424000000000015", validator.validate("5424 0000 0000 0015"));
-        assertEquals("Valid-C", "5301250070000191", validator.validate("5301-250070000191"));
-        assertEquals("Valid-D", "5123456789012346", validator.validate("5123456789012346"));
-    }
-
-    public void testGeneric() {
-        final CreditCardValidator ccv = CreditCardValidator.genericCreditCardValidator();
-        for(final String s : VALID_CARDS) {
-            assertTrue(s, ccv.isValid(s));
-        }
-        for(final String s : ERROR_CARDS) {
-            assertFalse(s, ccv.isValid(s));
-        }
-    }
-
-    public void testRangeGeneratorNoLuhn() {
-        final CodeValidator cv = CreditCardValidator.createRangeValidator(
-            new CreditCardRange[]{
-                new CreditCardRange("1",null,6,7),
-                new CreditCardRange("644","65", 8, 8)
-            },
-            null);
-        assertTrue(cv.isValid("1990000"));
-        assertTrue(cv.isValid("199000"));
-        assertFalse(cv.isValid("000000"));
-        assertFalse(cv.isValid("099999"));
-        assertFalse(cv.isValid("200000"));
-
-        assertFalse(cv.isValid("64399999"));
-        assertTrue(cv.isValid("64400000"));
-        assertTrue(cv.isValid("64900000"));
-        assertTrue(cv.isValid("65000000"));
-        assertTrue(cv.isValid("65999999"));
-        assertFalse(cv.isValid("66000000"));
-    }
-
-    public void testRangeGenerator() {
-        final CreditCardValidator ccv = new CreditCardValidator(
-            new CodeValidator[] {
-                CreditCardValidator.AMEX_VALIDATOR,
-                CreditCardValidator.VISA_VALIDATOR,
-                CreditCardValidator.MASTERCARD_VALIDATOR,
-                CreditCardValidator.DISCOVER_VALIDATOR,
-            },
-            // Add missing validator
-            new CreditCardRange[]{
-                new CreditCardRange("300", "305", 14, 14), // Diners
-                new CreditCardRange("3095", null, 14, 14), // Diners
-                new CreditCardRange("36",   null, 14, 14), // Diners
-                new CreditCardRange("38",   "39", 14, 14), // Diners
-            }
-            // we don't have any VPAY examples yet that aren't handled by VISA
-            );
-        for(final String s : VALID_CARDS) {
-            assertTrue(s, ccv.isValid(s));
-        }
-        for(final String s : ERROR_CARDS) {
-            assertFalse(s, ccv.isValid(s));
-        }
-    }
-
-    public void testValidLength() {
-        assertTrue(CreditCardValidator.validLength(14, new CreditCardRange("", "", 14, 14)));
-        assertFalse(CreditCardValidator.validLength(15, new CreditCardRange("", "", 14, 14)));
-        assertFalse(CreditCardValidator.validLength(13, new CreditCardRange("", "", 14, 14)));
-
-        assertFalse(CreditCardValidator.validLength(14, new CreditCardRange("", "", 15, 17)));
-        assertTrue(CreditCardValidator.validLength(15, new CreditCardRange("", "", 15, 17)));
-        assertTrue(CreditCardValidator.validLength(16, new CreditCardRange("", "", 15, 17)));
-        assertTrue(CreditCardValidator.validLength(17, new CreditCardRange("", "", 15, 17)));
-        assertFalse(CreditCardValidator.validLength(18, new CreditCardRange("", "", 15, 17)));
-
-        assertFalse(CreditCardValidator.validLength(14, new CreditCardRange("", "", new int[]{15, 17})));
-        assertTrue(CreditCardValidator.validLength(15, new CreditCardRange("", "", new int[]{15, 17})));
-        assertFalse(CreditCardValidator.validLength(16, new CreditCardRange("", "", new int[]{15, 17})));
-        assertTrue(CreditCardValidator.validLength(17, new CreditCardRange("", "", new int[]{15, 17})));
-        assertFalse(CreditCardValidator.validLength(18, new CreditCardRange("", "", new int[]{15, 17})));
-    }
-
-    public void testDisjointRange() {
-        CreditCardValidator ccv = new CreditCardValidator(
-            new CreditCardRange[]{
-                    new CreditCardRange("305", "4", new int[]{13, 16}),
-                }
-            );
-        assertEquals(13, VALID_SHORT_VISA.length());
-        assertEquals(16, VALID_VISA.length());
-        assertEquals(14, VALID_DINERS.length());
-        assertTrue(ccv.isValid(VALID_SHORT_VISA));
-        assertTrue(ccv.isValid(VALID_VISA));
-        assertFalse(ccv.isValid(ERROR_SHORT_VISA));
-        assertFalse(ccv.isValid(ERROR_VISA));
-        assertFalse(ccv.isValid(VALID_DINERS));
-        ccv = new CreditCardValidator(
-            new CreditCardRange[]{
-                    // add 14 as a valid length
-                    new CreditCardRange("305", "4", new int[]{13, 14, 16}),
-                }
-            );
-        assertTrue(ccv.isValid(VALID_DINERS));
     }
 }

@@ -108,56 +108,6 @@ public class DoubleValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a <code>Double</code> using the default
-     *    <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @return The parsed <code>Double</code> if valid or <code>null</code>
-     *  if invalid.
-     */
-    public Double validate(final String value) {
-        return (Double)parse(value, (String)null, (Locale)null);
-    }
-
-    /**
-     * <p>Validate/convert a <code>Double</code> using the
-     *    specified <i>pattern</i>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
-     * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
-     */
-    public Double validate(final String value, final String pattern) {
-        return (Double)parse(value, pattern, (Locale)null);
-    }
-
-    /**
-     * <p>Validate/convert a <code>Double</code> using the
-     *    specified <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param locale The locale to use for the number format, system default if null.
-     * @return The parsed <code>Double</code> if valid or <code>null</code> if invalid.
-     */
-    public Double validate(final String value, final Locale locale) {
-        return (Double)parse(value, (String)null, locale);
-    }
-
-    /**
-     * <p>Validate/convert a <code>Double</code> using the
-     *    specified pattern and/ or <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
-     * @param locale The locale to use for the date format, system default if null.
-     * @return The parsed <code>Double</code> if valid or <code>null</code> if invalid.
-     */
-    public Double validate(final String value, final String pattern, final Locale locale) {
-        return (Double)parse(value, pattern, locale);
-    }
-
-    /**
      * Check if the value is within a specified range.
      *
      * @param value The <code>Number</code> value to check.
@@ -181,30 +131,6 @@ public class DoubleValidator extends AbstractNumberValidator {
      */
     public boolean isInRange(final Double value, final double min, final double max) {
         return isInRange(value.doubleValue(), min, max);
-    }
-
-    /**
-     * Check if the value is greater than or equal to a minimum.
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum value.
-     * @return {@code true} if the value is greater than
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final double value, final double min) {
-        return value >= min;
-    }
-
-    /**
-     * Check if the value is greater than or equal to a minimum.
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum value.
-     * @return {@code true} if the value is greater than
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final Double value, final double min) {
-        return minValue(value.doubleValue(), min);
     }
 
     /**
@@ -232,6 +158,30 @@ public class DoubleValidator extends AbstractNumberValidator {
     }
 
     /**
+     * Check if the value is greater than or equal to a minimum.
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than
+     *         or equal to the minimum.
+     */
+    public boolean minValue(final double value, final double min) {
+        return value >= min;
+    }
+
+    /**
+     * Check if the value is greater than or equal to a minimum.
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than
+     *         or equal to the minimum.
+     */
+    public boolean minValue(final Double value, final double min) {
+        return minValue(value.doubleValue(), min);
+    }
+
+    /**
      * Convert the parsed value to a <code>Double</code>.
      *
      * @param value The parsed <code>Number</code> object created.
@@ -247,5 +197,55 @@ public class DoubleValidator extends AbstractNumberValidator {
         }
         return Double.valueOf(((Number)value).doubleValue());
 
+    }
+
+    /**
+     * <p>Validate/convert a <code>Double</code> using the default
+     *    <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @return The parsed <code>Double</code> if valid or <code>null</code>
+     *  if invalid.
+     */
+    public Double validate(final String value) {
+        return (Double)parse(value, (String)null, (Locale)null);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Double</code> using the
+     *    specified <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param locale The locale to use for the number format, system default if null.
+     * @return The parsed <code>Double</code> if valid or <code>null</code> if invalid.
+     */
+    public Double validate(final String value, final Locale locale) {
+        return (Double)parse(value, (String)null, locale);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Double</code> using the
+     *    specified <i>pattern</i>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against.
+     * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
+     */
+    public Double validate(final String value, final String pattern) {
+        return (Double)parse(value, pattern, (Locale)null);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Double</code> using the
+     *    specified pattern and/ or <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
+     * @param locale The locale to use for the date format, system default if null.
+     * @return The parsed <code>Double</code> if valid or <code>null</code> if invalid.
+     */
+    public Double validate(final String value, final String pattern, final Locale locale) {
+        return (Double)parse(value, pattern, locale);
     }
 }

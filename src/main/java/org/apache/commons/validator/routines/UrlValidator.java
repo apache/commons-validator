@@ -148,22 +148,6 @@ public class UrlValidator implements Serializable {
     private static final Pattern QUERY_PATTERN = Pattern.compile(QUERY_REGEX);
 
     /**
-     * Holds the set of current validation options.
-     */
-    private final long options;
-
-    /**
-     * The set of schemes that are allowed to be in a URL.
-     */
-    private final Set<String> allowedSchemes; // Must be lower-case
-
-    /**
-     * Regular expressions used to manually validate authorities if IANA
-     * domain name validation isn't desired.
-     */
-    private final RegexValidator authorityValidator;
-
-    /**
      * If no schemes are provided, default to this set.
      */
     private static final String[] DEFAULT_SCHEMES = {"http", "https", "ftp"}; // Must be lower-case
@@ -181,6 +165,35 @@ public class UrlValidator implements Serializable {
         return DEFAULT_URL_VALIDATOR;
     }
 
+    /**
+     * Tests whether the given flag is on.  If the flag is not a power of 2
+     * (e.g. 3) this tests whether the combination of flags is on.
+     *
+     * @param flag Flag value to check.
+     * @param options what to check
+     *
+     * @return whether the specified flag value is on.
+     */
+    private static boolean isOn(final long flag, final long options) {
+        return (options & flag) > 0;
+    }
+
+    /**
+     * Holds the set of current validation options.
+     */
+    private final long options;
+
+    /**
+     * The set of schemes that are allowed to be in a URL.
+     */
+    private final Set<String> allowedSchemes; // Must be lower-case
+
+    /**
+     * Regular expressions used to manually validate authorities if IANA
+     * domain name validation isn't desired.
+     */
+    private final RegexValidator authorityValidator;
+
     private final DomainValidator domainValidator;
 
     /**
@@ -188,6 +201,29 @@ public class UrlValidator implements Serializable {
      */
     public UrlValidator() {
         this(null);
+    }
+
+    /**
+     * Initialize a UrlValidator with the given validation options.
+     * @param options The options should be set using the public constants declared in
+     * this class.  To set multiple options you simply add them together.  For example,
+     * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
+     */
+    public UrlValidator(final long options) {
+        this(null, null, options);
+    }
+
+    /**
+     * Initialize a UrlValidator with the given validation options.
+     * @param authorityValidator Regular expression validator used to validate the authority part
+     * This allows the user to override the standard set of domains.
+     * @param options Validation options. Set using the public constants of this class.
+     * To set multiple options, simply add them together:
+     * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
+     * enables both of those options.
+     */
+    public UrlValidator(final RegexValidator authorityValidator, final long options) {
+        this(null, authorityValidator, options);
     }
 
     /**
@@ -203,16 +239,6 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Initialize a UrlValidator with the given validation options.
-     * @param options The options should be set using the public constants declared in
-     * this class.  To set multiple options you simply add them together.  For example,
-     * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
-     */
-    public UrlValidator(final long options) {
-        this(null, null, options);
-    }
-
-    /**
      * Behavior of validation is modified by passing in options:
      * @param schemes The set of valid schemes. Ignored if the ALLOW_ALL_SCHEMES option is set.
      * @param options The options should be set using the public constants declared in
@@ -221,19 +247,6 @@ public class UrlValidator implements Serializable {
      */
     public UrlValidator(final String[] schemes, final long options) {
         this(schemes, null, options);
-    }
-
-    /**
-     * Initialize a UrlValidator with the given validation options.
-     * @param authorityValidator Regular expression validator used to validate the authority part
-     * This allows the user to override the standard set of domains.
-     * @param options Validation options. Set using the public constants of this class.
-     * To set multiple options, simply add them together:
-     * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
-     * enables both of those options.
-     */
-    public UrlValidator(final RegexValidator authorityValidator, final long options) {
-        this(null, authorityValidator, options);
     }
 
     /**
@@ -286,6 +299,49 @@ public class UrlValidator implements Serializable {
     }
 
     /**
+     * Returns the number of times the token appears in the target.
+     * @param token Token value to be counted.
+     * @param target Target value to count tokens in.
+     * @return the number of tokens.
+     */
+    protected int countToken(final String token, final String target) {
+        int tokenIndex = 0;
+        int count = 0;
+        while (tokenIndex != -1) {
+            tokenIndex = target.indexOf(token, tokenIndex);
+            if (tokenIndex > -1) {
+                tokenIndex++;
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * Tests whether the given flag is off.  If the flag is not a power of 2
+     * (ie. 3) this tests whether the combination of flags is off.
+     *
+     * @param flag Flag value to check.
+     *
+     * @return whether the specified flag value is off.
+     */
+    private boolean isOff(final long flag) {
+        return (options & flag) == 0;
+    }
+
+    /**
+     * Tests whether the given flag is on.  If the flag is not a power of 2
+     * (ie. 3) this tests whether the combination of flags is on.
+     *
+     * @param flag Flag value to check.
+     *
+     * @return whether the specified flag value is on.
+     */
+    private boolean isOn(final long flag) {
+        return (options & flag) > 0;
+    }
+
+    /**
      * <p>Checks if a field has a valid URL address.</p>
      *
      * Note that the method calls #isValidAuthority()
@@ -334,31 +390,6 @@ public class UrlValidator implements Serializable {
         }
 
         if (!isValidFragment(uri.getRawFragment())) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Validate scheme. If schemes[] was initialized to a non null,
-     * then only those schemes are allowed.
-     * Otherwise the default schemes are "http", "https", "ftp".
-     * Matching is case-blind.
-     * @param scheme The scheme to validate.  A <code>null</code> value is considered
-     * invalid.
-     * @return true if valid.
-     */
-    protected boolean isValidScheme(final String scheme) {
-        if (scheme == null) {
-            return false;
-        }
-
-        if (!SCHEME_PATTERN.matcher(scheme).matches()) {
-            return false;
-        }
-
-        if (isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme.toLowerCase(Locale.ENGLISH))) {
             return false;
         }
 
@@ -433,6 +464,19 @@ public class UrlValidator implements Serializable {
     }
 
     /**
+     * Returns true if the given fragment is null or fragments are allowed.
+     * @param fragment Fragment value to validate.
+     * @return true if fragment is valid.
+     */
+    protected boolean isValidFragment(final String fragment) {
+        if (fragment == null) {
+            return true;
+        }
+
+        return isOff(NO_FRAGMENTS);
+    }
+
+    /**
      * Returns true if the path is valid.  A <code>null</code> value is considered invalid.
      * @param path Path value to validate.
      * @return true if path is valid.
@@ -480,72 +524,28 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Returns true if the given fragment is null or fragments are allowed.
-     * @param fragment Fragment value to validate.
-     * @return true if fragment is valid.
+     * Validate scheme. If schemes[] was initialized to a non null,
+     * then only those schemes are allowed.
+     * Otherwise the default schemes are "http", "https", "ftp".
+     * Matching is case-blind.
+     * @param scheme The scheme to validate.  A <code>null</code> value is considered
+     * invalid.
+     * @return true if valid.
      */
-    protected boolean isValidFragment(final String fragment) {
-        if (fragment == null) {
-            return true;
+    protected boolean isValidScheme(final String scheme) {
+        if (scheme == null) {
+            return false;
         }
 
-        return isOff(NO_FRAGMENTS);
-    }
-
-    /**
-     * Returns the number of times the token appears in the target.
-     * @param token Token value to be counted.
-     * @param target Target value to count tokens in.
-     * @return the number of tokens.
-     */
-    protected int countToken(final String token, final String target) {
-        int tokenIndex = 0;
-        int count = 0;
-        while (tokenIndex != -1) {
-            tokenIndex = target.indexOf(token, tokenIndex);
-            if (tokenIndex > -1) {
-                tokenIndex++;
-                count++;
-            }
+        if (!SCHEME_PATTERN.matcher(scheme).matches()) {
+            return false;
         }
-        return count;
-    }
 
-    /**
-     * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is on.
-     *
-     * @param flag Flag value to check.
-     *
-     * @return whether the specified flag value is on.
-     */
-    private boolean isOn(final long flag) {
-        return (options & flag) > 0;
-    }
+        if (isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme.toLowerCase(Locale.ENGLISH))) {
+            return false;
+        }
 
-    /**
-     * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (e.g. 3) this tests whether the combination of flags is on.
-     *
-     * @param flag Flag value to check.
-     * @param options what to check
-     *
-     * @return whether the specified flag value is on.
-     */
-    private static boolean isOn(final long flag, final long options) {
-        return (options & flag) > 0;
-    }
-
-    /**
-     * Tests whether the given flag is off.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is off.
-     *
-     * @param flag Flag value to check.
-     *
-     * @return whether the specified flag value is off.
-     */
-    private boolean isOff(final long flag) {
-        return (options & flag) == 0;
+        return true;
     }
 
 }

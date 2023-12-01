@@ -50,10 +50,6 @@ import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
  */
 public class IBANValidator {
 
-    private static final int SHORT_CODE_LEN = 2;
-
-    private final ConcurrentMap<String, Validator> validatorMap;
-
     /**
      * The validation class
      */
@@ -124,33 +120,7 @@ public class IBANValidator {
         }
     }
 
-    /*
-     * Wikipedia [1] says that only uppercase is allowed.
-     * The SWIFT PDF file [2] implies that lower case is allowed.
-     * However there are no examples using lower-case.
-     * Unfortunately the relevant ISO documents (ISO 13616-1) are not available for free.
-     * The IBANCheckDigit code treats upper and lower case the same,
-     * so any case validation has to be done in this class.
-     *
-     * Note: the European Payments council has a document [3] which includes a description
-     * of the IBAN. Section 5 clearly states that only upper case is allowed.
-     * Also the maximum length is 34 characters (including the country code),
-     * and the length is fixed for each country.
-     *
-     * It looks like lower-case is permitted in BBANs, but they must be converted to
-     * upper case for IBANs.
-     *
-     * [1] https://en.wikipedia.org/wiki/International_Bank_Account_Number
-     * [2] http://www.swift.com/dsp/resources/documents/IBAN_Registry.pdf (404)
-     * => https://www.swift.com/sites/default/files/resources/iban_registry.pdf
-     * The above is an old version (62, Jan 2016)
-     * As of May 2020, the current IBAN standards are located at:
-     * https://www.swift.com/standards/data-standards/iban
-     * The above page contains links for the PDF and TXT (CSV) versions of the registry
-     * Warning: these may not agree -- in the past there have been discrepancies.
-     * The TXT file can be used to determine changes which can be cross-checked in the PDF file.
-     * [3] http://www.europeanpaymentscouncil.eu/documents/ECBS%20IBAN%20standard%20EBS204_V3.2.pdf
-     */
+    private static final int SHORT_CODE_LEN = 2;
 
     private static final Validator[] DEFAULT_VALIDATORS = {
             new Validator("AD", 24, "AD\\d{10}[A-Z0-9]{12}"                  ), // Andorra
@@ -237,6 +207,34 @@ public class IBANValidator {
             new Validator("XK", 20, "XK\\d{18}"                              ), // Kosovo
     };
 
+    /*
+     * Wikipedia [1] says that only uppercase is allowed.
+     * The SWIFT PDF file [2] implies that lower case is allowed.
+     * However there are no examples using lower-case.
+     * Unfortunately the relevant ISO documents (ISO 13616-1) are not available for free.
+     * The IBANCheckDigit code treats upper and lower case the same,
+     * so any case validation has to be done in this class.
+     *
+     * Note: the European Payments council has a document [3] which includes a description
+     * of the IBAN. Section 5 clearly states that only upper case is allowed.
+     * Also the maximum length is 34 characters (including the country code),
+     * and the length is fixed for each country.
+     *
+     * It looks like lower-case is permitted in BBANs, but they must be converted to
+     * upper case for IBANs.
+     *
+     * [1] https://en.wikipedia.org/wiki/International_Bank_Account_Number
+     * [2] http://www.swift.com/dsp/resources/documents/IBAN_Registry.pdf (404)
+     * => https://www.swift.com/sites/default/files/resources/iban_registry.pdf
+     * The above is an old version (62, Jan 2016)
+     * As of May 2020, the current IBAN standards are located at:
+     * https://www.swift.com/standards/data-standards/iban
+     * The above page contains links for the PDF and TXT (CSV) versions of the registry
+     * Warning: these may not agree -- in the past there have been discrepancies.
+     * The TXT file can be used to determine changes which can be cross-checked in the PDF file.
+     * [3] http://www.europeanpaymentscouncil.eu/documents/ECBS%20IBAN%20standard%20EBS204_V3.2.pdf
+     */
+
     /** The singleton instance which uses the default formats */
     public static final IBANValidator DEFAULT_IBAN_VALIDATOR = new IBANValidator();
 
@@ -248,6 +246,8 @@ public class IBANValidator {
     public static IBANValidator getInstance() {
         return DEFAULT_IBAN_VALIDATOR;
     }
+
+    private final ConcurrentMap<String, Validator> validatorMap;
 
     /**
      * Create a default IBAN validator.
@@ -277,30 +277,6 @@ public class IBANValidator {
     }
 
     /**
-     * Validate an IBAN Code
-     *
-     * @param code The value validation is being performed on
-     * @return {@code true} if the value is valid
-     */
-    public boolean isValid(final String code) {
-        final Validator formatValidator = getValidator(code);
-        if (formatValidator == null || code.length() != formatValidator.ibanLength || !formatValidator.regexValidator.isValid(code)) {
-            return false;
-        }
-        return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code);
-    }
-
-    /**
-     * Does the class have the required validator?
-     *
-     * @param code the code to check
-     * @return true if there is a validator
-     */
-    public boolean hasValidator(final String code) {
-        return getValidator(code) != null;
-    }
-
-    /**
      * Gets a copy of the default Validators.
      *
      * @return a copy of the default Validator array
@@ -325,18 +301,27 @@ public class IBANValidator {
     }
 
     /**
-     * Installs a validator.
-     * Will replace any existing entry which has the same countryCode
+     * Does the class have the required validator?
      *
-     * @param validator the instance to install.
-     * @return the previous Validator, or {@code null} if there was none
-     * @throws IllegalStateException if an attempt is made to modify the singleton validator
+     * @param code the code to check
+     * @return true if there is a validator
      */
-    public Validator setValidator(final Validator validator) {
-        if (this == DEFAULT_IBAN_VALIDATOR) {
-            throw new IllegalStateException("The singleton validator cannot be modified");
+    public boolean hasValidator(final String code) {
+        return getValidator(code) != null;
+    }
+
+    /**
+     * Validate an IBAN Code
+     *
+     * @param code The value validation is being performed on
+     * @return {@code true} if the value is valid
+     */
+    public boolean isValid(final String code) {
+        final Validator formatValidator = getValidator(code);
+        if (formatValidator == null || code.length() != formatValidator.ibanLength || !formatValidator.regexValidator.isValid(code)) {
+            return false;
         }
-        return validatorMap.put(validator.countryCode, validator);
+        return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code);
     }
 
     /**
@@ -359,5 +344,20 @@ public class IBANValidator {
             return validatorMap.remove(countryCode);
         }
         return setValidator(new Validator(countryCode, length, format));
+    }
+
+    /**
+     * Installs a validator.
+     * Will replace any existing entry which has the same countryCode
+     *
+     * @param validator the instance to install.
+     * @return the previous Validator, or {@code null} if there was none
+     * @throws IllegalStateException if an attempt is made to modify the singleton validator
+     */
+    public Validator setValidator(final Validator validator) {
+        if (this == DEFAULT_IBAN_VALIDATOR) {
+            throw new IllegalStateException("The singleton validator cannot be modified");
+        }
+        return validatorMap.put(validator.countryCode, validator);
     }
 }

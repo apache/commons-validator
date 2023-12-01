@@ -61,29 +61,6 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
     }
 
     /**
-     * Validate the check digit of an IBAN code.
-     *
-     * @param code The code to validate
-     * @return {@code true} if the check digit is valid, otherwise
-     * {@code false}
-     */
-    @Override
-    public boolean isValid(final String code) {
-        if (code == null || code.length() < MIN_CODE_LEN) {
-            return false;
-        }
-        final String check = code.substring(2, 4); // CHECKSTYLE IGNORE MagicNumber
-        if ("00".equals(check) || "01".equals(check) || "99".equals(check)) {
-            return false;
-        }
-        try {
-            return calculateModulus(code) == 1;
-        } catch (final CheckDigitException ex) {
-            return false;
-        }
-    }
-
-    /**
      * Calculate the <i>Check Digit</i> for an IBAN code.
      * <p>
      * <b>Note:</b> The check digit is the third and fourth
@@ -128,6 +105,29 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
             }
         }
         return (int) (total % MODULUS);
+    }
+
+    /**
+     * Validate the check digit of an IBAN code.
+     *
+     * @param code The code to validate
+     * @return {@code true} if the check digit is valid, otherwise
+     * {@code false}
+     */
+    @Override
+    public boolean isValid(final String code) {
+        if (code == null || code.length() < MIN_CODE_LEN) {
+            return false;
+        }
+        final String check = code.substring(2, 4); // CHECKSTYLE IGNORE MagicNumber
+        if ("00".equals(check) || "01".equals(check) || "99".equals(check)) {
+            return false;
+        }
+        try {
+            return calculateModulus(code) == 1;
+        } catch (final CheckDigitException ex) {
+            return false;
+        }
     }
 
 }

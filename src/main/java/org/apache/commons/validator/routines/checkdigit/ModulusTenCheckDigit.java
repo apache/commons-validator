@@ -207,6 +207,17 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     }
 
     /**
+     * Return a string representation of this implementation.
+     *
+     * @return a string representation
+     */
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "[postitionWeight=" + Arrays.toString(postitionWeight) + ", useRightPos="
+                + useRightPos + ", sumWeightedDigits=" + sumWeightedDigits + "]";
+    }
+
+    /**
      * Calculates the <i>weighted</i> value of a character in the code at a
      * specified position.
      *
@@ -226,17 +237,6 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
             weightedValue = ModulusCheckDigit.sumDigits(weightedValue);
         }
         return weightedValue;
-    }
-
-    /**
-     * Return a string representation of this implementation.
-     *
-     * @return a string representation
-     */
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "[postitionWeight=" + Arrays.toString(postitionWeight) + ", useRightPos="
-                + useRightPos + ", sumWeightedDigits=" + sumWeightedDigits + "]";
     }
 
 }

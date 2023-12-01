@@ -44,6 +44,46 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
    }
 
    /**
+    * Tests the locale.
+    */
+   private Map<String, ?> localeTest(final TypeBean info, final Locale locale) throws ValidatorException {
+
+      // Construct validator based on the loaded resources
+      // and the form key
+      final Validator validator = new Validator(resources, "typeLocaleForm");
+      // add the name bean to the validator as a resource
+      // for the validations to be performed on.
+      validator.setParameter(Validator.BEAN_PARAM, info);
+      validator.setParameter("java.util.Locale", locale);
+
+      // Get results of the validation.
+      // throws ValidatorException,
+      // but we aren't catching for testing
+      // since no validation methods we use
+      // throw this
+      final ValidatorResults results = validator.validate();
+
+      assertNotNull("Results are null.", results);
+
+      final Map<String, ?> hResultValues = results.getResultValueMap();
+
+      assertTrue("Expecting byte result to be an instance of Byte for locale: "+locale, hResultValues.get("byte") instanceof Byte);
+      assertTrue("Expecting short result to be an instance of Short for locale: "+locale, hResultValues.get("short") instanceof Short);
+      assertTrue("Expecting integer result to be an instance of Integer for locale: "+locale, hResultValues.get("integer") instanceof Integer);
+      assertTrue("Expecting long result to be an instance of Long for locale: "+locale, hResultValues.get("long") instanceof Long);
+      assertTrue("Expecting float result to be an instance of Float for locale: "+locale, hResultValues.get("float") instanceof Float);
+      assertTrue("Expecting double result to be an instance of Double for locale: "+locale, hResultValues.get("double") instanceof Double);
+      assertTrue("Expecting date result to be an instance of Date for locale: "+locale, hResultValues.get("date") instanceof Date);
+
+      for (final String key : hResultValues.keySet()) {
+         final Object value = hResultValues.get(key);
+
+         assertNotNull("value ValidatorResults.getResultValueMap() should not be null for locale: "+locale, value);
+      }
+      return hResultValues;
+   }
+
+   /**
     * Load <code>ValidatorResources</code> from
     * validator-type.xml.
     */
@@ -56,6 +96,24 @@ protected void setUp() throws IOException, SAXException {
    @Override
 protected void tearDown() {
    }
+
+   /**
+    * Tests the fr locale.
+    */
+   public void testFRLocale() throws ValidatorException {
+      // Create bean to run test on.
+      final TypeBean info = new TypeBean();
+      info.setByte("12");
+      info.setShort("-129");
+      info.setInteger("1443");
+      info.setLong("88000");
+      info.setFloat("12,1555");
+      info.setDouble("129,1551511111");
+      info.setDate("21/12/2010");
+      final Map<String, ?> map = localeTest(info, Locale.FRENCH);
+      assertEquals("float value not correct", 12, ((Float)map.get("float")).intValue());
+      assertEquals("double value not correct", 129, ((Double)map.get("double")).intValue());
+  }
 
    /**
     * Tests the byte validation.
@@ -109,7 +167,7 @@ protected void tearDown() {
 
    }
 
-   /**
+  /**
     * Tests the us locale
     */
    public void testUSLocale() throws ValidatorException {
@@ -123,64 +181,6 @@ protected void tearDown() {
       info.setDouble("129.1551511111");
       info.setDate("12/21/2010");
       localeTest(info, Locale.US);
-   }
-
-   /**
-    * Tests the fr locale.
-    */
-   public void testFRLocale() throws ValidatorException {
-      // Create bean to run test on.
-      final TypeBean info = new TypeBean();
-      info.setByte("12");
-      info.setShort("-129");
-      info.setInteger("1443");
-      info.setLong("88000");
-      info.setFloat("12,1555");
-      info.setDouble("129,1551511111");
-      info.setDate("21/12/2010");
-      final Map<String, ?> map = localeTest(info, Locale.FRENCH);
-      assertEquals("float value not correct", 12, ((Float)map.get("float")).intValue());
-      assertEquals("double value not correct", 129, ((Double)map.get("double")).intValue());
-  }
-
-  /**
-    * Tests the locale.
-    */
-   private Map<String, ?> localeTest(final TypeBean info, final Locale locale) throws ValidatorException {
-
-      // Construct validator based on the loaded resources
-      // and the form key
-      final Validator validator = new Validator(resources, "typeLocaleForm");
-      // add the name bean to the validator as a resource
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, info);
-      validator.setParameter("java.util.Locale", locale);
-
-      // Get results of the validation.
-      // throws ValidatorException,
-      // but we aren't catching for testing
-      // since no validation methods we use
-      // throw this
-      final ValidatorResults results = validator.validate();
-
-      assertNotNull("Results are null.", results);
-
-      final Map<String, ?> hResultValues = results.getResultValueMap();
-
-      assertTrue("Expecting byte result to be an instance of Byte for locale: "+locale, hResultValues.get("byte") instanceof Byte);
-      assertTrue("Expecting short result to be an instance of Short for locale: "+locale, hResultValues.get("short") instanceof Short);
-      assertTrue("Expecting integer result to be an instance of Integer for locale: "+locale, hResultValues.get("integer") instanceof Integer);
-      assertTrue("Expecting long result to be an instance of Long for locale: "+locale, hResultValues.get("long") instanceof Long);
-      assertTrue("Expecting float result to be an instance of Float for locale: "+locale, hResultValues.get("float") instanceof Float);
-      assertTrue("Expecting double result to be an instance of Double for locale: "+locale, hResultValues.get("double") instanceof Double);
-      assertTrue("Expecting date result to be an instance of Date for locale: "+locale, hResultValues.get("date") instanceof Date);
-
-      for (final String key : hResultValues.keySet()) {
-         final Object value = hResultValues.get(key);
-
-         assertNotNull("value ValidatorResults.getResultValueMap() should not be null for locale: "+locale, value);
-      }
-      return hResultValues;
    }
 
 }

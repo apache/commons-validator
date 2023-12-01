@@ -54,21 +54,21 @@ public class DateTest extends AbstractCommonTest {
     /**
      * Tests the date validation.
      */
-    public void testValidDate() throws ValidatorException {
-        // Create bean to run test on.
-        final ValueBean info = new ValueBean();
-        info.setValue("12/01/2005");
-        valueTest(info, true);
-    }
-
-    /**
-     * Tests the date validation.
-     */
     public void testInvalidDate() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue("12/01as/2005");
         valueTest(info, false);
+    }
+
+    /**
+     * Tests the date validation.
+     */
+    public void testValidDate() throws ValidatorException {
+        // Create bean to run test on.
+        final ValueBean info = new ValueBean();
+        info.setValue("12/01/2005");
+        valueTest(info, true);
     }
 
     /**

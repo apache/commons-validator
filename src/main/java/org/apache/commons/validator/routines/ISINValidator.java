@@ -70,8 +70,6 @@ public class ISINValidator implements Serializable {
         Arrays.sort(SPECIALS); // Just in case ...
     }
 
-    private final boolean checkCountryCode;
-
     /**
      * Return a singleton instance of the ISIN validator
      * @param checkCountryCode whether to check the country-code prefix or not
@@ -81,8 +79,17 @@ public class ISINValidator implements Serializable {
         return checkCountryCode ? ISIN_VALIDATOR_TRUE : ISIN_VALIDATOR_FALSE;
     }
 
+    private final boolean checkCountryCode;
+
     private ISINValidator(final boolean checkCountryCode) {
         this.checkCountryCode = checkCountryCode;
+    }
+
+    private boolean checkCode(final String code) {
+        return Arrays.binarySearch(CCODES, code) >= 0
+               ||
+               Arrays.binarySearch(SPECIALS, code) >= 0
+        ;
     }
 
     /**
@@ -112,13 +119,6 @@ public class ISINValidator implements Serializable {
             return checkCode(code.substring(0,2)) ? validate : null;
         }
         return validate;
-    }
-
-    private boolean checkCode(final String code) {
-        return Arrays.binarySearch(CCODES, code) >= 0
-               ||
-               Arrays.binarySearch(SPECIALS, code) >= 0
-        ;
     }
 
 }

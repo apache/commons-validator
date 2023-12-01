@@ -42,6 +42,38 @@ public class ValidatorResultsTest extends AbstractCommonTest {
    }
 
    /**
+    * Check a validator has not been run for a field and the result.
+    */
+   private void checkNotRun(final ValidatorResults results, final String field, final String action) {
+      final ValidatorResult result = results.getValidatorResult(field);
+      assertNotNull(field + " result",  result);
+      assertFalse(field + "[" + action + "] run", result.containsAction(action));
+      // System.out.println(field + "[" + action + "] not run");
+   }
+
+   /**
+    * Check a validator has run for a field and the result.
+    */
+   private void checkValidatorResult(final ValidatorResults results, final String field, final String action, final boolean expected) {
+      final ValidatorResult result = results.getValidatorResult(field);
+      // System.out.println(field + "[" + action + "]=" + result.isValid(action));
+      assertNotNull(field + " result",  result);
+      assertTrue(field + "[" + action + "] not run", result.containsAction(action));
+      assertEquals(field + "[" + action + "] result", expected, result.isValid(action));
+   }
+
+   /**
+    * Create a NameBean.
+    */
+   private NameBean createNameBean() {
+      final NameBean name = new NameBean();
+      name.setFirstName(firstName);
+      name.setMiddleName(middleName);
+      name.setLastName(lastName);
+      return name;
+   }
+
+   /**
     * Load <code>ValidatorResources</code> from
     * ValidatorResultsTest-config.xml.
     */
@@ -104,38 +136,6 @@ protected void tearDown() {
       checkValidatorResult(results, lastNameField,   "required", false);
       checkNotRun(results, lastNameField,   "int");
 
-   }
-
-   /**
-    * Check a validator has not been run for a field and the result.
-    */
-   private void checkNotRun(final ValidatorResults results, final String field, final String action) {
-      final ValidatorResult result = results.getValidatorResult(field);
-      assertNotNull(field + " result",  result);
-      assertFalse(field + "[" + action + "] run", result.containsAction(action));
-      // System.out.println(field + "[" + action + "] not run");
-   }
-
-   /**
-    * Check a validator has run for a field and the result.
-    */
-   private void checkValidatorResult(final ValidatorResults results, final String field, final String action, final boolean expected) {
-      final ValidatorResult result = results.getValidatorResult(field);
-      // System.out.println(field + "[" + action + "]=" + result.isValid(action));
-      assertNotNull(field + " result",  result);
-      assertTrue(field + "[" + action + "] not run", result.containsAction(action));
-      assertEquals(field + "[" + action + "] result", expected, result.isValid(action));
-   }
-
-   /**
-    * Create a NameBean.
-    */
-   private NameBean createNameBean() {
-      final NameBean name = new NameBean();
-      name.setFirstName(firstName);
-      name.setMiddleName(middleName);
-      name.setLastName(lastName);
-      return name;
    }
 
    /**

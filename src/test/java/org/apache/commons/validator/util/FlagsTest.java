@@ -37,9 +37,22 @@ public class FlagsTest extends TestCase {
         super(name);
     }
 
-    public void testHashCode() {
-        final Flags f = new Flags(45);
-        assertEquals(f.hashCode(), 45);
+    public void testClear() {
+        final Flags f = new Flags(98432);
+        f.clear();
+        assertEquals(0, f.getFlags());
+    }
+
+    /**
+     * Test for Object clone()
+     */
+    public void testClone() {
+    }
+
+    /**
+     * Test for boolean equals(Object)
+     */
+    public void testEqualsObject() {
     }
 
     public void testGetFlags() {
@@ -47,41 +60,9 @@ public class FlagsTest extends TestCase {
         assertEquals(f.getFlags(), 45);
     }
 
-    public void testIsOnOff() {
-        final Flags f = new Flags();
-        f.turnOn(LONG_FLAG);
-        f.turnOn(INT_FLAG);
-        assertTrue(f.isOn(LONG_FLAG));
-        assertTrue(!f.isOff(LONG_FLAG));
-
-        assertTrue(f.isOn(INT_FLAG));
-        assertTrue(!f.isOff(INT_FLAG));
-
-        assertTrue(f.isOff(LONG_FLAG_2));
-    }
-
-    public void testTurnOnOff() {
-    }
-
-    public void testTurnOff() {
-    }
-
-    public void testTurnOffAll() {
-        final Flags f = new Flags(98432);
-        f.turnOffAll();
-        assertEquals(0, f.getFlags());
-    }
-
-    public void testClear() {
-        final Flags f = new Flags(98432);
-        f.clear();
-        assertEquals(0, f.getFlags());
-    }
-
-    public void testTurnOnAll() {
-        final Flags f = new Flags();
-        f.turnOnAll();
-        assertEquals(~0, f.getFlags());
+    public void testHashCode() {
+        final Flags f = new Flags(45);
+        assertEquals(f.hashCode(), 45);
     }
 
     public void testIsOn_isFalseWhenNotAllFlagsInArgumentAreOn() {
@@ -98,16 +79,17 @@ public class FlagsTest extends TestCase {
         assertTrue(allOn.isOn(highOrderBit));
     }
 
-    /**
-     * Test for Object clone()
-     */
-    public void testClone() {
-    }
+    public void testIsOnOff() {
+        final Flags f = new Flags();
+        f.turnOn(LONG_FLAG);
+        f.turnOn(INT_FLAG);
+        assertTrue(f.isOn(LONG_FLAG));
+        assertTrue(!f.isOff(LONG_FLAG));
 
-    /**
-     * Test for boolean equals(Object)
-     */
-    public void testEqualsObject() {
+        assertTrue(f.isOn(INT_FLAG));
+        assertTrue(!f.isOff(INT_FLAG));
+
+        assertTrue(f.isOff(LONG_FLAG_2));
     }
 
     /**
@@ -125,6 +107,24 @@ public class FlagsTest extends TestCase {
         assertEquals(
             "0000000000000000000000000000000000000000000000000000000000000100",
             s);
+    }
+
+    public void testTurnOff() {
+    }
+
+    public void testTurnOffAll() {
+        final Flags f = new Flags(98432);
+        f.turnOffAll();
+        assertEquals(0, f.getFlags());
+    }
+
+    public void testTurnOnAll() {
+        final Flags f = new Flags();
+        f.turnOnAll();
+        assertEquals(~0, f.getFlags());
+    }
+
+    public void testTurnOnOff() {
     }
 
 }

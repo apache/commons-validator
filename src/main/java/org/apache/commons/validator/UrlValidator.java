@@ -190,6 +190,16 @@ public class UrlValidator implements Serializable {
     }
 
     /**
+     * Initialize a UrlValidator with the given validation options.
+     * @param options The options should be set using the public constants declared in
+     * this class.  To set multiple options you simply add them together.  For example,
+     * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
+     */
+    public UrlValidator(final int options) {
+        this(null, options);
+    }
+
+    /**
      * Behavior of validation is modified by passing in several strings options:
      * @param schemes Pass in one or more URL schemes to consider valid, passing in
      *        a null will default to "http,https,ftp" being valid.
@@ -199,16 +209,6 @@ public class UrlValidator implements Serializable {
      */
     public UrlValidator(final String[] schemes) {
         this(schemes, 0);
-    }
-
-    /**
-     * Initialize a UrlValidator with the given validation options.
-     * @param options The options should be set using the public constants declared in
-     * this class.  To set multiple options you simply add them together.  For example,
-     * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
-     */
-    public UrlValidator(final int options) {
-        this(null, options);
     }
 
     /**
@@ -230,6 +230,25 @@ public class UrlValidator implements Serializable {
         }
 
         this.allowedSchemes.addAll(Arrays.asList(schemes));
+    }
+
+    /**
+     * Returns the number of times the token appears in the target.
+     * @param token Token value to be counted.
+     * @param target Target value to count tokens in.
+     * @return the number of tokens.
+     */
+    protected int countToken(final String token, final String target) {
+        int tokenIndex = 0;
+        int count = 0;
+        while (tokenIndex != -1) {
+            tokenIndex = target.indexOf(token, tokenIndex);
+            if (tokenIndex > -1) {
+                tokenIndex++;
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
@@ -270,30 +289,6 @@ public class UrlValidator implements Serializable {
         }
 
         if (!isValidFragment(urlMatcher.group(PARSE_URL_FRAGMENT))) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Validate scheme. If schemes[] was initialized to a non null,
-     * then only those scheme's are allowed.  Note this is slightly different
-     * than for the constructor.
-     * @param scheme The scheme to validate.  A <code>null</code> value is considered
-     * invalid.
-     * @return true if valid.
-     */
-    protected boolean isValidScheme(final String scheme) {
-        if (scheme == null) {
-            return false;
-        }
-
-        if (!SCHEME_PATTERN.matcher(scheme).matches()) {
-            return false;
-        }
-
-        if (options.isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme)) {
             return false;
         }
 
@@ -393,6 +388,19 @@ public class UrlValidator implements Serializable {
     }
 
     /**
+     * Returns true if the given fragment is null or fragments are allowed.
+     * @param fragment Fragment value to validate.
+     * @return true if fragment is valid.
+     */
+    protected boolean isValidFragment(final String fragment) {
+        if (fragment == null) {
+            return true;
+        }
+
+        return options.isOff(NO_FRAGMENTS);
+    }
+
+    /**
      * Returns true if the path is valid.  A <code>null</code> value is considered invalid.
      * @param path Path value to validate.
      * @return true if path is valid.
@@ -434,34 +442,26 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Returns true if the given fragment is null or fragments are allowed.
-     * @param fragment Fragment value to validate.
-     * @return true if fragment is valid.
+     * Validate scheme. If schemes[] was initialized to a non null,
+     * then only those scheme's are allowed.  Note this is slightly different
+     * than for the constructor.
+     * @param scheme The scheme to validate.  A <code>null</code> value is considered
+     * invalid.
+     * @return true if valid.
      */
-    protected boolean isValidFragment(final String fragment) {
-        if (fragment == null) {
-            return true;
+    protected boolean isValidScheme(final String scheme) {
+        if (scheme == null) {
+            return false;
         }
 
-        return options.isOff(NO_FRAGMENTS);
-    }
-
-    /**
-     * Returns the number of times the token appears in the target.
-     * @param token Token value to be counted.
-     * @param target Target value to count tokens in.
-     * @return the number of tokens.
-     */
-    protected int countToken(final String token, final String target) {
-        int tokenIndex = 0;
-        int count = 0;
-        while (tokenIndex != -1) {
-            tokenIndex = target.indexOf(token, tokenIndex);
-            if (tokenIndex > -1) {
-                tokenIndex++;
-                count++;
-            }
+        if (!SCHEME_PATTERN.matcher(scheme).matches()) {
+            return false;
         }
-        return count;
+
+        if (options.isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme)) {
+            return false;
+        }
+
+        return true;
     }
 }

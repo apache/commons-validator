@@ -91,43 +91,6 @@ public class ISSNValidator implements Serializable {
     }
 
     /**
-     * Check the code is a valid EAN code.
-     * <p>
-     * If valid, this method returns the EAN code
-     *
-     * @param code The code to validate.
-     * @return A valid EAN code if valid, otherwise <code>null</code>.
-     * @since 1.7
-     */
-    public Object validateEan(final String code) {
-        return EAN_VALIDATOR.validate(code);
-    }
-
-    /**
-     * Check the code is a valid ISSN code after any transformation
-     * by the validate routine.
-     * @param code The code to validate.
-     * @return {@code true} if a valid ISSN
-     * code, otherwise {@code false}.
-     */
-    public boolean isValid(final String code) {
-        return VALIDATOR.isValid(code);
-    }
-
-    /**
-     * Check the code is valid ISSN code.
-     * <p>
-     * If valid, this method returns the ISSN code with
-     * the 'ISSN ' prefix removed (if it was present)
-     *
-     * @param code The code to validate.
-     * @return A valid ISSN code if valid, otherwise <code>null</code>.
-     */
-    public Object validate(final String code) {
-        return VALIDATOR.validate(code);
-    }
-
-    /**
      * Convert an ISSN code to an EAN-13 code.
      * <p>
      * This method requires a valid ISSN code.
@@ -200,5 +163,42 @@ public class ISSNValidator implements Serializable {
         } catch (final CheckDigitException e) { // Should not happen
             throw new IllegalArgumentException("Check digit error for '" + ean13 + "' - " + e.getMessage());
         }
+    }
+
+    /**
+     * Check the code is a valid ISSN code after any transformation
+     * by the validate routine.
+     * @param code The code to validate.
+     * @return {@code true} if a valid ISSN
+     * code, otherwise {@code false}.
+     */
+    public boolean isValid(final String code) {
+        return VALIDATOR.isValid(code);
+    }
+
+    /**
+     * Check the code is valid ISSN code.
+     * <p>
+     * If valid, this method returns the ISSN code with
+     * the 'ISSN ' prefix removed (if it was present)
+     *
+     * @param code The code to validate.
+     * @return A valid ISSN code if valid, otherwise <code>null</code>.
+     */
+    public Object validate(final String code) {
+        return VALIDATOR.validate(code);
+    }
+
+    /**
+     * Check the code is a valid EAN code.
+     * <p>
+     * If valid, this method returns the EAN code
+     *
+     * @param code The code to validate.
+     * @return A valid EAN code if valid, otherwise <code>null</code>.
+     * @since 1.7
+     */
+    public Object validateEan(final String code) {
+        return EAN_VALIDATOR.validate(code);
     }
 }

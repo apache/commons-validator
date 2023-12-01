@@ -72,6 +72,38 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
+     * Test Short Range/Min/Max
+     */
+    public void testShortRangeMinMax() {
+        final ShortValidator validator = (ShortValidator)strictValidator;
+        final Short number9  = validator.validate("9", "#");
+        final Short number10 = validator.validate("10", "#");
+        final Short number11 = validator.validate("11", "#");
+        final Short number19 = validator.validate("19", "#");
+        final Short number20 = validator.validate("20", "#");
+        final Short number21 = validator.validate("21", "#");
+        final short min = (short)10;
+        final short max = (short)20;
+
+        // Test isInRange()
+        assertFalse("isInRange() < min",   validator.isInRange(number9,  min, max));
+        assertTrue("isInRange() = min",    validator.isInRange(number10, min, max));
+        assertTrue("isInRange() in range", validator.isInRange(number11, min, max));
+        assertTrue("isInRange() = max",    validator.isInRange(number20, min, max));
+        assertFalse("isInRange() > max",   validator.isInRange(number21, min, max));
+
+        // Test minValue()
+        assertFalse("minValue() < min",    validator.minValue(number9,  min));
+        assertTrue("minValue() = min",     validator.minValue(number10, min));
+        assertTrue("minValue() > min",     validator.minValue(number11, min));
+
+        // Test minValue()
+        assertTrue("maxValue() < max",     validator.maxValue(number19, max));
+        assertTrue("maxValue() = max",     validator.maxValue(number20, max));
+        assertFalse("maxValue() > max",    validator.maxValue(number21, max));
+    }
+
+    /**
      * Test ShortValidator validate Methods
      */
     public void testShortValidatorMethods() {
@@ -102,37 +134,5 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
         assertFalse("isValid(B) locale ", ShortValidator.getInstance().isValid(XXXX, locale));
         assertFalse("isValid(B) pattern", ShortValidator.getInstance().isValid(XXXX, pattern));
         assertFalse("isValid(B) both",    ShortValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
-    }
-
-    /**
-     * Test Short Range/Min/Max
-     */
-    public void testShortRangeMinMax() {
-        final ShortValidator validator = (ShortValidator)strictValidator;
-        final Short number9  = validator.validate("9", "#");
-        final Short number10 = validator.validate("10", "#");
-        final Short number11 = validator.validate("11", "#");
-        final Short number19 = validator.validate("19", "#");
-        final Short number20 = validator.validate("20", "#");
-        final Short number21 = validator.validate("21", "#");
-        final short min = (short)10;
-        final short max = (short)20;
-
-        // Test isInRange()
-        assertFalse("isInRange() < min",   validator.isInRange(number9,  min, max));
-        assertTrue("isInRange() = min",    validator.isInRange(number10, min, max));
-        assertTrue("isInRange() in range", validator.isInRange(number11, min, max));
-        assertTrue("isInRange() = max",    validator.isInRange(number20, min, max));
-        assertFalse("isInRange() > max",   validator.isInRange(number21, min, max));
-
-        // Test minValue()
-        assertFalse("minValue() < min",    validator.minValue(number9,  min));
-        assertTrue("minValue() = min",     validator.minValue(number10, min));
-        assertTrue("minValue() > min",     validator.minValue(number11, min));
-
-        // Test minValue()
-        assertTrue("maxValue() < max",     validator.maxValue(number19, max));
-        assertTrue("maxValue() = max",     validator.maxValue(number20, max));
-        assertFalse("maxValue() > max",    validator.maxValue(number21, max));
     }
 }

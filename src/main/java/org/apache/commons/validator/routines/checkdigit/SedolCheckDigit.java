@@ -75,20 +75,6 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * Calculates the <i>weighted</i> value of a character in the
-     * code at a specified position.
-     *
-     * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
-     * @return The weighted value of the character.
-     */
-    @Override
-    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        return charValue * POSITION_WEIGHT[leftPos - 1];
-    }
-
-    /**
      * Convert a character at a specified position to an integer value.
      *
      * @param character The character to convert
@@ -108,6 +94,20 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
                     leftPos + "," + rightPos + "] = '" + charValue + "' out of range 0 to " + charMax);
         }
         return charValue;
+    }
+
+    /**
+     * Calculates the <i>weighted</i> value of a character in the
+     * code at a specified position.
+     *
+     * @param charValue The numeric value of the character.
+     * @param leftPos The position of the character in the code, counting from left to right
+     * @param rightPos The positionof the character in the code, counting from right to left
+     * @return The weighted value of the character.
+     */
+    @Override
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
+        return charValue * POSITION_WEIGHT[leftPos - 1];
     }
 
 }

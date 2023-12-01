@@ -107,56 +107,6 @@ public class LongValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a <code>Long</code> using the default
-     *    <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @return The parsed <code>Long</code> if valid or <code>null</code>
-     *  if invalid.
-     */
-    public Long validate(final String value) {
-        return (Long)parse(value, (String)null, (Locale)null);
-    }
-
-    /**
-     * <p>Validate/convert a <code>Long</code> using the
-     *    specified <i>pattern</i>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
-     * @return The parsed <code>Long</code> if valid or <code>null</code> if invalid.
-     */
-    public Long validate(final String value, final String pattern) {
-        return (Long)parse(value, pattern, (Locale)null);
-    }
-
-    /**
-     * <p>Validate/convert a <code>Long</code> using the
-     *    specified <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param locale The locale to use for the number format, system default if null.
-     * @return The parsed <code>Long</code> if valid or <code>null</code> if invalid.
-     */
-    public Long validate(final String value, final Locale locale) {
-        return (Long)parse(value, (String)null, locale);
-    }
-
-    /**
-     * <p>Validate/convert a <code>Long</code> using the
-     *    specified pattern and/ or <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
-     * @param locale The locale to use for the date format, system default if null.
-     * @return The parsed <code>Long</code> if valid or <code>null</code> if invalid.
-     */
-    public Long validate(final String value, final String pattern, final Locale locale) {
-        return (Long)parse(value, pattern, locale);
-    }
-
-    /**
      * Check if the value is within a specified range.
      *
      * @param value The <code>Number</code> value to check.
@@ -180,30 +130,6 @@ public class LongValidator extends AbstractNumberValidator {
      */
     public boolean isInRange(final Long value, final long min, final long max) {
         return isInRange(value.longValue(), min, max);
-    }
-
-    /**
-     * Check if the value is greater than or equal to a minimum.
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum value.
-     * @return {@code true} if the value is greater than
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final long value, final long min) {
-        return value >= min;
-    }
-
-    /**
-     * Check if the value is greater than or equal to a minimum.
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum value.
-     * @return {@code true} if the value is greater than
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final Long value, final long min) {
-        return minValue(value.longValue(), min);
     }
 
     /**
@@ -231,6 +157,30 @@ public class LongValidator extends AbstractNumberValidator {
     }
 
     /**
+     * Check if the value is greater than or equal to a minimum.
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than
+     *         or equal to the minimum.
+     */
+    public boolean minValue(final long value, final long min) {
+        return value >= min;
+    }
+
+    /**
+     * Check if the value is greater than or equal to a minimum.
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than
+     *         or equal to the minimum.
+     */
+    public boolean minValue(final Long value, final long min) {
+        return minValue(value.longValue(), min);
+    }
+
+    /**
      * Convert the parsed value to a <code>Long</code>.
      *
      * @param value The parsed <code>Number</code> object created.
@@ -247,5 +197,55 @@ public class LongValidator extends AbstractNumberValidator {
         }
         return null;
 
+    }
+
+    /**
+     * <p>Validate/convert a <code>Long</code> using the default
+     *    <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @return The parsed <code>Long</code> if valid or <code>null</code>
+     *  if invalid.
+     */
+    public Long validate(final String value) {
+        return (Long)parse(value, (String)null, (Locale)null);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Long</code> using the
+     *    specified <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param locale The locale to use for the number format, system default if null.
+     * @return The parsed <code>Long</code> if valid or <code>null</code> if invalid.
+     */
+    public Long validate(final String value, final Locale locale) {
+        return (Long)parse(value, (String)null, locale);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Long</code> using the
+     *    specified <i>pattern</i>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against.
+     * @return The parsed <code>Long</code> if valid or <code>null</code> if invalid.
+     */
+    public Long validate(final String value, final String pattern) {
+        return (Long)parse(value, pattern, (Locale)null);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Long</code> using the
+     *    specified pattern and/ or <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
+     * @param locale The locale to use for the date format, system default if null.
+     * @return The parsed <code>Long</code> if valid or <code>null</code> if invalid.
+     */
+    public Long validate(final String value, final String pattern, final Locale locale) {
+        return (Long)parse(value, pattern, locale);
     }
 }

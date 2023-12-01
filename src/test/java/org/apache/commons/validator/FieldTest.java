@@ -40,6 +40,41 @@ public class FieldTest extends TestCase {
     }
 
     /**
+     * Convenience Method - create argument (no name or position specified)
+     */
+    private Arg createArg(final String key) {
+        final Arg arg = new Arg();
+        arg.setKey(key);
+        return arg;
+    }
+
+    /**
+     * Convenience Method - create argument (no name, position specified)
+     */
+    private Arg createArg(final String key, final int position) {
+        final Arg arg = createArg(key);
+        arg.setPosition(position);
+        return arg;
+    }
+
+    /**
+     * Convenience Method - create argument (name specified, no position)
+     */
+    private Arg createArg(final String key, final String name) {
+        final Arg arg = createArg(key);
+        arg.setName(name);
+        return arg;
+    }
+    /**
+     * Convenience Method - create argument (name & position specified)
+     */
+    private Arg createArg(final String key, final String name, final int position) {
+        final Arg arg = createArg(key, name);
+        arg.setPosition(position);
+        return arg;
+    }
+
+    /**
      * Test setup
      */
     @Override
@@ -56,46 +91,6 @@ public class FieldTest extends TestCase {
     }
 
     /**
-     * test Field with no arguments
-     */
-    public void testEmptyArgs() {
-
-        assertEquals("Empty Args(1) ", 0, field.getArgs("required").length);
-
-    }
-    /**
-     * test Field with only 'default' arguments, no positions specified.
-     */
-    public void testDefaultPositionImplied() {
-
-        field.addArg(createArg("default-position-0"));
-        field.addArg(createArg("default-position-1"));
-        field.addArg(createArg("default-position-2"));
-
-        assertEquals("testDefaultPositionImplied(1) ", 3, field.getArgs("required").length);
-        assertEquals("testDefaultPositionImplied(2) ", "default-position-0", field.getArg("required", 0).getKey());
-        assertEquals("testDefaultPositionImplied(3) ", "default-position-1", field.getArg("required", 1).getKey());
-        assertEquals("testDefaultPositionImplied(4) ", "default-position-2", field.getArg("required", 2).getKey());
-
-    }
-
-    /**
-     * test Field with only 'default' arguments, positions specified.
-     */
-    public void testDefaultUsingPositions() {
-
-        field.addArg(createArg("default-position-1", 1));
-        field.addArg(createArg("default-position-0", 0));
-        field.addArg(createArg("default-position-2", 2));
-
-        assertEquals("testDefaultUsingPositions(1) ", 3, field.getArgs("required").length);
-        assertEquals("testDefaultUsingPositions(2) ", "default-position-0", field.getArg("required", 0).getKey());
-        assertEquals("testDefaultUsingPositions(3) ", "default-position-1", field.getArg("required", 1).getKey());
-        assertEquals("testDefaultUsingPositions(4) ", "default-position-2", field.getArg("required", 2).getKey());
-
-    }
-
-    /**
      * test Field with only 'default' arguments, position specified for one argument
      */
     public void testDefaultOnePosition() {
@@ -109,6 +104,22 @@ public class FieldTest extends TestCase {
         assertNull("testDefaultOnePosition(3) ", field.getArg("required", 1));
         assertEquals("testDefaultOnePosition(4) ", "default-position-2", field.getArg("required", 2).getKey());
         assertEquals("testDefaultOnePosition(5) ", "default-position-3", field.getArg("required", 3).getKey());
+
+    }
+
+    /**
+     * test Field with only 'default' arguments, no positions specified.
+     */
+    public void testDefaultPositionImplied() {
+
+        field.addArg(createArg("default-position-0"));
+        field.addArg(createArg("default-position-1"));
+        field.addArg(createArg("default-position-2"));
+
+        assertEquals("testDefaultPositionImplied(1) ", 3, field.getArgs("required").length);
+        assertEquals("testDefaultPositionImplied(2) ", "default-position-0", field.getArg("required", 0).getKey());
+        assertEquals("testDefaultPositionImplied(3) ", "default-position-1", field.getArg("required", 1).getKey());
+        assertEquals("testDefaultPositionImplied(4) ", "default-position-2", field.getArg("required", 2).getKey());
 
     }
 
@@ -131,52 +142,27 @@ public class FieldTest extends TestCase {
     }
 
     /**
-     * test Field with a 'default' argument overriden using 'position' property
+     * test Field with only 'default' arguments, positions specified.
      */
-    public void testOverrideUsingPositionA() {
+    public void testDefaultUsingPositions() {
 
-        field.addArg(createArg("default-position-0"));
-        field.addArg(createArg("default-position-1"));
-        field.addArg(createArg("default-position-2"));
-        field.addArg(createArg("required-position-1", "required", 1));
+        field.addArg(createArg("default-position-1", 1));
+        field.addArg(createArg("default-position-0", 0));
+        field.addArg(createArg("default-position-2", 2));
 
-        // use 'required' as name
-        assertEquals("testOverrideUsingPositionA(1) ", 3, field.getArgs("required").length);
-        assertEquals("testOverrideUsingPositionA(2) ", "required-position-1", field.getArg("required", 1).getKey());
-
-        // use 'mask' as name
-        assertEquals("testOverrideUsingPositionA(3) ", 3, field.getArgs("mask").length);
-        assertEquals("testOverrideUsingPositionA(4) ", "default-position-1", field.getArg("mask", 1).getKey());
-
-        // Get Default
-        assertEquals("testOverrideUsingPositionA(5) ", "default-position-1", field.getArg(1).getKey());
+        assertEquals("testDefaultUsingPositions(1) ", 3, field.getArgs("required").length);
+        assertEquals("testDefaultUsingPositions(2) ", "default-position-0", field.getArg("required", 0).getKey());
+        assertEquals("testDefaultUsingPositions(3) ", "default-position-1", field.getArg("required", 1).getKey());
+        assertEquals("testDefaultUsingPositions(4) ", "default-position-2", field.getArg("required", 2).getKey());
 
     }
 
     /**
-     * test Field with a 'default' argument overriden using 'position' property
+     * test Field with no arguments
      */
-    public void testOverrideUsingPositionB() {
+    public void testEmptyArgs() {
 
-        field.addArg(createArg("required-position-3", "required", 3));
-        field.addArg(createArg("required-position-1", "required", 1));
-        field.addArg(createArg("default-position-0"));
-        field.addArg(createArg("default-position-1"));
-        field.addArg(createArg("default-position-2"));
-
-        // use 'required' as name
-        assertEquals("testOverrideUsingPositionB(1) ", 4, field.getArgs("required").length);
-        assertEquals("testOverrideUsingPositionB(2) ", "default-position-0",  field.getArg("required", 0).getKey());
-        assertEquals("testOverrideUsingPositionB(3) ", "required-position-1", field.getArg("required", 1).getKey());
-        assertEquals("testOverrideUsingPositionB(4) ", "default-position-2",  field.getArg("required", 2).getKey());
-        assertEquals("testOverrideUsingPositionB(5) ", "required-position-3", field.getArg("required", 3).getKey());
-
-        // use 'mask' as name
-        assertEquals("testOverrideUsingPositionB(6) ", 4, field.getArgs("mask").length);
-        assertEquals("testOverrideUsingPositionB(6) ", "default-position-0", field.getArg("mask", 0).getKey());
-        assertEquals("testOverrideUsingPositionB(7) ", "default-position-1", field.getArg("mask", 1).getKey());
-        assertEquals("testOverrideUsingPositionB(8) ", "default-position-2", field.getArg("mask", 2).getKey());
-        assertNull("testOverrideUsingPositionB(9) ", field.getArg("mask", 3));
+        assertEquals("Empty Args(1) ", 0, field.getArgs("required").length);
 
     }
 
@@ -244,39 +230,53 @@ public class FieldTest extends TestCase {
     }
 
     /**
-     * Convenience Method - create argument (no name or position specified)
+     * test Field with a 'default' argument overriden using 'position' property
      */
-    private Arg createArg(final String key) {
-        final Arg arg = new Arg();
-        arg.setKey(key);
-        return arg;
+    public void testOverrideUsingPositionA() {
+
+        field.addArg(createArg("default-position-0"));
+        field.addArg(createArg("default-position-1"));
+        field.addArg(createArg("default-position-2"));
+        field.addArg(createArg("required-position-1", "required", 1));
+
+        // use 'required' as name
+        assertEquals("testOverrideUsingPositionA(1) ", 3, field.getArgs("required").length);
+        assertEquals("testOverrideUsingPositionA(2) ", "required-position-1", field.getArg("required", 1).getKey());
+
+        // use 'mask' as name
+        assertEquals("testOverrideUsingPositionA(3) ", 3, field.getArgs("mask").length);
+        assertEquals("testOverrideUsingPositionA(4) ", "default-position-1", field.getArg("mask", 1).getKey());
+
+        // Get Default
+        assertEquals("testOverrideUsingPositionA(5) ", "default-position-1", field.getArg(1).getKey());
+
     }
 
     /**
-     * Convenience Method - create argument (no name, position specified)
+     * test Field with a 'default' argument overriden using 'position' property
      */
-    private Arg createArg(final String key, final int position) {
-        final Arg arg = createArg(key);
-        arg.setPosition(position);
-        return arg;
-    }
+    public void testOverrideUsingPositionB() {
 
-    /**
-     * Convenience Method - create argument (name specified, no position)
-     */
-    private Arg createArg(final String key, final String name) {
-        final Arg arg = createArg(key);
-        arg.setName(name);
-        return arg;
-    }
+        field.addArg(createArg("required-position-3", "required", 3));
+        field.addArg(createArg("required-position-1", "required", 1));
+        field.addArg(createArg("default-position-0"));
+        field.addArg(createArg("default-position-1"));
+        field.addArg(createArg("default-position-2"));
 
-    /**
-     * Convenience Method - create argument (name & position specified)
-     */
-    private Arg createArg(final String key, final String name, final int position) {
-        final Arg arg = createArg(key, name);
-        arg.setPosition(position);
-        return arg;
+        // use 'required' as name
+        assertEquals("testOverrideUsingPositionB(1) ", 4, field.getArgs("required").length);
+        assertEquals("testOverrideUsingPositionB(2) ", "default-position-0",  field.getArg("required", 0).getKey());
+        assertEquals("testOverrideUsingPositionB(3) ", "required-position-1", field.getArg("required", 1).getKey());
+        assertEquals("testOverrideUsingPositionB(4) ", "default-position-2",  field.getArg("required", 2).getKey());
+        assertEquals("testOverrideUsingPositionB(5) ", "required-position-3", field.getArg("required", 3).getKey());
+
+        // use 'mask' as name
+        assertEquals("testOverrideUsingPositionB(6) ", 4, field.getArgs("mask").length);
+        assertEquals("testOverrideUsingPositionB(6) ", "default-position-0", field.getArg("mask", 0).getKey());
+        assertEquals("testOverrideUsingPositionB(7) ", "default-position-1", field.getArg("mask", 1).getKey());
+        assertEquals("testOverrideUsingPositionB(8) ", "default-position-2", field.getArg("mask", 2).getKey());
+        assertNull("testOverrideUsingPositionB(9) ", field.getArg("mask", 3));
+
     }
 
 }

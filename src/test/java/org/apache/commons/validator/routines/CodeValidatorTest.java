@@ -63,6 +63,56 @@ public class CodeValidatorTest extends TestCase {
     }
 
     /**
+     * Test Regular Expression.
+     */
+    public void testConstructors() {
+        CodeValidator validator;
+        final RegexValidator regex = new RegexValidator("^[0-9]*$");
+
+        // Constructor 1
+        validator = new CodeValidator(regex, EAN13CheckDigit.EAN13_CHECK_DIGIT);
+        assertEquals("Constructor 1 - regex",      regex, validator.getRegexValidator());
+        assertEquals("Constructor 1 - min length", -1, validator.getMinLength());
+        assertEquals("Constructor 1 - max length", -1, validator.getMaxLength());
+        assertEquals("Constructor 1 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
+
+        // Constructor 2
+        validator = new CodeValidator(regex, 13, EAN13CheckDigit.EAN13_CHECK_DIGIT);
+        assertEquals("Constructor 2 - regex",      regex, validator.getRegexValidator());
+        assertEquals("Constructor 2 - min length", 13, validator.getMinLength());
+        assertEquals("Constructor 2 - max length", 13, validator.getMaxLength());
+        assertEquals("Constructor 2 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
+
+        // Constructor 3
+        validator = new CodeValidator(regex, 10, 20, EAN13CheckDigit.EAN13_CHECK_DIGIT);
+        assertEquals("Constructor 3 - regex",      regex, validator.getRegexValidator());
+        assertEquals("Constructor 3 - min length", 10, validator.getMinLength());
+        assertEquals("Constructor 3 - max length", 20, validator.getMaxLength());
+        assertEquals("Constructor 3 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
+
+        // Constructor 4
+        validator = new CodeValidator("^[0-9]*$", EAN13CheckDigit.EAN13_CHECK_DIGIT);
+        assertEquals("Constructor 4 - regex",      "RegexValidator{^[0-9]*$}", validator.getRegexValidator().toString());
+        assertEquals("Constructor 4 - min length", -1, validator.getMinLength());
+        assertEquals("Constructor 4 - max length", -1, validator.getMaxLength());
+        assertEquals("Constructor 4 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
+
+        // Constructor 5
+        validator = new CodeValidator("^[0-9]*$", 13, EAN13CheckDigit.EAN13_CHECK_DIGIT);
+        assertEquals("Constructor 5 - regex",      "RegexValidator{^[0-9]*$}", validator.getRegexValidator().toString());
+        assertEquals("Constructor 5 - min length", 13, validator.getMinLength());
+        assertEquals("Constructor 5 - max length", 13, validator.getMaxLength());
+        assertEquals("Constructor 5 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
+
+        // Constructor 6
+        validator = new CodeValidator("^[0-9]*$", 10, 20, EAN13CheckDigit.EAN13_CHECK_DIGIT);
+        assertEquals("Constructor 6 - regex",      "RegexValidator{^[0-9]*$}", validator.getRegexValidator().toString());
+        assertEquals("Constructor 6 - min length", 10, validator.getMinLength());
+        assertEquals("Constructor 6 - max length", 20, validator.getMaxLength());
+        assertEquals("Constructor 6 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
+    }
+
+    /**
      * Test the minimum/maximum length
      */
     public void testLength() {
@@ -125,6 +175,17 @@ public class CodeValidatorTest extends TestCase {
     /**
      * Test Regular Expression.
      */
+    public void testNoInput() {
+        final CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
+        assertEquals("Null",         null, validator.validate(null));
+        assertEquals("Zero Length",  null, validator.validate(""));
+        assertEquals("Spaces",       null, validator.validate("   "));
+        assertEquals("Trimmed",      "A",  validator.validate(" A  "));
+    }
+
+    /**
+     * Test Regular Expression.
+     */
     public void testRegex() {
         CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
 
@@ -169,17 +230,6 @@ public class CodeValidatorTest extends TestCase {
 
     }
 
-    /**
-     * Test Regular Expression.
-     */
-    public void testNoInput() {
-        final CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
-        assertEquals("Null",         null, validator.validate(null));
-        assertEquals("Zero Length",  null, validator.validate(""));
-        assertEquals("Spaces",       null, validator.validate("   "));
-        assertEquals("Trimmed",      "A",  validator.validate(" A  "));
-    }
-
     public void testValidator294_1() {
         CodeValidator validator = new CodeValidator((String)null, 0, -1, (CheckDigit)null);
         assertEquals("Null",         null, validator.validate(null));
@@ -190,56 +240,6 @@ public class CodeValidatorTest extends TestCase {
     public void testValidator294_2() {
         final CodeValidator validator = new CodeValidator((String)null, -1, 0, (CheckDigit)null);
         assertEquals("Null",         null, validator.validate(null));
-    }
-
-    /**
-     * Test Regular Expression.
-     */
-    public void testConstructors() {
-        CodeValidator validator;
-        final RegexValidator regex = new RegexValidator("^[0-9]*$");
-
-        // Constructor 1
-        validator = new CodeValidator(regex, EAN13CheckDigit.EAN13_CHECK_DIGIT);
-        assertEquals("Constructor 1 - regex",      regex, validator.getRegexValidator());
-        assertEquals("Constructor 1 - min length", -1, validator.getMinLength());
-        assertEquals("Constructor 1 - max length", -1, validator.getMaxLength());
-        assertEquals("Constructor 1 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
-
-        // Constructor 2
-        validator = new CodeValidator(regex, 13, EAN13CheckDigit.EAN13_CHECK_DIGIT);
-        assertEquals("Constructor 2 - regex",      regex, validator.getRegexValidator());
-        assertEquals("Constructor 2 - min length", 13, validator.getMinLength());
-        assertEquals("Constructor 2 - max length", 13, validator.getMaxLength());
-        assertEquals("Constructor 2 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
-
-        // Constructor 3
-        validator = new CodeValidator(regex, 10, 20, EAN13CheckDigit.EAN13_CHECK_DIGIT);
-        assertEquals("Constructor 3 - regex",      regex, validator.getRegexValidator());
-        assertEquals("Constructor 3 - min length", 10, validator.getMinLength());
-        assertEquals("Constructor 3 - max length", 20, validator.getMaxLength());
-        assertEquals("Constructor 3 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
-
-        // Constructor 4
-        validator = new CodeValidator("^[0-9]*$", EAN13CheckDigit.EAN13_CHECK_DIGIT);
-        assertEquals("Constructor 4 - regex",      "RegexValidator{^[0-9]*$}", validator.getRegexValidator().toString());
-        assertEquals("Constructor 4 - min length", -1, validator.getMinLength());
-        assertEquals("Constructor 4 - max length", -1, validator.getMaxLength());
-        assertEquals("Constructor 4 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
-
-        // Constructor 5
-        validator = new CodeValidator("^[0-9]*$", 13, EAN13CheckDigit.EAN13_CHECK_DIGIT);
-        assertEquals("Constructor 5 - regex",      "RegexValidator{^[0-9]*$}", validator.getRegexValidator().toString());
-        assertEquals("Constructor 5 - min length", 13, validator.getMinLength());
-        assertEquals("Constructor 5 - max length", 13, validator.getMaxLength());
-        assertEquals("Constructor 5 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
-
-        // Constructor 6
-        validator = new CodeValidator("^[0-9]*$", 10, 20, EAN13CheckDigit.EAN13_CHECK_DIGIT);
-        assertEquals("Constructor 6 - regex",      "RegexValidator{^[0-9]*$}", validator.getRegexValidator().toString());
-        assertEquals("Constructor 6 - min length", 10, validator.getMinLength());
-        assertEquals("Constructor 6 - max length", 20, validator.getMaxLength());
-        assertEquals("Constructor 6 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
     }
 
 }

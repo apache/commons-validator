@@ -185,86 +185,6 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Sets a parameter of a pluggable validation method.
-     *
-     * @param parameterClassName The full class name of the parameter of the
-     * validation method that corresponds to the value/instance passed in with it.
-     *
-     * @param parameterValue The instance that will be passed into the
-     * validation method.
-     */
-    public void setParameter(final String parameterClassName, final Object parameterValue) {
-        this.parameters.put(parameterClassName, parameterValue);
-    }
-
-    /**
-     * Returns the value of the specified parameter that will be used during the
-     * processing of validations.
-     *
-     * @param parameterClassName The full class name of the parameter of the
-     * validation method that corresponds to the value/instance passed in with it.
-     * @return value of the specified parameter.
-     */
-    public Object getParameterValue(final String parameterClassName) {
-        return this.parameters.get(parameterClassName);
-    }
-
-    /**
-     * Gets the form name which is the key to a set of validation rules.
-     * @return the name of the form.
-     */
-    public String getFormName() {
-        return formName;
-    }
-
-    /**
-     * Sets the form name which is the key to a set of validation rules.
-     * @param formName the name of the form.
-     */
-    public void setFormName(final String formName) {
-        this.formName = formName;
-    }
-
-    /**
-     * Sets the name of the field to validate in a form (optional)
-     *
-     * @param fieldName The name of the field in a form set
-     * @since 1.2.0
-     */
-    public void setFieldName(final String fieldName) {
-        this.fieldName = fieldName;
-    }
-
-    /**
-     * Gets the page.
-     *
-     * <p>
-     * This in conjunction with the page property of
-     * a {@code Field} can control the processing of fields. If the field's
-     * page is less than or equal to this page value, it will be processed.
-     * </p>
-     *
-     * @return the page number.
-     */
-    public int getPage() {
-        return page;
-    }
-
-    /**
-     * Sets the page.
-     * <p>
-     * This in conjunction with the page property of
-     * a {@code Field} can control the processing of fields. If the field's page
-     * is less than or equal to this page value, it will be processed.
-     * </p>
-     *
-     * @param page the page number.
-     */
-    public void setPage(final int page) {
-        this.page = page;
-    }
-
-    /**
      * Clears the form name, resources that were added, and the page that was
      * set (if any).  This can be called to reinitialize the Validator instance
      * so it can be reused.  The form name (key to set of validation rules) and any
@@ -278,27 +198,6 @@ public class Validator implements Serializable {
         this.fieldName = null;
         this.parameters = new HashMap<>();
         this.page = 0;
-    }
-
-    /**
-     * Return the boolean as to whether the context classloader should be used.
-     * @return whether the context classloader should be used.
-     */
-    public boolean getUseContextClassLoader() {
-        return this.useContextClassLoader;
-    }
-
-    /**
-     * Determine whether to use the Context ClassLoader (the one found by
-     * calling <code>Thread.currentThread().getContextClassLoader()</code>)
-     * to resolve/load classes that are defined in various rules.  If not
-     * using Context ClassLoader, then the class-loading defaults to
-     * using the calling-class' ClassLoader.
-     *
-     * @param use determines whether to use Context ClassLoader.
-     */
-    public void setUseContextClassLoader(final boolean use) {
-        this.useContextClassLoader = use;
     }
 
     /**
@@ -328,6 +227,57 @@ public class Validator implements Serializable {
     }
 
     /**
+     * Gets the form name which is the key to a set of validation rules.
+     * @return the name of the form.
+     */
+    public String getFormName() {
+        return formName;
+    }
+
+    /**
+     * Returns true if the Validator is only returning Fields that fail validation.
+     * @return whether only failed fields are returned.
+     */
+    public boolean getOnlyReturnErrors() {
+        return onlyReturnErrors;
+    }
+
+    /**
+     * Gets the page.
+     *
+     * <p>
+     * This in conjunction with the page property of
+     * a {@code Field} can control the processing of fields. If the field's
+     * page is less than or equal to this page value, it will be processed.
+     * </p>
+     *
+     * @return the page number.
+     */
+    public int getPage() {
+        return page;
+    }
+
+    /**
+     * Returns the value of the specified parameter that will be used during the
+     * processing of validations.
+     *
+     * @param parameterClassName The full class name of the parameter of the
+     * validation method that corresponds to the value/instance passed in with it.
+     * @return value of the specified parameter.
+     */
+    public Object getParameterValue(final String parameterClassName) {
+        return this.parameters.get(parameterClassName);
+    }
+
+    /**
+     * Return the boolean as to whether the context classloader should be used.
+     * @return whether the context classloader should be used.
+     */
+    public boolean getUseContextClassLoader() {
+        return this.useContextClassLoader;
+    }
+
+    /**
      * Sets the class loader to be used for instantiating application objects
      * when required.
      *
@@ -336,6 +286,74 @@ public class Validator implements Serializable {
      */
     public void setClassLoader(final ClassLoader classLoader) {
         this.classLoader = classLoader;
+    }
+
+    /**
+     * Sets the name of the field to validate in a form (optional)
+     *
+     * @param fieldName The name of the field in a form set
+     * @since 1.2.0
+     */
+    public void setFieldName(final String fieldName) {
+        this.fieldName = fieldName;
+    }
+
+    /**
+     * Sets the form name which is the key to a set of validation rules.
+     * @param formName the name of the form.
+     */
+    public void setFormName(final String formName) {
+        this.formName = formName;
+    }
+
+    /**
+     * Configures which Fields the Validator returns from the validate() method.  Set this
+     * to true to only return Fields that failed validation.  By default, validate() returns
+     * all fields.
+     * @param onlyReturnErrors whether only failed fields are returned.
+     */
+    public void setOnlyReturnErrors(final boolean onlyReturnErrors) {
+        this.onlyReturnErrors = onlyReturnErrors;
+    }
+
+    /**
+     * Sets the page.
+     * <p>
+     * This in conjunction with the page property of
+     * a {@code Field} can control the processing of fields. If the field's page
+     * is less than or equal to this page value, it will be processed.
+     * </p>
+     *
+     * @param page the page number.
+     */
+    public void setPage(final int page) {
+        this.page = page;
+    }
+
+    /**
+     * Sets a parameter of a pluggable validation method.
+     *
+     * @param parameterClassName The full class name of the parameter of the
+     * validation method that corresponds to the value/instance passed in with it.
+     *
+     * @param parameterValue The instance that will be passed into the
+     * validation method.
+     */
+    public void setParameter(final String parameterClassName, final Object parameterValue) {
+        this.parameters.put(parameterClassName, parameterValue);
+    }
+
+    /**
+     * Determine whether to use the Context ClassLoader (the one found by
+     * calling <code>Thread.currentThread().getContextClassLoader()</code>)
+     * to resolve/load classes that are defined in various rules.  If not
+     * using Context ClassLoader, then the class-loading defaults to
+     * using the calling-class' ClassLoader.
+     *
+     * @param use determines whether to use Context ClassLoader.
+     */
+    public void setUseContextClassLoader(final boolean use) {
+        this.useContextClassLoader = use;
     }
 
     /**
@@ -366,24 +384,6 @@ public class Validator implements Serializable {
         }
 
         return new ValidatorResults();
-    }
-
-    /**
-     * Returns true if the Validator is only returning Fields that fail validation.
-     * @return whether only failed fields are returned.
-     */
-    public boolean getOnlyReturnErrors() {
-        return onlyReturnErrors;
-    }
-
-    /**
-     * Configures which Fields the Validator returns from the validate() method.  Set this
-     * to true to only return Fields that failed validation.  By default, validate() returns
-     * all fields.
-     * @param onlyReturnErrors whether only failed fields are returned.
-     */
-    public void setOnlyReturnErrors(final boolean onlyReturnErrors) {
-        this.onlyReturnErrors = onlyReturnErrors;
     }
 
 }

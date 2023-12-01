@@ -90,53 +90,17 @@ public class Var implements Cloneable, Serializable {
     }
 
     /**
-     * Gets the name of the variable.
-     * @return The name of the variable.
+     * Creates and returns a copy of this object.
+     * @return A copy of the variable.
      */
-    public String getName() {
-        return this.name;
-    }
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
 
-    /**
-     * Sets the name of the variable.
-     * @param name The name of the variable.
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    /**
-     * Gets the value of the variable.
-     * @return The value of the variable.
-     */
-    public String getValue() {
-        return this.value;
-    }
-
-    /**
-     * Sets the value of the variable.
-     * @param value The value of the variable.
-     */
-    public void setValue(final String value) {
-        this.value = value;
-    }
-
-    /**
-     * Tests whether or not the value is a resource key or literal value.
-     * @return {@code true} if value is a resource key.
-     * @since 1.2.0
-     */
-    public boolean isResource() {
-        return this.resource;
-    }
-
-    /**
-     * Sets whether or not the value is a resource.
-     * @param resource If true indicates the value is a resource.
-     * @since 1.2.0
-     */
-    public void setResource(final boolean resource) {
-        this.resource = resource;
+        } catch (final CloneNotSupportedException e) {
+            throw new UnsupportedOperationException(e.toString(), e);
+        }
     }
 
     /**
@@ -149,20 +113,45 @@ public class Var implements Cloneable, Serializable {
     }
 
     /**
+     * Gets the JavaScript type of the variable.
+     * @return The Javascript type of the variable.
+     */
+    public String getJsType() {
+        return this.jsType;
+    }
+
+    /**
+     * Gets the name of the variable.
+     * @return The name of the variable.
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Gets the value of the variable.
+     * @return The value of the variable.
+     */
+    public String getValue() {
+        return this.value;
+    }
+
+    /**
+     * Tests whether or not the value is a resource key or literal value.
+     * @return {@code true} if value is a resource key.
+     * @since 1.2.0
+     */
+    public boolean isResource() {
+        return this.resource;
+    }
+
+    /**
      * Sets the resource bundle name.
      * @param bundle The new bundle name.
      * @since 1.2.0
      */
     public void setBundle(final String bundle) {
         this.bundle = bundle;
-    }
-
-    /**
-     * Gets the JavaScript type of the variable.
-     * @return The Javascript type of the variable.
-     */
-    public String getJsType() {
-        return this.jsType;
     }
 
     /**
@@ -174,17 +163,28 @@ public class Var implements Cloneable, Serializable {
     }
 
     /**
-     * Creates and returns a copy of this object.
-     * @return A copy of the variable.
+     * Sets the name of the variable.
+     * @param name The name of the variable.
      */
-    @Override
-    public Object clone() {
-        try {
-            return super.clone();
+    public void setName(final String name) {
+        this.name = name;
+    }
 
-        } catch (final CloneNotSupportedException e) {
-            throw new UnsupportedOperationException(e.toString(), e);
-        }
+    /**
+     * Sets whether or not the value is a resource.
+     * @param resource If true indicates the value is a resource.
+     * @since 1.2.0
+     */
+    public void setResource(final boolean resource) {
+        this.resource = resource;
+    }
+
+    /**
+     * Sets the value of the variable.
+     * @param value The value of the variable.
+     */
+    public void setValue(final String value) {
+        this.value = value;
     }
 
     /**

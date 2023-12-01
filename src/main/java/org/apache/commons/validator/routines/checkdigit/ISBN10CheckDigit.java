@@ -56,20 +56,21 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * Calculates the <i>weighted</i> value of a character in the
-     * code at a specified position.
+     * <p>Convert an integer value to a character at a specified position.</p>
      *
-     * <p>For ISBN-10 (from right to left) digits are weighted
-     * by their position.</p>
+     * <p>Value '10' for position 1 (check digit) converted to 'X'.</p>
      *
-     * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
-     * @return The weighted value of the character.
+     * @param charValue The integer value of the character.
+     * @return The converted character.
+     * @throws CheckDigitException if an error occurs.
      */
     @Override
-    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        return charValue * rightPos;
+    protected String toCheckDigit(final int charValue)
+            throws CheckDigitException {
+        if (charValue == 10) {  // CHECKSTYLE IGNORE MagicNumber
+            return "X";
+        }
+        return super.toCheckDigit(charValue);
     }
 
     /**
@@ -94,21 +95,20 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * <p>Convert an integer value to a character at a specified position.</p>
+     * Calculates the <i>weighted</i> value of a character in the
+     * code at a specified position.
      *
-     * <p>Value '10' for position 1 (check digit) converted to 'X'.</p>
+     * <p>For ISBN-10 (from right to left) digits are weighted
+     * by their position.</p>
      *
-     * @param charValue The integer value of the character.
-     * @return The converted character.
-     * @throws CheckDigitException if an error occurs.
+     * @param charValue The numeric value of the character.
+     * @param leftPos The position of the character in the code, counting from left to right
+     * @param rightPos The positionof the character in the code, counting from right to left
+     * @return The weighted value of the character.
      */
     @Override
-    protected String toCheckDigit(final int charValue)
-            throws CheckDigitException {
-        if (charValue == 10) {  // CHECKSTYLE IGNORE MagicNumber
-            return "X";
-        }
-        return super.toCheckDigit(charValue);
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
+        return charValue * rightPos;
     }
 
 }

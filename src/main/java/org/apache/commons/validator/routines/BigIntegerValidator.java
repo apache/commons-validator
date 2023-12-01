@@ -109,6 +109,56 @@ public class BigIntegerValidator extends AbstractNumberValidator {
     }
 
     /**
+     * Check if the value is within a specified range.
+     *
+     * @param value The <code>Number</code> value to check.
+     * @param min The minimum value of the range.
+     * @param max The maximum value of the range.
+     * @return {@code true} if the value is within the
+     *         specified range.
+     */
+    public boolean isInRange(final BigInteger value, final long min, final long max) {
+        return value.longValue() >= min && value.longValue() <= max;
+    }
+
+    /**
+     * Check if the value is less than or equal to a maximum.
+     *
+     * @param value The value validation is being performed on.
+     * @param max The maximum value.
+     * @return {@code true} if the value is less than
+     *         or equal to the maximum.
+     */
+    public boolean maxValue(final BigInteger value, final long max) {
+        return value.longValue() <= max;
+    }
+
+    /**
+     * Check if the value is greater than or equal to a minimum.
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than
+     *         or equal to the minimum.
+     */
+    public boolean minValue(final BigInteger value, final long min) {
+        return value.longValue() >= min;
+    }
+
+    /**
+     * Convert the parsed value to a <code>BigInteger</code>.
+     *
+     * @param value The parsed <code>Number</code> object created.
+     * @param formatter The Format used to parse the value with.
+     * @return The parsed <code>Number</code> converted to a
+     *         <code>BigInteger</code>.
+     */
+    @Override
+    protected Object processParsedValue(final Object value, final Format formatter) {
+        return BigInteger.valueOf(((Number)value).longValue());
+    }
+
+    /**
      * <p>Validate/convert a <code>BigInteger</code> using the default
      *    <code>Locale</code>.
      *
@@ -118,18 +168,6 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      */
     public BigInteger validate(final String value) {
         return (BigInteger)parse(value, (String)null, (Locale)null);
-    }
-
-    /**
-     * <p>Validate/convert a <code>BigInteger</code> using the
-     *    specified <i>pattern</i>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
-     * @return The parsed <code>BigInteger</code> if valid or <code>null</code> if invalid.
-     */
-    public BigInteger validate(final String value, final String pattern) {
-        return (BigInteger)parse(value, pattern, (Locale)null);
     }
 
     /**
@@ -146,6 +184,18 @@ public class BigIntegerValidator extends AbstractNumberValidator {
 
     /**
      * <p>Validate/convert a <code>BigInteger</code> using the
+     *    specified <i>pattern</i>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against.
+     * @return The parsed <code>BigInteger</code> if valid or <code>null</code> if invalid.
+     */
+    public BigInteger validate(final String value, final String pattern) {
+        return (BigInteger)parse(value, pattern, (Locale)null);
+    }
+
+    /**
+     * <p>Validate/convert a <code>BigInteger</code> using the
      *    specified pattern and/ or <code>Locale</code>.
      *
      * @param value The value validation is being performed on.
@@ -156,55 +206,5 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      */
     public BigInteger validate(final String value, final String pattern, final Locale locale) {
         return (BigInteger)parse(value, pattern, locale);
-    }
-
-    /**
-     * Check if the value is within a specified range.
-     *
-     * @param value The <code>Number</code> value to check.
-     * @param min The minimum value of the range.
-     * @param max The maximum value of the range.
-     * @return {@code true} if the value is within the
-     *         specified range.
-     */
-    public boolean isInRange(final BigInteger value, final long min, final long max) {
-        return value.longValue() >= min && value.longValue() <= max;
-    }
-
-    /**
-     * Check if the value is greater than or equal to a minimum.
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum value.
-     * @return {@code true} if the value is greater than
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final BigInteger value, final long min) {
-        return value.longValue() >= min;
-    }
-
-    /**
-     * Check if the value is less than or equal to a maximum.
-     *
-     * @param value The value validation is being performed on.
-     * @param max The maximum value.
-     * @return {@code true} if the value is less than
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final BigInteger value, final long max) {
-        return value.longValue() <= max;
-    }
-
-    /**
-     * Convert the parsed value to a <code>BigInteger</code>.
-     *
-     * @param value The parsed <code>Number</code> object created.
-     * @param formatter The Format used to parse the value with.
-     * @return The parsed <code>Number</code> converted to a
-     *         <code>BigInteger</code>.
-     */
-    @Override
-    protected Object processParsedValue(final Object value, final Format formatter) {
-        return BigInteger.valueOf(((Number)value).longValue());
     }
 }

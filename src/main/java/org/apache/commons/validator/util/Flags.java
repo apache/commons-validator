@@ -61,78 +61,11 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Returns the current flags.
-     *
-     * @return collection of boolean flags represented.
-     */
-    public long getFlags() {
-        return this.flags;
-    }
-
-    /**
-     * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is on.
-     *
-     * @param flag Flag value to check.
-     *
-     * @return whether the specified flag value is on.
-     */
-    public boolean isOn(final long flag) {
-        return (this.flags & flag) == flag;
-    }
-
-    /**
-     * Tests whether the given flag is off.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is off.
-     *
-     * @param flag Flag value to check.
-     *
-     * @return whether the specified flag value is off.
-     */
-    public boolean isOff(final long flag) {
-        return (this.flags & flag) == 0;
-    }
-
-    /**
-     * Turns on the given flag.  If the flag is not a power of 2 (ie. 3) this
-     * turns on multiple flags.
-     *
-     * @param flag Flag value to turn on.
-     */
-    public void turnOn(final long flag) {
-        this.flags |= flag;
-    }
-
-    /**
-     * Turns off the given flag.  If the flag is not a power of 2 (ie. 3) this
-     * turns off multiple flags.
-     *
-     * @param flag Flag value to turn off.
-     */
-    public void turnOff(final long flag) {
-        this.flags &= ~flag;
-    }
-
-    /**
-     * Turn off all flags.
-     */
-    public void turnOffAll() {
-        this.flags = 0;
-    }
-
-    /**
      * Turn off all flags.  This is a synonym for <code>turnOffAll()</code>.
      * @since 1.1.1
      */
     public void clear() {
         this.flags = 0;
-    }
-
-    /**
-     * Turn on all 64 flags.
-     */
-    public void turnOnAll() {
-        this.flags = 0xFFFFFFFFFFFFFFFFL;
     }
 
     /**
@@ -170,6 +103,15 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
+     * Returns the current flags.
+     *
+     * @return collection of boolean flags represented.
+     */
+    public long getFlags() {
+        return this.flags;
+    }
+
+    /**
      * The hash code is based on the current state of the flags.
      * @see Object#hashCode()
      *
@@ -178,6 +120,30 @@ public class Flags implements Serializable, Cloneable {
     @Override
     public int hashCode() {
         return (int) this.flags;
+    }
+
+    /**
+     * Tests whether the given flag is off.  If the flag is not a power of 2
+     * (ie. 3) this tests whether the combination of flags is off.
+     *
+     * @param flag Flag value to check.
+     *
+     * @return whether the specified flag value is off.
+     */
+    public boolean isOff(final long flag) {
+        return (this.flags & flag) == 0;
+    }
+
+    /**
+     * Tests whether the given flag is on.  If the flag is not a power of 2
+     * (ie. 3) this tests whether the combination of flags is on.
+     *
+     * @param flag Flag value to check.
+     *
+     * @return whether the specified flag value is on.
+     */
+    public boolean isOn(final long flag) {
+        return (this.flags & flag) == flag;
     }
 
     /**
@@ -194,6 +160,40 @@ public class Flags implements Serializable, Cloneable {
             bin.insert(0, "0");
         }
         return bin.toString();
+    }
+
+    /**
+     * Turns off the given flag.  If the flag is not a power of 2 (ie. 3) this
+     * turns off multiple flags.
+     *
+     * @param flag Flag value to turn off.
+     */
+    public void turnOff(final long flag) {
+        this.flags &= ~flag;
+    }
+
+    /**
+     * Turn off all flags.
+     */
+    public void turnOffAll() {
+        this.flags = 0;
+    }
+
+    /**
+     * Turns on the given flag.  If the flag is not a power of 2 (ie. 3) this
+     * turns on multiple flags.
+     *
+     * @param flag Flag value to turn on.
+     */
+    public void turnOn(final long flag) {
+        this.flags |= flag;
+    }
+
+    /**
+     * Turn on all 64 flags.
+     */
+    public void turnOnAll() {
+        this.flags = 0xFFFFFFFFFFFFFFFFL;
     }
 
 }

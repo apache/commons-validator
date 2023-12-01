@@ -41,6 +41,25 @@ public class ParameterTest extends AbstractCommonTest {
         super(name);
     }
 
+    private void assertParameterValue(final Validator validator, final String name,
+            final Class<?> type) {
+        final Object value = validator.getParameterValue(name);
+        assertNotNull("Expected '" + type.getName() + "' but was null", value);
+        assertTrue("Expected '" + type.getName() + "' but was '" + value.getClass().getName() + "'",
+                   type.isInstance(value));
+    }
+
+    /**
+     * Create a NameBean.
+     */
+    private NameBean createNameBean() {
+        final NameBean name = new NameBean();
+        name.setFirstName(firstName);
+        name.setMiddleName(middleName);
+        name.setLastName(lastName);
+        return name;
+    }
+
     /**
      * Load <code>ValidatorResources</code> from
      * ValidatorResultsTest-config.xml.
@@ -92,24 +111,5 @@ public class ParameterTest extends AbstractCommonTest {
                 Validator.class);
         assertParameterValue(validator, Validator.VALIDATOR_RESULTS_PARAM,
                 ValidatorResults.class);
-    }
-
-    private void assertParameterValue(final Validator validator, final String name,
-            final Class<?> type) {
-        final Object value = validator.getParameterValue(name);
-        assertNotNull("Expected '" + type.getName() + "' but was null", value);
-        assertTrue("Expected '" + type.getName() + "' but was '" + value.getClass().getName() + "'",
-                   type.isInstance(value));
-    }
-
-    /**
-     * Create a NameBean.
-     */
-    private NameBean createNameBean() {
-        final NameBean name = new NameBean();
-        name.setFirstName(firstName);
-        name.setMiddleName(middleName);
-        name.setLastName(lastName);
-        return name;
     }
 }

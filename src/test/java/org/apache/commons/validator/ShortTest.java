@@ -28,25 +28,14 @@ public class ShortTest extends AbstractNumberTest {
    }
 
    /**
-    * Tests the short validation.
+    * Tests the short validation failure.
     */
-   public void testShortMin() throws ValidatorException {
+   public void testShortBeyondMax() throws ValidatorException {
       // Create bean to run test on.
       final ValueBean info = new ValueBean();
-      info.setValue(Short.toString(Short.MIN_VALUE));
+      info.setValue(Short.MAX_VALUE + "1");
 
-      valueTest(info, true);
-   }
-
-   /**
-    * Tests the short validation.
-    */
-   public void testShortMax() throws ValidatorException {
-      // Create bean to run test on.
-      final ValueBean info = new ValueBean();
-      info.setValue(Short.toString(Short.MAX_VALUE));
-
-      valueTest(info, true);
+      valueTest(info, false);
    }
 
    /**
@@ -61,13 +50,24 @@ public class ShortTest extends AbstractNumberTest {
    }
 
    /**
-    * Tests the short validation failure.
+    * Tests the short validation.
     */
-   public void testShortBeyondMax() throws ValidatorException {
+   public void testShortMax() throws ValidatorException {
       // Create bean to run test on.
       final ValueBean info = new ValueBean();
-      info.setValue(Short.MAX_VALUE + "1");
+      info.setValue(Short.toString(Short.MAX_VALUE));
 
-      valueTest(info, false);
+      valueTest(info, true);
+   }
+
+   /**
+    * Tests the short validation.
+    */
+   public void testShortMin() throws ValidatorException {
+      // Create bean to run test on.
+      final ValueBean info = new ValueBean();
+      info.setValue(Short.toString(Short.MIN_VALUE));
+
+      valueTest(info, true);
    }
 }

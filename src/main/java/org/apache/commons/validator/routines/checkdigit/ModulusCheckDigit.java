@@ -34,6 +34,22 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
 
     private static final long serialVersionUID = 2948962251251528941L;
 
+    /**
+     * Add together the individual digits in a number.
+     *
+     * @param number The number whose digits are to be added
+     * @return The sum of the digits
+     */
+    public static int sumDigits(final int number) {
+        int total = 0;
+        int todo = number;
+        while (todo > 0) {
+            total += todo % 10; // CHECKSTYLE IGNORE MagicNumber
+            todo  = todo / 10; // CHECKSTYLE IGNORE MagicNumber
+        }
+        return total;
+    }
+
     // N.B. The modulus can be > 10 provided that the implementing class overrides toCheckDigit and toInt
     // (for example as in ISBN10CheckDigit)
     private final int modulus;
@@ -45,35 +61,6 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
      */
     public ModulusCheckDigit(final int modulus) {
         this.modulus = modulus;
-    }
-
-    /**
-     * Return the modulus value this check digit routine is based on.
-     *
-     * @return The modulus value this check digit routine is based on
-     */
-    public int getModulus() {
-        return modulus;
-    }
-
-    /**
-     * Validate a modulus check digit for a code.
-     *
-     * @param code The code to validate
-     * @return {@code true} if the check digit is valid, otherwise
-     * {@code false}
-     */
-    @Override
-    public boolean isValid(final String code) {
-        if (code == null || code.isEmpty()) {
-            return false;
-        }
-        try {
-            final int modulusResult = calculateModulus(code, true);
-            return modulusResult == 0;
-        } catch (final CheckDigitException  ex) {
-            return false;
-        }
     }
 
     /**
@@ -119,45 +106,32 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
     }
 
     /**
-     * Calculates the <i>weighted</i> value of a character in the
-     * code at a specified position.
-     * <p>
-     * Some modulus routines weight the value of a character
-     * depending on its position in the code (e.g. ISBN-10), while
-     * others use different weighting factors for odd/even positions
-     * (e.g. EAN or Luhn). Implement the appropriate mechanism
-     * required by overriding this method.
+     * Return the modulus value this check digit routine is based on.
      *
-     * @param charValue The numeric value of the character
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
-     * @return The weighted value of the character
-     * @throws CheckDigitException if an error occurs calculating
-     * the weighted value
+     * @return The modulus value this check digit routine is based on
      */
-    protected abstract int weightedValue(int charValue, int leftPos, int rightPos)
-            throws CheckDigitException;
+    public int getModulus() {
+        return modulus;
+    }
 
     /**
-     * Convert a character at a specified position to an integer value.
-     * <p>
-     * <b>Note:</b> this implementation only handlers numeric values
-     * For non-numeric characters, override this method to provide
-     * character--&gt;integer conversion.
+     * Validate a modulus check digit for a code.
      *
-     * @param character The character to convert
-     * @param leftPos The position of the character in the code, counting from left to right (for identifiying the position in the string)
-     * @param rightPos The position of the character in the code, counting from right to left (not used here)
-     * @return The integer value of the character
-     * @throws CheckDigitException if character is non-numeric
+     * @param code The code to validate
+     * @return {@code true} if the check digit is valid, otherwise
+     * {@code false}
      */
-    protected int toInt(final char character, final int leftPos, final int rightPos)
-            throws CheckDigitException {
-        if (Character.isDigit(character)) {
-            return Character.getNumericValue(character);
+    @Override
+    public boolean isValid(final String code) {
+        if (code == null || code.isEmpty()) {
+            return false;
         }
-        throw new CheckDigitException("Invalid Character[" +
-                leftPos + "] = '" + character + "'");
+        try {
+            final int modulusResult = calculateModulus(code, true);
+            return modulusResult == 0;
+        } catch (final CheckDigitException  ex) {
+            return false;
+        }
     }
 
     /**
@@ -182,19 +156,45 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
     }
 
     /**
-     * Add together the individual digits in a number.
+     * Convert a character at a specified position to an integer value.
+     * <p>
+     * <b>Note:</b> this implementation only handlers numeric values
+     * For non-numeric characters, override this method to provide
+     * character--&gt;integer conversion.
      *
-     * @param number The number whose digits are to be added
-     * @return The sum of the digits
+     * @param character The character to convert
+     * @param leftPos The position of the character in the code, counting from left to right (for identifiying the position in the string)
+     * @param rightPos The position of the character in the code, counting from right to left (not used here)
+     * @return The integer value of the character
+     * @throws CheckDigitException if character is non-numeric
      */
-    public static int sumDigits(final int number) {
-        int total = 0;
-        int todo = number;
-        while (todo > 0) {
-            total += todo % 10; // CHECKSTYLE IGNORE MagicNumber
-            todo  = todo / 10; // CHECKSTYLE IGNORE MagicNumber
+    protected int toInt(final char character, final int leftPos, final int rightPos)
+            throws CheckDigitException {
+        if (Character.isDigit(character)) {
+            return Character.getNumericValue(character);
         }
-        return total;
+        throw new CheckDigitException("Invalid Character[" +
+                leftPos + "] = '" + character + "'");
     }
+
+    /**
+     * Calculates the <i>weighted</i> value of a character in the
+     * code at a specified position.
+     * <p>
+     * Some modulus routines weight the value of a character
+     * depending on its position in the code (e.g. ISBN-10), while
+     * others use different weighting factors for odd/even positions
+     * (e.g. EAN or Luhn). Implement the appropriate mechanism
+     * required by overriding this method.
+     *
+     * @param charValue The numeric value of the character
+     * @param leftPos The position of the character in the code, counting from left to right
+     * @param rightPos The positionof the character in the code, counting from right to left
+     * @return The weighted value of the character
+     * @throws CheckDigitException if an error occurs calculating
+     * the weighted value
+     */
+    protected abstract int weightedValue(int charValue, int leftPos, int rightPos)
+            throws CheckDigitException;
 
 }

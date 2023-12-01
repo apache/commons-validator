@@ -55,43 +55,6 @@ public class DateValidator {
     }
 
     /**
-     * <p>Checks if the field is a valid date.  The pattern is used with
-     * <code>java.text.SimpleDateFormat</code>.  If strict is true, then the
-     * length will be checked so '2/12/1999' will not pass validation with
-     * the format 'MM/dd/yyyy' because the month isn't two digits.
-     * The setLenient method is set to {@code false} for all.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param datePattern The pattern passed to <code>SimpleDateFormat</code>.
-     * @param strict Whether or not to have an exact match of the datePattern.
-     * @return true if the date is valid.
-     */
-    public boolean isValid(final String value, final String datePattern, final boolean strict) {
-
-        if (value == null
-                || datePattern == null
-                || datePattern.isEmpty()) {
-
-            return false;
-        }
-
-        final SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
-        formatter.setLenient(false);
-
-        try {
-            formatter.parse(value);
-        } catch (final ParseException e) {
-            return false;
-        }
-
-        if (strict && datePattern.length() != value.length()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * <p>Checks if the field is a valid date.  The <code>Locale</code> is
      * used with <code>java.text.DateFormat</code>.  The setLenient method
      * is set to {@code false} for all.</p>
@@ -122,6 +85,43 @@ public class DateValidator {
         try {
             formatter.parse(value);
         } catch (final ParseException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * <p>Checks if the field is a valid date.  The pattern is used with
+     * <code>java.text.SimpleDateFormat</code>.  If strict is true, then the
+     * length will be checked so '2/12/1999' will not pass validation with
+     * the format 'MM/dd/yyyy' because the month isn't two digits.
+     * The setLenient method is set to {@code false} for all.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param datePattern The pattern passed to <code>SimpleDateFormat</code>.
+     * @param strict Whether or not to have an exact match of the datePattern.
+     * @return true if the date is valid.
+     */
+    public boolean isValid(final String value, final String datePattern, final boolean strict) {
+
+        if (value == null
+                || datePattern == null
+                || datePattern.isEmpty()) {
+
+            return false;
+        }
+
+        final SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+        formatter.setLenient(false);
+
+        try {
+            formatter.parse(value);
+        } catch (final ParseException e) {
+            return false;
+        }
+
+        if (strict && datePattern.length() != value.length()) {
             return false;
         }
 

@@ -70,9 +70,9 @@ public class ISINValidatorTest extends TestCase {
         super(name);
     }
 
-    public void testIsValidTrue() {
-        for(final String f : validFormat) {
-            assertTrue(f, VALIDATOR_TRUE.isValid(f));
+    public void testInvalidFalse() {
+        for(final String f : invalidFormat) {
+            assertFalse(f, VALIDATOR_FALSE.isValid(f));
         }
     }
 
@@ -91,9 +91,9 @@ public class ISINValidatorTest extends TestCase {
         }
     }
 
-    public void testInvalidFalse() {
-        for(final String f : invalidFormat) {
-            assertFalse(f, VALIDATOR_FALSE.isValid(f));
+    public void testIsValidTrue() {
+        for(final String f : validFormat) {
+            assertTrue(f, VALIDATOR_TRUE.isValid(f));
         }
     }
 

@@ -23,6 +23,13 @@ package org.apache.commons.validator.routines.checkdigit;
  */
 public class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
 
+    private static final String[] INVALID_CHECK_DIGITS = {"DUS0421CW",
+                                                  "DUS0421CN",
+                                                  "DUS0421CE"
+    };
+
+    private static final String[] VALID_CHECK_DIGITS = {"DUS0421C5"};
+
     /**
      * Constructs a new test.
      * @param name test name
@@ -49,18 +56,11 @@ public class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
         invalid = new String[] {"0378#3100"};
     }
 
-    private static final String[] INVALID_CHECK_DIGITS = {"DUS0421CW",
-                                                  "DUS0421CN",
-                                                  "DUS0421CE"
-    };
-
     public void testVALIDATOR_336_InvalidCheckDigits() {
         for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));
         }
     }
-
-    private static final String[] VALID_CHECK_DIGITS = {"DUS0421C5"};
 
     public void testVALIDATOR_336_ValidCheckDigits() {
         for (final String validCheckDigit : VALID_CHECK_DIGITS) {

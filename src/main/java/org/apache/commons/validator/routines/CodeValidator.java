@@ -76,6 +76,47 @@ public final class CodeValidator implements Serializable {
     private final CheckDigit checkdigit;
 
     /**
+     * Constructs a code validator with a specified regular expression,
+     * validator and {@link CheckDigit} validation.
+     *
+     * @param regexValidator The format regular expression validator
+     * @param checkdigit The check digit validation routine.
+     */
+    public CodeValidator(final RegexValidator regexValidator, final CheckDigit checkdigit) {
+        this(regexValidator, -1, -1, checkdigit);
+    }
+
+    /**
+     * Constructs a code validator with a specified regular expression,
+     * validator, length and {@link CheckDigit} validation.
+     *
+     * @param regexValidator The format regular expression validator
+     * @param length The length of the code
+     *  (sets the mimimum/maximum to the same value)
+     * @param checkdigit The check digit validation routine
+     */
+    public CodeValidator(final RegexValidator regexValidator, final int length, final CheckDigit checkdigit) {
+        this(regexValidator, length, length, checkdigit);
+    }
+
+    /**
+     * Constructs a code validator with a specified regular expression
+     * validator, minimum/maximum length and {@link CheckDigit} validation.
+     *
+     * @param regexValidator The format regular expression validator
+     * @param minLength The minimum length of the code
+     * @param maxLength The maximum length of the code
+     * @param checkdigit The check digit validation routine
+     */
+    public CodeValidator(final RegexValidator regexValidator, final int minLength, final int maxLength,
+            final CheckDigit checkdigit) {
+        this.regexValidator = regexValidator;
+        this.minLength = minLength;
+        this.maxLength = maxLength;
+        this.checkdigit = checkdigit;
+    }
+
+    /**
      * Constructs a code validator with a specified regular
      * expression and {@link CheckDigit}.
      * The RegexValidator validator is created to be case-sensitive
@@ -124,47 +165,6 @@ public final class CodeValidator implements Serializable {
     }
 
     /**
-     * Constructs a code validator with a specified regular expression,
-     * validator and {@link CheckDigit} validation.
-     *
-     * @param regexValidator The format regular expression validator
-     * @param checkdigit The check digit validation routine.
-     */
-    public CodeValidator(final RegexValidator regexValidator, final CheckDigit checkdigit) {
-        this(regexValidator, -1, -1, checkdigit);
-    }
-
-    /**
-     * Constructs a code validator with a specified regular expression,
-     * validator, length and {@link CheckDigit} validation.
-     *
-     * @param regexValidator The format regular expression validator
-     * @param length The length of the code
-     *  (sets the mimimum/maximum to the same value)
-     * @param checkdigit The check digit validation routine
-     */
-    public CodeValidator(final RegexValidator regexValidator, final int length, final CheckDigit checkdigit) {
-        this(regexValidator, length, length, checkdigit);
-    }
-
-    /**
-     * Constructs a code validator with a specified regular expression
-     * validator, minimum/maximum length and {@link CheckDigit} validation.
-     *
-     * @param regexValidator The format regular expression validator
-     * @param minLength The minimum length of the code
-     * @param maxLength The maximum length of the code
-     * @param checkdigit The check digit validation routine
-     */
-    public CodeValidator(final RegexValidator regexValidator, final int minLength, final int maxLength,
-            final CheckDigit checkdigit) {
-        this.regexValidator = regexValidator;
-        this.minLength = minLength;
-        this.maxLength = maxLength;
-        this.checkdigit = checkdigit;
-    }
-
-    /**
      * Return the check digit validation routine.
      * <p>
      * <b>N.B.</b> Optional, if not set no Check Digit
@@ -174,19 +174,6 @@ public final class CodeValidator implements Serializable {
      */
     public CheckDigit getCheckDigit() {
         return checkdigit;
-    }
-
-    /**
-     * Return the minimum length of the code.
-     * <p>
-     * <b>N.B.</b> Optional, if less than zero the
-     * minimum length will not be checked.
-     *
-     * @return The minimum length of the code or
-     * <code>-1</code> if the code has no minimum length
-     */
-    public int getMinLength() {
-        return minLength;
     }
 
     /**
@@ -200,6 +187,19 @@ public final class CodeValidator implements Serializable {
      */
     public int getMaxLength() {
         return maxLength;
+    }
+
+    /**
+     * Return the minimum length of the code.
+     * <p>
+     * <b>N.B.</b> Optional, if less than zero the
+     * minimum length will not be checked.
+     *
+     * @return The minimum length of the code or
+     * <code>-1</code> if the code has no minimum length
+     */
+    public int getMinLength() {
+        return minLength;
     }
 
     /**

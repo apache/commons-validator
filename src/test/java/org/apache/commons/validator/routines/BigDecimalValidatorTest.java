@@ -75,39 +75,6 @@ public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * Test BigDecimalValidator validate Methods
-     */
-    public void testBigDecimalValidatorMethods() {
-        final Locale locale           = Locale.GERMAN;
-        final String pattern          = "0,00,00";
-        final String patternVal       = "1,23,45";
-        final String germanPatternVal = "1.23.45";
-        final String localeVal        = "12.345";
-        final String defaultVal       = "12,345";
-        final String XXXX             = "XXXX";
-        final BigDecimal expected = new BigDecimal(12345);
-        assertEquals("validate(A) default", expected, BigDecimalValidator.getInstance().validate(defaultVal));
-        assertEquals("validate(A) locale ", expected, BigDecimalValidator.getInstance().validate(localeVal, locale));
-        assertEquals("validate(A) pattern", expected, BigDecimalValidator.getInstance().validate(patternVal, pattern));
-        assertEquals("validate(A) both",    expected, BigDecimalValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN));
-
-        assertTrue("isValid(A) default", BigDecimalValidator.getInstance().isValid(defaultVal));
-        assertTrue("isValid(A) locale ", BigDecimalValidator.getInstance().isValid(localeVal, locale));
-        assertTrue("isValid(A) pattern", BigDecimalValidator.getInstance().isValid(patternVal, pattern));
-        assertTrue("isValid(A) both",    BigDecimalValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN));
-
-        assertNull("validate(B) default", BigDecimalValidator.getInstance().validate(XXXX));
-        assertNull("validate(B) locale ", BigDecimalValidator.getInstance().validate(XXXX, locale));
-        assertNull("validate(B) pattern", BigDecimalValidator.getInstance().validate(XXXX, pattern));
-        assertNull("validate(B) both",    BigDecimalValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN));
-
-        assertFalse("isValid(B) default", BigDecimalValidator.getInstance().isValid(XXXX));
-        assertFalse("isValid(B) locale ", BigDecimalValidator.getInstance().isValid(XXXX, locale));
-        assertFalse("isValid(B) pattern", BigDecimalValidator.getInstance().isValid(XXXX, pattern));
-        assertFalse("isValid(B) both",    BigDecimalValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
-    }
-
-    /**
      * Test BigDecimal Range/Min/Max
      */
     public void testBigDecimalRangeMinMax() {
@@ -138,5 +105,38 @@ public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
         assertTrue("maxValue(A) < max",     validator.maxValue(number19, max));
         assertTrue("maxValue(A) = max",     validator.maxValue(number20, max));
         assertFalse("maxValue(A) > max",    validator.maxValue(number21, max));
+    }
+
+    /**
+     * Test BigDecimalValidator validate Methods
+     */
+    public void testBigDecimalValidatorMethods() {
+        final Locale locale           = Locale.GERMAN;
+        final String pattern          = "0,00,00";
+        final String patternVal       = "1,23,45";
+        final String germanPatternVal = "1.23.45";
+        final String localeVal        = "12.345";
+        final String defaultVal       = "12,345";
+        final String XXXX             = "XXXX";
+        final BigDecimal expected = new BigDecimal(12345);
+        assertEquals("validate(A) default", expected, BigDecimalValidator.getInstance().validate(defaultVal));
+        assertEquals("validate(A) locale ", expected, BigDecimalValidator.getInstance().validate(localeVal, locale));
+        assertEquals("validate(A) pattern", expected, BigDecimalValidator.getInstance().validate(patternVal, pattern));
+        assertEquals("validate(A) both",    expected, BigDecimalValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN));
+
+        assertTrue("isValid(A) default", BigDecimalValidator.getInstance().isValid(defaultVal));
+        assertTrue("isValid(A) locale ", BigDecimalValidator.getInstance().isValid(localeVal, locale));
+        assertTrue("isValid(A) pattern", BigDecimalValidator.getInstance().isValid(patternVal, pattern));
+        assertTrue("isValid(A) both",    BigDecimalValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN));
+
+        assertNull("validate(B) default", BigDecimalValidator.getInstance().validate(XXXX));
+        assertNull("validate(B) locale ", BigDecimalValidator.getInstance().validate(XXXX, locale));
+        assertNull("validate(B) pattern", BigDecimalValidator.getInstance().validate(XXXX, pattern));
+        assertNull("validate(B) both",    BigDecimalValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN));
+
+        assertFalse("isValid(B) default", BigDecimalValidator.getInstance().isValid(XXXX));
+        assertFalse("isValid(B) locale ", BigDecimalValidator.getInstance().isValid(XXXX, locale));
+        assertFalse("isValid(B) pattern", BigDecimalValidator.getInstance().isValid(XXXX, pattern));
+        assertFalse("isValid(B) both",    BigDecimalValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
     }
 }

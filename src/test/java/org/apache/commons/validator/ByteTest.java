@@ -39,33 +39,12 @@ public class ByteTest extends AbstractNumberTest {
     }
 
     /**
-     * Tests the byte validation.
-     */
-    public void testByteMin() throws ValidatorException {
-        // Create bean to run test on.
-        final ValueBean info = new ValueBean();
-        info.setValue(Byte.toString(Byte.MIN_VALUE));
-
-        valueTest(info, true);
-    }
-
-    /**
-     * Tests the byte validation.
-     */
-    public void testByteMax() throws ValidatorException {
-        // Create bean to run test on.
-        final ValueBean info = new ValueBean();
-        info.setValue(Byte.toString(Byte.MAX_VALUE));
-
-        valueTest(info, true);
-    }
-
-    /**
      * Tests the byte validation failure.
      */
-    public void testByteFailure() throws ValidatorException {
+    public void testByteBeyondMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
+        info.setValue(Byte.MAX_VALUE + "1");
 
         valueTest(info, false);
     }
@@ -84,12 +63,33 @@ public class ByteTest extends AbstractNumberTest {
     /**
      * Tests the byte validation failure.
      */
-    public void testByteBeyondMax() throws ValidatorException {
+    public void testByteFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
-        info.setValue(Byte.MAX_VALUE + "1");
 
         valueTest(info, false);
+    }
+
+    /**
+     * Tests the byte validation.
+     */
+    public void testByteMax() throws ValidatorException {
+        // Create bean to run test on.
+        final ValueBean info = new ValueBean();
+        info.setValue(Byte.toString(Byte.MAX_VALUE));
+
+        valueTest(info, true);
+    }
+
+    /**
+     * Tests the byte validation.
+     */
+    public void testByteMin() throws ValidatorException {
+        // Create bean to run test on.
+        final ValueBean info = new ValueBean();
+        info.setValue(Byte.toString(Byte.MIN_VALUE));
+
+        valueTest(info, true);
     }
 
 }

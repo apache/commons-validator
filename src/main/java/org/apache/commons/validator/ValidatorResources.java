@@ -79,6 +79,14 @@ public class ValidatorResources implements Serializable {
         "/org/apache/commons/validator/resources/validator_1_4_0.dtd"
     };
 
+    /**
+     * The default locale on our server.
+     */
+    protected static Locale defaultLocale = Locale.getDefault();
+
+    private static final String ARGS_PATTERN
+               = "form-validation/formset/form/field/arg";
+
     private transient Log log = LogFactory.getLog(ValidatorResources.class);
 
     /**
@@ -106,21 +114,16 @@ public class ValidatorResources implements Serializable {
     protected FastHashMap hActions = new FastHashMap(); // <String, ValidatorAction>
 
     /**
-     * The default locale on our server.
+     * This is the default <code>FormSet</code> (without locale). (We probably don't need
+     * the defaultLocale anymore.)
      */
-    protected static Locale defaultLocale = Locale.getDefault();
+    protected FormSet defaultFormSet;
 
     /**
      * Create an empty ValidatorResources object.
      */
     public ValidatorResources() {
     }
-
-    /**
-     * This is the default <code>FormSet</code> (without locale). (We probably don't need
-     * the defaultLocale anymore.)
-     */
-    protected FormSet defaultFormSet;
 
     /**
      * Create a ValidatorResources object from an InputStream.
@@ -235,37 +238,48 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     *  Initialize the digester.
+     * Add a global constant to the resource.
+     * @param name The constant name.
+     * @param value The constant value.
      */
-    private Digester initDigester() {
-        URL rulesUrl = this.getClass().getResource(VALIDATOR_RULES);
-        if (rulesUrl == null) {
-            // Fix for Issue# VALIDATOR-195
-            rulesUrl = ValidatorResources.class.getResource(VALIDATOR_RULES);
-        }
+    public void addConstant(final String name, final String value) {
         if (getLog().isDebugEnabled()) {
-            getLog().debug("Loading rules from '" + rulesUrl + "'");
+            getLog().debug("Adding Global Constant: " + name + "," + value);
         }
-        final Digester digester = DigesterLoader.createDigester(rulesUrl);
-        digester.setNamespaceAware(true);
-        digester.setValidating(true);
-        digester.setUseContextClassLoader(true);
 
-        // Add rules for arg0-arg3 elements
-        addOldArgRules(digester);
-
-        // register DTDs
-        for (int i = 0; i < REGISTRATIONS.length; i += 2) {
-            final URL url = this.getClass().getResource(REGISTRATIONS[i + 1]);
-            if (url != null) {
-                digester.register(REGISTRATIONS[i], url.toString());
-            }
-        }
-        return digester;
+        this.hConstants.put(name, value);
     }
 
-    private static final String ARGS_PATTERN
-               = "form-validation/formset/form/field/arg";
+    /**
+     * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
+     * object.  It will be associated with the <code>Locale</code> of the
+     * <code>FormSet</code>.
+     * @param fs The form set to add.
+     * @since 1.1
+     */
+    public void addFormSet(final FormSet fs) {
+        final String key = this.buildKey(fs);
+        if (key.isEmpty()) {// there can only be one default formset
+            if (getLog().isWarnEnabled() && defaultFormSet != null) {
+                // warn the user he might not get the expected results
+                getLog().warn("Overriding default FormSet definition.");
+            }
+            defaultFormSet = fs;
+        } else {
+            final FormSet formset = getFormSets().get(key);
+            if (formset == null) {// it hasn't been included yet
+                if (getLog().isDebugEnabled()) {
+                    getLog().debug("Adding FormSet '" + fs + "'.");
+                }
+            } else if (getLog().isWarnEnabled()) {// warn the user he might not
+                                                // get the expected results
+                getLog()
+                        .warn("Overriding FormSet definition. Duplicate for locale: "
+                                + key);
+            }
+            getFormSets().put(key, fs);
+        }
+    }
 
     /**
      * Create a <code>Rule</code> to handle <code>arg0-arg3</code>
@@ -306,50 +320,6 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
-     * object.  It will be associated with the <code>Locale</code> of the
-     * <code>FormSet</code>.
-     * @param fs The form set to add.
-     * @since 1.1
-     */
-    public void addFormSet(final FormSet fs) {
-        final String key = this.buildKey(fs);
-        if (key.isEmpty()) {// there can only be one default formset
-            if (getLog().isWarnEnabled() && defaultFormSet != null) {
-                // warn the user he might not get the expected results
-                getLog().warn("Overriding default FormSet definition.");
-            }
-            defaultFormSet = fs;
-        } else {
-            final FormSet formset = getFormSets().get(key);
-            if (formset == null) {// it hasn't been included yet
-                if (getLog().isDebugEnabled()) {
-                    getLog().debug("Adding FormSet '" + fs + "'.");
-                }
-            } else if (getLog().isWarnEnabled()) {// warn the user he might not
-                                                // get the expected results
-                getLog()
-                        .warn("Overriding FormSet definition. Duplicate for locale: "
-                                + key);
-            }
-            getFormSets().put(key, fs);
-        }
-    }
-
-    /**
-     * Add a global constant to the resource.
-     * @param name The constant name.
-     * @param value The constant value.
-     */
-    public void addConstant(final String name, final String value) {
-        if (getLog().isDebugEnabled()) {
-            getLog().debug("Adding Global Constant: " + name + "," + value);
-        }
-
-        this.hConstants.put(name, value);
-    }
-
-    /**
      * Add a <code>ValidatorAction</code> to the resource.  It also creates an
      * instance of the class based on the <code>ValidatorAction</code>s
      * class name and retrieves the <code>Method</code> instance and sets them
@@ -364,23 +334,6 @@ public class ValidatorResources implements Serializable {
         if (getLog().isDebugEnabled()) {
             getLog().debug("Add ValidatorAction: " + va.getName() + "," + va.getClassname());
         }
-    }
-
-    /**
-     * Gets a <code>ValidatorAction</code> based on it's name.
-     * @param key The validator action key.
-     * @return The validator action.
-     */
-    public ValidatorAction getValidatorAction(final String key) {
-        return getActions().get(key);
-    }
-
-    /**
-     * Gets an unmodifiable <code>Map</code> of the <code>ValidatorAction</code>s.
-     * @return Map of validator actions.
-     */
-    public Map<String, ValidatorAction> getValidatorActions() {
-        return Collections.unmodifiableMap(getActions());
     }
 
     /**
@@ -402,6 +355,26 @@ public class ValidatorResources implements Serializable {
         key += country != null && !country.isEmpty() ? "_" + country : "";
         key += variant != null && !variant.isEmpty() ? "_" + variant : "";
         return key;
+    }
+
+    /**
+     * Returns a Map of String ValidatorAction names to their ValidatorAction.
+     * @return Map of Validator Actions
+     * @since 1.2.0
+     */
+    @SuppressWarnings("unchecked") // FastHashMap is not generic
+    protected Map<String, ValidatorAction> getActions() {
+        return hActions;
+    }
+
+    /**
+     * Returns a Map of String constant names to their String values.
+     * @return Map of Constants
+     * @since 1.2.0
+     */
+    @SuppressWarnings("unchecked") // FastHashMap is not generic
+    protected Map<String, String> getConstants() {
+        return hConstants;
     }
 
     /**
@@ -499,44 +472,50 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Process the <code>ValidatorResources</code> object. Currently sets the
-     * <code>FastHashMap</code> s to the 'fast' mode and call the processes
-     * all other resources. <strong>Note </strong>: The framework calls this
-     * automatically when ValidatorResources is created from an XML file. If you
-     * create an instance of this class by hand you <strong>must </strong> call
-     * this method when finished.
+     * <p>Gets a <code>FormSet</code> based on the language, country
+     *    and variant.</p>
+     * @param language The locale's language.
+     * @param country The locale's country.
+     * @param variant The locale's language variant.
+     * @return The FormSet for a locale.
+     * @since 1.2
      */
-    public void process() {
-        hFormSets.setFast(true);
-        hConstants.setFast(true);
-        hActions.setFast(true);
+    FormSet getFormSet(final String language, final String country, final String variant) {
 
-        this.processForms();
+        final String key = buildLocale(language, country, variant);
+
+        if (key.isEmpty()) {
+            return defaultFormSet;
+        }
+
+        return getFormSets().get(key);
     }
 
     /**
-     * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s
-     * that don't exist in a <code>FormSet</code> compared to its parent
-     * <code>FormSet</code>.</p>
+     * Returns a Map of String locale keys to Lists of their FormSets.
+     * @return Map of Form sets
+     * @since 1.2.0
      */
-    private void processForms() {
-        if (defaultFormSet == null) {// it isn't mandatory to have a
-            // default formset
-            defaultFormSet = new FormSet();
-        }
-        defaultFormSet.process(getConstants());
-        // Loop through FormSets and merge if necessary
-        for (final String key : getFormSets().keySet()) {
-            final FormSet fs = getFormSets().get(key);
-            fs.merge(getParent(fs));
-        }
+    @SuppressWarnings("unchecked") // FastHashMap is not generic
+    protected Map<String, FormSet> getFormSets() {
+        return hFormSets;
+    }
 
-        // Process Fully Constructed FormSets
-        for (final FormSet fs : getFormSets().values()) {
-            if (!fs.isProcessed()) {
-                fs.process(getConstants());
-            }
+    /**
+     * Accessor method for Log instance.
+     *
+     * The Log instance variable is transient and
+     * accessing it through this method ensures it
+     * is re-initialized when this instance is
+     * de-serialized.
+     *
+     * @return The Log instance.
+     */
+    private Log getLog() {
+        if (log == null) {
+            log =  LogFactory.getLog(ValidatorResources.class);
         }
+        return log;
     }
 
     /**
@@ -575,70 +554,91 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * <p>Gets a <code>FormSet</code> based on the language, country
-     *    and variant.</p>
-     * @param language The locale's language.
-     * @param country The locale's country.
-     * @param variant The locale's language variant.
-     * @return The FormSet for a locale.
-     * @since 1.2
+     * Gets a <code>ValidatorAction</code> based on it's name.
+     * @param key The validator action key.
+     * @return The validator action.
      */
-    FormSet getFormSet(final String language, final String country, final String variant) {
+    public ValidatorAction getValidatorAction(final String key) {
+        return getActions().get(key);
+    }
 
-        final String key = buildLocale(language, country, variant);
+    /**
+     * Gets an unmodifiable <code>Map</code> of the <code>ValidatorAction</code>s.
+     * @return Map of validator actions.
+     */
+    public Map<String, ValidatorAction> getValidatorActions() {
+        return Collections.unmodifiableMap(getActions());
+    }
 
-        if (key.isEmpty()) {
-            return defaultFormSet;
+    /**
+     *  Initialize the digester.
+     */
+    private Digester initDigester() {
+        URL rulesUrl = this.getClass().getResource(VALIDATOR_RULES);
+        if (rulesUrl == null) {
+            // Fix for Issue# VALIDATOR-195
+            rulesUrl = ValidatorResources.class.getResource(VALIDATOR_RULES);
+        }
+        if (getLog().isDebugEnabled()) {
+            getLog().debug("Loading rules from '" + rulesUrl + "'");
+        }
+        final Digester digester = DigesterLoader.createDigester(rulesUrl);
+        digester.setNamespaceAware(true);
+        digester.setValidating(true);
+        digester.setUseContextClassLoader(true);
+
+        // Add rules for arg0-arg3 elements
+        addOldArgRules(digester);
+
+        // register DTDs
+        for (int i = 0; i < REGISTRATIONS.length; i += 2) {
+            final URL url = this.getClass().getResource(REGISTRATIONS[i + 1]);
+            if (url != null) {
+                digester.register(REGISTRATIONS[i], url.toString());
+            }
+        }
+        return digester;
+    }
+
+    /**
+     * Process the <code>ValidatorResources</code> object. Currently sets the
+     * <code>FastHashMap</code> s to the 'fast' mode and call the processes
+     * all other resources. <strong>Note </strong>: The framework calls this
+     * automatically when ValidatorResources is created from an XML file. If you
+     * create an instance of this class by hand you <strong>must </strong> call
+     * this method when finished.
+     */
+    public void process() {
+        hFormSets.setFast(true);
+        hConstants.setFast(true);
+        hActions.setFast(true);
+
+        this.processForms();
+    }
+
+    /**
+     * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s
+     * that don't exist in a <code>FormSet</code> compared to its parent
+     * <code>FormSet</code>.</p>
+     */
+    private void processForms() {
+        if (defaultFormSet == null) {// it isn't mandatory to have a
+            // default formset
+            defaultFormSet = new FormSet();
+        }
+        defaultFormSet.process(getConstants());
+        // Loop through FormSets and merge if necessary
+        for (final String key : getFormSets().keySet()) {
+            final FormSet fs = getFormSets().get(key);
+            fs.merge(getParent(fs));
         }
 
-        return getFormSets().get(key);
-    }
-
-    /**
-     * Returns a Map of String locale keys to Lists of their FormSets.
-     * @return Map of Form sets
-     * @since 1.2.0
-     */
-    @SuppressWarnings("unchecked") // FastHashMap is not generic
-    protected Map<String, FormSet> getFormSets() {
-        return hFormSets;
-    }
-
-    /**
-     * Returns a Map of String constant names to their String values.
-     * @return Map of Constants
-     * @since 1.2.0
-     */
-    @SuppressWarnings("unchecked") // FastHashMap is not generic
-    protected Map<String, String> getConstants() {
-        return hConstants;
-    }
-
-    /**
-     * Returns a Map of String ValidatorAction names to their ValidatorAction.
-     * @return Map of Validator Actions
-     * @since 1.2.0
-     */
-    @SuppressWarnings("unchecked") // FastHashMap is not generic
-    protected Map<String, ValidatorAction> getActions() {
-        return hActions;
-    }
-
-    /**
-     * Accessor method for Log instance.
-     *
-     * The Log instance variable is transient and
-     * accessing it through this method ensures it
-     * is re-initialized when this instance is
-     * de-serialized.
-     *
-     * @return The Log instance.
-     */
-    private Log getLog() {
-        if (log == null) {
-            log =  LogFactory.getLog(ValidatorResources.class);
+        // Process Fully Constructed FormSets
+        for (final FormSet fs : getFormSets().values()) {
+            if (!fs.isProcessed()) {
+                fs.process(getConstants());
+            }
         }
-        return log;
     }
 
 }

@@ -125,57 +125,6 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a <code>BigDecimal</code> using the default
-     *    <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @return The parsed <code>BigDecimal</code> if valid or <code>null</code>
-     *  if invalid.
-     */
-    public BigDecimal validate(final String value) {
-        return (BigDecimal)parse(value, (String)null, (Locale)null);
-    }
-
-    /**
-     * <p>Validate/convert a <code>BigDecimal</code> using the
-     *    specified <i>pattern</i>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
-     * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
-     */
-    public BigDecimal validate(final String value, final String pattern) {
-        return (BigDecimal)parse(value, pattern, (Locale)null);
-    }
-
-    /**
-     * <p>Validate/convert a <code>BigDecimal</code> using the
-     *    specified <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param locale The locale to use for the number format, system default if null.
-     * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
-     */
-    public BigDecimal validate(final String value, final Locale locale) {
-        return (BigDecimal)parse(value, (String)null, locale);
-    }
-
-    /**
-     * <p>Validate/convert a <code>BigDecimal</code> using the
-     *    specified pattern and/ or <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
-     * @param locale The locale to use for the date format, system default if null.
-     * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
-     */
-    public BigDecimal validate(final String value, final String pattern, final Locale locale) {
-        return (BigDecimal)parse(value, pattern, locale);
-    }
-
-    /**
      * Check if the value is within a specified range.
      *
      * @param value The <code>Number</code> value to check.
@@ -189,18 +138,6 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Check if the value is greater than or equal to a minimum.
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum value.
-     * @return {@code true} if the value is greater than
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final BigDecimal value, final double min) {
-        return value.doubleValue() >= min;
-    }
-
-    /**
      * Check if the value is less than or equal to a maximum.
      *
      * @param value The value validation is being performed on.
@@ -210,6 +147,18 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      */
     public boolean maxValue(final BigDecimal value, final double max) {
         return value.doubleValue() <= max;
+    }
+
+    /**
+     * Check if the value is greater than or equal to a minimum.
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than
+     *         or equal to the minimum.
+     */
+    public boolean minValue(final BigDecimal value, final double min) {
+        return value.doubleValue() >= min;
     }
 
     /**
@@ -235,5 +184,56 @@ public class BigDecimalValidator extends AbstractNumberValidator {
         }
 
         return decimal;
+    }
+
+    /**
+     * <p>Validate/convert a <code>BigDecimal</code> using the default
+     *    <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @return The parsed <code>BigDecimal</code> if valid or <code>null</code>
+     *  if invalid.
+     */
+    public BigDecimal validate(final String value) {
+        return (BigDecimal)parse(value, (String)null, (Locale)null);
+    }
+
+    /**
+     * <p>Validate/convert a <code>BigDecimal</code> using the
+     *    specified <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param locale The locale to use for the number format, system default if null.
+     * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
+     */
+    public BigDecimal validate(final String value, final Locale locale) {
+        return (BigDecimal)parse(value, (String)null, locale);
+    }
+
+    /**
+     * <p>Validate/convert a <code>BigDecimal</code> using the
+     *    specified <i>pattern</i>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
+     * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
+     */
+    public BigDecimal validate(final String value, final String pattern) {
+        return (BigDecimal)parse(value, pattern, (Locale)null);
+    }
+
+    /**
+     * <p>Validate/convert a <code>BigDecimal</code> using the
+     *    specified pattern and/ or <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if <code>null</code>.
+     * @param locale The locale to use for the date format, system default if null.
+     * @return The parsed <code>BigDecimal</code> if valid or <code>null</code> if invalid.
+     */
+    public BigDecimal validate(final String value, final String pattern, final Locale locale) {
+        return (BigDecimal)parse(value, pattern, locale);
     }
 }

@@ -97,14 +97,6 @@ public class ISBNValidator implements Serializable {
     /** ISBN Code Validator (which converts ISBN-10 codes to ISBN-13 */
     private static final ISBNValidator ISBN_VALIDATOR_NO_CONVERT = new ISBNValidator(false);
 
-    /** ISBN-10 Code Validator */
-    private final CodeValidator isbn10Validator = new CodeValidator(ISBN10_REGEX, 10, ISBN10CheckDigit.ISBN10_CHECK_DIGIT);
-
-    /** ISBN-13 Code Validator */
-    private final CodeValidator isbn13Validator = new CodeValidator(ISBN13_REGEX, 13, EAN13CheckDigit.EAN13_CHECK_DIGIT);
-
-    private final boolean convert;
-
     /**
      * Return a singleton instance of the ISBN validator which
      * converts ISBN-10 codes to ISBN-13.
@@ -128,6 +120,14 @@ public class ISBNValidator implements Serializable {
         return convert ? ISBN_VALIDATOR : ISBN_VALIDATOR_NO_CONVERT;
     }
 
+    /** ISBN-10 Code Validator */
+    private final CodeValidator isbn10Validator = new CodeValidator(ISBN10_REGEX, 10, ISBN10CheckDigit.ISBN10_CHECK_DIGIT);
+
+    /** ISBN-13 Code Validator */
+    private final CodeValidator isbn13Validator = new CodeValidator(ISBN13_REGEX, 13, EAN13CheckDigit.EAN13_CHECK_DIGIT);
+
+    private final boolean convert;
+
     /**
      * Constructs an ISBN validator which converts ISBN-10 codes
      * to ISBN-13.
@@ -146,6 +146,39 @@ public class ISBNValidator implements Serializable {
      */
     public ISBNValidator(final boolean convert) {
         this.convert = convert;
+    }
+
+    /**
+     * Convert an ISBN-10 code to an ISBN-13 code.
+     * <p>
+     * This method requires a valid ISBN-10 with NO formatting
+     * characters.
+     *
+     * @param isbn10 The ISBN-10 code to convert
+     * @return A converted ISBN-13 code or <code>null</code>
+     * if the ISBN-10 code is not valid
+     */
+    public String convertToISBN13(final String isbn10) {
+
+        if (isbn10 == null) {
+            return null;
+        }
+
+        final String input = isbn10.trim();
+        if (input.length() != ISBN_10_LEN) {
+            throw new IllegalArgumentException("Invalid length " + input.length() + " for '" + input + "'");
+        }
+
+        // Calculate the new ISBN-13 code (drop the original checkdigit)
+        String isbn13 = "978" + input.substring(0, ISBN_10_LEN - 1);
+        try {
+            final String checkDigit = isbn13Validator.getCheckDigit().calculate(isbn13);
+            isbn13 += checkDigit;
+            return isbn13;
+        } catch (final CheckDigitException e) {
+            throw new IllegalArgumentException("Check digit error for '" + input + "' - " + e.getMessage());
+        }
+
     }
 
     /**
@@ -232,39 +265,6 @@ public class ISBNValidator implements Serializable {
     public String validateISBN13(final String code) {
         final Object result = isbn13Validator.validate(code);
         return result == null ? null : result.toString();
-    }
-
-    /**
-     * Convert an ISBN-10 code to an ISBN-13 code.
-     * <p>
-     * This method requires a valid ISBN-10 with NO formatting
-     * characters.
-     *
-     * @param isbn10 The ISBN-10 code to convert
-     * @return A converted ISBN-13 code or <code>null</code>
-     * if the ISBN-10 code is not valid
-     */
-    public String convertToISBN13(final String isbn10) {
-
-        if (isbn10 == null) {
-            return null;
-        }
-
-        final String input = isbn10.trim();
-        if (input.length() != ISBN_10_LEN) {
-            throw new IllegalArgumentException("Invalid length " + input.length() + " for '" + input + "'");
-        }
-
-        // Calculate the new ISBN-13 code (drop the original checkdigit)
-        String isbn13 = "978" + input.substring(0, ISBN_10_LEN - 1);
-        try {
-            final String checkDigit = isbn13Validator.getCheckDigit().calculate(isbn13);
-            isbn13 += checkDigit;
-            return isbn13;
-        } catch (final CheckDigitException e) {
-            throw new IllegalArgumentException("Check digit error for '" + input + "' - " + e.getMessage());
-        }
-
     }
 
 }

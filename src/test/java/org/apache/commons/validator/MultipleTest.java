@@ -91,105 +91,6 @@ protected void tearDown() {
    }
 
    /**
-    * If the first name fails required, and the second test fails int, we should get two errors.
-    */
-   public void testRequiredFirstNameBlankLastNameShort() throws ValidatorException {
-      // Create bean to run test on.
-      final NameBean name = new NameBean();
-      name.setFirstName("");
-      name.setLastName("Test");
-
-      // Construct validator based on the loaded resources
-      // and the form key
-      final Validator validator = new Validator(resources, FORM_KEY);
-      // add the name bean to the validator as a resource
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, name);
-
-      // Get results of the validation.
-      final ValidatorResults results = validator.validate();
-
-      assertNotNull("Results are null.", results);
-
-      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
-
-      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
-      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have failed.", !firstNameResult.isValid(ACTION));
-
-      assertNotNull("Last Name ValidatorResult should not be null.", lastNameResult);
-      assertTrue("Last Name ValidatorResult should contain the 'int' action.", lastNameResult.containsAction("int"));
-      assertTrue("Last Name ValidatorResult for the 'int' action should have failed.", !lastNameResult.isValid("int"));
-   }
-
-   /**
-    * If the first name is there, and the last name fails int, we should get one error.
-    */
-   public void testRequiredLastNameShort() throws ValidatorException {
-      // Create bean to run test on.
-      final NameBean name = new NameBean();
-      name.setFirstName("Test");
-      name.setLastName("Test");
-
-      // Construct validator based on the loaded resources
-      // and the form key
-      final Validator validator = new Validator(resources, FORM_KEY);
-      // add the name bean to the validator as a resource
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, name);
-
-      // Get results of the validation.
-      final ValidatorResults results = validator.validate();
-
-      assertNotNull("Results are null.", results);
-
-      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
-
-      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
-      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have passed.", firstNameResult.isValid(ACTION));
-
-      assertNotNull("Last Name ValidatorResult should not be null.", lastNameResult);
-      assertTrue("Last Name ValidatorResult should contain the 'int' action.", lastNameResult.containsAction("int"));
-      assertTrue("Last Name ValidatorResult for the 'int' action should have failed.", !lastNameResult.isValid("int"));
-   }
-
-   /**
-    * If first name is ok and last name is ok and is an int, no errors.
-    */
-   public void testRequiredLastNameLong() throws ValidatorException {
-      // Create bean to run test on.
-      final NameBean name = new NameBean();
-      name.setFirstName("Joe");
-      name.setLastName("12345678");
-
-      // Construct validator based on the loaded resources
-      // and the form key
-      final Validator validator = new Validator(resources, FORM_KEY);
-      // add the name bean to the validator as a resource
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, name);
-
-      // Get results of the validation.
-      final ValidatorResults results = validator.validate();
-
-      assertNotNull("Results are null.", results);
-
-      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
-
-      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
-      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have passed.", firstNameResult.isValid(ACTION));
-
-      assertNotNull("Last Name ValidatorResult should not be null.", lastNameResult);
-      assertTrue("Last Name ValidatorResult should contain the 'int' action.", lastNameResult.containsAction("int"));
-      assertTrue("Last Name ValidatorResult for the 'int' action should have passed.", lastNameResult.isValid("int"));
-   }
-
-   /**
     * If middle name is not there, then the required dependent test should fail.
     * No other tests should run
     *
@@ -332,5 +233,104 @@ protected void tearDown() {
 
        assertTrue("Middle Name ValidatorResult should contain the 'positive' action.", middleNameResult.containsAction("positive"));
        assertTrue("Middle Name ValidatorResult for the 'positive' action should have passed", middleNameResult.isValid("positive"));
+   }
+
+   /**
+    * If the first name fails required, and the second test fails int, we should get two errors.
+    */
+   public void testRequiredFirstNameBlankLastNameShort() throws ValidatorException {
+      // Create bean to run test on.
+      final NameBean name = new NameBean();
+      name.setFirstName("");
+      name.setLastName("Test");
+
+      // Construct validator based on the loaded resources
+      // and the form key
+      final Validator validator = new Validator(resources, FORM_KEY);
+      // add the name bean to the validator as a resource
+      // for the validations to be performed on.
+      validator.setParameter(Validator.BEAN_PARAM, name);
+
+      // Get results of the validation.
+      final ValidatorResults results = validator.validate();
+
+      assertNotNull("Results are null.", results);
+
+      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+
+      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
+      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
+      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have failed.", !firstNameResult.isValid(ACTION));
+
+      assertNotNull("Last Name ValidatorResult should not be null.", lastNameResult);
+      assertTrue("Last Name ValidatorResult should contain the 'int' action.", lastNameResult.containsAction("int"));
+      assertTrue("Last Name ValidatorResult for the 'int' action should have failed.", !lastNameResult.isValid("int"));
+   }
+
+   /**
+    * If first name is ok and last name is ok and is an int, no errors.
+    */
+   public void testRequiredLastNameLong() throws ValidatorException {
+      // Create bean to run test on.
+      final NameBean name = new NameBean();
+      name.setFirstName("Joe");
+      name.setLastName("12345678");
+
+      // Construct validator based on the loaded resources
+      // and the form key
+      final Validator validator = new Validator(resources, FORM_KEY);
+      // add the name bean to the validator as a resource
+      // for the validations to be performed on.
+      validator.setParameter(Validator.BEAN_PARAM, name);
+
+      // Get results of the validation.
+      final ValidatorResults results = validator.validate();
+
+      assertNotNull("Results are null.", results);
+
+      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+
+      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
+      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
+      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have passed.", firstNameResult.isValid(ACTION));
+
+      assertNotNull("Last Name ValidatorResult should not be null.", lastNameResult);
+      assertTrue("Last Name ValidatorResult should contain the 'int' action.", lastNameResult.containsAction("int"));
+      assertTrue("Last Name ValidatorResult for the 'int' action should have passed.", lastNameResult.isValid("int"));
+   }
+
+   /**
+    * If the first name is there, and the last name fails int, we should get one error.
+    */
+   public void testRequiredLastNameShort() throws ValidatorException {
+      // Create bean to run test on.
+      final NameBean name = new NameBean();
+      name.setFirstName("Test");
+      name.setLastName("Test");
+
+      // Construct validator based on the loaded resources
+      // and the form key
+      final Validator validator = new Validator(resources, FORM_KEY);
+      // add the name bean to the validator as a resource
+      // for the validations to be performed on.
+      validator.setParameter(Validator.BEAN_PARAM, name);
+
+      // Get results of the validation.
+      final ValidatorResults results = validator.validate();
+
+      assertNotNull("Results are null.", results);
+
+      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+
+      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
+      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
+      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have passed.", firstNameResult.isValid(ACTION));
+
+      assertNotNull("Last Name ValidatorResult should not be null.", lastNameResult);
+      assertTrue("Last Name ValidatorResult should contain the 'int' action.", lastNameResult.containsAction("int"));
+      assertTrue("Last Name ValidatorResult for the 'int' action should have failed.", !lastNameResult.isValid("int"));
    }
 }

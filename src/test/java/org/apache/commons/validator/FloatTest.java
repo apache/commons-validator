@@ -39,14 +39,13 @@ public class FloatTest extends AbstractNumberTest {
     }
 
     /**
-     * Tests the float validation.
+     * Tests the float validation failure.
      */
-    public void testFloatMin() throws ValidatorException {
+    public void testFloatFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
-        info.setValue(Float.toString(Float.MIN_VALUE));
 
-        valueTest(info, true);
+        valueTest(info, false);
     }
 
     /**
@@ -61,13 +60,14 @@ public class FloatTest extends AbstractNumberTest {
     }
 
     /**
-     * Tests the float validation failure.
+     * Tests the float validation.
      */
-    public void testFloatFailure() throws ValidatorException {
+    public void testFloatMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
+        info.setValue(Float.toString(Float.MIN_VALUE));
 
-        valueTest(info, false);
+        valueTest(info, true);
     }
 
 }
