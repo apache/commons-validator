@@ -78,10 +78,10 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Constructs a variable with a specified name, value
-     * and Javascript type.
+     * and JavaScript type.
      * @param name Variable name.
      * @param value Variable value.
-     * @param jsType Variable Javascript type.
+     * @param jsType Variable JavaScript type.
      */
     public Var(final String name, final String value, final String jsType) {
         this.name = name;
@@ -114,7 +114,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Gets the JavaScript type of the variable.
-     * @return The Javascript type of the variable.
+     * @return The JavaScript type of the variable.
      */
     public String getJsType() {
         return this.jsType;
@@ -156,7 +156,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Sets the JavaScript type of the variable.
-     * @param jsType The Javascript type of the variable.
+     * @param jsType The JavaScript type of the variable.
      */
     public void setJsType(final String jsType) {
         this.jsType = jsType;

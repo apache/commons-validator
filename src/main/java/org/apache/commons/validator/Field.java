@@ -187,7 +187,7 @@ public class Field implements Cloneable, Serializable {
      * <code>Field</code>.
      * @param name Name of the validation.
      * @param value The Argument's value.
-     * @param jsType The Javascript type.
+     * @param jsType The JavaScript type.
      */
     public void addVar(final String name, final String value, final String jsType) {
         this.addVar(new Var(name, value, jsType));
