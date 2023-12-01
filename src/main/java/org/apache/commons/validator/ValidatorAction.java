@@ -558,17 +558,13 @@ public class ValidatorAction implements Serializable {
      * @param name The resource name
      * @return An input stream for reading the resource, or {@code null} if the resource could not be found
      */
-    @SuppressWarnings("resource") // Caller closes
     private InputStream openInputStream(final String javaScriptFileName, ClassLoader classLoader) {
         InputStream is = null;
         if (classLoader != null) {
             is = classLoader.getResourceAsStream(javaScriptFileName);
         }
         if (is == null) {
-            is = getClass().getResourceAsStream(javaScriptFileName);
-        }
-        if (is == null) {
-            getLog().debug("  Unable to read javascript name " + javaScriptFileName);
+            return getClass().getResourceAsStream(javaScriptFileName);
         }
         return is;
     }
@@ -585,7 +581,12 @@ public class ValidatorAction implements Serializable {
             classLoader = getClass().getClassLoader();
         }
         try (InputStream is = openInputStream(javaScriptFileName, classLoader)) {
+            if (is == null) {
+                getLog().debug("  Unable to read javascript name " + javaScriptFileName);
+                return null;
+            }
             final StringBuilder buffer = new StringBuilder();
+            // TODO encoding
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
                 String line = null;
                 while ((line = reader.readLine()) != null) {
