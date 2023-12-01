@@ -580,28 +580,25 @@ public class ValidatorAction implements Serializable {
         if (classLoader == null) {
             classLoader = getClass().getClassLoader();
         }
-        try (InputStream is = openInputStream(javaScriptFileName, classLoader)) {
-            if (is == null) {
-                getLog().debug("  Unable to read javascript name " + javaScriptFileName);
-                return null;
-            }
-            final StringBuilder buffer = new StringBuilder();
-            // TODO encoding
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    buffer.append(line).append("\n");
-                }
-            } catch (final IOException e) {
-                getLog().error("Error reading JavaScript file.", e);
-
-            }
-            final String function = buffer.toString();
-            return function.isEmpty() ? null : function;
-        } catch (IOException e) {
-            getLog().error("Error closing stream to JavaScript file.", e);
+        // BufferedReader closes InputStreamReader closes InputStream
+        final InputStream is = openInputStream(javaScriptFileName, classLoader);
+        if (is == null) {
+            getLog().debug("  Unable to read javascript name " + javaScriptFileName);
             return null;
         }
+        final StringBuilder buffer = new StringBuilder();
+        // TODO encoding
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line).append("\n");
+            }
+        } catch (final IOException e) {
+            getLog().error("Error reading JavaScript file.", e);
+
+        }
+        final String function = buffer.toString();
+        return function.isEmpty() ? null : function;
     }
 
     /**

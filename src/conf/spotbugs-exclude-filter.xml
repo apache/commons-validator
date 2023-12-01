@@ -31,5 +31,11 @@
   <Match>
     <Class name="~.*" />
     <Bug pattern="EI_EXPOSE_REP2" />
-  </Match>  
+  </Match>
+  <!-- False positive?  
+  High: Class org.apache.commons.validator.routines.CreditCardValidator$1 defines non-transient non-serializable instance field val$creditCardRanges [org.apache.commons.validator.routines.CreditCardValidator$1] In CreditCardValidator.java SE_BAD_FIELD -->
+  <Match>
+    <Class name="org.apache.commons.validator.routines.CreditCardValidator$1" />
+    <Bug pattern="SE_BAD_FIELD" />
+  </Match>
 </FindBugsFilter>
