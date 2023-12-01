@@ -35,6 +35,8 @@ import org.junit.runner.RunWith;
 
 /**
  * Startup Tests for the DomainValidator.
+ *
+ * TODO Port to JUnit 5.
  */
 @RunWith(ClassLoaderPerTestRunner.class)
 public class DomainValidatorStartupTest {
