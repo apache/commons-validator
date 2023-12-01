@@ -315,7 +315,7 @@ public class Form implements Serializable {
      * @since 1.2.0
      */
     ValidatorResults validate(final Map<String, Object> params, final Map<String, ValidatorAction> actions, final int page, final String fieldName)
-        throws ValidatorException {
+            throws ValidatorException {
         final ValidatorResults results = new ValidatorResults();
         params.put(Validator.VALIDATOR_RESULTS_PARAM, results);
 
@@ -324,12 +324,12 @@ public class Form implements Serializable {
             final Field field = getFieldMap().get(fieldName);
 
             if (field == null) {
-               throw new ValidatorException("Unknown field "+fieldName+" in form "+getName());
+                throw new ValidatorException("Unknown field " + fieldName + " in form " + getName());
             }
             params.put(Validator.FIELD_PARAM, field);
 
             if (field.getPage() <= page) {
-               results.merge(field.validate(params, actions));
+                results.merge(field.validate(params, actions));
             }
         } else {
             for (final Field field : this.lFields) {

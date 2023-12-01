@@ -236,7 +236,7 @@ public class RegexValidator implements Serializable {
                 }
                 final StringBuilder buffer = new StringBuilder();
                 for (int j = 0; j < count; j++) {
-                    final String component = matcher.group(j+1);
+                    final String component = matcher.group(j + 1);
                     if (component != null) {
                         buffer.append(component);
                     }

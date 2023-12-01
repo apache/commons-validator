@@ -128,7 +128,7 @@
       <property name="ordered" value="true"/>
       <property name="separated" value="true"/>
     </module>
-
+    <module name="WhitespaceAround"/>
   </module>
 
   <!-- enforce package documentation -->

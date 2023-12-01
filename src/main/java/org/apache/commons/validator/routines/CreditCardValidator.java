@@ -286,36 +286,39 @@ public class CreditCardValidator implements Serializable {
     public static final CodeValidator VPAY_VALIDATOR = new CodeValidator("^(4)(\\d{12,18})$", LUHN_VALIDATOR);
 
     // package protected for unit test access
-    static CodeValidator createRangeValidator(final CreditCardRange[] creditCardRanges, final CheckDigit digitCheck ) {
+    static CodeValidator createRangeValidator(final CreditCardRange[] creditCardRanges, final CheckDigit digitCheck) {
         return new CodeValidator(
                 // must be numeric (rest of validation is done later)
                 new RegexValidator("(\\d+)") {
                     private static final long serialVersionUID = 1L;
                     private final transient CreditCardRange[] ccr = creditCardRanges.clone();
+
                     @Override
                     public boolean isValid(final String value) {
                         return validate(value) != null;
                     }
+
                     @Override
                     public String[] match(final String value) {
                         return new String[] { validate(value) };
                     }
+
                     @Override
                     // must return full string
                     public String validate(final String value) {
                         if (super.match(value) != null) {
                             final int length = value.length();
-                            for(final CreditCardRange range : ccr) {
+                            for (final CreditCardRange range : ccr) {
                                 if (validLength(length, range)) {
                                     if (range.high == null) { // single prefix only
                                         if (value.startsWith(range.low)) {
                                             return value;
                                         }
                                     } else if (range.low.compareTo(value) <= 0 // no need to trim value here
-                                                &&
-                                                // here we have to ignore digits beyond the prefix
-                                                range.high.compareTo(value.substring(0, range.high.length())) >= 0) {
-                                               return value;
+                                            &&
+                                    // here we have to ignore digits beyond the prefix
+                                            range.high.compareTo(value.substring(0, range.high.length())) >= 0) {
+                                        return value;
                                     }
                                 }
                             }
@@ -364,7 +367,7 @@ public class CreditCardValidator implements Serializable {
     // package protected for unit test access
     static boolean validLength(final int valueLength, final CreditCardRange range) {
         if (range.lengths != null) {
-            for(final int length : range.lengths) {
+            for (final int length : range.lengths) {
                 if (valueLength == length) {
                     return true;
                 }

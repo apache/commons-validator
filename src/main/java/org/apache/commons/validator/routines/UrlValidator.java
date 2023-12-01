@@ -121,13 +121,15 @@ public class UrlValidator implements Serializable {
     // sub-delims    = "!" / "$" / "&" / "'" / "(" / ")" / "*" / "+" / "," / ";" / "="
     // We assume that password has the same valid chars as user info
     private static final String USERINFO_CHARS_REGEX = "[a-zA-Z0-9%-._~!$&'()*+,;=]";
+
     // since neither ':' nor '@' are allowed chars, we don't need to use non-greedy matching
     private static final String USERINFO_FIELD_REGEX =
             USERINFO_CHARS_REGEX + "+" + // At least one character for the name
             "(?::" + USERINFO_CHARS_REGEX + "*)?@"; // colon and password may be absent
+
     private static final String AUTHORITY_REGEX =
-            "(?:\\[("+IPV6_REGEX+")\\]|(?:(?:"+USERINFO_FIELD_REGEX+")?([" + AUTHORITY_CHARS_REGEX + "]*)))(?::(\\d*))?(.*)?";
-    //             1                          e.g. user:pass@          2                                         3       4
+            "(?:\\[(" + IPV6_REGEX + ")\\]|(?:(?:" + USERINFO_FIELD_REGEX + ")?([" + AUTHORITY_CHARS_REGEX + "]*)))(?::(\\d*))?(.*)?";
+    //             1                                 e.g. user:pass@           2                                       3       4
     private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
 
     private static final int PARSE_AUTHORITY_IPV6 = 1;
@@ -278,7 +280,7 @@ public class UrlValidator implements Serializable {
         if (domainValidator == null) {
             throw new IllegalArgumentException("DomainValidator must not be null");
         }
-        if (domainValidator.isAllowLocal() != (options & ALLOW_LOCAL_URLS) > 0){
+        if (domainValidator.isAllowLocal() != (options & ALLOW_LOCAL_URLS) > 0) {
             throw new IllegalArgumentException("DomainValidator disagrees with ALLOW_LOCAL_URLS setting");
         }
         this.domainValidator = domainValidator;
@@ -370,7 +372,7 @@ public class UrlValidator implements Serializable {
         }
 
         final String authority = uri.getRawAuthority();
-        if ("file".equals(scheme) && (authority == null || authority.isEmpty())) {// Special case - file: allows an empty authority
+        if ("file".equals(scheme) && (authority == null || authority.isEmpty())) { // Special case - file: allows an empty authority
             return true; // this is a local file - nothing more to do here
         }
         if ("file".equals(scheme) && authority != null && authority.contains(":")) {
@@ -427,9 +429,9 @@ public class UrlValidator implements Serializable {
         final String ipv6 = authorityMatcher.group(PARSE_AUTHORITY_IPV6);
         if (ipv6 != null) {
             final InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
-                if (!inetAddressValidator.isValidInet6Address(ipv6)) {
-                    return false;
-                }
+            if (!inetAddressValidator.isValidInet6Address(ipv6)) {
+                return false;
+            }
         } else {
             final String hostLocation = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
             // check if authority is hostname or IP address:
@@ -456,7 +458,7 @@ public class UrlValidator implements Serializable {
         }
 
         final String extra = authorityMatcher.group(PARSE_AUTHORITY_EXTRA);
-        if (extra != null && !extra.trim().isEmpty()){
+        if (extra != null && !extra.trim().isEmpty()) {
             return false;
         }
 

@@ -1861,9 +1861,9 @@ public class DomainValidator implements Serializable {
      * @throws IllegalArgumentException if the table type is unexpected (should not happen)
      * @since 1.5.1
      */
-    public static synchronized String [] getTLDEntries(final ArrayType table) {
+    public static synchronized String[] getTLDEntries(final ArrayType table) {
         final String[] array;
-        switch(table) {
+        switch (table) {
         case COUNTRY_CODE_MINUS:
             array = countryCodeTLDsMinus;
             break;
@@ -1908,7 +1908,7 @@ public class DomainValidator implements Serializable {
         if (input == null) {
             return true;
         }
-        for(int i=0; i < input.length(); i++) {
+        for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) > 0x7F) { // CHECKSTYLE IGNORE MagicNumber
                 return false;
             }
@@ -1934,23 +1934,23 @@ public class DomainValidator implements Serializable {
                 return ascii;
             }
             final int length = input.length();
-            if (length == 0) {// check there is a last character
+            if (length == 0) { // check there is a last character
                 return input;
             }
             // RFC3490 3.1. 1)
-            //            Whenever dots are used as label separators, the following
-            //            characters MUST be recognized as dots: U+002E (full stop), U+3002
-            //            (ideographic full stop), U+FF0E (fullwidth full stop), U+FF61
-            //            (halfwidth ideographic full stop).
-            final char lastChar = input.charAt(length-1);// fetch original last char
-            switch(lastChar) {
-                case '\u002E': // "." full stop
-                case '\u3002': // ideographic full stop
-                case '\uFF0E': // fullwidth full stop
-                case '\uFF61': // halfwidth ideographic full stop
-                    return ascii + "."; // restore the missing stop
-                default:
-                    return ascii;
+            // Whenever dots are used as label separators, the following
+            // characters MUST be recognized as dots: U+002E (full stop), U+3002
+            // (ideographic full stop), U+FF0E (fullwidth full stop), U+FF61
+            // (halfwidth ideographic full stop).
+            final char lastChar = input.charAt(length - 1);// fetch original last char
+            switch (lastChar) {
+            case '\u002E': // "." full stop
+            case '\u3002': // ideographic full stop
+            case '\uFF0E': // fullwidth full stop
+            case '\uFF61': // halfwidth ideographic full stop
+                return ascii + "."; // restore the missing stop
+            default:
+                return ascii;
             }
         } catch (final IllegalArgumentException e) { // input is not valid
             return input;
@@ -1986,13 +1986,13 @@ public class DomainValidator implements Serializable {
         if (inUse) {
             throw new IllegalStateException("Can only invoke this method before calling getInstance");
         }
-        final String [] copy = new String[tlds.length];
+        final String[] copy = new String[tlds.length];
         // Comparisons are always done with lower-case entries
         for (int i = 0; i < tlds.length; i++) {
             copy[i] = tlds[i].toLowerCase(Locale.ENGLISH);
         }
         Arrays.sort(copy);
-        switch(table) {
+        switch (table) {
         case COUNTRY_CODE_MINUS:
             countryCodeTLDsMinus = copy;
             break;
@@ -2095,7 +2095,7 @@ public class DomainValidator implements Serializable {
      * Private constructor, allowing local overrides
      * @since 1.7
     */
-    private DomainValidator(final boolean allowLocal,  final List<Item> items) {
+    private DomainValidator(final boolean allowLocal, final List<Item> items) {
         this.allowLocal = allowLocal;
 
         // default to class overrides
@@ -2107,14 +2107,14 @@ public class DomainValidator implements Serializable {
         String[] localPlus = localTLDsPlus;
 
         // apply the instance overrides
-        for(final Item item: items) {
-            final String [] copy = new String[item.values.length];
+        for (final Item item : items) {
+            final String[] copy = new String[item.values.length];
             // Comparisons are always done with lower-case entries
             for (int i = 0; i < item.values.length; i++) {
                 copy[i] = item.values[i].toLowerCase(Locale.ENGLISH);
             }
             Arrays.sort(copy);
-            switch(item.type) {
+            switch (item.type) {
             case COUNTRY_CODE_MINUS: {
                 ccMinus = copy;
                 break;
@@ -2167,9 +2167,9 @@ public class DomainValidator implements Serializable {
      * @throws IllegalArgumentException if the table type is unexpected, e.g. GENERIC_RO
      * @since 1.7
      */
-    public String [] getOverrides(final ArrayType table) {
+    public String[] getOverrides(final ArrayType table) {
         final String[] array;
-        switch(table) {
+        switch (table) {
         case COUNTRY_CODE_MINUS:
             array = myCountryCodeTLDsMinus;
             break;
@@ -2239,8 +2239,7 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidCountryCodeTld(final String ccTld) {
         final String key = chompLeadingDot(unicodeToASCII(ccTld).toLowerCase(Locale.ENGLISH));
-        return (arrayContains(COUNTRY_CODE_TLDS, key) || arrayContains(myCountryCodeTLDsPlus, key))
-                && !arrayContains(myCountryCodeTLDsMinus, key);
+        return (arrayContains(COUNTRY_CODE_TLDS, key) || arrayContains(myCountryCodeTLDsPlus, key)) && !arrayContains(myCountryCodeTLDsMinus, key);
     }
 
     // package protected for unit test access
@@ -2258,8 +2257,7 @@ public class DomainValidator implements Serializable {
             return false;
         }
         final String[] groups = domainRegex.match(domain);
-        return groups != null && groups.length > 0
-                || hostnameRegex.isValid(domain);
+        return groups != null && groups.length > 0 || hostnameRegex.isValid(domain);
     }
     /**
      * Returns true if the specified <code>String</code> matches any
@@ -2270,8 +2268,7 @@ public class DomainValidator implements Serializable {
      */
     public boolean isValidGenericTld(final String gTld) {
         final String key = chompLeadingDot(unicodeToASCII(gTld).toLowerCase(Locale.ENGLISH));
-        return (arrayContains(GENERIC_TLDS, key) || arrayContains(myGenericTLDsPlus, key))
-                && !arrayContains(myGenericTLDsMinus, key);
+        return (arrayContains(GENERIC_TLDS, key) || arrayContains(myGenericTLDsPlus, key)) && !arrayContains(myGenericTLDsMinus, key);
     }
 
     /**

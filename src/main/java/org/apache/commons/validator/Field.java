@@ -344,7 +344,7 @@ public class Field implements Cloneable, Serializable {
      * has a position of 0).
      * @since 1.1.1
      */
-    public Arg[] getArgs(final String key){
+    public Arg[] getArgs(final String key) {
         final Arg[] argList = new Arg[this.args.length];
 
         for (int i = 0; i < this.args.length; i++) {
@@ -412,10 +412,9 @@ public class Field implements Cloneable, Serializable {
         Object indexProp = null;
 
         try {
-            indexProp =
-                PropertyUtils.getProperty(bean, this.getIndexedListProperty());
+            indexProp = PropertyUtils.getProperty(bean, this.getIndexedListProperty());
 
-        } catch (IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new ValidatorException(e.getMessage());
         }
 
@@ -442,10 +441,9 @@ public class Field implements Cloneable, Serializable {
         Object indexProp = null;
 
         try {
-            indexProp =
-                PropertyUtils.getProperty(bean, this.getIndexedListProperty());
+            indexProp = PropertyUtils.getProperty(bean, this.getIndexedListProperty());
 
-        } catch (IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new ValidatorException(e.getMessage());
         }
 
@@ -453,10 +451,10 @@ public class Field implements Cloneable, Serializable {
             return 0;
         }
         if (indexProp instanceof Collection) {
-            return ((Collection<?>)indexProp).size();
+            return ((Collection<?>) indexProp).size();
         }
         if (indexProp.getClass().isArray()) {
-            return ((Object[])indexProp).length;
+            return ((Object[]) indexProp).length;
         }
         throw new ValidatorException(this.getKey() + " is not indexed");
 
@@ -866,7 +864,7 @@ public class Field implements Cloneable, Serializable {
      * @throws ValidatorException If an error occurs during validation.
      */
     public ValidatorResults validate(final Map<String, Object> params, final Map<String, ValidatorAction> actions)
-        throws ValidatorException {
+            throws ValidatorException {
 
         if (this.getDepends() == null) {
             return new ValidatorResults();
@@ -875,13 +873,12 @@ public class Field implements Cloneable, Serializable {
         final ValidatorResults allResults = new ValidatorResults();
 
         final Object bean = params.get(Validator.BEAN_PARAM);
-        final int numberOfFieldsToValidate =
-            this.isIndexed() ? this.getIndexedPropertySize(bean) : 1;
+        final int numberOfFieldsToValidate = this.isIndexed() ? this.getIndexedPropertySize(bean) : 1;
 
         for (int fieldNumber = 0; fieldNumber < numberOfFieldsToValidate; fieldNumber++) {
 
             final ValidatorResults results = new ValidatorResults();
-            synchronized(dependencyList) {
+            synchronized (dependencyList) {
                 for (final String depend : this.dependencyList) {
 
                     final ValidatorAction action = actions.get(depend);
@@ -889,8 +886,7 @@ public class Field implements Cloneable, Serializable {
                         this.handleMissingAction(depend);
                     }
 
-                    final boolean good =
-                        validateForRule(action, results, actions, params, fieldNumber);
+                    final boolean good = validateForRule(action, results, actions, params, fieldNumber);
 
                     if (!good) {
                         allResults.merge(results);

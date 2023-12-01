@@ -259,7 +259,7 @@ public class ValidatorResources implements Serializable {
      */
     public void addFormSet(final FormSet fs) {
         final String key = this.buildKey(fs);
-        if (key.isEmpty()) {// there can only be one default formset
+        if (key.isEmpty()) { // there can only be one default formset
             if (getLog().isWarnEnabled() && defaultFormSet != null) {
                 // warn the user he might not get the expected results
                 getLog().warn("Overriding default FormSet definition.");
@@ -267,15 +267,13 @@ public class ValidatorResources implements Serializable {
             defaultFormSet = fs;
         } else {
             final FormSet formset = getFormSets().get(key);
-            if (formset == null) {// it hasn't been included yet
+            if (formset == null) { // it hasn't been included yet
                 if (getLog().isDebugEnabled()) {
                     getLog().debug("Adding FormSet '" + fs + "'.");
                 }
-            } else if (getLog().isWarnEnabled()) {// warn the user he might not
-                                                // get the expected results
-                getLog()
-                        .warn("Overriding FormSet definition. Duplicate for locale: "
-                                + key);
+            } else if (getLog().isWarnEnabled()) { // warn the user he might not
+                                                   // get the expected results
+                getLog().warn("Overriding FormSet definition. Duplicate for locale: " + key);
             }
             getFormSets().put(key, fs);
         }
@@ -622,7 +620,7 @@ public class ValidatorResources implements Serializable {
      * <code>FormSet</code>.</p>
      */
     private void processForms() {
-        if (defaultFormSet == null) {// it isn't mandatory to have a
+        if (defaultFormSet == null) { // it isn't mandatory to have a
             // default formset
             defaultFormSet = new FormSet();
         }

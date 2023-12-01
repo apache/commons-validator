@@ -421,7 +421,7 @@ public class UrlValidator implements Serializable {
 
         final int slashCount = countToken("/", path);
         final int dot2Count = countToken("..", path);
-        if (dot2Count > 0 && slashCount - slash2Count - 1 <= dot2Count){
+        if (dot2Count > 0 && slashCount - slash2Count - 1 <= dot2Count) {
             return false;
         }
 

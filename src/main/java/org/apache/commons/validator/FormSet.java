@@ -291,11 +291,10 @@ public class FormSet implements Serializable {
             for (final Entry<String, Form> entry : dForms.entrySet()) {
                 final String key = entry.getKey();
                 final Form pForm = pForms.get(key);
-                if (pForm != null) {//merge, but principal 'rules', don't overwrite
+                if (pForm != null) { // merge, but principal 'rules', don't overwrite
                     // anything
                     pForm.merge(entry.getValue());
-                }
-                else {//just add
+                } else { // just add
                     addForm(entry.getValue());
                 }
             }

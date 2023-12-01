@@ -68,21 +68,20 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int calculateModulus(final String code, final boolean includesCheckDigit) throws CheckDigitException {
-        final StringBuilder transformed = new  StringBuilder(code.length() * 2); // CHECKSTYLE IGNORE MagicNumber
+        final StringBuilder transformed = new StringBuilder(code.length() * 2); // CHECKSTYLE IGNORE MagicNumber
         if (includesCheckDigit) {
-            final char checkDigit = code.charAt(code.length()-1); // fetch the last character
-            if (!Character.isDigit(checkDigit)){
-                throw new CheckDigitException("Invalid checkdigit["+ checkDigit+ "] in " + code);
+            final char checkDigit = code.charAt(code.length() - 1); // fetch the last character
+            if (!Character.isDigit(checkDigit)) {
+                throw new CheckDigitException("Invalid checkdigit[" + checkDigit + "] in " + code);
             }
         }
         for (int i = 0; i < code.length(); i++) {
             final int charValue = Character.getNumericValue(code.charAt(i));
             if (charValue < 0 || charValue > MAX_ALPHANUMERIC_VALUE) {
-                throw new CheckDigitException("Invalid Character[" +
-                        (i + 1) + "] = '" + charValue + "'");
+                throw new CheckDigitException("Invalid Character[" + (i + 1) + "] = '" + charValue + "'");
             }
-             // this converts alphanumerics to two digits
-             // so there is no need to overload toInt()
+            // this converts alphanumerics to two digits
+            // so there is no need to overload toInt()
             transformed.append(charValue);
         }
         return super.calculateModulus(transformed.toString(), includesCheckDigit);

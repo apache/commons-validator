@@ -116,7 +116,7 @@ public class ISSNValidator implements Serializable {
 
         // Calculate the new EAN-13 code
         final String input = result.toString();
-        String ean13 = ISSN_PREFIX + input.substring(0, input.length() -1) + suffix;
+        String ean13 = ISSN_PREFIX + input.substring(0, input.length() - 1) + suffix;
         try {
             final String checkDigit = EAN13CheckDigit.EAN13_CHECK_DIGIT.calculate(ean13);
             ean13 += checkDigit;
