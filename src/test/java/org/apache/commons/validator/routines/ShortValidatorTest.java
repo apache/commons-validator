@@ -31,6 +31,7 @@ import org.junit.jupiter.api.Test;
  */
 public class ShortValidatorTest extends AbstractNumberValidatorTest {
 
+    @Override
     @BeforeEach
     protected void setUp() {
         super.setUp();

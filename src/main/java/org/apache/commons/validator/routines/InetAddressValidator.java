@@ -61,7 +61,7 @@ public class InetAddressValidator implements Serializable {
     private static final InetAddressValidator VALIDATOR = new InetAddressValidator();
 
     private static final Pattern DIGITS_PATTERN = Pattern.compile("\\d{1,3}");
-    
+
     private static final Pattern ID_CHECK_PATTERN = Pattern.compile("[^\\s/%]+");
     /**
      * Returns the singleton instance of this validator.

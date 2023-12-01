@@ -42,6 +42,7 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
 
     private static final String NINES = "9999999999999999999999999999999999999";
 
+    @Override
     @BeforeEach
     protected void setUp() {
         super.setUp();

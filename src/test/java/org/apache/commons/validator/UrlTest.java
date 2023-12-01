@@ -54,7 +54,7 @@ public class UrlTest {
 
     /**
      * Only used to debug the unit tests.
-     * 
+     *
      * @param argv
      */
     public static void main(final String[] argv) {

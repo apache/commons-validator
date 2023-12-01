@@ -46,7 +46,7 @@ public class RegexValidatorTest {
 
     /**
      * Compare two arrays
-     * 
+     *
      * @param label  Label for the test
      * @param expect Expected array
      * @param result Actual array

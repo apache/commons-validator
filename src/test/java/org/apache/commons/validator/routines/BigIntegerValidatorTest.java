@@ -32,6 +32,7 @@ import org.junit.jupiter.api.Test;
  */
 public class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
 
+    @Override
     @BeforeEach
     protected void setUp() {
         super.setUp();

@@ -198,7 +198,7 @@ public class DomainValidatorTest {
     /**
      * Check whether the domain is in the root zone currently. Reads the URL http://www.iana.org/domains/root/db/*domain*.html (using a local disk cache) and
      * checks for the string "This domain is not present in the root zone at this time."
-     * 
+     *
      * @param domain the domain to check
      * @return true if the string is found
      */

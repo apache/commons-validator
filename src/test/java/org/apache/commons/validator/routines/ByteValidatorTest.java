@@ -40,6 +40,7 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
     private static final String BYTE_MIN_0 = "-128.99999999999999999999999"; // force double rounding";
     private static final String BYTE_MIN_1 = "-129";
 
+    @Override
     @BeforeEach
     protected void setUp() {
         super.setUp();
