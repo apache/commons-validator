@@ -77,7 +77,7 @@ abstract public class AbstractNumberTest extends AbstractCommonTest {
     }
 
     /**
-     * Utlity class to run a test on a value.
+     * Utility class to run a test on a value.
      *
      * @param    info    Value to run test on.
      * @param    passed    Whether or not the test is expected to pass.
