@@ -424,8 +424,8 @@ public class ValidatorAction implements Serializable {
                 return null;
             }
             final StringBuilder buffer = new StringBuilder();
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(is)); // TODO encoding
-            try {
+            // TODO encoding
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
                 String line = null;
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line).append("\n");
