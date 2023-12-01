@@ -33,6 +33,9 @@ public abstract class AbstractFormatValidator implements Serializable {
 
     private static final long serialVersionUID = -4690687565200568258L;
 
+    /**
+     * Whether to use strict format.
+     */
     private final boolean strict;
 
     /**

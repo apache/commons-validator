@@ -2021,6 +2021,7 @@ public class DomainValidator implements Serializable {
         }
     }
 
+    /** Whether to allow local overrides. */
     private final boolean allowLocal;
 
     // ---------------------------------------------
@@ -2051,29 +2052,34 @@ public class DomainValidator implements Serializable {
     private final RegexValidator hostnameRegex =
             new RegexValidator(DOMAIN_LABEL_REGEX);
 
-    // instance variables allowing local overrides
+    /** Local override. */
     final String[] myCountryCodeTLDsMinus;
 
+    /** Local override. */
     final String[] myCountryCodeTLDsPlus;
 
     // Additional arrays to supplement or override the built in ones.
     // The PLUS arrays are valid keys, the MINUS arrays are invalid keys
 
+    /** Local override. */
     final String[] myGenericTLDsPlus;
 
+    /** Local override. */
     final String[] myGenericTLDsMinus;
 
+    /** Local override. */
     final String[] myLocalTLDsPlus;
 
+    /** Local override. */
     final String[] myLocalTLDsMinus;
+    
     /*
-     * N.B. It is vital that instances are immutable.
-     * This is because the default instances are shared.
-    */
+     * It is vital that instances are immutable. This is because the default instances are shared.
+     */
 
     /**
      * Private constructor.
-    */
+     */
     private DomainValidator(final boolean allowLocal) {
         this.allowLocal = allowLocal;
         // link to class overrides

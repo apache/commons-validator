@@ -114,8 +114,19 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -3752929983453368497L;
 
+    /**
+     * The weighted values to apply based on the character position
+     */
     private final int[] postitionWeight;
+
+    /**
+     * {@code true} if use positionWeights from right to left
+     */
     private final boolean useRightPos;
+
+    /**
+     * {@code true} if sum the digits of the weighted value
+     */
     private final boolean sumWeightedDigits;
 
     /**

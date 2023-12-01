@@ -70,9 +70,16 @@ public final class CodeValidator implements Serializable {
 
     private static final long serialVersionUID = 446960910870938233L;
 
+    /** The format regular expression validator. */
     private final RegexValidator regexValidator;
+
+    /** The minimum length of the code. */
     private final int minLength;
+
+    /** The maximum length of the code. */
     private final int maxLength;
+
+    /** The check digit validation routine. */
     private final CheckDigit checkdigit;
 
     /**

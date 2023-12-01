@@ -36,8 +36,14 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
 
     private static final long serialVersionUID = -1410008585975827379L;
 
+    /**
+     * The date style to use for Locale validation.
+     */
     private final int dateStyle;
 
+    /**
+     * The time style to use for Locale validation.
+     */
     private final int timeStyle;
 
     /**

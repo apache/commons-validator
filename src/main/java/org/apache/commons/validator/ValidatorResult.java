@@ -36,7 +36,10 @@ public class ValidatorResult implements Serializable {
 
         private static final long serialVersionUID = 4076665918535320007L;
 
+        /** Whether or not the validation passed. */
         private boolean valid;
+
+        /** Result returned by a validation method. */
         private Object result;
 
        /**
