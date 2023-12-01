@@ -38,163 +38,160 @@ import org.junit.Test;
 public class EmailValidatorTest {
 
     /**
-     * The key used to retrieve the set of validation
-     * rules from the xml file.
+     * The key used to retrieve the set of validation rules from the xml file.
      */
     protected static String FORM_KEY = "emailForm";
 
-   /**
-    * The key used to retrieve the validator action.
-    */
-   protected static String ACTION = "email";
-
-   /**
- * These test values derive directly from RFC 822 &
- * Mail::RFC822::Address & RFC::RFC822::Address perl test.pl
- * For traceability don't combine these test values with other tests.
- */
-private static final ResultPair[] testEmailFromPerl = {
-    new ResultPair("abigail@example.com", true),
-    new ResultPair("abigail@example.com ", true),
-    new ResultPair(" abigail@example.com", true),
-    new ResultPair("abigail @example.com ", true),
-    new ResultPair("*@example.net", true),
-    new ResultPair("\"\\\"\"@foo.bar", true),
-    new ResultPair("fred&barny@example.com", true),
-    new ResultPair("---@example.com", true),
-    new ResultPair("foo-bar@example.net", true),
-    new ResultPair("\"127.0.0.1\"@[127.0.0.1]", true),
-    new ResultPair("Abigail <abigail@example.com>", true),
-    new ResultPair("Abigail<abigail@example.com>", true),
-    new ResultPair("Abigail<@a,@b,@c:abigail@example.com>", true),
-    new ResultPair("\"This is a phrase\"<abigail@example.com>", true),
-    new ResultPair("\"Abigail \"<abigail@example.com>", true),
-    new ResultPair("\"Joe & J. Harvey\" <example @Org>", true),
-    new ResultPair("Abigail <abigail @ example.com>", true),
-    new ResultPair("Abigail made this <  abigail   @   example  .    com    >", true),
-    new ResultPair("Abigail(the bitch)@example.com", true),
-    new ResultPair("Abigail <abigail @ example . (bar) com >", true),
-    new ResultPair("Abigail < (one)  abigail (two) @(three)example . (bar) com (quz) >", true),
-    new ResultPair("Abigail (foo) (((baz)(nested) (comment)) ! ) < (one)  abigail (two) @(three)example . (bar) com (quz) >", true),
-    new ResultPair("Abigail <abigail(fo\\(o)@example.com>", true),
-    new ResultPair("Abigail <abigail(fo\\)o)@example.com> ", true),
-    new ResultPair("(foo) abigail@example.com", true),
-    new ResultPair("abigail@example.com (foo)", true),
-    new ResultPair("\"Abi\\\"gail\" <abigail@example.com>", true),
-    new ResultPair("abigail@[example.com]", true),
-    new ResultPair("abigail@[exa\\[ple.com]", true),
-    new ResultPair("abigail@[exa\\]ple.com]", true),
-    new ResultPair("\":sysmail\"@  Some-Group. Some-Org", true),
-    new ResultPair("Muhammed.(I am  the greatest) Ali @(the)Vegas.WBA", true),
-    new ResultPair("mailbox.sub1.sub2@this-domain", true),
-    new ResultPair("sub-net.mailbox@sub-domain.domain", true),
-    new ResultPair("name:;", true),
-    new ResultPair("':;", true),
-    new ResultPair("name:   ;", true),
-    new ResultPair("Alfred Neuman <Neuman@BBN-TENEXA>", true),
-    new ResultPair("Neuman@BBN-TENEXA", true),
-    new ResultPair("\"George, Ted\" <Shared@Group.Arpanet>", true),
-    new ResultPair("Wilt . (the  Stilt) Chamberlain@NBA.US", true),
-    new ResultPair("Cruisers:  Port@Portugal, Jones@SEA;", true),
-    new ResultPair("$@[]", true),
-    new ResultPair("*()@[]", true),
-    new ResultPair("\"quoted ( brackets\" ( a comment )@example.com", true),
-    new ResultPair("\"Joe & J. Harvey\"\\x0D\\x0A     <ddd\\@ Org>", true),
-    new ResultPair("\"Joe &\\x0D\\x0A J. Harvey\" <ddd \\@ Org>", true),
-    new ResultPair("Gourmets:  Pompous Person <WhoZiWhatZit\\@Cordon-Bleu>,\\x0D\\x0A" +
-        "        Childs\\@WGBH.Boston, \"Galloping Gourmet\"\\@\\x0D\\x0A" +
-        "        ANT.Down-Under (Australian National Television),\\x0D\\x0A" +
-        "        Cheapie\\@Discount-Liquors;", true),
-    new ResultPair("   Just a string", false),
-    new ResultPair("string", false),
-    new ResultPair("(comment)", false),
-    new ResultPair("()@example.com", false),
-    new ResultPair("fred(&)barny@example.com", false),
-    new ResultPair("fred\\ barny@example.com", false),
-    new ResultPair("Abigail <abi gail @ example.com>", false),
-    new ResultPair("Abigail <abigail(fo(o)@example.com>", false),
-    new ResultPair("Abigail <abigail(fo)o)@example.com>", false),
-    new ResultPair("\"Abi\"gail\" <abigail@example.com>", false),
-    new ResultPair("abigail@[exa]ple.com]", false),
-    new ResultPair("abigail@[exa[ple.com]", false),
-    new ResultPair("abigail@[exaple].com]", false),
-    new ResultPair("abigail@", false),
-    new ResultPair("@example.com", false),
-    new ResultPair("phrase: abigail@example.com abigail@example.com ;", false),
-    new ResultPair("invalid�char@example.com", false)
-};
-
-   public static void main(final String[] args) {
-    final EmailValidator validator = EmailValidator.getInstance();
-    for(final String arg : args) {
-        System.out.printf("%s: %s%n", arg, validator.isValid(arg));
-    }
-}
-
-   private EmailValidator validator;
-
-   @Before
-   public void setUp() {
-        validator = EmailValidator.getInstance();
-   }
+    /**
+     * The key used to retrieve the validator action.
+     */
+    protected static String ACTION = "email";
 
     /**
-        * Tests the e-mail validation.
-        */
-        @Test
-        public void testEmail()  {
-           assertTrue(validator.isValid("jsmith@apache.org"));
+     * These test values derive directly from RFC 822 & Mail::RFC822::Address & RFC::RFC822::Address perl test.pl For traceability don't combine these test
+     * values with other tests.
+     */
+    private static final ResultPair[] testEmailFromPerl = {
+        // @formatter:off
+        new ResultPair("abigail@example.com", true),
+        new ResultPair("abigail@example.com ", true),
+        new ResultPair(" abigail@example.com", true),
+        new ResultPair("abigail @example.com ", true),
+        new ResultPair("*@example.net", true),
+        new ResultPair("\"\\\"\"@foo.bar", true),
+        new ResultPair("fred&barny@example.com", true),
+        new ResultPair("---@example.com", true),
+        new ResultPair("foo-bar@example.net", true),
+        new ResultPair("\"127.0.0.1\"@[127.0.0.1]", true),
+        new ResultPair("Abigail <abigail@example.com>", true),
+        new ResultPair("Abigail<abigail@example.com>", true),
+        new ResultPair("Abigail<@a,@b,@c:abigail@example.com>", true),
+        new ResultPair("\"This is a phrase\"<abigail@example.com>", true),
+        new ResultPair("\"Abigail \"<abigail@example.com>", true),
+        new ResultPair("\"Joe & J. Harvey\" <example @Org>", true),
+        new ResultPair("Abigail <abigail @ example.com>", true),
+        new ResultPair("Abigail made this <  abigail   @   example  .    com    >", true),
+        new ResultPair("Abigail(the bitch)@example.com", true),
+        new ResultPair("Abigail <abigail @ example . (bar) com >", true),
+        new ResultPair("Abigail < (one)  abigail (two) @(three)example . (bar) com (quz) >", true),
+        new ResultPair("Abigail (foo) (((baz)(nested) (comment)) ! ) < (one)  abigail (two) @(three)example . (bar) com (quz) >", true),
+        new ResultPair("Abigail <abigail(fo\\(o)@example.com>", true),
+        new ResultPair("Abigail <abigail(fo\\)o)@example.com> ", true),
+        new ResultPair("(foo) abigail@example.com", true),
+        new ResultPair("abigail@example.com (foo)", true),
+        new ResultPair("\"Abi\\\"gail\" <abigail@example.com>", true),
+        new ResultPair("abigail@[example.com]", true),
+        new ResultPair("abigail@[exa\\[ple.com]", true),
+        new ResultPair("abigail@[exa\\]ple.com]", true),
+        new ResultPair("\":sysmail\"@  Some-Group. Some-Org", true),
+        new ResultPair("Muhammed.(I am  the greatest) Ali @(the)Vegas.WBA", true),
+        new ResultPair("mailbox.sub1.sub2@this-domain", true),
+        new ResultPair("sub-net.mailbox@sub-domain.domain", true),
+        new ResultPair("name:;", true),
+        new ResultPair("':;", true),
+        new ResultPair("name:   ;", true),
+        new ResultPair("Alfred Neuman <Neuman@BBN-TENEXA>", true),
+        new ResultPair("Neuman@BBN-TENEXA", true),
+        new ResultPair("\"George, Ted\" <Shared@Group.Arpanet>", true),
+        new ResultPair("Wilt . (the  Stilt) Chamberlain@NBA.US", true),
+        new ResultPair("Cruisers:  Port@Portugal, Jones@SEA;", true),
+        new ResultPair("$@[]", true),
+        new ResultPair("*()@[]", true),
+        new ResultPair("\"quoted ( brackets\" ( a comment )@example.com", true),
+        new ResultPair("\"Joe & J. Harvey\"\\x0D\\x0A     <ddd\\@ Org>", true),
+        new ResultPair("\"Joe &\\x0D\\x0A J. Harvey\" <ddd \\@ Org>", true),
+        new ResultPair("Gourmets:  Pompous Person <WhoZiWhatZit\\@Cordon-Bleu>,\\x0D\\x0A" +
+            "        Childs\\@WGBH.Boston, \"Galloping Gourmet\"\\@\\x0D\\x0A" +
+            "        ANT.Down-Under (Australian National Television),\\x0D\\x0A" +
+            "        Cheapie\\@Discount-Liquors;", true),
+        new ResultPair("   Just a string", false),
+        new ResultPair("string", false),
+        new ResultPair("(comment)", false),
+        new ResultPair("()@example.com", false),
+        new ResultPair("fred(&)barny@example.com", false),
+        new ResultPair("fred\\ barny@example.com", false),
+        new ResultPair("Abigail <abi gail @ example.com>", false),
+        new ResultPair("Abigail <abigail(fo(o)@example.com>", false),
+        new ResultPair("Abigail <abigail(fo)o)@example.com>", false),
+        new ResultPair("\"Abi\"gail\" <abigail@example.com>", false),
+        new ResultPair("abigail@[exa]ple.com]", false),
+        new ResultPair("abigail@[exa[ple.com]", false),
+        new ResultPair("abigail@[exaple].com]", false),
+        new ResultPair("abigail@", false),
+        new ResultPair("@example.com", false),
+        new ResultPair("phrase: abigail@example.com abigail@example.com ;", false),
+        new ResultPair("invalid�char@example.com", false)
+    // @formatter:on
+    };
+
+    public static void main(final String[] args) {
+        final EmailValidator validator = EmailValidator.getInstance();
+        for (final String arg : args) {
+            System.out.printf("%s: %s%n", arg, validator.isValid(arg));
         }
+    }
 
-   /**
- * Tests the e-mail validation with a user at a TLD
- *
- * http://tools.ietf.org/html/rfc5321#section-2.3.5
- * (In the case of a top-level domain used by itself in an
- * email address, a single string is used without any dots)
- */
-@Test
-public void testEmailAtTLD() {
-    final EmailValidator val = EmailValidator.getInstance(false, true);
-    assertTrue(val.isValid("test@com"));
-}
+    private EmailValidator validator;
 
-   /**
- * Tests the e-mail validation.
- */
-@Test
-public void testEmailExtension()  {
-    assertTrue(validator.isValid("jsmith@apache.org"));
-
-    assertTrue(validator.isValid("jsmith@apache.com"));
-
-    assertTrue(validator.isValid("jsmith@apache.net"));
-
-    assertTrue(validator.isValid("jsmith@apache.info"));
-
-    assertFalse(validator.isValid("jsmith@apache."));
-
-    assertFalse(validator.isValid("jsmith@apache.c"));
-
-    assertTrue(validator.isValid("someone@yahoo.museum"));
-
-    assertFalse(validator.isValid("someone@yahoo.mu-seum"));
-}
+    @Before
+    public void setUp() {
+        validator = EmailValidator.getInstance();
+    }
 
     /**
-     * Write this test based on perl Mail::RFC822::Address
-     * which takes its example email address directly from RFC822
+     * Tests the e-mail validation.
+     */
+    @Test
+    public void testEmail() {
+        assertTrue(validator.isValid("jsmith@apache.org"));
+    }
+
+    /**
+     * Tests the e-mail validation with a user at a TLD
      *
-     * This test fails so disable it
-     * The real solution is to fix the email parsing.
+     * http://tools.ietf.org/html/rfc5321#section-2.3.5 (In the case of a top-level domain used by itself in an email address, a single string is used without
+     * any dots)
+     */
+    @Test
+    public void testEmailAtTLD() {
+        final EmailValidator val = EmailValidator.getInstance(false, true);
+        assertTrue(val.isValid("test@com"));
+    }
+
+    /**
+     * Tests the e-mail validation.
+     */
+    @Test
+    public void testEmailExtension() {
+        assertTrue(validator.isValid("jsmith@apache.org"));
+
+        assertTrue(validator.isValid("jsmith@apache.com"));
+
+        assertTrue(validator.isValid("jsmith@apache.net"));
+
+        assertTrue(validator.isValid("jsmith@apache.info"));
+
+        assertFalse(validator.isValid("jsmith@apache."));
+
+        assertFalse(validator.isValid("jsmith@apache.c"));
+
+        assertTrue(validator.isValid("someone@yahoo.museum"));
+
+        assertFalse(validator.isValid("someone@yahoo.mu-seum"));
+    }
+
+    /**
+     * Write this test based on perl Mail::RFC822::Address which takes its example email address directly from RFC822
+     *
+     * This test fails so disable it The real solution is to fix the email parsing.
      */
     @Ignore("VALIDATOR-267")
     @Test
-    public void testEmailFromPerl()  {
+    public void testEmailFromPerl() {
         int errors = 0;
         for (final ResultPair element : testEmailFromPerl) {
             final String item = element.item;
-            final boolean exp =  element.valid;
+            final boolean exp = element.valid;
             final boolean act = validator.isValid(item);
             if (act != exp) {
                 System.out.printf("%s: expected %s actual %s%n", item, exp, act);
@@ -205,42 +202,28 @@ public void testEmailExtension()  {
     }
 
     /**
-     * Test that @localhost and @localhost.localdomain
-     *  addresses are declared as valid when requested.
+     * Test that @localhost and @localhost.localdomain addresses are declared as valid when requested.
      */
     @Test
     public void testEmailLocalhost() {
-       // Check the default is not to allow
-       final EmailValidator noLocal = EmailValidator.getInstance(false);
-       final EmailValidator allowLocal = EmailValidator.getInstance(true);
-       assertEquals(validator, noLocal);
+        // Check the default is not to allow
+        final EmailValidator noLocal = EmailValidator.getInstance(false);
+        final EmailValidator allowLocal = EmailValidator.getInstance(true);
+        assertEquals(validator, noLocal);
 
-       // Depends on the validator
-       assertTrue(
-             "@localhost.localdomain should be accepted but wasn't",
-             allowLocal.isValid("joe@localhost.localdomain")
-       );
-       assertTrue(
-             "@localhost should be accepted but wasn't",
-             allowLocal.isValid("joe@localhost")
-       );
+        // Depends on the validator
+        assertTrue("@localhost.localdomain should be accepted but wasn't", allowLocal.isValid("joe@localhost.localdomain"));
+        assertTrue("@localhost should be accepted but wasn't", allowLocal.isValid("joe@localhost"));
 
-       assertFalse(
-             "@localhost.localdomain should be accepted but wasn't",
-             noLocal.isValid("joe@localhost.localdomain")
-       );
-       assertFalse(
-             "@localhost should be accepted but wasn't",
-             noLocal.isValid("joe@localhost")
-       );
+        assertFalse("@localhost.localdomain should be accepted but wasn't", noLocal.isValid("joe@localhost.localdomain"));
+        assertFalse("@localhost should be accepted but wasn't", noLocal.isValid("joe@localhost"));
     }
 
     /**
-     * Write this test according to parts of RFC, as opposed to the type of character
-     * that is being tested.
+     * Write this test according to parts of RFC, as opposed to the type of character that is being tested.
      */
     @Test
-    public void testEmailUserName()  {
+    public void testEmailUserName() {
 
         assertTrue(validator.isValid("joe1blow@apache.org"));
 
@@ -298,7 +281,7 @@ public void testEmailExtension()  {
 
         assertTrue(validator.isValid("=@apache.org")); // = ditto
 
-        //UnQuoted Special characters are invalid
+        // UnQuoted Special characters are invalid
 
         assertFalse(validator.isValid("joe.@apache.org")); // . not allowed at end of local part
 
@@ -320,7 +303,7 @@ public void testEmailExtension()  {
 
         assertFalse(validator.isValid("joe;@apache.org"));
 
-        //Quoted Special characters are valid
+        // Quoted Special characters are valid
         assertTrue(validator.isValid("\"joe.\"@apache.org"));
 
         assertTrue(validator.isValid("\".joe\"@apache.org"));
@@ -370,11 +353,10 @@ public void testEmailExtension()  {
     }
 
     /**
-     * Tests the e-mail validation with an RCS-noncompliant character in
-     * the address.
+     * Tests the e-mail validation with an RCS-noncompliant character in the address.
      */
     @Test
-    public void testEmailWithBogusCharacter()  {
+    public void testEmailWithBogusCharacter() {
 
         assertFalse(validator.isValid("andy.noble@\u008fdata-workshop.com"));
 
@@ -397,10 +379,10 @@ public void testEmailExtension()  {
     }
 
     /**
-    * Tests the email validation with commas.
-    */
+     * Tests the email validation with commas.
+     */
     @Test
-    public void testEmailWithCommas()  {
+    public void testEmailWithCommas() {
         assertFalse(validator.isValid("joeblow@apa,che.org"));
 
         assertFalse(validator.isValid("joeblow@apache.o,rg"));
@@ -409,95 +391,84 @@ public void testEmailExtension()  {
 
     }
 
-   /**
-    * Tests the email validation with ASCII control characters.
-    * (i.e. ASCII chars 0 - 31 and 127)
-    */
+    /**
+     * Tests the email validation with ASCII control characters. (i.e. ASCII chars 0 - 31 and 127)
+     */
     @Test
-    public void testEmailWithControlChars()  {
+    public void testEmailWithControlChars() {
         for (char c = 0; c < 32; c++) {
-            assertFalse("Test control char " + (int)c, validator.isValid("foo" + c + "bar@domain.com"));
+            assertFalse("Test control char " + (int) c, validator.isValid("foo" + c + "bar@domain.com"));
         }
-        assertFalse("Test control char 127", validator.isValid("foo" + (char)127 + "bar@domain.com"));
+        assertFalse("Test control char 127", validator.isValid("foo" + (char) 127 + "bar@domain.com"));
     }
 
-   /**
-    * <p>Tests the e-mail validation with a dash in
-    * the address.</p>
-    */
+    /**
+     * <p>
+     * Tests the e-mail validation with a dash in the address.
+     * </p>
+     */
     @Test
-    public void testEmailWithDash()  {
-       assertTrue(validator.isValid("andy.noble@data-workshop.com"));
+    public void testEmailWithDash() {
+        assertTrue(validator.isValid("andy.noble@data-workshop.com"));
 
-       assertFalse(validator.isValid("andy-noble@data-workshop.-com"));
+        assertFalse(validator.isValid("andy-noble@data-workshop.-com"));
 
-       assertFalse(validator.isValid("andy-noble@data-workshop.c-om"));
+        assertFalse(validator.isValid("andy-noble@data-workshop.c-om"));
 
-       assertFalse(validator.isValid("andy-noble@data-workshop.co-m"));
-   }
-
-    /**
-        * Tests the e-mail validation with a dot at the end of
-        * the address.
-        */
-        @Test
-        public void testEmailWithDotEnd()  {
-          assertFalse(validator.isValid("andy.noble@data-workshop.com."));
-       }
+        assertFalse(validator.isValid("andy-noble@data-workshop.co-m"));
+    }
 
     /**
-        * Tests the email validation with numeric domains.
-        */
-        @Test
-        public void testEmailWithNumericAddress()  {
-            assertTrue(validator.isValid("someone@[216.109.118.76]"));
-            assertTrue(validator.isValid("someone@yahoo.com"));
-        }
+     * Tests the e-mail validation with a dot at the end of the address.
+     */
+    @Test
+    public void testEmailWithDotEnd() {
+        assertFalse(validator.isValid("andy.noble@data-workshop.com."));
+    }
 
     /**
-     * VALIDATOR-296 - A / or a ! is valid in the user part,
-     *  but not in the domain part
+     * Tests the email validation with numeric domains.
+     */
+    @Test
+    public void testEmailWithNumericAddress() {
+        assertTrue(validator.isValid("someone@[216.109.118.76]"));
+        assertTrue(validator.isValid("someone@yahoo.com"));
+    }
+
+    /**
+     * VALIDATOR-296 - A / or a ! is valid in the user part, but not in the domain part
      */
     @Test
     public void testEmailWithSlashes() {
-       assertTrue(
-             "/ and ! valid in username",
-             validator.isValid("joe!/blow@apache.org")
-       );
-       assertFalse(
-             "/ not valid in domain",
-             validator.isValid("joe@ap/ache.org")
-       );
-       assertFalse(
-             "! not valid in domain",
-             validator.isValid("joe@apac!he.org")
-       );
+        assertTrue("/ and ! valid in username", validator.isValid("joe!/blow@apache.org"));
+        assertFalse("/ not valid in domain", validator.isValid("joe@ap/ache.org"));
+        assertFalse("! not valid in domain", validator.isValid("joe@apac!he.org"));
     }
 
     /**
-        * Tests the email validation with spaces.
-        */
-        @Test
-        public void testEmailWithSpaces()  {
-            assertFalse(validator.isValid("joeblow @apache.org"));
-    
-            assertFalse(validator.isValid("joeblow@ apache.org"));
-    
-            assertFalse(validator.isValid(" joeblow@apache.org"));
-    
-            assertFalse(validator.isValid("joeblow@apache.org "));
-    
-            assertFalse(validator.isValid("joe blow@apache.org "));
-    
-            assertFalse(validator.isValid("joeblow@apa che.org "));
-    
-            assertTrue(validator.isValid("\"joeblow \"@apache.org"));
-    
-            assertTrue(validator.isValid("\" joeblow\"@apache.org"));
-    
-            assertTrue(validator.isValid("\" joe blow \"@apache.org"));
-    
-        }
+     * Tests the email validation with spaces.
+     */
+    @Test
+    public void testEmailWithSpaces() {
+        assertFalse(validator.isValid("joeblow @apache.org"));
+
+        assertFalse(validator.isValid("joeblow@ apache.org"));
+
+        assertFalse(validator.isValid(" joeblow@apache.org"));
+
+        assertFalse(validator.isValid("joeblow@apache.org "));
+
+        assertFalse(validator.isValid("joe blow@apache.org "));
+
+        assertFalse(validator.isValid("joeblow@apa che.org "));
+
+        assertTrue(validator.isValid("\"joeblow \"@apache.org"));
+
+        assertTrue(validator.isValid("\" joeblow\"@apache.org"));
+
+        assertTrue(validator.isValid("\" joe blow \"@apache.org"));
+
+    }
 
     @Test
     public void testVALIDATOR_278() {
@@ -527,7 +498,7 @@ public void testEmailExtension()  {
     }
 
     @Test
-    public void testValidator293(){
+    public void testValidator293() {
         assertTrue(validator.isValid("abc-@abc.com"));
         assertTrue(validator.isValid("abc_@abc.com"));
         assertTrue(validator.isValid("abc-def@abc.com"));
@@ -543,30 +514,29 @@ public void testEmailExtension()  {
 
     @Test
     public void testValidator365() {
-        assertFalse(validator.isValid(
-                "Loremipsumdolorsitametconsecteturadipiscingelit.Nullavitaeligulamattisrhoncusnuncegestasmattisleo."+
-                "Donecnonsapieninmagnatristiquedictumaacturpis.Fusceorciduifacilisisutsapieneuconsequatpharetralectus."+
-                "Quisqueenimestpulvinarutquamvitaeportamattisex.Nullamquismaurisplaceratconvallisjustoquisportamauris."+
-                "Innullalacusconvalliseufringillautvenenatissitametdiam.Maecenasluctusligulascelerisquepulvinarfeugiat."+
-                "Sedmolestienullaaliquetorciluctusidpharetranislfinibus.Suspendissemalesuadatinciduntduisitametportaarcusollicitudinnec."+
-                "Donecetmassamagna.Curabitururnadiampretiumveldignissimporttitorfringillaeuneque."+
-                "Duisantetelluspharetraidtinciduntinterdummolestiesitametfelis.Utquisquamsitametantesagittisdapibusacnonodio."+
-                "Namrutrummolestiediamidmattis.Cumsociisnatoquepenatibusetmagnisdisparturientmontesnasceturridiculusmus."+
-                "Morbiposueresedmetusacconsectetur.Etiamquisipsumvitaejustotempusmaximus.Sedultriciesplaceratvolutpat."+
-                "Integerlacuslectusmaximusacornarequissagittissitametjusto."+
-                "Cumsociisnatoquepenatibusetmagnisdisparturientmontesnasceturridiculusmus.Maecenasindictumpurussedrutrumex.Nullafacilisi."+
-                "Integerfinibusfinibusmietpharetranislfaucibusvel.Maecenasegetdolorlacinialobortisjustovelullamcorpersem."+
-                "Vivamusaliquetpurusidvariusornaresapienrisusrutrumnisitinciduntmollissemnequeidmetus."+
-                "Etiamquiseleifendpurus.Nuncfelisnuncscelerisqueiddignissimnecfinibusalibero."+
-                "Nuncsemperenimnequesitamethendreritpurusfacilisisac.Maurisdapibussemperfelisdignissimgravida."+
-                "Aeneanultricesblanditnequealiquamfinibusodioscelerisqueac.Aliquamnecmassaeumaurisfaucibusfringilla."+
-                "Etiamconsequatligulanisisitametaliquamnibhtemporquis.Nuncinterdumdignissimnullaatsodalesarcusagittiseu."+
-                "Proinpharetrametusneclacuspulvinarsedvolutpatliberoornare.Sedligulanislpulvinarnonlectuseublanditfacilisisante."+
-                "Sedmollisnislalacusauctorsuscipit.Inhachabitasseplateadictumst.Phasellussitametvelittemporvenenatisfeliseuegestasrisus."+
-                "Aliquameteratsitametnibhcommodofinibus.Morbiefficiturodiovelpulvinariaculis."+
-                "Aeneantemporipsummassaaconsecteturturpisfaucibusultrices.Praesentsodalesmaurisquisportafermentum."+
-                "Etiamnisinislvenenatisvelauctorutullamcorperinjusto.Proinvelligulaerat.Phasellusvestibulumgravidamassanonfeugiat."+
-                "Maecenaspharetraeuismodmetusegetefficitur.Suspendisseamet@gmail.com"));
+        assertFalse(validator.isValid("Loremipsumdolorsitametconsecteturadipiscingelit.Nullavitaeligulamattisrhoncusnuncegestasmattisleo."
+                + "Donecnonsapieninmagnatristiquedictumaacturpis.Fusceorciduifacilisisutsapieneuconsequatpharetralectus."
+                + "Quisqueenimestpulvinarutquamvitaeportamattisex.Nullamquismaurisplaceratconvallisjustoquisportamauris."
+                + "Innullalacusconvalliseufringillautvenenatissitametdiam.Maecenasluctusligulascelerisquepulvinarfeugiat."
+                + "Sedmolestienullaaliquetorciluctusidpharetranislfinibus.Suspendissemalesuadatinciduntduisitametportaarcusollicitudinnec."
+                + "Donecetmassamagna.Curabitururnadiampretiumveldignissimporttitorfringillaeuneque."
+                + "Duisantetelluspharetraidtinciduntinterdummolestiesitametfelis.Utquisquamsitametantesagittisdapibusacnonodio."
+                + "Namrutrummolestiediamidmattis.Cumsociisnatoquepenatibusetmagnisdisparturientmontesnasceturridiculusmus."
+                + "Morbiposueresedmetusacconsectetur.Etiamquisipsumvitaejustotempusmaximus.Sedultriciesplaceratvolutpat."
+                + "Integerlacuslectusmaximusacornarequissagittissitametjusto."
+                + "Cumsociisnatoquepenatibusetmagnisdisparturientmontesnasceturridiculusmus.Maecenasindictumpurussedrutrumex.Nullafacilisi."
+                + "Integerfinibusfinibusmietpharetranislfaucibusvel.Maecenasegetdolorlacinialobortisjustovelullamcorpersem."
+                + "Vivamusaliquetpurusidvariusornaresapienrisusrutrumnisitinciduntmollissemnequeidmetus."
+                + "Etiamquiseleifendpurus.Nuncfelisnuncscelerisqueiddignissimnecfinibusalibero."
+                + "Nuncsemperenimnequesitamethendreritpurusfacilisisac.Maurisdapibussemperfelisdignissimgravida."
+                + "Aeneanultricesblanditnequealiquamfinibusodioscelerisqueac.Aliquamnecmassaeumaurisfaucibusfringilla."
+                + "Etiamconsequatligulanisisitametaliquamnibhtemporquis.Nuncinterdumdignissimnullaatsodalesarcusagittiseu."
+                + "Proinpharetrametusneclacuspulvinarsedvolutpatliberoornare.Sedligulanislpulvinarnonlectuseublanditfacilisisante."
+                + "Sedmollisnislalacusauctorsuscipit.Inhachabitasseplateadictumst.Phasellussitametvelittemporvenenatisfeliseuegestasrisus."
+                + "Aliquameteratsitametnibhcommodofinibus.Morbiefficiturodiovelpulvinariaculis."
+                + "Aeneantemporipsummassaaconsecteturturpisfaucibusultrices.Praesentsodalesmaurisquisportafermentum."
+                + "Etiamnisinislvenenatisvelauctorutullamcorperinjusto.Proinvelligulaerat.Phasellusvestibulumgravidamassanonfeugiat."
+                + "Maecenaspharetraeuismodmetusegetefficitur.Suspendisseamet@gmail.com"));
     }
 
     @Test
@@ -576,24 +546,23 @@ public void testEmailExtension()  {
 
     @Test
     public void testValidator473_1() { // reject null DomainValidator
-        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                new EmailValidator(false, false, null));
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new EmailValidator(false, false, null));
         assertThat(thrown.getMessage(), is(equalTo("DomainValidator cannot be null")));
     }
 
     @Test
     public void testValidator473_2() { // reject null DomainValidator with mismatched allowLocal
         final List<DomainValidator.Item> items = new ArrayList<>();
-        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                new EmailValidator(false, false, DomainValidator.getInstance(true, items)));
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
+                () -> new EmailValidator(false, false, DomainValidator.getInstance(true, items)));
         assertThat(thrown.getMessage(), is(equalTo("DomainValidator must agree with allowLocal setting")));
     }
 
     @Test
     public void testValidator473_3() { // reject null DomainValidator with mismatched allowLocal
         final List<DomainValidator.Item> items = new ArrayList<>();
-        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
-                new EmailValidator(true, false, DomainValidator.getInstance(false, items)));
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
+                () -> new EmailValidator(true, false, DomainValidator.getInstance(false, items)));
         assertThat(thrown.getMessage(), is(equalTo("DomainValidator must agree with allowLocal setting")));
     }
 
