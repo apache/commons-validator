@@ -1,5 +1,72 @@
-              Apache Commons Validator 1.7
-                  RELEASE NOTES
+Apache Commons Validator 1.8.0
+RELEASE NOTES
+
+The Apache Commons Validator team is pleased to announce the release of Apache Commons Validator 1.8.0.
+
+Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
+It may be used standalone or with a framework like Struts.
+
+For complete information on Apache Commons Validator, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Validator website:
+
+http://commons.apache.org/proper/commons-validator/
+
+Download page: http://commons.apache.org/proper/commons-validator/download_validator.cgi
+
+Changes in this version include:
+===============================
+
+New features:
+o                 Add github/codeql-action. Thanks to Dependabot, Gary Gregory.
+o VALIDATOR-486:  Add new countries to IBAN list: DJ, RU #88. Thanks to tatiana-scda, Gary Gregory.
+o                 Add IBANValidator.Validator.getRegexValidator(). Thanks to Arnaud Fournier, Gary Gregory.
+o                 Add RegexValidator.getPatterns(). Thanks to Arnaud Fournier, Gary Gregory.
+o                 Add country codes listed as other countries and territories in the IBAN registry for Finland: AX. Thanks to Gary Gregory, rossmills3, sebbASF.
+o                 Add country codes listed as other countries and territories in the IBAN registry for France: GF, GP, MQ, RE, PF, TF, YT, NC, BL, MF, PM, WF. Thanks to Gary Gregory, rossmills3, sebbASF.
+o                 Add country codes listed as other countries and territories in the IBAN registry for United Kingdom: IM, JE, GG. Thanks to Gary Gregory, rossmills3, sebbASF.
+o                 Add ValidatorAction.setClassName(String) and deprecate setClassname(String). Thanks to Gary Gregory.
+
+Fixed Bugs:
+o                 Update Javadoc for InetAddressValidator isValid #76 Thanks to Gennaro Napolitano.
+o VALIDATOR-479:  Fix typo in /routines/package-summary.html #79. Thanks to Gyoo.
+o                 Use JUnit 5 assertThrows() #92, #93, #94, #95. Thanks to John Patrick.
+o                 [StepSecurity] ci: Harden GitHub Actions #136. Thanks to step-security-bot, Gary Gregory.
+o                 Javadoc typos #144. Thanks to Andrés Torres.
+o                 Precompile regular expression in InetAddressValidator.isValidInet6Address(String). Thanks to Gary Gregory.
+o                 Fix SpotBugs [ERROR] Medium: Class org.apache.commons.validator.routines.CreditCardValidator$1 defines non-transient non-serializable instance field ccr [org.apache.commons.validator.routines.CreditCardValidator$1] In CreditCardValidator.java SE_BAD_FIELD. Thanks to Gary Gregory.
+o                 Fix SpotBugs [ERROR] High: Class org.apache.commons.validator.ValidatorAction defines non-transient non-serializable instance field validationMethod [org.apache.commons.validator.ValidatorAction] In ValidatorAction.java SE_BAD_FIELD. Thanks to Gary Gregory.
+o                 Fix SpotBugs [ERROR] High: Found reliance on default encoding in org.apache.commons.validator.ValidatorAction.readJavascriptFile(String): new java.io.InputStreamReader(InputStream) [org.apache.commons.validator.ValidatorAction] At ValidatorAction.java:[line 428] DM_DEFAULT_ENCODING. Thanks to Gary Gregory.
+o                 Fix SpotBugs [ERROR] Medium: Inconsistent synchronization of org.apache.commons.validator.ValidatorAction.jsFunction; locked 62% of time [org.apache.commons.validator.ValidatorAction, org.apache.commons.validator.ValidatorAction, org.apache.commons.validator.ValidatorAction, org.apache.commons.validator.ValidatorAction, org.apache.commons.validator.ValidatorAction, org.apache.commons.validator.ValidatorAction, org.apache.commons.validator.ValidatorAction] Unsynchronized access at ValidatorAction.java:[line 340]Unsynchronized access at ValidatorAction.java:[line 358]Synchronized access at ValidatorAction.java:[line 393]Synchronized access at ValidatorAction.java:[line 394]Synchronized access at ValidatorAction.java:[line 459]Synchronized access at ValidatorAction.java:[line 461]Synchronized access at ValidatorAction.java:[line 462] IS2_INCONSISTENT_SYNC. Thanks to Gary Gregory.
+o                 Port tests to JUnit 5. Exception: DomainValidatorStartupTest. Thanks to Gary Gregory.
+o                 Use singletons in org.apache.commons.validator.CreditCardValidator. Thanks to Gary Gregory.
+
+Changes:
+o                 Bump Java from 7 to 8. Thanks to Gary Gregory.
+o                 Bump actions/cache from 2 to 3.0.11 #71, #84. #90, #91. Thanks to Dependabot, Gary Gregory.
+o                 Bump actions/checkout from 2.3.1 to 3.0.2, #38, #47, #70. Thanks to Dependabot, Gary Gregory.
+o                 Bump actions/setup-java from 1.4.0 to 3.6.0 #42, #72, #98. Thanks to Dependabot, Gary Gregory.
+o                 Bump actions/upload-artifact from 3.1.0 to 3.1.1 #96. Thanks to Dependabot.
+o                 Bump junit from 4.13 to 5.9.1 Vintage #44. Thanks to Dependabot, Gary Gregory.
+o                 Bump maven-pmd-plugin from 3.13.0 to 3.19.0 #69, #77, #80, #81. Thanks to Dependabot.
+o                 Bump commons-parent from 52 to 65 #83, #107, #111, #132. Thanks to Gary Gregory, Dependabot.
+o                 Bump japicmp-maven-plugin from 0.15.3 to 0.15.7. Thanks to Gary Gregory.
+o                 Bump maven-antrun-plugin from 3.0.0 to 3.1.0 #74. Thanks to Dependabot.
+o                 Bump commons-csv from 1.6 to 1.10.0 #118. Thanks to Gary Gregory, Dependabot.
+o                 Bump japicmp-maven-plugin from 0.15.7 to 0.16.0. Thanks to Gary Gregory.
+o                 Bump commons-logging:commons-logging from 1.2 to 1.3.0. Thanks to Gary Gregory.
+
+Removed:
+o                 Remove FindBugs, SpotBugs is in use #87. Thanks to John Patrick, Gary Gregory.
+
+Historical list of changes: http://commons.apache.org/proper/commons-validator/changes-report.html
+
+Enjoy!
+-Apache Commons Validator team
+
+=============================================================================
+
+Apache Commons Validator 1.7
+RELEASE NOTES
 
 The Apache Commons Validator team is pleased to announce the release of Apache Commons Validator 1.7
 

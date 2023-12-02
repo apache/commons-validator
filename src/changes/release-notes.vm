@@ -15,10 +15,10 @@
 ## specific language governing permissions and limitations
 ## under the License.
 ##
-              ${project.name} ${version}
-                  RELEASE NOTES
+${project.name} ${version}
+RELEASE NOTES
 
-The ${developmentTeam} is pleased to announce the release of ${project.name} ${version}
+The ${developmentTeam} is pleased to announce the release of ${project.name} ${version}.
 
 $introduction.replaceAll("(?<!\015)\012", "
 ").replaceAll("(?m)^ +","")
@@ -127,3 +127,5 @@ Historical list of changes: ${project.url}changes-report.html
 
 Enjoy!
 -Apache Commons Validator team
+
+=============================================================================

@@ -64,7 +64,7 @@ The <action> type attribute can be add,update,fix,remove.
      -->
 
   <body>
-  <release version="1.8" date="20YY-MM-DD" description="">
+  <release version="1.8.0" date="2023-12-02" description="">
     <!-- FIX -->
     <action type="fix" dev="ggregory" due-to="Gennaro Napolitano">
       Update Javadoc for InetAddressValidator isValid #76
