@@ -50,7 +50,7 @@ public final class LuhnCheckDigit extends ModulusCheckDigit {
      * Constructs a modulus 10 Luhn Check Digit routine.
      */
     public LuhnCheckDigit() {
-        super(10); // CHECKSTYLE IGNORE MagicNumber
+        super();
     }
 
     /**

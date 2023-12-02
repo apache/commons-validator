@@ -54,7 +54,7 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      * Constructs an ISIN Identifier Check Digit routine.
      */
     public ISINCheckDigit() {
-        super(10); // CHECKSTYLE IGNORE MagicNumber
+        super();
     }
 
     /**

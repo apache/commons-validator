@@ -57,7 +57,7 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
      * Constructs a modulus 10 Check Digit routine for ABA Numbers.
      */
     public ABANumberCheckDigit() {
-        super(10); // CHECKSTYLE IGNORE MagicNumber
+        super();
     }
 
     /**

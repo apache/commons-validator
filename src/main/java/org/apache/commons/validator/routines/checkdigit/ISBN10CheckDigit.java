@@ -52,7 +52,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
      * Constructs a modulus 11 Check Digit routine for ISBN-10.
      */
     public ISBN10CheckDigit() {
-        super(11);  // CHECKSTYLE IGNORE MagicNumber
+        super(MODULUS_11);
     }
 
     /**

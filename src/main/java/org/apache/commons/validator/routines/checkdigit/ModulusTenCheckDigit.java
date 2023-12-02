@@ -166,7 +166,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      *            weighted value
      */
     public ModulusTenCheckDigit(final int[] postitionWeight, final boolean useRightPos, final boolean sumWeightedDigits) {
-        super(10); // CHECKSTYLE IGNORE MagicNumber
+        super();
         this.postitionWeight = Arrays.copyOf(postitionWeight, postitionWeight.length);
         this.useRightPos = useRightPos;
         this.sumWeightedDigits = sumWeightedDigits;

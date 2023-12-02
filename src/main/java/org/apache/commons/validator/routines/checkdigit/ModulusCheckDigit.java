@@ -32,6 +32,8 @@ import java.io.Serializable;
  */
 public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
 
+    static final int MODULUS_10 = 10;
+    static final int MODULUS_11 = 11;
     private static final long serialVersionUID = 2948962251251528941L;
 
     /**
@@ -54,6 +56,13 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
      * The modulus can be greater than 10 provided that the implementing class overrides toCheckDigit and toInt (for example as in ISBN10CheckDigit).
      */
     private final int modulus;
+
+    /**
+     * Constructs a modulus 10 {@link CheckDigit} routine for a specified modulus.
+     */
+    ModulusCheckDigit() {
+        this(MODULUS_10);
+    }
 
     /**
      * Constructs a {@link CheckDigit} routine for a specified modulus.

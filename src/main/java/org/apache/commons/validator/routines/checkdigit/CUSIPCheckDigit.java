@@ -52,7 +52,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      * Constructs a CUSIP Identifier Check Digit routine.
      */
     public CUSIPCheckDigit() {
-        super(10); // CHECKSTYLE IGNORE MagicNumber
+        super();
     }
 
     /**
