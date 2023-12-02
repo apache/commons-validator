@@ -106,7 +106,7 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
      */
     private Log getLog() {
         if (log == null) {
-            log =  LogFactory.getLog(FormSetFactory.class);
+            log = LogFactory.getLog(FormSetFactory.class);
         }
         return log;
     }

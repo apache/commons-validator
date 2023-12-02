@@ -99,15 +99,11 @@ public class FormSet implements Serializable {
      * @param value  The constant value
      */
     public void addConstant(final String name, final String value) {
-
         if (constants.containsKey(name)) {
-            getLog().error("Constant '" + name +  "' already exists in FormSet["
-                      + this.displayKey() + "] - ignoring.");
-
+            getLog().error("Constant '" + name + "' already exists in FormSet[" + this.displayKey() + "] - ignoring.");
         } else {
             constants.put(name, value);
         }
-
     }
 
     /**
@@ -119,8 +115,7 @@ public class FormSet implements Serializable {
 
         final String formName = f.getName();
         if (forms.containsKey(formName)) {
-            getLog().error("Form '" + formName + "' already exists in FormSet["
-                      + this.displayKey() + "] - ignoring.");
+            getLog().error("Form '" + formName + "' already exists in FormSet[" + this.displayKey() + "] - ignoring.");
 
         } else {
             forms.put(f.getName(), f);
@@ -141,20 +136,20 @@ public class FormSet implements Serializable {
         }
         if (country != null && !country.isEmpty()) {
             if (results.length() > 0) {
-               results.append(", ");
+                results.append(", ");
             }
             results.append("country=");
             results.append(country);
         }
         if (variant != null && !variant.isEmpty()) {
             if (results.length() > 0) {
-               results.append(", ");
+                results.append(", ");
             }
             results.append("variant=");
-            results.append(variant );
+            results.append(variant);
         }
         if (results.length() == 0) {
-           results.append("default");
+            results.append("default");
         }
 
         return results.toString();
@@ -210,7 +205,7 @@ public class FormSet implements Serializable {
      */
     private Log getLog() {
         if (log == null) {
-            log =  LogFactory.getLog(FormSet.class);
+            log = LogFactory.getLog(FormSet.class);
         }
         return log;
     }
@@ -228,15 +223,13 @@ public class FormSet implements Serializable {
     protected int getType() {
         if (getVariant() != null) {
             if (getLanguage() == null || getCountry() == null) {
-                throw new NullPointerException(
-                    "When variant is specified, country and language must be specified.");
+                throw new NullPointerException("When variant is specified, country and language must be specified.");
             }
             return VARIANT_FORMSET;
         }
         if (getCountry() != null) {
             if (getLanguage() == null) {
-                throw new NullPointerException(
-                    "When country is specified, language must be specified.");
+                throw new NullPointerException("When country is specified, language must be specified.");
             }
             return COUNTRY_FORMSET;
         }

@@ -199,22 +199,22 @@ public class EmailValidator {
     protected boolean isValidUser(final String user) {
         return USER_PATTERN.matcher(user).matches();
     }
+
     /**
-     *   Recursively remove comments, and replace with a single space.  The simpler
-     *   regexps in the Email Addressing FAQ are imperfect - they will miss escaped
-     *   chars in atoms, for example.
-     *   Derived From    Mail::RFC822::Address
+     * Recursively remove comments, and replace with a single space. The simpler regexps in the Email Addressing FAQ are imperfect - they will miss escaped
+     * chars in atoms, for example. Derived From Mail::RFC822::Address
+     * 
      * @param emailStr The email address
      * @return address with comments removed.
-    */
-    protected String stripComments(final String emailStr)  {
-     String result = emailStr;
-     final String commentPat = "^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/";
-     final Pattern commentMatcher = Pattern.compile(commentPat);
+     */
+    protected String stripComments(final String emailStr) {
+        String result = emailStr;
+        final String commentPat = "^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/";
+        final Pattern commentMatcher = Pattern.compile(commentPat);
 
-     while (commentMatcher.matcher(result).matches()) {
-        result = result.replaceFirst(commentPat, "\1 ");
-     }
-     return result;
+        while (commentMatcher.matcher(result).matches()) {
+            result = result.replaceFirst(commentPat, "\1 ");
+        }
+        return result;
     }
 }

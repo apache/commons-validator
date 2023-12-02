@@ -412,8 +412,7 @@ public class ValidatorResources implements Serializable {
      * @return The validator Form.
      * @since 1.1
      */
-    public Form getForm(final String language, final String country, final String variant,
-            final String formKey) {
+    public Form getForm(final String language, final String country, final String variant, final String formKey) {
 
         Form form = null;
 
@@ -425,7 +424,7 @@ public class ValidatorResources implements Serializable {
                 form = formSet.getForm(formKey);
             }
         }
-        final String localeKey  = key;
+        final String localeKey = key;
 
         // Try language/country
         if (form == null) {
@@ -457,12 +456,10 @@ public class ValidatorResources implements Serializable {
 
         if (form == null) {
             if (getLog().isWarnEnabled()) {
-                getLog().warn("Form '" + formKey + "' not found for locale '" +
-                         localeKey + "'");
+                getLog().warn("Form '" + formKey + "' not found for locale '" + localeKey + "'");
             }
         } else if (getLog().isDebugEnabled()) {
-            getLog().debug("Form '" + formKey + "' found in formset '" +
-                      key + "' for locale '" + localeKey + "'");
+            getLog().debug("Form '" + formKey + "' found in formset '" + key + "' for locale '" + localeKey + "'");
         }
 
         return form;
@@ -479,13 +476,10 @@ public class ValidatorResources implements Serializable {
      * @since 1.2
      */
     FormSet getFormSet(final String language, final String country, final String variant) {
-
         final String key = buildLocale(language, country, variant);
-
         if (key.isEmpty()) {
             return defaultFormSet;
         }
-
         return getFormSets().get(key);
     }
 
@@ -511,7 +505,7 @@ public class ValidatorResources implements Serializable {
      */
     private Log getLog() {
         if (log == null) {
-            log =  LogFactory.getLog(ValidatorResources.class);
+            log = LogFactory.getLog(ValidatorResources.class);
         }
         return log;
     }
@@ -532,17 +526,14 @@ public class ValidatorResources implements Serializable {
         if (fs.getType() == FormSet.LANGUAGE_FORMSET) {
             parent = defaultFormSet;
         } else if (fs.getType() == FormSet.COUNTRY_FORMSET) {
-            parent = getFormSets().get(buildLocale(fs.getLanguage(),
-                    null, null));
+            parent = getFormSets().get(buildLocale(fs.getLanguage(), null, null));
             if (parent == null) {
                 parent = defaultFormSet;
             }
         } else if (fs.getType() == FormSet.VARIANT_FORMSET) {
-            parent = getFormSets().get(buildLocale(fs.getLanguage(), fs
-                    .getCountry(), null));
+            parent = getFormSets().get(buildLocale(fs.getLanguage(), fs.getCountry(), null));
             if (parent == null) {
-                parent = getFormSets().get(buildLocale(fs.getLanguage(),
-                        null, null));
+                parent = getFormSets().get(buildLocale(fs.getLanguage(), null, null));
                 if (parent == null) {
                     parent = defaultFormSet;
                 }

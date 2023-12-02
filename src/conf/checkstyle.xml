@@ -130,6 +130,7 @@
     </module>
     <module name="WhitespaceAround"/>
     <module name="TypecastParenPad"/>
+    <module name="SingleSpaceSeparator"/>
   </module>
 
   <!-- enforce package documentation -->

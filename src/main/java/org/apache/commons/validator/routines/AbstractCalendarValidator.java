@@ -173,7 +173,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *         if it is less than the second or +1 if it is greater than the second.
      */
     protected int compareQuarters(final Calendar value, final Calendar compare, final int monthOfFirstQuarter) {
-        final int valueQuarter   = calculateQuarter(value, monthOfFirstQuarter);
+        final int valueQuarter = calculateQuarter(value, monthOfFirstQuarter);
         final int compareQuarter = calculateQuarter(compare, monthOfFirstQuarter);
         if (valueQuarter < compareQuarter) {
             return -1;

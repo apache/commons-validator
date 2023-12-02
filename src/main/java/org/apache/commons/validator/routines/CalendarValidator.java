@@ -100,10 +100,10 @@ public class CalendarValidator extends AbstractCalendarValidator {
         if (value.getTimeZone().hasSameRules(timeZone)) {
             value.setTimeZone(timeZone);
         } else {
-            final int year   = value.get(Calendar.YEAR);
-            final int month  = value.get(Calendar.MONTH);
-            final int date   = value.get(Calendar.DATE);
-            final int hour   = value.get(Calendar.HOUR_OF_DAY);
+            final int year = value.get(Calendar.YEAR);
+            final int month = value.get(Calendar.MONTH);
+            final int date = value.get(Calendar.DATE);
+            final int hour = value.get(Calendar.HOUR_OF_DAY);
             final int minute = value.get(Calendar.MINUTE);
             value.setTimeZone(timeZone);
             value.set(year, month, date, hour, minute);

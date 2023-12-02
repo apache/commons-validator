@@ -80,16 +80,14 @@ public class ISBNValidator implements Serializable {
      * or spaces.  The first group is 1-5 characters, second 1-7, third 1-6,
      * and fourth is 1 digit or an X.
      */
-    static final String ISBN10_REGEX     =
-                  "^(?:(\\d{9}[0-9X])|(?:" + GROUP + SEP + PUBLISHER + SEP + TITLE + SEP + "([0-9X])))$";
+    static final String ISBN10_REGEX = "^(?:(\\d{9}[0-9X])|(?:" + GROUP + SEP + PUBLISHER + SEP + TITLE + SEP + "([0-9X])))$";
 
     /**
      * ISBN-13 consists of 5 groups of numbers separated by either dashes (-)
      * or spaces.  The first group is 978 or 979, the second group is
      * 1-5 characters, third 1-7, fourth 1-6, and fifth is 1 digit.
      */
-    static final String ISBN13_REGEX     =
-        "^(978|979)(?:(\\d{10})|(?:" + SEP + GROUP + SEP + PUBLISHER + SEP + TITLE + SEP + "([0-9])))$";
+    static final String ISBN13_REGEX = "^(978|979)(?:(\\d{10})|(?:" + SEP + GROUP + SEP + PUBLISHER + SEP + TITLE + SEP + "([0-9])))$";
 
     /** ISBN Code Validator (which converts ISBN-10 codes to ISBN-13 */
     private static final ISBNValidator ISBN_VALIDATOR = new ISBNValidator();

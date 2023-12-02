@@ -255,7 +255,7 @@ public class Field implements Cloneable, Serializable {
         // the same name or the last default argument
         final String keyName = arg.getName() == null ? DEFAULT_ARG : arg.getName();
         int lastPosition = -1;
-        int lastDefault  = -1;
+        int lastDefault = -1;
         for (int i = 0; i < args.length; i++) {
             if (args[i] != null && args[i].containsKey(keyName)) {
                 lastPosition = i;

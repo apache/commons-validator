@@ -44,7 +44,7 @@ public final class ISBNCheckDigit implements CheckDigit, Serializable {
     public static final CheckDigit ISBN13_CHECK_DIGIT = EAN13CheckDigit.EAN13_CHECK_DIGIT;
 
     /** Singleton combined ISBN-10 / ISBN-13 Check Digit instance */
-    public static final CheckDigit ISBN_CHECK_DIGIT   = new ISBNCheckDigit();
+    public static final CheckDigit ISBN_CHECK_DIGIT = new ISBNCheckDigit();
 
     /**
      * Calculate an ISBN-10 or ISBN-13 check digit, depending

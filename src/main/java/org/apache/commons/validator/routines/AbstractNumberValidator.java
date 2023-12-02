@@ -41,7 +41,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     public static final int CURRENCY_FORMAT = 1;
 
     /** Percent <code>NumberFormat</code> type */
-    public static final int PERCENT_FORMAT  = 2;
+    public static final int PERCENT_FORMAT = 2;
 
     /**
      * {@code true} if fractions are allowed or {@code false} if integers only.
@@ -91,7 +91,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
         }
         int scale = minimumFraction;
         if (format instanceof DecimalFormat) {
-            final int multiplier = ((DecimalFormat)format).getMultiplier();
+            final int multiplier = ((DecimalFormat) format).getMultiplier();
             if (multiplier == 100) { // CHECKSTYLE IGNORE MagicNumber
                 scale += 2; // CHECKSTYLE IGNORE MagicNumber
             } else if (multiplier == 1000) { // CHECKSTYLE IGNORE MagicNumber
@@ -156,9 +156,9 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
         NumberFormat formatter;
         final boolean usePattern = pattern != null && !pattern.isEmpty();
         if (!usePattern) {
-            formatter = (NumberFormat)getFormat(locale);
+            formatter = (NumberFormat) getFormat(locale);
         } else if (locale == null) {
-            formatter =  new DecimalFormat(pattern);
+            formatter = new DecimalFormat(pattern);
         } else {
             final DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
             formatter = new DecimalFormat(pattern, symbols);
@@ -259,7 +259,6 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @return The parsed value if valid or <code>null</code> if invalid.
      */
     protected Object parse(String value, final String pattern, final Locale locale) {
-
         value = value == null ? null : value.trim();
         if (value == null || value.isEmpty()) {
             return null;

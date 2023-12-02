@@ -126,7 +126,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * date is greater than.
      */
     public int compareDates(final Date value, final Date compare, final TimeZone timeZone) {
-        final Calendar calendarValue   = getCalendar(value, timeZone);
+        final Calendar calendarValue = getCalendar(value, timeZone);
         final Calendar calendarCompare = getCalendar(compare, timeZone);
         return compare(calendarValue, calendarCompare, Calendar.DATE);
     }
@@ -142,7 +142,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * parameter's month is greater than.
      */
     public int compareMonths(final Date value, final Date compare, final TimeZone timeZone) {
-        final Calendar calendarValue   = getCalendar(value, timeZone);
+        final Calendar calendarValue = getCalendar(value, timeZone);
         final Calendar calendarCompare = getCalendar(compare, timeZone);
         return compare(calendarValue, calendarCompare, Calendar.MONTH);
     }
@@ -173,7 +173,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * parameter's quarter is greater than.
      */
     public int compareQuarters(final Date value, final Date compare, final TimeZone timeZone, final int monthOfFirstQuarter) {
-        final Calendar calendarValue   = getCalendar(value, timeZone);
+        final Calendar calendarValue = getCalendar(value, timeZone);
         final Calendar calendarCompare = getCalendar(compare, timeZone);
         return super.compareQuarters(calendarValue, calendarCompare, monthOfFirstQuarter);
     }
@@ -189,7 +189,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * parameter's week is greater than.
      */
     public int compareWeeks(final Date value, final Date compare, final TimeZone timeZone) {
-        final Calendar calendarValue   = getCalendar(value, timeZone);
+        final Calendar calendarValue = getCalendar(value, timeZone);
         final Calendar calendarCompare = getCalendar(compare, timeZone);
         return compare(calendarValue, calendarCompare, Calendar.WEEK_OF_YEAR);
     }
@@ -205,7 +205,7 @@ public class DateValidator extends AbstractCalendarValidator {
      * parameter's year is greater than.
      */
     public int compareYears(final Date value, final Date compare, final TimeZone timeZone) {
-        final Calendar calendarValue   = getCalendar(value, timeZone);
+        final Calendar calendarValue = getCalendar(value, timeZone);
         final Calendar calendarCompare = getCalendar(compare, timeZone);
         return compare(calendarValue, calendarCompare, Calendar.YEAR);
     }

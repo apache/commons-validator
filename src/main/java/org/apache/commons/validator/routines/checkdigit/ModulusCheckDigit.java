@@ -47,7 +47,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
         int todo = number;
         while (todo > 0) {
             total += todo % 10; // CHECKSTYLE IGNORE MagicNumber
-            todo  = todo / 10; // CHECKSTYLE IGNORE MagicNumber
+            todo = todo / 10; // CHECKSTYLE IGNORE MagicNumber
         }
         return total;
     }
@@ -104,7 +104,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
         int total = 0;
         for (int i = 0; i < code.length(); i++) {
             final int lth = code.length() + (includesCheckDigit ? 0 : 1);
-            final int leftPos  = i + 1;
+            final int leftPos = i + 1;
             final int rightPos = lth - i;
             final int charValue = toInt(code.charAt(i), leftPos, rightPos);
             total += weightedValue(charValue, leftPos, rightPos);
@@ -139,7 +139,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
         try {
             final int modulusResult = calculateModulus(code, true);
             return modulusResult == 0;
-        } catch (final CheckDigitException  ex) {
+        } catch (final CheckDigitException ex) {
             return false;
         }
     }
