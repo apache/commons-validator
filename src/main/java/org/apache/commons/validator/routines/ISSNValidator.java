@@ -155,7 +155,7 @@ public class ISSNValidator implements Serializable {
         input = result.toString();
         try {
             //CHECKSTYLE:OFF: MagicNumber
-            final String issnBase = input.substring(3,10); // TODO: how to derive these
+            final String issnBase = input.substring(3, 10); // TODO: how to derive these
             //CHECKSTYLE:ON: MagicNumber
             final String checkDigit = ISSNCheckDigit.ISSN_CHECK_DIGIT.calculate(issnBase);
             final String issn = issnBase + checkDigit;
