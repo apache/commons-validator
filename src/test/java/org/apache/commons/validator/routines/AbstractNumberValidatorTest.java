@@ -165,22 +165,18 @@ public abstract class AbstractNumberValidatorTest {
     public void testSerialization() {
         // Serialize the check digit routine
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try {
-            final ObjectOutputStream oos = new ObjectOutputStream(baos);
+        try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
             oos.writeObject(validator);
             oos.flush();
-            oos.close();
         } catch (final Exception e) {
             fail(validator.getClass().getName() + " error during serialization: " + e);
         }
 
         // Deserialize the test object
         Object result = null;
-        try {
-            final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray())) {
             final ObjectInputStream ois = new ObjectInputStream(bais);
             result = ois.readObject();
-            bais.close();
         } catch (final Exception e) {
             fail(validator.getClass().getName() + " error during deserialization: " + e);
         }
