@@ -57,6 +57,7 @@ import org.apache.commons.validator.util.Flags;
 public class CreditCardValidator {
 
     private static class Amex implements CreditCardType {
+        static final Amex INSTANCE = new Amex();
         private static final String PREFIX = "34,37,";
         @Override
         public boolean matches(final String card) {
@@ -88,6 +89,7 @@ public class CreditCardValidator {
     }
 
     private static class Discover implements CreditCardType {
+        static final Discover INSTANCE = new Discover();
         private static final String PREFIX = "6011";
         @Override
         public boolean matches(final String card) {
@@ -96,6 +98,7 @@ public class CreditCardValidator {
     }
 
     private static class Mastercard implements CreditCardType {
+        static final Mastercard INSTANCE = new Mastercard();
         private static final String PREFIX = "51,52,53,54,55,";
         @Override
         public boolean matches(final String card) {
@@ -109,11 +112,12 @@ public class CreditCardValidator {
      *  has been removed - see Bug 35926
      */
     private static class Visa implements CreditCardType {
+        static final Visa INSTANCE = new Visa();
         private static final String PREFIX = "4";
+
         @Override
         public boolean matches(final String card) {
-            return card.substring(0, 1).equals(PREFIX)
-                && (card.length() == 13 || card.length() == 16);
+            return card.substring(0, 1).equals(PREFIX) && (card.length() == 13 || card.length() == 16);
         }
     }
 
@@ -173,19 +177,19 @@ public class CreditCardValidator {
     public CreditCardValidator(final int options) {
         final Flags f = new Flags(options);
         if (f.isOn(VISA)) {
-            this.cardTypes.add(new Visa());
+            this.cardTypes.add(Visa.INSTANCE);
         }
 
         if (f.isOn(AMEX)) {
-            this.cardTypes.add(new Amex());
+            this.cardTypes.add(Amex.INSTANCE);
         }
 
         if (f.isOn(MASTERCARD)) {
-            this.cardTypes.add(new Mastercard());
+            this.cardTypes.add(Mastercard.INSTANCE);
         }
 
         if (f.isOn(DISCOVER)) {
-            this.cardTypes.add(new Discover());
+            this.cardTypes.add(Discover.INSTANCE);
         }
     }
 

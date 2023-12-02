@@ -99,6 +99,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="Gary Gregory">
       Port tests to JUnit 5. Exception: DomainValidatorStartupTest.
     </action>
+    <action type="fix" dev="ggregory" due-to="Gary Gregory">
+      Use singletons in org.apache.commons.validator.CreditCardValidator.
+    </action>
     <!-- ADD -->
     <action type="add" dev="ggregory" due-to="Dependabot, Gary Gregory">
       Add github/codeql-action.
