@@ -16,7 +16,6 @@
  */
 package org.apache.commons.validator.util;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -116,7 +115,7 @@ public class ValidatorUtils {
         try {
             value = PropertyUtils.getProperty(bean, property);
 
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (ReflectiveOperationException e) {
             LOG.error(e.getMessage(), e);
         }
 
