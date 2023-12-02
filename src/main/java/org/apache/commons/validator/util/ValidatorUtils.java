@@ -146,35 +146,10 @@ public class ValidatorUtils {
      * @return The modified value.
      */
     public static String replace(String value, final String key, final String replaceValue) {
-
         if (value == null || key == null || replaceValue == null) {
             return value;
         }
-
-        final int pos = value.indexOf(key);
-
-        if (pos < 0) {
-            return value;
-        }
-
-        final int length = value.length();
-        final int start = pos;
-        final int end = pos + key.length();
-
-        if (length == key.length()) {
-            value = replaceValue;
-
-        } else if (end == length) {
-            value = value.substring(0, start) + replaceValue;
-
-        } else {
-            value =
-                    value.substring(0, start)
-                    + replaceValue
-                    + replace(value.substring(end), key, replaceValue);
-        }
-
-        return value;
+        return value.replace(key, replaceValue);
     }
 
 }
