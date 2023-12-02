@@ -129,6 +129,7 @@
       <property name="separated" value="true"/>
     </module>
     <module name="WhitespaceAround"/>
+    <module name="TypecastParenPad"/>
   </module>
 
   <!-- enforce package documentation -->
