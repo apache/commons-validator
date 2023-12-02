@@ -33,6 +33,8 @@ import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 import java.net.IDN;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -67,43 +69,36 @@ public class DomainValidatorTest {
      * Download a file if it is more recent than our cached copy. Unfortunately the server does not seem to honor If-Modified-Since for the Html page, so we
      * check if it is newer than the txt file and skip download if so
      */
-    private static long download(final File f, final String tldurl, final long timestamp) throws IOException {
+    private static long download(final File file, final String tldUrl, final long timestamp) throws IOException {
         final int HOUR = 60 * 60 * 1000; // an hour in ms
         final long modTime;
         // For testing purposes, don't download files more than once an hour
-        if (f.canRead()) {
-            modTime = f.lastModified();
+        if (file.canRead()) {
+            modTime = file.lastModified();
             if (modTime > System.currentTimeMillis() - HOUR) {
-                System.out.println("Skipping download - found recent " + f);
+                System.out.println("Skipping download - found recent " + file);
                 return modTime;
             }
         } else {
             modTime = 0;
         }
-        final HttpURLConnection hc = (HttpURLConnection) new URL(tldurl).openConnection();
+        final HttpURLConnection hc = (HttpURLConnection) new URL(tldUrl).openConnection();
         if (modTime > 0) {
             final SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");// Sun, 06 Nov 1994 08:49:37 GMT
             final String since = sdf.format(new Date(modTime));
             hc.addRequestProperty("If-Modified-Since", since);
-            System.out.println("Found " + f + " with date " + since);
+            System.out.println("Found " + file + " with date " + since);
         }
         if (hc.getResponseCode() == 304) {
-            System.out.println("Already have most recent " + tldurl);
+            System.out.println("Already have most recent " + tldUrl);
         } else {
-            System.out.println("Downloading " + tldurl);
-            final byte[] buff = new byte[1024];
-            final InputStream is = hc.getInputStream();
-
-            final FileOutputStream fos = new FileOutputStream(f);
-            int len;
-            while ((len = is.read(buff)) != -1) {
-                fos.write(buff, 0, len);
+            System.out.println("Downloading " + tldUrl);
+            try (InputStream is = hc.getInputStream()) {
+                Files.copy(is, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
-            fos.close();
-            is.close();
             System.out.println("Done");
         }
-        return f.lastModified();
+        return file.lastModified();
     }
 
     private static Map<String, String[]> getHtmlInfo(final File f) throws IOException {
@@ -117,49 +112,49 @@ public class DomainValidatorTest {
 //        <td>Ålands landskapsregering</td>
         final Pattern comment = Pattern.compile("\\s+<td>([^<]+)</td>");
 
-        final BufferedReader br = new BufferedReader(new FileReader(f));
-        String line;
-        while ((line = br.readLine()) != null) {
-            final Matcher m = domain.matcher(line);
-            if (m.lookingAt()) {
-                final String dom = m.group(1);
-                String typ = "??";
-                String com = "??";
-                line = br.readLine();
-                while (line.matches("^\\s*$")) { // extra blank lines introduced
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                final Matcher m = domain.matcher(line);
+                if (m.lookingAt()) {
+                    final String dom = m.group(1);
+                    String typ = "??";
+                    String com = "??";
                     line = br.readLine();
-                }
-                final Matcher t = type.matcher(line);
-                if (t.lookingAt()) {
-                    typ = t.group(1);
-                    line = br.readLine();
-                    if (line.matches("\\s+<!--.*")) {
-                        while (!line.matches(".*-->.*")) {
-                            line = br.readLine();
-                        }
+                    while (line.matches("^\\s*$")) { // extra blank lines introduced
                         line = br.readLine();
                     }
-                    // Should have comment; is it wrapped?
-                    while (!line.matches(".*</td>.*")) {
-                        line += " " + br.readLine();
-                    }
-                    final Matcher n = comment.matcher(line);
-                    if (n.lookingAt()) {
-                        com = n.group(1);
-                    }
-                    // Don't save unused entries
-                    if (com.contains("Not assigned") || com.contains("Retired") || typ.equals("test")) {
+                    final Matcher t = type.matcher(line);
+                    if (t.lookingAt()) {
+                        typ = t.group(1);
+                        line = br.readLine();
+                        if (line.matches("\\s+<!--.*")) {
+                            while (!line.matches(".*-->.*")) {
+                                line = br.readLine();
+                            }
+                            line = br.readLine();
+                        }
+                        // Should have comment; is it wrapped?
+                        while (!line.matches(".*</td>.*")) {
+                            line += " " + br.readLine();
+                        }
+                        final Matcher n = comment.matcher(line);
+                        if (n.lookingAt()) {
+                            com = n.group(1);
+                        }
+                        // Don't save unused entries
+                        if (com.contains("Not assigned") || com.contains("Retired") || typ.equals("test")) {
 //                        System.out.println("Ignored: " + typ + " " + dom + " " +com);
-                    } else {
-                        info.put(dom.toLowerCase(Locale.ENGLISH), new String[] { typ, com });
+                        } else {
+                            info.put(dom.toLowerCase(Locale.ENGLISH), new String[] { typ, com });
 //                        System.out.println("Storing: " + typ + " " + dom + " " +com);
+                        }
+                    } else {
+                        System.err.println("Unexpected type: " + line);
                     }
-                } else {
-                    System.err.println("Unexpected type: " + line);
                 }
             }
         }
-        br.close();
         return info;
     }
 
