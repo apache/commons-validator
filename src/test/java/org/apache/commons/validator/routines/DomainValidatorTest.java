@@ -197,11 +197,11 @@ public class DomainValidatorTest {
      * @return true if the string is found
      */
     private static boolean isNotInRootZone(final String domain) {
-        final String tldurl = "http://www.iana.org/domains/root/db/" + domain + ".html";
+        final String tldUrl = "http://www.iana.org/domains/root/db/" + domain + ".html";
         final File rootCheck = new File("target", "tld_" + domain + ".html");
         BufferedReader in = null;
         try {
-            download(rootCheck, tldurl, 0L);
+            download(rootCheck, tldUrl, 0L);
             in = new BufferedReader(new FileReader(rootCheck));
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
