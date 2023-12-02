@@ -282,22 +282,18 @@ public abstract class AbstractCheckDigitTest {
     public void testSerialization() {
         // Serialize the check digit routine
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try {
-            final ObjectOutputStream oos = new ObjectOutputStream(baos);
+        try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
             oos.writeObject(routine);
             oos.flush();
-            oos.close();
         } catch (final Exception e) {
             fail(routine.getClass().getName() + " error during serialization: " + e);
         }
 
         // Deserialize the test object
         Object result = null;
-        try {
-            final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-            final ObjectInputStream ois = new ObjectInputStream(bais);
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray())) {
+            ObjectInputStream ois = new ObjectInputStream(bais);
             result = ois.readObject();
-            bais.close();
         } catch (final Exception e) {
             fail(routine.getClass().getName() + " error during deserialization: " + e);
         }
@@ -309,16 +305,13 @@ public abstract class AbstractCheckDigitTest {
      */
     @Test
     public void testZeroSum() {
-
         assertFalse(routine.isValid(zeroSum), "isValid() Zero Sum");
-
         try {
             routine.calculate(zeroSum);
             fail("Zero Sum - expected exception");
         } catch (final Exception e) {
             assertEquals("Invalid code, sum is zero", e.getMessage(), "isValid() Zero Sum");
         }
-
     }
 
 }
