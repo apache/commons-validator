@@ -27,7 +27,7 @@
 
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <version>1.8.0</version>
+  <version>1.8.1-SNAPSHOT</version>
   <name>Apache Commons Validator</name>
   <description>
     Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
