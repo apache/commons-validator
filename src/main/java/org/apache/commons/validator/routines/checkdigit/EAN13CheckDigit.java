@@ -46,7 +46,7 @@ public final class EAN13CheckDigit extends ModulusCheckDigit {
     /** Singleton EAN-13 Check Digit instance */
     public static final CheckDigit EAN13_CHECK_DIGIT = new EAN13CheckDigit();
 
-    /** weighting given to digits depending on their right position */
+    /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = {3, 1};
 
     /**

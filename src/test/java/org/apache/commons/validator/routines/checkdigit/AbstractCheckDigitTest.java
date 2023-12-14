@@ -43,7 +43,7 @@ public abstract class AbstractCheckDigitTest {
 
     private static final String POSSIBLE_CHECK_DIGITS = "0123456789 ABCDEFHIJKLMNOPQRSTUVWXYZ\tabcdefghijklmnopqrstuvwxyz!@£$%^&*()_+";
 
-    /** logging instance */
+    /** Logging instance */
     protected Log log = LogFactory.getLog(getClass());
 
     /** Check digit routine being tested */
@@ -71,7 +71,7 @@ public abstract class AbstractCheckDigitTest {
      */
     protected String[] invalid = { "12345678A" };
 
-    /** code value which sums to zero */
+    /** Code value which sums to zero */
     protected String zeroSum = "0000000000";
 
     /** Prefix for error messages */

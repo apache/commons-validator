@@ -47,7 +47,7 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
     /** Singleton ISIN Check Digit instance */
     public static final CheckDigit ISIN_CHECK_DIGIT = new ISINCheckDigit();
 
-    /** weighting given to digits depending on their right position */
+    /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = {2, 1};
 
     /**

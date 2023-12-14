@@ -47,7 +47,7 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
     /** Singleton SEDOL check digit instance */
     public static final CheckDigit SEDOL_CHECK_DIGIT = new SedolCheckDigit();
 
-    /** weighting given to digits depending on their right position */
+    /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = {1, 3, 1, 7, 3, 9, 1};
 
     /**

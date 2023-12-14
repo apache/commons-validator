@@ -45,7 +45,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
     /** Singleton CUSIP Check Digit instance */
     public static final CheckDigit CUSIP_CHECK_DIGIT = new CUSIPCheckDigit();
 
-    /** weighting given to digits depending on their right position */
+    /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = {2, 1};
 
     /**
