@@ -188,7 +188,7 @@ public class GenericValidatorImpl {
                 dependIndexed = "false";
             }
             boolean this_required = false;
-            if (field.isIndexed() && dependIndexed.equalsIgnoreCase("true")) {
+            if (field.isIndexed() && Boolean.parseBoolean(dependIndexed)) {
                 final String key = field.getKey();
                 if (key.contains("[") && key.contains("]")) {
                     final String ind = key.substring(0, key.indexOf(".") + 1);
