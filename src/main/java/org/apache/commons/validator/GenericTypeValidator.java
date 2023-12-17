@@ -106,7 +106,7 @@ public class GenericTypeValidator implements Serializable {
     /**
      * Checks if the field is a valid date.
      *
-     * <p>The {@code Locale} is used with {@code java.text.DateFormat}. The {@link java.text.DateFormat#setLenient(boolean)}
+     * <p>The {@code Locale} is used with {@link java.text.DateFormat}. The {@link java.text.DateFormat#setLenient(boolean)}
      * method is set to {@code false} for all.
      * </p>
      *
@@ -166,7 +166,7 @@ public class GenericTypeValidator implements Serializable {
     /**
      * Checks if the field is a valid date.
      *
-     * <p>The pattern is used with {@code java.text.SimpleDateFormat}.
+     * <p>The pattern is used with {@link java.text.SimpleDateFormat}.
      * If strict is true, then the length will be checked so '2/12/1999' will
      * not pass validation with the format 'MM/dd/yyyy' because the month isn't
      * two digits. The {@link java.text.SimpleDateFormat#setLenient(boolean)}
