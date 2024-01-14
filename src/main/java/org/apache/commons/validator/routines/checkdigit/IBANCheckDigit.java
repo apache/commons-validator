@@ -34,7 +34,7 @@ import java.io.Serializable;
  * Note: the class does not check the format of the IBAN number, only the check digits.
  * <p>
  * For further information see
- *  <a href="http://en.wikipedia.org/wiki/International_Bank_Account_Number">Wikipedia -
+ *  <a href="https://en.wikipedia.org/wiki/International_Bank_Account_Number">Wikipedia -
  *  IBAN number</a>.
  *
  * @since 1.4

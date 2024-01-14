@@ -21,8 +21,8 @@ package org.apache.commons.validator.routines.checkdigit;
  *
  * Luhn check digits are used, for example, by:
  * <ul>
- *    <li><a href="http://en.wikipedia.org/wiki/Credit_card">Credit Card Numbers</a></li>
- *    <li><a href="http://en.wikipedia.org/wiki/IMEI">IMEI Numbers</a> - International
+ *    <li><a href="https://en.wikipedia.org/wiki/Credit_card">Credit Card Numbers</a></li>
+ *    <li><a href="https://en.wikipedia.org/wiki/IMEI">IMEI Numbers</a> - International
  *        Mobile Equipment Identity Numbers</li>
  * </ul>
  * Check digit calculation is based on <i>modulus 10</i> with digits in
@@ -30,7 +30,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * position digits being weighted 2 (weighted values greater than 9 have 9 subtracted).
  *
  * <p>
- * See <a href="http://en.wikipedia.org/wiki/Luhn_algorithm">Wikipedia</a>
+ * See <a href="https://en.wikipedia.org/wiki/Luhn_algorithm">Wikipedia</a>
  * for more details.
  * </p>
  *

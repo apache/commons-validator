@@ -37,7 +37,7 @@ package org.apache.commons.validator.routines.checkdigit;
  *
  * <p>
  * For further information see
- *  <a href="http://en.wikipedia.org/wiki/Routing_transit_number">Wikipedia -
+ *  <a href="https://en.wikipedia.org/wiki/Routing_transit_number">Wikipedia -
  *  Routing transit number</a>.
  * </p>
  *

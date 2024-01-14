@@ -22,10 +22,10 @@ import java.io.Serializable;
  * <b>Verhoeff</b> (Dihedral) Check Digit calculation/validation.
  * <p>
  * Check digit calculation for numeric codes using a
- * <a href="http://en.wikipedia.org/wiki/Dihedral_group">Dihedral Group</a>
+ * <a href="https://en.wikipedia.org/wiki/Dihedral_group">Dihedral Group</a>
  * of order 10.
  * <p>
- * See <a href="http://en.wikipedia.org/wiki/Verhoeff_algorithm">Wikipedia
+ * See <a href="https://en.wikipedia.org/wiki/Verhoeff_algorithm">Wikipedia
  *  - Verhoeff algorithm</a> for more details.
  *
  * @since 1.4

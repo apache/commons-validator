@@ -2027,7 +2027,7 @@ public class DomainValidator implements Serializable {
     // ---------------------------------------------
     // ----- TLDs defined by IANA
     // ----- Authoritative and comprehensive list at:
-    // ----- http://data.iana.org/TLD/tlds-alpha-by-domain.txt
+    // ----- https://data.iana.org/TLD/tlds-alpha-by-domain.txt
 
     // Note that the above list is in UPPER case.
     // The code currently converts strings to lower case (as per the tables below)

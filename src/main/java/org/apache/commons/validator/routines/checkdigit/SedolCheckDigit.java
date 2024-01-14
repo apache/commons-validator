@@ -32,7 +32,7 @@ package org.apache.commons.validator.routines.checkdigit;
  *     weighting:  1  3  1  7  3  9  1
  * </code></pre>
  * <p>
- * See <a href="http://en.wikipedia.org/wiki/SEDOL">Wikipedia - SEDOL</a>
+ * See <a href="https://en.wikipedia.org/wiki/SEDOL">Wikipedia - SEDOL</a>
  * for more details.
  * </p>
  *

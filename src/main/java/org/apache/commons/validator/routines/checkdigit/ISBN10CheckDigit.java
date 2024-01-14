@@ -33,7 +33,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * <p>
  * For further information see:
  * <ul>
- *   <li><a href="http://en.wikipedia.org/wiki/ISBN">Wikipedia - International
+ *   <li><a href="https://en.wikipedia.org/wiki/ISBN">Wikipedia - International
  *       Standard Book Number (ISBN)</a>.</li>
  *   <li><a href="http://www.isbn.org/standards/home/isbn/transition.asp">ISBN-13
  *       Transition details</a>.</li>

@@ -38,14 +38,14 @@ import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
  * <p>
  * From 1st January 2007 the book industry will start to use a new 13 digit
  * ISBN number (rather than this 10 digit ISBN number). ISBN-13 codes are
- * <a href="http://en.wikipedia.org/wiki/European_Article_Number">EAN</a>
+ * <a href="https://en.wikipedia.org/wiki/European_Article_Number">EAN</a>
  * codes, for more information see:</p>
  *
  * <ul>
- *   <li><a href="http://en.wikipedia.org/wiki/ISBN">Wikipedia - International
+ *   <li><a href="https://en.wikipedia.org/wiki/ISBN">Wikipedia - International
  *       Standard Book Number (ISBN)</a>.</li>
  *   <li>EAN - see
- *       <a href="http://en.wikipedia.org/wiki/European_Article_Number">Wikipedia -
+ *       <a href="https://en.wikipedia.org/wiki/European_Article_Number">Wikipedia -
  *       European Article Number</a>.</li>
  *   <li><a href="http://www.isbn.org/standards/home/isbn/transition.asp">ISBN-13
  *       Transition details</a>.</li>

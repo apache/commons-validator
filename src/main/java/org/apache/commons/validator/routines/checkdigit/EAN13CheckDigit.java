@@ -27,13 +27,13 @@ package org.apache.commons.validator.routines.checkdigit;
  * For further information see:
  * <ul>
  *   <li>EAN-13 - see
- *       <a href="http://en.wikipedia.org/wiki/European_Article_Number">Wikipedia -
+ *       <a href="https://en.wikipedia.org/wiki/European_Article_Number">Wikipedia -
  *       European Article Number</a>.</li>
  *   <li>UPC - see
- *       <a href="http://en.wikipedia.org/wiki/Universal_Product_Code">Wikipedia -
+ *       <a href="https://en.wikipedia.org/wiki/Universal_Product_Code">Wikipedia -
  *       Universal Product Code</a>.</li>
  *   <li>ISBN-13 - see
- *       <a href="http://en.wikipedia.org/wiki/ISBN">Wikipedia - International
+ *       <a href="https://en.wikipedia.org/wiki/ISBN">Wikipedia - International
  *       Standard Book Number (ISBN)</a>.</li>
  * </ul>
  *

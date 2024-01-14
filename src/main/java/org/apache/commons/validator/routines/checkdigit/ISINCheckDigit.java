@@ -32,7 +32,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * </p>
  *
  * <p>
- * See <a href="http://en.wikipedia.org/wiki/ISIN">Wikipedia - ISIN</a>
+ * See <a href="https://en.wikipedia.org/wiki/ISIN">Wikipedia - ISIN</a>
  * for more details.
  * </p>
  *

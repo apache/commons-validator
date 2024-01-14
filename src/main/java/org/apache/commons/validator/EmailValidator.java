@@ -28,7 +28,7 @@ import org.apache.commons.validator.routines.InetAddressValidator;
  * </p>
  * <p>
  * Based on a script by <a href="mailto:stamhankar@hotmail.com">Sandeep V. Tamhankar</a>
- * http://javascript.internet.com
+ * https://javascript.internet.com
  * </p>
  * <p>
  * This implementation is not guaranteed to catch all possible errors in an email address.

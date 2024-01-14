@@ -32,7 +32,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * </p>
  *
  * <p>
- * See <a href="http://en.wikipedia.org/wiki/CUSIP">Wikipedia - CUSIP</a>
+ * See <a href="https://en.wikipedia.org/wiki/CUSIP">Wikipedia - CUSIP</a>
  * for more details.
  * </p>
  *

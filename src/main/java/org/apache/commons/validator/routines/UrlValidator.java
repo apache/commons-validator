@@ -39,7 +39,7 @@ import java.util.regex.Pattern;
  * </ul>
  *
  * <p>Originally based in on php script by Debbie Dyer, validation.php v1.2b, Date: 03/07/02,
- * http://javascript.internet.com. However, this validation now bears little resemblance
+ * https://javascript.internet.com. However, this validation now bears little resemblance
  * to the php original.</p>
  * <pre>
  *   Example of usage:
@@ -96,7 +96,7 @@ public class UrlValidator implements Serializable {
     public static final long NO_FRAGMENTS = 1 << 2;
 
     /**
-     * Allow local URLs, such as http://localhost/ or http://machine/ .
+     * Allow local URLs, such as https://localhost/ or https://machine/ .
      * This enables a broad-brush check, for complex local machine name
      *  validation requirements you should create your validator with
      *  a {@link RegexValidator} instead ({@link #UrlValidator(RegexValidator, long)})
