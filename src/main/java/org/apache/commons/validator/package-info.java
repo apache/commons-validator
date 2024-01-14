@@ -20,7 +20,7 @@
  *
  * <a id="doc.Description"></a>
  * <div>
- * <a href="http://commons.apache.org/validator/dependencies.html">[Dependencies]</a>
+ * <a href="https://commons.apache.org/validator/dependencies.html">[Dependencies]</a>
  * <a href="#doc.Intro">[Introduction]</a>
  * <a href="#doc.Overview">[Overview]</a>
  * <a href="#doc.Resources">[Resources]</a>
@@ -66,7 +66,7 @@
  * them abstracted from JavaBean you are validating.  The
  * property reference to a field supports nested properties
  * using the Apache Commons BeanUtils
- * (http://commons.apache.org/beanutils/) package.
+ * (https://commons.apache.org/beanutils/) package.
  * Error messages and the arguments for error messages can be
  * associated with a fields validation.
  * </p>
