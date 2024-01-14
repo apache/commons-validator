@@ -149,7 +149,7 @@ public class EmailValidatorTest {
     /**
      * Tests the e-mail validation with a user at a TLD
      *
-     * http://tools.ietf.org/html/rfc5321#section-2.3.5 (In the case of a top-level domain used by itself in an email address, a single string is used without
+     * https://tools.ietf.org/html/rfc5321#section-2.3.5 (In the case of a top-level domain used by itself in an email address, a single string is used without
      * any dots)
      */
     @Test

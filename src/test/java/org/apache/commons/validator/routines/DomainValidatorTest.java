@@ -258,7 +258,7 @@ public class DomainValidatorTest {
         return sorted && strictlySorted && lowerCase;
     }
 
-    // Download and process local copy of http://data.iana.org/TLD/tlds-alpha-by-domain.txt
+    // Download and process local copy of https://data.iana.org/TLD/tlds-alpha-by-domain.txt
     // Check if the internal TLD table is up to date
     // Check if the internal TLD tables have any spurious entries
     public static void main(final String a[]) throws Exception {
