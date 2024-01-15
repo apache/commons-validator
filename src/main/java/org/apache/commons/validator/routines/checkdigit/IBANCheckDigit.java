@@ -101,7 +101,7 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
             }
             total = (charValue > 9 ? total * 100 : total * 10) + charValue; // CHECKSTYLE IGNORE MagicNumber
             if (total > MAX) {
-                total = total % MODULUS;
+                total %= MODULUS;
             }
         }
         return (int) (total % MODULUS);
