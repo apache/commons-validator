@@ -47,7 +47,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
         int todo = number;
         while (todo > 0) {
             total += todo % 10; // CHECKSTYLE IGNORE MagicNumber
-            todo = todo / 10; // CHECKSTYLE IGNORE MagicNumber
+            todo /= 10; // CHECKSTYLE IGNORE MagicNumber
         }
         return total;
     }
