@@ -254,7 +254,7 @@ public class UrlValidator implements Serializable {
     /**
      * <p>Checks if a field has a valid URL address.</p>
      *
-     * @param value The value validation is being performed on.  A <code>null</code>
+     * @param value The value validation is being performed on.  A {@code null}
      * value is considered invalid.
      * @return true if the URL is valid.
      */
@@ -297,7 +297,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Returns true if the authority is properly formatted.  An authority is the combination
-     * of hostname and port.  A <code>null</code> authority value is considered invalid.
+     * of hostname and port.  A {@code null} authority value is considered invalid.
      * @param authority Authority value to validate.
      * @return true if authority (hostname and port) is valid.
      */
@@ -401,7 +401,7 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Returns true if the path is valid.  A <code>null</code> value is considered invalid.
+     * Returns true if the path is valid.  A {@code null} value is considered invalid.
      * @param path Path value to validate.
      * @return true if path is valid.
      */
@@ -445,7 +445,7 @@ public class UrlValidator implements Serializable {
      * Validate scheme. If schemes[] was initialized to a non null,
      * then only those scheme's are allowed.  Note this is slightly different
      * than for the constructor.
-     * @param scheme The scheme to validate.  A <code>null</code> value is considered
+     * @param scheme The scheme to validate.  A {@code null} value is considered
      * invalid.
      * @return true if valid.
      */

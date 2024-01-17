@@ -31,7 +31,7 @@ import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
  * the {@link EAN13CheckDigit} routine).
  * <p>
  * The <code>validate()</code> methods return the ISBN code with formatting
- * characters removed if valid or <code>null</code> if invalid.
+ * characters removed if valid or {@code null} if invalid.
  * <p>
  * This validator also provides the facility to convert ISBN-10 codes to
  * ISBN-13 if the <code>convert</code> property is {@code true}.
@@ -153,7 +153,7 @@ public class ISBNValidator implements Serializable {
      * characters.
      *
      * @param isbn10 The ISBN-10 code to convert
-     * @return A converted ISBN-13 code or <code>null</code>
+     * @return A converted ISBN-13 code or {@code null}
      * if the ISBN-10 code is not valid
      */
     public String convertToISBN13(final String isbn10) {
@@ -222,7 +222,7 @@ public class ISBNValidator implements Serializable {
      * <code>convertToISBN13</code> is {@code true}.
      *
      * @param code The code to validate.
-     * @return A valid ISBN code if valid, otherwise <code>null</code>.
+     * @return A valid ISBN code if valid, otherwise {@code null}.
      */
     public String validate(final String code) {
         String result = validateISBN13(code);
@@ -243,7 +243,7 @@ public class ISBNValidator implements Serializable {
      *
      * @param code The code to validate.
      * @return A valid ISBN-10 code if valid,
-     * otherwise <code>null</code>.
+     * otherwise {@code null}.
      */
     public String validateISBN10(final String code) {
         final Object result = isbn10Validator.validate(code);
@@ -258,7 +258,7 @@ public class ISBNValidator implements Serializable {
      *
      * @param code The code to validate.
      * @return A valid ISBN-13 code if valid,
-     * otherwise <code>null</code>.
+     * otherwise {@code null}.
      */
     public String validateISBN13(final String code) {
         final Object result = isbn13Validator.validate(code);

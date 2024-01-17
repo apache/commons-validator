@@ -184,7 +184,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      *    and <code>TimeZone</code>.
      *
      * @param value The value validation is being performed on.
-     * @return The parsed <code>Calendar</code> if valid or <code>null</code>
+     * @return The parsed <code>Calendar</code> if valid or {@code null}
      *  if invalid.
      */
     public Calendar validate(final String value) {
@@ -197,7 +197,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the time format, system default if null.
-     * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
+     * @return The parsed <code>Calendar</code> if valid or {@code null} if invalid.
      */
     public Calendar validate(final String value, final Locale locale) {
         return (Calendar)parse(value, (String)null, locale, (TimeZone)null);
@@ -210,7 +210,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the time format, system default if null.
      * @param timeZone The Time Zone used to parse the time, system default if null.
-     * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
+     * @return The parsed <code>Calendar</code> if valid or {@code null} if invalid.
      */
     public Calendar validate(final String value, final Locale locale, final TimeZone timeZone) {
         return (Calendar)parse(value, (String)null, locale, timeZone);
@@ -222,7 +222,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against.
-     * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
+     * @return The parsed <code>Calendar</code> if valid or {@code null} if invalid.
      */
     public Calendar validate(final String value, final String pattern) {
         return (Calendar)parse(value, pattern, (Locale)null, (TimeZone)null);
@@ -234,9 +234,9 @@ public class TimeValidator extends AbstractCalendarValidator {
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
+     *        default for the <code>Locale</code> if {@code null}.
      * @param locale The locale to use for the date format, system default if null.
-     * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
+     * @return The parsed <code>Calendar</code> if valid or {@code null} if invalid.
      */
     public Calendar validate(final String value, final String pattern, final Locale locale) {
         return (Calendar)parse(value, pattern, locale, (TimeZone)null);
@@ -248,10 +248,10 @@ public class TimeValidator extends AbstractCalendarValidator {
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
+     *        default for the <code>Locale</code> if {@code null}.
      * @param locale The locale to use for the date format, system default if null.
      * @param timeZone The Time Zone used to parse the date, system default if null.
-     * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
+     * @return The parsed <code>Calendar</code> if valid or {@code null} if invalid.
      */
     public Calendar validate(final String value, final String pattern, final Locale locale, final TimeZone timeZone) {
         return (Calendar)parse(value, pattern, locale, timeZone);
@@ -264,7 +264,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against.
      * @param timeZone The Time Zone used to parse the time, system default if null.
-     * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
+     * @return The parsed <code>Calendar</code> if valid or {@code null} if invalid.
      */
     public Calendar validate(final String value, final String pattern, final TimeZone timeZone) {
         return (Calendar)parse(value, pattern, (Locale)null, timeZone);
@@ -276,7 +276,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      *
      * @param value The value validation is being performed on.
      * @param timeZone The Time Zone used to parse the time, system default if null.
-     * @return The parsed <code>Calendar</code> if valid or <code>null</code> if invalid.
+     * @return The parsed <code>Calendar</code> if valid or {@code null} if invalid.
      */
     public Calendar validate(final String value, final TimeZone timeZone) {
         return (Calendar)parse(value, (String)null, (Locale)null, timeZone);

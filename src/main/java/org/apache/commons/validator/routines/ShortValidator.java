@@ -188,7 +188,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @param value The parsed <code>Number</code> object created.
      * @param formatter The Format used to parse the value with.
      * @return The parsed <code>Number</code> converted to a
-     *   <code>Short</code> if valid or <code>null</code> if invalid.
+     *   <code>Short</code> if valid or {@code null} if invalid.
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
@@ -207,7 +207,7 @@ public class ShortValidator extends AbstractNumberValidator {
      *    <code>Locale</code>.
      *
      * @param value The value validation is being performed on.
-     * @return The parsed <code>Short</code> if valid or <code>null</code>
+     * @return The parsed <code>Short</code> if valid or {@code null}
      *  if invalid.
      */
     public Short validate(final String value) {
@@ -220,7 +220,7 @@ public class ShortValidator extends AbstractNumberValidator {
      *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the number format, system default if null.
-     * @return The parsed <code>Short</code> if valid or <code>null</code> if invalid.
+     * @return The parsed <code>Short</code> if valid or {@code null} if invalid.
      */
     public Short validate(final String value, final Locale locale) {
         return (Short)parse(value, (String)null, locale);
@@ -232,7 +232,7 @@ public class ShortValidator extends AbstractNumberValidator {
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against.
-     * @return The parsed <code>Short</code> if valid or <code>null</code> if invalid.
+     * @return The parsed <code>Short</code> if valid or {@code null} if invalid.
      */
     public Short validate(final String value, final String pattern) {
         return (Short)parse(value, pattern, (Locale)null);
@@ -244,9 +244,9 @@ public class ShortValidator extends AbstractNumberValidator {
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
+     *        default for the <code>Locale</code> if {@code null}.
      * @param locale The locale to use for the date format, system default if null.
-     * @return The parsed <code>Short</code> if valid or <code>null</code> if invalid.
+     * @return The parsed <code>Short</code> if valid or {@code null} if invalid.
      */
     public Short validate(final String value, final String pattern, final Locale locale) {
         return (Short)parse(value, pattern, locale);

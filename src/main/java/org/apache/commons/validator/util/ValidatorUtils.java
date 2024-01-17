@@ -101,7 +101,7 @@ public class ValidatorUtils {
      * <code>String</code>.  If the property is a <code>String[]</code> or
      * <code>Collection</code> and it is empty, an empty <code>String</code>
      * "" is returned.  Otherwise, property.toString() is returned.  This method
-     * may return <code>null</code> if there was an error retrieving the
+     * may return {@code null} if there was an error retrieving the
      * property.
      *
      * @param bean The bean object.

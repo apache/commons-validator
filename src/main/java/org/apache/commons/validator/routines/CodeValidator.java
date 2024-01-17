@@ -242,14 +242,14 @@ public final class CodeValidator implements Serializable {
 
     /**
      * Validate the code returning either the valid code or
-     * <code>null</code> if invalid.
+     * {@code null} if invalid.
      * <p>
      * Note that this method trims the input
      * and if there is a {@link RegexValidator} it may also
      * change the input as part of the validation.
      *
      * @param input The code to validate
-     * @return The code if valid, otherwise <code>null</code>
+     * @return The code if valid, otherwise {@code null}
      * if invalid
      */
     public Object validate(final String input) {

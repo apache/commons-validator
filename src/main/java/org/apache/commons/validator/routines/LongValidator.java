@@ -204,7 +204,7 @@ public class LongValidator extends AbstractNumberValidator {
      *    <code>Locale</code>.
      *
      * @param value The value validation is being performed on.
-     * @return The parsed <code>Long</code> if valid or <code>null</code>
+     * @return The parsed <code>Long</code> if valid or {@code null}
      *  if invalid.
      */
     public Long validate(final String value) {
@@ -217,7 +217,7 @@ public class LongValidator extends AbstractNumberValidator {
      *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the number format, system default if null.
-     * @return The parsed <code>Long</code> if valid or <code>null</code> if invalid.
+     * @return The parsed <code>Long</code> if valid or {@code null} if invalid.
      */
     public Long validate(final String value, final Locale locale) {
         return (Long)parse(value, (String)null, locale);
@@ -229,7 +229,7 @@ public class LongValidator extends AbstractNumberValidator {
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against.
-     * @return The parsed <code>Long</code> if valid or <code>null</code> if invalid.
+     * @return The parsed <code>Long</code> if valid or {@code null} if invalid.
      */
     public Long validate(final String value, final String pattern) {
         return (Long)parse(value, pattern, (Locale)null);
@@ -241,9 +241,9 @@ public class LongValidator extends AbstractNumberValidator {
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
+     *        default for the <code>Locale</code> if {@code null}.
      * @param locale The locale to use for the date format, system default if null.
-     * @return The parsed <code>Long</code> if valid or <code>null</code> if invalid.
+     * @return The parsed <code>Long</code> if valid or {@code null} if invalid.
      */
     public Long validate(final String value, final String pattern, final Locale locale) {
         return (Long)parse(value, pattern, locale);

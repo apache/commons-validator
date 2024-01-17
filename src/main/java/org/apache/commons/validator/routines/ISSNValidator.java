@@ -100,7 +100,7 @@ public class ISSNValidator implements Serializable {
      *
      * @param issn The ISSN code to convert
      * @param suffix the two digit suffix, e.g. "00"
-     * @return A converted EAN-13 code or <code>null</code>
+     * @return A converted EAN-13 code or {@code null}
      * if the input ISSN code is not valid
      */
     public String convertToEAN13(final String issn, final String suffix) {
@@ -135,7 +135,7 @@ public class ISSNValidator implements Serializable {
      * That is a 13 digit EAN-13 code with the '977' prefix
      *
      * @param ean13 The ISSN code to convert
-     * @return A valid ISSN code or <code>null</code>
+     * @return A valid ISSN code or {@code null}
      * if the input ISSN EAN-13 code is not valid
      * @since 1.7
      */
@@ -183,7 +183,7 @@ public class ISSNValidator implements Serializable {
      * the 'ISSN ' prefix removed (if it was present)
      *
      * @param code The code to validate.
-     * @return A valid ISSN code if valid, otherwise <code>null</code>.
+     * @return A valid ISSN code if valid, otherwise {@code null}.
      */
     public Object validate(final String code) {
         return VALIDATOR.validate(code);
@@ -195,7 +195,7 @@ public class ISSNValidator implements Serializable {
      * If valid, this method returns the EAN code
      *
      * @param code The code to validate.
-     * @return A valid EAN code if valid, otherwise <code>null</code>.
+     * @return A valid EAN code if valid, otherwise {@code null}.
      * @since 1.7
      */
     public Object validateEan(final String code) {

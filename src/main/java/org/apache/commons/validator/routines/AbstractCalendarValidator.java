@@ -361,7 +361,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *    and/or <code>Locale</code>.</p>
      *
      * @param pattern The pattern used to validate the value against or
-     *        <code>null</code> to use the default for the <code>Locale</code>.
+     *        {@code null} to use the default for the <code>Locale</code>.
      * @param locale The locale to use for the currency format, system default if null.
      * @return The <code>DateFormat</code> to created.
      */
@@ -400,10 +400,10 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
+     *        default for the <code>Locale</code> if {@code null}.
      * @param locale The locale to use for the date format, system default if null.
      * @param timeZone The Time Zone used to parse the date, system default if null.
-     * @return The parsed value if valid or <code>null</code> if invalid.
+     * @return The parsed value if valid or {@code null} if invalid.
      */
     protected Object parse(String value, final String pattern, final Locale locale, final TimeZone timeZone) {
 
@@ -426,7 +426,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @param value The parsed object created.
      * @param formatter The Format used to parse the value with.
      * @return The parsed value converted to the appropriate type
-     *         if valid or <code>null</code> if invalid.
+     *         if valid or {@code null} if invalid.
      */
     @Override
     protected abstract Object processParsedValue(Object value, Format formatter);

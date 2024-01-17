@@ -146,7 +146,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      *    and/or <code>Locale</code>.</p>
      *
      * @param pattern The pattern used to validate the value against or
-     *        <code>null</code> to use the default for the <code>Locale</code>.
+     *        {@code null} to use the default for the <code>Locale</code>.
      * @param locale The locale to use for the currency format, system default if null.
      * @return The <code>NumberFormat</code> to created.
      */
@@ -209,7 +209,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
+     *        default for the <code>Locale</code> if {@code null}.
      * @param locale The locale to use for the date format, system default if null.
      * @return {@code true} if the value is valid.
      */
@@ -254,9 +254,9 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
+     *        default for the <code>Locale</code> if {@code null}.
      * @param locale The locale to use for the date format, system default if null.
-     * @return The parsed value if valid or <code>null</code> if invalid.
+     * @return The parsed value if valid or {@code null} if invalid.
      */
     protected Object parse(String value, final String pattern, final Locale locale) {
         value = value == null ? null : value.trim();
@@ -275,7 +275,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @param value The parsed object created.
      * @param formatter The Format used to parse the value with.
      * @return The parsed value converted to the appropriate type
-     *         if valid or <code>null</code> if invalid.
+     *         if valid or {@code null} if invalid.
      */
     @Override
     protected abstract Object processParsedValue(Object value, Format formatter);

@@ -423,7 +423,7 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * If the result object is a <code>Boolean</code>, it will return its value. If not it will return {@code false} if the object is <code>null</code> and
+     * If the result object is a <code>Boolean</code>, it will return its value. If not it will return {@code false} if the object is {@code null} and
      * {@code true} if it isn't.
      */
     private boolean isValid(final Object result) {

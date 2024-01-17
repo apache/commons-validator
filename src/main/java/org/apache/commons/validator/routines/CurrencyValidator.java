@@ -88,7 +88,7 @@ public class CurrencyValidator extends BigDecimalValidator {
      *
      * @param value The value to be parsed.
      * @param formatter The Format to parse the value with.
-     * @return The parsed value if valid or <code>null</code> if invalid.
+     * @return The parsed value if valid or {@code null} if invalid.
      */
     @Override
     protected Object parse(final String value, final Format formatter) {

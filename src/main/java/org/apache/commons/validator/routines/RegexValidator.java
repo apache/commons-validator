@@ -177,7 +177,7 @@ public class RegexValidator implements Serializable {
      *
      * @param value The value to validate.
      * @return String array of the <i>groups</i> matched if
-     * valid or <code>null</code> if invalid
+     * valid or {@code null} if invalid
      */
     public String[] match(final String value) {
         if (value == null) {
@@ -221,7 +221,7 @@ public class RegexValidator implements Serializable {
      *
      * @param value The value to validate.
      * @return Aggregated String value comprised of the
-     * <i>groups</i> matched if valid or <code>null</code> if invalid
+     * <i>groups</i> matched if valid or {@code null} if invalid
      */
     public String validate(final String value) {
         if (value == null) {

@@ -59,7 +59,7 @@ public class ValidatorTest {
     }
 
     /**
-     * Formats a <code>String</code> to a <code>Date</code>. The <code>Validator</code> will interpret a <code>null</code> as validation having failed.
+     * Formats a <code>String</code> to a <code>Date</code>. The <code>Validator</code> will interpret a {@code null} as validation having failed.
      */
     public static Date formatDate(final Object bean, final Field field) {
         final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -232,7 +232,7 @@ public class ValidatorTest {
     }
 
     /**
-     * Verify that one value generates an error and the other passes. The validation method being tested returns an object (<code>null</code> will be considered
+     * Verify that one value generates an error and the other passes. The validation method being tested returns an object ({@code null} will be considered
      * an error).
      */
     @Test

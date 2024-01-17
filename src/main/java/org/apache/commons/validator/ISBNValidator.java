@@ -43,7 +43,7 @@ public class ISBNValidator {
      * divided by 11 according to the ISBN algorithm.  If the result is zero,
      * the ISBN is valid.  This method accepts formatted or raw ISBN codes.
      *
-     * @param isbn Candidate ISBN number to be validated. <code>null</code> is
+     * @param isbn Candidate ISBN number to be validated. {@code null} is
      * considered invalid.
      * @return true if the string is a valid ISBN code.
      */

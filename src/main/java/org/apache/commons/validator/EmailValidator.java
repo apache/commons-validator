@@ -80,7 +80,7 @@ public class EmailValidator {
     /**
      * <p>Checks if a field has a valid e-mail address.</p>
      *
-     * @param email The value validation is being performed on.  A <code>null</code>
+     * @param email The value validation is being performed on.  A {@code null}
      * value is considered invalid.
      * @return true if the email address is valid.
      */

@@ -113,7 +113,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      *    and/or <code>Locale</code>.</p>
      *
      * @param pattern The pattern used to validate the value against or
-     *        <code>null</code> to use the default for the <code>Locale</code>.
+     *        {@code null} to use the default for the <code>Locale</code>.
      * @param locale The locale to use for the currency format, system default if null.
      * @return The <code>NumberFormat</code> to created.
      */
@@ -187,7 +187,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      *
      * @param value The value to be parsed.
      * @param formatter The Format to parse the value with.
-     * @return The parsed value if valid or <code>null</code> if invalid.
+     * @return The parsed value if valid or {@code null} if invalid.
      */
     protected Object parse(final String value, final Format formatter) {
 
@@ -216,7 +216,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @param value The parsed object created.
      * @param formatter The Format used to parse the value with.
      * @return The parsed value converted to the appropriate type
-     *         if valid or <code>null</code> if invalid.
+     *         if valid or {@code null} if invalid.
      */
     protected abstract Object processParsedValue(Object value, Format formatter);
 

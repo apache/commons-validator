@@ -153,7 +153,7 @@ public class GenericValidatorImpl {
     /**
      * Checks if the field is required.
      *
-     * @return boolean If the field isn't <code>null</code> and has a length greater than zero, {@code true} is returned. Otherwise {@code false}.
+     * @return boolean If the field isn't {@code null} and has a length greater than zero, {@code true} is returned. Otherwise {@code false}.
      */
     public static boolean validateRequired(final Object bean, final Field field) {
         final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());

@@ -504,7 +504,7 @@ public class CreditCardValidator implements Serializable {
     /**
      * Checks if the field is a valid credit card number.
      * @param card The card number to validate.
-     * @return The card number if valid or <code>null</code>
+     * @return The card number if valid or {@code null}
      * if invalid.
      */
     public Object validate(final String card) {

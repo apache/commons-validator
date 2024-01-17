@@ -413,9 +413,9 @@
  * whether validation was successful.</li>
  * <li><code>validate()</code> methods return a <code>String</code>
  * value of the matched <i>groups</i> aggregated together or
- * <code>null</code> if invalid.</li>
+ * {@code null} if invalid.</li>
  * <li><code>match()</code> methods return a <code>String</code> array
- * of the matched <i>groups</i> or <code>null</code> if invalid.</li>
+ * of the matched <i>groups</i> or {@code null} if invalid.</li>
  * </ul>
  * </li>
  * <li><b>Case Sensitivity</b> - matching can be done in either a <i>case

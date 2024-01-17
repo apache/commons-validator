@@ -111,7 +111,7 @@ public class ISINValidator implements Serializable {
      * Check the code is valid ISIN code.
      *
      * @param code The code to validate.
-     * @return A valid ISIN code if valid, otherwise <code>null</code>.
+     * @return A valid ISIN code if valid, otherwise {@code null}.
      */
     public Object validate(final String code) {
         final Object validate = VALIDATOR.validate(code);
