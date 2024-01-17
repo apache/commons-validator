@@ -68,7 +68,7 @@ public class DoubleValidator extends AbstractNumberValidator {
     private static final DoubleValidator VALIDATOR = new DoubleValidator();
 
     /**
-     * Return a singleton instance of this validator.
+     * Gets the singleton instance of this validator.
      * @return A singleton instance of the DoubleValidator.
      */
     public static DoubleValidator getInstance() {

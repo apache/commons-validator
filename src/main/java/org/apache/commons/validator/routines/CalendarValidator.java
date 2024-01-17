@@ -111,7 +111,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
     }
 
     /**
-     * Return a singleton instance of this validator.
+     * Gets the singleton instance of this validator.
      * @return A singleton instance of the CalendarValidator.
      */
     public static CalendarValidator getInstance() {

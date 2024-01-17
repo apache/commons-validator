@@ -80,7 +80,7 @@ public class ValidatorResults implements Serializable {
     }
 
     /**
-     * Return the set of property names for which at least one message has
+     * Gets the set of property names for which at least one message has
      * been recorded.
      * @return An unmodifiable Set of the property names.
      */
@@ -128,7 +128,7 @@ public class ValidatorResults implements Serializable {
     }
 
     /**
-     * Return {@code true} if there are no messages recorded
+     * Gets {@code true} if there are no messages recorded
      * in this collection, or {@code false} otherwise.
      *
      * @return Whether these results are empty.

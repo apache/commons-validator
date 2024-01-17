@@ -357,7 +357,7 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Return an instance of the validation class or null if the validation method is static so does not require an instance to be executed.
+     * Gets an instance of the validation class or null if the validation method is static so does not require an instance to be executed.
      */
     private Object getValidationClassInstance() throws ValidatorException {
         if (Modifier.isStatic(this.validationMethod.getModifiers())) {

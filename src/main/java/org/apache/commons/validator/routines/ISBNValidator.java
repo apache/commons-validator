@@ -96,7 +96,7 @@ public class ISBNValidator implements Serializable {
     private static final ISBNValidator ISBN_VALIDATOR_NO_CONVERT = new ISBNValidator(false);
 
     /**
-     * Return a singleton instance of the ISBN validator which
+     * Gets the singleton instance of the ISBN validator which
      * converts ISBN-10 codes to ISBN-13.
      *
      * @return A singleton instance of the ISBN validator.
@@ -106,7 +106,7 @@ public class ISBNValidator implements Serializable {
     }
 
     /**
-     * Return a singleton instance of the ISBN validator specifying
+     * Gets the singleton instance of the ISBN validator specifying
      * whether ISBN-10 codes should be converted to ISBN-13.
      *
      * @param convert {@code true} if valid ISBN-10 codes

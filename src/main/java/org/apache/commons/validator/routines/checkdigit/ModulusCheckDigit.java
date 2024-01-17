@@ -116,7 +116,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
     }
 
     /**
-     * Return the modulus value this check digit routine is based on.
+     * Gets the modulus value this check digit routine is based on.
      *
      * @return The modulus value this check digit routine is based on
      */

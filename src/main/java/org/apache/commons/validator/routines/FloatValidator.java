@@ -68,7 +68,7 @@ public class FloatValidator extends AbstractNumberValidator {
     private static final FloatValidator VALIDATOR = new FloatValidator();
 
     /**
-     * Return a singleton instance of this validator.
+     * Gets the singleton instance of this validator.
      * @return A singleton instance of the FloatValidator.
      */
     public static FloatValidator getInstance() {

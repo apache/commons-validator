@@ -67,7 +67,7 @@ public class LongValidator extends AbstractNumberValidator {
     private static final LongValidator VALIDATOR = new LongValidator();
 
     /**
-     * Return a singleton instance of this validator.
+     * Gets the singleton instance of this validator.
      * @return A singleton instance of the LongValidator.
      */
     public static LongValidator getInstance() {

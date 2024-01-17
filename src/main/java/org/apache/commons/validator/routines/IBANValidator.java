@@ -239,7 +239,7 @@ public class IBANValidator {
     public static final IBANValidator DEFAULT_IBAN_VALIDATOR = new IBANValidator();
 
     /**
-     * Return a singleton instance of the IBAN validator using the default formats
+     * Gets the singleton instance of the IBAN validator using the default formats
      *
      * @return A singleton instance of the IBAN validator
      */

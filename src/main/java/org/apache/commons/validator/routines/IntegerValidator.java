@@ -68,7 +68,7 @@ public class IntegerValidator extends AbstractNumberValidator {
     private static final IntegerValidator VALIDATOR = new IntegerValidator();
 
     /**
-     * Return a singleton instance of this validator.
+     * Gets the singleton instance of this validator.
      * @return A singleton instance of the IntegerValidator.
      */
     public static IntegerValidator getInstance() {

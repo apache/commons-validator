@@ -172,7 +172,7 @@ public final class CodeValidator implements Serializable {
     }
 
     /**
-     * Return the check digit validation routine.
+     * Gets the check digit validation routine.
      * <p>
      * <b>N.B.</b> Optional, if not set no Check Digit
      * validation will be performed on the code.
@@ -184,7 +184,7 @@ public final class CodeValidator implements Serializable {
     }
 
     /**
-     * Return the maximum length of the code.
+     * Gets the maximum length of the code.
      * <p>
      * <b>N.B.</b> Optional, if less than zero the
      * maximum length will not be checked.
@@ -197,7 +197,7 @@ public final class CodeValidator implements Serializable {
     }
 
     /**
-     * Return the minimum length of the code.
+     * Gets the minimum length of the code.
      * <p>
      * <b>N.B.</b> Optional, if less than zero the
      * minimum length will not be checked.
@@ -210,7 +210,7 @@ public final class CodeValidator implements Serializable {
     }
 
     /**
-     * Return the <i>regular expression</i> validator.
+     * Gets the <i>regular expression</i> validator.
      * <p>
      * <b>N.B.</b> Optional, if not set no regular
      * expression validation will be performed on the code.

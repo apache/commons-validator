@@ -71,7 +71,7 @@ public class ISINValidator implements Serializable {
     }
 
     /**
-     * Return a singleton instance of the ISIN validator
+     * Gets the singleton instance of the ISIN validator
      * @param checkCountryCode whether to check the country-code prefix or not
      * @return A singleton instance of the appropriate ISIN validator.
      */

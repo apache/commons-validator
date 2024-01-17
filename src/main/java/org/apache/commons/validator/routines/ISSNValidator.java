@@ -82,7 +82,7 @@ public class ISSNValidator implements Serializable {
     private static final ISSNValidator ISSN_VALIDATOR = new ISSNValidator();
 
     /**
-     * Return a singleton instance of the ISSN validator
+     * Gets the singleton instance of the ISSN validator
      *
      * @return A singleton instance of the ISSN validator.
      */

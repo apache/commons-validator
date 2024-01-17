@@ -72,7 +72,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     private static final BigDecimalValidator VALIDATOR = new BigDecimalValidator();
 
     /**
-     * Return a singleton instance of this validator.
+     * Gets the singleton instance of this validator.
      * @return A singleton instance of the BigDecimalValidator.
      */
     public static BigDecimalValidator getInstance() {

@@ -56,7 +56,7 @@ public class PercentValidator extends BigDecimalValidator {
     private static final BigDecimal POINT_ZERO_ONE = new BigDecimal("0.01");
 
     /**
-     * Return a singleton instance of this validator.
+     * Gets the singleton instance of this validator.
      * @return A singleton instance of the PercentValidator.
      */
     public static BigDecimalValidator getInstance() {

@@ -51,7 +51,7 @@ public class CurrencyValidator extends BigDecimalValidator {
     private static final char CURRENCY_SYMBOL = '\u00A4';
 
     /**
-     * Return a singleton instance of this validator.
+     * Gets the singleton instance of this validator.
      * @return A singleton instance of the CurrencyValidator.
      */
     public static BigDecimalValidator getInstance() {

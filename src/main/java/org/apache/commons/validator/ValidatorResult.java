@@ -155,7 +155,7 @@ public class ValidatorResult implements Serializable {
     }
 
     /**
-     * Return a Map of the validator actions in this Result.
+     * Gets a Map of the validator actions in this Result.
      * @return Map of validator actions.
      * @deprecated Use getActions() to return the set of actions
      *             the isValid(name) and getResult(name) methods
@@ -168,7 +168,7 @@ public class ValidatorResult implements Serializable {
     }
 
     /**
-     * Return an Iterator of the action names contained in this Result.
+     * Gets an Iterator of the action names contained in this Result.
      * @return The set of action names.
      */
     public Iterator<String> getActions() {
@@ -184,7 +184,7 @@ public class ValidatorResult implements Serializable {
     }
 
     /**
-     * Return the result of a validation.
+     * Gets the result of a validation.
      * @param validatorName Name of the validator.
      * @return The validation result.
      */
