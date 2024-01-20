@@ -24,7 +24,6 @@ import org.junit.jupiter.api.Test;
 /**
  * ISIN Check Digit Test.
  *
- * @since 1.4
  */
 public class ISINCheckDigitTest extends AbstractCheckDigitTest {
 

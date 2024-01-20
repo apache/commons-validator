@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Test;
 /**
  * CUSIP Check Digit Test.
  *
- * @since 1.4
  */
 public class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
 

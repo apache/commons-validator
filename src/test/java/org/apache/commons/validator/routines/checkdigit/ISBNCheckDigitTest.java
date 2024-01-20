@@ -26,7 +26,6 @@ import org.junit.jupiter.api.Test;
 /**
  * ISBN-10/ISBN-13 Check Digit Test.
  *
- * @since 1.4
  */
 public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
 

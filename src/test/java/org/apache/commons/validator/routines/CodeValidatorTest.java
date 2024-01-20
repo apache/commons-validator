@@ -27,7 +27,6 @@ import org.junit.jupiter.api.Test;
 /**
  * CodeValidatorTest.java.
  *
- * @since 1.4
  */
 public class CodeValidatorTest {
 

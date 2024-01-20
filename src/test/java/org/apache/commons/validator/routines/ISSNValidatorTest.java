@@ -32,7 +32,6 @@ import org.junit.jupiter.api.Test;
 /**
  * ISSNValidator Test Case.
  *
- * @since 1.5.0
  */
 public class ISSNValidatorTest {
 

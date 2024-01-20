@@ -21,7 +21,6 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * ISBN-10 Check Digit Test.
  *
- * @since 1.4
  */
 public class ISBN10CheckDigitTest extends AbstractCheckDigitTest {
 

@@ -21,7 +21,6 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * Luhn Check Digit Test.
  *
- * @since 1.4
  */
 public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
 

@@ -24,7 +24,6 @@ import org.junit.jupiter.api.Test;
 /**
  * ISINValidator Test Case.
  *
- * @since 1.7
  */
 public class ISINValidatorTest {
 

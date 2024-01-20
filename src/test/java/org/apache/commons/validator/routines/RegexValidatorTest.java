@@ -28,7 +28,6 @@ import org.junit.jupiter.api.Test;
 /**
  * Test Case for RegexValidatorTest.
  *
- * @since 1.4
  */
 public class RegexValidatorTest {
 

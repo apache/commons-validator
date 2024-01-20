@@ -37,7 +37,6 @@ import org.junit.jupiter.api.Test;
 /**
  * Luhn Check Digit Test.
  *
- * @since 1.4
  */
 public abstract class AbstractCheckDigitTest {
 
