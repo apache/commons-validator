@@ -27,7 +27,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * IBAN Check Digit Test.
- *
  */
 public class IBANCheckDigitTest extends AbstractCheckDigitTest {
 

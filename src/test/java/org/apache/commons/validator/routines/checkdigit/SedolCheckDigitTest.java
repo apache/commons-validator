@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * ISIN Check Digit Test.
- *
  */
 public class SedolCheckDigitTest extends AbstractCheckDigitTest {
 

@@ -160,7 +160,6 @@ public class ValidatorResult implements Serializable {
      * @deprecated Use getActions() to return the set of actions
      *             the isValid(name) and getResult(name) methods
      *             to determine the contents of ResultStatus.
-     *
      */
     @Deprecated
     public Map<String, ResultStatus> getActionMap() {

@@ -20,7 +20,6 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * EAN-13 Check Digit Test.
- *
  */
 public class EAN13CheckDigitTest extends AbstractCheckDigitTest {
 

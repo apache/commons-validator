@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * ISINValidator Test Case.
- *
  */
 public class ISINValidatorTest {
 

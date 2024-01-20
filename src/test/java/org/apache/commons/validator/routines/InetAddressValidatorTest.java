@@ -86,7 +86,6 @@ public class InetAddressValidatorTest {
      * <p>
      * These tests were ported from a <a href="https://download.dartware.com/thirdparty/test-ipv6-regex.pl">Perl script</a>.
      * </p>
-     *
      */
     @Test
     public void testIPv6() {

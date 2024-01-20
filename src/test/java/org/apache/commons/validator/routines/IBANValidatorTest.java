@@ -42,7 +42,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * IBANValidator Test Case.
- *
  */
 public class IBANValidatorTest {
 

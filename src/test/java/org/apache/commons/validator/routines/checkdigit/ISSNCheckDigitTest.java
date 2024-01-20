@@ -20,7 +20,6 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * ISSN Check Digit Test.
- *
  */
 public class ISSNCheckDigitTest extends AbstractCheckDigitTest {
 
