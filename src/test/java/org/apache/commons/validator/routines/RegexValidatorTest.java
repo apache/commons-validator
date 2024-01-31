@@ -157,13 +157,13 @@ public class RegexValidatorTest {
     @Test
     public void testMultipleInsensitive() {
 
-        // ------------ Set up In-sensitive Validators
+        // Set up In-sensitive Validators
         final RegexValidator multiple = new RegexValidator(MULTIPLE_REGEX, false);
         final RegexValidator single1 = new RegexValidator(REGEX_1, false);
         final RegexValidator single2 = new RegexValidator(REGEX_2, false);
         final RegexValidator single3 = new RegexValidator(REGEX_3, false);
 
-        // ------------ Set up test values
+        // Set up test values
         String value = "AAC FDE 321";
         final String expect = "AACFDE321";
         final String[] array = { "AAC", "FDE", "321" };
@@ -199,13 +199,13 @@ public class RegexValidatorTest {
     @Test
     public void testMultipleSensitive() {
 
-        // ------------ Set up Sensitive Validators
+        // Set up Sensitive Validators
         final RegexValidator multiple = new RegexValidator(MULTIPLE_REGEX);
         final RegexValidator single1 = new RegexValidator(REGEX_1);
         final RegexValidator single2 = new RegexValidator(REGEX_2);
         final RegexValidator single3 = new RegexValidator(REGEX_3);
 
-        // ------------ Set up test values
+        // Set up test values
         String value = "aac FDE 321";
         final String expect = "aacFDE321";
         final String[] array = { "aac", "FDE", "321" };

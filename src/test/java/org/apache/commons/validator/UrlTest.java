@@ -69,7 +69,6 @@ public class UrlTest {
 
     private final boolean printIndex = false;// print index that indicates current scheme,host,port,path, query test were using.
 
-    // -------------------- Test data for creating a composite URL
     /**
      * The data given below approximates the 4 parts of a URL <scheme>://<authority><path>?<query> except that the port number is broken out of authority to
      * increase the number of permutations. A complete URL is composed of a scheme+authority+port+path+query, all of which must be individually valid for the
@@ -105,7 +104,7 @@ public class UrlTest {
     Object[] testUrlPartsOptions = { testUrlScheme, testUrlAuthority, testUrlPort, testUrlPathOptions, testUrlQuery };
 
     int[] testPartsIndex = { 0, 0, 0, 0, 0 };
-    // ---------------- Test data for individual url parts ----------------
+    // Test data for individual url parts
     ResultPair[] testScheme = { new ResultPair("http", true), new ResultPair("ftp", false), new ResultPair("httpd", false), new ResultPair("telnet", false) };
 
     @BeforeEach

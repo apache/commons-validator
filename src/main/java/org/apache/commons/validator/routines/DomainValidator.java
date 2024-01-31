@@ -2024,10 +2024,9 @@ public class DomainValidator implements Serializable {
     /** Whether to allow local overrides. */
     private final boolean allowLocal;
 
-    // ---------------------------------------------
-    // ----- TLDs defined by IANA
-    // ----- Authoritative and comprehensive list at:
-    // ----- https://data.iana.org/TLD/tlds-alpha-by-domain.txt
+    // TLDs defined by IANA
+    // Authoritative and comprehensive list at:
+    // https://data.iana.org/TLD/tlds-alpha-by-domain.txt
 
     // Note that the above list is in UPPER case.
     // The code currently converts strings to lower case (as per the tables below)
