@@ -65,6 +65,8 @@ The <action> type attribute can be add,update,fix,remove.
 
   <body>
   <release version="1.8.1" date="202Y-MM-DD" description="Maintenance and bug fix release.">
+    <!-- UPDATE -->
+    <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-parent from 65 to 66.</action>
   </release>
   <release version="1.8.0" date="2023-12-02" description="Maintenance and bug fix release.">
     <!-- FIX -->
