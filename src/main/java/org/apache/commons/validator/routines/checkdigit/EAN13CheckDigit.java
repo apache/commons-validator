@@ -53,7 +53,6 @@ public final class EAN13CheckDigit extends ModulusCheckDigit {
      * Constructs a modulus 10 Check Digit routine for EAN/UPC.
      */
     public EAN13CheckDigit() {
-        super();
     }
 
     /**
