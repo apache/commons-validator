@@ -54,7 +54,6 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * Constructs a modulus 10 Check Digit routine for ISBN-10.
      */
     public SedolCheckDigit() {
-        super();
     }
 
     /**
