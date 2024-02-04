@@ -290,7 +290,7 @@ public abstract class AbstractCheckDigitTest {
         // Deserialize the test object
         Object result = null;
         try (ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray())) {
-            ObjectInputStream ois = new ObjectInputStream(bais);
+            final ObjectInputStream ois = new ObjectInputStream(bais);
             result = ois.readObject();
         } catch (final Exception e) {
             fail(routine.getClass().getName() + " error during deserialization: " + e);
