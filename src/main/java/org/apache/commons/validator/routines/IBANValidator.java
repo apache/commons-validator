@@ -102,7 +102,7 @@ public class IBANValidator {
             this.otherCountryCodes = otherCountryCodes.clone();
             final List<String> regexList = new ArrayList<>(this.otherCountryCodes.length + 1);
             regexList.add(countryCode + regexWithoutCC);
-            for (String otherCc : otherCountryCodes) {
+            for (final String otherCc : otherCountryCodes) {
                 regexList.add(otherCc + regexWithoutCC);
             }
             this.ibanLength = ibanLength;
@@ -269,7 +269,7 @@ public class IBANValidator {
         final ConcurrentMap<String, Validator> map = new ConcurrentHashMap<>();
         for (final Validator validator : validators) {
             map.put(validator.countryCode, validator);
-            for (String otherCC : validator.otherCountryCodes) {
+            for (final String otherCC : validator.otherCountryCodes) {
                 map.put(otherCC, validator);
             }
         }
