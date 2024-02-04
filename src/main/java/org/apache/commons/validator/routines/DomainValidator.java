@@ -2071,7 +2071,7 @@ public class DomainValidator implements Serializable {
 
     /** Local override. */
     final String[] myLocalTLDsMinus;
-    
+
     /*
      * It is vital that instances are immutable. This is because the default instances are shared.
      */
