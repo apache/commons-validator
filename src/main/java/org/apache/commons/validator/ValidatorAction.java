@@ -366,7 +366,7 @@ public class ValidatorAction implements Serializable {
         } else if (this.instance == null) {
             try {
                 this.instance = this.validationClass.getConstructor().newInstance();
-            } catch (ReflectiveOperationException e) {
+            } catch (final ReflectiveOperationException e) {
                 final String msg1 = "Couldn't create instance of " + this.className + ".  " + e.getMessage();
 
                 throw new ValidatorException(msg1);
@@ -558,7 +558,7 @@ public class ValidatorAction implements Serializable {
      * @param name The resource name
      * @return An input stream for reading the resource, or {@code null} if the resource could not be found
      */
-    private InputStream openInputStream(final String javaScriptFileName, ClassLoader classLoader) {
+    private InputStream openInputStream(final String javaScriptFileName, final ClassLoader classLoader) {
         InputStream is = null;
         if (classLoader != null) {
             is = classLoader.getResourceAsStream(javaScriptFileName);
