@@ -155,11 +155,16 @@
     <!-- config_loc is used by Eclipse plugin -->
     <property name="file" value="${config_loc}/checkstyle-suppressions.xml" />
   </module>
-  <!-- @author tags are deprecated -->
   <module name="RegexpSingleline">
+    <!-- @author tags are deprecated -->
     <property name="format" value="^\s+\*\s+@author\s" />
     <property name="message" value="Deprecated @author tag" />
     <property name="fileExtensions" value="java" />
     <property name="severity" value="warning" />
+  </module>
+  <module name="RegexpSingleline">
+    <!-- \s matches whitespace character, $ matches end of line. -->
+    <property name="format" value="\s+$" />
+    <property name="message" value="Line has trailing spaces." />
   </module>
 </module>
