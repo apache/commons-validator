@@ -115,7 +115,7 @@ public class ValidatorUtils {
         try {
             value = PropertyUtils.getProperty(bean, property);
 
-        } catch (ReflectiveOperationException e) {
+        } catch (final ReflectiveOperationException e) {
             LOG.error(e.getMessage(), e);
         }
 
@@ -144,7 +144,7 @@ public class ValidatorUtils {
      *
      * @return The modified value.
      */
-    public static String replace(String value, final String key, final String replaceValue) {
+    public static String replace(final String value, final String key, final String replaceValue) {
         if (value == null || key == null || replaceValue == null) {
             return value;
         }
