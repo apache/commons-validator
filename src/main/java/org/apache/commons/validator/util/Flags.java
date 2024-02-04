@@ -98,7 +98,7 @@ public class Flags implements Serializable, Cloneable {
         if (!(obj instanceof Flags)) {
             return false;
         }
-        Flags other = (Flags) obj;
+        final Flags other = (Flags) obj;
         return flags == other.flags;
     }
 
