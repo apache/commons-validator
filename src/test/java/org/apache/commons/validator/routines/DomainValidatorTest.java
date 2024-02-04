@@ -362,7 +362,7 @@ public class DomainValidatorTest {
         if (header != null) {
             System.out.println("        // Taken from " + header);
         }
-        for (Entry<String, String> me : map.entrySet()) {
+        for (final Entry<String, String> me : map.entrySet()) {
             System.out.println("        \"" + me.getKey() + "\", // " + me.getValue());
         }
         System.out.println("\nDone");
