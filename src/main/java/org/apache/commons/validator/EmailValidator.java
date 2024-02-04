@@ -203,7 +203,7 @@ public class EmailValidator {
     /**
      * Recursively remove comments, and replace with a single space. The simpler regexps in the Email Addressing FAQ are imperfect - they will miss escaped
      * chars in atoms, for example. Derived From Mail::RFC822::Address
-     * 
+     *
      * @param emailStr The email address
      * @return address with comments removed.
      */
