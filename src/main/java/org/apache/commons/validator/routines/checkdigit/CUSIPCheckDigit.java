@@ -52,7 +52,6 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      * Constructs a CUSIP Identifier Check Digit routine.
      */
     public CUSIPCheckDigit() {
-        super();
     }
 
     /**
