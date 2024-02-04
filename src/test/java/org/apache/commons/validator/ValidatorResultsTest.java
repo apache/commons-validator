@@ -153,10 +153,7 @@ public class ValidatorResultsTest extends AbstractCommonTest {
         // for the validations to be performed on.
         validator.setParameter(Validator.BEAN_PARAM, bean);
 
-        // Get results of the validation.
-        final ValidatorResults results = validator.validate();
-
-        return results;
+        return validator.validate();
 
     }
 
