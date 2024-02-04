@@ -166,7 +166,6 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      *            weighted value
      */
     public ModulusTenCheckDigit(final int[] postitionWeight, final boolean useRightPos, final boolean sumWeightedDigits) {
-        super();
         this.postitionWeight = Arrays.copyOf(postitionWeight, postitionWeight.length);
         this.useRightPos = useRightPos;
         this.sumWeightedDigits = sumWeightedDigits;
