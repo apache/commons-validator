@@ -18,7 +18,9 @@ package org.apache.commons.validator.util;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.FastHashMap; // DEPRECATED
@@ -53,10 +55,13 @@ public class ValidatorUtils {
      */
     @Deprecated
     public static FastHashMap copyFastHashMap(final FastHashMap fastHashMap) {
-        final FastHashMap results = new FastHashMap();
+        FastHashMap results = new FastHashMap();
         @SuppressWarnings("unchecked") // FastHashMap is not generic
-        final HashMap<String, ?> map = fastHashMap;
-        map.forEach((key, value) -> {
+        Iterator<Entry<String, ?>> iterator = fastHashMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Entry<String, ?> entry = iterator.next();
+            String key = entry.getKey();
+            Object value = entry.getValue();
             if (value instanceof Msg) {
                 results.put(key, ((Msg) value).clone());
             } else if (value instanceof Arg) {
@@ -66,7 +71,7 @@ public class ValidatorUtils {
             } else {
                 results.put(key, value);
             }
-        });
+        }
         results.setFast(true);
         return results;
     }
@@ -81,7 +86,7 @@ public class ValidatorUtils {
      * @return A copy of the <code>Map</code> that was passed in.
      */
     public static Map<String, Object> copyMap(final Map<String, Object> map) {
-        final Map<String, Object> results = new HashMap<>();
+        final Map<String, Object> results = new HashMap<>(map.size());
         map.forEach((key, value) -> {
             if (value instanceof Msg) {
                 results.put(key, ((Msg) value).clone());
