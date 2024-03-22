@@ -51,11 +51,11 @@ public class CodeValidatorTest {
         validator = new CodeValidator((String) null, -1, EAN13CheckDigit.EAN13_CHECK_DIGIT);
 
         assertNotNull(validator.getCheckDigit(), "EAN CheckDigit");
-        assertEquals(null, validator.validate(invalidEAN), "EAN CheckDigit invalid");
+        assertNull(validator.validate(invalidEAN), "EAN CheckDigit invalid");
         assertEquals(validEAN, validator.validate(validEAN), "EAN CheckDigit valid");
         assertFalse(validator.isValid(invalidEAN), "EAN CheckDigit (is) invalid");
         assertTrue(validator.isValid(validEAN), "EAN CheckDigit (is) valid");
-        assertEquals(null, validator.validate("978193011099X"), "EAN CheckDigit ex");
+        assertNull(validator.validate("978193011099X"), "EAN CheckDigit ex");
     }
 
     /**
@@ -135,7 +135,7 @@ public class CodeValidatorTest {
         validator = new CodeValidator((String) null, 11, -1, (CheckDigit) null);
         assertEquals(11, validator.getMinLength(), "Min 11 - min");
         assertEquals(-1, validator.getMaxLength(), "Min 11 - max");
-        assertEquals(null, validator.validate(length_10), "Min 11 - 10");
+        assertNull(validator.validate(length_10), "Min 11 - 10");
         assertEquals(length_11, validator.validate(length_11), "Min 11 - 11");
         assertEquals(length_12, validator.validate(length_12), "Min 11 - 12");
         assertEquals(length_20, validator.validate(length_20), "Min 11 - 20");
@@ -150,24 +150,24 @@ public class CodeValidatorTest {
         assertEquals(length_12, validator.validate(length_12), "Max 21 - 12");
         assertEquals(length_20, validator.validate(length_20), "Max 21 - 20");
         assertEquals(length_21, validator.validate(length_21), "Max 21 - 21");
-        assertEquals(null, validator.validate(length_22), "Max 21 - 22");
+        assertNull(validator.validate(length_22), "Max 21 - 22");
 
         validator = new CodeValidator((String) null, 11, 21, (CheckDigit) null);
         assertEquals(11, validator.getMinLength(), "Min 11 / Max 21 - min");
         assertEquals(21, validator.getMaxLength(), "Min 11 / Max 21 - max");
-        assertEquals(null, validator.validate(length_10), "Min 11 / Max 21 - 10");
+        assertNull(validator.validate(length_10), "Min 11 / Max 21 - 10");
         assertEquals(length_11, validator.validate(length_11), "Min 11 / Max 21 - 11");
         assertEquals(length_12, validator.validate(length_12), "Min 11 / Max 21 - 12");
         assertEquals(length_20, validator.validate(length_20), "Min 11 / Max 21 - 20");
         assertEquals(length_21, validator.validate(length_21), "Min 11 / Max 21 - 21");
-        assertEquals(null, validator.validate(length_22), "Min 11 / Max 21 - 22");
+        assertNull(validator.validate(length_22), "Min 11 / Max 21 - 22");
 
         validator = new CodeValidator((String) null, 11, 11, (CheckDigit) null);
         assertEquals(11, validator.getMinLength(), "Exact 11 - min");
         assertEquals(11, validator.getMaxLength(), "Exact 11 - max");
-        assertEquals(null, validator.validate(length_10), "Exact 11 - 10");
+        assertNull(validator.validate(length_10), "Exact 11 - 10");
         assertEquals(length_11, validator.validate(length_11), "Exact 11 - 11");
-        assertEquals(null, validator.validate(length_12), "Exact 11 - 12");
+        assertNull(validator.validate(length_12), "Exact 11 - 12");
     }
 
     /**
@@ -176,9 +176,9 @@ public class CodeValidatorTest {
     @Test
     public void testNoInput() {
         final CodeValidator validator = new CodeValidator((String) null, -1, -1, (CheckDigit) null);
-        assertEquals(null, validator.validate(null), "Null");
-        assertEquals(null, validator.validate(""), "Zero Length");
-        assertEquals(null, validator.validate("   "), "Spaces");
+        assertNull(validator.validate(null), "Null");
+        assertNull(validator.validate(""), "Zero Length");
+        assertNull(validator.validate("   "), "Spaces");
         assertEquals(validator.validate(" A  "), "A", "Trimmed");
     }
 
@@ -207,19 +207,19 @@ public class CodeValidatorTest {
         String regex = "^([0-9]{3,4})$";
         validator = new CodeValidator(regex, -1, -1, (CheckDigit) null);
         assertNotNull(validator.getRegexValidator(), "No Regex");
-        assertEquals(null, validator.validate(value2), "Regex 2");
+        assertNull(validator.validate(value2), "Regex 2");
         assertEquals(value3, validator.validate(value3), "Regex 3");
         assertEquals(value4, validator.validate(value4), "Regex 4");
-        assertEquals(null, validator.validate(value5), "Regex 5");
-        assertEquals(null, validator.validate(invalid), "Regex invalid");
+        assertNull(validator.validate(value5), "Regex 5");
+        assertNull(validator.validate(invalid), "Regex invalid");
 
         // Reformatted
         regex = "^([0-9]{3})(?:[-\\s])([0-9]{3})$";
         validator = new CodeValidator(new RegexValidator(regex), 6, (CheckDigit) null);
         assertEquals(validator.validate("123-456"), "123456", "Reformat 123-456");
         assertEquals(validator.validate("123 456"), "123456", "Reformat 123 456");
-        assertEquals(null, validator.validate("123456"), "Reformat 123456");
-        assertEquals(null, validator.validate("123.456"), "Reformat 123.456");
+        assertNull(validator.validate("123456"), "Reformat 123456");
+        assertNull(validator.validate("123.456"), "Reformat 123.456");
 
         regex = "^(?:([0-9]{3})(?:[-\\s])([0-9]{3}))|([0-9]{6})$";
         validator = new CodeValidator(new RegexValidator(regex), 6, (CheckDigit) null);
@@ -233,15 +233,15 @@ public class CodeValidatorTest {
     @Test
     public void testValidator294_1() {
         CodeValidator validator = new CodeValidator((String) null, 0, -1, (CheckDigit) null);
-        assertEquals(null, validator.validate(null), "Null");
+        assertNull(validator.validate(null), "Null");
         validator = new CodeValidator((String) null, -1, 0, (CheckDigit) null);
-        assertEquals(null, validator.validate(null), "Null");
+        assertNull(validator.validate(null), "Null");
     }
 
     @Test
     public void testValidator294_2() {
         final CodeValidator validator = new CodeValidator((String) null, -1, 0, (CheckDigit) null);
-        assertEquals(null, validator.validate(null), "Null");
+        assertNull(validator.validate(null), "Null");
     }
 
 }
