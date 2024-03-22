@@ -19,6 +19,7 @@ package org.apache.commons.validator.routines;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
@@ -42,8 +43,8 @@ public class CodeValidatorTest {
         assertNull(validator.getCheckDigit(), "No CheckDigit");
         assertEquals(invalidEAN, validator.validate(invalidEAN), "No CheckDigit invalid");
         assertEquals(validEAN, validator.validate(validEAN), "No CheckDigit valid");
-        assertEquals(true, validator.isValid(invalidEAN), "No CheckDigit (is) invalid");
-        assertEquals(true, validator.isValid(validEAN), "No CheckDigit (is) valid");
+        assertTrue(validator.isValid(invalidEAN), "No CheckDigit (is) invalid");
+        assertTrue(validator.isValid(validEAN), "No CheckDigit (is) valid");
 
         // Use the EAN-13 check digit routine
         validator = new CodeValidator((String) null, -1, EAN13CheckDigit.EAN13_CHECK_DIGIT);
@@ -52,7 +53,7 @@ public class CodeValidatorTest {
         assertEquals(null, validator.validate(invalidEAN), "EAN CheckDigit invalid");
         assertEquals(validEAN, validator.validate(validEAN), "EAN CheckDigit valid");
         assertEquals(false, validator.isValid(invalidEAN), "EAN CheckDigit (is) invalid");
-        assertEquals(true, validator.isValid(validEAN), "EAN CheckDigit (is) valid");
+        assertTrue(validator.isValid(validEAN), "EAN CheckDigit (is) valid");
         assertEquals(null, validator.validate("978193011099X"), "EAN CheckDigit ex");
     }
 

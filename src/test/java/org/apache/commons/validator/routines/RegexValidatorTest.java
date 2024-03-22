@@ -18,6 +18,7 @@ package org.apache.commons.validator.routines;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.regex.Pattern;
@@ -169,9 +170,9 @@ public class RegexValidatorTest {
         final String[] array = { "AAC", "FDE", "321" };
 
         // isValid()
-        assertEquals(true, multiple.isValid(value), "isValid() Multiple");
+        assertTrue(multiple.isValid(value), "isValid() Multiple");
         assertEquals(false, single1.isValid(value), "isValid() 1st");
-        assertEquals(true, single2.isValid(value), "isValid() 2nd");
+        assertTrue(single2.isValid(value), "isValid() 2nd");
         assertEquals(false, single3.isValid(value), "isValid() 3rd");
 
         // validate()
@@ -211,9 +212,9 @@ public class RegexValidatorTest {
         final String[] array = { "aac", "FDE", "321" };
 
         // isValid()
-        assertEquals(true, multiple.isValid(value), "Sensitive isValid() Multiple");
+        assertTrue( multiple.isValid(value), "Sensitive isValid() Multiple");
         assertEquals(false, single1.isValid(value), "Sensitive isValid() 1st");
-        assertEquals(true, single2.isValid(value), "Sensitive isValid() 2nd");
+        assertTrue( single2.isValid(value), "Sensitive isValid() 2nd");
         assertEquals(false, single3.isValid(value), "Sensitive isValid() 3rd");
 
         // validate()
@@ -256,9 +257,9 @@ public class RegexValidatorTest {
         final RegexValidator insensitive = new RegexValidator(REGEX, false);
 
         // isValid()
-        assertEquals(true, sensitive.isValid("ac-DE-1"), "Sensitive isValid() valid");
+        assertTrue( sensitive.isValid("ac-DE-1"), "Sensitive isValid() valid");
         assertEquals(false, sensitive.isValid("AB-de-1"), "Sensitive isValid() invalid");
-        assertEquals(true, insensitive.isValid("AB-de-1"), "Insensitive isValid() valid");
+        assertTrue( insensitive.isValid("AB-de-1"), "Insensitive isValid() valid");
         assertEquals(false, insensitive.isValid("ABd-de-1"), "Insensitive isValid() invalid");
 
         // validate()
