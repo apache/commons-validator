@@ -17,6 +17,7 @@
 package org.apache.commons.validator.routines;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -52,7 +53,7 @@ public class CodeValidatorTest {
         assertNotNull(validator.getCheckDigit(), "EAN CheckDigit");
         assertEquals(null, validator.validate(invalidEAN), "EAN CheckDigit invalid");
         assertEquals(validEAN, validator.validate(validEAN), "EAN CheckDigit valid");
-        assertEquals(false, validator.isValid(invalidEAN), "EAN CheckDigit (is) invalid");
+        assertFalse(validator.isValid(invalidEAN), "EAN CheckDigit (is) invalid");
         assertTrue(validator.isValid(validEAN), "EAN CheckDigit (is) valid");
         assertEquals(null, validator.validate("978193011099X"), "EAN CheckDigit ex");
     }

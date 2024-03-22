@@ -18,6 +18,7 @@ package org.apache.commons.validator.routines;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -171,9 +172,9 @@ public class RegexValidatorTest {
 
         // isValid()
         assertTrue(multiple.isValid(value), "isValid() Multiple");
-        assertEquals(false, single1.isValid(value), "isValid() 1st");
+        assertFalse(single1.isValid(value), "isValid() 1st");
         assertTrue(single2.isValid(value), "isValid() 2nd");
-        assertEquals(false, single3.isValid(value), "isValid() 3rd");
+        assertFalse(single3.isValid(value), "isValid() 3rd");
 
         // validate()
         assertEquals(expect, multiple.validate(value), "validate() Multiple");
@@ -189,7 +190,7 @@ public class RegexValidatorTest {
 
         // All invalid
         value = "AAC*FDE*321";
-        assertEquals(false, multiple.isValid(value), "isValid() Invalid");
+        assertFalse(multiple.isValid(value), "isValid() Invalid");
         assertEquals(null, multiple.validate(value), "validate() Invalid");
         assertEquals(null, multiple.match(value), "match() Multiple");
     }
@@ -213,9 +214,9 @@ public class RegexValidatorTest {
 
         // isValid()
         assertTrue( multiple.isValid(value), "Sensitive isValid() Multiple");
-        assertEquals(false, single1.isValid(value), "Sensitive isValid() 1st");
+        assertFalse(single1.isValid(value), "Sensitive isValid() 1st");
         assertTrue( single2.isValid(value), "Sensitive isValid() 2nd");
-        assertEquals(false, single3.isValid(value), "Sensitive isValid() 3rd");
+        assertFalse(single3.isValid(value), "Sensitive isValid() 3rd");
 
         // validate()
         assertEquals(expect, multiple.validate(value), "Sensitive validate() Multiple");
@@ -231,7 +232,7 @@ public class RegexValidatorTest {
 
         // All invalid
         value = "AAC*FDE*321";
-        assertEquals(false, multiple.isValid(value), "isValid() Invalid");
+        assertFalse(multiple.isValid(value), "isValid() Invalid");
         assertEquals(null, multiple.validate(value), "validate() Invalid");
         assertEquals(null, multiple.match(value), "match() Multiple");
     }
@@ -243,7 +244,7 @@ public class RegexValidatorTest {
     public void testNullValue() {
 
         final RegexValidator validator = new RegexValidator(REGEX);
-        assertEquals(false, validator.isValid(null), "Instance isValid()");
+        assertFalse(validator.isValid(null), "Instance isValid()");
         assertEquals(null, validator.validate(null), "Instance validate()");
         assertEquals(null, validator.match(null), "Instance match()");
     }
@@ -258,9 +259,9 @@ public class RegexValidatorTest {
 
         // isValid()
         assertTrue( sensitive.isValid("ac-DE-1"), "Sensitive isValid() valid");
-        assertEquals(false, sensitive.isValid("AB-de-1"), "Sensitive isValid() invalid");
+        assertFalse(sensitive.isValid("AB-de-1"), "Sensitive isValid() invalid");
         assertTrue( insensitive.isValid("AB-de-1"), "Insensitive isValid() valid");
-        assertEquals(false, insensitive.isValid("ABd-de-1"), "Insensitive isValid() invalid");
+        assertFalse(insensitive.isValid("ABd-de-1"), "Insensitive isValid() invalid");
 
         // validate()
         assertEquals(sensitive.validate("ac-DE-1"), "acDE1", "Sensitive validate() valid");
