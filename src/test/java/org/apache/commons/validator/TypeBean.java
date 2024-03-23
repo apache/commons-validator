@@ -17,8 +17,7 @@
 package org.apache.commons.validator;
 
 /**
- * Value object that contains different fields to test type conversion
- * validation.
+ * Value object that contains different fields to test type conversion validation.
  */
 public class TypeBean {
 
@@ -35,64 +34,64 @@ public class TypeBean {
         return sByte;
     }
 
-    public void setByte(final String sByte) {
-        this.sByte = sByte;
-    }
-
-    public String getShort() {
-        return sShort;
-    }
-
-    public void setShort(final String sShort) {
-        this.sShort = sShort;
-    }
-
-    public String getInteger() {
-        return sInteger;
-    }
-
-    public void setInteger(final String sInteger) {
-        this.sInteger = sInteger;
-    }
-
-    public String getLong() {
-        return sLong;
-    }
-
-    public void setLong(final String sLong) {
-        this.sLong = sLong;
-    }
-
-    public String getFloat() {
-        return sFloat;
-    }
-
-    public void setFloat(final String sFloat) {
-        this.sFloat = sFloat;
-    }
-
-    public String getDouble() {
-        return sDouble;
-    }
-
-    public void setDouble(final String sDouble) {
-        this.sDouble = sDouble;
+    public String getCreditCard() {
+        return sCreditCard;
     }
 
     public String getDate() {
         return sDate;
     }
 
-    public void setDate(final String sDate) {
-        this.sDate = sDate;
+    public String getDouble() {
+        return sDouble;
     }
 
-    public String getCreditCard() {
-        return sCreditCard;
+    public String getFloat() {
+        return sFloat;
+    }
+
+    public String getInteger() {
+        return sInteger;
+    }
+
+    public String getLong() {
+        return sLong;
+    }
+
+    public String getShort() {
+        return sShort;
+    }
+
+    public void setByte(final String sByte) {
+        this.sByte = sByte;
     }
 
     public void setCreditCard(final String sCreditCard) {
         this.sCreditCard = sCreditCard;
+    }
+
+    public void setDate(final String sDate) {
+        this.sDate = sDate;
+    }
+
+    public void setDouble(final String sDouble) {
+        this.sDouble = sDouble;
+    }
+
+    public void setFloat(final String sFloat) {
+        this.sFloat = sFloat;
+    }
+
+    public void setInteger(final String sInteger) {
+        this.sInteger = sInteger;
+    }
+
+    public void setLong(final String sLong) {
+        this.sLong = sLong;
+    }
+
+    public void setShort(final String sShort) {
+        this.sShort = sShort;
     }
 
 }

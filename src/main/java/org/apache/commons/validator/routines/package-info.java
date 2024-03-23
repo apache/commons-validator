@@ -150,7 +150,7 @@
  * // Validate/Convert the date using GMT
  * Date fooDate = validator.validate(fooString, "dd/MM/yyyy", GMT);
  * </pre>
- * <p>The following Time Zone <i>flavours</i> of the Validation/Conversion methods
+ * <p>The following Time Zone <i>flavors</i> of the Validation/Conversion methods
  * are provided:</p>
  * <ul>
  * <li><code>validate(<i>value</i>, TimeZone)</code></li>
@@ -406,16 +406,16 @@
  * by creating a new instance, which caches and re-uses compiled Patterns.
  * </p>
  * <ul>
- * <li><b>Method Flavours</b> - three <i>flavours</i> of validation metods are provided:</li>
+ * <li><b>Method Flavours</b> - three <i>flavors</i> of validation metods are provided:</li>
  * <li>
  * <ul>
  * <li><code>isValid()</code> methods return true/false to indicate
  * whether validation was successful.</li>
  * <li><code>validate()</code> methods return a <code>String</code>
  * value of the matched <i>groups</i> aggregated together or
- * <code>null</code> if invalid.</li>
+ * {@code null} if invalid.</li>
  * <li><code>match()</code> methods return a <code>String</code> array
- * of the matched <i>groups</i> or <code>null</code> if invalid.</li>
+ * of the matched <i>groups</i> or {@code null} if invalid.</li>
  * </ul>
  * </li>
  * <li><b>Case Sensitivity</b> - matching can be done in either a <i>case
@@ -468,7 +468,7 @@
  * String[] groups = validator.match("abc-def");
  * </pre>
  * <p>See the
- * <a href="RegexValidator.html">RegexValidator</a> javadoc for a full list
+ * <a href="RegexValidator.html">RegexValidator</a> Javadoc for a full list
  * of the available constructors.
  * </p>
  * <a id="other.checkdigit"></a>
@@ -480,7 +480,7 @@
  * </p>
  * <ul>
  * <li><code>isValid(<i>code</i>)</code> - validates the check digit of a code,
- * returning <code>true</code> or <code>false</code>.</li>
+ * returning {@code true} or {@code false}.</li>
  * <li><code>calculate(<i>code</i>)</code> - calulates the check digit for a code
  * returning the check digit character.</li>
  * </ul>
@@ -605,7 +605,7 @@
  * <ul>
  * <li><code>isValid(<i>value</i>)</code> - returns a boolean</li>
  * <li><code>validate(<i>value</i>)</code> - returns a reformatted ISBN code
- * (converts ISBN-10 to ISBN-13 if the <i>convert</i> option is <code>true</code>).</li>
+ * (converts ISBN-10 to ISBN-13 if the <i>convert</i> option is {@code true}).</li>
  * </ul>
  * </li>
  * </ul>

@@ -16,50 +16,24 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * ISSN Check Digit Test.
- *
- * @since 1.5.0
  */
 public class ISSNCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
-     * Constructor
-     * @param name test name
+     * Sets up routine & valid codes.
      */
-    public ISSNCheckDigitTest(final String name) {
-        super(name);
-    }
-
-    /**
-     * Set up routine & valid codes.
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    protected void setUp() {
         routine = ISSNCheckDigit.ISSN_CHECK_DIGIT;
-        valid = new String[] {
-                "03178471",
-                "1050124X",
-                "15626865",
-                "10637710",
-                "17487188",
-                "02642875",
-                "17500095",
-                "11881534",
-                "19111479",
-                "19111460",
-                "00016772",
-                "1365201X",
-                };
-        invalid = new String[] {
-                "03178472", // wrong check
+        valid = new String[] { "03178471", "1050124X", "15626865", "10637710", "17487188", "02642875", "17500095", "11881534", "19111479", "19111460",
+                "00016772", "1365201X", };
+        invalid = new String[] { "03178472", // wrong check
                 "1050-124X", // format char
-                " 1365201X",
-                "1365201X ",
-                " 1365201X ",
-        };
+                " 1365201X", "1365201X ", " 1365201X ", };
         missingMessage = "Code is missing";
         zeroSum = "00000000";
     }

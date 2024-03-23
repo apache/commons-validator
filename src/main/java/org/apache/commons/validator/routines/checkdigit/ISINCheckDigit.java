@@ -32,7 +32,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * </p>
  *
  * <p>
- * See <a href="http://en.wikipedia.org/wiki/ISIN">Wikipedia - ISIN</a>
+ * See <a href="https://en.wikipedia.org/wiki/ISIN">Wikipedia - ISIN</a>
  * for more details.
  * </p>
  *
@@ -47,14 +47,13 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
     /** Singleton ISIN Check Digit instance */
     public static final CheckDigit ISIN_CHECK_DIGIT = new ISINCheckDigit();
 
-    /** weighting given to digits depending on their right position */
+    /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = {2, 1};
 
     /**
-     * Construct an ISIN Indetifier Check Digit routine.
+     * Constructs an ISIN Identifier Check Digit routine.
      */
     public ISINCheckDigit() {
-        super(10); // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**
@@ -68,21 +67,20 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int calculateModulus(final String code, final boolean includesCheckDigit) throws CheckDigitException {
-        final StringBuilder transformed = new  StringBuilder(code.length() * 2); // CHECKSTYLE IGNORE MagicNumber
+        final StringBuilder transformed = new StringBuilder(code.length() * 2); // CHECKSTYLE IGNORE MagicNumber
         if (includesCheckDigit) {
-            final char checkDigit = code.charAt(code.length()-1); // fetch the last character
-            if (!Character.isDigit(checkDigit)){
-                throw new CheckDigitException("Invalid checkdigit["+ checkDigit+ "] in " + code);
+            final char checkDigit = code.charAt(code.length() - 1); // fetch the last character
+            if (!Character.isDigit(checkDigit)) {
+                throw new CheckDigitException("Invalid checkdigit[" + checkDigit + "] in " + code);
             }
         }
         for (int i = 0; i < code.length(); i++) {
             final int charValue = Character.getNumericValue(code.charAt(i));
             if (charValue < 0 || charValue > MAX_ALPHANUMERIC_VALUE) {
-                throw new CheckDigitException("Invalid Character[" +
-                        (i + 1) + "] = '" + charValue + "'");
+                throw new CheckDigitException("Invalid Character[" + (i + 1) + "] = '" + charValue + "'");
             }
-             // this converts alphanumerics to two digits
-             // so there is no need to overload toInt()
+            // this converts alphanumerics to two digits
+            // so there is no need to overload toInt()
             transformed.append(charValue);
         }
         return super.calculateModulus(transformed.toString(), includesCheckDigit);

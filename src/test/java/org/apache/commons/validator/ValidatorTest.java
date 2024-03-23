@@ -16,6 +16,12 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -24,118 +30,70 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.validator.util.ValidatorUtils;
-
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 /**
  * Performs Validation Test.
  */
-public class ValidatorTest extends TestCase {
+public class ValidatorTest {
 
-   public ValidatorTest(final String name) {
-       super(name);
-   }
+    public static class TestBean {
+        private String letter;
+        private String date;
 
-   /**
-    * Verify that one value generates an error and the other passes.  The validation
-    * method being tested returns an object (<code>null</code> will be considered an error).
-    */
-   public void testManualObject() {
-        //     property name of the method we are validating
-        final String property = "date";
-        // name of ValidatorAction
-        final String action = "date";
-        final ValidatorResources resources = setupDateResources(property, action);
+        public String getDate() {
+            return date;
+        }
 
-      final TestBean bean = new TestBean();
-      bean.setDate("2/3/1999");
+        public String getLetter() {
+            return letter;
+        }
 
-      final Validator validator = new Validator(resources, "testForm");
-      validator.setParameter(Validator.BEAN_PARAM, bean);
+        public void setDate(final String date) {
+            this.date = date;
+        }
 
-      try {
-         final ValidatorResults results = validator.validate();
+        public void setLetter(final String letter) {
+            this.letter = letter;
+        }
+    }
 
-         assertNotNull("Results are null.", results);
+    /**
+     * Formats a <code>String</code> to a <code>Date</code>. The <code>Validator</code> will interpret a {@code null} as validation having failed.
+     */
+    public static Date formatDate(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+        Date date = null;
 
-         final ValidatorResult result = results.getValidatorResult(property);
+        try {
+            final DateFormat formatter = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
 
-         assertNotNull("Results are null.", results);
+            formatter.setLenient(false);
 
-         assertTrue("ValidatorResult does not contain '" + action + "' validator result.", result.containsAction(action));
+            date = formatter.parse(value);
+        } catch (final ParseException e) {
+            System.out.println("ValidatorTest.formatDate() - " + e.getMessage());
+        }
 
-         assertTrue("Validation of the date formatting has failed.", result.isValid(action));
-      } catch (final Exception e) {
-         fail("An exception was thrown while calling Validator.validate()");
-      }
+        return date;
+    }
 
-      bean.setDate("2/30/1999");
+    /**
+     * Checks if the field is one upper case letter between 'A' and 'Z'.
+     */
+    public static boolean isCapLetter(final Object bean, final Field field, final List<String> l) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      try {
-         final ValidatorResults results = validator.validate();
-
-         assertNotNull("Results are null.", results);
-
-         final ValidatorResult result = results.getValidatorResult(property);
-
-         assertNotNull("Results are null.", results);
-
-         assertTrue("ValidatorResult does not contain '" + action + "' validator result.", result.containsAction(action));
-
-         assertTrue("Validation of the date formatting has passed when it should have failed.", !result.isValid(action));
-      } catch (final Exception e) {
-         fail("An exception was thrown while calling Validator.validate()");
-      }
-
-   }
-
-   public void testOnlyReturnErrors() throws ValidatorException {
-        //     property name of the method we are validating
-        final String property = "date";
-        // name of ValidatorAction
-        final String action = "date";
-        final ValidatorResources resources = setupDateResources(property, action);
-
-        final TestBean bean = new TestBean();
-        bean.setDate("2/3/1999");
-
-        final Validator validator = new Validator(resources, "testForm");
-        validator.setParameter(Validator.BEAN_PARAM, bean);
-
-        ValidatorResults results = validator.validate();
-
-        assertNotNull(results);
-
-        // Field passed and should be in results
-        assertTrue(results.getPropertyNames().contains(property));
-
-        // Field passed but should not be in results
-        validator.setOnlyReturnErrors(true);
-        results = validator.validate();
-        assertFalse(results.getPropertyNames().contains(property));
-   }
-
-   public void testOnlyValidateField() throws ValidatorException {
-        //     property name of the method we are validating
-        final String property = "date";
-        // name of ValidatorAction
-        final String action = "date";
-        final ValidatorResources resources = setupDateResources(property, action);
-
-        final TestBean bean = new TestBean();
-        bean.setDate("2/3/1999");
-
-        final Validator validator = new Validator(resources, "testForm", property);
-        validator.setParameter(Validator.BEAN_PARAM, bean);
-
-        final ValidatorResults results = validator.validate();
-
-        assertNotNull(results);
-
-        // Field passed and should be in results
-        assertTrue(results.getPropertyNames().contains(property));
-   }
-
+        if (value == null || value.length() != 1) {
+            l.add("Error");
+            return false;
+        }
+        if (value.charAt(0) >= 'A' && value.charAt(0) <= 'Z') {
+            return true;
+        }
+        l.add("Error");
+        return false;
+    }
 
     private ValidatorResources setupDateResources(final String property, final String action) {
 
@@ -163,119 +121,217 @@ public class ValidatorTest extends TestCase {
         return resources;
     }
 
-   /**
-    * Verify that one value generates an error and the other passes.  The validation
-    * method being tested returns a <code>boolean</code> value.
-    */
-   public void testManualBoolean() {
-      final ValidatorResources resources = new ValidatorResources();
+    /**
+     * Verify that one value generates an error and the other passes. The validation method being tested returns a <code>boolean</code> value.
+     */
+    @Test
+    public void testManualBoolean() {
+        final ValidatorResources resources = new ValidatorResources();
 
-      final ValidatorAction va = new ValidatorAction();
-      va.setName("capLetter");
-      va.setClassname("org.apache.commons.validator.ValidatorTest");
-      va.setMethod("isCapLetter");
-      va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field,java.util.List");
+        final ValidatorAction va = new ValidatorAction();
+        va.setName("capLetter");
+        va.setClassName("org.apache.commons.validator.ValidatorTest");
+        va.setMethod("isCapLetter");
+        va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field,java.util.List");
 
-      final FormSet fs = new FormSet();
-      final Form form = new Form();
-      form.setName("testForm");
-      final Field field = new Field();
-      field.setProperty("letter");
-      field.setDepends("capLetter");
-      form.addField(field);
-      fs.addForm(form);
+        final FormSet fs = new FormSet();
+        final Form form = new Form();
+        form.setName("testForm");
+        final Field field = new Field();
+        field.setProperty("letter");
+        field.setDepends("capLetter");
+        form.addField(field);
+        fs.addForm(form);
 
-      resources.addValidatorAction(va);
-      resources.addFormSet(fs);
-      resources.process();
+        resources.addValidatorAction(va);
+        resources.addFormSet(fs);
+        resources.process();
 
-      final List<?> l = new ArrayList<>();
+        final List<?> l = new ArrayList<>();
 
-      final TestBean bean = new TestBean();
-      bean.setLetter("A");
+        final TestBean bean = new TestBean();
+        bean.setLetter("A");
 
-      final Validator validator = new Validator(resources, "testForm");
-      validator.setParameter(Validator.BEAN_PARAM, bean);
-      validator.setParameter("java.util.List", l);
+        final Validator validator = new Validator(resources, "testForm");
+        validator.setParameter(Validator.BEAN_PARAM, bean);
+        validator.setParameter("java.util.List", l);
 
-      try {
-         validator.validate();
-      } catch (final Exception e) {
-         fail("An exception was thrown while calling Validator.validate()");
-      }
+        try {
+            validator.validate();
+        } catch (final Exception e) {
+            fail("An exception was thrown while calling Validator.validate()");
+        }
 
-      assertEquals("Validation of the letter 'A'.", 0, l.size());
+        assertEquals(0, l.size(), "Validation of the letter 'A'.");
 
-      l.clear();
-      bean.setLetter("AA");
+        l.clear();
+        bean.setLetter("AA");
 
-      try {
-         validator.validate();
-      } catch (final Exception e) {
-         fail("An exception was thrown while calling Validator.validate()");
-      }
+        try {
+            validator.validate();
+        } catch (final Exception e) {
+            fail("An exception was thrown while calling Validator.validate()");
+        }
 
-      assertEquals("Validation of the letter 'AA'.", 1, l.size());
-   }
+        assertEquals(1, l.size(), "Validation of the letter 'AA'.");
+    }
 
-   /**
-    * Checks if the field is one upper case letter between 'A' and 'Z'.
-    */
-   public static boolean isCapLetter(final Object bean, final Field field, final List<String> l) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Verify that one value generates an error and the other passes. The validation method being tested returns a <code>boolean</code> value.
+     */
+    @Test
+    public void testManualBooleanDeprecated() {
+        final ValidatorResources resources = new ValidatorResources();
 
-      if ((value == null) || (value.length() != 1)) {
-         l.add("Error");
-         return false;
-      }
-    if (value.charAt(0) >= 'A' && value.charAt(0) <= 'Z') {
-        return true;
-     }
-    l.add("Error");
-    return false;
-   }
+        final ValidatorAction va = new ValidatorAction();
+        va.setName("capLetter");
+        va.setClassname("org.apache.commons.validator.ValidatorTest");
+        va.setMethod("isCapLetter");
+        va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field,java.util.List");
 
-   /**
-    * Formats a <code>String</code> to a <code>Date</code>.
-    * The <code>Validator</code> will interpret a <code>null</code>
-    * as validation having failed.
-    */
-   public static Date formatDate(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
-      Date date = null;
+        final FormSet fs = new FormSet();
+        final Form form = new Form();
+        form.setName("testForm");
+        final Field field = new Field();
+        field.setProperty("letter");
+        field.setDepends("capLetter");
+        form.addField(field);
+        fs.addForm(form);
 
-      try {
-          final DateFormat formatter = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
+        resources.addValidatorAction(va);
+        resources.addFormSet(fs);
+        resources.process();
 
-         formatter.setLenient(false);
+        final List<?> l = new ArrayList<>();
 
-         date = formatter.parse(value);
-      } catch (final ParseException e) {
-         System.out.println("ValidatorTest.formatDate() - " + e.getMessage());
-      }
+        final TestBean bean = new TestBean();
+        bean.setLetter("A");
 
-      return date;
-   }
+        final Validator validator = new Validator(resources, "testForm");
+        validator.setParameter(Validator.BEAN_PARAM, bean);
+        validator.setParameter("java.util.List", l);
 
-   public static class TestBean {
-      private String letter;
-      private String date;
+        try {
+            validator.validate();
+        } catch (final Exception e) {
+            fail("An exception was thrown while calling Validator.validate()");
+        }
 
-      public String getLetter() {
-         return letter;
-      }
+        assertEquals(0, l.size(), "Validation of the letter 'A'.");
 
-      public void setLetter(final String letter) {
-         this.letter = letter;
-      }
+        l.clear();
+        bean.setLetter("AA");
 
-      public String getDate() {
-         return date;
-      }
+        try {
+            validator.validate();
+        } catch (final Exception e) {
+            fail("An exception was thrown while calling Validator.validate()");
+        }
 
-      public void setDate(final String date) {
-         this.date = date;
-      }
-   }
+        assertEquals(1, l.size(), "Validation of the letter 'AA'.");
+    }
+
+    /**
+     * Verify that one value generates an error and the other passes. The validation method being tested returns an object ({@code null} will be considered
+     * an error).
+     */
+    @Test
+    public void testManualObject() {
+        // property name of the method we are validating
+        final String property = "date";
+        // name of ValidatorAction
+        final String action = "date";
+        final ValidatorResources resources = setupDateResources(property, action);
+
+        final TestBean bean = new TestBean();
+        bean.setDate("2/3/1999");
+
+        final Validator validator = new Validator(resources, "testForm");
+        validator.setParameter(Validator.BEAN_PARAM, bean);
+
+        try {
+            final ValidatorResults results = validator.validate();
+
+            assertNotNull(results, "Results are null.");
+
+            final ValidatorResult result = results.getValidatorResult(property);
+
+            assertNotNull(results, "Results are null.");
+
+            assertTrue(result.containsAction(action), "ValidatorResult does not contain '" + action + "' validator result.");
+
+            assertTrue(result.isValid(action), "Validation of the date formatting has failed.");
+        } catch (final Exception e) {
+            fail("An exception was thrown while calling Validator.validate()");
+        }
+
+        bean.setDate("2/30/1999");
+
+        try {
+            final ValidatorResults results = validator.validate();
+
+            assertNotNull(results, "Results are null.");
+
+            final ValidatorResult result = results.getValidatorResult(property);
+
+            assertNotNull(results, "Results are null.");
+
+            assertTrue(result.containsAction(action), "ValidatorResult does not contain '" + action + "' validator result.");
+
+            assertTrue(!result.isValid(action), "Validation of the date formatting has passed when it should have failed.");
+        } catch (final Exception e) {
+            fail("An exception was thrown while calling Validator.validate()");
+        }
+
+    }
+
+    @Test
+    public void testOnlyReturnErrors() throws ValidatorException {
+        // property name of the method we are validating
+        final String property = "date";
+        // name of ValidatorAction
+        final String action = "date";
+        final ValidatorResources resources = setupDateResources(property, action);
+
+        final TestBean bean = new TestBean();
+        bean.setDate("2/3/1999");
+
+        final Validator validator = new Validator(resources, "testForm");
+        validator.setParameter(Validator.BEAN_PARAM, bean);
+
+        ValidatorResults results = validator.validate();
+
+        assertNotNull(results);
+
+        // Field passed and should be in results
+        assertTrue(results.getPropertyNames().contains(property));
+
+        // Field passed but should not be in results
+        validator.setOnlyReturnErrors(true);
+        results = validator.validate();
+        assertFalse(results.getPropertyNames().contains(property));
+    }
+
+    @Test
+    public void testOnlyValidateField() throws ValidatorException {
+        // property name of the method we are validating
+        final String property = "date";
+        // name of ValidatorAction
+        final String action = "date";
+        final ValidatorResources resources = setupDateResources(property, action);
+
+        final TestBean bean = new TestBean();
+        bean.setDate("2/3/1999");
+
+        final Validator validator = new Validator(resources, "testForm", property);
+        validator.setParameter(Validator.BEAN_PARAM, bean);
+
+        final ValidatorResults results = validator.validate();
+
+        assertNotNull(results);
+
+        // Field passed and should be in results
+        assertTrue(results.getPropertyNames().contains(property));
+    }
 
 }

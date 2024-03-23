@@ -68,7 +68,7 @@ public class IntegerValidator extends AbstractNumberValidator {
     private static final IntegerValidator VALIDATOR = new IntegerValidator();
 
     /**
-     * Return a singleton instance of this validator.
+     * Gets the singleton instance of this validator.
      * @return A singleton instance of the IntegerValidator.
      */
     public static IntegerValidator getInstance() {
@@ -76,7 +76,7 @@ public class IntegerValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Construct a <i>strict</i> instance.
+     * Constructs a <i>strict</i> instance.
      */
     public IntegerValidator() {
         this(true, STANDARD_FORMAT);
@@ -98,7 +98,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      *           <i>percent</i> number formats (the default).</li>
      *    </ul>
      *
-     * @param strict <code>true</code> if strict
+     * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
      * @param formatType The <code>NumberFormat</code> type to
      *        create for validation, default is STANDARD_FORMAT.
@@ -108,66 +108,16 @@ public class IntegerValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert an <code>Integer</code> using the default
-     *    <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @return The parsed <code>Integer</code> if valid or <code>null</code>
-     *  if invalid.
-     */
-    public Integer validate(final String value) {
-        return (Integer)parse(value, (String)null, (Locale)null);
-    }
-
-    /**
-     * <p>Validate/convert an <code>Integer</code> using the
-     *    specified <i>pattern</i>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against.
-     * @return The parsed <code>Integer</code> if valid or <code>null</code> if invalid.
-     */
-    public Integer validate(final String value, final String pattern) {
-        return (Integer)parse(value, pattern, (Locale)null);
-    }
-
-    /**
-     * <p>Validate/convert an <code>Integer</code> using the
-     *    specified <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param locale The locale to use for the number format, system default if null.
-     * @return The parsed <code>Integer</code> if valid or <code>null</code> if invalid.
-     */
-    public Integer validate(final String value, final Locale locale) {
-        return (Integer)parse(value, (String)null, locale);
-    }
-
-    /**
-     * <p>Validate/convert a <code>Integer</code> using the
-     *    specified pattern and/ or <code>Locale</code>.
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
-     * @param locale The locale to use for the date format, system default if null.
-     * @return The parsed <code>Integer</code> if valid or <code>null</code> if invalid.
-     */
-    public Integer validate(final String value, final String pattern, final Locale locale) {
-        return (Integer)parse(value, pattern, locale);
-    }
-
-    /**
      * Check if the value is within a specified range.
      *
      * @param value The <code>Number</code> value to check.
      * @param min The minimum value of the range.
      * @param max The maximum value of the range.
-     * @return <code>true</code> if the value is within the
+     * @return {@code true} if the value is within the
      *         specified range.
      */
     public boolean isInRange(final int value, final int min, final int max) {
-        return (value >= min && value <= max);
+        return value >= min && value <= max;
     }
 
     /**
@@ -176,7 +126,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @param value The <code>Number</code> value to check.
      * @param min The minimum value of the range.
      * @param max The maximum value of the range.
-     * @return <code>true</code> if the value is within the
+     * @return {@code true} if the value is within the
      *         specified range.
      */
     public boolean isInRange(final Integer value, final int min, final int max) {
@@ -184,39 +134,15 @@ public class IntegerValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Check if the value is greater than or equal to a minimum.
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum value.
-     * @return <code>true</code> if the value is greater than
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final int value, final int min) {
-        return (value >= min);
-    }
-
-    /**
-     * Check if the value is greater than or equal to a minimum.
-     *
-     * @param value The value validation is being performed on.
-     * @param min The minimum value.
-     * @return <code>true</code> if the value is greater than
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final Integer value, final int min) {
-        return minValue(value.intValue(), min);
-    }
-
-    /**
      * Check if the value is less than or equal to a maximum.
      *
      * @param value The value validation is being performed on.
      * @param max The maximum value.
-     * @return <code>true</code> if the value is less than
+     * @return {@code true} if the value is less than
      *         or equal to the maximum.
      */
     public boolean maxValue(final int value, final int max) {
-        return (value <= max);
+        return value <= max;
     }
 
     /**
@@ -224,11 +150,35 @@ public class IntegerValidator extends AbstractNumberValidator {
      *
      * @param value The value validation is being performed on.
      * @param max The maximum value.
-     * @return <code>true</code> if the value is less than
+     * @return {@code true} if the value is less than
      *         or equal to the maximum.
      */
     public boolean maxValue(final Integer value, final int max) {
         return maxValue(value.intValue(), max);
+    }
+
+    /**
+     * Check if the value is greater than or equal to a minimum.
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than
+     *         or equal to the minimum.
+     */
+    public boolean minValue(final int value, final int min) {
+        return value >= min;
+    }
+
+    /**
+     * Check if the value is greater than or equal to a minimum.
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than
+     *         or equal to the minimum.
+     */
+    public boolean minValue(final Integer value, final int min) {
+        return minValue(value.intValue(), min);
     }
 
     /**
@@ -238,7 +188,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @param value The parsed <code>Number</code> object created.
      * @param formatter The Format used to parse the value with.
      * @return The parsed <code>Number</code> converted to an
-     *   <code>Integer</code> if valid or <code>null</code> if invalid.
+     *   <code>Integer</code> if valid or {@code null} if invalid.
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
@@ -252,5 +202,55 @@ public class IntegerValidator extends AbstractNumberValidator {
             }
         }
         return null;
+    }
+
+    /**
+     * <p>Validate/convert an <code>Integer</code> using the default
+     *    <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @return The parsed <code>Integer</code> if valid or {@code null}
+     *  if invalid.
+     */
+    public Integer validate(final String value) {
+        return (Integer)parse(value, (String)null, (Locale)null);
+    }
+
+    /**
+     * <p>Validate/convert an <code>Integer</code> using the
+     *    specified <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param locale The locale to use for the number format, system default if null.
+     * @return The parsed <code>Integer</code> if valid or {@code null} if invalid.
+     */
+    public Integer validate(final String value, final Locale locale) {
+        return (Integer)parse(value, (String)null, locale);
+    }
+
+    /**
+     * <p>Validate/convert an <code>Integer</code> using the
+     *    specified <i>pattern</i>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against.
+     * @return The parsed <code>Integer</code> if valid or {@code null} if invalid.
+     */
+    public Integer validate(final String value, final String pattern) {
+        return (Integer)parse(value, pattern, (Locale)null);
+    }
+
+    /**
+     * <p>Validate/convert a <code>Integer</code> using the
+     *    specified pattern and/ or <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if {@code null}.
+     * @param locale The locale to use for the date format, system default if null.
+     * @return The parsed <code>Integer</code> if valid or {@code null} if invalid.
+     */
+    public Integer validate(final String value, final String pattern, final Locale locale) {
+        return (Integer)parse(value, pattern, locale);
     }
 }

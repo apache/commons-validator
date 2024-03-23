@@ -38,7 +38,7 @@ import org.apache.commons.validator.routines.checkdigit.ISINCheckDigit;
  * </p>
  *
  * <p>
- * See <a href="http://en.wikipedia.org/wiki/ISIN">Wikipedia - ISIN</a>
+ * See <a href="https://en.wikipedia.org/wiki/ISIN">Wikipedia - ISIN</a>
  * for more details.
  * </p>
  *
@@ -79,10 +79,9 @@ public class ISINValidator implements Serializable {
         Arrays.sort(SPECIALS); // Just in case ...
     }
 
-    private final boolean checkCountryCode;
-
     /**
-     * Return a singleton instance of the ISIN validator
+     * Gets the singleton instance of the ISIN validator.
+     *
      * @param checkCountryCode whether to check the country-code prefix or not
      * @return A singleton instance of the appropriate ISIN validator.
      */
@@ -90,16 +89,26 @@ public class ISINValidator implements Serializable {
         return checkCountryCode ? ISIN_VALIDATOR_TRUE : ISIN_VALIDATOR_FALSE;
     }
 
+    private final boolean checkCountryCode;
+
     private ISINValidator(final boolean checkCountryCode) {
         this.checkCountryCode = checkCountryCode;
     }
 
+    private boolean checkCode(final String code) {
+        return Arrays.binarySearch(CCODES, code) >= 0
+               ||
+               Arrays.binarySearch(SPECIALS, code) >= 0
+        ;
+    }
+
     /**
-     * Check the code is a valid ISIN code after any transformation
+     * Tests whether the code is a valid ISIN code after any transformation
      * by the validate routine.
+     *
      * @param code The code to validate.
-     * @return <code>true</code> if a valid ISIN
-     * code, otherwise <code>false</code>.
+     * @return {@code true} if a valid ISIN
+     * code, otherwise {@code false}.
      */
     public boolean isValid(final String code) {
         final boolean valid = VALIDATOR.isValid(code);
@@ -110,10 +119,10 @@ public class ISINValidator implements Serializable {
     }
 
     /**
-     * Check the code is valid ISIN code.
+     * Checks the code is valid ISIN code.
      *
      * @param code The code to validate.
-     * @return A valid ISIN code if valid, otherwise <code>null</code>.
+     * @return A valid ISIN code if valid, otherwise {@code null}.
      */
     public Object validate(final String code) {
         final Object validate = VALIDATOR.validate(code);
@@ -121,13 +130,6 @@ public class ISINValidator implements Serializable {
             return checkCode(code.substring(0,2)) ? validate : null;
         }
         return validate;
-    }
-
-    private boolean checkCode(final String code) {
-        return Arrays.binarySearch(CCODES, code) >= 0
-               ||
-               Arrays.binarySearch(SPECIALS, code) >= 0
-        ;
     }
 
 }

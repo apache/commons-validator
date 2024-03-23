@@ -16,14 +16,14 @@
  */
 package org.apache.commons.validator;
 
+import org.junit.jupiter.api.Test;
 
 /**
  * Performs Validation Test for <code>float</code> validations.
  */
 public class FloatTest extends AbstractNumberTest {
 
-    public FloatTest(final String name) {
-        super(name);
+    public FloatTest() {
         ACTION = "float";
         FORM_KEY = "floatForm";
     }
@@ -31,6 +31,7 @@ public class FloatTest extends AbstractNumberTest {
     /**
      * Tests the float validation.
      */
+    @Test
     public void testFloat() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -40,19 +41,20 @@ public class FloatTest extends AbstractNumberTest {
     }
 
     /**
-     * Tests the float validation.
+     * Tests the float validation failure.
      */
-    public void testFloatMin() throws ValidatorException {
+    @Test
+    public void testFloatFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
-        info.setValue(Float.toString(Float.MIN_VALUE));
 
-        valueTest(info, true);
+        valueTest(info, false);
     }
 
     /**
      * Tests the float validation.
      */
+    @Test
     public void testFloatMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -62,13 +64,15 @@ public class FloatTest extends AbstractNumberTest {
     }
 
     /**
-     * Tests the float validation failure.
+     * Tests the float validation.
      */
-    public void testFloatFailure() throws ValidatorException {
+    @Test
+    public void testFloatMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
+        info.setValue(Float.toString(Float.MIN_VALUE));
 
-        valueTest(info, false);
+        valueTest(info, true);
     }
 
 }

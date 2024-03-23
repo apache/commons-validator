@@ -16,10 +16,8 @@
  limitations under the License.
 -->
 <!DOCTYPE module PUBLIC
-    "-//Checkstyle//DTD Checkstyle Configuration 1.2//EN"
-    "https://checkstyle.org/dtds/configuration_1_2.dtd">
-
-
+    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <!--
   
   These checks still need to be Voted on for Validator, but
@@ -38,44 +36,34 @@
   is a high priority goal for the development team.
 
 -->
-
 <module name="Checker">
 
-   <module name="TreeWalker">
+  <module name="TreeWalker">
 
     <!-- Item 4 - Avoid creating duplicate objects -->
     <module name="IllegalInstantiation">
-      <property name="classes" value="java.lang.Boolean, java.lang.String"/>
+      <property name="classes" value="java.lang.Boolean, java.lang.String" />
     </module>
 
     <!-- Item 8 - Always override hashCode when you override equals -->
-    <module name="EqualsHashCode"/>
+    <module name="EqualsHashCode" />
 
     <!-- Item 12 - Make all fields private -->
-    <!--
-    <module name="VisibilityModifier"/>
-    -->
+    <!-- <module name="VisibilityModifier"/> -->
 
     <!-- Item 15 - Design and document for inheritance or else prohibit it -->
-    <!-- the module actually implements a very strict rule, it would be
-         interesting to know whether Joshua meant what checkstyle implements.
-         We feel this implementation is well suited as a warning,
-         i.e. if you get error messages from this check you should be
-         able to name a good reason to implement your code the way you do it,
-         especially if you are designing a library and not an application. -->
-    <!--
-    <module name="DesignForExtension">
-      <property name="severity" value="warning"/>
-    </module>
-    -->
+    <!-- the module actually implements a very strict rule, it would be interesting to know whether Joshua meant what checkstyle implements. We feel this implementation 
+      is well suited as a warning, i.e. if you get error messages from this check you should be able to name a good reason to implement your code the way you do it, especially 
+      if you are designing a library and not an application. -->
+    <!-- <module name="DesignForExtension"> <property name="severity" value="warning"/> </module> -->
 
     <!-- Item 17 - Use interfaces only to define types -->
-    <module name="InterfaceIsType"/>
+    <module name="InterfaceIsType" />
 
     <!-- Item 25 - Design method signatures carefully -->
     <!-- Avoid long parameter lists -->
     <module name="ParameterNumber">
-      <property name="max" value="4"/>
+      <property name="max" value="4" />
     </module>
 
     <!-- Item 26 - Use overloading judiciously -->
@@ -86,38 +74,37 @@
 
     <!-- Item 28 - Write doc comments for all exposed API elements -->
     <module name="JavadocType">
-      <property name="scope" value="protected"/>
+      <property name="scope" value="protected" />
     </module>
     <module name="JavadocMethod"> <!-- also covers Item 44 -->
-      <property name="accessModifiers" value="protected"/>
+      <property name="accessModifiers" value="protected" />
     </module>
     <module name="JavadocVariable">
-      <property name="scope" value="protected"/>
+      <property name="scope" value="protected" />
     </module>
 
     <!-- Item 29 - Minimize the scope of local variables -->
     <!-- no rfe yet -->
 
-
     <!-- Item 38 - Adhere to generally accepted naming conventions -->
     <module name="PackageName">
       <!-- no uppercase letters, between 2 and 10 characters -->
-      <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,9})*$"/>
+      <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,9})*$" />
     </module>
-    <module name="TypeName"/>
-    <module name="ConstantName"/>
-    <module name="LocalFinalVariableName"/>
-    <module name="LocalVariableName"/>
-    <module name="MemberName"/>
-    <module name="MethodName"/>
-    <module name="ParameterName"/>
-    <module name="StaticVariableName"/>
+    <module name="TypeName" />
+    <module name="ConstantName" />
+    <module name="LocalFinalVariableName" />
+    <module name="LocalVariableName" />
+    <module name="MemberName" />
+    <module name="MethodName" />
+    <module name="ParameterName" />
+    <module name="StaticVariableName" />
 
     <!-- Item 47 - Don't ignore exceptions -->
     <module name="EmptyBlock">
-      <property name="tokens" value="LITERAL_CATCH"/>
+      <property name="tokens" value="LITERAL_CATCH" />
       <!-- require a comment, change to stmt to require a statement -->
-      <property name="option" value="text"/>
+      <property name="option" value="text" />
     </module>
 
     <!-- Item 50 - Never invoke wait outside a loop -->
@@ -126,43 +113,58 @@
     <!-- Item 57 - Provide a readResolve method when necessary -->
     <!-- no rfe yet -->
 
-    <module name="MagicNumber"/>
+    <module name="MagicNumber" />
 
-    <module name="SuppressionCommentFilter"/>
+    <module name="SuppressionCommentFilter" />
 
-    <!-- 
-      Allow comment to suppress checkstyle for a single line
-      e.g. // CHECKSTYLE IGNORE MagicNumber
-     -->
+    <!-- Allow comment to suppress checkstyle for a single line e.g. // CHECKSTYLE IGNORE MagicNumber -->
     <module name="SuppressWithNearbyCommentFilter">
-      <property name="commentFormat" value="CHECKSTYLE IGNORE (\w+)"/>
-      <property name="checkFormat" value="$1"/>
+      <property name="commentFormat" value="CHECKSTYLE IGNORE (\w+)" />
+      <property name="checkFormat" value="$1" />
     </module>
-
-</module>
+    <module name="ImportOrder">
+      <property name="option" value="top"/>
+      <property name="groups" value="java,javax,org,junit"/>
+      <property name="ordered" value="true"/>
+      <property name="separated" value="true"/>
+    </module>
+    <module name="WhitespaceAround"/>
+    <module name="TypecastParenPad"/>
+    <module name="SingleSpaceSeparator"/>
+  </module>
 
   <!-- enforce package documentation -->
   <module name="JavadocPackage">
     <!-- setting allowLegacy means it will check for package.html instead of just package-info.java -->
-    <property name="allowLegacy" value="true"/>
+    <property name="allowLegacy" value="true" />
   </module>
-  
+
   <!-- Item 6 - Avoid finalizers -->
   <!-- this will not find violations that contain linebreaks -->
   <module name="RegexpSingleline">
-    <property name="format" value="((public)|(protected))\s+void\s+finalize\(\s*\)"/>
-     <property name="message" value="Avoid finalizers."/>
+    <property name="format" value="((public)|(protected))\s+void\s+finalize\(\s*\)" />
+    <property name="message" value="Avoid finalizers." />
   </module>
-    
+
   <!-- don't allow tabs -->
   <module name="FileTabCharacter">
-    <property name="fileExtensions" value="java,xml"/>
+    <property name="fileExtensions" value="java,xml" />
   </module>
 
   <module name="SuppressionFilter">
     <!-- config_loc is used by Eclipse plugin -->
-    <property name="file" value="${config_loc}/checkstyle-suppressions.xml"/>
+    <property name="file" value="${config_loc}/checkstyle-suppressions.xml" />
   </module>
-
-  
+  <module name="RegexpSingleline">
+    <!-- @author tags are deprecated -->
+    <property name="format" value="^\s+\*\s+@author\s" />
+    <property name="message" value="Deprecated @author tag" />
+    <property name="fileExtensions" value="java" />
+    <property name="severity" value="warning" />
+  </module>
+  <module name="RegexpSingleline">
+    <!-- \s matches whitespace character, $ matches end of line. -->
+    <property name="format" value="\s+$" />
+    <property name="message" value="Line has trailing spaces." />
+  </module>
 </module>

@@ -16,59 +16,54 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.InputStream;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
- * <p>Performs tests for extension in form definitions. Performs the same tests
- * RequiredNameTest does but with an equivalent validation definition with extension
- * definitions (validator-extension.xml), plus an extra check on overriding rules and
- * another one checking it mantains correct order when extending.</p>
+ * <p>
+ * Performs tests for extension in form definitions. Performs the same tests RequiredNameTest does but with an equivalent validation definition with extension
+ * definitions (validator-extension.xml), plus an extra check on overriding rules and another one checking it mantains correct order when extending.
+ * </p>
  */
-public class ExtensionTest extends TestCase {
+public class ExtensionTest {
 
     /**
-     * The key used to retrieve the set of validation
-     * rules from the xml file.
-    */
+     * The key used to retrieve the set of validation rules from the xml file.
+     */
     protected static String FORM_KEY = "nameForm";
 
     /**
-     * The key used to retrieve the set of validation
-     * rules from the xml file.
-    */
+     * The key used to retrieve the set of validation rules from the xml file.
+     */
     protected static String FORM_KEY2 = "nameForm2";
 
     /**
-     * The key used to retrieve the set of validation
-     * rules from the xml file.
-    */
+     * The key used to retrieve the set of validation rules from the xml file.
+     */
     protected static String CHECK_MSG_KEY = "nameForm.lastname.displayname";
 
     /**
      * The key used to retrieve the validator action.
-    */
+     */
     protected static String ACTION = "required";
 
     /**
      * Resources used for validation tests.
-    */
+     */
     private ValidatorResources resources;
 
     /**
-     * Constructor de ExtensionTest.
-     * @param arg0
+     * Load <code>ValidatorResources</code> from validator-extension.xml.
      */
-    public ExtensionTest(final String arg0) {
-        super(arg0);
-    }
-
-    /**
-     * Load <code>ValidatorResources</code> from
-     * validator-extension.xml.
-    */
-    @Override
+    @BeforeEach
     protected void setUp() throws Exception {
         // Load resources
         try (InputStream in = this.getClass().getResourceAsStream("ExtensionTest-config.xml")) {
@@ -76,267 +71,272 @@ public class ExtensionTest extends TestCase {
         }
     }
 
-    @Override
+    @AfterEach
     protected void tearDown() {
     }
 
     /**
-     * Tests the required validation failure.
-    */
-    public void testRequired() throws ValidatorException {
-       // Create bean to run test on.
-       final NameBean name = new NameBean();
+     * Tests if the order is mantained when extending a form. Parent form fields should preceed self form fields, except if we override the rules.
+     */
+    @Test
+    public void testOrder() {
 
-       // Construct validator based on the loaded resources
-       // and the form key
-       final Validator validator = new Validator(resources, FORM_KEY);
-       // add the name bean to the validator as a resource
-       // for the validations to be performed on.
-       validator.setParameter(Validator.BEAN_PARAM, name);
+        final Form form = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY);
+        final Form form2 = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY2);
 
-       // Get results of the validation.
-       // throws ValidatorException,
-       // but we aren't catching for testing
-       // since no validation methods we use
-       // throw this
-       final ValidatorResults results = validator.validate();
+        assertNotNull(form, FORM_KEY + " is null.");
+        assertEquals(2, form.getFields().size(), "There should only be 2 fields in " + FORM_KEY);
 
-       assertNotNull("Results are null.", results);
+        assertNotNull(form2, FORM_KEY2 + " is null.");
+        assertEquals(2, form2.getFields().size(), "There should only be 2 fields in " + FORM_KEY2);
 
-       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+        // get the first field
+        Field fieldFirstName = form.getFields().get(0);
+        // get the second field
+        Field fieldLastName = form.getFields().get(1);
+        assertTrue(fieldFirstName.getKey().equals("firstName"), "firstName in " + FORM_KEY + " should be the first in the list");
+        assertTrue(fieldLastName.getKey().equals("lastName"), "lastName in " + FORM_KEY + " should be the first in the list");
 
-       assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-       assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
-       assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have failed.", !firstNameResult.isValid(ACTION));
+//     get the second field
+        fieldLastName = form2.getFields().get(0);
+        // get the first field
+        fieldFirstName = form2.getFields().get(1);
+        assertTrue(fieldFirstName.getKey().equals("firstName"), "firstName in " + FORM_KEY2 + " should be the first in the list");
+        assertTrue(fieldLastName.getKey().equals("lastName"), "lastName in " + FORM_KEY2 + " should be the first in the list");
 
-       assertNotNull("First Name ValidatorResult should not be null.", lastNameResult);
-       assertTrue("Last Name ValidatorResult should contain the '" + ACTION +"' action.", lastNameResult.containsAction(ACTION));
-       assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have failed.", !lastNameResult.isValid(ACTION));
     }
 
     /**
-     * Tests the required validation for first name if it is blank.
-    */
-    public void testRequiredFirstNameBlank() throws ValidatorException {
-       // Create bean to run test on.
-       final NameBean name = new NameBean();
-       name.setFirstName("");
+     * Tests if we can override a rule. We "can" override a rule if the message shown when the firstName required test fails and the lastName test is null.
+     */
+    @Test
+    public void testOverrideRule() throws ValidatorException {
 
-       // Construct validator based on the loaded resources
-       // and the form key
-       final Validator validator = new Validator(resources, FORM_KEY);
-       // add the name bean to the validator as a resource
-       // for the validations to be performed on.
-       validator.setParameter(Validator.BEAN_PARAM, name);
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+        name.setLastName("Smith");
 
-       // Get results of the validation.
-       final ValidatorResults results = validator.validate();
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY2);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
 
-       assertNotNull("Results are null.", results);
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
 
-       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+        assertNotNull(results, "Results are null.");
 
-       assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-       assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
-       assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have failed.", !firstNameResult.isValid(ACTION));
+        final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+        final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+        assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(firstNameResult.field.getArg(0).getKey().equals(CHECK_MSG_KEY),
+                "First Name ValidatorResult for the '" + ACTION + "' action should have '" + CHECK_MSG_KEY + " as a key.");
 
-       assertNotNull("First Name ValidatorResult should not be null.", lastNameResult);
-       assertTrue("Last Name ValidatorResult should contain the '" + ACTION +"' action.", lastNameResult.containsAction(ACTION));
-       assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have failed.", !lastNameResult.isValid(ACTION));
+        assertNull(lastNameResult, "Last Name ValidatorResult should be null.");
+    }
+
+    /**
+     * Tests the required validation failure.
+     */
+    @Test
+    public void testRequired() throws ValidatorException {
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
+
+        // Get results of the validation.
+        // throws ValidatorException,
+        // but we aren't catching for testing
+        // since no validation methods we use
+        // throw this
+        final ValidatorResults results = validator.validate();
+
+        assertNotNull(results, "Results are null.");
+
+        final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+        final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+
+        assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(firstNameResult.containsAction(ACTION), "First Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(!firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+
+        assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(lastNameResult.containsAction(ACTION), "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(!lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
     }
 
     /**
      * Tests the required validation for first name.
-    */
+     */
+    @Test
     public void testRequiredFirstName() throws ValidatorException {
-       // Create bean to run test on.
-       final NameBean name = new NameBean();
-       name.setFirstName("Joe");
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+        name.setFirstName("Joe");
 
-       // Construct validator based on the loaded resources
-       // and the form key
-       final Validator validator = new Validator(resources, FORM_KEY);
-       // add the name bean to the validator as a resource
-       // for the validations to be performed on.
-       validator.setParameter(Validator.BEAN_PARAM, name);
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
 
-       // Get results of the validation.
-       final ValidatorResults results = validator.validate();
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
 
-       assertNotNull("Results are null.", results);
+        assertNotNull(results, "Results are null.");
 
-       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+        final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+        final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
-       assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-       assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
-       assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have passed.", firstNameResult.isValid(ACTION));
+        assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(firstNameResult.containsAction(ACTION), "First Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have passed.");
 
-       assertNotNull("First Name ValidatorResult should not be null.", lastNameResult);
-       assertTrue("Last Name ValidatorResult should contain the '" + ACTION +"' action.", lastNameResult.containsAction(ACTION));
-       assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have failed.", !lastNameResult.isValid(ACTION));
+        assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(lastNameResult.containsAction(ACTION), "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(!lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
     }
 
     /**
-     * Tests the required validation for last name if it is blank.
-    */
-    public void testRequiredLastNameBlank() throws ValidatorException {
-       // Create bean to run test on.
-       final NameBean name = new NameBean();
-       name.setLastName("");
+     * Tests the required validation for first name if it is blank.
+     */
+    @Test
+    public void testRequiredFirstNameBlank() throws ValidatorException {
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+        name.setFirstName("");
 
-       // Construct validator based on the loaded resources
-       // and the form key
-       final Validator validator = new Validator(resources, FORM_KEY);
-       // add the name bean to the validator as a resource
-       // for the validations to be performed on.
-       validator.setParameter(Validator.BEAN_PARAM, name);
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
 
-       // Get results of the validation.
-       final ValidatorResults results = validator.validate();
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
 
-       assertNotNull("Results are null.", results);
+        assertNotNull(results, "Results are null.");
 
-       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+        final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+        final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
-       assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-       assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
-       assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have failed.", !firstNameResult.isValid(ACTION));
+        assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(firstNameResult.containsAction(ACTION), "First Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(!firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
 
-       assertNotNull("First Name ValidatorResult should not be null.", lastNameResult);
-       assertTrue("Last Name ValidatorResult should contain the '" + ACTION +"' action.", lastNameResult.containsAction(ACTION));
-       assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have failed.", !lastNameResult.isValid(ACTION));
+        assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(lastNameResult.containsAction(ACTION), "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(!lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
     }
 
     /**
      * Tests the required validation for last name.
-    */
+     */
+    @Test
     public void testRequiredLastName() throws ValidatorException {
-       // Create bean to run test on.
-       final NameBean name = new NameBean();
-       name.setLastName("Smith");
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+        name.setLastName("Smith");
 
-       // Construct validator based on the loaded resources
-       // and the form key
-       final Validator validator = new Validator(resources, FORM_KEY);
-       // add the name bean to the validator as a resource
-       // for the validations to be performed on.
-       validator.setParameter(Validator.BEAN_PARAM, name);
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
 
-       // Get results of the validation.
-       final ValidatorResults results = validator.validate();
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
 
-       assertNotNull("Results are null.", results);
+        assertNotNull(results, "Results are null.");
 
-       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+        final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+        final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
-       assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-       assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
-       assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have failed.", !firstNameResult.isValid(ACTION));
+        assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(firstNameResult.containsAction(ACTION), "First Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(!firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
 
-       assertNotNull("First Name ValidatorResult should not be null.", lastNameResult);
-       assertTrue("Last Name ValidatorResult should contain the '" + ACTION +"' action.", lastNameResult.containsAction(ACTION));
-       assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have passed.", lastNameResult.isValid(ACTION));
+        assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(lastNameResult.containsAction(ACTION), "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have passed.");
 
+    }
+
+    /**
+     * Tests the required validation for last name if it is blank.
+     */
+    @Test
+    public void testRequiredLastNameBlank() throws ValidatorException {
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+        name.setLastName("");
+
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
+
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
+
+        assertNotNull(results, "Results are null.");
+
+        final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+        final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+
+        assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(firstNameResult.containsAction(ACTION), "First Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(!firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+
+        assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(lastNameResult.containsAction(ACTION), "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(!lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
     }
 
     /**
      * Tests the required validation for first and last name.
-    */
+     */
+    @Test
     public void testRequiredName() throws ValidatorException {
-       // Create bean to run test on.
-       final NameBean name = new NameBean();
-       name.setFirstName("Joe");
-       name.setLastName("Smith");
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+        name.setFirstName("Joe");
+        name.setLastName("Smith");
 
-       // Construct validator based on the loaded resources
-       // and the form key
-       final Validator validator = new Validator(resources, FORM_KEY);
-       // add the name bean to the validator as a resource
-       // for the validations to be performed on.
-       validator.setParameter(Validator.BEAN_PARAM, name);
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
 
-       // Get results of the validation.
-       final ValidatorResults results = validator.validate();
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
 
-       assertNotNull("Results are null.", results);
+        assertNotNull(results, "Results are null.");
 
-       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+        final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+        final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
 
-       assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-       assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
-       assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have passed.", firstNameResult.isValid(ACTION));
+        assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(firstNameResult.containsAction(ACTION), "First Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have passed.");
 
-       assertNotNull("Last Name ValidatorResult should not be null.", lastNameResult);
-       assertTrue("Last Name ValidatorResult should contain the '" + ACTION +"' action.", lastNameResult.containsAction(ACTION));
-       assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have passed.", lastNameResult.isValid(ACTION));
-    }
-
-
-    /**
-     * Tests if we can override a rule. We "can" override a rule if the message shown
-     * when the firstName required test fails and the lastName test is null.
-    */
-    public void testOverrideRule() throws ValidatorException {
-
-       // Create bean to run test on.
-       final NameBean name = new NameBean();
-       name.setLastName("Smith");
-
-       // Construct validator based on the loaded resources
-       // and the form key
-       final Validator validator = new Validator(resources, FORM_KEY2);
-       // add the name bean to the validator as a resource
-       // for the validations to be performed on.
-       validator.setParameter(Validator.BEAN_PARAM, name);
-
-       // Get results of the validation.
-       final ValidatorResults results = validator.validate();
-
-       assertNotNull("Results are null.", results);
-
-       final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-       final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
-       assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-       assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have '" + CHECK_MSG_KEY + " as a key.", firstNameResult.field.getArg(0).getKey().equals(CHECK_MSG_KEY));
-
-       assertNull("Last Name ValidatorResult should be null.", lastNameResult);
-    }
-
-
-    /**
-     * Tests if the order is mantained when extending a form. Parent form fields should
-     * preceed self form fields, except if we override the rules.
-    */
-    public void testOrder() {
-
-       final Form form = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY);
-       final Form form2 = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY2);
-
-       assertNotNull(FORM_KEY + " is null.", form);
-       assertTrue("There should only be 2 fields in " + FORM_KEY, form.getFields().size() == 2);
-
-       assertNotNull(FORM_KEY2 + " is null.", form2);
-       assertTrue("There should only be 2 fields in " + FORM_KEY2, form2.getFields().size() == 2);
-
-       //get the first field
-       Field fieldFirstName = form.getFields().get(0);
-       //get the second field
-       Field fieldLastName = form.getFields().get(1);
-       assertTrue("firstName in " + FORM_KEY + " should be the first in the list", fieldFirstName.getKey().equals("firstName"));
-       assertTrue("lastName in " + FORM_KEY + " should be the first in the list", fieldLastName.getKey().equals("lastName"));
-
-//     get the second field
-       fieldLastName = form2.getFields().get(0);
-        //get the first field
-        fieldFirstName = form2.getFields().get(1);
-        assertTrue("firstName in " + FORM_KEY2 + " should be the first in the list", fieldFirstName.getKey().equals("firstName"));
-       assertTrue("lastName in " + FORM_KEY2 + " should be the first in the list", fieldLastName.getKey().equals("lastName"));
-
+        assertNotNull(lastNameResult, "Last Name ValidatorResult should not be null.");
+        assertTrue(lastNameResult.containsAction(ACTION), "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have passed.");
     }
 }

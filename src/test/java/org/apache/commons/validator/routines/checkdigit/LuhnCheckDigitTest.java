@@ -16,44 +16,28 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Luhn Check Digit Test.
- *
- * @since 1.4
  */
 public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
 
-    private static final String VALID_VISA       = "4417123456789113";
+    private static final String VALID_VISA = "4417123456789113";
     private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX       = "378282246310005";
+    private static final String VALID_AMEX = "378282246310005";
     private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER   = "6011000990139424";
-    private static final String VALID_DINERS     = "30569309025904";
+    private static final String VALID_DISCOVER = "6011000990139424";
+    private static final String VALID_DINERS = "30569309025904";
 
     /**
-     * Constructor
-     * @param name test name
+     * Sets up routine & valid codes.
      */
-    public LuhnCheckDigitTest(final String name) {
-        super(name);
-    }
-
-    /**
-     * Set up routine & valid codes.
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    protected void setUp() {
 
         routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
 
-        valid = new String[] {
-                VALID_VISA,
-                VALID_SHORT_VISA,
-                VALID_AMEX,
-                VALID_MASTERCARD,
-                VALID_DISCOVER,
-                VALID_DINERS};
+        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS };
     }
 }

@@ -21,20 +21,20 @@ package org.apache.commons.validator;
  */
 public class ValueBean {
 
-   protected String value;
+    protected String value;
 
-   /**
-    * Gets the value.
-    */
-   public String getValue() {
-      return value;
-   }
+    /**
+     * Gets the value.
+     */
+    public String getValue() {
+        return value;
+    }
 
-   /**
-    * Sets the value.
-    */
-   public void setValue(final String value) {
-      this.value = value;
-   }
+    /**
+     * Sets the value.
+     */
+    public void setValue(final String value) {
+        this.value = value;
+    }
 
 }

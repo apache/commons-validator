@@ -114,12 +114,23 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -3752929983453368497L;
 
+    /**
+     * The weighted values to apply based on the character position
+     */
     private final int[] postitionWeight;
+
+    /**
+     * {@code true} if use positionWeights from right to left
+     */
     private final boolean useRightPos;
+
+    /**
+     * {@code true} if sum the digits of the weighted value
+     */
     private final boolean sumWeightedDigits;
 
     /**
-     * Construct a modulus 10 Check Digit routine with the specified weighting
+     * Constructs a modulus 10 Check Digit routine with the specified weighting
      * from left to right.
      *
      * @param postitionWeight the weighted values to apply based on the
@@ -130,12 +141,12 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * Construct a modulus 10 Check Digit routine with the specified weighting,
+     * Constructs a modulus 10 Check Digit routine with the specified weighting,
      * indicating whether its from the left or right.
      *
      * @param postitionWeight the weighted values to apply based on the
      *            character position
-     * @param useRightPos <code>true</code> if use positionWeights from right to
+     * @param useRightPos {@code true} if use positionWeights from right to
      *            left
      */
     public ModulusTenCheckDigit(final int[] postitionWeight, final boolean useRightPos) {
@@ -143,19 +154,18 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * Construct a modulus 10 Check Digit routine with the specified weighting,
+     * Constructs a modulus 10 Check Digit routine with the specified weighting,
      * indicating whether its from the left or right and whether the weighted
      * digits should be summed.
      *
      * @param postitionWeight the weighted values to apply based on the
      *            character position
-     * @param useRightPos <code>true</code> if use positionWeights from right to
+     * @param useRightPos {@code true} if use positionWeights from right to
      *            left
-     * @param sumWeightedDigits <code>true</code> if sum the digits of the
+     * @param sumWeightedDigits {@code true} if sum the digits of the
      *            weighted value
      */
     public ModulusTenCheckDigit(final int[] postitionWeight, final boolean useRightPos, final boolean sumWeightedDigits) {
-        super(10); // CHECKSTYLE IGNORE MagicNumber
         this.postitionWeight = Arrays.copyOf(postitionWeight, postitionWeight.length);
         this.useRightPos = useRightPos;
         this.sumWeightedDigits = sumWeightedDigits;
@@ -167,8 +177,8 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      * Note: assumes last digit is the check digit
      *
      * @param code The code to validate
-     * @return <code>true</code> if the check digit is valid, otherwise
-     *         <code>false</code>
+     * @return {@code true} if the check digit is valid, otherwise
+     *         {@code false}
      */
     @Override
     public boolean isValid(final String code) {
@@ -207,6 +217,17 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     }
 
     /**
+     * Return a string representation of this implementation.
+     *
+     * @return a string representation
+     */
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "[postitionWeight=" + Arrays.toString(postitionWeight) + ", useRightPos="
+                + useRightPos + ", sumWeightedDigits=" + sumWeightedDigits + "]";
+    }
+
+    /**
      * Calculates the <i>weighted</i> value of a character in the code at a
      * specified position.
      *
@@ -226,17 +247,6 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
             weightedValue = ModulusCheckDigit.sumDigits(weightedValue);
         }
         return weightedValue;
-    }
-
-    /**
-     * Return a string representation of this implementation.
-     *
-     * @return a string representation
-     */
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "[postitionWeight=" + Arrays.toString(postitionWeight) + ", useRightPos="
-                + useRightPos + ", sumWeightedDigits=" + sumWeightedDigits + "]";
     }
 
 }

@@ -16,90 +16,126 @@
  */
 package org.apache.commons.validator.routines;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.Random;
 
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
-
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 /**
- * ISSNValidator Test Case.
- *
- * @since 1.5.0
+ * Tests {@link ISSNValidator}.
  */
-public class ISSNValidatorTest extends TestCase {
+public class ISSNValidatorTest {
 
     private static final ISSNValidator VALIDATOR = ISSNValidator.getInstance();
 
-    private final String[] validFormat = {
-            "ISSN 0317-8471",
-            "1050-124X",
-            "ISSN 1562-6865",
-            "1063-7710",
-            "1748-7188",
-            "ISSN 0264-2875",
-            "1750-0095",
-            "1188-1534",
-            "1911-1479",
-            "ISSN 1911-1460",
-            "0001-6772",
-            "1365-201X",
-            "0264-3596",
-            "1144-875X",
-            };
+    private final String[] validFormat = { "ISSN 0317-8471", "1050-124X", "ISSN 1562-6865", "1063-7710", "1748-7188", "ISSN 0264-2875", "1750-0095",
+            "1188-1534", "1911-1479", "ISSN 1911-1460", "0001-6772", "1365-201X", "0264-3596", "1144-875X", };
 
-    private final String[] invalidFormat = {
-            "",                        // empty
-            "   ",                     // empty
-            "ISBN 0317-8471",          // wrong prefix
-            "'1050-124X",              // leading garbage
-            "ISSN1562-6865",           // missing separator
-            "10637710",                // missing separator
-            "1748-7188'",              // trailing garbage
-            "ISSN  0264-2875",         // extra space
-            "1750 0095",               // invalid separator
-            "1188_1534",               // invalid separator
-            "1911-1478",               // invalid checkdigit
-            };
+    private final String[] invalidFormat = { "", // empty
+            "   ", // empty
+            "ISBN 0317-8471", // wrong prefix
+            "'1050-124X", // leading garbage
+            "ISSN1562-6865", // missing separator
+            "10637710", // missing separator
+            "1748-7188'", // trailing garbage
+            "ISSN  0264-2875", // extra space
+            "1750 0095", // invalid separator
+            "1188_1534", // invalid separator
+            "1911-1478", // invalid checkdigit
+    };
 
     /**
-     * Create a test case with the specified name.
-     * @param name The name of the test
+     * Test Invalid EAN-13 ISSN prefix codes Test Input length
      */
-    public ISSNValidatorTest(final String name) {
-        super(name);
-    }
-
-    /**
-     * Test isValid() ISSN codes
-     */
-    public void testIsValidISSN() {
-        for(final String f : validFormat) {
-            assertTrue(f, VALIDATOR.isValid(f));
+    @Test
+    public void testConversionErrors() {
+        String input = null;
+        try {
+            input = "9780072129519";
+            VALIDATOR.extractFromEAN13(input);
+            fail("Expected IllegalArgumentException for '" + input + "'");
+        } catch (final IllegalArgumentException e) {
+            // expected result
         }
-    }
-
-    /**
-     * Test null values
-     */
-    public void testNull() {
-        assertFalse("isValid",  VALIDATOR.isValid(null));
+        try {
+            input = "9791090636071";
+            VALIDATOR.extractFromEAN13(input);
+            fail("Expected IllegalArgumentException for '" + input + "'");
+        } catch (final IllegalArgumentException e) {
+            // expected result
+        }
+        try {
+            input = "03178471";
+            VALIDATOR.extractFromEAN13(input);
+            fail("Expected IllegalArgumentException for '" + input + "'");
+        } catch (final IllegalArgumentException e) {
+            // expected result
+        }
     }
 
     /**
      * Test Invalid ISSN codes
      */
+    @Test
     public void testInvalid() {
-        for(final String f : invalidFormat) {
-            assertFalse(f, VALIDATOR.isValid(f));
+        for (final String f : invalidFormat) {
+            assertFalse(VALIDATOR.isValid(f), f);
         }
     }
 
+    /**
+     * Test valid EAN-13 ISSN codes and extract the ISSN
+     */
+    @Test
+    public void testIsValidExtract() {
+        assertEquals("12345679", VALIDATOR.extractFromEAN13("9771234567003"));
+        assertEquals("00014664", VALIDATOR.extractFromEAN13("9770001466006"));
+        assertEquals("03178471", VALIDATOR.extractFromEAN13("9770317847001"));
+        assertEquals("1144875X", VALIDATOR.extractFromEAN13("9771144875007"));
+    }
+
+    /**
+     * Test isValid() ISSN codes
+     */
+    @Test
+    public void testIsValidISSN() {
+        for (final String f : validFormat) {
+            assertTrue(VALIDATOR.isValid(f), f);
+        }
+    }
+
+    /**
+     * Test isValid() ISSN codes and convert them
+     */
+    @Test
+    public void testIsValidISSNConvert() {
+        final CheckDigit ean13cd = EAN13CheckDigit.EAN13_CHECK_DIGIT;
+        final Random r = new Random();
+        for (final String f : validFormat) {
+            final String suffix = String.format("%02d", r.nextInt(100));
+            final String ean13 = VALIDATOR.convertToEAN13(f, suffix);
+            assertTrue(ean13cd.isValid(ean13), ean13);
+        }
+        // internet samples
+        assertEquals(VALIDATOR.convertToEAN13("1144-875X", "00"), "9771144875007");
+        assertEquals(VALIDATOR.convertToEAN13("0264-3596", "00"), "9770264359008");
+        assertEquals(VALIDATOR.convertToEAN13("1234-5679", "00"), "9771234567003");
+    }
+
+    @Test
     public void testIsValidISSNConvertNull() {
         assertNull(VALIDATOR.convertToEAN13(null, "00"));
     }
 
+    @Test
     public void testIsValidISSNConvertSuffix() {
         try {
             assertNull(VALIDATOR.convertToEAN13(null, null));
@@ -140,54 +176,17 @@ public class ISSNValidatorTest extends TestCase {
     }
 
     /**
-     * Test isValid() ISSN codes and convert them
+     * Test null values
      */
-    public void testIsValidISSNConvert() {
-        final CheckDigit ean13cd = EAN13CheckDigit.EAN13_CHECK_DIGIT;
-        final Random r = new Random();
-        for(final String f : validFormat) {
-            final String suffix = String.format("%02d", r.nextInt(100));
-            final String ean13 = VALIDATOR.convertToEAN13(f, suffix);
-            assertTrue(ean13, ean13cd.isValid(ean13));
-        }
-        // internet samples
-        assertEquals("9771144875007", VALIDATOR.convertToEAN13("1144-875X", "00"));
-        assertEquals("9770264359008", VALIDATOR.convertToEAN13("0264-3596", "00"));
-        assertEquals("9771234567003", VALIDATOR.convertToEAN13("1234-5679", "00"));
-    }
-
-    /**
-     * Test Invalid EAN-13 ISSN prefix codes
-     * Test Input length
-     */
-    public void testConversionErrors() {
-        String input = null;
-        try {
-            input = "9780072129519";
-            VALIDATOR.extractFromEAN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (final IllegalArgumentException e) {
-            // expected result
-        }
-        try {
-            input = "9791090636071";
-            VALIDATOR.extractFromEAN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (final IllegalArgumentException e) {
-            // expected result
-        }
-        try {
-            input = "03178471";
-            VALIDATOR.extractFromEAN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (final IllegalArgumentException e) {
-            // expected result
-        }
+    @Test
+    public void testNull() {
+        assertFalse(VALIDATOR.isValid(null), "isValid");
     }
 
     /**
      * Test Invalid EAN-13 ISSN codes
      */
+    @Test
     public void testValidCheckDigitEan13() {
         assertNull(VALIDATOR.extractFromEAN13("9771234567001"));
         assertNull(VALIDATOR.extractFromEAN13("9771234567002"));
@@ -199,14 +198,5 @@ public class ISSNValidatorTest extends TestCase {
         assertNull(VALIDATOR.extractFromEAN13("9771234567008"));
         assertNull(VALIDATOR.extractFromEAN13("9771234567009"));
         assertNull(VALIDATOR.extractFromEAN13("9771234567000"));
-    }
-    /**
-     *  Test valid EAN-13 ISSN codes and extract the ISSN
-     */
-    public void testIsValidExtract() {
-        assertEquals("12345679", VALIDATOR.extractFromEAN13("9771234567003"));
-        assertEquals("00014664", VALIDATOR.extractFromEAN13("9770001466006"));
-        assertEquals("03178471", VALIDATOR.extractFromEAN13("9770317847001"));
-        assertEquals("1144875X", VALIDATOR.extractFromEAN13("9771144875007"));
     }
 }

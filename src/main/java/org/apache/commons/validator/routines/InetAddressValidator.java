@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * <p><b>InetAddress</b> validation and conversion routines (<code>java.net.InetAddress</code>).</p>
@@ -59,9 +60,9 @@ public class InetAddressValidator implements Serializable {
      */
     private static final InetAddressValidator VALIDATOR = new InetAddressValidator();
 
-    /** IPv4 RegexValidator */
-    private final RegexValidator ipv4Validator = new RegexValidator(IPV4_REGEX);
+    private static final Pattern DIGITS_PATTERN = Pattern.compile("\\d{1,3}");
 
+    private static final Pattern ID_CHECK_PATTERN = Pattern.compile("[^\\s/%]+");
     /**
      * Returns the singleton instance of this validator.
      * @return the singleton instance of this validator
@@ -69,6 +70,9 @@ public class InetAddressValidator implements Serializable {
     public static InetAddressValidator getInstance() {
         return VALIDATOR;
     }
+
+    /** IPv4 RegexValidator */
+    private final RegexValidator ipv4Validator = new RegexValidator(IPV4_REGEX);
 
     /**
      * Checks if the specified string is a valid IPv4 or IPv6 address.
@@ -102,7 +106,7 @@ public class InetAddressValidator implements Serializable {
 
             try {
                 iIpSegment = Integer.parseInt(ipSegment);
-            } catch(final NumberFormatException e) {
+            } catch (final NumberFormatException e) {
                 return false;
             }
 
@@ -134,7 +138,7 @@ public class InetAddressValidator implements Serializable {
             return false; // can only have one prefix specifier
         }
         if (parts.length == 2) {
-            if (!parts[1].matches("\\d{1,3}")) {
+            if (!DIGITS_PATTERN.matcher(parts[1]).matches()) {
                 return false; // not a valid number
             }
             final int bits = Integer.parseInt(parts[1]); // cannot fail because of RE check
@@ -149,16 +153,16 @@ public class InetAddressValidator implements Serializable {
         }
         // The id syntax is implementation independent, but it presumably cannot allow:
         // whitespace, '/' or '%'
-        if ((parts.length == 2) && !parts[1].matches("[^\\s/%]+")) {
+        if (parts.length == 2 && !ID_CHECK_PATTERN.matcher(parts[1]).matches()) {
             return false; // invalid id
         }
         inet6Address = parts[0];
         final boolean containsCompressedZeroes = inet6Address.contains("::");
-        if (containsCompressedZeroes && (inet6Address.indexOf("::") != inet6Address.lastIndexOf("::"))) {
+        if (containsCompressedZeroes && inet6Address.indexOf("::") != inet6Address.lastIndexOf("::")) {
             return false;
         }
-        if ((inet6Address.startsWith(":") && !inet6Address.startsWith("::"))
-                || (inet6Address.endsWith(":") && !inet6Address.endsWith("::"))) {
+        if (inet6Address.startsWith(":") && !inet6Address.startsWith("::")
+                || inet6Address.endsWith(":") && !inet6Address.endsWith("::")) {
             return false;
         }
         String[] octets = inet6Address.split(":");
@@ -209,7 +213,7 @@ public class InetAddressValidator implements Serializable {
             }
             validOctets++;
         }
-        if (validOctets > IPV6_MAX_HEX_GROUPS || (validOctets < IPV6_MAX_HEX_GROUPS && !containsCompressedZeroes)) {
+        if (validOctets > IPV6_MAX_HEX_GROUPS || validOctets < IPV6_MAX_HEX_GROUPS && !containsCompressedZeroes) {
             return false;
         }
         return true;

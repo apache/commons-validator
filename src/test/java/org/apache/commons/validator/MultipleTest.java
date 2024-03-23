@@ -16,8 +16,14 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -25,314 +31,309 @@ import org.xml.sax.SAXException;
  */
 public class MultipleTest extends AbstractCommonTest {
 
-   /**
-    * The key used to retrieve the set of validation
-    * rules from the xml file.
-    */
-   protected static String FORM_KEY = "nameForm";
-
-   /**
-    * The key used to retrieve the validator action.
-    */
-   protected static String ACTION = "required";
-
-
-
-   public MultipleTest(final String name) {
-       super(name);
-   }
-
-   /**
-    * Load <code>ValidatorResources</code> from
-    * validator-multipletest.xml.
-    */
-   @Override
-protected void setUp() throws IOException, SAXException {
-      // Load resources
-      loadResources("MultipleTests-config.xml");
-   }
-
-   @Override
-protected void tearDown() {
-   }
-
-   /**
-    * With nothing provided, we should fail both because both are required.
-    */
-   public void testBothBlank() throws ValidatorException {
-      // Create bean to run test on.
-      final NameBean name = new NameBean();
-
-      // Construct validator based on the loaded resources
-      // and the form key
-      final Validator validator = new Validator(resources, FORM_KEY);
-      // add the name bean to the validator as a resource
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, name);
-
-      // Get results of the validation.
-      // throws ValidatorException,
-      // but we aren't catching for testing
-      // since no validation methods we use
-      // throw this
-      final ValidatorResults results = validator.validate();
-
-      assertNotNull("Results are null.", results);
-
-      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
-
-      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
-      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have failed.", !firstNameResult.isValid(ACTION));
-
-      assertNotNull("Last Name ValidatorResult should not be null.", lastNameResult);
-      assertTrue("Last Name ValidatorResult should contain the '" + ACTION +"' action.", lastNameResult.containsAction(ACTION));
-      assertTrue("Last Name ValidatorResult for the '" + ACTION +"' action should have failed.", !lastNameResult.isValid(ACTION));
-      assertTrue("Last Name ValidatorResults should not contain the 'int' action.", !lastNameResult.containsAction("int"));
-   }
-
-   /**
-    * If the first name fails required, and the second test fails int, we should get two errors.
-    */
-   public void testRequiredFirstNameBlankLastNameShort() throws ValidatorException {
-      // Create bean to run test on.
-      final NameBean name = new NameBean();
-      name.setFirstName("");
-      name.setLastName("Test");
-
-      // Construct validator based on the loaded resources
-      // and the form key
-      final Validator validator = new Validator(resources, FORM_KEY);
-      // add the name bean to the validator as a resource
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, name);
-
-      // Get results of the validation.
-      final ValidatorResults results = validator.validate();
-
-      assertNotNull("Results are null.", results);
-
-      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
-
-      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
-      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have failed.", !firstNameResult.isValid(ACTION));
-
-      assertNotNull("Last Name ValidatorResult should not be null.", lastNameResult);
-      assertTrue("Last Name ValidatorResult should contain the 'int' action.", lastNameResult.containsAction("int"));
-      assertTrue("Last Name ValidatorResult for the 'int' action should have failed.", !lastNameResult.isValid("int"));
-   }
-
-   /**
-    * If the first name is there, and the last name fails int, we should get one error.
-    */
-   public void testRequiredLastNameShort() throws ValidatorException {
-      // Create bean to run test on.
-      final NameBean name = new NameBean();
-      name.setFirstName("Test");
-      name.setLastName("Test");
-
-      // Construct validator based on the loaded resources
-      // and the form key
-      final Validator validator = new Validator(resources, FORM_KEY);
-      // add the name bean to the validator as a resource
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, name);
-
-      // Get results of the validation.
-      final ValidatorResults results = validator.validate();
-
-      assertNotNull("Results are null.", results);
-
-      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
-
-      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
-      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have passed.", firstNameResult.isValid(ACTION));
-
-      assertNotNull("Last Name ValidatorResult should not be null.", lastNameResult);
-      assertTrue("Last Name ValidatorResult should contain the 'int' action.", lastNameResult.containsAction("int"));
-      assertTrue("Last Name ValidatorResult for the 'int' action should have failed.", !lastNameResult.isValid("int"));
-   }
-
-   /**
-    * If first name is ok and last name is ok and is an int, no errors.
-    */
-   public void testRequiredLastNameLong() throws ValidatorException {
-      // Create bean to run test on.
-      final NameBean name = new NameBean();
-      name.setFirstName("Joe");
-      name.setLastName("12345678");
-
-      // Construct validator based on the loaded resources
-      // and the form key
-      final Validator validator = new Validator(resources, FORM_KEY);
-      // add the name bean to the validator as a resource
-      // for the validations to be performed on.
-      validator.setParameter(Validator.BEAN_PARAM, name);
-
-      // Get results of the validation.
-      final ValidatorResults results = validator.validate();
-
-      assertNotNull("Results are null.", results);
-
-      final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
-      final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
-
-      assertNotNull("First Name ValidatorResult should not be null.", firstNameResult);
-      assertTrue("First Name ValidatorResult should contain the '" + ACTION +"' action.", firstNameResult.containsAction(ACTION));
-      assertTrue("First Name ValidatorResult for the '" + ACTION +"' action should have passed.", firstNameResult.isValid(ACTION));
-
-      assertNotNull("Last Name ValidatorResult should not be null.", lastNameResult);
-      assertTrue("Last Name ValidatorResult should contain the 'int' action.", lastNameResult.containsAction("int"));
-      assertTrue("Last Name ValidatorResult for the 'int' action should have passed.", lastNameResult.isValid("int"));
-   }
-
-   /**
-    * If middle name is not there, then the required dependent test should fail.
-    * No other tests should run
-    *
-    * @throws ValidatorException
-    */
-   public void testFailingFirstDependentValidator() throws ValidatorException {
-       // Create bean to run test on.
-       final NameBean name = new NameBean();
-
-       // Construct validator based on the loaded resources
-       // and the form key
-       final Validator validator = new Validator(resources, FORM_KEY);
-       // add the name bean to the validator as a resource
-       // for the validations to be performed on.
-       validator.setParameter(Validator.BEAN_PARAM, name);
-
-       // Get results of the validation.
-       final ValidatorResults results = validator.validate();
-
-       assertNotNull("Results are null.", results);
-
-       final ValidatorResult middleNameResult = results.getValidatorResult("middleName");
-
-       assertNotNull("Middle Name ValidatorResult should not be null.", middleNameResult);
-
-       assertTrue("Middle Name ValidatorResult should contain the 'required' action.", middleNameResult.containsAction("required"));
-       assertTrue("Middle Name ValidatorResult for the 'required' action should have failed", !middleNameResult.isValid("required"));
-
-       assertTrue("Middle Name ValidatorResult should not contain the 'int' action.", !middleNameResult.containsAction("int"));
-
-       assertTrue("Middle Name ValidatorResult should not contain the 'positive' action.", !middleNameResult.containsAction("positive"));
-   }
-
-   /**
-    * If middle name is there but not int, then the required dependent test
-    * should pass, but the int dependent test should fail. No other tests should
-    * run.
-    *
-    * @throws ValidatorException
-    */
-   public void testFailingNextDependentValidator() throws ValidatorException {
-       // Create bean to run test on.
-       final NameBean name = new NameBean();
-       name.setMiddleName("TEST");
-
-       // Construct validator based on the loaded resources
-       // and the form key
-       final Validator validator = new Validator(resources, FORM_KEY);
-       // add the name bean to the validator as a resource
-       // for the validations to be performed on.
-       validator.setParameter(Validator.BEAN_PARAM, name);
-
-       // Get results of the validation.
-       final ValidatorResults results = validator.validate();
-
-       assertNotNull("Results are null.", results);
-
-       final ValidatorResult middleNameResult = results.getValidatorResult("middleName");
-
-       assertNotNull("Middle Name ValidatorResult should not be null.", middleNameResult);
-
-       assertTrue("Middle Name ValidatorResult should contain the 'required' action.", middleNameResult.containsAction("required"));
-       assertTrue("Middle Name ValidatorResult for the 'required' action should have passed", middleNameResult.isValid("required"));
-
-       assertTrue("Middle Name ValidatorResult should contain the 'int' action.", middleNameResult.containsAction("int"));
-       assertTrue("Middle Name ValidatorResult for the 'int' action should have failed", !middleNameResult.isValid("int"));
-
-       assertTrue("Middle Name ValidatorResult should not contain the 'positive' action.", !middleNameResult.containsAction("positive"));
-   }
-
-   /**
-    * If middle name is there and a negative int, then the required and int
-    * dependent tests should pass, but the positive test should fail.
-    *
-    * @throws ValidatorException
-    */
-   public void testPassingDependentsFailingMain() throws ValidatorException {
-       // Create bean to run test on.
-       final NameBean name = new NameBean();
-       name.setMiddleName("-2534");
-
-       // Construct validator based on the loaded resources
-       // and the form key
-       final Validator validator = new Validator(resources, FORM_KEY);
-       // add the name bean to the validator as a resource
-       // for the validations to be performed on.
-       validator.setParameter(Validator.BEAN_PARAM, name);
-
-       // Get results of the validation.
-       final ValidatorResults results = validator.validate();
-
-       assertNotNull("Results are null.", results);
-
-       final ValidatorResult middleNameResult = results.getValidatorResult("middleName");
-
-       assertNotNull("Middle Name ValidatorResult should not be null.", middleNameResult);
-
-       assertTrue("Middle Name ValidatorResult should contain the 'required' action.", middleNameResult.containsAction("required"));
-       assertTrue("Middle Name ValidatorResult for the 'required' action should have passed", middleNameResult.isValid("required"));
-
-       assertTrue("Middle Name ValidatorResult should contain the 'int' action.", middleNameResult.containsAction("int"));
-       assertTrue("Middle Name ValidatorResult for the 'int' action should have passed", middleNameResult.isValid("int"));
-
-       assertTrue("Middle Name ValidatorResult should contain the 'positive' action.", middleNameResult.containsAction("positive"));
-       assertTrue("Middle Name ValidatorResult for the 'positive' action should have failed", !middleNameResult.isValid("positive"));
-   }
-
-   /**
-    * If middle name is there and a positve int, then the required and int
-    * dependent tests should pass, and the positive test should pass.
-    *
-    * @throws ValidatorException
-    */
-   public void testPassingDependentsPassingMain() throws ValidatorException {
-       // Create bean to run test on.
-       final NameBean name = new NameBean();
-       name.setMiddleName("2534");
-
-       // Construct validator based on the loaded resources
-       // and the form key
-       final Validator validator = new Validator(resources, FORM_KEY);
-       // add the name bean to the validator as a resource
-       // for the validations to be performed on.
-       validator.setParameter(Validator.BEAN_PARAM, name);
-
-       // Get results of the validation.
-       final ValidatorResults results = validator.validate();
-
-       assertNotNull("Results are null.", results);
-
-       final ValidatorResult middleNameResult = results.getValidatorResult("middleName");
-
-       assertNotNull("Middle Name ValidatorResult should not be null.", middleNameResult);
-
-       assertTrue("Middle Name ValidatorResult should contain the 'required' action.", middleNameResult.containsAction("required"));
-       assertTrue("Middle Name ValidatorResult for the 'required' action should have passed", middleNameResult.isValid("required"));
-
-       assertTrue("Middle Name ValidatorResult should contain the 'int' action.", middleNameResult.containsAction("int"));
-       assertTrue("Middle Name ValidatorResult for the 'int' action should have passed", middleNameResult.isValid("int"));
-
-       assertTrue("Middle Name ValidatorResult should contain the 'positive' action.", middleNameResult.containsAction("positive"));
-       assertTrue("Middle Name ValidatorResult for the 'positive' action should have passed", middleNameResult.isValid("positive"));
-   }
+    /**
+     * The key used to retrieve the set of validation rules from the xml file.
+     */
+    protected static String FORM_KEY = "nameForm";
+
+    /**
+     * The key used to retrieve the validator action.
+     */
+    protected static String ACTION = "required";
+
+    /**
+     * Load <code>ValidatorResources</code> from validator-multipletest.xml.
+     */
+    @BeforeEach
+    protected void setUp() throws IOException, SAXException {
+        // Load resources
+        loadResources("MultipleTests-config.xml");
+    }
+
+    @AfterEach
+    protected void tearDown() {
+    }
+
+    /**
+     * With nothing provided, we should fail both because both are required.
+     */
+    @Test
+    public void testBothBlank() throws ValidatorException {
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
+
+        // Get results of the validation.
+        // throws ValidatorException,
+        // but we aren't catching for testing
+        // since no validation methods we use
+        // throw this
+        final ValidatorResults results = validator.validate();
+
+        assertNotNull(results, "Results are null.");
+
+        final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+        final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+
+        assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(firstNameResult.containsAction(ACTION), () -> "First Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(!firstNameResult.isValid(ACTION), () -> "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+
+        assertNotNull(lastNameResult, "Last Name ValidatorResult should not be null.");
+        assertTrue(lastNameResult.containsAction(ACTION), () -> "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(!lastNameResult.isValid(ACTION), () -> "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertTrue(!lastNameResult.containsAction("int"), "Last Name ValidatorResults should not contain the 'int' action.");
+    }
+
+    /**
+     * If middle name is not there, then the required dependent test should fail. No other tests should run
+     *
+     * @throws ValidatorException
+     */
+    @Test
+    public void testFailingFirstDependentValidator() throws ValidatorException {
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
+
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
+
+        assertNotNull(results, "Results are null.");
+
+        final ValidatorResult middleNameResult = results.getValidatorResult("middleName");
+
+        assertNotNull(middleNameResult, "Middle Name ValidatorResult should not be null.");
+
+        assertTrue(middleNameResult.containsAction("required"), "Middle Name ValidatorResult should contain the 'required' action.");
+        assertTrue(!middleNameResult.isValid("required"), "Middle Name ValidatorResult for the 'required' action should have failed");
+
+        assertTrue(!middleNameResult.containsAction("int"), "Middle Name ValidatorResult should not contain the 'int' action.");
+
+        assertTrue(!middleNameResult.containsAction("positive"), "Middle Name ValidatorResult should not contain the 'positive' action.");
+    }
+
+    /**
+     * If middle name is there but not int, then the required dependent test should pass, but the int dependent test should fail. No other tests should run.
+     *
+     * @throws ValidatorException
+     */
+    @Test
+    public void testFailingNextDependentValidator() throws ValidatorException {
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+        name.setMiddleName("TEST");
+
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
+
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
+
+        assertNotNull(results, "Results are null.");
+
+        final ValidatorResult middleNameResult = results.getValidatorResult("middleName");
+
+        assertNotNull(middleNameResult, "Middle Name ValidatorResult should not be null.");
+
+        assertTrue(middleNameResult.containsAction("required"), "Middle Name ValidatorResult should contain the 'required' action.");
+        assertTrue(middleNameResult.isValid("required"), "Middle Name ValidatorResult for the 'required' action should have passed");
+
+        assertTrue(middleNameResult.containsAction("int"), "Middle Name ValidatorResult should contain the 'int' action.");
+        assertTrue(!middleNameResult.isValid("int"), "Middle Name ValidatorResult for the 'int' action should have failed");
+
+        assertTrue(!middleNameResult.containsAction("positive"), "Middle Name ValidatorResult should not contain the 'positive' action.");
+    }
+
+    /**
+     * If middle name is there and a negative int, then the required and int dependent tests should pass, but the positive test should fail.
+     *
+     * @throws ValidatorException
+     */
+    @Test
+    public void testPassingDependentsFailingMain() throws ValidatorException {
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+        name.setMiddleName("-2534");
+
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
+
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
+
+        assertNotNull(results, "Results are null.");
+
+        final ValidatorResult middleNameResult = results.getValidatorResult("middleName");
+
+        assertNotNull(middleNameResult, "Middle Name ValidatorResult should not be null.");
+
+        assertTrue(middleNameResult.containsAction("required"), "Middle Name ValidatorResult should contain the 'required' action.");
+        assertTrue(middleNameResult.isValid("required"), "Middle Name ValidatorResult for the 'required' action should have passed");
+
+        assertTrue(middleNameResult.containsAction("int"), "Middle Name ValidatorResult should contain the 'int' action.");
+        assertTrue(middleNameResult.isValid("int"), "Middle Name ValidatorResult for the 'int' action should have passed");
+
+        assertTrue(middleNameResult.containsAction("positive"), "Middle Name ValidatorResult should contain the 'positive' action.");
+        assertTrue(!middleNameResult.isValid("positive"), "Middle Name ValidatorResult for the 'positive' action should have failed");
+    }
+
+    /**
+     * If middle name is there and a positve int, then the required and int dependent tests should pass, and the positive test should pass.
+     *
+     * @throws ValidatorException
+     */
+    @Test
+    public void testPassingDependentsPassingMain() throws ValidatorException {
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+        name.setMiddleName("2534");
+
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
+
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
+
+        assertNotNull(results, "Results are null.");
+
+        final ValidatorResult middleNameResult = results.getValidatorResult("middleName");
+
+        assertNotNull(middleNameResult, "Middle Name ValidatorResult should not be null.");
+
+        assertTrue(middleNameResult.containsAction("required"), "Middle Name ValidatorResult should contain the 'required' action.");
+        assertTrue(middleNameResult.isValid("required"), "Middle Name ValidatorResult for the 'required' action should have passed");
+
+        assertTrue(middleNameResult.containsAction("int"), "Middle Name ValidatorResult should contain the 'int' action.");
+        assertTrue(middleNameResult.isValid("int"), "Middle Name ValidatorResult for the 'int' action should have passed");
+
+        assertTrue(middleNameResult.containsAction("positive"), "Middle Name ValidatorResult should contain the 'positive' action.");
+        assertTrue(middleNameResult.isValid("positive"), "Middle Name ValidatorResult for the 'positive' action should have passed");
+    }
+
+    /**
+     * If the first name fails required, and the second test fails int, we should get two errors.
+     */
+    @Test
+    public void testRequiredFirstNameBlankLastNameShort() throws ValidatorException {
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+        name.setFirstName("");
+        name.setLastName("Test");
+
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
+
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
+
+        assertNotNull(results, "Results are null.");
+
+        final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+        final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+
+        assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(firstNameResult.containsAction(ACTION), () -> "First Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(!firstNameResult.isValid(ACTION), () -> "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+
+        assertNotNull(lastNameResult, "Last Name ValidatorResult should not be null.");
+        assertTrue(lastNameResult.containsAction("int"), "Last Name ValidatorResult should contain the 'int' action.");
+        assertTrue(!lastNameResult.isValid("int"), "Last Name ValidatorResult for the 'int' action should have failed.");
+    }
+
+    /**
+     * If first name is ok and last name is ok and is an int, no errors.
+     */
+    @Test
+    public void testRequiredLastNameLong() throws ValidatorException {
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+        name.setFirstName("Joe");
+        name.setLastName("12345678");
+
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
+
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
+
+        assertNotNull(results, "Results are null.");
+
+        final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+        final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+
+        assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(firstNameResult.containsAction(ACTION), () -> "First Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(firstNameResult.isValid(ACTION), () -> "First Name ValidatorResult for the '" + ACTION + "' action should have passed.");
+
+        assertNotNull(lastNameResult, "Last Name ValidatorResult should not be null.");
+        assertTrue(lastNameResult.containsAction("int"), "Last Name ValidatorResult should contain the 'int' action.");
+        assertTrue(lastNameResult.isValid("int"), "Last Name ValidatorResult for the 'int' action should have passed.");
+    }
+
+    /**
+     * If the first name is there, and the last name fails int, we should get one error.
+     */
+    @Test
+    public void testRequiredLastNameShort() throws ValidatorException {
+        // Create bean to run test on.
+        final NameBean name = new NameBean();
+        name.setFirstName("Test");
+        name.setLastName("Test");
+
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, name);
+
+        // Get results of the validation.
+        final ValidatorResults results = validator.validate();
+
+        assertNotNull(results, "Results are null.");
+
+        final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
+        final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
+
+        assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
+        assertTrue(firstNameResult.containsAction(ACTION), () -> "First Name ValidatorResult should contain the '" + ACTION + "' action.");
+        assertTrue(firstNameResult.isValid(ACTION), () -> "First Name ValidatorResult for the '" + ACTION + "' action should have passed.");
+
+        assertNotNull(lastNameResult, "Last Name ValidatorResult should not be null.");
+        assertTrue(lastNameResult.containsAction("int"), "Last Name ValidatorResult should contain the 'int' action.");
+        assertTrue(!lastNameResult.isValid("int"), "Last Name ValidatorResult for the 'int' action should have failed.");
+    }
 }

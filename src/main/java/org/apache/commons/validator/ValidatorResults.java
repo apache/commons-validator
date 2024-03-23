@@ -38,15 +38,6 @@ public class ValidatorResults implements Serializable {
     protected Map<String, ValidatorResult> hResults = new HashMap<>();
 
     /**
-     * Merge another ValidatorResults into mine.
-     *
-     * @param results ValidatorResults to merge.
-     */
-    public void merge(final ValidatorResults results) {
-        this.hResults.putAll(results.hResults);
-    }
-
-    /**
      * Add a the result of a validator action.
      *
      * @param field The field validated.
@@ -89,31 +80,7 @@ public class ValidatorResults implements Serializable {
     }
 
     /**
-     * Return <code>true</code> if there are no messages recorded
-     * in this collection, or <code>false</code> otherwise.
-     *
-     * @return Whether these results are empty.
-     */
-    public boolean isEmpty() {
-        return this.hResults.isEmpty();
-    }
-
-    /**
-     * Gets the <code>ValidatorResult</code> associated
-     * with the key passed in.  The key the <code>ValidatorResult</code>
-     * is stored under is the <code>Field</code>'s getKey method.
-     *
-     * @param key The key generated from <code>Field</code> (this is often just
-     * the field name).
-     *
-     * @return The result of a specified key.
-     */
-    public ValidatorResult getValidatorResult(final String key) {
-        return this.hResults.get(key);
-    }
-
-    /**
-     * Return the set of property names for which at least one message has
+     * Gets the set of property names for which at least one message has
      * been recorded.
      * @return An unmodifiable Set of the property names.
      */
@@ -122,7 +89,7 @@ public class ValidatorResults implements Serializable {
     }
 
     /**
-     * Get a <code>Map</code> of any <code>Object</code>s returned from
+     * Gets a <code>Map</code> of any <code>Object</code>s returned from
      * validation routines.
      *
      * @return Map of objections returned by validators.
@@ -144,6 +111,39 @@ public class ValidatorResults implements Serializable {
         }
 
         return results;
+    }
+
+    /**
+     * Gets the <code>ValidatorResult</code> associated
+     * with the key passed in.  The key the <code>ValidatorResult</code>
+     * is stored under is the <code>Field</code>'s getKey method.
+     *
+     * @param key The key generated from <code>Field</code> (this is often just
+     * the field name).
+     *
+     * @return The result of a specified key.
+     */
+    public ValidatorResult getValidatorResult(final String key) {
+        return this.hResults.get(key);
+    }
+
+    /**
+     * Gets {@code true} if there are no messages recorded
+     * in this collection, or {@code false} otherwise.
+     *
+     * @return Whether these results are empty.
+     */
+    public boolean isEmpty() {
+        return this.hResults.isEmpty();
+    }
+
+    /**
+     * Merge another ValidatorResults into mine.
+     *
+     * @param results ValidatorResults to merge.
+     */
+    public void merge(final ValidatorResults results) {
+        this.hResults.putAll(results.hResults);
     }
 
 }

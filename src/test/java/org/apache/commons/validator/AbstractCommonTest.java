@@ -21,25 +21,19 @@ import java.io.InputStream;
 
 import org.xml.sax.SAXException;
 
-import junit.framework.TestCase;
-
 /**
  * Consolidates reading in XML config file into parent class.
  */
-abstract public class AbstractCommonTest extends TestCase {
+abstract public class AbstractCommonTest {
 
     /**
      * Resources used for validation tests.
      */
     protected ValidatorResources resources;
-
-    public AbstractCommonTest(final String string) {
-        super(string);
-    }
+    protected String name;
 
     /**
-     * Load <code>ValidatorResources</code> from
-     * validator-numeric.xml.
+     * Load <code>ValidatorResources</code> from validator-numeric.xml.
      */
     protected void loadResources(final String file) throws IOException, SAXException {
         // Load resources

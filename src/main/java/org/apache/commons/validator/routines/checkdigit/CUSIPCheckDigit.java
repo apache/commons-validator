@@ -32,7 +32,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * </p>
  *
  * <p>
- * See <a href="http://en.wikipedia.org/wiki/CUSIP">Wikipedia - CUSIP</a>
+ * See <a href="https://en.wikipedia.org/wiki/CUSIP">Wikipedia - CUSIP</a>
  * for more details.
  * </p>
  *
@@ -45,14 +45,13 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
     /** Singleton CUSIP Check Digit instance */
     public static final CheckDigit CUSIP_CHECK_DIGIT = new CUSIPCheckDigit();
 
-    /** weighting given to digits depending on their right position */
+    /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = {2, 1};
 
     /**
-     * Construct an CUSIP Indetifier Check Digit routine.
+     * Constructs a CUSIP Identifier Check Digit routine.
      */
     public CUSIPCheckDigit() {
-        super(10); // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**
@@ -62,7 +61,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      * @param leftPos The position of the character in the code, counting from left to right
      * @param rightPos The position of the character in the code, counting from right to left
      * @return The integer value of the character
-     * @throws CheckDigitException if character is not alphanumeric
+     * @throws CheckDigitException if the character is not alphanumeric
      */
     @Override
     protected int toInt(final char character, final int leftPos, final int rightPos)
@@ -87,13 +86,13 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      *
      * @param charValue The numeric value of the character.
      * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
+     * @param rightPos The position of the character in the code, counting from right to left
      * @return The weighted value of the character.
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
         final int weight = POSITION_WEIGHT[rightPos % 2];
-        final int weightedValue = (charValue * weight);
+        final int weightedValue = charValue * weight;
         return ModulusCheckDigit.sumDigits(weightedValue);
     }
 }

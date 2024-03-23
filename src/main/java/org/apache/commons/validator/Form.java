@@ -27,13 +27,14 @@ import org.apache.commons.collections.FastHashMap;// DEPRECATED
 
 /**
  * <p>
- *
  * This contains a set of validation rules for a form/JavaBean. The information
  * is contained in a list of <code>Field</code> objects. Instances of this class
- * are configured with a &lt;form&gt; xml element. </p> <p>
- *
+ * are configured with a &lt;form&gt; xml element.
+ * </p>
+ * <p>
  * The use of FastHashMap is deprecated and will be replaced in a future
- * release. </p>
+ * release.
+ * </p>
  */
 //TODO mutable non-private fields
 public class Form implements Serializable {
@@ -72,24 +73,6 @@ public class Form implements Serializable {
     private boolean processed;
 
     /**
-     * Gets the name/key of the set of validation rules.
-     *
-     * @return   The name value
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the name/key of the set of validation rules.
-     *
-     * @param name  The new name value
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    /**
      * Add a <code>Field</code> to the <code>Form</code>.
      *
      * @param f  The field
@@ -100,13 +83,24 @@ public class Form implements Serializable {
     }
 
     /**
-     * A <code>List</code> of <code>Field</code>s is returned as an unmodifiable
-     * <code>List</code>.
+     * Returns true if this Form contains a Field with the given name.
      *
-     * @return   The fields value
+     * @param fieldName  The field name
+     * @return           True if this form contains the field by the given name
+     * @since 1.1
      */
-    public List<Field> getFields() {
-        return Collections.unmodifiableList(lFields);
+    public boolean containsField(final String fieldName) {
+        return getFieldMap().containsKey(fieldName);
+    }
+
+    /**
+     * Gets the name/key of the parent set of validation rules.
+     *
+     * @return   The extends value
+     * @since 1.2.0
+     */
+    public String getExtends() {
+        return inherit;
     }
 
     /**
@@ -122,14 +116,54 @@ public class Form implements Serializable {
     }
 
     /**
-     * Returns true if this Form contains a Field with the given name.
+     * Returns a Map of String field keys to Field objects.
      *
-     * @param fieldName  The field name
-     * @return           True if this form contains the field by the given name
-     * @since 1.1
+     * @return   The fieldMap value
+     * @since 1.2.0
      */
-    public boolean containsField(final String fieldName) {
-        return getFieldMap().containsKey(fieldName);
+    @SuppressWarnings("unchecked") // FastHashMap is not generic
+    protected Map<String, Field> getFieldMap() {
+        return hFields;
+    }
+
+    /**
+     * A <code>List</code> of <code>Field</code>s is returned as an unmodifiable
+     * <code>List</code>.
+     *
+     * @return   The fields value
+     */
+    public List<Field> getFields() {
+        return Collections.unmodifiableList(lFields);
+    }
+
+    /**
+     * Gets the name/key of the set of validation rules.
+     *
+     * @return   The name value
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Gets extends flag.
+     *
+     * @return   The extending value
+     * @since 1.2.0
+     */
+    public boolean isExtending() {
+        return inherit != null;
+    }
+
+    /**
+     * Whether or not the this <code>Form</code> was processed for replacing
+     * variables in strings with their values.
+     *
+     * @return   The processed value
+     * @since 1.2.0
+     */
+    public boolean isProcessed() {
+        return processed;
     }
 
     /**
@@ -208,6 +242,25 @@ public class Form implements Serializable {
     }
 
     /**
+     * Sets the name/key of the parent set of validation rules.
+     *
+     * @param inherit  The new extends value
+     * @since 1.2.0
+     */
+    public void setExtends(final String inherit) {
+        this.inherit = inherit;
+    }
+
+    /**
+     * Sets the name/key of the set of validation rules.
+     *
+     * @param name  The new name value
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
      * Returns a string representation of the object.
      *
      * @return string representation
@@ -262,7 +315,7 @@ public class Form implements Serializable {
      * @since 1.2.0
      */
     ValidatorResults validate(final Map<String, Object> params, final Map<String, ValidatorAction> actions, final int page, final String fieldName)
-        throws ValidatorException {
+            throws ValidatorException {
         final ValidatorResults results = new ValidatorResults();
         params.put(Validator.VALIDATOR_RESULTS_PARAM, results);
 
@@ -271,12 +324,12 @@ public class Form implements Serializable {
             final Field field = getFieldMap().get(fieldName);
 
             if (field == null) {
-               throw new ValidatorException("Unknown field "+fieldName+" in form "+getName());
+                throw new ValidatorException("Unknown field " + fieldName + " in form " + getName());
             }
             params.put(Validator.FIELD_PARAM, field);
 
             if (field.getPage() <= page) {
-               results.merge(field.validate(params, actions));
+                results.merge(field.validate(params, actions));
             }
         } else {
             for (final Field field : this.lFields) {
@@ -290,57 +343,5 @@ public class Form implements Serializable {
         }
 
         return results;
-    }
-
-    /**
-     * Whether or not the this <code>Form</code> was processed for replacing
-     * variables in strings with their values.
-     *
-     * @return   The processed value
-     * @since 1.2.0
-     */
-    public boolean isProcessed() {
-        return processed;
-    }
-
-    /**
-     * Gets the name/key of the parent set of validation rules.
-     *
-     * @return   The extends value
-     * @since 1.2.0
-     */
-    public String getExtends() {
-        return inherit;
-    }
-
-    /**
-     * Sets the name/key of the parent set of validation rules.
-     *
-     * @param inherit  The new extends value
-     * @since 1.2.0
-     */
-    public void setExtends(final String inherit) {
-        this.inherit = inherit;
-    }
-
-    /**
-     * Get extends flag.
-     *
-     * @return   The extending value
-     * @since 1.2.0
-     */
-    public boolean isExtending() {
-        return inherit != null;
-    }
-
-    /**
-     * Returns a Map of String field keys to Field objects.
-     *
-     * @return   The fieldMap value
-     * @since 1.2.0
-     */
-    @SuppressWarnings("unchecked") // FastHashMap is not generic
-    protected Map<String, Field> getFieldMap() {
-        return hFields;
     }
 }

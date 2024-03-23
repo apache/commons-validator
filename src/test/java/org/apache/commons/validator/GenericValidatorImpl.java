@@ -23,25 +23,121 @@ import org.apache.commons.validator.util.ValidatorUtils;
  */
 public class GenericValidatorImpl {
 
-    /**
-     * Throws a runtime exception if the value of the argument is "RUNTIME",
-     * an exception if the value of the argument is "CHECKED", and a
-     * ValidatorException otherwise.
-     *
-     * @throws RuntimeException with "RUNTIME-EXCEPTION as message"
-     * if value is "RUNTIME"
-     * @throws Exception with "CHECKED-EXCEPTION" as message
-     * if value is "CHECKED"
-     * @throws ValidatorException with "VALIDATOR-EXCEPTION" as message
-     * otherwise
-     */
-    public static boolean validateRaiseException(
-        final Object bean,
-        final Field field)
-        throws Exception {
+    public final static String FIELD_TEST_NULL = "NULL";
 
-        final String value =
-            ValidatorUtils.getValueAsString(bean, field.getProperty());
+    public final static String FIELD_TEST_NOTNULL = "NOTNULL";
+
+    public final static String FIELD_TEST_EQUAL = "EQUAL";
+
+    private static boolean isStringOrNull(final Object o) {
+        if (o == null) {
+            return true; // TODO this condition is not exercised by any tests currently
+        }
+        return o instanceof String;
+    }
+
+    /**
+     * Checks if the field can be successfully converted to a <code>byte</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>byte</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static boolean validateByte(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+        return GenericValidator.isByte(value);
+    }
+
+    /**
+     * Checks if the field can be successfully converted to a <code>double</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>double</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static boolean validateDouble(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+        return GenericValidator.isDouble(value);
+    }
+
+    /**
+     * Checks if the field is an e-mail address.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field is an e-mail address {@code true} is returned. Otherwise {@code false}.
+     */
+    public static boolean validateEmail(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+        return GenericValidator.isEmail(value);
+    }
+
+    /**
+     * Checks if the field can be successfully converted to a <code>float</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>float</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static boolean validateFloat(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+        return GenericValidator.isFloat(value);
+    }
+
+    /**
+     * Checks if the field can be successfully converted to a <code>int</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>int</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static boolean validateInt(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+        return GenericValidator.isInt(value);
+    }
+
+    /**
+     * Checks if the field can be successfully converted to a <code>long</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>long</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static boolean validateLong(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+        return GenericValidator.isLong(value);
+    }
+
+    /**
+     * Checks if field is positive assuming it is an integer
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field Description of the field to be evaluated
+     * @return boolean If the integer field is greater than zero, returns true, otherwise returns false.
+     */
+    public static boolean validatePositive(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+        return GenericTypeValidator.formatInt(value).intValue() > 0;
+    }
+
+    /**
+     * Throws a runtime exception if the value of the argument is "RUNTIME", an exception if the value of the argument is "CHECKED", and a ValidatorException
+     * otherwise.
+     *
+     * @throws RuntimeException   with "RUNTIME-EXCEPTION as message" if value is "RUNTIME"
+     * @throws Exception          with "CHECKED-EXCEPTION" as message if value is "CHECKED"
+     * @throws ValidatorException with "VALIDATOR-EXCEPTION" as message otherwise
+     */
+    public static boolean validateRaiseException(final Object bean, final Field field) throws Exception {
+
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
         if ("RUNTIME".equals(value)) {
             throw new RuntimeException("RUNTIME-EXCEPTION");
@@ -54,146 +150,18 @@ public class GenericValidatorImpl {
         throw new ValidatorException("VALIDATOR-EXCEPTION");
     }
 
-   /**
-    * Checks if the field is required.
-    *
-    * @return boolean If the field isn't <code>null</code> and
-    * has a length greater than zero, <code>true</code> is returned.
-    * Otherwise <code>false</code>.
-    */
-   public static boolean validateRequired(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+    /**
+     * Checks if the field is required.
+     *
+     * @return boolean If the field isn't {@code null} and has a length greater than zero, {@code true} is returned. Otherwise {@code false}.
+     */
+    public static boolean validateRequired(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
 
-      return !GenericValidator.isBlankOrNull(value);
-   }
+        return !GenericValidator.isBlankOrNull(value);
+    }
 
-   /**
-    * Checks if the field can be successfully converted to a <code>byte</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return    boolean        If the field can be successfully converted
-    *                           to a <code>byte</code> <code>true</code> is returned.
-    *                           Otherwise <code>false</code>.
-    */
-   public static boolean validateByte(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
-
-      return GenericValidator.isByte(value);
-   }
-
-   /**
-    * Checks if the field can be successfully converted to a <code>short</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return    boolean        If the field can be successfully converted
-    *                           to a <code>short</code> <code>true</code> is returned.
-    *                           Otherwise <code>false</code>.
-    */
-   public static boolean validateShort(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
-
-      return GenericValidator.isShort(value);
-   }
-
-   /**
-    * Checks if the field can be successfully converted to a <code>int</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return    boolean        If the field can be successfully converted
-    *                           to a <code>int</code> <code>true</code> is returned.
-    *                           Otherwise <code>false</code>.
-    */
-   public static boolean validateInt(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
-
-      return GenericValidator.isInt(value);
-   }
-
-   /**
-    * Checks if field is positive assuming it is an integer
-    *
-    * @param    bean       The value validation is being performed on.
-    * @param    field       Description of the field to be evaluated
-    * @return   boolean     If the integer field is greater than zero, returns
-    *                        true, otherwise returns false.
-    */
-   public static boolean validatePositive(final Object bean , final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
-
-      return GenericTypeValidator.formatInt(value).intValue() > 0;
-   }
-
-   /**
-    * Checks if the field can be successfully converted to a <code>long</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return    boolean        If the field can be successfully converted
-    *                           to a <code>long</code> <code>true</code> is returned.
-    *                           Otherwise <code>false</code>.
-    */
-   public static boolean validateLong(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
-
-      return GenericValidator.isLong(value);
-   }
-
-   /**
-    * Checks if the field can be successfully converted to a <code>float</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return    boolean        If the field can be successfully converted
-    *                           to a <code>float</code> <code>true</code> is returned.
-    *                           Otherwise <code>false</code>.
-    */
-   public static boolean validateFloat(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
-
-      return GenericValidator.isFloat(value);
-   }
-
-   /**
-    * Checks if the field can be successfully converted to a <code>double</code>.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return    boolean        If the field can be successfully converted
-    *                           to a <code>double</code> <code>true</code> is returned.
-    *                           Otherwise <code>false</code>.
-    */
-   public static boolean validateDouble(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
-
-      return GenericValidator.isDouble(value);
-   }
-
-   /**
-    * Checks if the field is an e-mail address.
-    *
-    * @param bean The value validation is being performed on.
-    * @param field the field to use
-    * @return    boolean        If the field is an e-mail address
-    *                           <code>true</code> is returned.
-    *                           Otherwise <code>false</code>.
-    */
-   public static boolean validateEmail(final Object bean, final Field field) {
-      final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
-
-      return GenericValidator.isEmail(value);
-   }
-
-  public final static String FIELD_TEST_NULL = "NULL";
-  public final static String FIELD_TEST_NOTNULL = "NOTNULL";
-  public final static String FIELD_TEST_EQUAL = "EQUAL";
-
-    public static boolean validateRequiredIf(
-        final Object bean,
-        final Field field,
-        final Validator validator) {
+    public static boolean validateRequiredIf(final Object bean, final Field field, final Validator validator) {
 
         final Object form = validator.getParameterValue(Validator.BEAN_PARAM);
         String value = null;
@@ -220,23 +188,23 @@ public class GenericValidatorImpl {
                 dependIndexed = "false";
             }
             boolean this_required = false;
-            if (field.isIndexed() && dependIndexed.equalsIgnoreCase("true")) {
+            if (field.isIndexed() && Boolean.parseBoolean(dependIndexed)) {
                 final String key = field.getKey();
-                if ((key.contains("[")) && (key.contains("]"))) {
+                if (key.contains("[") && key.contains("]")) {
                     final String ind = key.substring(0, key.indexOf(".") + 1);
                     dependProp = ind + dependProp;
                 }
             }
             final String dependVal = ValidatorUtils.getValueAsString(form, dependProp);
             if (dependTest.equals(FIELD_TEST_NULL)) {
-                if ((dependVal != null) && (!dependVal.isEmpty())) {
+                if (dependVal != null && !dependVal.isEmpty()) {
                     this_required = false;
                 } else {
                     this_required = true;
                 }
             }
             if (dependTest.equals(FIELD_TEST_NOTNULL)) {
-                if ((dependVal != null) && (!dependVal.isEmpty())) {
+                if (dependVal != null && !dependVal.isEmpty()) {
                     this_required = true;
                 } else {
                     this_required = false;
@@ -253,7 +221,7 @@ public class GenericValidatorImpl {
             i++;
         }
         if (required) {
-            if ((value != null) && (!value.isEmpty())) {
+            if (value != null && !value.isEmpty()) {
                 return true;
             }
             return false;
@@ -261,11 +229,17 @@ public class GenericValidatorImpl {
         return true;
     }
 
-  private static boolean isStringOrNull(final Object o) {
-    if (o == null) {
-        return true; // TODO this condition is not exercised by any tests currently
+    /**
+     * Checks if the field can be successfully converted to a <code>short</code>.
+     *
+     * @param bean  The value validation is being performed on.
+     * @param field the field to use
+     * @return boolean If the field can be successfully converted to a <code>short</code> {@code true} is returned. Otherwise {@code false}.
+     */
+    public static boolean validateShort(final Object bean, final Field field) {
+        final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
+
+        return GenericValidator.isShort(value);
     }
-    return (o instanceof String);
-  }
 
 }

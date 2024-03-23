@@ -1,5 +1,80 @@
-              Apache Commons Validator 1.7
-                  RELEASE NOTES
+Apache Commons Validator 1.8.0
+RELEASE NOTES
+
+The Apache Commons Validator team is pleased to announce the release of Apache Commons Validator 1.8.0.
+
+Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
+It may be used standalone or with a framework like Struts.
+
+For complete information on Apache Commons Validator, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Validator website:
+
+http://commons.apache.org/proper/commons-validator/
+
+Download page: http://commons.apache.org/proper/commons-validator/download_validator.cgi
+
+Changes in this version
+-----------------------
+
+New features
+------------
+
+*                 Add github/codeql-action. Thanks to Dependabot, Gary Gregory.
+* VALIDATOR-486:  Add new countries to IBAN list: DJ, RU #88. Thanks to tatiana-scda, Gary Gregory.
+*                 Add IBANValidator.Validator.getRegexValidator(). Thanks to Arnaud Fournier, Gary Gregory.
+*                 Add RegexValidator.getPatterns(). Thanks to Arnaud Fournier, Gary Gregory.
+*                 Add country codes listed as other countries and territories in the IBAN registry for Finland: AX. Thanks to Gary Gregory, rossmills3, sebbASF.
+*                 Add country codes listed as other countries and territories in the IBAN registry for France: GF, GP, MQ, RE, PF, TF, YT, NC, BL, MF, PM, WF. Thanks to Gary Gregory, rossmills3, sebbASF.
+*                 Add country codes listed as other countries and territories in the IBAN registry for United Kingdom: IM, JE, GG. Thanks to Gary Gregory, rossmills3, sebbASF.
+*                 Add ValidatorAction.setClassName(String) and deprecate setClassname(String). Thanks to Gary Gregory.
+
+Fixed Bugs
+----------
+
+*                 Update Javadoc for InetAddressValidator isValid #76 Thanks to Gennaro Napolitano.
+* VALIDATOR-479:  Fix typo in /routines/package-summary.html #79. Thanks to Gyoo.
+*                 Use JUnit 5 assertThrows() #92, #93, #94, #95. Thanks to John Patrick.
+*                 [StepSecurity] ci: Harden GitHub Actions #136. Thanks to step-security-bot, Gary Gregory.
+*                 Javadoc typos #144. Thanks to Andrés Torres.
+*                 Precompile regular expression in InetAddressValidator.isValidInet6Address(String). Thanks to Gary Gregory.
+*                 Fix SpotBugs [ERROR] Medium: Class org.apache.commons.validator.routines.CreditCardValidator$1 defines non-transient non-serializable instance field ccr [org.apache.commons.validator.routines.CreditCardValidator$1] In CreditCardValidator.java SE_BAD_FIELD. Thanks to Gary Gregory.
+*                 Fix SpotBugs [ERROR] High: Class org.apache.commons.validator.ValidatorAction defines non-transient non-serializable instance field validationMethod [org.apache.commons.validator.ValidatorAction] In ValidatorAction.java SE_BAD_FIELD. Thanks to Gary Gregory.
+*                 Fix SpotBugs [ERROR] High: Found reliance on default encoding in org.apache.commons.validator.ValidatorAction.readJavascriptFile(String): new java.io.InputStreamReader(InputStream) [org.apache.commons.validator.ValidatorAction] At ValidatorAction.java:[line 428] DM_DEFAULT_ENCODING. Thanks to Gary Gregory.
+*                 Fix SpotBugs [ERROR] Medium: Inconsistent synchronization of org.apache.commons.validator.ValidatorAction.jsFunction; locked 62% of time [org.apache.commons.validator.ValidatorAction, org.apache.commons.validator.ValidatorAction, org.apache.commons.validator.ValidatorAction, org.apache.commons.validator.ValidatorAction, org.apache.commons.validator.ValidatorAction, org.apache.commons.validator.ValidatorAction, org.apache.commons.validator.ValidatorAction] Unsynchronized access at ValidatorAction.java:[line 340]Unsynchronized access at ValidatorAction.java:[line 358]Synchronized access at ValidatorAction.java:[line 393]Synchronized access at ValidatorAction.java:[line 394]Synchronized access at ValidatorAction.java:[line 459]Synchronized access at ValidatorAction.java:[line 461]Synchronized access at ValidatorAction.java:[line 462] IS2_INCONSISTENT_SYNC. Thanks to Gary Gregory.
+*                 Port tests to JUnit 5. Exception: DomainValidatorStartupTest. Thanks to Gary Gregory.
+*                 Use singletons in org.apache.commons.validator.CreditCardValidator. Thanks to Gary Gregory.
+
+Changes
+-------
+
+*                 Bump Java from 7 to 8. Thanks to Gary Gregory.
+*                 Bump actions/cache from 2 to 3.0.11 #71, #84. #90, #91. Thanks to Dependabot, Gary Gregory.
+*                 Bump actions/checkout from 2.3.1 to 3.0.2, #38, #47, #70. Thanks to Dependabot, Gary Gregory.
+*                 Bump actions/setup-java from 1.4.0 to 3.6.0 #42, #72, #98. Thanks to Dependabot, Gary Gregory.
+*                 Bump actions/upload-artifact from 3.1.0 to 3.1.1 #96. Thanks to Dependabot.
+*                 Bump junit from 4.13 to 5.9.1 Vintage #44. Thanks to Dependabot, Gary Gregory.
+*                 Bump maven-pmd-plugin from 3.13.0 to 3.19.0 #69, #77, #80, #81. Thanks to Dependabot.
+*                 Bump commons-parent from 52 to 65 #83, #107, #111, #132. Thanks to Gary Gregory, Dependabot.
+*                 Bump japicmp-maven-plugin from 0.15.3 to 0.15.7. Thanks to Gary Gregory.
+*                 Bump maven-antrun-plugin from 3.0.0 to 3.1.0 #74. Thanks to Dependabot.
+*                 Bump commons-csv from 1.6 to 1.10.0 #118. Thanks to Gary Gregory, Dependabot.
+*                 Bump japicmp-maven-plugin from 0.15.7 to 0.16.0. Thanks to Gary Gregory.
+*                 Bump commons-logging:commons-logging from 1.2 to 1.3.0. Thanks to Gary Gregory.
+
+Removed
+-------
+
+*                 Remove FindBugs, SpotBugs is in use #87. Thanks to John Patrick, Gary Gregory.
+
+Historical list of changes: http://commons.apache.org/proper/commons-validator/changes-report.html
+
+Enjoy!
+-Apache Commons Validator team
+
+-----------------------------------------------------------------------------
+
+Apache Commons Validator 1.7
+RELEASE NOTES
 
 The Apache Commons Validator team is pleased to announce the release of Apache Commons Validator 1.7
 
@@ -13,14 +88,14 @@ All projects are encouraged to update to this release of Apache Commons Validato
 Commons Validator requires Java 7 or later.
 
 Main enhancements
-=================
+-----------------
 
 * CreditCard validation specification by numeric range
 * DomainValidator instances can be created with instance overrides
 * DomainValidator supports overrides of LOCAL TLDs
 
 IMPORTANT NOTES
-===============
+---------------
 
 BREAKING CHANGES:
 
@@ -28,7 +103,7 @@ BREAKING CHANGES:
 * N.B. Java 9 changed the way Locales are handled. This affects the output from some Date-related methods, and may cause some tests to break.
 
 DEPENDENCIES
-============
+------------
 
 * Updates Apache Commons BeanUtils dependency from 1.9.2 to 1.9.4.
  This picks up BEANUTILS-482: Update commons-collections from 3.2.1 to 3.2.2 (CVE-2015-4852).
@@ -42,47 +117,55 @@ http://commons.apache.org/proper/commons-validator/
 
 Download page: http://commons.apache.org/proper/commons-validator/download_validator.cgi
 
-Changes in this version include:
-===============================
+Changes in this version
+-----------------------
 
-New features:
-o VALIDATOR-474:  DomainValidator should allow local overrides
-o VALIDATOR-473:  Allow Email- and UrlValidator to use specified DomainValidator
-o VALIDATOR-471:  Allow DomainValidator overrides at run-time
-o VALIDATOR-423:  Add ISINValidator
-o VALIDATOR-455:  Add IBAN validator for VA – Vatican City State Thanks to Eugen Hanussek.
-o VALIDATOR-446:  ISSN Validator extract ISSN from EAN-13 Thanks to Alex.
+New features
+------------
 
-Fixed Bugs:
-o VALIDATOR-403:  Accept Discover cards of 17 digits long that start with 6011 Thanks to Tanya.
-o VALIDATOR-408:  DISCOVER Card Validation Patterns Thanks to Raj Vaida.
-o VALIDATOR-472:  UrlValidator should not be more lax than java.net.URI
-o VALIDATOR-283:  URLValidator should check for illegal Hex characters Thanks to RC Johnson.
-o VALIDATOR-445:  Inet6Address may also contain a scope id Thanks to devson.
-o VALIDATOR-452:  Validation of URL containing IPv4-mapped IPv6 address Thanks to devson.
-o VALIDATOR-438:  IBANValidator fails for El Salvador
+* VALIDATOR-474:  DomainValidator should allow local overrides
+* VALIDATOR-473:  Allow Email- and UrlValidator to use specified DomainValidator
+* VALIDATOR-471:  Allow DomainValidator overrides at run-time
+* VALIDATOR-423:  Add ISINValidator
+* VALIDATOR-455:  Add IBAN validator for VA – Vatican City State Thanks to Eugen Hanussek.
+* VALIDATOR-446:  ISSN Validator extract ISSN from EAN-13 Thanks to Alex.
+
+Fixed Bugs
+----------
+
+* VALIDATOR-403:  Accept Discover cards of 17 digits long that start with 6011 Thanks to Tanya.
+* VALIDATOR-408:  DISCOVER Card Validation Patterns Thanks to Raj Vaida.
+* VALIDATOR-472:  UrlValidator should not be more lax than java.net.URI
+* VALIDATOR-283:  URLValidator should check for illegal Hex characters Thanks to RC Johnson.
+* VALIDATOR-445:  Inet6Address may also contain a scope id Thanks to devson.
+* VALIDATOR-452:  Validation of URL containing IPv4-mapped IPv6 address Thanks to devson.
+* VALIDATOR-438:  IBANValidator fails for El Salvador
                   Add definition Thanks to Simon Marti.
-o VALIDATOR-434:  Field does not synchronize iteration on synchronized list Thanks to emopers.
-o VALIDATOR-437:  Update Apache Commons BeanUtils dependency from 1.9.2 to 1.9.3.
+* VALIDATOR-434:  Field does not synchronize iteration on synchronized list Thanks to emopers.
+* VALIDATOR-437:  Update Apache Commons BeanUtils dependency from 1.9.2 to 1.9.3.
                   This picks up BEANUTILS-482: Update commons-collections from 3.2.1 to 3.2.2 (CVE-2015-4852).
-o VALIDATOR-460:  Update Apache Commons BeanUtils dependency from 1.9.3 to 1.9.4
+* VALIDATOR-460:  Update Apache Commons BeanUtils dependency from 1.9.3 to 1.9.4
                   This picks up BEANUTILS-520: Mitigate CVE-2014-0114. Thanks to Jeff Schram.
-o VALIDATOR-461:  Generic .gmbh top level domain is considered invalid Thanks to Nils Reischmann.
-o VALIDATOR-444:  LongValidator: numbers bigger than the maxvalue are Valid Thanks to Martin Scholz.
-o VALIDATOR-416:  CreditCardValidator default ctor disagrees with Javadoc
-o VALIDATOR-467:  URL validator fails if path starts with double slash and has underscores Thanks to Ivan Larionov.
-o VALIDATOR-464:  UrlValidator says "file://bad ^ domain.com/label/test" is valid Thanks to Sebastian Choina.
-o VALIDATOR-449:  Leading and trailing spaces in EmailValidator should not be valid Thanks to Frederic Boutin.
-o VALIDATOR-302:  EMailValidator: Addresses with leading spaces must not be accepted Thanks to Guido Zockoll.
-o VALIDATOR-468:  DomainValidator.getTLDArray does not synch mutable arrays
+* VALIDATOR-461:  Generic .gmbh top level domain is considered invalid Thanks to Nils Reischmann.
+* VALIDATOR-444:  LongValidator: numbers bigger than the maxvalue are Valid Thanks to Martin Scholz.
+* VALIDATOR-416:  CreditCardValidator default ctor disagrees with Javadoc
+* VALIDATOR-467:  URL validator fails if path starts with double slash and has underscores Thanks to Ivan Larionov.
+* VALIDATOR-464:  UrlValidator says "file://bad ^ domain.com/label/test" is valid Thanks to Sebastian Choina.
+* VALIDATOR-449:  Leading and trailing spaces in EmailValidator should not be valid Thanks to Frederic Boutin.
+* VALIDATOR-302:  EMailValidator: Addresses with leading spaces must not be accepted Thanks to Guido Zockoll.
+* VALIDATOR-468:  DomainValidator.getTLDArray does not synch mutable arrays
 
-Changes:
-o                 Drop Clirr and Cobertura in favour of JApiCmp and JaCoCo
-o                 IANA TLD lists: Updated to Version 2020073100, Last Updated Fri Jul 31 07:07:01 2020 UTC
-o VALIDATOR-428:  Update commons digester to 2.1 Thanks to Matthew Zavislak.
+Changes
+-------
+
+*                 Drop Clirr and Cobertura in favour of JApiCmp and JaCoCo
+*                 IANA TLD lists: Updated to Version 2020073100, Last Updated Fri Jul 31 07:07:01 2020 UTC
+* VALIDATOR-428:  Update commons digester to 2.1 Thanks to Matthew Zavislak.
 
 
 Historical list of changes: http://commons.apache.org/proper/commons-validator/changes-report.html
 
 Enjoy!
--Apache Commons Validator team
+- The Apache Commons Validator team
+
+-----------------------------------------------------------------------------

@@ -29,6 +29,80 @@ import java.util.Map;
 //TODO mutable non-private fields
 public class ValidatorResult implements Serializable {
 
+    /**
+     * Contains the status of the validation.
+     */
+    protected static class ResultStatus implements Serializable {
+
+        private static final long serialVersionUID = 4076665918535320007L;
+
+        /** Whether or not the validation passed. */
+        private boolean valid;
+
+        /** Result returned by a validation method. */
+        private Object result;
+
+       /**
+        * Constructs a Result status.
+        * @param valid Whether the validator passed or failed.
+        * @param result Value returned by the validator.
+        */
+        public ResultStatus(final boolean valid, final Object result) {
+            this.valid = valid;
+            this.result = result;
+        }
+        /**
+         * Provided for backwards binary compatibility only.
+         *
+         * @param ignored ignored by this method
+         * @param valid Whether the validator passed or failed.
+         * @param result Value returned by the validator.
+         *
+         * @deprecated Use {@code ResultStatus(boolean, Object)} instead
+         */
+        @Deprecated
+        public ResultStatus(final ValidatorResult ignored, final boolean valid, final Object result) {
+            this(valid, result);
+        }
+
+        /**
+         * Gets the result returned by a validation method.
+         * This can be used to retrieve to the correctly
+         * typed value of a date validation for example.
+         * @return The value returned by the validation.
+         */
+        public Object getResult() {
+            return result;
+        }
+
+        /**
+         * Tests whether or not the validation passed.
+         * @return true if the result was good.
+         */
+        public boolean isValid() {
+            return valid;
+        }
+
+        /**
+         * Sets the result returned by a validation method.
+         * This can be used to retrieve to the correctly
+         * typed value of a date validation for example.
+         * @param result The value returned by the validation.
+         */
+        public void setResult(final Object result) {
+            this.result = result;
+        }
+
+        /**
+         * Sets whether or not the validation passed.
+         * @param valid Whether the validation passed.
+         */
+        public void setValid(final boolean valid) {
+            this.valid = valid;
+        }
+
+    }
+
     private static final long serialVersionUID = -3713364681647250531L;
 
     /**
@@ -81,44 +155,23 @@ public class ValidatorResult implements Serializable {
     }
 
     /**
-     * Indicate whether a specified validation passed.
-     * @param validatorName Name of the validator.
-     * @return true if the validation passed.
-     */
-    public boolean isValid(final String validatorName) {
-        final ResultStatus status = hAction.get(validatorName);
-        return (status == null) ? false : status.isValid();
-    }
-
-    /**
-     * Return the result of a validation.
-     * @param validatorName Name of the validator.
-     * @return The validation result.
-     */
-    public Object getResult(final String validatorName) {
-        final ResultStatus status = hAction.get(validatorName);
-        return (status == null) ? null : status.getResult();
-    }
-
-    /**
-     * Return an Iterator of the action names contained in this Result.
-     * @return The set of action names.
-     */
-    public Iterator<String> getActions() {
-        return Collections.unmodifiableMap(hAction).keySet().iterator();
-    }
-
-    /**
-     * Return a Map of the validator actions in this Result.
+     * Gets a Map of the validator actions in this Result.
      * @return Map of validator actions.
      * @deprecated Use getActions() to return the set of actions
      *             the isValid(name) and getResult(name) methods
      *             to determine the contents of ResultStatus.
-     *
      */
     @Deprecated
     public Map<String, ResultStatus> getActionMap() {
         return Collections.unmodifiableMap(hAction);
+    }
+
+    /**
+     * Gets an Iterator of the action names contained in this Result.
+     * @return The set of action names.
+     */
+    public Iterator<String> getActions() {
+        return Collections.unmodifiableMap(hAction).keySet().iterator();
     }
 
     /**
@@ -130,74 +183,23 @@ public class ValidatorResult implements Serializable {
     }
 
     /**
-     * Contains the status of the validation.
+     * Gets the result of a validation.
+     * @param validatorName Name of the validator.
+     * @return The validation result.
      */
-    protected static class ResultStatus implements Serializable {
+    public Object getResult(final String validatorName) {
+        final ResultStatus status = hAction.get(validatorName);
+        return status == null ? null : status.getResult();
+    }
 
-        private static final long serialVersionUID = 4076665918535320007L;
-
-        private boolean valid;
-        private Object result;
-
-       /**
-        * Construct a Result status.
-        * @param valid Whether the validator passed or failed.
-        * @param result Value returned by the validator.
-        */
-        public ResultStatus(final boolean valid, final Object result) {
-            this.valid = valid;
-            this.result = result;
-        }
-        /**
-         * Provided for backwards binary compatibility only.
-         *
-         * @param ignored ignored by this method
-         * @param valid Whether the validator passed or failed.
-         * @param result Value returned by the validator.
-         *
-         * @deprecated Use {@code ResultStatus(boolean, Object)} instead
-         */
-        @Deprecated
-        public ResultStatus(final ValidatorResult ignored, final boolean valid, final Object result) {
-            this(valid, result);
-        }
-
-        /**
-         * Tests whether or not the validation passed.
-         * @return true if the result was good.
-         */
-        public boolean isValid() {
-            return valid;
-        }
-
-        /**
-         * Sets whether or not the validation passed.
-         * @param valid Whether the validation passed.
-         */
-        public void setValid(final boolean valid) {
-            this.valid = valid;
-        }
-
-        /**
-         * Gets the result returned by a validation method.
-         * This can be used to retrieve to the correctly
-         * typed value of a date validation for example.
-         * @return The value returned by the validation.
-         */
-        public Object getResult() {
-            return result;
-        }
-
-        /**
-         * Sets the result returned by a validation method.
-         * This can be used to retrieve to the correctly
-         * typed value of a date validation for example.
-         * @param result The value returned by the validation.
-         */
-        public void setResult(final Object result) {
-            this.result = result;
-        }
-
+    /**
+     * Indicate whether a specified validation passed.
+     * @param validatorName Name of the validator.
+     * @return true if the validation passed.
+     */
+    public boolean isValid(final String validatorName) {
+        final ResultStatus status = hAction.get(validatorName);
+        return status == null ? false : status.isValid();
     }
 
 }

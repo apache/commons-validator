@@ -16,9 +16,16 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.IOException;
 import java.util.Locale;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 /**
@@ -34,18 +41,27 @@ public class ParameterTest extends AbstractCommonTest {
 
     private String lastName;
 
-    /**
-     * Constructor.
-     */
-    public ParameterTest(final String name) {
-        super(name);
+    private void assertParameterValue(final Validator validator, final String name, final Class<?> type) {
+        final Object value = validator.getParameterValue(name);
+        assertNotNull(value, () -> "Expected '" + type.getName() + "' but was null");
+        assertTrue(type.isInstance(value), () -> "Expected '" + type.getName() + "' but was '" + value.getClass().getName() + "'");
     }
 
     /**
-     * Load <code>ValidatorResources</code> from
-     * ValidatorResultsTest-config.xml.
+     * Create a NameBean.
      */
-    @Override
+    private NameBean createNameBean() {
+        final NameBean name = new NameBean();
+        name.setFirstName(firstName);
+        name.setMiddleName(middleName);
+        name.setLastName(lastName);
+        return name;
+    }
+
+    /**
+     * Load <code>ValidatorResources</code> from ValidatorResultsTest-config.xml.
+     */
+    @BeforeEach
     protected void setUp() throws IOException, SAXException {
         // Load resources
         loadResources("ParameterTest-config.xml");
@@ -57,13 +73,14 @@ public class ParameterTest extends AbstractCommonTest {
 
     }
 
-    @Override
+    @AfterEach
     protected void tearDown() {
     }
 
     /**
      * Test all validations ran and passed.
      */
+    @Test
     public void testAllValid() {
 
         // Create bean to run test on.
@@ -79,37 +96,15 @@ public class ParameterTest extends AbstractCommonTest {
         // Get results of the validation.
         try {
             validator.validate();
-        } catch(final Exception e) {
+        } catch (final Exception e) {
             fail("Validator.validate() threw " + e);
         }
         assertParameterValue(validator, Validator.BEAN_PARAM, Object.class);
         assertParameterValue(validator, Validator.FIELD_PARAM, Field.class);
         assertParameterValue(validator, Validator.FORM_PARAM, Form.class);
         assertParameterValue(validator, Validator.LOCALE_PARAM, Locale.class);
-        assertParameterValue(validator, Validator.VALIDATOR_ACTION_PARAM,
-                ValidatorAction.class);
-        assertParameterValue(validator, Validator.VALIDATOR_PARAM,
-                Validator.class);
-        assertParameterValue(validator, Validator.VALIDATOR_RESULTS_PARAM,
-                ValidatorResults.class);
-    }
-
-    private void assertParameterValue(final Validator validator, final String name,
-            final Class<?> type) {
-        final Object value = validator.getParameterValue(name);
-        assertNotNull("Expected '" + type.getName() + "' but was null", value);
-        assertTrue("Expected '" + type.getName() + "' but was '" + value.getClass().getName() + "'",
-                   type.isInstance(value));
-    }
-
-    /**
-     * Create a NameBean.
-     */
-    private NameBean createNameBean() {
-        final NameBean name = new NameBean();
-        name.setFirstName(firstName);
-        name.setMiddleName(middleName);
-        name.setLastName(lastName);
-        return name;
+        assertParameterValue(validator, Validator.VALIDATOR_ACTION_PARAM, ValidatorAction.class);
+        assertParameterValue(validator, Validator.VALIDATOR_PARAM, Validator.class);
+        assertParameterValue(validator, Validator.VALIDATOR_RESULTS_PARAM, ValidatorResults.class);
     }
 }

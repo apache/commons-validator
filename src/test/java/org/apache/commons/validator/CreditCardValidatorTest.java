@@ -16,7 +16,10 @@
  */
 package org.apache.commons.validator;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the CreditCardValidator class.
@@ -24,42 +27,30 @@ import junit.framework.TestCase;
  * @deprecated this test can be removed when the deprecated class is removed
  */
 @Deprecated
-public class CreditCardValidatorTest extends TestCase {
+public class CreditCardValidatorTest {
+
+    /**
+     * Test a custom implementation of CreditCardType.
+     */
+    private static class DinersClub implements CreditCardValidator.CreditCardType {
+        private static final String PREFIX = "300,301,302,303,304,305,";
+
+        @Override
+        public boolean matches(final String card) {
+            final String prefix = card.substring(0, 3) + ",";
+            return PREFIX.contains(prefix) && card.length() == 14;
+        }
+    }
 
     private static final String VALID_VISA = "4417123456789113";
     private static final String VALID_SHORT_VISA = "4222222222222";
     private static final String VALID_AMEX = "378282246310005";
     private static final String VALID_MASTERCARD = "5105105105105100";
     private static final String VALID_DISCOVER = "6011000990139424";
+
     private static final String VALID_DINERS = "30569309025904";
 
-    /**
-     * Constructor for CreditCardValidatorTest.
-     */
-    public CreditCardValidatorTest(final String name) {
-        super(name);
-    }
-
-    public void testIsValid() {
-        CreditCardValidator ccv = new CreditCardValidator();
-
-        assertFalse(ccv.isValid(null));
-        assertFalse(ccv.isValid(""));
-        assertFalse(ccv.isValid("123456789012"));   // too short
-        assertFalse(ccv.isValid("12345678901234567890"));   // too long
-        assertFalse(ccv.isValid("4417123456789112"));
-        assertFalse(ccv.isValid("4417q23456w89113"));
-        assertTrue(ccv.isValid(VALID_VISA));
-        assertTrue(ccv.isValid(VALID_SHORT_VISA));
-        assertTrue(ccv.isValid(VALID_AMEX));
-        assertTrue(ccv.isValid(VALID_MASTERCARD));
-        assertTrue(ccv.isValid(VALID_DISCOVER));
-
-        // disallow Visa so it should fail even with good number
-        ccv = new CreditCardValidator(CreditCardValidator.AMEX);
-        assertFalse(ccv.isValid("4417123456789113"));
-    }
-
+    @Test
     public void testAddAllowedCardType() {
         final CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.NONE);
         // Turned off all cards so even valid numbers should fail
@@ -73,16 +64,25 @@ public class CreditCardValidatorTest extends TestCase {
         assertTrue(ccv.isValid(VALID_DINERS));
     }
 
-    /**
-     * Test a custom implementation of CreditCardType.
-     */
-    private static class DinersClub implements CreditCardValidator.CreditCardType {
-        private static final String PREFIX = "300,301,302,303,304,305,";
-        @Override
-        public boolean matches(final String card) {
-            final String prefix = card.substring(0, 3) + ",";
-            return ((PREFIX.contains(prefix)) && (card.length() == 14));
-        }
+    @Test
+    public void testIsValid() {
+        CreditCardValidator ccv = new CreditCardValidator();
+
+        assertFalse(ccv.isValid(null));
+        assertFalse(ccv.isValid(""));
+        assertFalse(ccv.isValid("123456789012")); // too short
+        assertFalse(ccv.isValid("12345678901234567890")); // too long
+        assertFalse(ccv.isValid("4417123456789112"));
+        assertFalse(ccv.isValid("4417q23456w89113"));
+        assertTrue(ccv.isValid(VALID_VISA));
+        assertTrue(ccv.isValid(VALID_SHORT_VISA));
+        assertTrue(ccv.isValid(VALID_AMEX));
+        assertTrue(ccv.isValid(VALID_MASTERCARD));
+        assertTrue(ccv.isValid(VALID_DISCOVER));
+
+        // disallow Visa so it should fail even with good number
+        ccv = new CreditCardValidator(CreditCardValidator.AMEX);
+        assertFalse(ccv.isValid("4417123456789113"));
     }
 
 }

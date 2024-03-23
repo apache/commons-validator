@@ -16,39 +16,28 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 /**
  * Verhoeff Check Digit Test.
- *
- * @since 1.4
  */
 public class VerhoeffCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
-     * Construct a new test.
-     * @param name test name
+     * Sets up routine & valid codes.
      */
-    public VerhoeffCheckDigitTest(final String name) {
-        super(name);
-    }
-
-    /**
-     * Set up routine & valid codes.
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    protected void setUp() {
         routine = VerhoeffCheckDigit.VERHOEFF_CHECK_DIGIT;
-        valid = new String[] {
-                "15",
-                "1428570",
-                "12345678902"
-                };
+        valid = new String[] { "15", "1428570", "12345678902" };
     }
 
     /**
      * Test zero sum
      */
     @Override
+    @Test
     public void testZeroSum() {
         // ignore, don't run this test
     }

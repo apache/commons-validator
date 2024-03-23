@@ -39,7 +39,7 @@ import org.apache.commons.validator.util.Flags;
  * </ul>
  *
  * <p>Originally based in on php script by Debbie Dyer, validation.php v1.2b, Date: 03/07/02,
- * http://javascript.internet.com. However, this validation now bears little resemblance
+ * https://javascript.internet.com. However, this validation now bears little resemblance
  * to the php original.</p>
  * <pre>
  *   Example of usage:
@@ -190,6 +190,16 @@ public class UrlValidator implements Serializable {
     }
 
     /**
+     * Initialize a UrlValidator with the given validation options.
+     * @param options The options should be set using the public constants declared in
+     * this class.  To set multiple options you simply add them together.  For example,
+     * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
+     */
+    public UrlValidator(final int options) {
+        this(null, options);
+    }
+
+    /**
      * Behavior of validation is modified by passing in several strings options:
      * @param schemes Pass in one or more URL schemes to consider valid, passing in
      *        a null will default to "http,https,ftp" being valid.
@@ -199,16 +209,6 @@ public class UrlValidator implements Serializable {
      */
     public UrlValidator(final String[] schemes) {
         this(schemes, 0);
-    }
-
-    /**
-     * Initialize a UrlValidator with the given validation options.
-     * @param options The options should be set using the public constants declared in
-     * this class.  To set multiple options you simply add them together.  For example,
-     * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
-     */
-    public UrlValidator(final int options) {
-        this(null, options);
     }
 
     /**
@@ -233,9 +233,28 @@ public class UrlValidator implements Serializable {
     }
 
     /**
+     * Returns the number of times the token appears in the target.
+     * @param token Token value to be counted.
+     * @param target Target value to count tokens in.
+     * @return the number of tokens.
+     */
+    protected int countToken(final String token, final String target) {
+        int tokenIndex = 0;
+        int count = 0;
+        while (tokenIndex != -1) {
+            tokenIndex = target.indexOf(token, tokenIndex);
+            if (tokenIndex > -1) {
+                tokenIndex++;
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
      * <p>Checks if a field has a valid URL address.</p>
      *
-     * @param value The value validation is being performed on.  A <code>null</code>
+     * @param value The value validation is being performed on.  A {@code null}
      * value is considered invalid.
      * @return true if the URL is valid.
      */
@@ -277,32 +296,8 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Validate scheme. If schemes[] was initialized to a non null,
-     * then only those scheme's are allowed.  Note this is slightly different
-     * than for the constructor.
-     * @param scheme The scheme to validate.  A <code>null</code> value is considered
-     * invalid.
-     * @return true if valid.
-     */
-    protected boolean isValidScheme(final String scheme) {
-        if (scheme == null) {
-            return false;
-        }
-
-        if (!SCHEME_PATTERN.matcher(scheme).matches()) {
-            return false;
-        }
-
-        if (options.isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Returns true if the authority is properly formatted.  An authority is the combination
-     * of hostname and port.  A <code>null</code> authority value is considered invalid.
+     * of hostname and port.  A {@code null} authority value is considered invalid.
      * @param authority Authority value to validate.
      * @return true if authority (hostname and port) is valid.
      */
@@ -336,7 +331,7 @@ public class UrlValidator implements Serializable {
             final char[] chars = hostIP.toCharArray();
             int size = 1;
             for (final char element : chars) {
-                if(element == '.') {
+                if (element == '.') {
                     size++;
                 }
             }
@@ -352,7 +347,7 @@ public class UrlValidator implements Serializable {
                     domainSegment[segmentCount] = atomMatcher.group(1);
                     segmentLength = domainSegment[segmentCount].length() + 1;
                     hostIP =
-                            (segmentLength >= hostIP.length())
+                            segmentLength >= hostIP.length()
                             ? ""
                             : hostIP.substring(segmentLength);
 
@@ -393,7 +388,20 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Returns true if the path is valid.  A <code>null</code> value is considered invalid.
+     * Returns true if the given fragment is null or fragments are allowed.
+     * @param fragment Fragment value to validate.
+     * @return true if fragment is valid.
+     */
+    protected boolean isValidFragment(final String fragment) {
+        if (fragment == null) {
+            return true;
+        }
+
+        return options.isOff(NO_FRAGMENTS);
+    }
+
+    /**
+     * Returns true if the path is valid.  A {@code null} value is considered invalid.
      * @param path Path value to validate.
      * @return true if path is valid.
      */
@@ -407,13 +415,13 @@ public class UrlValidator implements Serializable {
         }
 
         final int slash2Count = countToken("//", path);
-        if (options.isOff(ALLOW_2_SLASHES) && (slash2Count > 0)) {
+        if (options.isOff(ALLOW_2_SLASHES) && slash2Count > 0) {
             return false;
         }
 
         final int slashCount = countToken("/", path);
         final int dot2Count = countToken("..", path);
-        if (dot2Count > 0 && (slashCount - slash2Count - 1) <= dot2Count){
+        if (dot2Count > 0 && slashCount - slash2Count - 1 <= dot2Count) {
             return false;
         }
 
@@ -434,34 +442,26 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Returns true if the given fragment is null or fragments are allowed.
-     * @param fragment Fragment value to validate.
-     * @return true if fragment is valid.
+     * Validate scheme. If schemes[] was initialized to a non null,
+     * then only those scheme's are allowed.  Note this is slightly different
+     * than for the constructor.
+     * @param scheme The scheme to validate.  A {@code null} value is considered
+     * invalid.
+     * @return true if valid.
      */
-    protected boolean isValidFragment(final String fragment) {
-        if (fragment == null) {
-            return true;
+    protected boolean isValidScheme(final String scheme) {
+        if (scheme == null) {
+            return false;
         }
 
-        return options.isOff(NO_FRAGMENTS);
-    }
-
-    /**
-     * Returns the number of times the token appears in the target.
-     * @param token Token value to be counted.
-     * @param target Target value to count tokens in.
-     * @return the number of tokens.
-     */
-    protected int countToken(final String token, final String target) {
-        int tokenIndex = 0;
-        int count = 0;
-        while (tokenIndex != -1) {
-            tokenIndex = target.indexOf(token, tokenIndex);
-            if (tokenIndex > -1) {
-                tokenIndex++;
-                count++;
-            }
+        if (!SCHEME_PATTERN.matcher(scheme).matches()) {
+            return false;
         }
-        return count;
+
+        if (options.isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme)) {
+            return false;
+        }
+
+        return true;
     }
 }

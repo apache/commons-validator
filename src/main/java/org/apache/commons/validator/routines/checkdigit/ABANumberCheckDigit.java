@@ -37,7 +37,7 @@ package org.apache.commons.validator.routines.checkdigit;
  *
  * <p>
  * For further information see
- *  <a href="http://en.wikipedia.org/wiki/Routing_transit_number">Wikipedia -
+ *  <a href="https://en.wikipedia.org/wiki/Routing_transit_number">Wikipedia -
  *  Routing transit number</a>.
  * </p>
  *
@@ -50,14 +50,13 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
     /** Singleton Routing Transit Number Check Digit instance */
     public static final CheckDigit ABAN_CHECK_DIGIT = new ABANumberCheckDigit();
 
-    /** weighting given to digits depending on their right position */
+    /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = {3, 1, 7};
 
     /**
-     * Construct a modulus 10 Check Digit routine for ABA Numbers.
+     * Constructs a modulus 10 Check Digit routine for ABA Numbers.
      */
     public ABANumberCheckDigit() {
-        super(10); // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**

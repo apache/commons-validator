@@ -16,26 +16,27 @@
  */
 package org.apache.commons.validator.routines;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Locale;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test Case for ShortValidator.
  */
 public class ShortValidatorTest extends AbstractNumberValidatorTest {
 
-    /**
-     * Constructor
-     * @param name test name
-     */
-    public ShortValidatorTest(final String name) {
-        super(name);
-    }
-
     @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    protected void setUp() {
         super.setUp();
 
-        validator       = new ShortValidator(false, 0);
+        validator = new ShortValidator(false, 0);
         strictValidator = new ShortValidator();
 
         testPattern = "#,###";
@@ -47,18 +48,18 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
         minMinusOne = Long.valueOf(min.longValue() - 1);
 
         // testInvalidStrict()
-        invalidStrict = new String[] {null, "", "X", "X12", "12X", "1X2", "1.2"};
+        invalidStrict = new String[] { null, "", "X", "X12", "12X", "1X2", "1.2" };
 
         // testInvalidNotStrict()
-        invalid       = new String[] {null, "", "X", "X12"};
+        invalid = new String[] { null, "", "X", "X12" };
 
         // testValid()
-        testNumber    = Short.valueOf((short)1234);
-        testZero      = Short.valueOf((short)0);
-        validStrict          = new String[] {"0", "1234", "1,234"};
-        validStrictCompare   = new Number[] {testZero, testNumber, testNumber};
-        valid                = new String[] {"0", "1234", "1,234", "1,234.5", "1234X"};
-        validCompare         = new Number[] {testZero, testNumber, testNumber, testNumber, testNumber};
+        testNumber = Short.valueOf((short) 1234);
+        testZero = Short.valueOf((short) 0);
+        validStrict = new String[] { "0", "1234", "1,234" };
+        validStrictCompare = new Number[] { testZero, testNumber, testNumber };
+        valid = new String[] { "0", "1234", "1,234", "1,234.5", "1234X" };
+        validCompare = new Number[] { testZero, testNumber, testNumber, testNumber, testNumber };
 
         testStringUS = "1,234";
         testStringDE = "1.234";
@@ -66,73 +67,75 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
         // Localized Pattern test
         localeValue = testStringDE;
         localePattern = "#.###";
-        testLocale    = Locale.GERMANY;
+        testLocale = Locale.GERMANY;
         localeExpected = testNumber;
 
     }
 
     /**
-     * Test ShortValidator validate Methods
-     */
-    public void testShortValidatorMethods() {
-        final Locale locale     = Locale.GERMAN;
-        final String pattern    = "0,00,00";
-        final String patternVal = "1,23,45";
-        final String germanPatternVal = "1.23.45";
-        final String localeVal  = "12.345";
-        final String defaultVal = "12,345";
-        final String XXXX    = "XXXX";
-        final Short expected = Short.valueOf((short)12345);
-        assertEquals("validate(A) default", expected, ShortValidator.getInstance().validate(defaultVal));
-        assertEquals("validate(A) locale ", expected, ShortValidator.getInstance().validate(localeVal, locale));
-        assertEquals("validate(A) pattern", expected, ShortValidator.getInstance().validate(patternVal, pattern));
-        assertEquals("validate(A) both",    expected, ShortValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN));
-
-        assertTrue("isValid(A) default", ShortValidator.getInstance().isValid(defaultVal));
-        assertTrue("isValid(A) locale ", ShortValidator.getInstance().isValid(localeVal, locale));
-        assertTrue("isValid(A) pattern", ShortValidator.getInstance().isValid(patternVal, pattern));
-        assertTrue("isValid(A) both",    ShortValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN));
-
-        assertNull("validate(B) default", ShortValidator.getInstance().validate(XXXX));
-        assertNull("validate(B) locale ", ShortValidator.getInstance().validate(XXXX, locale));
-        assertNull("validate(B) pattern", ShortValidator.getInstance().validate(XXXX, pattern));
-        assertNull("validate(B) both",    ShortValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN));
-
-        assertFalse("isValid(B) default", ShortValidator.getInstance().isValid(XXXX));
-        assertFalse("isValid(B) locale ", ShortValidator.getInstance().isValid(XXXX, locale));
-        assertFalse("isValid(B) pattern", ShortValidator.getInstance().isValid(XXXX, pattern));
-        assertFalse("isValid(B) both",    ShortValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN));
-    }
-
-    /**
      * Test Short Range/Min/Max
      */
+    @Test
     public void testShortRangeMinMax() {
-        final ShortValidator validator = (ShortValidator)strictValidator;
-        final Short number9  = validator.validate("9", "#");
+        final ShortValidator validator = (ShortValidator) strictValidator;
+        final Short number9 = validator.validate("9", "#");
         final Short number10 = validator.validate("10", "#");
         final Short number11 = validator.validate("11", "#");
         final Short number19 = validator.validate("19", "#");
         final Short number20 = validator.validate("20", "#");
         final Short number21 = validator.validate("21", "#");
-        final short min = (short)10;
-        final short max = (short)20;
+        final short min = (short) 10;
+        final short max = (short) 20;
 
         // Test isInRange()
-        assertFalse("isInRange() < min",   validator.isInRange(number9,  min, max));
-        assertTrue("isInRange() = min",    validator.isInRange(number10, min, max));
-        assertTrue("isInRange() in range", validator.isInRange(number11, min, max));
-        assertTrue("isInRange() = max",    validator.isInRange(number20, min, max));
-        assertFalse("isInRange() > max",   validator.isInRange(number21, min, max));
+        assertFalse(validator.isInRange(number9, min, max), "isInRange() < min");
+        assertTrue(validator.isInRange(number10, min, max), "isInRange() = min");
+        assertTrue(validator.isInRange(number11, min, max), "isInRange() in range");
+        assertTrue(validator.isInRange(number20, min, max), "isInRange() = max");
+        assertFalse(validator.isInRange(number21, min, max), "isInRange() > max");
 
         // Test minValue()
-        assertFalse("minValue() < min",    validator.minValue(number9,  min));
-        assertTrue("minValue() = min",     validator.minValue(number10, min));
-        assertTrue("minValue() > min",     validator.minValue(number11, min));
+        assertFalse(validator.minValue(number9, min), "minValue() < min");
+        assertTrue(validator.minValue(number10, min), "minValue() = min");
+        assertTrue(validator.minValue(number11, min), "minValue() > min");
 
         // Test minValue()
-        assertTrue("maxValue() < max",     validator.maxValue(number19, max));
-        assertTrue("maxValue() = max",     validator.maxValue(number20, max));
-        assertFalse("maxValue() > max",    validator.maxValue(number21, max));
+        assertTrue(validator.maxValue(number19, max), "maxValue() < max");
+        assertTrue(validator.maxValue(number20, max), "maxValue() = max");
+        assertFalse(validator.maxValue(number21, max), "maxValue() > max");
+    }
+
+    /**
+     * Test ShortValidator validate Methods
+     */
+    @Test
+    public void testShortValidatorMethods() {
+        final Locale locale = Locale.GERMAN;
+        final String pattern = "0,00,00";
+        final String patternVal = "1,23,45";
+        final String germanPatternVal = "1.23.45";
+        final String localeVal = "12.345";
+        final String defaultVal = "12,345";
+        final String XXXX = "XXXX";
+        final Short expected = Short.valueOf((short) 12345);
+        assertEquals(expected, ShortValidator.getInstance().validate(defaultVal), "validate(A) default");
+        assertEquals(expected, ShortValidator.getInstance().validate(localeVal, locale), "validate(A) locale");
+        assertEquals(expected, ShortValidator.getInstance().validate(patternVal, pattern), "validate(A) pattern");
+        assertEquals(expected, ShortValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN), "validate(A) both");
+
+        assertTrue(ShortValidator.getInstance().isValid(defaultVal), "isValid(A) default");
+        assertTrue(ShortValidator.getInstance().isValid(localeVal, locale), "isValid(A) locale");
+        assertTrue(ShortValidator.getInstance().isValid(patternVal, pattern), "isValid(A) pattern");
+        assertTrue(ShortValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN), "isValid(A) both");
+
+        assertNull(ShortValidator.getInstance().validate(XXXX), "validate(B) default");
+        assertNull(ShortValidator.getInstance().validate(XXXX, locale), "validate(B) locale");
+        assertNull(ShortValidator.getInstance().validate(XXXX, pattern), "validate(B) pattern");
+        assertNull(ShortValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN), "validate(B) both");
+
+        assertFalse(ShortValidator.getInstance().isValid(XXXX), "isValid(B) default");
+        assertFalse(ShortValidator.getInstance().isValid(XXXX, locale), "isValid(B) locale");
+        assertFalse(ShortValidator.getInstance().isValid(XXXX, pattern), "isValid(B) pattern");
+        assertFalse(ShortValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN), "isValid(B) both");
     }
 }

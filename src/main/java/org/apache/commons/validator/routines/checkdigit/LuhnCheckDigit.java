@@ -21,8 +21,8 @@ package org.apache.commons.validator.routines.checkdigit;
  *
  * Luhn check digits are used, for example, by:
  * <ul>
- *    <li><a href="http://en.wikipedia.org/wiki/Credit_card">Credit Card Numbers</a></li>
- *    <li><a href="http://en.wikipedia.org/wiki/IMEI">IMEI Numbers</a> - International
+ *    <li><a href="https://en.wikipedia.org/wiki/Credit_card">Credit Card Numbers</a></li>
+ *    <li><a href="https://en.wikipedia.org/wiki/IMEI">IMEI Numbers</a> - International
  *        Mobile Equipment Identity Numbers</li>
  * </ul>
  * Check digit calculation is based on <i>modulus 10</i> with digits in
@@ -30,7 +30,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * position digits being weighted 2 (weighted values greater than 9 have 9 subtracted).
  *
  * <p>
- * See <a href="http://en.wikipedia.org/wiki/Luhn_algorithm">Wikipedia</a>
+ * See <a href="https://en.wikipedia.org/wiki/Luhn_algorithm">Wikipedia</a>
  * for more details.
  * </p>
  *
@@ -43,14 +43,13 @@ public final class LuhnCheckDigit extends ModulusCheckDigit {
     /** Singleton Luhn Check Digit instance */
     public static final CheckDigit LUHN_CHECK_DIGIT = new LuhnCheckDigit();
 
-    /** weighting given to digits depending on their right position */
+    /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = {2, 1};
 
     /**
-     * Construct a modulus 10 Luhn Check Digit routine.
+     * Constructs a modulus 10 Luhn Check Digit routine.
      */
     public LuhnCheckDigit() {
-        super(10); // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**
@@ -70,6 +69,6 @@ public final class LuhnCheckDigit extends ModulusCheckDigit {
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
         final int weight = POSITION_WEIGHT[rightPos % 2]; // CHECKSTYLE IGNORE MagicNumber
         final int weightedValue = charValue * weight;
-        return weightedValue > 9 ? (weightedValue - 9) : weightedValue; // CHECKSTYLE IGNORE MagicNumber
+        return weightedValue > 9 ? weightedValue - 9 : weightedValue; // CHECKSTYLE IGNORE MagicNumber
     }
 }

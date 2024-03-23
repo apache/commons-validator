@@ -44,7 +44,7 @@ public final class ISBNCheckDigit implements CheckDigit, Serializable {
     public static final CheckDigit ISBN13_CHECK_DIGIT = EAN13CheckDigit.EAN13_CHECK_DIGIT;
 
     /** Singleton combined ISBN-10 / ISBN-13 Check Digit instance */
-    public static final CheckDigit ISBN_CHECK_DIGIT   = new ISBNCheckDigit();
+    public static final CheckDigit ISBN_CHECK_DIGIT = new ISBNCheckDigit();
 
     /**
      * Calculate an ISBN-10 or ISBN-13 check digit, depending
@@ -86,9 +86,9 @@ public final class ISBNCheckDigit implements CheckDigit, Serializable {
      *
      * @param code The ISBN code to validate (should have a length of
      * 10 or 13)
-     * @return <code>true</code> if the code has a length of 10 and is
+     * @return {@code true} if the code has a length of 10 and is
      * a valid ISBN-10 check digit or the code has a length of 13 and is
-     * a valid ISBN-13 check digit - otherwise <code>false</code>.
+     * a valid ISBN-13 check digit - otherwise {@code false}.
      */
     @Override
     public boolean isValid(final String code) {

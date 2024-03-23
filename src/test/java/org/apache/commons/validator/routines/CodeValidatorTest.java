@@ -16,246 +16,232 @@
  */
 package org.apache.commons.validator.routines;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
-
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 /**
  * CodeValidatorTest.java.
- *
- * @since 1.4
  */
-public class CodeValidatorTest extends TestCase {
-
-    /**
-     * Construct a test with the specified name.
-     * @param name The name of the test
-     */
-    public CodeValidatorTest(final String name) {
-        super(name);
-    }
-
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    /**
-     * @see junit.framework.TestCase#tearDown()
-     */
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
+public class CodeValidatorTest {
 
     /**
      * Test Check Digit.
      */
+    @Test
     public void testCheckDigit() {
-        CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
+        CodeValidator validator = new CodeValidator((String) null, -1, -1, (CheckDigit) null);
         final String invalidEAN = "9781930110992";
-        final String validEAN   = "9781930110991";
+        final String validEAN = "9781930110991";
 
         // Test no CheckDigit (i.e. null)
-        assertNull("No CheckDigit", validator.getCheckDigit());
-        assertEquals("No CheckDigit invalid", invalidEAN, validator.validate(invalidEAN));
-        assertEquals("No CheckDigit valid",     validEAN, validator.validate(validEAN));
-        assertEquals("No CheckDigit (is) invalid",  true, validator.isValid(invalidEAN));
-        assertEquals("No CheckDigit (is) valid",    true, validator.isValid(validEAN));
+        assertNull(validator.getCheckDigit(), "No CheckDigit");
+        assertEquals(invalidEAN, validator.validate(invalidEAN), "No CheckDigit invalid");
+        assertEquals(validEAN, validator.validate(validEAN), "No CheckDigit valid");
+        assertTrue(validator.isValid(invalidEAN), "No CheckDigit (is) invalid");
+        assertTrue(validator.isValid(validEAN), "No CheckDigit (is) valid");
 
         // Use the EAN-13 check digit routine
-        validator = new CodeValidator((String)null, -1, EAN13CheckDigit.EAN13_CHECK_DIGIT);
+        validator = new CodeValidator((String) null, -1, EAN13CheckDigit.EAN13_CHECK_DIGIT);
 
-        assertNotNull("EAN CheckDigit", validator.getCheckDigit());
-        assertEquals("EAN CheckDigit invalid",       null, validator.validate(invalidEAN));
-        assertEquals("EAN CheckDigit valid",     validEAN, validator.validate(validEAN));
-        assertEquals("EAN CheckDigit (is) invalid", false, validator.isValid(invalidEAN));
-        assertEquals("EAN CheckDigit (is) valid",    true, validator.isValid(validEAN));
-        assertEquals("EAN CheckDigit ex",            null, validator.validate("978193011099X"));
-    }
-
-    /**
-     * Test the minimum/maximum length
-     */
-    public void testLength() {
-        CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
-        final String length_10  = "1234567890";
-        final String length_11  = "12345678901";
-        final String length_12  = "123456789012";
-        final String length_20  = "12345678901234567890";
-        final String length_21  = "123456789012345678901";
-        final String length_22  = "1234567890123456789012";
-
-        assertEquals("No min", -1, validator.getMinLength());
-        assertEquals("No max", -1, validator.getMaxLength());
-
-        assertEquals("No Length 10", length_10, validator.validate(length_10));
-        assertEquals("No Length 11", length_11, validator.validate(length_11));
-        assertEquals("No Length 12", length_12, validator.validate(length_12));
-        assertEquals("No Length 20", length_20, validator.validate(length_20));
-        assertEquals("No Length 21", length_21, validator.validate(length_21));
-        assertEquals("No Length 22", length_22, validator.validate(length_22));
-
-        validator = new CodeValidator((String)null, 11, -1, (CheckDigit)null);
-        assertEquals("Min 11 - min", 11, validator.getMinLength());
-        assertEquals("Min 11 - max", -1, validator.getMaxLength());
-        assertEquals("Min 11 - 10", null,      validator.validate(length_10));
-        assertEquals("Min 11 - 11", length_11, validator.validate(length_11));
-        assertEquals("Min 11 - 12", length_12, validator.validate(length_12));
-        assertEquals("Min 11 - 20", length_20, validator.validate(length_20));
-        assertEquals("Min 11 - 21", length_21, validator.validate(length_21));
-        assertEquals("Min 11 - 22", length_22, validator.validate(length_22));
-
-        validator = new CodeValidator((String)null, -1, 21, (CheckDigit)null);
-        assertEquals("Max 21 - min", -1, validator.getMinLength());
-        assertEquals("Max 21 - max", 21, validator.getMaxLength());
-        assertEquals("Max 21 - 10", length_10, validator.validate(length_10));
-        assertEquals("Max 21 - 11", length_11, validator.validate(length_11));
-        assertEquals("Max 21 - 12", length_12, validator.validate(length_12));
-        assertEquals("Max 21 - 20", length_20, validator.validate(length_20));
-        assertEquals("Max 21 - 21", length_21, validator.validate(length_21));
-        assertEquals("Max 21 - 22", null,      validator.validate(length_22));
-
-        validator = new CodeValidator((String)null, 11, 21, (CheckDigit)null);
-        assertEquals("Min 11 / Max 21 - min", 11, validator.getMinLength());
-        assertEquals("Min 11 / Max 21 - max", 21, validator.getMaxLength());
-        assertEquals("Min 11 / Max 21 - 10", null,      validator.validate(length_10));
-        assertEquals("Min 11 / Max 21 - 11", length_11, validator.validate(length_11));
-        assertEquals("Min 11 / Max 21 - 12", length_12, validator.validate(length_12));
-        assertEquals("Min 11 / Max 21 - 20", length_20, validator.validate(length_20));
-        assertEquals("Min 11 / Max 21 - 21", length_21, validator.validate(length_21));
-        assertEquals("Min 11 / Max 21 - 22", null,      validator.validate(length_22));
-
-        validator = new CodeValidator((String)null, 11, 11, (CheckDigit)null);
-        assertEquals("Exact 11 - min", 11, validator.getMinLength());
-        assertEquals("Exact 11 - max", 11, validator.getMaxLength());
-        assertEquals("Exact 11 - 10", null,      validator.validate(length_10));
-        assertEquals("Exact 11 - 11", length_11, validator.validate(length_11));
-        assertEquals("Exact 11 - 12", null,      validator.validate(length_12));
+        assertNotNull(validator.getCheckDigit(), "EAN CheckDigit");
+        assertNull(validator.validate(invalidEAN), "EAN CheckDigit invalid");
+        assertEquals(validEAN, validator.validate(validEAN), "EAN CheckDigit valid");
+        assertFalse(validator.isValid(invalidEAN), "EAN CheckDigit (is) invalid");
+        assertTrue(validator.isValid(validEAN), "EAN CheckDigit (is) valid");
+        assertNull(validator.validate("978193011099X"), "EAN CheckDigit ex");
     }
 
     /**
      * Test Regular Expression.
      */
-    public void testRegex() {
-        CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
-
-        final String value2  = "12";
-        final String value3  = "123";
-        final String value4  = "1234";
-        final String value5  = "12345";
-        final String invalid = "12a4";
-
-        // No Regular Expression
-        assertNull("No Regex", validator.getRegexValidator());
-        assertEquals("No Regex 2", value2, validator.validate(value2));
-        assertEquals("No Regex 3", value3, validator.validate(value3));
-        assertEquals("No Regex 4", value4, validator.validate(value4));
-        assertEquals("No Regex 5", value5, validator.validate(value5));
-        assertEquals("No Regex invalid", invalid, validator.validate(invalid));
-
-        // Regular Expression
-        String regex = "^([0-9]{3,4})$";
-        validator = new CodeValidator(regex, -1, -1, (CheckDigit)null);
-        assertNotNull("No Regex", validator.getRegexValidator());
-        assertEquals("Regex 2", null,   validator.validate(value2));
-        assertEquals("Regex 3", value3, validator.validate(value3));
-        assertEquals("Regex 4", value4, validator.validate(value4));
-        assertEquals("Regex 5", null,   validator.validate(value5));
-        assertEquals("Regex invalid", null, validator.validate(invalid));
-
-        // Reformatted
-        regex = "^([0-9]{3})(?:[-\\s])([0-9]{3})$";
-        validator = new CodeValidator(new RegexValidator(regex), 6, (CheckDigit)null);
-        assertEquals("Reformat 123-456", "123456", validator.validate("123-456"));
-        assertEquals("Reformat 123 456", "123456", validator.validate("123 456"));
-        assertEquals("Reformat 123456",  null,     validator.validate("123456"));
-        assertEquals("Reformat 123.456", null,     validator.validate("123.456"));
-
-        regex = "^(?:([0-9]{3})(?:[-\\s])([0-9]{3}))|([0-9]{6})$";
-        validator = new CodeValidator(new RegexValidator(regex), 6, (CheckDigit)null);
-        assertEquals("Reformat 2 Regex",  "RegexValidator{" + regex + "}", validator.getRegexValidator().toString());
-        assertEquals("Reformat 2 123-456", "123456", validator.validate("123-456"));
-        assertEquals("Reformat 2 123 456", "123456", validator.validate("123 456"));
-        assertEquals("Reformat 2 123456",  "123456", validator.validate("123456"));
-
-    }
-
-    /**
-     * Test Regular Expression.
-     */
-    public void testNoInput() {
-        final CodeValidator validator = new CodeValidator((String)null, -1, -1, (CheckDigit)null);
-        assertEquals("Null",         null, validator.validate(null));
-        assertEquals("Zero Length",  null, validator.validate(""));
-        assertEquals("Spaces",       null, validator.validate("   "));
-        assertEquals("Trimmed",      "A",  validator.validate(" A  "));
-    }
-
-    public void testValidator294_1() {
-        CodeValidator validator = new CodeValidator((String)null, 0, -1, (CheckDigit)null);
-        assertEquals("Null",         null, validator.validate(null));
-        validator = new CodeValidator((String)null, -1, 0, (CheckDigit)null);
-        assertEquals("Null",         null, validator.validate(null));
-    }
-
-    public void testValidator294_2() {
-        final CodeValidator validator = new CodeValidator((String)null, -1, 0, (CheckDigit)null);
-        assertEquals("Null",         null, validator.validate(null));
-    }
-
-    /**
-     * Test Regular Expression.
-     */
+    @Test
     public void testConstructors() {
         CodeValidator validator;
         final RegexValidator regex = new RegexValidator("^[0-9]*$");
 
         // Constructor 1
         validator = new CodeValidator(regex, EAN13CheckDigit.EAN13_CHECK_DIGIT);
-        assertEquals("Constructor 1 - regex",      regex, validator.getRegexValidator());
-        assertEquals("Constructor 1 - min length", -1, validator.getMinLength());
-        assertEquals("Constructor 1 - max length", -1, validator.getMaxLength());
-        assertEquals("Constructor 1 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
+        assertEquals(regex, validator.getRegexValidator(), "Constructor 1 - regex");
+        assertEquals(-1, validator.getMinLength(), "Constructor 1 - min length");
+        assertEquals(-1, validator.getMaxLength(), "Constructor 1 - max length");
+        assertEquals(EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit(), "Constructor 1 - check digit");
 
         // Constructor 2
         validator = new CodeValidator(regex, 13, EAN13CheckDigit.EAN13_CHECK_DIGIT);
-        assertEquals("Constructor 2 - regex",      regex, validator.getRegexValidator());
-        assertEquals("Constructor 2 - min length", 13, validator.getMinLength());
-        assertEquals("Constructor 2 - max length", 13, validator.getMaxLength());
-        assertEquals("Constructor 2 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
+        assertEquals(regex, validator.getRegexValidator(), "Constructor 2 - regex");
+        assertEquals(13, validator.getMinLength(), "Constructor 2 - min length");
+        assertEquals(13, validator.getMaxLength(), "Constructor 2 - max length");
+        assertEquals(EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit(), "Constructor 2 - check digit");
 
         // Constructor 3
         validator = new CodeValidator(regex, 10, 20, EAN13CheckDigit.EAN13_CHECK_DIGIT);
-        assertEquals("Constructor 3 - regex",      regex, validator.getRegexValidator());
-        assertEquals("Constructor 3 - min length", 10, validator.getMinLength());
-        assertEquals("Constructor 3 - max length", 20, validator.getMaxLength());
-        assertEquals("Constructor 3 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
+        assertEquals(regex, validator.getRegexValidator(), "Constructor 3 - regex");
+        assertEquals(10, validator.getMinLength(), "Constructor 3 - min length");
+        assertEquals(20, validator.getMaxLength(), "Constructor 3 - max length");
+        assertEquals(EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit(), "Constructor 3 - check digit");
 
         // Constructor 4
         validator = new CodeValidator("^[0-9]*$", EAN13CheckDigit.EAN13_CHECK_DIGIT);
-        assertEquals("Constructor 4 - regex",      "RegexValidator{^[0-9]*$}", validator.getRegexValidator().toString());
-        assertEquals("Constructor 4 - min length", -1, validator.getMinLength());
-        assertEquals("Constructor 4 - max length", -1, validator.getMaxLength());
-        assertEquals("Constructor 4 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
+        assertEquals(validator.getRegexValidator().toString(), "RegexValidator{^[0-9]*$}", "Constructor 4 - regex");
+        assertEquals(-1, validator.getMinLength(), "Constructor 4 - min length");
+        assertEquals(-1, validator.getMaxLength(), "Constructor 4 - max length");
+        assertEquals(EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit(), "Constructor 4 - check digit");
 
         // Constructor 5
         validator = new CodeValidator("^[0-9]*$", 13, EAN13CheckDigit.EAN13_CHECK_DIGIT);
-        assertEquals("Constructor 5 - regex",      "RegexValidator{^[0-9]*$}", validator.getRegexValidator().toString());
-        assertEquals("Constructor 5 - min length", 13, validator.getMinLength());
-        assertEquals("Constructor 5 - max length", 13, validator.getMaxLength());
-        assertEquals("Constructor 5 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
+        assertEquals(validator.getRegexValidator().toString(), "RegexValidator{^[0-9]*$}", "Constructor 5 - regex");
+        assertEquals(13, validator.getMinLength(), "Constructor 5 - min length");
+        assertEquals(13, validator.getMaxLength(), "Constructor 5 - max length");
+        assertEquals(EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit(), "Constructor 5 - check digit");
 
         // Constructor 6
         validator = new CodeValidator("^[0-9]*$", 10, 20, EAN13CheckDigit.EAN13_CHECK_DIGIT);
-        assertEquals("Constructor 6 - regex",      "RegexValidator{^[0-9]*$}", validator.getRegexValidator().toString());
-        assertEquals("Constructor 6 - min length", 10, validator.getMinLength());
-        assertEquals("Constructor 6 - max length", 20, validator.getMaxLength());
-        assertEquals("Constructor 6 - check digit", EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit());
+        assertEquals(validator.getRegexValidator().toString(), "RegexValidator{^[0-9]*$}", "Constructor 6 - regex");
+        assertEquals(10, validator.getMinLength(), "Constructor 6 - min length");
+        assertEquals(20, validator.getMaxLength(), "Constructor 6 - max length");
+        assertEquals(EAN13CheckDigit.EAN13_CHECK_DIGIT, validator.getCheckDigit(), "Constructor 6 - check digit");
+    }
+
+    /**
+     * Test the minimum/maximum length
+     */
+    @Test
+    public void testLength() {
+        CodeValidator validator = new CodeValidator((String) null, -1, -1, (CheckDigit) null);
+        final String length_10 = "1234567890";
+        final String length_11 = "12345678901";
+        final String length_12 = "123456789012";
+        final String length_20 = "12345678901234567890";
+        final String length_21 = "123456789012345678901";
+        final String length_22 = "1234567890123456789012";
+
+        assertEquals(-1, validator.getMinLength(), "No min");
+        assertEquals(-1, validator.getMaxLength(), "No max");
+
+        assertEquals(length_10, validator.validate(length_10), "No Length 10");
+        assertEquals(length_11, validator.validate(length_11), "No Length 11");
+        assertEquals(length_12, validator.validate(length_12), "No Length 12");
+        assertEquals(length_20, validator.validate(length_20), "No Length 20");
+        assertEquals(length_21, validator.validate(length_21), "No Length 21");
+        assertEquals(length_22, validator.validate(length_22), "No Length 22");
+
+        validator = new CodeValidator((String) null, 11, -1, (CheckDigit) null);
+        assertEquals(11, validator.getMinLength(), "Min 11 - min");
+        assertEquals(-1, validator.getMaxLength(), "Min 11 - max");
+        assertNull(validator.validate(length_10), "Min 11 - 10");
+        assertEquals(length_11, validator.validate(length_11), "Min 11 - 11");
+        assertEquals(length_12, validator.validate(length_12), "Min 11 - 12");
+        assertEquals(length_20, validator.validate(length_20), "Min 11 - 20");
+        assertEquals(length_21, validator.validate(length_21), "Min 11 - 21");
+        assertEquals(length_22, validator.validate(length_22), "Min 11 - 22");
+
+        validator = new CodeValidator((String) null, -1, 21, (CheckDigit) null);
+        assertEquals(-1, validator.getMinLength(), "Max 21 - min");
+        assertEquals(21, validator.getMaxLength(), "Max 21 - max");
+        assertEquals(length_10, validator.validate(length_10), "Max 21 - 10");
+        assertEquals(length_11, validator.validate(length_11), "Max 21 - 11");
+        assertEquals(length_12, validator.validate(length_12), "Max 21 - 12");
+        assertEquals(length_20, validator.validate(length_20), "Max 21 - 20");
+        assertEquals(length_21, validator.validate(length_21), "Max 21 - 21");
+        assertNull(validator.validate(length_22), "Max 21 - 22");
+
+        validator = new CodeValidator((String) null, 11, 21, (CheckDigit) null);
+        assertEquals(11, validator.getMinLength(), "Min 11 / Max 21 - min");
+        assertEquals(21, validator.getMaxLength(), "Min 11 / Max 21 - max");
+        assertNull(validator.validate(length_10), "Min 11 / Max 21 - 10");
+        assertEquals(length_11, validator.validate(length_11), "Min 11 / Max 21 - 11");
+        assertEquals(length_12, validator.validate(length_12), "Min 11 / Max 21 - 12");
+        assertEquals(length_20, validator.validate(length_20), "Min 11 / Max 21 - 20");
+        assertEquals(length_21, validator.validate(length_21), "Min 11 / Max 21 - 21");
+        assertNull(validator.validate(length_22), "Min 11 / Max 21 - 22");
+
+        validator = new CodeValidator((String) null, 11, 11, (CheckDigit) null);
+        assertEquals(11, validator.getMinLength(), "Exact 11 - min");
+        assertEquals(11, validator.getMaxLength(), "Exact 11 - max");
+        assertNull(validator.validate(length_10), "Exact 11 - 10");
+        assertEquals(length_11, validator.validate(length_11), "Exact 11 - 11");
+        assertNull(validator.validate(length_12), "Exact 11 - 12");
+    }
+
+    /**
+     * Test Regular Expression.
+     */
+    @Test
+    public void testNoInput() {
+        final CodeValidator validator = new CodeValidator((String) null, -1, -1, (CheckDigit) null);
+        assertNull(validator.validate(null), "Null");
+        assertNull(validator.validate(""), "Zero Length");
+        assertNull(validator.validate("   "), "Spaces");
+        assertEquals(validator.validate(" A  "), "A", "Trimmed");
+    }
+
+    /**
+     * Test Regular Expression.
+     */
+    @Test
+    public void testRegex() {
+        CodeValidator validator = new CodeValidator((String) null, -1, -1, (CheckDigit) null);
+
+        final String value2 = "12";
+        final String value3 = "123";
+        final String value4 = "1234";
+        final String value5 = "12345";
+        final String invalid = "12a4";
+
+        // No Regular Expression
+        assertNull(validator.getRegexValidator(), "No Regex");
+        assertEquals(value2, validator.validate(value2), "No Regex 2");
+        assertEquals(value3, validator.validate(value3), "No Regex 3");
+        assertEquals(value4, validator.validate(value4), "No Regex 4");
+        assertEquals(value5, validator.validate(value5), "No Regex 5");
+        assertEquals(invalid, validator.validate(invalid), "No Regex invalid");
+
+        // Regular Expression
+        String regex = "^([0-9]{3,4})$";
+        validator = new CodeValidator(regex, -1, -1, (CheckDigit) null);
+        assertNotNull(validator.getRegexValidator(), "No Regex");
+        assertNull(validator.validate(value2), "Regex 2");
+        assertEquals(value3, validator.validate(value3), "Regex 3");
+        assertEquals(value4, validator.validate(value4), "Regex 4");
+        assertNull(validator.validate(value5), "Regex 5");
+        assertNull(validator.validate(invalid), "Regex invalid");
+
+        // Reformatted
+        regex = "^([0-9]{3})(?:[-\\s])([0-9]{3})$";
+        validator = new CodeValidator(new RegexValidator(regex), 6, (CheckDigit) null);
+        assertEquals(validator.validate("123-456"), "123456", "Reformat 123-456");
+        assertEquals(validator.validate("123 456"), "123456", "Reformat 123 456");
+        assertNull(validator.validate("123456"), "Reformat 123456");
+        assertNull(validator.validate("123.456"), "Reformat 123.456");
+
+        regex = "^(?:([0-9]{3})(?:[-\\s])([0-9]{3}))|([0-9]{6})$";
+        validator = new CodeValidator(new RegexValidator(regex), 6, (CheckDigit) null);
+        assertEquals(validator.getRegexValidator().toString(), "RegexValidator{" + regex + "}", "Reformat 2 Regex");
+        assertEquals(validator.validate("123-456"), "123456", "Reformat 2 123-456");
+        assertEquals(validator.validate("123 456"), "123456", "Reformat 2 123 456");
+        assertEquals(validator.validate("123456"), "123456", "Reformat 2 123456");
+
+    }
+
+    @Test
+    public void testValidator294_1() {
+        CodeValidator validator = new CodeValidator((String) null, 0, -1, (CheckDigit) null);
+        assertNull(validator.validate(null), "Null");
+        validator = new CodeValidator((String) null, -1, 0, (CheckDigit) null);
+        assertNull(validator.validate(null), "Null");
+    }
+
+    @Test
+    public void testValidator294_2() {
+        final CodeValidator validator = new CodeValidator((String) null, -1, 0, (CheckDigit) null);
+        assertNull(validator.validate(null), "Null");
     }
 
 }

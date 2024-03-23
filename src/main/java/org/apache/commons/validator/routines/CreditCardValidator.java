@@ -82,12 +82,6 @@ import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
  */
 public class CreditCardValidator implements Serializable {
 
-    private static final long serialVersionUID = 5955978921148959496L;
-
-    private static final int MIN_CC_LENGTH = 12; // minimum allowed length
-
-    private static final int MAX_CC_LENGTH = 19; // maximum allowed length
-
     /**
      * Class that represents a credit card range.
      * @since 1.6
@@ -106,7 +100,8 @@ public class CreditCardValidator implements Serializable {
          * The low and high parameters may be shorter than the length
          * of an IIN (currently 6 digits) in which case subsequent digits
          * are ignored and may range from 0-9.
-         * <br>
+         * </p>
+         * <p>
          * The low and high parameters may be different lengths.
          * e.g. Discover "644" and "65".
          * </p>
@@ -130,7 +125,8 @@ public class CreditCardValidator implements Serializable {
          * The low and high parameters may be shorter than the length
          * of an IIN (currently 6 digits) in which case subsequent digits
          * are ignored and may range from 0-9.
-         * <br>
+         * </p>
+         * <p>
          * The low and high parameters may be different lengths.
          * e.g. Discover "644" and "65".
          * </p>
@@ -146,6 +142,12 @@ public class CreditCardValidator implements Serializable {
             this.lengths = lengths.clone();
         }
     }
+
+    private static final long serialVersionUID = 5955978921148959496L;
+
+    private static final int MIN_CC_LENGTH = 12; // minimum allowed length
+
+    private static final int MAX_CC_LENGTH = 19; // maximum allowed length
 
     /**
      * Option specifying that no cards are allowed.  This is useful if
@@ -200,12 +202,6 @@ public class CreditCardValidator implements Serializable {
     @Deprecated
     public static final long MASTERCARD_PRE_OCT2016 = 1 << 6; // CHECKSTYLE IGNORE MagicNumber
 
-
-    /**
-     * The CreditCardTypes that are allowed to pass validation.
-     */
-    private final List<CodeValidator> cardTypes = new ArrayList<>();
-
     /**
      * Luhn checkdigit validator for the card numbers.
      */
@@ -213,28 +209,31 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * American Express (Amex) Card Validator
-     * <p>
-     * 34xxxx (15) <br>
-     * 37xxxx (15) <br>
+     * <ul>
+     * <li>34xxxx (15)</li>
+     * <li>37xxxx (15)</li>
+     * </ul>
      */
     public static final CodeValidator AMEX_VALIDATOR = new CodeValidator("^(3[47]\\d{13})$", LUHN_VALIDATOR);
 
     /**
      * Diners Card Validator
-     * <p>
-     * 300xxx - 305xxx (14) <br>
-     * 3095xx (14) <br>
-     * 36xxxx (14) <br>
-     * 38xxxx (14) <br>
-     * 39xxxx (14) <br>
+     * <ul>
+     * <li>300xxx - 305xxx (14)</li>
+     * <li>3095xx (14)</li>
+     * <li>36xxxx (14)</li>
+     * <li>38xxxx (14)</li>
+     * <li>39xxxx (14)</li>
+     * </ul>
      */
     public static final CodeValidator DINERS_VALIDATOR = new CodeValidator("^(30[0-5]\\d{11}|3095\\d{10}|36\\d{12}|3[8-9]\\d{12})$", LUHN_VALIDATOR);
 
     /**
      * Discover Card regular expressions
-     * <p>
-     * 6011xx (16) <br>
-     * 644xxx - 65xxxx (16) <br>
+     * <ul>
+     * <li>6011xx (16)</li>
+     * <li>644xxx - 65xxxx (16)</li>
+     * </ul>
      */
     private static final RegexValidator DISCOVER_REGEX = new RegexValidator("^(6011\\d{12,13})$", "^(64[4-9]\\d{13})$", "^(65\\d{14})$", "^(62[2-8]\\d{13})$");
 
@@ -243,9 +242,10 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Mastercard regular expressions
-     * <p>
-     * 2221xx - 2720xx (16) <br>
-     * 51xxx - 55xxx (16) <br>
+     * <ul>
+     * <li>2221xx - 2720xx (16)</li>
+     * <li>51xxx - 55xxx (16)</li>
+     * </ul>
      */
     private static final RegexValidator MASTERCARD_REGEX = new RegexValidator(
             "^(5[1-5]\\d{14})$",  // 51 - 55 (pre Oct 2016)
@@ -272,18 +272,118 @@ public class CreditCardValidator implements Serializable {
      * Visa Card Validator
      * <p>
      * 4xxxxx (13 or 16)
+     * </p>
      */
     public static final CodeValidator VISA_VALIDATOR = new CodeValidator("^(4)(\\d{12}|\\d{15})$", LUHN_VALIDATOR);
 
-    /** VPay (Visa) Card Validator
+    /**
+     * VPay (Visa) Card Validator
      * <p>
      * 4xxxxx (13-19)
+     * </p>
      * @since 1.5.0
      */
     public static final CodeValidator VPAY_VALIDATOR = new CodeValidator("^(4)(\\d{12,18})$", LUHN_VALIDATOR);
 
+    // package protected for unit test access
+    static CodeValidator createRangeValidator(final CreditCardRange[] creditCardRanges, final CheckDigit digitCheck) {
+        return new CodeValidator(
+                // must be numeric (rest of validation is done later)
+                new RegexValidator("(\\d+)") {
+                    private static final long serialVersionUID = 1L;
+                    private final transient CreditCardRange[] ccr = creditCardRanges.clone();
+
+                    @Override
+                    public boolean isValid(final String value) {
+                        return validate(value) != null;
+                    }
+
+                    @Override
+                    public String[] match(final String value) {
+                        return new String[] { validate(value) };
+                    }
+
+                    @Override
+                    // must return full string
+                    public String validate(final String value) {
+                        if (super.match(value) != null) {
+                            final int length = value.length();
+                            for (final CreditCardRange range : ccr) {
+                                if (validLength(length, range)) {
+                                    if (range.high == null) { // single prefix only
+                                        if (value.startsWith(range.low)) {
+                                            return value;
+                                        }
+                                    } else if (range.low.compareTo(value) <= 0 // no need to trim value here
+                                            &&
+                                    // here we have to ignore digits beyond the prefix
+                                            range.high.compareTo(value.substring(0, range.high.length())) >= 0) {
+                                        return value;
+                                    }
+                                }
+                            }
+                        }
+                        return null;
+                    }
+                }, digitCheck);
+    }
+
     /**
-     * Create a new CreditCardValidator with default options.
+     * Creates a new generic CreditCardValidator which validates the syntax and check digit only.
+     * Does not check the Issuer Identification Number (IIN)
+     *
+     * @return the validator
+     * @since 1.6
+     */
+    public static CreditCardValidator genericCreditCardValidator() {
+        return genericCreditCardValidator(MIN_CC_LENGTH, MAX_CC_LENGTH);
+    }
+
+    /**
+     * Creates a new generic CreditCardValidator which validates the syntax and check digit only.
+     * Does not check the Issuer Identification Number (IIN)
+     *
+     * @param length exact length
+     * @return the validator
+     * @since 1.6
+     */
+    public static CreditCardValidator genericCreditCardValidator(final int length) {
+        return genericCreditCardValidator(length, length);
+    }
+
+    /**
+     * Creates a new generic CreditCardValidator which validates the syntax and check digit only.
+     * Does not check the Issuer Identification Number (IIN)
+     *
+     * @param minLen minimum allowed length
+     * @param maxLen maximum allowed length
+     * @return the validator
+     * @since 1.6
+     */
+    public static CreditCardValidator genericCreditCardValidator(final int minLen, final int maxLen) {
+        return new CreditCardValidator(new CodeValidator[] {new CodeValidator("(\\d+)", minLen, maxLen, LUHN_VALIDATOR)});
+    }
+
+    // package protected for unit test access
+    static boolean validLength(final int valueLength, final CreditCardRange range) {
+        if (range.lengths != null) {
+            for (final int length : range.lengths) {
+                if (valueLength == length) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return valueLength >= range.minLen && valueLength <= range.maxLen;
+    }
+
+    /**
+     * The CreditCardTypes that are allowed to pass validation.
+     */
+    private final List<CodeValidator> cardTypes = new ArrayList<>();
+
+    /**
+     * Constructs a new CreditCardValidator with default options.
      * The default options are:
      * AMEX, VISA, MASTERCARD and DISCOVER
      */
@@ -292,7 +392,51 @@ public class CreditCardValidator implements Serializable {
     }
 
     /**
-     * Create a new CreditCardValidator with the specified options.
+     * Constructs a new CreditCardValidator with the specified {@link CodeValidator}s.
+     * @param creditCardValidators Set of valid code validators
+     */
+    public CreditCardValidator(final CodeValidator[] creditCardValidators) {
+        if (creditCardValidators == null) {
+            throw new IllegalArgumentException("Card validators are missing");
+        }
+        Collections.addAll(cardTypes, creditCardValidators);
+    }
+
+    /**
+     * Constructs a new CreditCardValidator with the specified {@link CodeValidator}s
+     * and {@link CreditCardRange}s.
+     * <p>
+     * This can be used to combine predefined validators such as {@link #MASTERCARD_VALIDATOR}
+     * with additional validators using the simpler {@link CreditCardRange}s.
+     * @param creditCardValidators Set of valid code validators
+     * @param creditCardRanges Set of valid code validators
+     * @since 1.6
+     */
+    public CreditCardValidator(final CodeValidator[] creditCardValidators, final CreditCardRange[] creditCardRanges) {
+        if (creditCardValidators == null) {
+            throw new IllegalArgumentException("Card validators are missing");
+        }
+        if (creditCardRanges == null) {
+            throw new IllegalArgumentException("Card ranges are missing");
+        }
+        Collections.addAll(cardTypes, creditCardValidators);
+        Collections.addAll(cardTypes, createRangeValidator(creditCardRanges, LUHN_VALIDATOR));
+    }
+
+    /**
+     * Constructs a new CreditCardValidator with the specified {@link CreditCardRange}s.
+     * @param creditCardRanges Set of valid code validators
+     * @since 1.6
+     */
+    public CreditCardValidator(final CreditCardRange[] creditCardRanges) {
+        if (creditCardRanges == null) {
+            throw new IllegalArgumentException("Card ranges are missing");
+        }
+        Collections.addAll(cardTypes, createRangeValidator(creditCardRanges, LUHN_VALIDATOR));
+    }
+
+    /**
+     * Constructs a new CreditCardValidator with the specified options.
      * @param options Pass in
      * CreditCardValidator.VISA + CreditCardValidator.AMEX to specify that
      * those are the only valid card types.
@@ -328,83 +472,16 @@ public class CreditCardValidator implements Serializable {
     }
 
     /**
-     * Create a new CreditCardValidator with the specified {@link CodeValidator}s.
-     * @param creditCardValidators Set of valid code validators
-     */
-    public CreditCardValidator(final CodeValidator[] creditCardValidators) {
-        if (creditCardValidators == null) {
-            throw new IllegalArgumentException("Card validators are missing");
-        }
-        Collections.addAll(cardTypes, creditCardValidators);
-    }
-
-    /**
-     * Create a new CreditCardValidator with the specified {@link CreditCardRange}s.
-     * @param creditCardRanges Set of valid code validators
-     * @since 1.6
-     */
-    public CreditCardValidator(final CreditCardRange[] creditCardRanges) {
-        if (creditCardRanges == null) {
-            throw new IllegalArgumentException("Card ranges are missing");
-        }
-        Collections.addAll(cardTypes, createRangeValidator(creditCardRanges, LUHN_VALIDATOR));
-    }
-
-    /**
-     * Create a new CreditCardValidator with the specified {@link CodeValidator}s
-     * and {@link CreditCardRange}s.
-     * <p>
-     * This can be used to combine predefined validators such as {@link #MASTERCARD_VALIDATOR}
-     * with additional validators using the simpler {@link CreditCardRange}s.
-     * @param creditCardValidators Set of valid code validators
-     * @param creditCardRanges Set of valid code validators
-     * @since 1.6
-     */
-    public CreditCardValidator(final CodeValidator[] creditCardValidators, final CreditCardRange[] creditCardRanges) {
-        if (creditCardValidators == null) {
-            throw new IllegalArgumentException("Card validators are missing");
-        }
-        if (creditCardRanges == null) {
-            throw new IllegalArgumentException("Card ranges are missing");
-        }
-        Collections.addAll(cardTypes, creditCardValidators);
-        Collections.addAll(cardTypes, createRangeValidator(creditCardRanges, LUHN_VALIDATOR));
-    }
-
-    /**
-     * Create a new generic CreditCardValidator which validates the syntax and check digit only.
-     * Does not check the Issuer Identification Number (IIN)
+     * Tests whether the given flag is on.  If the flag is not a power of 2
+     * (ie. 3) this tests whether the combination of flags is on.
      *
-     * @param minLen minimum allowed length
-     * @param maxLen maximum allowed length
-     * @return the validator
-     * @since 1.6
-     */
-    public static CreditCardValidator genericCreditCardValidator(final int minLen, final int maxLen) {
-        return new CreditCardValidator(new CodeValidator[] {new CodeValidator("(\\d+)", minLen, maxLen, LUHN_VALIDATOR)});
-    }
-
-    /**
-     * Create a new generic CreditCardValidator which validates the syntax and check digit only.
-     * Does not check the Issuer Identification Number (IIN)
+     * @param options The options specified.
+     * @param flag Flag value to check.
      *
-     * @param length exact length
-     * @return the validator
-     * @since 1.6
+     * @return whether the specified flag value is on.
      */
-    public static CreditCardValidator genericCreditCardValidator(final int length) {
-        return genericCreditCardValidator(length, length);
-    }
-
-    /**
-     * Create a new generic CreditCardValidator which validates the syntax and check digit only.
-     * Does not check the Issuer Identification Number (IIN)
-     *
-     * @return the validator
-     * @since 1.6
-     */
-    public static CreditCardValidator genericCreditCardValidator() {
-        return genericCreditCardValidator(MIN_CC_LENGTH, MAX_CC_LENGTH);
+    private boolean isOn(final long options, final long flag) {
+        return (options & flag) > 0;
     }
 
     /**
@@ -427,7 +504,7 @@ public class CreditCardValidator implements Serializable {
     /**
      * Checks if the field is a valid credit card number.
      * @param card The card number to validate.
-     * @return The card number if valid or <code>null</code>
+     * @return The card number if valid or {@code null}
      * if invalid.
      */
     public Object validate(final String card) {
@@ -443,72 +520,6 @@ public class CreditCardValidator implements Serializable {
         }
         return null;
 
-    }
-
-    // package protected for unit test access
-    static boolean validLength(final int valueLength, final CreditCardRange range) {
-        if (range.lengths != null) {
-            for(final int length : range.lengths) {
-                if (valueLength == length) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        return valueLength >= range.minLen && valueLength <= range.maxLen;
-    }
-
-    // package protected for unit test access
-    static CodeValidator createRangeValidator(final CreditCardRange[] creditCardRanges, final CheckDigit digitCheck ) {
-        return new CodeValidator(
-                // must be numeric (rest of validation is done later)
-                new RegexValidator("(\\d+)") {
-                    private static final long serialVersionUID = 1L;
-                    private final CreditCardRange[] ccr = creditCardRanges.clone();
-                    @Override
-                    // must return full string
-                    public String validate(final String value) {
-                        if (super.match(value) != null) {
-                            final int length = value.length();
-                            for(final CreditCardRange range : ccr) {
-                                if (validLength(length, range)) {
-                                    if (range.high == null) { // single prefix only
-                                        if (value.startsWith(range.low)) {
-                                            return value;
-                                        }
-                                    } else if (range.low.compareTo(value) <= 0 // no need to trim value here
-                                                &&
-                                                // here we have to ignore digits beyond the prefix
-                                                range.high.compareTo(value.substring(0, range.high.length())) >= 0) {
-                                               return value;
-                                    }
-                                }
-                            }
-                        }
-                        return null;
-                    }
-                    @Override
-                    public boolean isValid(final String value) {
-                        return validate(value) != null;
-                    }
-                    @Override
-                    public String[] match(final String value) {
-                        return new String[] { validate(value) };
-                    }
-                }, digitCheck);
-    }
-
-    /**
-     * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is on.
-     *
-     * @param options The options specified.
-     * @param flag Flag value to check.
-     *
-     * @return whether the specified flag value is on.
-     */
-    private boolean isOn(final long options, final long flag) {
-        return (options & flag) > 0;
     }
 
 }

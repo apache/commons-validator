@@ -16,60 +16,58 @@
  */
 package org.apache.commons.validator;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the GenericValidator class.
  */
-public class GenericValidatorTest extends TestCase {
+public class GenericValidatorTest {
 
-    /**
-     * Constructor for GenericValidatorTest.
-     */
-    public GenericValidatorTest(final String name) {
-        super(name);
-    }
-
-    public void testMinLength() {
-
-        // Use 0 for line end length
-        assertTrue("Min=5 End=0",  GenericValidator.minLength("12345\n\r", 5, 0));
-        assertFalse("Min=6 End=0", GenericValidator.minLength("12345\n\r", 6, 0));
-        assertFalse("Min=7 End=0", GenericValidator.minLength("12345\n\r", 7, 0));
-        assertFalse("Min=8 End=0", GenericValidator.minLength("12345\n\r", 8, 0));
-
-        // Use 1 for line end length
-        assertTrue("Min=5 End=1",  GenericValidator.minLength("12345\n\r", 5, 1));
-        assertTrue("Min=6 End=1",  GenericValidator.minLength("12345\n\r", 6, 1));
-        assertFalse("Min=7 End=1", GenericValidator.minLength("12345\n\r", 7, 1));
-        assertFalse("Min=8 End=1", GenericValidator.minLength("12345\n\r", 8, 1));
-
-        // Use 2 for line end length
-        assertTrue("Min=5 End=2",  GenericValidator.minLength("12345\n\r", 5, 2));
-        assertTrue("Min=6 End=2",  GenericValidator.minLength("12345\n\r", 6, 2));
-        assertTrue("Min=7 End=2",  GenericValidator.minLength("12345\n\r", 7, 2));
-        assertFalse("Min=8 End=2", GenericValidator.minLength("12345\n\r", 8, 2));
-    }
-
+    @Test
     public void testMaxLength() {
 
         // Use 0 for line end length
-        assertFalse("Max=4 End=0", GenericValidator.maxLength("12345\n\r", 4, 0));
-        assertTrue("Max=5 End=0",  GenericValidator.maxLength("12345\n\r", 5, 0));
-        assertTrue("Max=6 End=0",  GenericValidator.maxLength("12345\n\r", 6, 0));
-        assertTrue("Max=7 End=0",  GenericValidator.maxLength("12345\n\r", 7, 0));
+        assertFalse(GenericValidator.maxLength("12345\n\r", 4, 0), "Max=4 End=0");
+        assertTrue(GenericValidator.maxLength("12345\n\r", 5, 0), "Max=5 End=0");
+        assertTrue(GenericValidator.maxLength("12345\n\r", 6, 0), "Max=6 End=0");
+        assertTrue(GenericValidator.maxLength("12345\n\r", 7, 0), "Max=7 End=0");
 
         // Use 1 for line end length
-        assertFalse("Max=4 End=1", GenericValidator.maxLength("12345\n\r", 4, 1));
-        assertFalse("Max=5 End=1", GenericValidator.maxLength("12345\n\r", 5, 1));
-        assertTrue("Max=6 End=1",  GenericValidator.maxLength("12345\n\r", 6, 1));
-        assertTrue("Max=7 End=1",  GenericValidator.maxLength("12345\n\r", 7, 1));
+        assertFalse(GenericValidator.maxLength("12345\n\r", 4, 1), "Max=4 End=1");
+        assertFalse(GenericValidator.maxLength("12345\n\r", 5, 1), "Max=5 End=1");
+        assertTrue(GenericValidator.maxLength("12345\n\r", 6, 1), "Max=6 End=1");
+        assertTrue(GenericValidator.maxLength("12345\n\r", 7, 1), "Max=7 End=1");
 
         // Use 2 for line end length
-        assertFalse("Max=4 End=2", GenericValidator.maxLength("12345\n\r", 4, 2));
-        assertFalse("Max=5 End=2", GenericValidator.maxLength("12345\n\r", 5, 2));
-        assertFalse("Max=6 End=2", GenericValidator.maxLength("12345\n\r", 6, 2));
-        assertTrue("Max=7 End=2",  GenericValidator.maxLength("12345\n\r", 7, 2));
+        assertFalse(GenericValidator.maxLength("12345\n\r", 4, 2), "Max=4 End=2");
+        assertFalse(GenericValidator.maxLength("12345\n\r", 5, 2), "Max=5 End=2");
+        assertFalse(GenericValidator.maxLength("12345\n\r", 6, 2), "Max=6 End=2");
+        assertTrue(GenericValidator.maxLength("12345\n\r", 7, 2), "Max=7 End=2");
+    }
+
+    @Test
+    public void testMinLength() {
+
+        // Use 0 for line end length
+        assertTrue(GenericValidator.minLength("12345\n\r", 5, 0), "Min=5 End=0");
+        assertFalse(GenericValidator.minLength("12345\n\r", 6, 0), "Min=6 End=0");
+        assertFalse(GenericValidator.minLength("12345\n\r", 7, 0), "Min=7 End=0");
+        assertFalse(GenericValidator.minLength("12345\n\r", 8, 0), "Min=8 End=0");
+
+        // Use 1 for line end length
+        assertTrue(GenericValidator.minLength("12345\n\r", 5, 1), "Min=5 End=1");
+        assertTrue(GenericValidator.minLength("12345\n\r", 6, 1), "Min=6 End=1");
+        assertFalse(GenericValidator.minLength("12345\n\r", 7, 1), "Min=7 End=1");
+        assertFalse(GenericValidator.minLength("12345\n\r", 8, 1), "Min=8 End=1");
+
+        // Use 2 for line end length
+        assertTrue(GenericValidator.minLength("12345\n\r", 5, 2), "Min=5 End=2");
+        assertTrue(GenericValidator.minLength("12345\n\r", 6, 2), "Min=6 End=2");
+        assertTrue(GenericValidator.minLength("12345\n\r", 7, 2), "Min=7 End=2");
+        assertFalse(GenericValidator.minLength("12345\n\r", 8, 2), "Min=8 End=2");
     }
 
 }

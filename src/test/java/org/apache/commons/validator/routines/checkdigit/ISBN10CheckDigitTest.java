@@ -16,35 +16,20 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * ISBN-10 Check Digit Test.
- *
- * @since 1.4
  */
 public class ISBN10CheckDigitTest extends AbstractCheckDigitTest {
 
     /**
-     * Constructor
-     * @param name test name
+     * Sets up routine & valid codes.
      */
-    public ISBN10CheckDigitTest(final String name) {
-        super(name);
-    }
-
-    /**
-     * Set up routine & valid codes.
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    protected void setUp() {
         routine = ISBN10CheckDigit.ISBN10_CHECK_DIGIT;
-        valid = new String[] {
-                "1930110995",
-                "020163385X",
-                "1932394354",
-                "1590596277"
-                };
+        valid = new String[] { "1930110995", "020163385X", "1932394354", "1590596277" };
     }
 
 }

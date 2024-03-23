@@ -16,23 +16,22 @@
  */
 package org.apache.commons.validator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
-
-import junit.framework.TestCase;
 
 /**
  * Tests retrieving forms using different Locales.
  */
-public class RetrieveFormTest extends TestCase {
-
-    /**
-     * Resources used for validation tests.
-     */
-    private ValidatorResources resources;
+public class RetrieveFormTest {
 
     /**
      * Prefix for the forms.
@@ -45,22 +44,36 @@ public class RetrieveFormTest extends TestCase {
     private static final Locale CANADA_FRENCH_XXX = new Locale("fr", "CA", "XXX");
 
     /**
-     * Constructor for FormTest.
-     * @param name
+     * Resources used for validation tests.
      */
-    public RetrieveFormTest(final String name) {
-        super(name);
+    private ValidatorResources resources;
+
+    private void checkForm(final Locale locale, final String formKey, final String expectedVarValue) {
+
+        // Retrieve the Form
+        final Form testForm = resources.getForm(locale, formKey);
+        assertNotNull(testForm, "Form '" + formKey + "' null for locale " + locale);
+
+        // Validate the expected Form is retrieved by checking the "localeVar"
+        // value of the field.
+        final Field testField = testForm.getField("testProperty");
+        assertEquals(expectedVarValue, testField.getVarValue("localeVar"), "Incorrect Form '" + formKey + "' for locale '" + locale + "'");
+    }
+
+    private void checkFormNotFound(final Locale locale, final String formKey) {
+
+        // Retrieve the Form
+        final Form testForm = resources.getForm(locale, formKey);
+        assertNull(testForm, "Form '" + formKey + "' not null for locale " + locale);
+
     }
 
     /**
      * Load <code>ValidatorResources</code> from multiple xml files.
      */
-    @Override
+    @BeforeEach
     protected void setUp() throws IOException, SAXException {
-        final InputStream[] streams =
-            {
-            this.getClass().getResourceAsStream(
-                "RetrieveFormTest-config.xml")};
+        final InputStream[] streams = { this.getClass().getResourceAsStream("RetrieveFormTest-config.xml") };
 
         this.resources = new ValidatorResources(streams);
 
@@ -69,9 +82,10 @@ public class RetrieveFormTest extends TestCase {
         }
     }
 
-   /**
-    * Test a form defined only in the "default" formset.
-    */
+    /**
+     * Test a form defined only in the "default" formset.
+     */
+    @Test
     public void testDefaultForm() {
 
         final String formKey = FORM_PREFIX + "default";
@@ -96,39 +110,38 @@ public class RetrieveFormTest extends TestCase {
 
     }
 
-   /**
-    * Test a form defined in the "default" formset and formsets
-    * where just the "language" is specified.
-    */
-    public void testLanguageForm() {
+    /**
+     * Test a form not defined
+     */
+    @Test
+    public void testFormNotFound() {
 
-        final String formKey = FORM_PREFIX + "language";
+        final String formKey = "INVALID_NAME";
 
         // *** US locale ***
-        checkForm(Locale.US, formKey, "default");
+        checkFormNotFound(Locale.US, formKey);
 
         // *** French locale ***
-        checkForm(Locale.FRENCH, formKey, "fr");
+        checkFormNotFound(Locale.FRENCH, formKey);
 
         // *** France locale ***
-        checkForm(Locale.FRANCE, formKey, "fr");
+        checkFormNotFound(Locale.FRANCE, formKey);
 
         // *** Candian (English) locale ***
-        checkForm(Locale.CANADA, formKey, "default");
+        checkFormNotFound(Locale.CANADA, formKey);
 
         // *** Candian French locale ***
-        checkForm(Locale.CANADA_FRENCH, formKey, "fr");
+        checkFormNotFound(Locale.CANADA_FRENCH, formKey);
 
         // *** Candian French Variant locale ***
-        checkForm(CANADA_FRENCH_XXX, formKey, "fr");
+        checkFormNotFound(CANADA_FRENCH_XXX, formKey);
 
     }
 
-   /**
-    * Test a form defined in the "default" formset, formsets
-    * where just the "language" is specified and formset where
-    * the language and country are specified.
-    */
+    /**
+     * Test a form defined in the "default" formset, formsets where just the "language" is specified and formset where the language and country are specified.
+     */
+    @Test
     public void testLanguageCountryForm() {
 
         final String formKey = FORM_PREFIX + "language_country";
@@ -153,9 +166,10 @@ public class RetrieveFormTest extends TestCase {
 
     }
 
-   /**
-    * Test a form defined in all the formsets
-    */
+    /**
+     * Test a form defined in all the formsets
+     */
+    @Test
     public void testLanguageCountryVariantForm() {
 
         final String formKey = FORM_PREFIX + "language_country_variant";
@@ -180,53 +194,31 @@ public class RetrieveFormTest extends TestCase {
 
     }
 
-   /**
-    * Test a form not defined
-    */
-    public void testFormNotFound() {
+    /**
+     * Test a form defined in the "default" formset and formsets where just the "language" is specified.
+     */
+    @Test
+    public void testLanguageForm() {
 
-        final String formKey = "INVALID_NAME";
+        final String formKey = FORM_PREFIX + "language";
 
         // *** US locale ***
-        checkFormNotFound(Locale.US, formKey);
+        checkForm(Locale.US, formKey, "default");
 
         // *** French locale ***
-        checkFormNotFound(Locale.FRENCH, formKey);
+        checkForm(Locale.FRENCH, formKey, "fr");
 
         // *** France locale ***
-        checkFormNotFound(Locale.FRANCE, formKey);
+        checkForm(Locale.FRANCE, formKey, "fr");
 
         // *** Candian (English) locale ***
-        checkFormNotFound(Locale.CANADA, formKey);
+        checkForm(Locale.CANADA, formKey, "default");
 
         // *** Candian French locale ***
-        checkFormNotFound(Locale.CANADA_FRENCH, formKey);
+        checkForm(Locale.CANADA_FRENCH, formKey, "fr");
 
         // *** Candian French Variant locale ***
-        checkFormNotFound(CANADA_FRENCH_XXX, formKey);
-
-
-    }
-
-    private void checkForm(final Locale locale, final String formKey, final String expectedVarValue) {
-
-        // Retrieve the Form
-        final Form testForm = resources.getForm(locale, formKey);
-        assertNotNull("Form '" +formKey+"' null for locale " + locale, testForm);
-
-        // Validate the expected Form is retrieved by checking the "localeVar"
-        // value of the field.
-        final Field testField = testForm.getField("testProperty");
-        assertEquals("Incorrect Form '"   + formKey  + "' for locale '" + locale + "'",
-                     expectedVarValue,
-                     testField.getVarValue("localeVar"));
-    }
-
-    private void checkFormNotFound(final Locale locale, final String formKey) {
-
-        // Retrieve the Form
-        final Form testForm = resources.getForm(locale, formKey);
-        assertNull("Form '" +formKey+"' not null for locale " + locale, testForm);
+        checkForm(CANADA_FRENCH_XXX, formKey, "fr");
 
     }
 

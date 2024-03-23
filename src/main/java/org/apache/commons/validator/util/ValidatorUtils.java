@@ -16,10 +16,11 @@
  */
 package org.apache.commons.validator.util;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.FastHashMap; // DEPRECATED
@@ -41,44 +42,63 @@ public class ValidatorUtils {
     private static final Log LOG = LogFactory.getLog(ValidatorUtils.class);
 
     /**
-     * <p>Replace part of a <code>String</code> with another value.</p>
+     * Makes a deep copy of a <code>FastHashMap</code> if the values
+     * are <code>Msg</code>, <code>Arg</code>,
+     * or <code>Var</code>.  Otherwise it is a shallow copy.
      *
-     * @param value <code>String</code> to perform the replacement on.
-     * @param key The name of the constant.
-     * @param replaceValue The value of the constant.
-     *
-     * @return The modified value.
+     * @param fastHashMap <code>FastHashMap</code> to copy.
+     * @return FastHashMap A copy of the <code>FastHashMap</code> that was
+     * passed in.
+     * @deprecated This method is not part of Validator's public API.  Validator
+     * will use it internally until FastHashMap references are removed.  Use
+     * copyMap() instead.
      */
-    public static String replace(String value, final String key, final String replaceValue) {
-
-        if (value == null || key == null || replaceValue == null) {
-            return value;
+    @Deprecated
+    public static FastHashMap copyFastHashMap(final FastHashMap fastHashMap) {
+        FastHashMap results = new FastHashMap();
+        @SuppressWarnings("unchecked") // FastHashMap is not generic
+        Iterator<Entry<String, ?>> iterator = fastHashMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Entry<String, ?> entry = iterator.next();
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            if (value instanceof Msg) {
+                results.put(key, ((Msg) value).clone());
+            } else if (value instanceof Arg) {
+                results.put(key, ((Arg) value).clone());
+            } else if (value instanceof Var) {
+                results.put(key, ((Var) value).clone());
+            } else {
+                results.put(key, value);
+            }
         }
+        results.setFast(true);
+        return results;
+    }
 
-        final int pos = value.indexOf(key);
-
-        if (pos < 0) {
-            return value;
-        }
-
-        final int length = value.length();
-        final int start = pos;
-        final int end = pos + key.length();
-
-        if (length == key.length()) {
-            value = replaceValue;
-
-        } else if (end == length) {
-            value = value.substring(0, start) + replaceValue;
-
-        } else {
-            value =
-                    value.substring(0, start)
-                    + replaceValue
-                    + replace(value.substring(end), key, replaceValue);
-        }
-
-        return value;
+    /**
+     * Makes a deep copy of a <code>Map</code> if the values are
+     * <code>Msg</code>, <code>Arg</code>, or <code>Var</code>.  Otherwise,
+     * it is a shallow copy.
+     *
+     * @param map The source Map to copy.
+     *
+     * @return A copy of the <code>Map</code> that was passed in.
+     */
+    public static Map<String, Object> copyMap(final Map<String, Object> map) {
+        final Map<String, Object> results = new HashMap<>(map.size());
+        map.forEach((key, value) -> {
+            if (value instanceof Msg) {
+                results.put(key, ((Msg) value).clone());
+            } else if (value instanceof Arg) {
+                results.put(key, ((Arg) value).clone());
+            } else if (value instanceof Var) {
+                results.put(key, ((Var) value).clone());
+            } else {
+                results.put(key, value);
+            }
+        });
+        return results;
     }
 
     /**
@@ -86,7 +106,7 @@ public class ValidatorUtils {
      * <code>String</code>.  If the property is a <code>String[]</code> or
      * <code>Collection</code> and it is empty, an empty <code>String</code>
      * "" is returned.  Otherwise, property.toString() is returned.  This method
-     * may return <code>null</code> if there was an error retrieving the
+     * may return {@code null} if there was an error retrieving the
      * property.
      *
      * @param bean The bean object.
@@ -100,7 +120,7 @@ public class ValidatorUtils {
         try {
             value = PropertyUtils.getProperty(bean, property);
 
-        } catch(IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (final ReflectiveOperationException e) {
             LOG.error(e.getMessage(), e);
         }
 
@@ -121,60 +141,19 @@ public class ValidatorUtils {
     }
 
     /**
-     * Makes a deep copy of a <code>FastHashMap</code> if the values
-     * are <code>Msg</code>, <code>Arg</code>,
-     * or <code>Var</code>.  Otherwise it is a shallow copy.
+     * <p>Replace part of a <code>String</code> with another value.</p>
      *
-     * @param fastHashMap <code>FastHashMap</code> to copy.
-     * @return FastHashMap A copy of the <code>FastHashMap</code> that was
-     * passed in.
-     * @deprecated This method is not part of Validator's public API.  Validator
-     * will use it internally until FastHashMap references are removed.  Use
-     * copyMap() instead.
+     * @param value <code>String</code> to perform the replacement on.
+     * @param key The name of the constant.
+     * @param replaceValue The value of the constant.
+     *
+     * @return The modified value.
      */
-    @Deprecated
-    public static FastHashMap copyFastHashMap(final FastHashMap fastHashMap) {
-        final FastHashMap results = new FastHashMap();
-        @SuppressWarnings("unchecked") // FastHashMap is not generic
-        final HashMap<String, ?> map = fastHashMap;
-        map.forEach((key, value) -> {
-            if (value instanceof Msg) {
-                results.put(key, ((Msg) value).clone());
-            } else if (value instanceof Arg) {
-                results.put(key, ((Arg) value).clone());
-            } else if (value instanceof Var) {
-                results.put(key, ((Var) value).clone());
-            } else {
-                results.put(key, value);
-            }
-        });
-        results.setFast(true);
-        return results;
-    }
-
-    /**
-     * Makes a deep copy of a <code>Map</code> if the values are
-     * <code>Msg</code>, <code>Arg</code>, or <code>Var</code>.  Otherwise,
-     * it is a shallow copy.
-     *
-     * @param map The source Map to copy.
-     *
-     * @return A copy of the <code>Map</code> that was passed in.
-     */
-    public static Map<String, Object> copyMap(final Map<String, Object> map) {
-        final Map<String, Object> results = new HashMap<>();
-        map.forEach((key, value) -> {
-            if (value instanceof Msg) {
-                results.put(key, ((Msg) value).clone());
-            } else if (value instanceof Arg) {
-                results.put(key, ((Arg) value).clone());
-            } else if (value instanceof Var) {
-                results.put(key, ((Var) value).clone());
-            } else {
-                results.put(key, value);
-            }
-        });
-        return results;
+    public static String replace(final String value, final String key, final String replaceValue) {
+        if (value == null || key == null || replaceValue == null) {
+            return value;
+        }
+        return value.replace(key, replaceValue);
     }
 
 }

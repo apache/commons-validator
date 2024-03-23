@@ -32,27 +32,6 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
     private transient Log log = LogFactory.getLog(FormSetFactory.class);
 
     /**
-     * <p>Create or retrieve a <code>FormSet</code> for the specified
-     *    attributes.</p>
-     *
-     * @param attributes The sax attributes for the formset element.
-     * @return The FormSet for a locale.
-     * @throws Exception If an error occurs creating the FormSet.
-     */
-    @Override
-    public Object createObject(final Attributes attributes) throws Exception {
-
-        final ValidatorResources resources = (ValidatorResources)digester.peek(0);
-
-        final String language = attributes.getValue("language");
-        final String country  = attributes.getValue("country");
-        final String variant  = attributes.getValue("variant");
-
-        return createFormSet(resources, language, country, variant);
-
-    }
-
-    /**
      * <p>Create or retrieve a <code>FormSet</code> based on the language, country
      *    and variant.</p>
      *
@@ -66,7 +45,7 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
     private FormSet createFormSet(final ValidatorResources resources,
                                   final String language,
                                   final String country,
-                                  final String variant) throws Exception {
+                                  final String variant) {
 
         // Retrieve existing FormSet for the language/country/variant
         FormSet formSet = resources.getFormSet(language, country, variant);
@@ -95,6 +74,27 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
     }
 
     /**
+     * <p>Create or retrieve a <code>FormSet</code> for the specified
+     *    attributes.</p>
+     *
+     * @param attributes The sax attributes for the formset element.
+     * @return The FormSet for a locale.
+     * @throws Exception If an error occurs creating the FormSet.
+     */
+    @Override
+    public Object createObject(final Attributes attributes) throws Exception {
+
+        final ValidatorResources resources = (ValidatorResources) digester.peek(0);
+
+        final String language = attributes.getValue("language");
+        final String country = attributes.getValue("country");
+        final String variant = attributes.getValue("variant");
+
+        return createFormSet(resources, language, country, variant);
+
+    }
+
+    /**
      * Accessor method for Log instance.
      *
      * The Log instance variable is transient and
@@ -106,7 +106,7 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
      */
     private Log getLog() {
         if (log == null) {
-            log =  LogFactory.getLog(FormSetFactory.class);
+            log = LogFactory.getLog(FormSetFactory.class);
         }
         return log;
     }

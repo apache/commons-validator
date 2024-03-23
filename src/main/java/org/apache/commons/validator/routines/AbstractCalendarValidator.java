@@ -36,15 +36,21 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
 
     private static final long serialVersionUID = -1410008585975827379L;
 
+    /**
+     * The date style to use for Locale validation.
+     */
     private final int dateStyle;
 
+    /**
+     * The time style to use for Locale validation.
+     */
     private final int timeStyle;
 
     /**
-     * Construct an instance with the specified <i>strict</i>,
+     * Constructs an instance with the specified <i>strict</i>,
      * <i>time</i> and <i>date</i> style parameters.
      *
-     * @param strict <code>true</code> if strict
+     * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
      * @param dateStyle the date style to use for Locale validation.
      * @param timeStyle the time style to use for Locale validation.
@@ -56,44 +62,187 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Validate using the specified <code>Locale</code>.
+     * <p>Compares the field from two calendars indicating whether the field for the
+     *    first calendar is equal to, less than or greater than the field from the
+     *    second calendar.
      *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to format the value.
-     * @param locale The locale to use for the Format, defaults to the default
-     * @return <code>true</code> if the value is valid.
+     * @param value The Calendar value.
+     * @param compare The <code>Calendar</code> to check the value against.
+     * @param field The field to compare for the calendars.
+     * @return Zero if the first calendar's field is equal to the seconds, -1
+     *         if it is less than the seconds or +1 if it is greater than the seconds.
+     */
+    private int calculateCompareResult(final Calendar value, final Calendar compare, final int field) {
+        final int difference = value.get(field) - compare.get(field);
+        if (difference < 0) {
+            return -1;
+        }
+        if (difference > 0) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     * <p>Calculate the quarter for the specified Calendar.</p>
+     *
+     * @param calendar The Calendar value.
+     * @param monthOfFirstQuarter The  month that the first quarter starts.
+     * @return The calculated quarter.
+     */
+    private int calculateQuarter(final Calendar calendar, final int monthOfFirstQuarter) {
+        // Add Year
+        int year = calendar.get(Calendar.YEAR);
+
+        final int month = calendar.get(Calendar.MONTH) + 1;
+        final int relativeMonth = month >= monthOfFirstQuarter
+                          ? month - monthOfFirstQuarter
+                          : month + 12 - monthOfFirstQuarter; // CHECKSTYLE IGNORE MagicNumber
+        final int quarter = relativeMonth / 3 + 1; // CHECKSTYLE IGNORE MagicNumber
+        // adjust the year if the quarter doesn't start in January
+        if (month < monthOfFirstQuarter) {
+            --year;
+        }
+        return year * 10 + quarter; // CHECKSTYLE IGNORE MagicNumber
+    }
+
+    /**
+     * <p>Compares a calendar value to another, indicating whether it is
+     *    equal, less then or more than at a specified level.</p>
+     *
+     * @param value The Calendar value.
+     * @param compare The <code>Calendar</code> to check the value against.
+     * @param field The field <i>level</i> to compare to - e.g. specifying
+     *        <code>Calendar.MONTH</code> will compare the year and month
+     *        portions of the calendar.
+     * @return Zero if the first value is equal to the second, -1
+     *         if it is less than the second or +1 if it is greater than the second.
+     */
+    protected int compare(final Calendar value, final Calendar compare, final int field) {
+
+        int result;
+
+        // Compare Year
+        result = calculateCompareResult(value, compare, Calendar.YEAR);
+        if (result != 0 || field == Calendar.YEAR) {
+            return result;
+        }
+
+        // Compare Week of Year
+        if (field == Calendar.WEEK_OF_YEAR) {
+            return calculateCompareResult(value, compare, Calendar.WEEK_OF_YEAR);
+        }
+
+        // Compare Day of the Year
+        if (field == Calendar.DAY_OF_YEAR) {
+            return calculateCompareResult(value, compare, Calendar.DAY_OF_YEAR);
+        }
+
+        // Compare Month
+        result = calculateCompareResult(value, compare, Calendar.MONTH);
+        if (result != 0 || field == Calendar.MONTH) {
+            return result;
+        }
+
+        // Compare Week of Month
+        if (field == Calendar.WEEK_OF_MONTH) {
+            return calculateCompareResult(value, compare, Calendar.WEEK_OF_MONTH);
+        }
+
+        // Compare Date
+        result = calculateCompareResult(value, compare, Calendar.DATE);
+        if (result != 0 || field == Calendar.DATE ||
+                          field == Calendar.DAY_OF_WEEK ||
+                          field == Calendar.DAY_OF_WEEK_IN_MONTH) {
+            return result;
+        }
+
+        // Compare Time fields
+        return compareTime(value, compare, field);
+
+    }
+
+    /**
+     * <p>Compares a calendar's quarter value to another, indicating whether it is
+     *    equal, less then or more than the specified quarter.</p>
+     *
+     * @param value The Calendar value.
+     * @param compare The <code>Calendar</code> to check the value against.
+     * @param monthOfFirstQuarter The  month that the first quarter starts.
+     * @return Zero if the first quarter is equal to the second, -1
+     *         if it is less than the second or +1 if it is greater than the second.
+     */
+    protected int compareQuarters(final Calendar value, final Calendar compare, final int monthOfFirstQuarter) {
+        final int valueQuarter = calculateQuarter(value, monthOfFirstQuarter);
+        final int compareQuarter = calculateQuarter(compare, monthOfFirstQuarter);
+        if (valueQuarter < compareQuarter) {
+            return -1;
+        }
+        if (valueQuarter > compareQuarter) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     * <p>Compares a calendar time value to another, indicating whether it is
+     *    equal, less then or more than at a specified level.</p>
+     *
+     * @param value The Calendar value.
+     * @param compare The <code>Calendar</code> to check the value against.
+     * @param field The field <i>level</i> to compare to - e.g. specifying
+     *        <code>Calendar.MINUTE</code> will compare the hours and minutes
+     *        portions of the calendar.
+     * @return Zero if the first value is equal to the second, -1
+     *         if it is less than the second or +1 if it is greater than the second.
+     */
+    protected int compareTime(final Calendar value, final Calendar compare, final int field) {
+
+        int result;
+
+        // Compare Hour
+        result = calculateCompareResult(value, compare, Calendar.HOUR_OF_DAY);
+        if (result != 0 || field == Calendar.HOUR || field == Calendar.HOUR_OF_DAY) {
+            return result;
+        }
+
+        // Compare Minute
+        result = calculateCompareResult(value, compare, Calendar.MINUTE);
+        if (result != 0 || field == Calendar.MINUTE) {
+            return result;
+        }
+
+        // Compare Second
+        result = calculateCompareResult(value, compare, Calendar.SECOND);
+        if (result != 0 || field == Calendar.SECOND) {
+            return result;
+        }
+
+        // Compare Milliseconds
+        if (field == Calendar.MILLISECOND) {
+            return calculateCompareResult(value, compare, Calendar.MILLISECOND);
+        }
+
+        throw new IllegalArgumentException("Invalid field: " + field);
+
+    }
+
+    /**
+     * <p>Format a value with the specified <code>DateFormat</code>.</p>
+     *
+     * @param value The value to be formatted.
+     * @param formatter The Format to use.
+     * @return The formatted value.
      */
     @Override
-    public boolean isValid(final String value, final String pattern, final Locale locale) {
-        final Object parsedValue = parse(value, pattern, locale, (TimeZone)null);
-        return (parsedValue == null ? false : true);
-    }
-
-    /**
-     * <p>Format an object into a <code>String</code> using
-     * the default Locale.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param timeZone The Time Zone used to format the date,
-     *  system default if null (unless value is a <code>Calendar</code>.
-     * @return The value formatted as a <code>String</code>.
-     */
-    public String format(final Object value, final TimeZone timeZone) {
-        return format(value, (String)null, (Locale)null, timeZone);
-    }
-
-    /**
-     * <p>Format an object into a <code>String</code> using
-     * the specified pattern.</p>
-     *
-     * @param value The value validation is being performed on.
-     * @param pattern The pattern used to format the value.
-     * @param timeZone The Time Zone used to format the date,
-     *  system default if null (unless value is a <code>Calendar</code>.
-     * @return The value formatted as a <code>String</code>.
-     */
-    public String format(final Object value, final String pattern, final TimeZone timeZone) {
-        return format(value, pattern, (Locale)null, timeZone);
+    protected String format(Object value, final Format formatter) {
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof Calendar) {
+            value = ((Calendar)value).getTime();
+        }
+        return formatter.format(value);
     }
 
     /**
@@ -146,82 +295,30 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Format a value with the specified <code>DateFormat</code>.</p>
-     *
-     * @param value The value to be formatted.
-     * @param formatter The Format to use.
-     * @return The formatted value.
-     */
-    @Override
-    protected String format(Object value, final Format formatter) {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof Calendar) {
-            value = ((Calendar)value).getTime();
-        }
-        return formatter.format(value);
-    }
-
-    /**
-     * <p>Checks if the value is valid against a specified pattern.</p>
+     * <p>Format an object into a <code>String</code> using
+     * the specified pattern.</p>
      *
      * @param value The value validation is being performed on.
-     * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if <code>null</code>.
-     * @param locale The locale to use for the date format, system default if null.
-     * @param timeZone The Time Zone used to parse the date, system default if null.
-     * @return The parsed value if valid or <code>null</code> if invalid.
+     * @param pattern The pattern used to format the value.
+     * @param timeZone The Time Zone used to format the date,
+     *  system default if null (unless value is a <code>Calendar</code>.
+     * @return The value formatted as a <code>String</code>.
      */
-    protected Object parse(String value, final String pattern, final Locale locale, final TimeZone timeZone) {
-
-        value = (value == null ? null : value.trim());
-        if (value == null || value.isEmpty()) {
-            return null;
-        }
-        final DateFormat formatter = (DateFormat)getFormat(pattern, locale);
-        if (timeZone != null) {
-            formatter.setTimeZone(timeZone);
-        }
-        return parse(value, formatter);
-
+    public String format(final Object value, final String pattern, final TimeZone timeZone) {
+        return format(value, pattern, (Locale)null, timeZone);
     }
 
     /**
-     * <p>Process the parsed value, performing any further validation
-     *    and type conversion required.</p>
+     * <p>Format an object into a <code>String</code> using
+     * the default Locale.</p>
      *
-     * @param value The parsed object created.
-     * @param formatter The Format used to parse the value with.
-     * @return The parsed value converted to the appropriate type
-     *         if valid or <code>null</code> if invalid.
+     * @param value The value validation is being performed on.
+     * @param timeZone The Time Zone used to format the date,
+     *  system default if null (unless value is a <code>Calendar</code>.
+     * @return The value formatted as a <code>String</code>.
      */
-    @Override
-    protected abstract Object processParsedValue(Object value, Format formatter);
-
-    /**
-     * <p>Returns a <code>DateFormat</code> for the specified <i>pattern</i>
-     *    and/or <code>Locale</code>.</p>
-     *
-     * @param pattern The pattern used to validate the value against or
-     *        <code>null</code> to use the default for the <code>Locale</code>.
-     * @param locale The locale to use for the currency format, system default if null.
-     * @return The <code>DateFormat</code> to created.
-     */
-    @Override
-    protected Format getFormat(final String pattern, final Locale locale) {
-        DateFormat formatter;
-        final boolean usePattern = pattern != null && !pattern.isEmpty();
-        if (!usePattern) {
-            formatter = (DateFormat)getFormat(locale);
-        } else if (locale == null) {
-            formatter = new SimpleDateFormat(pattern);
-        } else {
-            final DateFormatSymbols symbols = new DateFormatSymbols(locale);
-            formatter = new SimpleDateFormat(pattern, symbols);
-        }
-        formatter.setLenient(false);
-        return formatter;
+    public String format(final Object value, final TimeZone timeZone) {
+        return format(value, (String)null, (Locale)null, timeZone);
     }
 
     /**
@@ -260,168 +357,77 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Compares a calendar value to another, indicating whether it is
-     *    equal, less then or more than at a specified level.</p>
+     * <p>Returns a <code>DateFormat</code> for the specified <i>pattern</i>
+     *    and/or <code>Locale</code>.</p>
      *
-     * @param value The Calendar value.
-     * @param compare The <code>Calendar</code> to check the value against.
-     * @param field The field <i>level</i> to compare to - e.g. specifying
-     *        <code>Calendar.MONTH</code> will compare the year and month
-     *        portions of the calendar.
-     * @return Zero if the first value is equal to the second, -1
-     *         if it is less than the second or +1 if it is greater than the second.
+     * @param pattern The pattern used to validate the value against or
+     *        {@code null} to use the default for the <code>Locale</code>.
+     * @param locale The locale to use for the currency format, system default if null.
+     * @return The <code>DateFormat</code> to created.
      */
-    protected int compare(final Calendar value, final Calendar compare, final int field) {
-
-        int result;
-
-        // Compare Year
-        result = calculateCompareResult(value, compare, Calendar.YEAR);
-        if (result != 0 || field == Calendar.YEAR) {
-            return result;
+    @Override
+    protected Format getFormat(final String pattern, final Locale locale) {
+        DateFormat formatter;
+        final boolean usePattern = pattern != null && !pattern.isEmpty();
+        if (!usePattern) {
+            formatter = (DateFormat)getFormat(locale);
+        } else if (locale == null) {
+            formatter = new SimpleDateFormat(pattern);
+        } else {
+            final DateFormatSymbols symbols = new DateFormatSymbols(locale);
+            formatter = new SimpleDateFormat(pattern, symbols);
         }
+        formatter.setLenient(false);
+        return formatter;
+    }
 
-        // Compare Week of Year
-        if (field == Calendar.WEEK_OF_YEAR) {
-            return calculateCompareResult(value, compare, Calendar.WEEK_OF_YEAR);
+    /**
+     * <p>Validate using the specified <code>Locale</code>.
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to format the value.
+     * @param locale The locale to use for the Format, defaults to the default
+     * @return {@code true} if the value is valid.
+     */
+    @Override
+    public boolean isValid(final String value, final String pattern, final Locale locale) {
+        final Object parsedValue = parse(value, pattern, locale, (TimeZone)null);
+        return parsedValue == null ? false : true;
+    }
+
+    /**
+     * <p>Checks if the value is valid against a specified pattern.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param pattern The pattern used to validate the value against, or the
+     *        default for the <code>Locale</code> if {@code null}.
+     * @param locale The locale to use for the date format, system default if null.
+     * @param timeZone The Time Zone used to parse the date, system default if null.
+     * @return The parsed value if valid or {@code null} if invalid.
+     */
+    protected Object parse(String value, final String pattern, final Locale locale, final TimeZone timeZone) {
+
+        value = value == null ? null : value.trim();
+        if (value == null || value.isEmpty()) {
+            return null;
         }
-
-        // Compare Day of the Year
-        if (field == Calendar.DAY_OF_YEAR) {
-            return calculateCompareResult(value, compare, Calendar.DAY_OF_YEAR);
+        final DateFormat formatter = (DateFormat)getFormat(pattern, locale);
+        if (timeZone != null) {
+            formatter.setTimeZone(timeZone);
         }
-
-        // Compare Month
-        result = calculateCompareResult(value, compare, Calendar.MONTH);
-        if (result != 0 || field == Calendar.MONTH) {
-            return result;
-        }
-
-        // Compare Week of Month
-        if (field == Calendar.WEEK_OF_MONTH) {
-            return calculateCompareResult(value, compare, Calendar.WEEK_OF_MONTH);
-        }
-
-        // Compare Date
-        result = calculateCompareResult(value, compare, Calendar.DATE);
-        if (result != 0 || (field == Calendar.DATE ||
-                          field == Calendar.DAY_OF_WEEK ||
-                          field == Calendar.DAY_OF_WEEK_IN_MONTH)) {
-            return result;
-        }
-
-        // Compare Time fields
-        return compareTime(value, compare, field);
+        return parse(value, formatter);
 
     }
 
     /**
-     * <p>Compares a calendar time value to another, indicating whether it is
-     *    equal, less then or more than at a specified level.</p>
+     * <p>Process the parsed value, performing any further validation
+     *    and type conversion required.</p>
      *
-     * @param value The Calendar value.
-     * @param compare The <code>Calendar</code> to check the value against.
-     * @param field The field <i>level</i> to compare to - e.g. specifying
-     *        <code>Calendar.MINUTE</code> will compare the hours and minutes
-     *        portions of the calendar.
-     * @return Zero if the first value is equal to the second, -1
-     *         if it is less than the second or +1 if it is greater than the second.
+     * @param value The parsed object created.
+     * @param formatter The Format used to parse the value with.
+     * @return The parsed value converted to the appropriate type
+     *         if valid or {@code null} if invalid.
      */
-    protected int compareTime(final Calendar value, final Calendar compare, final int field) {
-
-        int result;
-
-        // Compare Hour
-        result = calculateCompareResult(value, compare, Calendar.HOUR_OF_DAY);
-        if (result != 0 || (field == Calendar.HOUR || field == Calendar.HOUR_OF_DAY)) {
-            return result;
-        }
-
-        // Compare Minute
-        result = calculateCompareResult(value, compare, Calendar.MINUTE);
-        if (result != 0 || field == Calendar.MINUTE) {
-            return result;
-        }
-
-        // Compare Second
-        result = calculateCompareResult(value, compare, Calendar.SECOND);
-        if (result != 0 || field == Calendar.SECOND) {
-            return result;
-        }
-
-        // Compare Milliseconds
-        if (field == Calendar.MILLISECOND) {
-            return calculateCompareResult(value, compare, Calendar.MILLISECOND);
-        }
-
-        throw new IllegalArgumentException("Invalid field: " + field);
-
-    }
-
-    /**
-     * <p>Compares a calendar's quarter value to another, indicating whether it is
-     *    equal, less then or more than the specified quarter.</p>
-     *
-     * @param value The Calendar value.
-     * @param compare The <code>Calendar</code> to check the value against.
-     * @param monthOfFirstQuarter The  month that the first quarter starts.
-     * @return Zero if the first quarter is equal to the second, -1
-     *         if it is less than the second or +1 if it is greater than the second.
-     */
-    protected int compareQuarters(final Calendar value, final Calendar compare, final int monthOfFirstQuarter) {
-        final int valueQuarter   = calculateQuarter(value, monthOfFirstQuarter);
-        final int compareQuarter = calculateQuarter(compare, monthOfFirstQuarter);
-        if (valueQuarter < compareQuarter) {
-            return -1;
-        }
-        if (valueQuarter > compareQuarter) {
-            return 1;
-        }
-        return 0;
-    }
-
-    /**
-     * <p>Calculate the quarter for the specified Calendar.</p>
-     *
-     * @param calendar The Calendar value.
-     * @param monthOfFirstQuarter The  month that the first quarter starts.
-     * @return The calculated quarter.
-     */
-    private int calculateQuarter(final Calendar calendar, final int monthOfFirstQuarter) {
-        // Add Year
-        int year = calendar.get(Calendar.YEAR);
-
-        final int month = (calendar.get(Calendar.MONTH) + 1);
-        final int relativeMonth = (month >= monthOfFirstQuarter)
-                          ? (month - monthOfFirstQuarter)
-                          : (month + (12 - monthOfFirstQuarter)); // CHECKSTYLE IGNORE MagicNumber
-        final int quarter = ((relativeMonth / 3) + 1); // CHECKSTYLE IGNORE MagicNumber
-        // adjust the year if the quarter doesn't start in January
-        if (month < monthOfFirstQuarter) {
-            --year;
-        }
-        return (year * 10) + quarter; // CHECKSTYLE IGNORE MagicNumber
-    }
-
-    /**
-     * <p>Compares the field from two calendars indicating whether the field for the
-     *    first calendar is equal to, less than or greater than the field from the
-     *    second calendar.
-     *
-     * @param value The Calendar value.
-     * @param compare The <code>Calendar</code> to check the value against.
-     * @param field The field to compare for the calendars.
-     * @return Zero if the first calendar's field is equal to the seconds, -1
-     *         if it is less than the seconds or +1 if it is greater than the seconds.
-     */
-    private int calculateCompareResult(final Calendar value, final Calendar compare, final int field) {
-        final int difference = value.get(field) - compare.get(field);
-        if (difference < 0) {
-            return -1;
-        }
-        if (difference > 0) {
-            return 1;
-        }
-        return 0;
-    }
+    @Override
+    protected abstract Object processParsedValue(Object value, Format formatter);
 }

@@ -34,7 +34,7 @@ import java.io.Serializable;
  * Note: the class does not check the format of the IBAN number, only the check digits.
  * <p>
  * For further information see
- *  <a href="http://en.wikipedia.org/wiki/International_Bank_Account_Number">Wikipedia -
+ *  <a href="https://en.wikipedia.org/wiki/International_Bank_Account_Number">Wikipedia -
  *  IBAN number</a>.
  *
  * @since 1.4
@@ -55,32 +55,9 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
     private static final long MODULUS = 97;
 
     /**
-     * Construct Check Digit routine for IBAN Numbers.
+     * Constructs Check Digit routine for IBAN Numbers.
      */
     public IBANCheckDigit() {
-    }
-
-    /**
-     * Validate the check digit of an IBAN code.
-     *
-     * @param code The code to validate
-     * @return <code>true</code> if the check digit is valid, otherwise
-     * <code>false</code>
-     */
-    @Override
-    public boolean isValid(final String code) {
-        if (code == null || code.length() < MIN_CODE_LEN) {
-            return false;
-        }
-        final String check = code.substring(2, 4); // CHECKSTYLE IGNORE MagicNumber
-        if ("00".equals(check) || "01".equals(check) || "99".equals(check)) {
-            return false;
-        }
-        try {
-            return calculateModulus(code) == 1;
-        } catch (final CheckDigitException ex) {
-            return false;
-        }
     }
 
     /**
@@ -124,10 +101,33 @@ public final class IBANCheckDigit implements CheckDigit, Serializable {
             }
             total = (charValue > 9 ? total * 100 : total * 10) + charValue; // CHECKSTYLE IGNORE MagicNumber
             if (total > MAX) {
-                total = total % MODULUS;
+                total %= MODULUS;
             }
         }
         return (int) (total % MODULUS);
+    }
+
+    /**
+     * Validate the check digit of an IBAN code.
+     *
+     * @param code The code to validate
+     * @return {@code true} if the check digit is valid, otherwise
+     * {@code false}
+     */
+    @Override
+    public boolean isValid(final String code) {
+        if (code == null || code.length() < MIN_CODE_LEN) {
+            return false;
+        }
+        final String check = code.substring(2, 4); // CHECKSTYLE IGNORE MagicNumber
+        if ("00".equals(check) || "01".equals(check) || "99".equals(check)) {
+            return false;
+        }
+        try {
+            return calculateModulus(code) == 1;
+        } catch (final CheckDigitException ex) {
+            return false;
+        }
     }
 
 }

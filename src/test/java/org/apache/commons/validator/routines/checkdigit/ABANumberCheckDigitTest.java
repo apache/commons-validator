@@ -16,37 +16,20 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * ABA Number Check Digit Test.
- *
- * @since 1.4
  */
 public class ABANumberCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
-     * Constructor
-     * @param name test name
+     * Sets up routine & valid codes.
      */
-    public ABANumberCheckDigitTest(final String name) {
-        super(name);
-    }
-
-    /**
-     * Set up routine & valid codes.
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    protected void setUp() {
         routine = ABANumberCheckDigit.ABAN_CHECK_DIGIT;
-        valid = new String[] {
-                "123456780",
-                "123123123",
-                "011000015",
-                "111000038",
-                "231381116",
-                "121181976"
-                };
+        valid = new String[] { "123456780", "123123123", "011000015", "111000038", "231381116", "121181976" };
     }
 
 }

@@ -16,15 +16,18 @@
  */
 package org.apache.commons.validator;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
- * ISBNValidator Test Case.
+ * Tests {@link ISBNValidator}.
  *
  * @deprecated to be removed when the org.apache.commons.validator.ISBNValidator class is removed
  */
 @Deprecated
-public class ISBNValidatorTest extends TestCase {
+public class ISBNValidatorTest {
 
     private static final String VALID_ISBN_RAW = "1930110995";
     private static final String VALID_ISBN_DASHES = "1-930110-99-5";
@@ -32,10 +35,7 @@ public class ISBNValidatorTest extends TestCase {
     private static final String VALID_ISBN_X = "0-201-63385-X";
     private static final String INVALID_ISBN = "068-556-98-45";
 
-    public ISBNValidatorTest(final String name) {
-        super(name);
-    }
-
+    @Test
     public void testIsValid() throws Exception {
         final ISBNValidator validator = new ISBNValidator();
         assertFalse(validator.isValid(null));

@@ -16,57 +16,45 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * ISIN Check Digit Test.
- *
- * @since 1.4
  */
 public class ISINCheckDigitTest extends AbstractCheckDigitTest {
 
-    /**
-     * Constructor
-     * @param name test name
-     */
-    public ISINCheckDigitTest(final String name) {
-        super(name);
-    }
+    private static final String[] INVALID_CHECK_DIGITS = { "US037833100O", // proper check digit is '5', see above
+            "BMG8571G109D", // proper check digit is '6', see above
+            "AU0000XVGZAD", // proper check digit is '3', see above
+            "GB000263494I", // proper check digit is '6', see above
+            "FR000402625C", // proper check digit is '0', see above
+            "DK000976334H", // proper check digit is '4', see above
+    };
 
     /**
-     * Set up routine & valid codes.
+     * Sets up routine & valid codes.
      */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    protected void setUp() {
         routine = ISINCheckDigit.ISIN_CHECK_DIGIT;
-        valid = new String[] {"US0378331005",
-                              "BMG8571G1096",
-                              "AU0000XVGZA3",
-                              "GB0002634946",
-                              "FR0004026250",
-                                "3133EHHF3", // see VALIDATOR-422 Valid check-digit, but not valid ISIN
-                              "DK0009763344",
-                              "dk0009763344", // TODO lowercase is currently accepted, but is this valid?
-                              "AU0000xvgza3", // lowercase NSIN
-                              "EZ0000000003", // Invented; for use in ISINValidatorTest
-                              "XS0000000009", // ditto
-                              "AA0000000006", // ditto
-                              };
-        invalid = new String[] {"0378#3100"};
+        valid = new String[] { "US0378331005", "BMG8571G1096", "AU0000XVGZA3", "GB0002634946", "FR0004026250", "3133EHHF3", // see VALIDATOR-422 Valid
+                                                                                                                            // check-digit, but not valid ISIN
+                "DK0009763344", "dk0009763344", // TODO lowercase is currently accepted, but is this valid?
+                "AU0000xvgza3", // lowercase NSIN
+                "EZ0000000003", // Invented; for use in ISINValidatorTest
+                "XS0000000009", // ditto
+                "AA0000000006", // ditto
+        };
+        invalid = new String[] { "0378#3100" };
     }
 
-    private static final String[] INVALID_CHECK_DIGITS =
-                             {"US037833100O", // proper check digit is '5', see above
-                              "BMG8571G109D", // proper check digit is '6', see above
-                              "AU0000XVGZAD", // proper check digit is '3', see above
-                              "GB000263494I", // proper check digit is '6', see above
-                              "FR000402625C", // proper check digit is '0', see above
-                              "DK000976334H", // proper check digit is '4', see above
-                              };
-
+    @Test
     public void testVALIDATOR_345() {
         for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
-            assertFalse("Should fail: " + invalidCheckDigit, routine.isValid(invalidCheckDigit));
+            assertFalse(routine.isValid(invalidCheckDigit), () -> "Should fail: " + invalidCheckDigit);
         }
     }
 }

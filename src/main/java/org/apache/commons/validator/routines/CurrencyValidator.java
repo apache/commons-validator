@@ -51,7 +51,7 @@ public class CurrencyValidator extends BigDecimalValidator {
     private static final char CURRENCY_SYMBOL = '\u00A4';
 
     /**
-     * Return a singleton instance of this validator.
+     * Gets the singleton instance of this validator.
      * @return A singleton instance of the CurrencyValidator.
      */
     public static BigDecimalValidator getInstance() {
@@ -59,19 +59,19 @@ public class CurrencyValidator extends BigDecimalValidator {
     }
 
     /**
-     * Construct a <i>strict</i> instance.
+     * Constructs a <i>strict</i> instance.
      */
     public CurrencyValidator() {
         this(true, true);
     }
 
     /**
-     * Construct an instance with the specified strict setting.
+     * Constructs an instance with the specified strict setting.
      *
-     * @param strict <code>true</code> if strict
+     * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
-     * @param allowFractions <code>true</code> if fractions are
-     *        allowed or <code>false</code> if integers only.
+     * @param allowFractions {@code true} if fractions are
+     *        allowed or {@code false} if integers only.
      */
     public CurrencyValidator(final boolean strict, final boolean allowFractions) {
         super(strict, CURRENCY_FORMAT, allowFractions);
@@ -88,7 +88,7 @@ public class CurrencyValidator extends BigDecimalValidator {
      *
      * @param value The value to be parsed.
      * @param formatter The Format to parse the value with.
-     * @return The parsed value if valid or <code>null</code> if invalid.
+     * @return The parsed value if valid or {@code null} if invalid.
      */
     @Override
     protected Object parse(final String value, final Format formatter) {

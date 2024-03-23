@@ -61,6 +61,48 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
+     * Turn off all flags.  This is a synonym for <code>turnOffAll()</code>.
+     * @since 1.1.1
+     */
+    public void clear() {
+        this.flags = 0;
+    }
+
+    /**
+     * Clone this Flags object.
+     *
+     * @return a copy of this object.
+     * @see Object#clone()
+     */
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (final CloneNotSupportedException e) {
+            throw new UnsupportedOperationException("Couldn't clone Flags object.", e);
+        }
+    }
+
+    /**
+     * Tests if two Flags objects are in the same state.
+     * @param obj object being tested
+     * @see Object#equals(Object)
+     *
+     * @return whether the objects are equal.
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Flags)) {
+            return false;
+        }
+        final Flags other = (Flags) obj;
+        return flags == other.flags;
+    }
+
+    /**
      * Returns the current flags.
      *
      * @return collection of boolean flags represented.
@@ -70,15 +112,14 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is on.
+     * The hash code is based on the current state of the flags.
+     * @see Object#hashCode()
      *
-     * @param flag Flag value to check.
-     *
-     * @return whether the specified flag value is on.
+     * @return the hash code for this object.
      */
-    public boolean isOn(final long flag) {
-        return (this.flags & flag) == flag;
+    @Override
+    public int hashCode() {
+        return (int) this.flags;
     }
 
     /**
@@ -94,13 +135,31 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Turns on the given flag.  If the flag is not a power of 2 (ie. 3) this
-     * turns on multiple flags.
+     * Tests whether the given flag is on.  If the flag is not a power of 2
+     * (ie. 3) this tests whether the combination of flags is on.
      *
-     * @param flag Flag value to turn on.
+     * @param flag Flag value to check.
+     *
+     * @return whether the specified flag value is on.
      */
-    public void turnOn(final long flag) {
-        this.flags |= flag;
+    public boolean isOn(final long flag) {
+        return (this.flags & flag) == flag;
+    }
+
+    /**
+     * Returns a 64 length String with the first flag on the right and the
+     * 64th flag on the left.  A 1 indicates the flag is on, a 0 means it's
+     * off.
+     *
+     * @return string representation of this object.
+     */
+    @Override
+    public String toString() {
+        final StringBuilder bin = new StringBuilder(Long.toBinaryString(this.flags));
+        for (int i = 64 - bin.length(); i > 0; i--) { // CHECKSTYLE IGNORE MagicNumber
+            bin.insert(0, "0");
+        }
+        return bin.toString();
     }
 
     /**
@@ -121,11 +180,13 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Turn off all flags.  This is a synonym for <code>turnOffAll()</code>.
-     * @since 1.1.1
+     * Turns on the given flag.  If the flag is not a power of 2 (ie. 3) this
+     * turns on multiple flags.
+     *
+     * @param flag Flag value to turn on.
      */
-    public void clear() {
-        this.flags = 0;
+    public void turnOn(final long flag) {
+        this.flags |= flag;
     }
 
     /**
@@ -133,70 +194,6 @@ public class Flags implements Serializable, Cloneable {
      */
     public void turnOnAll() {
         this.flags = 0xFFFFFFFFFFFFFFFFL;
-    }
-
-    /**
-     * Clone this Flags object.
-     *
-     * @return a copy of this object.
-     * @see Object#clone()
-     */
-    @Override
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch(final CloneNotSupportedException e) {
-            throw new RuntimeException("Couldn't clone Flags object.");
-        }
-    }
-
-    /**
-     * Tests if two Flags objects are in the same state.
-     * @param obj object being tested
-     * @see Object#equals(Object)
-     *
-     * @return whether the objects are equal.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (!(obj instanceof Flags)) {
-            return false;
-        }
-
-        if (obj == this) {
-            return true;
-        }
-
-        final Flags f = (Flags) obj;
-
-        return this.flags == f.flags;
-    }
-
-    /**
-     * The hash code is based on the current state of the flags.
-     * @see Object#hashCode()
-     *
-     * @return the hash code for this object.
-     */
-    @Override
-    public int hashCode() {
-        return (int) this.flags;
-    }
-
-    /**
-     * Returns a 64 length String with the first flag on the right and the
-     * 64th flag on the left.  A 1 indicates the flag is on, a 0 means it's
-     * off.
-     *
-     * @return string representation of this object.
-     */
-    @Override
-    public String toString() {
-        final StringBuilder bin = new StringBuilder(Long.toBinaryString(this.flags));
-        for (int i = 64 - bin.length(); i > 0; i--) { // CHECKSTYLE IGNORE MagicNumber
-            bin.insert(0, "0");
-        }
-        return bin.toString();
     }
 
 }

@@ -14,17 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.validator;
+
+package org.apache.commons.validator.util;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.apache.commons.collections.FastHashMap;
+import org.junit.jupiter.api.Test;
 
 /**
- * Groups tests and expected results.
+ * Tests {@link ValidatorUtilsTest}.
  */
-public class ResultPair {
-    public final String item;
-    public final boolean valid;
+public class ValidatorUtilsTest {
+    
+    @Test
+    public void testCopyFastHashMap() {
+        final FastHashMap original = new FastHashMap();
+        original.put("key1", "value1");
+        original.put("key2", "value2");
+        original.put("key3", "value3");
+        original.setFast(true);
+        final FastHashMap copy = ValidatorUtils.copyFastHashMap(original);
+        assertEquals(original, copy);
+      }
 
-    public ResultPair(final String item, final boolean valid) {
-        this.item = item;
-        this.valid = valid; // Whether the individual part of URL is valid.
-    }
 }

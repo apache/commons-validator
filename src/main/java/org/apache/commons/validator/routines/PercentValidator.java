@@ -56,7 +56,7 @@ public class PercentValidator extends BigDecimalValidator {
     private static final BigDecimal POINT_ZERO_ONE = new BigDecimal("0.01");
 
     /**
-     * Return a singleton instance of this validator.
+     * Gets the singleton instance of this validator.
      * @return A singleton instance of the PercentValidator.
      */
     public static BigDecimalValidator getInstance() {
@@ -64,16 +64,16 @@ public class PercentValidator extends BigDecimalValidator {
     }
 
     /**
-     * Construct a <i>strict</i> instance.
+     * Constructs a <i>strict</i> instance.
      */
     public PercentValidator() {
         this(true);
     }
 
     /**
-     * Construct an instance with the specified strict setting.
+     * Constructs an instance with the specified strict setting.
      *
-     * @param strict <code>true</code> if strict
+     * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
      */
     public PercentValidator(final boolean strict) {
@@ -91,7 +91,7 @@ public class PercentValidator extends BigDecimalValidator {
      *
      * @param value The value to be parsed.
      * @param formatter The Format to parse the value with.
-     * @return The parsed value if valid or <code>null</code> if invalid.
+     * @return The parsed value if valid or {@code null} if invalid.
      */
     @Override
     protected Object parse(final String value, final Format formatter) {

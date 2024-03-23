@@ -16,22 +16,22 @@
  */
 package org.apache.commons.validator;
 
+import org.junit.jupiter.api.Test;
 
 /**
  * Performs Validation Test for <code>double</code> validations.
  */
 public class DoubleTest extends AbstractNumberTest {
 
-    public DoubleTest(final String name) {
-        super(name);
+    public DoubleTest() {
         ACTION = "double";
         FORM_KEY = "doubleForm";
     }
 
-
     /**
      * Tests the double validation.
      */
+    @Test
     public void testDouble() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -41,19 +41,20 @@ public class DoubleTest extends AbstractNumberTest {
     }
 
     /**
-     * Tests the double validation.
+     * Tests the double validation failure.
      */
-    public void testDoubleMin() throws ValidatorException {
+    @Test
+    public void testDoubleFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
-        info.setValue(Double.toString(Double.MIN_VALUE));
 
-        valueTest(info, true);
+        valueTest(info, false);
     }
 
     /**
      * Tests the double validation.
      */
+    @Test
     public void testDoubleMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -63,13 +64,15 @@ public class DoubleTest extends AbstractNumberTest {
     }
 
     /**
-     * Tests the double validation failure.
+     * Tests the double validation.
      */
-    public void testDoubleFailure() throws ValidatorException {
+    @Test
+    public void testDoubleMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
+        info.setValue(Double.toString(Double.MIN_VALUE));
 
-        valueTest(info, false);
+        valueTest(info, true);
     }
 
 }

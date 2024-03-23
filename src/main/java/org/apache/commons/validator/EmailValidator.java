@@ -28,7 +28,7 @@ import org.apache.commons.validator.routines.InetAddressValidator;
  * </p>
  * <p>
  * Based on a script by <a href="mailto:stamhankar@hotmail.com">Sandeep V. Tamhankar</a>
- * http://javascript.internet.com
+ * https://javascript.internet.com
  * </p>
  * <p>
  * This implementation is not guaranteed to catch all possible errors in an email address.
@@ -80,7 +80,7 @@ public class EmailValidator {
     /**
      * <p>Checks if a field has a valid e-mail address.</p>
      *
-     * @param email The value validation is being performed on.  A <code>null</code>
+     * @param email The value validation is being performed on.  A {@code null}
      * value is considered invalid.
      * @return true if the email address is valid.
      */
@@ -121,15 +121,6 @@ public class EmailValidator {
     }
 
     /**
-     * Returns true if the user component of an email address is valid.
-     * @param user being validated
-     * @return true if the user name is valid.
-     */
-    protected boolean isValidUser(final String user) {
-        return USER_PATTERN.matcher(user).matches();
-    }
-
-    /**
      * Validates an IP address. Returns true if valid.
      * @param ipAddress IP address
      * @return true if the ip address is valid.
@@ -146,7 +137,7 @@ public class EmailValidator {
 
             try {
                 iIpSegment = Integer.parseInt(ipSegment);
-            } catch(final NumberFormatException e) {
+            } catch (final NumberFormatException e) {
                 return false;
             }
 
@@ -174,7 +165,7 @@ public class EmailValidator {
                 domainSegment[i] = atomMatcher.group(1);
                 final int l = domainSegment[i].length() + 1;
                 domain =
-                        (l >= domain.length())
+                        l >= domain.length()
                         ? ""
                         : domain.substring(l);
 
@@ -199,22 +190,31 @@ public class EmailValidator {
 
         return true;
     }
+
     /**
-     *   Recursively remove comments, and replace with a single space.  The simpler
-     *   regexps in the Email Addressing FAQ are imperfect - they will miss escaped
-     *   chars in atoms, for example.
-     *   Derived From    Mail::RFC822::Address
+     * Returns true if the user component of an email address is valid.
+     * @param user being validated
+     * @return true if the user name is valid.
+     */
+    protected boolean isValidUser(final String user) {
+        return USER_PATTERN.matcher(user).matches();
+    }
+
+    /**
+     * Recursively remove comments, and replace with a single space. The simpler regexps in the Email Addressing FAQ are imperfect - they will miss escaped
+     * chars in atoms, for example. Derived From Mail::RFC822::Address
+     *
      * @param emailStr The email address
      * @return address with comments removed.
-    */
-    protected String stripComments(final String emailStr)  {
-     String result = emailStr;
-     final String commentPat = "^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/";
-     final Pattern commentMatcher = Pattern.compile(commentPat);
+     */
+    protected String stripComments(final String emailStr) {
+        String result = emailStr;
+        final String commentPat = "^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/";
+        final Pattern commentMatcher = Pattern.compile(commentPat);
 
-     while (commentMatcher.matcher(result).matches()) {
-        result = result.replaceFirst(commentPat, "\1 ");
-     }
-     return result;
+        while (commentMatcher.matcher(result).matches()) {
+            result = result.replaceFirst(commentPat, "\1 ");
+        }
+        return result;
     }
 }

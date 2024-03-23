@@ -78,8 +78,8 @@ public class Arg implements Cloneable, Serializable {
         try {
             return super.clone();
 
-        } catch(final CloneNotSupportedException e) {
-            throw new RuntimeException(e.toString());
+        } catch (final CloneNotSupportedException e) {
+            throw new UnsupportedOperationException(e.toString(), e);
         }
     }
 
@@ -118,7 +118,7 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Tests whether or not the key is a resource key or literal value.
-     * @return <code>true</code> if key is a resource key.
+     * @return {@code true} if key is a resource key.
      */
     public boolean isResource() {
         return this.resource;
@@ -150,7 +150,7 @@ public class Arg implements Cloneable, Serializable {
     }
 
     /**
-     * Set this argument's replacement position.
+     * Sets this argument's replacement position.
      * @param position set this argument's replacement position.
      */
     public void setPosition(final int position) {

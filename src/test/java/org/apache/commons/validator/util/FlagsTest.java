@@ -16,12 +16,16 @@
  */
 package org.apache.commons.validator.util;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the Flags class.
  */
-public class FlagsTest extends TestCase {
+public class FlagsTest {
 
     /**
      * Declare some flags for testing.
@@ -30,23 +34,56 @@ public class FlagsTest extends TestCase {
     private static final long LONG_FLAG_2 = 2;
     private static final int INT_FLAG = 4;
 
+    @Test
+    public void testClear() {
+        final Flags f = new Flags(98432);
+        f.clear();
+        assertEquals(0, f.getFlags());
+    }
+
     /**
-     * Constructor for FlagsTest.
+     * Test for Object clone()
      */
-    public FlagsTest(final String name) {
-        super(name);
+    @Test
+    public void testClone() {
     }
 
-    public void testHashCode() {
-        final Flags f = new Flags(45);
-        assertEquals(f.hashCode(), 45);
+    /**
+     * Test for boolean equals(Object)
+     */
+    @Test
+    public void testEqualsObject() {
     }
 
+    @Test
     public void testGetFlags() {
         final Flags f = new Flags(45);
         assertEquals(f.getFlags(), 45);
     }
 
+    @Test
+    public void testHashCode() {
+        final Flags f = new Flags(45);
+        assertEquals(f.hashCode(), 45);
+    }
+
+    @Test
+    public void testIsOn_isFalseWhenNotAllFlagsInArgumentAreOn() {
+        final Flags first = new Flags(1);
+        final long firstAndSecond = 3;
+
+        assertFalse(first.isOn(firstAndSecond));
+    }
+
+    @Test
+    public void testIsOn_isTrueWhenHighOrderBitIsSetAndQueried() {
+        final Flags allOn = new Flags(~0);
+        final long highOrderBit = 0x8000000000000000L;
+
+        assertTrue(allOn.isOn(highOrderBit));
+    }
+
+    @Test
     public void testIsOnOff() {
         final Flags f = new Flags();
         f.turnOn(LONG_FLAG);
@@ -60,59 +97,10 @@ public class FlagsTest extends TestCase {
         assertTrue(f.isOff(LONG_FLAG_2));
     }
 
-    public void testTurnOnOff() {
-    }
-
-    public void testTurnOff() {
-    }
-
-    public void testTurnOffAll() {
-        final Flags f = new Flags(98432);
-        f.turnOffAll();
-        assertEquals(0, f.getFlags());
-    }
-
-    public void testClear() {
-        final Flags f = new Flags(98432);
-        f.clear();
-        assertEquals(0, f.getFlags());
-    }
-
-    public void testTurnOnAll() {
-        final Flags f = new Flags();
-        f.turnOnAll();
-        assertEquals(~0, f.getFlags());
-    }
-
-    public void testIsOn_isFalseWhenNotAllFlagsInArgumentAreOn() {
-        final Flags first = new Flags(1);
-        final long firstAndSecond = 3;
-
-        assertFalse(first.isOn(firstAndSecond));
-    }
-
-    public void testIsOn_isTrueWhenHighOrderBitIsSetAndQueried() {
-        final Flags allOn = new Flags(~0);
-        final long highOrderBit = 0x8000000000000000L;
-
-        assertTrue(allOn.isOn(highOrderBit));
-    }
-
-    /**
-     * Test for Object clone()
-     */
-    public void testClone() {
-    }
-
-    /**
-     * Test for boolean equals(Object)
-     */
-    public void testEqualsObject() {
-    }
-
     /**
      * Test for String toString()
      */
+    @Test
     public void testToString() {
         final Flags f = new Flags();
         String s = f.toString();
@@ -122,9 +110,29 @@ public class FlagsTest extends TestCase {
         s = f.toString();
         assertEquals(64, s.length());
 
-        assertEquals(
-            "0000000000000000000000000000000000000000000000000000000000000100",
-            s);
+        assertEquals("0000000000000000000000000000000000000000000000000000000000000100", s);
+    }
+
+    @Test
+    public void testTurnOff() {
+    }
+
+    @Test
+    public void testTurnOffAll() {
+        final Flags f = new Flags(98432);
+        f.turnOffAll();
+        assertEquals(0, f.getFlags());
+    }
+
+    @Test
+    public void testTurnOnAll() {
+        final Flags f = new Flags();
+        f.turnOnAll();
+        assertEquals(~0, f.getFlags());
+    }
+
+    @Test
+    public void testTurnOnOff() {
     }
 
 }

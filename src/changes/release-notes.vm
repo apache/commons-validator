@@ -15,10 +15,10 @@
 ## specific language governing permissions and limitations
 ## under the License.
 ##
-              ${project.name} ${version}
-                  RELEASE NOTES
+${project.name} ${version}
+RELEASE NOTES
 
-The ${developmentTeam} is pleased to announce the release of ${project.name} ${version}
+The ${developmentTeam} is pleased to announce the release of ${project.name} ${version}.
 
 $introduction.replaceAll("(?<!\015)\012", "
 ").replaceAll("(?m)^ +","")
@@ -77,7 +77,7 @@ $action
 #else
 #set($dueto="")
 #end
-o $issue ${action}$dueto
+* $issue ${action}$dueto
 #end
 #set($action="")
 #set($issue="")
@@ -87,11 +87,13 @@ o $issue ${action}$dueto
 #if ($release.getActions().size() == 0)
 No changes defined in this version.
 #else
-Changes in this version include:
-===============================
+Changes in this version
+-----------------------
 
 #if ($release.getActions('add').size() !=0)
-New features:
+New features
+------------
+
 #foreach($actionItem in $release.getActions('add'))
 #processaction()
 #end 
@@ -99,7 +101,9 @@ New features:
 #end
 ##
 #if ($release.getActions('fix').size() !=0)
-Fixed Bugs:
+Fixed Bugs
+----------
+
 #foreach($actionItem in $release.getActions('fix'))
 #processaction()
 #end
@@ -107,7 +111,9 @@ Fixed Bugs:
 #end
 ##
 #if ($release.getActions('update').size() !=0)
-Changes:
+Changes
+-------
+
 #foreach($actionItem in $release.getActions('update'))
 #processaction()
 #end
@@ -115,7 +121,9 @@ Changes:
 #end
 ##
 #if ($release.getActions('remove').size() !=0)
-Removed:
+Removed
+-------
+
 #foreach($actionItem in $release.getActions('remove'))
 #processaction()
 #end
@@ -127,3 +135,5 @@ Historical list of changes: ${project.url}changes-report.html
 
 Enjoy!
 -Apache Commons Validator team
+
+-----------------------------------------------------------------------------

@@ -32,7 +32,7 @@ package org.apache.commons.validator.routines.checkdigit;
  *     weighting:  1  3  1  7  3  9  1
  * </code></pre>
  * <p>
- * See <a href="http://en.wikipedia.org/wiki/SEDOL">Wikipedia - SEDOL</a>
+ * See <a href="https://en.wikipedia.org/wiki/SEDOL">Wikipedia - SEDOL</a>
  * for more details.
  * </p>
  *
@@ -47,14 +47,13 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
     /** Singleton SEDOL check digit instance */
     public static final CheckDigit SEDOL_CHECK_DIGIT = new SedolCheckDigit();
 
-    /** weighting given to digits depending on their right position */
+    /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = {1, 3, 1, 7, 3, 9, 1};
 
     /**
-     * Construct a modulus 11 Check Digit routine for ISBN-10.
+     * Constructs a modulus 10 Check Digit routine for ISBN-10.
      */
     public SedolCheckDigit() {
-        super(10); // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**
@@ -72,20 +71,6 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException("Invalid Code Length = " + code.length());
         }
         return super.calculateModulus(code, includesCheckDigit);
-    }
-
-    /**
-     * Calculates the <i>weighted</i> value of a character in the
-     * code at a specified position.
-     *
-     * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
-     * @return The weighted value of the character.
-     */
-    @Override
-    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        return charValue * POSITION_WEIGHT[leftPos - 1];
     }
 
     /**
@@ -108,6 +93,20 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
                     leftPos + "," + rightPos + "] = '" + charValue + "' out of range 0 to " + charMax);
         }
         return charValue;
+    }
+
+    /**
+     * Calculates the <i>weighted</i> value of a character in the
+     * code at a specified position.
+     *
+     * @param charValue The numeric value of the character.
+     * @param leftPos The position of the character in the code, counting from left to right
+     * @param rightPos The positionof the character in the code, counting from right to left
+     * @return The weighted value of the character.
+     */
+    @Override
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
+        return charValue * POSITION_WEIGHT[leftPos - 1];
     }
 
 }
