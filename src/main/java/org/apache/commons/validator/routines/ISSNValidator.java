@@ -52,6 +52,7 @@ import org.apache.commons.validator.routines.checkdigit.ISSNCheckDigit;
  * or trailing spaces before doing the validation.
  * To ensure that only a valid code (without 'ISSN ' prefix) is passed to a method,
  * use the following code:
+ * </p>
  * <pre>
  * Object valid = validator.validate(input);
  * if (valid != null) {
@@ -78,11 +79,11 @@ public class ISSNValidator implements Serializable {
 
     private static final CodeValidator EAN_VALIDATOR = new CodeValidator(EAN_ISSN_REGEX, EAN_ISSN_LEN, EAN13CheckDigit.EAN13_CHECK_DIGIT);
 
-    /** ISSN Code Validator */
+    /** ISSN Code Validator. */
     private static final ISSNValidator ISSN_VALIDATOR = new ISSNValidator();
 
     /**
-     * Gets the singleton instance of the ISSN validator
+     * Gets the singleton instance of the ISSN validator.
      *
      * @return A singleton instance of the ISSN validator.
      */
@@ -91,12 +92,13 @@ public class ISSNValidator implements Serializable {
     }
 
     /**
-     * Convert an ISSN code to an EAN-13 code.
+     * Converts an ISSN code to an EAN-13 code.
      * <p>
      * This method requires a valid ISSN code.
      * It may contain a leading 'ISSN ' prefix,
      * as the input is passed through the {@link #validate(String)}
      * method.
+     * </p>
      *
      * @param issn The ISSN code to convert
      * @param suffix the two digit suffix, e.g. "00"
@@ -128,11 +130,12 @@ public class ISSNValidator implements Serializable {
     }
 
     /**
-     * Extract an ISSN code from an ISSN-EAN-13 code.
+     * Extracts an ISSN code from an ISSN-EAN-13 code.
      * <p>
      * This method requires a valid ISSN-EAN-13 code with NO formatting
      * characters.
-     * That is a 13 digit EAN-13 code with the '977' prefix
+     * That is a 13 digit EAN-13 code with the '977' prefix.
+     * </p>
      *
      * @param ean13 The ISSN code to convert
      * @return A valid ISSN code or {@code null}
@@ -165,8 +168,9 @@ public class ISSNValidator implements Serializable {
     }
 
     /**
-     * Check the code is a valid ISSN code after any transformation
+     * Tests whether the code is a valid ISSN code after any transformation
      * by the validate routine.
+     *
      * @param code The code to validate.
      * @return {@code true} if a valid ISSN
      * code, otherwise {@code false}.
@@ -176,10 +180,11 @@ public class ISSNValidator implements Serializable {
     }
 
     /**
-     * Check the code is valid ISSN code.
+     * Checks the code is valid ISSN code.
      * <p>
      * If valid, this method returns the ISSN code with
      * the 'ISSN ' prefix removed (if it was present)
+     * </p>
      *
      * @param code The code to validate.
      * @return A valid ISSN code if valid, otherwise {@code null}.
@@ -189,9 +194,10 @@ public class ISSNValidator implements Serializable {
     }
 
     /**
-     * Check the code is a valid EAN code.
+     * Checks the code is a valid EAN code.
      * <p>
      * If valid, this method returns the EAN code
+     * </p>
      *
      * @param code The code to validate.
      * @return A valid EAN code if valid, otherwise {@code null}.
