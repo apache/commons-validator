@@ -71,7 +71,8 @@ public class ISINValidator implements Serializable {
     }
 
     /**
-     * Gets the singleton instance of the ISIN validator
+     * Gets the singleton instance of the ISIN validator.
+     *
      * @param checkCountryCode whether to check the country-code prefix or not
      * @return A singleton instance of the appropriate ISIN validator.
      */
@@ -93,8 +94,9 @@ public class ISINValidator implements Serializable {
     }
 
     /**
-     * Check the code is a valid ISIN code after any transformation
+     * Tests whether the code is a valid ISIN code after any transformation
      * by the validate routine.
+     *
      * @param code The code to validate.
      * @return {@code true} if a valid ISIN
      * code, otherwise {@code false}.
@@ -108,7 +110,7 @@ public class ISINValidator implements Serializable {
     }
 
     /**
-     * Check the code is valid ISIN code.
+     * Checks the code is valid ISIN code.
      *
      * @param code The code to validate.
      * @return A valid ISIN code if valid, otherwise {@code null}.
