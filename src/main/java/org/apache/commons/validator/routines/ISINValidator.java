@@ -63,7 +63,7 @@ public class ISINValidator implements Serializable {
     private static final String [] SPECIALS = {
             "EZ", // http://www.anna-web.org/standards/isin-iso-6166/
             "XS", // https://www.isin.org/isin/
-            "XA", //https://www.iso.org/obp/ui/#iso:pub:PUB500001:en
+            "XA", // https://www.iso.org/obp/ui/#iso:pub:PUB500001:en
             "XB",
             "XC",
             "XD",
