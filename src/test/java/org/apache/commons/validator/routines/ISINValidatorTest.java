@@ -70,7 +70,7 @@ public class ISINValidatorTest {
     };
 
     // Invalid codes if country checking is enabled
-    private final String[] invalidFormatTrue = { "AA0000000006", // Invalid country code
+    private final String[] invalidFormatTrue = { "AB0000000006", // Invalid country code
     };
 
     @Test
