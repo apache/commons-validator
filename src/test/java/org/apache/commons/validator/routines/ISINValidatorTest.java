@@ -30,9 +30,23 @@ public class ISINValidatorTest {
 
     private static final ISINValidator VALIDATOR_FALSE = ISINValidator.getInstance(false);
 
-    private final String[] validFormat = { "US0378331005", "BMG8571G1096", "AU0000XVGZA3", "GB0002634946", "FR0004026250", "DK0009763344", "GB00B03MLX29",
-            "US7562071065", "US56845T3059", "LU0327357389", "US032511BN64", "INE112A01023", "EZ0000000003", // Invented; for use in ISINValidator
+    // @formatter:off
+    private final String[] validFormat = {
+            "US0378331005",
+            "BMG8571G1096",
+            "AU0000XVGZA3",
+            "GB0002634946",
+            "FR0004026250",
+            "DK0009763344",
+            "GB00B03MLX29",
+            "US7562071065",
+            "US56845T3059",
+            "LU0327357389",
+            "US032511BN64",
+            "INE112A01023",
+            "EZ0000000003", // Invented; for use in ISINValidator
             "XS0000000009", };
+    // @formatter:on
 
     private final String[] invalidFormat = { null, "", // empty
             "   ", // empty
