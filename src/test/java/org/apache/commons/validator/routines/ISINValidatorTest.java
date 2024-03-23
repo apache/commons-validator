@@ -45,8 +45,16 @@ public class ISINValidatorTest {
             "US032511BN64",
             "INE112A01023",
             "EZ0000000003", // Invented; for use in ISINValidator
+            "EU000A0VUCF1",
+            "XA2053913989",
+            "XB0000000008",
+            "XC0009698371",
+            "XD0000000006",
+            "XF0000000004",
+            "QS0000000008",
+            "QT0000000007",
+            "QW0000000002",
             "XS0000000009", };
-    // @formatter:on
 
     private final String[] invalidFormat = { null, "", // empty
             "   ", // empty
