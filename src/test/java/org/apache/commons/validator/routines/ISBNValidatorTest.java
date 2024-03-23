@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
 
 /**
- * ISBNValidator Test Case.
+ * Tests {@link ISBNValidator}.
  */
 public class ISBNValidatorTest {
 

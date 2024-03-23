@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 /**
- * ISBNValidator Test Case.
+ * Tests {@link ISBNValidator}.
  *
  * @deprecated to be removed when the org.apache.commons.validator.ISBNValidator class is removed
  */

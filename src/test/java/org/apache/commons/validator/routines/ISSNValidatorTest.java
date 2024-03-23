@@ -30,7 +30,7 @@ import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
 import org.junit.jupiter.api.Test;
 
 /**
- * ISSNValidator Test Case.
+ * Tests {@link ISSNValidator}.
  */
 public class ISSNValidatorTest {
 

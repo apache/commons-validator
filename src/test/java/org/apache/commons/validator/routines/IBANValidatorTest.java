@@ -41,7 +41,7 @@ import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 import org.junit.jupiter.api.Test;
 
 /**
- * IBANValidator Test Case.
+ * Tests {@link IBANValidator}.
  */
 public class IBANValidatorTest {
 
