@@ -71,7 +71,7 @@ The <action> type attribute can be add,update,fix,remove.
     <!-- FIX -->
     <action type="fix" issue="VALIDATOR-492" dev="ggregory" due-to="Tobias Wildgruber, Gary Gregory">ValidatorUtils.copyFastHashMap is broken.</action>
     <!-- UPDATE -->
-    <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-parent from 65 to 67.</action>
+    <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-parent from 65 to 69 #201.</action>
     <action type="update" dev="ggregory" due-to="Dependabot">Bump commons-logging:commons-logging from 1.3.0 to 1.3.1 #199.</action>
   </release>
   <release version="1.8.0" date="2023-12-02" description="Maintenance and bug fix release.">
