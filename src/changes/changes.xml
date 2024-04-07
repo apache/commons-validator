@@ -64,7 +64,7 @@ The <action> type attribute can be add,update,fix,remove.
      -->
 
   <body>
-  <release version="1.9.0" date="YYYY-MM-DD" description="Maintenance and bug fix release.">
+  <release version="1.9.0" date="YYYY-MM-DD" description="This is a maintenance and bug fix release; requires Java 8.">
     <!-- ADD -->
     <action type="add" dev="ggregory" due-to="ashoknan2, Gary Gregory">ISINValidator: Add 9 additional exception country code #129.</action>
     <action type="add" dev="ggregory" due-to="Gary Gregory">ISINValidator: Add all codes from ISO 3166-1 alpha-2 except unassigned code elements.</action>
