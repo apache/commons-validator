@@ -147,6 +147,7 @@ public class IBANValidator {
             new Validator("EG", 29, "EG\\d{27}"),                             // Egypt
             new Validator("ES", 24, "ES\\d{22}"),                             // Spain
             new Validator("FI", 18, "\\d{16}", "AX"),                         // Finland
+            new Validator("FK", 18, "FK\\d{2}[A-Z]{2}\\d{12}"),               // Falkland Islands, since Jul-23
             new Validator("FO", 18, "FO\\d{16}"),                             // Faroe Islands
             new Validator("FR", 27, "\\d{12}[A-Z0-9]{11}\\d{2}", "GF", "GP", "MQ", "RE", "PF", "TF", "YT", "NC", "BL", "MF", "PM", "WF"), // France
             new Validator("GB", 22, "\\d{2}[A-Z]{4}\\d{14}", "IM", "JE", "GG"), // United Kingdom
@@ -176,11 +177,14 @@ public class IBANValidator {
             new Validator("MD", 24, "MD\\d{2}[A-Z0-9]{20}"),                  // Moldova
             new Validator("ME", 22, "ME\\d{20}"),                             // Montenegro
             new Validator("MK", 19, "MK\\d{5}[A-Z0-9]{10}\\d{2}"),            // Macedonia
+            new Validator("MN", 20, "MN\\d{18}"),                             // Mongolia, since Apr-23
             new Validator("MR", 27, "MR\\d{25}"),                             // Mauritania
             new Validator("MT", 31, "MT\\d{2}[A-Z]{4}\\d{5}[A-Z0-9]{18}"),    // Malta
             new Validator("MU", 30, "MU\\d{2}[A-Z]{4}\\d{19}[A-Z]{3}"),       // Mauritius
+            new Validator("NI", 28, "NI\\d{2}[A-Z]{4}\\d{20}"),               // Nicaragua, since Apr-23
             new Validator("NL", 18, "NL\\d{2}[A-Z]{4}\\d{10}"),               // Netherlands (The)
             new Validator("NO", 15, "NO\\d{13}"),                             // Norway
+            new Validator("OM", 23, "OM\\d{5}[A-Z0-9]{16}"),                  // Oman, since Mar-24
             new Validator("PK", 24, "PK\\d{2}[A-Z]{4}[A-Z0-9]{16}"),          // Pakistan
             new Validator("PL", 28, "PL\\d{26}"),                             // Poland
             new Validator("PS", 29, "PS\\d{2}[A-Z]{4}[A-Z0-9]{21}"),          // Palestine, State of
@@ -188,7 +192,7 @@ public class IBANValidator {
             new Validator("QA", 29, "QA\\d{2}[A-Z]{4}[A-Z0-9]{21}"),          // Qatar
             new Validator("RO", 24, "RO\\d{2}[A-Z]{4}[A-Z0-9]{16}"),          // Romania
             new Validator("RS", 22, "RS\\d{20}"),                             // Serbia
-            new Validator("RU", 33, "RU\\d{31}"),                             // Russia
+            new Validator("RU", 33, "RU\\d{16}[A-Z0-9]{15}"),                 // Russia
             new Validator("SA", 24, "SA\\d{4}[A-Z0-9]{18}"),                  // Saudi Arabia
             new Validator("SC", 31, "SC\\d{2}[A-Z]{4}\\d{20}[A-Z]{3}"),       // Seychelles
             new Validator("SD", 18, "SD\\d{16}"),                             // Sudan
@@ -196,6 +200,7 @@ public class IBANValidator {
             new Validator("SI", 19, "SI\\d{17}"),                             // Slovenia
             new Validator("SK", 24, "SK\\d{22}"),                             // Slovakia
             new Validator("SM", 27, "SM\\d{2}[A-Z]{1}\\d{10}[A-Z0-9]{12}"),   // San Marino
+            new Validator("SO", 23, "SO\\d{21}"),                             // Somalia, since Feb-23
             new Validator("ST", 25, "ST\\d{23}"),                             // Sao Tome and Principe
             new Validator("SV", 28, "SV\\d{2}[A-Z]{4}\\d{20}"),               // El Salvador
             new Validator("TL", 23, "TL\\d{21}"),                             // Timor-Leste
