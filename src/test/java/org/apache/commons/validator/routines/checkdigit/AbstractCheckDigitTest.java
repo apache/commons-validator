@@ -154,7 +154,12 @@ public abstract class AbstractCheckDigitTest {
                     log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + code + "]");
                 }
                 final String expected = checkDigit(code);
-                final String actual = routine.calculate(removeCheckDigit(code));
+                String codeWithNoCheckDigit = removeCheckDigit(code);
+                if(codeWithNoCheckDigit==null) {
+                	//System.out.println("   " + "Invalid Code=[" + code + "]");
+                	throw new CheckDigitException("Invalid Code=[" + code + "]");
+                }
+                final String actual = routine.calculate(codeWithNoCheckDigit);
                 // If exception not thrown, check that the digit is incorrect instead
                 if (expected.equals(actual)) {
                     fail("Expected mismatch for " + code + " expected " + expected + " actual " + actual);
