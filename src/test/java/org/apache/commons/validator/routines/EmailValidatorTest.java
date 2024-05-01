@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.SystemProperties;
 import org.apache.commons.validator.ResultPair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -484,7 +485,7 @@ public class EmailValidatorTest {
 
     @Test
     public void testValidator235() {
-        final String version = System.getProperty("java.version");
+        final String version = SystemProperties.getJavaVersion();
         if (version.compareTo("1.6") < 0) {
             System.out.println("Cannot run Unicode IDN tests");
             return; // Cannot run the test

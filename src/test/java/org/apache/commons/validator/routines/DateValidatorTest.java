@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.SystemProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -172,7 +173,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
      */
     @Test
     public void testLocaleProviders() throws Exception {
-        final String localeProviders = System.getProperty("java.locale.providers");
+        final String localeProviders = SystemProperties.getJavaLocaleProviders();
         if (localeProviders != null) { // may be null before Java 9
             assertTrue(localeProviders.startsWith("COMPAT"), "java.locale.providers must start with COMPAT");
         }

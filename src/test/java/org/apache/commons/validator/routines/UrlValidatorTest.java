@@ -29,6 +29,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.SystemProperties;
 import org.apache.commons.validator.ResultPair;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -282,7 +283,7 @@ public class UrlValidatorTest {
 
     @Test
     public void testValidator235() {
-        final String version = System.getProperty("java.version");
+        final String version = SystemProperties.getJavaVersion();
         if (version.compareTo("1.6") < 0) {
             System.out.println("Cannot run Unicode IDN tests");
             return; // Cannot run the test

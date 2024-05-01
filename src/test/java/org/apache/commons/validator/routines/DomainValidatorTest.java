@@ -46,6 +46,7 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.SystemProperties;
 import org.apache.commons.validator.routines.DomainValidator.ArrayType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -463,7 +464,7 @@ public class DomainValidatorTest {
 
     @Test
     public void testIDNJava6OrLater() {
-        final String version = System.getProperty("java.version");
+        final String version = SystemProperties.getJavaVersion();
         if (version.compareTo("1.6") < 0) {
             System.out.println("Cannot run Unicode IDN tests");
             return; // Cannot run the test
