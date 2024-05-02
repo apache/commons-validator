@@ -27,9 +27,10 @@ public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
     private static final String ETHANOL = "64-17-5";
     private static final String ASPIRIN = "50-78-2";
     private static final String COFFEIN = "58-08-2";
-    private static final String D_METHIONIN = "348-67-4";
-    private static final String L_METHIONIN = "63-68-3";
-    private static final String DL_METHIONIN = "59-51-8";
+    private static final String FORMALDEHYDE = "50-00-0";
+    private static final String DEXAMETHASONE = "50-02-2";
+    private static final String ARSENIC = "7440-38-2";
+    private static final String ASBESTOS = "1332-21-4";
     
     /**
      * Sets up routine & valid codes.
@@ -37,7 +38,7 @@ public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
     @BeforeEach
     protected void setUp() {
         routine = CASNumberCheckDigit.CAS_CHECK_DIGIT;
-        valid = new String[] { WATER, ETHANOL, ASPIRIN, COFFEIN, D_METHIONIN, L_METHIONIN, DL_METHIONIN};
+        valid = new String[] {WATER, ETHANOL, ASPIRIN, COFFEIN, FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS };
     }
 
     /**
