@@ -75,6 +75,7 @@ The <action> type attribute can be add,update,fix,remove.
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-parent from 65 to 69 #201.</action>
     <action type="update" dev="ggregory" due-to="Dependabot">Bump commons-logging:commons-logging from 1.3.0 to 1.3.1 #199.</action>
+    <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-csv from 1.10.0 to 1.11.0 #214.</action>
   </release>
   <release version="1.8.0" date="2023-12-02" description="Maintenance and bug fix release.">
     <!-- FIX -->
