@@ -240,7 +240,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
             return null;
         }
         if (value instanceof Calendar) {
-            value = ((Calendar)value).getTime();
+            value = ((Calendar) value).getTime();
         }
         return formatter.format(value);
     }
@@ -256,7 +256,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return The value formatted as a <code>String</code>.
      */
     public String format(final Object value, final Locale locale, final TimeZone timeZone) {
-        return format(value, (String)null, locale, timeZone);
+        return format(value, (String) null, locale, timeZone);
     }
 
     /**
@@ -270,7 +270,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      */
     @Override
     public String format(final Object value, final String pattern, final Locale locale) {
-        return format(value, pattern, locale, (TimeZone)null);
+        return format(value, pattern, locale, (TimeZone) null);
     }
 
     /**
@@ -285,11 +285,11 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return The value formatted as a <code>String</code>.
      */
     public String format(final Object value, final String pattern, final Locale locale, final TimeZone timeZone) {
-        final DateFormat formatter = (DateFormat)getFormat(pattern, locale);
+        final DateFormat formatter = (DateFormat) getFormat(pattern, locale);
         if (timeZone != null) {
             formatter.setTimeZone(timeZone);
         } else if (value instanceof Calendar) {
-            formatter.setTimeZone(((Calendar)value).getTimeZone());
+            formatter.setTimeZone(((Calendar) value).getTimeZone());
         }
         return format(value, formatter);
     }
@@ -305,7 +305,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return The value formatted as a <code>String</code>.
      */
     public String format(final Object value, final String pattern, final TimeZone timeZone) {
-        return format(value, pattern, (Locale)null, timeZone);
+        return format(value, pattern, (Locale) null, timeZone);
     }
 
     /**
@@ -318,7 +318,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return The value formatted as a <code>String</code>.
      */
     public String format(final Object value, final TimeZone timeZone) {
-        return format(value, (String)null, (Locale)null, timeZone);
+        return format(value, (String) null, (Locale) null, timeZone);
     }
 
     /**
@@ -329,7 +329,6 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return The <code>DateFormat</code> to created.
      */
     protected Format getFormat(final Locale locale) {
-
         DateFormat formatter;
         if (dateStyle >= 0 && timeStyle >= 0) {
             if (locale == null) {
@@ -370,7 +369,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
         DateFormat formatter;
         final boolean usePattern = pattern != null && !pattern.isEmpty();
         if (!usePattern) {
-            formatter = (DateFormat)getFormat(locale);
+            formatter = (DateFormat) getFormat(locale);
         } else if (locale == null) {
             formatter = new SimpleDateFormat(pattern);
         } else {
@@ -391,7 +390,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      */
     @Override
     public boolean isValid(final String value, final String pattern, final Locale locale) {
-        final Object parsedValue = parse(value, pattern, locale, (TimeZone)null);
+        final Object parsedValue = parse(value, pattern, locale, (TimeZone) null);
         return parsedValue == null ? false : true;
     }
 
@@ -411,7 +410,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
         if (value == null || value.isEmpty()) {
             return null;
         }
-        final DateFormat formatter = (DateFormat)getFormat(pattern, locale);
+        final DateFormat formatter = (DateFormat) getFormat(pattern, locale);
         if (timeZone != null) {
             formatter.setTimeZone(timeZone);
         }

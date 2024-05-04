@@ -100,7 +100,7 @@ public class CurrencyValidator extends BigDecimalValidator {
         }
 
         // Re-parse using a pattern without the currency symbol
-        final DecimalFormat decimalFormat = (DecimalFormat)formatter;
+        final DecimalFormat decimalFormat = (DecimalFormat) formatter;
         final String pattern = decimalFormat.toPattern();
         if (pattern.indexOf(CURRENCY_SYMBOL) >= 0) {
             final StringBuilder buffer = new StringBuilder(pattern.length());

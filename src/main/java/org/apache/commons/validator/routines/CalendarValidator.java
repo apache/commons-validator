@@ -227,7 +227,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
-        return ((DateFormat)formatter).getCalendar();
+        return ((DateFormat) formatter).getCalendar();
     }
 
     /**
@@ -239,7 +239,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
      *  if invalid.
      */
     public Calendar validate(final String value) {
-        return (Calendar)parse(value, (String)null, (Locale)null, (TimeZone)null);
+        return (Calendar) parse(value, (String) null, (Locale) null, (TimeZone) null);
     }
 
     /**
@@ -251,7 +251,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
      * @return The parsed <code>Calendar</code> if valid or {@code null} if invalid.
      */
     public Calendar validate(final String value, final Locale locale) {
-        return (Calendar)parse(value, (String)null, locale, (TimeZone)null);
+        return (Calendar) parse(value, (String) null, locale, (TimeZone) null);
     }
 
     /**
@@ -264,7 +264,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
      * @return The parsed <code>Calendar</code> if valid or {@code null} if invalid.
      */
     public Calendar validate(final String value, final Locale locale, final TimeZone timeZone) {
-        return (Calendar)parse(value, (String)null, locale, timeZone);
+        return (Calendar) parse(value, (String) null, locale, timeZone);
     }
 
     /**
@@ -276,7 +276,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
      * @return The parsed <code>Calendar</code> if valid or {@code null} if invalid.
      */
     public Calendar validate(final String value, final String pattern) {
-        return (Calendar)parse(value, pattern, (Locale)null, (TimeZone)null);
+        return (Calendar) parse(value, pattern, (Locale) null, (TimeZone) null);
     }
 
     /**
@@ -290,7 +290,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
      * @return The parsed <code>Calendar</code> if valid or {@code null} if invalid.
      */
     public Calendar validate(final String value, final String pattern, final Locale locale) {
-        return (Calendar)parse(value, pattern, locale, (TimeZone)null);
+        return (Calendar) parse(value, pattern, locale, (TimeZone) null);
     }
 
     /**
@@ -305,7 +305,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
      * @return The parsed <code>Calendar</code> if valid or {@code null} if invalid.
      */
     public Calendar validate(final String value, final String pattern, final Locale locale, final TimeZone timeZone) {
-        return (Calendar)parse(value, pattern, locale, timeZone);
+        return (Calendar) parse(value, pattern, locale, timeZone);
     }
 
     /**
@@ -318,7 +318,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
      * @return The parsed <code>Calendar</code> if valid or {@code null} if invalid.
      */
     public Calendar validate(final String value, final String pattern, final TimeZone timeZone) {
-        return (Calendar)parse(value, pattern, (Locale)null, timeZone);
+        return (Calendar) parse(value, pattern, (Locale) null, timeZone);
     }
 
     /**
@@ -331,7 +331,7 @@ public class CalendarValidator extends AbstractCalendarValidator {
      *  if invalid.
      */
     public Calendar validate(final String value, final TimeZone timeZone) {
-        return (Calendar)parse(value, (String)null, (Locale)null, timeZone);
+        return (Calendar) parse(value, (String) null, (Locale) null, timeZone);
     }
 
 }

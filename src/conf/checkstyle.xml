@@ -129,6 +129,7 @@
       <property name="separated" value="true"/>
     </module>
     <module name="WhitespaceAround"/>
+    <module name="WhitespaceAfter"/>
     <module name="TypecastParenPad"/>
     <module name="SingleSpaceSeparator"/>
   </module>

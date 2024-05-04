@@ -195,7 +195,7 @@ public class DoubleValidator extends AbstractNumberValidator {
         if (value instanceof Double) {
             return value;
         }
-        return Double.valueOf(((Number)value).doubleValue());
+        return Double.valueOf(((Number) value).doubleValue());
 
     }
 
@@ -208,7 +208,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      *  if invalid.
      */
     public Double validate(final String value) {
-        return (Double)parse(value, (String)null, (Locale)null);
+        return (Double) parse(value, (String) null, (Locale) null);
     }
 
     /**
@@ -220,7 +220,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @return The parsed <code>Double</code> if valid or {@code null} if invalid.
      */
     public Double validate(final String value, final Locale locale) {
-        return (Double)parse(value, (String)null, locale);
+        return (Double) parse(value, (String) null, locale);
     }
 
     /**
@@ -232,7 +232,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @return The parsed <code>BigDecimal</code> if valid or {@code null} if invalid.
      */
     public Double validate(final String value, final String pattern) {
-        return (Double)parse(value, pattern, (Locale)null);
+        return (Double) parse(value, pattern, (Locale) null);
     }
 
     /**
@@ -246,6 +246,6 @@ public class DoubleValidator extends AbstractNumberValidator {
      * @return The parsed <code>Double</code> if valid or {@code null} if invalid.
      */
     public Double validate(final String value, final String pattern, final Locale locale) {
-        return (Double)parse(value, pattern, locale);
+        return (Double) parse(value, pattern, locale);
     }
 }

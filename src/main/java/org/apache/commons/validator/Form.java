@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.FastHashMap;// DEPRECATED
+import org.apache.commons.collections.FastHashMap; // DEPRECATED
 
 /**
  * <p>
@@ -213,16 +213,16 @@ public class Form implements Serializable {
             return;
         }
 
-        int n = 0;//we want the fields from its parent first
+        int n = 0; //we want the fields from its parent first
         if (isExtending()) {
             final Form parent = forms.get(inherit);
             if (parent != null) {
                 if (!parent.isProcessed()) {
-                    //we want to go all the way up the tree
+                    // we want to go all the way up the tree
                     parent.process(constants, globalConstants, forms);
                 }
                 for (final Field f : parent.getFields()) {
-                    //we want to be able to override any fields we like
+                    // we want to be able to override any fields we like
                     if (getFieldMap().get(f.getKey()) == null) {
                         lFields.add(n, f);
                         getFieldMap().put(f.getKey(), f);
@@ -232,7 +232,7 @@ public class Form implements Serializable {
             }
         }
         hFields.setFast(true);
-        //no need to reprocess parent's fields, we iterate from 'n'
+        // no need to reprocess parent's fields, we iterate from 'n'
         for (final Iterator<Field> i = lFields.listIterator(n); i.hasNext(); ) {
             final Field f = i.next();
             f.process(globalConstants, constants);

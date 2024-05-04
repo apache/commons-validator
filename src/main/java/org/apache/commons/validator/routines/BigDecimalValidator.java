@@ -173,12 +173,12 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     protected Object processParsedValue(final Object value, final Format formatter) {
         BigDecimal decimal;
         if (value instanceof Long) {
-            decimal = BigDecimal.valueOf(((Long)value).longValue());
+            decimal = BigDecimal.valueOf(((Long) value).longValue());
         } else {
             decimal = new BigDecimal(value.toString());
         }
 
-        final int scale = determineScale((NumberFormat)formatter);
+        final int scale = determineScale((NumberFormat) formatter);
         if (scale >= 0) {
             decimal = decimal.setScale(scale, BigDecimal.ROUND_DOWN);
         }
@@ -195,7 +195,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      *  if invalid.
      */
     public BigDecimal validate(final String value) {
-        return (BigDecimal)parse(value, (String)null, (Locale)null);
+        return (BigDecimal) parse(value, (String) null, (Locale) null);
     }
 
     /**
@@ -207,7 +207,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * @return The parsed <code>BigDecimal</code> if valid or {@code null} if invalid.
      */
     public BigDecimal validate(final String value, final Locale locale) {
-        return (BigDecimal)parse(value, (String)null, locale);
+        return (BigDecimal) parse(value, (String) null, locale);
     }
 
     /**
@@ -220,7 +220,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * @return The parsed <code>BigDecimal</code> if valid or {@code null} if invalid.
      */
     public BigDecimal validate(final String value, final String pattern) {
-        return (BigDecimal)parse(value, pattern, (Locale)null);
+        return (BigDecimal) parse(value, pattern, (Locale) null);
     }
 
     /**
@@ -234,6 +234,6 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * @return The parsed <code>BigDecimal</code> if valid or {@code null} if invalid.
      */
     public BigDecimal validate(final String value, final String pattern, final Locale locale) {
-        return (BigDecimal)parse(value, pattern, locale);
+        return (BigDecimal) parse(value, pattern, locale);
     }
 }

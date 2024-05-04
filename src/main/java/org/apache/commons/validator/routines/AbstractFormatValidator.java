@@ -56,7 +56,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @return The value formatted as a <code>String</code>.
      */
     public String format(final Object value) {
-        return format(value, (String)null, (Locale)null);
+        return format(value, (String) null, (Locale) null);
     }
 
     /**
@@ -79,7 +79,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @return The value formatted as a <code>String</code>.
      */
     public String format(final Object value, final Locale locale) {
-        return format(value, (String)null, locale);
+        return format(value, (String) null, locale);
     }
 
     /**
@@ -91,7 +91,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @return The value formatted as a <code>String</code>.
      */
     public String format(final Object value, final String pattern) {
-        return format(value, pattern, (Locale)null);
+        return format(value, pattern, (Locale) null);
     }
 
     /**
@@ -147,7 +147,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @return {@code true} if the value is valid.
      */
     public boolean isValid(final String value) {
-        return isValid(value, (String)null, (Locale)null);
+        return isValid(value, (String) null, (Locale) null);
     }
 
     /**
@@ -158,7 +158,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @return {@code true} if the value is valid.
      */
     public boolean isValid(final String value, final Locale locale) {
-        return isValid(value, (String)null, locale);
+        return isValid(value, (String) null, locale);
     }
 
     /**
@@ -169,7 +169,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @return {@code true} if the value is valid.
      */
     public boolean isValid(final String value, final String pattern) {
-        return isValid(value, pattern, (Locale)null);
+        return isValid(value, pattern, (Locale) null);
     }
 
     /**
@@ -190,21 +190,17 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @return The parsed value if valid or {@code null} if invalid.
      */
     protected Object parse(final String value, final Format formatter) {
-
         final ParsePosition pos = new ParsePosition(0);
         Object parsedValue = formatter.parseObject(value, pos);
         if (pos.getErrorIndex() > -1) {
             return null;
         }
-
         if (isStrict() && pos.getIndex() < value.length()) {
             return null;
         }
-
         if (parsedValue != null) {
             parsedValue = processParsedValue(parsedValue, formatter);
         }
-
         return parsedValue;
 
     }

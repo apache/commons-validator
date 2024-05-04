@@ -193,13 +193,13 @@ public class ShortValidator extends AbstractNumberValidator {
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
 
-        final long longValue = ((Number)value).longValue();
+        final long longValue = ((Number) value).longValue();
 
         if (longValue < Short.MIN_VALUE ||
             longValue > Short.MAX_VALUE) {
             return null;
         }
-        return Short.valueOf((short)longValue);
+        return Short.valueOf((short) longValue);
     }
 
     /**
@@ -211,7 +211,7 @@ public class ShortValidator extends AbstractNumberValidator {
      *  if invalid.
      */
     public Short validate(final String value) {
-        return (Short)parse(value, (String)null, (Locale)null);
+        return (Short) parse(value, (String) null, (Locale) null);
     }
 
     /**
@@ -223,7 +223,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @return The parsed <code>Short</code> if valid or {@code null} if invalid.
      */
     public Short validate(final String value, final Locale locale) {
-        return (Short)parse(value, (String)null, locale);
+        return (Short) parse(value, (String) null, locale);
     }
 
     /**
@@ -235,7 +235,7 @@ public class ShortValidator extends AbstractNumberValidator {
      * @return The parsed <code>Short</code> if valid or {@code null} if invalid.
      */
     public Short validate(final String value, final String pattern) {
-        return (Short)parse(value, pattern, (Locale)null);
+        return (Short) parse(value, pattern, (Locale) null);
     }
 
     /**
@@ -249,6 +249,6 @@ public class ShortValidator extends AbstractNumberValidator {
      * @return The parsed <code>Short</code> if valid or {@code null} if invalid.
      */
     public Short validate(final String value, final String pattern, final Locale locale) {
-        return (Short)parse(value, pattern, locale);
+        return (Short) parse(value, pattern, locale);
     }
 }

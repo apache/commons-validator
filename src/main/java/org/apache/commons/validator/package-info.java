@@ -204,7 +204,7 @@
  * // no error
  * } else {
  * // number of errors for first name
- * int errors = ((Integer)results.get("firstName")).intValue();
+ * int errors = ((Integer) results.get("firstName")).intValue();
  * }
  * </pre>
  * <a id="doc.Usage.pluggableValidator"></a>

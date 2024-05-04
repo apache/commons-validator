@@ -1942,7 +1942,7 @@ public class DomainValidator implements Serializable {
             // characters MUST be recognized as dots: U+002E (full stop), U+3002
             // (ideographic full stop), U+FF0E (fullwidth full stop), U+FF61
             // (halfwidth ideographic full stop).
-            final char lastChar = input.charAt(length - 1);// fetch original last char
+            final char lastChar = input.charAt(length - 1); // fetch original last char
             switch (lastChar) {
             case '\u002E': // "." full stop
             case '\u3002': // ideographic full stop

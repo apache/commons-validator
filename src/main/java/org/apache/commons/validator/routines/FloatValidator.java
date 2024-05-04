@@ -225,7 +225,7 @@ public class FloatValidator extends AbstractNumberValidator {
      *  if invalid.
      */
     public Float validate(final String value) {
-        return (Float)parse(value, (String)null, (Locale)null);
+        return (Float) parse(value, (String) null, (Locale) null);
     }
 
     /**
@@ -237,7 +237,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @return The parsed <code>Float</code> if valid or {@code null} if invalid.
      */
     public Float validate(final String value, final Locale locale) {
-        return (Float)parse(value, (String)null, locale);
+        return (Float) parse(value, (String) null, locale);
     }
 
     /**
@@ -249,7 +249,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @return The parsed <code>Float</code> if valid or {@code null} if invalid.
      */
     public Float validate(final String value, final String pattern) {
-        return (Float)parse(value, pattern, (Locale)null);
+        return (Float) parse(value, pattern, (Locale) null);
     }
 
     /**
@@ -263,7 +263,7 @@ public class FloatValidator extends AbstractNumberValidator {
      * @return The parsed <code>Float</code> if valid or {@code null} if invalid.
      */
     public Float validate(final String value, final String pattern, final Locale locale) {
-        return (Float)parse(value, pattern, locale);
+        return (Float) parse(value, pattern, locale);
     }
 
 }

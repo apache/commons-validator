@@ -155,7 +155,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
-        return BigInteger.valueOf(((Number)value).longValue());
+        return BigInteger.valueOf(((Number) value).longValue());
     }
 
     /**
@@ -167,7 +167,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      *  if invalid.
      */
     public BigInteger validate(final String value) {
-        return (BigInteger)parse(value, (String)null, (Locale)null);
+        return (BigInteger) parse(value, (String) null, (Locale) null);
     }
 
     /**
@@ -179,7 +179,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * @return The parsed <code>BigInteger</code> if valid or {@code null} if invalid.
      */
     public BigInteger validate(final String value, final Locale locale) {
-        return (BigInteger)parse(value, (String)null, locale);
+        return (BigInteger) parse(value, (String) null, locale);
     }
 
     /**
@@ -191,7 +191,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * @return The parsed <code>BigInteger</code> if valid or {@code null} if invalid.
      */
     public BigInteger validate(final String value, final String pattern) {
-        return (BigInteger)parse(value, pattern, (Locale)null);
+        return (BigInteger) parse(value, pattern, (Locale) null);
     }
 
     /**
@@ -205,6 +205,6 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * @return The parsed <code>BigInteger</code> if valid or {@code null} if invalid.
      */
     public BigInteger validate(final String value, final String pattern, final Locale locale) {
-        return (BigInteger)parse(value, pattern, locale);
+        return (BigInteger) parse(value, pattern, locale);
     }
 }

@@ -195,10 +195,10 @@ public class ByteValidator extends AbstractNumberValidator {
 
         // Parsed value will be Long if it fits in a long and is not fractional
         if (value instanceof Long) {
-            final long longValue = ((Long)value).longValue();
+            final long longValue = ((Long) value).longValue();
             if (longValue >= Byte.MIN_VALUE &&
                 longValue <= Byte.MAX_VALUE) {
-                return Byte.valueOf((byte)longValue);
+                return Byte.valueOf((byte) longValue);
             }
         }
         return null;
@@ -213,7 +213,7 @@ public class ByteValidator extends AbstractNumberValidator {
      *  if invalid.
      */
     public Byte validate(final String value) {
-        return (Byte)parse(value, (String)null, (Locale)null);
+        return (Byte) parse(value, (String) null, (Locale) null);
     }
 
     /**
@@ -225,7 +225,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @return The parsed <code>Byte</code> if valid or {@code null} if invalid.
      */
     public Byte validate(final String value, final Locale locale) {
-        return (Byte)parse(value, (String)null, locale);
+        return (Byte) parse(value, (String) null, locale);
     }
 
     /**
@@ -237,7 +237,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @return The parsed <code>Byte</code> if valid or {@code null} if invalid.
      */
     public Byte validate(final String value, final String pattern) {
-        return (Byte)parse(value, pattern, (Locale)null);
+        return (Byte) parse(value, pattern, (Locale) null);
     }
 
     /**
@@ -251,7 +251,7 @@ public class ByteValidator extends AbstractNumberValidator {
      * @return The parsed <code>Byte</code> if valid or {@code null} if invalid.
      */
     public Byte validate(final String value, final String pattern, final Locale locale) {
-        return (Byte)parse(value, pattern, locale);
+        return (Byte) parse(value, pattern, locale);
     }
 
 }

@@ -208,7 +208,7 @@ public class LongValidator extends AbstractNumberValidator {
      *  if invalid.
      */
     public Long validate(final String value) {
-        return (Long)parse(value, (String)null, (Locale)null);
+        return (Long) parse(value, (String) null, (Locale) null);
     }
 
     /**
@@ -220,7 +220,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @return The parsed <code>Long</code> if valid or {@code null} if invalid.
      */
     public Long validate(final String value, final Locale locale) {
-        return (Long)parse(value, (String)null, locale);
+        return (Long) parse(value, (String) null, locale);
     }
 
     /**
@@ -232,7 +232,7 @@ public class LongValidator extends AbstractNumberValidator {
      * @return The parsed <code>Long</code> if valid or {@code null} if invalid.
      */
     public Long validate(final String value, final String pattern) {
-        return (Long)parse(value, pattern, (Locale)null);
+        return (Long) parse(value, pattern, (Locale) null);
     }
 
     /**
@@ -246,6 +246,6 @@ public class LongValidator extends AbstractNumberValidator {
      * @return The parsed <code>Long</code> if valid or {@code null} if invalid.
      */
     public Long validate(final String value, final String pattern, final Locale locale) {
-        return (Long)parse(value, pattern, locale);
+        return (Long) parse(value, pattern, locale);
     }
 }

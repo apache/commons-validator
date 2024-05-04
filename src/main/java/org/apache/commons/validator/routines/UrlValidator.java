@@ -494,10 +494,10 @@ public class UrlValidator implements Serializable {
 
         try {
             // Don't omit host otherwise leading path may be taken as host if it starts with //
-            final URI uri = new URI(null,"localhost",path,null);
+            final URI uri = new URI(null, "localhost", path, null);
             final String norm = uri.normalize().getPath();
             if (norm.startsWith("/../") // Trying to go via the parent dir
-             || norm.equals("/..")) {   // Trying to go to the parent dir
+                    || norm.equals("/..")) { // Trying to go to the parent dir
                 return false;
             }
         } catch (final URISyntaxException e) {
@@ -521,7 +521,6 @@ public class UrlValidator implements Serializable {
         if (query == null) {
             return true;
         }
-
         return QUERY_PATTERN.matcher(query).matches();
     }
 

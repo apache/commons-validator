@@ -195,10 +195,10 @@ public class IntegerValidator extends AbstractNumberValidator {
 
         // Parsed value will be Long if it fits in a long and is not fractional
         if (value instanceof Long) {
-            final long longValue = ((Long)value).longValue();
+            final long longValue = ((Long) value).longValue();
             if (longValue >= Integer.MIN_VALUE &&
                 longValue <= Integer.MAX_VALUE) {
-                return Integer.valueOf((int)longValue);
+                return Integer.valueOf((int) longValue);
             }
         }
         return null;
@@ -213,7 +213,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      *  if invalid.
      */
     public Integer validate(final String value) {
-        return (Integer)parse(value, (String)null, (Locale)null);
+        return (Integer) parse(value, (String) null, (Locale) null);
     }
 
     /**
@@ -225,7 +225,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @return The parsed <code>Integer</code> if valid or {@code null} if invalid.
      */
     public Integer validate(final String value, final Locale locale) {
-        return (Integer)parse(value, (String)null, locale);
+        return (Integer) parse(value, (String) null, locale);
     }
 
     /**
@@ -237,7 +237,7 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @return The parsed <code>Integer</code> if valid or {@code null} if invalid.
      */
     public Integer validate(final String value, final String pattern) {
-        return (Integer)parse(value, pattern, (Locale)null);
+        return (Integer) parse(value, pattern, (Locale) null);
     }
 
     /**
@@ -251,6 +251,6 @@ public class IntegerValidator extends AbstractNumberValidator {
      * @return The parsed <code>Integer</code> if valid or {@code null} if invalid.
      */
     public Integer validate(final String value, final String pattern, final Locale locale) {
-        return (Integer)parse(value, pattern, locale);
+        return (Integer) parse(value, pattern, locale);
     }
 }

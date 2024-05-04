@@ -96,7 +96,7 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
             final int num = Character.getNumericValue(code.charAt(idx));
             if (num < 0 || num > 9) { // CHECKSTYLE IGNORE MagicNumber
                 throw new CheckDigitException("Invalid Character[" +
-                        i + "] = '" + (int)code.charAt(idx) + "'");
+                        i + "] = '" + (int) code.charAt(idx) + "'");
             }
             final int pos = includesCheckDigit ? i : i + 1;
             checksum = D_TABLE[checksum][P_TABLE[pos % 8][num]]; // CHECKSTYLE IGNORE MagicNumber
