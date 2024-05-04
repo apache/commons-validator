@@ -42,7 +42,7 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = 7265356024784308367L;
 
-	/** Singleton Check Digit instance */
+    /** Singleton Check Digit instance */
     public static final CheckDigit EC_CHECK_DIGIT = new ECNumberCheckDigit();
 
     /**

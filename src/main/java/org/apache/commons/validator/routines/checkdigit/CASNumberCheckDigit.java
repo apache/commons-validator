@@ -44,9 +44,9 @@ import org.apache.commons.validator.routines.CodeValidator;
  */
 public final class CASNumberCheckDigit extends ModulusCheckDigit {
 
-	private static final long serialVersionUID = -5387334603220786657L;
+    private static final long serialVersionUID = -5387334603220786657L;
 
-	/** Singleton Check Digit instance */
+    /** Singleton Check Digit instance */
     public static final CheckDigit CAS_CHECK_DIGIT = new CASNumberCheckDigit();
 
     /**
