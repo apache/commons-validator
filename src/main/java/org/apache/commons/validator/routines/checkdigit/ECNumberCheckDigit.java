@@ -102,14 +102,14 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
         Object cde = REGEX_VALIDATOR.validate(code);
         if (cde instanceof String) {
             try {
-        	    final int modulusResult = calculateModulus((String)cde, true);
-//        		System.out.println("modulusResult="+modulusResult + " for code "+code);
-        		return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));
-        	} catch (final CheckDigitException ex) {
-        		return false;
-        	}
+                final int modulusResult = calculateModulus((String)cde, true);
+//              System.out.println("modulusResult="+modulusResult + " for code "+code);
+                return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));
+            } catch (final CheckDigitException ex) {
+                return false;
+            }
         } else {
-        	return false;
+            return false;
         }
     }
 
