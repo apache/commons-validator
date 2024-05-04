@@ -77,7 +77,6 @@ public class Arg implements Cloneable, Serializable {
     public Object clone() {
         try {
             return super.clone();
-
         } catch (final CloneNotSupportedException e) {
             throw new UnsupportedOperationException(e.toString(), e);
         }
@@ -172,7 +171,6 @@ public class Arg implements Cloneable, Serializable {
     @Override
     public String toString() {
         final StringBuilder results = new StringBuilder();
-
         results.append("Arg: name=");
         results.append(name);
         results.append("  key=");
@@ -184,7 +182,6 @@ public class Arg implements Cloneable, Serializable {
         results.append("  resource=");
         results.append(resource);
         results.append("\n");
-
         return results.toString();
     }
 
