@@ -22,15 +22,15 @@ import org.apache.commons.validator.routines.CodeValidator;
  * Modulus 11 <b>EC number</b> Check Digit calculation/validation.
  *
  * <p>
- * The European Community number (EC number) is a unique seven-digit identifier 
- * that is assigned to chemical substances. 
- * For example, the EC number of arsenic is 231-148-6: 
+ * The European Community number (EC number) is a unique seven-digit identifier
+ * that is assigned to chemical substances.
+ * For example, the EC number of arsenic is 231-148-6:
  * </p>
  *
  * Check digit calculation is based on <i>modulus 11</i> with digits being weighted
  * based on their position (from left to right).
  * <p>
- * 
+ *
  * <p>
  * For further information see
  *  <a href="https://en.wikipedia.org/wiki/European_Community_number">Wikipedia - EC number</a>.
@@ -40,8 +40,8 @@ import org.apache.commons.validator.routines.CodeValidator;
  */
 public final class ECNumberCheckDigit extends ModulusCheckDigit {
 
-	private static final long serialVersionUID = 7265356024784308367L;
-	
+    private static final long serialVersionUID = 7265356024784308367L;
+
 	/** Singleton Check Digit instance */
     public static final CheckDigit EC_CHECK_DIGIT = new ECNumberCheckDigit();
 
@@ -52,10 +52,10 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
     private static final String GROUP = "(\\d{3})";
     private static final String DASH = "(?:\\-)";
     static final String EC_REGEX = "^(?:" + GROUP + DASH + GROUP + DASH + "(\\d))$";
-    
+
     private static final int EC_LEN = 7;
     static final CodeValidator REGEX_VALIDATOR = new CodeValidator(EC_REGEX, EC_LEN, null);
-    
+
     /**
      * Constructs a modulus 11 Check Digit routine.
      */
@@ -76,7 +76,7 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        return (leftPos>=EC_LEN) ? 0 : charValue * leftPos;
+        return (leftPos >= EC_LEN) ? 0 : charValue * leftPos;
     }
 
     /**
@@ -100,7 +100,7 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
             return false;
         }
         Object cde = REGEX_VALIDATOR.validate(code);
-        if(cde instanceof String) {
+        if (cde instanceof String) {
         	try {
         		final int modulusResult = calculateModulus((String)cde, true);
 //        		System.out.println("modulusResult="+modulusResult + " for code "+code);

@@ -29,10 +29,10 @@ import org.apache.commons.validator.routines.CodeValidator;
  *
  * Check digit calculation is based on <i>modulus 10</i> with digits being weighted
  * based on their position (from right to left).
- * 
- * The check digit is found by taking the last digit times 1, the preceding digit times 2, 
- * the preceding digit times 3 etc., adding all these up and computing the sum modulo 10. 
- * For example, the CAS number of water is 7732-18-5: 
+ *
+ * The check digit is found by taking the last digit times 1, the preceding digit times 2,
+ * the preceding digit times 3 etc., adding all these up and computing the sum modulo 10.
+ * For example, the CAS number of water is 7732-18-5:
  * the checksum 5 is calculated as (8×1 + 1×2 + 2×3 + 3×4 + 7×5 + 7×6) = 105; 105 mod 10 = 5.
  *
  * <p>
@@ -57,12 +57,12 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
     private static final String GROUP1 = "(\\d{1,7})";
     private static final String DASH = "(?:\\-)";
     static final String CAS_REGEX = "^(?:" + GROUP1 + DASH + "(\\d{2})" + DASH + "(\\d))$";
-    
+
     private static final int CAS_MIN_LEN = 4; // 9-99-9 LEN without SEP
     /** maximum capacity of 1,000,000,000 == 9999999-99-9*/
     private static final int CAS_MAX_LEN = 10;
     static final CodeValidator REGEX_VALIDATOR = new CodeValidator(CAS_REGEX, CAS_MIN_LEN, CAS_MAX_LEN, null);
-    
+
     /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = { 0,1,2,3,4,5,6,7,8,9 };
 
@@ -88,7 +88,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        final int weight = POSITION_WEIGHT[(rightPos-1) % 10];
+        final int weight = POSITION_WEIGHT[(rightPos - 1) % MODULUS_10];
         return charValue * weight;
     }
 
@@ -103,7 +103,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
         final int modulusResult = calculateModulus(code, false);
         return toCheckDigit(modulusResult);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -113,7 +113,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
             return false;
         }
         Object cde = REGEX_VALIDATOR.validate(code);
-        if(cde instanceof String) {
+        if (cde instanceof String) {
         	try {
         		final int modulusResult = calculateModulus((String)cde, true);
 //        		System.out.println("modulusResult="+modulusResult + " for code "+code);
