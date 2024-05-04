@@ -170,19 +170,21 @@ public class Arg implements Cloneable, Serializable {
      */
     @Override
     public String toString() {
-        final StringBuilder results = new StringBuilder();
-        results.append("Arg: name=");
-        results.append(name);
-        results.append("  key=");
-        results.append(key);
-        results.append("  position=");
-        results.append(position);
-        results.append("  bundle=");
-        results.append(bundle);
-        results.append("  resource=");
-        results.append(resource);
-        results.append("\n");
-        return results.toString();
+        // @formatter:off
+        return new StringBuilder()
+            .append("Arg: name=")
+            .append(name)
+            .append("  key=")
+            .append(key)
+            .append("  position=")
+            .append(position)
+            .append("  bundle=")
+            .append(bundle)
+            .append("  resource=")
+            .append(resource)
+            .append("\n")
+            .toString();
+        // @formatter:on
     }
 
 }
