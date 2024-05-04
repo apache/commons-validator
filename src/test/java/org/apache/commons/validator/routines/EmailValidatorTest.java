@@ -473,8 +473,8 @@ public class EmailValidatorTest {
 
     @Test
     public void testVALIDATOR_278() {
-        assertFalse(validator.isValid("someone@-test.com"));// hostname starts with dash/hyphen
-        assertFalse(validator.isValid("someone@test-.com"));// hostname ends with dash/hyphen
+        assertFalse(validator.isValid("someone@-test.com")); // hostname starts with dash/hyphen
+        assertFalse(validator.isValid("someone@test-.com")); // hostname ends with dash/hyphen
     }
 
     @Test

@@ -84,7 +84,7 @@ public class DomainValidatorTest {
         }
         final HttpURLConnection hc = (HttpURLConnection) new URL(tldUrl).openConnection();
         if (modTime > 0) {
-            final SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");// Sun, 06 Nov 1994 08:49:37 GMT
+            final SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z"); // Sun, 06 Nov 1994 08:49:37 GMT
             final String since = sdf.format(new Date(modTime));
             hc.addRequestProperty("If-Modified-Since", since);
             System.out.println("Found " + file + " with date " + since);

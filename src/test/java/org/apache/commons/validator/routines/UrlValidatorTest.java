@@ -97,7 +97,7 @@ public class UrlValidatorTest {
 
     private final boolean printStatus = false;
 
-    private final boolean printIndex = false;// print index that indicates current scheme,host,port,path, query test were using.
+    private final boolean printIndex = false; // print index that indicates current scheme,host,port,path, query test were using.
 
     /**
      * The data given below approximates the 4 parts of a URL <scheme>://<authority><path>?<query> except that the port number is broken out of authority to

@@ -104,7 +104,7 @@ public abstract class AbstractCheckDigitTest {
             final String code = removeCheckDigit(fullCode);
             final String check = checkDigit(fullCode);
             for (int j = 0; j < POSSIBLE_CHECK_DIGITS.length(); j++) {
-                final String curr = POSSIBLE_CHECK_DIGITS.substring(j, j + 1);// "" + Character.forDigit(j, 10);
+                final String curr = POSSIBLE_CHECK_DIGITS.substring(j, j + 1); // "" + Character.forDigit(j, 10);
                 if (!curr.equals(check)) {
                     list.add(code + curr);
                 }
