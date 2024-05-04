@@ -37,17 +37,13 @@
 
 -->
 <module name="Checker">
-
   <module name="TreeWalker">
-
     <!-- Item 4 - Avoid creating duplicate objects -->
     <module name="IllegalInstantiation">
       <property name="classes" value="java.lang.Boolean, java.lang.String" />
     </module>
-
     <!-- Item 8 - Always override hashCode when you override equals -->
     <module name="EqualsHashCode" />
-
     <!-- Item 12 - Make all fields private -->
     <!-- <module name="VisibilityModifier"/> -->
 
@@ -82,7 +78,6 @@
     <module name="JavadocVariable">
       <property name="scope" value="protected" />
     </module>
-
     <!-- Item 29 - Minimize the scope of local variables -->
     <!-- no rfe yet -->
 
@@ -99,14 +94,12 @@
     <module name="MethodName" />
     <module name="ParameterName" />
     <module name="StaticVariableName" />
-
     <!-- Item 47 - Don't ignore exceptions -->
     <module name="EmptyBlock">
       <property name="tokens" value="LITERAL_CATCH" />
       <!-- require a comment, change to stmt to require a statement -->
       <property name="option" value="text" />
     </module>
-
     <!-- Item 50 - Never invoke wait outside a loop -->
     <!-- rfe #712798 -->
 
@@ -114,9 +107,7 @@
     <!-- no rfe yet -->
 
     <module name="MagicNumber" />
-
     <module name="SuppressionCommentFilter" />
-
     <!-- Allow comment to suppress checkstyle for a single line e.g. // CHECKSTYLE IGNORE MagicNumber -->
     <module name="SuppressWithNearbyCommentFilter">
       <property name="commentFormat" value="CHECKSTYLE IGNORE (\w+)" />
@@ -128,8 +119,9 @@
       <property name="ordered" value="true"/>
       <property name="separated" value="true"/>
     </module>
-    <module name="WhitespaceAround"/>
     <module name="WhitespaceAfter"/>
+    <module name="WhitespaceAround"/>
+    <module name="WhitespaceAroundCheck"/>
     <module name="TypecastParenPad"/>
     <module name="SingleSpaceSeparator"/>
   </module>
