@@ -188,7 +188,6 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
         if (!Character.isDigit(code.charAt(code.length() - 1))) {
             return false;
         }
-
         return super.isValid(code);
     }
 

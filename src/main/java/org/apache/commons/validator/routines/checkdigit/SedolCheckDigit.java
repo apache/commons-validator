@@ -83,14 +83,12 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * @throws CheckDigitException if character is not alphanumeric
      */
     @Override
-    protected int toInt(final char character, final int leftPos, final int rightPos)
-            throws CheckDigitException {
+    protected int toInt(final char character, final int leftPos, final int rightPos) throws CheckDigitException {
         final int charValue = Character.getNumericValue(character);
         // the check digit is only allowed to reach 9
         final int charMax = rightPos == 1 ? 9 : MAX_ALPHANUMERIC_VALUE; // CHECKSTYLE IGNORE MagicNumber
         if (charValue < 0 || charValue > charMax) {
-            throw new CheckDigitException("Invalid Character[" +
-                    leftPos + "," + rightPos + "] = '" + charValue + "' out of range 0 to " + charMax);
+            throw new CheckDigitException("Invalid Character[" + leftPos + "," + rightPos + "] = '" + charValue + "' out of range 0 to " + charMax);
         }
         return charValue;
     }

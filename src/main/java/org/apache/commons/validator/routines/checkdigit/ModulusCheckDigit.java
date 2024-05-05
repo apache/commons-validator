@@ -156,13 +156,11 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
      * @throws CheckDigitException if integer character value
      * doesn't represent a numeric character
      */
-    protected String toCheckDigit(final int charValue)
-            throws CheckDigitException {
+    protected String toCheckDigit(final int charValue) throws CheckDigitException {
         if (charValue >= 0 && charValue <= 9) { // CHECKSTYLE IGNORE MagicNumber
             return Integer.toString(charValue);
         }
-        throw new CheckDigitException("Invalid Check Digit Value =" +
-                + charValue);
+        throw new CheckDigitException("Invalid Check Digit Value =" + +charValue);
     }
 
     /**
@@ -178,13 +176,11 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
      * @return The integer value of the character
      * @throws CheckDigitException if character is non-numeric
      */
-    protected int toInt(final char character, final int leftPos, final int rightPos)
-            throws CheckDigitException {
+    protected int toInt(final char character, final int leftPos, final int rightPos) throws CheckDigitException {
         if (Character.isDigit(character)) {
             return Character.getNumericValue(character);
         }
-        throw new CheckDigitException("Invalid Character[" +
-                leftPos + "] = '" + character + "'");
+        throw new CheckDigitException("Invalid Character[" + leftPos + "] = '" + character + "'");
     }
 
     /**
@@ -204,7 +200,6 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
      * @throws CheckDigitException if an error occurs calculating
      * the weighted value
      */
-    protected abstract int weightedValue(int charValue, int leftPos, int rightPos)
-            throws CheckDigitException;
+    protected abstract int weightedValue(int charValue, int leftPos, int rightPos) throws CheckDigitException;
 
 }
