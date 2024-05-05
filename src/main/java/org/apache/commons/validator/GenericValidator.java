@@ -40,8 +40,7 @@ public class GenericValidator implements Serializable {
     /**
      * CreditCardValidator used in wrapper method.
      */
-    private static final CreditCardValidator CREDIT_CARD_VALIDATOR =
-        new CreditCardValidator();
+    private static final CreditCardValidator CREDIT_CARD_VALIDATOR = new CreditCardValidator();
 
     /**
      * Calculate an adjustment amount for line endings.
@@ -74,7 +73,8 @@ public class GenericValidator implements Serializable {
      * @return true if blank or null.
      */
     public static boolean isBlankOrNull(final String value) {
-        return value == null || value.trim().isEmpty();
+        // Don't trim is already empty.
+        return value == null || value.isEmpty() || value.trim().isEmpty();
     }
 
     /**

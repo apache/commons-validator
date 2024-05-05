@@ -18,6 +18,8 @@ package org.apache.commons.validator.routines.checkdigit;
 
 import java.io.Serializable;
 
+import org.apache.commons.validator.GenericValidator;
+
 /**
  * Combined <b>ISBN-10</b> / <b>ISBN-13</b> Check Digit calculation/validation.
  * <p>
@@ -64,7 +66,7 @@ public final class ISBNCheckDigit extends AbstractCheckDigit implements Serializ
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
-        if (isEmpty(code)) {
+        if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException("ISBN Code is missing");
         }
         if (code.length() == 9) { // CHECKSTYLE IGNORE MagicNumber

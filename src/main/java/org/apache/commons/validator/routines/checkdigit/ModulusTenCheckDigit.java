@@ -18,6 +18,7 @@ package org.apache.commons.validator.routines.checkdigit;
 
 import java.util.Arrays;
 
+import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.CodeValidator;
 
 /**
@@ -182,7 +183,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      */
     @Override
     public boolean isValid(final String code) {
-        if (isEmpty(code)) {
+        if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
         if (!Character.isDigit(code.charAt(code.length() - 1))) {

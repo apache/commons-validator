@@ -18,6 +18,8 @@ package org.apache.commons.validator.routines.checkdigit;
 
 import java.io.Serializable;
 
+import org.apache.commons.validator.GenericValidator;
+
 /**
  * Abstract <b>Modulus</b> Check digit calculation/validation.
  * <p>
@@ -83,7 +85,7 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
-        if (isEmpty(code)) {
+        if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException("Code is missing");
         }
         final int modulusResult = calculateModulus(code, false);
@@ -133,7 +135,7 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
      */
     @Override
     public boolean isValid(final String code) {
-        if (isEmpty(code)) {
+        if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
         try {

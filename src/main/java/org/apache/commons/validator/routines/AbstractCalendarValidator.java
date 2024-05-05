@@ -24,6 +24,8 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.commons.validator.GenericValidator;
+
 /**
  * <p>Abstract class for Date/Time/Calendar validation.</p>
  *
@@ -367,7 +369,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     @Override
     protected Format getFormat(final String pattern, final Locale locale) {
         DateFormat formatter;
-        final boolean usePattern = !isEmpty(pattern);
+        final boolean usePattern = !GenericValidator.isBlankOrNull(pattern);
         if (!usePattern) {
             formatter = (DateFormat) getFormat(locale);
         } else if (locale == null) {
@@ -406,7 +408,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      */
     protected Object parse(String value, final String pattern, final Locale locale, final TimeZone timeZone) {
         value = value == null ? null : value.trim();
-        if (isEmpty(value)) {
+        final String value1 = value;
+        if (GenericValidator.isBlankOrNull(value1)) {
             return null;
         }
         final DateFormat formatter = (DateFormat) getFormat(pattern, locale);

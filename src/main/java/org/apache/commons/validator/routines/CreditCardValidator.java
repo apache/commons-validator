@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 
@@ -80,7 +81,7 @@ import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
  *
  * @since 1.4
  */
-public class CreditCardValidator extends AbstractValidator implements Serializable {
+public class CreditCardValidator implements Serializable {
 
     /**
      * Class that represents a credit card range.
@@ -490,7 +491,7 @@ public class CreditCardValidator extends AbstractValidator implements Serializab
      * @return Whether the card number is valid.
      */
     public boolean isValid(final String card) {
-        if (isEmpty(card)) {
+        if (GenericValidator.isBlankOrNull(card)) {
             return false;
         }
         for (final CodeValidator cardType : cardTypes) {
@@ -508,7 +509,7 @@ public class CreditCardValidator extends AbstractValidator implements Serializab
      * if invalid.
      */
     public Object validate(final String card) {
-        if (isEmpty(card)) {
+        if (GenericValidator.isBlankOrNull(card)) {
             return null;
         }
         Object result = null;

@@ -21,15 +21,5 @@ package org.apache.commons.validator.routines.checkdigit;
  * Abstracts CheckDigit.
  */
 abstract class AbstractCheckDigit implements CheckDigit {
-
-    /**
-     * Tests whether the given String is null or empty.
-     *
-     * @param code the string to test.
-     * @return whether the given String is null or empty.
-     */
-    boolean isEmpty(final String code) {
-        return code == null || code.isEmpty();
-    }
-
+    // Empty
 }

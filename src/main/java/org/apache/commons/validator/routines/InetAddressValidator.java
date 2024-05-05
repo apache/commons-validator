@@ -23,6 +23,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.commons.validator.GenericValidator;
+
 /**
  * <p><b>InetAddress</b> validation and conversion routines (<code>java.net.InetAddress</code>).</p>
  *
@@ -34,7 +36,7 @@ import java.util.regex.Pattern;
  *
  * @since 1.4
  */
-public class InetAddressValidator extends AbstractValidator implements Serializable {
+public class InetAddressValidator implements Serializable {
 
     private static final int MAX_BYTE = 128;
 
@@ -96,7 +98,7 @@ public class InetAddressValidator extends AbstractValidator implements Serializa
         }
         // verify that address subgroups are legal
         for (final String ipSegment : groups) {
-            if (isEmpty(ipSegment)) {
+            if (GenericValidator.isBlankOrNull(ipSegment)) {
                 return false;
             }
             int iIpSegment = 0;
@@ -175,7 +177,7 @@ public class InetAddressValidator extends AbstractValidator implements Serializa
         int emptyOctets = 0; // consecutive empty chunks
         for (int index = 0; index < octets.length; index++) {
             final String octet = octets[index];
-            if (isEmpty(octet)) {
+            if (GenericValidator.isBlankOrNull(octet)) {
                 emptyOctets++;
                 if (emptyOctets > 1) {
                     return false;

@@ -18,6 +18,7 @@ package org.apache.commons.validator.routines;
 
 import java.io.Serializable;
 
+import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 
 /**
@@ -66,7 +67,7 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  *
  * @since 1.4
  */
-public final class CodeValidator extends AbstractValidator implements Serializable {
+public final class CodeValidator implements Serializable {
 
     private static final long serialVersionUID = 446960910870938233L;
 
@@ -161,7 +162,7 @@ public final class CodeValidator extends AbstractValidator implements Serializab
      */
     public CodeValidator(final String regex, final int minLength, final int maxLength,
             final CheckDigit checkdigit) {
-        if (!isEmpty(regex)) {
+        if (!GenericValidator.isBlankOrNull(regex)) {
             this.regexValidator = new RegexValidator(regex);
         } else {
             this.regexValidator = null;

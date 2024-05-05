@@ -22,6 +22,8 @@ import java.text.Format;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import org.apache.commons.validator.GenericValidator;
+
 /**
  * <p>Abstract class for Number Validation.</p>
  *
@@ -154,7 +156,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     protected Format getFormat(final String pattern, final Locale locale) {
 
         NumberFormat formatter;
-        final boolean usePattern = !isEmpty(pattern);
+        final boolean usePattern = !GenericValidator.isBlankOrNull(pattern);
         if (!usePattern) {
             formatter = (NumberFormat) getFormat(locale);
         } else if (locale == null) {
@@ -260,7 +262,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      */
     protected Object parse(String value, final String pattern, final Locale locale) {
         value = value == null ? null : value.trim();
-        if (isEmpty(value)) {
+        final String value1 = value;
+        if (GenericValidator.isBlankOrNull(value1)) {
             return null;
         }
         final Format formatter = getFormat(pattern, locale);

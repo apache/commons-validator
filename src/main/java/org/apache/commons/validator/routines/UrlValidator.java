@@ -26,6 +26,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.validator.GenericValidator;
+
 /**
  * <p><b>URL Validation</b> routines.</p>
  * Behavior of validation is modified by passing in options:
@@ -73,7 +75,7 @@ import java.util.regex.Pattern;
  *
  * @since 1.4
  */
-public class UrlValidator extends AbstractValidator implements Serializable {
+public class UrlValidator implements Serializable {
 
     private static final long serialVersionUID = 7557161713937335013L;
 
@@ -372,7 +374,7 @@ public class UrlValidator extends AbstractValidator implements Serializable {
         }
 
         final String authority = uri.getRawAuthority();
-        if ("file".equals(scheme) && isEmpty(authority)) { // Special case - file: allows an empty authority
+        if ("file".equals(scheme) && GenericValidator.isBlankOrNull(authority)) { // Special case - file: allows an empty authority
             return true; // this is a local file - nothing more to do here
         }
         if ("file".equals(scheme) && authority != null && authority.contains(":")) {
@@ -445,7 +447,7 @@ public class UrlValidator extends AbstractValidator implements Serializable {
                 }
             }
             final String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
-            if (!isEmpty(port)) {
+            if (!GenericValidator.isBlankOrNull(port)) {
                 try {
                     final int iPort = Integer.parseInt(port);
                     if (iPort < 0 || iPort > MAX_UNSIGNED_16_BIT_INT) {

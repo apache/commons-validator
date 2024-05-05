@@ -18,6 +18,8 @@ package org.apache.commons.validator.routines.checkdigit;
 
 import java.io.Serializable;
 
+import org.apache.commons.validator.GenericValidator;
+
 /**
  * <b>Verhoeff</b> (Dihedral) Check Digit calculation/validation.
  * <p>
@@ -74,7 +76,7 @@ public final class VerhoeffCheckDigit extends AbstractCheckDigit implements Seri
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
-        if (isEmpty(code)) {
+        if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException("Code is missing");
         }
         final int checksum = calculateChecksum(code, false);
@@ -113,7 +115,7 @@ public final class VerhoeffCheckDigit extends AbstractCheckDigit implements Seri
      */
     @Override
     public boolean isValid(final String code) {
-        if (isEmpty(code)) {
+        if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
         try {
