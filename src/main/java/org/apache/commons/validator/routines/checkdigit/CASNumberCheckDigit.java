@@ -27,13 +27,17 @@ import org.apache.commons.validator.routines.CodeValidator;
  * to identify chemical substance described in the open scientific literature.
  * </p>
  *
+ * <p>
  * Check digit calculation is based on <i>modulus 10</i> with digits being weighted
  * based on their position (from right to left).
+ * </p>
  *
+ * <p>
  * The check digit is found by taking the last digit times 1, the preceding digit times 2,
  * the preceding digit times 3 etc., adding all these up and computing the sum modulo 10.
- * For example, the CAS number of water is 7732-18-5:
+ * For example, the CAS number of water is <code>7732-18-5</code>:
  * the checksum 5 is calculated as (8×1 + 1×2 + 2×3 + 3×4 + 7×5 + 7×6) = 105; 105 mod 10 = 5.
+ * </p>
  *
  * <p>
  * For further information see
@@ -47,7 +51,15 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
     private static final long serialVersionUID = -5387334603220786657L;
 
     /** Singleton Check Digit instance */
-    public static final CheckDigit CAS_CHECK_DIGIT = new CASNumberCheckDigit();
+    private static final CheckDigit INSTANCE = new CASNumberCheckDigit();
+    
+    /**
+     * Gets the singleton instance of this validator.
+     * @return A singleton instance of the CAS Number validator.
+     */
+    public static CheckDigit getInstance() {
+        return INSTANCE;
+    }
 
     /**
      * CAS number consists of 3 groups of numbers separated dashes (-).
@@ -69,7 +81,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
     /**
      * Constructs a modulus 10 Check Digit routine for CAS Numbers.
      */
-    public CASNumberCheckDigit() {
+    private CASNumberCheckDigit() {
     }
 
     /**

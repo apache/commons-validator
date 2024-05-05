@@ -37,7 +37,7 @@ public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
      */
     @BeforeEach
     protected void setUp() {
-        routine = CASNumberCheckDigit.CAS_CHECK_DIGIT;
+        routine = CASNumberCheckDigit.getInstance();
         valid = new String[] {WATER, ETHANOL, ASPIRIN, COFFEIN, FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS };
     }
 

@@ -27,9 +27,10 @@ import org.apache.commons.validator.routines.CodeValidator;
  * For example, the EC number of arsenic is 231-148-6:
  * </p>
  *
+ * <p>
  * Check digit calculation is based on <i>modulus 11</i> with digits being weighted
  * based on their position (from left to right).
- * <p>
+ * </p>
  *
  * <p>
  * For further information see
@@ -43,7 +44,15 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
     private static final long serialVersionUID = 7265356024784308367L;
 
     /** Singleton Check Digit instance */
-    public static final CheckDigit EC_CHECK_DIGIT = new ECNumberCheckDigit();
+    private static final CheckDigit INSTANCE = new ECNumberCheckDigit();
+    
+    /**
+     * Gets the singleton instance of this validator.
+     * @return A singleton instance of the EC Number validator.
+     */
+    public static CheckDigit getInstance() {
+        return INSTANCE;
+    }
 
     /**
      * EC number consists of 3 groups of numbers separated dashes (-).
@@ -59,7 +68,7 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
     /**
      * Constructs a modulus 11 Check Digit routine.
      */
-    public ECNumberCheckDigit() {
+    private ECNumberCheckDigit() {
         super(MODULUS_11);
     }
 
@@ -76,7 +85,7 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        return (leftPos >= EC_LEN) ? 0 : charValue * leftPos;
+        return leftPos >= EC_LEN ? 0 : charValue * leftPos;
     }
 
     /**

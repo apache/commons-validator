@@ -33,7 +33,7 @@ public class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
      */
     @BeforeEach
     protected void setUp() {
-        routine = ECNumberCheckDigit.EC_CHECK_DIGIT;
+        routine = ECNumberCheckDigit.getInstance();
         valid = new String[] { FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS };
     }
 
