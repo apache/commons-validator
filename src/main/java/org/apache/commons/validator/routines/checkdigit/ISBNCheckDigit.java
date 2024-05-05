@@ -33,7 +33,7 @@ import java.io.Serializable;
  *
  * @since 1.4
  */
-public final class ISBNCheckDigit implements CheckDigit, Serializable {
+public final class ISBNCheckDigit extends AbstractCheckDigit implements Serializable {
 
     private static final long serialVersionUID = 1391849166205184558L;
 
@@ -64,7 +64,7 @@ public final class ISBNCheckDigit implements CheckDigit, Serializable {
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
-        if (code == null || code.isEmpty()) {
+        if (isEmpty(code)) {
             throw new CheckDigitException("ISBN Code is missing");
         }
         if (code.length() == 9) { // CHECKSTYLE IGNORE MagicNumber

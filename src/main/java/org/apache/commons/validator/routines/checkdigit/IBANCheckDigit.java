@@ -39,7 +39,7 @@ import java.io.Serializable;
  *
  * @since 1.4
  */
-public final class IBANCheckDigit implements CheckDigit, Serializable {
+public final class IBANCheckDigit extends AbstractCheckDigit implements Serializable {
 
     private static final int MIN_CODE_LEN = 5;
 

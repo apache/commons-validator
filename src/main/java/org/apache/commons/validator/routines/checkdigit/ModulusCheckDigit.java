@@ -30,7 +30,7 @@ import java.io.Serializable;
  *
  * @since 1.4
  */
-public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
+public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Serializable {
 
     static final int MODULUS_10 = 10;
     static final int MODULUS_11 = 11;
@@ -83,7 +83,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
-        if (code == null || code.isEmpty()) {
+        if (isEmpty(code)) {
             throw new CheckDigitException("Code is missing");
         }
         final int modulusResult = calculateModulus(code, false);
@@ -133,7 +133,7 @@ public abstract class ModulusCheckDigit implements CheckDigit, Serializable {
      */
     @Override
     public boolean isValid(final String code) {
-        if (code == null || code.isEmpty()) {
+        if (isEmpty(code)) {
             return false;
         }
         try {

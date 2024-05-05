@@ -30,7 +30,7 @@ import java.io.Serializable;
  *
  * @since 1.4
  */
-public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
+public final class VerhoeffCheckDigit extends AbstractCheckDigit implements Serializable {
 
     private static final long serialVersionUID = 4138993995483695178L;
 
@@ -74,7 +74,7 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
-        if (code == null || code.isEmpty()) {
+        if (isEmpty(code)) {
             throw new CheckDigitException("Code is missing");
         }
         final int checksum = calculateChecksum(code, false);
@@ -113,7 +113,7 @@ public final class VerhoeffCheckDigit implements CheckDigit, Serializable {
      */
     @Override
     public boolean isValid(final String code) {
-        if (code == null || code.isEmpty()) {
+        if (isEmpty(code)) {
             return false;
         }
         try {
