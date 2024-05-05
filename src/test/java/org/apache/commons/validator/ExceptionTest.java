@@ -51,31 +51,6 @@ public class ExceptionTest extends AbstractCommonTest {
 
     /**
      * Tests handling of checked exceptions - should become ValidatorExceptions.
-     */
-    @Test
-    public void testValidatorException() {
-        // Create bean to run test on.
-        final ValueBean info = new ValueBean();
-        info.setValue("VALIDATOR");
-
-        // Construct validator based on the loaded resources
-        // and the form key
-        final Validator validator = new Validator(resources, FORM_KEY);
-        // add the name bean to the validator as a resource
-        // for the validations to be performed on.
-        validator.setParameter(Validator.BEAN_PARAM, info);
-
-        // Get results of the validation which can throw ValidatorException
-        try {
-            validator.validate();
-            fail("ValidatorException should occur here!");
-        } catch (final ValidatorException expected) {
-            assertTrue("VALIDATOR-EXCEPTION".equals(expected.getMessage()));
-        }
-    }
-
-    /**
-     * Tests handling of checked exceptions - should become ValidatorExceptions.
      *
      * N.B. This test has been removed (renamed) as it currently serves no purpose. If/When exception handling is changed in Validator 2.0 it can be
      * reconsidered then.
@@ -140,6 +115,31 @@ public class ExceptionTest extends AbstractCommonTest {
             fail("RuntimeExceptions should be treated as validation failures in Validator 1.x.");
             // This will be true in Validator 2.0
             // assertTrue("RUNTIME-EXCEPTION".equals(expected.getMessage()));
+        }
+    }
+
+    /**
+     * Tests handling of checked exceptions - should become ValidatorExceptions.
+     */
+    @Test
+    public void testValidatorException() {
+        // Create bean to run test on.
+        final ValueBean info = new ValueBean();
+        info.setValue("VALIDATOR");
+
+        // Construct validator based on the loaded resources
+        // and the form key
+        final Validator validator = new Validator(resources, FORM_KEY);
+        // add the name bean to the validator as a resource
+        // for the validations to be performed on.
+        validator.setParameter(Validator.BEAN_PARAM, info);
+
+        // Get results of the validation which can throw ValidatorException
+        try {
+            validator.validate();
+            fail("ValidatorException should occur here!");
+        } catch (final ValidatorException expected) {
+            assertTrue("VALIDATOR-EXCEPTION".equals(expected.getMessage()));
         }
     }
 }

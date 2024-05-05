@@ -472,18 +472,6 @@ public class EmailValidatorTest {
     }
 
     @Test
-    public void testValidator278() {
-        assertFalse(validator.isValid("someone@-test.com")); // hostname starts with dash/hyphen
-        assertFalse(validator.isValid("someone@test-.com")); // hostname ends with dash/hyphen
-    }
-
-    @Test
-    public void testValidator315() {
-        assertFalse(validator.isValid("me@at&t.net"));
-        assertTrue(validator.isValid("me@att.net")); // Make sure TLD is not the cause of the failure
-    }
-
-    @Test
     public void testValidator235() {
         final String version = SystemProperties.getJavaVersion();
         if (version.compareTo("1.6") < 0) {
@@ -499,12 +487,24 @@ public class EmailValidatorTest {
     }
 
     @Test
+    public void testValidator278() {
+        assertFalse(validator.isValid("someone@-test.com")); // hostname starts with dash/hyphen
+        assertFalse(validator.isValid("someone@test-.com")); // hostname ends with dash/hyphen
+    }
+
+    @Test
     public void testValidator293() {
         assertTrue(validator.isValid("abc-@abc.com"));
         assertTrue(validator.isValid("abc_@abc.com"));
         assertTrue(validator.isValid("abc-def@abc.com"));
         assertTrue(validator.isValid("abc_def@abc.com"));
         assertFalse(validator.isValid("abc@abc_def.com"));
+    }
+
+    @Test
+    public void testValidator315() {
+        assertFalse(validator.isValid("me@at&t.net"));
+        assertTrue(validator.isValid("me@att.net")); // Make sure TLD is not the cause of the failure
     }
 
     @Test

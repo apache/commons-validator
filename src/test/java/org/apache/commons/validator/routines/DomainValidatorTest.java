@@ -380,27 +380,6 @@ public class DomainValidatorTest {
 
     // Check array is sorted and is lower-case
     @Test
-    public void testCountryCodeTldsSortedAndLowerCase() throws Exception {
-        final boolean sorted = isSortedLowerCase("COUNTRY_CODE_TLDS");
-        assertTrue(sorted);
-    }
-
-    // Check array is sorted and is lower-case
-    @Test
-    public void testGenericTldsSortedAndLowerCase() throws Exception {
-        final boolean sorted = isSortedLowerCase("GENERIC_TLDS");
-        assertTrue(sorted);
-    }
-
-    // Check array is sorted and is lower-case
-    @Test
-    public void testInfrastructureTldsSortedAndLowerCase() throws Exception {
-        final boolean sorted = isSortedLowerCase("INFRASTRUCTURE_TLDS");
-        assertTrue(sorted);
-    }
-
-    // Check array is sorted and is lower-case
-    @Test
     public void tesLocalTldsSortedAndLowerCase() throws Exception {
         final boolean sorted = isSortedLowerCase("LOCAL_TLDS");
         assertTrue(sorted);
@@ -429,6 +408,13 @@ public class DomainValidatorTest {
         assertFalse(allowLocal.isValid(" apache.org "), "domain name with spaces shouldn't validate");
     }
 
+    // Check array is sorted and is lower-case
+    @Test
+    public void testCountryCodeTldsSortedAndLowerCase() throws Exception {
+        final boolean sorted = isSortedLowerCase("COUNTRY_CODE_TLDS");
+        assertTrue(sorted);
+    }
+
     @Test
     public void testDomainNoDots() { // rfc1123
         assertTrue(validator.isValidDomainSyntax("a"), "a (alpha) should validate");
@@ -443,6 +429,13 @@ public class DomainValidatorTest {
     @Test
     public void testEnumIsPublic() {
         assertTrue(Modifier.isPublic(DomainValidator.ArrayType.class.getModifiers()));
+    }
+
+    // Check array is sorted and is lower-case
+    @Test
+    public void testGenericTldsSortedAndLowerCase() throws Exception {
+        final boolean sorted = isSortedLowerCase("GENERIC_TLDS");
+        assertTrue(sorted);
     }
 
     @Test
@@ -475,6 +468,13 @@ public class DomainValidatorTest {
         assertTrue(validator.isValid("xn--d1abbgf6aiiy.xn--p1ai"), "xn--d1abbgf6aiiy.xn--p1ai should validate");
         assertTrue(validator.isValid("президент.рф"), "президент.рф should validate");
         assertFalse(validator.isValid("www.\uFFFD.ch"), "www.\uFFFD.ch FFFD should fail");
+    }
+
+    // Check array is sorted and is lower-case
+    @Test
+    public void testInfrastructureTldsSortedAndLowerCase() throws Exception {
+        final boolean sorted = isSortedLowerCase("INFRASTRUCTURE_TLDS");
+        assertTrue(sorted);
     }
 
     @Test

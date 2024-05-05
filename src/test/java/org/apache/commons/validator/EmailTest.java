@@ -85,6 +85,76 @@ public class EmailTest extends AbstractCommonTest {
             new ResultPair("phrase: abigail@example.com abigail@example.com ;", false), new ResultPair("invalid�char@example.com", false) };
 
     /**
+     * Load <code>ValidatorResources</code> from validator-regexp.xml.
+     */
+    @BeforeEach
+    protected void setUp() throws IOException, SAXException {
+        loadResources("EmailTest-config.xml");
+    }
+
+    /**
+     * Tests the e-mail validation.
+     */
+    @Test
+    public void testEmail() throws ValidatorException {
+        // Create bean to run test on.
+        final ValueBean info = new ValueBean();
+
+        info.setValue("jsmith@apache.org");
+        valueTest(info, true);
+    }
+
+    /**
+     * Tests the e-mail validation with a user at a TLD
+     */
+    @Test
+    public void testEmailAtTLD() throws ValidatorException {
+        // Create bean to run test on.
+        final ValueBean info = new ValueBean();
+
+        info.setValue("m@de");
+        valueTest(info, false);
+
+        final org.apache.commons.validator.routines.EmailValidator validator = org.apache.commons.validator.routines.EmailValidator.getInstance(true, true);
+        final boolean result = validator.isValid("m@de");
+        assertTrue(result, "Result should have been true");
+
+    }
+
+    /**
+     * Tests the e-mail validation.
+     */
+    @Test
+    public void testEmailExtension() throws ValidatorException {
+        // Create bean to run test on.
+        final ValueBean info = new ValueBean();
+
+        info.setValue("jsmith@apache.org");
+        valueTest(info, true);
+
+        info.setValue("jsmith@apache.com");
+        valueTest(info, true);
+
+        info.setValue("jsmith@apache.net");
+        valueTest(info, true);
+
+        info.setValue("jsmith@apache.info");
+        valueTest(info, true);
+
+        info.setValue("jsmith@apache.");
+        valueTest(info, false);
+
+        info.setValue("jsmith@apache.c");
+        valueTest(info, false);
+
+        info.setValue("someone@yahoo.museum");
+        valueTest(info, true);
+
+        info.setValue("someone@yahoo.mu-seum");
+        valueTest(info, false);
+    }
+
+    /**
      * Write this test based on perl Mail::RFC822::Address which takes its example email address directly from RFC822
      *
      * @throws ValidatorException
@@ -98,6 +168,18 @@ public class EmailTest extends AbstractCommonTest {
             info.setValue(element.item);
             valueTest(info, element.valid);
         }
+    }
+
+    /**
+     * Test that @localhost and @localhost.localdomain addresses aren't declared valid by default
+     */
+    @Test
+    public void testEmailLocalhost() throws ValidatorException {
+        final ValueBean info = new ValueBean();
+        info.setValue("joe@localhost");
+        valueTest(info, false);
+        info.setValue("joe@localhost.localdomain");
+        valueTest(info, false);
     }
 
     /**
@@ -177,88 +259,6 @@ public class EmailTest extends AbstractCommonTest {
         info.setValue("\"joe=\"@apache.org");
         valueTest(info, true);
 
-    }
-
-    /**
-     * Load <code>ValidatorResources</code> from validator-regexp.xml.
-     */
-    @BeforeEach
-    protected void setUp() throws IOException, SAXException {
-        loadResources("EmailTest-config.xml");
-    }
-
-    /**
-     * Tests the e-mail validation.
-     */
-    @Test
-    public void testEmail() throws ValidatorException {
-        // Create bean to run test on.
-        final ValueBean info = new ValueBean();
-
-        info.setValue("jsmith@apache.org");
-        valueTest(info, true);
-    }
-
-    /**
-     * Tests the e-mail validation with a user at a TLD
-     */
-    @Test
-    public void testEmailAtTLD() throws ValidatorException {
-        // Create bean to run test on.
-        final ValueBean info = new ValueBean();
-
-        info.setValue("m@de");
-        valueTest(info, false);
-
-        final org.apache.commons.validator.routines.EmailValidator validator = org.apache.commons.validator.routines.EmailValidator.getInstance(true, true);
-        final boolean result = validator.isValid("m@de");
-        assertTrue(result, "Result should have been true");
-
-    }
-
-    /**
-     * Tests the e-mail validation.
-     */
-    @Test
-    public void testEmailExtension() throws ValidatorException {
-        // Create bean to run test on.
-        final ValueBean info = new ValueBean();
-
-        info.setValue("jsmith@apache.org");
-        valueTest(info, true);
-
-        info.setValue("jsmith@apache.com");
-        valueTest(info, true);
-
-        info.setValue("jsmith@apache.net");
-        valueTest(info, true);
-
-        info.setValue("jsmith@apache.info");
-        valueTest(info, true);
-
-        info.setValue("jsmith@apache.");
-        valueTest(info, false);
-
-        info.setValue("jsmith@apache.c");
-        valueTest(info, false);
-
-        info.setValue("someone@yahoo.museum");
-        valueTest(info, true);
-
-        info.setValue("someone@yahoo.mu-seum");
-        valueTest(info, false);
-    }
-
-    /**
-     * Test that @localhost and @localhost.localdomain addresses aren't declared valid by default
-     */
-    @Test
-    public void testEmailLocalhost() throws ValidatorException {
-        final ValueBean info = new ValueBean();
-        info.setValue("joe@localhost");
-        valueTest(info, false);
-        info.setValue("joe@localhost.localdomain");
-        valueTest(info, false);
     }
 
     /**
