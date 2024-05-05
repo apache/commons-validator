@@ -154,7 +154,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     protected Format getFormat(final String pattern, final Locale locale) {
 
         NumberFormat formatter;
-        final boolean usePattern = pattern != null && !pattern.isEmpty();
+        final boolean usePattern = !isEmpty(pattern);
         if (!usePattern) {
             formatter = (NumberFormat) getFormat(locale);
         } else if (locale == null) {
@@ -260,7 +260,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      */
     protected Object parse(String value, final String pattern, final Locale locale) {
         value = value == null ? null : value.trim();
-        if (value == null || value.isEmpty()) {
+        if (isEmpty(value)) {
             return null;
         }
         final Format formatter = getFormat(pattern, locale);

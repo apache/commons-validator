@@ -80,7 +80,7 @@ import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
  *
  * @since 1.4
  */
-public class CreditCardValidator implements Serializable {
+public class CreditCardValidator extends AbstractValidator implements Serializable {
 
     /**
      * Class that represents a credit card range.
@@ -490,7 +490,7 @@ public class CreditCardValidator implements Serializable {
      * @return Whether the card number is valid.
      */
     public boolean isValid(final String card) {
-        if (card == null || card.isEmpty()) {
+        if (isEmpty(card)) {
             return false;
         }
         for (final CodeValidator cardType : cardTypes) {
@@ -508,7 +508,7 @@ public class CreditCardValidator implements Serializable {
      * if invalid.
      */
     public Object validate(final String card) {
-        if (card == null || card.isEmpty()) {
+        if (isEmpty(card)) {
             return null;
         }
         Object result = null;

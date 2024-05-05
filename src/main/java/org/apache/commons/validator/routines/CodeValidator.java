@@ -66,7 +66,7 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  *
  * @since 1.4
  */
-public final class CodeValidator implements Serializable {
+public final class CodeValidator extends AbstractValidator implements Serializable {
 
     private static final long serialVersionUID = 446960910870938233L;
 
@@ -161,7 +161,7 @@ public final class CodeValidator implements Serializable {
      */
     public CodeValidator(final String regex, final int minLength, final int maxLength,
             final CheckDigit checkdigit) {
-        if (regex != null && !regex.isEmpty()) {
+        if (!isEmpty(regex)) {
             this.regexValidator = new RegexValidator(regex);
         } else {
             this.regexValidator = null;
@@ -253,16 +253,13 @@ public final class CodeValidator implements Serializable {
      * if invalid
      */
     public Object validate(final String input) {
-
         if (input == null) {
             return null;
         }
-
         String code = input.trim();
         if (code.isEmpty()) {
             return null;
         }
-
         // validate/reformat using regular expression
         if (regexValidator != null) {
             code = regexValidator.validate(code);
@@ -270,20 +267,16 @@ public final class CodeValidator implements Serializable {
                 return null;
             }
         }
-
         // check the length (must be done after validate as that can change the code)
         if (minLength >= 0 && code.length() < minLength ||
             maxLength >= 0 && code.length() > maxLength) {
             return null;
         }
-
         // validate the check digit
         if (checkdigit != null && !checkdigit.isValid(code)) {
             return null;
         }
-
         return code;
-
     }
 
 }

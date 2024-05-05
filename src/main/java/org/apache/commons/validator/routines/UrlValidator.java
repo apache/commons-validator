@@ -73,7 +73,7 @@ import java.util.regex.Pattern;
  *
  * @since 1.4
  */
-public class UrlValidator implements Serializable {
+public class UrlValidator extends AbstractValidator implements Serializable {
 
     private static final long serialVersionUID = 7557161713937335013L;
 
@@ -372,7 +372,7 @@ public class UrlValidator implements Serializable {
         }
 
         final String authority = uri.getRawAuthority();
-        if ("file".equals(scheme) && (authority == null || authority.isEmpty())) { // Special case - file: allows an empty authority
+        if ("file".equals(scheme) && isEmpty(authority)) { // Special case - file: allows an empty authority
             return true; // this is a local file - nothing more to do here
         }
         if ("file".equals(scheme) && authority != null && authority.contains(":")) {
@@ -445,7 +445,7 @@ public class UrlValidator implements Serializable {
                 }
             }
             final String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
-            if (port != null && !port.isEmpty()) {
+            if (!isEmpty(port)) {
                 try {
                     final int iPort = Integer.parseInt(port);
                     if (iPort < 0 || iPort > MAX_UNSIGNED_16_BIT_INT) {

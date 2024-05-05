@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
  *
  * @since 1.4
  */
-public class InetAddressValidator implements Serializable {
+public class InetAddressValidator extends AbstractValidator implements Serializable {
 
     private static final int MAX_BYTE = 128;
 
@@ -91,35 +91,27 @@ public class InetAddressValidator implements Serializable {
     public boolean isValidInet4Address(final String inet4Address) {
         // verify that address conforms to generic IPv4 format
         final String[] groups = ipv4Validator.match(inet4Address);
-
         if (groups == null) {
             return false;
         }
-
         // verify that address subgroups are legal
         for (final String ipSegment : groups) {
-            if (ipSegment == null || ipSegment.isEmpty()) {
+            if (isEmpty(ipSegment)) {
                 return false;
             }
-
             int iIpSegment = 0;
-
             try {
                 iIpSegment = Integer.parseInt(ipSegment);
             } catch (final NumberFormatException e) {
                 return false;
             }
-
             if (iIpSegment > IPV4_MAX_OCTET_VALUE) {
                 return false;
             }
-
             if (ipSegment.length() > 1 && ipSegment.startsWith("0")) {
                 return false;
             }
-
         }
-
         return true;
     }
 
@@ -183,7 +175,7 @@ public class InetAddressValidator implements Serializable {
         int emptyOctets = 0; // consecutive empty chunks
         for (int index = 0; index < octets.length; index++) {
             final String octet = octets[index];
-            if (octet.isEmpty()) {
+            if (isEmpty(octet)) {
                 emptyOctets++;
                 if (emptyOctets > 1) {
                     return false;

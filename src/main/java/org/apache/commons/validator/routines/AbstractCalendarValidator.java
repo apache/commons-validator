@@ -367,7 +367,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     @Override
     protected Format getFormat(final String pattern, final Locale locale) {
         DateFormat formatter;
-        final boolean usePattern = pattern != null && !pattern.isEmpty();
+        final boolean usePattern = !isEmpty(pattern);
         if (!usePattern) {
             formatter = (DateFormat) getFormat(locale);
         } else if (locale == null) {
@@ -405,9 +405,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return The parsed value if valid or {@code null} if invalid.
      */
     protected Object parse(String value, final String pattern, final Locale locale, final TimeZone timeZone) {
-
         value = value == null ? null : value.trim();
-        if (value == null || value.isEmpty()) {
+        if (isEmpty(value)) {
             return null;
         }
         final DateFormat formatter = (DateFormat) getFormat(pattern, locale);

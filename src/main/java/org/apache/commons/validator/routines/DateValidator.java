@@ -217,7 +217,6 @@ public class DateValidator extends AbstractCalendarValidator {
      * @return The converted <code>Calendar</code>.
      */
     private Calendar getCalendar(final Date value, final TimeZone timeZone) {
-
         Calendar calendar;
         if (timeZone != null) {
             calendar = Calendar.getInstance(timeZone);

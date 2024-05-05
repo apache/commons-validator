@@ -191,7 +191,6 @@ public class DoubleValidator extends AbstractNumberValidator {
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
-
         if (value instanceof Double) {
             return value;
         }
