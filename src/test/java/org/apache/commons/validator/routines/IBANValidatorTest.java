@@ -254,10 +254,10 @@ public class IBANValidatorTest {
         }
     }
 
-    private static String fmtRE(final String iban_pat, final int iban_len) {
-        final Matcher m = IBAN_PAT.matcher(iban_pat);
+    private static String fmtRE(final String ibanPat, final int ibanLen) {
+        final Matcher m = IBAN_PAT.matcher(ibanPat);
         if (!m.matches()) {
-            throw new IllegalArgumentException("Unexpected IBAN pattern " + iban_pat);
+            throw new IllegalArgumentException("Unexpected IBAN pattern " + ibanPat);
         }
         final StringBuilder sb = new StringBuilder();
         final String cc = m.group(1); // country code
@@ -282,8 +282,8 @@ public class IBANValidatorTest {
         }
         sb.append(formatToRE(curType, len));
         totalLen += len;
-        if (iban_len != totalLen) {
-            throw new IllegalArgumentException("IBAN pattern " + iban_pat + " does not match length " + iban_len);
+        if (ibanLen != totalLen) {
+            throw new IllegalArgumentException("IBAN pattern " + ibanPat + " does not match length " + ibanLen);
         }
         return sb.toString();
     }
@@ -305,12 +305,12 @@ public class IBANValidatorTest {
 
     public static void main(final String[] a) throws Exception {
         final IBANValidator validator = new IBANValidator();
-        final File iban_tsv = new File("target", "iban-registry.tsv");
+        final File ibanTsv = new File("target", "iban-registry.tsv");
         int countries = 0;
-        if (iban_tsv.canRead()) {
-            countries = checkIBAN(iban_tsv, validator);
+        if (ibanTsv.canRead()) {
+            countries = checkIBAN(ibanTsv, validator);
         } else {
-            System.out.println("Please load the file " + iban_tsv.getCanonicalPath() + " from https://www.swift.com/standards/data-standards/iban");
+            System.out.println("Please load the file " + ibanTsv.getCanonicalPath() + " from https://www.swift.com/standards/data-standards/iban");
         }
         System.out.println("Processed " + countries + " countries.");
     }
@@ -369,7 +369,7 @@ public class IBANValidatorTest {
     }
 
     @Test
-    public void testSetValidatorLen_1() {
+    public void testSetValidatorLen1() {
         final IBANValidator validator = new IBANValidator();
         assertNotNull(validator.setValidator("GB", -1, ""), "should be present");
         assertNull(validator.setValidator("GB", -1, ""), "no longer present");

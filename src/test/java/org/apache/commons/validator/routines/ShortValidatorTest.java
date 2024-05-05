@@ -116,7 +116,7 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
         final String germanPatternVal = "1.23.45";
         final String localeVal = "12.345";
         final String defaultVal = "12,345";
-        final String XXXX = "XXXX";
+        final String xxxx = "XXXX";
         final Short expected = Short.valueOf((short) 12345);
         assertEquals(expected, ShortValidator.getInstance().validate(defaultVal), "validate(A) default");
         assertEquals(expected, ShortValidator.getInstance().validate(localeVal, locale), "validate(A) locale");
@@ -128,14 +128,14 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
         assertTrue(ShortValidator.getInstance().isValid(patternVal, pattern), "isValid(A) pattern");
         assertTrue(ShortValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN), "isValid(A) both");
 
-        assertNull(ShortValidator.getInstance().validate(XXXX), "validate(B) default");
-        assertNull(ShortValidator.getInstance().validate(XXXX, locale), "validate(B) locale");
-        assertNull(ShortValidator.getInstance().validate(XXXX, pattern), "validate(B) pattern");
+        assertNull(ShortValidator.getInstance().validate(xxxx), "validate(B) default");
+        assertNull(ShortValidator.getInstance().validate(xxxx, locale), "validate(B) locale");
+        assertNull(ShortValidator.getInstance().validate(xxxx, pattern), "validate(B) pattern");
         assertNull(ShortValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN), "validate(B) both");
 
-        assertFalse(ShortValidator.getInstance().isValid(XXXX), "isValid(B) default");
-        assertFalse(ShortValidator.getInstance().isValid(XXXX, locale), "isValid(B) locale");
-        assertFalse(ShortValidator.getInstance().isValid(XXXX, pattern), "isValid(B) pattern");
+        assertFalse(ShortValidator.getInstance().isValid(xxxx), "isValid(B) default");
+        assertFalse(ShortValidator.getInstance().isValid(xxxx, locale), "isValid(B) locale");
+        assertFalse(ShortValidator.getInstance().isValid(xxxx, pattern), "isValid(B) pattern");
         assertFalse(ShortValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN), "isValid(B) both");
     }
 }

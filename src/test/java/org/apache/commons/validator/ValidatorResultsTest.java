@@ -34,9 +34,9 @@ import org.xml.sax.SAXException;
 public class ValidatorResultsTest extends AbstractCommonTest {
 
     private static final String FORM_KEY = "nameForm";
-    private static final String firstNameField = "firstName";
-    private static final String middleNameField = "middleName";
-    private static final String lastNameField = "lastName";
+    private static final String FIRST_NAME_FIELD = "firstName";
+    private static final String MIDDLE_NAME_FIELD = "middleName";
+    private static final String LAST_NAME_FIELD = "lastName";
 
     private String firstName;
     private String middleName;
@@ -106,12 +106,12 @@ public class ValidatorResultsTest extends AbstractCommonTest {
         final ValidatorResults results = validate(bean);
 
         // Check results
-        checkValidatorResult(results, firstNameField, "required", true);
-        checkValidatorResult(results, middleNameField, "required", true);
-        checkValidatorResult(results, middleNameField, "int", true);
-        checkValidatorResult(results, middleNameField, "positive", true);
-        checkValidatorResult(results, lastNameField, "required", true);
-        checkValidatorResult(results, lastNameField, "int", true);
+        checkValidatorResult(results, FIRST_NAME_FIELD, "required", true);
+        checkValidatorResult(results, MIDDLE_NAME_FIELD, "required", true);
+        checkValidatorResult(results, MIDDLE_NAME_FIELD, "int", true);
+        checkValidatorResult(results, MIDDLE_NAME_FIELD, "positive", true);
+        checkValidatorResult(results, LAST_NAME_FIELD, "required", true);
+        checkValidatorResult(results, LAST_NAME_FIELD, "int", true);
 
     }
 
@@ -131,12 +131,12 @@ public class ValidatorResultsTest extends AbstractCommonTest {
         final ValidatorResults results = validate(bean);
 
         // Check results
-        checkValidatorResult(results, firstNameField, "required", true);
-        checkValidatorResult(results, middleNameField, "required", true);
-        checkValidatorResult(results, middleNameField, "int", false);
-        checkNotRun(results, middleNameField, "positive");
-        checkValidatorResult(results, lastNameField, "required", false);
-        checkNotRun(results, lastNameField, "int");
+        checkValidatorResult(results, FIRST_NAME_FIELD, "required", true);
+        checkValidatorResult(results, MIDDLE_NAME_FIELD, "required", true);
+        checkValidatorResult(results, MIDDLE_NAME_FIELD, "int", false);
+        checkNotRun(results, MIDDLE_NAME_FIELD, "positive");
+        checkValidatorResult(results, LAST_NAME_FIELD, "required", false);
+        checkNotRun(results, LAST_NAME_FIELD, "int");
 
     }
 

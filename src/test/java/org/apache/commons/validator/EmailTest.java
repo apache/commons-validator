@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
@@ -38,12 +39,12 @@ public class EmailTest extends AbstractCommonTest {
     /**
      * The key used to retrieve the set of validation rules from the xml file.
      */
-    protected static String FORM_KEY = "emailForm";
+    protected static final String FORM_KEY = "emailForm";
 
     /**
      * The key used to retrieve the validator action.
      */
-    protected static String ACTION = "email";
+    protected static final String ACTION = "email";
 
     /**
      * These test values derive directly from RFC 822 & Mail::RFC822::Address & RFC::RFC822::Address perl test.pl For traceability don't combine these test
@@ -90,7 +91,8 @@ public class EmailTest extends AbstractCommonTest {
      *
      *                            FIXME This test fails so disable it with a leading _ for 1.1.4 release. The real solution is to fix the email parsing.
      */
-    public void _testEmailFromPerl() throws ValidatorException {
+    @Ignore
+    public void testEmailFromPerl() throws ValidatorException {
         final ValueBean info = new ValueBean();
         for (final ResultPair element : testEmailFromPerl) {
             info.setValue(element.item);
@@ -106,7 +108,8 @@ public class EmailTest extends AbstractCommonTest {
      *
      * @throws ValidatorException
      */
-    public void _testEmailUserName() throws ValidatorException {
+    @Ignore
+    public void testEmailUserName() throws ValidatorException {
         final ValueBean info = new ValueBean();
         info.setValue("joe1blow@apache.org");
         valueTest(info, true);

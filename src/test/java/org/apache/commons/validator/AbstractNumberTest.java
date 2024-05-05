@@ -34,12 +34,12 @@ public abstract class AbstractNumberTest extends AbstractCommonTest {
     /**
      * The key used to retrieve the set of validation rules from the xml file.
      */
-    protected String FORM_KEY;
+    protected String formKey;
 
     /**
      * The key used to retrieve the validator action.
      */
-    protected String ACTION;
+    protected String action;
 
     /**
      * Load <code>ValidatorResources</code> from validator-numeric.xml.
@@ -84,7 +84,7 @@ public abstract class AbstractNumberTest extends AbstractCommonTest {
     protected void valueTest(final Object info, final boolean passed) throws ValidatorException {
         // Construct validator based on the loaded resources
         // and the form key
-        final Validator validator = new Validator(resources, FORM_KEY);
+        final Validator validator = new Validator(resources, formKey);
         // add the name bean to the validator as a resource
         // for the validations to be performed on.
         validator.setParameter(Validator.BEAN_PARAM, info);
@@ -100,10 +100,10 @@ public abstract class AbstractNumberTest extends AbstractCommonTest {
 
         final ValidatorResult result = results.getValidatorResult("value");
 
-        assertNotNull(result, () -> ACTION + " value ValidatorResult should not be null.");
-        assertTrue(result.containsAction(ACTION), () -> ACTION + " value ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(passed ? result.isValid(ACTION) : !result.isValid(ACTION),
-                () -> ACTION + " value ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".");
+        assertNotNull(result, () -> action + " value ValidatorResult should not be null.");
+        assertTrue(result.containsAction(action), () -> action + " value ValidatorResult should contain the '" + action + "' action.");
+        assertTrue(passed ? result.isValid(action) : !result.isValid(action),
+                () -> action + " value ValidatorResult for the '" + action + "' action should have " + (passed ? "passed" : "failed") + ".");
     }
 
 }

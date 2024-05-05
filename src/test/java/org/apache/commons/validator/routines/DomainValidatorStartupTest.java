@@ -196,7 +196,7 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testVALIDATOR_412a() {
+    public void testValidator412a() {
         final DomainValidator validator = DomainValidator.getInstance();
         assertFalse(validator.isValidGenericTld("local"));
         assertFalse(validator.isValid("abc.local"));
@@ -205,7 +205,7 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testVALIDATOR_412b() {
+    public void testValidator412b() {
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "local", "pvt");
         final DomainValidator validator = DomainValidator.getInstance();
         assertTrue(validator.isValidGenericTld("local"));
@@ -215,7 +215,7 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testVALIDATOR_412c() {
+    public void testValidator412c() {
         final DomainValidator validator = DomainValidator.getInstance(true);
         assertFalse(validator.isValidLocalTld("local"));
         assertFalse(validator.isValid("abc.local"));
@@ -224,7 +224,7 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testVALIDATOR_412d() {
+    public void testValidator412d() {
         DomainValidator.updateTLDOverride(ArrayType.LOCAL_PLUS, "local", "pvt");
         final DomainValidator validator = DomainValidator.getInstance(true);
         assertTrue(validator.isValidLocalTld("local"));

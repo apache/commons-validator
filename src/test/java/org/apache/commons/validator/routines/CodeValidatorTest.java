@@ -115,59 +115,59 @@ public class CodeValidatorTest {
     @Test
     public void testLength() {
         CodeValidator validator = new CodeValidator((String) null, -1, -1, (CheckDigit) null);
-        final String length_10 = "1234567890";
-        final String length_11 = "12345678901";
-        final String length_12 = "123456789012";
-        final String length_20 = "12345678901234567890";
-        final String length_21 = "123456789012345678901";
-        final String length_22 = "1234567890123456789012";
+        final String length10 = "1234567890";
+        final String length11 = "12345678901";
+        final String length12 = "123456789012";
+        final String length20 = "12345678901234567890";
+        final String length21 = "123456789012345678901";
+        final String length22 = "1234567890123456789012";
 
         assertEquals(-1, validator.getMinLength(), "No min");
         assertEquals(-1, validator.getMaxLength(), "No max");
 
-        assertEquals(length_10, validator.validate(length_10), "No Length 10");
-        assertEquals(length_11, validator.validate(length_11), "No Length 11");
-        assertEquals(length_12, validator.validate(length_12), "No Length 12");
-        assertEquals(length_20, validator.validate(length_20), "No Length 20");
-        assertEquals(length_21, validator.validate(length_21), "No Length 21");
-        assertEquals(length_22, validator.validate(length_22), "No Length 22");
+        assertEquals(length10, validator.validate(length10), "No Length 10");
+        assertEquals(length11, validator.validate(length11), "No Length 11");
+        assertEquals(length12, validator.validate(length12), "No Length 12");
+        assertEquals(length20, validator.validate(length20), "No Length 20");
+        assertEquals(length21, validator.validate(length21), "No Length 21");
+        assertEquals(length22, validator.validate(length22), "No Length 22");
 
         validator = new CodeValidator((String) null, 11, -1, (CheckDigit) null);
         assertEquals(11, validator.getMinLength(), "Min 11 - min");
         assertEquals(-1, validator.getMaxLength(), "Min 11 - max");
-        assertNull(validator.validate(length_10), "Min 11 - 10");
-        assertEquals(length_11, validator.validate(length_11), "Min 11 - 11");
-        assertEquals(length_12, validator.validate(length_12), "Min 11 - 12");
-        assertEquals(length_20, validator.validate(length_20), "Min 11 - 20");
-        assertEquals(length_21, validator.validate(length_21), "Min 11 - 21");
-        assertEquals(length_22, validator.validate(length_22), "Min 11 - 22");
+        assertNull(validator.validate(length10), "Min 11 - 10");
+        assertEquals(length11, validator.validate(length11), "Min 11 - 11");
+        assertEquals(length12, validator.validate(length12), "Min 11 - 12");
+        assertEquals(length20, validator.validate(length20), "Min 11 - 20");
+        assertEquals(length21, validator.validate(length21), "Min 11 - 21");
+        assertEquals(length22, validator.validate(length22), "Min 11 - 22");
 
         validator = new CodeValidator((String) null, -1, 21, (CheckDigit) null);
         assertEquals(-1, validator.getMinLength(), "Max 21 - min");
         assertEquals(21, validator.getMaxLength(), "Max 21 - max");
-        assertEquals(length_10, validator.validate(length_10), "Max 21 - 10");
-        assertEquals(length_11, validator.validate(length_11), "Max 21 - 11");
-        assertEquals(length_12, validator.validate(length_12), "Max 21 - 12");
-        assertEquals(length_20, validator.validate(length_20), "Max 21 - 20");
-        assertEquals(length_21, validator.validate(length_21), "Max 21 - 21");
-        assertNull(validator.validate(length_22), "Max 21 - 22");
+        assertEquals(length10, validator.validate(length10), "Max 21 - 10");
+        assertEquals(length11, validator.validate(length11), "Max 21 - 11");
+        assertEquals(length12, validator.validate(length12), "Max 21 - 12");
+        assertEquals(length20, validator.validate(length20), "Max 21 - 20");
+        assertEquals(length21, validator.validate(length21), "Max 21 - 21");
+        assertNull(validator.validate(length22), "Max 21 - 22");
 
         validator = new CodeValidator((String) null, 11, 21, (CheckDigit) null);
         assertEquals(11, validator.getMinLength(), "Min 11 / Max 21 - min");
         assertEquals(21, validator.getMaxLength(), "Min 11 / Max 21 - max");
-        assertNull(validator.validate(length_10), "Min 11 / Max 21 - 10");
-        assertEquals(length_11, validator.validate(length_11), "Min 11 / Max 21 - 11");
-        assertEquals(length_12, validator.validate(length_12), "Min 11 / Max 21 - 12");
-        assertEquals(length_20, validator.validate(length_20), "Min 11 / Max 21 - 20");
-        assertEquals(length_21, validator.validate(length_21), "Min 11 / Max 21 - 21");
-        assertNull(validator.validate(length_22), "Min 11 / Max 21 - 22");
+        assertNull(validator.validate(length10), "Min 11 / Max 21 - 10");
+        assertEquals(length11, validator.validate(length11), "Min 11 / Max 21 - 11");
+        assertEquals(length12, validator.validate(length12), "Min 11 / Max 21 - 12");
+        assertEquals(length20, validator.validate(length20), "Min 11 / Max 21 - 20");
+        assertEquals(length21, validator.validate(length21), "Min 11 / Max 21 - 21");
+        assertNull(validator.validate(length22), "Min 11 / Max 21 - 22");
 
         validator = new CodeValidator((String) null, 11, 11, (CheckDigit) null);
         assertEquals(11, validator.getMinLength(), "Exact 11 - min");
         assertEquals(11, validator.getMaxLength(), "Exact 11 - max");
-        assertNull(validator.validate(length_10), "Exact 11 - 10");
-        assertEquals(length_11, validator.validate(length_11), "Exact 11 - 11");
-        assertNull(validator.validate(length_12), "Exact 11 - 12");
+        assertNull(validator.validate(length10), "Exact 11 - 10");
+        assertEquals(length11, validator.validate(length11), "Exact 11 - 11");
+        assertNull(validator.validate(length12), "Exact 11 - 12");
     }
 
     /**
@@ -231,7 +231,7 @@ public class CodeValidatorTest {
     }
 
     @Test
-    public void testValidator294_1() {
+    public void testValidator294Part1() {
         CodeValidator validator = new CodeValidator((String) null, 0, -1, (CheckDigit) null);
         assertNull(validator.validate(null), "Null");
         validator = new CodeValidator((String) null, -1, 0, (CheckDigit) null);
@@ -239,7 +239,7 @@ public class CodeValidatorTest {
     }
 
     @Test
-    public void testValidator294_2() {
+    public void testValidator294Part2() {
         final CodeValidator validator = new CodeValidator((String) null, -1, 0, (CheckDigit) null);
         assertNull(validator.validate(null), "Null");
     }

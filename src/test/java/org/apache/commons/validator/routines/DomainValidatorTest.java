@@ -60,7 +60,8 @@ public class DomainValidatorTest {
         if (in != null) {
             try {
                 in.close();
-            } catch (final IOException e) {
+            } catch (final IOException ignore) {
+                // ignore
             }
         }
     }
@@ -70,12 +71,12 @@ public class DomainValidatorTest {
      * check if it is newer than the txt file and skip download if so
      */
     private static long download(final File file, final String tldUrl, final long timestamp) throws IOException {
-        final int HOUR = 60 * 60 * 1000; // an hour in ms
+        final int hour = 60 * 60 * 1000; // an hour in ms
         final long modTime;
         // For testing purposes, don't download files more than once an hour
         if (file.canRead()) {
             modTime = file.lastModified();
-            if (modTime > System.currentTimeMillis() - HOUR) {
+            if (modTime > System.currentTimeMillis() - hour) {
                 System.out.println("Skipping download - found recent " + file);
                 return modTime;
             }
@@ -211,7 +212,8 @@ public class DomainValidatorTest {
                 }
             }
             in.close();
-        } catch (final IOException e) {
+        } catch (final IOException ignore) {
+            // ignore
         } finally {
             closeQuietly(in);
         }
@@ -265,11 +267,11 @@ public class DomainValidatorTest {
     public static void main(final String a[]) throws Exception {
         // Check the arrays first as this affects later checks
         // Doing this here makes it easier when updating the lists
-        boolean OK = true;
+        boolean ok = true;
         for (final String list : new String[] { "INFRASTRUCTURE_TLDS", "COUNTRY_CODE_TLDS", "GENERIC_TLDS", "LOCAL_TLDS" }) {
-            OK &= isSortedLowerCase(list);
+            ok &= isSortedLowerCase(list);
         }
-        if (!OK) {
+        if (!ok) {
             System.out.println("Fix arrays before retrying; cannot continue");
             return;
         }
@@ -378,28 +380,28 @@ public class DomainValidatorTest {
 
     // Check array is sorted and is lower-case
     @Test
-    public void test_COUNTRY_CODE_TLDS_sortedAndLowerCase() throws Exception {
+    public void testCountryCodeTldsSortedAndLowerCase() throws Exception {
         final boolean sorted = isSortedLowerCase("COUNTRY_CODE_TLDS");
         assertTrue(sorted);
     }
 
     // Check array is sorted and is lower-case
     @Test
-    public void test_GENERIC_TLDS_sortedAndLowerCase() throws Exception {
+    public void testGenericTldsSortedAndLowerCase() throws Exception {
         final boolean sorted = isSortedLowerCase("GENERIC_TLDS");
         assertTrue(sorted);
     }
 
     // Check array is sorted and is lower-case
     @Test
-    public void test_INFRASTRUCTURE_TLDS_sortedAndLowerCase() throws Exception {
+    public void testInfrastructureTldsSortedAndLowerCase() throws Exception {
         final boolean sorted = isSortedLowerCase("INFRASTRUCTURE_TLDS");
         assertTrue(sorted);
     }
 
     // Check array is sorted and is lower-case
     @Test
-    public void test_LOCAL_TLDS_sortedAndLowerCase() throws Exception {
+    public void tesLocalTldsSortedAndLowerCase() throws Exception {
         final boolean sorted = isSortedLowerCase("LOCAL_TLDS");
         assertTrue(sorted);
     }
@@ -428,7 +430,7 @@ public class DomainValidatorTest {
     }
 
     @Test
-    public void testDomainNoDots() {// rfc1123
+    public void testDomainNoDots() { // rfc1123
         assertTrue(validator.isValidDomainSyntax("a"), "a (alpha) should validate");
         assertTrue(validator.isValidDomainSyntax("9"), "9 (alphanum) should validate");
         assertTrue(validator.isValidDomainSyntax("c-z"), "c-z (alpha - alpha) should validate");

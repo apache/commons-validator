@@ -35,10 +35,10 @@ public class LocaleTest extends AbstractCommonTest {
     /**
      * The key used to retrieve the set of validation rules from the xml file.
      */
-    protected static String FORM_KEY = "nameForm";
+    protected static final String FORM_KEY = "nameForm";
 
     /** The key used to retrieve the validator action. */
-    protected static String ACTION = "required";
+    protected static final String ACTION = "required";
 
     /**
      * Load <code>ValidatorResources</code> from validator-locale.xml.

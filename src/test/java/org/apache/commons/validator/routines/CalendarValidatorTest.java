@@ -109,7 +109,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         final String germanPattern = "dd MMM yyyy";
         final String localeVal = "31.12.2005";
         final String defaultVal = "12/31/05";
-        final String XXXX = "XXXX";
+        final String xxxx = "XXXX";
         final Date expected = createCalendar(null, 20051231, 0).getTime();
         assertEquals(expected, CalendarValidator.getInstance().validate(defaultVal).getTime(), "validate(A) default");
         assertEquals(expected, CalendarValidator.getInstance().validate(localeVal, locale).getTime(), "validate(A) locale ");
@@ -121,14 +121,14 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         assertTrue(CalendarValidator.getInstance().isValid(patternVal, pattern), "isValid(A) pattern");
         assertTrue(CalendarValidator.getInstance().isValid(germanVal, germanPattern, Locale.GERMAN), "isValid(A) both");
 
-        assertNull(CalendarValidator.getInstance().validate(XXXX), "validate(B) default");
-        assertNull(CalendarValidator.getInstance().validate(XXXX, locale), "validate(B) locale ");
-        assertNull(CalendarValidator.getInstance().validate(XXXX, pattern), "validate(B) pattern");
+        assertNull(CalendarValidator.getInstance().validate(xxxx), "validate(B) default");
+        assertNull(CalendarValidator.getInstance().validate(xxxx, locale), "validate(B) locale ");
+        assertNull(CalendarValidator.getInstance().validate(xxxx, pattern), "validate(B) pattern");
         assertNull(CalendarValidator.getInstance().validate("31 Dec 2005", germanPattern, Locale.GERMAN), "validate(B) both");
 
-        assertFalse(CalendarValidator.getInstance().isValid(XXXX), "isValid(B) default");
-        assertFalse(CalendarValidator.getInstance().isValid(XXXX, locale), "isValid(B) locale ");
-        assertFalse(CalendarValidator.getInstance().isValid(XXXX, pattern), "isValid(B) pattern");
+        assertFalse(CalendarValidator.getInstance().isValid(xxxx), "isValid(B) default");
+        assertFalse(CalendarValidator.getInstance().isValid(xxxx, locale), "isValid(B) locale ");
+        assertFalse(CalendarValidator.getInstance().isValid(xxxx, pattern), "isValid(B) pattern");
         assertFalse(CalendarValidator.getInstance().isValid("31 Dec 2005", germanPattern, Locale.GERMAN), "isValid(B) both");
 
         // Test Time Zone

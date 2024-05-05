@@ -24,8 +24,8 @@ import org.junit.jupiter.api.Test;
 public class IntegerTest extends AbstractNumberTest {
 
     public IntegerTest() {
-        FORM_KEY = "intForm";
-        ACTION = "int";
+        formKey = "intForm";
+        action = "int";
     }
 
     /**

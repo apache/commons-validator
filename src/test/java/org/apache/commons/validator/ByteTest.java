@@ -24,8 +24,8 @@ import org.junit.jupiter.api.Test;
 public class ByteTest extends AbstractNumberTest {
 
     public ByteTest() {
-        ACTION = "byte";
-        FORM_KEY = "byteForm";
+        action = "byte";
+        formKey = "byteForm";
     }
 
     /**

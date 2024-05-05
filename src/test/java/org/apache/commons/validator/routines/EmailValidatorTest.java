@@ -41,18 +41,18 @@ public class EmailValidatorTest {
     /**
      * The key used to retrieve the set of validation rules from the xml file.
      */
-    protected static String FORM_KEY = "emailForm";
+    protected static final String FORM_KEY = "emailForm";
 
     /**
      * The key used to retrieve the validator action.
      */
-    protected static String ACTION = "email";
+    protected static final String ACTION = "email";
 
     /**
      * These test values derive directly from RFC 822 & Mail::RFC822::Address & RFC::RFC822::Address perl test.pl For traceability don't combine these test
      * values with other tests.
      */
-    private static final ResultPair[] testEmailFromPerl = {
+    private static final ResultPair[] TEST_EMAIL_FROM_PERL = {
         // @formatter:off
         new ResultPair("abigail@example.com", true),
         new ResultPair("abigail@example.com ", true),
@@ -190,7 +190,7 @@ public class EmailValidatorTest {
     @Test
     public void testEmailFromPerl() {
         int errors = 0;
-        for (final ResultPair element : testEmailFromPerl) {
+        for (final ResultPair element : TEST_EMAIL_FROM_PERL) {
             final String item = element.item;
             final boolean exp = element.valid;
             final boolean act = validator.isValid(item);
@@ -472,13 +472,13 @@ public class EmailValidatorTest {
     }
 
     @Test
-    public void testVALIDATOR_278() {
+    public void testValidator278() {
         assertFalse(validator.isValid("someone@-test.com")); // hostname starts with dash/hyphen
         assertFalse(validator.isValid("someone@test-.com")); // hostname ends with dash/hyphen
     }
 
     @Test
-    public void testVALIDATOR_315() {
+    public void testValidator315() {
         assertFalse(validator.isValid("me@at&t.net"));
         assertTrue(validator.isValid("me@att.net")); // Make sure TLD is not the cause of the failure
     }
@@ -546,13 +546,13 @@ public class EmailValidatorTest {
     }
 
     @Test
-    public void testValidator473_1() { // reject null DomainValidator
+    public void testValidator473Part1() { // reject null DomainValidator
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new EmailValidator(false, false, null));
         assertThat(thrown.getMessage(), is(equalTo("DomainValidator cannot be null")));
     }
 
     @Test
-    public void testValidator473_2() { // reject null DomainValidator with mismatched allowLocal
+    public void testValidator473Part2() { // reject null DomainValidator with mismatched allowLocal
         final List<DomainValidator.Item> items = new ArrayList<>();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> new EmailValidator(false, false, DomainValidator.getInstance(true, items)));
@@ -560,7 +560,7 @@ public class EmailValidatorTest {
     }
 
     @Test
-    public void testValidator473_3() { // reject null DomainValidator with mismatched allowLocal
+    public void testValidator473Part3() { // reject null DomainValidator with mismatched allowLocal
         final List<DomainValidator.Item> items = new ArrayList<>();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> new EmailValidator(true, false, DomainValidator.getInstance(false, items)));
@@ -568,7 +568,7 @@ public class EmailValidatorTest {
     }
 
     @Test
-    public void testValidator473_4() { // Show that can override domain validation
+    public void testValidator473Part4() { // Show that can override domain validation
         assertFalse(validator.isValidDomain("test.local"));
         final List<DomainValidator.Item> items = new ArrayList<>();
         items.add(new DomainValidator.Item(DomainValidator.ArrayType.GENERIC_PLUS, "local"));

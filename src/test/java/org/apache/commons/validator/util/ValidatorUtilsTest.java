@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  * Tests {@link ValidatorUtilsTest}.
  */
 public class ValidatorUtilsTest {
-    
+
     @Test
     public void testCopyFastHashMap() {
         final FastHashMap original = new FastHashMap();

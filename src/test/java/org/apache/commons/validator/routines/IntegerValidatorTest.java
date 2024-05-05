@@ -122,7 +122,7 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
         final String germanPatternVal = "1.23.45";
         final String localeVal = "12.345";
         final String defaultVal = "12,345";
-        final String XXXX = "XXXX";
+        final String xxxx = "XXXX";
         final Integer expected = Integer.valueOf(12345);
         assertEquals(expected, IntegerValidator.getInstance().validate(defaultVal), "validate(A) default");
         assertEquals(expected, IntegerValidator.getInstance().validate(localeVal, locale), "validate(A) locale");
@@ -134,14 +134,14 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
         assertTrue(IntegerValidator.getInstance().isValid(patternVal, pattern), "isValid(A) pattern");
         assertTrue(IntegerValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN), "isValid(A) both");
 
-        assertNull(IntegerValidator.getInstance().validate(XXXX), "validate(B) default");
-        assertNull(IntegerValidator.getInstance().validate(XXXX, locale), "validate(B) locale");
-        assertNull(IntegerValidator.getInstance().validate(XXXX, pattern), "validate(B) pattern");
+        assertNull(IntegerValidator.getInstance().validate(xxxx), "validate(B) default");
+        assertNull(IntegerValidator.getInstance().validate(xxxx, locale), "validate(B) locale");
+        assertNull(IntegerValidator.getInstance().validate(xxxx, pattern), "validate(B) pattern");
         assertNull(IntegerValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN), "validate(B) both");
 
-        assertFalse(IntegerValidator.getInstance().isValid(XXXX), "isValid(B) default");
-        assertFalse(IntegerValidator.getInstance().isValid(XXXX, locale), "isValid(B) locale");
-        assertFalse(IntegerValidator.getInstance().isValid(XXXX, pattern), "isValid(B) pattern");
+        assertFalse(IntegerValidator.getInstance().isValid(xxxx), "isValid(B) default");
+        assertFalse(IntegerValidator.getInstance().isValid(xxxx, locale), "isValid(B) locale");
+        assertFalse(IntegerValidator.getInstance().isValid(xxxx, pattern), "isValid(B) pattern");
         assertFalse(IntegerValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN), "isValid(B) both");
     }
 

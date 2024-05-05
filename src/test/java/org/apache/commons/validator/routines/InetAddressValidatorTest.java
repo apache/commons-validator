@@ -634,12 +634,12 @@ public class InetAddressValidatorTest {
     }
 
     @Test
-    public void testVALIDATOR_335() {
+    public void testValidator335() {
         assertTrue(validator.isValid("2001:0438:FFFE:0000:0000:0000:0000:0A35"), "2001:0438:FFFE:0000:0000:0000:0000:0A35 should be valid");
     }
 
     @Test
-    public void testVALIDATOR_419() {
+    public void testValidator419() {
         String addr;
         addr = "0:0:0:0:0:0:13.1.68.3";
         assertTrue(validator.isValid(addr));
@@ -660,7 +660,7 @@ public class InetAddressValidatorTest {
      * Inet6Address may also contain a scope id
      */
     @Test
-    public void testVALIDATOR_445() {
+    public void testValidator445() {
         final String[] valid = { "2001:0000:1234:0000:0000:C1C0:ABCD:0876", "2001:0000:1234:0000:0000:C1C0:ABCD:0876/123",
                 "2001:0000:1234:0000:0000:C1C0:ABCD:0876/0", "2001:0000:1234:0000:0000:C1C0:ABCD:0876%0", "2001:0000:1234:0000:0000:C1C0:ABCD:0876%abcdefgh", };
         final String[] invalid = { "2001:0000:1234:0000:0000:C1C0:ABCD:0876/129", // too big

@@ -24,8 +24,8 @@ import org.junit.jupiter.api.Test;
 public class DoubleTest extends AbstractNumberTest {
 
     public DoubleTest() {
-        ACTION = "double";
-        FORM_KEY = "doubleForm";
+        action = "double";
+        formKey = "doubleForm";
     }
 
     /**

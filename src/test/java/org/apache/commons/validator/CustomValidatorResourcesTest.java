@@ -59,7 +59,8 @@ public class CustomValidatorResourcesTest {
                 if (in != null) {
                     in.close();
                 }
-            } catch (final Exception e) {
+            } catch (final Exception ignore) {
+                // ignore
             }
         }
     }

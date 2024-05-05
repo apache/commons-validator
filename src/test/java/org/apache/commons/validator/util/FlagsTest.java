@@ -68,7 +68,7 @@ public class FlagsTest {
     }
 
     @Test
-    public void testIsOn_isFalseWhenNotAllFlagsInArgumentAreOn() {
+    public void testIsOnIsFalseWhenNotAllFlagsInArgumentAreOn() {
         final Flags first = new Flags(1);
         final long firstAndSecond = 3;
 
@@ -76,7 +76,7 @@ public class FlagsTest {
     }
 
     @Test
-    public void testIsOn_isTrueWhenHighOrderBitIsSetAndQueried() {
+    public void testIsOnIsTrueWhenHighOrderBitIsSetAndQueried() {
         final Flags allOn = new Flags(~0);
         final long highOrderBit = 0x8000000000000000L;
 

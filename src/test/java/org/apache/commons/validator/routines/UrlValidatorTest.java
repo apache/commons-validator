@@ -613,13 +613,13 @@ public class UrlValidatorTest {
     }
 
     @Test
-    public void testValidator473_1() { // reject null DomainValidator
+    public void testValidator473Part1() { // reject null DomainValidator
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new UrlValidator(new String[] {}, null, 0L, null));
         assertThat(thrown.getMessage(), is(equalTo("DomainValidator must not be null")));
     }
 
     @Test
-    public void testValidator473_2() { // reject null DomainValidator with mismatched allowLocal
+    public void testValidator473Part2() { // reject null DomainValidator with mismatched allowLocal
         final List<DomainValidator.Item> items = new ArrayList<>();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> new UrlValidator(new String[] {}, null, 0L, DomainValidator.getInstance(true, items)));
@@ -627,7 +627,7 @@ public class UrlValidatorTest {
     }
 
     @Test
-    public void testValidator473_3() { // reject null DomainValidator with mismatched allowLocal
+    public void testValidator473Part3() { // reject null DomainValidator with mismatched allowLocal
         final List<DomainValidator.Item> items = new ArrayList<>();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> new UrlValidator(new String[] {}, null, UrlValidator.ALLOW_LOCAL_URLS, DomainValidator.getInstance(false, items)));

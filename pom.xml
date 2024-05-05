@@ -144,6 +144,7 @@
           <!-- Needed to define config_loc -->
           <propertyExpansion>config_loc=${basedir}/src/conf</propertyExpansion>
           <enableRulesSummary>false</enableRulesSummary>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
         </configuration>
       </plugin>
       <plugin>
@@ -236,6 +237,7 @@
           <!-- Needed to define config_loc -->
           <propertyExpansion>config_loc=${basedir}/src/conf</propertyExpansion>
           <enableRulesSummary>false</enableRulesSummary>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
         </configuration>
         <reportSets>
           <reportSet>

@@ -128,22 +128,22 @@ public class MultipleConfigFilesTest {
         // *********** 'fr' locale *******************
 
         // Check the form from the first config file exists
-        final Form form1_fr = resources.getForm("fr", "", "", "testForm1_fr");
-        assertNotNull(form1_fr, "Form 'testForm1_fr' not found");
+        final Form form1Fr = resources.getForm("fr", "", "", "testForm1_fr");
+        assertNotNull(form1Fr, "Form 'testForm1_fr' not found");
 
         // Check the form from the second config file exists
-        final Form form2_fr = resources.getForm("fr", "", "", "testForm2_fr");
-        assertNotNull(form2_fr, "Form 'testForm2_fr' not found");
+        final Form form2Fr = resources.getForm("fr", "", "", "testForm2_fr");
+        assertNotNull(form2Fr, "Form 'testForm2_fr' not found");
 
         // Check the Constants for the form from the first config file
-        final Field field1_fr = form1_fr.getField("testProperty1_fr");
-        assertEquals("testConstValue1_fr", field1_fr.getVarValue("var11_fr"), "testProperty1_fr - const 1");
-        assertEquals("testConstValue2_fr", field1_fr.getVarValue("var12_fr"), "testProperty1_fr - const 2");
+        final Field field1Fr = form1Fr.getField("testProperty1_fr");
+        assertEquals("testConstValue1_fr", field1Fr.getVarValue("var11_fr"), "testProperty1_fr - const 1");
+        assertEquals("testConstValue2_fr", field1Fr.getVarValue("var12_fr"), "testProperty1_fr - const 2");
 
         // Check the Constants for the form from the second config file
-        final Field field2_fr = form2_fr.getField("testProperty2_fr");
-        assertEquals("testConstValue1_fr", field2_fr.getVarValue("var21_fr"), "testProperty2_fr - const 1");
-        assertEquals("testConstValue2_fr", field2_fr.getVarValue("var22_fr"), "testProperty2_fr - const 2");
+        final Field field2Fr = form2Fr.getField("testProperty2_fr");
+        assertEquals("testConstValue1_fr", field2Fr.getVarValue("var21_fr"), "testProperty2_fr - const 1");
+        assertEquals("testConstValue2_fr", field2Fr.getVarValue("var22_fr"), "testProperty2_fr - const 2");
     }
 
     /**

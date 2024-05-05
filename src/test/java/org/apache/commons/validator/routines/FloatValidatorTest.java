@@ -144,7 +144,7 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
         final String localeVal = "12.345";
         final String germanPatternVal = "1.23.45";
         final String defaultVal = "12,345";
-        final String XXXX = "XXXX";
+        final String xxxx = "XXXX";
         final Float expected = Float.valueOf(12345);
         assertEquals(expected, FloatValidator.getInstance().validate(defaultVal), "validate(A) default");
         assertEquals(expected, FloatValidator.getInstance().validate(localeVal, locale), "validate(A) locale");
@@ -156,14 +156,14 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
         assertTrue(FloatValidator.getInstance().isValid(patternVal, pattern), "isValid(A) pattern");
         assertTrue(FloatValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN), "isValid(A) both");
 
-        assertNull(FloatValidator.getInstance().validate(XXXX), "validate(B) default");
-        assertNull(FloatValidator.getInstance().validate(XXXX, locale), "validate(B) locale ");
-        assertNull(FloatValidator.getInstance().validate(XXXX, pattern), "validate(B) pattern");
+        assertNull(FloatValidator.getInstance().validate(xxxx), "validate(B) default");
+        assertNull(FloatValidator.getInstance().validate(xxxx, locale), "validate(B) locale ");
+        assertNull(FloatValidator.getInstance().validate(xxxx, pattern), "validate(B) pattern");
         assertNull(FloatValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN), "validate(B) both");
 
-        assertFalse(FloatValidator.getInstance().isValid(XXXX), "isValid(B) default");
-        assertFalse(FloatValidator.getInstance().isValid(XXXX, locale), "isValid(B) locale");
-        assertFalse(FloatValidator.getInstance().isValid(XXXX, pattern), "isValid(B) pattern");
+        assertFalse(FloatValidator.getInstance().isValid(xxxx), "isValid(B) default");
+        assertFalse(FloatValidator.getInstance().isValid(xxxx, locale), "isValid(B) locale");
+        assertFalse(FloatValidator.getInstance().isValid(xxxx, pattern), "isValid(B) pattern");
         assertFalse(FloatValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN), "isValid(B) both");
     }
 }

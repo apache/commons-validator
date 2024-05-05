@@ -24,8 +24,8 @@ import org.junit.jupiter.api.Test;
 public class ShortTest extends AbstractNumberTest {
 
     public ShortTest() {
-        FORM_KEY = "shortForm";
-        ACTION = "short";
+        formKey = "shortForm";
+        action = "short";
     }
 
     /**

@@ -21,8 +21,13 @@ limitations under the License.
     "https://checkstyle.org/dtds/suppressions_1_0.dtd">
 <!-- SEE: http://checkstyle.sourceforge.net/config.html#Examples -->
 <suppressions>
-    <suppress checks="ParameterNumber"  files="Field.java"/> <!-- two private methods -->
-
-     <!-- Maven generated code -->
-    <suppress checks=".*"          files="[/\\]target[/\\]"/>
+  <suppress checks="ParameterNumber"  files="Field.java"/> <!-- two private methods -->
+  <!-- Maven generated code -->
+  <suppress checks=".*"          files="[/\\]target[/\\]"/>
+  <!-- Tests -->
+  <suppress checks="MagicNumber" files="src[/\\]test[/\\]java[/\\]" />
+  <suppress checks="JavadocMethod" files="src[/\\]test[/\\]java[/\\]" />
+  <suppress checks="JavadocPackage" files="src[/\\]test[/\\]java[/\\]" />
+  <suppress checks="JavadocVariable" files="src[/\\]test[/\\]java[/\\]" />
+  <suppress checks="ParameterNumber" files="src[/\\]test[/\\]java[/\\]" />
 </suppressions>

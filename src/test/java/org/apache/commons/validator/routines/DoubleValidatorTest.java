@@ -114,7 +114,7 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
         final String germanPatternVal = "1.23.45";
         final String localeVal = "12.345";
         final String defaultVal = "12,345";
-        final String XXXX = "XXXX";
+        final String xxxx = "XXXX";
         final Double expected = Double.valueOf(12345);
         assertEquals(expected, DoubleValidator.getInstance().validate(defaultVal), "validate(A) default");
         assertEquals(expected, DoubleValidator.getInstance().validate(localeVal, locale), "validate(A) locale");
@@ -126,14 +126,14 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
         assertTrue(DoubleValidator.getInstance().isValid(patternVal, pattern), "isValid(A) pattern");
         assertTrue(DoubleValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN), "isValid(A) both");
 
-        assertNull(DoubleValidator.getInstance().validate(XXXX), "validate(B) default");
-        assertNull(DoubleValidator.getInstance().validate(XXXX, locale), "validate(B) locale ");
-        assertNull(DoubleValidator.getInstance().validate(XXXX, pattern), "validate(B) pattern");
+        assertNull(DoubleValidator.getInstance().validate(xxxx), "validate(B) default");
+        assertNull(DoubleValidator.getInstance().validate(xxxx, locale), "validate(B) locale ");
+        assertNull(DoubleValidator.getInstance().validate(xxxx, pattern), "validate(B) pattern");
         assertNull(DoubleValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN), "validate(B) both");
 
-        assertFalse(DoubleValidator.getInstance().isValid(XXXX), "isValid(B) default");
-        assertFalse(DoubleValidator.getInstance().isValid(XXXX, locale), "isValid(B) locale");
-        assertFalse(DoubleValidator.getInstance().isValid(XXXX, pattern), "isValid(B) pattern");
+        assertFalse(DoubleValidator.getInstance().isValid(xxxx), "isValid(B) default");
+        assertFalse(DoubleValidator.getInstance().isValid(xxxx, locale), "isValid(B) locale");
+        assertFalse(DoubleValidator.getInstance().isValid(xxxx, pattern), "isValid(B) pattern");
         assertFalse(DoubleValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN), "isValid(B) both");
     }
 }

@@ -106,16 +106,13 @@ public class ISSNValidator implements Serializable {
      * if the input ISSN code is not valid
      */
     public String convertToEAN13(final String issn, final String suffix) {
-
         if (suffix == null || !suffix.matches("\\d\\d")) {
             throw new IllegalArgumentException("Suffix must be two digits: '" + suffix + "'");
         }
-
         final Object result = validate(issn);
         if (result == null) {
             return null;
         }
-
         // Calculate the new EAN-13 code
         final String input = result.toString();
         String ean13 = ISSN_PREFIX + input.substring(0, input.length() - 1) + suffix;
@@ -126,7 +123,6 @@ public class ISSNValidator implements Serializable {
         } catch (final CheckDigitException e) { // Should not happen
             throw new IllegalArgumentException("Check digit error for '" + ean13 + "' - " + e.getMessage());
         }
-
     }
 
     /**

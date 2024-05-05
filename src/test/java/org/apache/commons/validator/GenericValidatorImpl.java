@@ -23,11 +23,11 @@ import org.apache.commons.validator.util.ValidatorUtils;
  */
 public class GenericValidatorImpl {
 
-    public final static String FIELD_TEST_NULL = "NULL";
+    public static final String FIELD_TEST_NULL = "NULL";
 
-    public final static String FIELD_TEST_NOTNULL = "NOTNULL";
+    public static final String FIELD_TEST_NOTNULL = "NOTNULL";
 
-    public final static String FIELD_TEST_EQUAL = "EQUAL";
+    public static final String FIELD_TEST_EQUAL = "EQUAL";
 
     private static boolean isStringOrNull(final Object o) {
         if (o == null) {
@@ -187,7 +187,7 @@ public class GenericValidatorImpl {
             if (dependIndexed == null) {
                 dependIndexed = "false";
             }
-            boolean this_required = false;
+            boolean thisRequired = false;
             if (field.isIndexed() && Boolean.parseBoolean(dependIndexed)) {
                 final String key = field.getKey();
                 if (key.contains("[") && key.contains("]")) {
@@ -198,25 +198,25 @@ public class GenericValidatorImpl {
             final String dependVal = ValidatorUtils.getValueAsString(form, dependProp);
             if (dependTest.equals(FIELD_TEST_NULL)) {
                 if (dependVal != null && !dependVal.isEmpty()) {
-                    this_required = false;
+                    thisRequired = false;
                 } else {
-                    this_required = true;
+                    thisRequired = true;
                 }
             }
             if (dependTest.equals(FIELD_TEST_NOTNULL)) {
                 if (dependVal != null && !dependVal.isEmpty()) {
-                    this_required = true;
+                    thisRequired = true;
                 } else {
-                    this_required = false;
+                    thisRequired = false;
                 }
             }
             if (dependTest.equals(FIELD_TEST_EQUAL)) {
-                this_required = dependTestValue.equalsIgnoreCase(dependVal);
+                thisRequired = dependTestValue.equalsIgnoreCase(dependVal);
             }
             if (fieldJoin.equalsIgnoreCase("AND")) {
-                required = required && this_required;
+                required = required && thisRequired;
             } else {
-                required = required || this_required;
+                required = required || thisRequired;
             }
             i++;
         }

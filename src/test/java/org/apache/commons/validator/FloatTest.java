@@ -24,8 +24,8 @@ import org.junit.jupiter.api.Test;
 public class FloatTest extends AbstractNumberTest {
 
     public FloatTest() {
-        ACTION = "float";
-        FORM_KEY = "floatForm";
+        action = "float";
+        formKey = "floatForm";
     }
 
     /**

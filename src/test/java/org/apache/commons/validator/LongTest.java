@@ -24,8 +24,8 @@ import org.junit.jupiter.api.Test;
 public class LongTest extends AbstractNumberTest {
 
     public LongTest() {
-        FORM_KEY = "longForm";
-        ACTION = "long";
+        formKey = "longForm";
+        action = "long";
     }
 
     /**

@@ -17,6 +17,7 @@
 package org.apache.commons.validator.routines;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -36,10 +37,10 @@ public class ISSNValidatorTest {
 
     private static final ISSNValidator VALIDATOR = ISSNValidator.getInstance();
 
-    private final String[] validFormat = { "ISSN 0317-8471", "1050-124X", "ISSN 1562-6865", "1063-7710", "1748-7188", "ISSN 0264-2875", "1750-0095",
+    private static final String[] VALID_FORMAT = { "ISSN 0317-8471", "1050-124X", "ISSN 1562-6865", "1063-7710", "1748-7188", "ISSN 0264-2875", "1750-0095",
             "1188-1534", "1911-1479", "ISSN 1911-1460", "0001-6772", "1365-201X", "0264-3596", "1144-875X", };
 
-    private final String[] invalidFormat = { "", // empty
+    private static final String[] INVALID_FORMAT = { "", // empty
             "   ", // empty
             "ISBN 0317-8471", // wrong prefix
             "'1050-124X", // leading garbage
@@ -86,7 +87,7 @@ public class ISSNValidatorTest {
      */
     @Test
     public void testInvalid() {
-        for (final String f : invalidFormat) {
+        for (final String f : INVALID_FORMAT) {
             assertFalse(VALIDATOR.isValid(f), f);
         }
     }
@@ -107,7 +108,7 @@ public class ISSNValidatorTest {
      */
     @Test
     public void testIsValidISSN() {
-        for (final String f : validFormat) {
+        for (final String f : VALID_FORMAT) {
             assertTrue(VALIDATOR.isValid(f), f);
         }
     }
@@ -119,7 +120,7 @@ public class ISSNValidatorTest {
     public void testIsValidISSNConvert() {
         final CheckDigit ean13cd = EAN13CheckDigit.EAN13_CHECK_DIGIT;
         final Random r = new Random();
-        for (final String f : validFormat) {
+        for (final String f : VALID_FORMAT) {
             final String suffix = String.format("%02d", r.nextInt(100));
             final String ean13 = VALIDATOR.convertToEAN13(f, suffix);
             assertTrue(ean13cd.isValid(ean13), ean13);
@@ -137,42 +138,12 @@ public class ISSNValidatorTest {
 
     @Test
     public void testIsValidISSNConvertSuffix() {
-        try {
-            assertNull(VALIDATOR.convertToEAN13(null, null));
-            fail("Expected IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-
-        }
-        try {
-            assertNull(VALIDATOR.convertToEAN13(null, ""));
-            fail("Expected IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-
-        }
-        try {
-            assertNull(VALIDATOR.convertToEAN13(null, "0"));
-            fail("Expected IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-
-        }
-        try {
-            assertNull(VALIDATOR.convertToEAN13(null, "A"));
-            fail("Expected IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-
-        }
-        try {
-            assertNull(VALIDATOR.convertToEAN13(null, "AA"));
-            fail("Expected IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-
-        }
-        try {
-            assertNull(VALIDATOR.convertToEAN13(null, "999"));
-            fail("Expected IllegalArgumentException");
-        } catch (final IllegalArgumentException expected) {
-
-        }
+        assertThrows(IllegalArgumentException.class, () -> VALIDATOR.convertToEAN13(null, null));
+        assertThrows(IllegalArgumentException.class, () -> VALIDATOR.convertToEAN13(null, ""));
+        assertThrows(IllegalArgumentException.class, () -> VALIDATOR.convertToEAN13(null, "0"));
+        assertThrows(IllegalArgumentException.class, () -> VALIDATOR.convertToEAN13(null, "A"));
+        assertThrows(IllegalArgumentException.class, () -> VALIDATOR.convertToEAN13(null, "AA"));
+        assertThrows(IllegalArgumentException.class, () -> VALIDATOR.convertToEAN13(null, "999"));
     }
 
     /**

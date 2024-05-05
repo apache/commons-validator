@@ -407,8 +407,8 @@ public class CreditCardValidatorTest {
     @Test
     public void testMastercardUsingSeparators() {
 
-        final String MASTERCARD_REGEX_SEP = "^(5[1-5]\\d{2})(?:[- ])?(\\d{4})(?:[- ])?(\\d{4})(?:[- ])?(\\d{4})$";
-        final CodeValidator validator = new CodeValidator(MASTERCARD_REGEX_SEP, LuhnCheckDigit.LUHN_CHECK_DIGIT);
+        final String masterCardRegExSep = "^(5[1-5]\\d{2})(?:[- ])?(\\d{4})(?:[- ])?(\\d{4})(?:[- ])?(\\d{4})$";
+        final CodeValidator validator = new CodeValidator(masterCardRegExSep, LuhnCheckDigit.LUHN_CHECK_DIGIT);
         final RegexValidator regex = validator.getRegexValidator();
 
         // ****** Test Regular Expression ******
@@ -481,13 +481,13 @@ public class CreditCardValidatorTest {
         assertTrue(validator.isValid("5555555555554444"), "Valid-E");
 
         final RegexValidator rev = validator.getRegexValidator();
-        final String PAD = "0000000000";
-        assertFalse(rev.isValid("222099" + PAD), "222099");
+        final String pad = "0000000000";
+        assertFalse(rev.isValid("222099" + pad), "222099");
         for (int i = 222100; i <= 272099; i++) {
-            final String j = Integer.toString(i) + PAD;
+            final String j = Integer.toString(i) + pad;
             assertTrue(rev.isValid(j), j);
         }
-        assertFalse(rev.isValid("272100" + PAD), "272100");
+        assertFalse(rev.isValid("272100" + pad), "272100");
     }
 
     @Test
