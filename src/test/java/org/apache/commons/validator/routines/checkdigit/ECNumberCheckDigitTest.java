@@ -19,7 +19,7 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * EC Number Check Digit Test.
+ * EC Number Check Digit Tests.
  */
 public class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
 

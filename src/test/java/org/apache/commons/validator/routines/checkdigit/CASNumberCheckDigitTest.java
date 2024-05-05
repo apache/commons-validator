@@ -19,7 +19,7 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * CAS Number Check Digit Test.
+ * CAS Number Check Digit Tests.
  */
 public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
 
