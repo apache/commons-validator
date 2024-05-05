@@ -40,7 +40,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  *  <a href="https://en.wikipedia.org/wiki/CAS_Registry_Number">Wikipedia - CAS Registry Number</a>.
  * </p>
  *
- * @since 1.9
+ * @since 1.9.0
  */
 public final class CASNumberCheckDigit extends ModulusCheckDigit {
 
@@ -100,7 +100,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
         if (code == null || code.isEmpty()) {
             throw new CheckDigitException("Code is missing");
         }
-        final int modulusResult = calculateModulus(code, false);
+        int modulusResult = calculateModulus(code, false);
         return toCheckDigit(modulusResult);
     }
 
@@ -116,7 +116,6 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
         if (cde instanceof String) {
             try {
                 final int modulusResult = calculateModulus((String)cde, true);
-//              System.out.println("modulusResult="+modulusResult + " for code "+code);
                 return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));
             } catch (final CheckDigitException ex) {
                 return false;
