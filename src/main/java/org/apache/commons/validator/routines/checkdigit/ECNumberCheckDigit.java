@@ -45,7 +45,7 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
 
     /** Singleton Check Digit instance */
     private static final CheckDigit INSTANCE = new ECNumberCheckDigit();
-    
+
     /**
      * Gets the singleton instance of this validator.
      * @return A singleton instance of the EC Number validator.

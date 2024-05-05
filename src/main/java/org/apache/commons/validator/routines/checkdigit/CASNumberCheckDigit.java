@@ -52,7 +52,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
 
     /** Singleton Check Digit instance */
     private static final CheckDigit INSTANCE = new CASNumberCheckDigit();
-    
+
     /**
      * Gets the singleton instance of this validator.
      * @return A singleton instance of the CAS Number validator.
