@@ -51,7 +51,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
     private static final long serialVersionUID = -5387334603220786657L;
 
     /** Singleton Check Digit instance */
-    private static final CheckDigit INSTANCE = new CASNumberCheckDigit();
+    private static final CASNumberCheckDigit INSTANCE = new CASNumberCheckDigit();
 
     /**
      * Gets the singleton instance of this validator.
@@ -76,7 +76,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
     static final CodeValidator REGEX_VALIDATOR = new CodeValidator(CAS_REGEX, CAS_MIN_LEN, CAS_MAX_LEN, null);
 
     /** Weighting given to digits depending on their right position */
-    private static final int[] POSITION_WEIGHT = { 0,1,2,3,4,5,6,7,8,9 };
+    private static final int[] POSITION_WEIGHT = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
     /**
      * Constructs a modulus 10 Check Digit routine for CAS Numbers.
@@ -88,6 +88,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
      * Calculates the <i>weighted</i> value of a character in the code at a specified position.
      * <p>
      * CAS numbers are weighted in the following manner:
+     * </p>
      * <pre><code>
      *    right position: 1  2  3  4  5  6  7  8  9 10
      *            weight: 1  2  3  4  5  6  7  8  9  0
@@ -109,10 +110,10 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
-        if (code == null || code.isEmpty()) {
+        if (isEmpty(code)) {
             throw new CheckDigitException("Code is missing");
         }
-        int modulusResult = calculateModulus(code, false);
+        int modulusResult = INSTANCE.calculateModulus(code, false);
         return toCheckDigit(modulusResult);
     }
 
@@ -121,13 +122,13 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
      */
     @Override
     public boolean isValid(final String code) {
-        if (code == null || code.isEmpty()) {
+        if (isEmpty(code)) {
             return false;
         }
         Object cde = REGEX_VALIDATOR.validate(code);
         if (cde instanceof String) {
             try {
-                final int modulusResult = calculateModulus((String)cde, true);
+                final int modulusResult = INSTANCE.calculateModulus((String) cde, true);
                 return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));
             } catch (final CheckDigitException ex) {
                 return false;

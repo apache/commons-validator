@@ -42,9 +42,11 @@ public class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
      */
     @Override
     protected String removeCheckDigit(final String code) {
-    	String cde = (String)ECNumberCheckDigit.REGEX_VALIDATOR.validate(code);
-    	if(cde == null || cde.length() <= checkDigitLth) return null;
-    	return cde.substring(0, cde.length() - checkDigitLth);
+        String cde = (String)ECNumberCheckDigit.REGEX_VALIDATOR.validate(code);
+        if (cde == null || cde.length() <= checkDigitLth) {
+            return null;
+        }
+        return cde.substring(0, cde.length() - checkDigitLth);
     }
     
 }

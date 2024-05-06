@@ -186,6 +186,16 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
     }
 
     /**
+     * A convenient method to check empty Strings.
+     *  
+     * @param code The code to check
+     * @return {@code true} if code is null or empty, otherwise {@code false}
+     */
+    protected boolean isEmpty(final String code) {
+    	return code == null || code.isEmpty();
+    }
+
+    /**
      * Calculates the <i>weighted</i> value of a character in the
      * code at a specified position.
      * <p>

@@ -44,7 +44,7 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
     private static final long serialVersionUID = 7265356024784308367L;
 
     /** Singleton Check Digit instance */
-    private static final CheckDigit INSTANCE = new ECNumberCheckDigit();
+    private static final ECNumberCheckDigit INSTANCE = new ECNumberCheckDigit();
 
     /**
      * Gets the singleton instance of this validator.
@@ -93,10 +93,10 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
-        if (code == null || code.isEmpty()) {
+        if (isEmpty(code)) {
             throw new CheckDigitException("Code is missing");
         }
-        int modulusResult = calculateModulus(code, false);
+        int modulusResult = INSTANCE.calculateModulus(code, false);
         return toCheckDigit(modulusResult);
     }
 
@@ -105,13 +105,13 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
      */
     @Override
     public boolean isValid(final String code) {
-        if (code == null || code.isEmpty()) {
+        if (isEmpty(code)) {
             return false;
         }
         Object cde = REGEX_VALIDATOR.validate(code);
         if (cde instanceof String) {
             try {
-                final int modulusResult = calculateModulus((String)cde, true);
+                final int modulusResult = INSTANCE.calculateModulus((String) cde, true);
                 return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));
             } catch (final CheckDigitException ex) {
                 return false;
