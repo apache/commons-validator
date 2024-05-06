@@ -23,10 +23,12 @@ import org.junit.jupiter.api.BeforeEach;
  */
 public class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
 
-    private static final String FORMALDEHYDE = "200-001-8";
+    private static final String MIN = "000-001-6"; // theoretical
+    private static final String FORMALDEHYDE = "200-001-8"; // this is the first entry in EINECS
     private static final String DEXAMETHASONE = "200-003-9";
     private static final String ARSENIC = "231-148-6";
     private static final String ASBESTOS = "603-721-4";
+    private static final String MAX = "999-999-2"; // theoretical
 
     /**
      * Sets up routine & valid codes.
@@ -34,7 +36,7 @@ public class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
     @BeforeEach
     protected void setUp() {
         routine = ECNumberCheckDigit.getInstance();
-        valid = new String[] { FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS };
+        valid = new String[] {MIN, FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS, MAX};
     }
 
     /**

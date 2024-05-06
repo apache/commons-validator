@@ -64,10 +64,10 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
 
     /**
      * CAS number consists of 3 groups of numbers separated dashes (-).
-     * First group up to 7 digits.
+     * First group has 2 to 7 digits.
      * Example: water is 7732-18-5
      */
-    private static final String GROUP1 = "(\\d{1,7})";
+    private static final String GROUP1 = "(\\d{2,7})";
     private static final String DASH = "(?:\\-)";
     static final String CAS_REGEX = "^(?:" + GROUP1 + DASH + "(\\d{2})" + DASH + "(\\d))$";
 

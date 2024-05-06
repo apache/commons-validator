@@ -23,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
  */
 public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
 
+    private static final String MIN = "00-01-1"; // theoretical
     private static final String WATER = "7732-18-5";
     private static final String ETHANOL = "64-17-5";
     private static final String ASPIRIN = "50-78-2";
@@ -31,6 +32,7 @@ public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
     private static final String DEXAMETHASONE = "50-02-2";
     private static final String ARSENIC = "7440-38-2";
     private static final String ASBESTOS = "1332-21-4";
+    private static final String MAX = "9999999-99-5"; // theoretical
 
     /**
      * Sets up routine & valid codes.
@@ -38,7 +40,7 @@ public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
     @BeforeEach
     protected void setUp() {
         routine = CASNumberCheckDigit.getInstance();
-        valid = new String[] {WATER, ETHANOL, ASPIRIN, COFFEIN, FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS };
+        valid = new String[] {MIN, WATER, ETHANOL, ASPIRIN, COFFEIN, FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS, MAX};
     }
 
     /**
