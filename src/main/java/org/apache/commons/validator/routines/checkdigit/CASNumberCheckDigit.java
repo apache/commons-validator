@@ -16,6 +16,7 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.CodeValidator;
 
 /**
@@ -110,7 +111,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
-        if (isEmpty(code)) {
+        if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException("Code is missing");
         }
         int modulusResult = INSTANCE.calculateModulus(code, false);
@@ -122,7 +123,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
      */
     @Override
     public boolean isValid(final String code) {
-        if (isEmpty(code)) {
+        if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
         Object cde = REGEX_VALIDATOR.validate(code);
