@@ -31,7 +31,7 @@ public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
     private static final String DEXAMETHASONE = "50-02-2";
     private static final String ARSENIC = "7440-38-2";
     private static final String ASBESTOS = "1332-21-4";
-    
+
     /**
      * Sets up routine & valid codes.
      */
@@ -46,11 +46,11 @@ public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
      */
     @Override
     protected String removeCheckDigit(final String code) {
-        String cde = (String)CASNumberCheckDigit.REGEX_VALIDATOR.validate(code);
+        String cde = (String) CASNumberCheckDigit.REGEX_VALIDATOR.validate(code);
         if (cde == null || cde.length() <= checkDigitLth) {
             return null;
         }
         return cde.substring(0, cde.length() - checkDigitLth);
     }
-    
+
 }

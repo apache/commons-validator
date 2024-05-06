@@ -187,12 +187,12 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
 
     /**
      * A convenient method to check empty Strings.
-     *  
+     *
      * @param code The code to check
      * @return {@code true} if code is null or empty, otherwise {@code false}
      */
     protected boolean isEmpty(final String code) {
-    	return code == null || code.isEmpty();
+        return code == null || code.isEmpty();
     }
 
     /**

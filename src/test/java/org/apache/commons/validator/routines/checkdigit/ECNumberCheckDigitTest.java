@@ -27,7 +27,7 @@ public class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
     private static final String DEXAMETHASONE = "200-003-9";
     private static final String ARSENIC = "231-148-6";
     private static final String ASBESTOS = "603-721-4";
-    
+
     /**
      * Sets up routine & valid codes.
      */
@@ -42,11 +42,11 @@ public class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
      */
     @Override
     protected String removeCheckDigit(final String code) {
-        String cde = (String)ECNumberCheckDigit.REGEX_VALIDATOR.validate(code);
+        String cde = (String) ECNumberCheckDigit.REGEX_VALIDATOR.validate(code);
         if (cde == null || cde.length() <= checkDigitLth) {
             return null;
         }
         return cde.substring(0, cde.length() - checkDigitLth);
     }
-    
+
 }
