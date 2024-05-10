@@ -35,7 +35,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Luhn Check Digit Test.
+ * Check Digit Test.
  */
 public abstract class AbstractCheckDigitTest {
 
@@ -154,7 +154,11 @@ public abstract class AbstractCheckDigitTest {
                     log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + code + "]");
                 }
                 final String expected = checkDigit(code);
-                final String actual = routine.calculate(removeCheckDigit(code));
+                String codeWithNoCheckDigit = removeCheckDigit(code);
+                if (codeWithNoCheckDigit == null) {
+                    throw new CheckDigitException("Invalid Code=[" + code + "]");
+                }
+                final String actual = routine.calculate(codeWithNoCheckDigit);
                 // If exception not thrown, check that the digit is incorrect instead
                 if (expected.equals(actual)) {
                     fail("Expected mismatch for " + code + " expected " + expected + " actual " + actual);
