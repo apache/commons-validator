@@ -26,15 +26,15 @@ import org.apache.commons.validator.routines.CASNumberValidator;
  * CAS Registry Numbers are a numeric codes.
  * Check digit calculation is based on <i>modulus 10</i> with digits being weighted
  * based on their position (from right to left).
- * <br/>
+ * <br>
  * The check digit is found by taking the last digit times 1, the preceding digit times 2,
  * the preceding digit times 3 etc., adding all these up and computing the sum modulo 10.
- * <br/>
+ * <br>
  * For example, the CAS number of water is <code>7732-18-5</code>:
  * the checksum 5 is calculated as (8×1 + 1×2 + 2×3 + 3×4 + 7×5 + 7×6) = 105; 105 mod 10 = 5.
- * <br/>
+ * <br>
  * Note that these <b>do not validate</b> the input for syntax.
- * Such validation is performed by the {@link CASNumberValidator}
+ * Such validation is performed by the {@link org.apache.commons.validator.routines.CASNumberValidator}
  * </p>
  *
  * @since 1.9.0

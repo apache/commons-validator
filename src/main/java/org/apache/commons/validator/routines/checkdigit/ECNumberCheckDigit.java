@@ -25,9 +25,9 @@ import org.apache.commons.validator.GenericValidator;
  * EC Numbers are a numeric codes.
  * Check digit calculation is based on <i>modulus 11</i> with digits being weighted
  * based on their position (from left to right).
- * <br/>
+ * <br>
  * Note that these <b>do not validate</b> the input for syntax.
- * Such validation is performed by the {@link ECNumberValidator}
+ * Such validation is performed by the {@link org.apache.commons.validator.routines.ECNumberValidator}
  * </p>
  *
  * @since 1.9.0
