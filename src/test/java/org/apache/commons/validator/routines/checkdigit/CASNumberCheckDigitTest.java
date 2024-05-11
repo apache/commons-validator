@@ -23,7 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
  */
 public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
 
-	// valid CAS Number with dashes removed
+    // valid CAS Number with dashes removed
     private static final String MIN = "10004"; // theoretical
     private static final String WATER = "7732185";
     private static final String ETHANOL = "64175";

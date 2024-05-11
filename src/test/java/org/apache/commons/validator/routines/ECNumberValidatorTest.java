@@ -37,11 +37,11 @@ public class ECNumberValidatorTest {
 
     private final String[] validFormat = {
             " 200-000-2 ", // theoretical EINECS minimum with spaces
-            FORMALDEHYDE, 
-            DEXAMETHASONE, 
-            ARSENIC, 
+            FORMALDEHYDE,
+            DEXAMETHASONE,
+            ARSENIC,
             ASBESTOS,
-            "\t999-999-2\n", }; // theoretical maximum with white spaces (TAB and NL)
+            "\t999-999-2\n" }; // theoretical maximum with white spaces (TAB and NL)
 
     private final String[] invalidFormat = { null, "", // empty
             "   ", // empty
@@ -51,8 +51,7 @@ public class ECNumberValidatorTest {
             "603-721-0", // proper check digit is '4', see above
             "603-721+4", // no dash
             "999-999-9", // proper check digit is '2', see above
-            "999999999", // 
-    };
+            "999999999" };
 
     @Test
     public void testInvalidFalse() {

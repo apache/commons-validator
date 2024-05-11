@@ -44,7 +44,7 @@ public final class CASNumberValidator implements Serializable {
 
     private static final long serialVersionUID = -5750098586109080748L;
 
-	/** Singleton instance */
+    /** Singleton instance */
     private static final CASNumberValidator INSTANCE = new CASNumberValidator();
 
     /**
@@ -65,8 +65,8 @@ public final class CASNumberValidator implements Serializable {
      */
     static final String CAS_REGEX = "^(?:" + GROUP1 + DASH + "(\\d{2})" + DASH + "(\\d))$";
 
-    static final CodeValidator VALIDATOR = new CodeValidator(CAS_REGEX, 
-        CASNumberCheckDigit.MIN_LEN, CASNumberCheckDigit.MAX_LEN, 
+    static final CodeValidator VALIDATOR = new CodeValidator(CAS_REGEX,
+        CASNumberCheckDigit.MIN_LEN, CASNumberCheckDigit.MAX_LEN,
         CASNumberCheckDigit.getInstance());
 
     /**

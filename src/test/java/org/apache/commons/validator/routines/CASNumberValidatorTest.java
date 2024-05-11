@@ -57,9 +57,9 @@ public class CASNumberValidatorTest {
             ETHANOL,
             ASPIRIN,
             COFFEIN,
-            FORMALDEHYDE, 
-            DEXAMETHASONE, 
-            ARSENIC, 
+            FORMALDEHYDE,
+            DEXAMETHASONE,
+            ARSENIC,
             ASBESTOS,
             "\t9999999-99-5\n", }; // theoretical maximum with white spaces (TAB and NL)
 
@@ -72,8 +72,7 @@ public class CASNumberValidatorTest {
             "50-00-X",   // proper check digit is '0', see above
             "7440-38.2", // no dash
             "9999999-99-9", // proper check digit is '5', see above
-            "999999999999", // 
-    };
+            "999999999999" };
 
     @Test
     public void testInvalidFalse() {

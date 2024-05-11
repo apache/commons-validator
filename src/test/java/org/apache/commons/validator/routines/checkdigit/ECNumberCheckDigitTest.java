@@ -23,7 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
  */
 public class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
 
-	// valid EC Number with dashes removed
+    // valid EC Number with dashes removed
     private static final String MIN = "2000002"; // theoretical minimum
     private static final String FORMALDEHYDE = "2000018";
     private static final String DEXAMETHASONE = "2000039";

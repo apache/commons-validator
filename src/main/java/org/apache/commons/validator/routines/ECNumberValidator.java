@@ -45,7 +45,7 @@ public final class ECNumberValidator implements Serializable {
 
     private static final long serialVersionUID = 6676297914206256712L;
 
-	/** Singleton instance */
+    /** Singleton instance */
     private static final ECNumberValidator INSTANCE = new ECNumberValidator();
 
     /**
