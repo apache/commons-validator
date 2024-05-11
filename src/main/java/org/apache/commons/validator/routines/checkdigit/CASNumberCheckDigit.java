@@ -17,7 +17,6 @@
 package org.apache.commons.validator.routines.checkdigit;
 
 import org.apache.commons.validator.GenericValidator;
-import org.apache.commons.validator.routines.CASNumberValidator;
 
 /**
  * Modulus 10 <b>CAS Registry Number</b> Check Digit calculation/validation.
@@ -103,8 +102,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException("Code is missing");
         }
-        int modulusResult = INSTANCE.calculateModulus(code, false);
-        return toCheckDigit(modulusResult);
+        return toCheckDigit(INSTANCE.calculateModulus(code, false));
     }
 
     /**

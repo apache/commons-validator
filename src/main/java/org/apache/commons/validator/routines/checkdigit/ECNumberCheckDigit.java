@@ -85,8 +85,7 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException("Code is missing");
         }
-        int modulusResult = INSTANCE.calculateModulus(code, false);
-        return toCheckDigit(modulusResult);
+        return toCheckDigit(INSTANCE.calculateModulus(code, false));
     }
 
     /**
