@@ -88,7 +88,7 @@
   </distributionManagement>
 
   <build>
-    <defaultGoal>clean verify apache-rat:check japicmp:cmp checkstyle:check spotbugs:check javadoc:javadoc</defaultGoal>
+    <defaultGoal>clean verify apache-rat:check japicmp:cmp checkstyle:check spotbugs:check pmd:check javadoc:javadoc</defaultGoal>
     <pluginManagement>
       <plugins>
         <plugin>

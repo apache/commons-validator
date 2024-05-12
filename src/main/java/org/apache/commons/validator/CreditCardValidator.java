@@ -212,18 +212,15 @@ public class CreditCardValidator {
         if (card == null || card.length() < 13 || card.length() > 19) {
             return false;
         }
-
         if (!this.luhnCheck(card)) {
             return false;
         }
-
         for (final Object cardType : this.cardTypes) {
             final CreditCardType type = (CreditCardType) cardType;
             if (type.matches(card)) {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -244,7 +241,6 @@ public class CreditCardValidator {
             } catch (final NumberFormatException e) {
                 return false;
             }
-
             if ((count & 1 ^ oddOrEven) == 0) { // not
                 digit *= 2;
                 if (digit > 9) {
@@ -253,8 +249,7 @@ public class CreditCardValidator {
             }
             sum += digit;
         }
-
-        return sum == 0 ? false : sum % 10 == 0;
+        return sum != 0 && sum % 10 == 0;
     }
 
 }

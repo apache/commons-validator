@@ -392,8 +392,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      */
     @Override
     public boolean isValid(final String value, final String pattern, final Locale locale) {
-        final Object parsedValue = parse(value, pattern, locale, (TimeZone) null);
-        return parsedValue == null ? false : true;
+        return parse(value, pattern, locale, (TimeZone) null) != null;
     }
 
     /**

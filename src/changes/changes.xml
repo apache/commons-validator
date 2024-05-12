@@ -70,6 +70,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="add" dev="ggregory" due-to="ashoknan2, Gary Gregory">ISINValidator: Add 9 additional exception country code #129.</action>
     <action type="add" dev="ggregory" due-to="Gary Gregory">ISINValidator: Add all codes from ISO 3166-1 alpha-2 except unassigned code elements.</action>
     <action type="add" dev="ggregory" due-to="homebeaver, Gary Gregory">Add validator CASNumberCheckDigit for Chemical Registry CAS Numbers and ECNumberCheckDigit #217.</action>   
+    <action type="add" dev="ggregory" due-to="Gary Gregory">Add PMD check to default Maven goal.</action>
     <!-- FIX -->
     <action type="fix" issue="VALIDATOR-492" dev="ggregory" due-to="Tobias Wildgruber, Gary Gregory">ValidatorUtils.copyFastHashMap is broken.</action>
     <action type="fix" dev="ggregory" due-to="Sebb">DomainValidator: Changes from Version 2024040200, Apr 2 07:07:02 2024 UTC.</action>

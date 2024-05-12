@@ -62,7 +62,8 @@ public class GenericValidator implements Serializable {
                 rCount++;
             }
         }
-        return nCount * lineEndLength - (rCount + nCount);
+        final int rnCount = rCount + nCount;
+        return nCount * lineEndLength - rnCount;
     }
 
     /**
