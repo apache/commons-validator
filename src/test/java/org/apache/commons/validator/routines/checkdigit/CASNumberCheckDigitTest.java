@@ -48,7 +48,7 @@ public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
      */
     @Override
     protected String removeCheckDigit(final String code) {
-        String cde = (String) CASNumberCheckDigit.REGEX_VALIDATOR.validate(code);
+        final String cde = (String) CASNumberCheckDigit.REGEX_VALIDATOR.validate(code);
         if (cde == null || cde.length() <= checkDigitLth) {
             return null;
         }

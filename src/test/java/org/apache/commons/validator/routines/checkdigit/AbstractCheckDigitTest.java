@@ -154,7 +154,7 @@ public abstract class AbstractCheckDigitTest {
                     log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + code + "]");
                 }
                 final String expected = checkDigit(code);
-                String codeWithNoCheckDigit = removeCheckDigit(code);
+                final String codeWithNoCheckDigit = removeCheckDigit(code);
                 if (codeWithNoCheckDigit == null) {
                     throw new CheckDigitException("Invalid Code=[" + code + "]");
                 }
