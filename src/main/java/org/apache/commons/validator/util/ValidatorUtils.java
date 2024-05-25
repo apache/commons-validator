@@ -55,13 +55,13 @@ public class ValidatorUtils {
      */
     @Deprecated
     public static FastHashMap copyFastHashMap(final FastHashMap fastHashMap) {
-        FastHashMap results = new FastHashMap();
+        final FastHashMap results = new FastHashMap();
         @SuppressWarnings("unchecked") // FastHashMap is not generic
-        Iterator<Entry<String, ?>> iterator = fastHashMap.entrySet().iterator();
+        final Iterator<Entry<String, ?>> iterator = fastHashMap.entrySet().iterator();
         while (iterator.hasNext()) {
-            Entry<String, ?> entry = iterator.next();
-            String key = entry.getKey();
-            Object value = entry.getValue();
+            final Entry<String, ?> entry = iterator.next();
+            final String key = entry.getKey();
+            final Object value = entry.getValue();
             if (value instanceof Msg) {
                 results.put(key, ((Msg) value).clone());
             } else if (value instanceof Arg) {
