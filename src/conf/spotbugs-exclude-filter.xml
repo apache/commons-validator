@@ -38,4 +38,14 @@
     <Class name="org.apache.commons.validator.routines.CreditCardValidator$1" />
     <Bug pattern="SE_BAD_FIELD" />
   </Match>
+  <Match>
+    <!-- Doesn't make sense and compatibility. -->
+    <Class name="~.*" />
+    <Bug pattern="SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR" />
+  </Match>
+  <Match>
+    <!-- Doesn't make sense and compatibility. -->
+    <Class name="~.*" />
+    <Bug pattern="SING_SINGLETON_IMPLEMENTS_SERIALIZABLE" />
+  </Match>
 </FindBugsFilter>
