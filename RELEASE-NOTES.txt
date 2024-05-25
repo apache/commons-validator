@@ -1,3 +1,54 @@
+Apache Commons Validator 1.9.0
+RELEASE NOTES
+
+The Apache Commons Validator team is pleased to announce the release of Apache Commons Validator 1.9.0.
+
+Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
+It may be used standalone or with a framework like Struts.
+
+
+This is a maintenance and bug fix release; requires Java 8.
+
+For complete information on Apache Commons Validator, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Validator website:
+
+http://commons.apache.org/proper/commons-validator/
+
+Download page: http://commons.apache.org/proper/commons-validator/download_validator.cgi
+
+Changes in this version
+-----------------------
+
+New features
+------------
+
+*                 IBANValidator: #209 - add Falkland Islands, Mongolia, Nicaragua, Oman, Somalia Thanks to homebeaver.
+*                 ISINValidator: Add 9 additional exception country code #129. Thanks to ashoknan2, Gary Gregory.
+*                 ISINValidator: Add all codes from ISO 3166-1 alpha-2 except unassigned code elements. Thanks to Gary Gregory.
+*                 Add validator CASNumberCheckDigit for Chemical Registry CAS Numbers and ECNumberCheckDigit #217. Thanks to homebeaver, Gary Gregory.
+*                 Add PMD check to default Maven goal. Thanks to Gary Gregory.
+
+Fixed Bugs
+----------
+
+* VALIDATOR-492:  ValidatorUtils.copyFastHashMap is broken. Thanks to Tobias Wildgruber, Gary Gregory.
+*                 DomainValidator: Changes from Version 2024040200, Apr 2 07:07:02 2024 UTC. Thanks to Sebb.
+*                 Fix PMD UnnecessaryFullyQualifiedName. Thanks to Gary GRegory.
+
+Changes
+-------
+
+*                 Bump org.apache.commons:commons-parent from 65 to 70 #201. Thanks to Dependabot, Gary Gregory.
+*                 Bump commons-logging:commons-logging from 1.3.0 to 1.3.2 #199, #221. Thanks to Dependabot.
+*                 Bump org.apache.commons:commons-csv from 1.10.0 to 1.11.0 #214. Thanks to Dependabot.
+
+
+Historical list of changes: http://commons.apache.org/proper/commons-validator/changes-report.html
+
+Enjoy!
+-Apache Commons Validator team
+
+-----------------------------------------------------------------------------
 Apache Commons Validator 1.8.0
 RELEASE NOTES
 
