@@ -97,7 +97,7 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException("Code is missing");
         }
-        int modulusResult = INSTANCE.calculateModulus(code, false);
+        final int modulusResult = INSTANCE.calculateModulus(code, false);
         return toCheckDigit(modulusResult);
     }
 
@@ -109,15 +109,14 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
-        Object cde = REGEX_VALIDATOR.validate(code);
-        if (cde instanceof String) {
-            try {
-                final int modulusResult = INSTANCE.calculateModulus((String) cde, true);
-                return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));
-            } catch (final CheckDigitException ex) {
-                return false;
-            }
-        } else {
+        final Object cde = REGEX_VALIDATOR.validate(code);
+        if (!(cde instanceof String)) {
+            return false;
+        }
+        try {
+            final int modulusResult = INSTANCE.calculateModulus((String) cde, true);
+            return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));
+        } catch (final CheckDigitException ex) {
             return false;
         }
     }
