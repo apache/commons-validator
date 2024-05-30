@@ -32,7 +32,7 @@ import org.apache.commons.validator.routines.checkdigit.ECIndexNumberCheckDigit;
  *
  * <p>
  * The Index number for each substance is in the form of a digit sequence of the type
- * <code>ABC-RST-VW-Y</code>. 
+ * <code>ABC-RST-VW-Y</code>.
  * <br>
  * <code>ABC</code> corresponds to the atomic number of the most characteristic element
  * or the most characteristic organic group in the molecule.
@@ -76,7 +76,7 @@ public final class ECIndexNumberValidator implements Serializable {
      */
     static final String ECI_REGEX = "^(?:" + GROUP + DASH + GROUP + DASH + "(\\d{2})" + DASH + "([0-9X]))$";
 
-    static final CodeValidator VALIDATOR = new CodeValidator(ECI_REGEX, ECIndexNumberCheckDigit.LEN, 
+    static final CodeValidator VALIDATOR = new CodeValidator(ECI_REGEX, ECIndexNumberCheckDigit.LEN,
         ECIndexNumberCheckDigit.getInstance());
 
     /**

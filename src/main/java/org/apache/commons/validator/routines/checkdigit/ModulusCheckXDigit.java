@@ -22,8 +22,8 @@ package org.apache.commons.validator.routines.checkdigit;
  * Provides a <i>base</i> class for building <i>modulus 11</i> Check Digit routines.
  * </p>
  * <p>
- * This implementation handles <i>single-digit numeric</i> codes 
- * except for the last (check) digit which can have a value of "X", 
+ * This implementation handles <i>single-digit numeric</i> codes
+ * except for the last (check) digit which can have a value of "X",
  * such as <b>ISSN</b> or {@link ECIndexNumberValidator}.
  * </p>
  *
