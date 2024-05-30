@@ -217,8 +217,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      */
     @Override
     public boolean isValid(final String value, final String pattern, final Locale locale) {
-        final Object parsedValue = parse(value, pattern, locale);
-        return parsedValue == null ? false : true;
+        return parse(value, pattern, locale) != null;
     }
 
     /**

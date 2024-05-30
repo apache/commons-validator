@@ -46,7 +46,7 @@ Apache Commons Validator
 [![Java CI](https://github.com/apache/commons-validator/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/maven.yml)
 [![Coverage Status](https://codecov.io/gh/apache/commons-validator/branch/master/graph/badge.svg)](https://app.codecov.io/gh/apache/commons-validator)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/commons-validator/commons-validator/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/commons-validator/commons-validator/?gav=true)
-[![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.8.0.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.8.0)
+[![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.9.0.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.9.0)
 [![CodeQL](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-validator/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-validator)
 
@@ -70,7 +70,7 @@ Alternatively, you can pull it from  the central Maven repositories:
 <dependency>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <version>1.8.0</version>
+  <version>1.9.0</version>
 </dependency>
 ```
 
@@ -112,7 +112,6 @@ Additional Resources
 + [Apache Issue Tracker (JIRA)](https://issues.apache.org/jira/browse/VALIDATOR)
 + [Apache Commons Slack Channel](https://the-asf.slack.com/archives/C60NVB8AD)
 + [Apache Commons Twitter Account](https://twitter.com/ApacheCommons)
-+ `#apache-commons` IRC channel on `irc.freenode.org`
 
 Apache Commons Components
 -------------------------

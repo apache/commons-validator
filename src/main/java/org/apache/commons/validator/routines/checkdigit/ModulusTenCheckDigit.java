@@ -244,7 +244,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
         final int weight = postitionWeight[(pos - 1) % postitionWeight.length];
         int weightedValue = charValue * weight;
         if (sumWeightedDigits) {
-            weightedValue = ModulusCheckDigit.sumDigits(weightedValue);
+            weightedValue = sumDigits(weightedValue);
         }
         return weightedValue;
     }
