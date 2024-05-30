@@ -24,7 +24,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * <p>
  * This implementation handles <i>single-digit numeric</i> codes
  * except for the last (check) digit which can have a value of "X",
- * such as <b>ISSN</b> or {@link ECIndexNumberValidator}.
+ * such as <b>ISSN</b> or <b>ECIndexNumberValidator</b>.
  * </p>
  *
  * @since 1.9.0
