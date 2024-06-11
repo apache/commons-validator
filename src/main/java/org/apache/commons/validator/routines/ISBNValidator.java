@@ -17,6 +17,7 @@
 package org.apache.commons.validator.routines;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import org.apache.commons.validator.routines.checkdigit.CheckDigitException;
 import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
@@ -247,7 +248,7 @@ public class ISBNValidator implements Serializable {
      */
     public String validateISBN10(final String code) {
         final Object result = isbn10Validator.validate(code);
-        return result == null ? null : result.toString();
+        return Objects.toString(result, null);
     }
 
     /**
@@ -262,7 +263,7 @@ public class ISBNValidator implements Serializable {
      */
     public String validateISBN13(final String code) {
         final Object result = isbn13Validator.validate(code);
-        return result == null ? null : result.toString();
+        return Objects.toString(result, null);
     }
 
 }
