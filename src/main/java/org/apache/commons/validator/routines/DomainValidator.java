@@ -1845,7 +1845,7 @@ public class DomainValidator implements Serializable {
      * the class override (if any) is retained.
      *
      * @param allowLocal Should local addresses be considered valid?
-     * @param items - array of {@link Item} entries
+     * @param items   array of {@link Item} entries
      * @return an instance of this validator
      * @since 1.7
      */

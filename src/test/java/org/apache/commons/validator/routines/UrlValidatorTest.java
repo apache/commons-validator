@@ -64,7 +64,7 @@ public class UrlValidatorTest {
     /**
      * Validator for checking URL parsing
      *
-     * @param args - URLs to validate
+     * @param args   URLs to validate
      */
     public static void main(final String[] args) {
         final UrlValidator uv = new UrlValidator();
