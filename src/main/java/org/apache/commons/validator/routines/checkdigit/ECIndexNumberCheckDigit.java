@@ -17,55 +17,55 @@
 package org.apache.commons.validator.routines.checkdigit;
 
 import org.apache.commons.validator.GenericValidator;
+import org.apache.commons.validator.routines.ECIndexNumberValidator;
 
 /**
- * Modulus 11 <b>EC number</b> Check Digit calculation/validation.
+ * Modulus 11 <b>EC index number</b> Check Digit calculation/validation.
  *
  * <p>
- * EC Numbers are a numeric codes.
- * Check digit calculation is based on <i>modulus 11</i> with digits being weighted
- * based on their position (from left to right).
+ * EC Index Numbers are a numeric code except for the last (check) digit
+ * which can have a value of "X".
  * <br>
  * Note that these <b>do not validate</b> the input for syntax.
- * Such validation is performed by the {@link org.apache.commons.validator.routines.ECNumberValidator}
+ * Such validation is performed by the {@link ECIndexNumberValidator}
  * </p>
  *
  * @since 1.9.0
  */
-public final class ECNumberCheckDigit extends ModulusCheckDigit {
+public final class ECIndexNumberCheckDigit extends ModulusCheckXDigit {
 
-    private static final long serialVersionUID = 7265356024784308367L;
+    private static final long serialVersionUID = 2078815937513115949L;
 
     /** Singleton Check Digit instance */
-    private static final ECNumberCheckDigit INSTANCE = new ECNumberCheckDigit();
+    private static final ECIndexNumberCheckDigit INSTANCE = new ECIndexNumberCheckDigit();
 
     /**
      * Gets the singleton instance of this validator.
-     * @return A singleton instance of the EC Number validator.
+     * @return A singleton instance of the EC Index Number validator.
      */
     public static CheckDigit getInstance() {
         return INSTANCE;
     }
 
     /**
-     * EC number consists of 3 groups of numbers separated dashes (-).
-     * Example: dexamethasone is 200-003-9
+     * EC index number consists of 4 groups of nine numbers separated by dashes (-).
+     * Example: lithium is 003-001-00-4
      * The length without dashes.
      */
-    public static final int LEN = 7;
+    public static final int LEN = 9;
 
     /**
      * Constructs a modulus 11 Check Digit routine.
      */
-    private ECNumberCheckDigit() {
-        super(MODULUS_11);
+    private ECIndexNumberCheckDigit() {
+        super();
     }
 
     /**
      * Calculates the <i>weighted</i> value of a character in the
      * code at a specified position.
      *
-     * <p>For EC number digits are weighted by their position from left to right.</p>
+     * <p>For EC index number digits are weighted by their position from left to right.</p>
      *
      * @param charValue The numeric value of the character.
      * @param leftPos The position of the character in the code, counting from left to right
@@ -85,7 +85,8 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException("Code is missing");
         }
-        return toCheckDigit(INSTANCE.calculateModulus(code, false));
+        int modulusResult = INSTANCE.calculateModulus(code, false);
+        return toCheckDigit(modulusResult);
     }
 
     /**
@@ -101,7 +102,7 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
         }
         try {
             final int modulusResult = INSTANCE.calculateModulus(code, true);
-            return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));
+            return toCheckDigit(modulusResult).equals(code.substring(code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
         }

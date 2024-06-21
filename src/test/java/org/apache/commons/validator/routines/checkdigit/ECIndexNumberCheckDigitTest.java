@@ -19,28 +19,26 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * EC Number Check Digit Tests.
+ * EC Index Number Check Digit Tests.
  */
-public class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
+public class ECIndexNumberCheckDigitTest extends AbstractCheckDigitTest {
 
-    // valid EC Number with dashes removed
-    private static final String MIN = "2000002"; // theoretical minimum
-    private static final String FORMALDEHYDE = "2000018";
-    private static final String DEXAMETHASONE = "2000039";
-    private static final String ARSENIC = "2311486";
-    private static final String ASBESTOS = "6037214";
-    private static final String MAX = "9999992"; // theoretical
+    private static final String MIN = "000000018"; // theoretical
+    private static final String HYDROGEN = "001001009"; // the first entry
+    private static final String LITHIUM = "003001004";
+    private static final String HCL = "01700201X"; // Hydrochloric acid, Salzsäure
+    private static final String ARSENIC = "03300100X";
+    private static final String KRESOXIM = "607310000"; // kresoxim-methyl
+    private static final String ASBESTOS = "650013006";
+    private static final String MAX = "999999995"; // theoretical
 
     /**
      * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {
-        routine = ECNumberCheckDigit.getInstance();
-        valid = new String[] {MIN, FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS, MAX};
-        invalid = new String[] { "0000014", // wrong check
-                "200-001-8", // format chars
-                " 9999992", "9999992 ", " 9999992 ", };
+        routine = ECIndexNumberCheckDigit.getInstance();
+        valid = new String[] {MIN, HYDROGEN, LITHIUM, HCL, ARSENIC, KRESOXIM, ASBESTOS, MAX};
     }
 
 }

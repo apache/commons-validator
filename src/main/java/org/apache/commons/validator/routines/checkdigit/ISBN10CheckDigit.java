@@ -41,7 +41,7 @@ package org.apache.commons.validator.routines.checkdigit;
  *
  * @since 1.4
  */
-public final class ISBN10CheckDigit extends ModulusCheckDigit {
+public final class ISBN10CheckDigit extends ModulusCheckXDigit {
 
     private static final long serialVersionUID = 8000855044504864964L;
 
@@ -52,46 +52,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
      * Constructs a modulus 11 Check Digit routine for ISBN-10.
      */
     public ISBN10CheckDigit() {
-        super(MODULUS_11);
-    }
-
-    /**
-     * <p>Convert an integer value to a character at a specified position.</p>
-     *
-     * <p>Value '10' for position 1 (check digit) converted to 'X'.</p>
-     *
-     * @param charValue The integer value of the character.
-     * @return The converted character.
-     * @throws CheckDigitException if an error occurs.
-     */
-    @Override
-    protected String toCheckDigit(final int charValue)
-            throws CheckDigitException {
-        if (charValue == 10) {  // CHECKSTYLE IGNORE MagicNumber
-            return "X";
-        }
-        return super.toCheckDigit(charValue);
-    }
-
-    /**
-     * <p>Convert a character at a specified position to an
-     * integer value.</p>
-     *
-     * <p>Character 'X' check digit converted to 10.</p>
-     *
-     * @param character The character to convert.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The position of the character in the code, counting from right to left
-     * @return The integer value of the character.
-     * @throws CheckDigitException if an error occurs.
-     */
-    @Override
-    protected int toInt(final char character, final int leftPos, final int rightPos)
-            throws CheckDigitException {
-        if (rightPos == 1 && character == 'X') {
-            return 10;  // CHECKSTYLE IGNORE MagicNumber
-        }
-        return super.toInt(character, leftPos, rightPos);
+        super();
     }
 
     /**
