@@ -44,7 +44,6 @@ Apache Commons Validator
 ===================
 
 [![Java CI](https://github.com/apache/commons-validator/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/maven.yml)
-[![Coverage Status](https://codecov.io/gh/apache/commons-validator/branch/master/graph/badge.svg)](https://app.codecov.io/gh/apache/commons-validator)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/commons-validator/commons-validator/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/commons-validator/commons-validator/?gav=true)
 [![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.9.0.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.9.0)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-validator/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-validator)
