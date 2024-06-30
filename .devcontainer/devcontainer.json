@@ -1,0 +1,20 @@
+{
+	"name": "commons-validator",
+	"image": "mcr.microsoft.com/devcontainers/java:1-8-bullseye",
+
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {
+			"version": "none",
+			"installMaven": "true"
+		}
+	},
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"streetsidesoftware.code-spell-checker",
+				"vscjava.vscode-java-pack"
+			]
+		}
+	}
+}
