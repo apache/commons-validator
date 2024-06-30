@@ -46,7 +46,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * </pre>
  * @since 1.5.0
  */
-public final class ISSNCheckDigit extends ModulusCheckDigit {
+public final class ISSNCheckDigit extends ModulusCheckXDigit {
 
     private static final long serialVersionUID = 1L;
 
@@ -57,24 +57,7 @@ public final class ISSNCheckDigit extends ModulusCheckDigit {
      * Creates the instance using a checkdigit modulus of 11.
      */
     public ISSNCheckDigit() {
-        super(MODULUS_11);
-    }
-
-    @Override
-    protected String toCheckDigit(final int charValue) throws CheckDigitException {
-        if (charValue == 10) { // CHECKSTYLE IGNORE MagicNumber
-            return "X";
-        }
-        return super.toCheckDigit(charValue);
-    }
-
-    @Override
-    protected int toInt(final char character, final int leftPos, final int rightPos)
-            throws CheckDigitException {
-        if (rightPos == 1 && character == 'X') {
-            return 10; // CHECKSTYLE IGNORE MagicNumber
-        }
-        return super.toInt(character, leftPos, rightPos);
+        super();
     }
 
     @Override
