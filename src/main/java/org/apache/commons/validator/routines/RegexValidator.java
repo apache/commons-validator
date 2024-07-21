@@ -71,6 +71,9 @@ public class RegexValidator implements Serializable {
 
     private static final long serialVersionUID = -8832409930574867162L;
 
+    /**
+     * Compiled RE patterns from constructors.
+     */
     private final Pattern[] patterns;
 
     /**
