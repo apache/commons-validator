@@ -445,10 +445,7 @@ public class ISINValidator implements Serializable {
     }
 
     private boolean checkCode(final String code) {
-        return Arrays.binarySearch(CCODES, code) >= 0
-               ||
-               Arrays.binarySearch(SPECIALS, code) >= 0
-        ;
+        return Arrays.binarySearch(CCODES, code) >= 0 || Arrays.binarySearch(SPECIALS, code) >= 0;
     }
 
     /**
