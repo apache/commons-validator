@@ -125,6 +125,9 @@ public class ISBNValidator implements Serializable {
     /** ISBN-13 Code Validator */
     private final CodeValidator isbn13Validator = new CodeValidator(ISBN13_REGEX, 13, EAN13CheckDigit.EAN13_CHECK_DIGIT);
 
+    /**
+     * Whether validation converts an ISBN-10 codes to ISBN-13.
+     */
     private final boolean convert;
 
     /**
