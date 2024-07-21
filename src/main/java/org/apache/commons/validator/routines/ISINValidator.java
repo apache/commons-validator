@@ -438,6 +438,9 @@ public class ISINValidator implements Serializable {
         return checkCountryCode ? ISIN_VALIDATOR_TRUE : ISIN_VALIDATOR_FALSE;
     }
 
+    /**
+     * Whether to check the country code during validation.
+     */
     private final boolean checkCountryCode;
 
     private ISINValidator(final boolean checkCountryCode) {
