@@ -69,7 +69,11 @@ public class IBANValidator {
         final String countryCode;
         final String[] otherCountryCodes;
         final RegexValidator regexValidator;
-        final int ibanLength; // used to avoid unnecessary regex matching
+
+        /**
+         * Used to avoid unnecessary regex matching.
+         */
+        private final int ibanLength;
 
         /**
          * Creates the validator.
@@ -107,6 +111,16 @@ public class IBANValidator {
             }
             this.ibanLength = ibanLength;
             this.regexValidator = new RegexValidator(regexList);
+        }
+
+        /**
+         * Gets the length.
+         *
+         * @return the length.
+         * @since 1.10.0
+         */
+        public int getIbanLength() {
+            return ibanLength;
         }
 
         /**

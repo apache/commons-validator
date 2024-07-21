@@ -27,7 +27,7 @@
 
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <version>1.9.1-SNAPSHOT</version>
+  <version>1.10.0-SNAPSHOT</version>
   <name>Apache Commons Validator</name>
   <description>
     Apache Commons Validator provides the building blocks for both client-side and server-side data validation.
@@ -40,11 +40,11 @@
     <commons.componentid>validator</commons.componentid>
     <commons.module.name>org.apache.commons.validator</commons.module.name>
     <!-- Re-generate the download page using: mvn commons:download-page -->
-    <commons.release.version>1.9.0</commons.release.version>
-    <commons.release.next>1.9.1</commons.release.next>
+    <commons.release.version>1.10.0</commons.release.version>
+    <commons.release.next>1.10.1</commons.release.next>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.desc>(requires JDK ${maven.compiler.target})</commons.release.desc>
-    <commons.bc.version>1.8.0</commons.bc.version>
+    <commons.bc.version>1.9.0</commons.bc.version>
     <commons.jira.id>VALIDATOR</commons.jira.id>
     <commons.jira.pid>12310494</commons.jira.pid>
     <commons.encoding>UTF-8</commons.encoding>

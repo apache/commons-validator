@@ -231,7 +231,7 @@ public class IBANValidatorTest {
                         System.out.println("// Missing entry:");
                         printEntry(cc.get(i), newLength, newRE, country.get(i));
                     } else {
-                        final String currentLength = Integer.toString(valre.ibanLength);
+                        final String currentLength = Integer.toString(valre.getIbanLength());
                         final String currentRE = valre.getRegexValidator().toString().replaceAll("^.+?\\{(.+)}", "$1") // Extract RE from RegexValidator{re}
                                                                                                                        // string
                                 .replace("\\d", "\\\\d"); // convert \d to \\d
