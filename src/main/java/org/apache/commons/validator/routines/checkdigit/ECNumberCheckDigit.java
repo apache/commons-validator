@@ -29,7 +29,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * </p>
  *
  * <p>
- * Check digit calculation is based on <i>modulus 11</i> with digits being weighted
+ * Check digit calculation is based on <em>modulus 11</em> with digits being weighted
  * based on their position (from left to right).
  * </p>
  *
@@ -74,7 +74,7 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * Calculates the <i>weighted</i> value of a character in the
+     * Calculates the <em>weighted</em> value of a character in the
      * code at a specified position.
      *
      * <p>For EC number digits are weighted by their position from left to right.</p>

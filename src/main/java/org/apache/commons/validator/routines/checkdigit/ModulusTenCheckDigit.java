@@ -32,15 +32,15 @@ import org.apache.commons.validator.routines.CodeValidator;
  * <li>Converting each character to an integer value using
  * <code>Character.getNumericValue(char)</code> - negative integer values from
  * that method are invalid.</li>
- * <li>Calculating a <i>weighted value</i> by multiplying the character's
- * integer value by a <i>weighting factor</i>. The <i>weighting factor</i> is
+ * <li>Calculating a <em>weighted value</em> by multiplying the character's
+ * integer value by a <em>weighting factor</em>. The <em>weighting factor</em> is
  * selected from the configured <code>postitionWeight</code> array based on its
  * position. The <code>postitionWeight</code> values are used either
  * left-to-right (when <code>useRightPos=false</code>) or right-to-left (when
  * <code>useRightPos=true</code>).</li>
- * <li>If <code>sumWeightedDigits=true</code>, the <i>weighted value</i> is
+ * <li>If <code>sumWeightedDigits=true</code>, the <em>weighted value</em> is
  * re-calculated by summing its digits.</li>
- * <li>The <i>weighted values</i> of each character are totalled.</li>
+ * <li>The <em>weighted values</em> of each character are totalled.</li>
  * <li>The total modulo 10 will be zero for a code with a valid Check Digit.</li>
  * </ul>
  * <h2>Limitations</h2>
@@ -76,7 +76,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * <p>
  * <b>CUSIP</b> Check Digit Routine (equivalent of {@link CUSIPCheckDigit}).
  * Weighting factors are <code>[1, 2]</code> applied from right to left and the
- * digits of the <i>weighted value</i> are summed.
+ * digits of the <em>weighted value</em> are summed.
  *
  * <pre>
  * CheckDigit routine = new ModulusTenCheckDigit(new int[] { 1, 2 }, true, true);
@@ -94,7 +94,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * <p>
  * <b>Luhn</b> Check Digit Routine (equivalent of {@link LuhnCheckDigit}).
  * Weighting factors are <code>[1, 2]</code> applied from right to left and the
- * digits of the <i>weighted value</i> are summed.
+ * digits of the <em>weighted value</em> are summed.
  *
  * <pre>
  * CheckDigit routine = new ModulusTenCheckDigit(new int[] { 1, 2 }, true, true);
@@ -228,7 +228,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * Calculates the <i>weighted</i> value of a character in the code at a
+     * Calculates the <em>weighted</em> value of a character in the code at a
      * specified position.
      *
      * @param charValue The numeric value of the character.

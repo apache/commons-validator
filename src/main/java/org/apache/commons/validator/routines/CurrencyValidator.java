@@ -24,20 +24,20 @@ import java.text.Format;
  *
  * <p>This is one implementation of a currency validator that has the following features:</p>
  *    <ul>
- *       <li>It is <i>lenient</i> about the presence of the <i>currency symbol</i></li>
+ *       <li>It is <em>lenient</em> about the presence of the <em>currency symbol</em></li>
  *       <li>It converts the currency to a <code>java.math.BigDecimal</code></li>
  *    </ul>
  *
- * <p>However any of the <i>number</i> validators can be used for <i>currency</i> validation.
- *    For example, if you wanted a <i>currency</i> validator that converts to a
+ * <p>However any of the <em>number</em> validators can be used for <em>currency</em> validation.
+ *    For example, if you wanted a <em>currency</em> validator that converts to a
  *    <code>java.lang.Integer</code> then you can simply instantiate an
- *    <code>IntegerValidator</code> with the appropriate <i>format type</i>:</p>
+ *    <code>IntegerValidator</code> with the appropriate <em>format type</em>:</p>
  *
  *    <p><code>... = new IntegerValidator(false, IntegerValidator.CURRENCY_FORMAT);</code></p>
  *
  * <p>Pick the appropriate validator, depending on the type (e.g Float, Double, Integer, Long etc)
  *    you want the currency converted to. One thing to note - only the CurrencyValidator
- *    implements <i>lenient</i> behavior regarding the currency symbol.</p>
+ *    implements <em>lenient</em> behavior regarding the currency symbol.</p>
  *
  * @since 1.3.0
  */
@@ -59,7 +59,7 @@ public class CurrencyValidator extends BigDecimalValidator {
     }
 
     /**
-     * Constructs a <i>strict</i> instance.
+     * Constructs a <em>strict</em> instance.
      */
     public CurrencyValidator() {
         this(true, true);

@@ -51,7 +51,7 @@ import org.apache.commons.validator.routines.CodeValidator;
 public interface CheckDigit {
 
     /**
-     * Calculates the <i>Check Digit</i> for a code.
+     * Calculates the <em>Check Digit</em> for a code.
      *
      * @param code The code to calculate the Check Digit for.
      * The string must not include the check digit

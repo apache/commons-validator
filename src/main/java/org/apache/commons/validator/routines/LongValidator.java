@@ -35,7 +35,7 @@ import java.util.Locale;
  *
  * <p>Use one of the <code>isValid()</code> methods to just validate or
  *    one of the <code>validate()</code> methods to validate and receive a
- *    <i>converted</i> <code>Long</code> value.</p>
+ *    <em>converted</em> <code>Long</code> value.</p>
  *
  * <p>Once a value has been successfully converted the following
  *    methods can be used to perform minimum, maximum and range checks:</p>
@@ -48,14 +48,14 @@ import java.util.Locale;
  *           a specified range of values.</li>
  *    </ul>
  *
- * <p>So that the same mechanism used for parsing an <i>input</i> value
- *    for validation can be used to format <i>output</i>, corresponding
+ * <p>So that the same mechanism used for parsing an <em>input</em> value
+ *    for validation can be used to format <em>output</em>, corresponding
  *    <code>format()</code> methods are also provided. That is you can
  *    format either:</p>
  *    <ul>
  *       <li>using a specified pattern</li>
  *       <li>using the format for a specified <code>Locale</code></li>
- *       <li>using the format for the <i>default</i> <code>Locale</code></li>
+ *       <li>using the format for the <em>default</em> <code>Locale</code></li>
  *    </ul>
  *
  * @since 1.3.0
@@ -75,7 +75,7 @@ public class LongValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Constructs a <i>strict</i> instance.
+     * Constructs a <em>strict</em> instance.
      */
     public LongValidator() {
         this(true, STANDARD_FORMAT);
@@ -90,11 +90,11 @@ public class LongValidator extends AbstractNumberValidator {
      *    are:</p>
      *    <ul>
      *       <li>AbstractNumberValidator.STANDARD_FORMAT -to create
-     *           <i>standard</i> number formats (the default).</li>
+     *           <em>standard</em> number formats (the default).</li>
      *       <li>AbstractNumberValidator.CURRENCY_FORMAT -to create
-     *           <i>currency</i> number formats.</li>
+     *           <em>currency</em> number formats.</li>
      *       <li>AbstractNumberValidator.PERCENT_FORMAT -to create
-     *           <i>percent</i> number formats (the default).</li>
+     *           <em>percent</em> number formats (the default).</li>
      *    </ul>
      *
      * @param strict {@code true} if strict
@@ -225,7 +225,7 @@ public class LongValidator extends AbstractNumberValidator {
 
     /**
      * <p>Validate/convert a <code>Long</code> using the
-     *    specified <i>pattern</i>.
+     *    specified <em>pattern</em>.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against.

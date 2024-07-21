@@ -29,7 +29,7 @@ import org.apache.commons.validator.GenericValidator;
 /**
  * <p>Abstract class for Date/Time/Calendar validation.</p>
  *
- * <p>This is a <i>base</i> class for building Date / Time
+ * <p>This is a <em>base</em> class for building Date / Time
  *    Validators using format parsing.</p>
  *
  * @since 1.3.0
@@ -49,8 +49,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     private final int timeStyle;
 
     /**
-     * Constructs an instance with the specified <i>strict</i>,
-     * <i>time</i> and <i>date</i> style parameters.
+     * Constructs an instance with the specified <em>strict</em>,
+     * <em>time</em> and <em>date</em> style parameters.
      *
      * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
@@ -114,7 +114,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *
      * @param value The Calendar value.
      * @param compare The <code>Calendar</code> to check the value against.
-     * @param field The field <i>level</i> to compare to - e.g. specifying
+     * @param field The field <em>level</em> to compare to - e.g. specifying
      *        <code>Calendar.MONTH</code> will compare the year and month
      *        portions of the calendar.
      * @return Zero if the first value is equal to the second, -1
@@ -192,7 +192,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *
      * @param value The Calendar value.
      * @param compare The <code>Calendar</code> to check the value against.
-     * @param field The field <i>level</i> to compare to - e.g. specifying
+     * @param field The field <em>level</em> to compare to - e.g. specifying
      *        <code>Calendar.MINUTE</code> will compare the hours and minutes
      *        portions of the calendar.
      * @return Zero if the first value is equal to the second, -1
@@ -358,7 +358,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Returns a <code>DateFormat</code> for the specified <i>pattern</i>
+     * <p>Returns a <code>DateFormat</code> for the specified <em>pattern</em>
      *    and/or <code>Locale</code>.</p>
      *
      * @param pattern The pattern used to validate the value against or

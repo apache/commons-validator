@@ -25,8 +25,8 @@ package org.apache.commons.validator.routines.checkdigit;
  *    <li><a href="https://en.wikipedia.org/wiki/IMEI">IMEI Numbers</a> - International
  *        Mobile Equipment Identity Numbers</li>
  * </ul>
- * Check digit calculation is based on <i>modulus 10</i> with digits in
- * an <i>odd</i> position (from right to left) being weighted 1 and <i>even</i>
+ * Check digit calculation is based on <em>modulus 10</em> with digits in
+ * an <em>odd</em> position (from right to left) being weighted 1 and <em>even</em>
  * position digits being weighted 2 (weighted values greater than 9 have 9 subtracted).
  *
  * <p>
@@ -53,7 +53,7 @@ public final class LuhnCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * <p>Calculates the <i>weighted</i> value of a character in the
+     * <p>Calculates the <em>weighted</em> value of a character in the
      * code at a specified position.</p>
      *
      * <p>For Luhn (from right to left) <b>odd</b> digits are weighted

@@ -27,7 +27,7 @@ import org.apache.commons.validator.GenericValidator;
 /**
  * <p>Abstract class for Number Validation.</p>
  *
- * <p>This is a <i>base</i> class for building Number
+ * <p>This is a <em>base</em> class for building Number
  *    Validators using format parsing.</p>
  *
  * @since 1.3.0
@@ -56,8 +56,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     private final int formatType;
 
     /**
-     * Constructs an instance with specified <i>strict</i>
-     * and <i>decimal</i> parameters.
+     * Constructs an instance with specified <em>strict</em>
+     * and <em>decimal</em> parameters.
      *
      * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
@@ -73,7 +73,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Returns the <i>multiplier</i> of the <code>NumberFormat</code>.</p>
+     * <p>Returns the <em>multiplier</em> of the <code>NumberFormat</code>.</p>
      *
      * @param format The <code>NumberFormat</code> to determine the
      *        multiplier of.
@@ -144,7 +144,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Returns a <code>NumberFormat</code> for the specified <i>pattern</i>
+     * <p>Returns a <code>NumberFormat</code> for the specified <em>pattern</em>
      *    and/or <code>Locale</code>.</p>
      *
      * @param pattern The pattern used to validate the value against or

@@ -16,7 +16,7 @@
  */
 
 /**
- * This package contains <i>Check Digit</i> validation/calculation routines.
+ * This package contains <em>Check Digit</em> validation/calculation routines.
  * <p>
  * Note that these <b>do not validate</b> the input for length or syntax. Such validation is performed by the org.apache.commons.validator.routines.XYZValidator
  * classes.
