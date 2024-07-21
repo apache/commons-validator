@@ -198,17 +198,20 @@ public class UrlValidator implements Serializable {
      */
     private final RegexValidator authorityValidator;
 
+    /**
+     * The domain validator.
+     */
     private final DomainValidator domainValidator;
 
     /**
-     * Create a UrlValidator with default properties.
+     * Constructs a new instance with default properties.
      */
     public UrlValidator() {
         this(null);
     }
 
     /**
-     * Initialize a UrlValidator with the given validation options.
+     * Constructs a new instance with the given validation options.
      * @param options The options should be set using the public constants declared in
      * this class.  To set multiple options you simply add them together.  For example,
      * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
@@ -218,7 +221,7 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Initialize a UrlValidator with the given validation options.
+     * Constructs a new instance with the given validation options.
      * @param authorityValidator Regular expression validator used to validate the authority part
      * This allows the user to override the standard set of domains.
      * @param options Validation options. Set using the public constants of this class.
