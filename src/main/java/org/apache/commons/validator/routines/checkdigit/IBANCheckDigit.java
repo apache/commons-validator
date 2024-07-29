@@ -26,10 +26,10 @@ import java.io.Serializable;
  * The two check digit characters in a IBAN number are the third and fourth characters
  * in the code. For <em>check digit</em> calculation/validation the first four characters are moved
  * to the end of the code.
- *  So <code>CCDDnnnnnnn</code> becomes <code>nnnnnnnCCDD</code> (where
- *  <code>CC</code> is the country code and <code>DD</code> is the check digit). For
+ *  So {@code CCDDnnnnnnn} becomes {@code nnnnnnnCCDD} (where
+ *  {@code CC} is the country code and {@code DD} is the check digit). For
  *  check digit calculation the check digit value should be set to zero (i.e.
- *  <code>CC00nnnnnnn</code> in this example.
+ *  {@code CC00nnnnnnn} in this example.
  * <p>
  * Note: the class does not check the format of the IBAN number, only the check digits.
  * <p>
@@ -64,7 +64,7 @@ public final class IBANCheckDigit extends AbstractCheckDigit implements Serializ
      * Calculate the <em>Check Digit</em> for an IBAN code.
      * <p>
      * <b>Note:</b> The check digit is the third and fourth
-     * characters and is set to the value "<code>00</code>".
+     * characters and is set to the value "{@code 00}".
      *
      * @param code The code to calculate the Check Digit for
      * @return The calculated Check Digit as 2 numeric decimal characters, e.g. "42"

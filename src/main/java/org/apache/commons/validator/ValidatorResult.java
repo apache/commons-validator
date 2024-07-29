@@ -106,19 +106,19 @@ public class ValidatorResult implements Serializable {
     private static final long serialVersionUID = -3713364681647250531L;
 
     /**
-     * Map of results.  The key is the name of the <code>ValidatorAction</code>
+     * Map of results.  The key is the name of the {@code ValidatorAction}
      * and the value is whether or not this field passed or not.
      */
     protected Map<String, ResultStatus> hAction = new HashMap<>();
 
     /**
-     * <code>Field</code> being validated.
+     * {@code Field} being validated.
      * TODO This variable is not used.  Need to investigate removing it.
      */
     protected Field field;
 
     /**
-     * Constructs a <code>ValidatorResult</code> with the associated field being
+     * Constructs a {@code ValidatorResult} with the associated field being
      * validated.
      * @param field Field that was validated.
      */

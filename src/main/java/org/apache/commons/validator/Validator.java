@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  * Validations are processed by the validate method. An instance of
- * <code>ValidatorResources</code> is used to define the validators
+ * {@code ValidatorResources} is used to define the validators
  * (validation methods) and the validation rules for a JavaBean.
  */
 // TODO mutable fields should be made private and accessed via suitable methods only
@@ -37,52 +37,52 @@ public class Validator implements Serializable {
     public static final String BEAN_PARAM = "java.lang.Object";
 
     /**
-     * Resources key the <code>ValidatorAction</code> is stored under.
+     * Resources key the {@code ValidatorAction} is stored under.
      * This will be automatically passed into a validation method
-     * with the current <code>ValidatorAction</code> if it is
+     * with the current {@code ValidatorAction} if it is
      * specified in the method signature.
      */
     public static final String VALIDATOR_ACTION_PARAM =
             "org.apache.commons.validator.ValidatorAction";
 
     /**
-     * Resources key the <code>ValidatorResults</code> is stored under.
+     * Resources key the {@code ValidatorResults} is stored under.
      * This will be automatically passed into a validation method
-     * with the current <code>ValidatorResults</code> if it is
+     * with the current {@code ValidatorResults} if it is
      * specified in the method signature.
      */
     public static final String VALIDATOR_RESULTS_PARAM =
             "org.apache.commons.validator.ValidatorResults";
 
     /**
-     * Resources key the <code>Form</code> is stored under.
+     * Resources key the {@code Form} is stored under.
      * This will be automatically passed into a validation method
-     * with the current <code>Form</code> if it is
+     * with the current {@code Form} if it is
      * specified in the method signature.
      */
     public static final String FORM_PARAM = "org.apache.commons.validator.Form";
 
     /**
-     * Resources key the <code>Field</code> is stored under.
+     * Resources key the {@code Field} is stored under.
      * This will be automatically passed into a validation method
-     * with the current <code>Field</code> if it is
+     * with the current {@code Field} if it is
      * specified in the method signature.
      */
     public static final String FIELD_PARAM = "org.apache.commons.validator.Field";
 
     /**
-     * Resources key the <code>Validator</code> is stored under.
+     * Resources key the {@code Validator} is stored under.
      * This will be automatically passed into a validation method
-     * with the current <code>Validator</code> if it is
+     * with the current {@code Validator} if it is
      * specified in the method signature.
      */
     public static final String VALIDATOR_PARAM =
             "org.apache.commons.validator.Validator";
 
     /**
-     * Resources key the <code>Locale</code> is stored.
+     * Resources key the {@link Locale} is stored.
      * This will be used to retrieve the appropriate
-     * <code>FormSet</code> and <code>Form</code> to be
+     * {@code FormSet} and {@code Form} to be
      * processed.
      */
     public static final String LOCALE_PARAM = "java.util.Locale";
@@ -118,7 +118,7 @@ public class Validator implements Serializable {
      * The class loader to use for instantiating application objects.
      * If not specified, the context class loader, or the class loader
      * used to load Digester itself, is used, based on the value of the
-     * <code>useContextClassLoader</code> variable.
+     * {@code useContextClassLoader} variable.
      */
     protected transient ClassLoader classLoader;
 
@@ -134,24 +134,24 @@ public class Validator implements Serializable {
     protected boolean onlyReturnErrors;
 
     /**
-     * Constructs a <code>Validator</code> that will
-     * use the <code>ValidatorResources</code>
+     * Constructs a {@code Validator} that will
+     * use the {@code ValidatorResources}
      * passed in to retrieve pluggable validators
      * the different sets of validation rules.
      *
-     * @param resources <code>ValidatorResources</code> to use during validation.
+     * @param resources {@code ValidatorResources} to use during validation.
      */
     public Validator(final ValidatorResources resources) {
         this(resources, null);
     }
 
     /**
-     * Constructs a <code>Validator</code> that will
-     * use the <code>ValidatorResources</code>
+     * Constructs a {@code Validator} that will
+     * use the {@code ValidatorResources}
      * passed in to retrieve pluggable validators
      * the different sets of validation rules.
      *
-     * @param resources <code>ValidatorResources</code> to use during validation.
+     * @param resources {@code ValidatorResources} to use during validation.
      * @param formName Key used for retrieving the set of validation rules.
      */
     public Validator(final ValidatorResources resources, final String formName) {
@@ -164,12 +164,12 @@ public class Validator implements Serializable {
     }
 
     /**
-     * Constructs a <code>Validator</code> that will
-     * use the <code>ValidatorResources</code>
+     * Constructs a {@code Validator} that will
+     * use the {@code ValidatorResources}
      * passed in to retrieve pluggable validators
      * the different sets of validation rules.
      *
-     * @param resources <code>ValidatorResources</code> to use during validation.
+     * @param resources {@code ValidatorResources} to use during validation.
      * @param formName Key used for retrieving the set of validation rules.
      * @param fieldName Key used for retrieving the set of validation rules for a field
      * @since 1.2.0
@@ -190,7 +190,7 @@ public class Validator implements Serializable {
      * so it can be reused.  The form name (key to set of validation rules) and any
      * resources needed, like the JavaBean being validated, will need to
      * set and/or added to this instance again.  The
-     * <code>ValidatorResources</code> will not be removed since it can be used
+     * {@code ValidatorResources} will not be removed since it can be used
      * again and is thread safe.
      */
     public void clear() {
@@ -204,9 +204,9 @@ public class Validator implements Serializable {
      * Gets the class loader to be used for instantiating application objects
      * when required.  This is determined based upon the following rules:
      * <ul>
-     * <li>The class loader set by <code>setClassLoader()</code>, if any</li>
+     * <li>The class loader set by {@code setClassLoader()}, if any</li>
      * <li>The thread context class loader, if it exists and the
-     *     <code>useContextClassLoader</code> property is set to true</li>
+     *     {@code useContextClassLoader} property is set to true</li>
      * <li>The class loader used to load the Digester class itself.
      * </ul>
      * @return the class loader.
@@ -345,7 +345,7 @@ public class Validator implements Serializable {
 
     /**
      * Determine whether to use the Context ClassLoader (the one found by
-     * calling <code>Thread.currentThread().getContextClassLoader()</code>)
+     * calling {@code Thread.currentThread().getContextClassLoader()})
      * to resolve/load classes that are defined in various rules.  If not
      * using Context ClassLoader, then the class-loading defaults to
      * using the calling-class' ClassLoader.
@@ -359,8 +359,8 @@ public class Validator implements Serializable {
     /**
      * Performs validations based on the configured resources.
      *
-     * @return The <code>Map</code> returned uses the property of the
-     * <code>Field</code> for the key and the value is the number of error the
+     * @return The {@link Map} returned uses the property of the
+     * {@code Field} for the key and the value is the number of error the
      * field had.
      * @throws ValidatorException If an error occurs during validation
      */

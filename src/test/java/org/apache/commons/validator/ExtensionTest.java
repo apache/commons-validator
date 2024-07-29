@@ -61,7 +61,7 @@ public class ExtensionTest {
     private ValidatorResources resources;
 
     /**
-     * Load <code>ValidatorResources</code> from validator-extension.xml.
+     * Load {@code ValidatorResources} from validator-extension.xml.
      */
     @BeforeEach
     protected void setUp() throws Exception {

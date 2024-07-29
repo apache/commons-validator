@@ -39,14 +39,14 @@
  * <p>In order to use the Validator, the following basic steps are required:</p>
  * <ul>
  * <li>Create a new instance of the
- * <code>org.apache.commons.validator.Validator</code> class.  Currently
+ * {@code org.apache.commons.validator.Validator} class.  Currently
  * Validator instances may be safely reused if the current ValidatorResources
  * are the same, as long as
  * you have completed any previous validation, and you do not try to utilize
  * a particular Validator instance from more than one thread at a time.</li>
  * <li>Add any <a href="#doc.Resources">resources</a>
  * needed to perform the validations.  Such as the JavaBean to validate.</li>
- * <li>Call the validate method on <code>org.apache.commons.validator.Validator</code>.</li>
+ * <li>Call the validate method on {@code org.apache.commons.validator.Validator}.</li>
  * </ul>
  * <a id="doc.Overview"></a>
  * <h2>Overview</h2>
@@ -129,7 +129,7 @@
  * <p>
  * This is a basic example setting up a required validator for
  * a name bean.  This example is a working unit test (reference
- * <code>org.apache.commons.validator.RequiredNameTest</code> and
+ * {@code org.apache.commons.validator.RequiredNameTest} and
  * validator-name-required.xml located under validator/src/test).
  * </p>
  * <p>

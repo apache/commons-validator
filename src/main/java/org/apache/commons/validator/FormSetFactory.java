@@ -32,7 +32,7 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
     private transient Log log = LogFactory.getLog(FormSetFactory.class);
 
     /**
-     * <p>Create or retrieve a <code>FormSet</code> based on the language, country
+     * <p>Create or retrieve a {@code FormSet} based on the language, country
      *    and variant.</p>
      *
      * @param resources The validator resources.
@@ -74,7 +74,7 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
     }
 
     /**
-     * <p>Create or retrieve a <code>FormSet</code> for the specified
+     * <p>Create or retrieve a {@code FormSet} for the specified
      *    attributes.</p>
      *
      * @param attributes The sax attributes for the formset element.

@@ -27,10 +27,10 @@ package org.apache.commons.validator.routines.checkdigit;
  * Check digit calculation is based on <em>modulus 10</em> with digits being weighted
  * based on their position, from left to right, as follows:
  * </p>
- * <pre><code>
+ * <pre>{@code
  *      position:  1  2  3  4  5  6  7
  *     weighting:  1  3  1  7  3  9  1
- * </code></pre>
+ * }</pre>
  * <p>
  * See <a href="https://en.wikipedia.org/wiki/SEDOL">Wikipedia - SEDOL</a>
  * for more details.

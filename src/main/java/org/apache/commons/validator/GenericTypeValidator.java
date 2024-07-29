@@ -106,7 +106,7 @@ public class GenericTypeValidator implements Serializable {
     /**
      * Checks if the field is a valid date.
      *
-     * <p>The {@code Locale} is used with {@link java.text.DateFormat}. The {@link java.text.DateFormat#setLenient(boolean)}
+     * <p>The {@link Locale} is used with {@link java.text.DateFormat}. The {@link java.text.DateFormat#setLenient(boolean)}
      * method is set to {@code false} for all.
      * </p>
      *
@@ -174,7 +174,7 @@ public class GenericTypeValidator implements Serializable {
      * </p>
      *
      * @param value       The value validation is being performed on.
-     * @param datePattern The pattern passed to {@code SimpleDateFormat}.
+     * @param datePattern The pattern passed to {@link SimpleDateFormat}.
      * @param strict      Whether or not to have an exact match of the
      *                    datePattern.
      * @return the converted Date value.

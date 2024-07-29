@@ -36,7 +36,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * <p>
  * The check digit is found by taking the last digit times 1, the preceding digit times 2,
  * the preceding digit times 3 etc., adding all these up and computing the sum modulo 10.
- * For example, the CAS number of water is <code>7732-18-5</code>:
+ * For example, the CAS number of water is {@code 7732-18-5}:
  * the checksum 5 is calculated as (8×1 + 1×2 + 2×3 + 3×4 + 7×5 + 7×6) = 105; 105 mod 10 = 5.
  * </p>
  *
@@ -90,10 +90,10 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
      * <p>
      * CAS numbers are weighted in the following manner:
      * </p>
-     * <pre><code>
+     * <pre>{@code
      *    right position: 1  2  3  4  5  6  7  8  9 10
      *            weight: 1  2  3  4  5  6  7  8  9  0
-     * </code></pre>
+     * }</pre>
      *
      * @param charValue The numeric value of the character.
      * @param leftPos The position of the character in the code, counting from left to right

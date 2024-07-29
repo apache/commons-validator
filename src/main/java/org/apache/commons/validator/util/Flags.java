@@ -61,7 +61,7 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Turn off all flags.  This is a synonym for <code>turnOffAll()</code>.
+     * Turn off all flags.  This is a synonym for {@code turnOffAll()}.
      * @since 1.1.1
      */
     public void clear() {

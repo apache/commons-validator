@@ -30,15 +30,15 @@ import org.apache.commons.validator.routines.CodeValidator;
  * way:
  * <ul>
  * <li>Converting each character to an integer value using
- * <code>Character.getNumericValue(char)</code> - negative integer values from
+ * {@code Character.getNumericValue(char)} - negative integer values from
  * that method are invalid.</li>
  * <li>Calculating a <em>weighted value</em> by multiplying the character's
  * integer value by a <em>weighting factor</em>. The <em>weighting factor</em> is
- * selected from the configured <code>postitionWeight</code> array based on its
- * position. The <code>postitionWeight</code> values are used either
- * left-to-right (when <code>useRightPos=false</code>) or right-to-left (when
- * <code>useRightPos=true</code>).</li>
- * <li>If <code>sumWeightedDigits=true</code>, the <em>weighted value</em> is
+ * selected from the configured {@code postitionWeight} array based on its
+ * position. The {@code postitionWeight} values are used either
+ * left-to-right (when {@code useRightPos=false}) or right-to-left (when
+ * {@code useRightPos=true}).</li>
+ * <li>If {@code sumWeightedDigits=true}, the <em>weighted value</em> is
  * re-calculated by summing its digits.</li>
  * <li>The <em>weighted values</em> of each character are totalled.</li>
  * <li>The total modulo 10 will be zero for a code with a valid Check Digit.</li>
@@ -50,7 +50,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * <li>It assumes the last character in the code is the Check Digit and
  * validates that it is a numeric character.</li>
  * <li>The only limitation on valid characters are those that
- * <code>Character.getNumericValue(char)</code> returns a positive value. If,
+ * {@code Character.getNumericValue(char)} returns a positive value. If,
  * for example, the code should only contain numbers, this implementation does
  * not check that.</li>
  * <li>There are no checks on code length.</li>
@@ -66,7 +66,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  *
  * <p>
  * <b>ABA Number</b> Check Digit Routine (equivalent of
- * {@link ABANumberCheckDigit}). Weighting factors are <code>[1, 7, 3]</code>
+ * {@link ABANumberCheckDigit}). Weighting factors are {@code [1, 7, 3]}
  * applied from right to left.
  *
  * <pre>
@@ -75,7 +75,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  *
  * <p>
  * <b>CUSIP</b> Check Digit Routine (equivalent of {@link CUSIPCheckDigit}).
- * Weighting factors are <code>[1, 2]</code> applied from right to left and the
+ * Weighting factors are {@code [1, 2]} applied from right to left and the
  * digits of the <em>weighted value</em> are summed.
  *
  * <pre>
@@ -84,7 +84,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  *
  * <p>
  * <b>EAN-13 / UPC</b> Check Digit Routine (equivalent of
- * {@link EAN13CheckDigit}). Weighting factors are <code>[1, 3]</code> applied
+ * {@link EAN13CheckDigit}). Weighting factors are {@code [1, 3]} applied
  * from right to left.
  *
  * <pre>
@@ -93,7 +93,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  *
  * <p>
  * <b>Luhn</b> Check Digit Routine (equivalent of {@link LuhnCheckDigit}).
- * Weighting factors are <code>[1, 2]</code> applied from right to left and the
+ * Weighting factors are {@code [1, 2]} applied from right to left and the
  * digits of the <em>weighted value</em> are summed.
  *
  * <pre>
@@ -102,7 +102,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  *
  * <p>
  * <b>SEDOL</b> Check Digit Routine (equivalent of {@link SedolCheckDigit}).
- * Weighting factors are <code>[1, 3, 1, 7, 3, 9, 1]</code> applied from left to
+ * Weighting factors are {@code [1, 3, 1, 7, 3, 9, 1]} applied from left to
  * right.
  *
  * <pre>

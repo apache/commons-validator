@@ -41,7 +41,7 @@ public class LocaleTest extends AbstractCommonTest {
     protected static final String ACTION = "required";
 
     /**
-     * Load <code>ValidatorResources</code> from validator-locale.xml.
+     * Load {@code ValidatorResources} from validator-locale.xml.
      *
      * @throws IOException  If something goes wrong
      * @throws SAXException If something goes wrong

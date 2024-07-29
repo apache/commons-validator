@@ -42,7 +42,7 @@ public abstract class AbstractNumberTest extends AbstractCommonTest {
     protected String action;
 
     /**
-     * Load <code>ValidatorResources</code> from validator-numeric.xml.
+     * Load {@code ValidatorResources} from validator-numeric.xml.
      */
     @BeforeEach
     protected void setUp() throws IOException, SAXException {

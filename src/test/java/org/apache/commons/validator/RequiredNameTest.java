@@ -42,7 +42,7 @@ public class RequiredNameTest extends AbstractCommonTest {
     protected static final String ACTION = "required";
 
     /**
-     * Load <code>ValidatorResources</code> from validator-name-required.xml.
+     * Load {@code ValidatorResources} from validator-name-required.xml.
      */
     @BeforeEach
     protected void setUp() throws IOException, SAXException {

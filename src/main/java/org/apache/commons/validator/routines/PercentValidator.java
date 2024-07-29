@@ -21,26 +21,26 @@ import java.text.DecimalFormat;
 import java.text.Format;
 
 /**
- * <p><b>Percentage Validation</b> and Conversion routines (<code>java.math.BigDecimal</code>).</p>
+ * <p><b>Percentage Validation</b> and Conversion routines ({@code java.math.BigDecimal}).</p>
  *
  * <p>This is one implementation of a percent validator that has the following features:</p>
  *    <ul>
  *       <li>It is <em>lenient</em> about the presence of the <em>percent symbol</em></li>
- *       <li>It converts the percent to a <code>java.math.BigDecimal</code></li>
+ *       <li>It converts the percent to a {@code java.math.BigDecimal}</li>
  *    </ul>
  *
  * <p>However any of the <em>number</em> validators can be used for <em>percent</em> validation.
  *    For example, if you wanted a <em>percent</em> validator that converts to a
- *    <code>java.lang.Float</code> then you can simply instantiate an
- *    <code>FloatValidator</code> with the appropriate <em>format type</em>:</p>
+ *    {@code java.lang.Float} then you can simply instantiate an
+ *    {@code FloatValidator} with the appropriate <em>format type</em>:</p>
  *
- *    <p><code>... = new FloatValidator(false, FloatValidator.PERCENT_FORMAT);</code></p>
+ *    <p>{@code ... = new FloatValidator(false, FloatValidator.PERCENT_FORMAT);}</p>
  *
  * <p>Pick the appropriate validator, depending on the type (i.e Float, Double or BigDecimal)
  *    you want the percent converted to. Please note, it makes no sense to use
  *    one of the validators that doesn't handle fractions (i.e. byte, short, integer, long
- *    and BigInteger) since percentages are converted to fractions (i.e <code>50%</code> is
- *    converted to <code>0.5</code>).</p>
+ *    and BigInteger) since percentages are converted to fractions (i.e {@code 50%} is
+ *    converted to {@code 0.5}).</p>
  *
  * @since 1.3.0
  */
@@ -74,17 +74,17 @@ public class PercentValidator extends BigDecimalValidator {
      * Constructs an instance with the specified strict setting.
      *
      * @param strict {@code true} if strict
-     *        <code>Format</code> parsing should be used.
+     *        {@code Format} parsing should be used.
      */
     public PercentValidator(final boolean strict) {
         super(strict, PERCENT_FORMAT, true);
     }
 
     /**
-     * <p>Parse the value with the specified <code>Format</code>.</p>
+     * <p>Parse the value with the specified {@code Format}.</p>
      *
      * <p>This implementation is lenient whether the currency symbol
-     *    is present or not. The default <code>NumberFormat</code>
+     *    is present or not. The default {@code NumberFormat}
      *    behavior is for the parsing to "fail" if the currency
      *    symbol is missing. This method re-parses with a format
      *    without the currency symbol if it fails initially.</p>

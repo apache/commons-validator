@@ -41,19 +41,19 @@ import java.util.regex.Pattern;
  *   <li>Validate {@code true} or {@code false}:</li>
  *   <li>
  *     <ul>
- *       <li><code>boolean valid = validator.isValid(value);</code></li>
+ *       <li>{@code boolean valid = validator.isValid(value);}</li>
  *     </ul>
  *   </li>
  *   <li>Validate returning an aggregated String of the matched groups:</li>
  *   <li>
  *     <ul>
- *       <li><code>String result = validator.validate(value);</code></li>
+ *       <li>{@code String result = validator.validate(value);}</li>
  *     </ul>
  *   </li>
  *   <li>Validate returning the matched groups:</li>
  *   <li>
  *     <ul>
- *       <li><code>String[] result = validator.match(value);</code></li>
+ *       <li>{@code String[] result = validator.match(value);}</li>
  *     </ul>
  *   </li>
  * </ul>

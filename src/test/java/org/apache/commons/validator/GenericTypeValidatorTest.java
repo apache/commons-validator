@@ -86,7 +86,7 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
     }
 
     /**
-     * Load <code>ValidatorResources</code> from validator-type.xml.
+     * Load {@code ValidatorResources} from validator-type.xml.
      */
     @BeforeEach
     protected void setUp() throws IOException, SAXException {

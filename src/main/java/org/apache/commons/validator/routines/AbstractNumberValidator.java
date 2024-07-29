@@ -36,13 +36,13 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
 
     private static final long serialVersionUID = -3088817875906765463L;
 
-    /** Standard <code>NumberFormat</code> type */
+    /** Standard {@code NumberFormat} type */
     public static final int STANDARD_FORMAT = 0;
 
-    /** Currency <code>NumberFormat</code> type */
+    /** Currency {@code NumberFormat} type */
     public static final int CURRENCY_FORMAT = 1;
 
-    /** Percent <code>NumberFormat</code> type */
+    /** Percent {@code NumberFormat} type */
     public static final int PERCENT_FORMAT = 2;
 
     /**
@@ -51,7 +51,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     private final boolean allowFractions;
 
     /**
-     * The <code>NumberFormat</code> type to create for validation, default is STANDARD_FORMAT.
+     * The {@code NumberFormat} type to create for validation, default is STANDARD_FORMAT.
      */
     private final int formatType;
 
@@ -60,8 +60,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * and <em>decimal</em> parameters.
      *
      * @param strict {@code true} if strict
-     *        <code>Format</code> parsing should be used.
-     * @param formatType The <code>NumberFormat</code> type to
+     *        {@code Format} parsing should be used.
+     * @param formatType The {@code NumberFormat} type to
      *        create for validation, default is STANDARD_FORMAT.
      * @param allowFractions {@code true} if fractions are
      *        allowed or {@code false} if integers only.
@@ -73,9 +73,9 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Returns the <em>multiplier</em> of the <code>NumberFormat</code>.</p>
+     * <p>Returns the <em>multiplier</em> of the {@code NumberFormat}.</p>
      *
-     * @param format The <code>NumberFormat</code> to determine the
+     * @param format The {@code NumberFormat} to determine the
      *        multiplier of.
      * @return The multiplying factor for the format..
      */
@@ -106,11 +106,11 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Returns a <code>NumberFormat</code> for the specified Locale.</p>
+     * <p>Returns a {@code NumberFormat} for the specified Locale.</p>
      *
-     * @param locale The locale a <code>NumberFormat</code> is required for,
+     * @param locale The locale a {@code NumberFormat} is required for,
      *   system default if null.
-     * @return The <code>NumberFormat</code> to created.
+     * @return The {@code NumberFormat} to created.
      */
     protected Format getFormat(final Locale locale) {
         NumberFormat formatter;
@@ -144,13 +144,13 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Returns a <code>NumberFormat</code> for the specified <em>pattern</em>
-     *    and/or <code>Locale</code>.</p>
+     * <p>Returns a {@code NumberFormat} for the specified <em>pattern</em>
+     *    and/or {@link Locale}.</p>
      *
      * @param pattern The pattern used to validate the value against or
-     *        {@code null} to use the default for the <code>Locale</code>.
+     *        {@code null} to use the default for the {@link Locale}.
      * @param locale The locale to use for the currency format, system default if null.
-     * @return The <code>NumberFormat</code> to created.
+     * @return The {@code NumberFormat} to created.
      */
     @Override
     protected Format getFormat(final String pattern, final Locale locale) {
@@ -173,7 +173,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Indicates the type of <code>NumberFormat</code> created
+     * <p>Indicates the type of {@code NumberFormat} created
      *    by this validator instance.</p>
      *
      * @return the format type created.
@@ -207,11 +207,11 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Validate using the specified <code>Locale</code>.</p>
+     * <p>Validate using the specified {@link Locale}.</p>
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if {@code null}.
+     *        default for the {@link Locale} if {@code null}.
      * @param locale The locale to use for the date format, system default if null.
      * @return {@code true} if the value is valid.
      */
@@ -255,7 +255,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if {@code null}.
+     *        default for the {@link Locale} if {@code null}.
      * @param locale The locale to use for the date format, system default if null.
      * @return The parsed value if valid or {@code null} if invalid.
      */

@@ -31,11 +31,11 @@ import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
  * or a valid ISBN-13 code (using a {@link CodeValidator} with the
  * the {@link EAN13CheckDigit} routine).
  * <p>
- * The <code>validate()</code> methods return the ISBN code with formatting
+ * The {@code validate()} methods return the ISBN code with formatting
  * characters removed if valid or {@code null} if invalid.
  * <p>
  * This validator also provides the facility to convert ISBN-10 codes to
- * ISBN-13 if the <code>convert</code> property is {@code true}.
+ * ISBN-13 if the {@code convert} property is {@code true}.
  * <p>
  * From 1st January 2007 the book industry will start to use a new 13 digit
  * ISBN number (rather than this 10 digit ISBN number). ISBN-13 codes are
@@ -223,7 +223,7 @@ public class ISBNValidator implements Serializable {
      * formatting characters removed (i.e. space or hyphen).
      * <p>
      * Converts an ISBN-10 codes to ISBN-13 if
-     * <code>convertToISBN13</code> is {@code true}.
+     * {@code convertToISBN13} is {@code true}.
      *
      * @param code The code to validate.
      * @return A valid ISBN code if valid, otherwise {@code null}.

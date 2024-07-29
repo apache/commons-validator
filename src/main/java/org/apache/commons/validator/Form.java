@@ -28,7 +28,7 @@ import org.apache.commons.collections.FastHashMap; // DEPRECATED
 /**
  * <p>
  * This contains a set of validation rules for a form/JavaBean. The information
- * is contained in a list of <code>Field</code> objects. Instances of this class
+ * is contained in a list of {@code Field} objects. Instances of this class
  * are configured with a &lt;form&gt; xml element.
  * </p>
  * <p>
@@ -45,14 +45,14 @@ public class Form implements Serializable {
     protected String name;
 
     /**
-     * List of <code>Field</code>s. Used to maintain the order they were added
-     * in although individual <code>Field</code>s can be retrieved using <code>Map</code>
-     * of <code>Field</code>s.
+     * List of {@code Field}s. Used to maintain the order they were added
+     * in although individual {@code Field}s can be retrieved using {@link Map}
+     * of {@code Field}s.
      */
     protected List<Field> lFields = new ArrayList<>();
 
     /**
-     * Map of <code>Field</code>s keyed on their property value.
+     * Map of {@code Field}s keyed on their property value.
      *
      * @deprecated   Subclasses should use getFieldMap() instead.
      */
@@ -67,13 +67,13 @@ public class Form implements Serializable {
     protected String inherit;
 
     /**
-     * Whether or not the this <code>Form</code> was processed for replacing
+     * Whether or not the this {@code Form} was processed for replacing
      * variables in strings with their values.
      */
     private boolean processed;
 
     /**
-     * Add a <code>Field</code> to the <code>Form</code>.
+     * Add a {@code Field} to the {@code Form}.
      *
      * @param f  The field
      */
@@ -127,8 +127,8 @@ public class Form implements Serializable {
     }
 
     /**
-     * A <code>List</code> of <code>Field</code>s is returned as an unmodifiable
-     * <code>List</code>.
+     * A {@code List} of {@code Field}s is returned as an unmodifiable
+     * {@code List}.
      *
      * @return   The fields value
      */
@@ -156,7 +156,7 @@ public class Form implements Serializable {
     }
 
     /**
-     * Whether or not the this <code>Form</code> was processed for replacing
+     * Whether or not the this {@code Form} was processed for replacing
      * variables in strings with their values.
      *
      * @return   The processed value
@@ -167,8 +167,8 @@ public class Form implements Serializable {
     }
 
     /**
-     * Merges the given form into this one. For any field in <code>depends</code>
-     * not present in this form, include it. <code>depends</code> has precedence
+     * Merges the given form into this one. For any field in {@code depends}
+     * not present in this form, include it. {@code depends} has precedence
      * in the way the fields are ordered.
      *
      * @param depends  the form we want to merge
@@ -201,7 +201,7 @@ public class Form implements Serializable {
     }
 
     /**
-     * Processes all of the <code>Form</code>'s <code>Field</code>s.
+     * Processes all of the {@code Form}'s {@code Field}s.
      *
      * @param globalConstants  A map of global constants
      * @param constants        Local constants

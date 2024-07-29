@@ -42,12 +42,12 @@ public class ValidatorUtils {
     private static final Log LOG = LogFactory.getLog(ValidatorUtils.class);
 
     /**
-     * Makes a deep copy of a <code>FastHashMap</code> if the values
-     * are <code>Msg</code>, <code>Arg</code>,
-     * or <code>Var</code>.  Otherwise it is a shallow copy.
+     * Makes a deep copy of a {@code FastHashMap} if the values
+     * are {@code Msg}, {@code Arg},
+     * or {@code Var}.  Otherwise it is a shallow copy.
      *
-     * @param fastHashMap <code>FastHashMap</code> to copy.
-     * @return FastHashMap A copy of the <code>FastHashMap</code> that was
+     * @param fastHashMap {@code FastHashMap} to copy.
+     * @return FastHashMap A copy of the {@code FastHashMap} that was
      * passed in.
      * @deprecated This method is not part of Validator's public API.  Validator
      * will use it internally until FastHashMap references are removed.  Use
@@ -77,13 +77,13 @@ public class ValidatorUtils {
     }
 
     /**
-     * Makes a deep copy of a <code>Map</code> if the values are
-     * <code>Msg</code>, <code>Arg</code>, or <code>Var</code>.  Otherwise,
+     * Makes a deep copy of a {@link Map} if the values are
+     * {@code Msg}, {@code Arg}, or {@code Var}.  Otherwise,
      * it is a shallow copy.
      *
      * @param map The source Map to copy.
      *
-     * @return A copy of the <code>Map</code> that was passed in.
+     * @return A copy of the {@link Map} that was passed in.
      */
     public static Map<String, Object> copyMap(final Map<String, Object> map) {
         final Map<String, Object> results = new HashMap<>(map.size());
@@ -103,8 +103,8 @@ public class ValidatorUtils {
 
     /**
      * Convenience method for getting a value from a bean property as a
-     * <code>String</code>.  If the property is a <code>String[]</code> or
-     * <code>Collection</code> and it is empty, an empty <code>String</code>
+     * {@link String}.  If the property is a {@code String[]} or
+     * {@link Collection} and it is empty, an empty {@link String}
      * "" is returned.  Otherwise, property.toString() is returned.  This method
      * may return {@code null} if there was an error retrieving the
      * property.
@@ -141,9 +141,9 @@ public class ValidatorUtils {
     }
 
     /**
-     * <p>Replace part of a <code>String</code> with another value.</p>
+     * <p>Replace part of a {@link String} with another value.</p>
      *
-     * @param value <code>String</code> to perform the replacement on.
+     * @param value {@link String} to perform the replacement on.
      * @param key The name of the constant.
      * @param replaceValue The value of the constant.
      *

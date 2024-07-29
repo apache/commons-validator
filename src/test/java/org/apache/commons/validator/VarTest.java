@@ -46,7 +46,7 @@ public class VarTest extends AbstractCommonTest {
     protected static final String ACTION = "byte";
 
     /**
-     * Load <code>ValidatorResources</code> from validator-multipletest.xml.
+     * Load {@code ValidatorResources} from validator-multipletest.xml.
      */
     @BeforeEach
     protected void setUp() throws IOException, SAXException {

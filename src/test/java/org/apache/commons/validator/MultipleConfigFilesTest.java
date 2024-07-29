@@ -48,7 +48,7 @@ public class MultipleConfigFilesTest {
     private ValidatorResources resources;
 
     /**
-     * Load <code>ValidatorResources</code> from multiple xml files.
+     * Load {@code ValidatorResources} from multiple xml files.
      */
     @BeforeEach
     protected void setUp() throws IOException, SAXException {

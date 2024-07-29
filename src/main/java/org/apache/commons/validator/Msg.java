@@ -19,9 +19,9 @@ package org.apache.commons.validator;
 import java.io.Serializable;
 
 /**
- * An alternative message can be associated with a <code>Field</code>
+ * An alternative message can be associated with a {@code Field}
  * and a pluggable validator instead of using the default message
- * stored in the <code>ValidatorAction</code> (aka pluggable validator).
+ * stored in the {@code ValidatorAction} (aka pluggable validator).
  * Instances of this class are configured with a &lt;msg&gt; xml element.
  */
 //TODO mutable non-private fields
@@ -30,7 +30,7 @@ public class Msg implements Cloneable, Serializable {
     private static final long serialVersionUID = 5690015734364127124L;
 
     /**
-     * The resource bundle name that this Msg's <code>key</code> should be
+     * The resource bundle name that this Msg's {@code key} should be
      * resolved in (optional).
      * @since 1.1
      */

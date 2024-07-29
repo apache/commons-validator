@@ -42,7 +42,7 @@ public class RequiredIfTest extends AbstractCommonTest {
     protected static final String ACTION = "requiredif";
 
     /**
-     * Load <code>ValidatorResources</code> from validator-requiredif.xml.
+     * Load {@code ValidatorResources} from validator-requiredif.xml.
      */
     @BeforeEach
     protected void setUp() throws IOException, SAXException {
