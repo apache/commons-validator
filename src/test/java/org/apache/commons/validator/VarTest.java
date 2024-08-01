@@ -69,27 +69,27 @@ public class VarTest extends AbstractCommonTest {
         // Get field 1
         final Field field1 = form.getField("field-1");
         assertNotNull(field1, "field-1 is null.");
-        assertEquals(field1.getProperty(), "field-1", "field-1 property is wrong");
+        assertEquals("field-1", field1.getProperty(), "field-1 property is wrong");
 
         // Get var-1-1
         final Var var11 = field1.getVar("var-1-1");
         assertNotNull(var11, "var-1-1 is null.");
-        assertEquals(var11.getName(), "var-1-1", "var-1-1 name is wrong");
-        assertEquals(var11.getValue(), "value-1-1", "var-1-1 value is wrong");
-        assertEquals(var11.getJsType(), "jstype-1-1", "var-1-1 jstype is wrong");
+        assertEquals("var-1-1", var11.getName(), "var-1-1 name is wrong");
+        assertEquals("value-1-1", var11.getValue(), "var-1-1 value is wrong");
+        assertEquals("jstype-1-1", var11.getJsType(), "var-1-1 jstype is wrong");
         assertFalse(var11.isResource(), "var-1-1 resource is true");
         assertNull(var11.getBundle(), "var-1-1 bundle is not null.");
 
         // Get field 2
         final Field field2 = form.getField("field-2");
         assertNotNull(field2, "field-2 is null.");
-        assertEquals(field2.getProperty(), "field-2", "field-2 property is wrong");
+        assertEquals("field-2", field2.getProperty(), "field-2 property is wrong");
 
         // Get var-2-1
         final Var var21 = field2.getVar("var-2-1");
         assertNotNull(var21, "var-2-1 is null.");
-        assertEquals(var21.getName(), "var-2-1", "var-2-1 name is wrong");
-        assertEquals(var21.getValue(), "value-2-1", "var-2-1 value is wrong");
+        assertEquals("var-2-1", var21.getName(), "var-2-1 name is wrong");
+        assertEquals("value-2-1", var21.getValue(), "var-2-1 value is wrong");
         assertEquals("jstype-2-1", var21.getJsType(), "var-2-1 jstype is wrong");
         assertTrue(var21.isResource(), "var-2-1 resource is false");
         assertEquals(var21.getBundle(), "bundle-2-1", "var-2-1 bundle is wrong");
