@@ -69,8 +69,8 @@ The <action> type attribute can be add,update,fix,remove.
       <action type="update" dev="ggregory" due-to="Leonard Wicke, Gary Gregory">Add IBANValidator.Validator.getIbanLength().</action> 
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-parent from 70 to 73 #231, #245, #253.</action>
-      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump commons-logging:commons-logging from 1.3.2 to 1.3.3 #238.</action>
-      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-lang3 from 3.15.0 to 3.16.0 #248.</action> 
+      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump commons-logging:commons-logging from 1.3.2 to 1.3.4 #238, #254.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-lang3 from 3.15.0 to 3.16.0 #248.</action>
   </release>
   <release version="1.9.0" date="2024-05-25" description="This is a maintenance and bug fix release; requires Java 8.">
     <!-- ADD -->
@@ -85,7 +85,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="Gary GRegory">Fix PMD UnnecessaryFullyQualifiedName.</action>    
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-parent from 65 to 70 #201.</action>
-    <action type="update" dev="ggregory" due-to="Dependabot">Bump commons-logging:commons-logging from 1.3.0 to 1.3.2 #199, #221.</action>
+    <action type="update" dev="ggregory" due-to="Dependabot">Bump commons-logging:commons-logging from 1.3.0 to 1.3.4 #199, #221.</action>
     <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-csv from 1.10.0 to 1.11.0 #214.</action>
     <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-lang3 from 3.14.0 to 3.15.0 #241.</action>
   </release>
