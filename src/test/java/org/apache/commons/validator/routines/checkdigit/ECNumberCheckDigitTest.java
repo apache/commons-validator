@@ -31,15 +31,6 @@ public class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
     private static final String MAX = "999-999-2"; // theoretical
 
     /**
-     * Sets up routine & valid codes.
-     */
-    @BeforeEach
-    protected void setUp() {
-        routine = ECNumberCheckDigit.getInstance();
-        valid = new String[] {MIN, FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS, MAX};
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -49,6 +40,15 @@ public class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
             return null;
         }
         return cde.substring(0, cde.length() - checkDigitLth);
+    }
+
+    /**
+     * Sets up routine & valid codes.
+     */
+    @BeforeEach
+    protected void setUp() {
+        routine = ECNumberCheckDigit.getInstance();
+        valid = new String[] {MIN, FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS, MAX};
     }
 
 }

@@ -55,6 +55,23 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
     private static final CASNumberCheckDigit INSTANCE = new CASNumberCheckDigit();
 
     /**
+     * CAS number consists of 3 groups of numbers separated dashes (-).
+     * First group has 2 to 7 digits.
+     * Example: water is 7732-18-5
+     */
+    private static final String GROUP1 = "(\\d{2,7})";
+
+    private static final String DASH = "(?:\\-)";
+    static final String CAS_REGEX = "^(?:" + GROUP1 + DASH + "(\\d{2})" + DASH + "(\\d))$";
+    private static final int CAS_MIN_LEN = 4; // 9-99-9 LEN without SEP
+
+    /** maximum capacity of 1,000,000,000 == 9999999-99-9*/
+    private static final int CAS_MAX_LEN = 10;
+    static final CodeValidator REGEX_VALIDATOR = new CodeValidator(CAS_REGEX, CAS_MIN_LEN, CAS_MAX_LEN, null);
+    /** Weighting given to digits depending on their right position */
+    private static final int[] POSITION_WEIGHT = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    /**
      * Gets the singleton instance of this validator.
      * @return A singleton instance of the CAS Number validator.
      */
@@ -63,47 +80,9 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * CAS number consists of 3 groups of numbers separated dashes (-).
-     * First group has 2 to 7 digits.
-     * Example: water is 7732-18-5
-     */
-    private static final String GROUP1 = "(\\d{2,7})";
-    private static final String DASH = "(?:\\-)";
-    static final String CAS_REGEX = "^(?:" + GROUP1 + DASH + "(\\d{2})" + DASH + "(\\d))$";
-
-    private static final int CAS_MIN_LEN = 4; // 9-99-9 LEN without SEP
-    /** maximum capacity of 1,000,000,000 == 9999999-99-9*/
-    private static final int CAS_MAX_LEN = 10;
-    static final CodeValidator REGEX_VALIDATOR = new CodeValidator(CAS_REGEX, CAS_MIN_LEN, CAS_MAX_LEN, null);
-
-    /** Weighting given to digits depending on their right position */
-    private static final int[] POSITION_WEIGHT = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-
-    /**
      * Constructs a modulus 10 Check Digit routine for CAS Numbers.
      */
     private CASNumberCheckDigit() {
-    }
-
-    /**
-     * Calculates the <em>weighted</em> value of a character in the code at a specified position.
-     * <p>
-     * CAS numbers are weighted in the following manner:
-     * </p>
-     * <pre>{@code
-     *    right position: 1  2  3  4  5  6  7  8  9 10
-     *            weight: 1  2  3  4  5  6  7  8  9  0
-     * }</pre>
-     *
-     * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
-     * @return The weighted value of the character.
-     */
-    @Override
-    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        final int weight = POSITION_WEIGHT[(rightPos - 1) % MODULUS_10];
-        return charValue * weight;
     }
 
     /**
@@ -136,6 +115,27 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
         } catch (final CheckDigitException ex) {
             return false;
         }
+    }
+
+    /**
+     * Calculates the <em>weighted</em> value of a character in the code at a specified position.
+     * <p>
+     * CAS numbers are weighted in the following manner:
+     * </p>
+     * <pre>{@code
+     *    right position: 1  2  3  4  5  6  7  8  9 10
+     *            weight: 1  2  3  4  5  6  7  8  9  0
+     * }</pre>
+     *
+     * @param charValue The numeric value of the character.
+     * @param leftPos The position of the character in the code, counting from left to right
+     * @param rightPos The positionof the character in the code, counting from right to left
+     * @return The weighted value of the character.
+     */
+    @Override
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
+        final int weight = POSITION_WEIGHT[(rightPos - 1) % MODULUS_10];
+        return charValue * weight;
     }
 
 }

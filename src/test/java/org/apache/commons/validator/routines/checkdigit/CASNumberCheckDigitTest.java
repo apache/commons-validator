@@ -35,15 +35,6 @@ public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
     private static final String MAX = "9999999-99-5"; // theoretical
 
     /**
-     * Sets up routine & valid codes.
-     */
-    @BeforeEach
-    protected void setUp() {
-        routine = CASNumberCheckDigit.getInstance();
-        valid = new String[] {MIN, WATER, ETHANOL, ASPIRIN, COFFEIN, FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS, MAX};
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -53,6 +44,15 @@ public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
             return null;
         }
         return cde.substring(0, cde.length() - checkDigitLth);
+    }
+
+    /**
+     * Sets up routine & valid codes.
+     */
+    @BeforeEach
+    protected void setUp() {
+        routine = CASNumberCheckDigit.getInstance();
+        valid = new String[] {MIN, WATER, ETHANOL, ASPIRIN, COFFEIN, FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS, MAX};
     }
 
 }
