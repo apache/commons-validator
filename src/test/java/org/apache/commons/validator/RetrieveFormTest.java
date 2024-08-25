@@ -75,7 +75,7 @@ public class RetrieveFormTest {
     protected void setUp() throws IOException, SAXException {
         final InputStream[] streams = { this.getClass().getResourceAsStream("RetrieveFormTest-config.xml") };
 
-        this.resources = new ValidatorResources(streams);
+        resources = new ValidatorResources(streams);
 
         for (final InputStream stream : streams) {
             stream.close();

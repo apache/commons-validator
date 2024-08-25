@@ -162,11 +162,7 @@ public final class CodeValidator implements Serializable {
      */
     public CodeValidator(final String regex, final int minLength, final int maxLength,
             final CheckDigit checkdigit) {
-        if (!GenericValidator.isBlankOrNull(regex)) {
-            this.regexValidator = new RegexValidator(regex);
-        } else {
-            this.regexValidator = null;
-        }
+        this.regexValidator = GenericValidator.isBlankOrNull(regex) ? null : new RegexValidator(regex);
         this.minLength = minLength;
         this.maxLength = maxLength;
         this.checkdigit = checkdigit;

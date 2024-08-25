@@ -179,7 +179,7 @@ public class ValidatorResult implements Serializable {
      * @return The Field associated with this result.
      */
     public Field getField() {
-        return this.field;
+        return field;
     }
 
     /**

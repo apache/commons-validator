@@ -78,7 +78,7 @@ public class Form implements Serializable {
      * @param f  The field
      */
     public void addField(final Field f) {
-        this.lFields.add(f);
+        lFields.add(f);
         getFieldMap().put(f.getKey(), f);
     }
 
@@ -183,7 +183,7 @@ public class Form implements Serializable {
         for (final Field defaultField : depends.getFields()) {
             if (defaultField != null) {
                 final String fieldKey = defaultField.getKey();
-                if (!this.containsField(fieldKey)) {
+                if (!containsField(fieldKey)) {
                     templFields.add(defaultField);
                     temphFields.put(fieldKey, defaultField);
                 }
@@ -332,7 +332,7 @@ public class Form implements Serializable {
                 results.merge(field.validate(params, actions));
             }
         } else {
-            for (final Field field : this.lFields) {
+            for (final Field field : lFields) {
 
                 params.put(Validator.FIELD_PARAM, field);
 

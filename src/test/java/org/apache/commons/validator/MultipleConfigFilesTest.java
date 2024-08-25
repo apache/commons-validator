@@ -55,7 +55,7 @@ public class MultipleConfigFilesTest {
         final InputStream[] streams = { this.getClass().getResourceAsStream("MultipleConfigFilesTest-1-config.xml"),
                 this.getClass().getResourceAsStream("MultipleConfigFilesTest-2-config.xml") };
 
-        this.resources = new ValidatorResources(streams);
+        resources = new ValidatorResources(streams);
 
         for (final InputStream stream : streams) {
             stream.close();

@@ -2200,7 +2200,7 @@ public class DomainValidator implements Serializable {
      * @since 1.7
      */
     public boolean isAllowLocal() {
-        return this.allowLocal;
+        return allowLocal;
     }
 
     /**

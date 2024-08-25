@@ -89,7 +89,7 @@ public class Arg implements Cloneable, Serializable {
      * @since 1.1
      */
     public String getBundle() {
-        return this.bundle;
+        return bundle;
     }
 
     /**
@@ -97,7 +97,7 @@ public class Arg implements Cloneable, Serializable {
      * @return the key value.
      */
     public String getKey() {
-        return this.key;
+        return key;
     }
 
     /**
@@ -105,7 +105,7 @@ public class Arg implements Cloneable, Serializable {
      * @return the name of the dependency.
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -113,7 +113,7 @@ public class Arg implements Cloneable, Serializable {
      * @return This argument's replacement position.
      */
     public int getPosition() {
-        return this.position;
+        return position;
     }
 
     /**
@@ -121,7 +121,7 @@ public class Arg implements Cloneable, Serializable {
      * @return {@code true} if key is a resource key.
      */
     public boolean isResource() {
-        return this.resource;
+        return resource;
     }
 
     /**

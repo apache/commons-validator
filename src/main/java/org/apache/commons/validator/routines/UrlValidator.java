@@ -441,7 +441,7 @@ public class UrlValidator implements Serializable {
             final String hostLocation = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
             // check if authority is hostname or IP address:
             // try a hostname first since that's much more likely
-            if (!this.domainValidator.isValid(hostLocation)) {
+            if (!domainValidator.isValid(hostLocation)) {
                 // try an IPv4 address
                 final InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
                 if (!inetAddressValidator.isValidInet4Address(hostLocation)) {

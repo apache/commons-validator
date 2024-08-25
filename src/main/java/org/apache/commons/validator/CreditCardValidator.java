@@ -177,19 +177,19 @@ public class CreditCardValidator {
     public CreditCardValidator(final int options) {
         final Flags f = new Flags(options);
         if (f.isOn(VISA)) {
-            this.cardTypes.add(Visa.INSTANCE);
+            cardTypes.add(Visa.INSTANCE);
         }
 
         if (f.isOn(AMEX)) {
-            this.cardTypes.add(Amex.INSTANCE);
+            cardTypes.add(Amex.INSTANCE);
         }
 
         if (f.isOn(MASTERCARD)) {
-            this.cardTypes.add(Mastercard.INSTANCE);
+            cardTypes.add(Mastercard.INSTANCE);
         }
 
         if (f.isOn(DISCOVER)) {
-            this.cardTypes.add(Discover.INSTANCE);
+            cardTypes.add(Discover.INSTANCE);
         }
     }
 
@@ -200,7 +200,7 @@ public class CreditCardValidator {
      * @since 1.1.2
      */
     public void addAllowedCardType(final CreditCardType type){
-        this.cardTypes.add(type);
+        cardTypes.add(type);
     }
 
     /**
@@ -212,10 +212,10 @@ public class CreditCardValidator {
         if (card == null || card.length() < 13 || card.length() > 19) {
             return false;
         }
-        if (!this.luhnCheck(card)) {
+        if (!luhnCheck(card)) {
             return false;
         }
-        for (final Object cardType : this.cardTypes) {
+        for (final Object cardType : cardTypes) {
             final CreditCardType type = (CreditCardType) cardType;
             if (type.matches(card)) {
                 return true;
