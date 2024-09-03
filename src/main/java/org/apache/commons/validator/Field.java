@@ -166,12 +166,8 @@ public class Field implements Cloneable, Serializable {
             args[arg.getPosition()] = argMap;
         }
 
-        if (arg.getName() == null) {
-            argMap.put(DEFAULT_ARG, arg);
-        } else {
-            argMap.put(arg.getName(), arg);
-        }
-
+        final String name = arg.getName();
+        argMap.put(name != null ? name : DEFAULT_ARG, arg);
     }
 
     /**
