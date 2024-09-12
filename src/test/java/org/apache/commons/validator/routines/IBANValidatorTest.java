@@ -207,14 +207,21 @@ public class IBANValidatorTest {
             CSVRecord length = null;
             for (final CSVRecord o : p) {
                 final String item = o.get(0);
-                if ("Name of country".equals(item)) {
+                switch (item) {
+                case "Name of country":
                     country = o;
-                } else if ("IBAN prefix country code (ISO 3166)".equals(item)) {
+                    break;
+                case "IBAN prefix country code (ISO 3166)":
                     cc = o;
-                } else if ("IBAN structure".equals(item)) {
+                    break;
+                case "IBAN structure":
                     structure = o;
-                } else if ("IBAN length".equals(item)) {
+                    break;
+                case "IBAN length":
                     length = o;
+                    break;
+                default:
+                    break;
                 }
             }
             assertNotNull(country);
