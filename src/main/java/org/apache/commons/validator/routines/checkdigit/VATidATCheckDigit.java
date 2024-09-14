@@ -80,7 +80,7 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
         } else {
             // Si = INT(charValue / 5) + (charValue * 2) modulo10
             int i = charValue / 5;  // CHECKSTYLE IGNORE MagicNumber
-            return i + (charValue * 2) % MODULUS_10;
+            return i + charValue * 2 % MODULUS_10;
         }
     }
 
