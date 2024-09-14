@@ -194,10 +194,10 @@ public class Validator implements Serializable {
      * again and is thread safe.
      */
     public void clear() {
-        this.formName = null;
-        this.fieldName = null;
-        this.parameters = new HashMap<>();
-        this.page = 0;
+        formName = null;
+        fieldName = null;
+        parameters = new HashMap<>();
+        page = 0;
     }
 
     /**
@@ -212,11 +212,11 @@ public class Validator implements Serializable {
      * @return the class loader.
      */
     public ClassLoader getClassLoader() {
-        if (this.classLoader != null) {
-            return this.classLoader;
+        if (classLoader != null) {
+            return classLoader;
         }
 
-        if (this.useContextClassLoader) {
+        if (useContextClassLoader) {
             final ClassLoader contextLoader = Thread.currentThread().getContextClassLoader();
             if (contextLoader != null) {
                 return contextLoader;
@@ -266,7 +266,7 @@ public class Validator implements Serializable {
      * @return value of the specified parameter.
      */
     public Object getParameterValue(final String parameterClassName) {
-        return this.parameters.get(parameterClassName);
+        return parameters.get(parameterClassName);
     }
 
     /**
@@ -274,7 +274,7 @@ public class Validator implements Serializable {
      * @return whether the context classloader should be used.
      */
     public boolean getUseContextClassLoader() {
-        return this.useContextClassLoader;
+        return useContextClassLoader;
     }
 
     /**
@@ -340,20 +340,20 @@ public class Validator implements Serializable {
      * validation method.
      */
     public void setParameter(final String parameterClassName, final Object parameterValue) {
-        this.parameters.put(parameterClassName, parameterValue);
+        parameters.put(parameterClassName, parameterValue);
     }
 
     /**
-     * Determine whether to use the Context ClassLoader (the one found by
+     * Sets whether to use the Context ClassLoader (the one found by
      * calling {@code Thread.currentThread().getContextClassLoader()})
      * to resolve/load classes that are defined in various rules.  If not
      * using Context ClassLoader, then the class-loading defaults to
      * using the calling-class' ClassLoader.
      *
-     * @param use determines whether to use Context ClassLoader.
+     * @param useContextClassLoader determines whether to use Context ClassLoader.
      */
-    public void setUseContextClassLoader(final boolean use) {
-        this.useContextClassLoader = use;
+    public void setUseContextClassLoader(final boolean useContextClassLoader) {
+        this.useContextClassLoader = useContextClassLoader;
     }
 
     /**
@@ -365,22 +365,22 @@ public class Validator implements Serializable {
      * @throws ValidatorException If an error occurs during validation
      */
     public ValidatorResults validate() throws ValidatorException {
-        Locale locale = (Locale) this.getParameterValue(LOCALE_PARAM);
+        Locale locale = (Locale) getParameterValue(LOCALE_PARAM);
 
         if (locale == null) {
             locale = Locale.getDefault();
         }
 
-        this.setParameter(VALIDATOR_PARAM, this);
+        setParameter(VALIDATOR_PARAM, this);
 
-        final Form form = this.resources.getForm(locale, this.formName);
+        final Form form = resources.getForm(locale, formName);
         if (form != null) {
-            this.setParameter(FORM_PARAM, form);
+            setParameter(FORM_PARAM, form);
             return form.validate(
-                this.parameters,
-                this.resources.getValidatorActions(),
-                this.page,
-                this.fieldName);
+                parameters,
+                resources.getValidatorActions(),
+                page,
+                fieldName);
         }
 
         return new ValidatorResults();

@@ -77,7 +77,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      *
      * @param format The {@code NumberFormat} to determine the
      *        multiplier of.
-     * @return The multiplying factor for the format..
+     * @return The multiplying factor for the format.
      */
     protected int determineScale(final NumberFormat format) {
         if (!isStrict()) {

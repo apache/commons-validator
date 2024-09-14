@@ -151,19 +151,19 @@ public class ValidatorAction implements Serializable {
         params.put(Validator.VALIDATOR_ACTION_PARAM, this);
 
         try {
-            if (this.validationMethod == null) {
+            if (validationMethod == null) {
                 synchronized (this) {
-                    final ClassLoader loader = this.getClassLoader(params);
-                    this.loadValidationClass(loader);
-                    this.loadParameterClasses(loader);
-                    this.loadValidationMethod();
+                    final ClassLoader loader = getClassLoader(params);
+                    loadValidationClass(loader);
+                    loadParameterClasses(loader);
+                    loadValidationMethod();
                 }
             }
 
-            final Object[] paramValues = this.getParameterValues(params);
+            final Object[] paramValues = getParameterValues(params);
 
             if (field.isIndexed()) {
-                this.handleIndexedField(field, pos, paramValues);
+                handleIndexedField(field, pos, paramValues);
             }
 
             Object result = null;
@@ -183,9 +183,9 @@ public class ValidatorAction implements Serializable {
                 }
             }
 
-            final boolean valid = this.isValid(result);
+            final boolean valid = isValid(result);
             if (!valid || valid && !onlyReturnErrors(params)) {
-                results.add(field, this.name, valid, result);
+                results.add(field, name, valid, result);
             }
 
             if (!valid) {
@@ -201,7 +201,7 @@ public class ValidatorAction implements Serializable {
 
             getLog().error("Unhandled exception thrown during validation: " + e.getMessage(), e);
 
-            results.add(field, this.name, false);
+            results.add(field, name, false);
             return false;
         }
 
@@ -212,9 +212,9 @@ public class ValidatorAction implements Serializable {
      * @return A file name suitable for passing to a {@link ClassLoader#getResourceAsStream(String)} method.
      */
     private String formatJavaScriptFileName() {
-        String fname = this.jsFunction.substring(1);
+        String fname = jsFunction.substring(1);
 
-        if (!this.jsFunction.startsWith("/")) {
+        if (!jsFunction.startsWith("/")) {
             fname = jsFunction.replace('.', '/') + ".js";
         }
 
@@ -257,7 +257,7 @@ public class ValidatorAction implements Serializable {
      * @return List of the validator action's depedents.
      */
     public List<String> getDependencyList() {
-        return Collections.unmodifiableList(this.dependencyList);
+        return Collections.unmodifiableList(dependencyList);
     }
 
     /**
@@ -266,7 +266,7 @@ public class ValidatorAction implements Serializable {
      * @return The validator action's dependencies.
      */
     public String getDepends() {
-        return this.depends;
+        return depends;
     }
 
     /**
@@ -346,10 +346,10 @@ public class ValidatorAction implements Serializable {
      */
     private Object[] getParameterValues(final Map<String, ? super Object> params) {
 
-        final Object[] paramValue = new Object[this.methodParameterList.size()];
+        final Object[] paramValue = new Object[methodParameterList.size()];
 
-        for (int i = 0; i < this.methodParameterList.size(); i++) {
-            final String paramClassName = this.methodParameterList.get(i);
+        for (int i = 0; i < methodParameterList.size(); i++) {
+            final String paramClassName = methodParameterList.get(i);
             paramValue[i] = params.get(paramClassName);
         }
 
@@ -360,20 +360,20 @@ public class ValidatorAction implements Serializable {
      * Gets an instance of the validation class or null if the validation method is static so does not require an instance to be executed.
      */
     private Object getValidationClassInstance() throws ValidatorException {
-        if (Modifier.isStatic(this.validationMethod.getModifiers())) {
-            this.instance = null;
+        if (Modifier.isStatic(validationMethod.getModifiers())) {
+            instance = null;
 
-        } else if (this.instance == null) {
+        } else if (instance == null) {
             try {
-                this.instance = this.validationClass.getConstructor().newInstance();
+                instance = validationClass.getConstructor().newInstance();
             } catch (final ReflectiveOperationException e) {
-                final String msg1 = "Couldn't create instance of " + this.className + ".  " + e.getMessage();
+                final String msg1 = "Couldn't create instance of " + className + ".  " + e.getMessage();
 
                 throw new ValidatorException(msg1);
             }
         }
 
-        return this.instance;
+        return instance;
     }
 
     private Validator getValidator(final Map<String, Object> params) {
@@ -389,8 +389,8 @@ public class ValidatorAction implements Serializable {
      */
     private void handleIndexedField(final Field field, final int pos, final Object[] paramValues) throws ValidatorException {
 
-        final int beanIndex = this.methodParameterList.indexOf(Validator.BEAN_PARAM);
-        final int fieldIndex = this.methodParameterList.indexOf(Validator.FIELD_PARAM);
+        final int beanIndex = methodParameterList.indexOf(Validator.BEAN_PARAM);
+        final int fieldIndex = methodParameterList.indexOf(Validator.FIELD_PARAM);
 
         final Object[] indexedList = field.getIndexedProperty(paramValues[beanIndex]);
 
@@ -409,7 +409,7 @@ public class ValidatorAction implements Serializable {
      * Initialize based on set.
      */
     protected void init() {
-        this.loadJavascriptFunction();
+        loadJavascriptFunction();
     }
 
     /**
@@ -419,7 +419,7 @@ public class ValidatorAction implements Serializable {
      * @return Whether the named validator is a dependant.
      */
     public boolean isDependency(final String validatorName) {
-        return this.dependencyList.contains(validatorName);
+        return dependencyList.contains(validatorName);
     }
 
     /**
@@ -438,7 +438,7 @@ public class ValidatorAction implements Serializable {
      * @return true if the JavaScript for this action has already been loaded.
      */
     private boolean javaScriptAlreadyLoaded() {
-        return this.javascript != null;
+        return javascript != null;
     }
 
     /**
@@ -450,7 +450,7 @@ public class ValidatorAction implements Serializable {
      */
     protected synchronized void loadJavascriptFunction() {
 
-        if (this.javaScriptAlreadyLoaded()) {
+        if (javaScriptAlreadyLoaded()) {
             return;
         }
 
@@ -458,17 +458,17 @@ public class ValidatorAction implements Serializable {
             getLog().trace("  Loading function begun");
         }
 
-        if (this.jsFunction == null) {
-            this.jsFunction = this.generateJsFunction();
+        if (jsFunction == null) {
+            jsFunction = generateJsFunction();
         }
 
-        final String javaScriptFileName = this.formatJavaScriptFileName();
+        final String javaScriptFileName = formatJavaScriptFileName();
 
         if (getLog().isTraceEnabled()) {
             getLog().trace("  Loading js function '" + javaScriptFileName + "'");
         }
 
-        this.javascript = this.readJavaScriptFile(javaScriptFileName);
+        javascript = readJavaScriptFile(javaScriptFileName);
 
         if (getLog().isTraceEnabled()) {
             getLog().trace("  Loading JavaScript function completed");
@@ -484,14 +484,14 @@ public class ValidatorAction implements Serializable {
      */
     private void loadParameterClasses(final ClassLoader loader) throws ValidatorException {
 
-        if (this.parameterClasses != null) {
+        if (parameterClasses != null) {
             return;
         }
 
-        final Class<?>[] parameterClasses = new Class[this.methodParameterList.size()];
+        final Class<?>[] parameterClasses = new Class[methodParameterList.size()];
 
-        for (int i = 0; i < this.methodParameterList.size(); i++) {
-            final String paramClassName = this.methodParameterList.get(i);
+        for (int i = 0; i < methodParameterList.size(); i++) {
+            final String paramClassName = methodParameterList.get(i);
 
             try {
                 parameterClasses[i] = loader.loadClass(paramClassName);
@@ -512,12 +512,12 @@ public class ValidatorAction implements Serializable {
      */
     private void loadValidationClass(final ClassLoader loader) throws ValidatorException {
 
-        if (this.validationClass != null) {
+        if (validationClass != null) {
             return;
         }
 
         try {
-            this.validationClass = loader.loadClass(this.className);
+            validationClass = loader.loadClass(className);
         } catch (final ClassNotFoundException e) {
             throw new ValidatorException(e.toString());
         }
@@ -529,12 +529,12 @@ public class ValidatorAction implements Serializable {
      * @throws ValidatorException
      */
     private void loadValidationMethod() throws ValidatorException {
-        if (this.validationMethod != null) {
+        if (validationMethod != null) {
             return;
         }
 
         try {
-            this.validationMethod = this.validationClass.getMethod(this.method, this.parameterClasses);
+            validationMethod = validationClass.getMethod(method, parameterClasses);
 
         } catch (final NoSuchMethodException e) {
             throw new ValidatorException("No such validation method: " + e.getMessage());
@@ -629,14 +629,14 @@ public class ValidatorAction implements Serializable {
     public void setDepends(final String depends) {
         this.depends = depends;
 
-        this.dependencyList.clear();
+        dependencyList.clear();
 
         final StringTokenizer st = new StringTokenizer(depends, ",");
         while (st.hasMoreTokens()) {
             final String depend = st.nextToken().trim();
 
             if (depend != null && !depend.isEmpty()) {
-                this.dependencyList.add(depend);
+                dependencyList.add(depend);
             }
         }
     }
@@ -715,14 +715,14 @@ public class ValidatorAction implements Serializable {
     public void setMethodParams(final String methodParams) {
         this.methodParams = methodParams;
 
-        this.methodParameterList.clear();
+        methodParameterList.clear();
 
         final StringTokenizer st = new StringTokenizer(methodParams, ",");
         while (st.hasMoreTokens()) {
             final String value = st.nextToken().trim();
 
             if (value != null && !value.isEmpty()) {
-                this.methodParameterList.add(value);
+                methodParameterList.add(value);
             }
         }
     }

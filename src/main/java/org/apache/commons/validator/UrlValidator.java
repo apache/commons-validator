@@ -226,10 +226,10 @@ public class UrlValidator implements Serializable {
         }
 
         if (schemes == null) {
-            schemes = this.defaultSchemes;
+            schemes = defaultSchemes;
         }
 
-        this.allowedSchemes.addAll(Arrays.asList(schemes));
+        allowedSchemes.addAll(Arrays.asList(schemes));
     }
 
     /**

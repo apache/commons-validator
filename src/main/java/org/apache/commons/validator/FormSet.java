@@ -101,7 +101,7 @@ public class FormSet implements Serializable {
      */
     public void addConstant(final String name, final String value) {
         if (constants.containsKey(name)) {
-            getLog().error("Constant '" + name + "' already exists in FormSet[" + this.displayKey() + "] - ignoring.");
+            getLog().error("Constant '" + name + "' already exists in FormSet[" + displayKey() + "] - ignoring.");
         } else {
             constants.put(name, value);
         }
@@ -116,7 +116,7 @@ public class FormSet implements Serializable {
 
         final String formName = f.getName();
         if (forms.containsKey(formName)) {
-            getLog().error("Form '" + formName + "' already exists in FormSet[" + this.displayKey() + "] - ignoring.");
+            getLog().error("Form '" + formName + "' already exists in FormSet[" + displayKey() + "] - ignoring.");
 
         } else {
             forms.put(f.getName(), f);
@@ -172,7 +172,7 @@ public class FormSet implements Serializable {
      * @return          The form
      */
     public Form getForm(final String formName) {
-        return this.forms.get(formName);
+        return forms.get(formName);
     }
 
     /**

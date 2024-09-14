@@ -444,31 +444,31 @@ public class CreditCardValidator implements Serializable {
      */
     public CreditCardValidator(final long options) {
         if (isOn(options, VISA)) {
-            this.cardTypes.add(VISA_VALIDATOR);
+            cardTypes.add(VISA_VALIDATOR);
         }
 
         if (isOn(options, VPAY)) {
-            this.cardTypes.add(VPAY_VALIDATOR);
+            cardTypes.add(VPAY_VALIDATOR);
         }
 
         if (isOn(options, AMEX)) {
-            this.cardTypes.add(AMEX_VALIDATOR);
+            cardTypes.add(AMEX_VALIDATOR);
         }
 
         if (isOn(options, MASTERCARD)) {
-            this.cardTypes.add(MASTERCARD_VALIDATOR);
+            cardTypes.add(MASTERCARD_VALIDATOR);
         }
 
         if (isOn(options, MASTERCARD_PRE_OCT2016)) {
-            this.cardTypes.add(MASTERCARD_VALIDATOR_PRE_OCT2016);
+            cardTypes.add(MASTERCARD_VALIDATOR_PRE_OCT2016);
         }
 
         if (isOn(options, DISCOVER)) {
-            this.cardTypes.add(DISCOVER_VALIDATOR);
+            cardTypes.add(DISCOVER_VALIDATOR);
         }
 
         if (isOn(options, DINERS)) {
-            this.cardTypes.add(DINERS_VALIDATOR);
+            cardTypes.add(DINERS_VALIDATOR);
         }
     }
 

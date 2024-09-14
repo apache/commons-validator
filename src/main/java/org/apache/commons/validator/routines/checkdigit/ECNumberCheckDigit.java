@@ -48,6 +48,17 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
     private static final ECNumberCheckDigit INSTANCE = new ECNumberCheckDigit();
 
     /**
+     * EC number consists of 3 groups of numbers separated dashes (-).
+     * Example: dexamethasone is 200-003-9
+     */
+    private static final String GROUP = "(\\d{3})";
+
+    private static final String DASH = "(?:\\-)";
+    static final String EC_REGEX = "^(?:" + GROUP + DASH + GROUP + DASH + "(\\d))$";
+    private static final int EC_LEN = 7;
+
+    static final CodeValidator REGEX_VALIDATOR = new CodeValidator(EC_REGEX, EC_LEN, null);
+    /**
      * Gets the singleton instance of this validator.
      * @return A singleton instance of the EC Number validator.
      */
@@ -56,37 +67,10 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * EC number consists of 3 groups of numbers separated dashes (-).
-     * Example: dexamethasone is 200-003-9
-     */
-    private static final String GROUP = "(\\d{3})";
-    private static final String DASH = "(?:\\-)";
-    static final String EC_REGEX = "^(?:" + GROUP + DASH + GROUP + DASH + "(\\d))$";
-
-    private static final int EC_LEN = 7;
-    static final CodeValidator REGEX_VALIDATOR = new CodeValidator(EC_REGEX, EC_LEN, null);
-
-    /**
      * Constructs a modulus 11 Check Digit routine.
      */
     private ECNumberCheckDigit() {
         super(MODULUS_11);
-    }
-
-    /**
-     * Calculates the <em>weighted</em> value of a character in the
-     * code at a specified position.
-     *
-     * <p>For EC number digits are weighted by their position from left to right.</p>
-     *
-     * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
-     * @return The weighted value of the character.
-     */
-    @Override
-    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        return leftPos >= EC_LEN ? 0 : charValue * leftPos;
     }
 
     /**
@@ -119,6 +103,22 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
         } catch (final CheckDigitException ex) {
             return false;
         }
+    }
+
+    /**
+     * Calculates the <em>weighted</em> value of a character in the
+     * code at a specified position.
+     *
+     * <p>For EC number digits are weighted by their position from left to right.</p>
+     *
+     * @param charValue The numeric value of the character.
+     * @param leftPos The position of the character in the code, counting from left to right
+     * @param rightPos The positionof the character in the code, counting from right to left
+     * @return The weighted value of the character.
+     */
+    @Override
+    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
+        return leftPos >= EC_LEN ? 0 : charValue * leftPos;
     }
 
 }

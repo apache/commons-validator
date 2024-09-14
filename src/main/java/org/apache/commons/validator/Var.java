@@ -109,7 +109,7 @@ public class Var implements Cloneable, Serializable {
      * @since 1.2.0
      */
     public String getBundle() {
-        return this.bundle;
+        return bundle;
     }
 
     /**
@@ -117,7 +117,7 @@ public class Var implements Cloneable, Serializable {
      * @return The JavaScript type of the variable.
      */
     public String getJsType() {
-        return this.jsType;
+        return jsType;
     }
 
     /**
@@ -125,7 +125,7 @@ public class Var implements Cloneable, Serializable {
      * @return The name of the variable.
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -133,7 +133,7 @@ public class Var implements Cloneable, Serializable {
      * @return The value of the variable.
      */
     public String getValue() {
-        return this.value;
+        return value;
     }
 
     /**
@@ -142,7 +142,7 @@ public class Var implements Cloneable, Serializable {
      * @since 1.2.0
      */
     public boolean isResource() {
-        return this.resource;
+        return resource;
     }
 
     /**

@@ -65,7 +65,7 @@ public class Flags implements Serializable, Cloneable {
      * @since 1.1.1
      */
     public void clear() {
-        this.flags = 0;
+        flags = 0;
     }
 
     /**
@@ -108,7 +108,7 @@ public class Flags implements Serializable, Cloneable {
      * @return collection of boolean flags represented.
      */
     public long getFlags() {
-        return this.flags;
+        return flags;
     }
 
     /**
@@ -119,7 +119,7 @@ public class Flags implements Serializable, Cloneable {
      */
     @Override
     public int hashCode() {
-        return (int) this.flags;
+        return (int) flags;
     }
 
     /**
@@ -131,7 +131,7 @@ public class Flags implements Serializable, Cloneable {
      * @return whether the specified flag value is off.
      */
     public boolean isOff(final long flag) {
-        return (this.flags & flag) == 0;
+        return (flags & flag) == 0;
     }
 
     /**
@@ -143,7 +143,7 @@ public class Flags implements Serializable, Cloneable {
      * @return whether the specified flag value is on.
      */
     public boolean isOn(final long flag) {
-        return (this.flags & flag) == flag;
+        return (flags & flag) == flag;
     }
 
     /**
@@ -155,7 +155,7 @@ public class Flags implements Serializable, Cloneable {
      */
     @Override
     public String toString() {
-        final StringBuilder bin = new StringBuilder(Long.toBinaryString(this.flags));
+        final StringBuilder bin = new StringBuilder(Long.toBinaryString(flags));
         for (int i = 64 - bin.length(); i > 0; i--) { // CHECKSTYLE IGNORE MagicNumber
             bin.insert(0, "0");
         }
@@ -169,14 +169,14 @@ public class Flags implements Serializable, Cloneable {
      * @param flag Flag value to turn off.
      */
     public void turnOff(final long flag) {
-        this.flags &= ~flag;
+        flags &= ~flag;
     }
 
     /**
      * Turn off all flags.
      */
     public void turnOffAll() {
-        this.flags = 0;
+        flags = 0;
     }
 
     /**
@@ -186,14 +186,14 @@ public class Flags implements Serializable, Cloneable {
      * @param flag Flag value to turn on.
      */
     public void turnOn(final long flag) {
-        this.flags |= flag;
+        flags |= flag;
     }
 
     /**
      * Turn on all 64 flags.
      */
     public void turnOnAll() {
-        this.flags = 0xFFFFFFFFFFFFFFFFL;
+        flags = 0xFFFFFFFFFFFFFFFFL;
     }
 
 }

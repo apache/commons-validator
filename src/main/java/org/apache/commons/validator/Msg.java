@@ -74,7 +74,7 @@ public class Msg implements Cloneable, Serializable {
      * @since 1.1
      */
     public String getBundle() {
-        return this.bundle;
+        return bundle;
     }
 
     /**
@@ -99,7 +99,7 @@ public class Msg implements Cloneable, Serializable {
      * @since 1.1.4
      */
     public boolean isResource() {
-        return this.resource;
+        return resource;
     }
 
     /**

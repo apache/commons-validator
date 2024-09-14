@@ -62,11 +62,11 @@ public class ValidatorResults implements Serializable {
             final boolean result,
             final Object value) {
 
-        ValidatorResult validatorResult = this.getValidatorResult(field.getKey());
+        ValidatorResult validatorResult = getValidatorResult(field.getKey());
 
         if (validatorResult == null) {
             validatorResult = new ValidatorResult(field);
-            this.hResults.put(field.getKey(), validatorResult);
+            hResults.put(field.getKey(), validatorResult);
         }
 
         validatorResult.add(validatorName, result, value);
@@ -76,7 +76,7 @@ public class ValidatorResults implements Serializable {
      * Clear all results recorded by this object.
      */
     public void clear() {
-        this.hResults.clear();
+        hResults.clear();
     }
 
     /**
@@ -85,7 +85,7 @@ public class ValidatorResults implements Serializable {
      * @return An unmodifiable Set of the property names.
      */
     public Set<String> getPropertyNames() {
-        return Collections.unmodifiableSet(this.hResults.keySet());
+        return Collections.unmodifiableSet(hResults.keySet());
     }
 
     /**
@@ -98,7 +98,7 @@ public class ValidatorResults implements Serializable {
         final Map<String, Object> results = new HashMap<>();
 
         for (final String propertyKey : hResults.keySet()) {
-            final ValidatorResult vr = this.getValidatorResult(propertyKey);
+            final ValidatorResult vr = getValidatorResult(propertyKey);
 
             for (final Iterator<String> x = vr.getActions(); x.hasNext();) {
                 final String actionKey = x.next();
@@ -124,7 +124,7 @@ public class ValidatorResults implements Serializable {
      * @return The result of a specified key.
      */
     public ValidatorResult getValidatorResult(final String key) {
-        return this.hResults.get(key);
+        return hResults.get(key);
     }
 
     /**
@@ -134,7 +134,7 @@ public class ValidatorResults implements Serializable {
      * @return Whether these results are empty.
      */
     public boolean isEmpty() {
-        return this.hResults.isEmpty();
+        return hResults.isEmpty();
     }
 
     /**
@@ -143,7 +143,7 @@ public class ValidatorResults implements Serializable {
      * @param results ValidatorResults to merge.
      */
     public void merge(final ValidatorResults results) {
-        this.hResults.putAll(results.hResults);
+        hResults.putAll(results.hResults);
     }
 
 }

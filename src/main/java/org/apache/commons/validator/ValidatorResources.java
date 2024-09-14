@@ -162,7 +162,7 @@ public class ValidatorResources implements Serializable {
             digester.parse(streams[i]);
         }
 
-        this.process();
+        process();
     }
 
     /**
@@ -197,7 +197,7 @@ public class ValidatorResources implements Serializable {
             digester.parse(element);
         }
 
-        this.process();
+        process();
     }
 
     /**
@@ -234,7 +234,7 @@ public class ValidatorResources implements Serializable {
             digester.parse(url);
         }
 
-        this.process();
+        process();
     }
 
     /**
@@ -247,7 +247,7 @@ public class ValidatorResources implements Serializable {
             getLog().debug("Adding Global Constant: " + name + "," + value);
         }
 
-        this.hConstants.put(name, value);
+        hConstants.put(name, value);
     }
 
     /**
@@ -258,7 +258,7 @@ public class ValidatorResources implements Serializable {
      * @since 1.1
      */
     public void addFormSet(final FormSet fs) {
-        final String key = this.buildKey(fs);
+        final String key = buildKey(fs);
         if (key.isEmpty()) { // there can only be one default formset
             if (getLog().isWarnEnabled() && defaultFormSet != null) {
                 // warn the user he might not get the expected results
@@ -342,7 +342,7 @@ public class ValidatorResources implements Serializable {
      */
     protected String buildKey(final FormSet fs) {
         return
-                this.buildLocale(fs.getLanguage(), fs.getCountry(), fs.getVariant());
+                buildLocale(fs.getLanguage(), fs.getCountry(), fs.getVariant());
     }
 
     /**
@@ -417,7 +417,7 @@ public class ValidatorResources implements Serializable {
         Form form = null;
 
         // Try language/country/variant
-        String key = this.buildLocale(language, country, variant);
+        String key = buildLocale(language, country, variant);
         if (!key.isEmpty()) {
             final FormSet formSet = getFormSets().get(key);
             if (formSet != null) {
@@ -602,7 +602,7 @@ public class ValidatorResources implements Serializable {
         hConstants.setFast(true);
         hActions.setFast(true);
 
-        this.processForms();
+        processForms();
     }
 
     /**
