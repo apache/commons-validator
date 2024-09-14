@@ -54,7 +54,8 @@ public class IBANValidator {
      * The validation class
      */
     public static class Validator {
-        /*
+
+        /**
          * The minimum length does not appear to be defined by the standard.
          * Norway is currently the shortest at 15.
          *
@@ -69,10 +70,15 @@ public class IBANValidator {
         final String countryCode;
         final String[] otherCountryCodes;
         final RegexValidator regexValidator;
-        final int ibanLength; // used to avoid unnecessary regex matching
+
+        /**
+         * Used to avoid unnecessary regex matching.
+         */
+        private final int ibanLength;
 
         /**
          * Creates the validator.
+         *
          * @param countryCode the country code
          * @param ibanLength the length of the IBAN
          * @param regexWithCC the regex to use to check the format, the regex MUST start with the country code.
@@ -83,6 +89,7 @@ public class IBANValidator {
 
         /**
          * Creates the validator.
+         *
          * @param countryCode the country code
          * @param ibanLength the length of the IBAN
          * @param regexWithoutCC the regex to use to check the format, the regex MUST NOT start with the country code.
@@ -107,6 +114,16 @@ public class IBANValidator {
             }
             this.ibanLength = ibanLength;
             this.regexValidator = new RegexValidator(regexList);
+        }
+
+        /**
+         * Gets the length.
+         *
+         * @return the length.
+         * @since 1.10.0
+         */
+        public int getIbanLength() {
+            return ibanLength;
         }
 
         /**
