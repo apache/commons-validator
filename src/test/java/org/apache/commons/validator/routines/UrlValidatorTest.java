@@ -138,7 +138,7 @@ public class UrlValidatorTest {
 
     int[] testPartsIndex = { 0, 0, 0, 0, 0 };
 
-    // ---------------- Test data for individual url parts ----------------
+    // Test data for individual url parts
     private final String[] schemes = { "http", "gopher", "g0-To+.", "not_valid" // TODO this will need to be dropped if the ctor validates schemes
     };
 

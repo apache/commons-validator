@@ -96,11 +96,10 @@ public class EmailValidator implements Serializable {
     }
 
     /**
-     * Returns the Singleton instance of this validator,
-     *  with local validation as required.
+     * Returns the Singleton instance of this validator, with local validation as required.
      *
      * @param allowLocal Should local addresses be considered valid?
-     * @param allowTld Should TLDs be allowed?
+     * @param allowTld   Should TLDs be allowed?
      * @return singleton instance of this validator
      */
     public static EmailValidator getInstance(final boolean allowLocal, final boolean allowTld) {
@@ -116,8 +115,14 @@ public class EmailValidator implements Serializable {
         return EMAIL_VALIDATOR;
     }
 
+    /**
+     * Whether to allow TLDs.
+     */
     private final boolean allowTld;
 
+    /**
+     * The domain validator.
+     */
     private final DomainValidator domainValidator;
 
     /**

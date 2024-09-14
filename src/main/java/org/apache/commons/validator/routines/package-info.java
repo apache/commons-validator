@@ -16,7 +16,7 @@
  */
 
 /**
- * This package contains <i>independent</i> validation routines.
+ * This package contains <em>independent</em> validation routines.
  * <h2>Table of Contents</h2>
  * <ul>
  * <li>1. <a href="#overview">Overview</a></li>
@@ -60,7 +60,7 @@
  * </p>
  * <ul>
  * <li>To provide standard, independent validation routines/functions.</li>
- * <li>To provide a <i>mini</i> framework for Validation.</li>
+ * <li>To provide a <em>mini</em> framework for Validation.</li>
  * </ul>
  * <p>
  * This package has been created, since version 1.3.0, in an attempt to clearly
@@ -76,8 +76,8 @@
  * <a id="date.overview"></a>
  * <h2>2.1 Overview</h2>
  * <p>
- * The date and time validators either validate according to a specified <i>format</i>
- * or use a standard <i>format</i> for a specified <code>Locale</code>.
+ * The date and time validators either validate according to a specified <em>format</em>
+ * or use a standard <em>format</em> for a specified <code>Locale</code>.
  * </p>
  * <ul>
  * <li><a href="DateValidator.html">Date Validator</a> - validates dates
@@ -107,35 +107,35 @@
  * <p>The following methods are provided to validate a date/time (return a boolean result):
  * </p>
  * <ul>
- * <li><code>isValid(<i>value</i>)</code></li>
- * <li><code>isValid(<i>value</i>, <i>pattern</i>)</code></li>
- * <li><code>isValid(<i>value</i>, Locale)</code></li>
- * <li><code>isValid(<i>value</i>, <i>pattern</i>, Locale)</code></li>
+ * <li><code>isValid(<em>value</em>)</code></li>
+ * <li><code>isValid(<em>value</em>, <em>pattern</em>)</code></li>
+ * <li><code>isValid(<em>value</em>, Locale)</code></li>
+ * <li><code>isValid(<em>value</em>, <em>pattern</em>, Locale)</code></li>
  * </ul>
  * <p>The following methods are provided to validate a date/time and convert it to either a
  * <code>java.util.Date</code> or <code>java.util.Calendar</code>:
  * </p>
  * <ul>
- * <li><code>validate(<i>value</i>)</code></li>
- * <li><code>validate(<i>value</i>, <i>pattern</i>)</code></li>
- * <li><code>validate(<i>value</i>, Locale)</code></li>
- * <li><code>validate(<i>value</i>, <i>pattern</i>, Locale)</code></li>
+ * <li><code>validate(<em>value</em>)</code></li>
+ * <li><code>validate(<em>value</em>, <em>pattern</em>)</code></li>
+ * <li><code>validate(<em>value</em>, Locale)</code></li>
+ * <li><code>validate(<em>value</em>, <em>pattern</em>, Locale)</code></li>
  * </ul>
  * <a id="date.format"></a>
  * <h2>2.3 Formatting</h2>
  * <p>
  * Formatting and validating are two sides of the same coin. Typically
- * <i>input</i> values which are converted from Strings according to a
- * specified <i>format</i> also have to be rendered for <i>output</i> in
+ * <em>input</em> values which are converted from Strings according to a
+ * specified <em>format</em> also have to be rendered for <em>output</em> in
  * the same format. These validators provide the mechanism for formatting from
  * date/time objects to Strings. The following methods are provided to format
  * date/time values as Strings:
  * </p>
  * <ul>
- * <li><code>format(<i>date/calendar</i>)</code></li>
- * <li><code>format(<i>date/calendar</i>, <i>pattern</i>)</code></li>
- * <li><code>format(<i>date/calendar</i>, Locale)</code></li>
- * <li><code>format(<i>date/calendar</i>, <i>pattern</i>, Locale)</code></li>
+ * <li><code>format(<em>date/calendar</em>)</code></li>
+ * <li><code>format(<em>date/calendar</em>, <em>pattern</em>)</code></li>
+ * <li><code>format(<em>date/calendar</em>, Locale)</code></li>
+ * <li><code>format(<em>date/calendar</em>, <em>pattern</em>, Locale)</code></li>
  * </ul>
  * <a id="date.timezone"></a>
  * <h2>2.4 Time Zones</h2>
@@ -150,19 +150,19 @@
  * // Validate/Convert the date using GMT
  * Date fooDate = validator.validate(fooString, "dd/MM/yyyy", GMT);
  * </pre>
- * <p>The following Time Zone <i>flavors</i> of the Validation/Conversion methods
+ * <p>The following Time Zone <em>flavors</em> of the Validation/Conversion methods
  * are provided:</p>
  * <ul>
- * <li><code>validate(<i>value</i>, TimeZone)</code></li>
- * <li><code>validate(<i>value</i>, <i>pattern</i>, TimeZone)</code></li>
- * <li><code>validate(<i>value</i>, Locale, TimeZone)</code></li>
- * <li><code>validate(<i>value</i>, <i>pattern</i>, Locale, TimeZone)</code></li>
+ * <li><code>validate(<em>value</em>, TimeZone)</code></li>
+ * <li><code>validate(<em>value</em>, <em>pattern</em>, TimeZone)</code></li>
+ * <li><code>validate(<em>value</em>, Locale, TimeZone)</code></li>
+ * <li><code>validate(<em>value</em>, <em>pattern</em>, Locale, TimeZone)</code></li>
  * </ul>
  * <a id="date.compare"></a>
  * <h2>2.5 Comparing Dates and Times</h2>
  * <p>
  * As well as validating that a value is a valid date or time, these validators
- * also provide <i>date comparison</i> functions. The <code>DateValidator</code>
+ * also provide <em>date comparison</em> functions. The <code>DateValidator</code>
  * and <code>CalendarValidator</code> provide functions for comparing years,
  * quarters, months, weeks and dates and the <code>TimeValidator</code> provides
  * functions for comparing hours, minutes, seconds and milliseconds.
@@ -195,9 +195,9 @@
  * <a id="numeric.overview"></a>
  * <h2>3.1 Overview</h2>
  * <p>
- * The numeric validators either validate according to a specified <i>format</i>
- * or use a standard <i>format</i> for a specified <code>Locale</code> or use
- * a <i>custom</i> format for a specified <code>Locale</code>.
+ * The numeric validators either validate according to a specified <em>format</em>
+ * or use a standard <em>format</em> for a specified <code>Locale</code> or use
+ * a <em>custom</em> format for a specified <code>Locale</code>.
  * </p>
  * <ul>
  * <li><a href="ByteValidator.html">Byte Validator</a> - validates numbers
@@ -226,7 +226,7 @@
  * </p>
  * <p>
  * The following example validates an integer against a custom pattern
- * for the <i>German</i> locale. Please note the format is specified using
+ * for the <em>German</em> locale. Please note the format is specified using
  * the standard symbols for <code>java.text.DecimalFormat</code> so although
  * the decimal separator is indicated as a period (".") in the format, the
  * validator will check using the German decimal separator - which is a comma (",").
@@ -243,41 +243,41 @@
  * </pre>
  * <p>The following methods are provided to validate a number (return a boolean result):</p>
  * <ul>
- * <li><code>isValid(<i>value</i>)</code></li>
- * <li><code>isValid(<i>value</i>, <i>pattern</i>)</code></li>
- * <li><code>isValid(<i>value</i>, Locale)</code></li>
- * <li><code>isValid(<i>value</i>, <i>pattern</i>, Locale)</code></li>
+ * <li><code>isValid(<em>value</em>)</code></li>
+ * <li><code>isValid(<em>value</em>, <em>pattern</em>)</code></li>
+ * <li><code>isValid(<em>value</em>, Locale)</code></li>
+ * <li><code>isValid(<em>value</em>, <em>pattern</em>, Locale)</code></li>
  * </ul>
  * <p>The following methods are provided to validate a number and convert it one of
  * the <code>java.lang.Number</code> implementations:</p>
  * <ul>
- * <li><code>validate(<i>value</i>)</code></li>
- * <li><code>validate(<i>value</i>, <i>pattern</i>)</code></li>
- * <li><code>validate(<i>value</i>, Locale)</code></li>
- * <li><code>validate(<i>value</i>, <i>pattern</i>, Locale)</code></li>
+ * <li><code>validate(<em>value</em>)</code></li>
+ * <li><code>validate(<em>value</em>, <em>pattern</em>)</code></li>
+ * <li><code>validate(<em>value</em>, Locale)</code></li>
+ * <li><code>validate(<em>value</em>, <em>pattern</em>, Locale)</code></li>
  * </ul>
  * <a id="numeric.format"></a>
  * <h2>3.3 Formatting</h2>
  * <p>
  * Formatting and validating are two sides of the same coin. Typically
- * <i>input</i> values which are converted from Strings according to a
- * specified <i>format</i> also have to be rendered for <i>output</i> in
+ * <em>input</em> values which are converted from Strings according to a
+ * specified <em>format</em> also have to be rendered for <em>output</em> in
  * the same format. These validators provide the mechanism for formatting from
  * numeric objects to Strings. The following methods are provided to format
  * numeric values as Strings:
  * </p>
  * <ul>
- * <li><code>format(<i>number</i>)</code></li>
- * <li><code>format(<i>number</i>, <i>pattern</i>)</code></li>
- * <li><code>format(<i>number</i>, Locale)</code></li>
- * <li><code>format(<i>number</i>, <i>pattern</i>, Locale)</code></li>
+ * <li><code>format(<em>number</em>)</code></li>
+ * <li><code>format(<em>number</em>, <em>pattern</em>)</code></li>
+ * <li><code>format(<em>number</em>, Locale)</code></li>
+ * <li><code>format(<em>number</em>, <em>pattern</em>, Locale)</code></li>
  * </ul>
  * <a id="numeric.compare"></a>
  * <h2>3.4 Comparing Numbers</h2>
  * <p>
  * As well as validating that a value is a valid number, these validators
- * also provide functions for validating the <i>minimum</i>, <i>maximum</i>
- * and <i>range</i> of a value.
+ * also provide functions for validating the <em>minimum</em>, <em>maximum</em>
+ * and <em>range</em> of a value.
  * </p>
  * <pre>
  * // Check the number is between 25 and 75
@@ -290,11 +290,11 @@
  * <h2>3.5 Currency Validation</h2>
  * <p>
  * A default <a href="CurrencyValidator.html">Currency Validator</a>
- * implementation is provided, although all the <i>numeric</i> validators
+ * implementation is provided, although all the <em>numeric</em> validators
  * support currency validation. The default implementation converts
  * currency amounts to a <code>java.math.BigDecimal</code> and additionally
- * it provides <i>lenient</i> currency symbol validation. That is, currency
- * amounts are valid with <i>or</i> without the currency symbol.
+ * it provides <em>lenient</em> currency symbol validation. That is, currency
+ * amounts are valid with <em>or</em> without the currency symbol.
  * </p>
  * <pre>
  * BigDecimalValidator validator = CurrencyValidator.getInstance();
@@ -312,8 +312,8 @@
  * <p>
  * If, for example, you want to use the <a href="IntegerValidator.html">Integer
  * Validator</a> to validate a currency, then you can simply create a
- * new instance with the appropriate <i>format style</i>. Note that
- * the other validators do not support the <i>lenient</i> currency symbol
+ * new instance with the appropriate <em>format style</em>. Note that
+ * the other validators do not support the <em>lenient</em> currency symbol
  * validation.
  * </p>
  * <pre>
@@ -330,12 +330,12 @@
  * <h2>3.6 Percent Validation</h2>
  * <p>
  * A default <a href="PercentValidator.html">Percent Validator</a>
- * implementation is provided, although the <i>Float</i>,
- * <i>Double</i> and <i>BigDecimal</i> validators also support
+ * implementation is provided, although the <em>Float</em>,
+ * <em>Double</em> and <em>BigDecimal</em> validators also support
  * percent validation. The default implementation converts
  * percent amounts to a <code>java.math.BigDecimal</code> and additionally
- * it provides <i>lenient</i> percent symbol validation. That is, percent
- * amounts are valid with <i>or</i> without the percent symbol.
+ * it provides <em>lenient</em> percent symbol validation. That is, percent
+ * amounts are valid with <em>or</em> without the percent symbol.
  * </p>
  * <pre>
  * BigDecimalValidator validator = PercentValidator.getInstance();
@@ -353,8 +353,8 @@
  * <p>
  * If, for example, you want to use the <a href="FloatValidator.html">Float
  * Validator</a> to validate a percent, then you can simply create a
- * new instance with the appropriate <i>format style</i>. Note that
- * the other validators do not support the <i>lenient</i> percent symbol
+ * new instance with the appropriate <em>format style</em>. Note that
+ * the other validators do not support the <em>lenient</em> percent symbol
  * validation.
  * </p>
  * <pre>
@@ -368,8 +368,8 @@
  * </pre>
  * <p>
  * <strong>Note</strong>: in theory the other numeric validators besides
- * <i>Float</i>, <i>Double</i> and <i>BigDecimal</i> (i.e. <i>Byte</i>,
- * <i>Short</i>, <i>Integer</i>, <i>Long</i> and <i>BigInteger</i>)
+ * <em>Float</em>, <em>Double</em> and <em>BigDecimal</em> (i.e. <em>Byte</em>,
+ * <em>Short</em>, <em>Integer</em>, <em>Long</em> and <em>BigInteger</em>)
  * also support percent validation. However, since they don't allow fractions
  * they will only work with percentages greater than 100%.
  * </p>
@@ -401,25 +401,25 @@
  * <a id="other.regex"></a>
  * <h2>4.2 Regular Expression Validation</h2>
  * <p>
- * Regular expression validation can be done either by using the <i>static</i>
+ * Regular expression validation can be done either by using the <em>static</em>
  * methods provied by <a href="RegexValidator.html">RegexValidator</a> or
  * by creating a new instance, which caches and re-uses compiled Patterns.
  * </p>
  * <ul>
- * <li><b>Method Flavours</b> - three <i>flavors</i> of validation metods are provided:</li>
+ * <li><b>Method Flavours</b> - three <em>flavors</em> of validation metods are provided:</li>
  * <li>
  * <ul>
  * <li><code>isValid()</code> methods return true/false to indicate
  * whether validation was successful.</li>
  * <li><code>validate()</code> methods return a <code>String</code>
- * value of the matched <i>groups</i> aggregated together or
+ * value of the matched <em>groups</em> aggregated together or
  * {@code null} if invalid.</li>
  * <li><code>match()</code> methods return a <code>String</code> array
- * of the matched <i>groups</i> or {@code null} if invalid.</li>
+ * of the matched <em>groups</em> or {@code null} if invalid.</li>
  * </ul>
  * </li>
  * <li><b>Case Sensitivity</b> - matching can be done in either a <i>case
- * sensitive</i> or <i>case in-sensitive</i> way.</li>
+ * sensitive</i> or <em>case in-sensitive</em> way.</li>
  * <li><b>Multiple Expressions</b> - instances of the
  * <a href="RegexValidator.html">RegexValidator</a>
  * can be created to either match against a single regular expression
@@ -427,7 +427,7 @@
  * </ul>
  * <p>
  * Below is an example of using one of the static methods to validate,
- * matching in a <i>case insensitive</i> manner and returning a String
+ * matching in a <em>case insensitive</em> manner and returning a String
  * of the matched groups (which doesn't include the hyphen).
  * </p>
  * <pre>
@@ -440,16 +440,16 @@
  * <p>The following static methods are provided for regular expression validation:
  * </p>
  * <ul>
- * <li><code>isValid(<i>value</i>, <i>regex</i>)</code></li>
- * <li><code>isValid(<i>value</i>, <i>regex</i>, <i>caseSensitive</i>)</code></li>
- * <li><code>validate(<i>value</i>, <i>regex</i>)</code></li>
- * <li><code>validate(<i>value</i>, <i>regex</i>, <i>caseSensitive</i>)</code></li>
- * <li><code>match(<i>value</i>, <i>regex</i>)</code></li>
- * <li><code>match(<i>value</i>, <i>regex</i>, <i>caseSensitive</i>)</code></li>
+ * <li><code>isValid(<em>value</em>, <em>regex</em>)</code></li>
+ * <li><code>isValid(<em>value</em>, <em>regex</em>, <em>caseSensitive</em>)</code></li>
+ * <li><code>validate(<em>value</em>, <em>regex</em>)</code></li>
+ * <li><code>validate(<em>value</em>, <em>regex</em>, <em>caseSensitive</em>)</code></li>
+ * <li><code>match(<em>value</em>, <em>regex</em>)</code></li>
+ * <li><code>match(<em>value</em>, <em>regex</em>, <em>caseSensitive</em>)</code></li>
  * </ul>
  * <p>
  * Below is an example of creating an instance of
- * <a href="RegexValidator.html">RegexValidator</a> matching in a <i>case insensitive</i>
+ * <a href="RegexValidator.html">RegexValidator</a> matching in a <em>case insensitive</em>
  * manner against a set of regular expressions:
  * </p>
  * <pre>
@@ -479,9 +479,9 @@
  * following methods:
  * </p>
  * <ul>
- * <li><code>isValid(<i>code</i>)</code> - validates the check digit of a code,
+ * <li><code>isValid(<em>code</em>)</code> - validates the check digit of a code,
  * returning {@code true} or {@code false}.</li>
- * <li><code>calculate(<i>code</i>)</code> - calulates the check digit for a code
+ * <li><code>calculate(<em>code</em>)</code> - calulates the check digit for a code
  * returning the check digit character.</li>
  * </ul>
  * <p>
@@ -551,11 +551,11 @@
  * </p>
  * <ul>
  * <li><b>Format</b> - the format of the code is validated using
- * a <i>regular expression</i> (see  <a href="RegexValidator.html">RegexValidator</a>).</li>
+ * a <em>regular expression</em> (see  <a href="RegexValidator.html">RegexValidator</a>).</li>
  * <li><b>Length</b> - the minimum/maximum length of the code is
  * checked - after being parsed by the regular expression - with which
- * <i>format</i> characters can be removed with the use of
- * <i>non-capturing</i> groups.</li>
+ * <em>format</em> characters can be removed with the use of
+ * <em>non-capturing</em> groups.</li>
  * <li><b>Check Digit</b> - a <a href="checkdigit/CheckDigit.html">CheckDigit</a>
  * routine checks that code's check digit is valid.</li>
  * </ul>
@@ -575,7 +575,7 @@
  * <h2>4.5 ISBN validation</h2>
  * <p>
  * <a href="ISBNValidator.html">ISBNValidator</a> provides ISBN-10
- * and ISBN-13 validation and can <i>optionally</i> convert
+ * and ISBN-13 validation and can <em>optionally</em> convert
  * ISBN-10 codes to ISBN-13.
  * </p>
  * <ul>
@@ -585,8 +585,8 @@
  * routine.</li>
  * <li>
  * <ul>
- * <li><code>isValidISBN10(<i>value</i>)</code> - returns a boolean</li>
- * <li><code>validateISBN10(<i>value</i>)</code> - returns a reformatted ISBN-10 code</li>
+ * <li><code>isValidISBN10(<em>value</em>)</code> - returns a boolean</li>
+ * <li><code>validateISBN10(<em>value</em>)</code> - returns a reformatted ISBN-10 code</li>
  * </ul>
  * </li>
  * <li><b>ISBN-13</b> - validates using a
@@ -595,17 +595,17 @@
  * routine.</li>
  * <li>
  * <ul>
- * <li><code>isValidISBN13(<i>value</i>)</code> - returns a boolean</li>
- * <li><code>validateISBN13(<i>value</i>)</code> - returns a reformatted ISBN-13 code</li>
+ * <li><code>isValidISBN13(<em>value</em>)</code> - returns a boolean</li>
+ * <li><code>validateISBN13(<em>value</em>)</code> - returns a reformatted ISBN-13 code</li>
  * </ul>
  * </li>
  * <li><b>ISBN-10</b> and <b>ISBN-13</b> - validates codes are either
  * valid ISBN-10 or valid ISBN-13 - optionally can convert ISBN-10 codes to ISBN-13.</li>
  * <li>
  * <ul>
- * <li><code>isValid(<i>value</i>)</code> - returns a boolean</li>
- * <li><code>validate(<i>value</i>)</code> - returns a reformatted ISBN code
- * (converts ISBN-10 to ISBN-13 if the <i>convert</i> option is {@code true}).</li>
+ * <li><code>isValid(<em>value</em>)</code> - returns a boolean</li>
+ * <li><code>validate(<em>value</em>)</code> - returns a reformatted ISBN code
+ * (converts ISBN-10 to ISBN-13 if the <em>convert</em> option is {@code true}).</li>
  * </ul>
  * </li>
  * </ul>

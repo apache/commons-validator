@@ -67,7 +67,7 @@ public final class VerhoeffCheckDigit extends AbstractCheckDigit implements Seri
     private static final int[] INV_TABLE = {0, 4, 3, 2, 1, 5, 6, 7, 8, 9};
 
     /**
-     * Calculate a Verhoeff <i>Check Digit</i> for a code.
+     * Calculate a Verhoeff <em>Check Digit</em> for a code.
      *
      * @param code The code to calculate the Check Digit for
      * @return The calculated Check Digit
@@ -107,7 +107,7 @@ public final class VerhoeffCheckDigit extends AbstractCheckDigit implements Seri
     }
 
     /**
-     * Validate the Verhoeff <i>Check Digit</i> for a code.
+     * Validate the Verhoeff <em>Check Digit</em> for a code.
      *
      * @param code The code to validate
      * @return {@code true} if the check digit is valid,

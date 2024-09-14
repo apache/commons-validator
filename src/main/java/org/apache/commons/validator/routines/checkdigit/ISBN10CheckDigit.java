@@ -22,7 +22,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * ISBN-10 Numbers are a numeric code except for the last (check) digit
  * which can have a value of "X".
  * <p>
- * Check digit calculation is based on <i>modulus 11</i> with digits being weighted
+ * Check digit calculation is based on <em>modulus 11</em> with digits being weighted
  * based by their position, from right to left  with the first digit being weighted
  * 1, the second 2 and so on. If the check digit is calculated as "10" it is converted
  * to "X".
@@ -95,7 +95,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * Calculates the <i>weighted</i> value of a character in the
+     * Calculates the <em>weighted</em> value of a character in the
      * code at a specified position.
      *
      * <p>For ISBN-10 (from right to left) digits are weighted

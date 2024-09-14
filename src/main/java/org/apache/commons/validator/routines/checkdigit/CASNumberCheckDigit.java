@@ -29,7 +29,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * </p>
  *
  * <p>
- * Check digit calculation is based on <i>modulus 10</i> with digits being weighted
+ * Check digit calculation is based on <em>modulus 10</em> with digits being weighted
  * based on their position (from right to left).
  * </p>
  *
@@ -86,7 +86,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * Calculates the <i>weighted</i> value of a character in the code at a specified position.
+     * Calculates the <em>weighted</em> value of a character in the code at a specified position.
      * <p>
      * CAS numbers are weighted in the following manner:
      * </p>

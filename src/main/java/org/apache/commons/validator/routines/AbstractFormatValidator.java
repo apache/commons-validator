@@ -22,9 +22,9 @@ import java.text.ParsePosition;
 import java.util.Locale;
 
 /**
- * <p>Abstract class for <i>Format</i> based Validation.</p>
+ * <p>Abstract class for <em>Format</em> based Validation.</p>
  *
- * <p>This is a <i>base</i> class for building Date and Number
+ * <p>This is a <em>base</em> class for building Date and Number
  *    Validators using format parsing.</p>
  *
  * @since 1.3.0
@@ -109,7 +109,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Returns a <code>Format</code> for the specified <i>pattern</i>
+     * <p>Returns a <code>Format</code> for the specified <em>pattern</em>
      *    and/or <code>Locale</code>.</p>
      *
      * @param pattern The pattern used to validate the value against or
@@ -162,7 +162,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Validate using the specified <i>pattern</i>.
+     * <p>Validate using the specified <em>pattern</em>.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against.

@@ -25,14 +25,14 @@ import java.text.Format;
  *
  * <p>This is one implementation of a percent validator that has the following features:</p>
  *    <ul>
- *       <li>It is <i>lenient</i> about the presence of the <i>percent symbol</i></li>
+ *       <li>It is <em>lenient</em> about the presence of the <em>percent symbol</em></li>
  *       <li>It converts the percent to a <code>java.math.BigDecimal</code></li>
  *    </ul>
  *
- * <p>However any of the <i>number</i> validators can be used for <i>percent</i> validation.
- *    For example, if you wanted a <i>percent</i> validator that converts to a
+ * <p>However any of the <em>number</em> validators can be used for <em>percent</em> validation.
+ *    For example, if you wanted a <em>percent</em> validator that converts to a
  *    <code>java.lang.Float</code> then you can simply instantiate an
- *    <code>FloatValidator</code> with the appropriate <i>format type</i>:</p>
+ *    <code>FloatValidator</code> with the appropriate <em>format type</em>:</p>
  *
  *    <p><code>... = new FloatValidator(false, FloatValidator.PERCENT_FORMAT);</code></p>
  *
@@ -64,7 +64,7 @@ public class PercentValidator extends BigDecimalValidator {
     }
 
     /**
-     * Constructs a <i>strict</i> instance.
+     * Constructs a <em>strict</em> instance.
      */
     public PercentValidator() {
         this(true);

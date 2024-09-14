@@ -42,10 +42,10 @@ import java.util.TimeZone;
  *
  * <p>Use one of the <code>isValid()</code> methods to just validate or
  *    one of the <code>validate()</code> methods to validate and receive a
- *    <i>converted</i> <code>Calendar</code> value for the time.</p>
+ *    <em>converted</em> <code>Calendar</code> value for the time.</p>
  *
  * <p>Implementations of the <code>validate()</code> method are provided
- *    to create <code>Calendar</code> objects for different <i>time zones</i>
+ *    to create <code>Calendar</code> objects for different <em>time zones</em>
  *    if the system default is not appropriate.</p>
  *
  * <p>Alternatively the CalendarValidator's <code>adjustToTimeZone()</code> method
@@ -69,14 +69,14 @@ import java.util.TimeZone;
  *           whether the first is equal to, before or after the second.</li>
  *    </ul>
  *
- * <p>So that the same mechanism used for parsing an <i>input</i> value
- *    for validation can be used to format <i>output</i>, corresponding
+ * <p>So that the same mechanism used for parsing an <em>input</em> value
+ *    for validation can be used to format <em>output</em>, corresponding
  *    <code>format()</code> methods are also provided. That is you can
  *    format either:</p>
  *    <ul>
  *       <li>using a specified pattern</li>
  *       <li>using the format for a specified <code>Locale</code></li>
- *       <li>using the format for the <i>default</i> <code>Locale</code></li>
+ *       <li>using the format for the <em>default</em> <code>Locale</code></li>
  *    </ul>
  *
  * @since 1.3.0
@@ -96,7 +96,7 @@ public class TimeValidator extends AbstractCalendarValidator {
     }
 
     /**
-     * Constructs a <i>strict</i> instance with <i>short</i>
+     * Constructs a <em>strict</em> instance with <em>short</em>
      * time style.
      */
     public TimeValidator() {
@@ -104,8 +104,8 @@ public class TimeValidator extends AbstractCalendarValidator {
     }
 
     /**
-     * Constructs an instance with the specified <i>strict</i>
-     * and <i>time style</i> parameters.
+     * Constructs an instance with the specified <em>strict</em>
+     * and <em>time style</em> parameters.
      *
      * @param strict {@code true} if strict
      *        <code>Format</code> parsing should be used.
@@ -217,7 +217,7 @@ public class TimeValidator extends AbstractCalendarValidator {
     }
 
     /**
-     * <p>Validate/convert a time using the specified <i>pattern</i> and
+     * <p>Validate/convert a time using the specified <em>pattern</em> and
      *    default <code>TimeZone</code>.
      *
      * @param value The value validation is being performed on.
@@ -258,7 +258,7 @@ public class TimeValidator extends AbstractCalendarValidator {
     }
 
     /**
-     * <p>Validate/convert a time using the specified <i>pattern</i>
+     * <p>Validate/convert a time using the specified <em>pattern</em>
      *    and <code>TimeZone</code>.
      *
      * @param value The value validation is being performed on.

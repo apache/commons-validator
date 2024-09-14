@@ -23,10 +23,10 @@ import org.apache.commons.validator.GenericValidator;
 /**
  * Abstract <b>Modulus</b> Check digit calculation/validation.
  * <p>
- * Provides a <i>base</i> class for building <i>modulus</i> Check Digit routines.
+ * Provides a <em>base</em> class for building <em>modulus</em> Check Digit routines.
  * </p>
  * <p>
- * This implementation only handles <i>single-digit numeric</i> codes, such as <b>EAN-13</b>. For <i>alphanumeric</i> codes such as <b>EAN-128</b> you will need
+ * This implementation only handles <em>single-digit numeric</em> codes, such as <b>EAN-13</b>. For <em>alphanumeric</em> codes such as <b>EAN-128</b> you will need
  * to implement/override the <code>toInt()</code> and <code>toChar()</code> methods.
  * </p>
  *
@@ -76,7 +76,7 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
     }
 
     /**
-     * Calculate a modulus <i>Check Digit</i> for a code which does not yet have one.
+     * Calculate a modulus <em>Check Digit</em> for a code which does not yet have one.
      *
      * @param code The code for which to calculate the Check Digit;
      * the check digit should not be included
@@ -186,7 +186,7 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
     }
 
     /**
-     * Calculates the <i>weighted</i> value of a character in the
+     * Calculates the <em>weighted</em> value of a character in the
      * code at a specified position.
      * <p>
      * Some modulus routines weight the value of a character
