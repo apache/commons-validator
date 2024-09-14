@@ -38,11 +38,10 @@ import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
  * The 9 character number designates an organization,
  * the 14 character number designates a specific establishment of the organization designated by the first 9 characters.
  * <br>
- * 2) Check digits: 9th & 14th character respectively
+ * 2) Check digits: 9th and 14th character respectively
  * </p>
  * <p>
- * See <a href="https://en.wikipedia.org/wiki/SIRET_code">Wikipedia - SIRET</a>
- * for more details.
+ * See <a href="https://en.wikipedia.org/wiki/SIRET_code">Wikipedia - SIRET</a> for more details.
  * </p>
  */
 public class SireneValidator {
