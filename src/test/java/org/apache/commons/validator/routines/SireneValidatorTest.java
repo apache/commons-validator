@@ -43,14 +43,14 @@ public class SireneValidatorTest {
 
     @Test
     public void testValid() {
-        for(String f : validFormat) {
+        for (String f : validFormat) {
             assertTrue(f, VALIDATOR.isValid(f));
         }
     }
 
     @Test
     public void testInValid() {
-        for(String f : invalidFormat) {
+        for (String f : invalidFormat) {
             assertFalse(f, VALIDATOR.isValid(f));
         }
     }

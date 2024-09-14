@@ -33,10 +33,10 @@ import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
  * <p>
  * Structure of Code :
  * <br>
- * 1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), 
+ * 1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"),
  * <br>
- * The 9 character number designates an organization, 
- * the 14 character number designates a specific establishment of the organization designated by the first 9 characters. 
+ * The 9 character number designates an organization,
+ * the 14 character number designates a specific establishment of the organization designated by the first 9 characters.
  * <br>
  * 2) Check digits: 9th & 14th character respectively
  * </p>
@@ -68,7 +68,7 @@ public class SireneValidator {
 
         /**
          * Creates the format validator
-         * 
+         *
          * @param formats the regex's to use to check the format
          */
         public Validator(String[] formats) {
@@ -107,20 +107,20 @@ public class SireneValidator {
         if (id == null || (id.length() != SIREN_CODE_LEN && id.length() != SIRET_CODE_LEN)) {
             return false;
         }
-        
-        // format check:
-        if(!formatValidator.validator.isValid(id)) return false;
 
-        if(id.length() == SIREN_CODE_LEN) {
+        // format check:
+        if (!formatValidator.validator.isValid(id)) return false;
+
+        if (id.length() == SIREN_CODE_LEN) {
             return LuhnCheckDigit.LUHN_CHECK_DIGIT.isValid(id);
         }
-        if(!LuhnCheckDigit.LUHN_CHECK_DIGIT.isValid(id.substring(0, SIREN_CODE_LEN))) {
+        if (!LuhnCheckDigit.LUHN_CHECK_DIGIT.isValid(id.substring(0, SIREN_CODE_LEN))) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug(id + " is SIRET, SIREN check digit at 9 is NOT valid.");
             }
             return false;
         }
-        
+
         return LuhnCheckDigit.LUHN_CHECK_DIGIT.isValid(id);
     }
 

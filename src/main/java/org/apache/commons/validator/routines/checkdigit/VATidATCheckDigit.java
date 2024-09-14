@@ -28,9 +28,6 @@ import org.apache.commons.validator.GenericValidator;
  * See <a href="https://www.bmf.gv.at/dam/jcr:9f9f8d5f-5496-4886-aa4f-81a4e39ba83e/BMF_UID_Konstruktionsregeln.pdf">bmf.gv.at - BMF_UID_Konstruktionsregeln</a>
  * for more details.
  * </p>
-Der Algorithmus auf http://www.pruefziffernberechnung.de/U/USt-IdNr.shtml#PZAT isk komplett falsch XXX
-Beispiel: AT U13585627
-
 TODO derzeit wird U hier geprüft - das steht im Widersproch zu package Vorgabe:
     <b>do not validate</b> the input for length or syntax
  *
@@ -39,8 +36,8 @@ TODO derzeit wird U hier geprüft - das steht im Widersproch zu package Vorgabe:
 public final class VATidATCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = 8481357188785400898L;
-	
-	/** Singleton Check Digit instance */
+
+    /** Singleton Check Digit instance */
     private static final VATidATCheckDigit INSTANCE = new VATidATCheckDigit();
 
     /**
@@ -51,12 +48,12 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
         return INSTANCE;
     }
 
-    public static final int LEN = 8; // without constant "U"
+    private static final int LEN = 8; // without constant "U"
 
     public static String omitU(final String code) {
         return code.substring(1);
     }
-    
+
     /**
      * Constructs a Check Digit routine.
      */
@@ -77,13 +74,13 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        if(leftPos>=LEN) return 0;
-        if((leftPos-1) % 2 == 0) {
+        if (leftPos >= LEN) return 0;
+        if ((leftPos - 1) % 2 == 0) {
             return charValue;
         } else {
             // Si = INT(charValue / 5) + (charValue * 2) modulo10
-            int i = charValue / 5;
-            return i + (charValue*2) % MODULUS_10;
+            int i = charValue / 5;  // CHECKSTYLE IGNORE MagicNumber
+            return i + (charValue * 2) % MODULUS_10;
         }
     }
 
@@ -95,7 +92,7 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException("Code is missing");
         }
-        if (code.length()>=LEN && GenericTypeValidator.formatLong(omitU(code))==0) {
+        if (code.length() >= LEN && GenericTypeValidator.formatLong(omitU(code)) == 0) {
             throw new CheckDigitException("Invalid code, sum is zero");
         }
         if (!code.startsWith("U")) {
@@ -119,7 +116,7 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
         if (total == 0) {
             throw new CheckDigitException("Invalid code, sum is zero");
         }
-        return (total + 4) % MODULUS_10;
+        return (total + 4) % MODULUS_10;  // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**
