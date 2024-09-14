@@ -185,10 +185,9 @@ public class TimeValidatorTest {
 
         final Object test = TimeValidator.getInstance().validate("16:49:23", "HH:mm:ss");
         assertNotNull(test, "Test Date ");
-        assertEquals(validator.format(test, "HH-mm-ss"), "16-49-23", "Format pattern");
-        assertEquals(validator.format(test, Locale.US), "4:49 PM", "Format locale");
-        assertEquals(validator.format(test), "16:49", "Format default");
-
+        assertEquals("16-49-23", validator.format(test, "HH-mm-ss"), "Format pattern");
+        assertEquals("4:49 PM", validator.format(test, Locale.US), "Format locale");
+        assertEquals("16:49", validator.format(test), "Format default");
     }
 
     /**

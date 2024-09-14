@@ -66,6 +66,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
   <release version="1.10.0" date="YYYY-MM-DD" description="This is a maintenance and bug fix release; requires Java 8.">
       <!-- FIX -->
+      <action type="update" dev="ggregory" due-to="Johannes Weberhofer">Fix order of actual and expected parameters in assertEquals() #246.</action> 
       <!-- ADD -->
       <action type="update" dev="ggregory" due-to="Leonard Wicke, Gary Gregory">Add IBANValidator.Validator.getIbanLength().</action> 
       <!-- UPDATE -->
