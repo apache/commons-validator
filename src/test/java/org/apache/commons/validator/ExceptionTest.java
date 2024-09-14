@@ -42,7 +42,7 @@ public class ExceptionTest extends AbstractCommonTest {
     protected static final String ACTION = "raiseException";
 
     /**
-     * Load <code>ValidatorResources</code> from validator-exception.xml.
+     * Load {@code ValidatorResources} from validator-exception.xml.
      */
     @BeforeEach
     protected void setUp() throws IOException, SAXException {

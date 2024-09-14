@@ -19,6 +19,7 @@ package org.apache.commons.validator;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -26,7 +27,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Holds a set of <code>Form</code>s stored associated with a <code>Locale</code>
+ * Holds a set of {@code Form}s stored associated with a {@link Locale}
  * based on the country, language, and variant specified. Instances of this
  * class are configured with a &lt;formset&gt; xml element.
  */
@@ -35,24 +36,24 @@ public class FormSet implements Serializable {
     private static final long serialVersionUID = -8936513232763306055L;
 
     /**
-     * This is the type of <code>FormSet</code>s where no locale is specified.
+     * This is the type of {@code FormSet}s where no locale is specified.
      */
     protected final static int GLOBAL_FORMSET = 1;
 
     /**
-     * This is the type of <code>FormSet</code>s where only language locale is
+     * This is the type of {@code FormSet}s where only language locale is
      * specified.
      */
     protected final static int LANGUAGE_FORMSET = 2;
 
     /**
-     * This is the type of <code>FormSet</code>s where only language and country
+     * This is the type of {@code FormSet}s where only language and country
      * locale are specified.
      */
     protected final static int COUNTRY_FORMSET = 3;
 
     /**
-     * This is the type of <code>FormSet</code>s where full locale has been set.
+     * This is the type of {@code FormSet}s where full locale has been set.
      */
     protected final static int VARIANT_FORMSET = 4;
 
@@ -60,29 +61,29 @@ public class FormSet implements Serializable {
     private transient Log log = LogFactory.getLog(FormSet.class);
 
     /**
-     * Whether or not the this <code>FormSet</code> was processed for replacing
+     * Whether or not the this {@code FormSet} was processed for replacing
      * variables in strings with their values.
      */
     private boolean processed;
 
-    /** Language component of <code>Locale</code> (required). */
+    /** Language component of {@link Locale} (required). */
     private String language;
 
-    /** Country component of <code>Locale</code> (optional). */
+    /** Country component of {@link Locale} (optional). */
     private String country;
 
-    /** Variant component of <code>Locale</code> (optional). */
+    /** Variant component of {@link Locale} (optional). */
     private String variant;
 
     /**
-     * A <code>Map</code> of <code>Form</code>s using the name field of the
-     * <code>Form</code> as the key.
+     * A {@link Map} of {@code Form}s using the name field of the
+     * {@code Form} as the key.
      */
     private final Map<String, Form> forms = new HashMap<>();
 
     /**
-     * A <code>Map</code> of <code>Constant</code>s using the name field of the
-     * <code>Constant</code> as the key.
+     * A {@link Map} of {@code Constant}s using the name field of the
+     * {@code Constant} as the key.
      */
     private final Map<String, String> constants = new HashMap<>();
 
@@ -93,7 +94,7 @@ public class FormSet implements Serializable {
     private boolean merged;
 
     /**
-     * Add a <code>Constant</code> to the locale level.
+     * Add a {@code Constant} to the locale level.
      *
      * @param name   The constant name
      * @param value  The constant value
@@ -107,7 +108,7 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Add a <code>Form</code> to the <code>FormSet</code>.
+     * Add a {@code Form} to the {@code FormSet}.
      *
      * @param f  The form
      */
@@ -156,7 +157,7 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Gets the equivalent of the country component of <code>Locale</code>.
+     * Gets the equivalent of the country component of {@link Locale}.
      *
      * @return   The country value
      */
@@ -165,7 +166,7 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Retrieve a <code>Form</code> based on the form name.
+     * Retrieve a {@code Form} based on the form name.
      *
      * @param formName  The form name
      * @return          The form
@@ -175,8 +176,8 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * A <code>Map</code> of <code>Form</code>s is returned as an unmodifiable
-     * <code>Map</code> with the key based on the form name.
+     * A {@link Map} of {@code Form}s is returned as an unmodifiable
+     * {@link Map} with the key based on the form name.
      *
      * @return   The forms map
      */
@@ -185,7 +186,7 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Gets the equivalent of the language component of <code>Locale</code>.
+     * Gets the equivalent of the language component of {@link Locale}.
      *
      * @return   The language value
      */
@@ -211,8 +212,8 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Returns the type of <code>FormSet</code>:<code>GLOBAL_FORMSET</code>,
-     * <code>LANGUAGE_FORMSET</code>,<code>COUNTRY_FORMSET</code> or <code>VARIANT_FORMSET</code>
+     * Returns the type of {@code FormSet}:{@code GLOBAL_FORMSET},
+     * {@code LANGUAGE_FORMSET},{@code COUNTRY_FORMSET} or {@code VARIANT_FORMSET}
      * .
      *
      * @return                       The type value
@@ -240,7 +241,7 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Gets the equivalent of the variant component of <code>Locale</code>.
+     * Gets the equivalent of the variant component of {@link Locale}.
      *
      * @return   The variant value
      */
@@ -259,7 +260,7 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Whether or not the this <code>FormSet</code> was processed for replacing
+     * Whether or not the this {@code FormSet} was processed for replacing
      * variables in strings with their values.
      *
      * @return   The processed value
@@ -269,9 +270,9 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Merges the given <code>FormSet</code> into this one. If any of <code>depends</code>
-     * s <code>Forms</code> are not in this <code>FormSet</code> then, include
-     * them, else merge both <code>Forms</code>. Theoretically we should only
+     * Merges the given {@code FormSet} into this one. If any of {@code depends}
+     * s {@code Forms} are not in this {@code FormSet} then, include
+     * them, else merge both {@code Forms}. Theoretically we should only
      * merge a "parent" formSet.
      *
      * @param depends  FormSet to be merged
@@ -296,7 +297,7 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Processes all of the <code>Form</code>s.
+     * Processes all of the {@code Form}s.
      *
      * @param globalConstants  Global constants
      */
@@ -309,7 +310,7 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Sets the equivalent of the country component of <code>Locale</code>.
+     * Sets the equivalent of the country component of {@link Locale}.
      *
      * @param country  The new country value
      */
@@ -318,7 +319,7 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Sets the equivalent of the language component of <code>Locale</code>.
+     * Sets the equivalent of the language component of {@link Locale}.
      *
      * @param language  The new language value
      */
@@ -327,7 +328,7 @@ public class FormSet implements Serializable {
     }
 
     /**
-     * Sets the equivalent of the variant component of <code>Locale</code>.
+     * Sets the equivalent of the variant component of {@link Locale}.
      *
      * @param variant  The new variant value
      */

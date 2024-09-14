@@ -53,7 +53,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * <em>time</em> and <em>date</em> style parameters.
      *
      * @param strict {@code true} if strict
-     *        <code>Format</code> parsing should be used.
+     *        {@code Format} parsing should be used.
      * @param dateStyle the date style to use for Locale validation.
      * @param timeStyle the time style to use for Locale validation.
      */
@@ -69,7 +69,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *    second calendar.
      *
      * @param value The Calendar value.
-     * @param compare The <code>Calendar</code> to check the value against.
+     * @param compare The {@link Calendar} to check the value against.
      * @param field The field to compare for the calendars.
      * @return Zero if the first calendar's field is equal to the seconds, -1
      *         if it is less than the seconds or +1 if it is greater than the seconds.
@@ -113,9 +113,9 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *    equal, less then or more than at a specified level.</p>
      *
      * @param value The Calendar value.
-     * @param compare The <code>Calendar</code> to check the value against.
+     * @param compare The {@link Calendar} to check the value against.
      * @param field The field <em>level</em> to compare to - e.g. specifying
-     *        <code>Calendar.MONTH</code> will compare the year and month
+     *        {@code Calendar.MONTH} will compare the year and month
      *        portions of the calendar.
      * @return Zero if the first value is equal to the second, -1
      *         if it is less than the second or +1 if it is greater than the second.
@@ -169,7 +169,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *    equal, less then or more than the specified quarter.</p>
      *
      * @param value The Calendar value.
-     * @param compare The <code>Calendar</code> to check the value against.
+     * @param compare The {@link Calendar} to check the value against.
      * @param monthOfFirstQuarter The  month that the first quarter starts.
      * @return Zero if the first quarter is equal to the second, -1
      *         if it is less than the second or +1 if it is greater than the second.
@@ -191,9 +191,9 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *    equal, less then or more than at a specified level.</p>
      *
      * @param value The Calendar value.
-     * @param compare The <code>Calendar</code> to check the value against.
+     * @param compare The {@link Calendar} to check the value against.
      * @param field The field <em>level</em> to compare to - e.g. specifying
-     *        <code>Calendar.MINUTE</code> will compare the hours and minutes
+     *        {@code Calendar.MINUTE} will compare the hours and minutes
      *        portions of the calendar.
      * @return Zero if the first value is equal to the second, -1
      *         if it is less than the second or +1 if it is greater than the second.
@@ -230,7 +230,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Format a value with the specified <code>DateFormat</code>.</p>
+     * <p>Format a value with the specified {@code DateFormat}.</p>
      *
      * @param value The value to be formatted.
      * @param formatter The Format to use.
@@ -248,14 +248,14 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Format an object into a <code>String</code> using
+     * <p>Format an object into a {@link String} using
      * the specified Locale.</p>
      *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the Format.
      * @param timeZone The Time Zone used to format the date,
-     *  system default if null (unless value is a <code>Calendar</code>.
-     * @return The value formatted as a <code>String</code>.
+     *  system default if null (unless value is a {@link Calendar}.
+     * @return The value formatted as a {@link String}.
      */
     public String format(final Object value, final Locale locale, final TimeZone timeZone) {
         return format(value, (String) null, locale, timeZone);
@@ -263,12 +263,12 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
 
     /**
      * <p>Format an object using the specified pattern and/or
-     *    <code>Locale</code>.
+     *    {@link Locale}.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
      * @param locale The locale to use for the Format.
-     * @return The value formatted as a <code>String</code>.
+     * @return The value formatted as a {@link String}.
      */
     @Override
     public String format(final Object value, final String pattern, final Locale locale) {
@@ -277,14 +277,14 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
 
     /**
      * <p>Format an object using the specified pattern and/or
-     *    <code>Locale</code>.
+     *    {@link Locale}.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
      * @param locale The locale to use for the Format.
      * @param timeZone The Time Zone used to format the date,
-     *  system default if null (unless value is a <code>Calendar</code>.
-     * @return The value formatted as a <code>String</code>.
+     *  system default if null (unless value is a {@link Calendar}.
+     * @return The value formatted as a {@link String}.
      */
     public String format(final Object value, final String pattern, final Locale locale, final TimeZone timeZone) {
         final DateFormat formatter = (DateFormat) getFormat(pattern, locale);
@@ -297,38 +297,38 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Format an object into a <code>String</code> using
+     * <p>Format an object into a {@link String} using
      * the specified pattern.</p>
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
      * @param timeZone The Time Zone used to format the date,
-     *  system default if null (unless value is a <code>Calendar</code>.
-     * @return The value formatted as a <code>String</code>.
+     *  system default if null (unless value is a {@link Calendar}.
+     * @return The value formatted as a {@link String}.
      */
     public String format(final Object value, final String pattern, final TimeZone timeZone) {
         return format(value, pattern, (Locale) null, timeZone);
     }
 
     /**
-     * <p>Format an object into a <code>String</code> using
+     * <p>Format an object into a {@link String} using
      * the default Locale.</p>
      *
      * @param value The value validation is being performed on.
      * @param timeZone The Time Zone used to format the date,
-     *  system default if null (unless value is a <code>Calendar</code>.
-     * @return The value formatted as a <code>String</code>.
+     *  system default if null (unless value is a {@link Calendar}.
+     * @return The value formatted as a {@link String}.
      */
     public String format(final Object value, final TimeZone timeZone) {
         return format(value, (String) null, (Locale) null, timeZone);
     }
 
     /**
-     * <p>Returns a <code>DateFormat</code> for the specified Locale.</p>
+     * <p>Returns a {@code DateFormat} for the specified Locale.</p>
      *
-     * @param locale The locale a <code>DateFormat</code> is required for,
+     * @param locale The locale a {@code DateFormat} is required for,
      *        system default if null.
-     * @return The <code>DateFormat</code> to created.
+     * @return The {@code DateFormat} to created.
      */
     protected Format getFormat(final Locale locale) {
         DateFormat formatter;
@@ -358,13 +358,13 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Returns a <code>DateFormat</code> for the specified <em>pattern</em>
-     *    and/or <code>Locale</code>.</p>
+     * <p>Returns a {@code DateFormat} for the specified <em>pattern</em>
+     *    and/or {@link Locale}.</p>
      *
      * @param pattern The pattern used to validate the value against or
-     *        {@code null} to use the default for the <code>Locale</code>.
+     *        {@code null} to use the default for the {@link Locale}.
      * @param locale The locale to use for the currency format, system default if null.
-     * @return The <code>DateFormat</code> to created.
+     * @return The {@code DateFormat} to created.
      */
     @Override
     protected Format getFormat(final String pattern, final Locale locale) {
@@ -383,7 +383,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Validate using the specified <code>Locale</code>.
+     * <p>Validate using the specified {@link Locale}.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
@@ -400,7 +400,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
-     *        default for the <code>Locale</code> if {@code null}.
+     *        default for the {@link Locale} if {@code null}.
      * @param locale The locale to use for the date format, system default if null.
      * @param timeZone The Time Zone used to parse the date, system default if null.
      * @return The parsed value if valid or {@code null} if invalid.

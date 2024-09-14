@@ -59,7 +59,7 @@ public class ValidatorTest {
     }
 
     /**
-     * Formats a <code>String</code> to a <code>Date</code>. The <code>Validator</code> will interpret a {@code null} as validation having failed.
+     * Formats a {@code String} to a {@code Date}. The {@code Validator} will interpret a {@code null} as validation having failed.
      */
     public static Date formatDate(final Object bean, final Field field) {
         final String value = ValidatorUtils.getValueAsString(bean, field.getProperty());
@@ -122,7 +122,7 @@ public class ValidatorTest {
     }
 
     /**
-     * Verify that one value generates an error and the other passes. The validation method being tested returns a <code>boolean</code> value.
+     * Verify that one value generates an error and the other passes. The validation method being tested returns a {@code boolean} value.
      */
     @Test
     public void testManualBoolean() {
@@ -177,7 +177,7 @@ public class ValidatorTest {
     }
 
     /**
-     * Verify that one value generates an error and the other passes. The validation method being tested returns a <code>boolean</code> value.
+     * Verify that one value generates an error and the other passes. The validation method being tested returns a {@code boolean} value.
      */
     @Test
     public void testManualBooleanDeprecated() {

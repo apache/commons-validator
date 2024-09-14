@@ -89,7 +89,7 @@ public class ValidatorResults implements Serializable {
     }
 
     /**
-     * Gets a <code>Map</code> of any <code>Object</code>s returned from
+     * Gets a {@link Map} of any {@code Object}s returned from
      * validation routines.
      *
      * @return Map of objections returned by validators.
@@ -114,11 +114,11 @@ public class ValidatorResults implements Serializable {
     }
 
     /**
-     * Gets the <code>ValidatorResult</code> associated
-     * with the key passed in.  The key the <code>ValidatorResult</code>
-     * is stored under is the <code>Field</code>'s getKey method.
+     * Gets the {@code ValidatorResult} associated
+     * with the key passed in.  The key the {@code ValidatorResult}
+     * is stored under is the {@code Field}'s getKey method.
      *
-     * @param key The key generated from <code>Field</code> (this is often just
+     * @param key The key generated from {@code Field} (this is often just
      * the field name).
      *
      * @return The result of a specified key.

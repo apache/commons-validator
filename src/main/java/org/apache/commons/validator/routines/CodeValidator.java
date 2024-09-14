@@ -54,14 +54,14 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  * and {@link CheckDigit} validator and then call one of the two validation
  * methods provided:</p>
  *    <ul>
- *       <li><code>boolean isValid(code)</code></li>
- *       <li><code>String validate(code)</code></li>
+ *       <li>{@code boolean isValid(code)}</li>
+ *       <li>{@code String validate(code)}</li>
  *    </ul>
  * <p>
  * Codes often include <em>format</em> characters - such as hyphens - to make them
  * more easily human readable. These can be removed prior to length and check digit
  * validation by  specifying them as a <em>non-capturing</em> group in the regular
- * expression (i.e. use the <code>(?:   )</code> notation).
+ * expression (i.e. use the {@code (?:   )} notation).
  * <br>
  * Or just avoid using parentheses except for the parts you want to capture
  *
@@ -191,7 +191,7 @@ public final class CodeValidator implements Serializable {
      * maximum length will not be checked.
      *
      * @return The maximum length of the code or
-     * <code>-1</code> if the code has no maximum length
+     * {@code -1} if the code has no maximum length
      */
     public int getMaxLength() {
         return maxLength;
@@ -204,7 +204,7 @@ public final class CodeValidator implements Serializable {
      * minimum length will not be checked.
      *
      * @return The minimum length of the code or
-     * <code>-1</code> if the code has no minimum length
+     * {@code -1} if the code has no minimum length
      */
     public int getMinLength() {
         return minLength;

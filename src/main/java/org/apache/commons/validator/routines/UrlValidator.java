@@ -226,7 +226,7 @@ public class UrlValidator implements Serializable {
      * This allows the user to override the standard set of domains.
      * @param options Validation options. Set using the public constants of this class.
      * To set multiple options, simply add them together:
-     * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
+     * <p>{@code ALLOW_2_SLASHES + NO_FRAGMENTS}</p>
      * enables both of those options.
      */
     public UrlValidator(final RegexValidator authorityValidator, final long options) {
@@ -262,7 +262,7 @@ public class UrlValidator implements Serializable {
      * @param authorityValidator Regular expression validator used to validate the authority part
      * @param options Validation options. Set using the public constants of this class.
      * To set multiple options, simply add them together:
-     * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
+     * <p>{@code ALLOW_2_SLASHES + NO_FRAGMENTS}</p>
      * enables both of those options.
      */
     public UrlValidator(final String[] schemes, final RegexValidator authorityValidator, final long options) {
@@ -275,7 +275,7 @@ public class UrlValidator implements Serializable {
      * @param authorityValidator Regular expression validator used to validate the authority part
      * @param options Validation options. Set using the public constants of this class.
      * To set multiple options, simply add them together:
-     * <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
+     * <p>{@code ALLOW_2_SLASHES + NO_FRAGMENTS}</p>
      * enables both of those options.
      * @param domainValidator the DomainValidator to use; must agree with ALLOW_LOCAL_URLS setting
      * @since 1.7

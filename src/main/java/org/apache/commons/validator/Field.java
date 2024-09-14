@@ -49,7 +49,7 @@ public class Field implements Cloneable, Serializable {
     private static final long serialVersionUID = -8502647722530192185L;
 
     /**
-     * This is the value that will be used as a key if the <code>Arg</code>
+     * This is the value that will be used as a key if the {@code Arg}
      * name field has no value.
      */
     private static final String DEFAULT_ARG =
@@ -147,7 +147,7 @@ public class Field implements Cloneable, Serializable {
     protected Map<String, Arg>[] args = new Map[0];
 
     /**
-     * Add an <code>Arg</code> to the replacement argument list.
+     * Add an {@code Arg} to the replacement argument list.
      * @since 1.1
      * @param arg Validation message's argument.
      */
@@ -175,7 +175,7 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Add a <code>Msg</code> to the <code>Field</code>.
+     * Add a {@code Msg} to the {@code Field}.
      * @param msg A validation message.
      */
     public void addMsg(final Msg msg) {
@@ -183,8 +183,8 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Add a <code>Var</code>, based on the values passed in, to the
-     * <code>Field</code>.
+     * Add a {@code Var}, based on the values passed in, to the
+     * {@code Field}.
      * @param name Name of the validation.
      * @param value The Argument's value.
      * @param jsType The JavaScript type.
@@ -194,7 +194,7 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Add a <code>Var</code> to the <code>Field</code>.
+     * Add a {@code Var} to the {@code Field}.
      * @param v The Validator Argument.
      */
     public void addVar(final Var v) {
@@ -291,7 +291,7 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Generate correct <code>key</code> value.
+     * Generate correct {@code key} value.
      */
     public void generateKey() {
         if (this.isIndexed()) {
@@ -302,7 +302,7 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Gets the default <code>Arg</code> object at the given position.
+     * Gets the default {@code Arg} object at the given position.
      * @param position Validation message argument's position.
      * @return The default Arg or null if not found.
      * @since 1.1
@@ -312,7 +312,7 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Gets the <code>Arg</code> object at the given position.  If the key
+     * Gets the {@code Arg} object at the given position.  If the key
      * finds a {@code null} value then the default value will be
      * retrieved.
      * @param key The name the Arg is stored under.  If not found, the default
@@ -355,7 +355,7 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Gets an unmodifiable <code>List</code> of the dependencies in the same
+     * Gets an unmodifiable {@code List} of the dependencies in the same
      * order they were defined in parameter passed to the setDepends() method.
      * @return A list of the Field's dependancies.
      */
@@ -372,7 +372,7 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Gets the position of the <code>Field</code> in the validation list.
+     * Gets the position of the {@code Field} in the validation list.
      * @return The field position.
      */
     public int getFieldOrder() {
@@ -382,7 +382,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Gets the indexed property name of the field.  This
      * is the method name that will return an array or a
-     * <code>Collection</code> used to retrieve the
+     * {@link Collection} used to retrieve the
      * list and then loop through the list performing the specified
      * validations.
      * @return The field's indexed List property name.
@@ -393,7 +393,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Gets the indexed property name of the field.  This
-     * is the method name that can take an <code>int</code> as
+     * is the method name that can take an {@code int} as
      * a parameter for indexed property value retrieval.
      * @return The field's indexed property name.
      */
@@ -483,8 +483,8 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * The <code>Field</code>'s messages are returned as an
-     * unmodifiable <code>Map</code>.
+     * The {@code Field}'s messages are returned as an
+     * unmodifiable {@link Map}.
      * @since 1.1.4
      * @return Map of validation messages for the field.
      */
@@ -549,8 +549,8 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * The <code>Field</code>'s variables are returned as an
-     * unmodifiable <code>Map</code>.
+     * The {@code Field}'s variables are returned as an
+     * unmodifiable {@link Map}.
      * @return the Map of Variable's for a Field.
      */
     public Map<String, Var> getVars() {
@@ -616,7 +616,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Replace constants with values in fields and process the depends field
-     * to create the dependency <code>Map</code>.
+     * to create the dependency {@link Map}.
      */
     void process(final Map<String, String> globalConstants, final Map<String, String> constants) {
         this.hMsgs.setFast(false);
@@ -663,7 +663,7 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Replace the arg <code>Collection</code> key value with the key/value
+     * Replace the arg {@link Collection} key value with the key/value
      * pairs passed in.
      */
     private void processArg(final String key, final String replaceValue) {
@@ -774,7 +774,7 @@ public class Field implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the position of the <code>Field</code> in the validation list.
+     * Sets the position of the {@code Field} in the validation list.
      * @param fieldOrder The field position.
      */
     public void setFieldOrder(final int fieldOrder) {

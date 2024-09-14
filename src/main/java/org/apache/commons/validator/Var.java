@@ -19,7 +19,7 @@ package org.apache.commons.validator;
 import java.io.Serializable;
 
 /**
- * A variable that can be associated with a <code>Field</code> for
+ * A variable that can be associated with a {@code Field} for
  * passing in information to a pluggable validator.  Instances of this class are
  * configured with a &lt;var&gt; xml element.
  */

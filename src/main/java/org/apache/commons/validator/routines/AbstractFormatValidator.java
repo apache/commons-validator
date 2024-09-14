@@ -42,25 +42,25 @@ public abstract class AbstractFormatValidator implements Serializable {
      * Constructs an instance with the specified strict setting.
      *
      * @param strict {@code true} if strict
-     *        <code>Format</code> parsing should be used.
+     *        {@code Format} parsing should be used.
      */
     public AbstractFormatValidator(final boolean strict) {
         this.strict = strict;
     }
 
     /**
-     * <p>Format an object into a <code>String</code> using
+     * <p>Format an object into a {@link String} using
      * the default Locale.</p>
      *
      * @param value The value validation is being performed on.
-     * @return The value formatted as a <code>String</code>.
+     * @return The value formatted as a {@link String}.
      */
     public String format(final Object value) {
         return format(value, (String) null, (Locale) null);
     }
 
     /**
-     * <p>Format a value with the specified <code>Format</code>.</p>
+     * <p>Format a value with the specified {@code Format}.</p>
      *
      * @param value The value to be formatted.
      * @param formatter The Format to use.
@@ -71,24 +71,24 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Format an object into a <code>String</code> using
+     * <p>Format an object into a {@link String} using
      * the specified Locale.</p>
      *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the Format.
-     * @return The value formatted as a <code>String</code>.
+     * @return The value formatted as a {@link String}.
      */
     public String format(final Object value, final Locale locale) {
         return format(value, (String) null, locale);
     }
 
     /**
-     * <p>Format an object into a <code>String</code> using
+     * <p>Format an object into a {@link String} using
      * the specified pattern.</p>
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
-     * @return The value formatted as a <code>String</code>.
+     * @return The value formatted as a {@link String}.
      */
     public String format(final Object value, final String pattern) {
         return format(value, pattern, (Locale) null);
@@ -96,12 +96,12 @@ public abstract class AbstractFormatValidator implements Serializable {
 
     /**
      * <p>Format an object using the specified pattern and/or
-     *    <code>Locale</code>.
+     *    {@link Locale}.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
      * @param locale The locale to use for the Format.
-     * @return The value formatted as a <code>String</code>.
+     * @return The value formatted as a {@link String}.
      */
     public String format(final Object value, final String pattern, final Locale locale) {
         final Format formatter = getFormat(pattern, locale);
@@ -109,31 +109,31 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Returns a <code>Format</code> for the specified <em>pattern</em>
-     *    and/or <code>Locale</code>.</p>
+     * <p>Returns a {@code Format} for the specified <em>pattern</em>
+     *    and/or {@link Locale}.</p>
      *
      * @param pattern The pattern used to validate the value against or
-     *        {@code null} to use the default for the <code>Locale</code>.
+     *        {@code null} to use the default for the {@link Locale}.
      * @param locale The locale to use for the currency format, system default if null.
-     * @return The <code>NumberFormat</code> to created.
+     * @return The {@code NumberFormat} to created.
      */
     protected abstract Format getFormat(String pattern, Locale locale);
 
     /**
      * <p>Indicates whether validated values should adhere
-     *    strictly to the <code>Format</code> used.</p>
+     *    strictly to the {@code Format} used.</p>
      *
-     * <p>Typically implementations of <code>Format</code>
+     * <p>Typically implementations of {@code Format}
      *    ignore invalid characters at the end of the value
      *    and just stop parsing. For example parsing a date
-     *    value of <code>01/01/20x0</code> using a pattern
-     *    of <code>dd/MM/yyyy</code> will result in a year
-     *    of <code>20</code> if <code>strict</code> is set
-     *    to {@code false}, whereas setting <code>strict</code>
+     *    value of {@code 01/01/20x0} using a pattern
+     *    of {@code dd/MM/yyyy} will result in a year
+     *    of {@code 20} if {@code strict} is set
+     *    to {@code false}, whereas setting {@code strict}
      *    to {@code true} will cause this value to fail
      *    validation.</p>
      *
-     * @return {@code true} if strict <code>Format</code>
+     * @return {@code true} if strict {@code Format}
      *         parsing should be used.
      */
     public boolean isStrict() {
@@ -141,7 +141,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Validate using the default <code>Locale</code>.
+     * <p>Validate using the default {@link Locale}.
      *
      * @param value The value validation is being performed on.
      * @return {@code true} if the value is valid.
@@ -151,7 +151,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Validate using the specified <code>Locale</code>.
+     * <p>Validate using the specified {@link Locale}.
      *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the Format, defaults to the default
@@ -173,7 +173,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Validate using the specified pattern and/or <code>Locale</code>.
+     * <p>Validate using the specified pattern and/or {@link Locale}.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
@@ -183,7 +183,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     public abstract boolean isValid(String value, String pattern, Locale locale);
 
     /**
-     * <p>Parse the value with the specified <code>Format</code>.</p>
+     * <p>Parse the value with the specified {@code Format}.</p>
      *
      * @param value The value to be parsed.
      * @param formatter The Format to parse the value with.

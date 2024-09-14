@@ -42,7 +42,7 @@ public class DateTest extends AbstractCommonTest {
     protected static final String ACTION = "date";
 
     /**
-     * Load <code>ValidatorResources</code> from validator-numeric.xml.
+     * Load {@code ValidatorResources} from validator-numeric.xml.
      */
     @BeforeEach
     protected void setUp() throws IOException, SAXException {

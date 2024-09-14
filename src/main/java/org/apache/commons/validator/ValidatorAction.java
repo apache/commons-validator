@@ -81,7 +81,7 @@ public class ValidatorAction implements Serializable {
      * the method takes.
      * </p>
      * <p>
-     * Note: <code>java.lang.Object</code> is reserved for the JavaBean that is being validated. The <code>ValidatorAction</code> and <code>Field</code> that
+     * Note: {@code java.lang.Object} is reserved for the JavaBean that is being validated. The {@code ValidatorAction} and {@code Field} that
      * are associated with a field's validation will automatically be populated if they are specified in the method signature.
      * </p>
      */
@@ -93,7 +93,7 @@ public class ValidatorAction implements Serializable {
     private Class<?>[] parameterClasses;
 
     /**
-     * The other <code>ValidatorAction</code>s that this one depends on. If any errors occur in an action that this one depends on, this action will not be
+     * The other {@code ValidatorAction}s that this one depends on. If any errors occur in an action that this one depends on, this action will not be
      * processsed.
      */
     private String depends;
@@ -124,7 +124,7 @@ public class ValidatorAction implements Serializable {
     private Object instance;
 
     /**
-     * An internal List representation of the other <code>ValidatorAction</code>s this one depends on (if any). This List gets updated whenever setDepends()
+     * An internal List representation of the other {@code ValidatorAction}s this one depends on (if any). This List gets updated whenever setDepends()
      * gets called. This is synchronized so a call to setDepends() (which clears the List) won't interfere with a call to isDependency().
      */
     private final List<String> dependencyList = Collections.synchronizedList(new ArrayList<>());
@@ -252,7 +252,7 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Returns the dependent validator names as an unmodifiable <code>List</code>.
+     * Returns the dependent validator names as an unmodifiable {@code List}.
      *
      * @return List of the validator action's depedents.
      */
@@ -423,7 +423,7 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * If the result object is a <code>Boolean</code>, it will return its value. If not it will return {@code false} if the object is {@code null} and
+     * If the result object is a {@code Boolean}, it will return its value. If not it will return {@code false} if the object is {@code null} and
      * {@code true} if it isn't.
      */
     private boolean isValid(final Object result) {
@@ -442,7 +442,7 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
-     * Load the JavaScript function specified by the given path. For this implementation, the <code>jsFunction</code> property should contain a fully qualified
+     * Load the JavaScript function specified by the given path. For this implementation, the {@code jsFunction} property should contain a fully qualified
      * package and script name, separated by periods, to be loaded from the class loader that created this instance.
      *
      * TODO if the path begins with a '/' the path will be intepreted as absolute, and remain unchanged. If this fails then it will attempt to treat the path as
@@ -657,8 +657,8 @@ public class ValidatorAction implements Serializable {
     /**
      * Sets the fully qualified class path of the JavaScript function.
      * <p>
-     * This is optional and can be used <strong>instead</strong> of the setJavascript(). Attempting to call both <code>setJsFunction</code> and
-     * <code>setJavascript</code> will result in an <code>IllegalStateException</code> being thrown.
+     * This is optional and can be used <strong>instead</strong> of the setJavascript(). Attempting to call both {@code setJsFunction} and
+     * {@code setJavascript} will result in an {@code IllegalStateException} being thrown.
      * </p>
      * <p>
      * If <strong>neither</strong> setJsFunction or setJavascript is set then validator will attempt to load the default JavaScript definition.

@@ -35,7 +35,7 @@ import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
  * </p>
  *
  * <pre>
- * <code>CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.AMEX + CreditCardValidator.VISA);</code>
+ * {@code CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.AMEX + CreditCardValidator.VISA);}
  * </pre>
  *
  * <p>
@@ -156,11 +156,11 @@ public class CreditCardValidator implements Serializable {
      * default cards with this option.
      *
      * <pre>
-     * <code>
+     * {@code
      * CreditCardValidator v = new CreditCardValidator(CreditCardValidator.NONE);
      * v.addAllowedCardType(customType);
      * v.isValid(aCardNumber);
-     * </code>
+     * }
      * </pre>
      */
     public static final long NONE = 0;

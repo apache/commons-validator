@@ -64,10 +64,10 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
      * code at a specified position.
      * <p>
      * ABA Routing numbers are weighted in the following manner:
-     * <pre><code>
+     * <pre>{@code
      *     left position: 1  2  3  4  5  6  7  8  9
      *            weight: 3  7  1  3  7  1  3  7  1
-     * </code></pre>
+     * }</pre>
      *
      * @param charValue The numeric value of the character.
      * @param leftPos The position of the character in the code, counting from left to right

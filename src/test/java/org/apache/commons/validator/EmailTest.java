@@ -85,7 +85,7 @@ public class EmailTest extends AbstractCommonTest {
             new ResultPair("phrase: abigail@example.com abigail@example.com ;", false), new ResultPair("invalid�char@example.com", false) };
 
     /**
-     * Load <code>ValidatorResources</code> from validator-regexp.xml.
+     * Load {@code ValidatorResources} from validator-regexp.xml.
      */
     @BeforeEach
     protected void setUp() throws IOException, SAXException {

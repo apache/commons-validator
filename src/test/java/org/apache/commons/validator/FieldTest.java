@@ -24,7 +24,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test <code>Field</code> objects.
+ * Test {@code Field} objects.
  */
 public class FieldTest {
 

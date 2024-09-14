@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 public class EntityImportTest extends AbstractCommonTest {
 
     /**
-     * Tests the entity import loading the <code>byteForm</code> form.
+     * Tests the entity import loading the {@code byteForm} form.
      */
     @Test
     public void testEntityImport() throws Exception {

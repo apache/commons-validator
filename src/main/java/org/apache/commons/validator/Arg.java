@@ -17,6 +17,7 @@
 package org.apache.commons.validator;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 
 /**
  * <p>
@@ -24,11 +25,11 @@ import java.io.Serializable;
  * specific validator definition (ex: required)
  * can be stored to pass into a message as parameters.  This can be used in a
  * pluggable validator for constructing locale
- * sensitive messages by using <code>java.text.MessageFormat</code>
+ * sensitive messages by using {@link MessageFormat}
  * or an equivalent class.  The resource field can be
  * used to determine if the value stored in the argument
  * is a value to be retrieved from a locale sensitive
- * message retrieval system like <code>java.util.PropertyResourceBundle</code>.
+ * message retrieval system like {@code java.util.PropertyResourceBundle}.
  * The resource field defaults to 'true'.
  * </p>
  * <p>Instances of this class are configured with an &lt;arg&gt; xml element.</p>
@@ -39,7 +40,7 @@ public class Arg implements Cloneable, Serializable {
     private static final long serialVersionUID = -8922606779669839294L;
 
     /**
-     * The resource bundle name that this Arg's <code>key</code> should be
+     * The resource bundle name that this Arg's {@code key} should be
      * resolved in (optional).
      * @since 1.1
      */

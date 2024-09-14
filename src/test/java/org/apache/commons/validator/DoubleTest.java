@@ -19,7 +19,7 @@ package org.apache.commons.validator;
 import org.junit.jupiter.api.Test;
 
 /**
- * Performs Validation Test for <code>double</code> validations.
+ * Performs Validation Test for {@code double} validations.
  */
 public class DoubleTest extends AbstractNumberTest {
 

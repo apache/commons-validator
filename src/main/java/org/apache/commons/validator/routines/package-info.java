@@ -77,22 +77,22 @@
  * <h2>2.1 Overview</h2>
  * <p>
  * The date and time validators either validate according to a specified <em>format</em>
- * or use a standard <em>format</em> for a specified <code>Locale</code>.
+ * or use a standard <em>format</em> for a specified {@link java.util.Locale}.
  * </p>
  * <ul>
  * <li><a href="DateValidator.html">Date Validator</a> - validates dates
- * converting to a <code>java.util.Date</code> type.</li>
+ * converting to a {@code java.util.Date} type.</li>
  * <li><a href="CalendarValidator.html">Calendar Validator</a> - validates dates
- * converting to a <code>java.util.Calendar</code> type.</li>
+ * converting to a {@code java.util.Calendar} type.</li>
  * <li><a href="TimeValidator.html">Time Validator</a> - validates times
- * converting to a <code>java.util.Calendar</code> type.</li>
+ * converting to a {@code java.util.Calendar} type.</li>
  * </ul>
  * <a id="date.validate"></a>
  * <h2>2.2 Validating a Date Value</h2>
  * <p>
- * You can either use one of the <code>isValid()</code> methods to just determine
- * if a date is valid, or use one of the <code>validate()</code> methods to
- * validate a date and convert it to a <code>java.util.Date</code>...
+ * You can either use one of the {@code isValid()} methods to just determine
+ * if a date is valid, or use one of the {@code validate()} methods to
+ * validate a date and convert it to a {@code java.util.Date}...
  * </p>
  * <pre>
  * // Get the Date validator
@@ -107,19 +107,19 @@
  * <p>The following methods are provided to validate a date/time (return a boolean result):
  * </p>
  * <ul>
- * <li><code>isValid(<em>value</em>)</code></li>
- * <li><code>isValid(<em>value</em>, <em>pattern</em>)</code></li>
- * <li><code>isValid(<em>value</em>, Locale)</code></li>
- * <li><code>isValid(<em>value</em>, <em>pattern</em>, Locale)</code></li>
+ * <li>{@code isValid(<em>value</em>)}</li>
+ * <li>{@code isValid(<em>value</em>, <em>pattern</em>)}</li>
+ * <li>{@code isValid(<em>value</em>, Locale)}</li>
+ * <li>{@code isValid(<em>value</em>, <em>pattern</em>, Locale)}</li>
  * </ul>
  * <p>The following methods are provided to validate a date/time and convert it to either a
- * <code>java.util.Date</code> or <code>java.util.Calendar</code>:
+ * {@code java.util.Date} or {@code java.util.Calendar}:
  * </p>
  * <ul>
- * <li><code>validate(<em>value</em>)</code></li>
- * <li><code>validate(<em>value</em>, <em>pattern</em>)</code></li>
- * <li><code>validate(<em>value</em>, Locale)</code></li>
- * <li><code>validate(<em>value</em>, <em>pattern</em>, Locale)</code></li>
+ * <li>{@code validate(<em>value</em>)}</li>
+ * <li>{@code validate(<em>value</em>, <em>pattern</em>)}</li>
+ * <li>{@code validate(<em>value</em>, Locale)}</li>
+ * <li>{@code validate(<em>value</em>, <em>pattern</em>, Locale)}</li>
  * </ul>
  * <a id="date.format"></a>
  * <h2>2.3 Formatting</h2>
@@ -132,16 +132,16 @@
  * date/time values as Strings:
  * </p>
  * <ul>
- * <li><code>format(<em>date/calendar</em>)</code></li>
- * <li><code>format(<em>date/calendar</em>, <em>pattern</em>)</code></li>
- * <li><code>format(<em>date/calendar</em>, Locale)</code></li>
- * <li><code>format(<em>date/calendar</em>, <em>pattern</em>, Locale)</code></li>
+ * <li>{@code format(<em>date/calendar</em>)}</li>
+ * <li>{@code format(<em>date/calendar</em>, <em>pattern</em>)}</li>
+ * <li>{@code format(<em>date/calendar</em>, Locale)}</li>
+ * <li>{@code format(<em>date/calendar</em>, <em>pattern</em>, Locale)}</li>
  * </ul>
  * <a id="date.timezone"></a>
  * <h2>2.4 Time Zones</h2>
  * <p>
  * If the date being parsed relates to a different time zone than the
- * system default, you can specify the <code>TimeZone</code> to use when
+ * system default, you can specify the {@code TimeZone} to use when
  * validating/converting:
  * </p>
  * <pre>
@@ -153,21 +153,21 @@
  * <p>The following Time Zone <em>flavors</em> of the Validation/Conversion methods
  * are provided:</p>
  * <ul>
- * <li><code>validate(<em>value</em>, TimeZone)</code></li>
- * <li><code>validate(<em>value</em>, <em>pattern</em>, TimeZone)</code></li>
- * <li><code>validate(<em>value</em>, Locale, TimeZone)</code></li>
- * <li><code>validate(<em>value</em>, <em>pattern</em>, Locale, TimeZone)</code></li>
+ * <li>{@code validate(<em>value</em>, TimeZone)}</li>
+ * <li>{@code validate(<em>value</em>, <em>pattern</em>, TimeZone)}</li>
+ * <li>{@code validate(<em>value</em>, Locale, TimeZone)}</li>
+ * <li>{@code validate(<em>value</em>, <em>pattern</em>, Locale, TimeZone)}</li>
  * </ul>
  * <a id="date.compare"></a>
  * <h2>2.5 Comparing Dates and Times</h2>
  * <p>
  * As well as validating that a value is a valid date or time, these validators
- * also provide <em>date comparison</em> functions. The <code>DateValidator</code>
- * and <code>CalendarValidator</code> provide functions for comparing years,
- * quarters, months, weeks and dates and the <code>TimeValidator</code> provides
+ * also provide <em>date comparison</em> functions. The {@code DateValidator}
+ * and {@code CalendarValidator} provide functions for comparing years,
+ * quarters, months, weeks and dates and the {@code TimeValidator} provides
  * functions for comparing hours, minutes, seconds and milliseconds.
  * For example, to check that a date is in the current month, you could use
- * the <code>compareMonths()</code> method, which compares the year and month
+ * the {@code compareMonths()} method, which compares the year and month
  * components of a date:
  * </p>
  * <pre>
@@ -196,38 +196,38 @@
  * <h2>3.1 Overview</h2>
  * <p>
  * The numeric validators either validate according to a specified <em>format</em>
- * or use a standard <em>format</em> for a specified <code>Locale</code> or use
- * a <em>custom</em> format for a specified <code>Locale</code>.
+ * or use a standard <em>format</em> for a specified {@link java.util.Locale} or use
+ * a <em>custom</em> format for a specified {@link  java.util.Locale}.
  * </p>
  * <ul>
  * <li><a href="ByteValidator.html">Byte Validator</a> - validates numbers
- * converting to a <code>java.lang.Byte</code> type.</li>
+ * converting to a {@code java.lang.Byte} type.</li>
  * <li><a href="ShortValidator.html">Short Validator</a> - validates numbers
- * converting to a <code>java.lang.Short</code> type.</li>
+ * converting to a {@code java.lang.Short} type.</li>
  * <li><a href="IntegerValidator.html">Integer Validator</a> - validates numbers
- * converting to a <code>java.lang.Integer</code> type.</li>
+ * converting to a {@code java.lang.Integer} type.</li>
  * <li><a href="LongValidator.html">Long Validator</a> - validates numbers
- * converting to a <code>java.lang.Long</code> type.</li>
+ * converting to a {@code java.lang.Long} type.</li>
  * <li><a href="FloatValidator.html">Float Validator</a> - validates numbers
- * converting to a <code>java.lang.Float</code> type.</li>
+ * converting to a {@code java.lang.Float} type.</li>
  * <li><a href="DoubleValidator.html">Double Validator</a> - validates numbers
- * converting to a <code>java.lang.Double</code> type.</li>
+ * converting to a {@code java.lang.Double} type.</li>
  * <li><a href="BigIntegerValidator.html">BigInteger Validator</a> - validates numbers
- * converting to a <code>java.math.BigInteger</code> type.</li>
+ * converting to a {@code java.math.BigInteger} type.</li>
  * <li><a href="BigDecimalValidator.html">BigDecimal Validator</a> - validates numbers
- * converting to a <code>java.math.BigDecimal</code> type.</li>
+ * converting to a {@code java.math.BigDecimal} type.</li>
  * </ul>
  * <a id="numeric.validate"></a>
  * <h2>3.2 Validating a Numeric Value</h2>
  * <p>
- * You can either use one of the <code>isValid()</code> methods to just determine
- * if a number is valid, or use one of the <code>validate()</code> methods to
+ * You can either use one of the {@code isValid()} methods to just determine
+ * if a number is valid, or use one of the {@code validate()} methods to
  * validate a number and convert it to an appropriate type.
  * </p>
  * <p>
  * The following example validates an integer against a custom pattern
  * for the <em>German</em> locale. Please note the format is specified using
- * the standard symbols for <code>java.text.DecimalFormat</code> so although
+ * the standard symbols for {@link java.text.DecimalFormat} so although
  * the decimal separator is indicated as a period (".") in the format, the
  * validator will check using the German decimal separator - which is a comma (",").
  * </p>
@@ -243,18 +243,18 @@
  * </pre>
  * <p>The following methods are provided to validate a number (return a boolean result):</p>
  * <ul>
- * <li><code>isValid(<em>value</em>)</code></li>
- * <li><code>isValid(<em>value</em>, <em>pattern</em>)</code></li>
- * <li><code>isValid(<em>value</em>, Locale)</code></li>
- * <li><code>isValid(<em>value</em>, <em>pattern</em>, Locale)</code></li>
+ * <li>{@code isValid(<em>value</em>)}</li>
+ * <li>{@code isValid(<em>value</em>, <em>pattern</em>)}</li>
+ * <li>{@code isValid(<em>value</em>, Locale)}</li>
+ * <li>{@code isValid(<em>value</em>, <em>pattern</em>, Locale)}</li>
  * </ul>
  * <p>The following methods are provided to validate a number and convert it one of
- * the <code>java.lang.Number</code> implementations:</p>
+ * the {@code java.lang.Number} implementations:</p>
  * <ul>
- * <li><code>validate(<em>value</em>)</code></li>
- * <li><code>validate(<em>value</em>, <em>pattern</em>)</code></li>
- * <li><code>validate(<em>value</em>, Locale)</code></li>
- * <li><code>validate(<em>value</em>, <em>pattern</em>, Locale)</code></li>
+ * <li>{@code validate(<em>value</em>)}</li>
+ * <li>{@code validate(<em>value</em>, <em>pattern</em>)}</li>
+ * <li>{@code validate(<em>value</em>, Locale)}</li>
+ * <li>{@code validate(<em>value</em>, <em>pattern</em>, Locale)}</li>
  * </ul>
  * <a id="numeric.format"></a>
  * <h2>3.3 Formatting</h2>
@@ -267,10 +267,10 @@
  * numeric values as Strings:
  * </p>
  * <ul>
- * <li><code>format(<em>number</em>)</code></li>
- * <li><code>format(<em>number</em>, <em>pattern</em>)</code></li>
- * <li><code>format(<em>number</em>, Locale)</code></li>
- * <li><code>format(<em>number</em>, <em>pattern</em>, Locale)</code></li>
+ * <li>{@code format(<em>number</em>)}</li>
+ * <li>{@code format(<em>number</em>, <em>pattern</em>)}</li>
+ * <li>{@code format(<em>number</em>, Locale)}</li>
+ * <li>{@code format(<em>number</em>, <em>pattern</em>, Locale)}</li>
  * </ul>
  * <a id="numeric.compare"></a>
  * <h2>3.4 Comparing Numbers</h2>
@@ -292,7 +292,7 @@
  * A default <a href="CurrencyValidator.html">Currency Validator</a>
  * implementation is provided, although all the <em>numeric</em> validators
  * support currency validation. The default implementation converts
- * currency amounts to a <code>java.math.BigDecimal</code> and additionally
+ * currency amounts to a {@code java.math.BigDecimal} and additionally
  * it provides <em>lenient</em> currency symbol validation. That is, currency
  * amounts are valid with <em>or</em> without the currency symbol.
  * </p>
@@ -333,7 +333,7 @@
  * implementation is provided, although the <em>Float</em>,
  * <em>Double</em> and <em>BigDecimal</em> validators also support
  * percent validation. The default implementation converts
- * percent amounts to a <code>java.math.BigDecimal</code> and additionally
+ * percent amounts to a {@code java.math.BigDecimal} and additionally
  * it provides <em>lenient</em> percent symbol validation. That is, percent
  * amounts are valid with <em>or</em> without the percent symbol.
  * </p>
@@ -409,12 +409,12 @@
  * <li><b>Method Flavours</b> - three <em>flavors</em> of validation metods are provided:</li>
  * <li>
  * <ul>
- * <li><code>isValid()</code> methods return true/false to indicate
+ * <li>{@code isValid()} methods return true/false to indicate
  * whether validation was successful.</li>
- * <li><code>validate()</code> methods return a <code>String</code>
+ * <li>{@code validate()} methods return a {@link String}
  * value of the matched <em>groups</em> aggregated together or
  * {@code null} if invalid.</li>
- * <li><code>match()</code> methods return a <code>String</code> array
+ * <li>{@code match()} methods return a {@link String} array
  * of the matched <em>groups</em> or {@code null} if invalid.</li>
  * </ul>
  * </li>
@@ -440,12 +440,12 @@
  * <p>The following static methods are provided for regular expression validation:
  * </p>
  * <ul>
- * <li><code>isValid(<em>value</em>, <em>regex</em>)</code></li>
- * <li><code>isValid(<em>value</em>, <em>regex</em>, <em>caseSensitive</em>)</code></li>
- * <li><code>validate(<em>value</em>, <em>regex</em>)</code></li>
- * <li><code>validate(<em>value</em>, <em>regex</em>, <em>caseSensitive</em>)</code></li>
- * <li><code>match(<em>value</em>, <em>regex</em>)</code></li>
- * <li><code>match(<em>value</em>, <em>regex</em>, <em>caseSensitive</em>)</code></li>
+ * <li>{@code isValid(<em>value</em>, <em>regex</em>)}</li>
+ * <li>{@code isValid(<em>value</em>, <em>regex</em>, <em>caseSensitive</em>)}</li>
+ * <li>{@code validate(<em>value</em>, <em>regex</em>)}</li>
+ * <li>{@code validate(<em>value</em>, <em>regex</em>, <em>caseSensitive</em>)}</li>
+ * <li>{@code match(<em>value</em>, <em>regex</em>)}</li>
+ * <li>{@code match(<em>value</em>, <em>regex</em>, <em>caseSensitive</em>)}</li>
  * </ul>
  * <p>
  * Below is an example of creating an instance of
@@ -479,9 +479,9 @@
  * following methods:
  * </p>
  * <ul>
- * <li><code>isValid(<em>code</em>)</code> - validates the check digit of a code,
+ * <li>{@code isValid(<em>code</em>)} - validates the check digit of a code,
  * returning {@code true} or {@code false}.</li>
- * <li><code>calculate(<em>code</em>)</code> - calulates the check digit for a code
+ * <li>{@code calculate(<em>code</em>)} - calulates the check digit for a code
  * returning the check digit character.</li>
  * </ul>
  * <p>
@@ -585,8 +585,8 @@
  * routine.</li>
  * <li>
  * <ul>
- * <li><code>isValidISBN10(<em>value</em>)</code> - returns a boolean</li>
- * <li><code>validateISBN10(<em>value</em>)</code> - returns a reformatted ISBN-10 code</li>
+ * <li>{@code isValidISBN10(<em>value</em>)} - returns a boolean</li>
+ * <li>{@code validateISBN10(<em>value</em>)} - returns a reformatted ISBN-10 code</li>
  * </ul>
  * </li>
  * <li><b>ISBN-13</b> - validates using a
@@ -595,16 +595,16 @@
  * routine.</li>
  * <li>
  * <ul>
- * <li><code>isValidISBN13(<em>value</em>)</code> - returns a boolean</li>
- * <li><code>validateISBN13(<em>value</em>)</code> - returns a reformatted ISBN-13 code</li>
+ * <li>{@code isValidISBN13(<em>value</em>)} - returns a boolean</li>
+ * <li>{@code validateISBN13(<em>value</em>)} - returns a reformatted ISBN-13 code</li>
  * </ul>
  * </li>
  * <li><b>ISBN-10</b> and <b>ISBN-13</b> - validates codes are either
  * valid ISBN-10 or valid ISBN-13 - optionally can convert ISBN-10 codes to ISBN-13.</li>
  * <li>
  * <ul>
- * <li><code>isValid(<em>value</em>)</code> - returns a boolean</li>
- * <li><code>validate(<em>value</em>)</code> - returns a reformatted ISBN code
+ * <li>{@code isValid(<em>value</em>)} - returns a boolean</li>
+ * <li>{@code validate(<em>value</em>)} - returns a reformatted ISBN code
  * (converts ISBN-10 to ISBN-13 if the <em>convert</em> option is {@code true}).</li>
  * </ul>
  * </li>

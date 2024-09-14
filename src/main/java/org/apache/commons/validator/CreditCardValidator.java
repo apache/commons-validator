@@ -31,14 +31,14 @@ import org.apache.commons.validator.util.Flags;
  * </p>
  *
  * <pre>
- * <code>CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.AMEX + CreditCardValidator.VISA);</code>
+ * {@code CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.AMEX + CreditCardValidator.VISA);}
  * </pre>
  *
  * <p>
  * configures the validator to only pass American Express and Visa cards.
  * If a card type is not directly supported by this class, you can implement
  * the CreditCardType interface and pass an instance into the
- * <code>addAllowedCardType</code> method.
+ * {@code addAllowedCardType} method.
  * </p>
  *
  * <p>
@@ -77,7 +77,7 @@ public class CreditCardValidator {
          * Returns true if the card number matches this type of credit
          * card.  Note that this method is <strong>not</strong> responsible
          * for analyzing the general form of the card number because
-         * <code>CreditCardValidator</code> performs those checks before
+         * {@code CreditCardValidator} performs those checks before
          * calling this method.  It is generally only required to valid the
          * length and prefix of the number to determine if it's the correct
          * type.
@@ -126,11 +126,11 @@ public class CreditCardValidator {
      * you want only custom card types to validate so you turn off the
      * default cards with this option.
      * <pre>
-     * <code>
+     * {@code
      * CreditCardValidator v = new CreditCardValidator(CreditCardValidator.NONE);
      * v.addAllowedCardType(customType);
      * v.isValid(aCardNumber);
-     * </code>
+     * }
      * </pre>
      * @since 1.1.2
      */

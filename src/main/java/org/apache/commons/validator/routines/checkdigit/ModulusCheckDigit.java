@@ -27,7 +27,7 @@ import org.apache.commons.validator.GenericValidator;
  * </p>
  * <p>
  * This implementation only handles <em>single-digit numeric</em> codes, such as <b>EAN-13</b>. For <em>alphanumeric</em> codes such as <b>EAN-128</b> you will need
- * to implement/override the <code>toInt()</code> and <code>toChar()</code> methods.
+ * to implement/override the {@code toInt()} and {@code toChar()} methods.
  * </p>
  *
  * @since 1.4

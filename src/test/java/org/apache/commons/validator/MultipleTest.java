@@ -42,7 +42,7 @@ public class MultipleTest extends AbstractCommonTest {
     protected static final String ACTION = "required";
 
     /**
-     * Load <code>ValidatorResources</code> from validator-multipletest.xml.
+     * Load {@code ValidatorResources} from validator-multipletest.xml.
      */
     @BeforeEach
     protected void setUp() throws IOException, SAXException {

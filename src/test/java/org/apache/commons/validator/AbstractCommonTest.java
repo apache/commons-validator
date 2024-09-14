@@ -33,7 +33,7 @@ abstract public class AbstractCommonTest {
     protected String name;
 
     /**
-     * Load <code>ValidatorResources</code> from validator-numeric.xml.
+     * Load {@code ValidatorResources} from validator-numeric.xml.
      */
     protected void loadResources(final String file) throws IOException, SAXException {
         // Load resources

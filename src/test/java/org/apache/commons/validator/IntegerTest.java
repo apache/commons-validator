@@ -19,7 +19,7 @@ package org.apache.commons.validator;
 import org.junit.jupiter.api.Test;
 
 /**
- * Performs Validation Test for <code>int</code> validations.
+ * Performs Validation Test for {@code int} validations.
  */
 public class IntegerTest extends AbstractNumberTest {
 

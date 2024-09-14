@@ -35,8 +35,8 @@ import org.xml.sax.SAXException;
 
 /**
  * <p>
- * General purpose class for storing <code>FormSet</code> objects based
- * on their associated <code>Locale</code>.  Instances of this class are usually
+ * General purpose class for storing {@code FormSet} objects based
+ * on their associated {@link Locale}.  Instances of this class are usually
  * configured through a validation.xml file that is parsed in a constructor.
  * </p>
  *
@@ -90,15 +90,15 @@ public class ValidatorResources implements Serializable {
     private transient Log log = LogFactory.getLog(ValidatorResources.class);
 
     /**
-     * <code>Map</code> of <code>FormSet</code>s stored under
-     * a <code>Locale</code> key (expressed as a String).
+     * {@link Map} of {@code FormSet}s stored under
+     * a {@link Locale} key (expressed as a String).
      * @deprecated Subclasses should use getFormSets() instead.
      */
     @Deprecated
     protected FastHashMap hFormSets = new FastHashMap(); // <String, FormSet>
 
     /**
-     * <code>Map</code> of global constant values with
+     * {@link Map} of global constant values with
      * the name of the constant as the key.
      * @deprecated Subclasses should use getConstants() instead.
      */
@@ -106,15 +106,15 @@ public class ValidatorResources implements Serializable {
     protected FastHashMap hConstants = new FastHashMap(); // <String, String>
 
     /**
-     * <code>Map</code> of <code>ValidatorAction</code>s with
-     * the name of the <code>ValidatorAction</code> as the key.
+     * {@link Map} of {@code ValidatorAction}s with
+     * the name of the {@code ValidatorAction} as the key.
      * @deprecated Subclasses should use getActions() instead.
      */
     @Deprecated
     protected FastHashMap hActions = new FastHashMap(); // <String, ValidatorAction>
 
     /**
-     * This is the default <code>FormSet</code> (without locale). (We probably don't need
+     * This is the default {@code FormSet} (without locale). (We probably don't need
      * the defaultLocale anymore.)
      */
     protected FormSet defaultFormSet;
@@ -251,9 +251,9 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Add a <code>FormSet</code> to this <code>ValidatorResources</code>
-     * object.  It will be associated with the <code>Locale</code> of the
-     * <code>FormSet</code>.
+     * Add a {@code FormSet} to this {@code ValidatorResources}
+     * object.  It will be associated with the {@link Locale} of the
+     * {@code FormSet}.
      * @param fs The form set to add.
      * @since 1.1
      */
@@ -280,7 +280,7 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Create a <code>Rule</code> to handle <code>arg0-arg3</code>
+     * Create a {@code Rule} to handle {@code arg0-arg3}
      * elements. This will allow validation.xml files that use the
      * versions of the DTD prior to Validator 1.2.0 to continue
      * working.
@@ -318,10 +318,10 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Add a <code>ValidatorAction</code> to the resource.  It also creates an
-     * instance of the class based on the <code>ValidatorAction</code>s
-     * class name and retrieves the <code>Method</code> instance and sets them
-     * in the <code>ValidatorAction</code>.
+     * Add a {@code ValidatorAction} to the resource.  It also creates an
+     * instance of the class based on the {@code ValidatorAction}s
+     * class name and retrieves the {@code Method} instance and sets them
+     * in the {@code ValidatorAction}.
      * @param va The validator action.
      */
     public void addValidatorAction(final ValidatorAction va) {
@@ -335,7 +335,7 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Builds a key to store the <code>FormSet</code> under based on it's
+     * Builds a key to store the {@code FormSet} under based on it's
      * language, country, and variant values.
      * @param fs The Form Set.
      * @return generated key for a formset.
@@ -376,9 +376,9 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * <p>Gets a <code>Form</code> based on the name of the form and the
-     * <code>Locale</code> that most closely matches the <code>Locale</code>
-     * passed in.  The order of <code>Locale</code> matching is:</p>
+     * <p>Gets a {@code Form} based on the name of the form and the
+     * {@link Locale} that most closely matches the {@link Locale}
+     * passed in.  The order of {@link Locale} matching is:</p>
      * <ol>
      *    <li>language + country + variant</li>
      *    <li>language + country</li>
@@ -396,9 +396,9 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * <p>Gets a <code>Form</code> based on the name of the form and the
-     * <code>Locale</code> that most closely matches the <code>Locale</code>
-     * passed in.  The order of <code>Locale</code> matching is:</p>
+     * <p>Gets a {@code Form} based on the name of the form and the
+     * {@link Locale} that most closely matches the {@link Locale}
+     * passed in.  The order of {@link Locale} matching is:</p>
      * <ol>
      *    <li>language + country + variant</li>
      *    <li>language + country</li>
@@ -467,7 +467,7 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * <p>Gets a <code>FormSet</code> based on the language, country
+     * <p>Gets a {@code FormSet} based on the language, country
      *    and variant.</p>
      * @param language The locale's language.
      * @param country The locale's country.
@@ -543,7 +543,7 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Gets a <code>ValidatorAction</code> based on it's name.
+     * Gets a {@code ValidatorAction} based on it's name.
      * @param key The validator action key.
      * @return The validator action.
      */
@@ -552,7 +552,7 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Gets an unmodifiable <code>Map</code> of the <code>ValidatorAction</code>s.
+     * Gets an unmodifiable {@link Map} of the {@code ValidatorAction}s.
      * @return Map of validator actions.
      */
     public Map<String, ValidatorAction> getValidatorActions() {
@@ -590,8 +590,8 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Process the <code>ValidatorResources</code> object. Currently sets the
-     * <code>FastHashMap</code> s to the 'fast' mode and call the processes
+     * Process the {@code ValidatorResources} object. Currently sets the
+     * {@code FastHashMap} s to the 'fast' mode and call the processes
      * all other resources. <strong>Note </strong>: The framework calls this
      * automatically when ValidatorResources is created from an XML file. If you
      * create an instance of this class by hand you <strong>must </strong> call
@@ -606,9 +606,9 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * <p>Process the <code>Form</code> objects.  This clones the <code>Field</code>s
-     * that don't exist in a <code>FormSet</code> compared to its parent
-     * <code>FormSet</code>.</p>
+     * <p>Process the {@code Form} objects.  This clones the {@code Field}s
+     * that don't exist in a {@code FormSet} compared to its parent
+     * {@code FormSet}.</p>
      */
     private void processForms() {
         if (defaultFormSet == null) { // it isn't mandatory to have a

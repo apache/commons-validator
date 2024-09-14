@@ -59,7 +59,7 @@ public class ParameterTest extends AbstractCommonTest {
     }
 
     /**
-     * Load <code>ValidatorResources</code> from ValidatorResultsTest-config.xml.
+     * Load {@code ValidatorResources} from ValidatorResultsTest-config.xml.
      */
     @BeforeEach
     protected void setUp() throws IOException, SAXException {

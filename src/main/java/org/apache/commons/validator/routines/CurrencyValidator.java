@@ -20,20 +20,20 @@ import java.text.DecimalFormat;
 import java.text.Format;
 
 /**
- * <p><b>Currency Validation</b> and Conversion routines (<code>java.math.BigDecimal</code>).</p>
+ * <p><b>Currency Validation</b> and Conversion routines ({@code java.math.BigDecimal}).</p>
  *
  * <p>This is one implementation of a currency validator that has the following features:</p>
  *    <ul>
  *       <li>It is <em>lenient</em> about the presence of the <em>currency symbol</em></li>
- *       <li>It converts the currency to a <code>java.math.BigDecimal</code></li>
+ *       <li>It converts the currency to a {@code java.math.BigDecimal}</li>
  *    </ul>
  *
  * <p>However any of the <em>number</em> validators can be used for <em>currency</em> validation.
  *    For example, if you wanted a <em>currency</em> validator that converts to a
- *    <code>java.lang.Integer</code> then you can simply instantiate an
- *    <code>IntegerValidator</code> with the appropriate <em>format type</em>:</p>
+ *    {@code java.lang.Integer} then you can simply instantiate an
+ *    {@code IntegerValidator} with the appropriate <em>format type</em>:</p>
  *
- *    <p><code>... = new IntegerValidator(false, IntegerValidator.CURRENCY_FORMAT);</code></p>
+ *    <p>{@code ... = new IntegerValidator(false, IntegerValidator.CURRENCY_FORMAT);}</p>
  *
  * <p>Pick the appropriate validator, depending on the type (e.g Float, Double, Integer, Long etc)
  *    you want the currency converted to. One thing to note - only the CurrencyValidator
@@ -69,7 +69,7 @@ public class CurrencyValidator extends BigDecimalValidator {
      * Constructs an instance with the specified strict setting.
      *
      * @param strict {@code true} if strict
-     *        <code>Format</code> parsing should be used.
+     *        {@code Format} parsing should be used.
      * @param allowFractions {@code true} if fractions are
      *        allowed or {@code false} if integers only.
      */
@@ -78,10 +78,10 @@ public class CurrencyValidator extends BigDecimalValidator {
     }
 
     /**
-     * <p>Parse the value with the specified <code>Format</code>.</p>
+     * <p>Parse the value with the specified {@code Format}.</p>
      *
      * <p>This implementation is lenient whether the currency symbol
-     *    is present or not. The default <code>NumberFormat</code>
+     *    is present or not. The default {@code NumberFormat}
      *    behavior is for the parsing to "fail" if the currency
      *    symbol is missing. This method re-parses with a format
      *    without the currency symbol if it fails initially.</p>
