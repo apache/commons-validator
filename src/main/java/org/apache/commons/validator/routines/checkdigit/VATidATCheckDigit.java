@@ -97,7 +97,7 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
         if (l != null && l == 0) {
             throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
-        
+
         final int modulusResult = calculateModulus(omitU(code), false);
         final int cdValue = (MODULUS_10 - modulusResult) % MODULUS_10;
         return toCheckDigit(cdValue);

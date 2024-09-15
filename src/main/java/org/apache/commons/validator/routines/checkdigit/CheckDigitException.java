@@ -25,9 +25,16 @@ public class CheckDigitException extends Exception {
 
     private static final long serialVersionUID = -3519894732624685477L;
 
+    /**
+     * Common message text when code is Null or empty
+     */
     public static final String MISSING_CODE = "Code is missing";
+
+    /**
+     * Common message text when code sum is zero
+     */
     public static final String ZREO_SUM = "Invalid code, sum is zero";
-    
+
     /**
      * Constructs an Exception with no message.
      */
