@@ -20,8 +20,14 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * AT VAT Id Check Digit Tests.
- * die hier verwendeten VATIN sind valide aber ungültig
- * ATU54065602 ist gültig
+ */
+/*
+Beispiele
+
+    AT U13585627 : valide, aber ungültig
+    AT U54065602 : gültig TIC Technology & Innovation Center Steyr GmbH, Im Stadtgut A 1, AT-4407 Dietach
+    AT U26218303 : gültig Maltaholz GmbH, Karnerau 21, AT-9853 Gmünd
+
  */
 public class VATidATCheckDigitTest extends AbstractCheckDigitTest {
 
@@ -31,7 +37,9 @@ public class VATidATCheckDigitTest extends AbstractCheckDigitTest {
     @BeforeEach
     protected void setUp() {
         routine = VATidATCheckDigit.getInstance();
-        valid = new String[] {"U10223006", "U13585627", "U54065602", "U26218303"};
+        valid = new String[] {"U10223006", "U13585627"
+           , "U54065602", "U26218303"
+           };
         invalid = new String[] {"u10223006", "X13585627", "U00000000"};
     }
 

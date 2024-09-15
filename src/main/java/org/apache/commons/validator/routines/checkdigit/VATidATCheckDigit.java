@@ -28,10 +28,8 @@ import org.apache.commons.validator.GenericValidator;
  * See <a href="https://www.bmf.gv.at/dam/jcr:9f9f8d5f-5496-4886-aa4f-81a4e39ba83e/BMF_UID_Konstruktionsregeln.pdf">bmf.gv.at - BMF_UID_Konstruktionsregeln</a>
  * for more details.
  * </p>
-TODO derzeit wird U hier geprüft - das steht im Widersproch zu package Vorgabe:
-    <b>do not validate</b> the input for length or syntax
  *
- * @since 1.9.0
+ * @since 1.10.0
  */
 public final class VATidATCheckDigit extends ModulusCheckDigit {
 
@@ -50,7 +48,10 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
 
     private static final int LEN = 8; // without constant "U"
 
-    public static String omitU(final String code) {
+    private static String omitU(final String code) throws CheckDigitException {
+        if (!code.startsWith("U")) {
+            throw new CheckDigitException("Invalid code, does not start with U");
+        }
         return code.substring(1);
     }
 
@@ -78,7 +79,6 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
         if ((leftPos - 1) % 2 == 0) {
             return charValue;
         } else {
-            // Si = INT(charValue / 5) + (charValue * 2) modulo10
             int i = charValue / 5;  // CHECKSTYLE IGNORE MagicNumber
             return i + charValue * 2 % MODULUS_10;
         }
@@ -90,20 +90,24 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
     @Override
     public String calculate(final String code) throws CheckDigitException {
         if (GenericValidator.isBlankOrNull(code)) {
-            throw new CheckDigitException("Code is missing");
+            throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
-        if (code.length() >= LEN && GenericTypeValidator.formatLong(omitU(code)) == 0) {
-            throw new CheckDigitException("Invalid code, sum is zero");
+        // need this for testZeroSum():
+        Long l = GenericTypeValidator.formatLong(code);
+        if (l != null && l == 0) {
+            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
-        if (!code.startsWith("U")) {
-            throw new CheckDigitException("Invalid code, does not start with U");
-        }
+        
         final int modulusResult = calculateModulus(omitU(code), false);
-        // (10 – (R + C2 + C4 + C6 + C8 + 4) modulo 10) modulo 10
         final int cdValue = (MODULUS_10 - modulusResult) % MODULUS_10;
         return toCheckDigit(cdValue);
     }
 
+    /**
+     * {@inheritDoc},
+     * return expression overridden
+     */
+    @Override
     protected int calculateModulus(final String code, final boolean includesCheckDigit) throws CheckDigitException {
         int total = 0;
         for (int i = 0; i < code.length(); i++) {
@@ -114,7 +118,7 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
             total += weightedValue(charValue, leftPos, rightPos);
         }
         if (total == 0) {
-            throw new CheckDigitException("Invalid code, sum is zero");
+            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
         return (total + 4) % MODULUS_10;  // CHECKSTYLE IGNORE MagicNumber
     }
@@ -128,9 +132,6 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
             return false;
         }
         if (code.length() != LEN + 1) {
-            return false;
-        }
-        if (!code.startsWith("U")) {
             return false;
         }
         try {
