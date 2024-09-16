@@ -67,6 +67,7 @@ public class VATidBGCheckDigitTest extends AbstractCheckDigitTest {
             , "205153347", "204407312", "201334001", "131129282", "203519454"
             , "207350980", "207546057", "831650349", "207839658", "175074752"
             , "217839654", "175074767", "474074760" // increased weights
+            , "8319195360016", "8319195360048" // Unicredit Bulbank with branches 001 004
             // Privatpersonen haben eine zehnstellige ЕГН:
             , "7524169268", "7501010010", "7552010005", "8032056031", "8001010008", "7552011038", "8141010016"
         };

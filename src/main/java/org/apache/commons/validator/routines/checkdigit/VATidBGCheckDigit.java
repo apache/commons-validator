@@ -26,7 +26,7 @@ import org.apache.commons.validator.GenericValidator;
  * <p>
  * Dank dobawena stoinost (DDS)
  * The Bulgarian VAT (Данък върху добавената стойност) number is either 9 (for legal entities)
- * or 10 digits (for physical persons, foreigners and others) long.
+ * or 10 digits long (for physical persons, foreigners and others).
  * Each type of number has its own check digit algorithm.
  * </p>
  * <p>
@@ -52,7 +52,14 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
         return INSTANCE;
     }
 
+    /**
+     * there ate three length
+     * 9 for legal entities (standard DDS),
+     * 10 for physical persons,
+     * 13 for legal entities with branch number (not used for VATIN)
+     */
     static final int LEN = 9; // with Check Digit
+    static final int LEN13 = 13; // with Check Digit
 
     /**
      * Constructs a modulus Check Digit routine.
@@ -61,9 +68,10 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
         super(MODULUS_11);
     }
 
-    /** Weighting given to digits depending on their left position */
-    // für TINs aus https://github.com/koblas/stdnum-js/blob/main/src/bg/egn.ts modulus: 11,
+    /** Weighting for physical persons given to digits depending on their left position */
     private static final int[] POSITION_WEIGHT = { 2, 4, 8, 5, 10, 9, 7, 3, 6 };
+    // TODO 2*а9 + 7*а10 + 3*а11 +5*а12
+    private static final int[] BRANCH_WEIGHT = { 2, 7, 3, 5 };
 
     /**
      * Calculates the <i>weighted</i> value of a character in the
@@ -82,26 +90,25 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
         return charValue * weight;
     }
 
+    private int calculateDDStotal(final String code, final boolean recalculate) throws CheckDigitException {
+        final boolean standard = code.length() < LEN;
+        int total = 0;
+        for (int i = standard ? 0 : LEN - 1; i < code.length(); i++) {
+            final int leftPos = i + 1;
+            final int charValue = toInt(code.charAt(i), leftPos, -1);
+            if (standard) {
+                total += charValue * (recalculate ? 2 + leftPos : leftPos);
+            } else {
+                final int weight = BRANCH_WEIGHT[(leftPos - LEN)];
+//                LOG.info(code + " i="+i + " charValue="+charValue + " weight="+weight);
+                total += charValue * (recalculate ? 2 + weight : weight);
+            }
+        }
+        return total;
+    }
+
     /**
      * {@inheritDoc}
-function checkLegal(value: string): boolean {
-  const [front, check] = strings.splitAt(value, -1);
-
-  let sum = weightedSum(front, {
-    modulus: 11,
-    weights: [1, 2, 3, 4, 5, 6, 7, 8],
-  });
-
-  if (sum === 10) {
-    sum = weightedSum(front, {
-      modulus: 11,
-      weights: [3, 4, 5, 6, 7, 8, 9, 10], // increased weights
-    });
-  }
-
-  return String(sum % 10) === check;
-}
-
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
@@ -111,23 +118,23 @@ function checkLegal(value: string): boolean {
         if (GenericTypeValidator.formatLong(code) == 0) {
             throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
-        if (code.length() < LEN) {
-            int total = 0;
-            for (int i = 0; i < code.length(); i++) {
-                final int leftPos = i + 1;
-                final int charValue = toInt(code.charAt(i), leftPos, -1);
-                total += charValue * leftPos;
-            }
+        if (code.length() < LEN) { // DDS for legal entities
+            int total = calculateDDStotal(code, false);
             if ((total % MODULUS_11) == MODULUS_10) {
                 // recalculate with increased weights
-//                LOG.info("legal entity total = "+total + " toCheckDigit(total % MODULUS_11):"+(total % MODULUS_11));
-                total = 0;
-                for (int i = 0; i < code.length(); i++) {
-                    final int leftPos = i + 1;
-                    final int charValue = toInt(code.charAt(i), leftPos, -1);
-                    total += charValue * (2 + leftPos);
-                }
-                LOG.info("recalculated legal entity total = " + total + " toCheckDigit(total % MODULUS_11):" + (total % MODULUS_11));
+                total = calculateDDStotal(code, true);
+            }
+            return toCheckDigit(total % MODULUS_11 % MODULUS_10);
+        } else if (code.length() + 1 == LEN13) {
+            if (!isValid(code.substring(0, LEN))) {
+                throw new CheckDigitException("Invalid DDC subcode " + code.substring(0, LEN));
+            }
+            int total = calculateDDStotal(code, false);
+//            LOG.info(code + "total="+total);
+            if ((total % MODULUS_11) == MODULUS_10) {
+                // recalculate with increased weights
+                total = calculateDDStotal(code, true);
+//                LOG.info(code + "recalculated total="+total);
             }
             return toCheckDigit(total % MODULUS_11 % MODULUS_10);
         }
