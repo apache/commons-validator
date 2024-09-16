@@ -46,7 +46,7 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
         return INSTANCE;
     }
 
-    private static final int LEN = 8; // without constant "U"
+    static final int LEN = 8; // without constant "U"
 
     private static String omitU(final String code) throws CheckDigitException {
         if (!code.startsWith("U")) {
@@ -98,7 +98,7 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
 
-        final int modulusResult = calculateModulus(omitU(code), false);
+        final int modulusResult = INSTANCE.calculateModulus(omitU(code), false);
         final int cdValue = (MODULUS_10 - modulusResult) % MODULUS_10;
         return toCheckDigit(cdValue);
     }
