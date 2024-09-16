@@ -29,9 +29,8 @@ import org.apache.commons.validator.GenericValidator;
  * </p>
  *
  * <p>
- * This MOD 97-10 module can also be used to validate the LEI (Legal Entity Identifier), ICD id 0199
- * and VATIN_BE
- * used also in {@link org.apache.commons.validator.routines.LeitwegValidator}
+ * This MOD 97-10 module can be used to validate the LEI (Legal Entity Identifier), ICD id 0199
+ * and in VATidBECheckDigit (VATIN_BE), and also in LeitwegValidator
  *
  * @since 1.10.0
  */
