@@ -39,7 +39,7 @@ public final class VATidBECheckDigit extends Modulus97CheckDigit {
 
     private static final long serialVersionUID = 4622288405648808179L;
 
-	/** Singleton Check Digit instance */
+    /** Singleton Check Digit instance */
     private static final VATidBECheckDigit INSTANCE = new VATidBECheckDigit();
 
     /**
@@ -71,7 +71,7 @@ public final class VATidBECheckDigit extends Modulus97CheckDigit {
         }
 
         long mr = calculateModulus(code, false);
-        int modulusResult = (int)(mr % MODULUS_97);
+        int modulusResult = (int) (mr % MODULUS_97);
         if (modulusResult == 0) {
             throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
@@ -93,12 +93,12 @@ public final class VATidBECheckDigit extends Modulus97CheckDigit {
 
         String check = code.substring(code.length() - CHECKDIGIT_LEN);
         Integer icheck = GenericTypeValidator.formatInt(check);
-        if (icheck==null) {
+        if (icheck == null) {
             return false;
         }
         try {
             long mr = calculateModulus(code, true);
-            int modulusResult = (int)(mr % MODULUS_97);
+            int modulusResult = (int) (mr % MODULUS_97);
             if (modulusResult == 0) {
                 throw new CheckDigitException(CheckDigitException.ZREO_SUM);
             }
