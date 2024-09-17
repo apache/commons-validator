@@ -20,17 +20,19 @@ import java.util.logging.Logger;
 
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
+import org.apache.commons.validator.routines.DateValidator;
 
 /**
  * Bulgarian VAT identification number (VATIN) Check Digit calculation/validation.
  * <p>
  * Dank dobawena stoinost (DDS)
  * The Bulgarian VAT (Данък върху добавената стойност) number is either 9 (for legal entities)
- * or 10 digits long (for physical persons, foreigners and others).
+ * or 10 digits long (ЕГН for physical persons, foreigners and others).
  * Each type of number has its own check digit algorithm.
  * </p>
  * <p>
- * See <a href="https://en.wikipedia.org/wiki/VAT_identification_number">Wikipedia</a>
+ * See <a href="https://en.wikipedia.org/wiki/VAT_identification_number">Wikipedia VATIN</a>
+ * and <a href="https://en.wikipedia.org/wiki/Unique_citizenship_number">ЕГН (civil number)</a>
  * for more details.
  * </p>
  *
@@ -55,10 +57,11 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
     /**
      * there ate three length
      * 9 for legal entities (standard DDS),
-     * 10 for physical persons,
+     * 10 for physical persons (civil number),
      * 13 for legal entities with branch number (not used for VATIN)
      */
     static final int LEN = 9; // with Check Digit
+    static final int LENCN = 10; // with Check Digit
     static final int LEN13 = 13; // with Check Digit
 
     /**
@@ -70,7 +73,7 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
 
     /** Weighting for physical persons given to digits depending on their left position */
     private static final int[] POSITION_WEIGHT = { 2, 4, 8, 5, 10, 9, 7, 3, 6 };
-    // TODO 2*а9 + 7*а10 + 3*а11 +5*а12
+    /** Weighting for DDS with branches */
     private static final int[] BRANCH_WEIGHT = { 2, 7, 3, 5 };
 
     /**
@@ -100,7 +103,6 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
                 total += charValue * (recalculate ? 2 + leftPos : leftPos);
             } else {
                 final int weight = BRANCH_WEIGHT[(leftPos - LEN)];
-//                LOG.info(code + " i="+i + " charValue="+charValue + " weight="+weight);
                 total += charValue * (recalculate ? 2 + weight : weight);
             }
         }
@@ -118,7 +120,7 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
         if (GenericTypeValidator.formatLong(code) == 0) {
             throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
-        if (code.length() < LEN) { // DDS for legal entities
+        if (code.length() + 1 == LEN) { // DDS for legal entities
             int total = calculateDDStotal(code, false);
             if ((total % MODULUS_11) == MODULUS_10) {
                 // recalculate with increased weights
@@ -130,41 +132,62 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
                 throw new CheckDigitException("Invalid DDC subcode " + code.substring(0, LEN));
             }
             int total = calculateDDStotal(code, false);
-//            LOG.info(code + "total="+total);
             if ((total % MODULUS_11) == MODULUS_10) {
                 // recalculate with increased weights
                 total = calculateDDStotal(code, true);
-//                LOG.info(code + "recalculated total="+total);
             }
             return toCheckDigit(total % MODULUS_11 % MODULUS_10);
+        } else if (code.length() + 1 == LENCN) {
+            LOG.info(code + " zehnstellige ЕГН mit codiertem Geburtsdatum und Geschlecht ");
+            // ЕГН for physical persons, foreigners and others (aka civil number)
+            checkCivilNumber(code);
+            final int calculateModulus = INSTANCE.calculateModulus(code, false);
+            return toCheckDigit(calculateModulus % MODULUS_10);
         }
-        /* zehnstellige ЕГН mit codiertem Geburtsdatum und Geschlecht
+        throw new CheckDigitException("Invalid DDC " + code);
+    }
 
-         Die ersten 6 Ziffern sind Geburtsdatum (JJMMTT),
-         die nächsten 3 sind in der Reihenfolge der Geburt angegeben (+Codierung von Geschlecht)
-
-         Im Monat MM ist das Jahrhundert codiert:
-         Für die vor 01.01.1900 geborenen wird dem Monat die Zahl 20 hinzugefügt.
-         Für diejenigen, die nach dem 31.12.1999 geboren sind, wird dem Monat wird die Zahl 40 hinzugefügt.
-
-         Die neunte Ziffer der EGN ist bei Männern gerade und bei Frauen ungerade.
-         */
+    /**
+     * Check ЕГН (civil number), which contains a coded birth date.
+     * <p>
+     * The initial six digits correspond to the birth date.
+     * The first two digits are the last two digits of the year, 
+     * and the last two digits are the day of the month.
+     * For people born between 1900 and 1999 the middle digits are the month number: YYMMDD.
+     * For people born before 1900, 20 is added to the month: YY M+20 DD.
+     * For people born from 2000, 40 is added to the month: YY M+40 DD. 
+     * </p>
+     * @param code
+     * @return true for valid coded date
+     * @throws CheckDigitException
+     */
+    private boolean checkCivilNumber(final String code) throws CheckDigitException {
         final int m1 = toInt(code.charAt(2), 3, -1);
         final int m0 = toInt(code.charAt(3), 4, -1);
         final int mm = 10 * m1 + m0;
-        String born = "19" + code.substring(0, 2);
+        String yyborn = "19" + code.substring(0, 2);
+        int mmborn = mm;
         if (mm > 20) {  // CHECKSTYLE IGNORE MagicNumber
-            born = "18" + code.substring(0, 2);
+            yyborn = "18" + code.substring(0, 2);
+            mmborn = mm - 20;
             if (mm > 40) {  // CHECKSTYLE IGNORE MagicNumber
-                born = "20" + code.substring(0, 2);
+                yyborn = "20" + code.substring(0, 2);
+                mmborn = mm - 40;
             }
         }
+        DateValidator dateValidator = new DateValidator();
+        String date = String.format("%02d", mmborn) + "/" + code.substring(4, 6) + "/" + yyborn;
+        if (dateValidator.validate(date, "MM/dd/yyyy") == null) {
+            throw new CheckDigitException("Invalid date " + date + " - Invalid DDC " + code);
+        }
+
+        // The next three digits designate the birth order number,
+        // the third digit being even for males and odd for females.
         final int sexValue = toInt(code.charAt(8), 9, -1);
         if ( (sexValue & 1) == 0 ) {
-            LOG.info(code + " is ЕГН for a male person born in year " + born);
+            LOG.info(code + " is ЕГН for a male person born " + date);
         }
-        final int calculateModulus = INSTANCE.calculateModulus(code, false);
-        return toCheckDigit(calculateModulus % MODULUS_10);
+        return true;
     }
 
     /**

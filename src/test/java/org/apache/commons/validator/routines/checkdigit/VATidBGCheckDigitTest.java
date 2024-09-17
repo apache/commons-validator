@@ -68,9 +68,13 @@ public class VATidBGCheckDigitTest extends AbstractCheckDigitTest {
             , "207350980", "207546057", "831650349", "207839658", "175074752"
             , "217839654", "175074767", "474074760" // increased weights
             , "8319195360016", "8319195360048" // Unicredit Bulbank with branches 001 004
-            // Privatpersonen haben eine zehnstellige ЕГН:
+            // 10 digits : ЕГН (civil number), which contains a coded birth date
             , "7524169268", "7501010010", "7552010005", "8032056031", "8001010008", "7552011038", "8141010016"
         };
+        invalid = new String[] { "10851124" // to short
+                , "7502300013"     // invalid date 30 Feb
+                , "8319195370016"  // Invalid DDC subcode
+            };
     }
 
 }
