@@ -67,6 +67,7 @@ LEI
             , "057110600179"
             , "059139900125"
             , "11200000100030"
+            , "0401100012345ABCXYZ86" // from https://de.wikipedia.org/wiki/Leitweg-ID
             , "510007547061BE62" , "1904300234573201AT61" // IBAN : BE62510007547061 AT611904300234573201
             , "54930084UKLVMY22DS16" // LEI G.E. Financing GmbH
             , "213800WSGIIZCXF1P572" // Jaguar Land Rover Ltd
