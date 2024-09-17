@@ -16,8 +16,8 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import java.util.logging.Logger;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.DateValidator;
@@ -41,7 +41,7 @@ import org.apache.commons.validator.routines.DateValidator;
 public final class VATidBGCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -8667365895223831325L;
-    private static final Logger LOG = Logger.getLogger(VATidBGCheckDigit.class.getName());
+    private static final Log LOG = LogFactory.getLog(VATidBGCheckDigit.class);
 
     /** Singleton Check Digit instance */
     private static final VATidBGCheckDigit INSTANCE = new VATidBGCheckDigit();
@@ -138,7 +138,6 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
             }
             return toCheckDigit(total % MODULUS_11 % MODULUS_10);
         } else if (code.length() + 1 == LENCN) {
-            LOG.info(code + " zehnstellige ЕГН mit codiertem Geburtsdatum und Geschlecht ");
             // ЕГН for physical persons, foreigners and others (aka civil number)
             checkCivilNumber(code);
             final int calculateModulus = INSTANCE.calculateModulus(code, false);
@@ -147,15 +146,18 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
         throw new CheckDigitException("Invalid DDC " + code);
     }
 
+    private static final int BORN_BEFORE_1900_MOD = 20; // month modifier
+    private static final int BORN_AFTER_2000_MOD = 40; // month modifier
+
     /**
      * Check ЕГН (civil number), which contains a coded birth date.
      * <p>
      * The initial six digits correspond to the birth date.
-     * The first two digits are the last two digits of the year, 
+     * The first two digits are the last two digits of the year,
      * and the last two digits are the day of the month.
      * For people born between 1900 and 1999 the middle digits are the month number: YYMMDD.
      * For people born before 1900, 20 is added to the month: YY M+20 DD.
-     * For people born from 2000, 40 is added to the month: YY M+40 DD. 
+     * For people born from 2000, 40 is added to the month: YY M+40 DD.
      * </p>
      * @param code
      * @return true for valid coded date
@@ -167,25 +169,26 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
         final int mm = 10 * m1 + m0;
         String yyborn = "19" + code.substring(0, 2);
         int mmborn = mm;
-        if (mm > 20) {  // CHECKSTYLE IGNORE MagicNumber
+        if (mm > BORN_BEFORE_1900_MOD) {
             yyborn = "18" + code.substring(0, 2);
-            mmborn = mm - 20;
-            if (mm > 40) {  // CHECKSTYLE IGNORE MagicNumber
+            mmborn = mm - BORN_BEFORE_1900_MOD;
+            if (mm > BORN_AFTER_2000_MOD) {
                 yyborn = "20" + code.substring(0, 2);
-                mmborn = mm - 40;
+                mmborn = mm - BORN_AFTER_2000_MOD;
             }
         }
         DateValidator dateValidator = new DateValidator();
-        String date = String.format("%02d", mmborn) + "/" + code.substring(4, 6) + "/" + yyborn;
+        String date = String.format("%02d", mmborn) + "/" + code.substring(4, 6) + "/" + yyborn; // CHECKSTYLE IGNORE MagicNumber
         if (dateValidator.validate(date, "MM/dd/yyyy") == null) {
             throw new CheckDigitException("Invalid date " + date + " - Invalid DDC " + code);
         }
 
         // The next three digits designate the birth order number,
         // the third digit being even for males and odd for females.
-        final int sexValue = toInt(code.charAt(8), 9, -1);
-        if ( (sexValue & 1) == 0 ) {
-            LOG.info(code + " is ЕГН for a male person born " + date);
+        if (LOG.isDebugEnabled()) {
+            final int sexValue = toInt(code.charAt(8), 9, -1);
+            final String sex = (sexValue & 1) == 0 ? "male" : "female";
+            LOG.debug(code + " is ЕГН for a " + sex + " person born " + date);
         }
         return true;
     }
