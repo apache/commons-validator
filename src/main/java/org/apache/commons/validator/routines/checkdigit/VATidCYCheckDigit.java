@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import java.util.logging.Logger;
-
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 
@@ -33,47 +31,9 @@ import org.apache.commons.validator.GenericValidator;
  *
  * @since 1.10.0
  */
-/*
-function CYVATCheckDigit (vatnumber) {
-
-  // Checks the check digits of a Cypriot VAT number.
-
-  // Not allowed to start with '12'
-  if (Number(vatnumber.slice(0,2) == 12)) return false;
-
-  // Extract the next digit and multiply by the counter.
-  var total = 0;
-  for (var i = 0; i < 8; i++) {
-    var temp = Number(vatnumber.charAt(i));
-    if (i % 2 == 0) {
-      switch (temp) {
-        case 0: temp = 1; break;
-        case 1: temp = 0; break;
-        case 2: temp = 5; break;
-        case 3: temp = 7; break;
-        case 4: temp = 9; break;
-        default: temp = temp*2 + 3;
-      }
-    }
-    total += temp;
-  }
-
-  // Establish check digit using modulus 26, and translate to char. equivalent.
-  total = total % 26;
-  total = String.fromCharCode(total+65);
-
-  // Check to see if the check digit given is correct
-  if (total == vatnumber.substr (8,1))
-    return true;
-  else
-    return false;
-}
-
- */
 public final class VATidCYCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -844683638838062022L;
-    private static final Logger LOG = Logger.getLogger(VATidCYCheckDigit.class.getName());
 
     /** Singleton Check Digit instance */
     private static final VATidCYCheckDigit INSTANCE = new VATidCYCheckDigit();
@@ -90,23 +50,10 @@ public final class VATidCYCheckDigit extends ModulusCheckDigit {
     static final int MODULUS_26 = 26;
 
     /** Weighting given to digits depending on their left position */
-/*
-const weights: Record<string, number> = {
-  '0': 1,
-  '1': 0,
-  '2': 5,
-  '3': 7,
-  '4': 9,
-  '5': 13, == temp*2 + 3
-  '6': 15,
-  '7': 17,
-  '8': 19,
-  '9': 21,
-};
- */
-//    private static final int[] POSITION_WEIGHT = { 1, 0, 5, 7, 9 };
     private static final int[] POSITION_WEIGHT = { 1, 0, 5, 7, 9, 13, 15, 17, 19, 21 };
     private static final String CHECK_CHARACTER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String INVALID_START_WITH = "12";
+    private static final String INVALID_START_MSG = "Invalid code, not allowed to start with '12' :";
 
     /**
      * Constructs a modulus 11 Check Digit routine.
@@ -143,11 +90,7 @@ const weights: Record<string, number> = {
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
         if (leftPos % 2 == 0) return charValue;
-//        LOG.info("charValue="+charValue + " leftPos="+leftPos + " res="+POSITION_WEIGHT[charValue]);
         return POSITION_WEIGHT[charValue];
-//        final int weight = POSITION_WEIGHT[(leftPos - 1) % POSITION_WEIGHT.length];
-//        LOG.info("charValue="+charValue + " leftPos="+leftPos + " res="+(leftPos<=POSITION_WEIGHT.length ? weight : (leftPos-1) * 2 + 3));
-//        return leftPos * weight;
     }
 
     /**
@@ -158,16 +101,13 @@ const weights: Record<string, number> = {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
-        if (code.startsWith("12")) {
-            throw new CheckDigitException("Invalid code, not allowed to start with '12' :" + code);
+        if (code.startsWith(INVALID_START_WITH)) {
+            throw new CheckDigitException(INVALID_START_MSG + code);
         }
         if (code.length() >= LEN && GenericTypeValidator.formatLong(code.substring(0, LEN)) == 0) {
             throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
-        final int modulusResult = calculateModulus(code, false);
-        LOG.info(code + " calculateModulus mod 26=" + modulusResult);
-        final int charValue = modulusResult;
-        return toCheckDigit(charValue);
+        return toCheckDigit(calculateModulus(code, false));
     }
 
     /**
@@ -182,11 +122,10 @@ const weights: Record<string, number> = {
             return false;
         }
         try {
-            if (code.startsWith("12")) {
-                throw new CheckDigitException("Invalid code, not allowed to start with '12' :" + code);
+            if (code.startsWith(INVALID_START_WITH)) {
+                throw new CheckDigitException(INVALID_START_MSG + code);
             }
             final int modulusResult = calculateModulus(code.substring(0, LEN - 1), false);
-//            LOG.info(code + " calculateModulus mod 26="+modulusResult);
             return toCheckDigit(modulusResult).charAt(0) == code.charAt(LEN - 1);
         } catch (final CheckDigitException ex) {
             return false;

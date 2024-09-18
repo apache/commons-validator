@@ -27,7 +27,7 @@ Beispiele
 
     CY 30010823A : LIDL Cyprus
     CY 10259033P : valide, aber ungültig. Aus formvalidation.io und stdnum-js
-       C1 : 0, 1, 3, 4, 5 or 9.
+
        12000139V is invalid
 
  */
