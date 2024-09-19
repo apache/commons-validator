@@ -159,16 +159,19 @@ public class InetAddressValidator implements Serializable {
         if (containsCompressedZeroes && inet6Address.indexOf("::") != inet6Address.lastIndexOf("::")) {
             return false;
         }
-        if (inet6Address.startsWith(":") && !inet6Address.startsWith("::") || inet6Address.endsWith(":") && !inet6Address.endsWith("::")) {
+        final boolean startsWithCompressed = inet6Address.startsWith("::");
+        final boolean endsWithCompressed = inet6Address.endsWith("::");
+        final boolean endsWithSep = inet6Address.endsWith(":");
+        if (inet6Address.startsWith(":") && !startsWithCompressed || endsWithSep && !endsWithCompressed) {
             return false;
         }
         String[] octets = inet6Address.split(":");
         if (containsCompressedZeroes) {
             final List<String> octetList = new ArrayList<>(Arrays.asList(octets));
-            if (inet6Address.endsWith("::")) {
+            if (endsWithCompressed) {
                 // String.split() drops ending empty segments
                 octetList.add("");
-            } else if (inet6Address.startsWith("::") && !octetList.isEmpty()) {
+            } else if (startsWithCompressed && !octetList.isEmpty()) {
                 octetList.remove(0);
             }
             octets = octetList.toArray(new String[0]);
