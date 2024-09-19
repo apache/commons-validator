@@ -65,6 +65,9 @@ public class InetAddressValidator implements Serializable {
 
     private static final Pattern ID_CHECK_PATTERN = Pattern.compile("[^\\s/%]+");
 
+    /** IPv4 RegexValidator */
+    private final static RegexValidator IPV4_VALIDATOR = new RegexValidator(IPV4_REGEX);
+
     /**
      * Returns the singleton instance of this validator.
      *
@@ -73,9 +76,6 @@ public class InetAddressValidator implements Serializable {
     public static InetAddressValidator getInstance() {
         return VALIDATOR;
     }
-
-    /** IPv4 RegexValidator */
-    private final RegexValidator ipv4Validator = new RegexValidator(IPV4_REGEX);
 
     /**
      * Checks if the specified string is a valid IPv4 or IPv6 address.
@@ -95,7 +95,7 @@ public class InetAddressValidator implements Serializable {
      */
     public boolean isValidInet4Address(final String inet4Address) {
         // verify that address conforms to generic IPv4 format
-        final String[] groups = ipv4Validator.match(inet4Address);
+        final String[] groups = IPV4_VALIDATOR.match(inet4Address);
         if (groups == null) {
             return false;
         }
