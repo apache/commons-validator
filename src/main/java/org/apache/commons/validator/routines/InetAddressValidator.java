@@ -48,8 +48,7 @@ public class InetAddressValidator implements Serializable {
 
     private static final long serialVersionUID = -919201640201914789L;
 
-    private static final String IPV4_REGEX =
-            "^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$";
+    private static final String IPV4_REGEX = "^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$";
 
     // Max number of hex groups (separated by :) in an IPV6 address
     private static final int IPV6_MAX_HEX_GROUPS = 8;
@@ -65,8 +64,10 @@ public class InetAddressValidator implements Serializable {
     private static final Pattern DIGITS_PATTERN = Pattern.compile("\\d{1,3}");
 
     private static final Pattern ID_CHECK_PATTERN = Pattern.compile("[^\\s/%]+");
+
     /**
      * Returns the singleton instance of this validator.
+     *
      * @return the singleton instance of this validator
      */
     public static InetAddressValidator getInstance() {
@@ -78,6 +79,7 @@ public class InetAddressValidator implements Serializable {
 
     /**
      * Checks if the specified string is a valid IPv4 or IPv6 address.
+     *
      * @param inetAddress the string to validate
      * @return true if the string validates as an IP address
      */
@@ -87,6 +89,7 @@ public class InetAddressValidator implements Serializable {
 
     /**
      * Validates an IPv4 address. Returns true if valid.
+     *
      * @param inet4Address the IPv4 address to validate
      * @return true if the argument contains a valid IPv4 address
      */
@@ -119,6 +122,7 @@ public class InetAddressValidator implements Serializable {
 
     /**
      * Validates an IPv6 address. Returns true if valid.
+     *
      * @param inet6Address the IPv6 address to validate
      * @return true if the argument contains a valid IPv6 address
      *
@@ -155,8 +159,7 @@ public class InetAddressValidator implements Serializable {
         if (containsCompressedZeroes && inet6Address.indexOf("::") != inet6Address.lastIndexOf("::")) {
             return false;
         }
-        if (inet6Address.startsWith(":") && !inet6Address.startsWith("::")
-                || inet6Address.endsWith(":") && !inet6Address.endsWith("::")) {
+        if (inet6Address.startsWith(":") && !inet6Address.startsWith("::") || inet6Address.endsWith(":") && !inet6Address.endsWith("::")) {
             return false;
         }
         String[] octets = inet6Address.split(":");
