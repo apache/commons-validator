@@ -657,7 +657,7 @@ public class InetAddressValidatorTest {
     }
 
     /**
-     * Inet6Address may also contain a scope id
+     * Inet6Address may also contain a scope id.
      */
     @Test
     public void testValidator445() {
