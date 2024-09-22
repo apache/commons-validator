@@ -19,6 +19,7 @@ package org.apache.commons.validator.routines.checkdigit;
 import java.util.logging.Logger;
 
 import org.apache.commons.validator.GenericValidator;
+import org.apache.commons.validator.routines.DateValidator;
 
 /**
  * Czech VAT identification number (VATIN) Check Digit calculation/validation.
@@ -26,7 +27,7 @@ import org.apache.commons.validator.GenericValidator;
  * daňové identifiační číslo (DIČ)
  * </p>
  * <p>
- * See <a href="https://cs.wikipedia.org/wiki/Da%C5%88ov%C3%A9_identifika%C4%8Dn%C3%AD_%C4%8D%C3%ADslo">Wikipedia - CZ</a>
+ * See <a href="https://cs.wikipedia.org/wiki/Da%C5%88ov%C3%A9_identifika%C4%8Dn%C3%AD_%C4%8D%C3%ADslo">Wikipedia - cs</a>
  * for more details.
  * </p>
  *
@@ -57,10 +58,13 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
     static final int LEN9ICO = 9;
     static final int LEN10ICO = 10;
 
-    /** Weighting given to digits depending on their left position */
-    // ==> ==rightPos:
-//    private static final int[] POSITION_WEIGHT = { 8, 7, 6, 5, 4, 3, 2 };
     private static final int[] DIFFTABLE = { 8, 7, 6, 5, 4, 3, 2, 1, 0, 9, 8 };
+    private static final String INVALID_START_WITH = "9";
+    private static final String INVALID_START_MSG = "Invalid code for legal entity, first char cannot be '9' :";
+    private static final int BORN_IN_1900_IND = 54; // year indicator for RČ
+    private static final int SPECIAL_MALE_MOD = 20; // male month modifier for RČ
+    private static final int FEMALE_MOD = 50; // female month modifier for RČ
+    private static final int SPECIAL_FEMALE_MOD = 70; // male month modifier for RČ
 
     /**
      * Constructs a modulus 11 Check Digit routine.
@@ -94,7 +98,7 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException("Code is missing");
         }
-        if (code.length() < LEN) {
+        if (code.length() < LEN) { // legal entity
         /* legal entity : LEN with Check Digit = 8, without Check Digit less then 8
 C1 Cannot be 9.
 
@@ -105,16 +109,19 @@ else A2 = CEIL(A1/11, 1) * 11
 D = A2 -A1
 C8 = D mod 10
         */
+            if (code.startsWith(INVALID_START_WITH)) {
+                throw new CheckDigitException(INVALID_START_MSG + code);
+            }
             final int modulusResult = calculateModulus(code, false);
-            final int charValue = modulusResult == 0 ? MODULUS_11 : (MODULUS_11 - modulusResult) % MODULUS_11;
+//            final int charValue = modulusResult == 0 ? MODULUS_11 : (MODULUS_11 - modulusResult) % MODULUS_11;
+            final int charValue = modulusResult == 0 ? MODULUS_11 : (MODULUS_11 - modulusResult);
             LOG.info(code + ": legal entity length=" + code.length()
             + " A1 mod 11 aka modulusResult=" + modulusResult
             + " A2 aka charValue=" + charValue);
             return toCheckDigit(charValue % MODULUS_10);
         }
         if (code.length() + 1 == LEN9ICO) {
-            LOG.info(code + ": individuals length=" + code.length()
-            + " TODO");
+            LOG.info(code + ": individuals length=" + code.length());
         /* individuals (special cases) : LEN without Check Digit = 8
 C1=6
 
@@ -161,7 +168,45 @@ C10 :
 A1 = C1*C2 + C3*C4 + C5*C6 + C7*C8 + C9*C10
 A1 must be divisible by 11 with no remainder.
 wie C7 C8 C9 zustande kommen wird nicht verraten
+
+
+Numbers given out after January 1st 1954 should have 10 digits.
+The number includes the birth date of the person and their gender.
+
+    const [yy, mm, dd] = strings.splitAt(value, 2, 4, 6);
+    // Gender encode in month, Y2K incoded as well
+//Month of birth,
+//    More than 1 and less than 12 for men or
+//    More than 21 and less than 32 for men or
+//    More than 51 and less than 62 for women or
+//    More than 71 and less 82 for women.
+    const mon = (parseInt(mm, 10) % 50) % 20;
+    let year = parseInt(yy, 10) + 1900;
+    if (value.length === 9) {
+      if (year > 1980) {
+        year -= 100;
+      }
+      if (year > 1953) {
+        return { isValid: false, error: new exceptions.InvalidComponent() };
+      }
+    } else if (year < 1954) {
+      year += 100;
+    }
+    if (!isValidDate(String(year), String(mon), dd, true)) { ...
          */
+        //return calculateRodneCislo(code);
+        return toCheckDigit(calculateRodneCislo(code, false));
+    }
+
+    /*
+     * Czech Republic uses a system inherited from former Czechoslovakia called Birth Number (Czech: Rodné číslo (RČ))
+     *  The form is YYXXDD/SSSC, where XX=MM (month of birth) for male (numbers 01-12)
+     *  and XX=MM+50 for female (numbers 51-62),
+     *  SSS is a serial number separating persons born on the same date
+     *  and C a checksum (full number must be divisible by 11).
+     *  Remark: The form before 1 Januar 1954 is YYXXDD/SSS without a checksum.
+     */
+    private int calculateRodneCislo(final String code, final boolean includesCheckDigit) throws CheckDigitException {
         final int c1 = toInt(code.charAt(0), 1, -1);
         final int c2 = toInt(code.charAt(1), 2, -1);
         final int c3 = toInt(code.charAt(2), 3, -1);
@@ -171,12 +216,43 @@ wie C7 C8 C9 zustande kommen wird nicht verraten
         final int c7 = toInt(code.charAt(6), 7, -1);
         final int c8 = toInt(code.charAt(7), 8, -1);
         final int c9 = toInt(code.charAt(8), 9, -1);
-        final int sum = 10 * (c1 + c3 + c5 + c7 + c9) + c2 + c4 + c6 + c8;
+        int cd = includesCheckDigit ? toInt(code.charAt(9), 10, -1) : 0;  // CHECKSTYLE IGNORE MagicNumber
+        final int sum = 10 * (c1 + c3 + c5 + c7 + c9) + c2 + c4 + c6 + c8 + cd;
         if (sum == 0) {
             throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
-        final int cd = MODULUS_11 - sum % MODULUS_11;
-        return toCheckDigit(cd);
+        final int yy = 10 * c1 + c2;
+        final int yyborn = yy >= BORN_IN_1900_IND ? 1900 + yy : 2000 + yy;  // CHECKSTYLE IGNORE MagicNumber
+        final int mm = 10 * c3 + c4;
+        int mmborn = mm;
+        final String sex = mm > FEMALE_MOD ? "female" : "male";
+        if (mm > SPECIAL_MALE_MOD) {
+            if (mm > FEMALE_MOD) {
+                if (mm > SPECIAL_FEMALE_MOD) {
+                    mmborn -= SPECIAL_FEMALE_MOD;
+                } else {
+                    mmborn -= FEMALE_MOD;
+                }
+            } else {
+                mmborn -= SPECIAL_MALE_MOD;
+            }
+        }
+        final int ddborn = 10 * c5 + c6;
+        LOG.info(code + ": individual (" + sex + ") born=" + yyborn + "/" + mmborn + "/" + ddborn
+            + " sum=" + sum + " sum%11=" + sum % MODULUS_11);
+        DateValidator dateValidator = new DateValidator();
+        String date = String.format("%02d", mmborn) + "/" + String.format("%02d", ddborn) + "/" + yyborn;
+        if (dateValidator.validate(date, "MM/dd/yyyy") == null) {
+            throw new CheckDigitException("Invalid date " + date + " - invalid Rodné číslo (RČ) " + code);
+        }
+        if (includesCheckDigit) {
+            if (sum % MODULUS_11 != 0) {
+                throw new CheckDigitException("Invalid code");
+            }
+        } else {
+            cd = MODULUS_11 - sum % MODULUS_11;
+        }
+        return cd;
     }
 
     protected int calculateModulus6(final String code, final boolean includesCheckDigit) throws CheckDigitException {
@@ -206,21 +282,8 @@ wie C7 C8 C9 zustande kommen wird nicht verraten
             return false;
         }
         if (code.length() == LEN10ICO) try {
-            final int c1 = toInt(code.charAt(0), 1, -1);
-            final int c2 = toInt(code.charAt(1), 2, -1);
-            final int c3 = toInt(code.charAt(2), 3, -1);
-            final int c4 = toInt(code.charAt(3), 4, -1);
-            final int c5 = toInt(code.charAt(4), 5, -1);
-            final int c6 = toInt(code.charAt(5), 6, -1);
-            final int c7 = toInt(code.charAt(6), 7, -1);
-            final int c8 = toInt(code.charAt(7), 8, -1);
-            final int c9 = toInt(code.charAt(8), 9, -1);
-            final int cd = toInt(code.charAt(9), 10, -1);
-            final int sum = 10 * (c1 + c3 + c5 + c7 + c9) + c2 + c4 + c6 + c8 + cd;
-            if (sum == 0) {
-                throw new CheckDigitException(CheckDigitException.ZREO_SUM);
-            }
-            return sum % MODULUS_11 == 0;
+            int cd = calculateRodneCislo(code, true);
+            return cd == Character.getNumericValue(code.charAt(code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
         }
@@ -235,9 +298,12 @@ wie C7 C8 C9 zustande kommen wird nicht verraten
             return false;
         }
         if (code.length() <= LEN) try {
+            if (code.startsWith(INVALID_START_WITH)) {
+                throw new CheckDigitException(INVALID_START_MSG + code);
+            }
             final int modulusResult = MODULUS_11 - INSTANCE.calculateModulus(code, true);
             LOG.info(code + ": legal entity length=" + code.length()
-            + " A1 mod 11 aka modulusResult=" + modulusResult);
+            + " modulusResult=" + modulusResult + " checkdigit=" + modulusResult % MODULUS_10);
             return (modulusResult % MODULUS_10) == Character.getNumericValue(code.charAt(code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;

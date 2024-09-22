@@ -46,17 +46,20 @@ public class VATidCZCheckDigitTest extends AbstractCheckDigitTest {
     protected void setUp() {
         routine = VATidCZCheckDigit.getInstance();
         valid = new String[] {"19", "00000019" // theoretical minimum
+            , "89999991"  // theoretical maximum for legal entity
             , "45799504", "29042828", "00311391", "24276855"
             , "46505334", "25123891"
             // lenght 9 and 10 for physical persons, IČO : Identifikační číslo osoby :
             , "640903926", "600000010" // LEN9ICO starts with "6" => with check digit
             , "7103192745"
             , "6852294449", "6956220612"
-            , "1111111111" // here valid, NOT valid, because 3rd digit is 1, checked in VATINValidator
-            , "9982319996" // theoretical maximum (a women, born 99-12-31)
+            , "7704063345"
+            , "9982319996" // RČ theoretical maximum (a women, born 99-12-31)
             };
-        invalid = new String[] {"395601439" // LEN9ICO without check digit
-                , "991231123" // dto
+        invalid = new String[] {"99999994" // legal entities : first char cannot be '9'
+            , "395601439" // LEN9ICO without check digit
+            , "991231123" // dto
+            , "1113311111" // NOT valid, because 2011/13/31 is invalid date TODO
             };
     }
 
