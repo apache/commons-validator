@@ -59,7 +59,7 @@ public class VATidCZCheckDigitTest extends AbstractCheckDigitTest {
         invalid = new String[] {"99999994" // legal entities : first char cannot be '9'
             , "395601439" // LEN9ICO without check digit, Female born 1939-06-01
             , "991231123" // dto
-            , "1113311111" // NOT valid, because 2011/13/31 is invalid date TODO
+            , "1113311111" // NOT valid, because 2011/13/31 is invalid date
             };
     }
 

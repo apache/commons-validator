@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.DateValidator;
 
@@ -34,7 +36,7 @@ import org.apache.commons.validator.routines.DateValidator;
 public final class VATidCZCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -2419923920463044513L;
-//    private static final Logger LOG = Logger.getLogger(VATidCZCheckDigit.class.getName());
+    private static final Log LOG = LogFactory.getLog(VATidCZCheckDigit.class);
 
     /** Singleton Check Digit instance */
     private static final VATidCZCheckDigit INSTANCE = new VATidCZCheckDigit();
@@ -101,17 +103,11 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
             }
             final int modulusResult = calculateModulus(code, false);
             final int charValue = modulusResult == 0 ? MODULUS_11 : (MODULUS_11 - modulusResult);
-//            LOG.info(code + ": legal entity length=" + code.length()
-//            + " A1 mod 11 aka modulusResult=" + modulusResult
-//            + " A2 aka charValue=" + charValue);
             return toCheckDigit(charValue % MODULUS_10);
         }
         if (code.length() + 1 == LEN9ICO) { // individuals (special cases)
             final int modulusResult = calculateModulus6(code, false);
             final int charValue = modulusResult == 0 ? MODULUS_11 : (MODULUS_11 - modulusResult) % MODULUS_11;
-//            LOG.info(code + ": individuals length=" + code.length()
-//            + " A1 mod 11 aka modulusResult=" + modulusResult
-//            + " D aka charValue=" + charValue);
             return toCheckDigit(DIFFTABLE[charValue - 1]);
         }
 
@@ -150,8 +146,9 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
         final String sex = mm > FEMALE_MOD ? "female" : "male";
         final int mmborn = (mm % FEMALE_MOD) % SPECIAL_MOD;
         final int ddborn = 10 * c5 + c6;
-//        LOG.info(code + ": individual (" + sex + ") born=" + yyborn + "/" + mmborn + "/" + ddborn
-//            + " sum=" + sum + " sum%11=" + sum % MODULUS_11);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(code + ": individual (" + sex + ") born=" + yyborn + "/" + mmborn + "/" + ddborn);
+        }
         DateValidator dateValidator = new DateValidator();
         String date = String.format("%02d", mmborn) + "/" + String.format("%02d", ddborn) + "/" + yyborn;
         if (dateValidator.validate(date, "MM/dd/yyyy") == null) {
@@ -202,9 +199,6 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
         if (code.length() == LEN9ICO) try {
             final int modulusResult = calculateModulus6(code, true);
             final int charValue = modulusResult == 0 ? MODULUS_11 : (MODULUS_11 - modulusResult);
-//            LOG.info(code + ": individuals length=" + code.length()
-//            + " A1 mod 11 aka modulusResult=" + modulusResult
-//            + " D aka charValue=" + charValue);
             return DIFFTABLE[charValue - 1] == Character.getNumericValue(code.charAt(code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
@@ -214,8 +208,6 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
                 throw new CheckDigitException(INVALID_START_MSG + code);
             }
             final int modulusResult = MODULUS_11 - INSTANCE.calculateModulus(code, true);
-//            LOG.info(code + ": legal entity length=" + code.length()
-//            + " modulusResult=" + modulusResult + " checkdigit=" + modulusResult % MODULUS_10);
             return (modulusResult % MODULUS_10) == Character.getNumericValue(code.charAt(code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
