@@ -34,15 +34,8 @@ public class VATidDECheckDigitTest extends AbstractCheckDigitTest {
      */
     @BeforeEach
     protected void setUp() {
-//        routine = VATidDECheckDigit.getInstance();
         routine = Modulus11TenCheckDigit.getInstance();
-        // DE 136586130 https://www.minhoff.de/impressum/
-        // 136695976 aus pruefziffernberechnung.de
-        valid = new String[] {MIN, GEIGER, ITDZ, "136695976", MAX};
-//        valid = new String[] {"000000003"};
-//        invalid = new String[] { "0000014", // wrong check
-//                "200-001-8", // format chars
-//                " 9999992", "9999992 ", " 9999992 ", };
+        valid = new String[] {MIN, GEIGER, ITDZ, "136586130", "136695976", MAX};
         invalid = new String[] {
             "000000003" // sum is zero
         };
