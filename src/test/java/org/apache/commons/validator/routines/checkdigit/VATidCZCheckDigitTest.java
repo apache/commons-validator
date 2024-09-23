@@ -52,12 +52,12 @@ public class VATidCZCheckDigitTest extends AbstractCheckDigitTest {
             // lenght 9 and 10 for physical persons, IČO : Identifikační číslo osoby :
             , "640903926", "600000010" // LEN9ICO starts with "6" => with check digit
             , "7103192745"
-            , "6852294449", "6956220612"
+            , "6852294449", "6956220612", "7211240180"
             , "7704063345"
-            , "9982319996" // RČ theoretical maximum (a women, born 99-12-31)
+            , "9982319996" // RČ theoretical maximum (a women, born 1999-12-31)
             };
         invalid = new String[] {"99999994" // legal entities : first char cannot be '9'
-            , "395601439" // LEN9ICO without check digit
+            , "395601439" // LEN9ICO without check digit, Female born 1939-06-01
             , "991231123" // dto
             , "1113311111" // NOT valid, because 2011/13/31 is invalid date TODO
             };
