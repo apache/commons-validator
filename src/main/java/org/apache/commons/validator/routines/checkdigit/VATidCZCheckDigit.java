@@ -107,7 +107,7 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
         }
         if (code.length() + 1 == LEN9ICO) { // individuals (special cases)
             final int modulusResult = calculateModulus6(code, false);
-            final int charValue = modulusResult == 0 ? MODULUS_11 : (MODULUS_11 - modulusResult) % MODULUS_11;
+            final int charValue = modulusResult == 0 ? MODULUS_11 : (MODULUS_11 - modulusResult);
             return toCheckDigit(DIFFTABLE[charValue - 1]);
         }
 
@@ -135,18 +135,18 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
         final int c8 = toInt(code.charAt(7), 8, -1);
         final int c9 = toInt(code.charAt(8), 9, -1);
         int cd = includesCheckDigit ? toInt(code.charAt(9), 10, -1) : -1;  // CHECKSTYLE IGNORE MagicNumber
-        final int sum = 10 * (c1 + c3 + c5 + c7 + c9) + c2 + c4 + c6 + c8 +
-            (cd == -1 ? 0 : cd == 0 ? 10 : cd);  // CHECKSTYLE IGNORE MagicNumber
+        final int sum = 10 * (c1 + c3 + c5 + c7 + c9)
+            + c2 + c4 + c6 + c8 + (cd == -1 ? 0 : cd == 0 ? 10 : cd);  // CHECKSTYLE IGNORE MagicNumber
         if (sum == 0) {
             throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
         final int yy = 10 * c1 + c2;
         final int yyborn = yy >= BORN_IN_1900_IND ? 1900 + yy : 2000 + yy;  // CHECKSTYLE IGNORE MagicNumber
         final int mm = 10 * c3 + c4;
-        final String sex = mm > FEMALE_MOD ? "female" : "male";
-        final int mmborn = (mm % FEMALE_MOD) % SPECIAL_MOD;
+        final int mmborn = mm % FEMALE_MOD % SPECIAL_MOD;
         final int ddborn = 10 * c5 + c6;
         if (LOG.isDebugEnabled()) {
+            final String sex = mm > FEMALE_MOD ? "female" : "male";
             LOG.debug(code + ": individual (" + sex + ") born=" + yyborn + "/" + mmborn + "/" + ddborn);
         }
         DateValidator dateValidator = new DateValidator();
