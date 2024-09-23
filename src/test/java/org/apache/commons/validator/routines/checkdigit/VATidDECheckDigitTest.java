@@ -35,7 +35,8 @@ public class VATidDECheckDigitTest extends AbstractCheckDigitTest {
     @BeforeEach
     protected void setUp() {
         routine = Modulus11TenCheckDigit.getInstance();
-        valid = new String[] {MIN, GEIGER, ITDZ, "136586130", "136695976", MAX};
+        valid = new String[] {MIN, GEIGER, ITDZ, "136586130", "136695976"
+            , "294776378", "811128135", "294776378", MAX};
         invalid = new String[] {
             "000000003" // sum is zero
         };
