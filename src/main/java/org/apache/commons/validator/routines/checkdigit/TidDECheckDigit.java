@@ -19,23 +19,28 @@ package org.apache.commons.validator.routines.checkdigit;
 import java.util.logging.Logger;
 
 /**
- * deutsche persönliche Steuer-Identifikationsnummer.
+ * German Steuer-Identifikationsnummer (TIN – in short: IdNr.) is available since 2008,
+ * has a length of 11 digits and it applies to individual persons.
  *
  * <p>
- * siehe bgbl193s0736, Bundesgesetztblatt, Jahrgang 1993, Teil I
- * Anlage 3 (zu §9)
- * <br>
- * hybrides MOD 11,10
- * Aufbau: nnnnnnnnnnp.
+ * See <a href="https://download.elster.de/download/schnittstellen/Pruefung_der_Steuer_und_Steueridentifikatsnummer.pdf">Prüfung der Steuer- und Steueridentifikationsnummer (de)</a>
+ * for more details.
  * </p>
-
-Quelle: Bayerisches Landesamt für Steuern:
-<a href="https://download.elster.de/download/schnittstellen/Pruefung_der_Steuer_und_Steueridentifikatsnummer.pdf">Prüfung der Steuer- und Steueridentifikationsnummer</a>
-
-Beispiel: 02476291358 : TestID da führende 0
-
  *
- * @since 1.9.0
+ * @since 1.10.0
+ */
+/* (de)
+ * deutsche persönliche Steuer-Identifikationsnummer.
+ *
+ * Algorithmus siehe bgbl193s0736, Bundesgesetztblatt, Jahrgang 1993, Teil I
+ * Anlage 3 (zu §9)
+ *
+ * hybrides MOD 11,10 Verfahren
+ * Aufbau: nnnnnnnnnnp.
+ *
+ * Quelle: Bayerisches Landesamt für Steuern: elster.de
+ * Beispiel: 02476291358 : TestID da führende 0
+ *
  */
 public final class TidDECheckDigit extends Modulus11TenCheckDigit {
 
@@ -59,21 +64,6 @@ public final class TidDECheckDigit extends Modulus11TenCheckDigit {
     private TidDECheckDigit() {
         super();
     }
-
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    public String calculate(final String code) throws CheckDigitException {
-//        if (GenericValidator.isBlankOrNull(code)) {
-//            throw new CheckDigitException(CheckDigitException.MISSING_CODE);
-//        }
-//        if (GenericTypeValidator.formatLong(code) == 0) {
-//            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
-//        }
-//
-//        return toCheckDigit(INSTANCE.calculateModulus(code, false));
-//    }
 
     /**
      * {@inheritDoc} <br>
@@ -137,27 +127,5 @@ public final class TidDECheckDigit extends Modulus11TenCheckDigit {
         int pruefZiffer = MODULUS_11 - product;
         return pruefZiffer == MODULUS_10 ? 0 : pruefZiffer;
     }
-
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    public boolean isValid(final String code) {
-//        if (GenericValidator.isBlankOrNull(code)) {
-//            return false;
-//        }
-//        if (code.length() < MIN_CODE_LEN) {
-//        	return false;
-//        }
-//        try {
-//            if (GenericTypeValidator.formatLong(code.substring(0, code.length() - 1)) == 0) {
-//                throw new CheckDigitException(CheckDigitException.ZREO_SUM);
-//            }
-//            final int modulusResult = INSTANCE.calculateModulus(code, true);
-//            return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));
-//        } catch (final CheckDigitException ex) {
-//            return false;
-//        }
-//    }
 
 }

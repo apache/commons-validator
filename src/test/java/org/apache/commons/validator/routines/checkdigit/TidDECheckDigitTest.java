@@ -20,18 +20,18 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * DE Tax Id Check Digit Tests.
- * 
-Quelle: Bayerisches Landesamt für Steuern: 
+ *
+Quelle: Bayerisches Landesamt für Steuern:
 <a href="https://download.elster.de/download/schnittstellen/Pruefung_der_Steuer_und_Steueridentifikatsnummer.pdf">Prüfung der Steuer- und Steueridentifikationsnummer</a>
 
 Die Steueridentifikationsnummer ist eine elfstellige Ziffernfolge, // Check in TINValidator
-die elfte Stelle ist eine Prüfziffer. 
+die elfte Stelle ist eine Prüfziffer.
 Die Steueridentifikationsnummer muss folgenden Kriterien entsprechen:
 
     Keine führenden Nullen erlaubt,  // Check in TINValidator
-      außer es ist eine Testidentifikationsnummer 
+      außer es ist eine Testidentifikationsnummer
     In den ersten 10 Stellen der Identifikationsnummer muss genau eine Ziffer doppelt oder dreifach vorkommen.
-    Existieren drei gleiche Ziffern an den Positionen 1 bis 10, 
+    Existieren drei gleiche Ziffern an den Positionen 1 bis 10,
      dürfen diese gleichen Ziffern niemals an direkt aufeinander folgenden Stellen stehen.
 
 Beispiele
@@ -59,9 +59,9 @@ public class TidDECheckDigitTest extends AbstractCheckDigitTest {
                 , "65929970489"
                 , "57549285017"
                 , "25768131411"
-                , "11012234564" // 2 doppelt und 1 dreifach XXX valid !!!!!!!!!!!
+                , "11012234564" // 2 doppelt und 1 dreifach
                 , "11234567890" // doppelte Ziffer : 1 direkt hintereinander
-                , "11012345675" // dreifach Ziffer : 1 nicht direkt hintereinander 
+                , "11012345675" // dreifach Ziffer : 1 nicht direkt hintereinander
             };
         invalid = new String[] {"00000000010" // theoretical minimum
                 , "99999999994" // theoretical maximum

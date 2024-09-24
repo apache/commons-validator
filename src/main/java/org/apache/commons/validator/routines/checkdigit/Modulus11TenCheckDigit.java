@@ -27,7 +27,7 @@ import org.apache.commons.validator.GenericValidator;
  * </p>
  *
  * <p>
- * This MOD 11,10 module can also be used to validate TIN_DE, the VATIN_DE and VATIN_HR
+ * This MOD 11,10 module can also be used to validate TIN_DE, TIN_HR, the VATIN_DE and VATIN_HR
  * used in VATINCheckDigit
  *
  * @since 1.10.0
