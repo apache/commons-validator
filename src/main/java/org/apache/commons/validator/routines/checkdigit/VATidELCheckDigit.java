@@ -48,34 +48,6 @@ public final class VATidELCheckDigit extends ModulusCheckDigit {
 
     static final int LEN = 9; // with Check Digit
 
-    /** Weighting given to digits depending on their left position */
-//    private static final int[] POSITION_WEIGHT = { 3, 7, 1 };
-
-    /**
-     * Constructs a modulus 10 Check Digit routine.
-Check digit = A2 modulo 10
-A2 = A1 modulo 11
-A1 = 256*C1 + 128*C2 + 64*C3 + 32*C4 + 16*C5 + 8*C6 + 4*C7 + 2*C8
-----------
-A1 = 256*0 + 128*4 + 64*0 + 32*1 + 16*2 + 8*7 + 4*7 + 2*9= 678
-A2 = 678 modulo 11 = 7
-C9 = A2 modulo 10 = 7
---------------
-A1 = 2*A1 + Zif
-0
-i	Zif	A1		A2
-0	0	0
-1	4	0+4
-2	0	8+0
-3	1	16+1
-4	2	34+2
-5	7	72+7
-6	7	158+7
-7	9	330+9
-8	p	678		7
-
-
-     */
     private VATidELCheckDigit() {
         super(MODULUS_11);
     }
@@ -122,7 +94,7 @@ i	Zif	A1		A2
             return false;
         }
         if (code.length() < LEN) {
-        	return false;
+            return false;
         }
         try {
             if (GenericTypeValidator.formatLong(code.substring(0, code.length() - 1)) == 0) {
