@@ -20,8 +20,6 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * EE VAT Id Check Digit Tests.
- * EE100931558 ist valide aber ungültig
- * EE100594102 ist gültig
 
 Beispiele
 
@@ -32,6 +30,7 @@ Beispiele
     EE 102264744 : gültig Hansatall, Tartu
     EE 100931558 : valide, aber ungültig, da gelöscht - Name OÜ VANALINNA REISID
     EE 100207415 : valide, aber ungültig, da gelöscht - aus BMF_UID_Konstruktionsregeln.pdf
+    EE 100931558 : valide, aber ungültig
 
  */
 public class VATidEECheckDigitTest extends AbstractCheckDigitTest {

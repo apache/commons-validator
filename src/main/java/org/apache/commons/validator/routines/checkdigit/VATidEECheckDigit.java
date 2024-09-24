@@ -28,15 +28,6 @@ import org.apache.commons.validator.GenericValidator;
  * See <a href="https://www.emta.ee/en/admin/content/handbook_article/742">Estonian Tax and Customs Board</a>
  * for more details.
  * </p>
- * Estnische Umsatzsteuer-Identifikationsnummer.
- *
- * <p>
- * Aufbau: neun, nur Ziffern.
- * </p>
-
-Beispiel: EE 100931558
-aus https://github.com/anghelvalentin/CountryValidator/blob/master/CountryValidator.Tests/CountriesValidators/EstoniaValidatorTests.cs
-
  *
  * @since 1.10.0
  */
@@ -113,7 +104,6 @@ public final class VATidEECheckDigit extends ModulusCheckDigit {
         try {
             final int cm = INSTANCE.calculateModulus(code, true);
             final int cd = cm == 0 ? 0 : MODULUS_10 - cm;
-//  XXX guter Hinweis in HU !!!!
             return cd == Character.getNumericValue(code.charAt(code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
