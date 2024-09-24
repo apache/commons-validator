@@ -21,16 +21,6 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * DK VAT Id Check Digit Tests.
  */
-/*
-
-Im VIES https://ec.europa.eu/taxation_customs/vies/#/vat-validation
-
-bekommt man Informationen zu den VATINs:
-- 88146328 : Tangvejen 5 v/Arne Sørensen
-- 13585628 : Brørup Boligforening
-- 13748136 : aus https://web.archive.org/web/20120917151518/http://www.erhvervsstyrelsen.dk/modulus_11
-
- */
 public class VATidDKCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
