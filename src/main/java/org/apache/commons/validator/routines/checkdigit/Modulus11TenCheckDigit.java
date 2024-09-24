@@ -85,7 +85,7 @@ public class Modulus11TenCheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
 
-        return toCheckDigit(INSTANCE.calculateModulus(code, false));
+        return toCheckDigit(calculateModulus(code, false));
     }
 
     /**
@@ -99,11 +99,9 @@ public class Modulus11TenCheckDigit extends ModulusCheckDigit {
             final int lth = code.length() + (includesCheckDigit ? 0 : 1);
             final int leftPos = i + 1;
             final int rightPos = lth - i;
-            final int charValue = toInt(code.charAt(i), leftPos, rightPos);
-            sum = weightedValue(charValue, leftPos, rightPos) + product;
+            sum = toInt(code.charAt(i), leftPos, rightPos) + product; // do not use weightedValue which returns charValue
             sum = sum % MODULUS_10;
-            if (sum == 0) sum = MODULUS_10;
-            product = 2 * sum % MODULUS_11;
+            product = 2 * (sum == 0 ? MODULUS_10 : sum) % MODULUS_11;
         }
         int pruefZiffer = MODULUS_11 - product;
         return pruefZiffer == MODULUS_10 ? 0 : pruefZiffer;
@@ -124,7 +122,7 @@ public class Modulus11TenCheckDigit extends ModulusCheckDigit {
             if (GenericTypeValidator.formatLong(code.substring(0, code.length() - 1)) == 0) {
                 throw new CheckDigitException(CheckDigitException.ZREO_SUM);
             }
-            final int modulusResult = INSTANCE.calculateModulus(code, true);
+            final int modulusResult = calculateModulus(code, true);
             return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
