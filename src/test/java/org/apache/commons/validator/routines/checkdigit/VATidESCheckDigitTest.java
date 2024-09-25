@@ -23,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 Beispiele
 
     ES A60195278 : gültig, LIDL SUPERMERCADOS, S.A.U.
+    ES F20033361 : gültig, EROSKI, S. COOP. Barrio San Agustín
     ES A13585625 : valide, aber ungültig. Firmensteuernummer, aus pruefziffernberechnung.de
     ES 54362315K : valide, aber ungültig. Privatperson, gleiche Quelle.
     ES 14567852X : nicht valide. Privatperson, aus sap.com und
@@ -44,7 +45,7 @@ public class VATidESCheckDigitTest extends AbstractCheckDigitTest {
     @BeforeEach
     protected void setUp() {
         routine = VATidESCheckDigit.getInstance();
-        valid = new String[] {"A60195278", "A13585625", "54362315K"
+        valid = new String[] {"A60195278", "F20033361", "A13585625", "54362315K"
             , "A58818501"
             , "X2482300W", "B58378431" // gültig lt. VIES
             , "X5253868R", "M1234567L", "J99216582", "B64717838"

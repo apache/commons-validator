@@ -16,8 +16,8 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import java.util.logging.Logger;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 
@@ -37,7 +37,7 @@ import org.apache.commons.validator.GenericValidator;
 public final class VATidESCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -7198490175731077347L;
-    private static final Logger LOG = Logger.getLogger(VATidESCheckDigit.class.getName());
+    private static final Log LOG = LogFactory.getLog(VATidESCheckDigit.class);
 
     /** Singleton Check Digit instance */
     private static final VATidESCheckDigit INSTANCE = new VATidESCheckDigit();
@@ -52,8 +52,8 @@ public final class VATidESCheckDigit extends ModulusCheckDigit {
 
     private static final int MIN_CODE_LEN = 4;
     private static final int MODULUS_23 = 23;
-    private static final String CHECK_CHARACTER = "TRWAGMYFPDXBNJZSQVHLCKE";
-    // "XYZ" Foreign natural person (NIE) siehe https://github.com/koblas/stdnum-js/blob/main/src/es/nif.ts
+    private static final String NIF_LETTER = "TRWAGMYFPDXBNJZSQVHLCKE"; // secuenciaLetrasNIF
+    // "XYZ" Foreign natural person, "KLM" Persons without DNI
     private static final String FORMATOXYZ = "XYZKLM";
     private static final String FORMATONPQ = "NPQRSW";
     private static final String LUHNCHECKLETTER = "JABCDEFGHI";
@@ -93,6 +93,14 @@ public final class VATidESCheckDigit extends ModulusCheckDigit {
         return (MODULUS_10 - modulusResult) % MODULUS_10;
     }
 
+    private char calculateNIFletter(final String code) throws CheckDigitException {
+        long value = GenericTypeValidator.formatLong(code);
+        if (GenericTypeValidator.formatLong(code) == 0) {
+            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+        }
+        return NIF_LETTER.charAt((int) (value % MODULUS_23));
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -103,20 +111,11 @@ public final class VATidESCheckDigit extends ModulusCheckDigit {
         }
         if (Character.isDigit(code.charAt(0))) {
             // Españoles con DNI
-            long value = GenericTypeValidator.formatLong(code);
-            if (value == 0) {
-                throw new CheckDigitException(CheckDigitException.ZREO_SUM);
-            }
-            LOG.info("DNI MOD 23:" + value % MODULUS_23);
-            return "" + CHECK_CHARACTER.charAt((int) (value % MODULUS_23));
+            return "" + calculateNIFletter(code);
         }
         if (FORMATOXYZ.indexOf(code.charAt(0)) > -1) {
-            long value = GenericTypeValidator.formatLong(code.substring(1));
-            if (value == 0) {
-                throw new CheckDigitException(CheckDigitException.ZREO_SUM);
-            }
-            LOG.info("NIE (XYZ)+KLM with MOD 23:" + value % MODULUS_23);
-            return "" + CHECK_CHARACTER.charAt((int) (value % MODULUS_23));
+            // Españoles senza DNI + Extranjeros con NIE
+            return "" + calculateNIFletter(code.substring(1));
         }
 
         // Luhn
@@ -138,62 +137,81 @@ public final class VATidESCheckDigit extends ModulusCheckDigit {
             return false;
         }
         try {
-            final char ccd = code.charAt(code.length() - 1);
+            final char cd = code.charAt(code.length() - 1);
             if (Character.isDigit(code.charAt(0))) {
                 // Españoles con DNI
-                long value = GenericTypeValidator.formatLong(code.substring(0, code.length() - 1));
-                if (value == 0) {
-                    throw new CheckDigitException(CheckDigitException.ZREO_SUM);
-                }
-                return ccd == CHECK_CHARACTER.charAt((int) (value % MODULUS_23));
+                return cd == calculateNIFletter(code.substring(0, code.length() - 1));
             }
             if (FORMATOXYZ.indexOf(code.charAt(0)) > -1) {
                 // Foreign natural person, Extranjero con NIE + Persons without DNI
-                long value = GenericTypeValidator.formatLong(code.substring(1, code.length() - 1));
-                if (value == 0) {
-                    throw new CheckDigitException(CheckDigitException.ZREO_SUM);
-                }
-                return ccd == CHECK_CHARACTER.charAt((int) (value % MODULUS_23));
+                return cd == calculateNIFletter(code.substring(1, code.length() - 1));
             }
 
             // Luhn
-            if (FORMATONPQ.indexOf(code.charAt(0)) > -1) {
-                return ccd == LUHNCHECKLETTER.charAt(calculateLuhn(code.substring(1, code.length() - 1)));
+            final char c0 = code.charAt(0);
+            if (LOG.isDebugEnabled()) {
+                switch (c0) {
+                case 'A':
+                    LOG.debug(code + " : Sociedades anónimas");
+                    break;
+                case 'B':
+                    LOG.debug(code + " : Sociedades de responsabilidad limitada");
+                    break;
+                case 'C':
+                    LOG.debug(code + " : Sociedades colectivas");
+                    break;
+                case 'D':
+                    LOG.debug(code + " : Sociedades comanditarias");
+                    break;
+                case 'E':
+                    LOG.debug(code + " : Comunidades de bienes");
+                    break;
+                case 'F':
+                    LOG.debug(code + " : Sociedades cooperativas");
+                    break;
+                case 'G':
+                    LOG.debug(code + " : Asociaciones y Fundaciones");
+                    break;
+                case 'H':
+                    LOG.debug(code + " : Comunidades de propietarios en régimen de propiedad horizontal");
+                    break;
+                case 'J':
+                    LOG.debug(code + " : Sociedades civiles, con o sin personalidad jurídica");
+                    break;
+                case 'N':
+                    LOG.debug(code + " : Entidades extranjeras");
+                    break;
+                case 'P':
+                    LOG.debug(code + " : Corporaciones Locales");
+                    break;
+                case 'Q':
+                    LOG.debug(code + " : Organismos públicos");
+                    break;
+                case 'R':
+                    LOG.debug(code + " : Congregaciones e instituciones religiosas");
+                    break;
+                case 'S':
+                    LOG.debug(code + " : Órganos de la Administración General del Estado y de las comunidades autónomas");
+                    break;
+                case 'W':
+                    LOG.debug(code + " : Establecimientos permanentes de entidades no residentes en España");
+                    break;
+                case 'U':
+                    LOG.debug(code + " : Uniones Temporales de Empresas");
+                    break;
+                case 'V':
+                    LOG.debug(code + " : Otros tipos no definidos en el resto de claves");
+                    break;
+                default:
+                    LOG.warn(code + " starts with " + c0);
+                    break;
+                }
             }
-            if (code.charAt(0) == 'A') {
-                LOG.info(code + " : Sociedades anónimas");
+            if (FORMATONPQ.indexOf(c0) > -1) {
+                return cd == LUHNCHECKLETTER.charAt(calculateLuhn(code.substring(1, code.length() - 1)));
+            } else {
+                return Character.getNumericValue(cd) == calculateLuhn(code.substring(1, code.length() - 1));
             }
-            if (code.charAt(0) == 'B') {
-                LOG.info(code + " : Sociedades de responsabilidad limitada");
-            }
-            if (code.charAt(0) == 'C') {
-                LOG.info(code + " : Sociedades colectivas");
-            }
-            if (code.charAt(0) == 'D') {
-                LOG.info(code + " : Sociedades comanditarias");
-            }
-            if (code.charAt(0) == 'E') {
-                LOG.info(code + " : Comunidades de bienes");
-            }
-            if (code.charAt(0) == 'F') {
-                LOG.info(code + " : Sociedades cooperativas");
-            }
-            if (code.charAt(0) == 'G') {
-                LOG.info(code + " : Asociaciones y Fundaciones");
-            }
-            if (code.charAt(0) == 'H') {
-                LOG.info(code + " : Comunidades de propietarios en régimen de propiedad horizontal");
-            }
-            if (code.charAt(0) == 'J') {
-                LOG.info(code + " : Sociedades civiles, con o sin personalidad jurídica");
-            }
-            if (code.charAt(0) == 'U') {
-                LOG.info(code + " : Uniones Temporales de Empresas");
-            }
-            if (code.charAt(0) == 'V') {
-                LOG.info(code + " : Otros tipos no definidos en el resto de claves");
-            }
-            return Character.getNumericValue(code.charAt(code.length() - 1)) == calculateLuhn(code.substring(1, code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
         }
