@@ -62,6 +62,9 @@ public class TidDECheckDigitTest extends AbstractCheckDigitTest {
                 , "11012234564" // 2 doppelt und 1 dreifach
                 , "11234567890" // doppelte Ziffer : 1 direkt hintereinander
                 , "11012345675" // dreifach Ziffer : 1 nicht direkt hintereinander
+/* diese Steuernummer wurde vergeben, sie hat aber zwei doppelte Ziffer
+                , "12720320213" // 0 und 1 doppelt und 2 vierfach
+ */
             };
         invalid = new String[] {"00000000010" // theoretical minimum
                 , "99999999994" // theoretical maximum
