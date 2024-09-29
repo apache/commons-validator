@@ -69,7 +69,7 @@ The <action> type attribute can be add,update,fix,remove.
       <!-- ADD -->
       <action type="update" dev="ggregory" due-to="Leonard Wicke, Gary Gregory">Add IBANValidator.Validator.getIbanLength().</action> 
       <!-- UPDATE -->
-      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-parent from 70 to 75 #231, #245, #253, #256, #262.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-parent from 70 to 76 #231, #245, #253, #256, #262, #267.</action>
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump commons-logging:commons-logging from 1.3.2 to 1.3.4 #238, #254.</action>
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-lang3 from 3.15.0 to 3.17.0 #248, #257.</action>
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-csv from 1.11.0 to 1.12.0 #264.</action>
