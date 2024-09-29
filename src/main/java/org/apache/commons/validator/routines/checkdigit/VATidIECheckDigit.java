@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import java.util.logging.Logger;
-
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 
@@ -33,7 +31,6 @@ import org.apache.commons.validator.GenericValidator;
 public final class VATidIECheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = 4007034045902340075L;
-    private static final Logger LOG = Logger.getLogger(VATidIECheckDigit.class.getName());
 
     /** Singleton Check Digit instance */
     private static final VATidIECheckDigit INSTANCE = new VATidIECheckDigit();
@@ -65,7 +62,7 @@ public final class VATidIECheckDigit extends ModulusCheckDigit {
         if (charValue >= 0 && charValue <= CHECK_CHARACTER.length() - 1) {
             return "" + CHECK_CHARACTER.charAt(charValue);
         }
-        throw new CheckDigitException("Invalid Check Digit Value =" + +charValue);
+        throw new CheckDigitException("Invalid Check Digit Value =" + charValue);
     }
 
     /**
@@ -79,7 +76,6 @@ public final class VATidIECheckDigit extends ModulusCheckDigit {
         if (Character.isDigit(character)) {
             return Character.getNumericValue(character);
         }
-        LOG.fine("character=" + character + " at leftPos=" + leftPos);
         if (leftPos == POS9) {
             return 1 + LETTER9TONUMBER.indexOf(character);
         }
@@ -95,11 +91,6 @@ public final class VATidIECheckDigit extends ModulusCheckDigit {
     }
 
     /** Weighting given to digits depending on their left position */
-    /*
-Ziffern werden von rechts nach links,
-beginnend mit der vorletzten Ziffer (also vor der Stelle der Prüfziffer),
-mit ihrer Position in der Ziffernfolge gewichtet, beginnend mit 2
-     */
     private static final int[] POSITION_WEIGHT = { 8, 7, 6, 5, 4, 3, 2 };
     /**
      * Calculates the <i>weighted</i> value of a character in the
@@ -118,11 +109,7 @@ mit ihrer Position in der Ziffernfolge gewichtet, beginnend mit 2
             final int weight = POSITION_WEIGHT[(leftPos - 1)];
             return charValue * weight;
         }
-        if (leftPos == POS9) {
-//            LOG.info("charValue="+charValue);
-            return leftPos * charValue;
-        }
-        return 0;
+        return leftPos == POS9 ? leftPos * charValue : 0;
     }
 
     /**
@@ -137,7 +124,6 @@ mit ihrer Position in der Ziffernfolge gewichtet, beginnend mit 2
             throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
         int r = super.calculateModulus(code, true);
-//        LOG.info(code + " calculateModulus R="+r);
         return toCheckDigit(r);
     }
 
@@ -153,13 +139,11 @@ mit ihrer Position in der Ziffernfolge gewichtet, beginnend mit 2
             return false;
         }
         String code0 = code.substring(0, LEN) + 0 + code.substring(LEN + 1);
-//        LOG.info(code + " code0="+code0);
         try {
             if (code.length() >= LEN && GenericTypeValidator.formatLong(code.substring(0, LEN)) == 0) {
                 throw new CheckDigitException(CheckDigitException.ZREO_SUM);
             }
             final int modulusResult = INSTANCE.calculateModulus(code0, true);
-//            LOG.info(code + " calculateModulus modulusResult="+modulusResult + "code.charAt(LEN)"+code.charAt(LEN));
             return toCheckDigit(modulusResult).charAt(0) == code.charAt(LEN);
         } catch (final CheckDigitException ex) {
             return false;
