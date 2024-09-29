@@ -29,6 +29,8 @@ public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
     private static final String VALID_MASTERCARD = "5105105105105100";
     private static final String VALID_DISCOVER = "6011000990139424";
     private static final String VALID_DINERS = "30569309025904";
+    private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
+    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without leading "01"
 
     /**
      * Sets up routine & valid codes.
@@ -38,6 +40,7 @@ public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
 
         routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
 
-        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS };
+        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS
+            , VALID_IT_IVA_BANCA_ITALIA, VALID_SE_VATIN_OLLE_SVENSSONS, "12345678903", "10215", "12345670017"};
     }
 }
