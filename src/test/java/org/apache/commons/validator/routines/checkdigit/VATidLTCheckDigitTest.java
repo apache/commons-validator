@@ -33,15 +33,15 @@ public class VATidLTCheckDigitTest extends AbstractCheckDigitTest {
             , "290061371314" // 12-stellig aus BMF_UID_Konstruktionsregeln.pdf
             , "100014579016" // Senoji rotonda
             , "100008668610" // Geltonas namas
+            , "119511515" // Klaipėdos universitetas
             , "582708716" // ASIMA
             , "237153113" // RIMI
             , "230335113" // maxima
             , "321389515" // kautra
-            , "100008668621" // TODO invalid C11 = 1
+            , "100008668621"
+            , "100001919017"
             };
-        invalid = new String[] {"07091910933" // aus SAP Format 2: Natural person
-//            ,"07091910931" // mit anderer Prüfziffer
-            };
+        invalid = new String[] {"07091910933"};
     }
 
 }
