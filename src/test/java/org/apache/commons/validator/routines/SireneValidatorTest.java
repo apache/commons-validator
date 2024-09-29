@@ -26,8 +26,10 @@ public class SireneValidatorTest {
     private final String[] validFormat = new String[] {
         "123456782", // SIREN
         "572141885", // SIREN
+        "502090897", // SIREN flexitec.fr
         "57214188502180", // SIRET
         "50810215900334", // SIRET
+        "40483304800022", // valid but not longer active in SIRENE catalogue
     };
 
     private final String[] invalidFormat = new String[] {

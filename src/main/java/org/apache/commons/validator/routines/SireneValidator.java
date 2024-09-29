@@ -18,6 +18,7 @@ package org.apache.commons.validator.routines;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 
 /**
@@ -97,13 +98,16 @@ public class SireneValidator {
     /**
      * Validate a SIRENE-ID (SIREN or SIRET)
      *
-     * @param id The value validation is being performed on
+     * @param code The value validation is being performed on
      * @return <code>true</code> if the value is valid
      */
-    public boolean isValid(String id) {
+    public boolean isValid(final String code) {
+        if (GenericValidator.isBlankOrNull(code)) {
+            return false;
+        }
 
-        id = id.trim();
-        if (id == null || (id.length() != SIREN_CODE_LEN && id.length() != SIRET_CODE_LEN)) {
+        String id = code.trim();
+        if (id.length() != SIREN_CODE_LEN && id.length() != SIRET_CODE_LEN) {
             return false;
         }
 

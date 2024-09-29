@@ -47,22 +47,26 @@ public class VATidFRCheckDigitTest extends AbstractCheckDigitTest {
     protected void setUp() {
         checkDigitLth = VATidFRCheckDigit.CHECKDIGIT_LEN;
         routine = VATidFRCheckDigit.getInstance();
-/*
-23 334175221 [N0, T0, H1, N1, C2, U2, Z2, J3, P3, D4, V4, Q5, V5, E6, K6, R7, W7, L8, A9, F9, X9, 0H, 1H, 2J, 3J, 4J, 5J, 6J, 7K, 8K, 9K, 0V, 1V, 1W, 2W, 3W, 4W, 5W, 6W, 6X, 7X, 8X, 9X]
+/* not SIREN:
 2H 123456789 32 [H0, Z0, C1, U1, Z1, J2, P2, D3, V3, Q4, E5, K5, R6, W6, F7, L7, A8, F8, X8, M9, S9, 2H, 3H, 4H, 5H, 6H, 7H, 7J, 8J, 9J, 0U, 1U, 2V, 3V, 4V, 5V, 6V, 7W, 8W, 9W]
-40 303265045 [N0, T0, H1, N1, C2, U2, Z2, J3, P3, D4, V4, Q5, V5, E6, K6, R7, W7, L8, A9, F9, X9, 0H, 1H, 2J, 3J, 4J, 5J, 6J, 7K, 8K, 9K, 0V, 1V, 1W, 2W, 3W, 4W, 5W, 6W, 6X, 7X, 8X, 9X]
+
 00 300076965 [K0, Q0, E1, W1, L2, R2, F3, L3, A4, S4, X4, M5, B6, T6, Y6, N7, T7, C8, H8, Z8, P9, U9, 0C, 1C, 2C, 3C, 4C, 4D, 5D, 6D, 7D, 8D, 9D, 9E, 0Q, 1Q, 2Q, 3Q, 4R, 5R, 6R, 7R, 8R, 9S]
+23 334175221 [N0, T0, H1, N1, C2, U2, Z2, J3, P3, D4, V4, Q5, V5, E6, K6, R7, W7, L8, A9, F9, X9, 0H, 1H, 2J, 3J, 4J, 5J, 6J, 7K, 8K, 9K, 0V, 1V, 1W, 2W, 3W, 4W, 5W, 6W, 6X, 7X, 8X, 9X]
+40 303265045 [N0, T0, H1, N1, C2, U2, Z2, J3, P3, D4, V4, Q5, V5, E6, K6, R7, W7, L8, A9, F9, X9, 0H, 1H, 2J, 3J, 4J, 5J, 6J, 7K, 8K, 9K, 0V, 1V, 1W, 2W, 3W, 4W, 5W, 6W, 6X, 7X, 8X, 9X]
 K7 399859412 06 [B0, Y0, B1, T1, H2, N2, C3, U3, Z3, J4, P4, D5, J5, Q6, V6, E7, K7, R8, W8, L9, R9, 0J, 1J, 1K, 2K, 3K, 4K, 5K, 6K, 6L, 7L, 8L, 9L, 0W, 1X, 2X, 3X, 4X, 5X, 6Y, 7Y, 8Y, 9Y]
 
  */
 
-        valid = new String[] {"00300076965" // also possible check digit: ...
+        valid = new String[] {"00300076965"
+            , "55502090897"
             , "40303265045" // also possible check digit: "N0" ...
             , "23334175221"
             , "06399859412"
 //            , "K7399859412" // wieso gerade K7 aus den vielen möglichen check digits ??? und nicht 06
-//            , "2H123456789" // auch 32 wäre möglich
-            , "32123456789"
+            , "83404833048"
+// not SIREN:           , "2H123456789" // auch 32 wäre möglich
+// not SIREN:           , "32123456789"
+            , "11123456782" // konstruiert: L'identifiant n'existe pas dans le répertoire Sirene.
             };
 ////      invalid = new String[] {"83404833048", "84323140391"};
 //        invalid = new String[] {"00300076965"};
