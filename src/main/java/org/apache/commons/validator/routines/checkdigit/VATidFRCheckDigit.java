@@ -116,7 +116,7 @@ Example: VAT key - [12 - 3 - (404 833 048 modulo 97) - modulo 97 - [12 - 3 - 56 
 //        LOG.info(code + " cd=" + cd + ", siren%97=" + siren % MODULUS_97
 //            + " [12 + 3 × (SIREN modulo 97)]=" + (12 + cd3));
 
-        Long cde = GenericTypeValidator.formatLong((code + "12"));
+        Long cde = GenericTypeValidator.formatLong(code + "12");
         if (cde == null) {
             throw new CheckDigitException("Invalid code, '" + code + "'");
         }
