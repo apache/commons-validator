@@ -26,6 +26,7 @@ import org.apache.commons.validator.routines.DateValidator;
  * Latvian VAT identification number (VATIN) Check Digit calculation/validation.
  * <p>
  * pievienotāsvērtības nodokļa reģistrācijas numurs (PVN)
+ * - there are different calculations for legal persons and natural persons
  * </p>
  *
  * @since 1.10.0
@@ -46,30 +47,24 @@ public final class VATidLVCheckDigit extends ModulusCheckDigit {
         return INSTANCE;
     }
 
-/* beginnend mit n>3: Legal persons
-    c1 * 1 + c2 * 6 + c3 * 3 + c4 * 7 + c5 * 9 + c6 * 10 + c7 * 5 + c8 * 8 + c9 * 4 + c10 * 2;
-     9*C5   1*C1   4*C9   8*C8   3*C3   10*C6   2*C10  5*C7   7*C4   6*C2
-die POSITION_WEIGHT für TIN ist eine permutation von POSITION_WEIGHT für firmen
-A1 = 9*C1 + 1*C2 + 4*C3 + 8*C4 + 3*C5 + 10*C6 + 2*C7 + 5*C8 + 7*C9 + 6*C10
-R = 3 - (A1 modulo 11)
-If R < -1, then C11 = R + 11
-If R > -1, then C11 = R
-If R = -1, then VAT number is invalid
----
-A1 = 9*4 + 1*0 + 4*0 + 8*0 + 3*3 + 10*0 + 2*0 + 5*9 + 7*4 + 6*9 = 172
-R = 3 - (172 modulo 11) = 3 - 7 = -4
-C11 = -4 + 11 = 7
-
- */
     private static final int LEN = 11;
     /**
      * Three is a legal person indicator.
      * Codes starting with x > THREE are given to legal persons.
      */
     private static final int THREE = 3;
+    private static final String INVALID_CODE_NEGATIVE = "Invalid code, check digit cannot be negative";
 
     /** Weighting given to digits depending on their left position */
     private static final int[] POSITION_WEIGHT = { 9, 1, 4, 8, 3, 10, 2, 5, 7, 6 };
+    
+    /* TIN Weighting given to digits depending on their left position 
+    c1 * 1 + c2 * 6 + c3 * 3 + c4 * 7 + c5 * 9 + c6 * 10 + c7 * 5 + c8 * 8 + c9 * 4 + c10 * 2;
+     9*C5   1*C1   4*C9   8*C8   3*C3   10*C6   2*C10  5*C7   7*C4   6*C2
+die POSITION_WEIGHT für TIN ist eine permutation von POSITION_WEIGHT für firmen
+A1 = 9*C1 + 1*C2 + 4*C3 + 8*C4 + 3*C5 + 10*C6 + 2*C7 + 5*C8 + 7*C9 + 6*C10
+     */
+//    private static final int[] TIN_POSITION_WEIGHT = { 1, 6, 3, 7, 9, 10, 5, 8, 4, 2 };
 
     /**
      * Constructs a modulus 11 Check Digit routine.
@@ -98,6 +93,9 @@ C11 = -4 + 11 = 7
 
     /**
      * {@inheritDoc}
+     * <p>
+     * Overridden to calculate <em>Check Digit</em> for legal persons and natural persons.
+     * </p>
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
@@ -113,15 +111,27 @@ C11 = -4 + 11 = 7
             final int modulusResult = calculateModulus(code, false);
             final int charValue = 3 - modulusResult;
             if (charValue == -1) {
-                throw new CheckDigitException("Invalid code, R==-1");
+                throw new CheckDigitException(INVALID_CODE_NEGATIVE);
             }
-//            LOG.info(code + " charValue="+charValue);
             return toCheckDigit(charValue > -1 ? charValue : charValue + MODULUS_11);
         }
-        LOG.info(code + " is natural person");
+        // else natural person
+        return toCheckDigit(calculateNMIN(code, true));
+    }
+
+    /**
+     * Calculate a <em>Check Digit</em> for a natural person code.
+     * 
+     * @param code without checkdigit
+     * @param invalidDateException, true for testing
+     * @return check digit
+     * @throws CheckDigitException
+     */
+    private int calculateNMIN(final String code, boolean invalidDateException) throws CheckDigitException {
         if (code.length() != LEN - 1) {
             throw new CheckDigitException("Invalid code, code.length()=" + code.length());
         }
+        final int c1 = toInt(code.charAt(0), 1, -1);
         final int c2 = toInt(code.charAt(1), 2, -1);
         final int dd = 10 * c1 + c2;
         if (dd > 0 && dd <= 31) { // CHECKSTYLE IGNORE MagicNumber
@@ -140,20 +150,28 @@ C11 = -4 + 11 = 7
             DateValidator dateValidator = new DateValidator();
             String date = mmborn + "/" + String.format("%02d", dd) + "/" + yyborn;
             if (dateValidator.validate(date, "MM/dd/yyyy") == null) {
-                LOG.warn("Invalid century indicator " + centuryInd + " or date " + date + " - Invalid NMIN " + code);
-//                throw new CheckDigitException("Invalid date " + date + " - Invalid NMIN " + code);
+                if (invalidDateException) {
+                     throw new CheckDigitException("Invalid date " + date + " - Invalid NMIN " + code);
+                } else {
+                    LOG.warn("Invalid century indicator " + centuryInd + " or date " + date + " - Invalid NMIN " + code);
+                }
             }
-            LOG.info(code + " is NMIN (TIN) for a person born " + date);
-       }
-        int charValue = vRule1(code);
-        if (charValue == -1) {
-            throw new CheckDigitException("Invalid code, R==-1");
+            if (LOG.isDebugEnabled()) {
+                LOG.debug(code + " is NMIN (TIN) for a person born " + date);
+            }
         }
-        return toCheckDigit(charValue);
+        int cd = vRule1(code);
+        if (cd == -1) {
+            throw new CheckDigitException(INVALID_CODE_NEGATIVE);
+        }
+        return cd;
     }
 
     /**
      * {@inheritDoc}
+     * <p>
+     * Overridden to validate vatin codes for legal persons and natural persons.
+     * </p>
      */
     @Override
     public boolean isValid(final String code) {
@@ -169,17 +187,13 @@ C11 = -4 + 11 = 7
                 final int modulusResult = INSTANCE.calculateModulus(code, true);
                 final int charValue = 3 - modulusResult;
                 if (charValue == -1) {
-                    throw new CheckDigitException("Invalid code, R==-1");
+                    throw new CheckDigitException(INVALID_CODE_NEGATIVE);
                 }
                 final int cd = charValue > -1 ? charValue : charValue + MODULUS_11;
                 return cd == Character.getNumericValue(code.charAt(code.length() - 1));
             }
-            LOG.info(code + " is natural person");
-            int charValue = vRule1(code);
-            if (charValue == -1) {
-                throw new CheckDigitException("Invalid code, R==-1");
-            }
-            return charValue == Character.getNumericValue(code.charAt(code.length() - 1));
+            int ccd = calculateNMIN(code.substring(0, LEN - 1), true);
+            return ccd == Character.getNumericValue(code.charAt(code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
         }
