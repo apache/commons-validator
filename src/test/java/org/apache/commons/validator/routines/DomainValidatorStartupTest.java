@@ -23,7 +23,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +45,7 @@ public class DomainValidatorStartupTest {
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "ch"); // OK
         final DomainValidator dv = DomainValidator.getInstance();
         assertNotNull(dv);
-        try {
-            DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "ch");
-            fail("Expected IllegalStateException");
-        } catch (final IllegalStateException ise) {
-            // expected
-        }
+        assertThrows(IllegalStateException.class, () -> DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "ch"));
     }
 
     @Test
