@@ -59,9 +59,6 @@ public final class VATidNLCheckDigit extends ModulusCheckDigit {
 
     /** Weighting given to digits depending on their left position */
     /*
- Ziffern werden von rechts nach links,
- beginnend mit der vorletzten Ziffer (also vor der Stelle der Prüfziffer),
- mit ihrer Position in der Ziffernfolge gewichtet, beginnend mit 2
      */
     private static final int[] POSITION_WEIGHT = { 9, 8, 7, 6, 5, 4, 3, 2 };
     /**
