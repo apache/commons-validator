@@ -57,8 +57,8 @@ public final class VATidLVCheckDigit extends ModulusCheckDigit {
 
     /** Weighting given to digits depending on their left position */
     private static final int[] POSITION_WEIGHT = { 9, 1, 4, 8, 3, 10, 2, 5, 7, 6 };
-    
-    /* TIN Weighting given to digits depending on their left position 
+
+    /* TIN Weighting given to digits depending on their left position
     c1 * 1 + c2 * 6 + c3 * 3 + c4 * 7 + c5 * 9 + c6 * 10 + c7 * 5 + c8 * 8 + c9 * 4 + c10 * 2;
      9*C5   1*C1   4*C9   8*C8   3*C3   10*C6   2*C10  5*C7   7*C4   6*C2
 die POSITION_WEIGHT für TIN ist eine permutation von POSITION_WEIGHT für firmen
@@ -121,7 +121,7 @@ A1 = 9*C1 + 1*C2 + 4*C3 + 8*C4 + 3*C5 + 10*C6 + 2*C7 + 5*C8 + 7*C9 + 6*C10
 
     /**
      * Calculate a <em>Check Digit</em> for a natural person code.
-     * 
+     *
      * @param code without checkdigit
      * @param invalidDateException, true for testing
      * @return check digit
