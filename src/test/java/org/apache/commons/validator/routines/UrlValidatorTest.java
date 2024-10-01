@@ -16,9 +16,6 @@
  */
 package org.apache.commons.validator.routines;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -615,7 +612,7 @@ public class UrlValidatorTest {
     @Test
     public void testValidator473Part1() { // reject null DomainValidator
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new UrlValidator(new String[] {}, null, 0L, null));
-        assertThat(thrown.getMessage(), is(equalTo("DomainValidator must not be null")));
+        assertEquals("DomainValidator must not be null", thrown.getMessage());
     }
 
     @Test
@@ -623,7 +620,7 @@ public class UrlValidatorTest {
         final List<DomainValidator.Item> items = new ArrayList<>();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> new UrlValidator(new String[] {}, null, 0L, DomainValidator.getInstance(true, items)));
-        assertThat(thrown.getMessage(), is(equalTo("DomainValidator disagrees with ALLOW_LOCAL_URLS setting")));
+        assertEquals("DomainValidator disagrees with ALLOW_LOCAL_URLS setting", thrown.getMessage());
     }
 
     @Test
@@ -631,7 +628,7 @@ public class UrlValidatorTest {
         final List<DomainValidator.Item> items = new ArrayList<>();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> new UrlValidator(new String[] {}, null, UrlValidator.ALLOW_LOCAL_URLS, DomainValidator.getInstance(false, items)));
-        assertThat(thrown.getMessage(), is(equalTo("DomainValidator disagrees with ALLOW_LOCAL_URLS setting")));
+        assertEquals("DomainValidator disagrees with ALLOW_LOCAL_URLS setting", thrown.getMessage());
     }
 
 }

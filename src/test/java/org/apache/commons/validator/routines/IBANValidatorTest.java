@@ -16,9 +16,7 @@
  */
 package org.apache.commons.validator.routines;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -359,20 +357,21 @@ public class IBANValidatorTest {
     @Test
     public void testSetDefaultValidator1() {
         final IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> VALIDATOR.setValidator("GB", 15, "GB"));
-        assertThat(thrown.getMessage(), is(equalTo("The singleton validator cannot be modified")));
+        assertEquals("The singleton validator cannot be modified", thrown.getMessage());
+
     }
 
     @Test
     public void testSetDefaultValidator2() {
         final IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> VALIDATOR.setValidator("GB", -1, "GB"));
-        assertThat(thrown.getMessage(), is(equalTo("The singleton validator cannot be modified")));
+        assertEquals("The singleton validator cannot be modified", thrown.getMessage());
     }
 
     @Test
     public void testSetValidatorLC() {
         final IBANValidator validator = new IBANValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("gb", 15, "GB"));
-        assertThat(thrown.getMessage(), is(equalTo("Invalid country Code; must be exactly 2 upper-case characters")));
+        assertEquals("Invalid country Code; must be exactly 2 upper-case characters", thrown.getMessage());
     }
 
     @Test
@@ -386,14 +385,14 @@ public class IBANValidatorTest {
     public void testSetValidatorLen35() {
         final IBANValidator validator = new IBANValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("GB", 35, "GB"));
-        assertThat(thrown.getMessage(), is(equalTo("Invalid length parameter, must be in range 8 to 34 inclusive: 35")));
+        assertEquals("Invalid length parameter, must be in range 8 to 34 inclusive: 35", thrown.getMessage());
     }
 
     @Test
     public void testSetValidatorLen7() {
         final IBANValidator validator = new IBANValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("GB", 7, "GB"));
-        assertThat(thrown.getMessage(), is(equalTo("Invalid length parameter, must be in range 8 to 34 inclusive: 7")));
+        assertEquals("Invalid length parameter, must be in range 8 to 34 inclusive: 7", thrown.getMessage());
     }
 
     @Test
