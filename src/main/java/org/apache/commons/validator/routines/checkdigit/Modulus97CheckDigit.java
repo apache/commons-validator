@@ -166,7 +166,7 @@ public class Modulus97CheckDigit extends AbstractCheckDigit implements Serializa
      * @throws CheckDigitException if integer character value
      * doesn't represent a numeric character
      */
-    protected String toCheckDigit(final int cdValue) throws CheckDigitException {
+    public static String toCheckDigit(final int cdValue) throws CheckDigitException {
         if (cdValue > 99) { // CHECKSTYLE IGNORE MagicNumber
             throw new CheckDigitException("Invalid Check Digit Value =" + cdValue);
         }
