@@ -16,8 +16,11 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
+import org.apache.commons.validator.routines.DateValidator;
 
 /**
  * Latvian VAT identification number (VATIN) Check Digit calculation/validation.
@@ -30,6 +33,7 @@ import org.apache.commons.validator.GenericValidator;
 public final class VATidLVCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -4171562329195981385L;
+    private static final Log LOG = LogFactory.getLog(VATidLVCheckDigit.class);
 
     /** Singleton Check Digit instance */
     private static final VATidLVCheckDigit INSTANCE = new VATidLVCheckDigit();
@@ -43,6 +47,9 @@ public final class VATidLVCheckDigit extends ModulusCheckDigit {
     }
 
 /* beginnend mit n>3: Legal persons
+    c1 * 1 + c2 * 6 + c3 * 3 + c4 * 7 + c5 * 9 + c6 * 10 + c7 * 5 + c8 * 8 + c9 * 4 + c10 * 2;
+     9*C5   1*C1   4*C9   8*C8   3*C3   10*C6   2*C10  5*C7   7*C4   6*C2
+die POSITION_WEIGHT für TIN ist eine permutation von POSITION_WEIGHT für firmen
 A1 = 9*C1 + 1*C2 + 4*C3 + 8*C4 + 3*C5 + 10*C6 + 2*C7 + 5*C8 + 7*C9 + 6*C10
 R = 3 - (A1 modulo 11)
 If R < -1, then C11 = R + 11
@@ -55,6 +62,11 @@ C11 = -4 + 11 = 7
 
  */
     private static final int LEN = 11;
+    /**
+     * Three is a legal person indicator.
+     * Codes starting with x > THREE are given to legal persons.
+     */
+    private static final int THREE = 3;
 
     /** Weighting given to digits depending on their left position */
     private static final int[] POSITION_WEIGHT = { 9, 1, 4, 8, 3, 10, 2, 5, 7, 6 };
@@ -92,15 +104,52 @@ C11 = -4 + 11 = 7
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
-        if (code.length() >= LEN && GenericTypeValidator.formatLong(code) == 0) {
+        if (GenericTypeValidator.formatLong(code) == 0) {
             throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
-        final int modulusResult = calculateModulus(code, false);
-        final int charValue = 3 - modulusResult;
+        final int c1 = toInt(code.charAt(0), 1, -1);
+        if (c1 > THREE) {
+            // Legal persons
+            final int modulusResult = calculateModulus(code, false);
+            final int charValue = 3 - modulusResult;
+            if (charValue == -1) {
+                throw new CheckDigitException("Invalid code, R==-1");
+            }
+//            LOG.info(code + " charValue="+charValue);
+            return toCheckDigit(charValue > -1 ? charValue : charValue + MODULUS_11);
+        }
+        LOG.info(code + " is natural person");
+        if (code.length() != LEN - 1) {
+            throw new CheckDigitException("Invalid code, code.length()=" + code.length());
+        }
+        final int c2 = toInt(code.charAt(1), 2, -1);
+        final int dd = 10 * c1 + c2;
+        if (dd > 0 && dd <= 31) { // CHECKSTYLE IGNORE MagicNumber
+            String mmborn = code.substring(2, 4); // CHECKSTYLE IGNORE MagicNumber
+            final int centuryInd = toInt(code.charAt(6), 7, -1);
+            String yyborn = code.substring(4, 6); // CHECKSTYLE IGNORE MagicNumber
+            if (centuryInd == 0) {
+                yyborn = "18" + yyborn;
+            } else if (centuryInd == 1) {
+                yyborn = "19" + yyborn;
+            } else if (centuryInd == 2) {
+                yyborn = "20" + yyborn;
+            } else {
+                yyborn = "??" + yyborn;
+            }
+            DateValidator dateValidator = new DateValidator();
+            String date = mmborn + "/" + String.format("%02d", dd) + "/" + yyborn;
+            if (dateValidator.validate(date, "MM/dd/yyyy") == null) {
+                LOG.warn("Invalid century indicator " + centuryInd + " or date " + date + " - Invalid NMIN " + code);
+//                throw new CheckDigitException("Invalid date " + date + " - Invalid NMIN " + code);
+            }
+            LOG.info(code + " is NMIN (TIN) for a person born " + date);
+       }
+        int charValue = vRule1(code);
         if (charValue == -1) {
             throw new CheckDigitException("Invalid code, R==-1");
         }
-        return toCheckDigit(charValue > -1 ? charValue : charValue + MODULUS_11);
+        return toCheckDigit(charValue);
     }
 
     /**
@@ -115,16 +164,43 @@ C11 = -4 + 11 = 7
             return false;
         }
         try {
-            final int modulusResult = INSTANCE.calculateModulus(code, true);
-            final int charValue = 3 - modulusResult;
+            final int c1 = toInt(code.charAt(0), 1, -1);
+            if (c1 > THREE) {
+                final int modulusResult = INSTANCE.calculateModulus(code, true);
+                final int charValue = 3 - modulusResult;
+                if (charValue == -1) {
+                    throw new CheckDigitException("Invalid code, R==-1");
+                }
+                final int cd = charValue > -1 ? charValue : charValue + MODULUS_11;
+                return cd == Character.getNumericValue(code.charAt(code.length() - 1));
+            }
+            LOG.info(code + " is natural person");
+            int charValue = vRule1(code);
             if (charValue == -1) {
                 throw new CheckDigitException("Invalid code, R==-1");
             }
-            final int cd = charValue > -1 ? charValue : charValue + MODULUS_11;
-            return cd == Character.getNumericValue(code.charAt(code.length() - 1));
+            return charValue == Character.getNumericValue(code.charAt(code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
         }
     }
+
+    private int vRule1(String code) {
+        int c1 = Character.getNumericValue(code.charAt(0)); // CHECKSTYLE IGNORE MagicNumber
+        int c2 = Character.getNumericValue(code.charAt(1)); // CHECKSTYLE IGNORE MagicNumber
+        int c3 = Character.getNumericValue(code.charAt(2)); // CHECKSTYLE IGNORE MagicNumber
+        int c4 = Character.getNumericValue(code.charAt(3)); // CHECKSTYLE IGNORE MagicNumber
+        int c5 = Character.getNumericValue(code.charAt(4)); // CHECKSTYLE IGNORE MagicNumber
+        int c6 = Character.getNumericValue(code.charAt(5)); // CHECKSTYLE IGNORE MagicNumber
+        int c7 = Character.getNumericValue(code.charAt(6)); // CHECKSTYLE IGNORE MagicNumber
+        int c8 = Character.getNumericValue(code.charAt(7)); // CHECKSTYLE IGNORE MagicNumber
+        int c9 = Character.getNumericValue(code.charAt(8)); // CHECKSTYLE IGNORE MagicNumber
+        int c10 = Character.getNumericValue(code.charAt(9)); // CHECKSTYLE IGNORE MagicNumber
+        int sum = c1 * 1 + c2 * 6 + c3 * 3 + c4 * 7 + c5 * 9 + c6 * 10 + c7 * 5 + c8 * 8 + c9 * 4 + c10 * 2; // CHECKSTYLE IGNORE MagicNumber
+        int remainderBy11 = sum % MODULUS_11;
+        if (1 - remainderBy11 < -1)
+          return 1 - remainderBy11 + MODULUS_11;
+        return 1 - remainderBy11;
+      }
 
 }
