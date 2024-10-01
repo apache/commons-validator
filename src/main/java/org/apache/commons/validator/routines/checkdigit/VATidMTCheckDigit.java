@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import java.util.logging.Logger;
-
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 
@@ -38,7 +36,6 @@ import org.apache.commons.validator.GenericValidator;
 public final class VATidMTCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = 2611549149021044487L;
-    private static final Logger LOG = Logger.getLogger(VATidMTCheckDigit.class.getName());
 
     /** Singleton Check Digit instance */
     private static final VATidMTCheckDigit INSTANCE = new VATidMTCheckDigit();
@@ -80,34 +77,20 @@ public final class VATidMTCheckDigit extends ModulusCheckDigit {
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
         if (leftPos - 1 >= POSITION_WEIGHT.length) return 0;
         final int weight = POSITION_WEIGHT[(leftPos - 1)];
-//        LOG.info("charValue="+charValue + ", weight="+weight + ", leftPos="+leftPos + ", rightPos="+rightPos);
         return charValue * weight;
     }
 
     /**
      * {@inheritDoc}
      *
-A1 = 3*C1 + 4*C2 + 6*C3 + 7*C4 + 8*C5 + 9*C6
-R = 37 - (A1 modulo 37) // 37 - modulusResult
-If R = 00, then C7 C8 = 37
-C7 C8 = R
-
- 15121333
-A1 = 3*1 + 4*5 + 6*1 + 7*2 + 8*1 + 9*3 = 78
-R = 37 - (78 modulo 37) = 33 // 37 - 4
-C7 C8 = 33
-
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
-//        return super.calculate(code);
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
-        final int modulusResult = calculateModulus(code, false);
-        LOG.info(code + " modulusResult=" + modulusResult);
-        final int charValue = MODULUS_37 - modulusResult;
-        return toCheckDigit(charValue == 0 ? MODULUS_37 : charValue);
+        final int cdValue = MODULUS_37 - calculateModulus(code, false);
+        return Modulus97CheckDigit.toCheckDigit(cdValue == 0 ? MODULUS_37 : cdValue);
     }
 
     /**
@@ -129,35 +112,10 @@ C7 C8 = 33
         }
         try {
             int modulusResult = calculateModulus(code, true);
-            LOG.info(code + " modulusResult=" + modulusResult + " check=" + check);
-//            if(modulusResult==37) {
-//            // modulusResult == total % modulus
-//            throw new CheckDigitException("Invalid code, sum is zero");
-//            }
             return icheck.intValue() == MODULUS_37 - modulusResult;
         } catch (final CheckDigitException ex) {
             return false;
         }
-    }
-
-    /**
-     * Convert an integer value to a check digit.
-     * <p>
-     * <b>Note:</b> this implementation only handles two-digit numeric values
-     * For non-numeric results, override this method to provide
-     * integer--&gt;character conversion.
-     *
-     * @param cdValue The integer value of the check digit
-     * @return The converted check digit
-     * @throws CheckDigitException if integer character value
-     * doesn't represent a numeric character
-     */
-    protected String toCheckDigit(final int cdValue) throws CheckDigitException {
-        if (cdValue > 99) { // CHECKSTYLE IGNORE MagicNumber
-            throw new CheckDigitException("Invalid Check Digit Value =" + cdValue);
-        }
-        String checkDigit = Integer.toString(cdValue);
-        return cdValue > 9 ? checkDigit : "0" + checkDigit; // CHECKSTYLE IGNORE MagicNumber
     }
 
 }

@@ -26,13 +26,14 @@ public class VATidMTCheckDigitTest extends AbstractCheckDigitTest {
     public VATidMTCheckDigitTest() {
         checkDigitLth = VATidMTCheckDigit.CHECKDIGIT_LEN;
     }
-   /**
+   /*
      * Sets up routine & valid codes.
 
 Beispiele
 
     MT 15121333 : valide, aber ungültig. Aus sap.com
-    MT 11679112 : valide, aber ungültig. Aus https://old.formvalidation.io/validators/vat/
+    MT 11679112 : valide, aber ungültig. Aus formvalidation.io
+    MT 20200019 : gültig. BAJADA NEW ENERGY LIMITED, MRS3000 Marsa
 
      */
     @BeforeEach
