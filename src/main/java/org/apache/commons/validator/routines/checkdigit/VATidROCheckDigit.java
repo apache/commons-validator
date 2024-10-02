@@ -16,15 +16,13 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import java.util.logging.Logger;
-
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 
 /**
  * Romanian VAT identification number (VATIN) Check Digit calculation/validation.
  * <p>
- * cod de înregistrare în scopuri de TVA (TVA)
+ * cod de înregistrare în scopuri de TVA (TVA), sometimes called Codul de identificare fiscală (CIF)
  * </p>
  * <p>
  * See <a href="https://en.wikipedia.org/wiki/VAT_identification_number">Wikipedia - VAT IN</a>
@@ -36,7 +34,6 @@ import org.apache.commons.validator.GenericValidator;
 public final class VATidROCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = 159727558301530535L;
-    private static final Logger LOG = Logger.getLogger(VATidROCheckDigit.class.getName());
 
     /** Singleton Check Digit instance */
     private static final VATidROCheckDigit INSTANCE = new VATidROCheckDigit();
@@ -49,16 +46,6 @@ public final class VATidROCheckDigit extends ModulusCheckDigit {
         return INSTANCE;
     }
 
-    /*
-A1 = C1*7 + C2*5 + C3*3 + C4*2 + C5*1 + C6*7 + C7*5 + C8*3 + C9*2
-A2 = A1 * 10
-R1 = A2 modulo 11
-if R1 = 10, then R = 0
-Else R = R1
-C10 = R
-
-A1 = 0*7 + 0*5 + 1*3 + 1*2 + 1*1 + 9*7 + 8*5 + 6*3 + 9*2 = 145
-     */
     static final int LEN = 9; // without Check Digit
 
     /** Weighting given to digits depending on their left position */
@@ -85,7 +72,6 @@ A1 = 0*7 + 0*5 + 1*3 + 1*2 + 1*1 + 9*7 + 8*5 + 6*3 + 9*2 = 145
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
         final int weight = POSITION_WEIGHT[(leftPos - 1) % POSITION_WEIGHT.length];
-//        LOG.info("charValue="+charValue + ", leftPos="+leftPos + ", rightPos="+rightPos);
         return charValue * weight;
     }
 
@@ -101,29 +87,20 @@ A1 = 0*7 + 0*5 + 1*3 + 1*2 + 1*1 + 9*7 + 8*5 + 6*3 + 9*2 = 145
             throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
         String pcode = code;
-        LOG.info(code + " # prefix nullen:" + (LEN - code.length()));
+        // fill with leading zeros:
         if (code.length() < LEN) {
             pcode = "0000000000".substring(0, LEN - code.length()) + code;
-            LOG.info(pcode + " mit prefix nullen");
         }
-//        final int modulusResult = calculateModulus(code, false);
         int total = 0;
         for (int i = 0; i < pcode.length(); i++) {
-//            final int lth = pcode.length() + 1;
             final int leftPos = i + 1;
-//            final int rightPos = lth - i;
             final int charValue = toInt(pcode.charAt(i), leftPos, -1);
             total += weightedValue(charValue, leftPos, -1);
         }
         if (total == 0) {
-            throw new CheckDigitException("Invalid code, sum is zero");
+            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
-        LOG.info(" total=" + total);
-//        return total % modulus;
-        //A2 = A1 * 10
-        //R1 = A2 modulo 11
         final int charValue = total * MODULUS_10 % MODULUS_11;
-//        final int charValue = (modulus - modulusResult) % modulus;
         return toCheckDigit(charValue == MODULUS_10 ? 0 : charValue);
     }
 
@@ -135,9 +112,6 @@ A1 = 0*7 + 0*5 + 1*3 + 1*2 + 1*1 + 9*7 + 8*5 + 6*3 + 9*2 = 145
         if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
-//        if (code.length() != LEN+1) {
-//            return false;
-//        }
         try {
             String cd = calculate(code.substring(0, code.length() - 1));
             return code.endsWith(cd);

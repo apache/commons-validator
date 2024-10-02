@@ -33,7 +33,7 @@ Adresse         ORŞ. CÂMPENI 515500 STR. TURZII Nr. FN
     RO 27825131 : gültig NUTRISOYA SRL
     RO 17292740 : gültig ATLAS MOTORS SRL
     RO 19125650 : gültig KONIG FRANKSTAHL SRL
-    RO 6255950 : gültig P L NORIS SRL - 7-stellig!
+    RO 6255950  : gültig P L NORIS SRL - 7-stellig!
 
  */
 public class VATidROCheckDigitTest extends AbstractCheckDigitTest {
