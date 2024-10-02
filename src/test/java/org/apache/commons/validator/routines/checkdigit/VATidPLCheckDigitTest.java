@@ -23,14 +23,12 @@ import org.junit.jupiter.api.BeforeEach;
  */
 /*
 
-Im VIES https://ec.europa.eu/taxation_customs/vies/#/vat-validation
+Beispiele
 
-bekommt man Informationen zu den VATINs:
-- 1060000062 : CUMMINS LTD
-- 1234563218 1234567819 : valide, aber ungültig
+    PL 9551908591 : gültig chlodniaszczecinska.pl
+    PL 6911713825 : gültig jakbet.pl
+    PL 1060000062 : gültig "CUMMINS LTD." aus pl.wikipedia
 
-- 0000000000 ist lt. wiki valide, aber sinnlos
-- 1234567890 liefert PZ 10, das nicht sein darf
  */
 public class VATidPLCheckDigitTest extends AbstractCheckDigitTest {
 
@@ -40,7 +38,8 @@ public class VATidPLCheckDigitTest extends AbstractCheckDigitTest {
     @BeforeEach
     protected void setUp() {
         routine = VATidPLCheckDigit.getInstance();
-        valid = new String[] {"1060000062", "1234563218", "1234567819"};
+        valid = new String[] {"9551908591", "6911713825", "1060000062", "1234563218", "1234567819"};
+        invalid = new String[] {"0000000000", "1234567890"};
     }
 
 }

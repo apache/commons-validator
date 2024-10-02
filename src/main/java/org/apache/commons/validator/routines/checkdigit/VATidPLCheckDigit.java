@@ -62,7 +62,7 @@ public final class VATidPLCheckDigit extends ModulusCheckDigit {
      * Calculates the <i>weighted</i> value of a character in the
      * code at a specified position.
      *
-     * <p>For VATID digits are weighted by the power of 10 of their right position.</p>
+     * <p>For VATID digits are weighted by their position from left to right.</p>
      *
      * @param charValue The numeric value of the character.
      * @param leftPos The position of the character in the code, counting from left to right
