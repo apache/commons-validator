@@ -54,21 +54,11 @@ public final class VATidPTCheckDigit extends ModulusCheckDigit {
         super(MODULUS_11);
     }
 
-    /** Weighting given to digits depending on their left position */
-    /*
-Ziffern werden von rechts nach links,
-beginnend mit der vorletzten Ziffer (also vor der Stelle der Prüfziffer),
-mit ihrer Position in der Ziffernfolge gewichtet, beginnend mit 2
-
-Alternativ mit LEN berechnen.
-in weightedValue kann man rightPos nicht nutzen, weil es von para includesCheckDigit abhängt
-     */
-//    private static final int[] POSITION_WEIGHT = { 9, 8, 7, 6, 5, 4, 3, 2 };
     /**
      * Calculates the <i>weighted</i> value of a character in the
      * code at a specified position.
      *
-     * <p>For VATID digits are weighted by their position from left to right.</p>
+     * <p>For VATID digits are weighted by their position from right to left. The left most is weighted with 9.</p>
      *
      * @param charValue The numeric value of the character.
      * @param leftPos The position of the character in the code, counting from left to right
@@ -80,10 +70,6 @@ in weightedValue kann man rightPos nicht nutzen, weil es von para includesCheckD
         if (leftPos < LEN) {
             return charValue * (1 + LEN - leftPos);
         }
-//        if (leftPos - 1 < POSITION_WEIGHT.length) {
-//            final int weight = POSITION_WEIGHT[(leftPos - 1)];
-//            return charValue * weight;
-//        }
         return 0;
     }
 
@@ -99,8 +85,7 @@ in weightedValue kann man rightPos nicht nutzen, weil es von para includesCheckD
         try {
             final int modulusResult = INSTANCE.calculateModulus(code, true);
             final int charValue = (MODULUS_11 - modulusResult) % MODULUS_11;
-            final int cdd = charValue % MODULUS_10;
-            return cdd == Character.getNumericValue(code.charAt(code.length() - 1));
+            return charValue % MODULUS_10 == Character.getNumericValue(code.charAt(code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
         }

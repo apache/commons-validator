@@ -43,6 +43,7 @@ Beispiele
             , "000000310" // checkdigit zero
             , "999999990" // theoretical maximum
             };
+        invalid = new String[] {"0"};
     }
 
 }
