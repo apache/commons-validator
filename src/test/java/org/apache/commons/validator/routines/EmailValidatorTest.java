@@ -16,9 +16,6 @@
  */
 package org.apache.commons.validator.routines;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -548,7 +545,7 @@ public class EmailValidatorTest {
     @Test
     public void testValidator473Part1() { // reject null DomainValidator
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> new EmailValidator(false, false, null));
-        assertThat(thrown.getMessage(), is(equalTo("DomainValidator cannot be null")));
+        assertEquals("DomainValidator cannot be null", thrown.getMessage());
     }
 
     @Test
@@ -556,7 +553,7 @@ public class EmailValidatorTest {
         final List<DomainValidator.Item> items = new ArrayList<>();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> new EmailValidator(false, false, DomainValidator.getInstance(true, items)));
-        assertThat(thrown.getMessage(), is(equalTo("DomainValidator must agree with allowLocal setting")));
+        assertEquals("DomainValidator must agree with allowLocal setting", thrown.getMessage());
     }
 
     @Test
@@ -564,7 +561,7 @@ public class EmailValidatorTest {
         final List<DomainValidator.Item> items = new ArrayList<>();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> new EmailValidator(true, false, DomainValidator.getInstance(false, items)));
-        assertThat(thrown.getMessage(), is(equalTo("DomainValidator must agree with allowLocal setting")));
+        assertEquals("DomainValidator must agree with allowLocal setting", thrown.getMessage());
     }
 
     @Test
