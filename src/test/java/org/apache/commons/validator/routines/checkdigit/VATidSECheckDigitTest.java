@@ -26,7 +26,7 @@ public class VATidSECheckDigitTest extends AbstractCheckDigitTest {
    /**
      * Sets up routine & valid codes.
 
-     without last 2 chars
+     without last 2 chars, which are constant "01" - will be checked as regex in VATINValidator
 
     SE 1366959755 01 : valide, aber ungültig. Quelle bmf.gv.at
     SE 5561888404 01 : gültig OLLE SVENSSONS PARTIAFFÄR AKTIEBOLAG. Quelle pruefziffernberechnung.de

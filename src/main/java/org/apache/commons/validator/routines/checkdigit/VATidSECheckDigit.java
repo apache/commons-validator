@@ -45,8 +45,9 @@ public final class VATidSECheckDigit extends ModulusCheckDigit {
     public static CheckDigit getInstance() {
         return INSTANCE;
     }
-
     static final int LEN = 10; // without suffix "01"
+
+    private final static CheckDigit LUHN_CHECK_DIGIT = LuhnCheckDigit.LUHN_CHECK_DIGIT;
 
     /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = {2, 1};
@@ -96,13 +97,7 @@ public final class VATidSECheckDigit extends ModulusCheckDigit {
             }
             code = code.substring(0, LEN);
         }
-
-        try {
-            final int modulusResult = calculateModulus(code, true);
-            return modulusResult == 0;
-        } catch (final CheckDigitException ex) {
-            return false;
-        }
+        return LUHN_CHECK_DIGIT.isValid(code);
     }
 
 }

@@ -30,7 +30,7 @@ public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
     private static final String VALID_DISCOVER = "6011000990139424";
     private static final String VALID_DINERS = "30569309025904";
     private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
-    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without leading "01"
+    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without Trailing "01"
 
     /**
      * Sets up routine & valid codes.
