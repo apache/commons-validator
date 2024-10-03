@@ -20,32 +20,24 @@ import java.io.Serializable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * <b>VATIN</b> (VAT identification number) Check Digit calculation/validation.
  * <p>
- * kopiert aus IBANCheckDigit TODO kommemtieren und implementieren
+ * Each country has a different routine. There are special notation for Greece and Northern Ireland.<br>
+ * See <a href="https://en.wikipedia.org/wiki/VAT_identification_number">Wikipedia - VATIN</a>
+ * and <a href="https://en.wikipedia.org/wiki/European_Union_value_added_tax">Wikipedia - EU VAT</a>
+ * for more details.
  * </p>
  *
- * @since 1.9.0
- */
-/*
-
-pro Land anders
-
+ * @since 1.10.0
  */
 public final class VATINCheckDigit extends AbstractCheckDigit implements Serializable {
 
     private static final long serialVersionUID = -6121493628894479170L;
-    private static final int MIN_CODE_LEN = 8;
-
-//    private static final int MAX_ALPHANUMERIC_VALUE = 35; // Character.getNumericValue('Z')
-//
-//    /** Singleton IBAN Number Check Digit instance */
-//    public static final CheckDigit IBAN_CHECK_DIGIT = new VATINCheckDigit();
-//
-//    private static final long MAX = 999999999;
-//
-//    private static final long MODULUS = 97;
+    private static final Log LOG = LogFactory.getLog(VATINCheckDigit.class);
 
     /** Singleton Check Digit instance */
     private static final VATINCheckDigit INSTANCE = new VATINCheckDigit();
@@ -59,31 +51,30 @@ public final class VATINCheckDigit extends AbstractCheckDigit implements Seriali
     }
 
     private static final int SHORT_CODE_LEN = 2;
+    /**
+     * This message is used for EL VATIN codes accidentally used with prefix GR.
+     * Or codes starting with MC for Monaco. Monaco is not part of EU, but some companies use FR-VATINS.
+     */
+    private static final String INVALID_COUNTRY_CODE = "No CheckDigit routine or invalid country, code=";
     private final ConcurrentMap<String, AbstractCheckDigit> checkDigitMap;
 
    /**
      * Constructs Check Digit routine for VATIN Numbers.
      */
-    public VATINCheckDigit() {
+    private VATINCheckDigit() {
         this.checkDigitMap = createCheckDigitMap(); //createValidators(validators);
     }
-//    private ConcurrentMap<String, Validator> createValidators(final Validator[] validators) {
-//        final ConcurrentMap<String, Validator> map = new ConcurrentHashMap<>();
-//        for (final Validator validator : validators) {
-//            map.put(validator.countryCode, validator);
-//            for (final String otherCC : validator.otherCountryCodes) {
-//                map.put(otherCC, validator);
-//            }
-//        }
-//        return map;
-//    }
+
+    /*
+     * Note:
+     * Greece uses language code EL instead its country code.
+     * Northern Ireland is part of EU but has no country code, so XI is used.
+     * United Kingdom is not part of EU, but the check digit routine is used for Northern Ireland.
+     * Some countries (DE, HR, LT) use a general check digit routine.
+     */
     private ConcurrentMap<String, AbstractCheckDigit> createCheckDigitMap() {
         final ConcurrentMap<String, AbstractCheckDigit> map = new ConcurrentHashMap<>();
-//        for (final Validator validator : validators) {
-//            map.put(validator.countryCode, validator);
-//        }
         map.put("AT", (AbstractCheckDigit) VATidATCheckDigit.getInstance());
-                                        // VATidBECheckDigit extends Modulus97CheckDigit
         map.put("BE", (AbstractCheckDigit) VATidBECheckDigit.getInstance());
         map.put("BG", (AbstractCheckDigit) VATidBGCheckDigit.getInstance());
         map.put("CY", (AbstractCheckDigit) VATidCYCheckDigit.getInstance());
@@ -113,12 +104,14 @@ public final class VATINCheckDigit extends AbstractCheckDigit implements Seriali
         map.put("XI", (AbstractCheckDigit) VATidGBCheckDigit.getInstance());
         return map;
     }
+
     /**
      * Gets the Check Digit routine for a given VATIN Number
      *
-     * @param code a string starting with the ISO country code (e.g. an VATIN)
+     * @param code a string with the ISO country code
+     *  (European Union VATIN countries + XI for Northern Ireland)
      *
-     * @return the Check Digit routine or {@code null} if there is not one registered.
+     * @return the Check Digit routine or {@code null} if there is no routine registered.
      */
     public AbstractCheckDigit getCheckDigitMap(final String code) {
         if (code == null || code.length() < SHORT_CODE_LEN) { // ensure we can extract the code
@@ -129,63 +122,31 @@ public final class VATINCheckDigit extends AbstractCheckDigit implements Seriali
     }
 
     /**
-     * Calculate the <i>Check Digit</i> for an IBAN code.
-     * <p>
-     * <b>Note:</b> The check digit is the third and fourth
-     * characters and is set to the value "<code>00</code>".
+     * {@inheritDoc}
+     * For a country specific VATIN code.
      *
-     * @param code The code to calculate the Check Digit for
-     * @return The calculated Check Digit as 2 numeric decimal characters, e.g. "42"
-     * @throws CheckDigitException if an error occurs calculating
-     * the check digit for the specified code
      */
     @Override
     public String calculate(String code) throws CheckDigitException {
-        if (code == null || code.length() < MIN_CODE_LEN) {
-            throw new CheckDigitException("Invalid Code length=" + (code == null ? 0 : code.length()));
+        final AbstractCheckDigit routine = getCheckDigitMap(code);
+        if (routine == null) {
+            throw new CheckDigitException(INVALID_COUNTRY_CODE + code);
         }
-        code = code.substring(0, 2) + "00" + code.substring(4); // CHECKSTYLE IGNORE MagicNumber
-        final int modulusResult = 99; //calculateModulus(code);
-        final int charValue = 98 - modulusResult; // CHECKSTYLE IGNORE MagicNumber
-        final String checkDigit = Integer.toString(charValue);
-        return charValue > 9 ? checkDigit : "0" + checkDigit; // CHECKSTYLE IGNORE MagicNumber
+        final String vatin = code.substring(2);
+        return routine.calculate(vatin);
     }
 
     /**
-     * Calculate the modulus for a code.
+     * {@inheritDoc}
+     * For a country specific VATIN code.
      *
-     * @param code The code to calculate the modulus for.
-     * @return The modulus value
-     * @throws CheckDigitException if an error occurs calculating the modulus
-     * for the specified code
-     * /
-    private int calculateModulus(final String code) throws CheckDigitException {
-        final String reformattedCode = code.substring(4) + code.substring(0, 4); // CHECKSTYLE IGNORE MagicNumber
-        long total = 0;
-        for (int i = 0; i < reformattedCode.length(); i++) {
-            final int charValue = Character.getNumericValue(reformattedCode.charAt(i));
-            if (charValue < 0 || charValue > MAX_ALPHANUMERIC_VALUE) {
-                throw new CheckDigitException("Invalid Character[" + i + "] = '" + charValue + "'");
-            }
-            total = (charValue > 9 ? total * 100 : total * 10) + charValue; // CHECKSTYLE IGNORE MagicNumber
-            if (total > MAX) {
-                total %= MODULUS;
-            }
-        }
-        return (int) (total % MODULUS);
-    }
-*/
-    /**
-     * Validate the check digit of an VATIN code.
-     *
-     * @param code The code to validate
-     * @return {@code true} if the check digit is valid, otherwise {@code false}
+     * @param code The code to validate, the string must start with country code and include the check digit.
      */
     @Override
     public boolean isValid(final String code) {
         final AbstractCheckDigit routine = getCheckDigitMap(code);
         if (routine == null) {
-            System.out.println("No CheckDigit routine for " + code);
+            LOG.warn(INVALID_COUNTRY_CODE + code);
             return false;
         }
         final String vatin = code.substring(2);
