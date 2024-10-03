@@ -60,7 +60,7 @@ public class VATINValidator {
          * Denmark, Finnland are currently the shortest (including countryCode).
          */
         private static final int MIN_LEN = 10;
-        private static final int MAX_LEN = 16; // non EU: China 18
+        private static final int MAX_LEN = 16;
 
         final String countryCode;
         final String[] otherCountryCodes;
@@ -118,12 +118,12 @@ public class VATINValidator {
 
     private static final int COUNTRY_CODE_LEN = 2;
 
-/*
-
-Foreign companies that trade with private individuals and non-business organisations in the EU may have a VATIN
-starting with "EU" instead of a country code, e.g. Godaddy EU826010755
-                                          and Amazon (AWS) EU826009064.
- */
+///*
+//
+//Foreign companies that trade with private individuals and non-business organisations in the EU may have a VATIN
+//starting with "EU" instead of a country code, e.g. Godaddy EU826010755
+//                                          and Amazon (AWS) EU826009064.
+// */
     private static final Validator[] DEFAULT_VALIDATORS = {                   //
             new Validator("AT", 11, "ATU\\d{8}"),                             // Austria  ATU9999999p
             new Validator("BE", 12, "BE[0-1]\\d{9}"),                         // Belgium  BE99999999pp
@@ -136,7 +136,7 @@ starting with "EU" instead of a country code, e.g. Godaddy EU826010755
             new Validator("EE", 11, "EE\\d{9}"),                              // Estonia  EE99999999p
             new Validator("EL", 11, "EL\\d{9}"),                              // Greece   EL99999999p
             new Validator("ES", 11, "ES[A-Z0-9]\\d{7}[A-Z0-9]"),              // Spain    ESX9999999P
-            new Validator("EU", 11, "EU\\d{9}"),                              // Foreign companies
+//            new Validator("EU", 11, "EU\\d{9}"),                              // Foreign companies
             new Validator("FI", 10, "FI\\d{8}"),                              // Finland  FI9999999p
             new Validator("FR", 13, "FR[A-Z0-9]{2}\\d{9}"),                   // France   FRXX999999999
             new Validator("HR", 13, "HR\\d{11}"),                             // Croatia  HR9999999999p
