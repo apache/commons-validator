@@ -146,7 +146,8 @@ starting with "EU" instead of a country code, e.g. Godaddy EU826010755
             // optional Group for Temporarily Registered Taxpayers with 12 digits, C11==1
             new Validator("LT", 14, "LT\\d{9}([0-9]1[0-9])?"),                // Lithuania LT99999999p or 12 digits
             new Validator("LU", 13, "LU\\d{8}"),                              // Luxembourg LU999999pp
-            new Validator("LV", 13, "LV[4-9]\\d{10}"),                        // Latvia      LV9999999999p
+            // first digit [4-9] : legal entity , [0-3] : natural person
+            new Validator("LV", 13, "LV\\d\\d{10}"),                          // Latvia      LV9999999999p
             new Validator("MT", 14, "MT\\d{8}"),                              // Malta       MT999999pp
             new Validator("NL", 14, "NL\\d{9}B\\d{2}"),                       // Netherlands NL99999999pB01
             new Validator("PL", 12, "PL\\d{10}"),                             // Poland      PL999999999p

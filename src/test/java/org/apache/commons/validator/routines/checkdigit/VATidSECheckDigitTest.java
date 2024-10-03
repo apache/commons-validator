@@ -28,12 +28,15 @@ public class VATidSECheckDigitTest extends AbstractCheckDigitTest {
 
      without last 2 chars, which are constant "01" - will be checked as regex in VATINValidator
 
-    SE 1366959755 01 : valide, aber ungültig. Quelle bmf.gv.at
-    SE 5561888404 01 : gültig OLLE SVENSSONS PARTIAFFÄR AKTIEBOLAG. Quelle pruefziffernberechnung.de
-    SE 1234567897 01 : valide, aber ungültig. Quelle https://old.formvalidation.io/validators/vat/
-    SE 5560528514 01 : gültig Scandinavian Eyewear AB, JÖNKÖPING. Quelle https://www.adresslabor.de/en/products/vat-id-no-check.html
+Beispiele
+
+    SE 1366959755 23 : nur erster Teil valide, suffix muss 01 sein, ungültig. Quelle pruefziffernberechnung.de
+    SE 5561888404 01 : gültig OLLE SVENSSONS PARTIAFFÄR AKTIEBOLAG. Quelle bmf.gv.at
+    SE 1234567897 01 : valide, aber ungültig. Quelle formvalidation.io
+    SE 5560528514 01 : gültig Scandinavian Eyewear AB, JÖNKÖPING. Quelle adresslabor.de
     SE 5566801444 01 : gültig XLN Audio AB, STOCKHOLM
     SE 5565102471 01 : gültig amo kraftkabel AB, ALSTERMO
+
      */
     @BeforeEach
     protected void setUp() {

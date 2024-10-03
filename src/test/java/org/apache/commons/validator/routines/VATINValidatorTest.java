@@ -87,17 +87,18 @@ public class VATINValidatorTest {
             "LT100014579016", // Senoji rotonda
             "LU25180625",     // snct.lu
             "LV40003567907",  // legal entity Pasažieru vilciens
-//  TODO          "LV07091910933",  // Natural person, born 1919
-//            "LV01010020932",  // Natural person, born 2000/01/01
-//            "LV32053410932",  // Natural person, no birthday coded
-
+            "LV07091910933",  // Natural person, born 1919
+            "LV01010020932",  // Natural person, born 2000/01/01
+            "LV32053410932",  // Natural person, no birthday coded
             "MT20200019",     // BAJADA NEW ENERGY LIMITED, MRS3000 Marsa
             "NL003660564B01", // STAM + DE KONING BOUW B.V. EINDHOVEN
             "NL004495445B01", // OPENJONGERENVERENIGING DE KOORNBEURS, DELFT
             "PL1060000062",   // aus https://pl.wikipedia.org/wiki/Numer_identyfikacji_podatkowej
             "PT510728189",    // CLARANET II SOLUTIONS, S.A. PORTO
             "RO27825131",     // NUTRISOYA SRL
+            "RO6255950",      // P L NORIS SRL
             "SE556680144401", // XLN Audio AB, STOCKHOLM
+
             "SI21649405",     // STANOVANJSKO PODJETJE KONJICE D.O.O.
             "SK2120567108",   // Markon s.r.o. Bratislava
             "XI110305878",    // https://www.bullseyecountrysport.co.uk/contact-us-2-w.asp
@@ -121,8 +122,6 @@ public class VATINValidatorTest {
             "GR023456780",    // falscher Prefix, sollte EL sein!
             "ESA10215",       // too short
             "LT100008668621", // C11 is not 1
-            "LV07091910933",  // aus SAP Format 2: Natural person
-            "LV07091910931",  // mit anderer Prüfziffer
             "LV18097230924",  // invalid century
             "NL004495445B00", // Suffix "00"
             "RO027825131",    // Must not start with 0
