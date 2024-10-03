@@ -16,7 +16,8 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * German Steuer-Identifikationsnummer (TIN – in short: IdNr.) is available since 2008,
@@ -45,7 +46,7 @@ import java.util.logging.Logger;
 public final class TidDECheckDigit extends Modulus11TenCheckDigit {
 
     private static final long serialVersionUID = 4222306963463322195L;
-    private static final Logger LOG = Logger.getLogger(TidDECheckDigit.class.getName());
+    private static final Log LOG = LogFactory.getLog(TidDECheckDigit.class);
 
     /** Singleton Check Digit instance */
     private static final TidDECheckDigit INSTANCE = new TidDECheckDigit();
@@ -94,7 +95,7 @@ public final class TidDECheckDigit extends Modulus11TenCheckDigit {
             sum = sum % MODULUS_10;
             product = 2 * (sum == 0 ? MODULUS_10 : sum) % MODULUS_11;
         }
-        // Zifferanzahl auswerten
+        LOG.debug(code + ": Zifferanzahl auswerten");
         int doppelt = 0;
         int dreifach = 0;
         int dreifachz = -1;
@@ -108,19 +109,19 @@ public final class TidDECheckDigit extends Modulus11TenCheckDigit {
             }
         }
         if (doppelt == 0 && dreifach == 0) {
-            LOG.warning(code + ": keine doppelt und keine dreifach");
+            LOG.warn(code + ": keine doppelt und keine dreifach");
             throw new CheckDigitException("Invalid code, keine doppelt und keine dreifach");
         } else if (doppelt > 1) {
-            LOG.warning(code + ": mehrere doppelt");
+            LOG.warn(code + ": mehrere doppelt");
             throw new CheckDigitException("Invalid code, mehrere doppelt");
         } else if (dreifach > 1) {
-            LOG.warning(code + ": mehrere dreifach");
+            LOG.warn(code + ": mehrere dreifach");
             throw new CheckDigitException("Invalid code, mehrere dreifach");
         } else if (dreifach == 1) {
             int i = code.indexOf("" + dreifachz);
             if (dreifachz == toInt(code.charAt(i + 1), i + 1, -1)
                 && dreifachz == toInt(code.charAt(i + 2), i + 2, -1)) {
-                LOG.warning(code + ": dreifach direkt hintereinander Ziffer:" + dreifachz);
+                LOG.warn(code + ": dreifach direkt hintereinander Ziffer:" + dreifachz);
                 throw new CheckDigitException("Invalid code, dreifach direkt hintereinander");
             }
         }
