@@ -54,14 +54,6 @@ public final class VATidSICheckDigit extends ModulusCheckDigit {
         super(MODULUS_11);
     }
 
-    /*
-Ziffern werden von rechts nach links,
-beginnend mit der vorletzten Ziffer (also vor der Stelle der Prüfziffer),
-mit ihrer Position in der Ziffernfolge gewichtet, beginnend mit 2
-
-Alternativ mit LEN berechnen.
-in weightedValue kann man rightPos nicht nutzen, weil es von para includesCheckDigit abhängt
-     */
     /**
      * Calculates the <i>weighted</i> value of a character in the
      * code at a specified position.
@@ -93,8 +85,7 @@ in weightedValue kann man rightPos nicht nutzen, weil es von para includesCheckD
         try {
             final int modulusResult = INSTANCE.calculateModulus(code, true);
             final int charValue = (MODULUS_11 - modulusResult) % MODULUS_11;
-            final int cdd = charValue % MODULUS_10;
-            return cdd == Character.getNumericValue(code.charAt(code.length() - 1));
+            return charValue % MODULUS_10 == Character.getNumericValue(code.charAt(code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
         }
