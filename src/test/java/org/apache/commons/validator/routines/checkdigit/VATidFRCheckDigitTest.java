@@ -66,6 +66,7 @@ K7 399859412 06 [B0, Y0, B1, T1, H2, N2, C3, U3, Z3, J4, P4, D5, J5, Q6, V6, E7,
             , "83404833048"
 // not SIREN:           , "2H123456789" // auch 32 wäre möglich
 // not SIREN:           , "32123456789"
+// valid but not SIREN aus Monaco            , "37000005990"
             , "11123456782" // konstruiert: L'identifiant n'existe pas dans le répertoire Sirene.
             };
 ////      invalid = new String[] {"83404833048", "84323140391"};

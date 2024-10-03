@@ -124,15 +124,9 @@ Example: VAT key - [12 - 3 - (404 833 048 modulo 97) - modulo 97 - [12 - 3 - 56 
         LOG.info(code + "12" + "    SIREN+12 modulo 97 = " + cdValue);
         // There are more than one possible VATIN check digit C(1-2) for a given SIREN,
         // thus, it isn't possible to compute it.
-        return toCheckDigit(cdValue);
-    }
 
-    protected String toCheckDigit(final int cdValue) throws CheckDigitException {
-        if (cdValue > 99) { // CHECKSTYLE IGNORE MagicNumber
-            throw new CheckDigitException("Invalid Check Digit Value =" + cdValue);
-        }
-        String checkDigit = Integer.toString(cdValue);
-        return cdValue > 9 ? checkDigit : "0" + checkDigit; // CHECKSTYLE IGNORE MagicNumber
+        // convert two-digit numeric values to String
+        return Modulus97CheckDigit.toCheckDigit(cdValue);
     }
 
     public boolean isValidOldStyle(final String code) throws CheckDigitException {
