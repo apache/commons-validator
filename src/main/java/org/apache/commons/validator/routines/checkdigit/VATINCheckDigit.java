@@ -50,7 +50,7 @@ public final class VATINCheckDigit extends AbstractCheckDigit implements Seriali
         return INSTANCE;
     }
 
-    private static final int SHORT_CODE_LEN = 2;
+    private static final int COUNTRY_CODE_LEN = 2;
     /**
      * This message is used for EL VATIN codes accidentally used with prefix GR.
      * Or codes starting with MC for Monaco. Monaco is not part of EU, but some companies use FR-VATINS.
@@ -114,10 +114,10 @@ public final class VATINCheckDigit extends AbstractCheckDigit implements Seriali
      * @return the Check Digit routine or {@code null} if there is no routine registered.
      */
     public AbstractCheckDigit getCheckDigitMap(final String code) {
-        if (code == null || code.length() < SHORT_CODE_LEN) { // ensure we can extract the code
+        if (code == null || code.length() < COUNTRY_CODE_LEN) { // ensure we can extract the code
             return null;
         }
-        final String key = code.substring(0, SHORT_CODE_LEN);
+        final String key = code.substring(0, COUNTRY_CODE_LEN);
         return checkDigitMap.get(key);
     }
 

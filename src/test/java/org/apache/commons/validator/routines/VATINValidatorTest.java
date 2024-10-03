@@ -39,22 +39,22 @@ public class VATINValidatorTest {
     // Eclipse 3.6 allows you to turn off formatting by placing a special comment, like
     // @formatter:off
     private static final String[] VALID_VATIN_FIXTURES = {
-            "ATU10223006",  // aus BMF_UID_Konstruktionsregeln
-            "ATU13585627",  // aus http://www.pruefziffernberechnung.de/U/USt-IdNr.shtml#PZAT
+            "ATU10223006",  // see BMF_UID_Konstruktionsregeln
+            "ATU13585627",  // see http://www.pruefziffernberechnung.de/U/USt-IdNr.shtml#PZAT
             "ATU54065602",  // https://zukunftsregion-steyr.at/impressum
-            "BE0136695962", // aus http://www.pruefziffernberechnung.de/U/USt-IdNr.shtml#PZBE (neues Format)
-            "BE0776091951", // aus BMF_UID_Konstruktionsregeln
+            "BE0136695962", // see http://www.pruefziffernberechnung.de/U/USt-IdNr.shtml#PZBE (neues Format)
+            "BE0776091951", // see BMF_UID_Konstruktionsregeln
             "BG831650349",  // (Nestlé) НЕСТЛЕ БЪЛГАРИЯ - АД
-            "BG8001010008", // 8001010008 Мъж, с дата на раждане 01.01.1980 г.
+            "BG8001010008", // a male person born 01.01.1980
             "CY30010823A",  // LIDL Cyprus
-            "CZ29042828",   // SVĚT KÁVOVARŮ s.r.o., STRANČICE
-            "CZ6852294449", // from TIN_-_country_sheet_CZ_de.pdf
-            "DE000000011",  // theoretisches Minimum mit PZ
-            "DE136695976",  // aus http://www.pruefziffernberechnung.de/U/USt-IdNr.shtml#PZDE
-            "DK88146328",   // aus BMF_UID_Konstruktionsregeln
-            "DK13585628",   // aus http://www.pruefziffernberechnung.de/U/USt-IdNr.shtml#PZDK
-            "EE100931558",   // aus https://github.com/anghelvalentin/CountryValidator/blob/master/CountryValidator.Tests/CountriesValidators/EstoniaValidatorTests.cs
-            "EE100594102",   // MOVEK GRUPP OÜ - validiert mit https://apps.emta.ee/saqu/public/kmkrnr?lang=en
+            "CZ29042828",   // legal entity SVĚT KÁVOVARŮ s.r.o., STRANČICE
+            "CZ6852294449", // physical person
+            "DE000000011",  // theoretical minimum
+            "DE136695976",  // see http://www.pruefziffernberechnung.de/U/USt-IdNr.shtml#PZDE
+            "DK88146328",   // see BMF_UID_Konstruktionsregeln
+            "DK13585628",   // see http://www.pruefziffernberechnung.de/U/USt-IdNr.shtml#PZDK
+            "EE101571629",   // Kaubamaja AS, Tallinn
+            "EE100594102",   // MOVEK GRUPP
             "EL998537832",   // TRYGONS ΑΕ
             "EL094327684",   // GENERALI HELLAS Α Α Ε
             "ESA60195278",   // LIDL SUPERMERCADOS, S.A.U.
@@ -62,11 +62,11 @@ public class VATINValidatorTest {
             "ESB58378431",   // Sociedades de responsabilidad limitada
             "ESX2482300W",   // Extranjeros residentes
             "ESW8265365J",   // Establecimientos permanentes de entidades no residentes en España
-            "FI13669598",    // aus http://www.pruefziffernberechnung.de/U/USt-IdNr.shtml#PZFI
-            "FI01745928",    // aus https://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#y-tunnus2
-            "FI09853608",    // aus BMF_UID_Konstruktionsregeln
-            "FR40303265045", // SA SODIMAS; Adresse 11 RUE AMPERE, 26600 PONT DE L ISERE (validiert mit VIES)
-            "FRK7399859412", // SLRL ALTEA EXPERTISE COMPTABLE (validiert mit VIES)
+            "FI13669598",    // see http://www.pruefziffernberechnung.de/U/USt-IdNr.shtml#PZFI
+            "FI01745928",    // see https://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#y-tunnus2
+            "FI09853608",    // see BMF_UID_Konstruktionsregeln
+            "FR40303265045", // SA SODIMAS; Adresse 11 RUE AMPERE, 26600 PONT DE L ISERE
+            "FRK7399859412", // SLRL ALTEA EXPERTISE COMPTABLE
             "FR06399859412", "FRB0399859412", "FRY0399859412", "FRB1399859412", // not unique check digit
             "FRT1399859412", "FRH2399859412", "FRN2399859412", "FRC3399859412", "FRU3399859412",
             "FRZ3399859412", "FRJ4399859412", "FRP4399859412", "FRD5399859412", "FRJ5399859412",
@@ -79,14 +79,18 @@ public class VATINValidatorTest {
             "FR37000005990", "FR64000059252", "FR03000116300", // special cases Monaco (not EU) with French VATIN (invalid SIREN)
             "HR33392005961",  // NASTAVNI ZAVOD ZA JAVNO ZDRAVSTVO DR. ANDRIJA ŠTA, Zagreb
             "HU12892312",     // CNCEDU KERESKEDELMI ÉS SZOLGÁLTATÓ KORLÁTOLT FELELŐSSÉGŰ TÁRSASÁG
-
             "IE6388047V",     // GOOGLE IRELAND LIMITED
-            "IT00950501007",  // BANCA D'ITALIA (validiert mit VIES)
-            "IT02866820240",  // aus https://www.valbruna-stainless-steel.com/
+            "IE3628739UA",    // check digit next-to-last position
+            "IT00950501007",  // BANCA D'ITALIA
+            "IT02866820240",  // see https://www.valbruna-stainless-steel.com/
             "LT582708716",    // ASIMA
             "LT100014579016", // Senoji rotonda
             "LU25180625",     // snct.lu
-            "LV40003567907",  // Pasažieru vilciens
+            "LV40003567907",  // legal entity Pasažieru vilciens
+//  TODO          "LV07091910933",  // Natural person, born 1919
+//            "LV01010020932",  // Natural person, born 2000/01/01
+//            "LV32053410932",  // Natural person, no birthday coded
+
             "MT20200019",     // BAJADA NEW ENERGY LIMITED, MRS3000 Marsa
             "NL003660564B01", // STAM + DE KONING BOUW B.V. EINDHOVEN
             "NL004495445B01", // OPENJONGERENVERENIGING DE KOORNBEURS, DELFT
@@ -119,6 +123,7 @@ public class VATINValidatorTest {
             "LT100008668621", // C11 is not 1
             "LV07091910933",  // aus SAP Format 2: Natural person
             "LV07091910931",  // mit anderer Prüfziffer
+            "LV18097230924",  // invalid century
             "NL004495445B00", // Suffix "00"
             "RO027825131",    // Must not start with 0
             "SE136695975523", // Must not end with 23
@@ -190,7 +195,7 @@ public class VATINValidatorTest {
     public void testSetValidatorLen35() {
         final VATINValidator validator = new VATINValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("DE", 35, "DE"));
-        System.out.println("thrown.getMessage():" + thrown.getMessage());
+//        System.out.println("testSetValidatorLen35 : thrown.getMessage():" + thrown.getMessage());
         assertThat(thrown.getMessage(), is(equalTo(INVALID_LENGTH + " 35")));
     }
 
@@ -216,11 +221,6 @@ public class VATINValidatorTest {
     @Test
     public void testValid() {
         for (final String f : VALID_VATIN_FIXTURES) {
-// TODO 2 Zeilen raus  assertTrue(IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(f), "Checksum fail: " + f);
-//            System.out.println("VAT:"+f);
-//            if("BE0136695962".equals(f)) {
-//                assertTrue(VATINCheckDigit.getInstance().isValid(f), "Checksum fail: " + f);
-//            }
             assertTrue(VATINCheckDigit.getInstance().isValid(f), "Checksum fail: " + f);
             assertTrue(VALIDATOR.hasValidator(f), "Missing validator: " + f);
             assertTrue(VALIDATOR.isValid(f), f);

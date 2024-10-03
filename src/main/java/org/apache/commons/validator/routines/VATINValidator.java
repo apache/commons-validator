@@ -116,7 +116,7 @@ public class VATINValidator {
         }
     }
 
-    private static final int SHORT_CODE_LEN = 2;
+    private static final int COUNTRY_CODE_LEN = 2;
 
 /*
 
@@ -163,7 +163,7 @@ starting with "EU" instead of a country code, e.g. Godaddy EU826010755
     public static final VATINValidator DEFAULT_VATIN_VALIDATOR = new VATINValidator();
 
     /**
-     * Gets the singleton instance of the IBAN validator using the default formats
+     * Gets the singleton instance of the VATIN validator using the default formats
      *
      * @return A singleton instance of the validator
      */
@@ -181,9 +181,9 @@ starting with "EU" instead of a country code, e.g. Godaddy EU826010755
     }
 
     /**
-     * Create an IBAN validator from the specified map of IBAN formats.
+     * Create an VATIN validator from the specified map of VATIN formats.
      *
-     * @param validators map of IBAN formats
+     * @param validators map of VATIN formats
      */
     public VATINValidator(final Validator[] validators) {
         this.validatorMap = createValidators(validators);
@@ -210,17 +210,17 @@ starting with "EU" instead of a country code, e.g. Godaddy EU826010755
     }
 
     /**
-     * Gets the Validator for a given IBAN
+     * Gets the Validator for a given VATIN
      *
-     * @param code a string starting with the ISO country code (e.g. an IBAN)
+     * @param code a string starting with the ISO country code (e.g. "BG831650349" Nestlé.bg)
      *
-     * @return the validator or {@code null} if there is not one registered.
+     * @return the validator or {@code null} if there is no one registered.
      */
     public Validator getValidator(final String code) {
-        if (code == null || code.length() < SHORT_CODE_LEN) { // ensure we can extract the key
+        if (code == null || code.length() < COUNTRY_CODE_LEN) { // ensure we can extract the key
             return null;
         }
-        final String key = code.substring(0, SHORT_CODE_LEN);
+        final String key = code.substring(0, COUNTRY_CODE_LEN);
         return validatorMap.get(key);
     }
 
@@ -228,21 +228,20 @@ starting with "EU" instead of a country code, e.g. Godaddy EU826010755
      * Does the class have the required validator?
      *
      * @param code the code to check
-     * @return true if there is a validator
+     * @return true if there is a validator for the country
      */
     public boolean hasValidator(final String code) {
         return getValidator(code) != null;
     }
 
     /**
-     * Validate an VATIN Code
+     * Validate a VATIN Code
      *
-     * @param code The value validation is being performed on
+     * @param code The value validation is being performed on (e.g. "BG831650349" Nestlé.bg)
      * @return {@code true} if the value is valid
      */
     public boolean isValid(final String code) {
         final Validator formatValidator = getValidator(code);
-//        System.out.println("formatValidator.maxLength="+(formatValidator==null?-1:formatValidator.vatinLength));
         if (formatValidator == null || code.length() > formatValidator.vatinLength || !formatValidator.regexValidator.isValid(code)) {
             return false;
         }
@@ -254,9 +253,9 @@ starting with "EU" instead of a country code, e.g. Godaddy EU826010755
      * Will replace any existing entry which has the same countryCode.
      *
      * @param countryCode the country code
-     * @param length the length of the IBAN. Must be &ge; 8 and &le; 32.
-     * If the length is &lt; 0, the validator is removed, and the format is not used.
-     * @param format the format of the IBAN (as a regular expression)
+     * @param length the length of the VATIN. Must be &ge; 8 and &le; 32.
+     *  If the length is &lt; 0, the validator is removed, and the format is not used.
+     * @param format the format of the VATIN for the country (as a regular expression)
      * @return the previous Validator, or {@code null} if there was none
      * @throws IllegalArgumentException if there is a problem
      * @throws IllegalStateException if an attempt is made to modify the singleton validator
