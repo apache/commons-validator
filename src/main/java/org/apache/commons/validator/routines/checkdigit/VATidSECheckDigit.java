@@ -37,6 +37,7 @@ public final class VATidSECheckDigit extends ModulusCheckDigit {
 
     /** Singleton Check Digit instance */
     private static final VATidSECheckDigit INSTANCE = new VATidSECheckDigit();
+    private static final CheckDigit LUHN_CD_INSTANCE = LuhnCheckDigit.LUHN_CHECK_DIGIT;
 
     /**
      * Gets the singleton instance of this validator.
@@ -46,8 +47,6 @@ public final class VATidSECheckDigit extends ModulusCheckDigit {
         return INSTANCE;
     }
     static final int LEN = 10; // without suffix "01"
-
-    private final static CheckDigit LUHN_CHECK_DIGIT = LuhnCheckDigit.LUHN_CHECK_DIGIT;
 
     /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = {2, 1};
@@ -74,7 +73,7 @@ public final class VATidSECheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        final int weight = POSITION_WEIGHT[rightPos % 2]; // CHECKSTYLE IGNORE MagicNumber
+        final int weight = POSITION_WEIGHT[rightPos % POSITION_WEIGHT.length];
         final int weightedValue = charValue * weight;
         return weightedValue > 9 ? weightedValue - 9 : weightedValue; // CHECKSTYLE IGNORE MagicNumber
     }
@@ -97,7 +96,7 @@ public final class VATidSECheckDigit extends ModulusCheckDigit {
             }
             code = code.substring(0, LEN);
         }
-        return LUHN_CHECK_DIGIT.isValid(code);
+        return LUHN_CD_INSTANCE.isValid(code);
     }
 
 }
