@@ -16,9 +16,7 @@
  */
 package org.apache.commons.validator.routines;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -47,7 +45,7 @@ import org.apache.commons.validator.routines.checkdigit.VATINCheckDigit;
 // * <p>
 // * The singleton default instance cannot be modified in this way.
  * </p>
- * @since 1.9.0
+ * @since 1.10.0
  */
 public class VATINValidator {
 
@@ -63,7 +61,6 @@ public class VATINValidator {
         private static final int MAX_LEN = 16;
 
         final String countryCode;
-        final String[] otherCountryCodes;
         final RegexValidator regexValidator;
         final int vatinLength; // used to avoid unnecessary regex matching
 
@@ -74,35 +71,19 @@ public class VATINValidator {
          * @param regexWithCC the regex to use to check the format, the regex MUST start with the country code.
          */
         public Validator(final String countryCode, final int maxLength, final String regexWithCC) {
-            this(countryCode, maxLength, regexWithCC.substring(countryCode.length()), new String[] {});
-        }
-
-        /**
-         * Creates the validator.
-         * @param countryCode the country code
-         * @param maxLength the max length of the VATIN including country code
-         * @param regexWithoutCC the regex to use to check the format, the regex MUST NOT start with the country code.
-         */
-        Validator(final String countryCode, final int maxLength, final String regexWithoutCC, final String... otherCountryCodes) {
             if (!(countryCode.length() == 2 && Character.isUpperCase(countryCode.charAt(0)) && Character.isUpperCase(countryCode.charAt(1)))) {
                 throw new IllegalArgumentException("Invalid country Code; must be exactly 2 upper-case characters");
             }
             if (maxLength > MAX_LEN || maxLength < MIN_LEN) {
                 throw new IllegalArgumentException("Invalid length parameter, must be in range " + MIN_LEN + " to " + MAX_LEN + " inclusive: " + maxLength);
             }
-            final String regex = countryCode + regexWithoutCC;
+            final String regex = regexWithCC;
             if (!regex.startsWith(countryCode)) {
                 throw new IllegalArgumentException("countryCode '" + countryCode + "' does not agree with format: " + regex);
             }
             this.countryCode = countryCode;
-            this.otherCountryCodes = otherCountryCodes.clone();
-            final List<String> regexList = new ArrayList<>(this.otherCountryCodes.length + 1);
-            regexList.add(countryCode + regexWithoutCC);
-            for (final String otherCc : otherCountryCodes) {
-                regexList.add(otherCc + regexWithoutCC);
-            }
             this.vatinLength = maxLength;
-            this.regexValidator = new RegexValidator(regexList);
+            this.regexValidator = new RegexValidator(regex);
         }
 
         /**
@@ -118,12 +99,6 @@ public class VATINValidator {
 
     private static final int COUNTRY_CODE_LEN = 2;
 
-///*
-//
-//Foreign companies that trade with private individuals and non-business organisations in the EU may have a VATIN
-//starting with "EU" instead of a country code, e.g. Godaddy EU826010755
-//                                          and Amazon (AWS) EU826009064.
-// */
     private static final Validator[] DEFAULT_VALIDATORS = {                   //
             new Validator("AT", 11, "ATU\\d{8}"),                             // Austria  ATU9999999p
             new Validator("BE", 12, "BE[0-1]\\d{9}"),                         // Belgium  BE99999999pp
@@ -194,9 +169,6 @@ public class VATINValidator {
         final ConcurrentMap<String, Validator> map = new ConcurrentHashMap<>();
         for (final Validator validator : validators) {
             map.put(validator.countryCode, validator);
-            for (final String otherCC : validator.otherCountryCodes) {
-                map.put(otherCC, validator);
-            }
         }
         return map;
     }
