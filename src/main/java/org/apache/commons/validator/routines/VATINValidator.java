@@ -20,34 +20,63 @@ import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.apache.commons.validator.routines.checkdigit.VATINCheckDigit;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.validator.routines.checkdigit.CheckDigit;
+import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.Modulus11TenCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidATCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidBECheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidBGCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidCYCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidCZCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidDKCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidEECheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidELCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidESCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidFICheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidFRCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidGBCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidHUCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidIECheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidLTCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidLUCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidLVCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidMTCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidNLCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidPLCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidPTCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidROCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidSECheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidSICheckDigit;
+import org.apache.commons.validator.routines.checkdigit.VATidSKCheckDigit;
 
-// kopiert aus IBANValidator TODO kommentieren + implementieren
 /**
  * VAT identification number (VATIN) Validator.
  * <p>
- * The validator includes a default set of formats for European countries, see
+ * The validator includes a default set of formats and check routines for European Union countries, see
  * https://en.wikipedia.org/wiki/VAT_identification_number
  * </p>
-// * <p>
-// * This can get out of date, but the set can be adjusted by creating a validator and using the
-// * {@link #setValidator(String, int, String)} or
-// * {@link #setValidator(Validator)}
-// * method to add (or remove) an entry.
-// * </p>
-// * <p>
-// * For example:
-// * </p>
-// * <pre>
-// * IBANValidator ibv = new IBANValidator();
-// * ibv.setValidator("XX", 12, "XX\\d{10}")
-// * </pre>
-// * <p>
-// * The singleton default instance cannot be modified in this way.
+ * <p>
+ * This can be adjusted f.i. adding a new country routines by creating a validator and using the
+ * {@link #setValidator(String, int, String, CheckDigit)}
+ * method to add (or remove) an entry.
+ * </p>
+ * <p>
+ * For example:
+ * </p>
+ * <pre>
+ * VATINValidator v = new VATINValidator();
+ * v.setValidator("GB", 14, "GB(\\d{3})?\\d{9}", VATidGBCheckDigit.getInstance());
+ * </pre>
+ * <p>
+ * The singleton default instance cannot be modified in this way.
  * </p>
  * @since 1.10.0
  */
 public class VATINValidator {
+
+    private static final Log LOG = LogFactory.getLog(VATINValidator.class);
 
     /**
      * The validation class
@@ -63,34 +92,45 @@ public class VATINValidator {
         final String countryCode;
         final RegexValidator regexValidator;
         final int vatinLength; // used to avoid unnecessary regex matching
+        final CheckDigit routine;
 
         /**
          * Creates the validator.
-         * @param countryCode the country code
+         * @param cc the country code
          * @param maxLength the max length of the VATIN including country code
-         * @param regexWithCC the regex to use to check the format, the regex MUST start with the country code.
+         * @param regex the regex to use to check the format, MUST start with the country code.
+         * @param routine the Check Digit routine
          */
-        public Validator(final String countryCode, final int maxLength, final String regexWithCC) {
-            if (!(countryCode.length() == 2 && Character.isUpperCase(countryCode.charAt(0)) && Character.isUpperCase(countryCode.charAt(1)))) {
+        public Validator(final String cc, final int maxLength, final String regex, final CheckDigit routine) {
+            if (!(cc.length() == 2 && Character.isUpperCase(cc.charAt(0)) && Character.isUpperCase(cc.charAt(1)))) {
                 throw new IllegalArgumentException("Invalid country Code; must be exactly 2 upper-case characters");
             }
             if (maxLength > MAX_LEN || maxLength < MIN_LEN) {
                 throw new IllegalArgumentException("Invalid length parameter, must be in range " + MIN_LEN + " to " + MAX_LEN + " inclusive: " + maxLength);
             }
-            final String regex = regexWithCC;
-            if (!regex.startsWith(countryCode)) {
-                throw new IllegalArgumentException("countryCode '" + countryCode + "' does not agree with format: " + regex);
+            if (!regex.startsWith(cc)) {
+                throw new IllegalArgumentException("countryCode '" + cc + "' does not agree with format: " + regex);
             }
-            this.countryCode = countryCode;
+            this.countryCode = cc;
             this.vatinLength = maxLength;
             this.regexValidator = new RegexValidator(regex);
+            this.routine = routine;
+        }
+        /**
+         * A convinient ctor to create a validator. The country code is prefixed in the regex.
+         * @param cc the country code
+         * @param routine the Check Digit routine
+         * @param maxLength the max length of the VATIN including country code
+         * @param regex the regex to use to check the format without country code.
+         */
+        private Validator(final String cc, final CheckDigit routine, final int maxLength, final String regex) {
+            this(cc, maxLength, cc + regex, routine);
         }
 
         /**
          * Gets the RegexValidator.
          *
          * @return the RegexValidator.
-         * @since 1.8
          */
         public RegexValidator getRegexValidator() {
             return regexValidator;
@@ -98,41 +138,41 @@ public class VATINValidator {
     }
 
     private static final int COUNTRY_CODE_LEN = 2;
+    private static final String INVALID_COUNTRY_CODE = "No CheckDigit routine or invalid country, code=";
+    private static final String CANNOT_MODIFY_SINGLETON = "The singleton validator cannot be modified";
 
-    private static final Validator[] DEFAULT_VALIDATORS = {                   //
-            new Validator("AT", 11, "ATU\\d{8}"),                             // Austria  ATU9999999p
-            new Validator("BE", 12, "BE[0-1]\\d{9}"),                         // Belgium  BE99999999pp
-            // altes Format 9-stellig ist ungültig !!!
-            new Validator("BG", 12, "BG(\\d)?\\d{9}"),                        // Bulgaria BG99999999(9)p
-            new Validator("CY", 11, "CY[013459]\\d{7}[A-Z]"),                 // Cyprus   CY99999999L
-            new Validator("CZ", 12, "CZ(\\d)?(\\d)?\\d{8}"),                  // Czechia  CZ9999999(99)p
-            new Validator("DE", 11, "DE\\d{9}"),                              // Germany  DE99999999p
-            new Validator("DK", 10, "DK[1-9]\\d{7}"),                         // Denmark  DK99999999
-            new Validator("EE", 11, "EE\\d{9}"),                              // Estonia  EE99999999p
-            new Validator("EL", 11, "EL\\d{9}"),                              // Greece   EL99999999p
-            new Validator("ES", 11, "ES[A-Z0-9]\\d{7}[A-Z0-9]"),              // Spain    ESX9999999P
-//            new Validator("EU", 11, "EU\\d{9}"),                              // Foreign companies
-            new Validator("FI", 10, "FI\\d{8}"),                              // Finland  FI9999999p
-            new Validator("FR", 13, "FR[A-Z0-9]{2}\\d{9}"),                   // France   FRXX999999999
-            new Validator("HR", 13, "HR\\d{11}"),                             // Croatia  HR9999999999p
-            new Validator("HU", 10, "HU\\d{8}"),                              // Hungary  HU9999999p
-            new Validator("IE", 11, "IE\\d{7}[A-W]([A-I])?"),                 // Ireland  IE9999999a(A)
-            new Validator("IT", 13, "IT\\d{11}"),                             // Italy    IT9999999999p
+    private static final Validator[] DEFAULT_VALIDATORS = {
+            new Validator("AT", VATidATCheckDigit.getInstance(), 11, "U\\d{8}"),
+            new Validator("BE", VATidBECheckDigit.getInstance(), 12, "[0-1]\\d{9}"),
+            new Validator("BG", VATidBGCheckDigit.getInstance(), 12, "(\\d)?\\d{9}"),
+            new Validator("CY", VATidCYCheckDigit.getInstance(), 11, "[013459]\\d{7}[A-Z]"),
+            new Validator("CZ", VATidCZCheckDigit.getInstance(), 12, "(\\d)?(\\d)?\\d{8}"),
+            new Validator("DE", Modulus11TenCheckDigit.getInstance(), 11, "\\d{9}"),
+            new Validator("DK", VATidDKCheckDigit.getInstance(), 10, "[1-9]\\d{7}"),
+            new Validator("EE", VATidEECheckDigit.getInstance(), 11, "\\d{9}"),
+            new Validator("EL", VATidELCheckDigit.getInstance(), 11, "\\d{9}"),
+            new Validator("ES", VATidESCheckDigit.getInstance(), 11, "[A-Z0-9]\\d{7}[A-Z0-9]"),
+            new Validator("FI", VATidFICheckDigit.getInstance(), 10, "\\d{8}"),
+            new Validator("FR", VATidFRCheckDigit.getInstance(), 13, "[A-Z0-9]{2}\\d{9}"),
+            new Validator("HR", Modulus11TenCheckDigit.getInstance(), 13, "\\d{11}"),
+            new Validator("HU", VATidHUCheckDigit.getInstance(), 10, "\\d{8}"),
+            new Validator("IE", VATidIECheckDigit.getInstance(), 11, "\\d{7}[A-W]([A-I])?"),
+            new Validator("IT", LuhnCheckDigit.LUHN_CHECK_DIGIT, 13, "\\d{11}"),
             // optional Group for Temporarily Registered Taxpayers with 12 digits, C11==1
-            new Validator("LT", 14, "LT\\d{9}([0-9]1[0-9])?"),                // Lithuania LT99999999p or 12 digits
-            new Validator("LU", 13, "LU\\d{8}"),                              // Luxembourg LU999999pp
+            new Validator("LT", VATidLTCheckDigit.getInstance(), 14, "\\d{9}([0-9]1[0-9])?"),
+            new Validator("LU", VATidLUCheckDigit.getInstance(), 13, "\\d{8}"),
             // first digit [4-9] : legal entity , [0-3] : natural person
-            new Validator("LV", 13, "LV\\d\\d{10}"),                          // Latvia      LV9999999999p
-            new Validator("MT", 14, "MT\\d{8}"),                              // Malta       MT999999pp
-            new Validator("NL", 14, "NL\\d{9}B\\d{2}"),                       // Netherlands NL99999999pB01
-            new Validator("PL", 12, "PL\\d{10}"),                             // Poland      PL999999999p
-            new Validator("PT", 11, "PT\\d{9}"),                              // Portugal    PT99999999p
-            new Validator("RO", 12, "RO[1-9](\\d)?(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?\\d"), // Romania     RO999999999p
-            new Validator("SE", 14, "SE\\d{10}01"),                           // Sweden      SE999999999p01
-            new Validator("SI", 10, "SI[1-9]\\d{7}"),                         // Slovenia    SI19999999p
+            new Validator("LV", VATidLVCheckDigit.getInstance(), 13, "\\d\\d{10}"),
+            new Validator("MT", VATidMTCheckDigit.getInstance(), 14, "\\d{8}"),
+            new Validator("NL", VATidNLCheckDigit.getInstance(), 14, "\\d{9}B\\d{2}"),
+            new Validator("PL", VATidPLCheckDigit.getInstance(), 12, "\\d{10}"),
+            new Validator("PT", VATidPTCheckDigit.getInstance(), 11, "\\d{9}"),
+            new Validator("RO", VATidROCheckDigit.getInstance(), 12, "[1-9](\\d)?(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?\\d"),
+            new Validator("SE", VATidSECheckDigit.getInstance(), 14, "\\d{10}01"),
+            new Validator("SI", VATidSICheckDigit.getInstance(), 10, "[1-9]\\d{7}"),
             // ne of 2, 3, 4, 7, 8, 9
-            new Validator("SK", 12, "SK[1-9]\\d[2-4,7-9]\\d{7}"),             // Slovakia    SK19999999999
-            new Validator("XI", 14, "XI(\\d{3})?\\d{9}"),                     // North.Ireland XI9999999999
+            new Validator("SK", VATidSKCheckDigit.getInstance(), 12, "[1-9]\\d[2-4,7-9]\\d{7}"),
+            new Validator("XI", VATidGBCheckDigit.getInstance(), 14, "(\\d{3})?\\d{9}"),
     };
 
     /** The singleton instance which uses the default formats */
@@ -214,11 +254,15 @@ public class VATINValidator {
      * @return {@code true} if the value is valid
      */
     public boolean isValid(final String code) {
-        final Validator formatValidator = getValidator(code);
-        if (formatValidator == null || code.length() > formatValidator.vatinLength || !formatValidator.regexValidator.isValid(code)) {
+        final Validator validator = getValidator(code);
+        if (validator == null || code.length() > validator.vatinLength || !validator.regexValidator.isValid(code)) {
             return false;
         }
-        return VATINCheckDigit.getInstance().isValid(code);
+        if (validator.routine == null) {
+            LOG.warn(INVALID_COUNTRY_CODE + code);
+            return false;
+        }
+        return validator.routine.isValid(code.substring(2));
     }
 
     /**
@@ -229,18 +273,19 @@ public class VATINValidator {
      * @param length the length of the VATIN. Must be &ge; 8 and &le; 32.
      *  If the length is &lt; 0, the validator is removed, and the format is not used.
      * @param format the format of the VATIN for the country (as a regular expression)
+     * @param routine the CheckDigit module
      * @return the previous Validator, or {@code null} if there was none
      * @throws IllegalArgumentException if there is a problem
      * @throws IllegalStateException if an attempt is made to modify the singleton validator
      */
-    public Validator setValidator(final String countryCode, final int length, final String format) {
+    public Validator setValidator(final String countryCode, final int length, final String format, final CheckDigit routine) {
         if (this == DEFAULT_VATIN_VALIDATOR) {
-            throw new IllegalStateException("The singleton validator cannot be modified");
+            throw new IllegalStateException(CANNOT_MODIFY_SINGLETON);
         }
         if (length < 0) {
             return validatorMap.remove(countryCode);
         }
-        return setValidator(new Validator(countryCode, length, format));
+        return setValidator(new Validator(countryCode, length, format, routine));
     }
 
     /**
@@ -253,7 +298,7 @@ public class VATINValidator {
      */
     public Validator setValidator(final Validator validator) {
         if (this == DEFAULT_VATIN_VALIDATOR) {
-            throw new IllegalStateException("The singleton validator cannot be modified");
+            throw new IllegalStateException(CANNOT_MODIFY_SINGLETON);
         }
         return validatorMap.put(validator.countryCode, validator);
     }
