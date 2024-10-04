@@ -28,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.apache.commons.validator.routines.VATINValidator.Validator;
-import org.apache.commons.validator.routines.checkdigit.VATINCheckDigit;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -222,7 +221,7 @@ public class VATINValidatorTest {
     @Test
     public void testValid() {
         for (final String f : VALID_VATIN_FIXTURES) {
-            assertTrue(VATINCheckDigit.getInstance().isValid(f), "Checksum fail: " + f);
+            assertTrue(VALIDATOR.isValid(f), "CheckDigit fail: " + f);
             assertTrue(VALIDATOR.hasValidator(f), "Missing validator: " + f);
             assertTrue(VALIDATOR.isValid(f), f);
         }
