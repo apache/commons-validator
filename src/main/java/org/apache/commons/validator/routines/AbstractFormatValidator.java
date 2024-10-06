@@ -104,8 +104,7 @@ public abstract class AbstractFormatValidator implements Serializable {
      * @return The value formatted as a {@link String}.
      */
     public String format(final Object value, final String pattern, final Locale locale) {
-        final Format formatter = getFormat(pattern, locale);
-        return format(value, formatter);
+        return format(value, getFormat(pattern, locale));
     }
 
     /**
