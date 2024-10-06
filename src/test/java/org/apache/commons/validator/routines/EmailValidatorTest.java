@@ -470,11 +470,6 @@ public class EmailValidatorTest {
 
     @Test
     public void testValidator235() {
-        final String version = SystemProperties.getJavaVersion();
-        if (version.compareTo("1.6") < 0) {
-            System.out.println("Cannot run Unicode IDN tests");
-            return; // Cannot run the test
-        }
         assertTrue(validator.isValid("someone@xn--d1abbgf6aiiy.xn--p1ai"), "xn--d1abbgf6aiiy.xn--p1ai should validate");
         assertTrue(validator.isValid("someone@президент.рф"), "президент.рф should validate");
         assertTrue(validator.isValid("someone@www.b\u00fccher.ch"), "www.b\u00fccher.ch should validate");

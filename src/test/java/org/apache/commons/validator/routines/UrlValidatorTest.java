@@ -280,11 +280,6 @@ public class UrlValidatorTest {
 
     @Test
     public void testValidator235() {
-        final String version = SystemProperties.getJavaVersion();
-        if (version.compareTo("1.6") < 0) {
-            System.out.println("Cannot run Unicode IDN tests");
-            return; // Cannot run the test
-        }
         final UrlValidator validator = new UrlValidator();
         assertTrue(validator.isValid("http://xn--d1abbgf6aiiy.xn--p1ai"), "xn--d1abbgf6aiiy.xn--p1ai should validate");
         assertTrue(validator.isValid("http://президент.рф"), "президент.рф should validate");
