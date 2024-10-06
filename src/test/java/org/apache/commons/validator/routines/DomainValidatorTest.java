@@ -459,11 +459,7 @@ public class DomainValidatorTest {
 
     @Test
     public void testIDNJava6OrLater() {
-        final String version = SystemProperties.getJavaVersion();
-        if (version.compareTo("1.6") < 0) {
-            System.out.println("Cannot run Unicode IDN tests");
-            return; // Cannot run the test
-        } // xn--d1abbgf6aiiy.xn--p1ai http://президент.рф
+        // xn--d1abbgf6aiiy.xn--p1ai http://президент.рф
         assertTrue(validator.isValid("www.b\u00fccher.ch"), "b\u00fccher.ch should validate");
         assertTrue(validator.isValid("xn--d1abbgf6aiiy.xn--p1ai"), "xn--d1abbgf6aiiy.xn--p1ai should validate");
         assertTrue(validator.isValid("президент.рф"), "президент.рф should validate");
