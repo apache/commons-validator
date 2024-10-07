@@ -72,23 +72,30 @@ public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
               , "888801276"
               , "888850259"
               , "888851256"
-              // new style 9755 cannot be tested here
-//              , "340804329"
-//              , "431616518"
-//              , "426985160"
-//              , "439432385"
-//              , "439268659"
-//              , "428671865"
-              
-//            , "434031494"
-//            , "", "980780684"
-//            , "888801276", "888850259", "888851256" // GD + HA
+              , "816137833"
+              /* new style 9755 cannot be tested here
+              , "340804329"
+              , "431616518"
+              , "426985160"
+              , "439432385"
+              , "439268659"
+              , "428671865"
+              , "432880687"
+              , "432184025"
+              , "430510547"
+              , "427092792"
+              , "427264494"
+              , "428993836"
+              , "428121323"
+              , "430851513"
+              , "428756265"
+ */
 /* aus http://www.vat-lookup.co.uk/
 HERIZ LTD                         GB 431616518     14444294 // cd9755
 TAILORED INSTALLATIONS LTD        GB 426985160     14444308
 CATADRI TRANS LIMITED             GB 439432385     14444937
 LANSUME LIMITED                   GB 439268659     14445009
-EVG MODELLING LIMITED             GB 428671865     14444335 bis hierhin alle 9755 !!!!!!!!!!!!!
+EVG MODELLING LIMITED             GB 428671865     14444335
 TPWV4 LIMITED                     GB 432880687     14444662
 SOLOWRLD LIMITED                  GB 432184025     14445450 // cd9755
 PHLUSH LTD                        GB 430510547     14444987
@@ -98,7 +105,7 @@ MANAGING TEST ASSETS LTD          GB 428993836     14444927 // cd9755
 SUPER HIERBAS UK LTD              GB 428121323     14445481 // cd9755
 DURHAM ROAD PIZZA LTD             GB 430851513     14444711 // cd9755
 BRIDGES WOODWORK LTD              GB 427661973     14444699
-SANTI SURVEYING LIMITED           GB 428756265     14445513
+SANTI SURVEYING LIMITED           GB 428756265     14445513 bis hierhin alle 9755 !!!!!!!!!!!!!
 CALEB DEVELOPMENT LTD             GB 816137833     04714239 // cd97
 GAMMA HAT LTD                     GB 438017796     14445403
 MID-LINK SOLUTIONS LTD            GB 426751194     14444732
