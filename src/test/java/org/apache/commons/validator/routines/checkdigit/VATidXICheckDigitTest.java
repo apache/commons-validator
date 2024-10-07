@@ -63,6 +63,7 @@ public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
 //  366303068 (old style) 366303013 sind zwei verschiedene Unternehmen, die verschiedene PZ haben
         valid = new String[] {"366303068" // old style XI
               , "434031494"
+              , "110305836" // 1103058 36 old style for testing
 //              , "110305878", "174918964" // new style XI 9755 => test in VATINValidatorTest
               , "613451470"
               , "107328000"
@@ -71,8 +72,13 @@ public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
               , "888801276"
               , "888850259"
               , "888851256"
-              // new style:
+              // new style 9755 cannot be tested here
 //              , "340804329"
+//              , "431616518"
+//              , "426985160"
+//              , "439432385"
+//              , "439268659"
+//              , "428671865"
               
 //            , "434031494"
 //            , "", "980780684"
@@ -82,7 +88,7 @@ HERIZ LTD                         GB 431616518     14444294 // cd9755
 TAILORED INSTALLATIONS LTD        GB 426985160     14444308
 CATADRI TRANS LIMITED             GB 439432385     14444937
 LANSUME LIMITED                   GB 439268659     14445009
-EVG MODELLING LIMITED             GB 428671865     14444335
+EVG MODELLING LIMITED             GB 428671865     14444335 bis hierhin alle 9755 !!!!!!!!!!!!!
 TPWV4 LIMITED                     GB 432880687     14444662
 SOLOWRLD LIMITED                  GB 432184025     14445450 // cd9755
 PHLUSH LTD                        GB 430510547     14444987

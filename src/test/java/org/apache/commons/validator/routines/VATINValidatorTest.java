@@ -104,7 +104,7 @@ public class VATINValidatorTest {
             "XI366303068",    // donnellygroup.co.uk, old style cd
             "XI434031494",
             "XI110305878",    // bullseyecountrysport.co.uk, new style
-            "XI174918964",
+            "XI174918964"
     };
     // @formatter:on
 
@@ -121,6 +121,7 @@ public class VATINValidatorTest {
             "CY61234567I",    // Must not start with 2,6,7,8
             "DE00000000",     // too short
             "EL94327684",     // zu kurz, führende Null fehlt, korrekt: EL094327684
+            "GB110305878",    // bullseyecountrysport.co.uk is from northern ireland
             "GR023456780",    // falscher Prefix, sollte EL sein!
             "ESA10215",       // too short
             "LT100008668621", // C11 is not 1

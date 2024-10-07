@@ -57,7 +57,7 @@ public final class VATidGBCheckDigit extends ModulusCheckDigit {
     static final int CHECKDIGIT_LEN = 2;
 
     private static final int MODULUS_97 = 97;
-    private static final int MODULUS97_55 = 97; // the modifier for Modulus 9755 algorithm
+    private static final int MODULUS97_55 = 55; // the modifier for Modulus 9755 algorithm
 
     /**
      * Constructs a Check Digit routine.
@@ -102,7 +102,8 @@ public final class VATidGBCheckDigit extends ModulusCheckDigit {
         int modulusResult = calculateModulus(code, false);
         int mr55 = (MODULUS97_55 + modulusResult) % MODULUS_97;
         int newStyle = MODULUS_97 - mr55;
-        LOG.info(code + " modulusResult=" + modulusResult + " - old style cd = " + (MODULUS_97 - modulusResult) + " and MOD9755-style " + newStyle);
+        LOG.info(code + " modulusResult=" + modulusResult + " - old style cd = " + (MODULUS_97 - modulusResult)
+            + " and MOD9755-style " + newStyle);
         // There are more than one possible VATIN check digits for a given code,
         // one old style MOD 97 and one new style MOD 9755
         // thus, it isn't possible to compute the right one.
@@ -132,11 +133,11 @@ public final class VATidGBCheckDigit extends ModulusCheckDigit {
             }
             int modulusResult = calculateModulus(code.substring(0, LEN - CHECKDIGIT_LEN), false);
             if (0 == (modulusResult + cd) % MODULUS_97) {
-                LOG.info(code + " is old style");
+//                LOG.info(code + " is old style");
                 return true; // old style MOD 97
             }
             if (0 == (modulusResult + cd + MODULUS97_55) % MODULUS_97) {
-                LOG.info(code + " is new style 9755");
+//                LOG.info(code + " is new style 9755");
                 return true; // new style MOD 9755
             }
 //            LOG.warn(code + " cd="+cd +" not valid modulusResult="+modulusResult);
