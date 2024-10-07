@@ -101,9 +101,10 @@ public class VATINValidatorTest {
             "SE556680144401", // XLN Audio AB, STOCKHOLM
             "SI21649405",     // STANOVANJSKO PODJETJE KONJICE D.O.O.
             "SK2120567108",   // Markon s.r.o. Bratislava
-
-            "XI110305878",    // https://www.bullseyecountrysport.co.uk/contact-us-2-w.asp
-            "XI366303068",    // donnellygroup.co.uk
+            "XI366303068",    // donnellygroup.co.uk, old style cd
+            "XI434031494",
+            "XI110305878",    // bullseyecountrysport.co.uk, new style
+            "XI174918964",
     };
     // @formatter:on
 

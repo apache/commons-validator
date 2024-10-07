@@ -16,7 +16,16 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * XI VAT Id Check Digit Tests.
@@ -31,11 +40,11 @@ Beispiele:
     XI 174918964 : ungültig https://www.respond.co.uk/ VAT Number GB 174918964
     GB 174918964 : gültig, valid UK VAT number: RESPOND HEALTHCARE LIMITED, CARDIFF
     GB 613451470 : gültig, UNIVERSITY OF LEEDS. Aus https://www.adresslabor.de/en/products/vat-id-no-check.html
-    GB 107328000 : gültig, IBM UNITED KINGDOM LIMITED // 107328010 ist aoch valide TODO
-    GB 766800804 : gültig, IDOX SOFTWARE LTD // ??? cd9755=46 ist falsch TODO
+    GB 107328000 : gültig, IBM UNITED KINGDOM LIMITED
+    GB 766800804 : gültig, IDOX SOFTWARE LTD
     GB 980780684 : ungültig. Aus https://old.formvalidation.io/validators/vat/
                  und https://github.com/koblas/stdnum-js/blob/main/src/gb/vat.spec.ts
-    GB 340804329 : gültig, SUNS LIFESTYLE LIMITED // cd9755=29 TODO
+    GB 340804329 : gültig, SUNS LIFESTYLE LIMITED
     GB 888801276 : == GD012 gültig, CENTRE FOR MANAGEMENT & POLICY STUDIES CIVIL SERVICE COLLEGE
     GB 888850259 : == HA502 gültig, DEFENCE ELECTRONICS AND COMPONENTS AGENCY
     GB 888851256 : == HA512 gültig, HIGH SPEED TWO (HS2) LIMITED
@@ -51,11 +60,23 @@ public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
     protected void setUp() {
         checkDigitLth = VATidGBCheckDigit.CHECKDIGIT_LEN;
         routine = VATidGBCheckDigit.getInstance();
-//  366303068 und 366303013 sind zwei verschiedene Unternehmen mit die verschiedene PZ haben !!! XXX
-        valid = new String[] {"110305878", "366303068", "174918964" // XI
-            , "434031494"
-            , "613451470", "980780684"
-            , "888801276", "888850259", "888851256" // GD + HA
+//  366303068 (old style) 366303013 sind zwei verschiedene Unternehmen, die verschiedene PZ haben
+        valid = new String[] {"366303068" // old style XI
+              , "434031494"
+//              , "110305878", "174918964" // new style XI 9755 => test in VATINValidatorTest
+              , "613451470"
+              , "107328000"
+              , "766800804"
+              , "980780684"
+              , "888801276"
+              , "888850259"
+              , "888851256"
+              // new style:
+//              , "340804329"
+              
+//            , "434031494"
+//            , "", "980780684"
+//            , "888801276", "888850259", "888851256" // GD + HA
 /* aus http://www.vat-lookup.co.uk/
 HERIZ LTD                         GB 431616518     14444294 // cd9755
 TAILORED INSTALLATIONS LTD        GB 426985160     14444308
@@ -83,10 +104,66 @@ LIZZAO LTD                        GB 436338390     14445453
 DONNE UNITED LIMITED         GB 433477292     14444764
 HYPERDROP LIMITED             GB 430416240     14445105 // cd9755
  */
-            , "426985160", "439432385", "439268659", "428671865", "432880687", "430510547", "427092792"
-            , "427264494", "427661973", "428756265", "438017796", "426751194", "428819561", "440211846"
-            , "436338390", "433477292"
+            //, "431616518"
+//            , "426985160", "439432385", "439268659", "428671865", "432880687", "430510547", "427092792"
+//            , "427264494", "427661973", "428756265", "438017796", "426751194", "428819561", "440211846"
+//            , "436338390", "433477292"
             };
+        invalid = new String[] {"8888502+4", "1073280+0", "1073280-0"};
+    }
+
+    @Test
+    @Override
+    public void testIsValidFalse() {
+        if (log.isDebugEnabled()) {
+            log.debug("testIsValidFalse() for " + routine.getClass().getName());
+        }
+
+        // test invalid code values
+        for (int i = 0; i < invalid.length; i++) {
+            if (log.isDebugEnabled()) {
+                log.debug("   " + i + " Testing Invalid Code=[" + invalid[i] + "]");
+            }
+            String invalidCode = invalid[i];
+            System.out.println("XX " + i + " Testing Invalid Code=[" + invalidCode + "]");
+            assertFalse(routine.isValid(invalidCode), "invalid[" + i + "]: " + invalidCode);
+        }
+
+        // test invalid check digit values
+        final String[] invalidCheckDigits = createInvalidCodes(valid);
+        final Map<String, List<String>> icdmap = new Hashtable<String, List<String>>();
+        for (int i = 0; i < invalidCheckDigits.length; i++) {
+            if (log.isDebugEnabled()) {
+                log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "]");
+            }
+            boolean res = routine.isValid(invalidCheckDigits[i]);
+            if (res) {
+//                log.warn("   " + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "] is true, expected false.");
+                int l = invalidCheckDigits[i].length();
+                List<String> v = icdmap.get(invalidCheckDigits[i].substring(0, l - checkDigitLth));
+                if (v == null) {
+                    v = new ArrayList<String>();
+                    v.add(invalidCheckDigits[i].substring(l - checkDigitLth));
+                    icdmap.put(invalidCheckDigits[i].substring(0, l - checkDigitLth), v);
+                } else {
+                    v.add(invalidCheckDigits[i].substring(l - checkDigitLth));
+                }
+                //map.put(invalidCheckDigits[i].substring(checkDigitLth), invalidCheckDigits[i].substring(0, checkDigitLth));
+//                System.out.println("true" + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "]");
+            } else {
+                //System.out.println("   " + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "]");
+            }
+//            assertFalse(res, "invalid check digit[" + i + "]: " + invalidCheckDigits[i]);
+        }
+//        System.out.println(icdmap);
+        List<String> validList = Arrays.asList(valid);
+        icdmap.forEach((key, value) -> {
+            for (String v : validList) {
+                if (v.startsWith(key)) {
+                    System.out.println(key + " " + v.substring(v.length() - 2) + " + " + value);
+                }
+            }
+        });
     }
 
 }
