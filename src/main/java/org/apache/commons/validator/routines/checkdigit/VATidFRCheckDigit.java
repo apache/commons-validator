@@ -84,6 +84,9 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
 
     /**
      * {@inheritDoc}
+     * <p>
+     * Overridden to handle two digits as <em>Check Digit</em> and check SIREN
+     * </p>
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
@@ -94,42 +97,32 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
         if (checkZero != null && checkZero == 0) {
             throw new CheckDigitException(CheckDigitException.ZREO_SUM);
         }
+        // all French VATIN codes contain a valid SIREN number
         if (!SIRENE_VALIDATOR.isValid(code)) {
             throw new CheckDigitException("Invalid code, " + code + " is not valid SIREN");
         }
-/*
 
-How to calculate the intra-Community VAT number
-
-Calculating the intra-Community VAT number requires finding the VAT key from SIREN:
-Clé TVA = [12 + 3 × (SIREN modulo 97)] modulo 97
-Modulo was the rest of the Euclidean division by 97.
-
-Example: VAT key - [12 - 3 - (404 833 048 modulo 97) - modulo 97 - [12 - 3 - 56 - modulo 97 - 180 modulo 97 - 83
- */
-//        Long siren = GenericTypeValidator.formatLong((code));
-//        if (siren == null) {
-//            throw new CheckDigitException("Invalid code, siren='" + code + "'");
-//        }
-//        final int cd3 = (int) (3 * (siren % MODULUS_97));
-//        final int cd = (12 + cd3) % MODULUS_97;
-//        LOG.info(code + " cd=" + cd + ", siren%97=" + siren % MODULUS_97
-//            + " [12 + 3 × (SIREN modulo 97)]=" + (12 + cd3));
-
-        Long cde = GenericTypeValidator.formatLong(code + "12");
-        if (cde == null) {
-            throw new CheckDigitException("Invalid code, '" + code + "'");
-        }
-        final int cdValue = (int) (cde % MODULUS_97);
-        LOG.info(code + "12" + "    SIREN+12 modulo 97 = " + cdValue);
         // There are more than one possible VATIN check digit C(1-2) for a given SIREN,
         // thus, it isn't possible to compute it.
 
         // convert two-digit numeric values to String
-        return Modulus97CheckDigit.toCheckDigit(cdValue);
+        return Modulus97CheckDigit.toCheckDigit(calcOldStyle(code));
     }
 
-    public boolean isValidOldStyle(final String code) throws CheckDigitException {
+    /**
+     * Old Style calculating the numeric check digit
+     * @param code without check digit
+     * @return numeric check digit
+     * @throws CheckDigitException
+     */
+    private int calcOldStyle(final String code) throws CheckDigitException {
+        Long cde12 = GenericTypeValidator.formatLong(code + "12");
+        if (cde12 == null) {
+            throw new CheckDigitException("Invalid code, '" + code + "'");
+        }
+        return (int) (cde12 % MODULUS_97);
+    }
+    private boolean isValidOldStyle(final String code) throws CheckDigitException {
         int cd = GenericTypeValidator.formatInt(code.substring(0, CHECKDIGIT_LEN));
         Long cde = GenericTypeValidator.formatLong((code + "12").substring(CHECKDIGIT_LEN));
         if (cde == null) {
@@ -137,9 +130,32 @@ Example: VAT key - [12 - 3 - (404 833 048 modulo 97) - modulo 97 - [12 - 3 - 56 
         }
         return cd == cde % MODULUS_97;
     }
+//    this method is published in some sources as new style calculation, the resold is equal to isValidOldStyle
+//    private boolean isValidNewStyle(final String code) throws CheckDigitException {
+//        int cd = GenericTypeValidator.formatInt(code.substring(0, CHECKDIGIT_LEN));
+//        int siren = GenericTypeValidator.formatInt(code.substring(CHECKDIGIT_LEN));
+//        int cleTVA = (12 + 3 * (siren % MODULUS_97)) % MODULUS_97;
+//        if (cd != cleTVA) {
+//            throw new CheckDigitException("Invalid code " + code);
+//        }
+//        return cd == cleTVA;
+//    }
 
+    private boolean isValid(final String siren, final int s0, final int s1) {
+        int s = s0 * 24 + s1 - 10;  // CHECKSTYLE IGNORE MagicNumber
+        if (s1 > -1 && s1 < 10 && s0 >= 10) {  // CHECKSTYLE IGNORE MagicNumber
+            s = s0 * ALPHABET.length() + s1 - 100;  // CHECKSTYLE IGNORE MagicNumber
+        }
+        int p = (s / MODULUS_11) + 1;
+        int r1 = s % MODULUS_11;
+        int r2 = (GenericTypeValidator.formatInt(siren) + p) % MODULUS_11;
+        return r1 == r2;
+    }
     /**
      * {@inheritDoc}
+     * <p>
+     * Overridden to handle new style <em>Check Digit</em>s
+     * </p>
      */
     @Override
     public boolean isValid(final String code) {
@@ -153,8 +169,7 @@ Example: VAT key - [12 - 3 - (404 833 048 modulo 97) - modulo 97 - [12 - 3 - 56 
             return false;
         }
         try {
-        // siehe https://help.sap.com/docs/SUPPORT_CONTENT/crm/3354674613.html
-        // cd ist nicht eindeutig - ich mache es in der Reihenfolge
+        // validate new style codes (with Letters) first
         // 1. c0 isUpperCase && c1 isDigit ==> new style
         // 2. c0 isDigit && c1 isUpperCase ==> new style
         // 3. c0 isDigit && c1 isDigit ==> old style
@@ -164,21 +179,15 @@ Example: VAT key - [12 - 3 - (404 833 048 modulo 97) - modulo 97 - [12 - 3 - 56 
             int s0 = ALPHABET.indexOf(c0);
             int s1 = ALPHABET.indexOf(c1);
             if (Character.isUpperCase(c0) && Character.isDigit(c1)) {
-                int s = s0 * 34 + s1 - 100; // CHECKSTYLE IGNORE MagicNumber
-                int p = (s / 11) + 1; // CHECKSTYLE IGNORE MagicNumber
-                int r1 = s % MODULUS_11;
-                int r2 = (GenericTypeValidator.formatInt(code.substring(CHECKDIGIT_LEN)) + p) % MODULUS_11;
-                return r1 == r2;
+                return isValid(code.substring(CHECKDIGIT_LEN), s0, s1);
             } else if (Character.isDigit(c0) && Character.isUpperCase(c1)) {
-                int s = s0 * 24 + s1 - 10; // CHECKSTYLE IGNORE MagicNumber
-                int p = (s / 11) + 1; // CHECKSTYLE IGNORE MagicNumber
-                int r1 = s % MODULUS_11;
-                int r2 = (GenericTypeValidator.formatInt(code.substring(CHECKDIGIT_LEN)) + p) % MODULUS_11;
-                return r1 == r2;
+                return isValid(code.substring(CHECKDIGIT_LEN), s0, s1);
             } else if (Character.isDigit(c0) && Character.isDigit(c1)) {
                 return isValidOldStyle(code);
             } else {
-//                LOG.warn(code + "    invalid check code '" + code.substring(0, CHECKDIGIT_LEN) + "'");
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug(code + "    invalid check code '" + code.substring(0, CHECKDIGIT_LEN) + "'");
+                }
                 return false;
             }
         } catch (final CheckDigitException ex) {
