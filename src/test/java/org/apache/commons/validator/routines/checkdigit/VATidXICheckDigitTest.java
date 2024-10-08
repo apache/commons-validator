@@ -32,24 +32,25 @@ import org.junit.jupiter.api.Test;
  */
 /*
 
-Beispiele:
-
-    XI 110305878 : gültig https://www.bullseyecountrysport.co.uk/contact-us-2-w.asp
-    XI 366303068 : gültig donnellygroup.co.uk Company Info Reg. Company Number: NI 643
-                 , VAT Reg. No. GB366303068, GB366303013 ist HUITAIHK TECHNOLOGY LIMITED
-    XI 174918964 : ungültig https://www.respond.co.uk/ VAT Number GB 174918964
+    XI 110305878 : gültig bullseyecountrysport
+    XI 366303068 : gültig donnellygroup.co.uk Company Info Reg. Company Number: NI 643,
+    GB 366303013 ist HUITAIHK TECHNOLOGY LIMITED, ABERDEEN
+    XI 174918964 : valide, aber ungültig da nicht in Nordirland
     GB 174918964 : gültig, valid UK VAT number: RESPOND HEALTHCARE LIMITED, CARDIFF
-    GB 613451470 : gültig, UNIVERSITY OF LEEDS. Aus https://www.adresslabor.de/en/products/vat-id-no-check.html
+    GB 613451470 : gültig, UNIVERSITY OF LEEDS. Aus adresslabor.de
     GB 107328000 : gültig, IBM UNITED KINGDOM LIMITED
+    // VAT with branch test in VATINValidatorTest
+    GB 107328000001 Nr mit Niederlassung : gültig, IBM UK RENTALS LTD
+    GB 107328000002 Nr mit Niederlassung : gültig, IBM UNITED KINGDOM HOLDINGS LTD
     GB 766800804 : gültig, IDOX SOFTWARE LTD
-    GB 980780684 : ungültig. Aus https://old.formvalidation.io/validators/vat/
-                 und https://github.com/koblas/stdnum-js/blob/main/src/gb/vat.spec.ts
+    GB 980780684 : ungültig. Aus formvalidation.io und koblas/stdnum-js
     GB 340804329 : gültig, SUNS LIFESTYLE LIMITED
     GB 888801276 : == GD012 gültig, CENTRE FOR MANAGEMENT & POLICY STUDIES CIVIL SERVICE COLLEGE
     GB 888850259 : == HA502 gültig, DEFENCE ELECTRONICS AND COMPONENTS AGENCY
     GB 888851256 : == HA512 gültig, HIGH SPEED TWO (HS2) LIMITED
     XI/GB 434031494 : valide, aber nicht gültig (aus AT-Doku)
-
+VAT Mod 97   : GB 562235945 nicht gültig
+VAT Mod 9755 : GB 562235987 nicht gültig
  */
 public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
 
@@ -60,6 +61,7 @@ public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
     protected void setUp() {
         checkDigitLth = VATidGBCheckDigit.CHECKDIGIT_LEN;
         routine = VATidGBCheckDigit.getInstance();
+
 //  366303068 (old style) 366303013 sind zwei verschiedene Unternehmen, die verschiedene PZ haben
         valid = new String[] {"366303068" // old style XI
               , "434031494"
@@ -73,6 +75,7 @@ public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
               , "888850259"
               , "888851256"
               , "816137833"
+              , "562235945"
               /* new style 9755 cannot be tested here
               , "340804329"
               , "431616518"
@@ -89,42 +92,31 @@ public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
               , "428121323"
               , "430851513"
               , "428756265"
- */
-/* aus http://www.vat-lookup.co.uk/
-HERIZ LTD                         GB 431616518     14444294 // cd9755
-TAILORED INSTALLATIONS LTD        GB 426985160     14444308
-CATADRI TRANS LIMITED             GB 439432385     14444937
-LANSUME LIMITED                   GB 439268659     14445009
-EVG MODELLING LIMITED             GB 428671865     14444335
-TPWV4 LIMITED                     GB 432880687     14444662
-SOLOWRLD LIMITED                  GB 432184025     14445450 // cd9755
-PHLUSH LTD                        GB 430510547     14444987
-FAW MOTORSPORT LTD                GB 427092792     14444664
-STARLIGHT FINANCE CONSULTING LTD  GB 427264494     14444676
-MANAGING TEST ASSETS LTD          GB 428993836     14444927 // cd9755
-SUPER HIERBAS UK LTD              GB 428121323     14445481 // cd9755
-DURHAM ROAD PIZZA LTD             GB 430851513     14444711 // cd9755
-BRIDGES WOODWORK LTD              GB 427661973     14444699
-SANTI SURVEYING LIMITED           GB 428756265     14445513 bis hierhin alle 9755 !!!!!!!!!!!!!
-CALEB DEVELOPMENT LTD             GB 816137833     04714239 // cd97
-GAMMA HAT LTD                     GB 438017796     14445403
-MID-LINK SOLUTIONS LTD            GB 426751194     14444732
-YUNQIANG DECORATIONS LIMITED      GB 428819561     14445495
-WATERMORE TECH LIMITED            GB 439997811     14444758 // cd9755
-TASTE OF LIFE FOOD LTD            GB 433182417     14445102 // cd9755
-TIDAL AND CO LIMITED              GB 440211846     14445100
-LIZZAO LTD                        GB 436338390     14445453
-DONNE UNITED LIMITED         GB 433477292     14444764
-HYPERDROP LIMITED             GB 430416240     14445105 // cd9755
- */
-            //, "431616518"
-//            , "426985160", "439432385", "439268659", "428671865", "432880687", "430510547", "427092792"
-//            , "427264494", "427661973", "428756265", "438017796", "426751194", "428819561", "440211846"
-//            , "436338390", "433477292"
+              , "438017796"
+              , "426751194"
+              , "428819561"
+              , "439997811"
+              , "433182417"
+              , "440211846"
+              , "436338390"
+              , "433477292"
+              , "430416240"
+               */
             };
         invalid = new String[] {"8888502+4", "1073280+0", "1073280-0"};
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Overridden to handle two digits as <em>Check Digit</em>. The original test assumes
+     * that there is only one valid check digit. All other generated test (createInvalidCodes)
+     * codes should assertFalse. This is not so for XI/GB VATINS. There are two valid check digits,
+     * one calculated with old style MOD97 and the other with MOD9755.
+     * I collect the test results for each test case and print the result at the end.
+     * Example: 5622359 45 + [87] means: the old style cd is 45, and the MOD9755-cd is 87
+     * </p>
+     */
     @Test
     @Override
     public void testIsValidFalse() {
@@ -138,7 +130,6 @@ HYPERDROP LIMITED             GB 430416240     14445105 // cd9755
                 log.debug("   " + i + " Testing Invalid Code=[" + invalid[i] + "]");
             }
             String invalidCode = invalid[i];
-            System.out.println("XX " + i + " Testing Invalid Code=[" + invalidCode + "]");
             assertFalse(routine.isValid(invalidCode), "invalid[" + i + "]: " + invalidCode);
         }
 
@@ -168,7 +159,7 @@ HYPERDROP LIMITED             GB 430416240     14445105 // cd9755
             }
 //            assertFalse(res, "invalid check digit[" + i + "]: " + invalidCheckDigits[i]);
         }
-//        System.out.println(icdmap);
+        // now print the results
         List<String> validList = Arrays.asList(valid);
         icdmap.forEach((key, value) -> {
             for (String v : validList) {

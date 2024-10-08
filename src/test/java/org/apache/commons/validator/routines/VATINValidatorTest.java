@@ -104,7 +104,8 @@ public class VATINValidatorTest {
             "XI366303068",    // donnellygroup.co.uk, old style cd
             "XI434031494",
             "XI110305878",    // bullseyecountrysport.co.uk, new style
-            "XI174918964"
+            "XI174918964",
+            "XI174918964001", // with 3 digits for branch
     };
     // @formatter:on
 

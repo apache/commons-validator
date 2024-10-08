@@ -53,7 +53,7 @@ public final class VATidGBCheckDigit extends ModulusCheckDigit {
         return INSTANCE;
     }
 
-    static final int LEN = 9; // with Check Digit XXX neun oder zwölf, nur Ziffern
+    static final int LEN = 9; // with Check Digit
     static final int CHECKDIGIT_LEN = 2;
 
     private static final int MODULUS_97 = 97;
@@ -89,6 +89,9 @@ public final class VATidGBCheckDigit extends ModulusCheckDigit {
 
     /**
      * {@inheritDoc}
+     * <p>
+     * Overridden to handle two digits as <em>Check Digit</em> and MOD 9755
+     * </p>
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
@@ -100,10 +103,12 @@ public final class VATidGBCheckDigit extends ModulusCheckDigit {
         }
 
         int modulusResult = calculateModulus(code, false);
-        int mr55 = (MODULUS97_55 + modulusResult) % MODULUS_97;
-        int newStyle = MODULUS_97 - mr55;
-        LOG.info(code + " modulusResult=" + modulusResult + " - old style cd = " + (MODULUS_97 - modulusResult)
-            + " and MOD9755-style " + newStyle);
+        if (LOG.isDebugEnabled()) {
+            int mr55 = (MODULUS97_55 + modulusResult) % MODULUS_97;
+            int newStyle = MODULUS_97 - mr55;
+            LOG.debug(code + " modulusResult=" + modulusResult + " - old style cd = " + (MODULUS_97 - modulusResult)
+                + " and MOD9755-style " + newStyle);
+        }
         // There are more than one possible VATIN check digits for a given code,
         // one old style MOD 97 and one new style MOD 9755
         // thus, it isn't possible to compute the right one.
@@ -115,14 +120,25 @@ public final class VATidGBCheckDigit extends ModulusCheckDigit {
 
     /**
      * {@inheritDoc}
+     * <p>
+     * Overridden to handle two digits as <em>Check Digit</em>, ignore tree branch digits and MOD 9755
+     * </p>
      */
     @Override
-    public boolean isValid(final String code) {
+    public boolean isValid(final String ocode) {
+        String code = ocode;
         if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
-        if (code.length() < LEN) { // TODO 12
+        if (code.length() < LEN) {
             return false;
+        }
+        if (code.length() > LEN) {
+            if (code.length() != LEN + 3) {  // CHECKSTYLE IGNORE MagicNumber
+                return false;
+            }
+            // ignore tree branch digits
+            code = code.substring(0, LEN);
         }
 
         try {
@@ -133,14 +149,11 @@ public final class VATidGBCheckDigit extends ModulusCheckDigit {
             }
             int modulusResult = calculateModulus(code.substring(0, LEN - CHECKDIGIT_LEN), false);
             if (0 == (modulusResult + cd) % MODULUS_97) {
-//                LOG.info(code + " is old style");
                 return true; // old style MOD 97
             }
             if (0 == (modulusResult + cd + MODULUS97_55) % MODULUS_97) {
-//                LOG.info(code + " is new style 9755");
                 return true; // new style MOD 9755
             }
-//            LOG.warn(code + " cd="+cd +" not valid modulusResult="+modulusResult);
             return false;
         } catch (final CheckDigitException ex) {
             return false;
