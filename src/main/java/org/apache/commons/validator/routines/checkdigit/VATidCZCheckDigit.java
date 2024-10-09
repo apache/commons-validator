@@ -138,7 +138,7 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
         final int sum = 10 * (c1 + c3 + c5 + c7 + c9)
             + c2 + c4 + c6 + c8 + (cd == -1 ? 0 : cd == 0 ? 10 : cd);  // CHECKSTYLE IGNORE MagicNumber
         if (sum == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         final int yy = 10 * c1 + c2;
         final int yyborn = yy >= BORN_IN_1900_IND ? 1900 + yy : 2000 + yy;  // CHECKSTYLE IGNORE MagicNumber
@@ -177,7 +177,7 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
             total += weightedValue(charValue, leftPos, rightPos);
         }
         if (total == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         return total % MODULUS_11;
     }

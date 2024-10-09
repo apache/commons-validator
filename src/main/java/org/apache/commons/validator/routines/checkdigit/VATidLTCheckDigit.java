@@ -65,7 +65,7 @@ public final class VATidLTCheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
         if (code.length() >= LEN && GenericTypeValidator.formatLong(code) == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         final int modulusResult = calculateModulus1(code, false);
         if (modulusResult == 10) { // CHECKSTYLE IGNORE MagicNumber
@@ -90,7 +90,7 @@ public final class VATidLTCheckDigit extends ModulusCheckDigit {
             total += charValue * (leftPos > POS9 ? leftPos - POS9 : leftPos);
         }
         if (total == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         return total % MODULUS_11;
     }

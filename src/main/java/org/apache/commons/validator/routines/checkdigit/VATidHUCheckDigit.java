@@ -85,7 +85,7 @@ public final class VATidHUCheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
         if (code.length() >= LEN && GenericTypeValidator.formatLong(code) == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         return super.calculate(code);
     }

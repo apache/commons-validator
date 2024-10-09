@@ -96,7 +96,7 @@ public final class VATidESCheckDigit extends ModulusCheckDigit {
     private char calculateNIFletter(final String code) throws CheckDigitException {
         long value = GenericTypeValidator.formatLong(code);
         if (GenericTypeValidator.formatLong(code) == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         return NIF_LETTER.charAt((int) (value % MODULUS_23));
     }

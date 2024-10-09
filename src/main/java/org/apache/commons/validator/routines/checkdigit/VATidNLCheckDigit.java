@@ -90,7 +90,7 @@ public final class VATidNLCheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
         if (GenericTypeValidator.formatLong(code) == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
 
         return toCheckDigit(INSTANCE.calculateModulus(code, false) % MODULUS_10);

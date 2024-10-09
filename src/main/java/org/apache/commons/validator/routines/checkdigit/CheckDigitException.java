@@ -33,7 +33,7 @@ public class CheckDigitException extends Exception {
     /**
      * Common message text when code sum is zero
      */
-    public static final String ZREO_SUM = "Invalid code, sum is zero";
+    public static final String ZERO_SUM = "Invalid code, sum is zero";
 
     /**
      * Constructs an Exception with no message.

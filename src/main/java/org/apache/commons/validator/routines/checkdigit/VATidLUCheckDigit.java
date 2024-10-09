@@ -72,7 +72,7 @@ public final class VATidLUCheckDigit extends Modulus97CheckDigit {
         long mr = calculateModulus(code, false);
         int modulusResult = (int) (mr % MODULUS_89);
         if (modulusResult == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         return toCheckDigit(modulusResult);
     }
@@ -98,7 +98,7 @@ public final class VATidLUCheckDigit extends Modulus97CheckDigit {
             long mr = calculateModulus(code, true);
             int modulusResult = (int) (mr % MODULUS_89);
             if (modulusResult == 0) {
-                throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+                throw new CheckDigitException(CheckDigitException.ZERO_SUM);
             }
             return icheck.intValue() == modulusResult;
         } catch (final CheckDigitException ex) {

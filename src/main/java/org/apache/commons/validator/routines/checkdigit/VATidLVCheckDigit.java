@@ -103,7 +103,7 @@ A1 = 9*C1 + 1*C2 + 4*C3 + 8*C4 + 3*C5 + 10*C6 + 2*C7 + 5*C8 + 7*C9 + 6*C10
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
         if (GenericTypeValidator.formatLong(code) == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         final int c1 = toInt(code.charAt(0), 1, -1);
         if (c1 > THREE) {

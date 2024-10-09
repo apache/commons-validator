@@ -73,7 +73,7 @@ public final class VATidBECheckDigit extends Modulus97CheckDigit {
         long mr = calculateModulus(code, false);
         int modulusResult = (int) (mr % MODULUS_97);
         if (modulusResult == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         // The check digits are calculated as 97 - MOD 97
         return toCheckDigit(MODULUS_97 - modulusResult);
@@ -100,7 +100,7 @@ public final class VATidBECheckDigit extends Modulus97CheckDigit {
             long mr = calculateModulus(code, true);
             int modulusResult = (int) (mr % MODULUS_97);
             if (modulusResult == 0) {
-                throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+                throw new CheckDigitException(CheckDigitException.ZERO_SUM);
             }
             final int cdValue = MODULUS_97 - modulusResult;
             return icheck.intValue() == cdValue;

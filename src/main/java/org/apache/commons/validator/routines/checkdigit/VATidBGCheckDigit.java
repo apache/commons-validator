@@ -118,7 +118,7 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
         if (GenericTypeValidator.formatLong(code) == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         if (code.length() + 1 == LEN) { // DDS for legal entities
             int total = calculateDDStotal(code, false);

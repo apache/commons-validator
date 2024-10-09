@@ -95,7 +95,7 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
         // need this for testZeroSum():
         Long l = GenericTypeValidator.formatLong(code);
         if (l != null && l == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
 
         final int modulusResult = INSTANCE.calculateModulus(omitU(code), false);
@@ -118,7 +118,7 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
             total += weightedValue(charValue, leftPos, rightPos);
         }
         if (total == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         return (total + 4) % MODULUS_10;  // CHECKSTYLE IGNORE MagicNumber
     }

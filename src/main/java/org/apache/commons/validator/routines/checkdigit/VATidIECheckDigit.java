@@ -121,7 +121,7 @@ public final class VATidIECheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
         if (code.length() >= LEN && GenericTypeValidator.formatLong(code.substring(0, LEN)) == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         int r = super.calculateModulus(code, true);
         return toCheckDigit(r);
@@ -141,7 +141,7 @@ public final class VATidIECheckDigit extends ModulusCheckDigit {
         String code0 = code.substring(0, LEN) + 0 + code.substring(LEN + 1);
         try {
             if (code.length() >= LEN && GenericTypeValidator.formatLong(code.substring(0, LEN)) == 0) {
-                throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+                throw new CheckDigitException(CheckDigitException.ZERO_SUM);
             }
             final int modulusResult = INSTANCE.calculateModulus(code0, true);
             return toCheckDigit(modulusResult).charAt(0) == code.charAt(LEN);

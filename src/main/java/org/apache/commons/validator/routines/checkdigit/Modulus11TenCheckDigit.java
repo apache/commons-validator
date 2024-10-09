@@ -82,7 +82,7 @@ public class Modulus11TenCheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
         if (GenericTypeValidator.formatLong(code) == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
 
         return toCheckDigit(calculateModulus(code, false));
@@ -120,7 +120,7 @@ public class Modulus11TenCheckDigit extends ModulusCheckDigit {
         }
         try {
             if (GenericTypeValidator.formatLong(code.substring(0, code.length() - 1)) == 0) {
-                throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+                throw new CheckDigitException(CheckDigitException.ZERO_SUM);
             }
             final int modulusResult = calculateModulus(code, true);
             return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));

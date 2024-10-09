@@ -82,7 +82,7 @@ public final class VATidSKCheckDigit extends ModulusCheckDigit {
         }
         Long l = GenericTypeValidator.formatLong(code);
         if (l == null || l == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         return toCheckDigit((int) (l % MODULUS_11));
     }

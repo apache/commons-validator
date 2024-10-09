@@ -105,7 +105,7 @@ public final class VATidCYCheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException(INVALID_START_MSG + code);
         }
         if (code.length() >= LEN && GenericTypeValidator.formatLong(code.substring(0, LEN)) == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         return toCheckDigit(calculateModulus(code, false));
     }

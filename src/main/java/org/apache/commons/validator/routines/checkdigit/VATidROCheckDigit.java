@@ -84,7 +84,7 @@ public final class VATidROCheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
         if (code.length() >= LEN && GenericTypeValidator.formatLong(code) == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         String pcode = code;
         // fill with leading zeros:
@@ -98,7 +98,7 @@ public final class VATidROCheckDigit extends ModulusCheckDigit {
             total += weightedValue(charValue, leftPos, -1);
         }
         if (total == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         final int charValue = total * MODULUS_10 % MODULUS_11;
         return toCheckDigit(charValue == MODULUS_10 ? 0 : charValue);

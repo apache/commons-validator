@@ -95,7 +95,7 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
         }
         Long checkZero = GenericTypeValidator.formatLong(code);
         if (checkZero != null && checkZero == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         // all French VATIN codes contain a valid SIREN number
         if (!SIRENE_VALIDATOR.isValid(code)) {

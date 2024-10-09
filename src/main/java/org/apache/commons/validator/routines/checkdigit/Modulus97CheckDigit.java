@@ -96,7 +96,7 @@ public class Modulus97CheckDigit extends AbstractCheckDigit implements Serializa
         }
         int modulusResult = (int) (mr % modulus);
         if (modulusResult == 0) {
-            throw new CheckDigitException(CheckDigitException.ZREO_SUM);
+            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         final int cdValue = (modulus + 1 - modulusResult) % modulus;
         return toCheckDigit(cdValue);
