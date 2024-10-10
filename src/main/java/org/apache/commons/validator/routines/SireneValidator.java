@@ -44,6 +44,7 @@ import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
  * <p>
  * See <a href="https://en.wikipedia.org/wiki/SIRET_code">Wikipedia - SIRET</a> for more details.
  * </p>
+ * @since 1.10.0
  */
 public class SireneValidator {
 
@@ -61,7 +62,7 @@ public class SireneValidator {
     private static final int SIRET_CODE_LEN = 14;
 
     /**
-     * The validation class
+     * The format validation class contains regex for SIREN and SIRET.
      */
     public static class Validator {
         final RegexValidator validator;
@@ -69,18 +70,18 @@ public class SireneValidator {
         /**
          * Creates the format validator
          *
-         * @param formats the regex's to use to check the format
+         * @param formats the regex to use to check the format
          */
-        public Validator(String[] formats) {
+        public Validator(final String[] formats) {
             this.validator = new RegexValidator(formats);
         }
     }
 
     /** The singleton instance which uses the default formats */
-    public static final SireneValidator DEFAULT_SIRENE_VALIDATOR = new SireneValidator();
+    private static final SireneValidator DEFAULT_SIRENE_VALIDATOR = new SireneValidator();
 
     /**
-     * Return a singleton instance of the SIRENE validator using the default formats
+     * Gets the singleton instance of the SIRENE validator using the default formats
      *
      * @return A singleton instance of the validator
      */
