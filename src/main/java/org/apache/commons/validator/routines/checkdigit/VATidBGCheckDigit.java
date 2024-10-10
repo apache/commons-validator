@@ -55,10 +55,12 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * there ate three length
-     * 9 for legal entities (standard DDS),
-     * 10 for physical persons (civil number),
-     * 13 for legal entities with branch number (not used for VATIN)
+     * There are three length
+     * <ul>
+     * <li>9 for legal entities (standard DDS),</li>
+     * <li>10 for physical persons (civil number),</li>
+     * <li>13 for legal entities with branch number (not used for VATIN),</li>
+     * </ul>
      */
     static final int LEN = 9; // with Check Digit
     static final int LENCN = 10; // with Check Digit

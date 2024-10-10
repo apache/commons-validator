@@ -57,9 +57,6 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
     private static final int MODULUS_97 = 97;
     private static final SireneValidator SIRENE_VALIDATOR = SireneValidator.getInstance();
 
-    /**
-     * Constructs a Check Digit routine.
-     */
     private VATidFRCheckDigit() {
         super(MODULUS_97);
     }
@@ -101,10 +98,9 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
         if (!SIRENE_VALIDATOR.isValid(code)) {
             throw new CheckDigitException("Invalid code, " + code + " is not valid SIREN");
         }
-
         // There are more than one possible VATIN check digit C(1-2) for a given SIREN,
         // thus, it isn't possible to compute it.
-
+        //
         // convert two-digit numeric values to String
         return Modulus97CheckDigit.toCheckDigit(calcOldStyle(code));
     }
@@ -122,6 +118,7 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
         }
         return (int) (cde12 % MODULUS_97);
     }
+
     private boolean isValidOldStyle(final String code) throws CheckDigitException {
         int cd = GenericTypeValidator.formatInt(code.substring(0, CHECKDIGIT_LEN));
         Long cde = GenericTypeValidator.formatLong((code + "12").substring(CHECKDIGIT_LEN));
@@ -151,6 +148,7 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
         int r2 = (GenericTypeValidator.formatInt(siren) + p) % MODULUS_11;
         return r1 == r2;
     }
+
     /**
      * {@inheritDoc}
      * <p>

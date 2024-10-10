@@ -89,7 +89,9 @@ public final class VATidCYCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        if (leftPos % 2 == 0) return charValue;
+        if (leftPos % 2 == 0) {
+            return charValue;
+        }
         return POSITION_WEIGHT[charValue];
     }
 

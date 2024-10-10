@@ -84,7 +84,6 @@ public class Modulus11TenCheckDigit extends ModulusCheckDigit {
         if (GenericTypeValidator.formatLong(code) == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
-
         return toCheckDigit(calculateModulus(code, false));
     }
 

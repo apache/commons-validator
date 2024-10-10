@@ -37,8 +37,6 @@ import org.apache.commons.validator.GenericValidator;
  */
 public final class VATidBECheckDigit extends Modulus97CheckDigit {
 
-    private static final long serialVersionUID = 4622288405648808179L;
-
     /** Singleton Check Digit instance */
     private static final VATidBECheckDigit INSTANCE = new VATidBECheckDigit();
 
@@ -59,7 +57,9 @@ public final class VATidBECheckDigit extends Modulus97CheckDigit {
 
     /**
      * {@inheritDoc}
-     * return expression overridden
+     * <p>
+     * Overridden because the check digits are calculated as 97 - modulusResult
+     * </p>
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
@@ -90,7 +90,6 @@ public final class VATidBECheckDigit extends Modulus97CheckDigit {
         if (code.length() < MIN_CODE_LEN) {
             return false;
         }
-
         String check = code.substring(code.length() - CHECKDIGIT_LEN);
         Integer icheck = GenericTypeValidator.formatInt(check);
         if (icheck == null) {

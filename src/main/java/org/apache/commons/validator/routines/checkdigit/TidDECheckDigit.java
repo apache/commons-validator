@@ -30,19 +30,6 @@ import org.apache.commons.logging.LogFactory;
  *
  * @since 1.10.0
  */
-/* (de)
- * deutsche persönliche Steuer-Identifikationsnummer.
- *
- * Algorithmus siehe bgbl193s0736, Bundesgesetztblatt, Jahrgang 1993, Teil I
- * Anlage 3 (zu §9)
- *
- * hybrides MOD 11,10 Verfahren
- * Aufbau: nnnnnnnnnnp.
- *
- * Quelle: Bayerisches Landesamt für Steuern: elster.de
- * Beispiel: 02476291358 : TestID da führende 0
- *
- */
 public final class TidDECheckDigit extends Modulus11TenCheckDigit {
 
     private static final long serialVersionUID = 4222306963463322195L;
