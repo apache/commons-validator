@@ -54,7 +54,13 @@ public class ISINValidatorTest {
             "QS0000000008",
             "QT0000000007",
             "QW0000000002",
-            "XS0000000009", };
+            "XS0000000009",
+            "EU0009652783",
+            "XAC8614YAB92",
+            "XC0001458477",
+            "XD0209061296",
+            "AN8068571086",
+        };
 
     private final String[] invalidFormat = { null, "", // empty
             "   ", // empty
