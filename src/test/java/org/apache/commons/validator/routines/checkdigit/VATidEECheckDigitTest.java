@@ -20,6 +20,15 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * EE VAT Id Check Digit Tests.
+ * <p>
+ * Estonian VAT identification number (VATIN) Check Digit is called
+ * Käibemaksukohustuslase registreeri-misnumber (KMKR).
+ * It uses the same algorithm as ABA. So I check against ABANumberCheckDigit.
+ * </p>
+ * <p>
+ * See <a href="https://www.emta.ee/en/admin/content/handbook_article/742">Estonian Tax and Customs Board</a>
+ * for more details.
+ * </p>
 
 Beispiele
 
@@ -40,7 +49,9 @@ public class VATidEECheckDigitTest extends AbstractCheckDigitTest {
      */
     @BeforeEach
     protected void setUp() {
-        routine = VATidEECheckDigit.getInstance();
+        routine = ABANumberCheckDigit.ABAN_CHECK_DIGIT;
+//        same to:
+//        routine = new ModulusTenCheckDigit(new int[] { 1, 7, 3 }, true);
         valid = new String[] {"100594102", "101571629", "100825871", "101295701", "102264744"
                 , "100571620" // check digit zero
                 , "100931558", "100207415"};
