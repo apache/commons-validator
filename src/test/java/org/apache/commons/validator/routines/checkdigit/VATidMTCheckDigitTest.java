@@ -19,28 +19,28 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Luhn Check Digit Test.
+ * MT VAT Id Check Digit Tests.
  */
-public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
+public class VATidMTCheckDigitTest extends AbstractCheckDigitTest {
 
-    private static final String VALID_VISA = "4417123456789113";
-    private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX = "378282246310005";
-    private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER = "6011000990139424";
-    private static final String VALID_DINERS = "30569309025904";
-    private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
-    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without Trailing "01"
-
-    /**
+    public VATidMTCheckDigitTest() {
+        checkDigitLth = VATidMTCheckDigit.CHECKDIGIT_LEN;
+    }
+   /*
      * Sets up routine & valid codes.
+
+Beispiele
+
+    MT 15121333 : valide, aber ungültig. Aus sap.com
+    MT 11679112 : valide, aber ungültig. Aus formvalidation.io
+    MT 20200019 : gültig. BAJADA NEW ENERGY LIMITED, MRS3000 Marsa
+
      */
     @BeforeEach
     protected void setUp() {
-
-        routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
-
-        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS
-            , VALID_IT_IVA_BANCA_ITALIA, VALID_SE_VATIN_OLLE_SVENSSONS, "12345678903", "10215", "12345670017"};
+        routine = VATidMTCheckDigit.getInstance();
+        valid = new String[] {"15121333", "11679112", "10008937", "20200019"};
+        invalid = new String[] {"00000000", "00008900"};
     }
+
 }

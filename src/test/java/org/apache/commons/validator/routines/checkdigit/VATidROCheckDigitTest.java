@@ -19,28 +19,35 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Luhn Check Digit Test.
+ * RO VAT Id Check Digit Tests.
  */
-public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
+/*
 
-    private static final String VALID_VISA = "4417123456789113";
-    private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX = "378282246310005";
-    private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER = "6011000990139424";
-    private static final String VALID_DINERS = "30569309025904";
-    private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
-    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without Trailing "01"
+Beispiele
+
+MwSt-Nummer     11198699
+Name            MEGAOIL SRL
+Adresse         ORŞ. CÂMPENI 515500 STR. TURZII Nr. FN
+
+    RO 15641860 : gültig FERTIAGRO S.R.L.
+    RO 27825131 : gültig NUTRISOYA SRL
+    RO 17292740 : gültig ATLAS MOTORS SRL
+    RO 19125650 : gültig KONIG FRANKSTAHL SRL
+    RO 6255950  : gültig P L NORIS SRL - 7-stellig!
+
+ */
+public class VATidROCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {
-
-        routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
-
-        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS
-            , VALID_IT_IVA_BANCA_ITALIA, VALID_SE_VATIN_OLLE_SVENSSONS, "12345678903", "10215", "12345670017"};
+        routine = VATidROCheckDigit.getInstance();
+        valid = new String[] {"19" , "0000000019" // theoretical minimum
+            , "11198699", "15641860", "27825131", "17292740", "19125650", "6255950"
+            , "9999999994" // theoretical maximum
+            };
     }
+
 }

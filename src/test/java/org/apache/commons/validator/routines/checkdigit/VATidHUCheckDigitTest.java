@@ -19,28 +19,21 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Luhn Check Digit Test.
+ * HU VAT Id Check Digit Tests.
  */
-public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
-
-    private static final String VALID_VISA = "4417123456789113";
-    private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX = "378282246310005";
-    private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER = "6011000990139424";
-    private static final String VALID_DINERS = "30569309025904";
-    private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
-    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without Trailing "01"
+/*
+ * HU 21376414 10597190 : valide, aber ungültig.
+ * HU 12892312 : gültig
+ */
+public class VATidHUCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {
-
-        routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
-
-        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS
-            , VALID_IT_IVA_BANCA_ITALIA, VALID_SE_VATIN_OLLE_SVENSSONS, "12345678903", "10215", "12345670017"};
+        routine = VATidHUCheckDigit.getInstance();
+        valid = new String[] {"21376414", "10597190", "12892312"};
     }
+
 }

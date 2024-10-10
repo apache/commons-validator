@@ -105,15 +105,22 @@ public abstract class AbstractCheckDigitTest {
         for (final String fullCode : codes) {
             final String code = removeCheckDigit(fullCode);
             final String check = checkDigit(fullCode);
-            for (int j = 0; j < POSSIBLE_CHECK_DIGITS.length(); j++) {
-                final String curr = POSSIBLE_CHECK_DIGITS.substring(j, j + 1); // "" + Character.forDigit(j, 10);
-                if (!curr.equals(check)) {
-                    list.add(code + curr);
+            for (int i = 0; i < POSSIBLE_CHECK_DIGITS.length(); i++) {
+                String c = checkDigitLth == 1 ? "" : POSSIBLE_CHECK_DIGITS.substring(i, i + 1);
+                for (int j = 0; j < POSSIBLE_CHECK_DIGITS.length(); j++) {
+                    final String curr = POSSIBLE_CHECK_DIGITS.substring(j, j + 1) + c;
+                    if (!curr.equals(check)) {
+                        list.add(createCode(code, curr));
+                    }
                 }
             }
         }
 
         return list.toArray(new String[0]);
+    }
+
+    protected String createCode(final String code, final String cd) {
+        return code + cd;
     }
 
     /**
@@ -215,7 +222,8 @@ public abstract class AbstractCheckDigitTest {
             if (log.isDebugEnabled()) {
                 log.debug("   " + i + " Testing Invalid Code=[" + invalid[i] + "]");
             }
-            assertFalse(routine.isValid(invalid[i]), "invalid[" + i + "]: " + invalid[i]);
+            String invalidCode = invalid[i];
+            assertFalse(routine.isValid(invalidCode), "invalid[" + i + "]: " + invalidCode);
         }
 
         // test invalid check digit values
@@ -224,7 +232,8 @@ public abstract class AbstractCheckDigitTest {
             if (log.isDebugEnabled()) {
                 log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "]");
             }
-            assertFalse(routine.isValid(invalidCheckDigits[i]), "invalid check digit[" + i + "]: " + invalidCheckDigits[i]);
+            boolean res = routine.isValid(invalidCheckDigits[i]);
+            assertFalse(res, "invalid check digit[" + i + "]: " + invalidCheckDigits[i]);
         }
     }
 
