@@ -22,7 +22,7 @@ import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 
 /**
- * SIRENE (FR System Information et Repertoire des Entreprise et des Etablissements) Validator.
+ * SIRENE (French System Information et Repertoire des Entreprise et des Etablissements) Validator.
  *
  * <p>
  * International Code Designator, ICD : 0002 for SIRENE
@@ -106,15 +106,14 @@ public class SireneValidator {
         if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
-
         String id = code.trim();
         if (id.length() != SIREN_CODE_LEN && id.length() != SIRET_CODE_LEN) {
             return false;
         }
-
         // format check:
-        if (!formatValidator.validator.isValid(id)) return false;
-
+        if (!formatValidator.validator.isValid(id)) {
+            return false;
+        }
         if (id.length() == SIREN_CODE_LEN) {
             return LuhnCheckDigit.LUHN_CHECK_DIGIT.isValid(id);
         }
@@ -124,7 +123,7 @@ public class SireneValidator {
             }
             return false;
         }
-
+        // check SIRET:
         return LuhnCheckDigit.LUHN_CHECK_DIGIT.isValid(id);
     }
 
