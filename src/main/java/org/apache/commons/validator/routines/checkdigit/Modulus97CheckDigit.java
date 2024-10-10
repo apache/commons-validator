@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import java.io.Serializable;
-
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 
@@ -34,9 +32,7 @@ import org.apache.commons.validator.GenericValidator;
  *
  * @since 1.10.0
  */
-public class Modulus97CheckDigit extends AbstractCheckDigit implements Serializable {
-
-    private static final long serialVersionUID = -5746038014913492394L;
+public class Modulus97CheckDigit extends AbstractCheckDigit {
 
     /** Singleton Check Digit instance */
     private static final Modulus97CheckDigit INSTANCE = new Modulus97CheckDigit();
