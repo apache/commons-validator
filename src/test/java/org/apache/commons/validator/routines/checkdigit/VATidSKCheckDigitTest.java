@@ -20,16 +20,12 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * SK VAT Id Check Digit Tests.
- */
-/*
-
-Beispiele
-
+ * <pre>
     SK 2120567108 : valide Markon s.r.o. Bratislava
     SK 2021896096 : valide SEDLÁČEK, advokátska kancelária s.r.o
     SK 4030000007 : valide, aber ungültig. Aus bmf.gv.at
     SK 2022749619 : valide, aber ungültig. Aus https://old.formvalidation.io/validators/vat/
-
+ * </pre>
  */
 public class VATidSKCheckDigitTest extends AbstractCheckDigitTest {
 

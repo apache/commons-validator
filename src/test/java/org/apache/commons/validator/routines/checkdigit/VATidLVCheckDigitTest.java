@@ -20,10 +20,11 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * LV VAT Id Check Digit Tests.
- */
-/*
+ * <pre>
+ * natural persons:
     LV 07091910933 : Natural person (inaktiv) PUMPURA REGĪNA
-    LV 23028318902 : gültige TIN nach eu check-tin
+    LV 23028318902 : a valid TIN see eu check-tin
+ * </pre>
  */
 public class VATidLVCheckDigitTest extends AbstractCheckDigitTest {
 

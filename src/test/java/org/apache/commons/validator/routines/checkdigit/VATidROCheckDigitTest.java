@@ -20,21 +20,14 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * RO VAT Id Check Digit Tests.
- */
-/*
-
-Beispiele
-
-MwSt-Nummer     11198699
-Name            MEGAOIL SRL
-Adresse         ORŞ. CÂMPENI 515500 STR. TURZII Nr. FN
-
-    RO 15641860 : gültig FERTIAGRO S.R.L.
-    RO 27825131 : gültig NUTRISOYA SRL
-    RO 17292740 : gültig ATLAS MOTORS SRL
-    RO 19125650 : gültig KONIG FRANKSTAHL SRL
-    RO 6255950  : gültig P L NORIS SRL - 7-stellig!
-
+ * <pre>
+    RO 11198699 : valid MEGAOIL SRL
+    RO 15641860 : valid FERTIAGRO S.R.L.
+    RO 27825131 : valid NUTRISOYA SRL
+    RO 17292740 : valid ATLAS MOTORS SRL
+    RO 19125650 : valid KONIG FRANKSTAHL SRL
+    RO 6255950  : valid P L NORIS SRL - 7-digits!
+ * </pre>
  */
 public class VATidROCheckDigitTest extends AbstractCheckDigitTest {
 
