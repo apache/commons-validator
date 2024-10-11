@@ -58,14 +58,24 @@ public class Modulus97CheckDigit extends AbstractCheckDigit implements Serializa
     private static final long MAX = 999999999;
 
     static final int MODULUS_97 = 97;
+
+    /**
+     * The modulus typically 97 but can differ (for example as in VATidLUCheckDigit).
+     */
     private final int modulus;
 
     /**
-     * Constructs a Check Digit routine.
+     * Constructs a {@link CheckDigit} routine for a specified modulus.
      */
     Modulus97CheckDigit() {
         this(MODULUS_97);
     }
+
+    /**
+     * Constructs a {@link CheckDigit} routine for a specified modulus.
+     *
+     * @param modulus The modulus value to use for the check digit calculation
+     */
     public Modulus97CheckDigit(final int modulus) {
         this.modulus = modulus;
     }
