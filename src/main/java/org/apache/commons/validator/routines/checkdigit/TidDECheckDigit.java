@@ -46,9 +46,6 @@ public final class TidDECheckDigit extends Modulus11TenCheckDigit {
         return INSTANCE;
     }
 
-    /**
-     * Constructs a modulus Check Digit routine.
-     */
     private TidDECheckDigit() {
         super();
     }
@@ -56,6 +53,7 @@ public final class TidDECheckDigit extends Modulus11TenCheckDigit {
     /**
      * {@inheritDoc} <br>
      * Override to count ciphers to and check the criteria:
+     * </br>
      * <p>
      * The first 10 digits of the identification number must contain
      * exactly one duplicate or triplicate digit.

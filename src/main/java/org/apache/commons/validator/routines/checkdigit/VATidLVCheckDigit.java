@@ -199,7 +199,7 @@ A1 = 9*C1 + 1*C2 + 4*C3 + 8*C4 + 3*C5 + 10*C6 + 2*C7 + 5*C8 + 7*C9 + 6*C10
         }
     }
 
-    private int vRule1(String code) {
+    private int vRule1(final String code) {
         int c1 = Character.getNumericValue(code.charAt(0)); // CHECKSTYLE IGNORE MagicNumber
         int c2 = Character.getNumericValue(code.charAt(1)); // CHECKSTYLE IGNORE MagicNumber
         int c3 = Character.getNumericValue(code.charAt(2)); // CHECKSTYLE IGNORE MagicNumber
