@@ -53,6 +53,7 @@ public final class TidDECheckDigit extends Modulus11TenCheckDigit {
     /**
      * {@inheritDoc} <p>
      * Override to count ciphers to and check the criteria:
+     * </p>
      * <ul>
      * <li>The first 10 digits of the identification number must contain
      * exactly one duplicate or triplicate digit.
@@ -61,7 +62,6 @@ public final class TidDECheckDigit extends Modulus11TenCheckDigit {
      * these identical digits must never be directly next to each other.
      * </li>
      * </ul>
-     * </p>
      */
     @Override
     protected int calculateModulus(final String code, final boolean includesCheckDigit) throws CheckDigitException {
