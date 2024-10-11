@@ -43,10 +43,13 @@ public class VATidFRCheckDigitTest extends AbstractCheckDigitTest {
             , "55502090897"
             , "40303265045"
             , "23334175221"
-            , "06399859412"
-//            , "K7399859412" // SLRL ALTEA EXPERTISE COMPTABLE => test in VATINValidatorTest
+            , "06399859412" // SLRL ALTEA EXPERTISE COMPTABLE the real check digit is "K7"
+//          , "K7399859412" // this valid code with check digit "K7" cannot be tested here
+//            because French VATIN check digit are ambiguous and calculate returns only the numeric one
+//            => this can be tested in VATINValidatorTest
             , "83404833048"
-            , "11123456782" // konstruiert: L'identifiant n'existe pas dans le répertoire Sirene.
+            // the following constructed code contains a valid SIREN number which is not registerted in SIRENE
+            , "11123456782" // search in SIRENE result: L'identifiant n'existe pas dans le répertoire Sirene.
             };
         invalid = new String[] {"+6399859412"};
     }
@@ -103,7 +106,6 @@ public class VATidFRCheckDigitTest extends AbstractCheckDigitTest {
             }
             boolean res = routine.isValid(invalidCheckDigits[i]);
             if (res) {
-//                log.warn("   " + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "] is true, expected false.");
                 List<String> v = icdmap.get(invalidCheckDigits[i].substring(checkDigitLth));
                 if (v == null) {
                     v = new ArrayList<String>();
@@ -112,12 +114,7 @@ public class VATidFRCheckDigitTest extends AbstractCheckDigitTest {
                 } else {
                     v.add(invalidCheckDigits[i].substring(0, checkDigitLth));
                 }
-                //map.put(invalidCheckDigits[i].substring(checkDigitLth), invalidCheckDigits[i].substring(0, checkDigitLth));
-//                System.out.println("true" + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "]");
-            } else {
-                //System.out.println("   " + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "]");
             }
-//            assertFalse(res, "invalid check digit[" + i + "]: " + invalidCheckDigits[i]);
         }
         // now print the results
         icdmap.forEach((key, value) -> System.out.println(key + " " + value));
