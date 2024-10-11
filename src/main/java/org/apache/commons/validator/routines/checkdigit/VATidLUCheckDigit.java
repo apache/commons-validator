@@ -35,6 +35,8 @@ import org.apache.commons.validator.GenericValidator;
  */
 public final class VATidLUCheckDigit extends Modulus97CheckDigit {
 
+    private static final long serialVersionUID = 6690723004719444647L;
+
     /** Singleton Check Digit instance */
     private static final VATidLUCheckDigit INSTANCE = new VATidLUCheckDigit();
 
