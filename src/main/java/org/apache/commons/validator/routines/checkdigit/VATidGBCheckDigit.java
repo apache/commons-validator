@@ -147,6 +147,9 @@ public final class VATidGBCheckDigit extends ModulusCheckDigit {
             if (cd == null) {
                 throw new CheckDigitException("Invalid Code " + code);
             }
+            if (cd >= MODULUS_97) {
+                throw new CheckDigitException("Invalid Code " + code + " check digit >= " + MODULUS_97);
+            }
             int modulusResult = calculateModulus(code.substring(0, LEN - CHECKDIGIT_LEN), false);
             if (0 == (modulusResult + cd) % MODULUS_97) {
                 return true; // old style MOD 97

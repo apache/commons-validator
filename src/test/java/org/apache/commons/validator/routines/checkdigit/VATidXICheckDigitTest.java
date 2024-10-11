@@ -29,9 +29,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * XI VAT Id Check Digit Tests.
- */
-/*
-
+ * <pre>
     XI 110305878 : gültig bullseyecountrysport
     XI 366303068 : gültig donnellygroup.co.uk Company Info Reg. Company Number: NI 643,
     GB 366303013 ist HUITAIHK TECHNOLOGY LIMITED, ABERDEEN
@@ -51,6 +49,10 @@ import org.junit.jupiter.api.Test;
     XI/GB 434031494 : valide, aber nicht gültig (aus AT-Doku)
 VAT Mod 97   : GB 562235945 nicht gültig
 VAT Mod 9755 : GB 562235987 nicht gültig
+ * </pre>
+ */
+/*
+
  */
 public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
 
@@ -62,11 +64,24 @@ public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
         checkDigitLth = VATidGBCheckDigit.CHECKDIGIT_LEN;
         routine = VATidGBCheckDigit.getInstance();
 
-//  366303068 (old style) 366303013 sind zwei verschiedene Unternehmen, die verschiedene PZ haben
+/*
+ * Norther Ireland (== British) VATIN check digit are ambiguous.
+ * Each code has two valid check digits.
+ * Most of companies are given the "old style" VATIN, calculated with MOD97-algorithm.
+ * The "new style" VATINs are calculated with MOD9755algorithm.
+ * The method calculate returns the "old style" check digit.
+ *
+ * Example: 366303068 (old style) and 366303013 (new style) are both valid.
+ * XI 3663030 68 belongs to donnellygroup.co.uk, a company in Norther Ireland which is part of European Union
+ * GB 3663030 13 belongs to HUITAIHK TECHNOLOGY LIMITED, ABERDEEN in Scotland (not part of European Union)
+ *
+ * Here we can only test the "old style" check digit codes.
+ * Both "new style" and "old style" tests are in VATINValidatorTest
+ */
         valid = new String[] {"366303068" // old style XI
               , "434031494"
-              , "110305836" // 1103058 36 old style for testing
-//              , "110305878", "174918964" // new style XI 9755 => test in VATINValidatorTest
+              , "110305836" // 1103058 36 old style for testing here
+//              , "110305878", "174918964" // XI style MOD9755 => test in VATINValidatorTest
               , "613451470"
               , "107328000"
               , "766800804"
@@ -76,32 +91,6 @@ public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
               , "888851256"
               , "816137833"
               , "562235945"
-              /* new style 9755 cannot be tested here
-              , "340804329"
-              , "431616518"
-              , "426985160"
-              , "439432385"
-              , "439268659"
-              , "428671865"
-              , "432880687"
-              , "432184025"
-              , "430510547"
-              , "427092792"
-              , "427264494"
-              , "428993836"
-              , "428121323"
-              , "430851513"
-              , "428756265"
-              , "438017796"
-              , "426751194"
-              , "428819561"
-              , "439997811"
-              , "433182417"
-              , "440211846"
-              , "436338390"
-              , "433477292"
-              , "430416240"
-               */
             };
         invalid = new String[] {"8888502+4", "1073280+0", "1073280-0"};
     }
@@ -130,6 +119,7 @@ public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
                 log.debug("   " + i + " Testing Invalid Code=[" + invalid[i] + "]");
             }
             String invalidCode = invalid[i];
+            System.out.println("   " + i + " Testing Invalid Code=[" + invalidCode + "]");
             assertFalse(routine.isValid(invalidCode), "invalid[" + i + "]: " + invalidCode);
         }
 
@@ -142,7 +132,8 @@ public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
             }
             boolean res = routine.isValid(invalidCheckDigits[i]);
             if (res) {
-//                log.warn("   " + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "] is true, expected false.");
+                log.info("   " + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i]
+                    + "] is true. Found an ambiguous Check Digit."); // this is expected
                 int l = invalidCheckDigits[i].length();
                 List<String> v = icdmap.get(invalidCheckDigits[i].substring(0, l - checkDigitLth));
                 if (v == null) {
@@ -152,12 +143,7 @@ public class VATidXICheckDigitTest extends AbstractCheckDigitTest {
                 } else {
                     v.add(invalidCheckDigits[i].substring(l - checkDigitLth));
                 }
-                //map.put(invalidCheckDigits[i].substring(checkDigitLth), invalidCheckDigits[i].substring(0, checkDigitLth));
-//                System.out.println("true" + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "]");
-            } else {
-                //System.out.println("   " + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "]");
             }
-//            assertFalse(res, "invalid check digit[" + i + "]: " + invalidCheckDigits[i]);
         }
         // now print the results
         List<String> validList = Arrays.asList(valid);

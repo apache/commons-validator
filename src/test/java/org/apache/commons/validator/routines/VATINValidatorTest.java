@@ -107,6 +107,34 @@ public class VATINValidatorTest {
             "XI174918964001", // with 3 digits for branch
     });
     // @formatter:on
+    // @formatter:off
+    private static final List<String> VALID_GB_FIXTURES = Arrays.asList(new String[] {
+            "GB340804329",
+            "GB431616518",
+            "GB426985160",
+            "GB439432385",
+            "GB439268659",
+            "GB428671865",
+            "GB432880687",
+            "GB432184025",
+            "GB430510547",
+            "GB427092792",
+            "GB427264494",
+            "GB428993836",
+            "GB428121323",
+            "GB430851513",
+            "GB428756265",
+            "GB438017796",
+            "GB426751194",
+            "GB428819561",
+            "GB439997811",
+            "GB433182417",
+            "GB440211846",
+            "GB436338390",
+            "GB433477292",
+            "GB430416240",
+    });
+    // @formatter:on
 
     // @formatter:off
     private static final List<String> INVALID_VATIN_FIXTURES = Arrays.asList(new String[] {
@@ -242,8 +270,11 @@ public class VATINValidatorTest {
         // add the XI validator routine for GB
         assertNull(myValidator.setValidator("GB", 14, "GB(\\d{3})?\\d{9}", v.routine), "no previous Validator");
         assertTrue(myValidator.hasValidator("GB"), "hasValidator GB");
-        // now we can validate the GB-VATIN-code
+        // now we can validate the GB-VATIN-codes
         assertTrue(myValidator.isValid(code));
+        VALID_GB_FIXTURES.forEach(f -> {
+            assertTrue(myValidator.isValid(f), f);
+        });
     }
 
 }
