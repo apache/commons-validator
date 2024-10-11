@@ -50,6 +50,8 @@
  * <li>4.7 <a href="#other.email">Email Address Validation</a></li>
  * <li>4.8 <a href="#other.url">URL Validation</a></li>
  * <li>4.9 <a href="#other.domain">Domain Name Validation</a></li>
+ * <li>4.10 <a href="#other.sirene">SIRENE Validation</a></li>
+ * <li>4.11 <a href="#other.vatin">VATIN Validation</a></li>
  * </ul>
  * </li>
  * </ul>
@@ -397,6 +399,8 @@
  * scheme, domain, and authority.</li>
  * <li><a href="#other.domain">Domain Name Validation</a> - provides domain
  * name and IANA TLD validation.</li>
+ * <li><a href="#other.sirene">SIRENE Validation</a> - provides French SIREN and SIRET validation.</li>
+ * <li><a href="#other.vatin">VATIN Validation</a> - provides VAT Identification Number validation.</li>
  * </ul>
  * <a id="other.regex"></a>
  * <h2>4.2 Regular Expression Validation</h2>
@@ -735,6 +739,53 @@
  * }
  * if (!validator.isValidCountryCodeTld(".info")) {
  * ... // invalid, .info is a generic TLD
+ * }
+ * </pre>
+ * <a id="other.sirene"></a>
+ * <h2>4.10 SIRENE Validation</h2>
+ * <p>
+ * <a href="SireneValidator.html">SireneValidator</a> provides validation of French SIREN and SIRET codes.
+ * SIREN codes are given to businesses and nonprofit associations,
+ * SIRET codes to their establishments and facilities.
+ * </p>
+ * <p>
+ * For example:
+ * </p>
+ * <pre>
+ * // Get a SireneValidator
+ * SireneValidator validator = SireneValidator.getInstance();
+ * // Validate a businesses id (SIREN)
+ * if (validator.isValid("642007991")) {
+ * ... // valid
+ * } else {
+ * ... // invalid
+ * }
+ * // Validate a facility id (SIRET)
+ * if (validator.isValid("64200799100085")) {
+ * ... // valid
+ * } else {
+ * ... // invalid
+ * }
+ * </pre>
+ * <a id="other.vatin"></a>
+ * <h2>4.11 VATIN Validation</h2>
+ * <a href="VATINValidator.html">VATINValidator</a> provides validation of VAT Identification Number (VATIN)
+ * of European Union countries. A valid and registered VAT number of the customer company is a material
+ * requirement to be able to apply the zero VAT rate for intra-Community supplies of goods in the EU.
+ * Note: this module checks if a given company number is valid, it cannot check whether it is registered.
+ * For this consult a national authority or <a href="https://en.wikipedia.org/wiki/VAT_Information_Exchange_System">EU VIES</a>.
+ * </p>
+ * <p>
+ * For example:
+ * </p>
+ * <pre>
+ * // Get a VATINValidator
+ * VATINValidator validator = VATINValidator.getInstance();
+ * // Validate an Italian VAT Identification Number
+ * if (validator.isValid("IT00950501007")) {
+ * ... // valid ... check if company is registered
+ * } else {
+ * ... // invalid ... cannot use this id for intra-Community trading
  * }
  * </pre>
  */
