@@ -16,14 +16,17 @@
  */
 package org.apache.commons.validator.routines;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 public class SireneValidatorTest {
 
-    private final String[] validFormat = new String[] {
+    private final List<String> validFormat = Arrays.asList(new String[] {
         "123456782", // SIREN
         "572141885", // SIREN
         "502090897", // SIREN flexitec.fr
@@ -32,31 +35,31 @@ public class SireneValidatorTest {
         "57214188502180", // SIRET
         "50810215900334", // SIRET
         "40483304800022", // valid but not longer active in SIRENE catalogue
-    };
+    });
 
-    private final String[] invalidFormat = new String[] {
+    private final List<String> invalidFormat = Arrays.asList(new String[] {
         "12345678",        // invalid length, to short
         "1234567820",      // invalid length, to long for SIREN, to short for SIRET
         "572141885021810", // invalid length, to long
         "123456780",       // invalid check digit "0" should be "2"
         "57214188502181",  // invalid check digit "1" should be "0"
         "50810215000333",  // SIRET with invalid SIREN check digit "0" at pos 9
-    };
+    });
 
     private static final SireneValidator VALIDATOR = SireneValidator.getInstance();
 
     @Test
     public void testValid() {
-        for (String f : validFormat) {
-            assertTrue(f, VALIDATOR.isValid(f));
-        }
+        validFormat.forEach(e -> {
+            assertTrue(VALIDATOR.isValid(e), e);
+        });
     }
 
     @Test
     public void testInValid() {
-        for (String f : invalidFormat) {
-            assertFalse(f, VALIDATOR.isValid(f));
-        }
+        invalidFormat.forEach(e -> {
+            assertFalse(VALIDATOR.isValid(e), e);
+        });
     }
 
 }
