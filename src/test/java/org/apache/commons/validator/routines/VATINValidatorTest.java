@@ -16,9 +16,6 @@
  */
 package org.apache.commons.validator.routines;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,6 +23,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.validator.routines.VATINValidator.Validator;
 import org.junit.jupiter.api.Test;
@@ -37,9 +37,8 @@ public class VATINValidatorTest {
 
     private static final VATINValidator VALIDATOR = VATINValidator.getInstance();
 
-    // Eclipse 3.6 allows you to turn off formatting by placing a special comment, like
     // @formatter:off
-    private static final String[] VALID_VATIN_FIXTURES = {
+    private static final List<String> VALID_VATIN_FIXTURES = Arrays.asList(new String[] {
             "ATU10223006",  // see BMF_UID_Konstruktionsregeln
             "ATU13585627",  // see http://www.pruefziffernberechnung.de/U/USt-IdNr.shtml#PZAT
             "ATU54065602",  // https://zukunftsregion-steyr.at/impressum
@@ -106,11 +105,11 @@ public class VATINValidatorTest {
             "XI110305878",    // bullseyecountrysport.co.uk, new style
             "XI174918964",
             "XI174918964001", // with 3 digits for branch
-    };
+    });
     // @formatter:on
 
     // @formatter:off
-    private static final String[] INVALID_VATIN_FIXTURES = {
+    private static final List<String> INVALID_VATIN_FIXTURES = Arrays.asList(new String[] {
             "",                        // empty
             "   ",                     // empty
             "A",                       // too short
@@ -134,7 +133,7 @@ public class VATINValidatorTest {
             "SK0000000011",   // Must not start with 0
             "SK1111111111",   // 3rd digit must not be 1
             "MC37000005990",  // No CheckDigit routine for Monaco
-    };
+    });
     // @formatter:on
 
     @Test
@@ -156,9 +155,9 @@ public class VATINValidatorTest {
 
     @Test
     public void testInValid() {
-        for (final String f : INVALID_VATIN_FIXTURES) {
+        INVALID_VATIN_FIXTURES.forEach(f -> {
             assertFalse(VALIDATOR.isValid(f), f);
-        }
+        });
     }
 
     @Test
@@ -169,20 +168,20 @@ public class VATINValidatorTest {
     @Test
     public void testSetDefaultValidator1() {
         final IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> VALIDATOR.setValidator("GB", 15, "GB", null));
-        assertThat(thrown.getMessage(), is(equalTo("The singleton validator cannot be modified")));
+        assertEquals("The singleton validator cannot be modified", thrown.getMessage());
     }
 
     @Test
     public void testSetDefaultValidator2() {
         final IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> VALIDATOR.setValidator("GB", -1, "GB", null));
-        assertThat(thrown.getMessage(), is(equalTo("The singleton validator cannot be modified")));
+        assertEquals("The singleton validator cannot be modified", thrown.getMessage());
     }
 
     @Test
     public void testSetValidatorLC() {
         final VATINValidator validator = new VATINValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("gb", 15, "GB", null));
-        assertThat(thrown.getMessage(), is(equalTo("Invalid country Code; must be exactly 2 upper-case characters")));
+        assertEquals("Invalid country Code; must be exactly 2 upper-case characters", thrown.getMessage());
     }
 
     @Test
@@ -198,15 +197,14 @@ public class VATINValidatorTest {
     public void testSetValidatorLen35() {
         final VATINValidator validator = new VATINValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("DE", 35, "DE", null));
-//        System.out.println("testSetValidatorLen35 : thrown.getMessage():" + thrown.getMessage());
-        assertThat(thrown.getMessage(), is(equalTo(INVALID_LENGTH + " 35")));
+        assertEquals(INVALID_LENGTH + " 35", thrown.getMessage());
     }
 
     @Test
     public void testSetValidatorLen7() {
         final VATINValidator validator = new VATINValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("GB", 7, "GB", null));
-        assertThat(thrown.getMessage(), is(equalTo(INVALID_LENGTH + " 7")));
+        assertEquals(INVALID_LENGTH + " 7", thrown.getMessage());
     }
 
     @Test
@@ -223,11 +221,11 @@ public class VATINValidatorTest {
 
     @Test
     public void testValid() {
-        for (final String f : VALID_VATIN_FIXTURES) {
+        VALID_VATIN_FIXTURES.forEach(f -> {
             assertTrue(VALIDATOR.isValid(f), "CheckDigit fail: " + f);
             assertTrue(VALIDATOR.hasValidator(f), "Missing validator: " + f);
             assertTrue(VALIDATOR.isValid(f), f);
-        }
+        });
     }
 
     @Test
