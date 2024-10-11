@@ -769,6 +769,7 @@
  * </pre>
  * <a id="other.vatin"></a>
  * <h2>4.11 VATIN Validation</h2>
+ * <p>
  * <a href="VATINValidator.html">VATINValidator</a> provides validation of VAT Identification Number (VATIN)
  * of European Union countries. A valid and registered VAT number of the customer company is a material
  * requirement to be able to apply the zero VAT rate for intra-Community supplies of goods in the EU.
