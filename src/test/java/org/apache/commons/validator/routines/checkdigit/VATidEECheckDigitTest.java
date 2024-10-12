@@ -29,8 +29,7 @@ import org.junit.jupiter.api.BeforeEach;
  * See <a href="https://www.emta.ee/en/admin/content/handbook_article/742">Estonian Tax and Customs Board</a>
  * for more details.
  * </p>
-
-Beispiele
+ * <pre>
 
     EE 100594102 : gültig MOVEK GRUPP OÜ
     EE 101571629 : gültig Kaubamaja AS, Tallinn
@@ -41,6 +40,7 @@ Beispiele
     EE 100207415 : valide, aber ungültig, da gelöscht - aus BMF_UID_Konstruktionsregeln.pdf
     EE 100931558 : valide, aber ungültig
 
+ * </pre>
  */
 public class VATidEECheckDigitTest extends AbstractCheckDigitTest {
 

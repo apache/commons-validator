@@ -20,10 +20,14 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * HU VAT Id Check Digit Tests.
- */
-/*
+ * <p>
+ * Hungarien VAT identification number (VATIN) Check Digit is called közösségi adószám (ÁFA).
+ * It uses the ModulusTenCheckDigit algorithm. So I check against this.
+ * </p>
+ * <pre>
  * HU 21376414 10597190 : valide, aber ungültig.
- * HU 12892312 : gültig
+ * HU 12892312 10663103 12188224: gültig
+ * </pre>
  */
 public class VATidHUCheckDigitTest extends AbstractCheckDigitTest {
 
@@ -32,8 +36,8 @@ public class VATidHUCheckDigitTest extends AbstractCheckDigitTest {
      */
     @BeforeEach
     protected void setUp() {
-        routine = VATidHUCheckDigit.getInstance();
-        valid = new String[] {"21376414", "10597190", "12892312"};
+        routine = new ModulusTenCheckDigit(new int[] { 1, 3, 7, 9 }, true);
+        valid = new String[] {"21376414", "10597190", "12892312", "10663103", "12188224"};
     }
 
 }

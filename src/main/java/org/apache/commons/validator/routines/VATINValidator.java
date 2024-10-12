@@ -26,6 +26,7 @@ import org.apache.commons.validator.routines.checkdigit.ABANumberCheckDigit;
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 import org.apache.commons.validator.routines.checkdigit.Modulus11TenCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.ModulusTenCheckDigit;
 import org.apache.commons.validator.routines.checkdigit.VATidATCheckDigit;
 import org.apache.commons.validator.routines.checkdigit.VATidBECheckDigit;
 import org.apache.commons.validator.routines.checkdigit.VATidBGCheckDigit;
@@ -37,7 +38,6 @@ import org.apache.commons.validator.routines.checkdigit.VATidESCheckDigit;
 import org.apache.commons.validator.routines.checkdigit.VATidFICheckDigit;
 import org.apache.commons.validator.routines.checkdigit.VATidFRCheckDigit;
 import org.apache.commons.validator.routines.checkdigit.VATidGBCheckDigit;
-import org.apache.commons.validator.routines.checkdigit.VATidHUCheckDigit;
 import org.apache.commons.validator.routines.checkdigit.VATidIECheckDigit;
 import org.apache.commons.validator.routines.checkdigit.VATidLTCheckDigit;
 import org.apache.commons.validator.routines.checkdigit.VATidLUCheckDigit;
@@ -155,7 +155,7 @@ public class VATINValidator {
             new Validator("FI", VATidFICheckDigit.getInstance(), 10, "\\d{8}"),
             new Validator("FR", VATidFRCheckDigit.getInstance(), 13, "[A-Z0-9]{2}\\d{9}"),
             new Validator("HR", Modulus11TenCheckDigit.getInstance(), 13, "\\d{11}"),
-            new Validator("HU", VATidHUCheckDigit.getInstance(), 10, "\\d{8}"),
+            new Validator("HU", new ModulusTenCheckDigit(new int[] { 1, 3, 7, 9 }, true), 10, "\\d{8}"),
             new Validator("IE", VATidIECheckDigit.getInstance(), 11, "\\d{7}[A-W]([A-I])?"),
             new Validator("IT", LuhnCheckDigit.LUHN_CHECK_DIGIT, 13, "\\d{11}"),
             // optional Group for Temporarily Registered Taxpayers with 12 digits, C11==1
