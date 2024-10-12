@@ -23,7 +23,8 @@ import org.apache.commons.validator.GenericValidator;
  * Luxemburg VAT identification number (VATIN) Check Digit calculation/validation.
  * <p>
  * Numéro d'identification à la taxe sur la valeur ajoutée {@code 123456pp}.
- * <br>
+ * </p>
+ * <p>
  * The check digits are calculated as 89 - MOD 89
  * </p>
  * <p>

@@ -26,19 +26,23 @@ import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
  *
  * <p>
  * International Code Designator, ICD : 0002 for SIRENE
- * <br>
+ * </p>
+ * <p>
  * Issuing Organization :
  * Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.),
  * Departement des Repertoires, 18, Bd Adolphe Pinard, 75675 PARIS Cedex 14
  * </p>
  * <p>
  * Structure of Code :
- * <br>
+ * </p>
+ * <p>
  * 1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"),
- * <br>
+ * </p>
+ * <p>
  * The 9 character number designates an organization,
  * the 14 character number designates a specific establishment of the organization designated by the first 9 characters.
- * <br>
+ * </p>
+ * <p>
  * 2) Check digits: 9th and 14th character respectively
  * </p>
  * <p>

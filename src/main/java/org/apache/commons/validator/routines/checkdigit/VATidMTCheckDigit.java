@@ -23,7 +23,8 @@ import org.apache.commons.validator.GenericValidator;
  * Malta VAT identification number (VATIN) Check Digit calculation/validation.
  * <p>
  * value added tax identification number {@code 123456pp}.
- * <br>
+ * </p>
+ * <p>
  * The check digits are calculated as MOD 37
  * </p>
  * <p>

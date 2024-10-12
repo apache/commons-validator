@@ -25,7 +25,8 @@ import org.apache.commons.validator.GenericValidator;
  * Numéro T.V.A. BTW-nummer (Nº TVA BTW-nr.) old schema {@code 1234567pp}.
  * Note the check digit has two characters and that the old numbering schema only had 9 characters,
  * just adding a zero in front makes it a valid number in the new schema {@code 01234567pp}.
- * <br>
+ * </p>
+ * <p>
  * The check digits are calculated as 97 - MOD 97
  * </p>
  * <p>
