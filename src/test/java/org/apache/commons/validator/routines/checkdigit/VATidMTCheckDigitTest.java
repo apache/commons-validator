@@ -20,21 +20,22 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * MT VAT Id Check Digit Tests.
+ * <pre>
+
+    MT 15121333 : valide, aber ungültig. Aus sap.com
+    MT 11679112 : valide, aber ungültig. Aus formvalidation.io
+    MT 20200019 : gültig. BAJADA NEW ENERGY LIMITED, MRS3000 Marsa
+
+ * </pre>
  */
 public class VATidMTCheckDigitTest extends AbstractCheckDigitTest {
 
     public VATidMTCheckDigitTest() {
         checkDigitLth = VATidMTCheckDigit.CHECKDIGIT_LEN;
     }
-   /*
-     * Sets up routine & valid codes.
 
-Beispiele
-
-    MT 15121333 : valide, aber ungültig. Aus sap.com
-    MT 11679112 : valide, aber ungültig. Aus formvalidation.io
-    MT 20200019 : gültig. BAJADA NEW ENERGY LIMITED, MRS3000 Marsa
-
+   /**
+     * Sets up routine & valid, invalid codes.
      */
     @BeforeEach
     protected void setUp() {

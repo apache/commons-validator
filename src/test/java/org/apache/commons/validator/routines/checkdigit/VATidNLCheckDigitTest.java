@@ -20,18 +20,19 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * NL VAT Id Check Digit Tests.
- */
-public class VATidNLCheckDigitTest extends AbstractCheckDigitTest {
-
-   /*
-    * Sets up routine & valid codes.
-
+ * <pre>
      without last 3 chars
     NL 123456782B12 , 010000446B01 : valide, aber ungültig
     NL 003660564B01 : gültig STAM + DE KONING BOUW B.V. EINDHOVEN
     NL 004495445B01 : gültig OPENJONGERENVERENIGING DE KOORNBEURS, DELFT
     NL 809944686B01 , 803872987B01 : valide, aber ungültig
 
+ * </pre>
+ */
+public class VATidNLCheckDigitTest extends AbstractCheckDigitTest {
+
+   /*
+    * Sets up routine & valid codes.
     */
     @BeforeEach
     protected void setUp() {

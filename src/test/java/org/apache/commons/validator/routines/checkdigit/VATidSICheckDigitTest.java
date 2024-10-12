@@ -20,13 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * SI VAT Id Check Digit Tests.
- */
-public class VATidSICheckDigitTest extends AbstractCheckDigitTest {
-
-   /*
-    * Sets up routine & valid codes.
-
-Beispiele
+ * <pre>
 
     SI 15012557 : valide, aber ungültig. Quelle bmf.gv.at
     SI 59082437 : valide, aber ungültig. Quelle pruefziffernberechnung.de
@@ -34,6 +28,12 @@ Beispiele
     SI 45063575 56494416 : valide, aber ungültig. Quelle adresslabor.de
     SI 21649405 : gültig STANOVANJSKO PODJETJE KONJICE D.O.O.
 
+ * </pre>
+ */
+public class VATidSICheckDigitTest extends AbstractCheckDigitTest {
+
+   /**
+    * Sets up routine & valid codes.
     */
     @BeforeEach
     protected void setUp() {

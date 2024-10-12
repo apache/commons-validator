@@ -20,15 +20,13 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * PL VAT Id Check Digit Tests.
- */
-/*
-
-Beispiele
+ * <pre>
 
     PL 9551908591 : gültig chlodniaszczecinska.pl
     PL 6911713825 : gültig jakbet.pl
     PL 1060000062 : gültig "CUMMINS LTD." aus pl.wikipedia
 
+ * </pre>
  */
 public class VATidPLCheckDigitTest extends AbstractCheckDigitTest {
 

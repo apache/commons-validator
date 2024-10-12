@@ -20,7 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * ES VAT Id Check Digit Tests.
-Beispiele
+ * <pre>
 
     ES A60195278 : gültig, LIDL SUPERMERCADOS, S.A.U.
     ES F20033361 : gültig, EROSKI, S. COOP. Barrio San Agustín
@@ -36,6 +36,7 @@ Beispiele
     ES W8265365J : gültig aus stdnum-js
     ES J99216582 B86670460 Q2876031B N0112768G sind valide, aber ungültig
 
+ * </pre>
  */
 public class VATidESCheckDigitTest extends AbstractCheckDigitTest {
 

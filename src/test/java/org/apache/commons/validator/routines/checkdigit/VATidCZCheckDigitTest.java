@@ -20,10 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * CZ VAT Id Check Digit Tests.
- */
-/*
-
-Beispiele
+ * <pre>
 
     CZ 45799504 : gültig Nestlé Česko s.r.o.
     CZ 29042828 : gültig SVĚT KÁVOVARŮ s.r.o., STRANČICE
@@ -36,6 +33,7 @@ Beispiele
     CZ 991231123 640903926 : valide, aber ungültig. Gleiche Quelle
     CZ 6852294449 7952290292 8160010610 110101111 1152291111 6956220612 7211240180 : aus TIN_-_country_sheet_CZ_de.pdf
 
+ * </pre>
  */
 public class VATidCZCheckDigitTest extends AbstractCheckDigitTest {
 

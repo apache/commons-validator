@@ -20,15 +20,10 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * SE VAT Id Check Digit Tests.
- */
-public class VATidSECheckDigitTest extends AbstractCheckDigitTest {
-
-   /**
-     * Sets up routine & valid codes.
-
-     without last 2 chars, which are constant "01" - will be checked as regex in VATINValidator
-
-Beispiele
+ * <p>
+ * Without last 2 chars, which are constant "01" - will be checked as regex in VATINValidatorTest
+ * </p>
+ * <pre>
 
     SE 1366959755 23 : nur erster Teil valide, suffix muss 01 sein, ungültig. Quelle pruefziffernberechnung.de
     SE 5561888404 01 : gültig OLLE SVENSSONS PARTIAFFÄR AKTIEBOLAG. Quelle bmf.gv.at
@@ -37,6 +32,12 @@ Beispiele
     SE 5566801444 01 : gültig XLN Audio AB, STOCKHOLM
     SE 5565102471 01 : gültig amo kraftkabel AB, ALSTERMO
 
+ * </pre>
+ */
+public class VATidSECheckDigitTest extends AbstractCheckDigitTest {
+
+   /**
+     * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {

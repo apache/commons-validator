@@ -20,16 +20,14 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * CY VAT Id Check Digit Tests.
- */
-/*
-
-Beispiele
+ * <pre>
 
     CY 30010823A : LIDL Cyprus
     CY 10259033P : valide, aber ungültig. Aus formvalidation.io und stdnum-js
 
        12000139V is invalid
 
+ * </pre>
  */
 public class VATidCYCheckDigitTest extends AbstractCheckDigitTest {
 

@@ -20,15 +20,9 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * BG VAT Id Check Digit Tests.
- */
-/*
+ * <pre>
 
-Beispiele
-
-MwSt-Nummer 108511243
-Name        ПАНОРАМА-2000 - ООД
-Adresse     ул. ГЕОРГИЦА КАРАСТОЯНОВА №1 обл.КЪРДЖАЛИ, гр.АРДИНО 6750
-
+    BG 108511243 : gültig ПАНОРАМА-2000 - ООД
     BG 206425654 : gültig https://nutrinitylabs.com/contacts
     BG 131324923 : gültig МАКСИМА БЪЛГАРИЯ - ЕООД, Adresse БОТЕВГРАДСКО ШОСЕ №247 ет.2 обл.СОФИЯ, гр.СОФИЯ 1517
     BG 121759222 : gültig ОМВ БЪЛГАРИЯ - ООД, Adresse Гжк Малинова долинаДонка Ушлинова №2 бл.сграда 4 ет.+1 ап.помещение 411 обл.СОФИЯ, гр.СОФИЯ 1766
@@ -54,6 +48,8 @@ Adresse     ул. ГЕОРГИЦА КАРАСТОЯНОВА №1 обл.КЪРД
 8001010008 Мъж, с дата на раждане 01.01.1980 г.
 7552011038 Жена, с дата на раждане 01.12.2075 г.
 8141010016 Жена, с дата на раждане 01.01.2081 г
+
+ * </pre>
  */
 public class VATidBGCheckDigitTest extends AbstractCheckDigitTest {
 

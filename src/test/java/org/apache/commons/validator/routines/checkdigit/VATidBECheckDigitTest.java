@@ -20,9 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * BE VAT Id Check Digit Tests.
- */
-/*
-Beispiele
+ * <pre>
 
     BE 0441826783 : gültig AG ROM, Industriestrasse 38, 4700 Eupen
     BE 441826783 : dto neunstellig, nicht gültig (Länge wird nicht in VATidBECheckDigit, sondern in VATINValidator geprüft)
@@ -30,6 +28,7 @@ Beispiele
     BE 0136695962 : valide, aber ungültig
     BE 0776091951 : valide, aber ungültig
 
+ * </pre>
  */
 public class VATidBECheckDigitTest extends AbstractCheckDigitTest {
 

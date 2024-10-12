@@ -20,13 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * PT VAT Id Check Digit Tests.
- */
-public class VATidPTCheckDigitTest extends AbstractCheckDigitTest {
-
-   /*
-    * Sets up routine & valid codes.
-    *
-Beispiele
+ * <pre>
 
     PT 502757191 : valide, aber ungültig. Quelle bmf.gv.at
     PT 136695973 : valide, aber ungültig. Quelle pruefziffernberechnung.de
@@ -34,6 +28,13 @@ Beispiele
     PT 504308548 : valide, aber ungültig. Quelle https://www.adresslabor.de/en/products/vat-id-no-check.html
     PT 510728189 : gültig CLARANET II SOLUTIONS, S.A. PORTO
 
+ * </pre>
+ */
+public class VATidPTCheckDigitTest extends AbstractCheckDigitTest {
+
+   /**
+    * Sets up routine & valid, invalid codes.
+    *
     */
     @BeforeEach
     protected void setUp() {

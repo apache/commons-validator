@@ -20,14 +20,13 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * AT VAT Id Check Digit Tests.
- */
-/*
-Beispiele
+ * <pre>
 
     AT U13585627 : valide, aber ungültig
     AT U54065602 : gültig TIC Technology & Innovation Center Steyr GmbH, Im Stadtgut A 1, AT-4407 Dietach
     AT U26218303 : gültig Maltaholz GmbH, Karnerau 21, AT-9853 Gmünd
 
+ * </pre>
  */
 public class VATidATCheckDigitTest extends AbstractCheckDigitTest {
 

@@ -20,8 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * EL VAT Id Check Digit Tests.
- *
-Beispiele
+ * <pre>
 
     EL 123456783 : gültig ΚΟΛΛΑΡΟΣ ΑΝΤΩΝΙΟΣ ΕΥΑΓΓΕΛΟΣ. Quelle: pruefziffernberechnung.de
     EL 040127797 : valide, aber ungültig. Quelle: SAP
@@ -31,6 +30,7 @@ Beispiele
     EL 094327684 : gültig GENERALI HELLAS Α Α Ε
     EL  94327684 : dto aber zu kurz, führende Null fehlt ==> Länge wird in VATINValidator geprüft
 
+ * </pre>
  */
 public class VATidELCheckDigitTest extends AbstractCheckDigitTest {
 

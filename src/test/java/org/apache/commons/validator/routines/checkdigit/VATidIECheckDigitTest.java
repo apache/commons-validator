@@ -20,10 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * IE VAT Id Check Digit Tests.
- */
-/*
-
-Beispiele
+ * <pre>
 
     IE 9700053D : gültig APPLE DISTRIBUTION INTERNATIONAL LTD, HOLLYHILL INDUSTRIAL ESTATE, CORK
     IE 6388047V : gültig GOOGLE IRELAND LIMITED
@@ -35,6 +32,7 @@ Beispiele
     IE 9950958B : gültig HAUPPAUGE DIGITAL EUROPE SARL, DUBLIN aus adresslabor.de und
     IE 2251597K, 8Y93637V (old Style), 6693587J alle ungültig
 
+ * </pre>
  */
 public class VATidIECheckDigitTest extends AbstractCheckDigitTest {
 

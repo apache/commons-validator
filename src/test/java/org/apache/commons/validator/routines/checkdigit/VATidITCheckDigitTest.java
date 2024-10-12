@@ -20,9 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * IT VAT Id Check Digit Tests.
- */
-/*
-Beispiele
+ * </pre>
 
     IT 01680870670 : gültig "Confezioni Valentina Srl" in Provinz Teramo (TE)
     IT 04536640404 : gültig spiagge.it, Rimini (RN)
@@ -33,6 +31,7 @@ Beispiele
     IT 12345670785 : valide, aber ungültig (aus pruefziffernberechnung.de)
     IT 12345678903 : nicht valide, da y1-3 = 890 (aus icosaedro.it) - ist aber Luhn-valide
 
+ * </pre>
  */
 public class VATidITCheckDigitTest extends AbstractCheckDigitTest {
 
