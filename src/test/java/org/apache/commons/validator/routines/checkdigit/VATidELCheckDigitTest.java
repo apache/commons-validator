@@ -19,28 +19,32 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Luhn Check Digit Test.
- */
-public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
+ * EL VAT Id Check Digit Tests.
+ * <pre>
 
-    private static final String VALID_VISA = "4417123456789113";
-    private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX = "378282246310005";
-    private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER = "6011000990139424";
-    private static final String VALID_DINERS = "30569309025904";
-    private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
-    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without Trailing "01"
+    EL 123456783 : gültig ΚΟΛΛΑΡΟΣ ΑΝΤΩΝΙΟΣ ΕΥΑΓΓΕΛΟΣ. Quelle: pruefziffernberechnung.de
+    EL 040127797 : valide, aber ungültig. Quelle: SAP
+    GR 023456780 : nicht valide wg. Prefix, aus https://old.formvalidation.io/validators/vat/
+    EL 094259216 : gültig ΙΝΤΕΡ ΝΤΥΝΑΜΙΚ ΑΝΩΝ ΤΟΥΡ ΞΕΝΟΔ ΚΑΙ ΕΜΠΟΡ ΕΤΑΙΡΕΙΑ
+    EL 998537832 : gültig TRYGONS ΑΕ aus aus adresslabor.de und
+    EL 094327684 : gültig GENERALI HELLAS Α Α Ε
+    EL  94327684 : dto aber zu kurz, führende Null fehlt ==> Länge wird in VATINValidator geprüft
+
+ * </pre>
+ */
+public class VATidELCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {
-
-        routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
-
-        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS
-            , VALID_IT_IVA_BANCA_ITALIA, VALID_SE_VATIN_OLLE_SVENSSONS, "12345678903", "10215", "12345670017"};
+        routine = VATidELCheckDigit.getInstance();
+        valid = new String[] {"040127797"
+            , "023456780", "094259216"
+            , "998537832", "094327684"
+            };
+        invalid = new String[] {"123456781"}; // PZ nuss 3 sein
     }
+
 }

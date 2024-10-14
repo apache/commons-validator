@@ -19,28 +19,29 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Luhn Check Digit Test.
+ * LT VAT Id Check Digit Tests.
  */
-public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
-
-    private static final String VALID_VISA = "4417123456789113";
-    private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX = "378282246310005";
-    private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER = "6011000990139424";
-    private static final String VALID_DINERS = "30569309025904";
-    private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
-    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without Trailing "01"
+public class VATidLTCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {
-
-        routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
-
-        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS
-            , VALID_IT_IVA_BANCA_ITALIA, VALID_SE_VATIN_OLLE_SVENSSONS, "12345678903", "10215", "12345670017"};
+        routine = VATidLTCheckDigit.getInstance();
+        valid = new String[] {"213179412" // aus BMF_UID_Konstruktionsregeln.pdf
+            , "290061371314" // 12-stellig aus BMF_UID_Konstruktionsregeln.pdf
+            , "100014579016" // Senoji rotonda
+            , "100008668610" // Geltonas namas
+            , "119511515" // Klaipėdos universitetas
+            , "582708716" // ASIMA
+            , "237153113" // RIMI
+            , "230335113" // maxima
+            , "321389515" // kautra
+            , "100008668621"
+            , "100001919017"
+            };
+        invalid = new String[] {"07091910933"};
     }
+
 }

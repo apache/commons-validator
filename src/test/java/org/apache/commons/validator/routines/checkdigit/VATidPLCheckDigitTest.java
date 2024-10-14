@@ -19,28 +19,25 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Luhn Check Digit Test.
- */
-public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
+ * PL VAT Id Check Digit Tests.
+ * <pre>
 
-    private static final String VALID_VISA = "4417123456789113";
-    private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX = "378282246310005";
-    private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER = "6011000990139424";
-    private static final String VALID_DINERS = "30569309025904";
-    private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
-    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without Trailing "01"
+    PL 9551908591 : gültig chlodniaszczecinska.pl
+    PL 6911713825 : gültig jakbet.pl
+    PL 1060000062 : gültig "CUMMINS LTD." aus pl.wikipedia
+
+ * </pre>
+ */
+public class VATidPLCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {
-
-        routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
-
-        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS
-            , VALID_IT_IVA_BANCA_ITALIA, VALID_SE_VATIN_OLLE_SVENSSONS, "12345678903", "10215", "12345670017"};
+        routine = VATidPLCheckDigit.getInstance();
+        valid = new String[] {"9551908591", "6911713825", "1060000062", "1234563218", "1234567819"};
+        invalid = new String[] {"0000000000", "1234567890"};
     }
+
 }
