@@ -32,7 +32,7 @@ package org.apache.commons.validator;
 public class ISBNValidator {
 
     /**
-     * Default Constructor.
+     * Constructs a new instance.
      */
     public ISBNValidator() {
     }

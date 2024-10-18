@@ -71,7 +71,7 @@ public class Var implements Cloneable, Serializable {
     private String bundle;
 
     /**
-     * Default Constructor.
+     * Constructs a new instance.
      */
     public Var() {
     }
