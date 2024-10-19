@@ -43,8 +43,9 @@ public class VATidELCheckDigitTest extends AbstractCheckDigitTest {
         valid = new String[] {"040127797"
             , "023456780", "094259216"
             , "998537832", "094327684"
+            , "000000130"
             };
-        invalid = new String[] {"123456781"}; // PZ nuss 3 sein
+        invalid = new String[] {"123456781"}; // check digit expected 3
     }
 
 }

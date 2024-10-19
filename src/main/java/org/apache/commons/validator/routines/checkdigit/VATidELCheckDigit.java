@@ -81,8 +81,8 @@ public final class VATidELCheckDigit extends ModulusCheckDigit {
         if (GenericTypeValidator.formatLong(code) == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
-
-        return toCheckDigit(INSTANCE.calculateModulus(code, false));
+        final int cm = INSTANCE.calculateModulus(code, false);
+        return toCheckDigit(cm > 9 ? 0 : cm);  // CHECKSTYLE IGNORE MagicNumber
     }
 
     /**
@@ -100,8 +100,11 @@ public final class VATidELCheckDigit extends ModulusCheckDigit {
             if (GenericTypeValidator.formatLong(code.substring(0, code.length() - 1)) == 0) {
                 throw new CheckDigitException(CheckDigitException.ZERO_SUM);
             }
-            final int modulusResult = INSTANCE.calculateModulus(code, true);
-            return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));
+            int cm = INSTANCE.calculateModulus(code, true);
+            if (cm > 9) {  // CHECKSTYLE IGNORE MagicNumber
+                cm = 0;
+            }
+            return cm == Character.getNumericValue(code.charAt(code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
         }
