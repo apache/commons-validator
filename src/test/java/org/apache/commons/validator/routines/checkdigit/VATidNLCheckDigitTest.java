@@ -39,8 +39,8 @@ public class VATidNLCheckDigitTest extends AbstractCheckDigitTest {
         routine = VATidNLCheckDigit.getInstance();
         valid = new String[] {"123456782", "010000446", "003660564", "004495445", "809944686"
             , "803872987"
-            , "010001440"
             };
+        invalid = new String[] {"010001440"}; // checkdigit X / 10 is invalid
     }
 
 }

@@ -92,8 +92,11 @@ public final class VATidNLCheckDigit extends ModulusCheckDigit {
         if (GenericTypeValidator.formatLong(code) == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
-
-        return toCheckDigit(INSTANCE.calculateModulus(code, false) % MODULUS_10);
+        int cd = INSTANCE.calculateModulus(code, false);
+        if (cd == 10) {  // CHECKSTYLE IGNORE MagicNumber
+            throw new CheckDigitException("Invalid Check Digit Value X = " + cd);
+        }
+        return toCheckDigit(cd % MODULUS_10);
     }
 
     /**
@@ -117,6 +120,9 @@ public final class VATidNLCheckDigit extends ModulusCheckDigit {
 
         try {
             final int modulusResult = INSTANCE.calculateModulus(code, true);
+            if (modulusResult == 10) {  // CHECKSTYLE IGNORE MagicNumber
+                return false;
+            }
             final int cdd = modulusResult % MODULUS_10;
             return cdd == Character.getNumericValue(code.charAt(code.length() - 1));
         } catch (final CheckDigitException ex) {
