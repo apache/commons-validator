@@ -40,9 +40,10 @@ public class VATidSICheckDigitTest extends AbstractCheckDigitTest {
         routine = VATidSICheckDigit.getInstance();
         valid = new String[] {"00000019" // theoretical minimum (invalid, because starts with 0)
             , "15012557", "59082437", "50223054", "45063575", "56494416", "21649405"
-            , "15012670" // checkdigit zero
+            , "15012620" // checkdigit X => 0
             , "99999994" // theoretical maximum
             };
+        invalid = new String[] {"15012670"}; // checkdigit zero is invalid
     }
 
 }

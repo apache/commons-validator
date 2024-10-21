@@ -85,10 +85,24 @@ public final class VATidSICheckDigit extends ModulusCheckDigit {
         try {
             final int modulusResult = INSTANCE.calculateModulus(code, true);
             final int charValue = (MODULUS_11 - modulusResult) % MODULUS_11;
-            return charValue % MODULUS_10 == Character.getNumericValue(code.charAt(code.length() - 1));
+            return toCheckDigit(charValue).equals(code.substring(code.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String toCheckDigit(final int charValue) throws CheckDigitException {
+        if (charValue >= 1 && charValue <= 9) { // CHECKSTYLE IGNORE MagicNumber
+            return Integer.toString(charValue);
+        }
+        if (charValue == 10) { // CHECKSTYLE IGNORE MagicNumber
+            return "0";
+        }
+        throw new CheckDigitException("Invalid Check Digit Value =" + +charValue);
     }
 
 }
