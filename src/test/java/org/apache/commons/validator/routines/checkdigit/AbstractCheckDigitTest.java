@@ -100,6 +100,9 @@ public abstract class AbstractCheckDigitTest {
      */
     protected String[] createInvalidCodes(final String[] codes) {
         final List<String> list = new ArrayList<>();
+        if (checkDigitLth == 0) {
+            return list.toArray(new String[0]);
+        }
 
         // create invalid check digit values
         for (final String fullCode : codes) {
