@@ -16,7 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 
 /**
@@ -31,7 +30,7 @@ import org.apache.commons.validator.GenericValidator;
  *
  * @since 1.10.0
  */
-public final class VATidPLCheckDigit extends ModulusCheckDigit {
+public final class VATidPLCheckDigit extends Modulus11XCheckDigit {
 
     private static final long serialVersionUID = -2927100868701459799L;
 
@@ -48,13 +47,6 @@ public final class VATidPLCheckDigit extends ModulusCheckDigit {
 
     private static final int LEN = 10; // with Check Digit
 
-    /**
-     * Constructs a Check Digit routine.
-     */
-    private VATidPLCheckDigit() {
-        super(MODULUS_11);
-    }
-
     /** Weighting given to digits depending on their left position */
     private static final int[] POSITION_WEIGHT = { 6, 5, 7, 2, 3, 4, 5, 6, 7 };
 
@@ -70,8 +62,10 @@ public final class VATidPLCheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     @Override
-    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        if (leftPos >= LEN) return 0;
+    protected int weightedValue(int charValue, int leftPos, int rightPos) throws CheckDigitException {
+        if (leftPos >= LEN) {
+            return 0; // ignore charValue outside the LEN
+        }
         final int weight = POSITION_WEIGHT[(leftPos - 1)];
         return charValue * weight;
     }
@@ -84,11 +78,7 @@ public final class VATidPLCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
-        if (code.length() >= LEN && GenericTypeValidator.formatLong(code.substring(0, LEN)) == 0) {
-            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
-        }
-        int cdValue = super.calculateModulus(code, false);
-        return toCheckDigit(cdValue);
+        return toCheckDigit(INSTANCE.calculateModulus(code, false));
     }
 
     /**
@@ -99,15 +89,26 @@ public final class VATidPLCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
-        if (code.length() != LEN) {
-            return false;
-        }
         try {
-            final int modulusResult = INSTANCE.calculateModulus(code, true);
-            return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));
+            final int cd = INSTANCE.calculateModulus(code, true);
+            return code.endsWith(toCheckDigit(cd));
         } catch (final CheckDigitException ex) {
             return false;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Override because charValue X is an invalid check digit value.
+     * </p>
+     */
+    @Override
+    protected String toCheckDigit(final int charValue) throws CheckDigitException {
+        if (charValue == X) {
+            throw new CheckDigitException("Invalid Check Digit Value =" + +charValue);
+        }
+        return super.toCheckDigit(charValue);
     }
 
 }

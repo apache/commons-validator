@@ -30,7 +30,7 @@ import org.apache.commons.validator.GenericValidator;
  *
  * @since 1.10.0
  */
-public final class VATidSICheckDigit extends ModulusCheckDigit {
+public final class VATidSICheckDigit extends Modulus11XCheckDigit {
 
     private static final long serialVersionUID = -6973418403542365911L;
 
@@ -45,47 +45,17 @@ public final class VATidSICheckDigit extends ModulusCheckDigit {
         return INSTANCE;
     }
 
-    private static final int LEN = 8; // with Check Digit
-
-    /**
-     * Constructs a Check Digit routine.
-     */
-    private VATidSICheckDigit() {
-        super(MODULUS_11);
-    }
-
-    /**
-     * Calculates the <i>weighted</i> value of a character in the
-     * code at a specified position.
-     *
-     * <p>For VATID digits are weighted by their position from left to right.</p>
-     *
-     * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
-     * @return The weighted value of the character.
-     */
-    @Override
-    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        if (leftPos < LEN) {
-            return charValue * (1 + LEN - leftPos);
-        }
-        return 0;
-    }
-
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean isValid(final String ocode) {
-        String code = ocode;
+    public boolean isValid(final String code) {
         if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
         try {
-            final int modulusResult = INSTANCE.calculateModulus(code, true);
-            final int charValue = (MODULUS_11 - modulusResult) % MODULUS_11;
-            return toCheckDigit(charValue).equals(code.substring(code.length() - 1));
+            final String cd = calculate(code.substring(0, code.length() - 1));
+            return code.endsWith(cd);
         } catch (final CheckDigitException ex) {
             return false;
         }
@@ -93,16 +63,16 @@ public final class VATidSICheckDigit extends ModulusCheckDigit {
 
     /**
      * {@inheritDoc}
+     * <p>
+     * Override because charValue 0 is an invalid check digit value and X is mapped to 0.
+     * </p>
      */
     @Override
     protected String toCheckDigit(final int charValue) throws CheckDigitException {
-        if (charValue >= 1 && charValue <= 9) { // CHECKSTYLE IGNORE MagicNumber
-            return Integer.toString(charValue);
+        if (charValue == 0) {
+            throw new CheckDigitException("Invalid Check Digit Value =" + +charValue);
         }
-        if (charValue == 10) { // CHECKSTYLE IGNORE MagicNumber
-            return "0";
-        }
-        throw new CheckDigitException("Invalid Check Digit Value =" + +charValue);
+        return super.toCheckDigit(charValue % X);
     }
 
 }

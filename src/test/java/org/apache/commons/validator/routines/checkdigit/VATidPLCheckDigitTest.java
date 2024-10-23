@@ -37,7 +37,7 @@ public class VATidPLCheckDigitTest extends AbstractCheckDigitTest {
     protected void setUp() {
         routine = VATidPLCheckDigit.getInstance();
         valid = new String[] {"9551908591", "6911713825", "1060000062", "1234563218", "1234567819"};
-        invalid = new String[] {"0000000000", "1234567890"};
+        invalid = new String[] {"0000000000", "1234567890", "123456789X"};
     }
 
 }

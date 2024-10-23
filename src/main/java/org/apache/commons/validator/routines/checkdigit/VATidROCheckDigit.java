@@ -16,7 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 
 /**
@@ -31,7 +30,7 @@ import org.apache.commons.validator.GenericValidator;
  *
  * @since 1.10.0
  */
-public final class VATidROCheckDigit extends ModulusCheckDigit {
+public final class VATidROCheckDigit extends Modulus11XCheckDigit {
 
     private static final long serialVersionUID = 159727558301530535L;
 
@@ -46,17 +45,10 @@ public final class VATidROCheckDigit extends ModulusCheckDigit {
         return INSTANCE;
     }
 
-    static final int LEN = 9; // without Check Digit
+    private static final int LEN = 10; // with Check Digit
 
     /** Weighting given to digits depending on their left position */
     private static final int[] POSITION_WEIGHT = { 7, 5, 3, 2, 1 };
-
-    /**
-     * Constructs a modulus 11 Check Digit routine.
-     */
-    private VATidROCheckDigit() {
-        super(MODULUS_11);
-    }
 
     /**
      * Calculates the <i>weighted</i> value of a character in the
@@ -70,7 +62,7 @@ public final class VATidROCheckDigit extends ModulusCheckDigit {
      * @return The weighted value of the character.
      */
     @Override
-    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
+    protected int weightedValue(int charValue, int leftPos, int rightPos) throws CheckDigitException {
         final int weight = POSITION_WEIGHT[(leftPos - 1) % POSITION_WEIGHT.length];
         return charValue * weight;
     }
@@ -83,25 +75,34 @@ public final class VATidROCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
-        if (code.length() >= LEN && GenericTypeValidator.formatLong(code) == 0) {
-            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
-        }
         String pcode = code;
         // fill with leading zeros:
-        if (code.length() < LEN) {
-            pcode = "0000000000".substring(0, LEN - code.length()) + code;
+        if (code.length() < LEN - 1) {
+            pcode = "0000000000".substring(0, LEN - 1 - code.length()) + code;
         }
+        return toCheckDigit(INSTANCE.calculateModulus(pcode, false));
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Override to multiply the total by 10.
+     * </p>
+     */
+    // in calculateModulus muss vor dem % mit 10 multipliziert werden
+    protected int calculateModulus(final String code, final boolean includesCheckDigit) throws CheckDigitException {
         int total = 0;
-        for (int i = 0; i < pcode.length(); i++) {
+        for (int i = 0; i < code.length(); i++) {
+            final int lth = code.length() + (includesCheckDigit ? 0 : 1);
             final int leftPos = i + 1;
-            final int charValue = toInt(pcode.charAt(i), leftPos, -1);
-            total += weightedValue(charValue, leftPos, -1);
+            final int rightPos = lth - i;
+            final int charValue = toInt(code.charAt(i), leftPos, rightPos);
+            total += weightedValue(charValue, leftPos, rightPos);
         }
         if (total == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
-        final int charValue = total * MODULUS_10 % MODULUS_11;
-        return toCheckDigit(charValue == MODULUS_10 ? 0 : charValue);
+        return total * MODULUS_10 % MODULUS_11;
     }
 
     /**
@@ -113,11 +114,22 @@ public final class VATidROCheckDigit extends ModulusCheckDigit {
             return false;
         }
         try {
-            String cd = calculate(code.substring(0, code.length() - 1));
+            final String cd = calculate(code.substring(0, code.length() - 1));
             return code.endsWith(cd);
         } catch (final CheckDigitException ex) {
             return false;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Override to handle charValue X.
+     * </p>
+     */
+    @Override
+    protected String toCheckDigit(final int charValue) throws CheckDigitException {
+        return charValue == X ? "0" : super.toCheckDigit(charValue);
     }
 
 }

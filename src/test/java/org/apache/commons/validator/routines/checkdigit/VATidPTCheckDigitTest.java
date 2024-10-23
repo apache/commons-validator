@@ -44,7 +44,7 @@ public class VATidPTCheckDigitTest extends AbstractCheckDigitTest {
             , "000000310" // checkdigit zero
             , "999999990" // theoretical maximum
             };
-        invalid = new String[] {"0"};
+        invalid = new String[] {"0", "99999999X"};
     }
 
 }

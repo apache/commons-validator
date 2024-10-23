@@ -33,7 +33,7 @@ import org.apache.commons.validator.GenericValidator;
  *
  * @since 1.10.0
  */
-public final class VATidNLCheckDigit extends ModulusCheckDigit {
+public final class VATidNLCheckDigit extends Modulus11XCheckDigit {
 
     private static final long serialVersionUID = 2429529612265735976L;
 
@@ -48,37 +48,17 @@ public final class VATidNLCheckDigit extends ModulusCheckDigit {
         return INSTANCE;
     }
 
-    private static final int LEN = 9; // without suffix "B99"
+    private static final int LEN = 9; // with Check Digit, but without suffix "B99"
 
     /**
-     * Constructs a Check Digit routine.
-     */
-    private VATidNLCheckDigit() {
-        super(MODULUS_11);
-    }
-
-    /** Weighting given to digits depending on their left position */
-    /*
-     */
-    private static final int[] POSITION_WEIGHT = { 9, 8, 7, 6, 5, 4, 3, 2 };
-    /**
-     * Calculates the <i>weighted</i> value of a character in the
-     * code at a specified position.
-     *
-     * <p>For VATID digits are weighted by their position from left to right.</p>
-     *
-     * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
-     * @return The weighted value of the character.
+     * {@inheritDoc}
      */
     @Override
-    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        if (leftPos - 1 < POSITION_WEIGHT.length) {
-            final int weight = POSITION_WEIGHT[(leftPos - 1)];
-            return charValue * weight;
+    protected int weightedValue(int charValue, int leftPos, int rightPos) throws CheckDigitException {
+        if (leftPos < LEN) {
+            return charValue * rightPos;
         }
-        return 0;
+        return 0; // ignore charValue outside the LEN
     }
 
     /**
@@ -89,14 +69,11 @@ public final class VATidNLCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
+        // Satisfy testZeroSum
         if (GenericTypeValidator.formatLong(code) == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
-        int cd = INSTANCE.calculateModulus(code, false);
-        if (cd == 10) {  // CHECKSTYLE IGNORE MagicNumber
-            throw new CheckDigitException("Invalid Check Digit Value X = " + cd);
-        }
-        return toCheckDigit(cd % MODULUS_10);
+        return toCheckDigit(INSTANCE.calculateModulus(code, false));
     }
 
     /**
@@ -117,17 +94,29 @@ public final class VATidNLCheckDigit extends ModulusCheckDigit {
             }
             code = code.substring(0, LEN);
         }
-
+        if (code.length() <= 1) { // minimum length
+            return false;
+        }
         try {
-            final int modulusResult = INSTANCE.calculateModulus(code, true);
-            if (modulusResult == 10) {  // CHECKSTYLE IGNORE MagicNumber
-                return false;
-            }
-            final int cdd = modulusResult % MODULUS_10;
-            return cdd == Character.getNumericValue(code.charAt(code.length() - 1));
+            final int cd = INSTANCE.calculateModulus(code, true);
+            return code.endsWith(toCheckDigit(cd));
         } catch (final CheckDigitException ex) {
             return false;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Override because charValue X is an invalid check digit value.
+     * </p>
+     */
+    @Override
+    protected String toCheckDigit(final int charValue) throws CheckDigitException {
+        if (charValue == X) {
+            throw new CheckDigitException("Invalid Check Digit Value =" + +charValue);
+        }
+        return super.toCheckDigit(charValue);
     }
 
 }

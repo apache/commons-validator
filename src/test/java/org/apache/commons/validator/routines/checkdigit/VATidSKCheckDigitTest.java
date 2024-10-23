@@ -36,11 +36,12 @@ public class VATidSKCheckDigitTest extends AbstractCheckDigitTest {
     protected void setUp() {
         checkDigitLth = 0;
         routine = VATidSKCheckDigit.getInstance();
-        valid = new String[] {"0000000011" // theoretical minimum
+        valid = new String[] {"0000000011", "11" // theoretical minimum
             , "2120567108", "2021896096", "4030000007", "2022749619"
             , "1111111111" // here valid, NOT valid, because 3rd digit is 1, checked in VATINValidator
             , "9999999999" // theoretical maximum
             };
+        invalid = new String[] {"999X999999", "0000000010"};
     }
 
     protected String checkDigit(final String code) {

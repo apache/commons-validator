@@ -17,23 +17,34 @@
 package org.apache.commons.validator.routines.checkdigit;
 
 /**
- * Portugal VAT identification number (VATIN) Check Digit calculation/validation.
+ * Modulus 11-X module for Check Digit calculation/validation of 11-X Numbers.
  * <p>
- * o número de identificacao para efeitos do imposto sobre o valor acrescentado (NIPC)
+ * 11-X Numbers are a numeric code except for the last (check) digit
+ * which can have a value of "X".
  * </p>
  * <p>
- * See <a href="https://en.wikipedia.org/wiki/VAT_identification_number">Wikipedia - VAT IN</a>
- * for more details.
+ * Check digit calculation is based on <em>modulus 11</em> with digits being weighted
+ * based by their position, from right to left with the first digit being weighted  1,
+ * the second 2 and so on. If the check digit is calculated as "10" it is converted to "X".
+ * </p>
+ * <p>
+ * A prominent possible subclass is {@link ISBN10CheckDigit}).
+ * This module simplifies some VATIN calculations.
  * </p>
  *
  * @since 1.10.0
  */
-public final class VATidPTCheckDigit extends Modulus11XCheckDigit {
+public class Modulus11XCheckDigit extends ModulusCheckDigit {
 
-    private static final long serialVersionUID = 3389131219768039368L;
+    private static final long serialVersionUID = 5214797259628194566L;
+
+    /**
+     * The ALPHABET for the check digit is a number or X which indicates ten.
+     */
+    static final int X = 10;
 
     /** Singleton Check Digit instance */
-    private static final VATidPTCheckDigit INSTANCE = new VATidPTCheckDigit();
+    private static final Modulus11XCheckDigit INSTANCE = new Modulus11XCheckDigit();
 
     /**
      * Gets the singleton instance of this validator.
@@ -41,6 +52,9 @@ public final class VATidPTCheckDigit extends Modulus11XCheckDigit {
      */
     public static CheckDigit getInstance() {
         return INSTANCE;
+    }
+    Modulus11XCheckDigit() {
+        super(MODULUS_11);
     }
 
     /**
@@ -51,7 +65,18 @@ public final class VATidPTCheckDigit extends Modulus11XCheckDigit {
      */
     @Override
     protected String toCheckDigit(final int charValue) throws CheckDigitException {
-        return charValue == X ? "0" : super.toCheckDigit(charValue);
+        return charValue == X ? "X" : super.toCheckDigit(charValue);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Override to handle weights as right position.
+     * </p>
+     */
+    @Override
+    protected int weightedValue(int charValue, int leftPos, int rightPos) throws CheckDigitException {
+        return charValue * rightPos;
     }
 
 }

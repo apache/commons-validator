@@ -32,7 +32,7 @@ import org.apache.commons.validator.GenericValidator;
  *
  * @since 1.10.0
  */
-public final class VATidSKCheckDigit extends ModulusCheckDigit {
+public final class VATidSKCheckDigit extends Modulus11XCheckDigit {
 
     private static final long serialVersionUID = 5022933940504538766L;
 
@@ -47,31 +47,6 @@ public final class VATidSKCheckDigit extends ModulusCheckDigit {
         return INSTANCE;
     }
 
-    static final int LEN = 10;
-
-    /**
-     * Constructs a modulus Check Digit routine.
-     */
-    private VATidSKCheckDigit() {
-        super(MODULUS_11);
-    }
-
-    /**
-     * Calculates the <i>weighted</i> value of a character in the
-     * code at a specified position.
-     *
-     * <p>For VATID digits are weighted by their position from left to right.</p>
-     *
-     * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
-     * @return The weighted value of the character.
-     */
-    @Override
-    protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        return charValue;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -80,8 +55,12 @@ public final class VATidSKCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
-        Long l = GenericTypeValidator.formatLong(code);
-        if (l == null || l == 0) {
+        // Satisfy testZeroSum
+        final Long l = GenericTypeValidator.formatLong(code);
+        if (l == null) {
+            throw new CheckDigitException("Invalid code " + code);
+        }
+        if (l == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         return toCheckDigit((int) (l % MODULUS_11));
@@ -89,20 +68,32 @@ public final class VATidSKCheckDigit extends ModulusCheckDigit {
 
     /**
      * {@inheritDoc}
+     * <p>
+     * Override because valid codes has "0" calculated check digit
+     * and hence Slovakian VATIN does not contain a check digit.
+     * </p>
      */
     @Override
     public boolean isValid(final String code) {
-        if (GenericValidator.isBlankOrNull(code)) {
-            return false;
-        }
-        if (code.length() != LEN) {
-            return false;
-        }
         try {
             return "0".equals(calculate(code));
         } catch (final CheckDigitException ex) {
             return false;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Override because charValue 0 is the only valid check digit value.
+     * </p>
+     */
+    @Override
+    protected String toCheckDigit(final int charValue) throws CheckDigitException {
+        if (charValue == 0) {
+            return super.toCheckDigit(charValue);
+        }
+        throw new CheckDigitException("Invalid Check Digit Value =" + +charValue);
     }
 
 }
