@@ -41,7 +41,7 @@ public class VATidLTCheckDigitTest extends AbstractCheckDigitTest {
             , "100008668621"
             , "100001919017"
             };
-        invalid = new String[] {"07091910933"};
+        invalid = new String[] {"07091910933", "11"};
     }
 
 }

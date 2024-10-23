@@ -182,18 +182,8 @@ A1 = 9*C1 + 1*C2 + 4*C3 + 8*C4 + 3*C5 + 10*C6 + 2*C7 + 5*C8 + 7*C9 + 6*C10
             return false;
         }
         try {
-            final int c1 = toInt(code.charAt(0), 1, -1);
-            if (c1 > THREE) {
-                final int modulusResult = INSTANCE.calculateModulus(code, true);
-                final int charValue = 3 - modulusResult;
-                if (charValue == -1) {
-                    throw new CheckDigitException(INVALID_CODE_NEGATIVE);
-                }
-                final int cd = charValue > -1 ? charValue : charValue + MODULUS_11;
-                return cd == Character.getNumericValue(code.charAt(code.length() - 1));
-            }
-            int ccd = calculateNMIN(code.substring(0, LEN - 1), true);
-            return ccd == Character.getNumericValue(code.charAt(code.length() - 1));
+            final String cd = calculate(code.substring(0, code.length() - 1));
+            return code.endsWith(cd);
         } catch (final CheckDigitException ex) {
             return false;
         }

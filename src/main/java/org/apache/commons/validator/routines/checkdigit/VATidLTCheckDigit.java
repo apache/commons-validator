@@ -27,7 +27,7 @@ import org.apache.commons.validator.GenericValidator;
  *
  * @since 1.10.0
  */
-public final class VATidLTCheckDigit extends ModulusCheckDigit {
+public final class VATidLTCheckDigit extends Modulus11XCheckDigit {
 
     private static final long serialVersionUID = -5818846157214697674L;
 
@@ -46,13 +46,6 @@ public final class VATidLTCheckDigit extends ModulusCheckDigit {
     private static final int LEN = 12;
 
     /**
-     * Constructs a modulus 11 Check Digit routine.
-     */
-    private VATidLTCheckDigit() {
-        super(MODULUS_11);
-    }
-
-    /**
      * {@inheritDoc}
      * <p>
      * Overridden to provide two {@code}calculateModulus methods,
@@ -64,13 +57,16 @@ public final class VATidLTCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
+        if (code.length() < POS9 - 1) {
+            throw new CheckDigitException("Invalid code " + code);
+        }
         if (code.length() >= LEN && GenericTypeValidator.formatLong(code) == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         final int modulusResult = calculateModulus1(code, false);
-        if (modulusResult == 10) { // CHECKSTYLE IGNORE MagicNumber
+        if (modulusResult == X) { // recalculate with increased weights
             final int r2 = calculateModulus(code, false);
-            return toCheckDigit(r2 == 10 ? 0 : r2); // CHECKSTYLE IGNORE MagicNumber
+            return toCheckDigit(r2 == X ? 0 : r2);
         }
         return toCheckDigit(modulusResult);
     }
@@ -125,17 +121,12 @@ public final class VATidLTCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
-        if (code.length() > LEN) {
+        if (code.length() < POS9 || code.length() > LEN) {
             return false;
         }
         try {
-            final int modulusResult = INSTANCE.calculateModulus1(code, true);
-            int cd = modulusResult;
-            if (modulusResult == 10) { // CHECKSTYLE IGNORE MagicNumber
-                final int r2 = calculateModulus(code.substring(0, code.length() - 1), false);
-                cd = (r2 == 10 ? 0 : r2); // CHECKSTYLE IGNORE MagicNumber
-            }
-            return cd == Character.getNumericValue(code.charAt(code.length() - 1));
+            final String cd = calculate(code.substring(0, code.length() - 1));
+            return code.endsWith(cd);
         } catch (final CheckDigitException ex) {
             return false;
         }

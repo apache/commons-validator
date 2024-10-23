@@ -207,9 +207,8 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
             return false;
         }
         try {
-            final String cd = code.substring(code.length() - 1);
-            String calculatedCd = calculate(code.substring(0, code.length() - 1));
-            return cd.equals(calculatedCd);
+            final String cd = calculate(code.substring(0, code.length() - 1));
+            return code.endsWith(cd);
         } catch (final CheckDigitException ex) {
             return false;
         }
