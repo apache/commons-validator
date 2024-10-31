@@ -69,12 +69,11 @@ public final class VATidLUCheckDigit extends Modulus97CheckDigit {
         if (code.length() < MIN_CODE_LEN) {
             throw new CheckDigitException("Invalid Code length=" + code.length());
         }
-
         long mr = calculateModulus(code, false);
-        int modulusResult = (int) (mr % MODULUS_89);
-        if (modulusResult == 0) {
+        if (mr == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
+        int modulusResult = (int) (mr % MODULUS_89);
         return toCheckDigit(modulusResult);
     }
 
@@ -92,15 +91,16 @@ public final class VATidLUCheckDigit extends Modulus97CheckDigit {
 
         String check = code.substring(code.length() - CHECKDIGIT_LEN);
         Integer icheck = GenericTypeValidator.formatInt(check);
-        if (icheck == null) {
+        // formatInt accepts "+0" as 0, avoid this
+        if (icheck == null || !Character.isDigit(check.charAt(0))) {
             return false;
         }
         try {
             long mr = calculateModulus(code, true);
-            int modulusResult = (int) (mr % MODULUS_89);
-            if (modulusResult == 0) {
+            if (mr == 0) {
                 throw new CheckDigitException(CheckDigitException.ZERO_SUM);
             }
+            int modulusResult = (int) (mr % MODULUS_89);
             return icheck.intValue() == modulusResult;
         } catch (final CheckDigitException ex) {
             return false;

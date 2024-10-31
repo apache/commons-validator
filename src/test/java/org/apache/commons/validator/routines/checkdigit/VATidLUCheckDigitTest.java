@@ -22,10 +22,13 @@ import org.junit.jupiter.api.BeforeEach;
  * LU VAT Id Check Digit Tests.
  * <pre>
 
-    LU 25180625 : gültig aus snct.lu
+    LU 25180625 : gültig aus snct.lu/Impressum
     LU 15027442 : gültig HITEC LUXEMBOURG SA, L-8212 MAMER
+    LU 16063074 : gültig ERNST & YOUNG S.A.
+    LU 15894580 : L'ALLIANCE REVISION SARL
     LU 13669580 : valide, aber ungültig. Aus sap-docu und pruefziffernberechnung.de
     LU 10000356 : valide, aber ungültig. Aus BMF_UID_Konstruktionsregeln.
+    LU 14729500 : ATA, SA
 
  * </pre>
  */
@@ -41,8 +44,8 @@ public class VATidLUCheckDigitTest extends AbstractCheckDigitTest {
     @BeforeEach
     protected void setUp() {
         routine = VATidLUCheckDigit.getInstance();
-        valid = new String[] {"25180625", "15027442", "13669580", "10000356"};
-        invalid = new String[] {"00000000", "00008900"};
+        valid = new String[] {"25180625", "15027442", "16063074", "15894580", "13669580", "10000356", "14729500"};
+        invalid = new String[] {"00000000"};
     }
 
 }
