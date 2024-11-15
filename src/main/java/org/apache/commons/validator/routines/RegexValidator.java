@@ -131,7 +131,7 @@ public class RegexValidator implements Serializable {
      * Constructs a new instance for a single regular expression with the specified case sensitivity.
      *
      * @param regex         The regular expression this validator will validate against
-     * @param caseSensitive when {@code true} matching is <i>case sensitive</i>, otherwise matching is <em>case in-sensitive</em>
+     * @param caseSensitive when {@code true} matching is <em>case sensitive</em>, otherwise matching is <em>case in-sensitive</em>
      */
     public RegexValidator(final String regex, final boolean caseSensitive) {
         this(toCompileFlags(caseSensitive), regex);
@@ -141,7 +141,7 @@ public class RegexValidator implements Serializable {
      * Constructs a new instance that matches any one of the set of regular expressions with the specified case sensitivity.
      *
      * @param regexs        The set of regular expressions this validator will validate against
-     * @param caseSensitive when {@code true} matching is <i>case sensitive</i>, otherwise matching is <em>case in-sensitive</em>
+     * @param caseSensitive when {@code true} matching is <em>case sensitive</em>, otherwise matching is <em>case in-sensitive</em>
      */
     public RegexValidator(final String[] regexs, final boolean caseSensitive) {
         this(toCompileFlags(caseSensitive), regexs);
