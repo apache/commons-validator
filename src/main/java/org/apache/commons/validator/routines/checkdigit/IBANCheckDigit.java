@@ -19,7 +19,7 @@ package org.apache.commons.validator.routines.checkdigit;
 import java.io.Serializable;
 
 /**
- * <b>IBAN</b> (International Bank Account Number) Check Digit calculation/validation.
+ * <strong>IBAN</strong> (International Bank Account Number) Check Digit calculation/validation.
  * <p>
  * This routine is based on the ISO 7064 Mod 97,10 check digit calculation routine.
  * <p>
@@ -63,7 +63,7 @@ public final class IBANCheckDigit extends AbstractCheckDigit implements Serializ
     /**
      * Calculate the <em>Check Digit</em> for an IBAN code.
      * <p>
-     * <b>Note:</b> The check digit is the third and fourth
+     * <strong>Note:</strong> The check digit is the third and fourth
      * characters and is set to the value "{@code 00}".
      *
      * @param code The code to calculate the Check Digit for

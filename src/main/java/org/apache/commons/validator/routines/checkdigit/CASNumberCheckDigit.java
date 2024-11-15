@@ -20,7 +20,7 @@ import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.CodeValidator;
 
 /**
- * Modulus 10 <b>CAS Registry Number</b> (or <b>Chemical Abstracts Service</b> (CAS RN)) Check Digit
+ * Modulus 10 <strong>CAS Registry Number</strong> (or <strong>Chemical Abstracts Service</strong> (CAS RN)) Check Digit
  * calculation/validation.
  *
  * <p>

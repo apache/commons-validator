@@ -17,7 +17,7 @@
 package org.apache.commons.validator.routines.checkdigit;
 
 /**
- * Modulus 10 <b>SEDOL</b> (UK Securities) Check Digit calculation/validation.
+ * Modulus 10 <strong>SEDOL</strong> (UK Securities) Check Digit calculation/validation.
  *
  * <p>
  * SEDOL Numbers are 7 character alphanumeric codes used

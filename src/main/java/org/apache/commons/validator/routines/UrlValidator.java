@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.validator.GenericValidator;
 
 /**
- * <p><b>URL Validation</b> routines.</p>
+ * <p><strong>URL Validation</strong> routines.</p>
  * Behavior of validation is modified by passing in options:
  * <ul>
  * <li>ALLOW_2_SLASHES - [FALSE]  Allows double '/' characters in the path

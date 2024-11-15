@@ -22,7 +22,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * <b>Regular Expression</b> validation (using the JRE's regular expression support).
+ * <strong>Regular Expression</strong> validation (using the JRE's regular expression support).
  * <p>
  * Constructs the validator either for a single regular expression or a set (array) of regular expressions. By default validation is <em>case sensitive</em> but
  * constructors are provided to allow <em>case in-sensitive</em> validation. For example to create a validator which does <em>case in-sensitive</em> validation
@@ -57,7 +57,7 @@ import java.util.regex.Pattern;
  * </li>
  * </ul>
  *
- * <b>Note that patterns are matched against the entire input.</b>
+ * <strong>Note that patterns are matched against the entire input.</strong>
  *
  * <p>
  * Cached instances pre-compile and re-use {@link Pattern}(s) - which according to the {@link Pattern} API are safe to use in a multi-threaded environment.

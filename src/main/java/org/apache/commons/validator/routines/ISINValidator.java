@@ -23,7 +23,7 @@ import java.util.Locale;
 import org.apache.commons.validator.routines.checkdigit.ISINCheckDigit;
 
 /**
- * <b>ISIN</b> (International Securities Identifying Number) validation.
+ * <strong>ISIN</strong> (International Securities Identifying Number) validation.
  *
  * <p>
  * ISIN Numbers are 12 character alphanumeric codes used to identify Securities.

@@ -406,7 +406,7 @@
  * by creating a new instance, which caches and re-uses compiled Patterns.
  * </p>
  * <ul>
- * <li><b>Method Flavours</b> - three <em>flavors</em> of validation metods are provided:</li>
+ * <li><strong>Method Flavours</strong> - three <em>flavors</em> of validation metods are provided:</li>
  * <li>
  * <ul>
  * <li>{@code isValid()} methods return true/false to indicate
@@ -418,9 +418,9 @@
  * of the matched <em>groups</em> or {@code null} if invalid.</li>
  * </ul>
  * </li>
- * <li><b>Case Sensitivity</b> - matching can be done in either a <i>case
+ * <li><strong>Case Sensitivity</strong> - matching can be done in either a <i>case
  * sensitive</i> or <em>case in-sensitive</em> way.</li>
- * <li><b>Multiple Expressions</b> - instances of the
+ * <li><strong>Multiple Expressions</strong> - instances of the
  * <a href="RegexValidator.html">RegexValidator</a>
  * can be created to either match against a single regular expression
  * or set (String array) of regular expressions.</li>
@@ -489,26 +489,26 @@
  * </p>
  * <ul>
  * <li><a href="checkdigit/ABANumberheckDigit.html">ABANumberCheckDigit</a>
- * for <b>ABA Number</b> (or <b>Routing Transit Number</b> (RTN)) check digit calculation.</li>
+ * for <strong>ABA Number</strong> (or <strong>Routing Transit Number</strong> (RTN)) check digit calculation.</li>
  * <li><a href="checkdigit/CUSIPCheckDigit.html">CUSIPCheckDigit</a>
- * for <b>CUSIP</b> (North American Securities) check digit calculation.</li>
+ * for <strong>CUSIP</strong> (North American Securities) check digit calculation.</li>
  * <li><a href="checkdigit/EAN13CheckDigit.html">EAN13CheckDigit</a>
- * for <b>EAN-13</b>, <b>UPC</b>, <b>ISBN-13</b> check digit calculation.</li>
+ * for <strong>EAN-13</strong>, <strong>UPC</strong>, <strong>ISBN-13</strong> check digit calculation.</li>
  * <li><a href="checkdigit/ISBNCheckDigit.html">ISBNCheckDigit</a>
- * for <b>ISBN-10</b> and <b>ISBN-13</b> check digit calculation.</li>
+ * for <strong>ISBN-10</strong> and <strong>ISBN-13</strong> check digit calculation.</li>
  * <li><a href="checkdigit/ISBN10CheckDigit.html">ISBN10CheckDigit</a>
- * for <b>ISBN-10</b> check digit calculation.</li>
+ * for <strong>ISBN-10</strong> check digit calculation.</li>
  * <li><a href="checkdigit/ISINCheckDigit.html">ISINCheckDigit</a>
- * for <b>ISIN</b> International Securities Identifying Number check digit calculation.</li>
+ * for <strong>ISIN</strong> International Securities Identifying Number check digit calculation.</li>
  * <li><a href="checkdigit/LuhnCheckDigit.html">LuhnCheckDigit</a>
- * for <b>Luhn</b> check digit calculation - used by <b>credit cards</b>.</li>
+ * for <strong>Luhn</strong> check digit calculation - used by <strong>credit cards</strong>.</li>
  * <li><a href="checkdigit/ModulusCheckDigit.html">ModulusCheckDigit</a>
- * - <b>abstract</b> class for custom <b>modulus</b> check digit
+ * - <strong>abstract</strong> class for custom <strong>modulus</strong> check digit
  * implementations.</li>
  * <li><a href="checkdigit/SedolCheckDigit.html">SedolCheckDigit</a>
- * for <b>SEDOL</b> (UK Securities) check digit calculation.</li>
+ * for <strong>SEDOL</strong> (UK Securities) check digit calculation.</li>
  * <li><a href="checkdigit/VerhoeffCheckDigit.html">VerhoeffCheckDigit</a>
- * for <b>Verhoeff</b> (Dihedral) check digit calculation.</li>
+ * for <strong>Verhoeff</strong> (Dihedral) check digit calculation.</li>
  * </ul>
  * <p>
  * The following examples show validating the check digit of a code:
@@ -550,13 +550,13 @@
  * validations on a code:
  * </p>
  * <ul>
- * <li><b>Format</b> - the format of the code is validated using
+ * <li><strong>Format</strong> - the format of the code is validated using
  * a <em>regular expression</em> (see  <a href="RegexValidator.html">RegexValidator</a>).</li>
- * <li><b>Length</b> - the minimum/maximum length of the code is
+ * <li><strong>Length</strong> - the minimum/maximum length of the code is
  * checked - after being parsed by the regular expression - with which
  * <em>format</em> characters can be removed with the use of
  * <em>non-capturing</em> groups.</li>
- * <li><b>Check Digit</b> - a <a href="checkdigit/CheckDigit.html">CheckDigit</a>
+ * <li><strong>Check Digit</strong> - a <a href="checkdigit/CheckDigit.html">CheckDigit</a>
  * routine checks that code's check digit is valid.</li>
  * </ul>
  * <p>
@@ -579,7 +579,7 @@
  * ISBN-10 codes to ISBN-13.
  * </p>
  * <ul>
- * <li><b>ISBN-10</b> - validates using a
+ * <li><strong>ISBN-10</strong> - validates using a
  * <a href="CodeValidator.html">CodeValidator</a> with the
  * <a href="checkdigit/ISBN10CheckDigit.html">ISBN10CheckDigit</a>
  * routine.</li>
@@ -589,7 +589,7 @@
  * <li>{@code validateISBN10(<em>value</em>)} - returns a reformatted ISBN-10 code</li>
  * </ul>
  * </li>
- * <li><b>ISBN-13</b> - validates using a
+ * <li><strong>ISBN-13</strong> - validates using a
  * <a href="CodeValidator.html">CodeValidator</a> with the
  * <a href="checkdigit/EAN13CheckDigit.html">EAN13CheckDigit</a>
  * routine.</li>
@@ -599,7 +599,7 @@
  * <li>{@code validateISBN13(<em>value</em>)} - returns a reformatted ISBN-13 code</li>
  * </ul>
  * </li>
- * <li><b>ISBN-10</b> and <b>ISBN-13</b> - validates codes are either
+ * <li><strong>ISBN-10</strong> and <strong>ISBN-13</strong> - validates codes are either
  * valid ISBN-10 or valid ISBN-13 - optionally can convert ISBN-10 codes to ISBN-13.</li>
  * <li>
  * <ul>

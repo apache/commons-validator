@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * <p><b>Domain name</b> validation routines.</p>
+ * <p><strong>Domain name</strong> validation routines.</p>
  *
  * <p>
  * This validator provides methods for validating Internet domain names
@@ -54,7 +54,7 @@ import java.util.Locale;
  *   </ul>
  *
  * <p>
- * (<b>NOTE</b>: This class does not provide IP address lookup for domain names or
+ * (<strong>NOTE</strong>: This class does not provide IP address lookup for domain names or
  * methods to ensure that a given domain name matches a specific IP; see
  * {@link java.net.InetAddress} for that functionality.)
  * </p>

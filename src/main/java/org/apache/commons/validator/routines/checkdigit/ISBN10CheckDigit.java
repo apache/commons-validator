@@ -17,7 +17,7 @@
 package org.apache.commons.validator.routines.checkdigit;
 
 /**
- * Modulus 11 <b>ISBN-10</b> Check Digit calculation/validation.
+ * Modulus 11 <strong>ISBN-10</strong> Check Digit calculation/validation.
  * <p>
  * ISBN-10 Numbers are a numeric code except for the last (check) digit
  * which can have a value of "X".
@@ -27,7 +27,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * 1, the second 2 and so on. If the check digit is calculated as "10" it is converted
  * to "X".
  * <p>
- * <b>N.B.</b> From 1st January 2007 the book industry will start to use a new 13 digit
+ * <strong>N.B.</strong> From 1st January 2007 the book industry will start to use a new 13 digit
  * ISBN number (rather than this 10 digit ISBN number) which uses the EAN-13 / UPC
  * (see {@link EAN13CheckDigit}) standard.
  * <p>

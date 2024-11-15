@@ -665,7 +665,7 @@ public class ValidatorAction implements Serializable {
      * </p>
      *
      * <pre>
-     * <b>Examples</b>
+     * <strong>Examples</strong>
      *   If in the validator.xml :
      * #1:
      *      &lt;validator name="tire"

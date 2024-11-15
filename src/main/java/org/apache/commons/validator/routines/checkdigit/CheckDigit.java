@@ -19,7 +19,7 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.apache.commons.validator.routines.CodeValidator;
 
 /**
- * <b>Check Digit</b> calculation and validation.
+ * <strong>Check Digit</strong> calculation and validation.
  * <p>
  * The logic for validating check digits has previously been
  * embedded within the logic for specific code validation, which

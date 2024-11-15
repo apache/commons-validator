@@ -56,7 +56,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * <li>There are no checks on code length.</li>
  * </ul>
  * <p>
- * <b>Note:</b> This implementation can be combined with the
+ * <strong>Note:</strong> This implementation can be combined with the
  * {@link CodeValidator} in order to ensure the length and characters are valid.
  *
  * <h2>Example Usage</h2>
@@ -65,7 +65,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * are shown re-implemented using this routine below:
  *
  * <p>
- * <b>ABA Number</b> Check Digit Routine (equivalent of
+ * <strong>ABA Number</strong> Check Digit Routine (equivalent of
  * {@link ABANumberCheckDigit}). Weighting factors are {@code [1, 7, 3]}
  * applied from right to left.
  *
@@ -74,7 +74,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * </pre>
  *
  * <p>
- * <b>CUSIP</b> Check Digit Routine (equivalent of {@link CUSIPCheckDigit}).
+ * <strong>CUSIP</strong> Check Digit Routine (equivalent of {@link CUSIPCheckDigit}).
  * Weighting factors are {@code [1, 2]} applied from right to left and the
  * digits of the <em>weighted value</em> are summed.
  *
@@ -83,7 +83,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * </pre>
  *
  * <p>
- * <b>EAN-13 / UPC</b> Check Digit Routine (equivalent of
+ * <strong>EAN-13 / UPC</strong> Check Digit Routine (equivalent of
  * {@link EAN13CheckDigit}). Weighting factors are {@code [1, 3]} applied
  * from right to left.
  *
@@ -92,7 +92,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * </pre>
  *
  * <p>
- * <b>Luhn</b> Check Digit Routine (equivalent of {@link LuhnCheckDigit}).
+ * <strong>Luhn</strong> Check Digit Routine (equivalent of {@link LuhnCheckDigit}).
  * Weighting factors are {@code [1, 2]} applied from right to left and the
  * digits of the <em>weighted value</em> are summed.
  *
@@ -101,7 +101,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * </pre>
  *
  * <p>
- * <b>SEDOL</b> Check Digit Routine (equivalent of {@link SedolCheckDigit}).
+ * <strong>SEDOL</strong> Check Digit Routine (equivalent of {@link SedolCheckDigit}).
  * Weighting factors are {@code [1, 3, 1, 7, 3, 9, 1]} applied from left to
  * right.
  *
@@ -195,7 +195,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     /**
      * Convert a character at a specified position to an integer value.
      * <p>
-     * <b>Note:</b> this implementation only handlers values that
+     * <strong>Note:</strong> this implementation only handlers values that
      * Character.getNumericValue(char) returns a non-negative number.
      *
      * @param character The character to convert

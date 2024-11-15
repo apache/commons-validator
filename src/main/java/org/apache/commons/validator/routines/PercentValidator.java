@@ -21,7 +21,7 @@ import java.text.DecimalFormat;
 import java.text.Format;
 
 /**
- * <p><b>Percentage Validation</b> and Conversion routines ({@code java.math.BigDecimal}).</p>
+ * <p><strong>Percentage Validation</strong> and Conversion routines ({@code java.math.BigDecimal}).</p>
  *
  * <p>This is one implementation of a percent validator that has the following features:</p>
  *    <ul>

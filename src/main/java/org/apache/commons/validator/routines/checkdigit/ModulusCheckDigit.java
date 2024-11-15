@@ -21,12 +21,12 @@ import java.io.Serializable;
 import org.apache.commons.validator.GenericValidator;
 
 /**
- * Abstract <b>Modulus</b> Check digit calculation/validation.
+ * Abstract <strong>Modulus</strong> Check digit calculation/validation.
  * <p>
  * Provides a <em>base</em> class for building <em>modulus</em> Check Digit routines.
  * </p>
  * <p>
- * This implementation only handles <em>single-digit numeric</em> codes, such as <b>EAN-13</b>. For <em>alphanumeric</em> codes such as <b>EAN-128</b> you will need
+ * This implementation only handles <em>single-digit numeric</em> codes, such as <strong>EAN-13</strong>. For <em>alphanumeric</em> codes such as <strong>EAN-128</strong> you will need
  * to implement/override the {@code toInt()} and {@code toChar()} methods.
  * </p>
  *
@@ -149,7 +149,7 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
     /**
      * Convert an integer value to a check digit.
      * <p>
-     * <b>Note:</b> this implementation only handles single-digit numeric values
+     * <strong>Note:</strong> this implementation only handles single-digit numeric values
      * For non-numeric characters, override this method to provide
      * integer--&gt;character conversion.
      *
@@ -168,7 +168,7 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
     /**
      * Convert a character at a specified position to an integer value.
      * <p>
-     * <b>Note:</b> this implementation only handlers numeric values
+     * <strong>Note:</strong> this implementation only handlers numeric values
      * For non-numeric characters, override this method to provide
      * character--&gt;integer conversion.
      *

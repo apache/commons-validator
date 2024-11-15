@@ -17,7 +17,7 @@
 package org.apache.commons.validator.routines.checkdigit;
 
 /**
- * Modulus 10 <b>ISIN</b> (International Securities Identifying Number) Check Digit calculation/validation.
+ * Modulus 10 <strong>ISIN</strong> (International Securities Identifying Number) Check Digit calculation/validation.
  *
  * <p>
  * ISIN Numbers are 12 character alphanumeric codes used
@@ -90,9 +90,9 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
      * <p>Calculates the <em>weighted</em> value of a character in the
      * code at a specified position.</p>
      *
-     * <p>For ISIN (from right to left) <b>odd</b> digits are weighted
-     * with a factor of <b>one</b> and <b>even</b> digits with a factor
-     * of <b>two</b>. Weighted values are reduced to their digital root</p>
+     * <p>For ISIN (from right to left) <strong>odd</strong> digits are weighted
+     * with a factor of <strong>one</strong> and <strong>even</strong> digits with a factor
+     * of <strong>two</strong>. Weighted values are reduced to their digital root</p>
      *
      * @param charValue The numeric value of the character.
      * @param leftPos  The position of the character in the code, counting from left to right

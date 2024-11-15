@@ -186,7 +186,7 @@ public class EmailTest extends AbstractCommonTest {
      * Write this test according to parts of RFC, as opposed to the type of character that is being tested.
      *
      * <p>
-     * <b>FIXME</b>: This test fails so disable it with a leading _ for 1.1.4 release. The real solution is to fix the email parsing.
+     * <strong>FIXME</strong>: This test fails so disable it with a leading _ for 1.1.4 release. The real solution is to fix the email parsing.
      *
      * @throws ValidatorException
      */

@@ -20,7 +20,7 @@ import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.CodeValidator;
 
 /**
- * Modulus 11 <b>EC number</b> Check Digit calculation/validation.
+ * Modulus 11 <strong>EC number</strong> Check Digit calculation/validation.
  *
  * <p>
  * The European Community number (EC number) is a unique seven-digit identifier

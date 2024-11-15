@@ -22,7 +22,7 @@ package org.apache.commons.validator;
  * <a href="http://www.isbn.org/standards/home/isbn/international/html/usm4.htm">
  * algorithm</a>
  *
- * <b>NOTE:</b> This has been replaced by the new
+ * <strong>NOTE:</strong> This has been replaced by the new
  *  {@link org.apache.commons.validator.routines.ISBNValidator}.
  *
  * @since 1.2.0

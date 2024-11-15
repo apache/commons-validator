@@ -17,7 +17,7 @@
 package org.apache.commons.validator.routines.checkdigit;
 
 /**
- * Modulus 10 <b>ABA Number</b> (or <b>Routing Transit Number</b> (RTN)) Check Digit
+ * Modulus 10 <strong>ABA Number</strong> (or <strong>Routing Transit Number</strong> (RTN)) Check Digit
  * calculation/validation.
  *
  * <p>
