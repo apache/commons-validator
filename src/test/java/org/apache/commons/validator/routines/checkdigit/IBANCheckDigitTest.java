@@ -16,12 +16,14 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -201,9 +203,9 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                 if (!line.startsWith("#") && !line.isEmpty()) {
                     if (line.startsWith("-")) {
                         line = line.substring(1);
-                        Assert.assertFalse(line, routine.isValid(line.replace(" ", "")));
+                        assertFalse(routine.isValid(line.replace(" ", "")), line);
                     } else {
-                        Assert.assertTrue(line, routine.isValid(line.replace(" ", "")));
+                        assertTrue(routine.isValid(line.replace(" ", "")), line);
                     }
                 }
             }
