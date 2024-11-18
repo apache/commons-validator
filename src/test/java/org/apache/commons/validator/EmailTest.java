@@ -406,9 +406,9 @@ public class EmailTest extends AbstractCommonTest {
 
         final ValidatorResult result = results.getValidatorResult("value");
 
-        assertNotNull(result, () -> ACTION + " value ValidatorResult should not be null.");
-        assertTrue(result.containsAction(ACTION), () -> "Value " + info.getValue() + " ValidatorResult should contain the '" + ACTION + "' action.");
+        assertNotNull(result, ACTION + " value ValidatorResult should not be null.");
+        assertTrue(result.containsAction(ACTION), "Value " + info.getValue() + " ValidatorResult should contain the '" + ACTION + "' action.");
         assertTrue(passed ? result.isValid(ACTION) : !result.isValid(ACTION),
-                () -> "Value " + info.getValue() + "ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".");
+                "Value " + info.getValue() + "ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".");
     }
 }

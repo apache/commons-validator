@@ -107,10 +107,10 @@ public abstract class AbstractNumberValidatorTest {
     public void testInvalidNotStrict() {
         for (int i = 0; i < invalid.length; i++) {
             final String text = "idx=[" + i + "] value=[" + invalid[i] + "]";
-            assertNull(validator.parse(invalid[i], null, Locale.US), () -> "(A) " + text);
-            assertFalse(validator.isValid(invalid[i], null, Locale.US), () -> "(B) " + text);
-            assertNull(validator.parse(invalid[i], testPattern, null), () -> "(C) " + text);
-            assertFalse(validator.isValid(invalid[i], testPattern, null), () -> "(D) " + text);
+            assertNull(validator.parse(invalid[i], null, Locale.US), "(A) " + text);
+            assertFalse(validator.isValid(invalid[i], null, Locale.US), "(B) " + text);
+            assertNull(validator.parse(invalid[i], testPattern, null), "(C) " + text);
+            assertFalse(validator.isValid(invalid[i], testPattern, null), "(D) " + text);
         }
     }
 
@@ -121,10 +121,10 @@ public abstract class AbstractNumberValidatorTest {
     public void testInvalidStrict() {
         for (int i = 0; i < invalidStrict.length; i++) {
             final String text = "idx=[" + i + "] value=[" + invalidStrict[i] + "]";
-            assertNull(strictValidator.parse(invalidStrict[i], null, Locale.US), () -> "(A) " + text);
-            assertFalse(strictValidator.isValid(invalidStrict[i], null, Locale.US), () -> "(B) " + text);
-            assertNull(strictValidator.parse(invalidStrict[i], testPattern, null), () -> "(C) " + text);
-            assertFalse(strictValidator.isValid(invalidStrict[i], testPattern, null), () -> "(D) " + text);
+            assertNull(strictValidator.parse(invalidStrict[i], null, Locale.US), "(A) " + text);
+            assertFalse(strictValidator.isValid(invalidStrict[i], null, Locale.US), "(B) " + text);
+            assertNull(strictValidator.parse(invalidStrict[i], testPattern, null), "(C) " + text);
+            assertFalse(strictValidator.isValid(invalidStrict[i], testPattern, null), "(D) " + text);
         }
     }
 

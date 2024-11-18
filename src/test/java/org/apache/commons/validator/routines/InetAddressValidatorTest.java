@@ -672,10 +672,10 @@ public class InetAddressValidatorTest {
                 "2001:0000:1234:0000:0000:C1C0:ABCD:0876%abc%defgh", // '%' in node id
         };
         for (final String item : valid) {
-            assertTrue(validator.isValid(item), () -> String.format("%s should be valid", item));
+            assertTrue(validator.isValid(item), String.format("%s should be valid", item));
         }
         for (final String item : invalid) {
-            assertFalse(validator.isValid(item), () -> String.format("%s should be invalid", item));
+            assertFalse(validator.isValid(item), String.format("%s should be invalid", item));
         }
     }
 }

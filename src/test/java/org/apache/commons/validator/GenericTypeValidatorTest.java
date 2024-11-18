@@ -69,18 +69,18 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
 
         final Map<String, ?> hResultValues = results.getResultValueMap();
 
-        assertInstanceOf(Byte.class, hResultValues.get("byte"), () -> "Expecting byte result to be an instance of Byte for locale: " + locale);
-        assertInstanceOf(Short.class, hResultValues.get("short"), () -> "Expecting short result to be an instance of Short for locale: " + locale);
-        assertInstanceOf(Integer.class, hResultValues.get("integer"), () -> "Expecting integer result to be an instance of Integer for locale: " + locale);
-        assertInstanceOf(Long.class, hResultValues.get("long"), () -> "Expecting long result to be an instance of Long for locale: " + locale);
-        assertInstanceOf(Float.class, hResultValues.get("float"), () -> "Expecting float result to be an instance of Float for locale: " + locale);
-        assertInstanceOf(Double.class, hResultValues.get("double"), () -> "Expecting double result to be an instance of Double for locale: " + locale);
-        assertInstanceOf(Date.class, hResultValues.get("date"), () -> "Expecting date result to be an instance of Date for locale: " + locale);
+        assertInstanceOf(Byte.class, hResultValues.get("byte"), "Expecting byte result to be an instance of Byte for locale: " + locale);
+        assertInstanceOf(Short.class, hResultValues.get("short"), "Expecting short result to be an instance of Short for locale: " + locale);
+        assertInstanceOf(Integer.class, hResultValues.get("integer"), "Expecting integer result to be an instance of Integer for locale: " + locale);
+        assertInstanceOf(Long.class, hResultValues.get("long"), "Expecting long result to be an instance of Long for locale: " + locale);
+        assertInstanceOf(Float.class, hResultValues.get("float"), "Expecting float result to be an instance of Float for locale: " + locale);
+        assertInstanceOf(Double.class, hResultValues.get("double"), "Expecting double result to be an instance of Double for locale: " + locale);
+        assertInstanceOf(Date.class, hResultValues.get("date"), "Expecting date result to be an instance of Date for locale: " + locale);
 
         for (final String key : hResultValues.keySet()) {
             final Object value = hResultValues.get(key);
 
-            assertNotNull(value, () -> "value ValidatorResults.getResultValueMap() should not be null for locale: " + locale);
+            assertNotNull(value, "value ValidatorResults.getResultValueMap() should not be null for locale: " + locale);
         }
         return hResultValues;
     }

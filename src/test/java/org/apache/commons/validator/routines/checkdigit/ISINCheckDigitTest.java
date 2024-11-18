@@ -54,7 +54,7 @@ public class ISINCheckDigitTest extends AbstractCheckDigitTest {
     @Test
     public void testValidator345() {
         for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
-            assertFalse(routine.isValid(invalidCheckDigit), () -> "Should fail: " + invalidCheckDigit);
+            assertFalse(routine.isValid(invalidCheckDigit), "Should fail: " + invalidCheckDigit);
         }
     }
 }
