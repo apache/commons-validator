@@ -57,7 +57,7 @@ public class Arg implements Cloneable, Serializable {
     protected String name;
 
     /**
-     * This argument's position in the message. Set postion=0 to
+     * This argument's position in the message. Set position=0 to
      * make a replacement in this string: "some msg {0}".
      * @since 1.1
      */

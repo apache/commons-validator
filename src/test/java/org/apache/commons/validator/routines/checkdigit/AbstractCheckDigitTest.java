@@ -67,7 +67,7 @@ public abstract class AbstractCheckDigitTest {
      * These are currently passed to both CheckDigit.calculate(expects a string without checkdigit) which is expected to throw an exception However that only
      * applies if the string is syntactically incorrect; and CheckDigit.isValid(expects a string including checkdigit) which is expected to return false
      *
-     * See https://issues.apache.org/jira/browse/VALIDATOR-344 for some dicussion on this
+     * See https://issues.apache.org/jira/browse/VALIDATOR-344 for some discussion on this
      */
     protected String[] invalid = { "12345678A" };
 

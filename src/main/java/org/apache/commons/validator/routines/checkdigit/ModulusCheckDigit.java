@@ -197,7 +197,7 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
      *
      * @param charValue The numeric value of the character
      * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
+     * @param rightPos The position of the character in the code, counting from right to left
      * @return The weighted value of the character
      * @throws CheckDigitException if an error occurs calculating
      * the weighted value

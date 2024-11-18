@@ -92,7 +92,7 @@
 
 <!--
      The "form" element defines a set of fields to be validated. The name
-     corresponds to the identifer the application assigns to the form. 
+     corresponds to the identifier the application assigns to the form. 
 -->
 <!ELEMENT form    (field+ )>
 <!ATTLIST form    name         CDATA #REQUIRED>
@@ -137,7 +137,7 @@
 <!--
      The "msg" element defines a custom message key to use when one of the
      validators for this field fails. Each validator has a default message
-     property that is used when a corresonding field msg is not specified.
+     property that is used when a corresponding field msg is not specified.
      Each validator applied to a field may have its own msg element.
      The msg element accepts up to three attributes.
 

@@ -134,7 +134,7 @@ public class LocaleTest extends AbstractCommonTest {
     }
 
     /**
-     * Utlity class to run a test on a value.
+     * Utility class to run a test on a value.
      *
      * @param name       param
      * @param loc        param

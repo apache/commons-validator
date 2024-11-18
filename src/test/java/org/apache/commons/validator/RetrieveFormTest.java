@@ -99,13 +99,13 @@ public class RetrieveFormTest {
         // *** France locale ***
         checkForm(Locale.FRANCE, formKey, "default");
 
-        // *** Candian (English) locale ***
+        // *** Canadian (English) locale ***
         checkForm(Locale.CANADA, formKey, "default");
 
-        // *** Candian French locale ***
+        // *** Canadian French locale ***
         checkForm(Locale.CANADA_FRENCH, formKey, "default");
 
-        // *** Candian French Variant locale ***
+        // *** Canadian French Variant locale ***
         checkForm(CANADA_FRENCH_XXX, formKey, "default");
 
     }
@@ -127,13 +127,13 @@ public class RetrieveFormTest {
         // *** France locale ***
         checkFormNotFound(Locale.FRANCE, formKey);
 
-        // *** Candian (English) locale ***
+        // *** Canadian (English) locale ***
         checkFormNotFound(Locale.CANADA, formKey);
 
-        // *** Candian French locale ***
+        // *** Canadian French locale ***
         checkFormNotFound(Locale.CANADA_FRENCH, formKey);
 
-        // *** Candian French Variant locale ***
+        // *** Canadian French Variant locale ***
         checkFormNotFound(CANADA_FRENCH_XXX, formKey);
 
     }
@@ -155,13 +155,13 @@ public class RetrieveFormTest {
         // *** France locale ***
         checkForm(Locale.FRANCE, formKey, "fr_FR");
 
-        // *** Candian (English) locale ***
+        // *** Canadian (English) locale ***
         checkForm(Locale.CANADA, formKey, "default");
 
-        // *** Candian French locale ***
+        // *** Canadian French locale ***
         checkForm(Locale.CANADA_FRENCH, formKey, "fr_CA");
 
-        // *** Candian French Variant locale ***
+        // *** Canadian French Variant locale ***
         checkForm(CANADA_FRENCH_XXX, formKey, "fr_CA");
 
     }
@@ -183,13 +183,13 @@ public class RetrieveFormTest {
         // *** France locale ***
         checkForm(Locale.FRANCE, formKey, "fr_FR");
 
-        // *** Candian (English) locale ***
+        // *** Canadian (English) locale ***
         checkForm(Locale.CANADA, formKey, "default");
 
-        // *** Candian French locale ***
+        // *** Canadian French locale ***
         checkForm(Locale.CANADA_FRENCH, formKey, "fr_CA");
 
-        // *** Candian French Variant locale ***
+        // *** Canadian French Variant locale ***
         checkForm(CANADA_FRENCH_XXX, formKey, "fr_CA_XXX");
 
     }
@@ -211,13 +211,13 @@ public class RetrieveFormTest {
         // *** France locale ***
         checkForm(Locale.FRANCE, formKey, "fr");
 
-        // *** Candian (English) locale ***
+        // *** Canadian (English) locale ***
         checkForm(Locale.CANADA, formKey, "default");
 
-        // *** Candian French locale ***
+        // *** Canadian French locale ***
         checkForm(Locale.CANADA_FRENCH, formKey, "fr");
 
-        // *** Candian French Variant locale ***
+        // *** Canadian French Variant locale ***
         checkForm(CANADA_FRENCH_XXX, formKey, "fr");
 
     }

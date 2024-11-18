@@ -199,7 +199,7 @@ public class MultipleTest extends AbstractCommonTest {
     }
 
     /**
-     * If middle name is there and a positve int, then the required and int dependent tests should pass, and the positive test should pass.
+     * If middle name is there and a positive int, then the required and int dependent tests should pass, and the positive test should pass.
      *
      * @throws ValidatorException
      */

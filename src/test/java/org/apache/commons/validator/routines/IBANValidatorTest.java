@@ -326,7 +326,7 @@ public class IBANValidatorTest {
     }
 
     @Test
-    public void testGetRegexValidatortPatterns() {
+    public void testGetRegexValidatorPatterns() {
         assertNotNull(VALIDATOR.getValidator("GB").getRegexValidator().getPatterns(), "GB");
     }
 

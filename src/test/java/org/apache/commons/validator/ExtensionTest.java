@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * <p>
  * Performs tests for extension in form definitions. Performs the same tests RequiredNameTest does but with an equivalent validation definition with extension
- * definitions (validator-extension.xml), plus an extra check on overriding rules and another one checking it mantains correct order when extending.
+ * definitions (validator-extension.xml), plus an extra check on overriding rules and another one checking it maintains correct order when extending.
  * </p>
  */
 public class ExtensionTest {
@@ -76,7 +76,7 @@ public class ExtensionTest {
     }
 
     /**
-     * Tests if the order is mantained when extending a form. Parent form fields should preceed self form fields, except if we override the rules.
+     * Tests if the order is maintained when extending a form. Parent form fields should preceed self form fields, except if we override the rules.
      */
     @Test
     public void testOrder() {

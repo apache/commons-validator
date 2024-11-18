@@ -262,7 +262,7 @@ public class EmailTest extends AbstractCommonTest {
     }
 
     /**
-     * Tests the e-mail validation with an RCS-noncompliant character in the address.
+     * Tests the e-mail validation with an RCS-non-compliant character in the address.
      */
     @Test
     public void testEmailWithBogusCharacter() throws ValidatorException {
@@ -382,7 +382,7 @@ public class EmailTest extends AbstractCommonTest {
     }
 
     /**
-     * Utlity class to run a test on a value.
+     * Utility class to run a test on a value.
      *
      * @param info   Value to run test on.
      * @param passed Whether or not the test is expected to pass.

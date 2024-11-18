@@ -164,7 +164,7 @@ public class FieldTest {
     }
 
     /**
-     * test Field with a 'default' argument overriden without positions specified.
+     * test Field with a 'default' argument overridden without positions specified.
      */
     @Test
     public void testOverridePositionImplied() {
@@ -194,7 +194,7 @@ public class FieldTest {
     }
 
     /**
-     * test Field with a 'default' argument overriden with some positions specified
+     * test Field with a 'default' argument overridden with some positions specified
      */
     @Test
     public void testOverrideSomePosition() {
@@ -229,7 +229,7 @@ public class FieldTest {
     }
 
     /**
-     * test Field with a 'default' argument overriden using 'position' property
+     * test Field with a 'default' argument overridden using 'position' property
      */
     @Test
     public void testOverrideUsingPositionA() {
@@ -253,7 +253,7 @@ public class FieldTest {
     }
 
     /**
-     * test Field with a 'default' argument overriden using 'position' property
+     * test Field with a 'default' argument overridden using 'position' property
      */
     @Test
     public void testOverrideUsingPositionB() {

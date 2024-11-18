@@ -100,7 +100,7 @@ public final class CodeValidator implements Serializable {
      *
      * @param regexValidator The format regular expression validator
      * @param length The length of the code
-     *  (sets the mimimum/maximum to the same value)
+     *  (sets the minimum/maximum to the same value)
      * @param checkdigit The check digit validation routine
      */
     public CodeValidator(final RegexValidator regexValidator, final int length, final CheckDigit checkdigit) {
@@ -143,7 +143,7 @@ public final class CodeValidator implements Serializable {
      *
      * @param regex The format regular expression.
      * @param length The length of the code
-     *  (sets the mimimum/maximum to the same)
+     *  (sets the minimum/maximum to the same)
      * @param checkdigit The check digit validation routine
      */
     public CodeValidator(final String regex, final int length, final CheckDigit checkdigit) {

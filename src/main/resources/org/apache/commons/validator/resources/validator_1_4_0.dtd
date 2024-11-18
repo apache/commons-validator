@@ -48,7 +48,7 @@
      Defines what validator objects can be used with
      the fields referenced by the formset elements.
      elements:
-       validator         Defines a new validatior
+       validator         Defines a new validator
        javascript        The javascript source code for client side validation.
      attributes:
          name            The name of this validation
@@ -205,7 +205,7 @@
              N.B. Since 1.2.0 position is ignored for 'default' arguments
                   (i.e. those with no 'name' supplied) - it is calculated
                   automatically from the order the arguments are added in.
-                  For 'overriden' arguments (i.e. those with a 'name')
+                  For 'overridden' arguments (i.e. those with a 'name')
                   it is optional. If 'position' is not supplied it will
                   use the position of the 'default' argument it follows.
 -->

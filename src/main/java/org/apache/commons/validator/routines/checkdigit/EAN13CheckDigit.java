@@ -65,7 +65,7 @@ public final class EAN13CheckDigit extends ModulusCheckDigit {
      *
      * @param charValue The numeric value of the character.
      * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
+     * @param rightPos The position of the character in the code, counting from right to left
      * @return The weighted value of the character.
      */
     @Override

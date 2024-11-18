@@ -71,7 +71,7 @@ public class Field implements Cloneable, Serializable {
     protected static final String TOKEN_END = "}";
 
     /**
-     * A Vriable token.
+     * A Variable token.
      */
     protected static final String TOKEN_VAR = "var:";
 
@@ -236,7 +236,7 @@ public class Field implements Cloneable, Serializable {
 
         final int position = arg.getPosition();
 
-        // position has been explicity set
+        // position has been explicitly set
         if (position >= 0) {
             return;
         }
@@ -353,7 +353,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Gets an unmodifiable {@code List} of the dependencies in the same
      * order they were defined in parameter passed to the setDepends() method.
-     * @return A list of the Field's dependancies.
+     * @return A list of the Field's dependencies.
      */
     public List<String> getDependencyList() {
         return Collections.unmodifiableList(dependencyList);

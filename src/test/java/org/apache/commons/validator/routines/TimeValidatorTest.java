@@ -151,9 +151,9 @@ public class TimeValidatorTest {
         final Calendar hourGreater = createTime(GMT, testTime + hour, 100); // +1 hour
         final Calendar hourLess = createTime(GMT, testTime - hour, 100); // -1 hour
 
-        assertEquals(-1, validator.compareTime(value, milliGreater), "mili LT"); // > milli
-        assertEquals(0, validator.compareTime(value, value), "mili EQ"); // same time
-        assertEquals(1, validator.compareTime(value, milliLess), "mili GT"); // < milli
+        assertEquals(-1, validator.compareTime(value, milliGreater), "milli LT"); // > milli
+        assertEquals(0, validator.compareTime(value, value), "milli EQ"); // same time
+        assertEquals(1, validator.compareTime(value, milliLess), "milli GT"); // < milli
 
         assertEquals(-1, validator.compareSeconds(value, secGreater), "secs LT"); // +1 sec
         assertEquals(0, validator.compareSeconds(value, milliGreater), "secs =1"); // > milli
