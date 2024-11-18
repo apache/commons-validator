@@ -75,14 +75,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *         if it is less than the seconds or +1 if it is greater than the seconds.
      */
     private int calculateCompareResult(final Calendar value, final Calendar compare, final int field) {
-        final int difference = value.get(field) - compare.get(field);
-        if (difference < 0) {
-            return -1;
-        }
-        if (difference > 0) {
-            return 1;
-        }
-        return 0;
+        return Integer.compare(value.get(field), compare.get(field));
     }
 
     /**
@@ -177,13 +170,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     protected int compareQuarters(final Calendar value, final Calendar compare, final int monthOfFirstQuarter) {
         final int valueQuarter = calculateQuarter(value, monthOfFirstQuarter);
         final int compareQuarter = calculateQuarter(compare, monthOfFirstQuarter);
-        if (valueQuarter < compareQuarter) {
-            return -1;
-        }
-        if (valueQuarter > compareQuarter) {
-            return 1;
-        }
-        return 0;
+        return Integer.compare(valueQuarter, compareQuarter);
     }
 
     /**
