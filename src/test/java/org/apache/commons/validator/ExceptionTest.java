@@ -16,7 +16,7 @@
  */
 package org.apache.commons.validator;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
@@ -76,7 +76,7 @@ public class ExceptionTest extends AbstractCommonTest {
         } catch (final ValidatorException expected) {
             fail("Checked exceptions are not wrapped in ValidatorException in Validator 1.x.");
         } catch (final Exception e) {
-            assertTrue("CHECKED-EXCEPTION".equals(e.getMessage()));
+            assertEquals("CHECKED-EXCEPTION", e.getMessage());
         }
 
         // This will be true in Validator 2.0
@@ -139,7 +139,7 @@ public class ExceptionTest extends AbstractCommonTest {
             validator.validate();
             fail("ValidatorException should occur here!");
         } catch (final ValidatorException expected) {
-            assertTrue("VALIDATOR-EXCEPTION".equals(expected.getMessage()));
+            assertEquals("VALIDATOR-EXCEPTION", expected.getMessage());
         }
     }
 }

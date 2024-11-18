@@ -89,10 +89,10 @@ public class FlagsTest {
         f.turnOn(LONG_FLAG);
         f.turnOn(INT_FLAG);
         assertTrue(f.isOn(LONG_FLAG));
-        assertTrue(!f.isOff(LONG_FLAG));
+        assertFalse(f.isOff(LONG_FLAG));
 
         assertTrue(f.isOn(INT_FLAG));
-        assertTrue(!f.isOff(INT_FLAG));
+        assertFalse(f.isOff(INT_FLAG));
 
         assertTrue(f.isOff(LONG_FLAG_2));
     }

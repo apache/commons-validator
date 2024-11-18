@@ -17,6 +17,7 @@
 package org.apache.commons.validator;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -83,11 +84,11 @@ public class RequiredNameTest extends AbstractCommonTest {
 
         assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(firstNameResult.containsAction(ACTION), () -> "First Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!firstNameResult.isValid(ACTION), () -> "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(firstNameResult.isValid(ACTION), () -> "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
 
         assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(lastNameResult.containsAction(ACTION), "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
     }
 
     /**
@@ -120,7 +121,7 @@ public class RequiredNameTest extends AbstractCommonTest {
 
         assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(lastNameResult.containsAction(ACTION), () -> "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!lastNameResult.isValid(ACTION), () -> "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(lastNameResult.isValid(ACTION), () -> "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
     }
 
     /**
@@ -149,11 +150,11 @@ public class RequiredNameTest extends AbstractCommonTest {
 
         assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(firstNameResult.containsAction(ACTION), () -> "First Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!firstNameResult.isValid(ACTION), () -> "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(firstNameResult.isValid(ACTION), () -> "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
 
         assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(lastNameResult.containsAction(ACTION), () -> "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!lastNameResult.isValid(ACTION), () -> "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(lastNameResult.isValid(ACTION), () -> "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
     }
 
     /**
@@ -182,7 +183,7 @@ public class RequiredNameTest extends AbstractCommonTest {
 
         assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(firstNameResult.containsAction(ACTION), () -> "First Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!firstNameResult.isValid(ACTION), () -> "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(firstNameResult.isValid(ACTION), () -> "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
 
         assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(lastNameResult.containsAction(ACTION), () -> "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
@@ -216,11 +217,11 @@ public class RequiredNameTest extends AbstractCommonTest {
 
         assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(firstNameResult.containsAction(ACTION), "First Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
 
         assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(lastNameResult.containsAction(ACTION), () -> "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!lastNameResult.isValid(ACTION), () -> "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(lastNameResult.isValid(ACTION), () -> "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
     }
 
     /**

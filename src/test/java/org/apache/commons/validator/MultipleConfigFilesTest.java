@@ -17,6 +17,7 @@
 package org.apache.commons.validator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -91,12 +92,12 @@ public class MultipleConfigFilesTest {
 
         assertNotNull(firstNameResult);
         assertTrue(firstNameResult.containsAction(ACTION));
-        assertTrue(!firstNameResult.isValid(ACTION));
+        assertFalse(firstNameResult.isValid(ACTION));
 
         assertNotNull(lastNameResult);
         assertTrue(lastNameResult.containsAction(ACTION));
-        assertTrue(!lastNameResult.isValid(ACTION));
-        assertTrue(!lastNameResult.containsAction("int"));
+        assertFalse(lastNameResult.isValid(ACTION));
+        assertFalse(lastNameResult.containsAction("int"));
     }
 
     /**
@@ -173,11 +174,11 @@ public class MultipleConfigFilesTest {
 
         assertNotNull(firstNameResult);
         assertTrue(firstNameResult.containsAction(ACTION));
-        assertTrue(!firstNameResult.isValid(ACTION));
+        assertFalse(firstNameResult.isValid(ACTION));
 
         assertNotNull(lastNameResult);
         assertTrue(lastNameResult.containsAction("int"));
-        assertTrue(!lastNameResult.isValid("int"));
+        assertFalse(lastNameResult.isValid("int"));
     }
 
     /**
@@ -245,7 +246,7 @@ public class MultipleConfigFilesTest {
 
         assertNotNull(lastNameResult);
         assertTrue(lastNameResult.containsAction("int"));
-        assertTrue(!lastNameResult.isValid("int"));
+        assertFalse(lastNameResult.isValid("int"));
     }
 
 }
