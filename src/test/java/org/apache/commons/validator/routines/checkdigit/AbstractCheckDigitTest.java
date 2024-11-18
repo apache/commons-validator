@@ -19,6 +19,7 @@ package org.apache.commons.validator.routines.checkdigit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -263,20 +264,12 @@ public abstract class AbstractCheckDigitTest {
         assertFalse(routine.isValid("9"), "isValid() Length 1");
 
         // calculate() null
-        try {
-            routine.calculate(null);
-            fail("calculate() Null - expected exception");
-        } catch (final Exception e) {
-            assertEquals(missingMessage, e.getMessage(), "calculate() Null");
-        }
+        Exception e = assertThrows(Exception.class, () -> routine.calculate(null), "calculate() Null");
+        assertEquals(missingMessage, e.getMessage(), "calculate() Null");
 
         // calculate() zero length
-        try {
-            routine.calculate("");
-            fail("calculate() Zero Length - expected exception");
-        } catch (final Exception e) {
-            assertEquals(missingMessage, e.getMessage(), "calculate() Zero Length");
-        }
+        e = assertThrows(Exception.class, () -> routine.calculate(""), "calculate() Zero Length");
+        assertEquals(missingMessage, e.getMessage(), "calculate() Zero Length");
     }
 
     /**
@@ -311,12 +304,8 @@ public abstract class AbstractCheckDigitTest {
     @Test
     public void testZeroSum() {
         assertFalse(routine.isValid(zeroSum), "isValid() Zero Sum");
-        try {
-            routine.calculate(zeroSum);
-            fail("Zero Sum - expected exception");
-        } catch (final Exception e) {
-            assertEquals("Invalid code, sum is zero", e.getMessage(), "isValid() Zero Sum");
-        }
+        Exception e = assertThrows(Exception.class, () -> routine.calculate(zeroSum), "Zero Sum");
+        assertEquals("Invalid code, sum is zero", e.getMessage(), "isValid() Zero Sum");
     }
 
 }

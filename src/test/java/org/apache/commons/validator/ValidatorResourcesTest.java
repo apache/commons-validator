@@ -16,7 +16,7 @@
  */
 package org.apache.commons.validator;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.InputStream;
 
@@ -31,16 +31,8 @@ public class ValidatorResourcesTest {
      * Test null Input Stream for Validator Resources.
      */
     @Test
-    public void testNullInputStream() throws Exception {
-
-        try {
-            new ValidatorResources((InputStream) null);
-            fail("Expected IllegalArgumentException");
-        } catch (final IllegalArgumentException e) {
-            // expected result
-            // System.out.println("Exception: " + e);
-        }
-
+    public void testNullInputStream() {
+        assertThrows(IllegalArgumentException.class, () -> new ValidatorResources((InputStream) null));
     }
 
 }

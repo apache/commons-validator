@@ -17,6 +17,7 @@
 package org.apache.commons.validator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
@@ -80,12 +81,8 @@ public class ExceptionTest extends AbstractCommonTest {
         }
 
         // This will be true in Validator 2.0
-//        try {
-//            validator.validate();
-//            fail("ValidatorException should occur here!");
-//        } catch (ValidatorException expected) {
-//            assertTrue("CHECKED-EXCEPTION".equals(expected.getMessage()));
-//        }
+//        Exception expected = assertThrows(ValidatorException.class, validator::validate);
+//        assertTrue("CHECKED-EXCEPTION".equals(expected.getMessage()));
     }
 
     /**
@@ -135,11 +132,7 @@ public class ExceptionTest extends AbstractCommonTest {
         validator.setParameter(Validator.BEAN_PARAM, info);
 
         // Get results of the validation which can throw ValidatorException
-        try {
-            validator.validate();
-            fail("ValidatorException should occur here!");
-        } catch (final ValidatorException expected) {
-            assertEquals("VALIDATOR-EXCEPTION", expected.getMessage());
-        }
+        Exception expected = assertThrows(ValidatorException.class, validator::validate);
+        assertEquals("VALIDATOR-EXCEPTION", expected.getMessage());
     }
 }

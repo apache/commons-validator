@@ -21,8 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.text.DateFormat;
 import java.text.Format;
@@ -219,12 +219,8 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         assertEquals(1, calValidator.compareYears(value, cal20041231), "year GT"); // -1 year
 
         // invalid compare
-        try {
-            calValidator.compare(value, value, -1);
-            fail("Invalid Compare field - expected IllegalArgumentException to be thrown");
-        } catch (final IllegalArgumentException e) {
-            assertEquals(e.getMessage(), "Invalid field: -1", "check message");
-        }
+        Exception e = assertThrows(IllegalArgumentException.class, () -> calValidator.compare(value, value, -1), "Invalid Compare field");
+        assertEquals(e.getMessage(), "Invalid field: -1", "check message");
     }
 
     /**
