@@ -21,8 +21,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
@@ -55,7 +55,7 @@ public class ExceptionTest extends AbstractCommonTest {
      * N.B. This test has been removed (renamed) as it currently serves no purpose. If/When exception handling is changed in Validator 2.0 it can be
      * reconsidered then.
      */
-    @Ignore
+    @Disabled
     public void testCheckedException() {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -94,7 +94,7 @@ public class ExceptionTest extends AbstractCommonTest {
      * N.B. This test has been removed (renamed) as it currently serves no purpose. If/When exception handling is changed in Validator 2.0 it can be
      * reconsidered then.
      */
-    @Ignore
+    @Disabled
     public void testRuntimeException() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();

@@ -22,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
@@ -161,7 +161,7 @@ public class EmailTest extends AbstractCommonTest {
      *
      *                            FIXME This test fails so disable it with a leading _ for 1.1.4 release. The real solution is to fix the email parsing.
      */
-    @Ignore
+    @Disabled
     public void testEmailFromPerl() throws ValidatorException {
         final ValueBean info = new ValueBean();
         for (final ResultPair element : testEmailFromPerl) {
@@ -190,7 +190,7 @@ public class EmailTest extends AbstractCommonTest {
      *
      * @throws ValidatorException
      */
-    @Ignore
+    @Disabled
     public void testEmailUserName() throws ValidatorException {
         final ValueBean info = new ValueBean();
         info.setValue("joe1blow@apache.org");
