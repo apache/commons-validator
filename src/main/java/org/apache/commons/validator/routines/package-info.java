@@ -411,10 +411,10 @@
  * <ul>
  * <li>{@code isValid()} methods return true/false to indicate
  * whether validation was successful.</li>
- * <li>{@code validate()} methods return a {@link String}
+ * <li>{@code validate()} methods return a {@link java.lang.String}
  * value of the matched <em>groups</em> aggregated together or
  * {@code null} if invalid.</li>
- * <li>{@code match()} methods return a {@link String} array
+ * <li>{@code match()} methods return a {@link java.lang.String} array
  * of the matched <em>groups</em> or {@code null} if invalid.</li>
  * </ul>
  * </li>

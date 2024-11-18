@@ -555,7 +555,7 @@ public class ValidatorAction implements Serializable {
      * The search order is described in the documentation for {@link ClassLoader#getResource(String)}.
      * </p>
      *
-     * @param name The resource name
+     * @param javaScriptFileName The resource name
      * @return An input stream for reading the resource, or {@code null} if the resource could not be found
      */
     private InputStream openInputStream(final String javaScriptFileName, final ClassLoader classLoader) {
