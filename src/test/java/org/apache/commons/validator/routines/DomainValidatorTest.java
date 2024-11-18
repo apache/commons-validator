@@ -46,7 +46,6 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.SystemProperties;
 import org.apache.commons.validator.routines.DomainValidator.ArrayType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
