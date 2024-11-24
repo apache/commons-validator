@@ -100,10 +100,10 @@ public abstract class AbstractNumberTest extends AbstractCommonTest {
 
         final ValidatorResult result = results.getValidatorResult("value");
 
-        assertNotNull(result, () -> action + " value ValidatorResult should not be null.");
-        assertTrue(result.containsAction(action), () -> action + " value ValidatorResult should contain the '" + action + "' action.");
+        assertNotNull(result, action + " value ValidatorResult should not be null.");
+        assertTrue(result.containsAction(action), action + " value ValidatorResult should contain the '" + action + "' action.");
         assertTrue(passed ? result.isValid(action) : !result.isValid(action),
-                () -> action + " value ValidatorResult for the '" + action + "' action should have " + (passed ? "passed" : "failed") + ".");
+                action + " value ValidatorResult for the '" + action + "' action should have " + (passed ? "passed" : "failed") + ".");
     }
 
 }

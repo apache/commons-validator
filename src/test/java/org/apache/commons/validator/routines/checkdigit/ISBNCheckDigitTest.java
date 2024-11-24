@@ -18,7 +18,7 @@ package org.apache.commons.validator.routines.checkdigit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,33 +51,17 @@ public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
         assertFalse(routine.isValid("123456789012"), "isValid() Lth 12");
         assertFalse(routine.isValid("12345678901234"), "isValid() Lth 14");
 
-        try {
-            routine.calculate("12345678");
-            fail("calculate() Lth 8 - expected exception");
-        } catch (final Exception e) {
-            assertEquals(e.getMessage(), "Invalid ISBN Length = 8", "calculate() Lth 8");
-        }
+        Exception e = assertThrows(CheckDigitException.class, () -> routine.calculate("12345678"), "calculate() Lth 8");
+        assertEquals(e.getMessage(), "Invalid ISBN Length = 8", "calculate() Lth 8");
 
-        try {
-            routine.calculate("1234567890");
-            fail("calculate() Lth 10 - expected exception");
-        } catch (final Exception e) {
-            assertEquals("Invalid ISBN Length = 10", e.getMessage(), "calculate() Lth 10");
-        }
+        e = assertThrows(CheckDigitException.class, () -> routine.calculate("1234567890"), "calculate() Lth 10");
+        assertEquals("Invalid ISBN Length = 10", e.getMessage(), "calculate() Lth 10");
 
-        try {
-            routine.calculate("12345678901");
-            fail("calculate() Lth 11 - expected exception");
-        } catch (final Exception e) {
-            assertEquals("Invalid ISBN Length = 11", e.getMessage(), "calculate() Lth 11");
-        }
+        e = assertThrows(CheckDigitException.class, () -> routine.calculate("12345678901"), "calculate() Lth 11");
+        assertEquals("Invalid ISBN Length = 11", e.getMessage(), "calculate() Lth 11");
 
-        try {
-            routine.calculate("1234567890123");
-            fail("calculate() Lth 13 - expected exception");
-        } catch (final Exception e) {
-            assertEquals("Invalid ISBN Length = 13", e.getMessage(), "calculate() Lth 13");
-        }
+        e = assertThrows(CheckDigitException.class, () -> routine.calculate("1234567890123"), "calculate() Lth 13");
+        assertEquals("Invalid ISBN Length = 13", e.getMessage(), "calculate() Lth 13");
     }
 
 }

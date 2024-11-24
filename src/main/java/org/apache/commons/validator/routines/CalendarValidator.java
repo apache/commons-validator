@@ -23,7 +23,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * <p><b>Calendar Validation</b> and Conversion routines ({@code java.util.Calendar}).</p>
+ * <p><strong>Calendar Validation</strong> and Conversion routines ({@code java.util.Calendar}).</p>
  *
  * <p>This validator provides a number of methods for validating/converting
  *    a {@link String} date value to a {@code java.util.Calendar} using

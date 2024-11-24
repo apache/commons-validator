@@ -17,6 +17,7 @@
 package org.apache.commons.validator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -30,7 +31,7 @@ import org.junit.jupiter.api.Test;
 /**
  * <p>
  * Performs tests for extension in form definitions. Performs the same tests RequiredNameTest does but with an equivalent validation definition with extension
- * definitions (validator-extension.xml), plus an extra check on overriding rules and another one checking it mantains correct order when extending.
+ * definitions (validator-extension.xml), plus an extra check on overriding rules and another one checking it maintains correct order when extending.
  * </p>
  */
 public class ExtensionTest {
@@ -76,7 +77,7 @@ public class ExtensionTest {
     }
 
     /**
-     * Tests if the order is mantained when extending a form. Parent form fields should preceed self form fields, except if we override the rules.
+     * Tests if the order is maintained when extending a form. Parent form fields should preceed self form fields, except if we override the rules.
      */
     @Test
     public void testOrder() {
@@ -94,15 +95,15 @@ public class ExtensionTest {
         Field fieldFirstName = form.getFields().get(0);
         // get the second field
         Field fieldLastName = form.getFields().get(1);
-        assertTrue(fieldFirstName.getKey().equals("firstName"), "firstName in " + FORM_KEY + " should be the first in the list");
-        assertTrue(fieldLastName.getKey().equals("lastName"), "lastName in " + FORM_KEY + " should be the first in the list");
+        assertEquals("firstName", fieldFirstName.getKey(), "firstName in " + FORM_KEY + " should be the first in the list");
+        assertEquals("lastName", fieldLastName.getKey(), "lastName in " + FORM_KEY + " should be the first in the list");
 
 //     get the second field
         fieldLastName = form2.getFields().get(0);
         // get the first field
         fieldFirstName = form2.getFields().get(1);
-        assertTrue(fieldFirstName.getKey().equals("firstName"), "firstName in " + FORM_KEY2 + " should be the first in the list");
-        assertTrue(fieldLastName.getKey().equals("lastName"), "lastName in " + FORM_KEY2 + " should be the first in the list");
+        assertEquals("firstName", fieldFirstName.getKey(), "firstName in " + FORM_KEY2 + " should be the first in the list");
+        assertEquals("lastName", fieldLastName.getKey(), "lastName in " + FORM_KEY2 + " should be the first in the list");
 
     }
 
@@ -131,7 +132,7 @@ public class ExtensionTest {
         final ValidatorResult firstNameResult = results.getValidatorResult("firstName");
         final ValidatorResult lastNameResult = results.getValidatorResult("lastName");
         assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
-        assertTrue(firstNameResult.field.getArg(0).getKey().equals(CHECK_MSG_KEY),
+        assertEquals(CHECK_MSG_KEY, firstNameResult.field.getArg(0).getKey(),
                 "First Name ValidatorResult for the '" + ACTION + "' action should have '" + CHECK_MSG_KEY + " as a key.");
 
         assertNull(lastNameResult, "Last Name ValidatorResult should be null.");
@@ -166,11 +167,11 @@ public class ExtensionTest {
 
         assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(firstNameResult.containsAction(ACTION), "First Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
 
         assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(lastNameResult.containsAction(ACTION), "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
     }
 
     /**
@@ -203,7 +204,7 @@ public class ExtensionTest {
 
         assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(lastNameResult.containsAction(ACTION), "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
     }
 
     /**
@@ -232,11 +233,11 @@ public class ExtensionTest {
 
         assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(firstNameResult.containsAction(ACTION), "First Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
 
         assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(lastNameResult.containsAction(ACTION), "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
     }
 
     /**
@@ -265,7 +266,7 @@ public class ExtensionTest {
 
         assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(firstNameResult.containsAction(ACTION), "First Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
 
         assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(lastNameResult.containsAction(ACTION), "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
@@ -299,11 +300,11 @@ public class ExtensionTest {
 
         assertNotNull(firstNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(firstNameResult.containsAction(ACTION), "First Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(firstNameResult.isValid(ACTION), "First Name ValidatorResult for the '" + ACTION + "' action should have failed.");
 
         assertNotNull(lastNameResult, "First Name ValidatorResult should not be null.");
         assertTrue(lastNameResult.containsAction(ACTION), "Last Name ValidatorResult should contain the '" + ACTION + "' action.");
-        assertTrue(!lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
+        assertFalse(lastNameResult.isValid(ACTION), "Last Name ValidatorResult for the '" + ACTION + "' action should have failed.");
     }
 
     /**

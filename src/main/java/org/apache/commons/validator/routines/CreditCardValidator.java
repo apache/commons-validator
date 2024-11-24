@@ -92,7 +92,7 @@ public class CreditCardValidator implements Serializable {
         final String high; // e.g. 34 or 65
         final int minLen; // e.g. 16 or -1
         final int maxLen; // e.g. 19 or -1
-        final int lengths[]; // e.g. 16,18,19
+        final int[] lengths; // e.g. 16,18,19
 
         /**
          * Create a credit card range specifier for use in validation

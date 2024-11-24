@@ -21,7 +21,7 @@ import java.io.Serializable;
 import org.apache.commons.validator.GenericValidator;
 
 /**
- * <b>Verhoeff</b> (Dihedral) Check Digit calculation/validation.
+ * <strong>Verhoeff</strong> (Dihedral) Check Digit calculation/validation.
  * <p>
  * Check digit calculation for numeric codes using a
  * <a href="https://en.wikipedia.org/wiki/Dihedral_group">Dihedral Group</a>

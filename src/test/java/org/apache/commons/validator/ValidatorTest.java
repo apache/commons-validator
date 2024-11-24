@@ -278,7 +278,7 @@ public class ValidatorTest {
 
             assertTrue(result.containsAction(action), "ValidatorResult does not contain '" + action + "' validator result.");
 
-            assertTrue(!result.isValid(action), "Validation of the date formatting has passed when it should have failed.");
+            assertFalse(result.isValid(action), "Validation of the date formatting has passed when it should have failed.");
         } catch (final Exception e) {
             fail("An exception was thrown while calling Validator.validate()");
         }

@@ -73,7 +73,7 @@ public class DateTest extends AbstractCommonTest {
     }
 
     /**
-     * Utlity class to run a test on a value.
+     * Utility class to run a test on a value.
      *
      * @param info   Value to run test on.
      * @param passed Whether or not the test is expected to pass.
@@ -98,10 +98,10 @@ public class DateTest extends AbstractCommonTest {
 
         final ValidatorResult result = results.getValidatorResult("value");
 
-        assertNotNull(result, () -> ACTION + " value ValidatorResult should not be null.");
-        assertTrue(result.containsAction(ACTION), () -> ACTION + " value ValidatorResult should contain the '" + ACTION + "' action.");
+        assertNotNull(result, ACTION + " value ValidatorResult should not be null.");
+        assertTrue(result.containsAction(ACTION), ACTION + " value ValidatorResult should contain the '" + ACTION + "' action.");
         assertTrue(passed ? result.isValid(ACTION) : !result.isValid(ACTION),
-                () -> ACTION + " value ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".");
+                ACTION + " value ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".");
     }
 
 }

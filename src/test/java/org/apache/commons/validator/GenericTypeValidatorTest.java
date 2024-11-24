@@ -17,8 +17,8 @@
 package org.apache.commons.validator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.Date;
@@ -69,18 +69,18 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
 
         final Map<String, ?> hResultValues = results.getResultValueMap();
 
-        assertTrue(hResultValues.get("byte") instanceof Byte, () -> "Expecting byte result to be an instance of Byte for locale: " + locale);
-        assertTrue(hResultValues.get("short") instanceof Short, () -> "Expecting short result to be an instance of Short for locale: " + locale);
-        assertTrue(hResultValues.get("integer") instanceof Integer, () -> "Expecting integer result to be an instance of Integer for locale: " + locale);
-        assertTrue(hResultValues.get("long") instanceof Long, () -> "Expecting long result to be an instance of Long for locale: " + locale);
-        assertTrue(hResultValues.get("float") instanceof Float, () -> "Expecting float result to be an instance of Float for locale: " + locale);
-        assertTrue(hResultValues.get("double") instanceof Double, () -> "Expecting double result to be an instance of Double for locale: " + locale);
-        assertTrue(hResultValues.get("date") instanceof Date, () -> "Expecting date result to be an instance of Date for locale: " + locale);
+        assertInstanceOf(Byte.class, hResultValues.get("byte"), "Expecting byte result to be an instance of Byte for locale: " + locale);
+        assertInstanceOf(Short.class, hResultValues.get("short"), "Expecting short result to be an instance of Short for locale: " + locale);
+        assertInstanceOf(Integer.class, hResultValues.get("integer"), "Expecting integer result to be an instance of Integer for locale: " + locale);
+        assertInstanceOf(Long.class, hResultValues.get("long"), "Expecting long result to be an instance of Long for locale: " + locale);
+        assertInstanceOf(Float.class, hResultValues.get("float"), "Expecting float result to be an instance of Float for locale: " + locale);
+        assertInstanceOf(Double.class, hResultValues.get("double"), "Expecting double result to be an instance of Double for locale: " + locale);
+        assertInstanceOf(Date.class, hResultValues.get("date"), "Expecting date result to be an instance of Date for locale: " + locale);
 
         for (final String key : hResultValues.keySet()) {
             final Object value = hResultValues.get(key);
 
-            assertNotNull(value, () -> "value ValidatorResults.getResultValueMap() should not be null for locale: " + locale);
+            assertNotNull(value, "value ValidatorResults.getResultValueMap() should not be null for locale: " + locale);
         }
         return hResultValues;
     }
@@ -149,12 +149,12 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
 
         final Map<String, ?> hResultValues = results.getResultValueMap();
 
-        assertTrue(hResultValues.get("byte") instanceof Byte, "Expecting byte result to be an instance of Byte.");
-        assertTrue(hResultValues.get("short") instanceof Short, "Expecting short result to be an instance of Short.");
-        assertTrue(hResultValues.get("integer") instanceof Integer, "Expecting integer result to be an instance of Integer.");
-        assertTrue(hResultValues.get("long") instanceof Long, "Expecting long result to be an instance of Long.");
-        assertTrue(hResultValues.get("float") instanceof Float, "Expecting float result to be an instance of Float.");
-        assertTrue(hResultValues.get("double") instanceof Double, "Expecting double result to be an instance of Double.");
+        assertInstanceOf(Byte.class, hResultValues.get("byte"), "Expecting byte result to be an instance of Byte.");
+        assertInstanceOf(Short.class, hResultValues.get("short"), "Expecting short result to be an instance of Short.");
+        assertInstanceOf(Integer.class, hResultValues.get("integer"), "Expecting integer result to be an instance of Integer.");
+        assertInstanceOf(Long.class, hResultValues.get("long"), "Expecting long result to be an instance of Long.");
+        assertInstanceOf(Float.class, hResultValues.get("float"), "Expecting float result to be an instance of Float.");
+        assertInstanceOf(Double.class, hResultValues.get("double"), "Expecting double result to be an instance of Double.");
 
         for (final String key : hResultValues.keySet()) {
             final Object value = hResultValues.get(key);

@@ -22,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
@@ -161,7 +161,7 @@ public class EmailTest extends AbstractCommonTest {
      *
      *                            FIXME This test fails so disable it with a leading _ for 1.1.4 release. The real solution is to fix the email parsing.
      */
-    @Ignore
+    @Disabled
     public void testEmailFromPerl() throws ValidatorException {
         final ValueBean info = new ValueBean();
         for (final ResultPair element : testEmailFromPerl) {
@@ -186,11 +186,11 @@ public class EmailTest extends AbstractCommonTest {
      * Write this test according to parts of RFC, as opposed to the type of character that is being tested.
      *
      * <p>
-     * <b>FIXME</b>: This test fails so disable it with a leading _ for 1.1.4 release. The real solution is to fix the email parsing.
+     * <strong>FIXME</strong>: This test fails so disable it with a leading _ for 1.1.4 release. The real solution is to fix the email parsing.
      *
      * @throws ValidatorException
      */
-    @Ignore
+    @Disabled
     public void testEmailUserName() throws ValidatorException {
         final ValueBean info = new ValueBean();
         info.setValue("joe1blow@apache.org");
@@ -262,7 +262,7 @@ public class EmailTest extends AbstractCommonTest {
     }
 
     /**
-     * Tests the e-mail validation with an RCS-noncompliant character in the address.
+     * Tests the e-mail validation with an RCS-non-compliant character in the address.
      */
     @Test
     public void testEmailWithBogusCharacter() throws ValidatorException {
@@ -382,7 +382,7 @@ public class EmailTest extends AbstractCommonTest {
     }
 
     /**
-     * Utlity class to run a test on a value.
+     * Utility class to run a test on a value.
      *
      * @param info   Value to run test on.
      * @param passed Whether or not the test is expected to pass.
@@ -406,9 +406,9 @@ public class EmailTest extends AbstractCommonTest {
 
         final ValidatorResult result = results.getValidatorResult("value");
 
-        assertNotNull(result, () -> ACTION + " value ValidatorResult should not be null.");
-        assertTrue(result.containsAction(ACTION), () -> "Value " + info.getValue() + " ValidatorResult should contain the '" + ACTION + "' action.");
+        assertNotNull(result, ACTION + " value ValidatorResult should not be null.");
+        assertTrue(result.containsAction(ACTION), "Value " + info.getValue() + " ValidatorResult should contain the '" + ACTION + "' action.");
         assertTrue(passed ? result.isValid(ACTION) : !result.isValid(ACTION),
-                () -> "Value " + info.getValue() + "ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".");
+                "Value " + info.getValue() + "ValidatorResult for the '" + ACTION + "' action should have " + (passed ? "passed" : "failed") + ".");
     }
 }

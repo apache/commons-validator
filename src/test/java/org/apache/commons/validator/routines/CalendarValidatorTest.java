@@ -18,9 +18,11 @@ package org.apache.commons.validator.routines;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.text.DateFormat;
 import java.text.Format;
@@ -64,36 +66,36 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         final Date dateCET = calCET.getTime();
 
         // Check the dates don't match
-        assertFalse(dateGMT.getTime() == dateCET.getTime(), "Check GMT != CET");
-        assertFalse(dateGMT.getTime() == dateEST.getTime(), "Check GMT != EST");
-        assertFalse(dateCET.getTime() == dateEST.getTime(), "Check CET != EST");
+        assertNotEquals(dateGMT.getTime(), dateCET.getTime(), "Check GMT != CET");
+        assertNotEquals(dateGMT.getTime(), dateEST.getTime(), "Check GMT != EST");
+        assertNotEquals(dateCET.getTime(), dateEST.getTime(), "Check CET != EST");
 
         // EST to GMT and back
         CalendarValidator.adjustToTimeZone(calEST, GMT);
         assertEquals(dateGMT, calEST.getTime(), "EST to GMT");
-        assertFalse(dateEST == calEST.getTime(), "Check EST = GMT");
+        assertNotSame(dateEST, calEST.getTime(), "Check EST = GMT");
         CalendarValidator.adjustToTimeZone(calEST, EST);
         assertEquals(dateEST, calEST.getTime(), "back to EST");
-        assertFalse(dateGMT == calEST.getTime(), "Check EST != GMT");
+        assertNotSame(dateGMT, calEST.getTime(), "Check EST != GMT");
 
         // CET to GMT and back
         CalendarValidator.adjustToTimeZone(calCET, GMT);
         assertEquals(dateGMT, calCET.getTime(), "CET to GMT");
-        assertFalse(dateCET == calCET.getTime(), "Check CET = GMT");
+        assertNotSame(dateCET, calCET.getTime(), "Check CET = GMT");
         CalendarValidator.adjustToTimeZone(calCET, EET);
         assertEquals(dateCET, calCET.getTime(), "back to CET");
-        assertFalse(dateGMT == calCET.getTime(), "Check CET != GMT");
+        assertNotSame(dateGMT, calCET.getTime(), "Check CET != GMT");
 
         // Adjust to TimeZone with Same rules
         final Calendar calUTC = createCalendar(UTC, DATE_2005_11_23, TIME_12_03_45);
         assertTrue(UTC.hasSameRules(GMT), "SAME: UTC = GMT");
         assertEquals(calUTC.getTime(), calGMT.getTime(), "SAME: Check time (A)");
-        assertFalse(GMT.equals(calUTC.getTimeZone()), "SAME: Check GMT(A)");
-        assertTrue(UTC.equals(calUTC.getTimeZone()), "SAME: Check UTC(A)");
+        assertNotEquals(GMT, calUTC.getTimeZone(), "SAME: Check GMT(A)");
+        assertEquals(UTC, calUTC.getTimeZone(), "SAME: Check UTC(A)");
         CalendarValidator.adjustToTimeZone(calUTC, GMT);
         assertEquals(calUTC.getTime(), calGMT.getTime(), "SAME: Check time (B)");
-        assertTrue(GMT.equals(calUTC.getTimeZone()), "SAME: Check GMT(B)");
-        assertFalse(UTC.equals(calUTC.getTimeZone()), "SAME: Check UTC(B)");
+        assertEquals(GMT, calUTC.getTimeZone(), "SAME: Check GMT(B)");
+        assertNotEquals(UTC, calUTC.getTimeZone(), "SAME: Check UTC(B)");
     }
 
     /**
@@ -134,7 +136,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         // Test Time Zone
         final TimeZone zone = TimeZone.getDefault().getRawOffset() == EET.getRawOffset() ? EST : EET;
         final Date expectedZone = createCalendar(zone, 20051231, 0).getTime();
-        assertFalse(expected.getTime() == expectedZone.getTime(), "default/EET same ");
+        assertNotEquals(expected.getTime(), expectedZone.getTime(), "default/EET same ");
 
         assertEquals(expectedZone, CalendarValidator.getInstance().validate(defaultVal, zone).getTime(), "validate(C) default");
         assertEquals(expectedZone, CalendarValidator.getInstance().validate(localeVal, locale, zone).getTime(), "validate(C) locale ");
@@ -217,12 +219,8 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         assertEquals(1, calValidator.compareYears(value, cal20041231), "year GT"); // -1 year
 
         // invalid compare
-        try {
-            calValidator.compare(value, value, -1);
-            fail("Invalid Compare field - expected IllegalArgumentException to be thrown");
-        } catch (final IllegalArgumentException e) {
-            assertEquals(e.getMessage(), "Invalid field: -1", "check message");
-        }
+        Exception e = assertThrows(IllegalArgumentException.class, () -> calValidator.compare(value, value, -1), "Invalid Compare field");
+        assertEquals(e.getMessage(), "Invalid field: -1", "check message");
     }
 
     /**

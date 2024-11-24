@@ -19,8 +19,8 @@ package org.apache.commons.validator.routines;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.regex.Pattern;
 
@@ -86,36 +86,18 @@ public class ISBNValidatorTest {
      */
     @Test
     public void testConversionErrors() {
-        final ISBNValidator validator = ISBNValidator.getInstance();
-        String input = null;
-        try {
-            input = "123456789 ";
-            validator.convertToISBN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (final IllegalArgumentException e) {
-            // expected result
-        }
-        try {
-            input = "12345678901";
-            validator.convertToISBN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (final IllegalArgumentException e) {
-            // expected result
-        }
-        try {
-            input = "";
-            validator.convertToISBN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (final IllegalArgumentException e) {
-            // expected result
-        }
-        try {
-            input = "X234567890";
-            validator.convertToISBN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (final IllegalArgumentException e) {
-            // expected result
-        }
+        ISBNValidator validator = ISBNValidator.getInstance();
+        String input1 = "123456789 ";
+        assertThrows(IllegalArgumentException.class, () -> validator.convertToISBN13(input1), "Expected IllegalArgumentException for '" + input1 + "'");
+
+        String input2 = "12345678901";
+        assertThrows(IllegalArgumentException.class, () -> validator.convertToISBN13(input2), "Expected IllegalArgumentException for '" + input2 + "'");
+
+        String input3 = "";
+        assertThrows(IllegalArgumentException.class, () -> validator.convertToISBN13(input3), "Expected IllegalArgumentException for '" + input3 + "'");
+
+        String input4 = "X234567890";
+        assertThrows(IllegalArgumentException.class, () -> validator.convertToISBN13(input4), "Expected IllegalArgumentException for '" + input4 + "'");
     }
 
     /**

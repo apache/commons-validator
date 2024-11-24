@@ -28,7 +28,7 @@ import org.apache.commons.validator.util.Flags;
 
 /**
  * <p>Validates URLs.</p>
- * Behavour of validation is modified by passing in options:
+ * Behaviour of validation is modified by passing in options:
  * <ul>
  * <li>ALLOW_2_SLASHES - [FALSE]  Allows double '/' characters in the path
  * component.</li>
@@ -212,7 +212,7 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Behavour of validation is modified by passing in options:
+     * Behaviour of validation is modified by passing in options:
      * @param schemes The set of valid schemes.
      * @param options The options should be set using the public constants declared in
      * this class.  To set multiple options you simply add them together.  For example,

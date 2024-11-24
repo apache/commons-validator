@@ -48,7 +48,7 @@
             ValidatorException is only thrown to indicate configuration and programmer errors
             yet is a checked exception.  ValidatorException should be converted to a RuntimeException to match its
             real purpose.  Furthermore, the exception handling for pluggable validations (ValidatorActions)
-            is not well defined or documented.  RuntimeExceptions thrown from ValidatorActions should be propogated
+            is not well defined or documented.  RuntimeExceptions thrown from ValidatorActions should be propagated
             out of the Validator framework as is because they indicate programmer error.  Checked exceptions thrown
             from a ValidatorAction should stop validation and be propogated out of the framework for handling as these 
             indicate an unrecoverable system failure.  Validation method implementation becomes easier because they

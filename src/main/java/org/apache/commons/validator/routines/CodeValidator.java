@@ -22,7 +22,7 @@ import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 
 /**
- * Generic <b>Code Validation</b> providing format, minimum/maximum
+ * Generic <strong>Code Validation</strong> providing format, minimum/maximum
  * length and {@link CheckDigit} validations.
  * <p>
  * Performs the following validations on a code:
@@ -36,7 +36,7 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  *   <li>The {@link #validate(String)} method returns the trimmed, parsed input (or null if validation failed)</li>
  * </ul>
  * <p>
- * <b>Note</b>
+ * <strong>Note</strong>
  * The {@link #isValid(String)} method will return true if the input passes validation.
  * Since this includes trimming as well as potentially dropping parts of the input,
  * it is possible for a String to pass validation
@@ -100,7 +100,7 @@ public final class CodeValidator implements Serializable {
      *
      * @param regexValidator The format regular expression validator
      * @param length The length of the code
-     *  (sets the mimimum/maximum to the same value)
+     *  (sets the minimum/maximum to the same value)
      * @param checkdigit The check digit validation routine
      */
     public CodeValidator(final RegexValidator regexValidator, final int length, final CheckDigit checkdigit) {
@@ -143,7 +143,7 @@ public final class CodeValidator implements Serializable {
      *
      * @param regex The format regular expression.
      * @param length The length of the code
-     *  (sets the mimimum/maximum to the same)
+     *  (sets the minimum/maximum to the same)
      * @param checkdigit The check digit validation routine
      */
     public CodeValidator(final String regex, final int length, final CheckDigit checkdigit) {
@@ -171,7 +171,7 @@ public final class CodeValidator implements Serializable {
     /**
      * Gets the check digit validation routine.
      * <p>
-     * <b>N.B.</b> Optional, if not set no Check Digit
+     * <strong>N.B.</strong> Optional, if not set no Check Digit
      * validation will be performed on the code.
      *
      * @return The check digit validation routine
@@ -183,7 +183,7 @@ public final class CodeValidator implements Serializable {
     /**
      * Gets the maximum length of the code.
      * <p>
-     * <b>N.B.</b> Optional, if less than zero the
+     * <strong>N.B.</strong> Optional, if less than zero the
      * maximum length will not be checked.
      *
      * @return The maximum length of the code or
@@ -196,7 +196,7 @@ public final class CodeValidator implements Serializable {
     /**
      * Gets the minimum length of the code.
      * <p>
-     * <b>N.B.</b> Optional, if less than zero the
+     * <strong>N.B.</strong> Optional, if less than zero the
      * minimum length will not be checked.
      *
      * @return The minimum length of the code or
@@ -209,7 +209,7 @@ public final class CodeValidator implements Serializable {
     /**
      * Gets the <em>regular expression</em> validator.
      * <p>
-     * <b>N.B.</b> Optional, if not set no regular
+     * <strong>N.B.</strong> Optional, if not set no regular
      * expression validation will be performed on the code.
      *
      * @return The regular expression validator

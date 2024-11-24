@@ -47,8 +47,8 @@ public class ValidatorResultsTest extends AbstractCommonTest {
      */
     private void checkNotRun(final ValidatorResults results, final String field, final String action) {
         final ValidatorResult result = results.getValidatorResult(field);
-        assertNotNull(result, () -> field + " result");
-        assertFalse(result.containsAction(action), () -> field + "[" + action + "] run");
+        assertNotNull(result, field + " result");
+        assertFalse(result.containsAction(action), field + "[" + action + "] run");
         // System.out.println(field + "[" + action + "] not run");
     }
 
@@ -58,9 +58,9 @@ public class ValidatorResultsTest extends AbstractCommonTest {
     private void checkValidatorResult(final ValidatorResults results, final String field, final String action, final boolean expected) {
         final ValidatorResult result = results.getValidatorResult(field);
         // System.out.println(field + "[" + action + "]=" + result.isValid(action));
-        assertNotNull(result, () -> field + " result");
-        assertTrue(result.containsAction(action), () -> field + "[" + action + "] not run");
-        assertEquals(expected, result.isValid(action), () -> field + "[" + action + "] result");
+        assertNotNull(result, field + " result");
+        assertTrue(result.containsAction(action), field + "[" + action + "] not run");
+        assertEquals(expected, result.isValid(action), field + "[" + action + "] result");
     }
 
     /**

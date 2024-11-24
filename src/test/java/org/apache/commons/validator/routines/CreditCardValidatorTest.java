@@ -19,8 +19,8 @@ package org.apache.commons.validator.routines;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.apache.commons.validator.routines.CreditCardValidator.CreditCardRange;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
@@ -155,12 +155,7 @@ public class CreditCardValidatorTest {
         assertFalse(ccv.isValid(ERROR_MASTERCARD));
         assertFalse(ccv.isValid(ERROR_DISCOVER));
 
-        try {
-            new CreditCardValidator((CodeValidator[]) null);
-            fail("Expected IllegalArgumentException");
-        } catch (final IllegalArgumentException iae) {
-            // expected result
-        }
+        assertThrows(IllegalArgumentException.class, () -> new CreditCardValidator((CodeValidator[]) null));
     }
 
     /**

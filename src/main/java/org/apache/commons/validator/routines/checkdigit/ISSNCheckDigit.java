@@ -37,7 +37,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * ISSN 1050-124X
  * </pre>
  * <p>
- * <b>Note:</b> This class expects the input to be numeric only,
+ * <strong>Note:</strong> This class expects the input to be numeric only,
  * with all formatting removed.
  * For example:
  * <pre>

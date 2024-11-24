@@ -82,7 +82,7 @@
  * <caption>Reserved Parameters</caption>
  * <tr>
  * <th>Class Name</th>
- * <th>Validator Contstant</th>
+ * <th>Validator Constant</th>
  * <th>Description</th>
  * </tr>
  * <tr>

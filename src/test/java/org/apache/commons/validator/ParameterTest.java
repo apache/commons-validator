@@ -43,8 +43,8 @@ public class ParameterTest extends AbstractCommonTest {
 
     private void assertParameterValue(final Validator validator, final String name, final Class<?> type) {
         final Object value = validator.getParameterValue(name);
-        assertNotNull(value, () -> "Expected '" + type.getName() + "' but was null");
-        assertTrue(type.isInstance(value), () -> "Expected '" + type.getName() + "' but was '" + value.getClass().getName() + "'");
+        assertNotNull(value, "Expected '" + type.getName() + "' but was null");
+        assertTrue(type.isInstance(value), "Expected '" + type.getName() + "' but was '" + value.getClass().getName() + "'");
     }
 
     /**

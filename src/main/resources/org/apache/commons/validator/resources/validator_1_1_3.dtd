@@ -48,7 +48,7 @@
      The "validator" element defines what validator objects can be used with
      the fields referenced by the formset elements.
      elements:
-       validator         Defines a new validatior
+       validator         Defines a new validator
        javascript        The javascript source code for client side validation.
      attributes:
          name            The name of this validation

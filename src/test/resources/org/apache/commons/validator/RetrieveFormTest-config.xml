@@ -141,7 +141,7 @@
       </form>
    </formset>
 
-   <!-- Candaian French Variant formset -->
+   <!-- Canadian French Variant formset -->
    <formset language="fr" country="CA" variant="XXX">
 
       <form name="testForm_language_country_variant">

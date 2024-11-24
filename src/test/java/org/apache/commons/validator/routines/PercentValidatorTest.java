@@ -93,7 +93,7 @@ public class PercentValidatorTest {
         final BigDecimal hundred = new BigDecimal("1.00");
 
         assertEquals(expected, validator.validate("12%"), "Default locale");
-        assertEquals(negative, validator.validate("-12%"), "Default negtve");
+        assertEquals(negative, validator.validate("-12%"), "Default negative");
 
         // Invalid UK
         assertEquals(expected, validator.validate("12%", Locale.UK), "UK locale");

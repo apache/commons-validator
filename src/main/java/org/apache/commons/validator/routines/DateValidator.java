@@ -24,7 +24,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * <p><b>Date Validation</b> and Conversion routines ({@code java.util.Date}).</p>
+ * <p><strong>Date Validation</strong> and Conversion routines ({@code java.util.Date}).</p>
  *
  * <p>This validator provides a number of methods for validating/converting
  *    a {@link String} date value to a {@code java.util.Date} using

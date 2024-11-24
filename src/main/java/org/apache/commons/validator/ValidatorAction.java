@@ -94,7 +94,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * The other {@code ValidatorAction}s that this one depends on. If any errors occur in an action that this one depends on, this action will not be
-     * processsed.
+     * processed.
      */
     private String depends;
 
@@ -114,7 +114,7 @@ public class ValidatorAction implements Serializable {
     private String jsFunction;
 
     /**
-     * An optional field to containing a JavaScript representation of the Java method assocated with this action.
+     * An optional field to containing a JavaScript representation of the Java method associated with this action.
      */
     private String javascript;
 
@@ -254,7 +254,7 @@ public class ValidatorAction implements Serializable {
     /**
      * Returns the dependent validator names as an unmodifiable {@code List}.
      *
-     * @return List of the validator action's depedents.
+     * @return List of the validator action's dependents.
      */
     public List<String> getDependencyList() {
         return Collections.unmodifiableList(dependencyList);
@@ -445,7 +445,7 @@ public class ValidatorAction implements Serializable {
      * Load the JavaScript function specified by the given path. For this implementation, the {@code jsFunction} property should contain a fully qualified
      * package and script name, separated by periods, to be loaded from the class loader that created this instance.
      *
-     * TODO if the path begins with a '/' the path will be intepreted as absolute, and remain unchanged. If this fails then it will attempt to treat the path as
+     * TODO if the path begins with a '/' the path will be interpreted as absolute, and remain unchanged. If this fails then it will attempt to treat the path as
      * a file path. It is assumed the script ends with a '.js'.
      */
     protected synchronized void loadJavascriptFunction() {
@@ -555,7 +555,7 @@ public class ValidatorAction implements Serializable {
      * The search order is described in the documentation for {@link ClassLoader#getResource(String)}.
      * </p>
      *
-     * @param name The resource name
+     * @param javaScriptFileName The resource name
      * @return An input stream for reading the resource, or {@code null} if the resource could not be found
      */
     private InputStream openInputStream(final String javaScriptFileName, final ClassLoader classLoader) {
@@ -665,7 +665,7 @@ public class ValidatorAction implements Serializable {
      * </p>
      *
      * <pre>
-     * <b>Examples</b>
+     * <strong>Examples</strong>
      *   If in the validator.xml :
      * #1:
      *      &lt;validator name="tire"

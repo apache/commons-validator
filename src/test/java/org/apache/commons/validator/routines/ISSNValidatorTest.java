@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Random;
 
@@ -58,28 +57,14 @@ public class ISSNValidatorTest {
      */
     @Test
     public void testConversionErrors() {
-        String input = null;
-        try {
-            input = "9780072129519";
-            VALIDATOR.extractFromEAN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (final IllegalArgumentException e) {
-            // expected result
-        }
-        try {
-            input = "9791090636071";
-            VALIDATOR.extractFromEAN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (final IllegalArgumentException e) {
-            // expected result
-        }
-        try {
-            input = "03178471";
-            VALIDATOR.extractFromEAN13(input);
-            fail("Expected IllegalArgumentException for '" + input + "'");
-        } catch (final IllegalArgumentException e) {
-            // expected result
-        }
+        String input1 = "9780072129519";
+        assertThrows(IllegalArgumentException.class, () -> VALIDATOR.extractFromEAN13(input1), "Expected IllegalArgumentException for '" + input1 + "'");
+
+        String input2 = "9791090636071";
+        assertThrows(IllegalArgumentException.class, () -> VALIDATOR.extractFromEAN13(input2), "Expected IllegalArgumentException for '" + input2 + "'");
+
+        String input3 = "03178471";
+        assertThrows(IllegalArgumentException.class, () -> VALIDATOR.extractFromEAN13(input3), "Expected IllegalArgumentException for '" + input3 + "'");
     }
 
     /**

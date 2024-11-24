@@ -24,7 +24,7 @@ import org.apache.commons.validator.routines.checkdigit.EAN13CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
 
 /**
- * <b>ISBN-10</b> and <b>ISBN-13</b> Code Validation.
+ * <strong>ISBN-10</strong> and <strong>ISBN-13</strong> Code Validation.
  * <p>
  * This validator validates the code is either a valid ISBN-10
  * (using a {@link CodeValidator} with the {@link ISBN10CheckDigit})

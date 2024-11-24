@@ -17,7 +17,7 @@
 package org.apache.commons.validator.routines.checkdigit;
 
 /**
- * Modulus 10 <b>Luhn</b> Check Digit calculation/validation.
+ * Modulus 10 <strong>Luhn</strong> Check Digit calculation/validation.
  *
  * Luhn check digits are used, for example, by:
  * <ul>
@@ -56,9 +56,9 @@ public final class LuhnCheckDigit extends ModulusCheckDigit {
      * <p>Calculates the <em>weighted</em> value of a character in the
      * code at a specified position.</p>
      *
-     * <p>For Luhn (from right to left) <b>odd</b> digits are weighted
-     * with a factor of <b>one</b> and <b>even</b> digits with a factor
-     * of <b>two</b>. Weighted values &gt; 9, have 9 subtracted</p>
+     * <p>For Luhn (from right to left) <strong>odd</strong> digits are weighted
+     * with a factor of <strong>one</strong> and <strong>even</strong> digits with a factor
+     * of <strong>two</strong>. Weighted values &gt; 9, have 9 subtracted</p>
      *
      * @param charValue The numeric value of the character.
      * @param leftPos The position of the character in the code, counting from left to right

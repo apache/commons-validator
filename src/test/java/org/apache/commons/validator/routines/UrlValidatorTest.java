@@ -26,9 +26,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.SystemProperties;
 import org.apache.commons.validator.ResultPair;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -143,7 +142,7 @@ public class UrlValidatorTest {
             new ResultPair("g0-to+.", true), new ResultPair("not_valid", false), // underscore not allowed
             new ResultPair("HtTp", true), new ResultPair("telnet", false) };
 
-    @Before
+    @BeforeEach
     public void setUp() {
         for (int index = 0; index < testPartsIndex.length - 1; index++) {
             testPartsIndex[index] = 0;

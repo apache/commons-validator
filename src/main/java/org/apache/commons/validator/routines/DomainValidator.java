@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * <p><b>Domain name</b> validation routines.</p>
+ * <p><strong>Domain name</strong> validation routines.</p>
  *
  * <p>
  * This validator provides methods for validating Internet domain names
@@ -54,7 +54,7 @@ import java.util.Locale;
  *   </ul>
  *
  * <p>
- * (<b>NOTE</b>: This class does not provide IP address lookup for domain names or
+ * (<strong>NOTE</strong>: This class does not provide IP address lookup for domain names or
  * methods to ensure that a given domain name matches a specific IP; see
  * {@link java.net.InetAddress} for that functionality.)
  * </p>
@@ -70,11 +70,11 @@ public class DomainValidator implements Serializable {
      * @since 1.5.1 made public and added read-only array references
      */
     public enum ArrayType {
-        /** Update (or get a copy of) the GENERIC_TLDS_PLUS table containing additonal generic TLDs */
+        /** Update (or get a copy of) the GENERIC_TLDS_PLUS table containing additional generic TLDs */
         GENERIC_PLUS,
         /** Update (or get a copy of) the GENERIC_TLDS_MINUS table containing deleted generic TLDs */
         GENERIC_MINUS,
-        /** Update (or get a copy of) the COUNTRY_CODE_TLDS_PLUS table containing additonal country code TLDs */
+        /** Update (or get a copy of) the COUNTRY_CODE_TLDS_PLUS table containing additional country code TLDs */
         COUNTRY_CODE_PLUS,
         /** Update (or get a copy of) the COUNTRY_CODE_TLDS_MINUS table containing deleted country code TLDs */
         COUNTRY_CODE_MINUS,

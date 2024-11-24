@@ -21,7 +21,7 @@ import java.io.Serializable;
 import org.apache.commons.validator.GenericValidator;
 
 /**
- * Combined <b>ISBN-10</b> / <b>ISBN-13</b> Check Digit calculation/validation.
+ * Combined <strong>ISBN-10</strong> / <strong>ISBN-13</strong> Check Digit calculation/validation.
  * <p>
  * This implementation validates/calculates ISBN check digits
  * based on the length of the code passed to it - delegating
@@ -29,7 +29,7 @@ import org.apache.commons.validator.GenericValidator;
  * {@link ISBNCheckDigit#ISBN13_CHECK_DIGIT} routines to perform the actual
  * validation/calculation.
  * <p>
- * <b>N.B.</b> From 1st January 2007 the book industry will start to use a new 13 digit
+ * <strong>N.B.</strong> From 1st January 2007 the book industry will start to use a new 13 digit
  * ISBN number (rather than this 10 digit ISBN number) which uses the EAN-13 / UPC
  * standard.
  *

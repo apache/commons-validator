@@ -16,13 +16,14 @@
  */
 package org.apache.commons.validator;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
@@ -55,7 +56,7 @@ public class ExceptionTest extends AbstractCommonTest {
      * N.B. This test has been removed (renamed) as it currently serves no purpose. If/When exception handling is changed in Validator 2.0 it can be
      * reconsidered then.
      */
-    @Ignore
+    @Disabled
     public void testCheckedException() {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -76,16 +77,12 @@ public class ExceptionTest extends AbstractCommonTest {
         } catch (final ValidatorException expected) {
             fail("Checked exceptions are not wrapped in ValidatorException in Validator 1.x.");
         } catch (final Exception e) {
-            assertTrue("CHECKED-EXCEPTION".equals(e.getMessage()));
+            assertEquals("CHECKED-EXCEPTION", e.getMessage());
         }
 
         // This will be true in Validator 2.0
-//        try {
-//            validator.validate();
-//            fail("ValidatorException should occur here!");
-//        } catch (ValidatorException expected) {
-//            assertTrue("CHECKED-EXCEPTION".equals(expected.getMessage()));
-//        }
+//        Exception expected = assertThrows(ValidatorException.class, validator::validate);
+//        assertTrue("CHECKED-EXCEPTION".equals(expected.getMessage()));
     }
 
     /**
@@ -94,7 +91,7 @@ public class ExceptionTest extends AbstractCommonTest {
      * N.B. This test has been removed (renamed) as it currently serves no purpose. If/When exception handling is changed in Validator 2.0 it can be
      * reconsidered then.
      */
-    @Ignore
+    @Disabled
     public void testRuntimeException() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
@@ -135,11 +132,7 @@ public class ExceptionTest extends AbstractCommonTest {
         validator.setParameter(Validator.BEAN_PARAM, info);
 
         // Get results of the validation which can throw ValidatorException
-        try {
-            validator.validate();
-            fail("ValidatorException should occur here!");
-        } catch (final ValidatorException expected) {
-            assertTrue("VALIDATOR-EXCEPTION".equals(expected.getMessage()));
-        }
+        Exception expected = assertThrows(ValidatorException.class, validator::validate);
+        assertEquals("VALIDATOR-EXCEPTION", expected.getMessage());
     }
 }

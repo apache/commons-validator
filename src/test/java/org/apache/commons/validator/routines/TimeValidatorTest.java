@@ -151,9 +151,9 @@ public class TimeValidatorTest {
         final Calendar hourGreater = createTime(GMT, testTime + hour, 100); // +1 hour
         final Calendar hourLess = createTime(GMT, testTime - hour, 100); // -1 hour
 
-        assertEquals(-1, validator.compareTime(value, milliGreater), "mili LT"); // > milli
-        assertEquals(0, validator.compareTime(value, value), "mili EQ"); // same time
-        assertEquals(1, validator.compareTime(value, milliLess), "mili GT"); // < milli
+        assertEquals(-1, validator.compareTime(value, milliGreater), "milli LT"); // > milli
+        assertEquals(0, validator.compareTime(value, value), "milli EQ"); // same time
+        assertEquals(1, validator.compareTime(value, milliLess), "milli GT"); // < milli
 
         assertEquals(-1, validator.compareSeconds(value, secGreater), "secs LT"); // +1 sec
         assertEquals(0, validator.compareSeconds(value, milliGreater), "secs =1"); // > milli
@@ -198,8 +198,8 @@ public class TimeValidatorTest {
         for (int i = 0; i < localeInvalid.length; i++) {
             final String text = i + " value=[" + localeInvalid[i] + "] passed ";
             final Object date = validator.validate(localeInvalid[i], Locale.US);
-            assertNull(date, () -> "validate() " + text + date);
-            assertFalse(validator.isValid(localeInvalid[i], Locale.UK), () -> "isValid() " + text);
+            assertNull(date, "validate() " + text + date);
+            assertFalse(validator.isValid(localeInvalid[i], Locale.UK), "isValid() " + text);
         }
     }
 
@@ -211,10 +211,10 @@ public class TimeValidatorTest {
         for (int i = 0; i < localeValid.length; i++) {
             final String text = i + " value=[" + localeValid[i] + "] failed ";
             final Calendar calendar = validator.validate(localeValid[i], Locale.UK);
-            assertNotNull(calendar, () -> "validate() " + text);
+            assertNotNull(calendar, "validate() " + text);
             final Date date = calendar.getTime();
-            assertTrue(validator.isValid(localeValid[i], Locale.UK), () -> "isValid() " + text);
-            assertEquals(localeExpect[i], date, () -> "compare " + text);
+            assertTrue(validator.isValid(localeValid[i], Locale.UK), "isValid() " + text);
+            assertEquals(localeExpect[i], date, "compare " + text);
         }
     }
 
@@ -226,8 +226,8 @@ public class TimeValidatorTest {
         for (int i = 0; i < patternInvalid.length; i++) {
             final String text = i + " value=[" + patternInvalid[i] + "] passed ";
             final Object date = validator.validate(patternInvalid[i], "HH-mm-ss");
-            assertNull(date, () -> "validate() " + text + date);
-            assertFalse(validator.isValid(patternInvalid[i], "HH-mm-ss"), () -> "isValid() " + text);
+            assertNull(date, "validate() " + text + date);
+            assertFalse(validator.isValid(patternInvalid[i], "HH-mm-ss"), "isValid() " + text);
         }
     }
 
@@ -239,10 +239,10 @@ public class TimeValidatorTest {
         for (int i = 0; i < patternValid.length; i++) {
             final String text = i + " value=[" + patternValid[i] + "] failed ";
             final Calendar calendar = validator.validate(patternValid[i], "HH-mm-ss");
-            assertNotNull(calendar, () -> "validateObj() " + text);
+            assertNotNull(calendar, "validateObj() " + text);
             final Date date = calendar.getTime();
-            assertTrue(validator.isValid(patternValid[i], "HH-mm-ss"), () -> "isValid() " + text);
-            assertEquals(patternExpect[i], date, () -> "compare " + text);
+            assertTrue(validator.isValid(patternValid[i], "HH-mm-ss"), "isValid() " + text);
+            assertEquals(patternExpect[i], date, "compare " + text);
         }
     }
 

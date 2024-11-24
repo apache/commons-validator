@@ -22,7 +22,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * <p><b>BigDecimal Validation</b> and Conversion routines ({@code java.math.BigDecimal}).</p>
+ * <p><strong>BigDecimal Validation</strong> and Conversion routines ({@code java.math.BigDecimal}).</p>
  *
  * <p>This validator provides a number of methods for
  *    validating/converting a {@link String} value to

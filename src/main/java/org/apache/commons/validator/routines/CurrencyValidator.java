@@ -20,7 +20,7 @@ import java.text.DecimalFormat;
 import java.text.Format;
 
 /**
- * <p><b>Currency Validation</b> and Conversion routines ({@code java.math.BigDecimal}).</p>
+ * <p><strong>Currency Validation</strong> and Conversion routines ({@code java.math.BigDecimal}).</p>
  *
  * <p>This is one implementation of a currency validator that has the following features:</p>
  *    <ul>

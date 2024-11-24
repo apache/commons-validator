@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.validator.GenericValidator;
 
 /**
- * <p><b>InetAddress</b> validation and conversion routines ({@code java.net.InetAddress}).</p>
+ * <p><strong>InetAddress</strong> validation and conversion routines ({@code java.net.InetAddress}).</p>
  *
  * <p>This class provides methods to validate a candidate IP address.
  *

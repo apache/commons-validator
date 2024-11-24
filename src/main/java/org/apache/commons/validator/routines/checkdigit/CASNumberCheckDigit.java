@@ -20,7 +20,7 @@ import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.CodeValidator;
 
 /**
- * Modulus 10 <b>CAS Registry Number</b> (or <b>Chemical Abstracts Service</b> (CAS RN)) Check Digit
+ * Modulus 10 <strong>CAS Registry Number</strong> (or <strong>Chemical Abstracts Service</strong> (CAS RN)) Check Digit
  * calculation/validation.
  *
  * <p>
@@ -129,7 +129,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
      *
      * @param charValue The numeric value of the character.
      * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The positionof the character in the code, counting from right to left
+     * @param rightPos The position of the character in the code, counting from right to left
      * @return The weighted value of the character.
      */
     @Override

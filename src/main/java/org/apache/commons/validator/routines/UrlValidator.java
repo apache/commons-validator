@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.validator.GenericValidator;
 
 /**
- * <p><b>URL Validation</b> routines.</p>
+ * <p><strong>URL Validation</strong> routines.</p>
  * Behavior of validation is modified by passing in options:
  * <ul>
  * <li>ALLOW_2_SLASHES - [FALSE]  Allows double '/' characters in the path
@@ -410,7 +410,7 @@ public class UrlValidator implements Serializable {
      * If a RegexValidator was supplied and it matches, then the authority is regarded
      * as valid with no further checks, otherwise the method checks against the
      * AUTHORITY_PATTERN and the DomainValidator (ALLOW_LOCAL_URLS)
-     * @param authority Authority value to validate, alllows IDN
+     * @param authority Authority value to validate, allows IDN
      * @return true if authority (hostname and port) is valid.
      */
     protected boolean isValidAuthority(final String authority) {

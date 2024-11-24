@@ -46,7 +46,6 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.SystemProperties;
 import org.apache.commons.validator.routines.DomainValidator.ArrayType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -264,7 +263,7 @@ public class DomainValidatorTest {
     // Download and process local copy of https://data.iana.org/TLD/tlds-alpha-by-domain.txt
     // Check if the internal TLD table is up to date
     // Check if the internal TLD tables have any spurious entries
-    public static void main(final String a[]) throws Exception {
+    public static void main(final String[] a) throws Exception {
         // Check the arrays first as this affects later checks
         // Doing this here makes it easier when updating the lists
         boolean ok = true;
@@ -583,9 +582,9 @@ public class DomainValidatorTest {
 //      characters MUST be recognized as dots: U+002E (full stop), U+3002
 //      (ideographic full stop), U+FF0E (fullwidth full stop), U+FF61
 //      (halfwidth ideographic full stop).
-        final String otherDots[][] = { { "b\u3002", "b.", }, { "b\uFF0E", "b.", }, { "b\uFF61", "b.", }, { "\u3002", ".", }, { "\uFF0E", ".", },
+        final String[][] otherDots = { { "b\u3002", "b.", }, { "b\uFF0E", "b.", }, { "b\uFF61", "b.", }, { "\u3002", ".", }, { "\uFF0E", ".", },
                 { "\uFF61", ".", }, };
-        for (final String s[] : otherDots) {
+        for (final String[] s : otherDots) {
             assertEquals(s[1], DomainValidator.unicodeToASCII(s[0]));
         }
     }

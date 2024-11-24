@@ -79,7 +79,7 @@ applies to.
      Defines what validator objects can be used with
      the objects referenced by the bean-set elements.
      elements:
-       validator         Defines a new validatior
+       validator         Defines a new validator
        script            The scripting source code for client side validation.
      attributes:
          id              The unique name of this validation

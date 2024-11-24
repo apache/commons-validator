@@ -34,7 +34,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * that method are invalid.</li>
  * <li>Calculating a <em>weighted value</em> by multiplying the character's
  * integer value by a <em>weighting factor</em>. The <em>weighting factor</em> is
- * selected from the configured {@code postitionWeight} array based on its
+ * selected from the configured {@code positionWeight} array based on its
  * position. The {@code postitionWeight} values are used either
  * left-to-right (when {@code useRightPos=false}) or right-to-left (when
  * {@code useRightPos=true}).</li>
@@ -56,7 +56,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * <li>There are no checks on code length.</li>
  * </ul>
  * <p>
- * <b>Note:</b> This implementation can be combined with the
+ * <strong>Note:</strong> This implementation can be combined with the
  * {@link CodeValidator} in order to ensure the length and characters are valid.
  *
  * <h2>Example Usage</h2>
@@ -65,7 +65,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * are shown re-implemented using this routine below:
  *
  * <p>
- * <b>ABA Number</b> Check Digit Routine (equivalent of
+ * <strong>ABA Number</strong> Check Digit Routine (equivalent of
  * {@link ABANumberCheckDigit}). Weighting factors are {@code [1, 7, 3]}
  * applied from right to left.
  *
@@ -74,7 +74,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * </pre>
  *
  * <p>
- * <b>CUSIP</b> Check Digit Routine (equivalent of {@link CUSIPCheckDigit}).
+ * <strong>CUSIP</strong> Check Digit Routine (equivalent of {@link CUSIPCheckDigit}).
  * Weighting factors are {@code [1, 2]} applied from right to left and the
  * digits of the <em>weighted value</em> are summed.
  *
@@ -83,7 +83,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * </pre>
  *
  * <p>
- * <b>EAN-13 / UPC</b> Check Digit Routine (equivalent of
+ * <strong>EAN-13 / UPC</strong> Check Digit Routine (equivalent of
  * {@link EAN13CheckDigit}). Weighting factors are {@code [1, 3]} applied
  * from right to left.
  *
@@ -92,7 +92,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * </pre>
  *
  * <p>
- * <b>Luhn</b> Check Digit Routine (equivalent of {@link LuhnCheckDigit}).
+ * <strong>Luhn</strong> Check Digit Routine (equivalent of {@link LuhnCheckDigit}).
  * Weighting factors are {@code [1, 2]} applied from right to left and the
  * digits of the <em>weighted value</em> are summed.
  *
@@ -101,7 +101,7 @@ import org.apache.commons.validator.routines.CodeValidator;
  * </pre>
  *
  * <p>
- * <b>SEDOL</b> Check Digit Routine (equivalent of {@link SedolCheckDigit}).
+ * <strong>SEDOL</strong> Check Digit Routine (equivalent of {@link SedolCheckDigit}).
  * Weighting factors are {@code [1, 3, 1, 7, 3, 9, 1]} applied from left to
  * right.
  *
@@ -118,7 +118,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     /**
      * The weighted values to apply based on the character position
      */
-    private final int[] postitionWeight;
+    private final int[] positionWeight;
 
     /**
      * {@code true} if use positionWeights from right to left
@@ -134,24 +134,24 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      * Constructs a modulus 10 Check Digit routine with the specified weighting
      * from left to right.
      *
-     * @param postitionWeight the weighted values to apply based on the
+     * @param positionWeight the weighted values to apply based on the
      *            character position
      */
-    public ModulusTenCheckDigit(final int[] postitionWeight) {
-        this(postitionWeight, false, false);
+    public ModulusTenCheckDigit(final int[] positionWeight) {
+        this(positionWeight, false, false);
     }
 
     /**
      * Constructs a modulus 10 Check Digit routine with the specified weighting,
      * indicating whether its from the left or right.
      *
-     * @param postitionWeight the weighted values to apply based on the
+     * @param positionWeight the weighted values to apply based on the
      *            character position
      * @param useRightPos {@code true} if use positionWeights from right to
      *            left
      */
-    public ModulusTenCheckDigit(final int[] postitionWeight, final boolean useRightPos) {
-        this(postitionWeight, useRightPos, false);
+    public ModulusTenCheckDigit(final int[] positionWeight, final boolean useRightPos) {
+        this(positionWeight, useRightPos, false);
     }
 
     /**
@@ -159,15 +159,15 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      * indicating whether its from the left or right and whether the weighted
      * digits should be summed.
      *
-     * @param postitionWeight the weighted values to apply based on the
+     * @param positionWeight the weighted values to apply based on the
      *            character position
      * @param useRightPos {@code true} if use positionWeights from right to
      *            left
      * @param sumWeightedDigits {@code true} if sum the digits of the
      *            weighted value
      */
-    public ModulusTenCheckDigit(final int[] postitionWeight, final boolean useRightPos, final boolean sumWeightedDigits) {
-        this.postitionWeight = Arrays.copyOf(postitionWeight, postitionWeight.length);
+    public ModulusTenCheckDigit(final int[] positionWeight, final boolean useRightPos, final boolean sumWeightedDigits) {
+        this.positionWeight = Arrays.copyOf(positionWeight, positionWeight.length);
         this.useRightPos = useRightPos;
         this.sumWeightedDigits = sumWeightedDigits;
     }
@@ -195,7 +195,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     /**
      * Convert a character at a specified position to an integer value.
      * <p>
-     * <b>Note:</b> this implementation only handlers values that
+     * <strong>Note:</strong> this implementation only handlers values that
      * Character.getNumericValue(char) returns a non-negative number.
      *
      * @param character The character to convert
@@ -223,7 +223,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      */
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "[postitionWeight=" + Arrays.toString(postitionWeight) + ", useRightPos="
+        return getClass().getSimpleName() + "[positionWeight=" + Arrays.toString(positionWeight) + ", useRightPos="
                 + useRightPos + ", sumWeightedDigits=" + sumWeightedDigits + "]";
     }
 
@@ -241,7 +241,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
         final int pos = useRightPos ? rightPos : leftPos;
-        final int weight = postitionWeight[(pos - 1) % postitionWeight.length];
+        final int weight = positionWeight[(pos - 1) % positionWeight.length];
         int weightedValue = charValue * weight;
         if (sumWeightedDigits) {
             weightedValue = sumDigits(weightedValue);
