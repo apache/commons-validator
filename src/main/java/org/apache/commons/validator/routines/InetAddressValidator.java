@@ -125,7 +125,6 @@ public class InetAddressValidator implements Serializable {
      *
      * @param inet6Address the IPv6 address to validate
      * @return true if the argument contains a valid IPv6 address
-     *
      * @since 1.4.1
      */
     public boolean isValidInet6Address(String inet6Address) {

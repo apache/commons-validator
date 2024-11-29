@@ -311,7 +311,6 @@ public class IBANValidator {
      * Gets the Validator for a given IBAN
      *
      * @param code a string starting with the ISO country code (e.g. an IBAN)
-     *
      * @return the validator or {@code null} if there is not one registered.
      */
     public Validator getValidator(final String code) {

@@ -82,7 +82,6 @@ public class ValidatorUtils {
      * it is a shallow copy.
      *
      * @param map The source Map to copy.
-     *
      * @return A copy of the {@link Map} that was passed in.
      */
     public static Map<String, Object> copyMap(final Map<String, Object> map) {
@@ -111,7 +110,6 @@ public class ValidatorUtils {
      *
      * @param bean The bean object.
      * @param property The name of the property to access.
-     *
      * @return The value of the property.
      */
     public static String getValueAsString(final Object bean, final String property) {
@@ -146,7 +144,6 @@ public class ValidatorUtils {
      * @param value {@link String} to perform the replacement on.
      * @param key The name of the constant.
      * @param replaceValue The value of the constant.
-     *
      * @return The modified value.
      */
     public static String replace(final String value, final String key, final String replaceValue) {

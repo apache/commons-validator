@@ -478,7 +478,6 @@ public class CreditCardValidator implements Serializable {
      *
      * @param options The options specified.
      * @param flag Flag value to check.
-     *
      * @return whether the specified flag value is on.
      */
     private boolean isOn(final long options, final long flag) {
