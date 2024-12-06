@@ -57,7 +57,6 @@ public class ValidatorResult implements Serializable {
          * @param ignored ignored by this method
          * @param valid Whether the validator passed or failed.
          * @param result Value returned by the validator.
-         *
          * @deprecated Use {@code ResultStatus(boolean, Object)} instead
          */
         @Deprecated

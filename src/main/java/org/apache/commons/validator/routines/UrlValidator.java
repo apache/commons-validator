@@ -175,7 +175,6 @@ public class UrlValidator implements Serializable {
      *
      * @param flag Flag value to check.
      * @param options what to check
-     *
      * @return whether the specified flag value is on.
      */
     private static boolean isOn(final long flag, final long options) {
@@ -329,7 +328,6 @@ public class UrlValidator implements Serializable {
      * (ie. 3) this tests whether the combination of flags is off.
      *
      * @param flag Flag value to check.
-     *
      * @return whether the specified flag value is off.
      */
     private boolean isOff(final long flag) {
@@ -341,7 +339,6 @@ public class UrlValidator implements Serializable {
      * (ie. 3) this tests whether the combination of flags is on.
      *
      * @param flag Flag value to check.
-     *
      * @return whether the specified flag value is on.
      */
     private boolean isOn(final long flag) {

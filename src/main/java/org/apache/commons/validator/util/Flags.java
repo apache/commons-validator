@@ -87,7 +87,6 @@ public class Flags implements Serializable, Cloneable {
      * Tests if two Flags objects are in the same state.
      * @param obj object being tested
      * @see Object#equals(Object)
-     *
      * @return whether the objects are equal.
      */
     @Override
@@ -114,7 +113,6 @@ public class Flags implements Serializable, Cloneable {
     /**
      * The hash code is based on the current state of the flags.
      * @see Object#hashCode()
-     *
      * @return the hash code for this object.
      */
     @Override
@@ -127,7 +125,6 @@ public class Flags implements Serializable, Cloneable {
      * (ie. 3) this tests whether the combination of flags is off.
      *
      * @param flag Flag value to check.
-     *
      * @return whether the specified flag value is off.
      */
     public boolean isOff(final long flag) {
@@ -139,7 +136,6 @@ public class Flags implements Serializable, Cloneable {
      * (ie. 3) this tests whether the combination of flags is on.
      *
      * @param flag Flag value to check.
-     *
      * @return whether the specified flag value is on.
      */
     public boolean isOn(final long flag) {
