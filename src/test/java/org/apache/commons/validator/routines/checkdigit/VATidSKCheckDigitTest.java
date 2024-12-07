@@ -19,28 +19,33 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Luhn Check Digit Test.
+ * SK VAT Id Check Digit Tests.
+ * <pre>
+    SK 2120567108 : valide Markon s.r.o. Bratislava
+    SK 2021896096 : valide SEDLÁČEK, advokátska kancelária s.r.o
+    SK 4030000007 : valide, aber ungültig. Aus bmf.gv.at
+    SK 2022749619 : valide, aber ungültig. Aus https://old.formvalidation.io/validators/vat/
+ * </pre>
  */
-public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
-
-    private static final String VALID_VISA = "4417123456789113";
-    private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX = "378282246310005";
-    private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER = "6011000990139424";
-    private static final String VALID_DINERS = "30569309025904";
-    private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
-    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without Trailing "01"
+public class VATidSKCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {
-
-        routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
-
-        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS
-            , VALID_IT_IVA_BANCA_ITALIA, VALID_SE_VATIN_OLLE_SVENSSONS, "12345678903", "10215", "12345670017"};
+        checkDigitLth = 0;
+        routine = VATidSKCheckDigit.getInstance();
+        valid = new String[] {"0000000011", "11" // theoretical minimum
+            , "2120567108", "2021896096", "4030000007", "2022749619"
+            , "1111111111" // here valid, NOT valid, because 3rd digit is 1, checked in VATINValidator
+            , "9999999999" // theoretical maximum
+            };
+        invalid = new String[] {"999X999999", "0000000010"};
     }
+
+    protected String checkDigit(final String code) {
+        return "0"; // No check digit in SK VATIN, it is always 0.
+    }
+
 }
