@@ -172,6 +172,7 @@ public class IBANValidatorTest {
             "VA59001123000012345678",
             "VG96VPVG0000012345678901",
             "XK051212012345678906",
+            "YE15CBYE0001018861234567891234",
     };
     // @formatter:on
 

@@ -227,6 +227,7 @@ public class IBANValidator {
             new Validator("VA", 22, "VA\\d{20}"),                             // Vatican City State
             new Validator("VG", 24, "VG\\d{2}[A-Z]{4}\\d{16}"),               // Virgin Islands
             new Validator("XK", 20, "XK\\d{18}"),                             // Kosovo
+            new Validator("YE", 30, "YE\\d{2}[A-Z]{4}\\d{4}[A-Z0-9]{18}"),    // Yemen
     };
 
     /*
