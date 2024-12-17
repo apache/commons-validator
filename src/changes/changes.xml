@@ -64,6 +64,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
   <release version="1.10.0" date="YYYY-MM-DD" description="This is a maintenance and bug fix release; requires Java 8.">
       <!-- FIX -->
+      <action type="update" dev="sebb">DomainValidator: Changes from 2024121700, Last Updated Tue Dec 17 07:07:01 2024 UTC.</action>
       <action type="update" dev="ggregory" due-to="Johannes Weberhofer">Fix order of actual and expected parameters in assertEquals() #246.</action>
       <action type="update" dev="ggregory" due-to="Johannes Weberhofer">InetAddressValidator does not need its instance variable, so uses a touch less memory.</action>
       <!-- ADD -->
