@@ -68,7 +68,7 @@ The <action> type attribute can be add,update,fix,remove.
       <action type="update" dev="ggregory" due-to="Johannes Weberhofer">Fix order of actual and expected parameters in assertEquals() #246.</action>
       <action type="update" dev="ggregory" due-to="Johannes Weberhofer">InetAddressValidator does not need its instance variable, so uses a touch less memory.</action>
       <!-- ADD -->
-      <action type="add" dev="???" due-to="Slawomir Jaranowski">Improve IBANValidatorTest - use registry from swift</action>
+      <action type="add" dev="sjaranowski" due-to="Slawomir Jaranowski">Improve IBANValidatorTest - use registry from swift</action>
       <action type="add" dev="sebb" issue="VALIDATOR-495" due-to="Slawomir Jaranowski">IBANValidator: - add Yemen</action>
       <action type="update" dev="ggregory" due-to="Leonard Wicke, Gary Gregory">Add IBANValidator.Validator.getIbanLength().</action>
       <!-- UPDATE -->
