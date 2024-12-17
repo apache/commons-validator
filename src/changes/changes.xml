@@ -68,6 +68,7 @@ The <action> type attribute can be add,update,fix,remove.
       <action type="update" dev="ggregory" due-to="Johannes Weberhofer">InetAddressValidator does not need its instance variable, so uses a touch less memory.</action>
       <!-- ADD -->
       <action type="update" dev="ggregory" due-to="Leonard Wicke, Gary Gregory">Add IBANValidator.Validator.getIbanLength().</action> 
+      <action type="add" issue="VALIDATOR-495" dev="??" due-to="Slawomir Jaranowski">Add Yemen to IBANValidator</action>
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-parent from 70 to 78 #231, #245, #253, #256, #262, #267, #272, #278.</action>
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump commons-logging:commons-logging from 1.3.2 to 1.3.4 #238, #254.</action>
