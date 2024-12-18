@@ -24,19 +24,30 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.validator.routines.IBANValidator.Validator;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.FieldSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Tests {@link IBANValidator}.
@@ -50,13 +61,13 @@ public class IBANValidatorTest {
     private static final String IBAN_PART = "(?:(\\d+)!([acn]))"; // Assume all parts are fixed length
 
     private static final Pattern IBAN_PAT = Pattern
-            .compile("([A-Z]{2})" + IBAN_PART + IBAN_PART + IBAN_PART + IBAN_PART + "?" + IBAN_PART + "?" + IBAN_PART + "?" + IBAN_PART + "?");
+            .compile(IBAN_PART + IBAN_PART + IBAN_PART + IBAN_PART + "?" + IBAN_PART + "?" + IBAN_PART + "?" + IBAN_PART + "?");
 
     // It's not clear whether IBANs can contain lower case characters
     // so we test for both where possible
     // Note that the BIC near the start of the code is always upper case or digits
     // @formatter:off
-    private static final String[] VALID_IBAN_FIXTURES = {
+    private static final List<String> VALID_IBAN_FIXTURES = Arrays.asList(
             "AD1200012030200359100100",
             "AE070331234567890123456",
             "AL47212110090000000235698741",
@@ -172,11 +183,12 @@ public class IBANValidatorTest {
             "VA59001123000012345678",
             "VG96VPVG0000012345678901",
             "XK051212012345678906",
-    };
+            "YE15CBYE0001018861234567891234"
+    );
     // @formatter:on
 
     // @formatter:off
-    private static final String[] INVALID_IBAN_FIXTURES = {
+    private static final List<String> INVALID_IBAN_FIXTURES = Arrays.asList(
             "",                        // empty
             "   ",                     // empty
             "A",                       // too short
@@ -188,89 +200,22 @@ public class IBANValidatorTest {
             "RO49AAAA1b31007593840000", // lowercase version
             "LC62HEMM000100010012001200023015", // wrong in SWIFT
             "BY00NBRB3600000000000Z00AB00", // Wrong in SWIFT v73
-            "ST68000200010192194210112", // ditto
+            "ST68000200010192194210112", // ditto - invalid example
             "SV62CENR0000000000000700025", // ditto
-    };
+            "NI04BAPR00000013000003558124", // invalid example
+            "RU1704452522540817810538091310419" // invalid example
+    );
     // @formatter:on
 
-    private static int checkIBAN(final File file, final IBANValidator val) throws Exception {
-        // The IBAN Registry (TXT) file is a TAB-separated file
-        // Rows are the entry types, columns are the countries
-        final CSVFormat format = CSVFormat.DEFAULT.builder().setDelimiter('\t').build();
-        final Reader rdr = new InputStreamReader(new FileInputStream(file), "ISO_8859_1");
-        try (final CSVParser p = new CSVParser(rdr, format)) {
-            CSVRecord country = null;
-            CSVRecord cc = null;
-            CSVRecord structure = null;
-            CSVRecord length = null;
-            for (final CSVRecord o : p) {
-                final String item = o.get(0);
-                switch (item) {
-                case "Name of country":
-                    country = o;
-                    break;
-                case "IBAN prefix country code (ISO 3166)":
-                    cc = o;
-                    break;
-                case "IBAN structure":
-                    structure = o;
-                    break;
-                case "IBAN length":
-                    length = o;
-                    break;
-                default:
-                    break;
-                }
-            }
-            assertNotNull(country);
-            assertNotNull(length);
-            assertNotNull(structure);
-            assertNotNull(cc);
-            for (int i = 1; i < country.size(); i++) {
-                try {
-
-                    final String newLength = length.get(i).split("!")[0]; // El Salvador currently has "28!n"
-                    final String newRE = fmtRE(structure.get(i), Integer.parseInt(newLength));
-                    final Validator valre = val.getValidator(cc.get(i));
-                    if (valre == null) {
-                        System.out.println("// Missing entry:");
-                        printEntry(cc.get(i), newLength, newRE, country.get(i));
-                    } else {
-                        final String currentLength = Integer.toString(valre.getIbanLength());
-                        final String currentRE = valre.getRegexValidator().toString().replaceAll("^.+?\\{(.+)}", "$1") // Extract RE from RegexValidator{re}
-                                                                                                                       // string
-                                .replace("\\d", "\\\\d"); // convert \d to \\d
-                        // The above assumes that the RegexValidator contains a single Regex
-                        if (currentRE.equals(newRE) && currentLength.equals(newLength)) {
-
-                        } else {
-                            System.out.println("// Expected: " + newRE + ", " + newLength + " Actual: " + currentRE + ", " + currentLength);
-                            printEntry(cc.get(i), newLength, newRE, country.get(i));
-                        }
-
-                    }
-
-                } catch (final IllegalArgumentException e) {
-                    e.printStackTrace();
-                }
-            }
-            p.close();
-            return country.size();
-        }
-    }
-
-    private static String fmtRE(final String ibanPat, final int ibanLen) {
+    private static String fmtRE(final String ibanPat) {
         final Matcher m = IBAN_PAT.matcher(ibanPat);
         if (!m.matches()) {
             throw new IllegalArgumentException("Unexpected IBAN pattern " + ibanPat);
         }
         final StringBuilder sb = new StringBuilder();
-        final String cc = m.group(1); // country code
-        int totalLen = cc.length();
-        sb.append(cc);
-        int len = Integer.parseInt(m.group(2)); // length of part
-        String curType = m.group(3); // part type
-        for (int i = 4; i <= m.groupCount(); i += 2) {
+        int len = Integer.parseInt(m.group(1)); // length of part
+        String curType = m.group(2); // part type
+        for (int i = 3; i <= m.groupCount(); i += 2) {
             if (m.group(i) == null) { // reached an optional group
                 break;
             }
@@ -280,16 +225,11 @@ public class IBANValidatorTest {
                 len += count;
             } else {
                 sb.append(formatToRE(curType, len));
-                totalLen += len;
                 curType = type;
                 len = count;
             }
         }
         sb.append(formatToRE(curType, len));
-        totalLen += len;
-        if (ibanLen != totalLen) {
-            throw new IllegalArgumentException("IBAN pattern " + ibanPat + " does not match length " + ibanLen);
-        }
         return sb.toString();
     }
 
@@ -298,7 +238,7 @@ public class IBANValidatorTest {
         final char ctype = type.charAt(0); // assume type.length() == 1
         switch (ctype) {
         case 'n':
-            return String.format("\\\\d{%d}", len);
+            return String.format("\\d{%d}", len);
         case 'a':
             return String.format("[A-Z]{%d}", len);
         case 'c':
@@ -308,21 +248,125 @@ public class IBANValidatorTest {
         }
     }
 
-    public static void main(final String[] a) throws Exception {
-        final IBANValidator validator = new IBANValidator();
-        final File ibanTsv = new File("target", "iban-registry.tsv");
-        int countries = 0;
-        if (ibanTsv.canRead()) {
-            countries = checkIBAN(ibanTsv, validator);
-        } else {
-            System.out.println("Please load the file " + ibanTsv.getCanonicalPath() + " from https://www.swift.com/standards/data-standards/iban");
+    static Collection<Arguments> ibanRegistryV98Source() throws Exception {
+        Path ibanRegistryV98 = Paths.get(IBANValidator.class.getResource("iban_registry_v98.txt").toURI());
+
+        final CSVFormat format = CSVFormat.DEFAULT.builder().setDelimiter('\t').build();
+        final Reader rdr = Files.newBufferedReader(ibanRegistryV98, StandardCharsets.ISO_8859_1);
+
+        CSVRecord country = null;
+        CSVRecord cc = null;
+        CSVRecord additionalCc = null;
+        CSVRecord structure = null;
+        CSVRecord length = null;
+
+        try (final CSVParser p = new CSVParser(rdr, format)) {
+            for (final CSVRecord o : p) {
+                final String item = o.get(0);
+                switch (item) {
+                    case "Name of country":
+                        country = o;
+                        break;
+                    case "IBAN prefix country code (ISO 3166)":
+                        cc = o;
+                        break;
+                    case "Country code includes other countries/territories":
+                        additionalCc = o;
+                        break;
+                    case "IBAN structure":
+                        structure = o;
+                        break;
+                    case "IBAN length":
+                        length = o;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
-        System.out.println("Processed " + countries + " countries.");
+
+        assertNotNull(country);
+        assertNotNull(cc);
+        assertNotNull(additionalCc);
+        assertNotNull(structure);
+        assertNotNull(length);
+
+        Collection<Arguments> result = new ArrayList<>();
+        for (int i = 1; i < country.size(); i++) {
+            String ac = additionalCc.get(i);
+            List<String> aCountry = Arrays.stream(ac.split(","))
+                    .filter(s -> !"N/A".equals(s))
+                    .map(s -> s.replace("(French part)", "")) // special case
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.toList());
+            result.add(Arguments.of(country.get(i), cc.get(i), aCountry, Integer.parseInt(length.get(i)), structure.get(i)));
+        }
+
+        return result;
     }
 
-    private static void printEntry(final String ccode, final String length, final String ib, final String country) {
-        final String fmt = String.format("\"%s\"", ib);
-        System.out.printf("            new Validator(\"%s\", %s, %-40s), // %s\n", ccode, length, fmt, country);
+    static Collection<Arguments> ibanRegistryV98SourceExamples() throws Exception {
+        Path ibanRegistryV98 = Paths.get(IBANValidator.class.getResource("iban_registry_v98.txt").toURI());
+
+        final CSVFormat format = CSVFormat.DEFAULT.builder().setDelimiter('\t').build();
+        final Reader rdr = Files.newBufferedReader(ibanRegistryV98, StandardCharsets.ISO_8859_1);
+
+        CSVRecord country = null;
+        CSVRecord electronicExample = null;
+
+        try (final CSVParser p = new CSVParser(rdr, format)) {
+            for (final CSVRecord o : p) {
+                final String item = o.get(0);
+                switch (item) {
+                    case "Name of country":
+                        country = o;
+                        break;
+                    case "IBAN electronic format example":
+                        electronicExample = o;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        assertNotNull(country);
+        assertNotNull(electronicExample);
+
+        Collection<Arguments> result = new ArrayList<>();
+        for (int i = 1; i < country.size(); i++) {
+            result.add(Arguments.of(country.get(i), electronicExample.get(i)));
+        }
+
+        return result;
+    }
+
+    @ParameterizedTest
+    @MethodSource("ibanRegistryV98Source")
+    public void validatorShouldExistWithProperConfiguration(String countryName, String countryCode, List<String> acountyCode, int ibanLength, String structure) throws Exception {
+        String countryInfo = " countryCode: " + countryCode + ", countryName: " + countryName;
+        Validator validator = IBANValidator.getInstance().getValidator(countryCode);
+
+        assertNotNull(validator, "IBAN validator returned null for" + countryInfo);
+        assertEquals(ibanLength, validator.getIbanLength(), "IBAN length should be " + ibanLength + " for" + countryInfo);
+
+        List<String> allPatterns = Arrays.stream(validator.getRegexValidator().getPatterns()).map(Pattern::pattern).collect(
+                Collectors.toList());
+
+        String re = fmtRE(structure.substring(2));
+        assertTrue(allPatterns.remove(countryCode + re), "No pattern " + countryCode + re + " found for " + countryInfo);
+        for (String ac : acountyCode) {
+            assertTrue(allPatterns.remove(ac + re), "No additional country code " + ac + " found for " + countryInfo);
+        }
+        assertTrue(allPatterns.isEmpty(), "Unrecognized patterns: " + allPatterns + " for" + countryInfo);
+    }
+
+    @ParameterizedTest
+    @MethodSource("ibanRegistryV98SourceExamples")
+    public void exampleAccountsShouldBeValid(String countryName, String example) {
+        Assumptions.assumeFalse(INVALID_IBAN_FIXTURES.contains(example), "Skip invalid example: " + example + " for " + countryName);
+        assertTrue(IBANValidator.getInstance().isValid(example), "IBAN validator returned false for " + example + " for " + countryName);
     }
 
     @Test
@@ -342,11 +386,10 @@ public class IBANValidatorTest {
         assertFalse(VALIDATOR.hasValidator("gb"), "gb");
     }
 
-    @Test
-    public void testInValid() {
-        for (final String f : INVALID_IBAN_FIXTURES) {
-            assertFalse(VALIDATOR.isValid(f), f);
-        }
+    @ParameterizedTest
+    @FieldSource("INVALID_IBAN_FIXTURES")
+    public void testInValid(String invalidIban) {
+        assertFalse(VALIDATOR.isValid(invalidIban), invalidIban);
     }
 
     @Test
@@ -407,12 +450,11 @@ public class IBANValidatorTest {
         }
     }
 
-    @Test
-    public void testValid() {
-        for (final String f : VALID_IBAN_FIXTURES) {
-            assertTrue(IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(f), "Checksum fail: " + f);
-            assertTrue(VALIDATOR.hasValidator(f), "Missing validator: " + f);
-            assertTrue(VALIDATOR.isValid(f), f);
-        }
+    @ParameterizedTest
+    @FieldSource("VALID_IBAN_FIXTURES")
+    public void testValid(String iban) {
+            assertTrue(IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(iban), "Checksum fail: " + iban);
+            assertTrue(VALIDATOR.hasValidator(iban), "Missing validator: " + iban);
+            assertTrue(VALIDATOR.isValid(iban), iban);
     }
 }

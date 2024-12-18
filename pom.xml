@@ -92,6 +92,15 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <configuration>
+            <excludes combine.children="append">
+              <exclude>src/test/resources/org/apache/commons/validator/routines/iban_registry_v98.txt</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+        <plugin>
           <groupId>com.github.spotbugs</groupId>
           <artifactId>spotbugs-maven-plugin</artifactId>
           <configuration>
@@ -101,7 +110,7 @@
          </configuration>
         </plugin>
       </plugins>
-	</pluginManagement>
+	  </pluginManagement>
     <resources>
       <resource>
         <directory>${basedir}</directory>
@@ -255,15 +264,6 @@
             </reports>
           </reportSet>
         </reportSets>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>site-content/**</exclude>
-          </excludes>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>com.github.spotbugs</groupId>

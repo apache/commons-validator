@@ -180,7 +180,8 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = {
-        // Taken from Version 2024040200, Last Updated Tue Apr  2 07:07:02 2024 UTC
+        // Taken from:
+        // Version 2024121700, Last Updated Tue Dec 17 07:07:01 2024 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
         // "abarth", // abarth Fiat Chrysler Automobiles N.V.
@@ -447,7 +448,7 @@ public class DomainValidator implements Serializable {
         "cuisinella", // cuisinella SALM S.A.S.
         "cymru", // cymru Nominet UK
         "cyou", // cyou Beijing Gamease Age Digital Technology Co., Ltd.
-        "dabur", // dabur Dabur India Limited
+//        "dabur", // dabur Dabur India Limited
         "dad", // dad Charleston Road Registry Inc.
         "dance", // dance United TLD Holdco Ltd.
         "data", // data Dish DBS Corporation
@@ -901,7 +902,7 @@ public class DomainValidator implements Serializable {
         "nagoya", // nagoya GMO Registry, Inc.
         "name", // name VeriSign Information Services, Inc.
 //        "nationwide", // nationwide Nationwide Mutual Insurance Company
-        "natura", // natura NATURA COSMÉTICOS S.A.
+//        "natura", // natura NATURA COSMÉTICOS S.A.
         "navy", // navy United TLD Holdco Ltd.
         "nba", // nba NBA REGISTRY, LLC
         "nec", // nec NEC Corporation
@@ -1119,7 +1120,7 @@ public class DomainValidator implements Serializable {
         "sfr", // sfr Societe Francaise du Radiotelephone - SFR
         "shangrila", // shangrila Shangri‐La International Hotel Management Limited
         "sharp", // sharp Sharp Corporation
-        "shaw", // shaw Shaw Cablesystems G.P.
+//        "shaw", // shaw Shaw Cablesystems G.P.
         "shell", // shell Shell Information Technology International Inc
         "shia", // shia Asia Green IT System Bilgisayar San. ve Tic. Ltd. Sti.
         "shiksha", // shiksha Afilias Limited
