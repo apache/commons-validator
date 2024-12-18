@@ -343,26 +343,6 @@ public class IBANValidatorTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ibanRegistryV98Source")
-    public void validatorShouldExistWithProperConfiguration(String countryName, String countryCode, List<String> acountyCode, int ibanLength, String structure) throws Exception {
-        String countryInfo = " countryCode: " + countryCode + ", countryName: " + countryName;
-        Validator validator = IBANValidator.getInstance().getValidator(countryCode);
-
-        assertNotNull(validator, "IBAN validator returned null for" + countryInfo);
-        assertEquals(ibanLength, validator.getIbanLength(), "IBAN length should be " + ibanLength + " for" + countryInfo);
-
-        List<String> allPatterns = Arrays.stream(validator.getRegexValidator().getPatterns()).map(Pattern::pattern).collect(
-                Collectors.toList());
-
-        String re = fmtRE(structure.substring(2));
-        assertTrue(allPatterns.remove(countryCode + re), "No pattern " + countryCode + re + " found for " + countryInfo);
-        for (String ac : acountyCode) {
-            assertTrue(allPatterns.remove(ac + re), "No additional country code " + ac + " found for " + countryInfo);
-        }
-        assertTrue(allPatterns.isEmpty(), "Unrecognized patterns: " + allPatterns + " for" + countryInfo);
-    }
-
-    @ParameterizedTest
     @MethodSource("ibanRegistryV98SourceExamples")
     public void exampleAccountsShouldBeValid(String countryName, String example) {
         Assumptions.assumeFalse(INVALID_IBAN_FIXTURES.contains(example), "Skip invalid example: " + example + " for " + countryName);
@@ -456,5 +436,25 @@ public class IBANValidatorTest {
             assertTrue(IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(iban), "Checksum fail: " + iban);
             assertTrue(VALIDATOR.hasValidator(iban), "Missing validator: " + iban);
             assertTrue(VALIDATOR.isValid(iban), iban);
+    }
+
+    @ParameterizedTest
+    @MethodSource("ibanRegistryV98Source")
+    public void validatorShouldExistWithProperConfiguration(String countryName, String countryCode, List<String> acountyCode, int ibanLength, String structure) throws Exception {
+        String countryInfo = " countryCode: " + countryCode + ", countryName: " + countryName;
+        Validator validator = IBANValidator.getInstance().getValidator(countryCode);
+
+        assertNotNull(validator, "IBAN validator returned null for" + countryInfo);
+        assertEquals(ibanLength, validator.getIbanLength(), "IBAN length should be " + ibanLength + " for" + countryInfo);
+
+        List<String> allPatterns = Arrays.stream(validator.getRegexValidator().getPatterns()).map(Pattern::pattern).collect(
+                Collectors.toList());
+
+        String re = fmtRE(structure.substring(2));
+        assertTrue(allPatterns.remove(countryCode + re), "No pattern " + countryCode + re + " found for " + countryInfo);
+        for (String ac : acountyCode) {
+            assertTrue(allPatterns.remove(ac + re), "No additional country code " + ac + " found for " + countryInfo);
+        }
+        assertTrue(allPatterns.isEmpty(), "Unrecognized patterns: " + allPatterns + " for" + countryInfo);
     }
 }
