@@ -102,6 +102,7 @@ public class IBANValidatorTest {
             "FK88SC123456789012",
             "FO6264600001631634",
             "FR1420041010050500013M02606",
+            "FR1420041010050500013m02606", // lowercase version
               // FR 'other'
               "BL6820041010050500013M02606", // FR other
               "GF4120041010050500013M02606", // FR other
@@ -138,6 +139,7 @@ public class IBANValidatorTest {
             "LB62099900000001001901229114",
             "LC55HEMM000100010012001200023015",
             "LI21088100002324013AA",
+            "LI21088100002324013aa", // lowercase version
             "LT121000011101001000",
             "LU280019400644750000",
             "LY83002048000020100120361",
@@ -150,6 +152,7 @@ public class IBANValidatorTest {
             "MN121234123456789123",
             "MR1300020001010000123456753",
             "MT84MALT011000012345MTLCAST001S",
+            "MT84MALT011000012345mtlcast001s", // lowercase version
             "MU17BOMM0101101030300200000MUR",
             "NI45BAPR00000013000003558124",
             "NL91ABNA0417164300",
@@ -160,7 +163,9 @@ public class IBANValidatorTest {
             "PS92PALS000000000400123456702",
             "PT50000201231234567890154",
             "QA58DOHB00001234567890ABCDEFG",
+            "QA58DOHB00001234567890abcdefg", // lowercase version
             "RO49AAAA1B31007593840000",
+            "RO49AAAA1b31007593840000", // lowercase version
             "RS35260005601001611379",
             "RU0204452560040702810412345678901",
             "SA0380000000608010167519",
@@ -193,17 +198,14 @@ public class IBANValidatorTest {
             "   ",                     // empty
             "A",                       // too short
             "AB",                      // too short
-            "FR1420041010050500013m02606", // lowercase version
-            "MT84MALT011000012345mtlcast001s", // lowercase version
-            "LI21088100002324013aa", // lowercase version
-            "QA58DOHB00001234567890abcdefg", // lowercase version
-            "RO49AAAA1b31007593840000", // lowercase version
+            "LC62HEMM00010001001200120002301555555", // too long
             "LC62HEMM000100010012001200023015", // wrong in SWIFT
             "BY00NBRB3600000000000Z00AB00", // Wrong in SWIFT v73
             "ST68000200010192194210112", // ditto - invalid example
             "SV62CENR0000000000000700025", // ditto
             "NI04BAPR00000013000003558124", // invalid example
-            "RU1704452522540817810538091310419" // invalid example
+            "RU1704452522540817810538091310419", // invalid example
+            "ye15CBYE0001018861234567891234" // country lowercase
     );
     // @formatter:on
 
@@ -242,7 +244,7 @@ public class IBANValidatorTest {
         case 'a':
             return String.format("[A-Z]{%d}", len);
         case 'c':
-            return String.format("[A-Z0-9]{%d}", len);
+            return String.format("[A-Za-z0-9]{%d}", len);
         default:
             throw new IllegalArgumentException("Unexpected type " + type);
         }
