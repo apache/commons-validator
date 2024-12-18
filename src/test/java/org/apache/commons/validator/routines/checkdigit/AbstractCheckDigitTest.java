@@ -304,7 +304,7 @@ public abstract class AbstractCheckDigitTest {
     @Test
     public void testZeroSum() {
         assertFalse(routine.isValid(zeroSum), "isValid() Zero Sum");
-        Exception e = assertThrows(Exception.class, () -> routine.calculate(zeroSum), "Zero Sum");
+        final Exception e = assertThrows(Exception.class, () -> routine.calculate(zeroSum), "Zero Sum");
         assertEquals("Invalid code, sum is zero", e.getMessage(), "isValid() Zero Sum");
     }
 

@@ -86,17 +86,17 @@ public class ISBNValidatorTest {
      */
     @Test
     public void testConversionErrors() {
-        ISBNValidator validator = ISBNValidator.getInstance();
-        String input1 = "123456789 ";
+        final ISBNValidator validator = ISBNValidator.getInstance();
+        final String input1 = "123456789 ";
         assertThrows(IllegalArgumentException.class, () -> validator.convertToISBN13(input1), "Expected IllegalArgumentException for '" + input1 + "'");
 
-        String input2 = "12345678901";
+        final String input2 = "12345678901";
         assertThrows(IllegalArgumentException.class, () -> validator.convertToISBN13(input2), "Expected IllegalArgumentException for '" + input2 + "'");
 
-        String input3 = "";
+        final String input3 = "";
         assertThrows(IllegalArgumentException.class, () -> validator.convertToISBN13(input3), "Expected IllegalArgumentException for '" + input3 + "'");
 
-        String input4 = "X234567890";
+        final String input4 = "X234567890";
         assertThrows(IllegalArgumentException.class, () -> validator.convertToISBN13(input4), "Expected IllegalArgumentException for '" + input4 + "'");
     }
 

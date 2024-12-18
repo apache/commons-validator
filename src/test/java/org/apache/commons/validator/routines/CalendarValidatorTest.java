@@ -219,7 +219,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         assertEquals(1, calValidator.compareYears(value, cal20041231), "year GT"); // -1 year
 
         // invalid compare
-        Exception e = assertThrows(IllegalArgumentException.class, () -> calValidator.compare(value, value, -1), "Invalid Compare field");
+        final Exception e = assertThrows(IllegalArgumentException.class, () -> calValidator.compare(value, value, -1), "Invalid Compare field");
         assertEquals(e.getMessage(), "Invalid field: -1", "check message");
     }
 

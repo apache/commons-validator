@@ -57,13 +57,13 @@ public class ISSNValidatorTest {
      */
     @Test
     public void testConversionErrors() {
-        String input1 = "9780072129519";
+        final String input1 = "9780072129519";
         assertThrows(IllegalArgumentException.class, () -> VALIDATOR.extractFromEAN13(input1), "Expected IllegalArgumentException for '" + input1 + "'");
 
-        String input2 = "9791090636071";
+        final String input2 = "9791090636071";
         assertThrows(IllegalArgumentException.class, () -> VALIDATOR.extractFromEAN13(input2), "Expected IllegalArgumentException for '" + input2 + "'");
 
-        String input3 = "03178471";
+        final String input3 = "03178471";
         assertThrows(IllegalArgumentException.class, () -> VALIDATOR.extractFromEAN13(input3), "Expected IllegalArgumentException for '" + input3 + "'");
     }
 

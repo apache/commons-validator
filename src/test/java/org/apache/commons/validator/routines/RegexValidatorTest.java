@@ -117,7 +117,7 @@ public class RegexValidatorTest {
         assertEquals("Regular expressions are missing", e.getMessage(), "Null Array");
 
         // Multiple Regular Expression - Zero Length array
-        e = assertThrows(IllegalArgumentException.class, () -> new RegexValidator(), "Zero Length Array");
+        e = assertThrows(IllegalArgumentException.class, RegexValidator::new, "Zero Length Array");
         assertEquals("Regular expressions are missing", e.getMessage(), "Zero Length Array");
 
         // Multiple Regular Expression - Array has Null
