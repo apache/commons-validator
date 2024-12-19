@@ -180,6 +180,7 @@ public class IBANValidator {
             new Validator("GL", 18, "GL\\d{16}"),                             // Greenland
             new Validator("GR", 27, "GR\\d{9}[A-Z0-9]{16}"),                  // Greece
             new Validator("GT", 28, "GT\\d{2}[A-Z0-9]{24}"),                  // Guatemala
+            new Validator("HN", 28, "HN\\d{2}[A-Z]{4}\\d{20}"),               // Honduras, since Dec-24
             new Validator("HR", 21, "HR\\d{19}"),                             // Croatia
             new Validator("HU", 28, "HU\\d{26}"),                             // Hungary
             new Validator("IE", 22, "IE\\d{2}[A-Z]{4}\\d{14}"),               // Ireland
