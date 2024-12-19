@@ -19,28 +19,32 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Luhn Check Digit Test.
+ * BE VAT Id Check Digit Tests.
+ * <pre>
+
+    BE 0441826783 : gültig AG ROM, Industriestrasse 38, 4700 Eupen
+    BE 441826783 : dto neunstellig, nicht gültig (Länge wird nicht in VATidBECheckDigit, sondern in VATINValidator geprüft)
+    BE 0888888895 : gültig
+    BE 0136695962 : valide, aber ungültig
+    BE 0776091951 : valide, aber ungültig
+
+ * </pre>
  */
-public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
+public class VATidBECheckDigitTest extends AbstractCheckDigitTest {
 
-    private static final String VALID_VISA = "4417123456789113";
-    private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX = "378282246310005";
-    private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER = "6011000990139424";
-    private static final String VALID_DINERS = "30569309025904";
-    private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
-    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without Trailing "01"
-
-    /**
+    public VATidBECheckDigitTest() {
+        checkDigitLth = VATidBECheckDigit.CHECKDIGIT_LEN;
+    }
+   /**
      * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {
-
-        routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
-
-        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS
-            , VALID_IT_IVA_BANCA_ITALIA, VALID_SE_VATIN_OLLE_SVENSSONS, "12345678903", "10215", "12345670017"};
+        routine = VATidBECheckDigit.getInstance();
+        valid = new String[] {"1234567894"
+            , "441826783", "0441826783"
+            , "136695962", "0136695962"
+            , "0776091951", "0888888895"};
     }
+
 }
