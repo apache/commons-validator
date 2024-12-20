@@ -319,9 +319,9 @@
     </profile>
     <profile>
       <id>jdk9-cldr</id>
-      <!-- <activation>
+      <activation>
         <jdk>[1.9,)</jdk>
-      </activation> -->
+      </activation>
       <!--
        Temporary fix to allow tests to work under Java 9+, which changed to use CLDR names.
        This causes several Date/Time tests to fail, as some language strings have changed.
