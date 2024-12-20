@@ -33,8 +33,8 @@ import org.apache.commons.validator.ValidatorResult;
 import org.apache.commons.validator.ValidatorResults;
 import org.xml.sax.SAXException;
 
-/**                                                       
- * <p>A simple example of setting up and using the Validator.</p> 
+/**
+ * <p>A simple example of setting up and using the Validator.</p>
  *
  * This simple example shows all the steps needed to set up and use
  * the Validator.  Note that in most cases, some kind of framework
@@ -46,8 +46,8 @@ import org.xml.sax.SAXException;
 public class ValidateExample {
 
     /**
-     * We need a resource bundle to get our field names and errors messages 
-     * from.  Note that this is not strictly required to make the Validator 
+     * We need a resource bundle to get our field names and errors messages
+     * from.  Note that this is not strictly required to make the Validator
      * work, but is a good coding practice.
      */
     private static ResourceBundle apps =
@@ -60,12 +60,12 @@ public class ValidateExample {
      */
     public static void main(String[] args)
         throws ValidatorException, IOException, SAXException {
-            
+
         InputStream in = null;
         ValidatorResources resources = null;
-        
+
         try {
-        
+
             // Create a new instance of a ValidatorResource, then get a stream
             // handle on the XML file with the actions in it, and initialize the
             // resources from it.  This would normally be done by a servlet
@@ -73,33 +73,33 @@ public class ValidateExample {
             // routine.
             in = ValidateExample.class.getResourceAsStream("validator-example.xml");
             resources = new ValidatorResources(in);
-            
+
         } finally {
             // Make sure we close the input stream.
             if (in != null) {
                 in.close();
             }
         }
-        
+
         // Create a test bean to validate against.
         ValidateBean bean = new ValidateBean();
-        
+
         // Create a validator with the ValidateBean actions for the bean
         // we're interested in.
         Validator validator = new Validator(resources, "ValidateBean");
-        
+
         // Tell the validator which bean to validate against.
         validator.setParameter(Validator.BEAN_PARAM, bean);
-        
+
         ValidatorResults results = null;
-        
+
         // Run the validation actions against the bean.  Since all of the properties
         // are null, we expect them all to error out except for street2, which has
         // no validations (it's an optional property)
-        
+
         results = validator.validate();
         printResults(bean, results, resources);
-        
+
         // Now set all the required properties, but make the age a non-integer.
         // You'll notice that age will pass the required test, but fail the int
         // test.
@@ -112,12 +112,12 @@ public class ValidateExample {
         bean.setAge("Too Old");
         results = validator.validate();
         printResults(bean, results, resources);
-        
+
         // Now only report failed fields
         validator.setOnlyReturnErrors(true);
         results = validator.validate();
         printResults(bean, results, resources);
-        
+
         // Now everything should pass.
         validator.setOnlyReturnErrors(false);
         bean.setAge("123");
@@ -132,7 +132,7 @@ public class ValidateExample {
         ValidateBean bean,
         ValidatorResults results,
         ValidatorResources resources) {
-            
+
         boolean success = true;
 
         // Start by getting the form for the current locale and Bean.

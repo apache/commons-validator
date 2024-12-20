@@ -143,7 +143,7 @@ public class IBANValidator {
      * Note: the IBAN PDF registry file implies that IBANs can contain lower-case letters.
      * However, several other documents state that IBANs must be upper-case only.
      * [See the comment block following this array.]
-     * 
+     *
      * In the Regexes below, only upper-case is used.
      */
     private static final Validator[] DEFAULT_VALIDATORS = {                   //
