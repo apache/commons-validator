@@ -43,7 +43,7 @@ Changes
 *                 Bump org.apache.commons:commons-csv from 1.10.0 to 1.11.0 #214. Thanks to Dependabot.
 
 
-Historical list of changes: http://commons.apache.org/proper/commons-validator/changes-report.html
+Historical list of changes: http://commons.apache.org/proper/commons-validator/changes.html
 
 Enjoy!
 -Apache Commons Validator team
@@ -117,7 +117,7 @@ Removed
 
 *                 Remove FindBugs, SpotBugs is in use #87. Thanks to John Patrick, Gary Gregory.
 
-Historical list of changes: http://commons.apache.org/proper/commons-validator/changes-report.html
+Historical list of changes: http://commons.apache.org/proper/commons-validator/changes.html
 
 Enjoy!
 -Apache Commons Validator team
@@ -214,7 +214,7 @@ Changes
 * VALIDATOR-428:  Update commons digester to 2.1 Thanks to Matthew Zavislak.
 
 
-Historical list of changes: http://commons.apache.org/proper/commons-validator/changes-report.html
+Historical list of changes: http://commons.apache.org/proper/commons-validator/changes.html
 
 Enjoy!
 - The Apache Commons Validator team

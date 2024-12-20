@@ -40,9 +40,9 @@ and commit
 The <action> type attribute can be add,update,fix,remove.
 -->
 
-<document xmlns="http://maven.apache.org/changes/1.0.0"
+<document xmlns="http://maven.apache.org/changes/2.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/changes/2.0.0 https://maven.apache.org/xsd/changes-2.0.0.xsd">
   <properties>
     <title>Release Notes</title>
   </properties>
@@ -85,6 +85,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="add" dev="ggregory" due-to="nullwli, Gary Gregory">Add Validator.getParameters()</action>
     <action type="add" dev="ggregory" due-to="nullwli, Gary Gregory">Add Validator.getResources()</action>
     <!-- UPDATE -->
+    <action type="update" dev="sjaranowski" due-to="Slawomir Jaranowski">Bump org.apache.commons:commons-parent from 78 to 79, fix changes.xml format for new plugin version</action>
     <action type="update" dev="sebb">DomainValidator: Changes from 2024121700, Last Updated Tue Dec 17 07:07:01 2024 UTC.</action>
     <action type="update" dev="sebb">IBANValidatorTest: parameterise SWIFT registry version; update to v99</action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-parent from 70 to 78 #231, #245, #253, #256, #262, #267, #272, #278.</action>
@@ -790,10 +791,8 @@ http://commons.apache.org/validator/dependencies.html
     <action dev="niallp" type="fix" issue="VALIDATOR-208" due-to="Leo Asanov">
     JavaScript function jcv_isFieldPresent() causes error in IE5 using "undefined".
     </action>
-    <action dev="niallp" type="fix" issue="VALIDATOR-190">
+    <action dev="niallp" type="fix" issue="VALIDATOR-190" due-to="Cott, Gabriel Belingueres">
     EmailValidator allows control characters (ASCII 0-31 and 127).
-    <dueto name="Cott"/>
-    <dueto name="Gabriel Belingueres"/>
     </action>
     <action dev="niallp" type="fix" issue="VALIDATOR-210" due-to="Neil Sherman">
     JavaScript Causes HTML Page to Contain Illegal HTML.
@@ -838,7 +837,7 @@ http://commons.apache.org/validator/dependencies.html
     <action dev="niallp" type="fix" issue="VALIDATOR-60" due-to="Yugandhar">
      Change JavaScript validators to cater for disabled being undefined (an issue in Netscape 4.7).
     </action>
-    <action dev="niallp" type="add">
+    <action dev="niallp" type="add"><![CDATA[
      <p>Add new routines package containing standard validations - first
       step in the process of clearly separating standard validation
       functions which can be used independently, from the framework
@@ -847,7 +846,7 @@ http://commons.apache.org/validator/dependencies.html
       Integer, Long, Float, Double, BigInteger, BigDecimal,
       Currency and Percent.</p>
      <p>See <a href="apidocs/org/apache/commons/validator/routines/package-summary.html">
-      Routines Package Javadocs</a></p>
+      Routines Package Javadocs</a></p>]]>
     </action>
     <action dev="niallp" type="add" issue="VALIDATOR-30">
      Deprecate ValidatorResult's getActionMap() and add getActions()
@@ -864,11 +863,9 @@ http://commons.apache.org/validator/dependencies.html
      the likelihood of clashes with other libraries - validator still
      needs to be properly namespaced (as per Bug 38184).
     </action>
-    <action dev="niallp" type="fix" issue="VALIDATOR-163">
+    <action dev="niallp" type="fix" issue="VALIDATOR-163" due-to="Andrew Berridge,Paul Benedict">
      Change JavaScript validators so that they don't fail when the
      field is not present on the form.
-    <dueto name="Andrew Berridge"/>
-    <dueto name="Paul Benedict"/>
     </action>
     <action dev="niallp" type="fix" issue="VALIDATOR-25" due-to="Alan Olmanson">
      Fix min/max length validation for different line endings.
@@ -886,19 +883,15 @@ http://commons.apache.org/validator/dependencies.html
      Resolve issue in JavaScript validation when the prototype library
      is used.
     </action>
-    <action dev="niallp" type="fix">
+    <action dev="niallp" type="fix" fixed-issues="VALIDATOR-97, VALIDATOR-81" due-to="Matt Bathje, Paul Benedict">
      Re-factor JavaScript error handling into a common method and only
      set focus on fields which are not 'hidden' type or hidden by CSS.
-    <fixes issue="VALIDATOR-97"/>
-    <fixes issue="VALIDATOR-81"/>
-    <dueto name="Matt Bathje"/>
-    <dueto name="Paul Benedict"/>
     </action>
-    <action dev="niallp" type="fix">
+    <action dev="niallp" type="fix"><![CDATA[
      Remove static Log instances to avoid problems if deployed via a shared
      classloader in a container. See
      <a href="http://wiki.apache.org/commons/Logging/StaticLog">here</a>
-     for more details.
+     for more details.]]>
     </action>
     <action dev="niallp" type="fix" issue="VALIDATOR-39">
      Reverse change for to Credit Card Validator for visa card blue in France.
@@ -913,7 +906,7 @@ http://commons.apache.org/validator/dependencies.html
     <action dev="dgraham" type="add" issue="VALIDATOR-145">
     Added ISBNValidator for validating book numbers.
     </action>
-    <action dev="dgraham" type="update">
+    <action dev="dgraham" type="update"><![CDATA[
     Upgrade dependency versions to
     <a href="http://commons.apache.org/beanutils/">Commons BeanUtils</a> 1.7.0,
     <a href="http://commons.apache.org/digester/">Commons Digester</a> 1.6
@@ -921,7 +914,7 @@ http://commons.apache.org/validator/dependencies.html
     Remove dependency on
     <a href="http://commons.apache.org/beanutils/">Commons Collections</a>
     (BeanUtils 1.7.0 has removed its dependency on Collections by including the
-     few Collections classes required in its distribution).
+     few Collections classes required in its distribution).]]>
     </action>
     <action dev="husted" type="add" issue="VALIDATOR-135">
     Add support for min or max numeric values.
@@ -942,10 +935,9 @@ http://commons.apache.org/validator/dependencies.html
     Deprecated all FastHashMap usage and provided protected get
     methods that return generic Maps to be used by subclasses.
     </action>
-    <action dev="mrdon" type="fix">
+    <action dev="mrdon" type="fix" issue="VALIDATOR-124"><![CDATA[
     Handling of float and double should use the locale object.
-    Fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=21282">21282</a>
-    <fixes issue="VALIDATOR-124"/>
+    Fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=21282">21282</a>]]>
     </action>
     <action dev="mrdon" type="update" issue="VALIDATOR-181">
     More informative Exception message when validation method not found.
@@ -956,24 +948,20 @@ http://commons.apache.org/validator/dependencies.html
     <action dev="mrdon" type="fix" issue="VALIDATOR-101">
     EmailValidator allows apostrophes in domain name.
     </action>
-    <action dev="mrdon" type="fix">
+    <action dev="mrdon" type="fix"><![CDATA[
     Changing the strategy for locating form name/id, now use a common utility
     function which works in both IE and Firefox.
     Fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=35127">35127</a>
-    and <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=35127">32760</a>
+    and <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=35127">32760</a>]]>
     </action>
-    <action dev="mrdon" type="fix">
+    <action dev="mrdon" type="fix" fixed-issues="VALIDATOR-73,VALIDATOR-80">
     Validation fails when "name" attribute in form not specified.
-    <fixes issue="VALIDATOR-80"/>
-    <fixes issue="VALIDATOR-73"/>
     </action>
     <action dev="mrdon" type="fix" issue="VALIDATOR-27">
     UrlValidator fails http://www.google.com.
     </action>
-    <action dev="mrdon" type="fix">
+    <action dev="mrdon" type="fix" fixed-issues="VALIDATOR-44,VALIDATOR-114">
     Email: inexisting dashes and TLD erroneously accepted.
-    <fixes issue="VALIDATOR-114"/>
-    <fixes issue="VALIDATOR-44"/>
     </action>
     <action dev="mrdon" type="fix" issue="VALIDATOR-1">
     Float validator can't validate the string with several dot.
@@ -990,10 +978,8 @@ http://commons.apache.org/validator/dependencies.html
     <action dev="mrdon" type="fix" issue="VALIDATOR-158">
     Field.validate() cannot be invoked from user-defined code.
     </action>
-    <action dev="mrdon" type="fix">
+    <action dev="mrdon" type="fix" fixed-issues="VALIDATOR-61,VALIDATOR-179">
     Locale validation doesn't validate all fields.
-    <fixes issue="VALIDATOR-61"/>
-    <fixes issue="VALIDATOR-179"/>
     </action>
     <action dev="mrdon" type="fix" issue="VALIDATOR-161">
     XML file included into validation.xml via entity reference not found.
@@ -1060,10 +1046,10 @@ http://commons.apache.org/validator/dependencies.html
     Javascript validation doesn't work if a form field is
     called "name".
     </action>
-    <action dev="rleland" type="update">
+    <action dev="rleland" type="update"><![CDATA[
     Allow multiple forms to be on the same page by
     generating a unique variable name based on form name.
-    Fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=17667">17667</a>
+    Fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=17667">17667</a>]]>
     </action>
     <action dev="rleland" type="add" issue="VALIDATOR-152">
     Validate file extensions for file uploads.
@@ -1097,9 +1083,9 @@ http://commons.apache.org/validator/dependencies.html
   </release>
 
   <release version="1.1.1 (alpha)" date="2003-12-15" description="1.1 Alpha">
-    <action dev="rleland" type="add">
+    <action dev="rleland" type="add"><![CDATA[
     Add javadoc to javascript, and use
-    <a href="http://jsdoc.sf.net"> jsdoc</a> to process it.
+    <a href="http://jsdoc.sf.net"> jsdoc</a> to process it.]]>
     </action>
     <action dev="rleland" type="fix">
     Ignore validation criteria when field is disabled for all field types.
@@ -1145,21 +1131,21 @@ http://commons.apache.org/validator/dependencies.html
     Validate validation.xml files while initializing a Validator
     to alert developers to configuration errors.
     </action>
-    <action dev="dgraham" type="add">
+    <action dev="dgraham" type="add"><![CDATA[
     Refactored <code>GenericValidator</code> methods into reusable
     objects.  These include: CreditCardValidator, EmailValidator,
-    DateValidator, and UrlValidator.
+    DateValidator, and UrlValidator.]]>
     </action>
-    <action dev="dgraham" type="update">
+    <action dev="dgraham" type="update"><![CDATA[
     <p><strong>Backwards Incompatible Changes</strong></p>
     <ul>
       <li>
         &lt;msg&gt;'s name and key attributes are now required.  The Validator code was
         enforcing this constraint so now it's formally defined in the DTD.
       </li>
-    </ul>
+    </ul>]]>
     </action>
-    <action dev="dgraham" type="remove">
+    <action dev="dgraham" type="remove"><![CDATA[
       <p>Deprecated items; see the javadoc for details and replacements.</p>
     <ul>
       <li>
@@ -1293,7 +1279,7 @@ http://commons.apache.org/validator/dependencies.html
       <li>
          <code>ValidatorUtil</code>
       </li>
-    </ul>
+    </ul>]]>
     </action>
   </release>
 
