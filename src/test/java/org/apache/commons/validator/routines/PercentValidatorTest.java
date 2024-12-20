@@ -33,9 +33,11 @@ import org.junit.jupiter.api.Test;
 public class PercentValidatorTest {
 
     protected PercentValidator validator;
+    private Locale originalLocale;
 
     @BeforeEach
     protected void setUp() {
+        originalLocale = Locale.getDefault();
         validator = new PercentValidator();
     }
 
@@ -44,6 +46,7 @@ public class PercentValidatorTest {
      */
     @AfterEach
     protected void tearDown() {
+        Locale.setDefault(originalLocale);
         validator = null;
     }
 
@@ -84,7 +87,6 @@ public class PercentValidatorTest {
     @Test
     public void testValid() {
         // Set the default Locale
-        final Locale origDefault = Locale.getDefault();
         Locale.setDefault(Locale.UK);
 
         final BigDecimalValidator validator = PercentValidator.getInstance();
@@ -106,9 +108,6 @@ public class PercentValidatorTest {
         assertEquals(expected, validator.validate("12", Locale.US), "US No symbol");
 
         assertEquals(hundred, validator.validate("100%"), "100%");
-
-        // Restore the original default
-        Locale.setDefault(origDefault);
     }
 
 }

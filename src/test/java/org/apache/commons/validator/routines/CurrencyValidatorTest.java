@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,10 +38,18 @@ public class CurrencyValidatorTest {
     private String usDollar;
     private String ukPound;
 
+    private Locale originalLocale;
+
     @BeforeEach
     protected void setUp() {
+        originalLocale = Locale.getDefault();
         usDollar = new DecimalFormatSymbols(Locale.US).getCurrencySymbol();
         ukPound = new DecimalFormatSymbols(Locale.UK).getCurrencySymbol();
+    }
+
+    @AfterEach
+    protected void tearDown() {
+        Locale.setDefault(originalLocale);
     }
 
     /**
@@ -74,7 +83,6 @@ public class CurrencyValidatorTest {
     @Test
     public void testIntegerValid() {
         // Set the default Locale
-        final Locale origDefault = Locale.getDefault();
         Locale.setDefault(Locale.UK);
 
         final CurrencyValidator validator = new CurrencyValidator();
@@ -88,9 +96,6 @@ public class CurrencyValidatorTest {
 
         assertEquals(expected, validator.validate(usDollar + "1,234", Locale.US), "US locale");
         assertEquals(negative, validator.validate("(" + usDollar + "1,234)", Locale.US), "US negative");
-
-        // Restore the original default
-        Locale.setDefault(origDefault);
     }
 
     /**
@@ -121,7 +126,6 @@ public class CurrencyValidatorTest {
     @Test
     public void testPattern() {
         // Set the default Locale
-        final Locale origDefault = Locale.getDefault();
         Locale.setDefault(Locale.UK);
 
         final BigDecimalValidator validator = CurrencyValidator.getInstance();
@@ -145,9 +149,6 @@ public class CurrencyValidatorTest {
         // invalid
         assertFalse(validator.isValid(usDollar + "1,234.567", pattern), "invalid symbol");
         assertFalse(validator.isValid(ukPound + "1,234.567", pattern, Locale.US), "invalid symbol");
-
-        // Restore the original default
-        Locale.setDefault(origDefault);
     }
 
     /**
@@ -156,7 +157,6 @@ public class CurrencyValidatorTest {
     @Test
     public void testValid() {
         // Set the default Locale
-        final Locale origDefault = Locale.getDefault();
         Locale.setDefault(Locale.UK);
 
         final BigDecimalValidator validator = CurrencyValidator.getInstance();
@@ -180,8 +180,5 @@ public class CurrencyValidatorTest {
         assertEquals(oneDecimal, validator.validate(usDollar + "1,234.5", Locale.US), "US 1 decimal");
         assertEquals(expected, validator.validate(usDollar + "1,234.567", Locale.US), "US 3 decimal");
         assertEquals(expected, validator.validate("1,234.56", Locale.US), "US no symbol");
-
-        // Restore the original default
-        Locale.setDefault(origDefault);
     }
 }

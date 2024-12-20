@@ -66,8 +66,11 @@ public abstract class AbstractNumberValidatorTest {
     protected Locale testLocale;
     protected Number localeExpected;
 
+    private Locale originalLocale;
+
     @BeforeEach
     protected void setUp() {
+        originalLocale = Locale.getDefault();
         Locale.setDefault(Locale.US);
     }
 
@@ -76,6 +79,7 @@ public abstract class AbstractNumberValidatorTest {
      */
     @AfterEach
     protected void tearDown() {
+        Locale.setDefault(originalLocale);
         validator = null;
         strictValidator = null;
     }

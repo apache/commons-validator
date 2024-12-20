@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -43,11 +44,18 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     private static final int TIME_12_03_45 = 120345;
 
     private CalendarValidator calValidator;
+    private Locale originalLocale;
 
     @BeforeEach
     protected void setUp() {
+        originalLocale = Locale.getDefault();
         calValidator = new CalendarValidator();
         validator = calValidator;
+    }
+
+    @AfterEach
+    protected void tearDown() {
+        Locale.setDefault(originalLocale);
     }
 
     /**
@@ -228,8 +236,6 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
      */
     @Test
     public void testDateTimeStyle() {
-        // Set the default Locale
-        final Locale origDefault = Locale.getDefault();
         Locale.setDefault(Locale.UK);
 
         final AbstractCalendarValidator dateTimeValidator = new AbstractCalendarValidator(true, DateFormat.SHORT, DateFormat.SHORT) {
@@ -242,9 +248,6 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         };
         assertTrue(dateTimeValidator.isValid("31/12/05 14:23"), "validate(A) default");
         assertTrue(dateTimeValidator.isValid("12/31/05 2:23 PM", Locale.US), "validate(A) locale ");
-
-        // Restore the original default
-        Locale.setDefault(origDefault);
     }
 
     /**
@@ -254,7 +257,6 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     @Test
     public void testFormat() {
         // Set the default Locale
-        final Locale origDefault = Locale.getDefault();
         Locale.setDefault(Locale.UK);
 
         final Calendar cal20050101 = createCalendar(GMT, 20051231, 11500);
@@ -271,9 +273,6 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         assertEquals(calValidator.format(cal20050101, "yyyy-MM-dd HH:mm", EST), "2005-12-30 20:15", "EST patternA");
         assertEquals(calValidator.format(cal20050101, "yyyy-MM-dd z", EST), "2005-12-30 EST", "EST patternB");
         assertEquals("30 Dez 2005", calValidator.format(cal20050101, "dd MMM yyyy", Locale.GERMAN, EST), "EST both");
-
-        // Restore the original default
-        Locale.setDefault(origDefault);
     }
 
 }
