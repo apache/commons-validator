@@ -375,6 +375,12 @@ public class IBANValidatorTest {
         assertFalse(VALIDATOR.isValid(invalidIban), invalidIban);
     }
 
+    @ParameterizedTest
+    @FieldSource("VALID_IBAN_FIXTURES")
+    public void testMoreValid(final String invalidIban) {
+        assertTrue(VALIDATOR.isValid(invalidIban), invalidIban);
+    }
+
     @Test
     public void testNull() {
         assertFalse(VALIDATOR.isValid(null), "isValid(null)");
