@@ -96,7 +96,7 @@
           <artifactId>apache-rat-plugin</artifactId>
           <configuration>
             <excludes combine.children="append">
-              <exclude>src/test/resources/org/apache/commons/validator/routines/iban_registry_v98.txt</exclude>
+              <exclude>src/test/resources/org/apache/commons/validator/routines/iban_registry_v*.txt</exclude>
             </excludes>
           </configuration>
         </plugin>
