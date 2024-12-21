@@ -92,16 +92,16 @@ public class VarTest extends AbstractCommonTest {
         assertEquals("value-2-1", var21.getValue(), "var-2-1 value is wrong");
         assertEquals("jstype-2-1", var21.getJsType(), "var-2-1 jstype is wrong");
         assertTrue(var21.isResource(), "var-2-1 resource is false");
-        assertEquals(var21.getBundle(), "bundle-2-1", "var-2-1 bundle is wrong");
+        assertEquals("bundle-2-1", var21.getBundle(), "var-2-1 bundle is wrong");
 
         // Get var-2-2
         final Var var22 = field2.getVar("var-2-2");
         assertNotNull(var22, "var-2-2 is null.");
-        assertEquals(var22.getName(), "var-2-2", "var-2-2 name is wrong");
-        assertEquals(var22.getValue(), "value-2-2", "var-2-2 value is wrong");
+        assertEquals("var-2-2", var22.getName(), "var-2-2 name is wrong");
+        assertEquals("value-2-2", var22.getValue(), "var-2-2 value is wrong");
         assertNull(var22.getJsType(), "var-2-2 jstype is not null");
         assertFalse(var22.isResource(), "var-2-2 resource is true");
-        assertEquals(var22.getBundle(), "bundle-2-2", "var-2-2 bundle is wrong");
+        assertEquals("bundle-2-2", var22.getBundle(), "var-2-2 bundle is wrong");
 
     }
 

@@ -240,9 +240,9 @@ public class RegexValidatorTest {
         assertFalse(insensitive.isValid("ABd-de-1"), "Insensitive isValid() invalid");
 
         // validate()
-        assertEquals(sensitive.validate("ac-DE-1"), "acDE1", "Sensitive validate() valid");
+        assertEquals("acDE1", sensitive.validate("ac-DE-1"), "Sensitive validate() valid");
         assertNull(sensitive.validate("AB-de-1"), "Sensitive validate() invalid");
-        assertEquals(insensitive.validate("AB-de-1"), "ABde1", "Insensitive validate() valid");
+        assertEquals("ABde1", insensitive.validate("AB-de-1"), "Insensitive validate() valid");
         assertNull(insensitive.validate("ABd-de-1"), "Insensitive validate() invalid");
 
         // match()
@@ -250,7 +250,7 @@ public class RegexValidatorTest {
         checkArray("Sensitive match() invalid", null, sensitive.match("AB-de-1"));
         checkArray("Insensitive match() valid", new String[] { "AB", "de", "1" }, insensitive.match("AB-de-1"));
         checkArray("Insensitive match() invalid", null, insensitive.match("ABd-de-1"));
-        assertEquals(new RegexValidator("^([A-Z]*)$").validate("ABC"), "ABC", "validate one");
+        assertEquals("ABC", new RegexValidator("^([A-Z]*)$").validate("ABC"), "validate one");
         checkArray("match one", new String[] { "ABC" }, new RegexValidator("^([A-Z]*)$").match("ABC"));
     }
 
@@ -260,10 +260,10 @@ public class RegexValidatorTest {
     @Test
     public void testToString() {
         final RegexValidator single = new RegexValidator(REGEX);
-        assertEquals(single.toString(), "RegexValidator{" + REGEX + "}", "Single");
+        assertEquals("RegexValidator{" + REGEX + "}", single.toString(), "Single");
 
         final RegexValidator multiple = new RegexValidator(REGEX, REGEX);
-        assertEquals(multiple.toString(), "RegexValidator{" + REGEX + "," + REGEX + "}", "Multiple");
+        assertEquals("RegexValidator{" + REGEX + "," + REGEX + "}", multiple.toString(), "Multiple");
     }
 
 }

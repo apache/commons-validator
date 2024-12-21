@@ -52,7 +52,7 @@ public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
         assertFalse(routine.isValid("12345678901234"), "isValid() Lth 14");
 
         Exception e = assertThrows(CheckDigitException.class, () -> routine.calculate("12345678"), "calculate() Lth 8");
-        assertEquals(e.getMessage(), "Invalid ISBN Length = 8", "calculate() Lth 8");
+        assertEquals("Invalid ISBN Length = 8", e.getMessage(), "calculate() Lth 8");
 
         e = assertThrows(CheckDigitException.class, () -> routine.calculate("1234567890"), "calculate() Lth 10");
         assertEquals("Invalid ISBN Length = 10", e.getMessage(), "calculate() Lth 10");
