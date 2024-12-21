@@ -64,6 +64,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
   <release version="1.10.0" date="YYYY-MM-DD" description="This is a maintenance and bug fix release; requires Java 8.">
     <!-- FIX -->
+    <action type="fix" dev="sebb">Locale-dependent tests: calculate expected results as output varies between JVMs</action>
     <action type="fix" dev="sebb">Locale default tests: ensure original is restored on failure</action>
     <action type="fix" dev="ggregory" due-to="Johannes Weberhofer">Fix order of actual and expected parameters in assertEquals() #246.</action>
     <action type="fix" dev="ggregory" due-to="Johannes Weberhofer">InetAddressValidator does not need its instance variable, so uses a touch less memory.</action>

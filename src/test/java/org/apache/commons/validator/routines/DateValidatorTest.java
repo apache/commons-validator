@@ -19,16 +19,16 @@ package org.apache.commons.validator.routines;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.apache.commons.lang3.SystemProperties;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -139,8 +139,12 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
         final Locale locale = Locale.GERMAN;
         final String pattern = "yyyy-MM-dd";
         final String patternVal = "2005-12-31";
-        final String germanVal = "31 Dez 2005";
         final String germanPattern = "dd MMM yyyy";
+        // Don't rely on specific German format - it varies between JVMs
+        final DateFormat df = new SimpleDateFormat(germanPattern, locale);
+        final Calendar cal = Calendar.getInstance(Locale.US);
+        cal.set(2005, 11, 31); // month is 0-based
+        final String germanVal = df.format(cal.getTime());
         final String localeVal = "31.12.2005";
         final String defaultVal = "12/31/05";
         final String xxxx = "XXXX";
@@ -175,21 +179,5 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
         assertEquals(expectedZone, DateValidator.getInstance().validate(localeVal, locale, zone), "validate(C) locale ");
         assertEquals(expectedZone, DateValidator.getInstance().validate(patternVal, pattern, zone), "validate(C) pattern");
         assertEquals(expectedZone, DateValidator.getInstance().validate(germanVal, germanPattern, Locale.GERMAN, zone), "validate(C) both");
-    }
-
-    /**
-     * Check that locale providers are set up correctly If not, the parse will fail
-     */
-    @Test
-    public void testLocaleProviders() throws Exception {
-        final String localeProviders = SystemProperties.getJavaLocaleProviders();
-        if (localeProviders != null) { // may be null before Java 9
-            assertTrue(localeProviders.startsWith("COMPAT"), "java.locale.providers must start with COMPAT");
-        }
-        final String txt = "3/20/15 10:59:00 PM"; // This relies on the locale format prior to Java 9 to parse correctly
-        final DateFormat dateformat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, Locale.US);
-        dateformat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        final Date date = dateformat.parse(txt);
-        assertNotNull(date);
     }
 }

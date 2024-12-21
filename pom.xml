@@ -64,7 +64,7 @@
     <commons.jacoco.instructionRatio>0.87</commons.jacoco.instructionRatio>
     <commons.jacoco.methodRatio>0.81</commons.jacoco.methodRatio>
     <commons.jacoco.branchRatio>0.74</commons.jacoco.branchRatio>
-    <commons.jacoco.lineRatio>0.78</commons.jacoco.lineRatio>    
+    <commons.jacoco.lineRatio>0.78</commons.jacoco.lineRatio>
     <commons.jacoco.complexityRatio>0.71</commons.jacoco.complexityRatio>
   </properties>
 
@@ -316,37 +316,6 @@
         </plugins>
       </build>
     </profile>
-    <profile>
-      <id>jdk9-cldr</id>
-      <activation>
-        <jdk>[1.9,)</jdk>
-      </activation>
-      <!--
-       Temporary fix to allow tests to work under Java 9+, which changed to use CLDR names.
-       This causes several Date/Time tests to fail, as some language strings have changed.
-       e.g. German now uses "Dez." rather than "Dez" for the short version of "December"
-       (see: TimeValidatorTest#testTimeZone)
-       Is the test data wrong, or should the code still be able to parse "Dez"?
-      -->
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <!--
-                systemPropertyVariables are set too late in Surefire
-                versions after 2.21.0 and before 3.0-M4 (but only on Windows!)
-                Use the command-line instead to ensure the property is set early enough
-                
-                Use ${argLine} to get JaCoCo to work properly.
-              -->
-              <argLine>${argLine} -Djava.locale.providers=COMPAT,SPI</argLine>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
   </profiles>
 
   <developers>
@@ -426,7 +395,7 @@
       <email>ggregory at apache.org</email>
       <url>https://www.garygregory.com</url>
       <organization>The Apache Software Foundation</organization>
-      <organizationUrl>https://www.apache.org/</organizationUrl>      
+      <organizationUrl>https://www.apache.org/</organizationUrl>
       <roles>
         <role>PMC Member</role>
       </roles>
