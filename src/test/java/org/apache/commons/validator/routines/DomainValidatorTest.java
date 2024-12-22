@@ -263,6 +263,7 @@ public class DomainValidatorTest {
     // Download and process local copy of https://data.iana.org/TLD/tlds-alpha-by-domain.txt
     // Check if the internal TLD table is up to date
     // Check if the internal TLD tables have any spurious entries
+    // Can be invoked as: mvn -PDomainValidatorTest
     public static void main(final String[] a) throws Exception {
         // Check the arrays first as this affects later checks
         // Doing this here makes it easier when updating the lists

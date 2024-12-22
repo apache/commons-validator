@@ -316,6 +316,55 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <!--
+        Easily run DomainValidatorTest:
+
+        mvn -PDomainValidatorTest
+      -->
+      <id>DomainValidatorTest</id>
+      <properties>
+        <!-- No need for these here -->
+        <rat.skip>true</rat.skip>
+        <enforcer.skip>true</enforcer.skip>
+      </properties>
+      <build>
+        <defaultGoal>exec:java</defaultGoal>
+        <plugins>
+          <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>exec-maven-plugin</artifactId>
+              <version>1.2.1</version>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>java</goal>
+                      </goals>
+                  </execution>
+              </executions>
+              <configuration>
+                <mainClass>org.apache.commons.validator.routines.DomainValidatorTest</mainClass>
+                <classpathScope>test</classpathScope>
+              </configuration>
+          </plugin>
+          <!-- Also suppress the build plan check -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-artifact-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>check-buildplan</id>
+                <!-- This won't be run -->
+                <phase>deploy</phase>
+                <goals>
+                  <goal>check-buildplan</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>      
+        </plugins>
+       </build>
+    </profile>
   </profiles>
 
   <developers>
