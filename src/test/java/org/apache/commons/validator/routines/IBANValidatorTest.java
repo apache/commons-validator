@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.Reader;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -63,7 +63,18 @@ public class IBANValidatorTest {
     private static final Pattern IBAN_PAT = Pattern
             .compile(IBAN_PART + IBAN_PART + IBAN_PART + IBAN_PART + "?" + IBAN_PART + "?" + IBAN_PART + "?" + IBAN_PART + "?");
 
+    /*
+     * The IBAN registry should be available from here:
+     * https://www.swift.com/standards/data-standards/iban-international-bank-account-number
+     * Care must be taken not to accidentally change the encoding, which for v99 appears to be Windows-1252 (cp1252)
+     * (N.B. even this encoding may not properly account for all characters)
+     * Please ensure you download from the page (right-click), and do not edit the file after download, as that may
+     * change the contents.
+     * At present the code does not need the entries which are likely to contain non-ASCII characters, but a corrupt
+     * file helps no-one.
+     */
     private static final String IBAN_REGISTRY = "iban_registry_v99.txt";
+    private static final Charset IBAN_REGISTRY_CHARSET = Charset.forName("windows-1252");
 
     // It's not clear whether IBANs can contain lower case characters
     // so we test for both where possible
@@ -255,7 +266,7 @@ public class IBANValidatorTest {
         final Path ibanRegistry = Paths.get(IBANValidator.class.getResource(IBAN_REGISTRY).toURI());
 
         final CSVFormat format = CSVFormat.DEFAULT.builder().setDelimiter('\t').build();
-        final Reader rdr = Files.newBufferedReader(ibanRegistry, StandardCharsets.ISO_8859_1);
+        final Reader rdr = Files.newBufferedReader(ibanRegistry, IBAN_REGISTRY_CHARSET);
 
         CSVRecord country = null;
         CSVRecord cc = null;
@@ -313,7 +324,7 @@ public class IBANValidatorTest {
         final Path ibanRegistry = Paths.get(IBANValidator.class.getResource(IBAN_REGISTRY).toURI());
 
         final CSVFormat format = CSVFormat.DEFAULT.builder().setDelimiter('\t').build();
-        final Reader rdr = Files.newBufferedReader(ibanRegistry, StandardCharsets.ISO_8859_1);
+        final Reader rdr = Files.newBufferedReader(ibanRegistry, IBAN_REGISTRY_CHARSET);
 
         CSVRecord country = null;
         CSVRecord electronicExample = null;
@@ -372,12 +383,14 @@ public class IBANValidatorTest {
     @ParameterizedTest
     @FieldSource("INVALID_IBAN_FIXTURES")
     public void testInValid(final String invalidIban) {
+        assertNotNull(INVALID_IBAN_FIXTURES); // ensure field is marked as being used
         assertFalse(VALIDATOR.isValid(invalidIban), invalidIban);
     }
 
     @ParameterizedTest
     @FieldSource("VALID_IBAN_FIXTURES")
     public void testMoreValid(final String invalidIban) {
+        assertNotNull(VALID_IBAN_FIXTURES); // ensure field is marked as being used
         assertTrue(VALIDATOR.isValid(invalidIban), invalidIban);
     }
 
