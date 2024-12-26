@@ -32,6 +32,7 @@ import java.util.TimeZone;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
  * Test Case for DateValidator.
@@ -39,21 +40,14 @@ import org.junit.jupiter.api.Test;
 public class DateValidatorTest extends AbstractCalendarValidatorTest {
 
     private DateValidator dateValidator;
-    private Locale originalLocale;
 
     /**
      * Sets up test fixtures.
      */
     @BeforeEach
     protected void setUp() {
-        originalLocale = Locale.getDefault();
         dateValidator = new DateValidator();
         validator = dateValidator;
-    }
-
-    @AfterEach
-    protected void tearDown() {
-        Locale.setDefault(originalLocale);
     }
 
     /**
@@ -134,8 +128,8 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
      * Test DateValidator validate Methods
      */
     @Test
+    @DefaultLocale(country = "US", language = "en")
     public void testDateValidatorMethods() {
-        Locale.setDefault(Locale.US);
         final Locale locale = Locale.GERMAN;
         final String pattern = "yyyy-MM-dd";
         final String patternVal = "2005-12-31";
