@@ -271,34 +271,34 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     public void testFormat() {
         final Calendar cal20051231 = createCalendar(TimeZones.GMT, 20051231, 11500);
         // validator defaults to SHORT, but the format varies between JVMs
+        assertNull(calValidator.format(null), "null");
+
         final DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
         final String val = df.format(cal20051231.getTime());
+        assertEquals(val, calValidator.format(cal20051231), "default");
+
         final DateFormat dfus = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
         final String usval = dfus.format(cal20051231.getTime());
+        assertEquals(usval, calValidator.format(cal20051231, Locale.US), "locale");
+
+        assertEquals("2005-12-31 01:15", calValidator.format(cal20051231, "yyyy-MM-dd HH:mm"), "patternA");
+
+        assertEquals("2005-12-31 GMT", calValidator.format(cal20051231, "yyyy-MM-dd z"), "patternB");
+
         final String germanPattern = "dd MMM yyyy";
         final DateFormat dedf = new SimpleDateFormat(germanPattern, Locale.GERMAN);
         final String deval = dedf.format(cal20051231.getTime());
-        assertNull(calValidator.format(null), "null");
-        assertEquals(val, calValidator.format(cal20051231), "default");
-        assertEquals(usval, calValidator.format(cal20051231, Locale.US), "locale");
-        assertEquals("2005-12-31 01:15", calValidator.format(cal20051231, "yyyy-MM-dd HH:mm"), "patternA");
-        assertEquals("2005-12-31 GMT", calValidator.format(cal20051231, "yyyy-MM-dd z"), "patternB");
         assertEquals(deval, calValidator.format(cal20051231, germanPattern, Locale.GERMAN), "both");
 
         // EST Time Zone
         final DateFormat dfest = DateFormat.getDateInstance(DateFormat.SHORT);
         dfest.setTimeZone(TestTimeZones.EST);
         final String valest = dfest.format(cal20051231.getTime());
+        assertEquals(valest, calValidator.format(cal20051231, TestTimeZones.EST), "EST default");
 
         final DateFormat dfusest = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
         dfusest.setTimeZone(TestTimeZones.EST);
         final String valusest = dfusest.format(cal20051231.getTime());
-
-        final DateFormat dedfest = new SimpleDateFormat(germanPattern, Locale.GERMAN);
-        dedfest.setTimeZone(TestTimeZones.EST);
-        final String devalest = dedfest.format(cal20051231.getTime());
-
-        assertEquals(valest, calValidator.format(cal20051231, TestTimeZones.EST), "EST default");
         assertEquals(valusest, calValidator.format(cal20051231, Locale.US, TestTimeZones.EST), "EST locale");
 
         final String patternA = "yyyy-MM-dd HH:mm";
@@ -311,8 +311,11 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         final DateFormat dfB = new SimpleDateFormat(patternB);
         dfB.setTimeZone(TestTimeZones.EST);
         final String valB = dfB.format(cal20051231.getTime());
-
         assertEquals(valB, calValidator.format(cal20051231, patternB, TestTimeZones.EST), "EST patternB");
+
+        final DateFormat dedfest = new SimpleDateFormat(germanPattern, Locale.GERMAN);
+        dedfest.setTimeZone(TestTimeZones.EST);
+        final String devalest = dedfest.format(cal20051231.getTime());
         assertEquals(devalest, calValidator.format(cal20051231, germanPattern, Locale.GERMAN, TestTimeZones.EST), "EST both");
     }
 
