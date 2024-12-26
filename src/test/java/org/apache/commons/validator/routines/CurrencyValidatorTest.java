@@ -25,9 +25,9 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
  * Test Case for CurrencyValidator.
@@ -39,18 +39,10 @@ public class CurrencyValidatorTest {
     private String usDollar;
     private String ukPound;
 
-    private Locale originalLocale;
-
     @BeforeEach
     protected void setUp() {
-        originalLocale = Locale.getDefault();
         usDollar = new DecimalFormatSymbols(Locale.US).getCurrencySymbol();
         ukPound = new DecimalFormatSymbols(Locale.UK).getCurrencySymbol();
-    }
-
-    @AfterEach
-    protected void tearDown() {
-        Locale.setDefault(originalLocale);
     }
 
     /**
@@ -82,10 +74,8 @@ public class CurrencyValidatorTest {
      * Test Valid integer (non-decimal) currency values
      */
     @Test
+    @DefaultLocale("en-GB")
     public void testIntegerValid() {
-        // Set the default Locale
-        Locale.setDefault(Locale.UK);
-
         final CurrencyValidator validator = new CurrencyValidator();
         final BigDecimal expected = new BigDecimal("1234.00");
         final BigDecimal negative = new BigDecimal("-1234.00");
@@ -143,10 +133,8 @@ public class CurrencyValidatorTest {
      * Test currency values with a pattern
      */
     @Test
+    @DefaultLocale("en-GB")
     public void testPattern() {
-        // Set the default Locale
-        Locale.setDefault(Locale.UK);
-
         final BigDecimalValidator validator = CurrencyValidator.getInstance();
         final String basicPattern = CURRENCY_SYMBOL + "#,##0.000";
         final String pattern = basicPattern + ";[" + basicPattern + "]";
@@ -174,10 +162,8 @@ public class CurrencyValidatorTest {
      * Test Valid currency values
      */
     @Test
+    @DefaultLocale("en-GB")
     public void testValid() {
-        // Set the default Locale
-        Locale.setDefault(Locale.UK);
-
         final BigDecimalValidator validator = CurrencyValidator.getInstance();
         final BigDecimal expected = new BigDecimal("1234.56");
         final BigDecimal negative = new BigDecimal("-1234.56");
