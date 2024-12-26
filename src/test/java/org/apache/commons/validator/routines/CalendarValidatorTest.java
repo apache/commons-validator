@@ -267,9 +267,6 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     @DefaultLocale(country = "UK", language = "en")
     @DefaultTimeZone("GMT")
     public void testFormat() {
-        // final Calendar cal20051231 = Calendar.getInstance(GMT);
-        // set as UTC milliseconds from the epoch
-        // cal20051231.setTimeInMillis(Instant.parse("2005-12-31T01:15:00.00Z").toEpochMilli());
         final Calendar cal20051231 = createCalendar(GMT, 20051231, 11500);
         // validator defaults to SHORT, but the format varies between JVMs
         final DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
