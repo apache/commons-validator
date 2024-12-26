@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -222,19 +223,18 @@ public class FormSet implements Serializable {
      *      definition (not sure about this)
      */
     protected int getType() {
+        final String myLanguage = getLanguage();
+        final String myCountry = getCountry();
         if (getVariant() != null) {
-            if (getLanguage() == null || getCountry() == null) {
-                throw new NullPointerException("When variant is specified, country and language must be specified.");
-            }
+            Objects.requireNonNull(myLanguage, "When variant is specified, country and language must be specified.");
+            Objects.requireNonNull(myCountry, "When variant is specified, country and language must be specified.");
             return VARIANT_FORMSET;
         }
-        if (getCountry() != null) {
-            if (getLanguage() == null) {
-                throw new NullPointerException("When country is specified, language must be specified.");
-            }
+        if (myCountry != null) {
+            Objects.requireNonNull(myLanguage, "When country is specified, language must be specified.");
             return COUNTRY_FORMSET;
         }
-        if (getLanguage() != null) {
+        if (myLanguage != null) {
             return LANGUAGE_FORMSET;
         }
         return GLOBAL_FORMSET;
