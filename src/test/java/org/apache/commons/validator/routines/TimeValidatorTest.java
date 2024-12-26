@@ -112,15 +112,12 @@ public class TimeValidatorTest {
             , "10::1" // invalid pattern
             , "10:1:" }; // invalid pattern
 
-    private Locale origDefault;
-
     private TimeZone defaultZone;
 
     @BeforeEach
     protected void setUp() {
         validator = new TimeValidator();
         defaultZone = TimeZone.getDefault();
-        origDefault = Locale.getDefault();
     }
 
     /**
@@ -129,7 +126,6 @@ public class TimeValidatorTest {
     @AfterEach
     protected void tearDown() {
         validator = null;
-        Locale.setDefault(origDefault);
         TimeZone.setDefault(defaultZone);
     }
 
