@@ -26,6 +26,7 @@ import java.util.Locale;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
  * Test Case for PercentValidator.
@@ -85,10 +86,8 @@ public class PercentValidatorTest {
      * Test Valid percentage values
      */
     @Test
+    @DefaultLocale("en-GB")
     public void testValid() {
-        // Set the default Locale
-        Locale.setDefault(Locale.UK);
-
         final BigDecimalValidator validator = PercentValidator.getInstance();
         final BigDecimal expected = new BigDecimal("0.12");
         final BigDecimal negative = new BigDecimal("-0.12");
