@@ -32,6 +32,8 @@ import java.util.TimeZone;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
  * Test Case for TimeValidator.
@@ -258,15 +260,10 @@ public class TimeValidatorTest {
      * Test time zone methods.
      */
     @Test
+    @DefaultLocale("en-GB")
+    @DefaultTimeZone("GMT")
     public void testTimeZone() {
-        // Set the default Locale & TimeZone
-        Locale.setDefault(Locale.UK);
-        TimeZone.setDefault(GMT);
-
-        Calendar result;
-
-        // Default Locale, Default TimeZone
-        result = validator.validate("18:01");
+        Calendar result = validator.validate("18:01");
         assertNotNull(result, "default result");
         assertEquals(GMT, result.getTimeZone(), "default zone");
         assertEquals(18, result.get(Calendar.HOUR_OF_DAY), "default hour");
