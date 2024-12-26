@@ -27,15 +27,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
  * Test Case for CalendarValidator.
@@ -46,18 +46,11 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     private static final int TIME_12_03_45 = 120345;
 
     private CalendarValidator calValidator;
-    private Locale originalLocale;
 
     @BeforeEach
     protected void setUp() {
-        originalLocale = Locale.getDefault();
         calValidator = new CalendarValidator();
         validator = calValidator;
-    }
-
-    @AfterEach
-    protected void tearDown() {
-        Locale.setDefault(originalLocale);
     }
 
     /**
@@ -112,8 +105,8 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
      * Test CalendarValidator validate Methods
      */
     @Test
+    @DefaultLocale(country = "US", language = "en")
     public void testCalendarValidatorMethods() {
-        Locale.setDefault(Locale.US);
         final Locale locale = Locale.GERMAN;
         final String pattern = "yyyy-MM-dd";
         final String patternVal = "2005-12-31";
@@ -241,8 +234,8 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
      * Test Date/Time style Validator (there isn't an implementation for this)
      */
     @Test
+    @DefaultLocale(country = "UK", language = "en")
     public void testDateTimeStyle() {
-        Locale.setDefault(Locale.UK);
         // Formats vary between JVMs, so create the test strings using the current JVM
         final DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
         final Calendar cal = Calendar.getInstance();
@@ -271,8 +264,9 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
      */
     @Override
     @Test
+    @DefaultLocale(country = "UK", language = "en")
+    @DefaultTimeZone("GMT")
     public void testFormat() {
-        Locale.setDefault(Locale.UK);
         // final Calendar cal20051231 = Calendar.getInstance(GMT);
         // set as UTC milliseconds from the epoch
         // cal20051231.setTimeInMillis(Instant.parse("2005-12-31T01:15:00.00Z").toEpochMilli());
