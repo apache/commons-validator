@@ -31,11 +31,8 @@ import org.junit.jupiter.api.Test;
  */
 public class DoubleValidatorTest extends AbstractNumberValidatorTest {
 
-    @Override
     @BeforeEach
     protected void setUp() {
-        super.setUp();
-
         validator = new DoubleValidator(false, 0);
         strictValidator = new DoubleValidator();
 
