@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -271,11 +272,11 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     @Override
     @Test
     public void testFormat() {
-        // Set the default Locale
         Locale.setDefault(Locale.UK);
-
+        //Calendar cal20051231 = Calendar.getInstance(GMT);
+        //cal20051231.setTimeInMillis(Instant.parse("2005-12-31T10:01:15.00Z").toEpochMilli());
         final Calendar cal20051231 = createCalendar(GMT, 20051231, 11500);
-         // validator defaults to SHORT, but the format varies between JVMs
+        // validator defaults to SHORT, but the format varies between JVMs
         final DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
         final String val = df.format(cal20051231.getTime());
         final DateFormat dfus = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
@@ -286,8 +287,8 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         assertNull(calValidator.format(null), "null");
         assertEquals(val, calValidator.format(cal20051231), "default");
         assertEquals(usval, calValidator.format(cal20051231, Locale.US), "locale");
-        assertEquals(calValidator.format(cal20051231, "yyyy-MM-dd HH:mm"), "2005-12-31 01:15", "patternA");
-        assertEquals(calValidator.format(cal20051231, "yyyy-MM-dd z"), "2005-12-31 GMT", "patternB");
+        assertEquals("2005-12-31 01:15", calValidator.format(cal20051231, "yyyy-MM-dd HH:mm"), "patternA");
+        assertEquals("2005-12-31 GMT", calValidator.format(cal20051231, "yyyy-MM-dd z"), "patternB");
         assertEquals(deval, calValidator.format(cal20051231, germanPattern, Locale.GERMAN), "both");
 
         // EST Time Zone
