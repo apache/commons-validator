@@ -44,7 +44,7 @@ public abstract class AbstractCalendarValidatorTest {
 
     protected static final TimeZone EST = TimeZone.getTimeZone("EST"); // - 5 hours
     protected static final TimeZone EET = TimeZone.getTimeZone("EET"); // + 2 hours
-    protected static final TimeZone UTC = TimeZone.getTimeZone("UTC"); // + 2 hours
+    protected static final TimeZone UTC = TimeZone.getTimeZone("UTC"); // 0 offset
 
     /**
      * Create a calendar instance for a specified time zone, date and time.
