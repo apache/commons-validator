@@ -19,18 +19,21 @@ package org.apache.commons.validator.routines;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.apache.commons.lang3.SystemProperties;
+import org.apache.commons.lang3.time.TimeZones;
+import org.apache.commons.validator.util.TestTimeZones;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
  * Test Case for DateValidator.
@@ -55,84 +58,88 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
     public void testCompare() {
         final int sameTime = 124522;
         final int testDate = 20050823;
-        final Date diffHour = createDate(GMT, testDate, 115922); // same date, different time
+        final Date diffHour = createDate(TimeZones.GMT, testDate, 115922); // same date, different time
 
-        final Date value = createDate(GMT, testDate, sameTime); // test value
-        final Date date20050824 = createDate(GMT, 20050824, sameTime); // +1 day
-        final Date date20050822 = createDate(GMT, 20050822, sameTime); // -1 day
+        final Date value = createDate(TimeZones.GMT, testDate, sameTime); // test value
+        final Date date20050824 = createDate(TimeZones.GMT, 20050824, sameTime); // +1 day
+        final Date date20050822 = createDate(TimeZones.GMT, 20050822, sameTime); // -1 day
 
-        final Date date20050830 = createDate(GMT, 20050830, sameTime); // +1 week
-        final Date date20050816 = createDate(GMT, 20050816, sameTime); // -1 week
+        final Date date20050830 = createDate(TimeZones.GMT, 20050830, sameTime); // +1 week
+        final Date date20050816 = createDate(TimeZones.GMT, 20050816, sameTime); // -1 week
 
-        final Date date20050901 = createDate(GMT, 20050901, sameTime); // +1 month
-        final Date date20050801 = createDate(GMT, 20050801, sameTime); // same month
-        final Date date20050731 = createDate(GMT, 20050731, sameTime); // -1 month
+        final Date date20050901 = createDate(TimeZones.GMT, 20050901, sameTime); // +1 month
+        final Date date20050801 = createDate(TimeZones.GMT, 20050801, sameTime); // same month
+        final Date date20050731 = createDate(TimeZones.GMT, 20050731, sameTime); // -1 month
 
-        final Date date20051101 = createDate(GMT, 20051101, sameTime); // +1 quarter (Feb Start)
-        final Date date20051001 = createDate(GMT, 20051001, sameTime); // +1 quarter
-        final Date date20050701 = createDate(GMT, 20050701, sameTime); // same quarter
-        final Date date20050630 = createDate(GMT, 20050630, sameTime); // -1 quarter
-        final Date date20050110 = createDate(GMT, 20050110, sameTime); // Previous Year qtr (Fen start)
+        final Date date20051101 = createDate(TimeZones.GMT, 20051101, sameTime); // +1 quarter (Feb Start)
+        final Date date20051001 = createDate(TimeZones.GMT, 20051001, sameTime); // +1 quarter
+        final Date date20050701 = createDate(TimeZones.GMT, 20050701, sameTime); // same quarter
+        final Date date20050630 = createDate(TimeZones.GMT, 20050630, sameTime); // -1 quarter
+        final Date date20050110 = createDate(TimeZones.GMT, 20050110, sameTime); // Previous Year qtr (Fen start)
 
-        final Date date20060101 = createDate(GMT, 20060101, sameTime); // +1 year
-        final Date date20050101 = createDate(GMT, 20050101, sameTime); // same year
-        final Date date20041231 = createDate(GMT, 20041231, sameTime); // -1 year
+        final Date date20060101 = createDate(TimeZones.GMT, 20060101, sameTime); // +1 year
+        final Date date20050101 = createDate(TimeZones.GMT, 20050101, sameTime); // same year
+        final Date date20041231 = createDate(TimeZones.GMT, 20041231, sameTime); // -1 year
 
-        assertEquals(-1, dateValidator.compareDates(value, date20050824, GMT), "date LT"); // +1 day
-        assertEquals(0, dateValidator.compareDates(value, diffHour, GMT), "date EQ"); // same day, diff hour
-        assertEquals(1, dateValidator.compareDates(value, date20050822, GMT), "date GT"); // -1 day
+        assertEquals(-1, dateValidator.compareDates(value, date20050824, TimeZones.GMT), "date LT"); // +1 day
+        assertEquals(0, dateValidator.compareDates(value, diffHour, TimeZones.GMT), "date EQ"); // same day, diff hour
+        assertEquals(1, dateValidator.compareDates(value, date20050822, TimeZones.GMT), "date GT"); // -1 day
 
-        assertEquals(-1, dateValidator.compareWeeks(value, date20050830, GMT), "week LT"); // +1 week
-        assertEquals(0, dateValidator.compareWeeks(value, date20050824, GMT), "week =1"); // +1 day
-        assertEquals(0, dateValidator.compareWeeks(value, date20050822, GMT), "week =2"); // same week
-        assertEquals(0, dateValidator.compareWeeks(value, date20050822, GMT), "week =3"); // -1 day
-        assertEquals(1, dateValidator.compareWeeks(value, date20050816, GMT), "week GT"); // -1 week
+        assertEquals(-1, dateValidator.compareWeeks(value, date20050830, TimeZones.GMT), "week LT"); // +1 week
+        assertEquals(0, dateValidator.compareWeeks(value, date20050824, TimeZones.GMT), "week =1"); // +1 day
+        assertEquals(0, dateValidator.compareWeeks(value, date20050822, TimeZones.GMT), "week =2"); // same week
+        assertEquals(0, dateValidator.compareWeeks(value, date20050822, TimeZones.GMT), "week =3"); // -1 day
+        assertEquals(1, dateValidator.compareWeeks(value, date20050816, TimeZones.GMT), "week GT"); // -1 week
 
-        assertEquals(-1, dateValidator.compareMonths(value, date20050901, GMT), "mnth LT"); // +1 month
-        assertEquals(0, dateValidator.compareMonths(value, date20050830, GMT), "mnth =1"); // +1 week
-        assertEquals(0, dateValidator.compareMonths(value, date20050801, GMT), "mnth =2"); // same month
-        assertEquals(0, dateValidator.compareMonths(value, date20050816, GMT), "mnth =3"); // -1 week
-        assertEquals(1, dateValidator.compareMonths(value, date20050731, GMT), "mnth GT"); // -1 month
+        assertEquals(-1, dateValidator.compareMonths(value, date20050901, TimeZones.GMT), "mnth LT"); // +1 month
+        assertEquals(0, dateValidator.compareMonths(value, date20050830, TimeZones.GMT), "mnth =1"); // +1 week
+        assertEquals(0, dateValidator.compareMonths(value, date20050801, TimeZones.GMT), "mnth =2"); // same month
+        assertEquals(0, dateValidator.compareMonths(value, date20050816, TimeZones.GMT), "mnth =3"); // -1 week
+        assertEquals(1, dateValidator.compareMonths(value, date20050731, TimeZones.GMT), "mnth GT"); // -1 month
 
-        assertEquals(-1, dateValidator.compareQuarters(value, date20051101, GMT), "qtrA <1"); // +1 quarter (Feb)
-        assertEquals(-1, dateValidator.compareQuarters(value, date20051001, GMT), "qtrA <2"); // +1 quarter
-        assertEquals(0, dateValidator.compareQuarters(value, date20050901, GMT), "qtrA =1"); // +1 month
-        assertEquals(0, dateValidator.compareQuarters(value, date20050701, GMT), "qtrA =2"); // same quarter
-        assertEquals(0, dateValidator.compareQuarters(value, date20050731, GMT), "qtrA =3"); // -1 month
-        assertEquals(1, dateValidator.compareQuarters(value, date20050630, GMT), "qtrA GT"); // -1 quarter
+        assertEquals(-1, dateValidator.compareQuarters(value, date20051101, TimeZones.GMT), "qtrA <1"); // +1 quarter (Feb)
+        assertEquals(-1, dateValidator.compareQuarters(value, date20051001, TimeZones.GMT), "qtrA <2"); // +1 quarter
+        assertEquals(0, dateValidator.compareQuarters(value, date20050901, TimeZones.GMT), "qtrA =1"); // +1 month
+        assertEquals(0, dateValidator.compareQuarters(value, date20050701, TimeZones.GMT), "qtrA =2"); // same quarter
+        assertEquals(0, dateValidator.compareQuarters(value, date20050731, TimeZones.GMT), "qtrA =3"); // -1 month
+        assertEquals(1, dateValidator.compareQuarters(value, date20050630, TimeZones.GMT), "qtrA GT"); // -1 quarter
 
         // Change quarter 1 to start in Feb
-        assertEquals(-1, dateValidator.compareQuarters(value, date20051101, GMT, 2), "qtrB LT"); // +1 quarter (Feb)
-        assertEquals(0, dateValidator.compareQuarters(value, date20051001, GMT, 2), "qtrB =1"); // same quarter
-        assertEquals(0, dateValidator.compareQuarters(value, date20050901, GMT, 2), "qtrB =2"); // +1 month
-        assertEquals(1, dateValidator.compareQuarters(value, date20050701, GMT, 2), "qtrB =3"); // same quarter
-        assertEquals(1, dateValidator.compareQuarters(value, date20050731, GMT, 2), "qtrB =4"); // -1 month
-        assertEquals(1, dateValidator.compareQuarters(value, date20050630, GMT, 2), "qtrB GT"); // -1 quarter
-        assertEquals(1, dateValidator.compareQuarters(value, date20050110, GMT, 2), "qtrB prev"); // Jan Prev year qtr
+        assertEquals(-1, dateValidator.compareQuarters(value, date20051101, TimeZones.GMT, 2), "qtrB LT"); // +1 quarter (Feb)
+        assertEquals(0, dateValidator.compareQuarters(value, date20051001, TimeZones.GMT, 2), "qtrB =1"); // same quarter
+        assertEquals(0, dateValidator.compareQuarters(value, date20050901, TimeZones.GMT, 2), "qtrB =2"); // +1 month
+        assertEquals(1, dateValidator.compareQuarters(value, date20050701, TimeZones.GMT, 2), "qtrB =3"); // same quarter
+        assertEquals(1, dateValidator.compareQuarters(value, date20050731, TimeZones.GMT, 2), "qtrB =4"); // -1 month
+        assertEquals(1, dateValidator.compareQuarters(value, date20050630, TimeZones.GMT, 2), "qtrB GT"); // -1 quarter
+        assertEquals(1, dateValidator.compareQuarters(value, date20050110, TimeZones.GMT, 2), "qtrB prev"); // Jan Prev year qtr
 
-        assertEquals(-1, dateValidator.compareYears(value, date20060101, GMT), "year LT"); // +1 year
-        assertEquals(0, dateValidator.compareYears(value, date20050101, GMT), "year EQ"); // same year
-        assertEquals(1, dateValidator.compareYears(value, date20041231, GMT), "year GT"); // -1 year
+        assertEquals(-1, dateValidator.compareYears(value, date20060101, TimeZones.GMT), "year LT"); // +1 year
+        assertEquals(0, dateValidator.compareYears(value, date20050101, TimeZones.GMT), "year EQ"); // same year
+        assertEquals(1, dateValidator.compareYears(value, date20041231, TimeZones.GMT), "year GT"); // -1 year
 
         // Compare using alternative TimeZone
-        final Date sameDayTwoAm = createDate(GMT, testDate, 20000);
-        assertEquals(-1, dateValidator.compareDates(value, date20050824, EST), "date LT"); // +1 day
-        assertEquals(0, dateValidator.compareDates(value, diffHour, EST), "date EQ"); // same day, diff hour
-        assertEquals(1, dateValidator.compareDates(value, sameDayTwoAm, EST), "date EQ"); // same day, diff hour
-        assertEquals(1, dateValidator.compareDates(value, date20050822, EST), "date GT"); // -1 day
+        final Date sameDayTwoAm = createDate(TimeZones.GMT, testDate, 20000);
+        assertEquals(-1, dateValidator.compareDates(value, date20050824, TestTimeZones.EST), "date LT"); // +1 day
+        assertEquals(0, dateValidator.compareDates(value, diffHour, TestTimeZones.EST), "date EQ"); // same day, diff hour
+        assertEquals(1, dateValidator.compareDates(value, sameDayTwoAm, TestTimeZones.EST), "date EQ"); // same day, diff hour
+        assertEquals(1, dateValidator.compareDates(value, date20050822, TestTimeZones.EST), "date GT"); // -1 day
     }
 
     /**
      * Test DateValidator validate Methods
      */
     @Test
+    @DefaultLocale(country = "US", language = "en")
     public void testDateValidatorMethods() {
-        Locale.setDefault(Locale.US);
         final Locale locale = Locale.GERMAN;
         final String pattern = "yyyy-MM-dd";
         final String patternVal = "2005-12-31";
-        final String germanVal = "31 Dez 2005";
         final String germanPattern = "dd MMM yyyy";
+        // Don't rely on specific German format - it varies between JVMs
+        final DateFormat df = new SimpleDateFormat(germanPattern, locale);
+        final Calendar cal = Calendar.getInstance(Locale.US);
+        cal.set(2005, 11, 31); // month is 0-based
+        final String germanVal = df.format(cal.getTime());
         final String localeVal = "31.12.2005";
         final String defaultVal = "12/31/05";
         final String xxxx = "XXXX";
@@ -159,7 +166,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
         assertFalse(DateValidator.getInstance().isValid("31 Dec 2005", germanPattern, Locale.GERMAN), "isValid(B) both");
 
         // Test Time Zone
-        final TimeZone zone = TimeZone.getDefault().getRawOffset() == EET.getRawOffset() ? EST : EET;
+        final TimeZone zone = TimeZone.getDefault().getRawOffset() == TestTimeZones.EET.getRawOffset() ? TestTimeZones.EST : TestTimeZones.EET;
         final Date expectedZone = createCalendar(zone, 20051231, 0).getTime();
         assertNotEquals(expected.getTime(), expectedZone.getTime(), "default/zone same " + zone);
 
@@ -167,21 +174,5 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
         assertEquals(expectedZone, DateValidator.getInstance().validate(localeVal, locale, zone), "validate(C) locale ");
         assertEquals(expectedZone, DateValidator.getInstance().validate(patternVal, pattern, zone), "validate(C) pattern");
         assertEquals(expectedZone, DateValidator.getInstance().validate(germanVal, germanPattern, Locale.GERMAN, zone), "validate(C) both");
-    }
-
-    /**
-     * Check that locale providers are set up correctly If not, the parse will fail
-     */
-    @Test
-    public void testLocaleProviders() throws Exception {
-        final String localeProviders = SystemProperties.getJavaLocaleProviders();
-        if (localeProviders != null) { // may be null before Java 9
-            assertTrue(localeProviders.startsWith("COMPAT"), "java.locale.providers must start with COMPAT");
-        }
-        final String txt = "3/20/15 10:59:00 PM"; // This relies on the locale format prior to Java 9 to parse correctly
-        final DateFormat dateformat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, Locale.US);
-        dateformat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        final Date date = dateformat.parse(txt);
-        assertNotNull(date);
     }
 }

@@ -32,12 +32,13 @@ import java.text.DecimalFormat;
 import java.util.Locale;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
  * Base Number Test Case.
  */
+@DefaultLocale(country = "US", language = "en")
 public abstract class AbstractNumberValidatorTest {
 
     protected AbstractNumberValidator validator;
@@ -65,11 +66,6 @@ public abstract class AbstractNumberValidatorTest {
     protected String localePattern;
     protected Locale testLocale;
     protected Number localeExpected;
-
-    @BeforeEach
-    protected void setUp() {
-        Locale.setDefault(Locale.US);
-    }
 
     /**
      * Tear down

@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.Reader;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -62,6 +62,19 @@ public class IBANValidatorTest {
 
     private static final Pattern IBAN_PAT = Pattern
             .compile(IBAN_PART + IBAN_PART + IBAN_PART + IBAN_PART + "?" + IBAN_PART + "?" + IBAN_PART + "?" + IBAN_PART + "?");
+
+    /*
+     * The IBAN registry should be available from here:
+     * https://www.swift.com/standards/data-standards/iban-international-bank-account-number
+     * Care must be taken not to accidentally change the encoding, which for v99 appears to be Windows-1252 (cp1252)
+     * (N.B. even this encoding may not properly account for all characters)
+     * Please ensure you download from the page (right-click), and do not edit the file after download, as that may
+     * change the contents.
+     * At present the code does not need the entries which are likely to contain non-ASCII characters, but a corrupt
+     * file helps no-one.
+     */
+    private static final String IBAN_REGISTRY = "iban_registry_v99.txt";
+    private static final Charset IBAN_REGISTRY_CHARSET = Charset.forName("windows-1252");
 
     // It's not clear whether IBANs can contain lower case characters
     // so we test for both where possible
@@ -125,6 +138,7 @@ public class IBANValidatorTest {
             "GL8964710001000206",
             "GR1601101250000000012300695",
             "GT82TRAJ01020000001210029690",
+            "HN88CABF00000000000250005469",
             "HR1210010051863000160",
             "HU42117730161111101800000000",
             "IE29AIBK93115212345678",
@@ -248,11 +262,11 @@ public class IBANValidatorTest {
         }
     }
 
-    static Collection<Arguments> ibanRegistryV98Source() throws Exception {
-        Path ibanRegistryV98 = Paths.get(IBANValidator.class.getResource("iban_registry_v98.txt").toURI());
+    static Collection<Arguments> ibanRegistrySource() throws Exception {
+        final Path ibanRegistry = Paths.get(IBANValidator.class.getResource(IBAN_REGISTRY).toURI());
 
         final CSVFormat format = CSVFormat.DEFAULT.builder().setDelimiter('\t').build();
-        final Reader rdr = Files.newBufferedReader(ibanRegistryV98, StandardCharsets.ISO_8859_1);
+        final Reader rdr = Files.newBufferedReader(ibanRegistry, IBAN_REGISTRY_CHARSET);
 
         CSVRecord country = null;
         CSVRecord cc = null;
@@ -291,10 +305,10 @@ public class IBANValidatorTest {
         assertNotNull(structure);
         assertNotNull(length);
 
-        Collection<Arguments> result = new ArrayList<>();
+        final Collection<Arguments> result = new ArrayList<>();
         for (int i = 1; i < country.size(); i++) {
-            String ac = additionalCc.get(i);
-            List<String> aCountry = Arrays.stream(ac.split(","))
+            final String ac = additionalCc.get(i);
+            final List<String> aCountry = Arrays.stream(ac.split(","))
                     .filter(s -> !"N/A".equals(s))
                     .map(s -> s.replace("(French part)", "")) // special case
                     .map(String::trim)
@@ -306,11 +320,11 @@ public class IBANValidatorTest {
         return result;
     }
 
-    static Collection<Arguments> ibanRegistryV98SourceExamples() throws Exception {
-        Path ibanRegistryV98 = Paths.get(IBANValidator.class.getResource("iban_registry_v98.txt").toURI());
+    static Collection<Arguments> ibanRegistrySourceExamples() throws Exception {
+        final Path ibanRegistry = Paths.get(IBANValidator.class.getResource(IBAN_REGISTRY).toURI());
 
         final CSVFormat format = CSVFormat.DEFAULT.builder().setDelimiter('\t').build();
-        final Reader rdr = Files.newBufferedReader(ibanRegistryV98, StandardCharsets.ISO_8859_1);
+        final Reader rdr = Files.newBufferedReader(ibanRegistry, IBAN_REGISTRY_CHARSET);
 
         CSVRecord country = null;
         CSVRecord electronicExample = null;
@@ -334,7 +348,7 @@ public class IBANValidatorTest {
         assertNotNull(country);
         assertNotNull(electronicExample);
 
-        Collection<Arguments> result = new ArrayList<>();
+        final Collection<Arguments> result = new ArrayList<>();
         for (int i = 1; i < country.size(); i++) {
             result.add(Arguments.of(country.get(i), electronicExample.get(i)));
         }
@@ -343,28 +357,8 @@ public class IBANValidatorTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ibanRegistryV98Source")
-    public void validatorShouldExistWithProperConfiguration(String countryName, String countryCode, List<String> acountyCode, int ibanLength, String structure) throws Exception {
-        String countryInfo = " countryCode: " + countryCode + ", countryName: " + countryName;
-        Validator validator = IBANValidator.getInstance().getValidator(countryCode);
-
-        assertNotNull(validator, "IBAN validator returned null for" + countryInfo);
-        assertEquals(ibanLength, validator.getIbanLength(), "IBAN length should be " + ibanLength + " for" + countryInfo);
-
-        List<String> allPatterns = Arrays.stream(validator.getRegexValidator().getPatterns()).map(Pattern::pattern).collect(
-                Collectors.toList());
-
-        String re = fmtRE(structure.substring(2));
-        assertTrue(allPatterns.remove(countryCode + re), "No pattern " + countryCode + re + " found for " + countryInfo);
-        for (String ac : acountyCode) {
-            assertTrue(allPatterns.remove(ac + re), "No additional country code " + ac + " found for " + countryInfo);
-        }
-        assertTrue(allPatterns.isEmpty(), "Unrecognized patterns: " + allPatterns + " for" + countryInfo);
-    }
-
-    @ParameterizedTest
-    @MethodSource("ibanRegistryV98SourceExamples")
-    public void exampleAccountsShouldBeValid(String countryName, String example) {
+    @MethodSource("ibanRegistrySourceExamples")
+    public void exampleAccountsShouldBeValid(final String countryName, final String example) {
         Assumptions.assumeFalse(INVALID_IBAN_FIXTURES.contains(example), "Skip invalid example: " + example + " for " + countryName);
         assertTrue(IBANValidator.getInstance().isValid(example), "IBAN validator returned false for " + example + " for " + countryName);
     }
@@ -388,8 +382,16 @@ public class IBANValidatorTest {
 
     @ParameterizedTest
     @FieldSource("INVALID_IBAN_FIXTURES")
-    public void testInValid(String invalidIban) {
+    public void testInValid(final String invalidIban) {
+        assertNotNull(INVALID_IBAN_FIXTURES); // ensure field is marked as being used
         assertFalse(VALIDATOR.isValid(invalidIban), invalidIban);
+    }
+
+    @ParameterizedTest
+    @FieldSource("VALID_IBAN_FIXTURES")
+    public void testMoreValid(final String invalidIban) {
+        assertNotNull(VALID_IBAN_FIXTURES); // ensure field is marked as being used
+        assertTrue(VALIDATOR.isValid(invalidIban), invalidIban);
     }
 
     @Test
@@ -452,9 +454,29 @@ public class IBANValidatorTest {
 
     @ParameterizedTest
     @FieldSource("VALID_IBAN_FIXTURES")
-    public void testValid(String iban) {
+    public void testValid(final String iban) {
             assertTrue(IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(iban), "Checksum fail: " + iban);
             assertTrue(VALIDATOR.hasValidator(iban), "Missing validator: " + iban);
             assertTrue(VALIDATOR.isValid(iban), iban);
+    }
+
+    @ParameterizedTest
+    @MethodSource("ibanRegistrySource")
+    public void validatorShouldExistWithProperConfiguration(final String countryName, final String countryCode, final List<String> acountyCode, final int ibanLength, final String structure) throws Exception {
+        final String countryInfo = " countryCode: " + countryCode + ", countryName: " + countryName;
+        final Validator validator = IBANValidator.getInstance().getValidator(countryCode);
+
+        assertNotNull(validator, "IBAN validator returned null for" + countryInfo);
+        assertEquals(ibanLength, validator.getIbanLength(), "IBAN length should be " + ibanLength + " for" + countryInfo);
+
+        final List<String> allPatterns = Arrays.stream(validator.getRegexValidator().getPatterns()).map(Pattern::pattern).collect(
+                Collectors.toList());
+
+        final String re = fmtRE(structure.substring(2));
+        assertTrue(allPatterns.remove(countryCode + re), "No pattern " + countryCode + re + " found for " + countryInfo);
+        for (final String ac : acountyCode) {
+            assertTrue(allPatterns.remove(ac + re), "No additional country code " + ac + " found for " + countryInfo);
+        }
+        assertTrue(allPatterns.isEmpty(), "Unrecognized patterns: " + allPatterns + " for" + countryInfo);
     }
 }

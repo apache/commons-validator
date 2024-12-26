@@ -263,6 +263,7 @@ public class DomainValidatorTest {
     // Download and process local copy of https://data.iana.org/TLD/tlds-alpha-by-domain.txt
     // Check if the internal TLD table is up to date
     // Check if the internal TLD tables have any spurious entries
+    // Can be invoked as: mvn -PDomainValidatorTest
     public static void main(final String[] a) throws Exception {
         // Check the arrays first as this affects later checks
         // Doing this here makes it easier when updating the lists
@@ -491,27 +492,28 @@ public class DomainValidatorTest {
     // Check if IDN.toASCII is broken or not
     @Test
     public void testIsIDNtoASCIIBroken() {
-        System.out.println(">>DomainValidatorTest.testIsIDNtoASCIIBroken()");
         final String input = ".";
-        final boolean ok = input.equals(IDN.toASCII(input));
-        System.out.println("IDN.toASCII is " + (ok ? "OK" : "BROKEN"));
-        final String[] props = { "java.version", // Java Runtime Environment version
-                "java.vendor", // Java Runtime Environment vendor
-                "java.vm.specification.version", // Java Virtual Machine specification version
-                "java.vm.specification.vendor", // Java Virtual Machine specification vendor
-                "java.vm.specification.name", // Java Virtual Machine specification name
-                "java.vm.version", // Java Virtual Machine implementation version
-                "java.vm.vendor", // Java Virtual Machine implementation vendor
-                "java.vm.name", // Java Virtual Machine implementation name
-                "java.specification.version", // Java Runtime Environment specification version
-                "java.specification.vendor", // Java Runtime Environment specification vendor
-                "java.specification.name", // Java Runtime Environment specification name
-                "java.class.version", // Java class format version number
-        };
-        for (final String t : props) {
-            System.out.println(t + "=" + System.getProperty(t));
+        if (!input.equals(IDN.toASCII(input))) {
+            System.out.println(">>DomainValidatorTest.testIsIDNtoASCIIBroken()");
+            System.out.println("IDN.toASCII is BROKEN");
+            final String[] props = { "java.version", // Java Runtime Environment version
+                    "java.vendor", // Java Runtime Environment vendor
+                    "java.vm.specification.version", // Java Virtual Machine specification version
+                    "java.vm.specification.vendor", // Java Virtual Machine specification vendor
+                    "java.vm.specification.name", // Java Virtual Machine specification name
+                    "java.vm.version", // Java Virtual Machine implementation version
+                    "java.vm.vendor", // Java Virtual Machine implementation vendor
+                    "java.vm.name", // Java Virtual Machine implementation name
+                    "java.specification.version", // Java Runtime Environment specification version
+                    "java.specification.vendor", // Java Runtime Environment specification vendor
+                    "java.specification.name", // Java Runtime Environment specification name
+                    "java.class.version", // Java class format version number
+            };
+            for (final String t : props) {
+                System.out.println(t + "=" + System.getProperty(t));
+            }
+            System.out.println("<<DomainValidatorTest.testIsIDNtoASCIIBroken()");
         }
-        System.out.println("<<DomainValidatorTest.testIsIDNtoASCIIBroken()");
         assertTrue(true); // dummy assertion to satisfy lint
     }
 

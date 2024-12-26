@@ -132,7 +132,7 @@ public class ExceptionTest extends AbstractCommonTest {
         validator.setParameter(Validator.BEAN_PARAM, info);
 
         // Get results of the validation which can throw ValidatorException
-        Exception expected = assertThrows(ValidatorException.class, validator::validate);
+        final Exception expected = assertThrows(ValidatorException.class, validator::validate);
         assertEquals("VALIDATOR-EXCEPTION", expected.getMessage());
     }
 }

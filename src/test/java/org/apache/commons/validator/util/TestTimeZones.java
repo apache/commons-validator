@@ -14,21 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.validator;
+
+package org.apache.commons.validator.util;
+
+import java.util.TimeZone;
 
 /**
- * Contains validation methods for different unit tests.
+ * TimeZone test fixtures.
  */
-public class ParameterValidatorImpl {
+public class TestTimeZones {
 
-    /**
-     * ValidatorParameter is valid.
-     */
-    public static boolean validateParameter(final java.lang.Object bean, final org.apache.commons.validator.Form form,
-            final org.apache.commons.validator.Field field, final org.apache.commons.validator.Validator validator,
-            final org.apache.commons.validator.ValidatorAction action, final org.apache.commons.validator.ValidatorResults results,
-            final java.util.Locale locale) throws Exception {
+    public static final TimeZone EST = TimeZone.getTimeZone("EST"); // - 5 hours
+    public static final TimeZone EET = TimeZone.getTimeZone("EET"); // + 2 hours
+    public static final TimeZone UTC = TimeZone.getTimeZone("UTC"); // 0 offset
 
-        return true;
-    }
 }

@@ -40,11 +40,8 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
     private static final String INT_MIN_0 = "-2147483648.99999999999999999999999"; // force double rounding";
     private static final String INT_MIN_1 = "-2147483649";
 
-    @Override
     @BeforeEach
     protected void setUp() {
-        super.setUp();
-
         validator = new IntegerValidator(false, 0);
         strictValidator = new IntegerValidator();
 

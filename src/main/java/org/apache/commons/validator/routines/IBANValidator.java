@@ -139,6 +139,13 @@ public class IBANValidator {
 
     private static final int SHORT_CODE_LEN = 2;
 
+    /*
+     * Note: the IBAN PDF registry file implies that IBANs can contain lower-case letters.
+     * However, several other documents state that IBANs must be upper-case only.
+     * [See the comment block following this array.]
+     *
+     * In the Regexes below, only upper-case is used.
+     */
     private static final Validator[] DEFAULT_VALIDATORS = {                   //
             new Validator("AD", 24, "AD\\d{10}[A-Z0-9]{12}"),                 // Andorra
             new Validator("AE", 23, "AE\\d{21}"),                             // United Arab Emirates (The)
@@ -163,7 +170,7 @@ public class IBANValidator {
             new Validator("EE", 20, "EE\\d{18}"),                             // Estonia
             new Validator("EG", 29, "EG\\d{27}"),                             // Egypt
             new Validator("ES", 24, "ES\\d{22}"),                             // Spain
-            new Validator("FI", 18, "\\d{16}", "AX"),                         // Finland
+            new Validator("FI", 18, "\\d{16}", "AX"),                // Finland
             new Validator("FK", 18, "FK\\d{2}[A-Z]{2}\\d{12}"),               // Falkland Islands, since Jul-23
             new Validator("FO", 18, "FO\\d{16}"),                             // Faroe Islands
             new Validator("FR", 27, "\\d{12}[A-Z0-9]{11}\\d{2}", "GF", "GP", "MQ", "RE", "PF", "TF", "YT", "NC", "BL", "MF", "PM", "WF"), // France
@@ -173,6 +180,7 @@ public class IBANValidator {
             new Validator("GL", 18, "GL\\d{16}"),                             // Greenland
             new Validator("GR", 27, "GR\\d{9}[A-Z0-9]{16}"),                  // Greece
             new Validator("GT", 28, "GT\\d{2}[A-Z0-9]{24}"),                  // Guatemala
+            new Validator("HN", 28, "HN\\d{2}[A-Z]{4}\\d{20}"),               // Honduras, since Dec-24
             new Validator("HR", 21, "HR\\d{19}"),                             // Croatia
             new Validator("HU", 28, "HU\\d{26}"),                             // Hungary
             new Validator("IE", 22, "IE\\d{2}[A-Z]{4}\\d{14}"),               // Ireland

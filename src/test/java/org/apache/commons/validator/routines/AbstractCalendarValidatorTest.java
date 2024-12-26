@@ -40,12 +40,6 @@ import org.junit.jupiter.api.Test;
  */
 public abstract class AbstractCalendarValidatorTest {
 
-    protected static final TimeZone GMT = TimeZone.getTimeZone("GMT"); // 0 offset
-
-    protected static final TimeZone EST = TimeZone.getTimeZone("EST"); // - 5 hours
-    protected static final TimeZone EET = TimeZone.getTimeZone("EET"); // + 2 hours
-    protected static final TimeZone UTC = TimeZone.getTimeZone("UTC"); // + 2 hours
-
     /**
      * Create a calendar instance for a specified time zone, date and time.
      *

@@ -32,11 +32,8 @@ import org.junit.jupiter.api.Test;
  */
 public class FloatValidatorTest extends AbstractNumberValidatorTest {
 
-    @Override
     @BeforeEach
     protected void setUp() {
-        super.setUp();
-
         validator = new FloatValidator(false, 0);
         strictValidator = new FloatValidator();
 
