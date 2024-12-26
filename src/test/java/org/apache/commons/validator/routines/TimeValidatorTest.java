@@ -179,10 +179,8 @@ public class TimeValidatorTest {
      * Test Invalid Dates with "locale" validation
      */
     @Test
+    @DefaultLocale("en-GB")
     public void testFormat() {
-        // Set the default Locale
-        Locale.setDefault(Locale.UK);
-
         // The JVM format varies; calculate expected results
         final Calendar cal = createTime(null, 164923, 0);
         final DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
