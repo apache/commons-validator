@@ -45,11 +45,12 @@
  * <li>4.2 <a href="#other.regex">Regular Expression validation</a></li>
  * <li>4.3 <a href="#other.checkdigit">Check Digit Validation/Calculation</a></li>
  * <li>4.4 <a href="#other.code">General Code Validation</a></li>
- * <li>4.5 <a href="#other.isbn">ISBN Validation</a></li>
- * <li>4.6 <a href="#other.inet">IP Address Validation</a></li>
- * <li>4.7 <a href="#other.email">Email Address Validation</a></li>
- * <li>4.8 <a href="#other.url">URL Validation</a></li>
- * <li>4.9 <a href="#other.domain">Domain Name Validation</a></li>
+ * <li>4.5 <a href="#other.iban">IBAN Validation</a></li>
+ * <li>4.6 <a href="#other.isbn">ISBN Validation</a></li>
+ * <li>4.7 <a href="#other.inet">IP Address Validation</a></li>
+ * <li>4.8 <a href="#other.email">Email Address Validation</a></li>
+ * <li>4.9 <a href="#other.url">URL Validation</a></li>
+ * <li>4.10 <a href="#other.domain">Domain Name Validation</a></li>
  * </ul>
  * </li>
  * </ul>
@@ -387,6 +388,7 @@
  * check digits (i.e. EAN/UPC, credit card, ISBN).</li>
  * <li><a href="#other.code">Code Validation</a> - provides generic
  * code validation - format, minimum/maximum length and check digit.</li>
+ * <li><a href="#other.iban">IBAN Validation</a> - provides International Bank Account Number validation.</li>
  * <li><a href="#other.isbn">ISBN Validation</a> - provides ISBN-10
  * and ISBN-13 validation.</li>
  * <li><a href="#other.inet">IP Address Validation</a> - provides IPv4 address
@@ -494,6 +496,8 @@
  * for <strong>CUSIP</strong> (North American Securities) check digit calculation.</li>
  * <li><a href="checkdigit/EAN13CheckDigit.html">EAN13CheckDigit</a>
  * for <strong>EAN-13</strong>, <strong>UPC</strong>, <strong>ISBN-13</strong> check digit calculation.</li>
+ * <li><a href="checkdigit/IBANCheckDigit.html">IBANCheckDigit</a>
+ * for <strong>IBAN</strong> check digit calculation.</li>
  * <li><a href="checkdigit/ISBNCheckDigit.html">ISBNCheckDigit</a>
  * for <strong>ISBN-10</strong> and <strong>ISBN-13</strong> check digit calculation.</li>
  * <li><a href="checkdigit/ISBN10CheckDigit.html">ISBN10CheckDigit</a>
@@ -571,8 +575,29 @@
  * ... // invalid
  * }
  * </pre>
+ * <a id="other.iban"></a>
+ * <h2>4.5 IBAN validation</h2>
+ * <p>
+ * <a href="IBANValidator.html">IBANValidator</a> provides validation of
+ * International Bank Account Number.
+ * </p>
+ * <p>
+ * The validator includes a default set of formats derived from the IBAN registry at
+ * https://www.swift.com/standards/data-standards/iban.
+ * </p>
+ * <p>
+ * For example:
+ * </p>
+ * <pre>
+ * // Get an IBANValidator
+ * IBANValidator validator = IBANValidator.getInstance();
+ * // Validate an IBAN
+ * if (!validator.isValid(candidateIBAN)) {
+ * ... // invalid
+ * }
+ * </pre>
  * <a id="other.isbn"></a>
- * <h2>4.5 ISBN validation</h2>
+ * <h2>4.6 ISBN validation</h2>
  * <p>
  * <a href="ISBNValidator.html">ISBNValidator</a> provides ISBN-10
  * and ISBN-13 validation and can <em>optionally</em> convert
@@ -623,7 +648,7 @@
  * String code = ISBNValidator.getInstance(false).validate(code);
  * </pre>
  * <a id="other.inet"></a>
- * <h2>4.6 IP Address Validation</h2>
+ * <h2>4.7 IP Address Validation</h2>
  * <p>
  * <a href="InetAddressValidator.html">InetAddressValidator</a> provides
  * IPv4 address validation.
@@ -640,7 +665,7 @@
  * }
  * </pre>
  * <a id="other.email"></a>
- * <h2>4.7 Email Address Validation</h2>
+ * <h2>4.8 Email Address Validation</h2>
  * <p>
  * <a href="EmailValidator.html">EmailValidator</a> provides email address
  * validation according to RFC 822 standards.
@@ -660,7 +685,7 @@
  * }
  * </pre>
  * <a id="other.url"></a>
- * <h2>4.8 URL Validation</h2>
+ * <h2>4.9 URL Validation</h2>
  * <p>
  * <a href="UrlValidator.html">UrlValidator</a> provides URL validation by
  * checking the scheme, authority, path, query, and fragment in turn. Clients
@@ -696,7 +721,7 @@
  * }
  * </pre>
  * <a id="other.domain"></a>
- * <h2>4.9 Domain Name Validation</h2>
+ * <h2>4.10 Domain Name Validation</h2>
  * <p>
  * <a href="DomainValidator.html">DomainValidator</a> provides validation of Internet
  * domain names as specified by RFC1034/RFC1123 and according to the IANA-recognized
