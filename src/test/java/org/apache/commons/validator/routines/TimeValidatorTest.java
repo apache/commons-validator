@@ -29,6 +29,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.time.TimeZones;
+import org.apache.commons.validator.util.TestTimeZones;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,9 +41,6 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  * Test Case for TimeValidator.
  */
 public class TimeValidatorTest {
-
-    protected static final TimeZone GMT = TimeZone.getTimeZone("GMT"); // 0 offset
-    protected static final TimeZone EST = TimeZone.getTimeZone("EST"); // - 5 hours
 
     /**
      * Create a date instance for a specified time zone, date and time.
@@ -134,18 +133,18 @@ public class TimeValidatorTest {
         final int min = 100;
         final int hour = 10000;
 
-        final Calendar milliGreater = createTime(GMT, testTime, 500); // > milli sec
-        final Calendar value = createTime(GMT, testTime, 400); // test value
-        final Calendar milliLess = createTime(GMT, testTime, 300); // < milli sec
+        final Calendar milliGreater = createTime(TimeZones.GMT, testTime, 500); // > milli sec
+        final Calendar value = createTime(TimeZones.GMT, testTime, 400); // test value
+        final Calendar milliLess = createTime(TimeZones.GMT, testTime, 300); // < milli sec
 
-        final Calendar secGreater = createTime(GMT, testTime + 1, 100); // +1 sec
-        final Calendar secLess = createTime(GMT, testTime - 1, 100); // -1 sec
+        final Calendar secGreater = createTime(TimeZones.GMT, testTime + 1, 100); // +1 sec
+        final Calendar secLess = createTime(TimeZones.GMT, testTime - 1, 100); // -1 sec
 
-        final Calendar minGreater = createTime(GMT, testTime + min, 100); // +1 min
-        final Calendar minLess = createTime(GMT, testTime - min, 100); // -1 min
+        final Calendar minGreater = createTime(TimeZones.GMT, testTime + min, 100); // +1 min
+        final Calendar minLess = createTime(TimeZones.GMT, testTime - min, 100); // -1 min
 
-        final Calendar hourGreater = createTime(GMT, testTime + hour, 100); // +1 hour
-        final Calendar hourLess = createTime(GMT, testTime - hour, 100); // -1 hour
+        final Calendar hourGreater = createTime(TimeZones.GMT, testTime + hour, 100); // +1 hour
+        final Calendar hourLess = createTime(TimeZones.GMT, testTime - hour, 100); // -1 hour
 
         assertEquals(-1, validator.compareTime(value, milliGreater), "milli LT"); // > milli
         assertEquals(0, validator.compareTime(value, value), "milli EQ"); // same time
@@ -255,23 +254,23 @@ public class TimeValidatorTest {
     public void testTimeZone() {
         Calendar result = validator.validate("18:01");
         assertNotNull(result, "default result");
-        assertEquals(GMT, result.getTimeZone(), "default zone");
+        assertEquals(TimeZones.GMT, result.getTimeZone(), "default zone");
         assertEquals(18, result.get(Calendar.HOUR_OF_DAY), "default hour");
         assertEquals(01, result.get(Calendar.MINUTE), "default minute");
         result = null;
 
         // Default Locale, diff TimeZone
-        result = validator.validate("16:49", EST);
+        result = validator.validate("16:49", TestTimeZones.EST);
         assertNotNull(result, "zone result");
-        assertEquals(EST, result.getTimeZone(), "zone zone");
+        assertEquals(TestTimeZones.EST, result.getTimeZone(), "zone zone");
         assertEquals(16, result.get(Calendar.HOUR_OF_DAY), "zone hour");
         assertEquals(49, result.get(Calendar.MINUTE), "zone minute");
         result = null;
 
         // Pattern, diff TimeZone
-        result = validator.validate("14-34", "HH-mm", EST);
+        result = validator.validate("14-34", "HH-mm", TestTimeZones.EST);
         assertNotNull(result, "pattern result");
-        assertEquals(EST, result.getTimeZone(), "pattern zone");
+        assertEquals(TestTimeZones.EST, result.getTimeZone(), "pattern zone");
         assertEquals(14, result.get(Calendar.HOUR_OF_DAY), "pattern hour");
         assertEquals(34, result.get(Calendar.MINUTE), "pattern minute");
         result = null;
@@ -281,9 +280,9 @@ public class TimeValidatorTest {
         final Calendar uscal = Calendar.getInstance(Locale.US);
         uscal.set(2005, 0, 1, 19, 18); // month is 0-based
         final String usVal = usdf.format(uscal.getTime());
-        result = validator.validate(usVal, Locale.US, EST);
+        result = validator.validate(usVal, Locale.US, TestTimeZones.EST);
         assertNotNull(result, "locale result: " + usVal);
-        assertEquals(EST, result.getTimeZone(), "locale zone: " + usVal);
+        assertEquals(TestTimeZones.EST, result.getTimeZone(), "locale zone: " + usVal);
         assertEquals(19, result.get(Calendar.HOUR_OF_DAY), "locale hour: " + usVal);
         assertEquals(18, result.get(Calendar.MINUTE), "locale minute: " + usVal);
         result = null;
@@ -294,9 +293,9 @@ public class TimeValidatorTest {
         final String germanSample = new SimpleDateFormat(dateTimePattern, Locale.GERMAN).format(decal.getTime());
 
         // Locale & Pattern, diff TimeZone
-        result = validator.validate(germanSample, dateTimePattern, Locale.GERMAN, EST);
+        result = validator.validate(germanSample, dateTimePattern, Locale.GERMAN, TestTimeZones.EST);
         assertNotNull(result, "pattern result: " + germanSample);
-        assertEquals(EST, result.getTimeZone(), "pattern zone");
+        assertEquals(TestTimeZones.EST, result.getTimeZone(), "pattern zone");
         assertEquals(2005, result.get(Calendar.YEAR), "pattern day");
         assertEquals(11, result.get(Calendar.MONTH), "pattern day"); // months are 0-11
         assertEquals(31, result.get(Calendar.DATE), "pattern day");
@@ -307,7 +306,7 @@ public class TimeValidatorTest {
         // Locale & Pattern, default TimeZone
         result = validator.validate(germanSample, dateTimePattern, Locale.GERMAN);
         assertNotNull(result, "pattern result: " + germanSample);
-        assertEquals(GMT, result.getTimeZone(), "pattern zone");
+        assertEquals(TimeZones.GMT, result.getTimeZone(), "pattern zone");
         assertEquals(2005, result.get(Calendar.YEAR), "pattern day");
         assertEquals(11, result.get(Calendar.MONTH), "pattern day"); // months are 0-11
         assertEquals(31, result.get(Calendar.DATE), "pattern day");
