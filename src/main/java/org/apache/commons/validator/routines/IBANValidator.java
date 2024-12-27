@@ -101,10 +101,6 @@ public class IBANValidator {
             if (ibanLength > MAX_LEN || ibanLength < MIN_LEN) {
                 throw new IllegalArgumentException("Invalid length parameter, must be in range " + MIN_LEN + " to " + MAX_LEN + " inclusive: " + ibanLength);
             }
-            final String regex = countryCode + regexWithoutCC;
-            if (!regex.startsWith(countryCode)) {
-                throw new IllegalArgumentException("countryCode '" + countryCode + "' does not agree with format: " + regex);
-            }
             this.countryCode = countryCode;
             this.otherCountryCodes = otherCountryCodes.clone();
             final List<String> regexList = new ArrayList<>(this.otherCountryCodes.length + 1);
