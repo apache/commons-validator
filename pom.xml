@@ -103,7 +103,7 @@
          </configuration>
         </plugin>
       </plugins>
-	  </pluginManagement>
+	</pluginManagement>
     <resources>
       <resource>
         <directory>${basedir}</directory>
