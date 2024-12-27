@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -478,5 +479,21 @@ public class IBANValidatorTest {
             assertTrue(allPatterns.remove(ac + re), "No additional country code " + ac + " found for " + countryInfo);
         }
         assertTrue(allPatterns.isEmpty(), "Unrecognized patterns: " + allPatterns + " for" + countryInfo);
+    }
+
+    public static Stream<Arguments> validateIbanStatuses() {
+        return Stream.of(
+                Arguments.of("XX", IBANValidatorStatus.UNKNOWN_COUNTRY),
+                Arguments.of("AD0101", IBANValidatorStatus.INVALID_LENGTH),
+                Arguments.of("AD12XX012030200359100100", IBANValidatorStatus.INVALID_PATTERN),
+                Arguments.of("AD9900012030200359100100", IBANValidatorStatus.INVALID_CHECKSUM),
+                Arguments.of("AD1200012030200359100100", IBANValidatorStatus.VALID)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    public void validateIbanStatuses(String iban, IBANValidatorStatus expectedStatus) {
+        assertEquals(expectedStatus, IBANValidator.getInstance().validate(iban));
     }
 }

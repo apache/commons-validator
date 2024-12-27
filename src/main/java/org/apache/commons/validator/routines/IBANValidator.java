@@ -343,11 +343,31 @@ public class IBANValidator {
      * @return {@code true} if the value is valid
      */
     public boolean isValid(final String code) {
+        return validate(code) == IBANValidatorStatus.VALID;
+    }
+
+    /**
+     * Validate an IBAN Code
+     *
+     * @param code The value validation is being performed on
+     * @return {@link IBANValidatorStatus} for validation
+     * @since 1.10.0
+     */
+    public IBANValidatorStatus validate(String code) {
         final Validator formatValidator = getValidator(code);
-        if (formatValidator == null || code.length() != formatValidator.ibanLength || !formatValidator.regexValidator.isValid(code)) {
-            return false;
+        if (formatValidator == null) {
+            return IBANValidatorStatus.UNKNOWN_COUNTRY;
         }
-        return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code);
+
+        if (code.length() != formatValidator.ibanLength) {
+            return IBANValidatorStatus.INVALID_LENGTH;
+        }
+
+        if (!formatValidator.regexValidator.isValid(code)) {
+            return IBANValidatorStatus.INVALID_PATTERN;
+        }
+
+        return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code) ? IBANValidatorStatus.VALID : IBANValidatorStatus.INVALID_CHECKSUM;
     }
 
     /**
