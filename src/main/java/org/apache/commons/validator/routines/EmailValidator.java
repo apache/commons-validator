@@ -173,10 +173,7 @@ public class EmailValidator implements Serializable {
      * @return true if the email address is valid.
      */
     public boolean isValid(final String email) {
-        if (email == null) {
-            return false;
-        }
-        if (email.endsWith(".")) { // check this first - it's cheap!
+        if ((email == null) || email.endsWith(".")) { // check this first - it's cheap!
             return false;
         }
         // Check the whole email address structure

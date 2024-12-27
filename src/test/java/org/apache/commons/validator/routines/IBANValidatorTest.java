@@ -473,7 +473,7 @@ public class IBANValidatorTest {
 
     @ParameterizedTest
     @MethodSource
-    public void validateIbanStatuses(String iban, IBANValidatorStatus expectedStatus) {
+    public void validateIbanStatuses(final String iban, final IBANValidatorStatus expectedStatus) {
         assertEquals(expectedStatus, IBANValidator.getInstance().validate(iban));
     }
 

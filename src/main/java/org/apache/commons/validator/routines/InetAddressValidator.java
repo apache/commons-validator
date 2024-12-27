@@ -110,10 +110,7 @@ public class InetAddressValidator implements Serializable {
             } catch (final NumberFormatException e) {
                 return false;
             }
-            if (iIpSegment > IPV4_MAX_OCTET_VALUE) {
-                return false;
-            }
-            if (ipSegment.length() > 1 && ipSegment.startsWith("0")) {
+            if (iIpSegment > IPV4_MAX_OCTET_VALUE || ipSegment.length() > 1 && ipSegment.startsWith("0")) {
                 return false;
             }
         }
@@ -145,12 +142,9 @@ public class InetAddressValidator implements Serializable {
         }
         // remove zone-id
         parts = parts[0].split("%", -1);
-        if (parts.length > 2) {
-            return false;
-        }
         // The id syntax is implementation independent, but it presumably cannot allow:
         // whitespace, '/' or '%'
-        if (parts.length == 2 && !ID_CHECK_PATTERN.matcher(parts[1]).matches()) {
+        if ((parts.length > 2) || (parts.length == 2 && !ID_CHECK_PATTERN.matcher(parts[1]).matches())) {
             return false; // invalid id
         }
         inet6Address = parts[0];

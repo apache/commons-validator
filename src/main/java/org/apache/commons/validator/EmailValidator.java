@@ -110,10 +110,7 @@ public class EmailValidator {
             symbolic = DOMAIN_PATTERN.matcher(domain).matches();
         }
 
-        if (!symbolic) {
-            return false;
-        }
-        if (!isValidSymbolicDomain(domain)) {
+        if (!symbolic || !isValidSymbolicDomain(domain)) {
             return false;
         }
 
@@ -181,10 +178,7 @@ public class EmailValidator {
         }
 
         final String tld = domainSegment[len - 1];
-        if (tld.length() <= 1) {
-            return false;
-        }
-        if (! TLD_PATTERN.matcher(tld).matches()) {
+        if (tld.length() <= 1 || ! TLD_PATTERN.matcher(tld).matches()) {
             return false;
         }
 

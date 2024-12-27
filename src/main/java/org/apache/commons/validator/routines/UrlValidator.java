@@ -377,23 +377,12 @@ public class UrlValidator implements Serializable {
         if ("file".equals(scheme) && GenericValidator.isBlankOrNull(authority)) { // Special case - file: allows an empty authority
             return true; // this is a local file - nothing more to do here
         }
-        if ("file".equals(scheme) && authority != null && authority.contains(":")) {
-            return false;
-        }
         // Validate the authority
-        if (!isValidAuthority(authority)) {
+        if ("file".equals(scheme) && authority != null && authority.contains(":") || !isValidAuthority(authority)) {
             return false;
         }
 
-        if (!isValidPath(uri.getRawPath())) {
-            return false;
-        }
-
-        if (!isValidQuery(uri.getRawQuery())) {
-            return false;
-        }
-
-        if (!isValidFragment(uri.getRawFragment())) {
+        if (!isValidPath(uri.getRawPath()) || !isValidQuery(uri.getRawQuery()) || !isValidFragment(uri.getRawFragment())) {
             return false;
         }
 
@@ -486,11 +475,7 @@ public class UrlValidator implements Serializable {
      * @return true if path is valid.
      */
     protected boolean isValidPath(final String path) {
-        if (path == null) {
-            return false;
-        }
-
-        if (!PATH_PATTERN.matcher(path).matches()) {
+        if (path == null || !PATH_PATTERN.matcher(path).matches()) {
             return false;
         }
 
@@ -536,15 +521,8 @@ public class UrlValidator implements Serializable {
      * @return true if valid.
      */
     protected boolean isValidScheme(final String scheme) {
-        if (scheme == null) {
-            return false;
-        }
-
-        if (!SCHEME_PATTERN.matcher(scheme).matches()) {
-            return false;
-        }
-
-        if (isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme.toLowerCase(Locale.ENGLISH))) {
+        if (scheme == null || !SCHEME_PATTERN.matcher(scheme).matches()
+                || isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme.toLowerCase(Locale.ENGLISH))) {
             return false;
         }
 

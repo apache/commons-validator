@@ -78,6 +78,10 @@ import org.apache.commons.validator.util.Flags;
 @Deprecated
 public class UrlValidator implements Serializable {
 
+    private static final int TOP_LEVEL_MAX_LEN = 4;
+
+    private static final int TOP_LEVEL_MIN_LEN = 2;
+
     private static final long serialVersionUID = 24137157400029593L;
 
     /**
@@ -259,28 +263,13 @@ public class UrlValidator implements Serializable {
      * @return true if the URL is valid.
      */
     public boolean isValid(final String value) {
-        if (value == null) {
-            return false;
-        }
-        if (!LEGAL_ASCII_PATTERN.matcher(value).matches()) {
+        if (value == null || !LEGAL_ASCII_PATTERN.matcher(value).matches()) {
            return false;
         }
 
         // Check the whole url address structure
         final Matcher urlMatcher = URL_PATTERN.matcher(value);
-        if (!urlMatcher.matches()) {
-            return false;
-        }
-
-        if (!isValidScheme(urlMatcher.group(PARSE_URL_SCHEME))) {
-            return false;
-        }
-
-        if (!isValidAuthority(urlMatcher.group(PARSE_URL_AUTHORITY))) {
-            return false;
-        }
-
-        if (!isValidPath(urlMatcher.group(PARSE_URL_PATH))) {
+        if (!urlMatcher.matches() || !isValidScheme(urlMatcher.group(PARSE_URL_SCHEME)) || !isValidAuthority(urlMatcher.group(PARSE_URL_AUTHORITY)) || !isValidPath(urlMatcher.group(PARSE_URL_PATH))) {
             return false;
         }
 
@@ -355,17 +344,12 @@ public class UrlValidator implements Serializable {
                 }
             }
             final String topLevel = domainSegment[segmentCount - 1];
-            if (topLevel.length() < 2 || topLevel.length() > 4) { // CHECKSTYLE IGNORE MagicNumber (deprecated code)
-                return false;
-            }
+
 
             // First letter of top level must be a alpha
-            if (!ALPHA_PATTERN.matcher(topLevel.substring(0, 1)).matches()) {
-                return false;
-            }
-
             // Make sure there's a host name preceding the authority.
-            if (segmentCount < 2) {
+            if (topLevel.length() < TOP_LEVEL_MIN_LEN || topLevel.length() > TOP_LEVEL_MAX_LEN || !ALPHA_PATTERN.matcher(topLevel.substring(0, 1)).matches()
+                    || segmentCount < 2) {
                 return false;
             }
         }
@@ -406,11 +390,7 @@ public class UrlValidator implements Serializable {
      * @return true if path is valid.
      */
     protected boolean isValidPath(final String path) {
-        if (path == null) {
-            return false;
-        }
-
-        if (!PATH_PATTERN.matcher(path).matches()) {
+        if (path == null || !PATH_PATTERN.matcher(path).matches()) {
             return false;
         }
 
@@ -450,15 +430,7 @@ public class UrlValidator implements Serializable {
      * @return true if valid.
      */
     protected boolean isValidScheme(final String scheme) {
-        if (scheme == null) {
-            return false;
-        }
-
-        if (!SCHEME_PATTERN.matcher(scheme).matches()) {
-            return false;
-        }
-
-        if (options.isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme)) {
+        if (scheme == null || !SCHEME_PATTERN.matcher(scheme).matches() || options.isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme)) {
             return false;
         }
 

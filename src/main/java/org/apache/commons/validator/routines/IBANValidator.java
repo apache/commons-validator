@@ -390,7 +390,7 @@ public class IBANValidator {
      * @return {@link IBANValidatorStatus} for validation
      * @since 1.10.0
      */
-    public IBANValidatorStatus validate(String code) {
+    public IBANValidatorStatus validate(final String code) {
         final Validator formatValidator = getValidator(code);
         if (formatValidator == null) {
             return IBANValidatorStatus.UNKNOWN_COUNTRY;
