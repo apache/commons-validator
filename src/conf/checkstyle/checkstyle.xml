@@ -19,10 +19,8 @@
     "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
     "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <!--
-  
   These checks still need to be Voted on for Validator, but
   at least serve to cut down on some of the noise. 
-
 
   A Checkstyle configuration that checks against the recommendations
   in Joshua Bloch, Effective Java (highliy recommended read!)
@@ -46,28 +44,22 @@
     <module name="EqualsHashCode" />
     <!-- Item 12 - Make all fields private -->
     <!-- <module name="VisibilityModifier"/> -->
-
     <!-- Item 15 - Design and document for inheritance or else prohibit it -->
     <!-- the module actually implements a very strict rule, it would be interesting to know whether Joshua meant what checkstyle implements. We feel this implementation 
       is well suited as a warning, i.e. if you get error messages from this check you should be able to name a good reason to implement your code the way you do it, especially 
       if you are designing a library and not an application. -->
     <!-- <module name="DesignForExtension"> <property name="severity" value="warning"/> </module> -->
-
     <!-- Item 17 - Use interfaces only to define types -->
     <module name="InterfaceIsType" />
-
     <!-- Item 25 - Design method signatures carefully -->
     <!-- Avoid long parameter lists -->
     <module name="ParameterNumber">
       <property name="max" value="4" />
     </module>
-
     <!-- Item 26 - Use overloading judiciously -->
     <!-- rfe #659735 -->
-
     <!-- Item 27 - Return zero-length array, not nulls -->
     <!-- no rfe yet -->
-
     <!-- Item 28 - Write doc comments for all exposed API elements -->
     <module name="JavadocType">
       <property name="scope" value="protected" />
@@ -80,7 +72,6 @@
     </module>
     <!-- Item 29 - Minimize the scope of local variables -->
     <!-- no rfe yet -->
-
     <!-- Item 38 - Adhere to generally accepted naming conventions -->
     <module name="PackageName">
       <!-- no uppercase letters, between 2 and 10 characters -->
@@ -102,10 +93,8 @@
     </module>
     <!-- Item 50 - Never invoke wait outside a loop -->
     <!-- rfe #712798 -->
-
     <!-- Item 57 - Provide a readResolve method when necessary -->
     <!-- no rfe yet -->
-
     <module name="MagicNumber" />
     <module name="SuppressionCommentFilter" />
     <!-- Allow comment to suppress checkstyle for a single line e.g. // CHECKSTYLE IGNORE MagicNumber -->
@@ -125,28 +114,24 @@
     <module name="TypecastParenPad"/>
     <module name="SingleSpaceSeparator"/>
   </module>
-
   <!-- enforce package documentation -->
   <module name="JavadocPackage">
     <!-- setting allowLegacy means it will check for package.html instead of just package-info.java -->
     <property name="allowLegacy" value="true" />
   </module>
-
   <!-- Item 6 - Avoid finalizers -->
   <!-- this will not find violations that contain linebreaks -->
   <module name="RegexpSingleline">
     <property name="format" value="((public)|(protected))\s+void\s+finalize\(\s*\)" />
     <property name="message" value="Avoid finalizers." />
   </module>
-
   <!-- don't allow tabs -->
   <module name="FileTabCharacter">
     <property name="fileExtensions" value="java,xml" />
   </module>
-
   <module name="SuppressionFilter">
     <!-- config_loc is used by Eclipse plugin -->
-    <property name="file" value="${config_loc}/checkstyle-suppressions.xml" />
+    <property name="file" value="src/conf/checkstyle/checkstyle-suppressions.xml" />
   </module>
   <module name="RegexpSingleline">
     <!-- @author tags are deprecated -->
