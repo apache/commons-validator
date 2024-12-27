@@ -18,13 +18,11 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
     <version>78</version>
   </parent>
-
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
   <version>1.10.0-SNAPSHOT</version>
@@ -35,7 +33,6 @@
   </description>
   <url>http://commons.apache.org/proper/commons-validator/</url>
   <inceptionYear>2002</inceptionYear>
-
   <properties>
     <commons.componentid>validator</commons.componentid>
     <commons.module.name>org.apache.commons.validator</commons.module.name>
@@ -67,18 +64,15 @@
     <commons.jacoco.lineRatio>0.78</commons.jacoco.lineRatio>
     <commons.jacoco.complexityRatio>0.71</commons.jacoco.complexityRatio>
   </properties>
-
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-validator</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-validator</developerConnection>
     <url>https://gitbox.apache.org/repos/asf/commons-validator</url>
   </scm>
-
   <issueManagement>
     <system>jira</system>
     <url>http://issues.apache.org/jira/browse/VALIDATOR</url>
   </issueManagement>
-
   <distributionManagement>
     <site>
       <id>apache.website</id>
@@ -86,7 +80,6 @@
       <url>scm:svn:https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-validator/</url>
     </site>
   </distributionManagement>
-
   <build>
     <defaultGoal>clean verify apache-rat:check japicmp:cmp checkstyle:check spotbugs:check pmd:check javadoc:javadoc</defaultGoal>
     <pluginManagement>
@@ -162,7 +155,6 @@
       </plugin>
     </plugins>
   </build>
-
   <dependencies>
     <dependency>
       <groupId>commons-beanutils</groupId>
@@ -226,7 +218,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <reporting>
     <plugins>
       <plugin>
@@ -267,7 +258,6 @@
       </plugin>
     </plugins>
   </reporting>
-
   <profiles>
     <profile>
       <id>setup-checkout</id>
@@ -293,11 +283,9 @@
                     <exec executable="svn">
                       <arg line="checkout --depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}" />
                     </exec>
-
                     <exec executable="svn">
                       <arg line="update --set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs" />
                     </exec>
-
                     <pathconvert pathsep=" " property="dirs">
                       <dirset dir="${commons.scmPubCheckoutDirectory}" includes="*" />
                     </pathconvert>
@@ -315,7 +303,6 @@
     <profile>
       <!--
         Easily run DomainValidatorTest:
-
         mvn -PDomainValidatorTest
       -->
       <id>DomainValidatorTest</id>
@@ -362,7 +349,6 @@
        </build>
     </profile>
   </profiles>
-
   <developers>
     <developer>
       <name>Don Brown</name>
@@ -455,5 +441,4 @@
       <name>Makoto Uchino</name>
     </contributor>
   </contributors>
-
 </project>
