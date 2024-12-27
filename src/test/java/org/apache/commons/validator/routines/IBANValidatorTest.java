@@ -369,7 +369,7 @@ public class IBANValidatorTest {
 
     @ParameterizedTest
     @MethodSource("ibanRegistrySourceExamples")
-    public void exampleAccountsShouldBeValid(final String countryName, final String example) {
+    public void testExampleAccountsShouldBeValid(final String countryName, final String example) {
         Assumptions.assumeFalse(INVALID_IBAN_FIXTURES.contains(example), "Skip invalid example: " + example + " for " + countryName);
         assertTrue(IBANValidator.getInstance().isValid(example), "IBAN validator returned false for " + example + " for " + countryName);
     }
@@ -466,28 +466,28 @@ public class IBANValidatorTest {
     @ParameterizedTest
     @FieldSource("VALID_IBAN_FIXTURES")
     public void testValid(final String iban) {
-            assertTrue(IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(iban), "Checksum fail: " + iban);
-            assertTrue(VALIDATOR.hasValidator(iban), "Missing validator: " + iban);
-            assertTrue(VALIDATOR.isValid(iban), iban);
+        assertTrue(IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(iban), "Checksum fail: " + iban);
+        assertTrue(VALIDATOR.hasValidator(iban), "Missing validator: " + iban);
+        assertTrue(VALIDATOR.isValid(iban), iban);
     }
 
     @ParameterizedTest
-    @MethodSource
-    public void validateIbanStatuses(final String iban, final IBANValidatorStatus expectedStatus) {
+    @MethodSource("validateIbanStatuses")
+    public void testValidateIbanStatuses(final String iban, final IBANValidatorStatus expectedStatus) {
         assertEquals(expectedStatus, IBANValidator.getInstance().validate(iban));
     }
 
     @ParameterizedTest
     @MethodSource("ibanRegistrySource")
-    public void validatorShouldExistWithProperConfiguration(final String countryName, final String countryCode, final List<String> acountyCode, final int ibanLength, final String structure) throws Exception {
+    public void testValidatorShouldExistWithProperConfiguration(final String countryName, final String countryCode, final List<String> acountyCode,
+            final int ibanLength, final String structure) throws Exception {
         final String countryInfo = " countryCode: " + countryCode + ", countryName: " + countryName;
         final Validator validator = IBANValidator.getInstance().getValidator(countryCode);
 
         assertNotNull(validator, "IBAN validator returned null for" + countryInfo);
         assertEquals(ibanLength, validator.getIbanLength(), "IBAN length should be " + ibanLength + " for" + countryInfo);
 
-        final List<String> allPatterns = Arrays.stream(validator.getRegexValidator().getPatterns()).map(Pattern::pattern).collect(
-                Collectors.toList());
+        final List<String> allPatterns = Arrays.stream(validator.getRegexValidator().getPatterns()).map(Pattern::pattern).collect(Collectors.toList());
 
         final String re = fmtRE(structure.substring(2));
         assertTrue(allPatterns.remove(countryCode + re), "No pattern " + countryCode + re + " found for " + countryInfo);
