@@ -357,6 +357,16 @@ public class IBANValidatorTest {
         return result;
     }
 
+    public static Stream<Arguments> validateIbanStatuses() {
+        return Stream.of(
+                Arguments.of("XX", IBANValidatorStatus.UNKNOWN_COUNTRY),
+                Arguments.of("AD0101", IBANValidatorStatus.INVALID_LENGTH),
+                Arguments.of("AD12XX012030200359100100", IBANValidatorStatus.INVALID_PATTERN),
+                Arguments.of("AD9900012030200359100100", IBANValidatorStatus.INVALID_CHECKSUM),
+                Arguments.of("AD1200012030200359100100", IBANValidatorStatus.VALID)
+        );
+    }
+
     @ParameterizedTest
     @MethodSource("ibanRegistrySourceExamples")
     public void exampleAccountsShouldBeValid(final String countryName, final String example) {
@@ -462,6 +472,12 @@ public class IBANValidatorTest {
     }
 
     @ParameterizedTest
+    @MethodSource
+    public void validateIbanStatuses(String iban, IBANValidatorStatus expectedStatus) {
+        assertEquals(expectedStatus, IBANValidator.getInstance().validate(iban));
+    }
+
+    @ParameterizedTest
     @MethodSource("ibanRegistrySource")
     public void validatorShouldExistWithProperConfiguration(final String countryName, final String countryCode, final List<String> acountyCode, final int ibanLength, final String structure) throws Exception {
         final String countryInfo = " countryCode: " + countryCode + ", countryName: " + countryName;
@@ -479,21 +495,5 @@ public class IBANValidatorTest {
             assertTrue(allPatterns.remove(ac + re), "No additional country code " + ac + " found for " + countryInfo);
         }
         assertTrue(allPatterns.isEmpty(), "Unrecognized patterns: " + allPatterns + " for" + countryInfo);
-    }
-
-    public static Stream<Arguments> validateIbanStatuses() {
-        return Stream.of(
-                Arguments.of("XX", IBANValidatorStatus.UNKNOWN_COUNTRY),
-                Arguments.of("AD0101", IBANValidatorStatus.INVALID_LENGTH),
-                Arguments.of("AD12XX012030200359100100", IBANValidatorStatus.INVALID_PATTERN),
-                Arguments.of("AD9900012030200359100100", IBANValidatorStatus.INVALID_CHECKSUM),
-                Arguments.of("AD1200012030200359100100", IBANValidatorStatus.VALID)
-        );
-    }
-
-    @ParameterizedTest
-    @MethodSource
-    public void validateIbanStatuses(String iban, IBANValidatorStatus expectedStatus) {
-        assertEquals(expectedStatus, IBANValidator.getInstance().validate(iban));
     }
 }

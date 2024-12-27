@@ -347,30 +347,6 @@ public class IBANValidator {
     }
 
     /**
-     * Validate an IBAN Code
-     *
-     * @param code The value validation is being performed on
-     * @return {@link IBANValidatorStatus} for validation
-     * @since 1.10.0
-     */
-    public IBANValidatorStatus validate(String code) {
-        final Validator formatValidator = getValidator(code);
-        if (formatValidator == null) {
-            return IBANValidatorStatus.UNKNOWN_COUNTRY;
-        }
-
-        if (code.length() != formatValidator.ibanLength) {
-            return IBANValidatorStatus.INVALID_LENGTH;
-        }
-
-        if (!formatValidator.regexValidator.isValid(code)) {
-            return IBANValidatorStatus.INVALID_PATTERN;
-        }
-
-        return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code) ? IBANValidatorStatus.VALID : IBANValidatorStatus.INVALID_CHECKSUM;
-    }
-
-    /**
      * Installs a validator.
      * Will replace any existing entry which has the same countryCode.
      *
@@ -405,5 +381,29 @@ public class IBANValidator {
             throw new IllegalStateException("The singleton validator cannot be modified");
         }
         return validatorMap.put(validator.countryCode, validator);
+    }
+
+    /**
+     * Validate an IBAN Code
+     *
+     * @param code The value validation is being performed on
+     * @return {@link IBANValidatorStatus} for validation
+     * @since 1.10.0
+     */
+    public IBANValidatorStatus validate(String code) {
+        final Validator formatValidator = getValidator(code);
+        if (formatValidator == null) {
+            return IBANValidatorStatus.UNKNOWN_COUNTRY;
+        }
+
+        if (code.length() != formatValidator.ibanLength) {
+            return IBANValidatorStatus.INVALID_LENGTH;
+        }
+
+        if (!formatValidator.regexValidator.isValid(code)) {
+            return IBANValidatorStatus.INVALID_PATTERN;
+        }
+
+        return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code) ? IBANValidatorStatus.VALID : IBANValidatorStatus.INVALID_CHECKSUM;
     }
 }
