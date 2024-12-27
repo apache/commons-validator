@@ -355,6 +355,7 @@ public class IBANValidator {
      *
      * @param code The value validation is being performed on
      * @return {@link IBANValidatorStatus} for validation
+     * @since 1.10.0
      */
     public IBANValidatorStatus validate(String code) {
         final Validator formatValidator = getValidator(code);
