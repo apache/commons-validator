@@ -359,20 +359,17 @@ public class UrlValidator implements Serializable {
         if (value == null) {
             return false;
         }
-
-        URI uri; // ensure value is a valid URI
+        final URI uri; // ensure value is a valid URI
         try {
             uri = new URI(value);
         } catch (final URISyntaxException e) {
             return false;
         }
         // OK, perform additional validation
-
         final String scheme = uri.getScheme();
         if (!isValidScheme(scheme)) {
             return false;
         }
-
         final String authority = uri.getRawAuthority();
         if ("file".equals(scheme) && GenericValidator.isBlankOrNull(authority)) { // Special case - file: allows an empty authority
             return true; // this is a local file - nothing more to do here
@@ -381,11 +378,9 @@ public class UrlValidator implements Serializable {
         if ("file".equals(scheme) && authority != null && authority.contains(":") || !isValidAuthority(authority)) {
             return false;
         }
-
         if (!isValidPath(uri.getRawPath()) || !isValidQuery(uri.getRawQuery()) || !isValidFragment(uri.getRawFragment())) {
             return false;
         }
-
         return true;
     }
 

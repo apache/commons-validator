@@ -29,6 +29,7 @@
     </module>
     <module name="EqualsHashCode" />
     <module name="ExplicitInitializationCheck" />
+    <module name="FinalLocalVariable" />
     <module name="IllegalInstantiation">
       <property name="classes" value="java.lang.Boolean, java.lang.String" />
     </module>
