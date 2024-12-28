@@ -75,12 +75,7 @@ public class RegexValidatorTest {
      */
     @Test
     public void testExceptions() {
-        final String invalidRegex = "^([abCD12]*$";
-        try {
-            new RegexValidator(invalidRegex);
-        } catch (final PatternSyntaxException e) {
-            // expected
-        }
+        assertThrows(PatternSyntaxException.class, () -> new RegexValidator("^([abCD12]*$"));
     }
 
     @Test
