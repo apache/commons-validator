@@ -90,29 +90,29 @@ public class Validator implements Serializable {
     /**
      * The Validator Resources.
      */
-    protected ValidatorResources resources;
+    private ValidatorResources resources;
 
     /**
      * The name of the form to validate
      */
-    protected String formName;
+    private String formName;
 
     /**
      * The name of the field on the form to validate
      * @since 1.2.0
      */
-    protected String fieldName;
+    private String fieldName;
 
     /**
      * Maps validation method parameter class names to the objects to be passed
      * into the method.
      */
-    protected Map<String, Object> parameters = new HashMap<>(); // <String, Object>
+    private Map<String, Object> parameters = new HashMap<>(); // <String, Object>
 
     /**
      * The current page number to validate.
      */
-    protected int page;
+    private int page;
 
     /**
      * The class loader to use for instantiating application objects.
@@ -120,18 +120,18 @@ public class Validator implements Serializable {
      * used to load Digester itself, is used, based on the value of the
      * {@code useContextClassLoader} variable.
      */
-    protected transient ClassLoader classLoader;
+    private transient ClassLoader classLoader;
 
     /**
      * Whether or not to use the Context ClassLoader when loading classes
      * for instantiating new objects.  Default is {@code false}.
      */
-    protected boolean useContextClassLoader;
+    private boolean useContextClassLoader;
 
     /**
      * Sets this to true to not return Fields that pass validation.  Only return failures.
      */
-    protected boolean onlyReturnErrors;
+    private boolean onlyReturnErrors;
 
     /**
      * Constructs a {@code Validator} that will
@@ -384,6 +384,38 @@ public class Validator implements Serializable {
         }
 
         return new ValidatorResults();
+    }
+
+    /**
+     * get The Validator Resources.
+     * @return ValidatorResources
+     */
+
+    public ValidatorResources getResources() {
+        return resources;
+    }
+
+    /**
+     * set The Validator Resources.
+     */
+    public void setResources(final ValidatorResources resources) {
+        this.resources = resources;
+    }
+
+    /**
+     * get the name of the field to validate in a form (optional)
+     * @return fieldName:String
+     */
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    /**
+     * get Maps validation method parameter class names to the objects to be passed
+     * @return parameters
+     */
+    public Map<String, Object> getParameters() {
+        return parameters;
     }
 
 }
