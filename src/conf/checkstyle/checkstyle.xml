@@ -20,14 +20,17 @@
     "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <module name="Checker">
   <module name="TreeWalker">
+    <module name="ConstantName" />
+    <module name="EmptyBlock">
+      <property name="tokens" value="LITERAL_CATCH" />
+      <!-- require a comment, change to stmt to require a statement -->
+      <property name="option" value="text" />
+    </module>
+    <module name="EqualsHashCode" />
     <module name="IllegalInstantiation">
       <property name="classes" value="java.lang.Boolean, java.lang.String" />
     </module>
-    <module name="EqualsHashCode" />
     <module name="InterfaceIsType" />
-    <module name="ParameterNumber">
-      <property name="max" value="4" />
-    </module>
     <module name="JavadocType">
       <property name="scope" value="protected" />
     </module>
@@ -37,41 +40,38 @@
     <module name="JavadocVariable">
       <property name="scope" value="protected" />
     </module>
-    <module name="PackageName">
-      <!-- no uppercase letters, between 2 and 10 characters -->
-      <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,9})*$" />
-    </module>
-    <module name="TypeName" />
-    <module name="ConstantName" />
-    <module name="LocalFinalVariableName" />
-    <module name="LocalVariableName" />
-    <module name="MemberName" />
-    <module name="MethodName" />
-    <module name="ParameterName" />
-    <module name="StaticVariableName" />
-    <module name="EmptyBlock">
-      <property name="tokens" value="LITERAL_CATCH" />
-      <!-- require a comment, change to stmt to require a statement -->
-      <property name="option" value="text" />
-    </module>
-    <module name="MagicNumber" />
-    <module name="SuppressionCommentFilter" />
-    <!-- Allow comment to suppress checkstyle for a single line e.g. // CHECKSTYLE IGNORE MagicNumber -->
-    <module name="SuppressWithNearbyCommentFilter">
-      <property name="commentFormat" value="CHECKSTYLE IGNORE (\w+)" />
-      <property name="checkFormat" value="$1" />
-    </module>
     <module name="ImportOrder">
       <property name="option" value="top"/>
       <property name="groups" value="java,javax,org,junit"/>
       <property name="ordered" value="true"/>
       <property name="separated" value="true"/>
     </module>
+    <module name="LocalFinalVariableName" />
+    <module name="LocalVariableName" />
+    <module name="MagicNumber" />
+    <module name="MemberName" />
+    <module name="MethodName" />
+    <module name="ParameterNumber">
+      <property name="max" value="4" />
+    </module>
+    <module name="PackageName">
+      <!-- no uppercase letters, between 2 and 10 characters -->
+      <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,9})*$" />
+    </module>
+    <module name="ParameterName" />
+    <module name="SingleSpaceSeparator"/>
+    <module name="StaticVariableName" />
+    <module name="SuppressionCommentFilter" />
+    <!-- Allow comment to suppress checkstyle for a single line e.g. // CHECKSTYLE IGNORE MagicNumber -->
+    <module name="SuppressWithNearbyCommentFilter">
+      <property name="commentFormat" value="CHECKSTYLE IGNORE (\w+)" />
+      <property name="checkFormat" value="$1" />
+    </module>
+    <module name="TypecastParenPad"/>
+    <module name="TypeName" />
     <module name="WhitespaceAfter"/>
     <module name="WhitespaceAround"/>
     <module name="WhitespaceAroundCheck"/>
-    <module name="TypecastParenPad"/>
-    <module name="SingleSpaceSeparator"/>
   </module>
   <module name="JavadocPackage" />
   <module name="RegexpSingleline">
