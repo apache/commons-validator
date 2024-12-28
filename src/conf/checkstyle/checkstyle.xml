@@ -58,6 +58,7 @@
     <module name="MethodName" />
     <module name="MissingOverride" />
     <module name="ModifierOrder" />
+    <module name="NeedBraces" />
     <module name="ParameterNumber">
       <property name="max" value="4" />
     </module>
