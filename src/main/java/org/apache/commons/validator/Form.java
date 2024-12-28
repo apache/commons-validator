@@ -175,19 +175,16 @@ public class Form implements Serializable {
      * @since 1.2.0
      */
     protected void merge(final Form depends) {
-
         final List<Field> templFields = new ArrayList<>();
         @SuppressWarnings("unchecked") // FastHashMap is not generic
-        final
-        Map<String, Field> temphFields = new FastHashMap();
+        final Map<String, Field> temphFields = new FastHashMap();
         for (final Field defaultField : depends.getFields()) {
             if (defaultField != null) {
                 final String fieldKey = defaultField.getKey();
                 if (!containsField(fieldKey)) {
                     templFields.add(defaultField);
                     temphFields.put(fieldKey, defaultField);
-                }
-                else {
+                } else {
                     final Field old = getField(fieldKey);
                     getFieldMap().remove(fieldKey);
                     lFields.remove(old);
