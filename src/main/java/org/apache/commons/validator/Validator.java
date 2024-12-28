@@ -196,7 +196,9 @@ public class Validator implements Serializable {
     public void clear() {
         formName = null;
         fieldName = null;
-        parameters = new HashMap<>();
+        if(parameters != null){
+            parameters.clear();
+        }else parameters = new HashMap<>();
         page = 0;
     }
 
