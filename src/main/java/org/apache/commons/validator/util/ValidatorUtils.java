@@ -153,4 +153,14 @@ public class ValidatorUtils {
         return value.replace(key, replaceValue);
     }
 
+    /**
+     * Constructs a new instance.
+     *
+     * @deprecated Will be private in the next major version.
+     */
+    @Deprecated
+    public ValidatorUtils() {
+        // empty
+    }
+
 }
