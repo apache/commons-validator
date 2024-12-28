@@ -140,7 +140,7 @@ public class ISSNValidator implements Serializable {
      */
     public String extractFromEAN13(final String ean13) {
         String input = ean13.trim();
-        if (input.length() != EAN_ISSN_LEN ) {
+        if (input.length() != EAN_ISSN_LEN) {
             throw new IllegalArgumentException("Invalid length " + input.length() + " for '" + input + "'");
         }
         if (!input.startsWith(ISSN_PREFIX)) {
