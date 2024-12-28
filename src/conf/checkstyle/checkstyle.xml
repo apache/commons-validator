@@ -50,6 +50,7 @@
       <property name="ordered" value="true"/>
       <property name="separated" value="true"/>
     </module>
+    <module name="LeftCurly" />
     <module name="LocalFinalVariableName" />
     <module name="LocalVariableName" />
     <module name="MagicNumber" />
