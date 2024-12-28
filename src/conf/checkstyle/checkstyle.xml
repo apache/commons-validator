@@ -57,6 +57,7 @@
     <module name="MemberName" />
     <module name="MethodName" />
     <module name="MissingOverride" />
+    <module name="ModifierOrder" />
     <module name="ParameterNumber">
       <property name="max" value="4" />
     </module>

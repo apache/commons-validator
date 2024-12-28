@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
 /**
  * Consolidates reading in XML config file into parent class.
  */
-abstract public class AbstractCommonTest {
+public abstract class AbstractCommonTest {
 
     /**
      * Resources used for validation tests.
