@@ -81,6 +81,7 @@
     </module>
     <module name="TypecastParenPad"/>
     <module name="TypeName" />
+    <module name="UnusedImports" />
     <module name="WhitespaceAfter"/>
     <module name="WhitespaceAround"/>
     <module name="WhitespaceAroundCheck"/>
