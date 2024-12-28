@@ -275,7 +275,7 @@ public class IBANValidatorTest {
         CSVRecord structure = null;
         CSVRecord length = null;
 
-        try (final CSVParser p = new CSVParser(rdr, format)) {
+        try (CSVParser p = new CSVParser(rdr, format)) {
             for (final CSVRecord o : p) {
                 final String item = o.get(0);
                 switch (item) {
@@ -330,7 +330,7 @@ public class IBANValidatorTest {
         CSVRecord country = null;
         CSVRecord electronicExample = null;
 
-        try (final CSVParser p = new CSVParser(rdr, format)) {
+        try (CSVParser p = new CSVParser(rdr, format)) {
             for (final CSVRecord o : p) {
                 final String item = o.get(0);
                 switch (item) {
