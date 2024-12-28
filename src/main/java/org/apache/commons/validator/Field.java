@@ -147,6 +147,13 @@ public class Field implements Cloneable, Serializable {
     protected Map<String, Arg>[] args = new Map[0];
 
     /**
+     * Constructs a new instance.
+     */
+    public Field() {
+        // empty
+    }
+
+    /**
      * Add an {@code Arg} to the replacement argument list.
      * @since 1.1
      * @param arg Validation message's argument.

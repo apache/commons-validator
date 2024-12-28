@@ -55,6 +55,13 @@ public class Msg implements Cloneable, Serializable {
     protected boolean resource = true;
 
     /**
+     * Constructs a new instance.
+     */
+    public Msg() {
+        // empty
+    }
+
+    /**
      * Creates and returns a copy of this object.
      * @return A copy of the Msg.
      */

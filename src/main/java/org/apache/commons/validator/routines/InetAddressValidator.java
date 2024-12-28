@@ -78,6 +78,13 @@ public class InetAddressValidator implements Serializable {
     }
 
     /**
+     * Constructs a new instance.
+     */
+    public InetAddressValidator() {
+        // empty
+    }
+
+    /**
      * Checks if the specified string is a valid IPv4 or IPv6 address.
      *
      * @param inetAddress the string to validate

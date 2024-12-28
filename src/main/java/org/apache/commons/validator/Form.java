@@ -73,6 +73,13 @@ public class Form implements Serializable {
     private boolean processed;
 
     /**
+     * Constructs a new instance.
+     */
+    public Form() {
+        // empty
+    }
+
+    /**
      * Add a {@code Field} to the {@code Form}.
      *
      * @param f  The field

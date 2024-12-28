@@ -92,6 +92,13 @@ public class ISSNValidator implements Serializable {
     }
 
     /**
+     * Constructs a new instance.
+     */
+    public ISSNValidator() {
+        // empty
+    }
+
+    /**
      * Converts an ISSN code to an EAN-13 code.
      * <p>
      * This method requires a valid ISSN code.

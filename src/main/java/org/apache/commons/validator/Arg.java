@@ -71,6 +71,13 @@ public class Arg implements Cloneable, Serializable {
     protected boolean resource = true;
 
     /**
+     * Constructs a new instance.
+     */
+    public Arg() {
+        // empty
+    }
+
+    /**
      * Creates and returns a copy of this object.
      * @return A copy of this object.
      */
@@ -84,7 +91,8 @@ public class Arg implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the resource bundle name.
+     * Gets the resource bundle name.
+     *
      * @return the bundle name.
      * @since 1.1
      */
@@ -94,6 +102,7 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Gets the key/value.
+     *
      * @return the key value.
      */
     public String getKey() {
@@ -102,6 +111,7 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Gets the name of the dependency.
+     *
      * @return the name of the dependency.
      */
     public String getName() {
@@ -109,8 +119,9 @@ public class Arg implements Cloneable, Serializable {
     }
 
     /**
-     * Argument's replacement position.
-     * @return This argument's replacement position.
+     * Gets the replacement position.
+     *
+     * @return This replacement position.
      */
     public int getPosition() {
         return position;
@@ -118,6 +129,7 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Tests whether or not the key is a resource key or literal value.
+     *
      * @return {@code true} if key is a resource key.
      */
     public boolean isResource() {
@@ -126,6 +138,7 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Sets the resource bundle name.
+     *
      * @param bundle The new bundle name.
      * @since 1.1
      */
@@ -135,6 +148,7 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Sets the key/value.
+     *
      * @param key They to access the argument.
      */
     public void setKey(final String key) {
@@ -143,6 +157,7 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Sets the name of the dependency.
+     *
      * @param name the name of the dependency.
      */
     public void setName(final String name) {
@@ -151,6 +166,7 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Sets this argument's replacement position.
+     *
      * @param position set this argument's replacement position.
      */
     public void setPosition(final int position) {
@@ -159,6 +175,7 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Sets whether or not the key is a resource.
+     *
      * @param resource If true indicates the key is a resource.
      */
     public void setResource(final boolean resource) {
@@ -167,6 +184,7 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Returns a string representation of the object.
+     *
      * @return a string representation of the object.
      */
     @Override

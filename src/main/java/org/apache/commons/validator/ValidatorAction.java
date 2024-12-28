@@ -135,6 +135,13 @@ public class ValidatorAction implements Serializable {
     private final List<String> methodParameterList = new ArrayList<>();
 
     /**
+     * Constructs a new instance.
+     */
+    public ValidatorAction() {
+        // empty
+    }
+
+    /**
      * Dynamically runs the validation method for this validator and returns true if the data is valid.
      *
      * @param field

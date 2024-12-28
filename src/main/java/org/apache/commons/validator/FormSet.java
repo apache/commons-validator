@@ -95,6 +95,13 @@ public class FormSet implements Serializable {
     private boolean merged;
 
     /**
+     * Constructs a new instance.
+     */
+    public FormSet() {
+        // empty
+    }
+
+    /**
      * Add a {@code Constant} to the locale level.
      *
      * @param name   The constant name

@@ -49,6 +49,13 @@ public final class ISBNCheckDigit extends AbstractCheckDigit implements Serializ
     public static final CheckDigit ISBN_CHECK_DIGIT = new ISBNCheckDigit();
 
     /**
+     * Constructs a new instance.
+     */
+    public ISBNCheckDigit() {
+        // empty
+    }
+
+    /**
      * Calculate an ISBN-10 or ISBN-13 check digit, depending
      * on the length of the code.
      * <p>

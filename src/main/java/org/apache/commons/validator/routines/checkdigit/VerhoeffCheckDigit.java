@@ -67,6 +67,13 @@ public final class VerhoeffCheckDigit extends AbstractCheckDigit implements Seri
     private static final int[] INV_TABLE = {0, 4, 3, 2, 1, 5, 6, 7, 8, 9};
 
     /**
+     * Constructs a new instance.
+     */
+    public VerhoeffCheckDigit() {
+        // empty
+    }
+
+    /**
      * Calculate a Verhoeff <em>Check Digit</em> for a code.
      *
      * @param code The code to calculate the Check Digit for
