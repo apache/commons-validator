@@ -68,6 +68,7 @@
     </module>
     <module name="ParameterName" />
     <module name="ParenPad" />
+    <module name="RedundantImport" />
     <module name="SingleSpaceSeparator"/>
     <module name="StaticVariableName" />
     <module name="SuppressionCommentFilter" />
