@@ -73,10 +73,7 @@
     <module name="TypecastParenPad"/>
     <module name="SingleSpaceSeparator"/>
   </module>
-  <module name="JavadocPackage">
-    <!-- setting allowLegacy means it will check for package.html instead of just package-info.java -->
-    <property name="allowLegacy" value="true" />
-  </module>
+  <module name="JavadocPackage" />
   <module name="RegexpSingleline">
     <property name="format" value="((public)|(protected))\s+void\s+finalize\(\s*\)" />
     <property name="message" value="Avoid finalizers." />
