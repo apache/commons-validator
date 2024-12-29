@@ -609,7 +609,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * If there is a value specified for the indexedProperty field then
-     * {@code true} will be returned.  Otherwise it will be
+     * {@code true} will be returned.  Otherwise, it will be
      * {@code false}.
      * @return Whether the Field is indexed.
      */
@@ -715,7 +715,7 @@ public class Field implements Cloneable, Serializable {
      * @param results
      * @param actions
      * @param pos
-     * @return true if all of the dependent validations passed.
+     * @return true if all dependent validations passed.
      * @throws ValidatorException If there's an error running a validator
      */
     private boolean runDependentValidators(

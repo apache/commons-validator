@@ -325,7 +325,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Tests whether the given flag is off.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is off.
+     * (i.e. 3) this tests whether the combination of flags is off.
      *
      * @param flag Flag value to check.
      * @return whether the specified flag value is off.
@@ -336,7 +336,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is on.
+     * (i.e. 3) this tests whether the combination of flags is on.
      *
      * @param flag Flag value to check.
      * @return whether the specified flag value is on.
@@ -388,7 +388,7 @@ public class UrlValidator implements Serializable {
      * Returns true if the authority is properly formatted.  An authority is the combination
      * of hostname and port.  A {@code null} authority value is considered invalid.
      * Note: this implementation validates the domain unless a RegexValidator was provided.
-     * If a RegexValidator was supplied and it matches, then the authority is regarded
+     * If a RegexValidator was supplied, and it matches, then the authority is regarded
      * as valid with no further checks, otherwise the method checks against the
      * AUTHORITY_PATTERN and the DomainValidator (ALLOW_LOCAL_URLS)
      * @param authority Authority value to validate, allows IDN
@@ -495,7 +495,7 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Returns true if the query is null or it's a properly formatted query string.
+     * Returns true if the query is null, or it's a properly formatted query string.
      * @param query Query value to validate.
      * @return true if query is valid.
      */
@@ -507,9 +507,9 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Validate scheme. If schemes[] was initialized to a non null,
+     * Validate scheme. If schemes[] was initialized to a non-null,
      * then only those schemes are allowed.
-     * Otherwise the default schemes are "http", "https", "ftp".
+     * Otherwise, the default schemes are "http", "https", "ftp".
      * Matching is case-blind.
      * @param scheme The scheme to validate.  A {@code null} value is considered
      * invalid.

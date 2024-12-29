@@ -103,7 +103,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
 
     /**
      * <p>Compares a calendar value to another, indicating whether it is
-     *    equal, less then or more than at a specified level.</p>
+     *    equal, less than or more than at a specified level.</p>
      *
      * @param value The Calendar value.
      * @param compare The {@link Calendar} to check the value against.
@@ -159,7 +159,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
 
     /**
      * <p>Compares a calendar's quarter value to another, indicating whether it is
-     *    equal, less then or more than the specified quarter.</p>
+     *    equal, less than or more than the specified quarter.</p>
      *
      * @param value The Calendar value.
      * @param compare The {@link Calendar} to check the value against.
@@ -175,7 +175,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
 
     /**
      * <p>Compares a calendar time value to another, indicating whether it is
-     *    equal, less then or more than at a specified level.</p>
+     *    equal, less than or more than at a specified level.</p>
      *
      * @param value The Calendar value.
      * @param compare The {@link Calendar} to check the value against.
@@ -241,7 +241,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the Format.
      * @param timeZone The Time Zone used to format the date,
-     *  system default if null (unless value is a {@link Calendar}.
+     *  system default if null unless value is a {@link Calendar}.
      * @return The value formatted as a {@link String}.
      */
     public String format(final Object value, final Locale locale, final TimeZone timeZone) {
@@ -270,7 +270,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @param pattern The pattern used to format the value.
      * @param locale The locale to use for the Format.
      * @param timeZone The Time Zone used to format the date,
-     *  system default if null (unless value is a {@link Calendar}.
+     *  system default if null unless value is a {@link Calendar}.
      * @return The value formatted as a {@link String}.
      */
     public String format(final Object value, final String pattern, final Locale locale, final TimeZone timeZone) {
@@ -290,7 +290,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
      * @param timeZone The Time Zone used to format the date,
-     *  system default if null (unless value is a {@link Calendar}.
+     *  system default if null unless value is a {@link Calendar}.
      * @return The value formatted as a {@link String}.
      */
     public String format(final Object value, final String pattern, final TimeZone timeZone) {
@@ -303,7 +303,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *
      * @param value The value validation is being performed on.
      * @param timeZone The Time Zone used to format the date,
-     *  system default if null (unless value is a {@link Calendar}.
+     *  system default if null unless value is a {@link Calendar}.
      * @return The value formatted as a {@link String}.
      */
     public String format(final Object value, final TimeZone timeZone) {

@@ -138,7 +138,7 @@ public class UrlValidator implements Serializable {
     private static final int PARSE_URL_FRAGMENT = 9;
 
     /**
-     * Protocol (ie. http:, ftp:,https:).
+     * Protocol (i.e. http:, ftp:,https:).
      */
     private static final Pattern SCHEME_PATTERN = Pattern.compile("^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*");
 
@@ -346,7 +346,7 @@ public class UrlValidator implements Serializable {
             final String topLevel = domainSegment[segmentCount - 1];
 
 
-            // First letter of top level must be a alpha
+            // First letter of top level must be an alpha
             // Make sure there's a host name preceding the authority.
             if (topLevel.length() < TOP_LEVEL_MIN_LEN || topLevel.length() > TOP_LEVEL_MAX_LEN || !ALPHA_PATTERN.matcher(topLevel.substring(0, 1)).matches()
                     || segmentCount < 2) {
@@ -409,7 +409,7 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Returns true if the query is null or it's a properly formatted query string.
+     * Returns true if the query is null, or it's a properly formatted query string.
      * @param query Query value to validate.
      * @return true if query is valid.
      */
@@ -422,8 +422,8 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Validate scheme. If schemes[] was initialized to a non null,
-     * then only those scheme's are allowed.  Note this is slightly different
+     * Validate scheme. If schemes[] was initialized to a non-null,
+     * then only those schemes are allowed.  Note this is slightly different
      * than for the constructor.
      * @param scheme The scheme to validate.  A {@code null} value is considered
      * invalid.

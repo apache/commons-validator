@@ -2288,7 +2288,7 @@ public class DomainValidator implements Serializable {
      * widely used "local" domains (localhost or localdomain). Leading dots are
      * ignored if present. The search is case-insensitive.
      * @param lTld the parameter to check for local TLD status, not null
-     * @return true if the parameter is an local TLD
+     * @return true if the parameter is a local TLD
      */
     public boolean isValidLocalTld(final String lTld) {
         final String key = chompLeadingDot(unicodeToASCII(lTld).toLowerCase(Locale.ENGLISH));

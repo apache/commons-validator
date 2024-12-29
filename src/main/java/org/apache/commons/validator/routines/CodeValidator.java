@@ -59,7 +59,7 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  *    </ul>
  * <p>
  * Codes often include <em>format</em> characters - such as hyphens - to make them
- * more easily human readable. These can be removed prior to length and check digit
+ * more easily human-readable. These can be removed prior to length and check digit
  * validation by  specifying them as a <em>non-capturing</em> group in the regular
  * expression (i.e. use the {@code (?:   )} notation).
  * <br>

@@ -47,7 +47,7 @@ public class GenericValidator implements Serializable {
     /**
      * Calculate an adjustment amount for line endings.
      *
-     * See Bug 37962 for the rational behind this.
+     * See Bug 37962 for the rationale behind this.
      *
      * @param value The value validation is being performed on.
      * @param lineEndLength The length to use for line endings.
@@ -239,7 +239,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value can safely be converted to a int primitive.</p>
+     * <p>Checks if the value can safely be converted to an int primitive.</p>
      *
      * @param value The value validation is being performed on.
      * @return true if the value can be converted to an Integer.

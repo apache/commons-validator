@@ -237,14 +237,14 @@ public class IBANValidator {
     /*
      * Wikipedia [1] says that only uppercase is allowed.
      * The SWIFT PDF file [2] implies that lower case is allowed.
-     * However there are no examples using lower-case.
+     * However, there are no examples using lower-case.
      * Unfortunately the relevant ISO documents (ISO 13616-1) are not available for free.
      * The IBANCheckDigit code treats upper and lower case the same,
      * so any case validation has to be done in this class.
      *
      * Note: the European Payments council has a document [3] which includes a description
      * of the IBAN. Section 5 clearly states that only upper case is allowed.
-     * Also the maximum length is 34 characters (including the country code),
+     * Also, the maximum length is 34 characters (including the country code),
      * and the length is fixed for each country.
      *
      * It looks like lower-case is permitted in BBANs, but they must be converted to

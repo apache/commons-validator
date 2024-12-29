@@ -77,7 +77,7 @@ public class ValidatorAction implements Serializable {
 
     /**
      * <p>
-     * The method signature of the validation method. This should be a comma delimited list of the full class names of each parameter in the correct order that
+     * The method signature of the validation method. This should be a comma-delimited list of the full class names of each parameter in the correct order that
      * the method takes.
      * </p>
      * <p>
@@ -668,7 +668,7 @@ public class ValidatorAction implements Serializable {
      * {@code setJavascript} will result in an {@code IllegalStateException} being thrown.
      * </p>
      * <p>
-     * If <strong>neither</strong> setJsFunction or setJavascript is set then validator will attempt to load the default JavaScript definition.
+     * If <strong>neither</strong> setJsFunction nor setJavascript is set then validator will attempt to load the default JavaScript definition.
      * </p>
      *
      * <pre>

@@ -35,7 +35,7 @@ import java.text.Format;
  *
  *    <p>{@code ... = new IntegerValidator(false, IntegerValidator.CURRENCY_FORMAT);}</p>
  *
- * <p>Pick the appropriate validator, depending on the type (e.g Float, Double, Integer, Long etc)
+ * <p>Pick the appropriate validator, depending on the type (e.g. Float, Double, Integer, Long etc)
  *    you want the currency converted to. One thing to note - only the CurrencyValidator
  *    implements <em>lenient</em> behavior regarding the currency symbol.</p>
  *

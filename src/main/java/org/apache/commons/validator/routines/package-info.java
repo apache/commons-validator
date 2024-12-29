@@ -420,8 +420,8 @@
  * of the matched <em>groups</em> or {@code null} if invalid.</li>
  * </ul>
  * </li>
- * <li><strong>Case Sensitivity</strong> - matching can be done in either a <i>case
- * sensitive</i> or <em>case in-sensitive</em> way.</li>
+ * <li><strong>Case Sensitivity</strong> - matching can be done in either a
+ * <i>case-sensitive</i> or <em>case in-sensitive</em> way.</li>
  * <li><strong>Multiple Expressions</strong> - instances of the
  * <a href="RegexValidator.html">RegexValidator</a>
  * can be created to either match against a single regular expression

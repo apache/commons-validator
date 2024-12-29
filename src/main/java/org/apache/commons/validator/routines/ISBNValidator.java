@@ -28,7 +28,7 @@ import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
  * <p>
  * This validator validates the code is either a valid ISBN-10
  * (using a {@link CodeValidator} with the {@link ISBN10CheckDigit})
- * or a valid ISBN-13 code (using a {@link CodeValidator} with the
+ * or a valid ISBN-13 code (using a {@link CodeValidator} with
  * the {@link EAN13CheckDigit} routine).
  * <p>
  * The {@code validate()} methods return the ISBN code with formatting
@@ -61,7 +61,7 @@ import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
  *     <li>979-10, 979-11, 979-12 are assigned to the ISBN agency</li>
  * </ul>
  * All other 979 prefixed EAN-13 numbers have not yet been assigned to an agency. The
- * validator validates all 13 digit codes with 978 or 979 prefixes.
+ * validator validates all 13-digit codes with 978 or 979 prefixes.
  *
  * @since 1.4
  */

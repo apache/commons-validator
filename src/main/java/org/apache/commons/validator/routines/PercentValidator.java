@@ -36,10 +36,10 @@ import java.text.Format;
  *
  *    <p>{@code ... = new FloatValidator(false, FloatValidator.PERCENT_FORMAT);}</p>
  *
- * <p>Pick the appropriate validator, depending on the type (i.e Float, Double or BigDecimal)
+ * <p>Pick the appropriate validator, depending on the type (i.e. Float, Double or BigDecimal)
  *    you want the percent converted to. Please note, it makes no sense to use
  *    one of the validators that doesn't handle fractions (i.e. byte, short, integer, long
- *    and BigInteger) since percentages are converted to fractions (i.e {@code 50%} is
+ *    and BigInteger) since percentages are converted to fractions (i.e. {@code 50%} is
  *    converted to {@code 0.5}).</p>
  *
  * @since 1.3.0

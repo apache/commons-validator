@@ -122,7 +122,7 @@ public class Flags implements Serializable, Cloneable {
 
     /**
      * Tests whether the given flag is off.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is off.
+     * (i.e. 3) this tests whether the combination of flags is off.
      *
      * @param flag Flag value to check.
      * @return whether the specified flag value is off.
@@ -133,7 +133,7 @@ public class Flags implements Serializable, Cloneable {
 
     /**
      * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is on.
+     * (i.e. 3) this tests whether the combination of flags is on.
      *
      * @param flag Flag value to check.
      * @return whether the specified flag value is on.
@@ -159,7 +159,7 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Turns off the given flag.  If the flag is not a power of 2 (ie. 3) this
+     * Turns off the given flag.  If the flag is not a power of 2 (i.e. 3) this
      * turns off multiple flags.
      *
      * @param flag Flag value to turn off.
@@ -176,7 +176,7 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Turns on the given flag.  If the flag is not a power of 2 (ie. 3) this
+     * Turns on the given flag.  If the flag is not a power of 2 (i.e. 3) this
      * turns on multiple flags.
      *
      * @param flag Flag value to turn on.
