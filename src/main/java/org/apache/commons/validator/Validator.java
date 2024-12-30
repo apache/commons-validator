@@ -90,7 +90,7 @@ public class Validator implements Serializable {
     /**
      * The Validator Resources.
      *
-     * @deprecated Use {@link #getResources()}.
+     * @deprecated Use {@link #getResources()}, will be private in the next major version.
      */
     @Deprecated
     protected ValidatorResources resources;
@@ -98,7 +98,7 @@ public class Validator implements Serializable {
     /**
      * The name of the form to validate
      *
-     * @deprecated Use {@link #getFormName()}.
+     * @deprecated Use {@link #getFormName()}, will be private in the next major version.
      */
     @Deprecated
     protected String formName;
@@ -108,7 +108,7 @@ public class Validator implements Serializable {
      *
      * @since 1.2.0
      *
-     * @deprecated Use {@link #getFieldName()}.
+     * @deprecated Use {@link #getFieldName()}, will be private in the next major version.
      */
     @Deprecated
     protected String fieldName;
@@ -117,7 +117,7 @@ public class Validator implements Serializable {
      * Maps validation method parameter class names to the objects to be passed
      * into the method.
      *
-     * @deprecated Use {@link #getParameters()}.
+     * @deprecated Use {@link #getParameters()}, will be private in the next major version.
      */
     @Deprecated
     protected Map<String, Object> parameters = new HashMap<>();
@@ -125,7 +125,7 @@ public class Validator implements Serializable {
     /**
      * The current page number to validate.
      *
-     * @deprecated Use {@link #getPage()}.
+     * @deprecated Use {@link #getPage()}, will be private in the next major version.
      */
     @Deprecated
     protected int page;
@@ -136,7 +136,7 @@ public class Validator implements Serializable {
      * used to load Digester itself, is used, based on the value of the
      * {@code useContextClassLoader} variable.
      *
-     * @deprecated Use {@link #getClassLoader()}.
+     * @deprecated Use {@link #getClassLoader()}, will be private in the next major version.
      */
     @Deprecated
     protected transient ClassLoader classLoader;
@@ -145,7 +145,7 @@ public class Validator implements Serializable {
      * Whether or not to use the Context ClassLoader when loading classes
      * for instantiating new objects.  Default is {@code false}.
      *
-     * @deprecated Use {@link #getUseContextClassLoader()}.
+     * @deprecated Use {@link #getUseContextClassLoader()}, will be private in the next major version.
      */
     @Deprecated
     protected boolean useContextClassLoader;
@@ -153,7 +153,7 @@ public class Validator implements Serializable {
     /**
      * Sets this to true to not return Fields that pass validation.  Only return failures.
      *
-     * @deprecated Use {@link #getOnlyReturnErrors()}.
+     * @deprecated Use {@link #getOnlyReturnErrors()}, will be private in the next major version.
      */
     @Deprecated
     protected boolean onlyReturnErrors;
