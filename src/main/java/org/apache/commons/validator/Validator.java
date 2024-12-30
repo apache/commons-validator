@@ -89,29 +89,45 @@ public class Validator implements Serializable {
 
     /**
      * The Validator Resources.
+     *
+     * @deprecated Use {@link #getResources()}.
      */
+    @Deprecated
     protected ValidatorResources resources;
 
     /**
      * The name of the form to validate
+     *
+     * @deprecated Use {@link #getFormName()}.
      */
+    @Deprecated
     protected String formName;
 
     /**
      * The name of the field on the form to validate
+     *
      * @since 1.2.0
+     *
+     * @deprecated Use {@link #getFieldName()}.
      */
+    @Deprecated
     protected String fieldName;
 
     /**
      * Maps validation method parameter class names to the objects to be passed
      * into the method.
+     *
+     * @deprecated Use {@link #getParameters()}.
      */
+    @Deprecated
     protected Map<String, Object> parameters = new HashMap<>(); // <String, Object>
 
     /**
      * The current page number to validate.
+     *
+     * @deprecated Use {@link #getPage()}.
      */
+    @Deprecated
     protected int page;
 
     /**
@@ -119,18 +135,27 @@ public class Validator implements Serializable {
      * If not specified, the context class loader, or the class loader
      * used to load Digester itself, is used, based on the value of the
      * {@code useContextClassLoader} variable.
+     *
+     * @deprecated Use {@link #getClassLoader()}.
      */
+    @Deprecated
     protected transient ClassLoader classLoader;
 
     /**
      * Whether or not to use the Context ClassLoader when loading classes
      * for instantiating new objects.  Default is {@code false}.
+     *
+     * @deprecated Use {@link #getUseContextClassLoader()}.
      */
+    @Deprecated
     protected boolean useContextClassLoader;
 
     /**
      * Sets this to true to not return Fields that pass validation.  Only return failures.
+     *
+     * @deprecated Use {@link #getOnlyReturnErrors()}.
      */
+    @Deprecated
     protected boolean onlyReturnErrors;
 
     /**
@@ -227,6 +252,16 @@ public class Validator implements Serializable {
     }
 
     /**
+     * Gets the field name.
+     *
+     * @return the field name.
+     * @since 1.10.0
+     */
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    /**
      * Gets the form name which is the key to a set of validation rules.
      * @return the name of the form.
      */
@@ -258,6 +293,16 @@ public class Validator implements Serializable {
     }
 
     /**
+     * Gets the parameter map.
+     *
+     * @return the parameter map.
+     * @since 1.10.0
+     */
+    public Map<String, Object> getParameters() {
+        return parameters;
+    }
+
+    /**
      * Returns the value of the specified parameter that will be used during the
      * processing of validations.
      *
@@ -267,6 +312,16 @@ public class Validator implements Serializable {
      */
     public Object getParameterValue(final String parameterClassName) {
         return parameters.get(parameterClassName);
+    }
+
+    /**
+     * Gets the validator resource.
+     *
+     * @return the validator resource.
+     * @since 1.10.0
+     */
+    public ValidatorResources getResources() {
+        return resources;
     }
 
     /**

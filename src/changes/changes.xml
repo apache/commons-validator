@@ -73,6 +73,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate GenericTypeValidator.GenericTypeValidator().</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate GenericValidator.GenericValidator().</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ValidatorUtils.ValidatorUtils().</action>
+    <action type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate Validator protected instance variable access for getter methods.</action>
     <!-- ADD -->
     <action type="add" issue="VALIDATOR-497" dev="sjaranowski" due-to="Slawomir Jaranowski">IBANValidator: add method validate with validation status</action>
     <action type="add" dev="sebb">DomainValidatorTest: added Maven profile to simplfy execution.</action>
@@ -80,6 +81,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="add" dev="sjaranowski" due-to="Slawomir Jaranowski">Improve IBANValidatorTest by using registry from swift.</action>
     <action type="add" dev="sebb" issue="VALIDATOR-495" due-to="Slawomir Jaranowski">IBANValidator: add Yemen.</action>
     <action type="add" dev="ggregory" due-to="Leonard Wicke, Gary Gregory">Add IBANValidator.Validator.getIbanLength().</action>
+    <action type="add" dev="ggregory" due-to="nullwli, Gary Gregory">Add Validator.getFieldName()</action>
+    <action type="add" dev="ggregory" due-to="nullwli, Gary Gregory">Add Validator.getParameters()</action>
+    <action type="add" dev="ggregory" due-to="nullwli, Gary Gregory">Add Validator.getResources()</action>
     <!-- UPDATE -->
     <action type="update" dev="sebb">DomainValidator: Changes from 2024121700, Last Updated Tue Dec 17 07:07:01 2024 UTC.</action>
     <action type="update" dev="sebb">IBANValidatorTest: parameterise SWIFT registry version; update to v99</action>
