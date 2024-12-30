@@ -120,7 +120,7 @@ public class Validator implements Serializable {
      * @deprecated Use {@link #getParameters()}.
      */
     @Deprecated
-    protected Map<String, Object> parameters = new HashMap<>(); // <String, Object>
+    protected Map<String, Object> parameters = new HashMap<>();
 
     /**
      * The current page number to validate.
