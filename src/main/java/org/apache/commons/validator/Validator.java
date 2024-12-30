@@ -221,7 +221,7 @@ public class Validator implements Serializable {
     public void clear() {
         formName = null;
         fieldName = null;
-        parameters = new HashMap<>();
+        parameters.clear();
         page = 0;
     }
 
