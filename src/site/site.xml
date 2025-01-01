@@ -15,20 +15,18 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/DECORATION/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.1.0 http://maven.apache.org/xsd/decoration-1.1.0.xsd"
+<site xmlns="http://maven.apache.org/SITE/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SITE/2.0.0 http://maven.apache.org/xsd/site-2.0.0.xsd"
   name="Validator">
-  <bannerRight>
-    <name>Commons Validator</name>
-    <src>/images/logo.png</src>
-    <href>/index.html</href>
+  <bannerRight name="Commons Validator" href="/index.html">
+    <image src="/images/logo.png"/>
   </bannerRight>
 
   <body>
     <menu name="Validator">
       <item name="Overview"          href="/index.html"/>
       <item name="Download"          href="/download_validator.cgi"/>
-      <item name="Release Notes"     href="/changes-report.html"/>
+      <item name="Release Notes"     href="/changes.html"/>
       <item name="Dependencies"      href="/dependencies.html"/>
     </menu>
 
@@ -48,4 +46,4 @@
 
   </body>
 
-</project>
+</site>
