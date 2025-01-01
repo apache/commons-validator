@@ -343,7 +343,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Retrieves the Args for the given validator name.
      * @param key The validator's args to retrieve.
-     * @return An Arg[] sorted by the Args' positions (i.e. the Arg at index 0
+     * @return An Arg[] sorted by the Args' positions (for example, the Arg at index 0
      * has a position of 0).
      * @since 1.1.1
      */

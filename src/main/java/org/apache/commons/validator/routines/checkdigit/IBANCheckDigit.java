@@ -28,8 +28,8 @@ import java.io.Serializable;
  * to the end of the code.
  *  So {@code CCDDnnnnnnn} becomes {@code nnnnnnnCCDD} (where
  *  {@code CC} is the country code and {@code DD} is the check digit). For
- *  check digit calculation the check digit value should be set to zero (i.e.
- *  {@code CC00nnnnnnn} in this example.
+ *  check digit calculation the check digit value should be set to zero (such as
+ *  {@code CC00nnnnnnn} in this example).
  * <p>
  * Note: the class does not check the format of the IBAN number, only the check digits.
  * <p>
@@ -67,7 +67,7 @@ public final class IBANCheckDigit extends AbstractCheckDigit implements Serializ
      * characters and is set to the value "{@code 00}".
      *
      * @param code The code to calculate the Check Digit for
-     * @return The calculated Check Digit as 2 numeric decimal characters, e.g. "42"
+     * @return The calculated Check Digit as 2 numeric decimal characters, for example, "42"
      * @throws CheckDigitException if an error occurs calculating
      * the check digit for the specified code
      */

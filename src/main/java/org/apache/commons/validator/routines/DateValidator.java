@@ -36,7 +36,7 @@ import java.util.TimeZone;
  *       <li>using a specified pattern with a specified {@link Locale}</li>
  *    </ul>
  *
- * <p>For each of the above mechanisms, conversion method (i.e. the
+ * <p>For each of the above mechanisms, conversion method (that is, the
  *    {@code validate} methods) implementations are provided which
  *    either use the default {@code TimeZone} or allow the
  *    {@code TimeZone} to be specified.</p>

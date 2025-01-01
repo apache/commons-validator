@@ -220,7 +220,7 @@ public class ISBNValidator implements Serializable {
      * Check the code is either a valid ISBN-10 or ISBN-13 code.
      * <p>
      * If valid, this method returns the ISBN code with
-     * formatting characters removed (i.e. space or hyphen).
+     * formatting characters removed (such as space or hyphen).
      * <p>
      * Converts an ISBN-10 codes to ISBN-13 if
      * {@code convertToISBN13} is {@code true}.
@@ -243,7 +243,7 @@ public class ISBNValidator implements Serializable {
      * Check the code is a valid ISBN-10 code.
      * <p>
      * If valid, this method returns the ISBN-10 code with
-     * formatting characters removed (i.e. space or hyphen).
+     * formatting characters removed (such as space or hyphen).
      *
      * @param code The code to validate.
      * @return A valid ISBN-10 code if valid,
@@ -258,7 +258,7 @@ public class ISBNValidator implements Serializable {
      * Check the code is a valid ISBN-13 code.
      * <p>
      * If valid, this method returns the ISBN-13 code with
-     * formatting characters removed (i.e. space or hyphen).
+     * formatting characters removed (such as space or hyphen).
      *
      * @param code The code to validate.
      * @return A valid ISBN-13 code if valid,

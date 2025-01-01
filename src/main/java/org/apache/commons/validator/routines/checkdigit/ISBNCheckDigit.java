@@ -68,7 +68,7 @@ public final class ISBNCheckDigit extends AbstractCheckDigit implements Serializ
      * @return The ISBN-10 check digit if the length is 9 or an ISBN-13
      * check digit if the length is 12.
      * @throws CheckDigitException if the code is missing, or an invalid
-     * length (i.e. not 9 or 12) or if there is an error calculating the
+     * length (that is not 9 or 12) or if there is an error calculating the
      * check digit.
      */
     @Override

@@ -106,7 +106,7 @@ public class UrlValidator implements Serializable {
     public static final long ALLOW_LOCAL_URLS = 1 << 3; // CHECKSTYLE IGNORE MagicNumber
 
     /**
-     * Protocol scheme (e.g. http, ftp, https).
+     * Protocol scheme (for example, http, ftp, https).
      */
     private static final String SCHEME_REGEX = "^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*";
     private static final Pattern SCHEME_PATTERN = Pattern.compile(SCHEME_REGEX);
@@ -131,7 +131,7 @@ public class UrlValidator implements Serializable {
 
     private static final String AUTHORITY_REGEX =
             "(?:\\[(" + IPV6_REGEX + ")\\]|(?:(?:" + USERINFO_FIELD_REGEX + ")?([" + AUTHORITY_CHARS_REGEX + "]*)))(?::(\\d*))?(.*)?";
-    //             1                                 e.g. user:pass@           2                                       3       4
+    //             1                                 for example, user:pass@           2                                       3       4
     private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
 
     private static final int PARSE_AUTHORITY_IPV6 = 1;
@@ -170,8 +170,8 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (e.g. 3) this tests whether the combination of flags is on.
+     * Tests whether the given flag is on. If the flag is not a power of 2
+     * (for example, 3) this tests whether the combination of flags is on.
      *
      * @param flag Flag value to check.
      * @param options what to check
@@ -325,7 +325,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Tests whether the given flag is off.  If the flag is not a power of 2
-     * (i.e. 3) this tests whether the combination of flags is off.
+     * (that is, 3) this tests whether the combination of flags is off.
      *
      * @param flag Flag value to check.
      * @return whether the specified flag value is off.
@@ -336,7 +336,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (i.e. 3) this tests whether the combination of flags is on.
+     * (that is, 3) this tests whether the combination of flags is on.
      *
      * @param flag Flag value to check.
      * @return whether the specified flag value is on.

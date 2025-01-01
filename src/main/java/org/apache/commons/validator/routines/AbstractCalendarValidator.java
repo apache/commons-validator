@@ -107,7 +107,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *
      * @param value The Calendar value.
      * @param compare The {@link Calendar} to check the value against.
-     * @param field The field <em>level</em> to compare to - e.g. specifying
+     * @param field The field <em>level</em> to compare to - for example, specifying
      *        {@code Calendar.MONTH} will compare the year and month
      *        portions of the calendar.
      * @return Zero if the first value is equal to the second, -1
@@ -179,7 +179,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *
      * @param value The Calendar value.
      * @param compare The {@link Calendar} to check the value against.
-     * @param field The field <em>level</em> to compare to - e.g. specifying
+     * @param field The field <em>level</em> to compare to - for example, specifying
      *        {@code Calendar.MINUTE} will compare the hours and minutes
      *        portions of the calendar.
      * @return Zero if the first value is equal to the second, -1

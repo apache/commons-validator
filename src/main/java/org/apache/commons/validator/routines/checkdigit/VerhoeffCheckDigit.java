@@ -96,7 +96,7 @@ public final class VerhoeffCheckDigit extends AbstractCheckDigit implements Seri
      * @param code The code to calculate the checksum for.
      * @param includesCheckDigit Whether the code includes the Check Digit or not.
      * @return The checksum value
-     * @throws CheckDigitException if the code contains an invalid character (i.e. not numeric)
+     * @throws CheckDigitException if the code contains an invalid character (that is not numeric)
      */
     private int calculateChecksum(final String code, final boolean includesCheckDigit) throws CheckDigitException {
         int checksum = 0;
