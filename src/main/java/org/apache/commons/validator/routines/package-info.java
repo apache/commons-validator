@@ -385,7 +385,7 @@
  * <li><a href="#other.regex">Regular Expressions</a> - validates
  * using Java 1.4+ regular expression support</li>
  * <li><a href="#other.checkdigit">Check Digit</a> - validates/calculates
- * check digits (that is, EAN/UPC, credit card, ISBN).</li>
+ * check digits (for example, EAN/UPC, credit card, ISBN).</li>
  * <li><a href="#other.code">Code Validation</a> - provides generic
  * code validation - format, minimum/maximum length and check digit.</li>
  * <li><a href="#other.iban">IBAN Validation</a> - provides International Bank Account Number validation.</li>

@@ -325,7 +325,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Tests whether the given flag is off.  If the flag is not a power of 2
-     * (that is, 3) this tests whether the combination of flags is off.
+     * (for example, 3) this tests whether the combination of flags is off.
      *
      * @param flag Flag value to check.
      * @return whether the specified flag value is off.
@@ -336,7 +336,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (that is, 3) this tests whether the combination of flags is on.
+     * (for example, 3) this tests whether the combination of flags is on.
      *
      * @param flag Flag value to check.
      * @return whether the specified flag value is on.

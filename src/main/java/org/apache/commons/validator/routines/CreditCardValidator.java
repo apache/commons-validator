@@ -474,7 +474,7 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Tests whether the given flag is on. If the flag is not a power of 2
-     * (that is, 3) this tests whether the combination of flags is on.
+     * (for example, 3) this tests whether the combination of flags is on.
      *
      * @param options The options specified.
      * @param flag Flag value to check.

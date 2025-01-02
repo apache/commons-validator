@@ -138,7 +138,7 @@ public class UrlValidator implements Serializable {
     private static final int PARSE_URL_FRAGMENT = 9;
 
     /**
-     * Protocol (that is, http:, ftp:, https:).
+     * Protocol (for example, http:, ftp:, https:).
      */
     private static final Pattern SCHEME_PATTERN = Pattern.compile("^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*");
 
