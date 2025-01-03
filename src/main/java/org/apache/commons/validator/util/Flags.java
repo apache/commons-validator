@@ -121,8 +121,8 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Tests whether the given flag is off.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is off.
+     * Tests whether the given flag is off. If the flag is not a power of 2
+     * (for example, 3) this tests whether the combination of flags is off.
      *
      * @param flag Flag value to check.
      * @return whether the specified flag value is off.
@@ -132,8 +132,8 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is on.
+     * Tests whether the given flag is on. If the flag is not a power of 2
+     * (for example, 3) this tests whether the combination of flags is on.
      *
      * @param flag Flag value to check.
      * @return whether the specified flag value is on.
@@ -144,7 +144,7 @@ public class Flags implements Serializable, Cloneable {
 
     /**
      * Returns a 64 length String with the first flag on the right and the
-     * 64th flag on the left.  A 1 indicates the flag is on, a 0 means it's
+     * 64th flag on the left. A 1 indicates the flag is on, a 0 means it's
      * off.
      *
      * @return string representation of this object.
@@ -159,7 +159,7 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Turns off the given flag.  If the flag is not a power of 2 (ie. 3) this
+     * Turns off the given flag. If the flag is not a power of 2 (for example, 3) this
      * turns off multiple flags.
      *
      * @param flag Flag value to turn off.
@@ -176,7 +176,7 @@ public class Flags implements Serializable, Cloneable {
     }
 
     /**
-     * Turns on the given flag.  If the flag is not a power of 2 (ie. 3) this
+     * Turns on the given flag. If the flag is not a power of 2 (for example, 3) this
      * turns on multiple flags.
      *
      * @param flag Flag value to turn on.

@@ -39,7 +39,7 @@
  * <p>In order to use the Validator, the following basic steps are required:</p>
  * <ul>
  * <li>Create a new instance of the
- * {@code org.apache.commons.validator.Validator} class.  Currently
+ * {@code org.apache.commons.validator.Validator} class. Currently,
  * Validator instances may be safely reused if the current ValidatorResources
  * are the same, as long as
  * you have completed any previous validation, and you do not try to utilize
@@ -68,7 +68,7 @@
  * using the Apache Commons BeanUtils
  * (https://commons.apache.org/beanutils/) package.
  * Error messages and the arguments for error messages can be
- * associated with a fields validation.
+ * associated with a field's validation.
  * </p>
  * <a id="doc.Resources"></a>
  * <h2>Resources</h2>
