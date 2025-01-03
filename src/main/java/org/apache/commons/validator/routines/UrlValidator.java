@@ -131,7 +131,7 @@ public class UrlValidator implements Serializable {
 
     private static final String AUTHORITY_REGEX =
             "(?:\\[(" + IPV6_REGEX + ")\\]|(?:(?:" + USERINFO_FIELD_REGEX + ")?([" + AUTHORITY_CHARS_REGEX + "]*)))(?::(\\d*))?(.*)?";
-    //             1                                 for example, user:pass@           2                                       3       4
+    //             1                         for example, user:pass@           2                                       3       4
     private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
 
     private static final int PARSE_AUTHORITY_IPV6 = 1;
