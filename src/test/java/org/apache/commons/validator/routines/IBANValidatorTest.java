@@ -228,19 +228,21 @@ public class IBANValidatorTest {
     );
     // @formatter:on
 
-    private static String fmtRE(final String ibanPat) {
+    private static String fmtRE(final String ibanPat, final int ibanLength) {
         final Matcher m = IBAN_PAT.matcher(ibanPat);
         if (!m.matches()) {
             throw new IllegalArgumentException("Unexpected IBAN pattern " + ibanPat);
         }
         final StringBuilder sb = new StringBuilder();
         int len = Integer.parseInt(m.group(1)); // length of part
+        int totLen = len;
         String curType = m.group(2); // part type
         for (int i = 3; i <= m.groupCount(); i += 2) {
             if (m.group(i) == null) { // reached an optional group
                 break;
             }
             final int count = Integer.parseInt(m.group(i));
+            totLen += count;
             final String type = m.group(i + 1);
             if (type.equals(curType)) { // more of the same type
                 len += count;
@@ -251,6 +253,7 @@ public class IBANValidatorTest {
             }
         }
         sb.append(formatToRE(curType, len));
+        assertEquals(ibanLength, totLen, "Wrong length for " + ibanPat);
         return sb.toString();
     }
 
@@ -514,7 +517,7 @@ public class IBANValidatorTest {
 
         final List<String> allPatterns = Arrays.stream(validator.getRegexValidator().getPatterns()).map(Pattern::pattern).collect(Collectors.toList());
 
-        final String re = fmtRE(structure.substring(2));
+        final String re = fmtRE(structure.substring(2), ibanLength - 2); //allow for prefix
         assertTrue(allPatterns.remove(countryCode + re), "No pattern " + countryCode + re + " found for " + countryInfo);
         for (final String ac : acountyCode) {
             assertTrue(allPatterns.remove(ac + re), "No additional country code " + ac + " found for " + countryInfo);
