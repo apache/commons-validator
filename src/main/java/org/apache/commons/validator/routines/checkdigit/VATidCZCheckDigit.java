@@ -193,7 +193,7 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
 
         if (code.length() == LEN10ICO) {
             try {
-                int cd = calculateRodneCislo(code, true);
+                final int cd = calculateRodneCislo(code, true);
                 return cd == Character.getNumericValue(code.charAt(code.length() - 1));
             } catch (final CheckDigitException ex) {
                 return false;

@@ -16,7 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 
 /**

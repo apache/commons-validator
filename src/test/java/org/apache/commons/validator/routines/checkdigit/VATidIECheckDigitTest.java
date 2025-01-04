@@ -77,6 +77,7 @@ public class VATidIECheckDigitTest extends AbstractCheckDigitTest {
      * Override for long code format to get the check character which is not the last character
      * </p>
      */
+    @Override
     protected String checkDigit(final String code) {
         if (code == null || code.length() <= checkDigitLth) {
             return "";
