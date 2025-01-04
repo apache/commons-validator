@@ -113,7 +113,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      * @return The {@code NumberFormat} to created.
      */
     protected Format getFormat(final Locale locale) {
-        NumberFormat formatter;
+        final NumberFormat formatter;
         switch (formatType) {
         case CURRENCY_FORMAT:
             if (locale == null) {
@@ -154,8 +154,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      */
     @Override
     protected Format getFormat(final String pattern, final Locale locale) {
-
-        NumberFormat formatter;
+        final NumberFormat formatter;
         final boolean usePattern = !GenericValidator.isBlankOrNull(pattern);
         if (!usePattern) {
             formatter = (NumberFormat) getFormat(locale);
@@ -165,7 +164,6 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
             final DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
             formatter = new DecimalFormat(pattern, symbols);
         }
-
         if (!isAllowFractions()) {
             formatter.setParseIntegerOnly(true);
         }

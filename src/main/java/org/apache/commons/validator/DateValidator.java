@@ -65,29 +65,21 @@ public class DateValidator {
      * @return true if the date is valid.
      */
     public boolean isValid(final String value, final Locale locale) {
-
         if (value == null) {
             return false;
         }
-
-        DateFormat formatter;
+        final DateFormat formatter;
         if (locale != null) {
             formatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
         } else {
-            formatter =
-                    DateFormat.getDateInstance(
-                            DateFormat.SHORT,
-                            Locale.getDefault());
+            formatter = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
         }
-
         formatter.setLenient(false);
-
         try {
             formatter.parse(value);
         } catch (final ParseException e) {
             return false;
         }
-
         return true;
     }
 

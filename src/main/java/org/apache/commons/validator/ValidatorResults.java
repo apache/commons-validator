@@ -38,6 +38,13 @@ public class ValidatorResults implements Serializable {
     protected Map<String, ValidatorResult> hResults = new HashMap<>();
 
     /**
+     * Constructs a new instance.
+     */
+    public ValidatorResults() {
+        // empty
+    }
+
+    /**
      * Add a the result of a validator action.
      *
      * @param field The field validated.

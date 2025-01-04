@@ -14,31 +14,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.validator;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.xml.sax.SAXException;
+package org.apache.commons.validator.routines;
 
 /**
- * Consolidates reading in XML config file into parent class.
+ * Statuses of IBAN validation.
+ *
+ * @since 1.10.0
  */
-public abstract class AbstractCommonTest {
+public enum IBANValidatorStatus {
+    /**
+     * IBAN is valid
+     */
+    VALID,
 
     /**
-     * Resources used for validation tests.
+     * IBAN validator for given country is not registered
      */
-    protected ValidatorResources resources;
-    protected String name;
+    UNKNOWN_COUNTRY,
 
     /**
-     * Load {@code ValidatorResources} from validator-numeric.xml.
+     * Length for given  IBAN is wrong
      */
-    protected void loadResources(final String file) throws IOException, SAXException {
-        // Load resources
-        try (InputStream in = this.getClass().getResourceAsStream(file)) {
-            resources = new ValidatorResources(in);
-        }
-    }
+    INVALID_LENGTH,
+
+    /**
+     * Pattern for given IBAN is not match
+     */
+    INVALID_PATTERN,
+
+    /**
+     * Checksum for given IBAN is invalid
+     */
+    INVALID_CHECKSUM
 }

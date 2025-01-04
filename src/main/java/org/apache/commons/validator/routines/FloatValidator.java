@@ -197,18 +197,12 @@ public class FloatValidator extends AbstractNumberValidator {
         final double doubleValue = ((Number) value).doubleValue();
 
         if (doubleValue > 0) {
-            if (doubleValue < Float.MIN_VALUE) {
-                return null;
-            }
-            if (doubleValue > Float.MAX_VALUE) {
+            if (doubleValue < Float.MIN_VALUE || doubleValue > Float.MAX_VALUE) {
                 return null;
             }
         } else if (doubleValue < 0) {
             final double posDouble = doubleValue * -1;
-            if (posDouble < Float.MIN_VALUE) {
-                return null;
-            }
-            if (posDouble > Float.MAX_VALUE) {
+            if (posDouble < Float.MIN_VALUE || posDouble > Float.MAX_VALUE) {
                 return null;
             }
         }

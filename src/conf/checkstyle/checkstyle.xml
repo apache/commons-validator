@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE module PUBLIC
+    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
+<module name="Checker">
+  <property name="localeLanguage" value="en" />
+  <module name="FileTabCharacter" />
+  <module name="JavadocPackage" />
+  <module name="RegexpSingleline">
+    <property name="format" value="((public)|(protected))\s+void\s+finalize\(\s*\)" />
+    <property name="message" value="Avoid finalizers." />
+  </module>
+  <module name="RegexpSingleline">
+    <property name="format" value="^\s+\*\s+@author\s" />
+    <property name="message" value="Deprecated @author tag" />
+    <property name="fileExtensions" value="java" />
+    <property name="severity" value="warning" />
+  </module>
+  <module name="RegexpSingleline">
+    <property name="format" value="\s+$" />
+    <property name="message" value="Line has trailing spaces." />
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="src/conf/checkstyle/checkstyle-suppressions.xml" />
+  </module>
+  <module name="TreeWalker">
+    <module name="AvoidStarImport" />
+    <module name="ConstantName" />
+    <module name="EmptyBlock">
+      <property name="tokens" value="LITERAL_CATCH" />
+      <!-- require a comment, change to stmt to require a statement -->
+      <property name="option" value="text" />
+    </module>
+    <module name="EqualsHashCode" />
+    <module name="ExplicitInitializationCheck" />
+    <module name="FinalLocalVariable" />
+    <module name="IllegalImport" />
+    <module name="IllegalInstantiation">
+      <property name="classes" value="java.lang.Boolean, java.lang.String" />
+    </module>
+    <module name="InterfaceIsType" />
+    <module name="JavadocType">
+      <property name="scope" value="protected" />
+    </module>
+    <module name="JavadocMethod">
+      <property name="accessModifiers" value="protected" />
+    </module>
+    <module name="JavadocVariable">
+      <property name="scope" value="protected" />
+    </module>
+    <module name="ImportOrder">
+      <property name="option" value="top"/>
+      <property name="groups" value="java,javax,org,junit"/>
+      <property name="ordered" value="true"/>
+      <property name="separated" value="true"/>
+    </module>
+    <module name="LeftCurly" />
+    <module name="LocalFinalVariableName" />
+    <module name="LocalVariableName" />
+    <module name="MagicNumber" />
+    <module name="MemberName" />
+    <module name="MethodName" />
+    <module name="MissingOverride" />
+    <module name="ModifierOrder" />
+    <module name="NeedBraces" />
+    <module name="ParameterNumber">
+      <property name="max" value="4" />
+    </module>
+    <module name="PackageName">
+      <!-- no uppercase letters, between 2 and 10 characters -->
+      <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,9})*$" />
+    </module>
+    <module name="ParameterName" />
+    <module name="ParenPad" />
+    <module name="RedundantImport" />
+    <module name="RedundantModifier" />
+    <module name="RightCurly" />
+    <module name="SingleSpaceSeparator"/>
+    <module name="StaticVariableName" />
+    <module name="SuppressionCommentFilter" />
+    <!-- Allow comment to suppress checkstyle for a single line e.g. // CHECKSTYLE IGNORE MagicNumber -->
+    <module name="SuppressWithNearbyCommentFilter">
+      <property name="commentFormat" value="CHECKSTYLE IGNORE (\w+)" />
+      <property name="checkFormat" value="$1" />
+    </module>
+    <module name="TypecastParenPad"/>
+    <module name="TypeName" />
+    <module name="UnusedImports" />
+    <module name="UpperEll" />
+    <module name="WhitespaceAfter"/>
+    <module name="WhitespaceAround"/>
+    <module name="WhitespaceAroundCheck"/>
+  </module>
+</module>

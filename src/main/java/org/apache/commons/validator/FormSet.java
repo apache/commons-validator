@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -38,24 +39,24 @@ public class FormSet implements Serializable {
     /**
      * This is the type of {@code FormSet}s where no locale is specified.
      */
-    protected final static int GLOBAL_FORMSET = 1;
+    protected static final int GLOBAL_FORMSET = 1;
 
     /**
      * This is the type of {@code FormSet}s where only language locale is
      * specified.
      */
-    protected final static int LANGUAGE_FORMSET = 2;
+    protected static final int LANGUAGE_FORMSET = 2;
 
     /**
      * This is the type of {@code FormSet}s where only language and country
      * locale are specified.
      */
-    protected final static int COUNTRY_FORMSET = 3;
+    protected static final int COUNTRY_FORMSET = 3;
 
     /**
      * This is the type of {@code FormSet}s where full locale has been set.
      */
-    protected final static int VARIANT_FORMSET = 4;
+    protected static final int VARIANT_FORMSET = 4;
 
     /** Logging */
     private transient Log log = LogFactory.getLog(FormSet.class);
@@ -92,6 +93,13 @@ public class FormSet implements Serializable {
      * rank in Locale hierarchy).
      */
     private boolean merged;
+
+    /**
+     * Constructs a new instance.
+     */
+    public FormSet() {
+        // empty
+    }
 
     /**
      * Add a {@code Constant} to the locale level.
@@ -222,19 +230,18 @@ public class FormSet implements Serializable {
      *      definition (not sure about this)
      */
     protected int getType() {
+        final String myLanguage = getLanguage();
+        final String myCountry = getCountry();
         if (getVariant() != null) {
-            if (getLanguage() == null || getCountry() == null) {
-                throw new NullPointerException("When variant is specified, country and language must be specified.");
-            }
+            Objects.requireNonNull(myLanguage, "When variant is specified, country and language must be specified.");
+            Objects.requireNonNull(myCountry, "When variant is specified, country and language must be specified.");
             return VARIANT_FORMSET;
         }
-        if (getCountry() != null) {
-            if (getLanguage() == null) {
-                throw new NullPointerException("When country is specified, language must be specified.");
-            }
+        if (myCountry != null) {
+            Objects.requireNonNull(myLanguage, "When country is specified, language must be specified.");
             return COUNTRY_FORMSET;
         }
-        if (getLanguage() != null) {
+        if (myLanguage != null) {
             return LANGUAGE_FORMSET;
         }
         return GLOBAL_FORMSET;

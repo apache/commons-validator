@@ -318,7 +318,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      * @return The {@code DateFormat} to created.
      */
     protected Format getFormat(final Locale locale) {
-        DateFormat formatter;
+        final DateFormat formatter;
         if (dateStyle >= 0 && timeStyle >= 0) {
             if (locale == null) {
                 formatter = DateFormat.getDateTimeInstance(dateStyle, timeStyle);
@@ -341,7 +341,6 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
         }
         formatter.setLenient(false);
         return formatter;
-
     }
 
     /**
@@ -355,7 +354,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      */
     @Override
     protected Format getFormat(final String pattern, final Locale locale) {
-        DateFormat formatter;
+        final DateFormat formatter;
         final boolean usePattern = !GenericValidator.isBlankOrNull(pattern);
         if (!usePattern) {
             formatter = (DateFormat) getFormat(locale);

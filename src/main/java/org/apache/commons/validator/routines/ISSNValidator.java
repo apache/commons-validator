@@ -92,6 +92,13 @@ public class ISSNValidator implements Serializable {
     }
 
     /**
+     * Constructs a new instance.
+     */
+    public ISSNValidator() {
+        // empty
+    }
+
+    /**
      * Converts an ISSN code to an EAN-13 code.
      * <p>
      * This method requires a valid ISSN code.
@@ -140,7 +147,7 @@ public class ISSNValidator implements Serializable {
      */
     public String extractFromEAN13(final String ean13) {
         String input = ean13.trim();
-        if (input.length() != EAN_ISSN_LEN ) {
+        if (input.length() != EAN_ISSN_LEN) {
             throw new IllegalArgumentException("Invalid length " + input.length() + " for '" + input + "'");
         }
         if (!input.startsWith(ISSN_PREFIX)) {

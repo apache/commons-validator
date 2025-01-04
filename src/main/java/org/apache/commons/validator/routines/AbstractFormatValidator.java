@@ -191,10 +191,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     protected Object parse(final String value, final Format formatter) {
         final ParsePosition pos = new ParsePosition(0);
         Object parsedValue = formatter.parseObject(value, pos);
-        if (pos.getErrorIndex() > -1) {
-            return null;
-        }
-        if (isStrict() && pos.getIndex() < value.length()) {
+        if (pos.getErrorIndex() > -1 || isStrict() && pos.getIndex() < value.length()) {
             return null;
         }
         if (parsedValue != null) {

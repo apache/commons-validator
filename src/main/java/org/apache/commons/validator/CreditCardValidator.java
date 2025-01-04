@@ -209,10 +209,7 @@ public class CreditCardValidator {
      * @return Whether the card number is valid.
      */
     public boolean isValid(final String card) {
-        if (card == null || card.length() < 13 || card.length() > 19) {
-            return false;
-        }
-        if (!luhnCheck(card)) {
+        if (card == null || card.length() < 13 || card.length() > 19 || !luhnCheck(card)) {
             return false;
         }
         for (final Object cardType : cardTypes) {

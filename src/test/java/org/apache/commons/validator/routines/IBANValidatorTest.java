@@ -32,10 +32,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -75,6 +78,10 @@ public class IBANValidatorTest {
      */
     private static final String IBAN_REGISTRY = "iban_registry_v99.txt";
     private static final Charset IBAN_REGISTRY_CHARSET = Charset.forName("windows-1252");
+    private static final int MS_PER_DAY = 1000 * 60 * 60 * 24;
+    private static final long MAX_AGE_DAYS = 180; // how old registry can get (approx 6 months)
+
+
 
     // It's not clear whether IBANs can contain lower case characters
     // so we test for both where possible
@@ -221,19 +228,21 @@ public class IBANValidatorTest {
     );
     // @formatter:on
 
-    private static String fmtRE(final String ibanPat) {
+    private static String fmtRE(final String ibanPat, final int ibanLength) {
         final Matcher m = IBAN_PAT.matcher(ibanPat);
         if (!m.matches()) {
             throw new IllegalArgumentException("Unexpected IBAN pattern " + ibanPat);
         }
         final StringBuilder sb = new StringBuilder();
         int len = Integer.parseInt(m.group(1)); // length of part
+        int totLen = len;
         String curType = m.group(2); // part type
         for (int i = 3; i <= m.groupCount(); i += 2) {
             if (m.group(i) == null) { // reached an optional group
                 break;
             }
             final int count = Integer.parseInt(m.group(i));
+            totLen += count;
             final String type = m.group(i + 1);
             if (type.equals(curType)) { // more of the same type
                 len += count;
@@ -244,6 +253,7 @@ public class IBANValidatorTest {
             }
         }
         sb.append(formatToRE(curType, len));
+        assertEquals(ibanLength, totLen, "Wrong length for " + ibanPat);
         return sb.toString();
     }
 
@@ -274,7 +284,7 @@ public class IBANValidatorTest {
         CSVRecord structure = null;
         CSVRecord length = null;
 
-        try (final CSVParser p = new CSVParser(rdr, format)) {
+        try (CSVParser p = new CSVParser(rdr, format)) {
             for (final CSVRecord o : p) {
                 final String item = o.get(0);
                 switch (item) {
@@ -328,8 +338,9 @@ public class IBANValidatorTest {
 
         CSVRecord country = null;
         CSVRecord electronicExample = null;
+        CSVRecord lastUpdateDate = null;
 
-        try (final CSVParser p = new CSVParser(rdr, format)) {
+        try (CSVParser p = new CSVParser(rdr, format)) {
             for (final CSVRecord o : p) {
                 final String item = o.get(0);
                 switch (item) {
@@ -339,6 +350,9 @@ public class IBANValidatorTest {
                     case "IBAN electronic format example":
                         electronicExample = o;
                         break;
+                    case "Last update date":
+                        lastUpdateDate = o;
+                        break;
                     default:
                         break;
                 }
@@ -346,19 +360,44 @@ public class IBANValidatorTest {
         }
 
         assertNotNull(country);
+        final int arraySize = country.size();
         assertNotNull(electronicExample);
+        assertEquals(arraySize, electronicExample.size());
+        assertNotNull(lastUpdateDate);
+        assertEquals(arraySize, lastUpdateDate.size());
 
         final Collection<Arguments> result = new ArrayList<>();
+        Date lastDate = new Date(0);
+        String lastUpdated = null;
         for (int i = 1; i < country.size(); i++) {
             result.add(Arguments.of(country.get(i), electronicExample.get(i)));
+            final String mmyy = lastUpdateDate.get(i);
+            final Date dt = DateValidator.getInstance().validate(mmyy, "MMM-yy", Locale.ROOT);
+            if (dt.after(lastDate)) {
+                lastDate = dt;
+                lastUpdated = mmyy;
+            }
         }
-
+        final long age = (new Date().getTime() - lastDate.getTime()) / MS_PER_DAY;
+        if (age > MAX_AGE_DAYS) { // not necessarily a failure
+            System.out.println("WARNING: expected recent last update date, but found: " + lastUpdated);
+        }
         return result;
+    }
+
+    public static Stream<Arguments> validateIbanStatuses() {
+        return Stream.of(
+                Arguments.of("XX", IBANValidatorStatus.UNKNOWN_COUNTRY),
+                Arguments.of("AD0101", IBANValidatorStatus.INVALID_LENGTH),
+                Arguments.of("AD12XX012030200359100100", IBANValidatorStatus.INVALID_PATTERN),
+                Arguments.of("AD9900012030200359100100", IBANValidatorStatus.INVALID_CHECKSUM),
+                Arguments.of("AD1200012030200359100100", IBANValidatorStatus.VALID)
+        );
     }
 
     @ParameterizedTest
     @MethodSource("ibanRegistrySourceExamples")
-    public void exampleAccountsShouldBeValid(final String countryName, final String example) {
+    public void testExampleAccountsShouldBeValid(final String countryName, final String example) {
         Assumptions.assumeFalse(INVALID_IBAN_FIXTURES.contains(example), "Skip invalid example: " + example + " for " + countryName);
         assertTrue(IBANValidator.getInstance().isValid(example), "IBAN validator returned false for " + example + " for " + countryName);
     }
@@ -455,24 +494,30 @@ public class IBANValidatorTest {
     @ParameterizedTest
     @FieldSource("VALID_IBAN_FIXTURES")
     public void testValid(final String iban) {
-            assertTrue(IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(iban), "Checksum fail: " + iban);
-            assertTrue(VALIDATOR.hasValidator(iban), "Missing validator: " + iban);
-            assertTrue(VALIDATOR.isValid(iban), iban);
+        assertTrue(IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(iban), "Checksum fail: " + iban);
+        assertTrue(VALIDATOR.hasValidator(iban), "Missing validator: " + iban);
+        assertTrue(VALIDATOR.isValid(iban), iban);
+    }
+
+    @ParameterizedTest
+    @MethodSource("validateIbanStatuses")
+    public void testValidateIbanStatuses(final String iban, final IBANValidatorStatus expectedStatus) {
+        assertEquals(expectedStatus, IBANValidator.getInstance().validate(iban));
     }
 
     @ParameterizedTest
     @MethodSource("ibanRegistrySource")
-    public void validatorShouldExistWithProperConfiguration(final String countryName, final String countryCode, final List<String> acountyCode, final int ibanLength, final String structure) throws Exception {
+    public void testValidatorShouldExistWithProperConfiguration(final String countryName, final String countryCode, final List<String> acountyCode,
+            final int ibanLength, final String structure) throws Exception {
         final String countryInfo = " countryCode: " + countryCode + ", countryName: " + countryName;
         final Validator validator = IBANValidator.getInstance().getValidator(countryCode);
 
         assertNotNull(validator, "IBAN validator returned null for" + countryInfo);
         assertEquals(ibanLength, validator.getIbanLength(), "IBAN length should be " + ibanLength + " for" + countryInfo);
 
-        final List<String> allPatterns = Arrays.stream(validator.getRegexValidator().getPatterns()).map(Pattern::pattern).collect(
-                Collectors.toList());
+        final List<String> allPatterns = Arrays.stream(validator.getRegexValidator().getPatterns()).map(Pattern::pattern).collect(Collectors.toList());
 
-        final String re = fmtRE(structure.substring(2));
+        final String re = fmtRE(structure.substring(2), ibanLength - 2); //allow for prefix
         assertTrue(allPatterns.remove(countryCode + re), "No pattern " + countryCode + re + " found for " + countryInfo);
         for (final String ac : acountyCode) {
             assertTrue(allPatterns.remove(ac + re), "No additional country code " + ac + " found for " + countryInfo);

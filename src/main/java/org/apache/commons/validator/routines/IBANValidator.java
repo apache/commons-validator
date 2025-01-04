@@ -101,10 +101,6 @@ public class IBANValidator {
             if (ibanLength > MAX_LEN || ibanLength < MIN_LEN) {
                 throw new IllegalArgumentException("Invalid length parameter, must be in range " + MIN_LEN + " to " + MAX_LEN + " inclusive: " + ibanLength);
             }
-            final String regex = countryCode + regexWithoutCC;
-            if (!regex.startsWith(countryCode)) {
-                throw new IllegalArgumentException("countryCode '" + countryCode + "' does not agree with format: " + regex);
-            }
             this.countryCode = countryCode;
             this.otherCountryCodes = otherCountryCodes.clone();
             final List<String> regexList = new ArrayList<>(this.otherCountryCodes.length + 1);
@@ -347,11 +343,7 @@ public class IBANValidator {
      * @return {@code true} if the value is valid
      */
     public boolean isValid(final String code) {
-        final Validator formatValidator = getValidator(code);
-        if (formatValidator == null || code.length() != formatValidator.ibanLength || !formatValidator.regexValidator.isValid(code)) {
-            return false;
-        }
-        return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code);
+        return validate(code) == IBANValidatorStatus.VALID;
     }
 
     /**
@@ -389,5 +381,29 @@ public class IBANValidator {
             throw new IllegalStateException("The singleton validator cannot be modified");
         }
         return validatorMap.put(validator.countryCode, validator);
+    }
+
+    /**
+     * Validate an IBAN Code
+     *
+     * @param code The value validation is being performed on
+     * @return {@link IBANValidatorStatus} for validation
+     * @since 1.10.0
+     */
+    public IBANValidatorStatus validate(final String code) {
+        final Validator formatValidator = getValidator(code);
+        if (formatValidator == null) {
+            return IBANValidatorStatus.UNKNOWN_COUNTRY;
+        }
+
+        if (code.length() != formatValidator.ibanLength) {
+            return IBANValidatorStatus.INVALID_LENGTH;
+        }
+
+        if (!formatValidator.regexValidator.isValid(code)) {
+            return IBANValidatorStatus.INVALID_PATTERN;
+        }
+
+        return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code) ? IBANValidatorStatus.VALID : IBANValidatorStatus.INVALID_CHECKSUM;
     }
 }

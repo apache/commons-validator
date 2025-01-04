@@ -183,10 +183,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      */
     @Override
     public boolean isValid(final String code) {
-        if (GenericValidator.isBlankOrNull(code)) {
-            return false;
-        }
-        if (!Character.isDigit(code.charAt(code.length() - 1))) {
+        if (GenericValidator.isBlankOrNull(code) || !Character.isDigit(code.charAt(code.length() - 1))) {
             return false;
         }
         return super.isValid(code);

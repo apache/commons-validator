@@ -32,6 +32,13 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
     private transient Log log = LogFactory.getLog(FormSetFactory.class);
 
     /**
+     * Constructs a new instance.
+     */
+    public FormSetFactory() {
+        // empty
+    }
+
+    /**
      * <p>Create or retrieve a {@code FormSet} based on the language, country
      *    and variant.</p>
      *
