@@ -92,7 +92,7 @@ public class VATidFRCheckDigitTest extends AbstractCheckDigitTest {
             if (log.isDebugEnabled()) {
                 log.debug("   " + i + " Testing Invalid Code=[" + invalid[i] + "]");
             }
-            String invalidCode = invalid[i];
+            final String invalidCode = invalid[i];
             System.out.println("   " + i + " Testing Invalid Code=[" + invalidCode + "]");
             assertFalse(routine.isValid(invalidCode), "invalid[" + i + "]: " + invalidCode);
         }
@@ -104,7 +104,7 @@ public class VATidFRCheckDigitTest extends AbstractCheckDigitTest {
             if (log.isDebugEnabled()) {
                 log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "]");
             }
-            boolean res = routine.isValid(invalidCheckDigits[i]);
+            final boolean res = routine.isValid(invalidCheckDigits[i]);
             if (res) {
                 List<String> v = icdmap.get(invalidCheckDigits[i].substring(checkDigitLth));
                 if (v == null) {

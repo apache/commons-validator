@@ -94,11 +94,14 @@ public final class VATidESCheckDigit extends ModulusCheckDigit {
     }
 
     private char calculateNIFletter(final String code) throws CheckDigitException {
-        long value = GenericTypeValidator.formatLong(code);
-        if (GenericTypeValidator.formatLong(code) == 0) {
+        final Long l = GenericTypeValidator.formatLong(code);
+        if (l == null) {
+            throw new CheckDigitException("Invalid VAT number " + code);
+        }
+        if (l == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
-        return NIF_LETTER.charAt((int) (value % MODULUS_23));
+        return NIF_LETTER.charAt((int) (l % MODULUS_23));
     }
 
     /**

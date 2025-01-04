@@ -57,7 +57,7 @@ public class SireneValidator {
     final Validator formatValidator;
 
     private static final Validator DEFAULT_FORMAT =
-     new Validator( new String[]
+     new Validator(new String[]
        { "^(\\d{9})$"  // SIREN
        , "^(\\d{14})$" // SIRET
      });
@@ -110,7 +110,7 @@ public class SireneValidator {
         if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
-        String id = code.trim();
+        final String id = code.trim();
         if (id.length() != SIREN_CODE_LEN && id.length() != SIRET_CODE_LEN) {
             return false;
         }

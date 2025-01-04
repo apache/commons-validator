@@ -71,7 +71,9 @@ public final class VATidFICheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        if (leftPos - 1 >= POSITION_WEIGHT.length) return 0;
+        if (leftPos - 1 >= POSITION_WEIGHT.length) {
+            return 0;
+        }
         final int weight = POSITION_WEIGHT[(leftPos - 1)];
         return charValue * weight;
     }

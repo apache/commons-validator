@@ -45,7 +45,10 @@ public class VATidELCheckDigitTest extends AbstractCheckDigitTest {
             , "998537832", "094327684"
             , "000000130"
             };
-        invalid = new String[] {"123456781"}; // check digit expected 3
+        invalid = new String[] {"0", "00", "000" // ZeroSum
+            , "1456785X"
+            , "123456781" // check digit expected 3
+            , "X2482300"};
     }
 
 }

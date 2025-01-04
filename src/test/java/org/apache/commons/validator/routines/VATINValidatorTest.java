@@ -66,6 +66,7 @@ public class VATINValidatorTest {
             "FI01745928",    // see https://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#y-tunnus2
             "FI09853608",    // see BMF_UID_Konstruktionsregeln
             "FR40303265045", // SA SODIMAS; Adresse 11 RUE AMPERE, 26600 PONT DE L ISERE
+            "FR0D399862135", // MOCA, 83700 ST RAPHAEL
             "FRK7399859412", // SLRL ALTEA EXPERTISE COMPTABLE
             "FR06399859412", "FRB0399859412", "FRY0399859412", "FRB1399859412", // not unique check digit
             "FRT1399859412", "FRH2399859412", "FRN2399859412", "FRC3399859412", "FRU3399859412",
@@ -103,6 +104,7 @@ public class VATINValidatorTest {
             "XI366303068",    // donnellygroup.co.uk, old style cd
             "XI434031494",
             "XI110305878",    // bullseyecountrysport.co.uk, new style
+            "XI888808157",    // BELFAST EDUCATION AND LIBRARY BOARD
             "XI174918964",
             "XI174918964001", // with 3 digits for branch
     });
@@ -259,11 +261,11 @@ public class VATINValidatorTest {
     @Test
     public void testAddValididator() {
         final String code = "GB888851256";
-        VATINValidator myValidator = new VATINValidator();
+        final VATINValidator myValidator = new VATINValidator();
         // cannot validate a GB-VATIN-code because GB is not EU
         assertFalse(myValidator.isValid(code));
         // use the Northern Ireland (XI) validator for GB
-        Validator v = myValidator.getValidator("XI123");
+        final Validator v = myValidator.getValidator("XI123");
         assertNotNull(v);
         assertEquals("XI", v.countryCode, "countryCode");
         assertFalse(myValidator.hasValidator("GB"), "hasValidator GB");

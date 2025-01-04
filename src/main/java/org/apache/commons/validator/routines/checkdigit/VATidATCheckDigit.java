@@ -75,11 +75,13 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        if (leftPos >= LEN) return 0;
+        if (leftPos >= LEN) {
+            return 0;
+        }
         if ((leftPos - 1) % 2 == 0) {
             return charValue;
         } else {
-            int i = charValue / 5;  // CHECKSTYLE IGNORE MagicNumber
+            final int i = charValue / 5;  // CHECKSTYLE IGNORE MagicNumber
             return i + charValue * 2 % MODULUS_10;
         }
     }
@@ -93,7 +95,7 @@ public final class VATidATCheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
         // need this for testZeroSum():
-        Long l = GenericTypeValidator.formatLong(code);
+        final Long l = GenericTypeValidator.formatLong(code);
         if (l != null && l == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }

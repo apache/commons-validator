@@ -104,7 +104,7 @@ public class Modulus97CheckDigit extends AbstractCheckDigit implements Serializa
         if (mr > MAX) {
             mr = mr % modulus;
         }
-        int modulusResult = (int) (mr % modulus);
+        final int modulusResult = (int) (mr % modulus);
         if (modulusResult == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
@@ -122,11 +122,11 @@ public class Modulus97CheckDigit extends AbstractCheckDigit implements Serializa
      */
     protected long calculateModulus(final String code, final boolean removeCheckDigit) throws CheckDigitException {
         // reformattedCode with check digit removed
-        String reformattedCode = removeCheckDigit ? code.substring(0, code.length() - CHECKDIGIT_LEN) : code;
+        final String reformattedCode = removeCheckDigit ? code.substring(0, code.length() - CHECKDIGIT_LEN) : code;
         long total = 0;
         for (int i = 0; i < reformattedCode.length(); i++) {
-            char c = reformattedCode.charAt(i);
-            int charValue = Character.getNumericValue(c);
+            final char c = reformattedCode.charAt(i);
+            final int charValue = Character.getNumericValue(c);
             if (charValue < 0 || charValue > MAX_ALPHANUMERIC_VALUE) {
                 throw new CheckDigitException("Invalid Character[" + i + "] = '" + c + "'");
             }
@@ -149,14 +149,14 @@ public class Modulus97CheckDigit extends AbstractCheckDigit implements Serializa
         if (code.length() < MIN_CODE_LEN) {
             return false;
         }
-        String check = code.substring(code.length() - CHECKDIGIT_LEN);
-        Integer icheck = GenericTypeValidator.formatInt(check);
+        final String check = code.substring(code.length() - CHECKDIGIT_LEN);
+        final Integer icheck = GenericTypeValidator.formatInt(check);
         if (icheck == null) {
             return false;
         }
         try {
-            long mr = calculateModulus(code, false);
-            int modulusResult = (int) (mr % modulus);
+            final long mr = calculateModulus(code, false);
+            final int modulusResult = (int) (mr % modulus);
             return modulusResult == 1;
         } catch (CheckDigitException ex) {
             return false;
@@ -179,7 +179,7 @@ public class Modulus97CheckDigit extends AbstractCheckDigit implements Serializa
         if (cdValue > 99) { // CHECKSTYLE IGNORE MagicNumber
             throw new CheckDigitException("Invalid Check Digit Value =" + cdValue);
         }
-        String checkDigit = Integer.toString(cdValue);
+        final String checkDigit = Integer.toString(cdValue);
         return cdValue > 9 ? checkDigit : "0" + checkDigit; // CHECKSTYLE IGNORE MagicNumber
     }
 

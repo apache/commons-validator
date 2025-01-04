@@ -104,7 +104,9 @@ public final class VATidLTCheckDigit extends Modulus11XCheckDigit {
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        if (leftPos - 1 >= LEN) return 0;
+        if (leftPos - 1 >= LEN) {
+            return 0;
+        }
         final int weight = leftPos > 7 ? leftPos - 7 : leftPos + 2;  // CHECKSTYLE IGNORE MagicNumber
         return charValue * weight;
     }

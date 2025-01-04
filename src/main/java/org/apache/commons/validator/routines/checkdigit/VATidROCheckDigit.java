@@ -89,7 +89,7 @@ public final class VATidROCheckDigit extends Modulus11XCheckDigit {
      * Override to multiply the total by 10.
      * </p>
      */
-    // in calculateModulus muss vor dem % mit 10 multipliziert werden
+    @Override
     protected int calculateModulus(final String code, final boolean includesCheckDigit) throws CheckDigitException {
         int total = 0;
         for (int i = 0; i < code.length(); i++) {

@@ -123,7 +123,7 @@ public final class VATidIECheckDigit extends ModulusCheckDigit {
         if (code.length() >= LEN && GenericTypeValidator.formatLong(code.substring(0, LEN)) == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
-        int r = super.calculateModulus(code, true);
+        final int r = super.calculateModulus(code, true);
         return toCheckDigit(r);
     }
 
@@ -138,7 +138,7 @@ public final class VATidIECheckDigit extends ModulusCheckDigit {
         if (code.length() <= LEN) {
             return false;
         }
-        String code0 = code.substring(0, LEN) + 0 + code.substring(LEN + 1);
+        final String code0 = code.substring(0, LEN) + 0 + code.substring(LEN + 1);
         try {
             if (code.length() >= LEN && GenericTypeValidator.formatLong(code.substring(0, LEN)) == 0) {
                 throw new CheckDigitException(CheckDigitException.ZERO_SUM);

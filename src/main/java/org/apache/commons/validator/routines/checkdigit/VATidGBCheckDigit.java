@@ -82,7 +82,9 @@ public final class VATidGBCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        if (leftPos > LEN - CHECKDIGIT_LEN) return 0;
+        if (leftPos > LEN - CHECKDIGIT_LEN) {
+            return 0;
+        }
         final int weight = POSITION_WEIGHT[(leftPos - 1)];
         return charValue * weight;
     }
@@ -102,10 +104,10 @@ public final class VATidGBCheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException("Invalid Code length=" + code.length());
         }
 
-        int modulusResult = calculateModulus(code, false);
+        final int modulusResult = calculateModulus(code, false);
         if (LOG.isDebugEnabled()) {
-            int mr55 = (MODULUS97_55 + modulusResult) % MODULUS_97;
-            int newStyle = MODULUS_97 - mr55;
+            final int mr55 = (MODULUS97_55 + modulusResult) % MODULUS_97;
+            final int newStyle = MODULUS_97 - mr55;
             LOG.debug(code + " modulusResult=" + modulusResult + " - old style cd = " + (MODULUS_97 - modulusResult)
                 + " and MOD9755-style " + newStyle);
         }
@@ -143,14 +145,14 @@ public final class VATidGBCheckDigit extends ModulusCheckDigit {
 
         try {
             // without the leading "0" the following would be valid 8888502+4
-            Integer cd = GenericTypeValidator.formatInt("0" + code.substring(code.length() - CHECKDIGIT_LEN));
+            final Integer cd = GenericTypeValidator.formatInt("0" + code.substring(code.length() - CHECKDIGIT_LEN));
             if (cd == null) {
                 throw new CheckDigitException("Invalid Code " + code);
             }
             if (cd >= MODULUS_97) {
                 throw new CheckDigitException("Invalid Code " + code + " check digit >= " + MODULUS_97);
             }
-            int modulusResult = calculateModulus(code.substring(0, LEN - CHECKDIGIT_LEN), false);
+            final int modulusResult = calculateModulus(code.substring(0, LEN - CHECKDIGIT_LEN), false);
             if (0 == (modulusResult + cd) % MODULUS_97) {
                 return true; // old style MOD 97
             }

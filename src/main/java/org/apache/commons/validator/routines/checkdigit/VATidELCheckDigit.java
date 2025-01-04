@@ -65,7 +65,9 @@ public final class VATidELCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        if (leftPos >= LEN) return 0;
+        if (leftPos >= LEN) {
+            return 0;
+        }
         final int weight = (int) Math.pow(2, rightPos - 1);
         return charValue * weight;
     }
@@ -78,7 +80,11 @@ public final class VATidELCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
-        if (GenericTypeValidator.formatLong(code) == 0) {
+        final Long l = GenericTypeValidator.formatLong(code);
+        if (l == null) {
+            throw new CheckDigitException("Invalid VAT number " + code);
+        }
+        if (l == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         final int cm = INSTANCE.calculateModulus(code, false);

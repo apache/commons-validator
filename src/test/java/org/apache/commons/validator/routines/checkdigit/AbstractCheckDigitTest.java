@@ -110,7 +110,7 @@ public abstract class AbstractCheckDigitTest {
             final String code = removeCheckDigit(fullCode);
             final String check = checkDigit(fullCode);
             for (int i = 0; i < POSSIBLE_CHECK_DIGITS.length(); i++) {
-                String c = checkDigitLth == 1 ? "" : POSSIBLE_CHECK_DIGITS.substring(i, i + 1);
+                final String c = checkDigitLth == 1 ? "" : POSSIBLE_CHECK_DIGITS.substring(i, i + 1);
                 for (int j = 0; j < POSSIBLE_CHECK_DIGITS.length(); j++) {
                     final String curr = POSSIBLE_CHECK_DIGITS.substring(j, j + 1) + c;
                     if (!curr.equals(check)) {
@@ -226,7 +226,7 @@ public abstract class AbstractCheckDigitTest {
             if (log.isDebugEnabled()) {
                 log.debug("   " + i + " Testing Invalid Code=[" + invalid[i] + "]");
             }
-            String invalidCode = invalid[i];
+            final String invalidCode = invalid[i];
             assertFalse(routine.isValid(invalidCode), "invalid[" + i + "]: " + invalidCode);
         }
 
@@ -236,7 +236,7 @@ public abstract class AbstractCheckDigitTest {
             if (log.isDebugEnabled()) {
                 log.debug("   " + i + " Testing Invalid Check Digit, Code=[" + invalidCheckDigits[i] + "]");
             }
-            boolean res = routine.isValid(invalidCheckDigits[i]);
+            final boolean res = routine.isValid(invalidCheckDigits[i]);
             assertFalse(res, "invalid check digit[" + i + "]: " + invalidCheckDigits[i]);
         }
     }

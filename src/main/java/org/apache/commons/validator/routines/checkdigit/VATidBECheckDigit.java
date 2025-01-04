@@ -69,17 +69,17 @@ public final class VATidBECheckDigit extends Modulus97CheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
-        if (code.length() < MIN_CODE_LEN) {
-            throw new CheckDigitException("Invalid Code length=" + code.length());
+        try {
+            final long l = Long.parseLong(code); // throws NumberFormatException
+            if (l == 0) {
+                throw new CheckDigitException(CheckDigitException.ZERO_SUM);
+            }
+            final int r = (int) (l % MODULUS_97); // MOD 97 reminder
+            return toCheckDigit(MODULUS_97 - r);
+        } catch (final NumberFormatException ex) {
+            // Expected exception for high codes f.i. 99999999999999999999999
+            throw new CheckDigitException("Invalid Code " + code);
         }
-
-        long mr = calculateModulus(code, false);
-        int modulusResult = (int) (mr % MODULUS_97);
-        if (modulusResult == 0) {
-            throw new CheckDigitException(CheckDigitException.ZERO_SUM);
-        }
-        // The check digits are calculated as 97 - MOD 97
-        return toCheckDigit(MODULUS_97 - modulusResult);
     }
 
     /**
@@ -90,22 +90,13 @@ public final class VATidBECheckDigit extends Modulus97CheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
-        if (code.length() < MIN_CODE_LEN) {
+        if (code.length() <= CHECKDIGIT_LEN) {
             return false;
         }
-        String check = code.substring(code.length() - CHECKDIGIT_LEN);
-        Integer icheck = GenericTypeValidator.formatInt(check);
-        if (icheck == null) {
-            return false;
-        }
+        final String check = code.substring(code.length() - CHECKDIGIT_LEN);
         try {
-            long mr = calculateModulus(code, true);
-            int modulusResult = (int) (mr % MODULUS_97);
-            if (modulusResult == 0) {
-                throw new CheckDigitException(CheckDigitException.ZERO_SUM);
-            }
-            final int cdValue = MODULUS_97 - modulusResult;
-            return icheck.intValue() == cdValue;
+            final String cd = calculate(code.substring(0, code.length() - CHECKDIGIT_LEN)); // throws CheckDigitException
+            return cd.equals(check);
         } catch (final CheckDigitException ex) {
             return false;
         }

@@ -102,7 +102,7 @@ public class Modulus11TenCheckDigit extends ModulusCheckDigit {
             sum = sum % MODULUS_10;
             product = 2 * (sum == 0 ? MODULUS_10 : sum) % MODULUS_11;
         }
-        int pruefZiffer = MODULUS_11 - product;
+        final int pruefZiffer = MODULUS_11 - product;
         return pruefZiffer == MODULUS_10 ? 0 : pruefZiffer;
     }
 

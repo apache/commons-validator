@@ -179,8 +179,8 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
                 mmborn = mm - BORN_AFTER_2000_MOD;
             }
         }
-        DateValidator dateValidator = new DateValidator();
-        String date = String.format("%02d", mmborn) + "/" + code.substring(4, 6) + "/" + yyborn; // CHECKSTYLE IGNORE MagicNumber
+        final DateValidator dateValidator = new DateValidator();
+        final String date = String.format("%02d", mmborn) + "/" + code.substring(4, 6) + "/" + yyborn; // CHECKSTYLE IGNORE MagicNumber
         if (dateValidator.validate(date, "MM/dd/yyyy") == null) {
             throw new CheckDigitException("Invalid date " + date + " - Invalid DDC " + code);
         }

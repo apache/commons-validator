@@ -22,6 +22,7 @@ import org.junit.jupiter.api.BeforeEach;
  * BE VAT Id Check Digit Tests.
  * <pre>
 
+    BE 0400037797 : gültig BV I.M.P.F. Knokke-Heist
     BE 0441826783 : gültig AG ROM, Industriestrasse 38, 4700 Eupen
     BE 441826783 : dto neunstellig, nicht gültig (Länge wird nicht in VATidBECheckDigit, sondern in VATINValidator geprüft)
     BE 0888888895 : gültig
@@ -42,9 +43,11 @@ public class VATidBECheckDigitTest extends AbstractCheckDigitTest {
     protected void setUp() {
         routine = VATidBECheckDigit.getInstance();
         valid = new String[] {"1234567894"
+            , "0400037797" // check digit == 97
             , "441826783", "0441826783"
             , "136695962", "0136695962"
-            , "0776091951", "0888888895"};
+            , "0776091951", "0888888895", "99999999999999999909"};
+        invalid = new String[] {"123", "9999999999999999999999942"};
     }
 
 }

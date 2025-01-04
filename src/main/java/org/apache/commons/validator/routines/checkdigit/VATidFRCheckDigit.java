@@ -74,8 +74,10 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        if (rightPos > LEN - CHECKDIGIT_LEN) return 0;
-        Double pow = Math.pow(10, rightPos + 1 - CHECKDIGIT_LEN); // CHECKSTYLE IGNORE MagicNumber
+        if (rightPos > LEN - CHECKDIGIT_LEN) {
+            return 0;
+        }
+        final Double pow = Math.pow(10, rightPos + 1 - CHECKDIGIT_LEN); // CHECKSTYLE IGNORE MagicNumber
         return charValue * pow.intValue();
     }
 
@@ -90,7 +92,7 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
-        Long checkZero = GenericTypeValidator.formatLong(code);
+        final Long checkZero = GenericTypeValidator.formatLong(code);
         if (checkZero != null && checkZero == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
@@ -112,7 +114,7 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
      * @throws CheckDigitException
      */
     private int calcOldStyle(final String code) throws CheckDigitException {
-        Long cde12 = GenericTypeValidator.formatLong(code + "12");
+        final Long cde12 = GenericTypeValidator.formatLong(code + "12");
         if (cde12 == null) {
             throw new CheckDigitException("Invalid code, '" + code + "'");
         }
@@ -120,8 +122,8 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
     }
 
     private boolean isValidOldStyle(final String code) throws CheckDigitException {
-        int cd = GenericTypeValidator.formatInt(code.substring(0, CHECKDIGIT_LEN));
-        Long cde = GenericTypeValidator.formatLong((code + "12").substring(CHECKDIGIT_LEN));
+        final int cd = GenericTypeValidator.formatInt(code.substring(0, CHECKDIGIT_LEN));
+        final Long cde = GenericTypeValidator.formatLong((code + "12").substring(CHECKDIGIT_LEN));
         if (cde == null) {
             throw new CheckDigitException("Invalid code " + code);
         }
@@ -143,9 +145,9 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
         if (s1 > -1 && s1 < 10 && s0 >= 10) {  // CHECKSTYLE IGNORE MagicNumber
             s = s0 * ALPHABET.length() + s1 - 100;  // CHECKSTYLE IGNORE MagicNumber
         }
-        int p = (s / MODULUS_11) + 1;
-        int r1 = s % MODULUS_11;
-        int r2 = (GenericTypeValidator.formatInt(siren) + p) % MODULUS_11;
+        final int p = (s / MODULUS_11) + 1;
+        final int r1 = s % MODULUS_11;
+        final int r2 = (GenericTypeValidator.formatInt(siren) + p) % MODULUS_11;
         return r1 == r2;
     }
 
@@ -172,10 +174,10 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
         // 2. c0 isDigit && c1 isUpperCase ==> new style
         // 3. c0 isDigit && c1 isDigit ==> old style
         // alle anderen sind nicht valide
-            int c0 = code.codePointAt(0);
-            int c1 = code.codePointAt(1);
-            int s0 = ALPHABET.indexOf(c0);
-            int s1 = ALPHABET.indexOf(c1);
+            final int c0 = code.codePointAt(0);
+            final int c1 = code.codePointAt(1);
+            final int s0 = ALPHABET.indexOf(c0);
+            final int s1 = ALPHABET.indexOf(c1);
             if (Character.isUpperCase(c0) && Character.isDigit(c1)) {
                 return isValid(code.substring(CHECKDIGIT_LEN), s0, s1);
             } else if (Character.isDigit(c0) && Character.isUpperCase(c1)) {

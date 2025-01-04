@@ -149,8 +149,8 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
             final String sex = mm > FEMALE_MOD ? "female" : "male";
             LOG.debug(code + ": individual (" + sex + ") born=" + yyborn + "/" + mmborn + "/" + ddborn);
         }
-        DateValidator dateValidator = new DateValidator();
-        String date = String.format("%02d", mmborn) + "/" + String.format("%02d", ddborn) + "/" + yyborn;
+        final DateValidator dateValidator = new DateValidator();
+        final String date = String.format("%02d", mmborn) + "/" + String.format("%02d", ddborn) + "/" + yyborn;
         if (dateValidator.validate(date, "MM/dd/yyyy") == null) {
             throw new CheckDigitException("Invalid date " + date + " - invalid Rodné číslo (RČ) " + code);
         }
@@ -190,20 +190,29 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
-        if (code.length() == LEN10ICO) try {
-            int cd = calculateRodneCislo(code, true);
-            return cd == Character.getNumericValue(code.charAt(code.length() - 1));
-        } catch (final CheckDigitException ex) {
+
+        if (code.length() == LEN10ICO) {
+            try {
+                int cd = calculateRodneCislo(code, true);
+                return cd == Character.getNumericValue(code.charAt(code.length() - 1));
+            } catch (final CheckDigitException ex) {
+                return false;
+            }
+        }
+        if (code.length() == LEN9ICO) {
+            try {
+                final int modulusResult = calculateModulus6(code, true);
+                final int charValue = modulusResult == 0 ? MODULUS_11 : (MODULUS_11 - modulusResult);
+                return DIFFTABLE[charValue - 1] == Character.getNumericValue(code.charAt(code.length() - 1));
+            } catch (final CheckDigitException ex) {
+                return false;
+            }
+        }
+
+        if (code.length() > LEN) {
             return false;
         }
-        if (code.length() == LEN9ICO) try {
-            final int modulusResult = calculateModulus6(code, true);
-            final int charValue = modulusResult == 0 ? MODULUS_11 : (MODULUS_11 - modulusResult);
-            return DIFFTABLE[charValue - 1] == Character.getNumericValue(code.charAt(code.length() - 1));
-        } catch (final CheckDigitException ex) {
-            return false;
-        }
-        if (code.length() <= LEN) try {
+        try {
             if (code.startsWith(INVALID_START_WITH)) {
                 throw new CheckDigitException(INVALID_START_MSG + code);
             }
@@ -212,7 +221,6 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
         } catch (final CheckDigitException ex) {
             return false;
         }
-        return false;
     }
 
 }

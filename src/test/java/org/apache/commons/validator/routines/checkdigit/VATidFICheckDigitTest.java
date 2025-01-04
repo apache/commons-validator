@@ -29,10 +29,23 @@ public class VATidFICheckDigitTest extends AbstractCheckDigitTest {
     @BeforeEach
     protected void setUp() {
         routine = VATidFICheckDigit.getInstance();
-        valid = new String[] {"13669598"
+        valid = new String[]
+            { "13669598"
             , "01745928"
-            , "09853608", "20774740"};
-        invalid = new String[] {"1456785X", "1745928", "X2482300"};
+            , "07976508"
+            , "01147952"
+            , "01162976"
+            , "01745928"
+            , "09853608"
+            , "20774740"
+            , "20774804"
+            , "20774847"
+            , "20774900"
+            , "20774927"
+            };
+        invalid = new String[] {"0", "00", "000" // ZeroSum
+            , "1456785X"
+            , "X2482300"};
     }
 
 }

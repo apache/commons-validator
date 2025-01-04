@@ -86,7 +86,9 @@ A1 = 9*C1 + 1*C2 + 4*C3 + 8*C4 + 3*C5 + 10*C6 + 2*C7 + 5*C8 + 7*C9 + 6*C10
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        if (leftPos - 1 >= POSITION_WEIGHT.length) return 0;
+        if (leftPos - 1 >= POSITION_WEIGHT.length) {
+            return 0;
+        }
         final int weight = POSITION_WEIGHT[(leftPos - 1)];
         return charValue * weight;
     }
@@ -102,7 +104,11 @@ A1 = 9*C1 + 1*C2 + 4*C3 + 8*C4 + 3*C5 + 10*C6 + 2*C7 + 5*C8 + 7*C9 + 6*C10
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
-        if (GenericTypeValidator.formatLong(code) == 0) {
+        final Long l = GenericTypeValidator.formatLong(code);
+        if (l == null) {
+            throw new CheckDigitException("Invalid VAT number " + code);
+        }
+        if (l == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
         }
         final int c1 = toInt(code.charAt(0), 1, -1);
@@ -135,7 +141,7 @@ A1 = 9*C1 + 1*C2 + 4*C3 + 8*C4 + 3*C5 + 10*C6 + 2*C7 + 5*C8 + 7*C9 + 6*C10
         final int c2 = toInt(code.charAt(1), 2, -1);
         final int dd = 10 * c1 + c2;
         if (dd > 0 && dd <= 31) { // CHECKSTYLE IGNORE MagicNumber
-            String mmborn = code.substring(2, 4); // CHECKSTYLE IGNORE MagicNumber
+            final String mmborn = code.substring(2, 4); // CHECKSTYLE IGNORE MagicNumber
             final int centuryInd = toInt(code.charAt(6), 7, -1);
             String yyborn = code.substring(4, 6); // CHECKSTYLE IGNORE MagicNumber
             if (centuryInd == 0) {
@@ -147,8 +153,8 @@ A1 = 9*C1 + 1*C2 + 4*C3 + 8*C4 + 3*C5 + 10*C6 + 2*C7 + 5*C8 + 7*C9 + 6*C10
             } else {
                 yyborn = "??" + yyborn;
             }
-            DateValidator dateValidator = new DateValidator();
-            String date = mmborn + "/" + String.format("%02d", dd) + "/" + yyborn;
+            final DateValidator dateValidator = new DateValidator();
+            final String date = mmborn + "/" + String.format("%02d", dd) + "/" + yyborn;
             if (dateValidator.validate(date, "MM/dd/yyyy") == null) {
                 if (invalidDateException) {
                      throw new CheckDigitException("Invalid date " + date + " - Invalid NMIN " + code);
@@ -160,7 +166,7 @@ A1 = 9*C1 + 1*C2 + 4*C3 + 8*C4 + 3*C5 + 10*C6 + 2*C7 + 5*C8 + 7*C9 + 6*C10
                 LOG.debug(code + " is NMIN (TIN) for a person born " + date);
             }
         }
-        int cd = vRule1(code);
+        final int cd = vRule1(code);
         if (cd == -1) {
             throw new CheckDigitException(INVALID_CODE_NEGATIVE);
         }
@@ -190,18 +196,18 @@ A1 = 9*C1 + 1*C2 + 4*C3 + 8*C4 + 3*C5 + 10*C6 + 2*C7 + 5*C8 + 7*C9 + 6*C10
     }
 
     private int vRule1(final String code) {
-        int c1 = Character.getNumericValue(code.charAt(0)); // CHECKSTYLE IGNORE MagicNumber
-        int c2 = Character.getNumericValue(code.charAt(1)); // CHECKSTYLE IGNORE MagicNumber
-        int c3 = Character.getNumericValue(code.charAt(2)); // CHECKSTYLE IGNORE MagicNumber
-        int c4 = Character.getNumericValue(code.charAt(3)); // CHECKSTYLE IGNORE MagicNumber
-        int c5 = Character.getNumericValue(code.charAt(4)); // CHECKSTYLE IGNORE MagicNumber
-        int c6 = Character.getNumericValue(code.charAt(5)); // CHECKSTYLE IGNORE MagicNumber
-        int c7 = Character.getNumericValue(code.charAt(6)); // CHECKSTYLE IGNORE MagicNumber
-        int c8 = Character.getNumericValue(code.charAt(7)); // CHECKSTYLE IGNORE MagicNumber
-        int c9 = Character.getNumericValue(code.charAt(8)); // CHECKSTYLE IGNORE MagicNumber
-        int c10 = Character.getNumericValue(code.charAt(9)); // CHECKSTYLE IGNORE MagicNumber
-        int sum = c1 * 1 + c2 * 6 + c3 * 3 + c4 * 7 + c5 * 9 + c6 * 10 + c7 * 5 + c8 * 8 + c9 * 4 + c10 * 2; // CHECKSTYLE IGNORE MagicNumber
-        int remainderBy11 = sum % MODULUS_11;
+        final int c1 = Character.getNumericValue(code.charAt(0)); // CHECKSTYLE IGNORE MagicNumber
+        final int c2 = Character.getNumericValue(code.charAt(1)); // CHECKSTYLE IGNORE MagicNumber
+        final int c3 = Character.getNumericValue(code.charAt(2)); // CHECKSTYLE IGNORE MagicNumber
+        final int c4 = Character.getNumericValue(code.charAt(3)); // CHECKSTYLE IGNORE MagicNumber
+        final int c5 = Character.getNumericValue(code.charAt(4)); // CHECKSTYLE IGNORE MagicNumber
+        final int c6 = Character.getNumericValue(code.charAt(5)); // CHECKSTYLE IGNORE MagicNumber
+        final int c7 = Character.getNumericValue(code.charAt(6)); // CHECKSTYLE IGNORE MagicNumber
+        final int c8 = Character.getNumericValue(code.charAt(7)); // CHECKSTYLE IGNORE MagicNumber
+        final int c9 = Character.getNumericValue(code.charAt(8)); // CHECKSTYLE IGNORE MagicNumber
+        final int c10 = Character.getNumericValue(code.charAt(9)); // CHECKSTYLE IGNORE MagicNumber
+        final int sum = c1 * 1 + c2 * 6 + c3 * 3 + c4 * 7 + c5 * 9 + c6 * 10 + c7 * 5 + c8 * 8 + c9 * 4 + c10 * 2; // CHECKSTYLE IGNORE MagicNumber
+        final int remainderBy11 = sum % MODULUS_11;
         if (1 - remainderBy11 < -1)
           return 1 - remainderBy11 + MODULUS_11;
         return 1 - remainderBy11;

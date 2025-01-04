@@ -76,7 +76,9 @@ public final class VATidMTCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
-        if (leftPos - 1 >= POSITION_WEIGHT.length) return 0;
+        if (leftPos - 1 >= POSITION_WEIGHT.length) {
+            return 0;
+        }
         final int weight = POSITION_WEIGHT[(leftPos - 1)];
         return charValue * weight;
     }
@@ -106,13 +108,13 @@ public final class VATidMTCheckDigit extends ModulusCheckDigit {
             return false;
         }
 
-        String check = code.substring(code.length() - CHECKDIGIT_LEN);
-        Integer icheck = GenericTypeValidator.formatInt(check);
+        final String check = code.substring(code.length() - CHECKDIGIT_LEN);
+        final Integer icheck = GenericTypeValidator.formatInt(check);
         if (icheck == null) {
             return false;
         }
         try {
-            int modulusResult = calculateModulus(code, true);
+            final int modulusResult = calculateModulus(code, true);
             return icheck.intValue() == MODULUS_37 - modulusResult;
         } catch (final CheckDigitException ex) {
             return false;

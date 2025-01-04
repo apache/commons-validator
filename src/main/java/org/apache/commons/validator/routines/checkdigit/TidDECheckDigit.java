@@ -67,8 +67,8 @@ public final class TidDECheckDigit extends Modulus11TenCheckDigit {
     protected int calculateModulus(final String code, final boolean includesCheckDigit) throws CheckDigitException {
         int product = MODULUS_10;
         int sum = 0;
-        int[] anzahl = new int[10];  // CHECKSTYLE IGNORE MagicNumber
-        int[] fstpos = new int[10];  // CHECKSTYLE IGNORE MagicNumber
+        final int[] anzahl = new int[10];  // CHECKSTYLE IGNORE MagicNumber
+        final int[] fstpos = new int[10];  // CHECKSTYLE IGNORE MagicNumber
         for (int i = 0; i < code.length() - (includesCheckDigit ? 1 : 0); i++) {
             final int leftPos = i + 1;
             final int rightPos = -1; // rightPos param not used
@@ -104,14 +104,14 @@ public final class TidDECheckDigit extends Modulus11TenCheckDigit {
             LOG.warn(code + ": mehrere dreifach");
             throw new CheckDigitException("Invalid code, mehrere dreifach");
         } else if (dreifach == 1) {
-            int i = code.indexOf("" + dreifachz);
+            final int i = code.indexOf("" + dreifachz);
             if (dreifachz == toInt(code.charAt(i + 1), i + 1, -1)
                 && dreifachz == toInt(code.charAt(i + 2), i + 2, -1)) {
                 LOG.warn(code + ": dreifach direkt hintereinander Ziffer:" + dreifachz);
                 throw new CheckDigitException("Invalid code, dreifach direkt hintereinander");
             }
         }
-        int pruefZiffer = MODULUS_11 - product;
+        final int pruefZiffer = MODULUS_11 - product;
         return pruefZiffer == MODULUS_10 ? 0 : pruefZiffer;
     }
 
