@@ -209,6 +209,7 @@
       <groupId>org.junit-pioneer</groupId>
       <artifactId>junit-pioneer</artifactId>
       <version>1.9.1</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <!-- For testing DomainValidatorStartup -->
