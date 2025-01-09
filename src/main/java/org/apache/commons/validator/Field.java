@@ -343,7 +343,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Retrieves the Args for the given validator name.
      * @param key The validator's args to retrieve.
-     * @return An Arg[] sorted by the Args' positions (i.e. the Arg at index 0
+     * @return An Arg[] sorted by the Args' positions (for example, the Arg at index 0
      * has a position of 0).
      * @since 1.1.1
      */
@@ -609,7 +609,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * If there is a value specified for the indexedProperty field then
-     * {@code true} will be returned.  Otherwise it will be
+     * {@code true} will be returned.  Otherwise, it will be
      * {@code false}.
      * @return Whether the Field is indexed.
      */
@@ -715,7 +715,7 @@ public class Field implements Cloneable, Serializable {
      * @param results
      * @param actions
      * @param pos
-     * @return true if all of the dependent validations passed.
+     * @return true if all dependent validations passed.
      * @throws ValidatorException If there's an error running a validator
      */
     private boolean runDependentValidators(

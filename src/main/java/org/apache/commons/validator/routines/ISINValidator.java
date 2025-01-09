@@ -32,7 +32,7 @@ import org.apache.commons.validator.routines.checkdigit.ISINCheckDigit;
  * <p>
  * ISINs consist of two alphabetic characters,
  * which are the ISO 3166-1 alpha-2 code for the issuing country,
- * nine alpha-numeric characters (the National Securities Identifying Number, or NSIN, which identifies the security),
+ * nine alphanumeric characters (the National Securities Identifying Number, or NSIN, which identifies the security),
  * and one numerical check digit.
  * They are 12 characters in length.
  * </p>

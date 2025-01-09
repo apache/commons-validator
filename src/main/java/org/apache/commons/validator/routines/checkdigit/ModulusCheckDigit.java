@@ -190,9 +190,9 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
      * code at a specified position.
      * <p>
      * Some modulus routines weight the value of a character
-     * depending on its position in the code (e.g. ISBN-10), while
+     * depending on its position in the code (for example, ISBN-10), while
      * others use different weighting factors for odd/even positions
-     * (e.g. EAN or Luhn). Implement the appropriate mechanism
+     * (for example, EAN or Luhn). Implement the appropriate mechanism
      * required by overriding this method.
      *
      * @param charValue The numeric value of the character

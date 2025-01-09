@@ -312,7 +312,7 @@ public class GenericTypeValidator implements Serializable {
     }
 
     /**
-     * Checks if the value can safely be converted to a int primitive.
+     * Checks if the value can safely be converted to an int primitive.
      *
      * @param value The value validation is being performed on.
      * @return the converted Integer value.

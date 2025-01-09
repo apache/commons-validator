@@ -31,7 +31,7 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  *   <li>trim the input. If the resulting code is empty, return null/false as appropriate</li>
  *   <li>Check the <em>format</em> of the code using a <em>regular expression.</em> (if specified)</li>
  *   <li>Check the <em>minimum</em> and <em>maximum</em> length  (if specified) of the <em>parsed</em> code
- *      (i.e. parsed by the <em>regular expression</em>).</li>
+ *      (that is, parsed by the <em>regular expression</em>).</li>
  *   <li>Performs {@link CheckDigit} validation on the parsed code (if specified).</li>
  *   <li>The {@link #validate(String)} method returns the trimmed, parsed input (or null if validation failed)</li>
  * </ul>
@@ -59,9 +59,9 @@ import org.apache.commons.validator.routines.checkdigit.CheckDigit;
  *    </ul>
  * <p>
  * Codes often include <em>format</em> characters - such as hyphens - to make them
- * more easily human readable. These can be removed prior to length and check digit
- * validation by  specifying them as a <em>non-capturing</em> group in the regular
- * expression (i.e. use the {@code (?:   )} notation).
+ * more easily human-readable. These can be removed prior to length and check digit
+ * validation by specifying them as a <em>non-capturing</em> group in the regular
+ * expression (that is, use the {@code (?:   )} notation).
  * <br>
  * Or just avoid using parentheses except for the parts you want to capture
  *

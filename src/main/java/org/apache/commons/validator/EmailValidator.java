@@ -188,7 +188,7 @@ public class EmailValidator {
     /**
      * Returns true if the user component of an email address is valid.
      * @param user being validated
-     * @return true if the user name is valid.
+     * @return true if the username is valid.
      */
     protected boolean isValidUser(final String user) {
         return USER_PATTERN.matcher(user).matches();
