@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>78</version>
+    <version>79</version>
   </parent>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
@@ -74,7 +74,7 @@
   </scm>
   <issueManagement>
     <system>jira</system>
-    <url>http://issues.apache.org/jira/browse/VALIDATOR</url>
+    <url>https://issues.apache.org/jira/browse/VALIDATOR</url>
   </issueManagement>
   <distributionManagement>
     <site>
@@ -344,7 +344,7 @@
                 </goals>
               </execution>
             </executions>
-          </plugin>      
+          </plugin>
         </plugins>
        </build>
     </profile>

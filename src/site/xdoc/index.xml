@@ -42,7 +42,7 @@
     <section name="Releases">
         <p>See the <a href="http://commons.apache.org/validator/download_validator.cgi">Downloads</a>
            page for current/previous releases.
-           For details of whats new in each version see the <a href="changes-report.html">Release Notes</a>.
+           For details of whats new in each version see the <a href="changes.html">Release Notes</a>.
            <a href="http://wiki.apache.org/commons/ValidatorReleaseNotes">Community Notes</a> on
            release are maintained on the <a href="http://wiki.apache.org/commons/">Apache Commons Wiki</a>.
         </p>
