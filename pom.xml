@@ -51,6 +51,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <!-- project.build.outputTimestamp is managed by Maven plugins, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
     <project.build.outputTimestamp>2024-05-28T23:13:31Z</project.build.outputTimestamp>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <!-- JaCoCo: Don't make code coverage worse than: -->
