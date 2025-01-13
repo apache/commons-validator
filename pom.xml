@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>78</version>
+    <version>79</version>
   </parent>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
@@ -51,6 +51,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <!-- project.build.outputTimestamp is managed by Maven plugins, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
     <project.build.outputTimestamp>2024-05-28T23:13:31Z</project.build.outputTimestamp>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <!-- JaCoCo: Don't make code coverage worse than: -->
@@ -74,7 +75,7 @@
   </scm>
   <issueManagement>
     <system>jira</system>
-    <url>http://issues.apache.org/jira/browse/VALIDATOR</url>
+    <url>https://issues.apache.org/jira/browse/VALIDATOR</url>
   </issueManagement>
   <distributionManagement>
     <site>
@@ -165,7 +166,7 @@
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
-      <version>1.9.4</version>
+      <version>1.10.0</version>
     </dependency>
     <dependency>
       <groupId>commons-digester</groupId>
@@ -197,7 +198,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-csv</artifactId>
-      <version>1.12.0</version>
+      <version>1.13.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -209,6 +210,7 @@
       <groupId>org.junit-pioneer</groupId>
       <artifactId>junit-pioneer</artifactId>
       <version>1.9.1</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <!-- For testing DomainValidatorStartup -->
@@ -343,7 +345,7 @@
                 </goals>
               </execution>
             </executions>
-          </plugin>      
+          </plugin>
         </plugins>
        </build>
     </profile>
