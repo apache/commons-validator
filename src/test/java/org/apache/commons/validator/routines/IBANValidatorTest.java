@@ -55,7 +55,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests {@link IBANValidator}.
  */
-public class IBANValidatorTest {
+class IBANValidatorTest {
 
     private static final IBANValidator VALIDATOR = IBANValidator.getInstance();
 
@@ -105,6 +105,8 @@ public class IBANValidatorTest {
             "CH9300762011623852957",
             "CR05015202001026284066",
             "CY17002001280000001200527600",
+            "CZ4907100000000000123457",
+            "CZ3507100000190000123457",
             "CZ6508000000192000145399",
             "CZ9455000000001011038930",
             "DE89370400440532013000",
@@ -224,7 +226,8 @@ public class IBANValidatorTest {
             "ST68000200010192194210112", // ditto - invalid example
             "SV62CENR0000000000000700025", // ditto
             "NI04BAPR00000013000003558124", // invalid example
-            "RU1704452522540817810538091310419" // invalid example
+            "RU1704452522540817810538091310419", // invalid example
+            "CZ8801007822637402170100" // invalid checksum
     );
     // @formatter:on
 
@@ -391,96 +394,97 @@ public class IBANValidatorTest {
                 Arguments.of("AD0101", IBANValidatorStatus.INVALID_LENGTH),
                 Arguments.of("AD12XX012030200359100100", IBANValidatorStatus.INVALID_PATTERN),
                 Arguments.of("AD9900012030200359100100", IBANValidatorStatus.INVALID_CHECKSUM),
-                Arguments.of("AD1200012030200359100100", IBANValidatorStatus.VALID)
+                Arguments.of("AD1200012030200359100100", IBANValidatorStatus.VALID),
+                Arguments.of("CZ1250518431133999467287", IBANValidatorStatus.INVALID_ACCOUNT_CHECKSUM)
         );
     }
 
     @ParameterizedTest
     @MethodSource("ibanRegistrySourceExamples")
-    public void testExampleAccountsShouldBeValid(final String countryName, final String example) {
+    void testExampleAccountsShouldBeValid(final String countryName, final String example) {
         Assumptions.assumeFalse(INVALID_IBAN_FIXTURES.contains(example), "Skip invalid example: " + example + " for " + countryName);
         assertTrue(IBANValidator.getInstance().isValid(example), "IBAN validator returned false for " + example + " for " + countryName);
     }
 
     @Test
-    public void testGetRegexValidatorPatterns() {
+    void testGetRegexValidatorPatterns() {
         assertNotNull(VALIDATOR.getValidator("GB").getRegexValidator().getPatterns(), "GB");
     }
 
     @Test
-    public void testGetValidator() {
+    void testGetValidator() {
         assertNotNull(VALIDATOR.getValidator("GB"), "GB");
         assertNull(VALIDATOR.getValidator("gb"), "gb");
     }
 
     @Test
-    public void testHasValidator() {
+    void testHasValidator() {
         assertTrue(VALIDATOR.hasValidator("GB"), "GB");
         assertFalse(VALIDATOR.hasValidator("gb"), "gb");
     }
 
     @ParameterizedTest
     @FieldSource("INVALID_IBAN_FIXTURES")
-    public void testInValid(final String invalidIban) {
+    void testInValid(final String invalidIban) {
         assertNotNull(INVALID_IBAN_FIXTURES); // ensure field is marked as being used
         assertFalse(VALIDATOR.isValid(invalidIban), invalidIban);
     }
 
     @ParameterizedTest
     @FieldSource("VALID_IBAN_FIXTURES")
-    public void testMoreValid(final String invalidIban) {
+    void testMoreValid(final String invalidIban) {
         assertNotNull(VALID_IBAN_FIXTURES); // ensure field is marked as being used
         assertTrue(VALIDATOR.isValid(invalidIban), invalidIban);
     }
 
     @Test
-    public void testNull() {
+    void testNull() {
         assertFalse(VALIDATOR.isValid(null), "isValid(null)");
     }
 
     @Test
-    public void testSetDefaultValidator1() {
+    void testSetDefaultValidator1() {
         final IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> VALIDATOR.setValidator("GB", 15, "GB"));
         assertEquals("The singleton validator cannot be modified", thrown.getMessage());
 
     }
 
     @Test
-    public void testSetDefaultValidator2() {
+    void testSetDefaultValidator2() {
         final IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> VALIDATOR.setValidator("GB", -1, "GB"));
         assertEquals("The singleton validator cannot be modified", thrown.getMessage());
     }
 
     @Test
-    public void testSetValidatorLC() {
+    void testSetValidatorLC() {
         final IBANValidator validator = new IBANValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("gb", 15, "GB"));
         assertEquals("Invalid country Code; must be exactly 2 upper-case characters", thrown.getMessage());
     }
 
     @Test
-    public void testSetValidatorLen1() {
+    void testSetValidatorLen1() {
         final IBANValidator validator = new IBANValidator();
         assertNotNull(validator.setValidator("GB", -1, ""), "should be present");
         assertNull(validator.setValidator("GB", -1, ""), "no longer present");
     }
 
     @Test
-    public void testSetValidatorLen35() {
+    void testSetValidatorLen35() {
         final IBANValidator validator = new IBANValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("GB", 35, "GB"));
         assertEquals("Invalid length parameter, must be in range 8 to 34 inclusive: 35", thrown.getMessage());
     }
 
     @Test
-    public void testSetValidatorLen7() {
+    void testSetValidatorLen7() {
         final IBANValidator validator = new IBANValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("GB", 7, "GB"));
         assertEquals("Invalid length parameter, must be in range 8 to 34 inclusive: 7", thrown.getMessage());
     }
 
     @Test
-    public void testSorted() {
+    void testSorted() {
         final IBANValidator validator = new IBANValidator();
         final Validator[] vals = validator.getDefaultValidators();
         assertNotNull(vals);
@@ -493,7 +497,7 @@ public class IBANValidatorTest {
 
     @ParameterizedTest
     @FieldSource("VALID_IBAN_FIXTURES")
-    public void testValid(final String iban) {
+    void testValid(final String iban) {
         assertTrue(IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(iban), "Checksum fail: " + iban);
         assertTrue(VALIDATOR.hasValidator(iban), "Missing validator: " + iban);
         assertTrue(VALIDATOR.isValid(iban), iban);
@@ -501,14 +505,14 @@ public class IBANValidatorTest {
 
     @ParameterizedTest
     @MethodSource("validateIbanStatuses")
-    public void testValidateIbanStatuses(final String iban, final IBANValidatorStatus expectedStatus) {
+    void testValidateIbanStatuses(final String iban, final IBANValidatorStatus expectedStatus) {
         assertEquals(expectedStatus, IBANValidator.getInstance().validate(iban));
     }
 
     @ParameterizedTest
     @MethodSource("ibanRegistrySource")
-    public void testValidatorShouldExistWithProperConfiguration(final String countryName, final String countryCode, final List<String> acountyCode,
-            final int ibanLength, final String structure) throws Exception {
+    void testValidatorShouldExistWithProperConfiguration(final String countryName, final String countryCode, final List<String> acountyCode,
+            final int ibanLength, final String structure) {
         final String countryInfo = " countryCode: " + countryCode + ", countryName: " + countryName;
         final Validator validator = IBANValidator.getInstance().getValidator(countryCode);
 

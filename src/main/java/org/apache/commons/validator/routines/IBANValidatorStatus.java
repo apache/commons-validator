@@ -45,5 +45,10 @@ public enum IBANValidatorStatus {
     /**
      * Checksum for given IBAN is invalid
      */
-    INVALID_CHECKSUM
+    INVALID_CHECKSUM,
+
+    /**
+     * Checksum for specific account parts is invalid
+     */
+    INVALID_ACCOUNT_CHECKSUM
 }

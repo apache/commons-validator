@@ -22,13 +22,15 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.apache.commons.validator.routines.checkdigit.CheckDigit;
+import org.apache.commons.validator.routines.checkdigit.CNBCheckDigit;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 
 /**
  * IBAN Validator.
  * <p>
  * The validator includes a default set of formats derived from the IBAN registry at
- * https://www.swift.com/standards/data-standards/iban.
+ * <a href="https://www.swift.com/standards/data-standards/iban">https://www.swift.com/standards/data-standards/iban</a>.
  * </p>
  * <p>
  * This can get out of date, but the set can be adjusted by creating a validator and using the
@@ -58,7 +60,6 @@ public class IBANValidator {
         /**
          * The minimum length does not appear to be defined by the standard.
          * Norway is currently the shortest at 15.
-         *
          * There is no standard for BBANs; they vary between countries.
          * But a BBAN must consist of a branch id and account number.
          * Each of these must be at least 2 chars (generally more) so an absolute minimum is
@@ -70,6 +71,10 @@ public class IBANValidator {
         final String countryCode;
         final String[] otherCountryCodes;
         final RegexValidator regexValidator;
+        /**
+         * The specific check digit to use. If {@code null} only {@link IBANCheckDigit} used.
+         */
+        final CheckDigit specificAccountCheckDigit;
 
         /**
          * Used to avoid unnecessary regex matching.
@@ -84,7 +89,19 @@ public class IBANValidator {
          * @param regexWithCC the regex to use to check the format, the regex MUST start with the country code.
          */
         public Validator(final String countryCode, final int ibanLength, final String regexWithCC) {
-            this(countryCode, ibanLength, regexWithCC.substring(countryCode.length()), new String[] {});
+            this(countryCode, ibanLength, regexWithCC.substring(countryCode.length()), null, new String[] {});
+        }
+
+        /**
+         * Creates the validator.
+         *
+         * @param countryCode the country code
+         * @param ibanLength the length of the IBAN
+         * @param regexWithCC the regex to use to check the format, the regex MUST start with the country code.
+         * @param specificAccountCheckDigit the specific check digit to use
+         */
+        public Validator(final String countryCode, final int ibanLength, final String regexWithCC, CheckDigit specificAccountCheckDigit) {
+            this(countryCode, ibanLength, regexWithCC.substring(countryCode.length()), specificAccountCheckDigit, new String[] {});
         }
 
         /**
@@ -94,7 +111,22 @@ public class IBANValidator {
          * @param ibanLength the length of the IBAN
          * @param regexWithoutCC the regex to use to check the format, the regex MUST NOT start with the country code.
          */
-        Validator(final String countryCode, final int ibanLength, final String regexWithoutCC, final String... otherCountryCodes) {
+        Validator(final String countryCode, final int ibanLength, final String regexWithoutCC,
+                  final String... otherCountryCodes) {
+            this(countryCode, ibanLength, regexWithoutCC, null, otherCountryCodes);
+        }
+
+        /**
+         * Creates the validator.
+         *
+         * @param countryCode the country code
+         * @param ibanLength the length of the IBAN
+         * @param regexWithoutCC the regex to use to check the format, the regex MUST NOT start with the country code.
+         * @param specificAccountCheckDigit the specific check digit to use
+         *
+         */
+        Validator(final String countryCode, final int ibanLength, final String regexWithoutCC,
+                  CheckDigit specificAccountCheckDigit, final String... otherCountryCodes) {
             if (!(countryCode.length() == 2 && Character.isUpperCase(countryCode.charAt(0)) && Character.isUpperCase(countryCode.charAt(1)))) {
                 throw new IllegalArgumentException("Invalid country Code; must be exactly 2 upper-case characters");
             }
@@ -110,6 +142,7 @@ public class IBANValidator {
             }
             this.ibanLength = ibanLength;
             this.regexValidator = new RegexValidator(regexList);
+            this.specificAccountCheckDigit = specificAccountCheckDigit;
         }
 
         /**
@@ -131,6 +164,7 @@ public class IBANValidator {
         public RegexValidator getRegexValidator() {
             return regexValidator;
         }
+
     }
 
     private static final int SHORT_CODE_LEN = 2;
@@ -158,7 +192,7 @@ public class IBANValidator {
             new Validator("CH", 21, "CH\\d{7}[A-Z0-9]{12}"),                  // Switzerland
             new Validator("CR", 22, "CR\\d{20}"),                             // Costa Rica
             new Validator("CY", 28, "CY\\d{10}[A-Z0-9]{16}"),                 // Cyprus
-            new Validator("CZ", 24, "CZ\\d{22}"),                             // Czechia
+            new Validator("CZ", 24, "CZ\\d{22}", CNBCheckDigit.CNB_CHECK_DIGIT),                             // Czechia
             new Validator("DE", 22, "DE\\d{20}"),                             // Germany
             new Validator("DJ", 27, "DJ\\d{25}"),                             // Djibouti
             new Validator("DK", 18, "DK\\d{16}"),                             // Denmark
@@ -404,6 +438,11 @@ public class IBANValidator {
             return IBANValidatorStatus.INVALID_PATTERN;
         }
 
-        return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code) ? IBANValidatorStatus.VALID : IBANValidatorStatus.INVALID_CHECKSUM;
+        if (!IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code)) {
+            return IBANValidatorStatus.INVALID_CHECKSUM;
+        }
+
+        return (formatValidator.specificAccountCheckDigit == null || formatValidator.specificAccountCheckDigit.isValid(code)) ?
+            IBANValidatorStatus.VALID : IBANValidatorStatus.INVALID_ACCOUNT_CHECKSUM;
     }
 }
