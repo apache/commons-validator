@@ -50,6 +50,7 @@ public class IBANCheckDigitCz extends ModulusCheckDigit implements Serializable 
 
     private static final int[] POSITION_WEIGHT = new int[] {1, 2, 4, 8, 5, 10, 9, 7, 3, 6};
 
+    /** Singleton IBAN Number Check Digit for Cz instance */
     public static final CheckDigit CNB_CHECK_DIGIT = new IBANCheckDigitCz();
 
     private IBANCheckDigitCz() {
@@ -65,9 +66,9 @@ public class IBANCheckDigitCz extends ModulusCheckDigit implements Serializable 
             final String clientAccountFirstPart = code.substring(code.length() - 16, code.length() - 10);
             final String clientAccountSecondPart = code.substring(code.length() - 10);
 
-            int fpModulusResult = hasFirstPartClientAccount(clientAccountFirstPart) ?
+            final int fpModulusResult = hasFirstPartClientAccount(clientAccountFirstPart) ?
                     calculateModulus(clientAccountFirstPart, true) : 0;
-            int spModulusResult = calculateModulus(clientAccountSecondPart, true);
+            final int spModulusResult = calculateModulus(clientAccountSecondPart, true);
 
             return fpModulusResult + spModulusResult == 0;
         } catch (final CheckDigitException ex) {
@@ -85,6 +86,3 @@ public class IBANCheckDigitCz extends ModulusCheckDigit implements Serializable 
     }
 
 }
-
-
-

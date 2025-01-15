@@ -23,8 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
-import org.apache.commons.validator.routines.checkdigit.IBANCheckDigitCz;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.IBANCheckDigitCz;
 
 /**
  * IBAN Validator.
@@ -71,15 +71,15 @@ public class IBANValidator {
         final String countryCode;
         final String[] otherCountryCodes;
         final RegexValidator regexValidator;
-        /**
-         * The specific check digit to use. If {@code null} only {@link IBANCheckDigit} used.
-         */
-        final CheckDigit specificAccountCheckDigit;
 
         /**
          * Used to avoid unnecessary regex matching.
          */
         private final int ibanLength;
+        /**
+         * The specific check digit to use. If {@code null} only {@link IBANCheckDigit} used.
+         */
+        private CheckDigit specificAccountCheckDigit;
 
         /**
          * Creates the validator.
@@ -89,19 +89,7 @@ public class IBANValidator {
          * @param regexWithCC the regex to use to check the format, the regex MUST start with the country code.
          */
         public Validator(final String countryCode, final int ibanLength, final String regexWithCC) {
-            this(countryCode, ibanLength, regexWithCC.substring(countryCode.length()), null, new String[] {});
-        }
-
-        /**
-         * Creates the validator.
-         *
-         * @param countryCode the country code
-         * @param ibanLength the length of the IBAN
-         * @param regexWithCC the regex to use to check the format, the regex MUST start with the country code.
-         * @param specificAccountCheckDigit the specific check digit to use
-         */
-        public Validator(final String countryCode, final int ibanLength, final String regexWithCC, CheckDigit specificAccountCheckDigit) {
-            this(countryCode, ibanLength, regexWithCC.substring(countryCode.length()), specificAccountCheckDigit, new String[] {});
+            this(countryCode, ibanLength, regexWithCC.substring(countryCode.length()), new String[] {});
         }
 
         /**
@@ -110,23 +98,9 @@ public class IBANValidator {
          * @param countryCode the country code
          * @param ibanLength the length of the IBAN
          * @param regexWithoutCC the regex to use to check the format, the regex MUST NOT start with the country code.
-         */
-        Validator(final String countryCode, final int ibanLength, final String regexWithoutCC,
-                  final String... otherCountryCodes) {
-            this(countryCode, ibanLength, regexWithoutCC, null, otherCountryCodes);
-        }
-
-        /**
-         * Creates the validator.
-         *
-         * @param countryCode the country code
-         * @param ibanLength the length of the IBAN
-         * @param regexWithoutCC the regex to use to check the format, the regex MUST NOT start with the country code.
-         * @param specificAccountCheckDigit the specific check digit to use
          *
          */
-        Validator(final String countryCode, final int ibanLength, final String regexWithoutCC,
-                  CheckDigit specificAccountCheckDigit, final String... otherCountryCodes) {
+        Validator(final String countryCode, final int ibanLength, final String regexWithoutCC, final String... otherCountryCodes) {
             if (!(countryCode.length() == 2 && Character.isUpperCase(countryCode.charAt(0)) && Character.isUpperCase(countryCode.charAt(1)))) {
                 throw new IllegalArgumentException("Invalid country Code; must be exactly 2 upper-case characters");
             }
@@ -142,7 +116,11 @@ public class IBANValidator {
             }
             this.ibanLength = ibanLength;
             this.regexValidator = new RegexValidator(regexList);
+        }
+
+        public Validator withSpecificCheckDigit(CheckDigit specificAccountCheckDigit) {
             this.specificAccountCheckDigit = specificAccountCheckDigit;
+            return this;
         }
 
         /**
@@ -192,7 +170,9 @@ public class IBANValidator {
             new Validator("CH", 21, "CH\\d{7}[A-Z0-9]{12}"),                  // Switzerland
             new Validator("CR", 22, "CR\\d{20}"),                             // Costa Rica
             new Validator("CY", 28, "CY\\d{10}[A-Z0-9]{16}"),                 // Cyprus
-            new Validator("CZ", 24, "CZ\\d{22}", IBANCheckDigitCz.CNB_CHECK_DIGIT),                             // Czechia
+            //CHECKSTYLE:OFF: MagicNumber
+            new Validator("CZ", 24, "CZ\\d{22}").withSpecificCheckDigit(IBANCheckDigitCz.CNB_CHECK_DIGIT), //Czechia
+            //CHECKSTYLE:ON: MagicNumber
             new Validator("DE", 22, "DE\\d{20}"),                             // Germany
             new Validator("DJ", 27, "DJ\\d{25}"),                             // Djibouti
             new Validator("DK", 18, "DK\\d{16}"),                             // Denmark
