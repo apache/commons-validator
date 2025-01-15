@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
-import org.apache.commons.validator.routines.checkdigit.CNBCheckDigit;
+import org.apache.commons.validator.routines.checkdigit.IBANCheckDigitCz;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 
 /**
@@ -192,7 +192,7 @@ public class IBANValidator {
             new Validator("CH", 21, "CH\\d{7}[A-Z0-9]{12}"),                  // Switzerland
             new Validator("CR", 22, "CR\\d{20}"),                             // Costa Rica
             new Validator("CY", 28, "CY\\d{10}[A-Z0-9]{16}"),                 // Cyprus
-            new Validator("CZ", 24, "CZ\\d{22}", CNBCheckDigit.CNB_CHECK_DIGIT),                             // Czechia
+            new Validator("CZ", 24, "CZ\\d{22}", IBANCheckDigitCz.CNB_CHECK_DIGIT),                             // Czechia
             new Validator("DE", 22, "DE\\d{20}"),                             // Germany
             new Validator("DJ", 27, "DJ\\d{25}"),                             // Djibouti
             new Validator("DK", 18, "DK\\d{16}"),                             // Denmark

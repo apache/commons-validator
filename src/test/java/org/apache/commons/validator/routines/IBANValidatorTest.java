@@ -55,7 +55,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests {@link IBANValidator}.
  */
-class IBANValidatorTest {
+public class IBANValidatorTest {
 
     private static final IBANValidator VALIDATOR = IBANValidator.getInstance();
 
@@ -401,90 +401,90 @@ class IBANValidatorTest {
 
     @ParameterizedTest
     @MethodSource("ibanRegistrySourceExamples")
-    void testExampleAccountsShouldBeValid(final String countryName, final String example) {
+    public void testExampleAccountsShouldBeValid(final String countryName, final String example) {
         Assumptions.assumeFalse(INVALID_IBAN_FIXTURES.contains(example), "Skip invalid example: " + example + " for " + countryName);
         assertTrue(IBANValidator.getInstance().isValid(example), "IBAN validator returned false for " + example + " for " + countryName);
     }
 
     @Test
-    void testGetRegexValidatorPatterns() {
+    public void testGetRegexValidatorPatterns() {
         assertNotNull(VALIDATOR.getValidator("GB").getRegexValidator().getPatterns(), "GB");
     }
 
     @Test
-    void testGetValidator() {
+    public void testGetValidator() {
         assertNotNull(VALIDATOR.getValidator("GB"), "GB");
         assertNull(VALIDATOR.getValidator("gb"), "gb");
     }
 
     @Test
-    void testHasValidator() {
+    public void testHasValidator() {
         assertTrue(VALIDATOR.hasValidator("GB"), "GB");
         assertFalse(VALIDATOR.hasValidator("gb"), "gb");
     }
 
     @ParameterizedTest
     @FieldSource("INVALID_IBAN_FIXTURES")
-    void testInValid(final String invalidIban) {
+    public void testInValid(final String invalidIban) {
         assertNotNull(INVALID_IBAN_FIXTURES); // ensure field is marked as being used
         assertFalse(VALIDATOR.isValid(invalidIban), invalidIban);
     }
 
     @ParameterizedTest
     @FieldSource("VALID_IBAN_FIXTURES")
-    void testMoreValid(final String invalidIban) {
+    public void testMoreValid(final String invalidIban) {
         assertNotNull(VALID_IBAN_FIXTURES); // ensure field is marked as being used
         assertTrue(VALIDATOR.isValid(invalidIban), invalidIban);
     }
 
     @Test
-    void testNull() {
+    public void testNull() {
         assertFalse(VALIDATOR.isValid(null), "isValid(null)");
     }
 
     @Test
-    void testSetDefaultValidator1() {
+    public void testSetDefaultValidator1() {
         final IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> VALIDATOR.setValidator("GB", 15, "GB"));
         assertEquals("The singleton validator cannot be modified", thrown.getMessage());
 
     }
 
     @Test
-    void testSetDefaultValidator2() {
+    public void testSetDefaultValidator2() {
         final IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> VALIDATOR.setValidator("GB", -1, "GB"));
         assertEquals("The singleton validator cannot be modified", thrown.getMessage());
     }
 
     @Test
-    void testSetValidatorLC() {
+    public void testSetValidatorLC() {
         final IBANValidator validator = new IBANValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("gb", 15, "GB"));
         assertEquals("Invalid country Code; must be exactly 2 upper-case characters", thrown.getMessage());
     }
 
     @Test
-    void testSetValidatorLen1() {
+    public void testSetValidatorLen1() {
         final IBANValidator validator = new IBANValidator();
         assertNotNull(validator.setValidator("GB", -1, ""), "should be present");
         assertNull(validator.setValidator("GB", -1, ""), "no longer present");
     }
 
     @Test
-    void testSetValidatorLen35() {
+    public void testSetValidatorLen35() {
         final IBANValidator validator = new IBANValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("GB", 35, "GB"));
         assertEquals("Invalid length parameter, must be in range 8 to 34 inclusive: 35", thrown.getMessage());
     }
 
     @Test
-    void testSetValidatorLen7() {
+    public void testSetValidatorLen7() {
         final IBANValidator validator = new IBANValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("GB", 7, "GB"));
         assertEquals("Invalid length parameter, must be in range 8 to 34 inclusive: 7", thrown.getMessage());
     }
 
     @Test
-    void testSorted() {
+    public void testSorted() {
         final IBANValidator validator = new IBANValidator();
         final Validator[] vals = validator.getDefaultValidators();
         assertNotNull(vals);
@@ -497,7 +497,7 @@ class IBANValidatorTest {
 
     @ParameterizedTest
     @FieldSource("VALID_IBAN_FIXTURES")
-    void testValid(final String iban) {
+    public void testValid(final String iban) {
         assertTrue(IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(iban), "Checksum fail: " + iban);
         assertTrue(VALIDATOR.hasValidator(iban), "Missing validator: " + iban);
         assertTrue(VALIDATOR.isValid(iban), iban);
@@ -505,14 +505,14 @@ class IBANValidatorTest {
 
     @ParameterizedTest
     @MethodSource("validateIbanStatuses")
-    void testValidateIbanStatuses(final String iban, final IBANValidatorStatus expectedStatus) {
+    public void testValidateIbanStatuses(final String iban, final IBANValidatorStatus expectedStatus) {
         assertEquals(expectedStatus, IBANValidator.getInstance().validate(iban));
     }
 
     @ParameterizedTest
     @MethodSource("ibanRegistrySource")
-    void testValidatorShouldExistWithProperConfiguration(final String countryName, final String countryCode, final List<String> acountyCode,
-            final int ibanLength, final String structure) {
+    public void testValidatorShouldExistWithProperConfiguration(final String countryName, final String countryCode, final List<String> acountyCode,
+            final int ibanLength, final String structure) throws Exception {
         final String countryInfo = " countryCode: " + countryCode + ", countryName: " + countryName;
         final Validator validator = IBANValidator.getInstance().getValidator(countryCode);
 
