@@ -27,6 +27,17 @@ import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 /**
  * IBAN Validator.
  * <p>
+ * Checks an IBAN for:
+ * <ul>
+ * <li>country code prefix</li>
+ * <li>IBAN length</li>
+ * <li>pattern (digits and/or uppercase letters)</li>
+ * <li>IBAN Checkdigits (using {@link IBANCheckDigit})</li>
+ * </ul>
+ * The class does not perform checks on the embedded BBAN (Basic Bank Account Number).
+ * Each country has its own rules for these.
+ * </p>
+ * <p>
  * The validator includes a default set of formats derived from the IBAN registry at
  * https://www.swift.com/standards/data-standards/iban.
  * </p>
