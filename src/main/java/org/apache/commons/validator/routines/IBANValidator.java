@@ -118,6 +118,13 @@ public class IBANValidator {
             this.regexValidator = new RegexValidator(regexList);
         }
 
+        /**
+         * Sets a specific check digit validator for the IBAN.
+         *
+         * @param specificAccountCheckDigit the specific check digit validator to use
+         * @return the current Validator instance
+         * @since 1.10.0
+         */
         public Validator withSpecificCheckDigit(CheckDigit specificAccountCheckDigit) {
             this.specificAccountCheckDigit = specificAccountCheckDigit;
             return this;
