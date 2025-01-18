@@ -36,7 +36,6 @@ import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
  * </ul>
  * The class does not perform checks on the embedded BBAN (Basic Bank Account Number).
  * Each country has its own rules for these.
- * </p>
  * <p>
  * The validator includes a default set of formats derived from the IBAN registry at
  * https://www.swift.com/standards/data-standards/iban.
