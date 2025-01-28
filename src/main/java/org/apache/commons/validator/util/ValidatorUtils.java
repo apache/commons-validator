@@ -44,7 +44,7 @@ public class ValidatorUtils {
     /**
      * Makes a deep copy of a {@code FastHashMap} if the values
      * are {@code Msg}, {@code Arg},
-     * or {@code Var}.  Otherwise it is a shallow copy.
+     * or {@code Var}. Otherwise, it is a shallow copy.
      *
      * @param fastHashMap {@code FastHashMap} to copy.
      * @return FastHashMap A copy of the {@code FastHashMap} that was

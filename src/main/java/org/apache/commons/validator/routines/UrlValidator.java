@@ -106,7 +106,7 @@ public class UrlValidator implements Serializable {
     public static final long ALLOW_LOCAL_URLS = 1 << 3; // CHECKSTYLE IGNORE MagicNumber
 
     /**
-     * Protocol scheme (e.g. http, ftp, https).
+     * Protocol scheme (for example, http, ftp, https).
      */
     private static final String SCHEME_REGEX = "^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*";
     private static final Pattern SCHEME_PATTERN = Pattern.compile(SCHEME_REGEX);
@@ -131,7 +131,7 @@ public class UrlValidator implements Serializable {
 
     private static final String AUTHORITY_REGEX =
             "(?:\\[(" + IPV6_REGEX + ")\\]|(?:(?:" + USERINFO_FIELD_REGEX + ")?([" + AUTHORITY_CHARS_REGEX + "]*)))(?::(\\d*))?(.*)?";
-    //             1                                 e.g. user:pass@           2                                       3       4
+    //             1                         for example, user:pass@           2                                       3       4
     private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
 
     private static final int PARSE_AUTHORITY_IPV6 = 1;
@@ -170,8 +170,8 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (e.g. 3) this tests whether the combination of flags is on.
+     * Tests whether the given flag is on. If the flag is not a power of 2
+     * (for example, 3) this tests whether the combination of flags is on.
      *
      * @param flag Flag value to check.
      * @param options what to check
@@ -325,7 +325,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Tests whether the given flag is off.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is off.
+     * (for example, 3) this tests whether the combination of flags is off.
      *
      * @param flag Flag value to check.
      * @return whether the specified flag value is off.
@@ -336,7 +336,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is on.
+     * (for example, 3) this tests whether the combination of flags is on.
      *
      * @param flag Flag value to check.
      * @return whether the specified flag value is on.
@@ -388,7 +388,7 @@ public class UrlValidator implements Serializable {
      * Returns true if the authority is properly formatted.  An authority is the combination
      * of hostname and port.  A {@code null} authority value is considered invalid.
      * Note: this implementation validates the domain unless a RegexValidator was provided.
-     * If a RegexValidator was supplied and it matches, then the authority is regarded
+     * If a RegexValidator was supplied, and it matches, then the authority is regarded
      * as valid with no further checks, otherwise the method checks against the
      * AUTHORITY_PATTERN and the DomainValidator (ALLOW_LOCAL_URLS)
      * @param authority Authority value to validate, allows IDN
@@ -495,7 +495,7 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Returns true if the query is null or it's a properly formatted query string.
+     * Returns true if the query is null, or it's a properly formatted query string.
      * @param query Query value to validate.
      * @return true if query is valid.
      */
@@ -507,9 +507,9 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Validate scheme. If schemes[] was initialized to a non null,
+     * Validate scheme. If schemes[] was initialized to a non-null,
      * then only those schemes are allowed.
-     * Otherwise the default schemes are "http", "https", "ftp".
+     * Otherwise, the default schemes are "http", "https", "ftp".
      * Matching is case-blind.
      * @param scheme The scheme to validate.  A {@code null} value is considered
      * invalid.

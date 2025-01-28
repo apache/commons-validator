@@ -130,8 +130,7 @@ public class ValidatorResources implements Serializable {
      *
      * @param in InputStream to a validation.xml configuration file.  It's the client's
      * responsibility to close this stream.
-     * @throws SAXException if the validation XML files are not valid or well
-     * formed.
+     * @throws SAXException if the validation XML files are not valid or well-formed.
      * @throws IOException if an I/O error occurs processing the XML files
      * @since 1.1
      */
@@ -145,8 +144,7 @@ public class ValidatorResources implements Serializable {
      * @param streams An array of InputStreams to several validation.xml
      * configuration files that will be read in order and merged into this object.
      * It's the client's responsibility to close these streams.
-     * @throws SAXException if the validation XML files are not valid or well
-     * formed.
+     * @throws SAXException if the validation XML files are not valid or well-formed.
      * @throws IOException if an I/O error occurs processing the XML files
      * @since 1.1
      */
@@ -169,8 +167,7 @@ public class ValidatorResources implements Serializable {
      * Create a ValidatorResources object from an uri
      *
      * @param uri The location of a validation.xml configuration file.
-     * @throws SAXException if the validation XML files are not valid or well
-     * formed.
+     * @throws SAXException if the validation XML files are not valid or well-formed.
      * @throws IOException if an I/O error occurs processing the XML files
      * @since 1.2
      */
@@ -183,8 +180,7 @@ public class ValidatorResources implements Serializable {
      *
      * @param uris An array of uris to several validation.xml
      * configuration files that will be read in order and merged into this object.
-     * @throws SAXException if the validation XML files are not valid or well
-     * formed.
+     * @throws SAXException if the validation XML files are not valid or well-formed.
      * @throws IOException if an I/O error occurs processing the XML files
      * @since 1.2
      */
@@ -205,8 +201,7 @@ public class ValidatorResources implements Serializable {
      *
      * @param url The URL for the validation.xml
      * configuration file that will be read into this object.
-     * @throws SAXException if the validation XML file are not valid or well
-     * formed.
+     * @throws SAXException if the validation XML file are not valid or well-formed.
      * @throws IOException if an I/O error occurs processing the XML files
      * @since 1.3.1
      */
@@ -220,8 +215,7 @@ public class ValidatorResources implements Serializable {
      *
      * @param urls An array of URL to several validation.xml
      * configuration files that will be read in order and merged into this object.
-     * @throws SAXException if the validation XML files are not valid or well
-     * formed.
+     * @throws SAXException if the validation XML files are not valid or well-formed.
      * @throws IOException if an I/O error occurs processing the XML files
      * @since 1.3.1
      */
@@ -335,7 +329,7 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Builds a key to store the {@code FormSet} under based on it's
+     * Builds a key to store the {@code FormSet} under based on its
      * language, country, and variant values.
      * @param fs The Form Set.
      * @return generated key for a formset.
@@ -543,7 +537,7 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Gets a {@code ValidatorAction} based on it's name.
+     * Gets a {@code ValidatorAction} based on its name.
      * @param key The validator action key.
      * @return The validator action.
      */
@@ -590,7 +584,7 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * Process the {@code ValidatorResources} object. Currently sets the
+     * Process the {@code ValidatorResources} object. Currently, sets the
      * {@code FastHashMap} s to the 'fast' mode and call the processes
      * all other resources. <strong>Note </strong>: The framework calls this
      * automatically when ValidatorResources is created from an XML file. If you
