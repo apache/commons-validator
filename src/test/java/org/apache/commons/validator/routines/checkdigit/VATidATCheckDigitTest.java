@@ -19,28 +19,27 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Luhn Check Digit Test.
- */
-public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
+ * AT VAT Id Check Digit Tests.
+ * <pre>
 
-    private static final String VALID_VISA = "4417123456789113";
-    private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX = "378282246310005";
-    private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER = "6011000990139424";
-    private static final String VALID_DINERS = "30569309025904";
-    private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
-    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without Trailing "01"
+    AT U13585627 : valide, aber ungültig
+    AT U54065602 : gültig TIC Technology & Innovation Center Steyr GmbH, Im Stadtgut A 1, AT-4407 Dietach
+    AT U26218303 : gültig Maltaholz GmbH, Karnerau 21, AT-9853 Gmünd
+
+ * </pre>
+ */
+public class VATidATCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {
-
-        routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
-
-        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS
-            , VALID_IT_IVA_BANCA_ITALIA, VALID_SE_VATIN_OLLE_SVENSSONS, "12345678903", "10215", "12345670017"};
+        routine = VATidATCheckDigit.getInstance();
+        valid = new String[] {"U10223006", "U13585627"
+           , "U54065602", "U26218303"
+           };
+        invalid = new String[] {"u10223006", "X13585627", "U00000000"};
     }
+
 }
