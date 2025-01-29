@@ -105,6 +105,5 @@
     <module name="UpperEll" />
     <module name="WhitespaceAfter"/>
     <module name="WhitespaceAround"/>
-    <module name="WhitespaceAroundCheck"/>
   </module>
 </module>
