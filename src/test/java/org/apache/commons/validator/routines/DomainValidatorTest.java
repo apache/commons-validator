@@ -181,6 +181,7 @@ public class DomainValidatorTest {
         for (final String element : array) {
             if (!ianaTlds.contains(element)) {
                 System.out.println(name + " contains unexpected value: " + element);
+                return false;
             }
         }
         return true;
@@ -191,14 +192,14 @@ public class DomainValidatorTest {
     }
 
     /**
-     * Check whether the domain is in the root zone currently. Reads the URL http://www.iana.org/domains/root/db/*domain*.html (using a local disk cache) and
+     * Check whether the domain is in the root zone currently. Reads the URL https://www.iana.org/domains/root/db/*domain*.html (using a local disk cache) and
      * checks for the string "This domain is not present in the root zone at this time."
      *
      * @param domain the domain to check
      * @return true if the string is found
      */
     private static boolean isNotInRootZone(final String domain) {
-        final String tldUrl = "http://www.iana.org/domains/root/db/" + domain + ".html";
+        final String tldUrl = "https://www.iana.org/domains/root/db/" + domain + ".html";
         final File rootCheck = new File("target", "tld_" + domain + ".html");
         BufferedReader in = null;
         try {
@@ -336,28 +337,41 @@ public class DomainValidatorTest {
             }
         }
         br.close();
+        int errorsDetected = 0;
         // List html entries not in TLD text list
         for (final String key : new TreeMap<>(htmlInfo).keySet()) {
             if (!ianaTlds.contains(key)) {
                 if (isNotInRootZone(key)) {
                     System.out.println("INFO: HTML entry not yet in root zone: " + key);
                 } else {
+                    errorsDetected ++;
                     System.err.println("WARN: Expected to find text entry for html: " + key);
                 }
             }
         }
         if (!missingTLD.isEmpty()) {
+            errorsDetected ++;
             printMap(header, missingTLD, "GENERIC_TLDS");
         }
         if (!missingCC.isEmpty()) {
+            errorsDetected ++;
             printMap(header, missingCC, "COUNTRY_CODE_TLDS");
         }
         // Check if internal tables contain any additional entries
-        isInIanaList("INFRASTRUCTURE_TLDS", ianaTlds);
-        isInIanaList("COUNTRY_CODE_TLDS", ianaTlds);
-        isInIanaList("GENERIC_TLDS", ianaTlds);
+        if (!isInIanaList("INFRASTRUCTURE_TLDS", ianaTlds)) {
+            errorsDetected ++;
+        };
+        if (!isInIanaList("COUNTRY_CODE_TLDS", ianaTlds)) {
+            errorsDetected ++;
+        }
+        if (!isInIanaList("GENERIC_TLDS", ianaTlds)) {
+            errorsDetected ++;
+        }
         // Don't check local TLDS isInIanaList("LOCAL_TLDS", ianaTlds);
         System.out.println("Finished checks");
+        if (errorsDetected > 0) {
+            throw new RuntimeException("Errors detected: " + errorsDetected);
+        }
     }
 
     private static void printMap(final String header, final Map<String, String> map, final String string) {
