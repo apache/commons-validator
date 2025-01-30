@@ -26,7 +26,7 @@ import org.apache.commons.validator.GenericValidator;
  * Note: since 2020 there are two validation methods.
  * MOD 11 with  G(i) = i : the last three characters (B + 2-digit company index) are not part of the
  * check digit calculation.
- * MOD 97 used additionally : 'NL'+(nine digits)+B+2checkdigits is used for validation 
+ * MOD 97 used additionally : 'NL'+(nine digits)+B+2checkdigits is used for validation.
  * </p>
  * <p>
  * See <a href="https://en.wikipedia.org/wiki/VAT_identification_number">Wikipedia - VAT IN</a>
@@ -104,11 +104,8 @@ public final class VATidNLCheckDigit extends Modulus11XCheckDigit {
         }
         try {
             final int cd = INSTANCE.calculateModulus(code, true);
-            boolean isvalid = code.endsWith(toCheckDigit(cd));
-            if (isvalid) {
-                return code.endsWith(toCheckDigit(cd));
-            }
-            return Modulus97CheckDigit.getInstance().isValid("NL" + ocode);
+            final boolean isvalid = code.endsWith(toCheckDigit(cd));
+            return isvalid ? isvalid :Modulus97CheckDigit.getInstance().isValid("NL" + ocode);
         } catch (final CheckDigitException ex) {
             return false;
         }
