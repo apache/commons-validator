@@ -94,6 +94,7 @@ public class VATINValidatorTest {
             "MT20200019",     // BAJADA NEW ENERGY LIMITED, MRS3000 Marsa
             "NL003660564B01", // STAM + DE KONING BOUW B.V. EINDHOVEN
             "NL004495445B01", // OPENJONGERENVERENIGING DE KOORNBEURS, DELFT
+            "NL004350351B91", // MOD 97 used additionally since 2020
             "PL1060000062",   // aus https://pl.wikipedia.org/wiki/Numer_identyfikacji_podatkowej
             "PT510728189",    // CLARANET II SOLUTIONS, S.A. PORTO
             "RO27825131",     // NUTRISOYA SRL

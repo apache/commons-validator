@@ -23,8 +23,10 @@ import org.apache.commons.validator.GenericValidator;
  * Netherlands VAT identification number (VATIN) Check Digit calculation/validation.
  * <p>
  * BTW-identificatienummer.
- * Note the last three characters (B + 2-digit company index) are not part of the
- * check digit calculation
+ * Note: since 2020 there are two validation methods.
+ * MOD 11 with  G(i) = i : the last three characters (B + 2-digit company index) are not part of the
+ * check digit calculation.
+ * MOD 97 used additionally : 'NL'+(nine digits)+B+2checkdigits is used for validation 
  * </p>
  * <p>
  * See <a href="https://en.wikipedia.org/wiki/VAT_identification_number">Wikipedia - VAT IN</a>
@@ -69,6 +71,9 @@ public final class VATidNLCheckDigit extends Modulus11XCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
+        if (code.length() == LEN + 1 && code.charAt(LEN) == 'B') {
+            return Modulus97CheckDigit.getInstance().calculate("NL" + code);
+        }
         // Satisfy testZeroSum
         if (GenericTypeValidator.formatLong(code) == 0) {
             throw new CheckDigitException(CheckDigitException.ZERO_SUM);
@@ -99,7 +104,11 @@ public final class VATidNLCheckDigit extends Modulus11XCheckDigit {
         }
         try {
             final int cd = INSTANCE.calculateModulus(code, true);
-            return code.endsWith(toCheckDigit(cd));
+            boolean isvalid = code.endsWith(toCheckDigit(cd));
+            if (isvalid) {
+                return code.endsWith(toCheckDigit(cd));
+            }
+            return Modulus97CheckDigit.getInstance().isValid("NL" + ocode);
         } catch (final CheckDigitException ex) {
             return false;
         }

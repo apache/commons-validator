@@ -26,6 +26,8 @@ import org.junit.jupiter.api.BeforeEach;
     NL 003660564B01 : gültig STAM + DE KONING BOUW B.V. EINDHOVEN
     NL 004495445B01 : gültig OPENJONGERENVERENIGING DE KOORNBEURS, DELFT
     NL 809944686B01 , 803872987B01 : valide, aber ungültig
+    NL004350351B91 , see https://github.com/apache/commons-validator/pull/271#issuecomment-2622952256
+    NL123456789B13 , BMF_UID_Konstruktionsregeln_Stand_November 2020.pdf
 
  * </pre>
  */
@@ -39,8 +41,40 @@ public class VATidNLCheckDigitTest extends AbstractCheckDigitTest {
         routine = VATidNLCheckDigit.getInstance();
         valid = new String[] {"123456782", "010000446", "003660564", "004495445", "809944686"
             , "803872987"
+            , "004350351B91", "123456789B13"
             };
         invalid = new String[] {"010001440"}; // checkdigit X / 10 is invalid
+    }
+
+    protected String checkDigit(final String code) {
+        if (code == null || code.length() <= checkDigitLth) {
+            return "";
+        }
+        int cdl = checkDigitLth;
+        try {
+            if (code.charAt(9) == 'B') {
+                cdl = 2;
+           }
+        } catch (final IndexOutOfBoundsException e) {
+            // expected for MOD-11 Validation
+        }
+        final int start = code.length() - cdl;
+        return code.substring(start);
+    }
+
+    protected String removeCheckDigit(final String code) {
+        if (code == null || code.length() <= checkDigitLth) {
+            return null;
+        }
+        int cdl = checkDigitLth;
+        try {
+            if (code.charAt(9) == 'B') {
+                cdl = 2;
+           }
+        } catch (final IndexOutOfBoundsException e) {
+            // expected for MOD-11 Validation
+        }
+        return code.substring(0, code.length() - cdl);
     }
 
 }
