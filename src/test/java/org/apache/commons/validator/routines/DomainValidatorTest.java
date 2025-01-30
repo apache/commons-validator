@@ -360,7 +360,7 @@ public class DomainValidatorTest {
         // Check if internal tables contain any additional entries
         if (!isInIanaList("INFRASTRUCTURE_TLDS", ianaTlds)) {
             errorsDetected ++;
-        };
+        }
         if (!isInIanaList("COUNTRY_CODE_TLDS", ianaTlds)) {
             errorsDetected ++;
         }
