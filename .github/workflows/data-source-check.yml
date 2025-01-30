@@ -45,4 +45,4 @@ jobs:
     - name: Build with Maven
       run: |
         mvn --errors --show-version --batch-mode clean compile test-compile
-        mvn -PDomainValidatorTest
+        mvn --batch-mode -PDomainValidatorTest
