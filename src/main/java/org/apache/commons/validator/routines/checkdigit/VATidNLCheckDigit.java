@@ -105,7 +105,7 @@ public final class VATidNLCheckDigit extends Modulus11XCheckDigit {
         try {
             final int cd = INSTANCE.calculateModulus(code, true);
             final boolean isvalid = code.endsWith(toCheckDigit(cd));
-            return isvalid ? isvalid :Modulus97CheckDigit.getInstance().isValid("NL" + ocode);
+            return isvalid ? isvalid : Modulus97CheckDigit.getInstance().isValid("NL" + ocode);
         } catch (final CheckDigitException ex) {
             return false;
         }
