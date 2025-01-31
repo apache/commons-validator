@@ -25,7 +25,7 @@ import org.apache.commons.validator.GenericValidator;
  * Numéro d'identification à la taxe sur la valeur ajoutée {@code 123456pp}.
  * </p>
  * <p>
- * The check digits are calculated as 89 - MOD 89
+ * The check digits are calculated as MOD 89
  * </p>
  * <p>
  * See <a href="https://en.wikipedia.org/wiki/VAT_identification_number">Wikipedia - VAT IN</a>
