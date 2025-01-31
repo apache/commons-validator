@@ -66,7 +66,7 @@ public final class VATidLUCheckDigit extends Modulus97CheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException(CheckDigitException.MISSING_CODE);
         }
-        if (code.length() < MIN_CODE_LEN) {
+        if (code.length() < CHECKDIGIT_LEN) {
             throw new CheckDigitException("Invalid Code length=" + code.length());
         }
         final long mr = calculateModulus(code, false);
@@ -85,7 +85,7 @@ public final class VATidLUCheckDigit extends Modulus97CheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             return false;
         }
-        if (code.length() < MIN_CODE_LEN) {
+        if (code.length() < CHECKDIGIT_LEN) {
             return false;
         }
 
