@@ -42,6 +42,12 @@ public final class VATidLTCheckDigit extends Modulus11XCheckDigit {
         return INSTANCE;
     }
 
+    /**
+     * Constructs a new instance.
+     */
+    private VATidLTCheckDigit() {
+    }
+
     private static final int POS9 = 9;
     private static final int LEN = 12;
 

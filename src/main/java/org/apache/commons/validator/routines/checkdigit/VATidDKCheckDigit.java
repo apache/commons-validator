@@ -50,6 +50,12 @@ public final class VATidDKCheckDigit extends Modulus11XCheckDigit {
     }
 
     /**
+     * Constructs a new instance.
+     */
+    private VATidDKCheckDigit() {
+    }
+
+    /**
      * Calculates the <i>weighted</i> value of a character in the
      * code at a specified position.
      *

@@ -45,6 +45,12 @@ public final class VATidROCheckDigit extends Modulus11XCheckDigit {
         return INSTANCE;
     }
 
+    /**
+     * Constructs a new instance.
+     */
+    private VATidROCheckDigit() {
+    }
+
     private static final int LEN = 10; // with Check Digit
 
     /** Weighting given to digits depending on their left position */

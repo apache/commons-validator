@@ -44,6 +44,12 @@ public final class VATidPTCheckDigit extends Modulus11XCheckDigit {
     }
 
     /**
+     * Constructs a new instance.
+     */
+    private VATidPTCheckDigit() {
+    }
+
+    /**
      * {@inheritDoc}
      * <p>
      * Override to handle charValue X.

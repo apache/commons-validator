@@ -48,6 +48,12 @@ public final class VATidSKCheckDigit extends Modulus11XCheckDigit {
     }
 
     /**
+     * Constructs a new instance.
+     */
+    private VATidSKCheckDigit() {
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

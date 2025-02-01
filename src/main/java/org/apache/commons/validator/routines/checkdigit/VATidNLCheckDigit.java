@@ -50,6 +50,12 @@ public final class VATidNLCheckDigit extends Modulus11XCheckDigit {
         return INSTANCE;
     }
 
+    /**
+     * Constructs a new instance.
+     */
+    private VATidNLCheckDigit() {
+    }
+
     private static final int LEN = 9; // with Check Digit, but without suffix "B99"
 
     /**
