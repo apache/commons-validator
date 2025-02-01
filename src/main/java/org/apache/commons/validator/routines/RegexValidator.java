@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 /**
  * <strong>Regular Expression</strong> validation (using the JRE's regular expression support).
  * <p>
- * Constructs the validator either for a single regular expression or a set (array) of regular expressions. By default validation is <em>case sensitive</em> but
+ * Constructs the validator either for a single regular expression or a set (array) of regular expressions. By default, validation is <em>case sensitive</em> but
  * constructors are provided to allow <em>case in-sensitive</em> validation. For example to create a validator which does <em>case in-sensitive</em> validation
  * for a set of regular expressions:
  * </p>

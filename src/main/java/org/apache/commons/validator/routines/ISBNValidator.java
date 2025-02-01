@@ -28,7 +28,7 @@ import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
  * <p>
  * This validator validates the code is either a valid ISBN-10
  * (using a {@link CodeValidator} with the {@link ISBN10CheckDigit})
- * or a valid ISBN-13 code (using a {@link CodeValidator} with the
+ * or a valid ISBN-13 code (using a {@link CodeValidator} with
  * the {@link EAN13CheckDigit} routine).
  * <p>
  * The {@code validate()} methods return the ISBN code with formatting
@@ -61,7 +61,7 @@ import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
  *     <li>979-10, 979-11, 979-12 are assigned to the ISBN agency</li>
  * </ul>
  * All other 979 prefixed EAN-13 numbers have not yet been assigned to an agency. The
- * validator validates all 13 digit codes with 978 or 979 prefixes.
+ * validator validates all 13-digit codes with 978 or 979 prefixes.
  *
  * @since 1.4
  */
@@ -220,7 +220,7 @@ public class ISBNValidator implements Serializable {
      * Check the code is either a valid ISBN-10 or ISBN-13 code.
      * <p>
      * If valid, this method returns the ISBN code with
-     * formatting characters removed (i.e. space or hyphen).
+     * formatting characters removed (such as space or hyphen).
      * <p>
      * Converts an ISBN-10 codes to ISBN-13 if
      * {@code convertToISBN13} is {@code true}.
@@ -243,7 +243,7 @@ public class ISBNValidator implements Serializable {
      * Check the code is a valid ISBN-10 code.
      * <p>
      * If valid, this method returns the ISBN-10 code with
-     * formatting characters removed (i.e. space or hyphen).
+     * formatting characters removed (such as space or hyphen).
      *
      * @param code The code to validate.
      * @return A valid ISBN-10 code if valid,
@@ -258,7 +258,7 @@ public class ISBNValidator implements Serializable {
      * Check the code is a valid ISBN-13 code.
      * <p>
      * If valid, this method returns the ISBN-13 code with
-     * formatting characters removed (i.e. space or hyphen).
+     * formatting characters removed (such as space or hyphen).
      *
      * @param code The code to validate.
      * @return A valid ISBN-13 code if valid,
