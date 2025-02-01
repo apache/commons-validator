@@ -117,7 +117,7 @@ public class DomainValidator implements Serializable {
 
         /**
          * Constructs a new instance.
-         * @param type ArrayType, e.g. GENERIC_PLUS, LOCAL_PLUS
+         * @param type ArrayType, for example, GENERIC_PLUS, LOCAL_PLUS
          * @param values array of TLDs. Will be lower-cased and sorted
          */
         public Item(final ArrayType type, final String... values) {
@@ -2164,7 +2164,7 @@ public class DomainValidator implements Serializable {
      * Gets a copy of an instance level internal array.
      * @param table the array type (any of the enum values)
      * @return a copy of the array
-     * @throws IllegalArgumentException if the table type is unexpected, e.g. GENERIC_RO
+     * @throws IllegalArgumentException if the table type is unexpected, for example, GENERIC_RO
      * @since 1.7
      */
     public String[] getOverrides(final ArrayType table) {
@@ -2288,7 +2288,7 @@ public class DomainValidator implements Serializable {
      * widely used "local" domains (localhost or localdomain). Leading dots are
      * ignored if present. The search is case-insensitive.
      * @param lTld the parameter to check for local TLD status, not null
-     * @return true if the parameter is an local TLD
+     * @return true if the parameter is a local TLD
      */
     public boolean isValidLocalTld(final String lTld) {
         final String key = chompLeadingDot(unicodeToASCII(lTld).toLowerCase(Locale.ENGLISH));

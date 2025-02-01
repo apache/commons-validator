@@ -35,7 +35,7 @@ import java.util.TimeZone;
  *       <li>using a specified pattern with a specified {@link Locale}</li>
  *    </ul>
  *
- * <p>For each of the above mechanisms, conversion method (i.e the
+ * <p>For each of the above mechanisms, conversion method (that is, the
  *    {@code validate} methods) implementations are provided which
  *    either use the default {@code TimeZone} or allow the
  *    {@code TimeZone} to be specified.</p>
@@ -50,7 +50,7 @@ import java.util.TimeZone;
  *
  * <p>Alternatively the CalendarValidator's {@code adjustToTimeZone()} method
  *    can be used to adjust the {@code TimeZone} of the {@link Calendar}
- *    object afterwards.</p>
+ *    object afterward.</p>
  *
  * <p>Once a value has been successfully converted the following
  *    methods can be used to perform various date comparison checks:</p>

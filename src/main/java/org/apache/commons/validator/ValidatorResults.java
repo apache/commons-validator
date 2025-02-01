@@ -45,7 +45,7 @@ public class ValidatorResults implements Serializable {
     }
 
     /**
-     * Add a the result of a validator action.
+     * Add the result of a validator action.
      *
      * @param field The field validated.
      * @param validatorName The name of the validator.
@@ -56,7 +56,7 @@ public class ValidatorResults implements Serializable {
     }
 
     /**
-     * Add a the result of a validator action.
+     * Add the result of a validator action.
      *
      * @param field The field validated.
      * @param validatorName The name of the validator.

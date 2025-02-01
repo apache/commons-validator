@@ -371,7 +371,7 @@
  * </pre>
  * <p>
  * <strong>Note</strong>: in theory the other numeric validators besides
- * <em>Float</em>, <em>Double</em> and <em>BigDecimal</em> (i.e. <em>Byte</em>,
+ * <em>Float</em>, <em>Double</em> and <em>BigDecimal</em> (that is, <em>Byte</em>,
  * <em>Short</em>, <em>Integer</em>, <em>Long</em> and <em>BigInteger</em>)
  * also support percent validation. However, since they don't allow fractions
  * they will only work with percentages greater than 100%.
@@ -387,7 +387,7 @@
  * <li><a href="#other.regex">Regular Expressions</a> - validates
  * using Java 1.4+ regular expression support</li>
  * <li><a href="#other.checkdigit">Check Digit</a> - validates/calculates
- * check digits (i.e. EAN/UPC, credit card, ISBN).</li>
+ * check digits (for example, EAN/UPC, credit card, ISBN).</li>
  * <li><a href="#other.code">Code Validation</a> - provides generic
  * code validation - format, minimum/maximum length and check digit.</li>
  * <li><a href="#other.iban">IBAN Validation</a> - provides International Bank Account Number validation.</li>
@@ -424,8 +424,8 @@
  * of the matched <em>groups</em> or {@code null} if invalid.</li>
  * </ul>
  * </li>
- * <li><strong>Case Sensitivity</strong> - matching can be done in either a <i>case
- * sensitive</i> or <em>case in-sensitive</em> way.</li>
+ * <li><strong>Case Sensitivity</strong> - matching can be done in either a
+ * <i>case-sensitive</i> or <em>case-insensitive</em> way.</li>
  * <li><strong>Multiple Expressions</strong> - instances of the
  * <a href="RegexValidator.html">RegexValidator</a>
  * can be created to either match against a single regular expression

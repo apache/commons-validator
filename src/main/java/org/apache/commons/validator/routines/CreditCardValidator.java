@@ -88,11 +88,11 @@ public class CreditCardValidator implements Serializable {
      * @since 1.6
      */
     public static class CreditCardRange {
-        final String low; // e.g. 34 or 644
-        final String high; // e.g. 34 or 65
-        final int minLen; // e.g. 16 or -1
-        final int maxLen; // e.g. 19 or -1
-        final int[] lengths; // e.g. 16,18,19
+        final String low; // for example, 34 or 644
+        final String high; // for example, 34 or 65
+        final int minLen; // for example, 16 or -1
+        final int maxLen; // for example, 19 or -1
+        final int[] lengths; // for example, 16,18,19
 
         /**
          * Create a credit card range specifier for use in validation
@@ -104,7 +104,7 @@ public class CreditCardValidator implements Serializable {
          * </p>
          * <p>
          * The low and high parameters may be different lengths.
-         * e.g. Discover "644" and "65".
+         * for example, Discover "644" and "65".
          * </p>
          * @param low the low digits of the IIN range
          * @param high the high digits of the IIN range
@@ -129,7 +129,7 @@ public class CreditCardValidator implements Serializable {
          * </p>
          * <p>
          * The low and high parameters may be different lengths.
-         * e.g. Discover "644" and "65".
+         * for example, Discover "644" and "65".
          * </p>
          * @param low the low digits of the IIN range
          * @param high the high digits of the IIN range
@@ -473,8 +473,8 @@ public class CreditCardValidator implements Serializable {
     }
 
     /**
-     * Tests whether the given flag is on.  If the flag is not a power of 2
-     * (ie. 3) this tests whether the combination of flags is on.
+     * Tests whether the given flag is on. If the flag is not a power of 2
+     * (for example, 3) this tests whether the combination of flags is on.
      *
      * @param options The options specified.
      * @param flag Flag value to check.
