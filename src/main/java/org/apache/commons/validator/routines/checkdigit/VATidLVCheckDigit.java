@@ -118,7 +118,7 @@ public final class VATidLVCheckDigit extends ModulusCheckDigit {
      * Calculate a <em>Check Digit</em> for a natural person code.
      *
      * @param code without checkdigit
-     * @param invalidDateException, true for testing
+     * @param invalidDateException, true for testing date info
      * @return check digit
      * @throws CheckDigitException
      */
@@ -144,10 +144,8 @@ public final class VATidLVCheckDigit extends ModulusCheckDigit {
             }
             final DateValidator dateValidator = new DateValidator();
             final String date = mmborn + "/" + String.format("%02d", dd) + "/" + yyborn;
-            if (dateValidator.validate(date, "MM/dd/yyyy") == null) {
-                if (invalidDateException) {
-                     throw new CheckDigitException("Invalid date " + date + " - Invalid NMIN " + code);
-                }
+            if (dateValidator.validate(date, "MM/dd/yyyy") == null && invalidDateException) {
+                throw new CheckDigitException("Invalid date " + date + " - Invalid NMIN " + code);
             }
         }
         final int cd = vRule1(code);
