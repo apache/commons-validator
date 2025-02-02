@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 
@@ -40,7 +38,6 @@ import org.apache.commons.validator.GenericValidator;
 public final class VATidGBCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -1297016213259512985L;
-    private static final Log LOG = LogFactory.getLog(VATidGBCheckDigit.class);
 
     /** Singleton Check Digit instance */
     private static final VATidGBCheckDigit INSTANCE = new VATidGBCheckDigit();
@@ -105,12 +102,6 @@ public final class VATidGBCheckDigit extends ModulusCheckDigit {
         }
 
         final int modulusResult = calculateModulus(code, false);
-        if (LOG.isDebugEnabled()) {
-            final int mr55 = (MODULUS97_55 + modulusResult) % MODULUS_97;
-            final int newStyle = MODULUS_97 - mr55;
-            LOG.debug(code + " modulusResult=" + modulusResult + " - old style cd = " + (MODULUS_97 - modulusResult)
-                + " and MOD9755-style " + newStyle);
-        }
         // There are more than one possible VATIN check digits for a given code,
         // one old style MOD 97 and one new style MOD 9755
         // thus, it isn't possible to compute the right one.

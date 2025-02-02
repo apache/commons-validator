@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.DateValidator;
 
@@ -36,7 +34,6 @@ import org.apache.commons.validator.routines.DateValidator;
 public final class VATidCZCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -2419923920463044513L;
-    private static final Log LOG = LogFactory.getLog(VATidCZCheckDigit.class);
 
     /** Singleton Check Digit instance */
     private static final VATidCZCheckDigit INSTANCE = new VATidCZCheckDigit();
@@ -145,10 +142,6 @@ public final class VATidCZCheckDigit extends ModulusCheckDigit {
         final int mm = 10 * c3 + c4;
         final int mmborn = mm % FEMALE_MOD % SPECIAL_MOD;
         final int ddborn = 10 * c5 + c6;
-        if (LOG.isDebugEnabled()) {
-            final String sex = mm > FEMALE_MOD ? "female" : "male";
-            LOG.debug(code + ": individual (" + sex + ") born=" + yyborn + "/" + mmborn + "/" + ddborn);
-        }
         final DateValidator dateValidator = new DateValidator();
         final String date = String.format("%02d", mmborn) + "/" + String.format("%02d", ddborn) + "/" + yyborn;
         if (dateValidator.validate(date, "MM/dd/yyyy") == null) {

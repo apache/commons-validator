@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 
@@ -37,7 +35,6 @@ import org.apache.commons.validator.GenericValidator;
 public final class VATidESCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -7198490175731077347L;
-    private static final Log LOG = LogFactory.getLog(VATidESCheckDigit.class);
 
     /** Singleton Check Digit instance */
     private static final VATidESCheckDigit INSTANCE = new VATidESCheckDigit();
@@ -152,64 +149,6 @@ public final class VATidESCheckDigit extends ModulusCheckDigit {
 
             // Luhn
             final char c0 = code.charAt(0);
-            if (LOG.isDebugEnabled()) {
-                switch (c0) {
-                case 'A':
-                    LOG.debug(code + " : Sociedades anónimas");
-                    break;
-                case 'B':
-                    LOG.debug(code + " : Sociedades de responsabilidad limitada");
-                    break;
-                case 'C':
-                    LOG.debug(code + " : Sociedades colectivas");
-                    break;
-                case 'D':
-                    LOG.debug(code + " : Sociedades comanditarias");
-                    break;
-                case 'E':
-                    LOG.debug(code + " : Comunidades de bienes");
-                    break;
-                case 'F':
-                    LOG.debug(code + " : Sociedades cooperativas");
-                    break;
-                case 'G':
-                    LOG.debug(code + " : Asociaciones y Fundaciones");
-                    break;
-                case 'H':
-                    LOG.debug(code + " : Comunidades de propietarios en régimen de propiedad horizontal");
-                    break;
-                case 'J':
-                    LOG.debug(code + " : Sociedades civiles, con o sin personalidad jurídica");
-                    break;
-                case 'N':
-                    LOG.debug(code + " : Entidades extranjeras");
-                    break;
-                case 'P':
-                    LOG.debug(code + " : Corporaciones Locales");
-                    break;
-                case 'Q':
-                    LOG.debug(code + " : Organismos públicos");
-                    break;
-                case 'R':
-                    LOG.debug(code + " : Congregaciones e instituciones religiosas");
-                    break;
-                case 'S':
-                    LOG.debug(code + " : Órganos de la Administración General del Estado y de las comunidades autónomas");
-                    break;
-                case 'W':
-                    LOG.debug(code + " : Establecimientos permanentes de entidades no residentes en España");
-                    break;
-                case 'U':
-                    LOG.debug(code + " : Uniones Temporales de Empresas");
-                    break;
-                case 'V':
-                    LOG.debug(code + " : Otros tipos no definidos en el resto de claves");
-                    break;
-                default:
-                    LOG.warn(code + " starts with " + c0);
-                    break;
-                }
-            }
             if (FORMATONPQ.indexOf(c0) > -1) {
                 return cd == LUHNCHECKLETTER.charAt(calculateLuhn(code.substring(1, code.length() - 1)));
             } else {

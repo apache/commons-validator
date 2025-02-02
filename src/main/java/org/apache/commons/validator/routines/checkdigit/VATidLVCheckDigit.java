@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.DateValidator;
@@ -34,7 +32,6 @@ import org.apache.commons.validator.routines.DateValidator;
 public final class VATidLVCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -4171562329195981385L;
-    private static final Log LOG = LogFactory.getLog(VATidLVCheckDigit.class);
 
     /** Singleton Check Digit instance */
     private static final VATidLVCheckDigit INSTANCE = new VATidLVCheckDigit();
@@ -150,12 +147,7 @@ public final class VATidLVCheckDigit extends ModulusCheckDigit {
             if (dateValidator.validate(date, "MM/dd/yyyy") == null) {
                 if (invalidDateException) {
                      throw new CheckDigitException("Invalid date " + date + " - Invalid NMIN " + code);
-                } else {
-                    LOG.warn("Invalid century indicator " + centuryInd + " or date " + date + " - Invalid NMIN " + code);
                 }
-            }
-            if (LOG.isDebugEnabled()) {
-                LOG.debug(code + " is NMIN (TIN) for a person born " + date);
             }
         }
         final int cd = vRule1(code);

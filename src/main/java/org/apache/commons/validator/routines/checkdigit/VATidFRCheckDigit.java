@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.SireneValidator;
@@ -37,7 +35,6 @@ import org.apache.commons.validator.routines.SireneValidator;
 public final class VATidFRCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -4684483629166798828L;
-    private static final Log LOG = LogFactory.getLog(VATidFRCheckDigit.class);
 
     /** Singleton Check Digit instance */
     private static final VATidFRCheckDigit INSTANCE = new VATidFRCheckDigit();
@@ -185,9 +182,6 @@ public final class VATidFRCheckDigit extends ModulusCheckDigit {
             } else if (Character.isDigit(c0) && Character.isDigit(c1)) {
                 return isValidOldStyle(code);
             } else {
-                if (LOG.isDebugEnabled()) {
-                    LOG.debug(code + "    invalid check code '" + code.substring(0, CHECKDIGIT_LEN) + "'");
-                }
                 return false;
             }
         } catch (final CheckDigitException ex) {

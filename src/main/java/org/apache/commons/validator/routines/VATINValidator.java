@@ -20,8 +20,6 @@ import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.routines.checkdigit.ABANumberCheckDigit;
 import org.apache.commons.validator.routines.checkdigit.CheckDigit;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
@@ -75,8 +73,6 @@ import org.apache.commons.validator.routines.checkdigit.VATidSKCheckDigit;
  * @since 1.10.0
  */
 public class VATINValidator {
-
-    private static final Log LOG = LogFactory.getLog(VATINValidator.class);
 
     /**
      * The validation class
@@ -138,7 +134,6 @@ public class VATINValidator {
     }
 
     private static final int COUNTRY_CODE_LEN = 2;
-    private static final String INVALID_COUNTRY_CODE = "No CheckDigit routine or invalid country, code=";
     private static final String CANNOT_MODIFY_SINGLETON = "The singleton validator cannot be modified";
 
     private static final Validator[] DEFAULT_VALIDATORS = {
@@ -259,7 +254,7 @@ public class VATINValidator {
             return false;
         }
         if (validator.routine == null) {
-            LOG.warn(INVALID_COUNTRY_CODE + code);
+            // No CheckDigit routine or invalid country code
             return false;
         }
         return validator.routine.isValid(code.substring(2));

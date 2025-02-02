@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.DateValidator;
@@ -41,7 +39,6 @@ import org.apache.commons.validator.routines.DateValidator;
 public final class VATidBGCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -8667365895223831325L;
-    private static final Log LOG = LogFactory.getLog(VATidBGCheckDigit.class);
 
     /** Singleton Check Digit instance */
     private static final VATidBGCheckDigit INSTANCE = new VATidBGCheckDigit();
@@ -185,13 +182,6 @@ public final class VATidBGCheckDigit extends ModulusCheckDigit {
             throw new CheckDigitException("Invalid date " + date + " - Invalid DDC " + code);
         }
 
-        // The next three digits designate the birth order number,
-        // the third digit being even for males and odd for females.
-        if (LOG.isDebugEnabled()) {
-            final int sexValue = toInt(code.charAt(8), 9, -1);
-            final String sex = (sexValue & 1) == 0 ? "male" : "female";
-            LOG.debug(code + " is ЕГН for a " + sex + " person born " + date);
-        }
         return true;
     }
 

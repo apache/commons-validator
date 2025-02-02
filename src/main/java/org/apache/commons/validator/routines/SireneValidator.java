@@ -16,8 +16,6 @@
  */
 package org.apache.commons.validator.routines;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 
@@ -51,8 +49,6 @@ import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
  * @since 1.10.0
  */
 public class SireneValidator {
-
-    private static final Log LOG = LogFactory.getLog(SireneValidator.class);
 
     final Validator formatValidator;
 
@@ -122,9 +118,6 @@ public class SireneValidator {
             return LuhnCheckDigit.LUHN_CHECK_DIGIT.isValid(id);
         }
         if (!LuhnCheckDigit.LUHN_CHECK_DIGIT.isValid(id.substring(0, SIREN_CODE_LEN))) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug(id + " is SIRET, SIREN check digit at 9 is NOT valid.");
-            }
             return false;
         }
         // check SIRET:
