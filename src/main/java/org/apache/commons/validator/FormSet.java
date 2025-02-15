@@ -221,8 +221,7 @@ public class FormSet implements Serializable {
 
     /**
      * Returns the type of {@code FormSet}:{@code GLOBAL_FORMSET},
-     * {@code LANGUAGE_FORMSET},{@code COUNTRY_FORMSET} or {@code VARIANT_FORMSET}
-     * .
+     * {@code LANGUAGE_FORMSET},{@code COUNTRY_FORMSET} or {@code VARIANT_FORMSET}.
      *
      * @return                       The type value
      * @since 1.2.0
