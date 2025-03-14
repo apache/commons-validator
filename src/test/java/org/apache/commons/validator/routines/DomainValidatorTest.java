@@ -281,7 +281,7 @@ public class DomainValidatorTest {
         final File txtFile = new File("target/tlds-alpha-by-domain.txt");
         final long timestamp = download(txtFile, "https://data.iana.org/TLD/tlds-alpha-by-domain.txt", 0L);
         final File htmlFile = new File("target/tlds-alpha-by-domain.html");
-        // N.B. sometimes the html file may be updated a day or so after the txt file
+        // Sometimes the html file may be updated a day or so after the txt file
         // if the txt file contains entries not found in the html file, try again in a day or two
         download(htmlFile, "https://www.iana.org/domains/root/db", timestamp);
 

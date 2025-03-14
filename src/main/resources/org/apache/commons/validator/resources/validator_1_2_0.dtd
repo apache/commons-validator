@@ -198,7 +198,7 @@
       position    The position of this replacement parameter in the message.
                   For example, position="0" will set the first argument.
 
-             N.B. Since 1.2.0 position is ignored for 'default' arguments
+                  Since 1.2.0 position is ignored for 'default' arguments
                   (i.e. those with no 'name' supplied) - it is calculated
                   automatically from the order the arguments are added in.
                   For 'overridden' arguments (i.e. those with a 'name')
@@ -218,7 +218,7 @@
      range validation. These parameters may also be referenced by one of the
      arg? elements using a shell syntax: ${var:var-name}.
 
-     N.B. resource ='true' indicates that the var-value is a resource key,
+          resource ='true' indicates that the var-value is a resource key,
           with the option to specify the bundle name. Validator doesn't do
           anything itself with these values. Down-stream systems need
           to resolve resource values.

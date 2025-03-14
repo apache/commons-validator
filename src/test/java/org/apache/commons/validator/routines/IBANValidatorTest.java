@@ -70,7 +70,7 @@ public class IBANValidatorTest {
      * The IBAN registry should be available from here:
      * https://www.swift.com/standards/data-standards/iban-international-bank-account-number
      * Care must be taken not to accidentally change the encoding, which for v99 appears to be Windows-1252 (cp1252)
-     * (N.B. even this encoding may not properly account for all characters)
+     * (even this encoding may not properly account for all characters)
      * Please ensure you download from the page (right-click), and do not edit the file after download, as that may
      * change the contents.
      * At present the code does not need the entries which are likely to contain non-ASCII characters, but a corrupt

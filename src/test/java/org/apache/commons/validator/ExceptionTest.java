@@ -53,7 +53,7 @@ public class ExceptionTest extends AbstractCommonTest {
     /**
      * Tests handling of checked exceptions - should become ValidatorExceptions.
      *
-     * N.B. This test has been removed (renamed) as it currently serves no purpose. If/When exception handling is changed in Validator 2.0 it can be
+     * This test has been removed (renamed) as it currently serves no purpose. If/When exception handling is changed in Validator 2.0 it can be
      * reconsidered then.
      */
     @Disabled
@@ -88,7 +88,7 @@ public class ExceptionTest extends AbstractCommonTest {
     /**
      * Tests handling of runtime exceptions.
      *
-     * N.B. This test has been removed (renamed) as it currently serves no purpose. If/When exception handling is changed in Validator 2.0 it can be
+     * This test has been removed (renamed) as it currently serves no purpose. If/When exception handling is changed in Validator 2.0 it can be
      * reconsidered then.
      */
     @Disabled
