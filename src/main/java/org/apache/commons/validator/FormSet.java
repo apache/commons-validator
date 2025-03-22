@@ -224,9 +224,9 @@ public class FormSet implements Serializable {
      * {@code LANGUAGE_FORMSET},{@code COUNTRY_FORMSET} or {@code VARIANT_FORMSET}.
      *
      * @return                       The type value
-     * @since 1.2.0
      * @throws NullPointerException  if there is inconsistency in the locale
      *      definition (not sure about this)
+     * @since 1.2.0
      */
     protected int getType() {
         final String myLanguage = getLanguage();
