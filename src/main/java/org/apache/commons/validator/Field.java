@@ -155,8 +155,9 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Add an {@code Arg} to the replacement argument list.
-     * @since 1.1
+     *
      * @param arg Validation message's argument.
+     * @since 1.1
      */
     public void addArg(final Arg arg) {
         // TODO this first if check can go away after arg0, etc. are removed from dtd
@@ -477,9 +478,9 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Retrieve a message object.
-     * @since 1.1.4
      * @param key Validation key.
      * @return A validation message for a specified validator.
+     * @since 1.1.4
      */
     public Msg getMessage(final String key) {
         return getMsgMap().get(key);
@@ -488,8 +489,8 @@ public class Field implements Cloneable, Serializable {
     /**
      * The {@code Field}'s messages are returned as an
      * unmodifiable {@link Map}.
-     * @since 1.1.4
      * @return Map of validation messages for the field.
+     * @since 1.1.4
      */
     public Map<String, Msg> getMessages() {
         return Collections.unmodifiableMap(getMsgMap());
@@ -507,8 +508,8 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Returns a Map of String Msg names to Msg objects.
-     * @since 1.2.0
      * @return A Map of the Field's messages.
+     * @since 1.2.0
      */
     @SuppressWarnings("unchecked") // FastHashMap does not support generics
     protected Map<String, Msg> getMsgMap() {
@@ -543,8 +544,8 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Returns a Map of String Var names to Var objects.
-     * @since 1.2.0
      * @return A Map of the Field's variables.
+     * @since 1.2.0
      */
     @SuppressWarnings("unchecked") // FastHashMap does not support generics
     protected Map<String, Var> getVarMap() {
