@@ -19,28 +19,37 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Luhn Check Digit Test.
- */
-public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
+ * IT VAT Id Check Digit Tests.
+ * </pre>
 
-    private static final String VALID_VISA = "4417123456789113";
-    private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX = "378282246310005";
-    private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER = "6011000990139424";
-    private static final String VALID_DINERS = "30569309025904";
-    private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
-    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without Trailing "01"
+    IT 01680870670 : gültig "Confezioni Valentina Srl" in Provinz Teramo (TE)
+    IT 04536640404 : gültig spiagge.it, Rimini (RN)
+    IT 00950501007 : gültig "BANCA D'ITALIA" aus https://github.com/digitalfondue/vatchecker
+    IT 02866820240 : gültig aus https://www.valbruna-stainless-steel.com/
+    IT 12345670017 : gültig geprüft mit VIES, id aus http://sima.cat/nif.php Provincia di Torino
+    IT 00000010215 : valide, aber ungültig (aus BMF_UID_Konstruktionsregeln.pdf bmf.gv.at)
+    IT 12345670785 : valide, aber ungültig (aus pruefziffernberechnung.de)
+    IT 12345678903 : nicht valide, da y1-3 = 890 (aus icosaedro.it) - ist aber Luhn-valide
+
+ * </pre>
+ */
+public class VATidITCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {
-
         routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
-
-        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS
-            , VALID_IT_IVA_BANCA_ITALIA, VALID_SE_VATIN_OLLE_SVENSSONS, "12345678903", "10215", "12345670017"};
+        valid = new String[] {"01680870670"
+            , "04536640404"
+            , "00950501007"
+            , "02866820240"
+            , "12345670017"
+            , "00000010215"
+            , "12345670785"
+            , "12345678903"
+            };
     }
+
 }
