@@ -181,7 +181,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
                 // add some dummy calculated codes to test the limits
                 // Current minimum length is Norway = 15
                 // Current maximum length is Malta = 31
-                // N.B. These codes will fail online checkers which validate the IBAN format
+                // These codes will fail online checkers which validate the IBAN format
                 // 234567890123456789012345678901
                 "AA0200000000053", "AA9700000000089", "AA9800000000071", "ZZ02ZZZZZZZZZZZZZZZZZZZZZZZZZ04", "ZZ97ZZZZZZZZZZZZZZZZZZZZZZZZZ40",
                 "ZZ98ZZZZZZZZZZZZZZZZZZZZZZZZZ22", };

@@ -151,7 +151,7 @@ IMPORTANT NOTES
 BREAKING CHANGES:
 
 * Now requires Java 7
-* N.B. Java 9 changed the way Locales are handled. This affects the output from some Date-related methods, and may cause some tests to break.
+* Java 9 changed the way Locales are handled. This affects the output from some Date-related methods, and may cause some tests to break.
 
 DEPENDENCIES
 ------------
