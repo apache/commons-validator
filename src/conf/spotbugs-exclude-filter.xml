@@ -48,4 +48,16 @@
     <Class name="~.*" />
     <Bug pattern="SING_SINGLETON_IMPLEMENTS_SERIALIZABLE" />
   </Match>
+  <Match>
+    <!-- Can't break BC -->
+    <!-- TODO Change in the next major release? -->
+    <Class name="org.apache.commons.validator.routines.CurrencyValidator" />
+    <Bug pattern="HSM_HIDING_METHOD" />
+  </Match>
+  <Match>
+    <!-- Can't break BC -->
+    <!-- TODO Change in the next major release? -->
+    <Class name="org.apache.commons.validator.routines.PercentValidator" />
+    <Bug pattern="HSM_HIDING_METHOD" />
+  </Match>
 </FindBugsFilter>
