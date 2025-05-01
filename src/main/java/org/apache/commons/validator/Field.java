@@ -110,7 +110,7 @@ public class Field implements Cloneable, Serializable {
      * by the client for client-side validation.
      * @since 1.4
      */
-    protected boolean clientValidation = true;
+    protected volatile boolean clientValidation = true;
 
     /**
      * The order of the Field in the Form.
