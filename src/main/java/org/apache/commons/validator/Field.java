@@ -103,7 +103,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * The Page Number
      */
-    protected int page;
+    protected volatile int page;
 
     /**
      * The flag that indicates whether scripting should be generated
