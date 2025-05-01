@@ -115,7 +115,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * The order of the Field in the Form.
      */
-    protected int fieldOrder;
+    protected volatile int fieldOrder;
 
     /**
      * Internal representation of this.depends String as a List.  This List
