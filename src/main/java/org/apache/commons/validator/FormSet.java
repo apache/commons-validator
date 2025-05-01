@@ -92,7 +92,7 @@ public class FormSet implements Serializable {
      * Flag indicating if this formSet has been merged with its parent (higher
      * rank in Locale hierarchy).
      */
-    private boolean merged;
+    private volatile boolean merged;
 
     /**
      * Constructs a new instance.
