@@ -103,19 +103,19 @@ public class Field implements Cloneable, Serializable {
     /**
      * The Page Number
      */
-    protected int page;
+    protected volatile int page;
 
     /**
      * The flag that indicates whether scripting should be generated
      * by the client for client-side validation.
      * @since 1.4
      */
-    protected boolean clientValidation = true;
+    protected volatile boolean clientValidation = true;
 
     /**
      * The order of the Field in the Form.
      */
-    protected int fieldOrder;
+    protected volatile int fieldOrder;
 
     /**
      * Internal representation of this.depends String as a List.  This List

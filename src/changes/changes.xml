@@ -75,6 +75,10 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ValidatorUtils.ValidatorUtils().</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate Validator protected instance variable access for getter methods.</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory">Remove -nouses directive from maven-bundle-plugin. OSGi package imports now state 'uses' definitions for package imports, this doesn't affect JPMS (from org.apache.commons:commons-parent:80).</action>
+    <action type="fix" dev="ggregory" due-to="Gary Gregory, SpotBugs">Shared primitive variable "clientValidation" in one thread may not yield the value of the most recent write from another thread [org.apache.commons.validator.Field] At Field.java:[line 758] AT_STALE_THREAD_WRITE_OF_PRIMITIVE.</action>
+    <action type="fix" dev="ggregory" due-to="Gary Gregory, SpotBugs">Shared primitive variable "fieldOrder" in one thread may not yield the value of the most recent write from another thread [org.apache.commons.validator.Field] At Field.java:[line 785] AT_STALE_THREAD_WRITE_OF_PRIMITIVE.</action>
+    <action type="fix" dev="ggregory" due-to="Gary Gregory, SpotBugs">Shared primitive variable "page" in one thread may not yield the value of the most recent write from another thread [org.apache.commons.validator.Field] At Field.java:[line 818] AT_STALE_THREAD_WRITE_OF_PRIMITIVE.</action>
+    <action type="fix" dev="ggregory" due-to="Gary Gregory, SpotBugs">Shared primitive variable "merged" in one thread may not yield the value of the most recent write from another thread [org.apache.commons.validator.FormSet] At FormSet.java:[line 302] AT_STALE_THREAD_WRITE_OF_PRIMITIVE.</action>
     <!-- ADD -->
     <action type="add" issue="VALIDATOR-497" dev="sjaranowski" due-to="Slawomir Jaranowski">IBANValidator: add method validate with validation status</action>
     <action type="add" dev="sebb">DomainValidatorTest: added Maven profile to simplfy execution.</action>
@@ -86,7 +90,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="add" dev="ggregory" due-to="nullwli, Gary Gregory">Add Validator.getParameters()</action>
     <action type="add" dev="ggregory" due-to="nullwli, Gary Gregory">Add Validator.getResources()</action>
     <!-- UPDATE -->
-    <action type="update" dev="sjaranowski" due-to="Slawomir Jaranowski">Bump org.apache.commons:commons-parent from 78 to 80, fix changes.xml format for new plugin version</action>
+    <action type="update" dev="sjaranowski" due-to="Slawomir Jaranowski, Gary Gregory">Bump org.apache.commons:commons-parent from 78 to 83, fix changes.xml format for new plugin version</action>
     <action type="update" dev="sebb">DomainValidator: Changes from 2024121700, Last Updated Tue Dec 17 07:07:01 2024 UTC.</action>
     <action type="update" dev="sebb">IBANValidatorTest: parameterise SWIFT registry version; update to v99</action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-parent from 70 to 78 #231, #245, #253, #256, #262, #267, #272, #278.</action>
