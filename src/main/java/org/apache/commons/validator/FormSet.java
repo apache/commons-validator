@@ -286,14 +286,14 @@ public class FormSet implements Serializable {
      */
     protected void merge(final FormSet depends) {
         if (depends != null) {
-            final Map<String, Form> pForms = getForms();
-            final Map<String, Form> dForms = depends.getForms();
-            for (final Entry<String, Form> entry : dForms.entrySet()) {
+            final Map<String, Form> myForms = getForms();
+            final Map<String, Form> dependsForms = depends.getForms();
+            for (final Entry<String, Form> entry : dependsForms.entrySet()) {
                 final String key = entry.getKey();
-                final Form pForm = pForms.get(key);
-                if (pForm != null) { // merge, but principal 'rules', don't overwrite
+                final Form form = myForms.get(key);
+                if (form != null) { // merge, but principal 'rules', don't overwrite
                     // anything
-                    pForm.merge(entry.getValue());
+                    form.merge(entry.getValue());
                 } else { // just add
                     addForm(entry.getValue());
                 }
