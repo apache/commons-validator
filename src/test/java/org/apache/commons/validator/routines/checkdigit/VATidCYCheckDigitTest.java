@@ -19,28 +19,30 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Luhn Check Digit Test.
- */
-public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
+ * CY VAT Id Check Digit Tests.
+ * <pre>
 
-    private static final String VALID_VISA = "4417123456789113";
-    private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX = "378282246310005";
-    private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER = "6011000990139424";
-    private static final String VALID_DINERS = "30569309025904";
-    private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
-    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without Trailing "01"
+    CY 30010823A : LIDL Cyprus
+    CY 10259033P : valide, aber ungültig. Aus formvalidation.io und stdnum-js
+
+       12000139V is invalid
+
+ * </pre>
+ */
+public class VATidCYCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {
-
-        routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
-
-        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS
-            , VALID_IT_IVA_BANCA_ITALIA, VALID_SE_VATIN_OLLE_SVENSSONS, "12345678903", "10215", "12345670017"};
+        routine = VATidCYCheckDigit.getInstance();
+        valid = new String[] {"30010823A", "10259033P"
+            , "61234567I" // is not valid because starts with "6", checked in VATINValidator
+        };
+        invalid = new String[] {"12000139V" // starts with "12"
+            , "00000000A" // sum is zero
+        };
     }
+
 }

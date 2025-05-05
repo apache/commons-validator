@@ -19,28 +19,27 @@ package org.apache.commons.validator.routines.checkdigit;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Luhn Check Digit Test.
+ * DE VAT Id Check Digit Tests.
  */
-public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
+public class VATidDECheckDigitTest extends AbstractCheckDigitTest {
 
-    private static final String VALID_VISA = "4417123456789113";
-    private static final String VALID_SHORT_VISA = "4222222222222";
-    private static final String VALID_AMEX = "378282246310005";
-    private static final String VALID_MASTERCARD = "5105105105105100";
-    private static final String VALID_DISCOVER = "6011000990139424";
-    private static final String VALID_DINERS = "30569309025904";
-    private static final String VALID_IT_IVA_BANCA_ITALIA = "950501007"; // without leading "00"
-    private static final String VALID_SE_VATIN_OLLE_SVENSSONS = "5561888404"; // without Trailing "01"
+    // valid VAT Id without DE prefix
+    private static final String MIN = "000000011"; // theoretical minimum
+    private static final String MAX = "999999995"; // theoretical
+    private static final String GEIGER = "128514248"; // https://www.geigergruppe.com/de-de/impressum/
+    private static final String ITDZ = "205130669"; // https://www.itdz-berlin.de/allgemeines/impressum/
 
     /**
      * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {
-
-        routine = LuhnCheckDigit.LUHN_CHECK_DIGIT;
-
-        valid = new String[] { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DINERS
-            , VALID_IT_IVA_BANCA_ITALIA, VALID_SE_VATIN_OLLE_SVENSSONS, "12345678903", "10215", "12345670017"};
+        routine = Modulus11TenCheckDigit.getInstance();
+        valid = new String[] {MIN, GEIGER, ITDZ, "136586130", "136695976"
+            , "294776378", "811128135", "294776378", MAX};
+        invalid = new String[] {
+            "000000003" // sum is zero
+        };
     }
+
 }
