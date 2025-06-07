@@ -45,7 +45,7 @@ public class SedolCheckDigitTest extends AbstractCheckDigitTest {
     }
 
     @Test
-    public void testValidator346() {
+    void testValidator346() {
         for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse(routine.isValid(invalidCheckDigit), "Should fail: " + invalidCheckDigit);
         }

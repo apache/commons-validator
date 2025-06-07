@@ -76,7 +76,7 @@ public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
      * Test BigDecimal Range/Min/Max
      */
     @Test
-    public void testBigDecimalRangeMinMax() {
+    void testBigDecimalRangeMinMax() {
         final BigDecimalValidator validator = new BigDecimalValidator(true, AbstractNumberValidator.STANDARD_FORMAT, true);
         final BigDecimal number9 = new BigDecimal("9");
         final BigDecimal number10 = new BigDecimal("10");
@@ -110,7 +110,7 @@ public class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
      * Test BigDecimalValidator validate Methods
      */
     @Test
-    public void testBigDecimalValidatorMethods() {
+    void testBigDecimalValidatorMethods() {
         final Locale locale = Locale.GERMAN;
         final String pattern = "0,00,00";
         final String patternVal = "1,23,45";

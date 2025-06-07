@@ -81,7 +81,7 @@ public class ParameterTest extends AbstractCommonTest {
      * Test all validations ran and passed.
      */
     @Test
-    public void testAllValid() {
+    void testAllValid() {
 
         // Create bean to run test on.
         final NameBean bean = createNameBean();

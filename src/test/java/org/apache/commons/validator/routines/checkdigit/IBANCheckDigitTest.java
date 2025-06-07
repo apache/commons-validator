@@ -196,7 +196,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
     }
 
     @Test
-    public void testOther() throws Exception {
+    void testOther() throws Exception {
         try (BufferedReader rdr = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("IBANtests.txt"), "ASCII"))) {
             String line;
             while ((line = rdr.readLine()) != null) {
@@ -217,7 +217,7 @@ public class IBANCheckDigitTest extends AbstractCheckDigitTest {
      */
     @Override
     @Test
-    public void testZeroSum() {
+    void testZeroSum() {
         // ignore, don't run this test
 
         // example code used to create dummy IBANs

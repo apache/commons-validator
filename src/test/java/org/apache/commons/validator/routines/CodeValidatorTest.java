@@ -35,7 +35,7 @@ public class CodeValidatorTest {
      * Test Check Digit.
      */
     @Test
-    public void testCheckDigit() {
+    void testCheckDigit() {
         CodeValidator validator = new CodeValidator((String) null, -1, -1, (CheckDigit) null);
         final String invalidEAN = "9781930110992";
         final String validEAN = "9781930110991";
@@ -62,7 +62,7 @@ public class CodeValidatorTest {
      * Test Regular Expression.
      */
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         CodeValidator validator;
         final RegexValidator regex = new RegexValidator("^[0-9]*$");
 
@@ -113,7 +113,7 @@ public class CodeValidatorTest {
      * Test the minimum/maximum length
      */
     @Test
-    public void testLength() {
+    void testLength() {
         CodeValidator validator = new CodeValidator((String) null, -1, -1, (CheckDigit) null);
         final String length10 = "1234567890";
         final String length11 = "12345678901";
@@ -174,7 +174,7 @@ public class CodeValidatorTest {
      * Test Regular Expression.
      */
     @Test
-    public void testNoInput() {
+    void testNoInput() {
         final CodeValidator validator = new CodeValidator((String) null, -1, -1, (CheckDigit) null);
         assertNull(validator.validate(null), "Null");
         assertNull(validator.validate(""), "Zero Length");
@@ -186,7 +186,7 @@ public class CodeValidatorTest {
      * Test Regular Expression.
      */
     @Test
-    public void testRegex() {
+    void testRegex() {
         CodeValidator validator = new CodeValidator((String) null, -1, -1, (CheckDigit) null);
 
         final String value2 = "12";
@@ -231,7 +231,7 @@ public class CodeValidatorTest {
     }
 
     @Test
-    public void testValidator294Part1() {
+    void testValidator294Part1() {
         CodeValidator validator = new CodeValidator((String) null, 0, -1, (CheckDigit) null);
         assertNull(validator.validate(null), "Null");
         validator = new CodeValidator((String) null, -1, 0, (CheckDigit) null);
@@ -239,7 +239,7 @@ public class CodeValidatorTest {
     }
 
     @Test
-    public void testValidator294Part2() {
+    void testValidator294Part2() {
         final CodeValidator validator = new CodeValidator((String) null, -1, 0, (CheckDigit) null);
         assertNull(validator.validate(null), "Null");
     }

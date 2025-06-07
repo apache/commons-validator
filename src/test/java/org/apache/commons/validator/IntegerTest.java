@@ -32,7 +32,7 @@ public class IntegerTest extends AbstractNumberTest {
      * Tests the int validation.
      */
     @Test
-    public void testInt() throws ValidatorException {
+    void testInt() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue("0");
@@ -44,7 +44,7 @@ public class IntegerTest extends AbstractNumberTest {
      * Tests the int validation failure.
      */
     @Test
-    public void testIntBeyondMax() throws ValidatorException {
+    void testIntBeyondMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue(Integer.MAX_VALUE + "1");
@@ -56,7 +56,7 @@ public class IntegerTest extends AbstractNumberTest {
      * Tests the int validation failure.
      */
     @Test
-    public void testIntBeyondMin() throws ValidatorException {
+    void testIntBeyondMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue(Integer.MIN_VALUE + "1");
@@ -68,7 +68,7 @@ public class IntegerTest extends AbstractNumberTest {
      * Tests the int validation.
      */
     @Test
-    public void testIntegerMax() throws ValidatorException {
+    void testIntegerMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue(Integer.toString(Integer.MAX_VALUE));
@@ -80,7 +80,7 @@ public class IntegerTest extends AbstractNumberTest {
      * Tests the int validation failure.
      */
     @Test
-    public void testIntFailure() throws ValidatorException {
+    void testIntFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
 
@@ -91,7 +91,7 @@ public class IntegerTest extends AbstractNumberTest {
      * Tests the int validation.
      */
     @Test
-    public void testIntMin() throws ValidatorException {
+    void testIntMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue(Integer.toString(Integer.MIN_VALUE));

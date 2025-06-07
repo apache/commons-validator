@@ -62,7 +62,7 @@ public class VarTest extends AbstractCommonTest {
      * With nothing provided, we should fail both because both are required.
      */
     @Test
-    public void testVars() {
+    void testVars() {
 
         final Form form = resources.getForm(Locale.getDefault(), FORM_KEY);
 

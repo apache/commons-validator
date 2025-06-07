@@ -55,7 +55,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
      * Test compare date methods
      */
     @Test
-    public void testCompare() {
+    void testCompare() {
         final int sameTime = 124522;
         final int testDate = 20050823;
         final Date diffHour = createDate(TimeZones.GMT, testDate, 115922); // same date, different time
@@ -130,7 +130,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
      */
     @Test
     @DefaultLocale(country = "US", language = "en")
-    public void testDateValidatorMethods() {
+    void testDateValidatorMethods() {
         final Locale locale = Locale.GERMAN;
         final String pattern = "yyyy-MM-dd";
         final String patternVal = "2005-12-31";

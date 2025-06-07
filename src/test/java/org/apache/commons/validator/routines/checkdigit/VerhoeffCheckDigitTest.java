@@ -38,7 +38,7 @@ public class VerhoeffCheckDigitTest extends AbstractCheckDigitTest {
      */
     @Override
     @Test
-    public void testZeroSum() {
+    void testZeroSum() {
         // ignore, don't run this test
     }
 }

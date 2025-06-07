@@ -59,7 +59,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
      * Test adjustToTimeZone() method
      */
     @Test
-    public void testAdjustToTimeZone() {
+    void testAdjustToTimeZone() {
 
         final Calendar calEST = createCalendar(TestTimeZones.EST, DATE_2005_11_23, TIME_12_03_45);
         final Date dateEST = calEST.getTime();
@@ -108,7 +108,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
      */
     @Test
     @DefaultLocale(country = "US", language = "en")
-    public void testCalendarValidatorMethods() {
+    void testCalendarValidatorMethods() {
         final Locale locale = Locale.GERMAN;
         final String pattern = "yyyy-MM-dd";
         final String patternVal = "2005-12-31";
@@ -157,7 +157,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
      * Test compare date methods
      */
     @Test
-    public void testCompare() {
+    void testCompare() {
         final int sameTime = 124522;
         final int testDate = 20050823;
         final Calendar diffHour = createCalendar(TimeZones.GMT, testDate, 115922); // same date, different time
@@ -237,7 +237,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
      */
     @Test
     @DefaultLocale(country = "UK", language = "en")
-    public void testDateTimeStyle() {
+    void testDateTimeStyle() {
         // Formats vary between JVMs, so create the test strings using the current JVM
         final DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
         final Calendar cal = Calendar.getInstance();
@@ -268,7 +268,7 @@ public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     @Test
     @DefaultLocale(country = "UK", language = "en")
     @DefaultTimeZone("GMT")
-    public void testFormat() {
+    void testFormat() {
         final Calendar cal20051231 = createCalendar(TimeZones.GMT, 20051231, 11500);
         // validator defaults to SHORT, but the format varies between JVMs
         final DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);

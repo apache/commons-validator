@@ -74,7 +74,7 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
      * Test Float Range/Min/Max
      */
     @Test
-    public void testFloatRangeMinMax() {
+    void testFloatRangeMinMax() {
         final FloatValidator validator = (FloatValidator) strictValidator;
         final Float number9 = validator.validate("9", "#");
         final Float number10 = validator.validate("10", "#");
@@ -105,7 +105,7 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
      * Test Float validation for values too small to handle. (slightly different from max/min which are the largest +ve/-ve
      */
     @Test
-    public void testFloatSmallestValues() {
+    void testFloatSmallestValues() {
         final String pattern = "#.#################################################################";
         final DecimalFormat fmt = new DecimalFormat(pattern);
 
@@ -134,7 +134,7 @@ public class FloatValidatorTest extends AbstractNumberValidatorTest {
      * Test FloatValidator validate Methods
      */
     @Test
-    public void testFloatValidatorMethods() {
+    void testFloatValidatorMethods() {
         final Locale locale = Locale.GERMAN;
         final String pattern = "0,00,00";
         final String patternVal = "1,23,45";

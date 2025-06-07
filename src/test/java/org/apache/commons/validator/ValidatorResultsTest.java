@@ -97,7 +97,7 @@ public class ValidatorResultsTest extends AbstractCommonTest {
      * Test all validations ran and passed.
      */
     @Test
-    public void testAllValid() throws ValidatorException {
+    void testAllValid() throws ValidatorException {
 
         // Create bean to run test on.
         final NameBean bean = createNameBean();
@@ -119,7 +119,7 @@ public class ValidatorResultsTest extends AbstractCommonTest {
      * Test some validations failed and some didn't run.
      */
     @Test
-    public void testErrors() throws ValidatorException {
+    void testErrors() throws ValidatorException {
 
         middleName = "XXX";
         lastName = null;

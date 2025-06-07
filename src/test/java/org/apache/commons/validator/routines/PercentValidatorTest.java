@@ -55,7 +55,7 @@ public class PercentValidatorTest {
      * Test Format Type
      */
     @Test
-    public void testFormatType() {
+    void testFormatType() {
         assertEquals(2, PercentValidator.getInstance().getFormatType(), "Format Type A");
         assertEquals(AbstractNumberValidator.PERCENT_FORMAT, PercentValidator.getInstance().getFormatType(), "Format Type B");
     }
@@ -64,7 +64,7 @@ public class PercentValidatorTest {
      * Test Invalid percentage values
      */
     @Test
-    public void testInvalid() {
+    void testInvalid() {
         final BigDecimalValidator validator = PercentValidator.getInstance();
 
         // Invalid Missing
@@ -87,7 +87,7 @@ public class PercentValidatorTest {
      */
     @Test
     @DefaultLocale("en-GB")
-    public void testValid() {
+    void testValid() {
         final BigDecimalValidator validator = PercentValidator.getInstance();
         final BigDecimal expected = new BigDecimal("0.12");
         final BigDecimal negative = new BigDecimal("-0.12");

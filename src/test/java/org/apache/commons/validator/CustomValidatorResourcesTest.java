@@ -47,7 +47,7 @@ public class CustomValidatorResourcesTest {
      * Test creating a custom validator resources.
      */
     @Test
-    public void testCustomResources() {
+    void testCustomResources() {
         // Load resources
         InputStream in = null;
         try {

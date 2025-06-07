@@ -84,7 +84,7 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
      * Test Long Range/Min/Max
      */
     @Test
-    public void testLongRangeMinMax() {
+    void testLongRangeMinMax() {
         final LongValidator validator = (LongValidator) strictValidator;
         final Long number9 = validator.validate("9", "#");
         final Long number10 = validator.validate("10", "#");
@@ -115,7 +115,7 @@ public class LongValidatorTest extends AbstractNumberValidatorTest {
      * Test LongValidator validate Methods
      */
     @Test
-    public void testLongValidatorMethods() {
+    void testLongValidatorMethods() {
         final Locale locale = Locale.GERMAN;
         final String pattern = "0,00,00";
         final String patternVal = "1,23,45";

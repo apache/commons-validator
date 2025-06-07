@@ -125,7 +125,7 @@ public class ValidatorTest {
      * Verify that one value generates an error and the other passes. The validation method being tested returns a {@code boolean} value.
      */
     @Test
-    public void testManualBoolean() {
+    void testManualBoolean() {
         final ValidatorResources resources = new ValidatorResources();
 
         final ValidatorAction va = new ValidatorAction();
@@ -180,7 +180,7 @@ public class ValidatorTest {
      * Verify that one value generates an error and the other passes. The validation method being tested returns a {@code boolean} value.
      */
     @Test
-    public void testManualBooleanDeprecated() {
+    void testManualBooleanDeprecated() {
         final ValidatorResources resources = new ValidatorResources();
 
         final ValidatorAction va = new ValidatorAction();
@@ -236,7 +236,7 @@ public class ValidatorTest {
      * an error).
      */
     @Test
-    public void testManualObject() {
+    void testManualObject() {
         // property name of the method we are validating
         final String property = "date";
         // name of ValidatorAction
@@ -286,7 +286,7 @@ public class ValidatorTest {
     }
 
     @Test
-    public void testOnlyReturnErrors() throws ValidatorException {
+    void testOnlyReturnErrors() throws ValidatorException {
         // property name of the method we are validating
         final String property = "date";
         // name of ValidatorAction
@@ -313,7 +313,7 @@ public class ValidatorTest {
     }
 
     @Test
-    public void testOnlyValidateField() throws ValidatorException {
+    void testOnlyValidateField() throws ValidatorException {
         // property name of the method we are validating
         final String property = "date";
         // name of ValidatorAction

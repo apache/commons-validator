@@ -39,7 +39,7 @@ import org.junit.runner.RunWith;
 public class DomainValidatorStartupTest {
 
     @Test
-    public void testCannotUpdate() {
+    void testCannotUpdate() {
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "ch"); // OK
         final DomainValidator dv = DomainValidator.getInstance();
         assertNotNull(dv);
@@ -47,7 +47,7 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testInstanceOverride() { // Show that the instance picks up static values
+    void testInstanceOverride() { // Show that the instance picks up static values
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "gp");
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, "com");
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_PLUS, "cp");
@@ -77,48 +77,48 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testUpdateBaseArrayCC() {
+    void testUpdateBaseArrayCC() {
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_RO, "com"));
         assertEquals("Cannot update the table: COUNTRY_CODE_RO", thrown.getMessage());
     }
 
     @Test
-    public void testUpdateBaseArrayGeneric() {
+    void testUpdateBaseArrayGeneric() {
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> DomainValidator.updateTLDOverride(ArrayType.GENERIC_RO, "com"));
         assertEquals("Cannot update the table: GENERIC_RO", thrown.getMessage());
     }
 
     @Test
-    public void testUpdateBaseArrayInfra() {
+    void testUpdateBaseArrayInfra() {
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> DomainValidator.updateTLDOverride(ArrayType.INFRASTRUCTURE_RO, "com"));
         assertEquals("Cannot update the table: INFRASTRUCTURE_RO", thrown.getMessage());
     }
 
     @Test
-    public void testUpdateBaseArrayLocal() {
+    void testUpdateBaseArrayLocal() {
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> DomainValidator.updateTLDOverride(ArrayType.LOCAL_RO, "com"));
         assertEquals("Cannot update the table: LOCAL_RO", thrown.getMessage());
     }
 
     @Test
-    public void testUpdateCountryCode1a() {
+    void testUpdateCountryCode1a() {
         final DomainValidator validator = DomainValidator.getInstance();
         assertFalse(validator.isValidCountryCodeTld("com")); // cannot be valid
     }
 
     @Test
-    public void testUpdateCountryCode1b() {
+    void testUpdateCountryCode1b() {
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_PLUS, "com");
         final DomainValidator validator = DomainValidator.getInstance();
         assertTrue(validator.isValidCountryCodeTld("com")); // it is now!
     }
 
     @Test
-    public void testUpdateCountryCode2() {
+    void testUpdateCountryCode2() {
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_PLUS, "com");
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, "com");
         final DomainValidator validator = DomainValidator.getInstance();
@@ -126,20 +126,20 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testUpdateCountryCode3a() { // show ch is valid
+    void testUpdateCountryCode3a() { // show ch is valid
         final DomainValidator validator = DomainValidator.getInstance();
         assertTrue(validator.isValidCountryCodeTld("ch"));
     }
 
     @Test
-    public void testUpdateCountryCode3b() { // show ch can be made invalid
+    void testUpdateCountryCode3b() { // show ch can be made invalid
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, "ch");
         final DomainValidator validator = DomainValidator.getInstance();
         assertFalse(validator.isValidCountryCodeTld("ch"));
     }
 
     @Test
-    public void testUpdateCountryCode3c() { // show ch can be made valid again by replacing the CC array
+    void testUpdateCountryCode3c() { // show ch can be made valid again by replacing the CC array
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, "ch");
         DomainValidator.updateTLDOverride(ArrayType.COUNTRY_CODE_MINUS, "xx");
         final DomainValidator validator = DomainValidator.getInstance();
@@ -147,20 +147,20 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testUpdateGeneric1() {
+    void testUpdateGeneric1() {
         final DomainValidator validator = DomainValidator.getInstance();
         assertFalse(validator.isValidGenericTld("ch")); // cannot be valid
     }
 
     @Test
-    public void testUpdateGeneric2() {
+    void testUpdateGeneric2() {
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "ch");
         final DomainValidator validator = DomainValidator.getInstance();
         assertTrue(validator.isValidGenericTld("ch")); // it is now!
     }
 
     @Test
-    public void testUpdateGeneric3() {
+    void testUpdateGeneric3() {
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "ch");
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, "ch");
         final DomainValidator validator = DomainValidator.getInstance();
@@ -169,7 +169,7 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testUpdateGeneric4() {
+    void testUpdateGeneric4() {
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "ch");
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, "ch");
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, "com");
@@ -178,7 +178,7 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testUpdateGeneric5() {
+    void testUpdateGeneric5() {
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "ch");
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, "ch");
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_MINUS, "com");
@@ -188,7 +188,7 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testValidator412a() {
+    void testValidator412a() {
         final DomainValidator validator = DomainValidator.getInstance();
         assertFalse(validator.isValidGenericTld("local"));
         assertFalse(validator.isValid("abc.local"));
@@ -197,7 +197,7 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testValidator412b() {
+    void testValidator412b() {
         DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "local", "pvt");
         final DomainValidator validator = DomainValidator.getInstance();
         assertTrue(validator.isValidGenericTld("local"));
@@ -207,7 +207,7 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testValidator412c() {
+    void testValidator412c() {
         final DomainValidator validator = DomainValidator.getInstance(true);
         assertFalse(validator.isValidLocalTld("local"));
         assertFalse(validator.isValid("abc.local"));
@@ -216,7 +216,7 @@ public class DomainValidatorStartupTest {
     }
 
     @Test
-    public void testValidator412d() {
+    void testValidator412d() {
         DomainValidator.updateTLDOverride(ArrayType.LOCAL_PLUS, "local", "pvt");
         final DomainValidator validator = DomainValidator.getInstance(true);
         assertTrue(validator.isValidLocalTld("local"));

@@ -57,7 +57,7 @@ public class ExceptionTest extends AbstractCommonTest {
      * reconsidered then.
      */
     @Disabled
-    public void testCheckedException() {
+    void testCheckedException() {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue("CHECKED");
@@ -92,7 +92,7 @@ public class ExceptionTest extends AbstractCommonTest {
      * reconsidered then.
      */
     @Disabled
-    public void testRuntimeException() throws ValidatorException {
+    void testRuntimeException() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue("RUNTIME");
@@ -119,7 +119,7 @@ public class ExceptionTest extends AbstractCommonTest {
      * Tests handling of checked exceptions - should become ValidatorExceptions.
      */
     @Test
-    public void testValidatorException() {
+    void testValidatorException() {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue("VALIDATOR");

@@ -36,7 +36,7 @@ public class ISBNValidatorTest {
     private static final String INVALID_ISBN = "068-556-98-45";
 
     @Test
-    public void testIsValid() throws Exception {
+    void testIsValid() throws Exception {
         final ISBNValidator validator = new ISBNValidator();
         assertFalse(validator.isValid(null));
         assertFalse(validator.isValid(""));

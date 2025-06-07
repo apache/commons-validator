@@ -73,7 +73,7 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
      * Test Short Range/Min/Max
      */
     @Test
-    public void testShortRangeMinMax() {
+    void testShortRangeMinMax() {
         final ShortValidator validator = (ShortValidator) strictValidator;
         final Short number9 = validator.validate("9", "#");
         final Short number10 = validator.validate("10", "#");
@@ -106,7 +106,7 @@ public class ShortValidatorTest extends AbstractNumberValidatorTest {
      * Test ShortValidator validate Methods
      */
     @Test
-    public void testShortValidatorMethods() {
+    void testShortValidatorMethods() {
         final Locale locale = Locale.GERMAN;
         final String pattern = "0,00,00";
         final String patternVal = "1,23,45";

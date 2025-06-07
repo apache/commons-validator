@@ -143,7 +143,7 @@ public abstract class AbstractCheckDigitTest {
      * Test calculate() for invalid values.
      */
     @Test
-    public void testCalculateInvalid() {
+    void testCalculateInvalid() {
 
         if (log.isDebugEnabled()) {
             log.debug("testCalculateInvalid() for " + routine.getClass().getName());
@@ -181,7 +181,7 @@ public abstract class AbstractCheckDigitTest {
      * Test calculate() for valid values.
      */
     @Test
-    public void testCalculateValid() {
+    void testCalculateValid() {
         if (log.isDebugEnabled()) {
             log.debug("testCalculateValid() for " + routine.getClass().getName());
         }
@@ -206,7 +206,7 @@ public abstract class AbstractCheckDigitTest {
      * Test isValid() for invalid values.
      */
     @Test
-    public void testIsValidFalse() {
+    void testIsValidFalse() {
         if (log.isDebugEnabled()) {
             log.debug("testIsValidFalse() for " + routine.getClass().getName());
         }
@@ -233,7 +233,7 @@ public abstract class AbstractCheckDigitTest {
      * Test isValid() for valid values.
      */
     @Test
-    public void testIsValidTrue() {
+    void testIsValidTrue() {
         if (log.isDebugEnabled()) {
             log.debug("testIsValidTrue() for " + routine.getClass().getName());
         }
@@ -251,7 +251,7 @@ public abstract class AbstractCheckDigitTest {
      * Test missing code
      */
     @Test
-    public void testMissingCode() {
+    void testMissingCode() {
 
         // isValid() null
         assertFalse(routine.isValid(null), "isValid() Null");
@@ -276,7 +276,7 @@ public abstract class AbstractCheckDigitTest {
      * Test check digit serialization.
      */
     @Test
-    public void testSerialization() {
+    void testSerialization() {
         assumeTrue(routine instanceof Serializable);
         // Serialize the check digit routine
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -302,7 +302,7 @@ public abstract class AbstractCheckDigitTest {
      * Test zero sum
      */
     @Test
-    public void testZeroSum() {
+    void testZeroSum() {
         assertFalse(routine.isValid(zeroSum), "isValid() Zero Sum");
         final Exception e = assertThrows(Exception.class, () -> routine.calculate(zeroSum), "Zero Sum");
         assertEquals("Invalid code, sum is zero", e.getMessage(), "isValid() Zero Sum");
