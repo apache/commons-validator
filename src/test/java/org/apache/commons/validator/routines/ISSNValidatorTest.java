@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ISSNValidator}.
  */
-public class ISSNValidatorTest {
+class ISSNValidatorTest {
 
     private static final ISSNValidator VALIDATOR = ISSNValidator.getInstance();
 

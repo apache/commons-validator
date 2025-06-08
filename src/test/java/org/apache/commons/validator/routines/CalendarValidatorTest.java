@@ -42,7 +42,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 /**
  * Test Case for CalendarValidator.
  */
-public class CalendarValidatorTest extends AbstractCalendarValidatorTest {
+class CalendarValidatorTest extends AbstractCalendarValidatorTest {
 
     private static final int DATE_2005_11_23 = 20051123;
     private static final int TIME_12_03_45 = 120345;

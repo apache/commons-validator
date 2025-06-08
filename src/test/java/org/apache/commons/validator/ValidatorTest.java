@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Performs Validation Test.
  */
-public class ValidatorTest {
+class ValidatorTest {
 
     public static class TestBean {
         private String letter;

@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests entity imports.
  */
-public class EntityImportTest extends AbstractCommonTest {
+class EntityImportTest extends AbstractCommonTest {
 
     /**
      * Tests the entity import loading the {@code byteForm} form.

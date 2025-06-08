@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test Case for LongValidator.
  */
-public class LongValidatorTest extends AbstractNumberValidatorTest {
+class LongValidatorTest extends AbstractNumberValidatorTest {
 
     private static final Long LONG_MIN_VAL = Long.valueOf(Long.MIN_VALUE);
     private static final Long LONG_MAX_VAL = Long.valueOf(Long.MAX_VALUE);

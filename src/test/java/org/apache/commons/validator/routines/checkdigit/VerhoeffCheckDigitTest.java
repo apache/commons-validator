@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Verhoeff Check Digit Test.
  */
-public class VerhoeffCheckDigitTest extends AbstractCheckDigitTest {
+class VerhoeffCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.

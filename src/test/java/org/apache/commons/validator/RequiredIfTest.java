@@ -30,7 +30,7 @@ import org.xml.sax.SAXException;
 /**
  * Performs Validation Test.
  */
-public class RequiredIfTest extends AbstractCommonTest {
+class RequiredIfTest extends AbstractCommonTest {
 
     /**
      * The key used to retrieve the set of validation rules from the xml file.

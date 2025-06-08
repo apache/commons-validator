@@ -31,7 +31,7 @@ import org.junitpioneer.jupiter.DefaultLocale;
 /**
  * Test Case for PercentValidator.
  */
-public class PercentValidatorTest {
+class PercentValidatorTest {
 
     protected PercentValidator validator;
     private Locale originalLocale;

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test custom ValidatorResources.
  */
-public class CustomValidatorResourcesTest {
+class CustomValidatorResourcesTest {
 
     /**
      * Sets up.

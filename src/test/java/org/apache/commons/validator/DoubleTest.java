@@ -21,9 +21,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Performs Validation Test for {@code double} validations.
  */
-public class DoubleTest extends AbstractNumberTest {
+class DoubleTest extends AbstractNumberTest {
 
-    public DoubleTest() {
+    DoubleTest() {
         action = "double";
         formKey = "doubleForm";
     }

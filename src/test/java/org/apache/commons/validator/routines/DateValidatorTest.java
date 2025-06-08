@@ -38,7 +38,7 @@ import org.junitpioneer.jupiter.DefaultLocale;
 /**
  * Test Case for DateValidator.
  */
-public class DateValidatorTest extends AbstractCalendarValidatorTest {
+class DateValidatorTest extends AbstractCalendarValidatorTest {
 
     private DateValidator dateValidator;
 

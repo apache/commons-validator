@@ -31,7 +31,7 @@ import org.xml.sax.SAXException;
 /**
  * Tests retrieving forms using different Locales.
  */
-public class RetrieveFormTest {
+class RetrieveFormTest {
 
     /**
      * Prefix for the forms.

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test Case for ByteValidator.
  */
-public class ByteValidatorTest extends AbstractNumberValidatorTest {
+class ByteValidatorTest extends AbstractNumberValidatorTest {
 
     private static final Byte BYTE_MIN_VAL = Byte.valueOf(Byte.MIN_VALUE);
     private static final Byte BYTE_MAX_VAL = Byte.valueOf(Byte.MAX_VALUE);

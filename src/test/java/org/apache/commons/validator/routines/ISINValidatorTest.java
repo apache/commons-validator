@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ISINValidator}.
  */
-public class ISINValidatorTest {
+class ISINValidatorTest {
 
     private static final ISINValidator VALIDATOR_TRUE = ISINValidator.getInstance(true);
 

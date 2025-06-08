@@ -55,7 +55,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests {@link IBANValidator}.
  */
-public class IBANValidatorTest {
+class IBANValidatorTest {
 
     private static final IBANValidator VALIDATOR = IBANValidator.getInstance();
 

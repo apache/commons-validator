@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test Case for BigIntegerValidator.
  */
-public class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
+class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
 
     @BeforeEach
     protected void setUp() {

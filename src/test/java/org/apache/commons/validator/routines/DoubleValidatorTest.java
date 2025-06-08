@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test Case for DoubleValidator.
  */
-public class DoubleValidatorTest extends AbstractNumberValidatorTest {
+class DoubleValidatorTest extends AbstractNumberValidatorTest {
 
     @BeforeEach
     protected void setUp() {

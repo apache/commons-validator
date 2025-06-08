@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * ISIN Check Digit Test.
  */
-public class ISINCheckDigitTest extends AbstractCheckDigitTest {
+class ISINCheckDigitTest extends AbstractCheckDigitTest {
 
     private static final String[] INVALID_CHECK_DIGITS = { "US037833100O", // proper check digit is '5', see above
             "BMG8571G109D", // proper check digit is '6', see above

@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test {@code Field} objects.
  */
-public class FieldTest {
+class FieldTest {
 
     protected Field field;
 

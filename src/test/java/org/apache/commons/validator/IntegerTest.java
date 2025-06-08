@@ -21,9 +21,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Performs Validation Test for {@code int} validations.
  */
-public class IntegerTest extends AbstractNumberTest {
+class IntegerTest extends AbstractNumberTest {
 
-    public IntegerTest() {
+    IntegerTest() {
         formKey = "intForm";
         action = "int";
     }

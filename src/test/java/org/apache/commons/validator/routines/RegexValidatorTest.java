@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test Case for RegexValidatorTest.
  */
-public class RegexValidatorTest {
+class RegexValidatorTest {
     private static final String REGEX = "^([abc]*)(?:\\-)([DEF]*)(?:\\-)([123]*)$";
     private static final String COMPONENT_1 = "([abc]{3})";
     private static final String COMPONENT_2 = "([DEF]{3})";

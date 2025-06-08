@@ -21,7 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * EC Number Check Digit Tests.
  */
-public class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
+class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
 
     private static final String MIN = "000-001-6"; // theoretical
     private static final String FORMALDEHYDE = "200-001-8"; // this is the first entry in EINECS

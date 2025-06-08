@@ -21,7 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * Luhn Check Digit Test.
  */
-public class LuhnCheckDigitTest extends AbstractCheckDigitTest {
+class LuhnCheckDigitTest extends AbstractCheckDigitTest {
 
     private static final String VALID_VISA = "4417123456789113";
     private static final String VALID_SHORT_VISA = "4222222222222";

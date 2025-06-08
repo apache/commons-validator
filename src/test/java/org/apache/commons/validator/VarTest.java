@@ -33,7 +33,7 @@ import org.xml.sax.SAXException;
 /**
  * Test that the new Var attributes and the digester rule changes work.
  */
-public class VarTest extends AbstractCommonTest {
+class VarTest extends AbstractCommonTest {
 
     /**
      * The key used to retrieve the set of validation rules from the xml file.

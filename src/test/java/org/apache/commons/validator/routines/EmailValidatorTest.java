@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Performs Validation Test for e-mail validations.
  */
-public class EmailValidatorTest {
+class EmailValidatorTest {
 
     /**
      * The key used to retrieve the set of validation rules from the xml file.

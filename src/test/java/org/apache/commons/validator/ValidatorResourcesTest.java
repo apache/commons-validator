@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test ValidatorResources.
  */
-public class ValidatorResourcesTest {
+class ValidatorResourcesTest {
 
     /**
      * Test null Input Stream for Validator Resources.

@@ -21,7 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * ISBN-10 Check Digit Test.
  */
-public class ISBN10CheckDigitTest extends AbstractCheckDigitTest {
+class ISBN10CheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.

@@ -30,9 +30,9 @@ import org.junit.jupiter.api.Test;
 /**
  * IBAN Check Digit Test.
  */
-public class IBANCheckDigitTest extends AbstractCheckDigitTest {
+class IBANCheckDigitTest extends AbstractCheckDigitTest {
 
-    public IBANCheckDigitTest() {
+    IBANCheckDigitTest() {
         checkDigitLth = 2;
     }
 

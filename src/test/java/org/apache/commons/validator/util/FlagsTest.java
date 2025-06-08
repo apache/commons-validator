@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the Flags class.
  */
-public class FlagsTest {
+class FlagsTest {
 
     /**
      * Declare some flags for testing.

@@ -34,7 +34,7 @@ import org.xml.sax.SAXException;
  * @deprecated to be removed when target class is removed
  */
 @Deprecated
-public class EmailTest extends AbstractCommonTest {
+class EmailTest extends AbstractCommonTest {
 
     /**
      * The key used to retrieve the set of validation rules from the xml file.

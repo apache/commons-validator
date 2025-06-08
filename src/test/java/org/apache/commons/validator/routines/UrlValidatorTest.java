@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Performs Validation Test for url validations.
  */
-public class UrlValidatorTest {
+class UrlValidatorTest {
 
     static boolean incrementTestPartsIndex(final int[] testPartsIndex, final Object[] testParts) {
         boolean carry = true; // add 1 to lowest order part.

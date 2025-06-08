@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ValidatorUtilsTest}.
  */
-public class ValidatorUtilsTest {
+class ValidatorUtilsTest {
 
     @Test
     void testCopyFastHashMap() {

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test Case for ShortValidator.
  */
-public class ShortValidatorTest extends AbstractNumberValidatorTest {
+class ShortValidatorTest extends AbstractNumberValidatorTest {
 
     @BeforeEach
     protected void setUp() {

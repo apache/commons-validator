@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
  * @deprecated this test can be removed when the deprecated class is removed
  */
 @Deprecated
-public class CreditCardValidatorTest {
+class CreditCardValidatorTest {
 
     /**
      * Test a custom implementation of CreditCardType.

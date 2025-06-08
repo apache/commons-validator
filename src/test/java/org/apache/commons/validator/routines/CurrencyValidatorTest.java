@@ -32,7 +32,7 @@ import org.junitpioneer.jupiter.DefaultLocale;
 /**
  * Test Case for CurrencyValidator.
  */
-public class CurrencyValidatorTest {
+class CurrencyValidatorTest {
 
     private static final char CURRENCY_SYMBOL = '\u00A4';
 

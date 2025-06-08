@@ -29,7 +29,7 @@ import org.xml.sax.SAXException;
 /**
  * Abstracts date unit tests methods.
  */
-public class DateTest extends AbstractCommonTest {
+class DateTest extends AbstractCommonTest {
 
     /**
      * The key used to retrieve the set of validation rules from the xml file.

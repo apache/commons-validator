@@ -30,7 +30,7 @@ import org.xml.sax.SAXException;
 /**
  * Performs Validation Test for locale validations.
  */
-public class LocaleTest extends AbstractCommonTest {
+class LocaleTest extends AbstractCommonTest {
 
     /**
      * The key used to retrieve the set of validation rules from the xml file.

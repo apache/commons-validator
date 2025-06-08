@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * CodeValidatorTest.java.
  */
-public class CodeValidatorTest {
+class CodeValidatorTest {
 
     /**
      * Test Check Digit.

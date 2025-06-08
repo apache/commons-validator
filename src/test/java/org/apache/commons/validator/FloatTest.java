@@ -21,9 +21,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Performs Validation Test for {@code float} validations.
  */
-public class FloatTest extends AbstractNumberTest {
+class FloatTest extends AbstractNumberTest {
 
-    public FloatTest() {
+    FloatTest() {
         action = "float";
         formKey = "floatForm";
     }

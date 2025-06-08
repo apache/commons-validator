@@ -21,9 +21,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Performs Validation Test for {@code short} validations.
  */
-public class ShortTest extends AbstractNumberTest {
+class ShortTest extends AbstractNumberTest {
 
-    public ShortTest() {
+    ShortTest() {
         formKey = "shortForm";
         action = "short";
     }

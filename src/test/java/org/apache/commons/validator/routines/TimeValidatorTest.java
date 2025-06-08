@@ -40,7 +40,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 /**
  * Test Case for TimeValidator.
  */
-public class TimeValidatorTest {
+class TimeValidatorTest {
 
     /**
      * Create a date instance for a specified time zone, date and time.

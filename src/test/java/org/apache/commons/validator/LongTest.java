@@ -21,9 +21,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Performs Validation Test for {@code long} validations.
  */
-public class LongTest extends AbstractNumberTest {
+class LongTest extends AbstractNumberTest {
 
-    public LongTest() {
+    LongTest() {
         formKey = "longForm";
         action = "long";
     }

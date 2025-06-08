@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the GenericValidator class.
  */
-public class GenericValidatorTest {
+class GenericValidatorTest {
 
     @Test
     void testMaxLength() {

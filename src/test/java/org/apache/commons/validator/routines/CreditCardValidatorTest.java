@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the CreditCardValidator class.
  */
-public class CreditCardValidatorTest {
+class CreditCardValidatorTest {
 
     private static final String VALID_VISA = "4417123456789113"; // 16
     private static final String ERROR_VISA = "4417123456789112";

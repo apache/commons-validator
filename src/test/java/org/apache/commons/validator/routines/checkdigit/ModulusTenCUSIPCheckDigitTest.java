@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * ModulusTenCheckDigit CUSIP Test.
  */
-public class ModulusTenCUSIPCheckDigitTest extends AbstractCheckDigitTest {
+class ModulusTenCUSIPCheckDigitTest extends AbstractCheckDigitTest {
 
     private static final String[] INVALID_CHECK_DIGITS = { "DUS0421CW", "DUS0421CN", "DUS0421CE" };
 

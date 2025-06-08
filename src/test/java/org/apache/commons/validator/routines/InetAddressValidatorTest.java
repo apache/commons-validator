@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test cases for InetAddressValidator.
  */
-public class InetAddressValidatorTest {
+class InetAddressValidatorTest {
 
     private InetAddressValidator validator;
 

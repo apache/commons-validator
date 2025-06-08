@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
  * definitions (validator-extension.xml), plus an extra check on overriding rules and another one checking it maintains correct order when extending.
  * </p>
  */
-public class ExtensionTest {
+class ExtensionTest {
 
     /**
      * The key used to retrieve the set of validation rules from the xml file.

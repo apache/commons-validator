@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test Case for IntegerValidator.
  */
-public class IntegerValidatorTest extends AbstractNumberValidatorTest {
+class IntegerValidatorTest extends AbstractNumberValidatorTest {
 
     private static final Integer INT_MIN_VAL = Integer.valueOf(Integer.MIN_VALUE);
     private static final Integer INT_MAX_VAL = Integer.valueOf(Integer.MAX_VALUE);

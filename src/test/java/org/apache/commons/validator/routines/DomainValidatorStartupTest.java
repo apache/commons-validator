@@ -36,7 +36,7 @@ import org.junit.runner.RunWith;
  * TODO Port to JUnit 5.
  */
 @RunWith(ClassLoaderPerTestRunner.class)
-public class DomainValidatorStartupTest {
+class DomainValidatorStartupTest {
 
     @Test
     void testCannotUpdate() {

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ISBNValidator}.
  */
-public class ISBNValidatorTest {
+class ISBNValidatorTest {
 
     private final String[] validISBN10Format = { "1234567890", "123456789X", "12345-1234567-123456-X", "12345 1234567 123456 X", "1-2-3-4", "1 2 3 4", };
 

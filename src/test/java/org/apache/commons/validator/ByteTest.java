@@ -21,9 +21,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Performs Validation Test for {@code byte} validations.
  */
-public class ByteTest extends AbstractNumberTest {
+class ByteTest extends AbstractNumberTest {
 
-    public ByteTest() {
+    ByteTest() {
         action = "byte";
         formKey = "byteForm";
     }

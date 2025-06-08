@@ -31,7 +31,7 @@ import org.xml.sax.SAXException;
 /**
  * Test ValidatorResults.
  */
-public class ValidatorResultsTest extends AbstractCommonTest {
+class ValidatorResultsTest extends AbstractCommonTest {
 
     private static final String FORM_KEY = "nameForm";
     private static final String FIRST_NAME_FIELD = "firstName";

@@ -33,7 +33,7 @@ import org.xml.sax.SAXException;
 /**
  * Performs Validation Test for type validations.
  */
-public class GenericTypeValidatorTest extends AbstractCommonTest {
+class GenericTypeValidatorTest extends AbstractCommonTest {
 
     /**
      * The key used to retrieve the set of validation rules from the xml file.

@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test Case for FloatValidator.
  */
-public class FloatValidatorTest extends AbstractNumberValidatorTest {
+class FloatValidatorTest extends AbstractNumberValidatorTest {
 
     @BeforeEach
     protected void setUp() {
