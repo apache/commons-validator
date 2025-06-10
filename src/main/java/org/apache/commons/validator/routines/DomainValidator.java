@@ -181,7 +181,7 @@ public class DomainValidator implements Serializable {
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = {
         // Taken from:
-        // Version 2024121700, Last Updated Tue Dec 17 07:07:01 2024 UTC
+        // Version 2025061000, Last Updated Tue Jun 10 07:07:01 2025 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
         // "abarth", // abarth Fiat Chrysler Automobiles N.V.
@@ -287,7 +287,7 @@ public class DomainValidator implements Serializable {
         "beats", // beats Beats Electronics, LLC
         "beauty", // beauty L&#39;Oréal
         "beer", // beer Top Level Domain Holdings Limited
-        "bentley", // bentley Bentley Motors Limited
+        // "bentley", // bentley Bentley Motors Limited
         "berlin", // berlin dotBERLIN GmbH &amp; Co. KG
         "best", // best BestTLD Pty Ltd
         "bestbuy", // bestbuy BBY Solutions, Inc.
