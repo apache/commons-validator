@@ -28,7 +28,8 @@ import org.junit.jupiter.api.Test;
  * @deprecated to be removed when org.apache.commons.validator.UrlValidator is removed
  */
 @Deprecated
-class UrlTest {
+public class UrlTest {
+// Must be public, because it has a main method.
 
     static boolean incrementTestPartsIndex(final int[] testPartsIndex, final Object[] testParts) {
         boolean carry = true; // add 1 to lowest order part.
