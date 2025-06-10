@@ -53,8 +53,8 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for the DomainValidator.
  */
-class DomainValidatorTest {
-
+public class DomainValidatorTest {
+// Must be public, because it has a main method.
     private static void closeQuietly(final Closeable in) {
         if (in != null) {
             try {
