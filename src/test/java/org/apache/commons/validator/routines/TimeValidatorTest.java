@@ -278,7 +278,7 @@ class TimeValidatorTest {
         // Locale, diff TimeZone
         final DateFormat usdf = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.US);
         final Calendar uscal = Calendar.getInstance(Locale.US);
-        uscal.set(2005, 0, 1, 19, 18); // month is 0-based
+        uscal.set(2005, Calendar.JANUARY, 1, 19, 18); // month is 0-based
         final String usVal = usdf.format(uscal.getTime());
         result = validator.validate(usVal, Locale.US, TestTimeZones.EST);
         assertNotNull(result, "locale result: " + usVal);
