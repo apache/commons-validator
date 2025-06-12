@@ -116,7 +116,7 @@ class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         // Don't rely on specific German format - it varies between JVMs
         final DateFormat df = new SimpleDateFormat(germanPattern, locale);
         final Calendar cal = Calendar.getInstance(Locale.US);
-        cal.set(2005, 11, 31); // month is 0-based
+        cal.set(2005, Calendar.DECEMBER, 31);
         final String germanVal = df.format(cal.getTime());
         final String localeVal = "31.12.2005";
         final String defaultVal = "12/31/05";
@@ -241,12 +241,12 @@ class CalendarValidatorTest extends AbstractCalendarValidatorTest {
         // Formats vary between JVMs, so create the test strings using the current JVM
         final DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
         final Calendar cal = Calendar.getInstance();
-        cal.set(2005, 11, 31, 14, 23); // month is 0-based
+        cal.set(2005, Calendar.DECEMBER, 31, 14, 23);
         final String val = df.format(cal.getTime());
 
         final DateFormat usdf = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.US);
         final Calendar uscal = Calendar.getInstance(Locale.US);
-        uscal.set(2005, 11, 31, 14, 23); // month is 0-based
+        uscal.set(2005, Calendar.DECEMBER, 31, 14, 23);
         final String usval = usdf.format(uscal.getTime());
 
         final AbstractCalendarValidator dateTimeValidator = new AbstractCalendarValidator(true, DateFormat.SHORT, DateFormat.SHORT) {
