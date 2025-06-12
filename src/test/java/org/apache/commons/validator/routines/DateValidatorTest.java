@@ -138,7 +138,7 @@ class DateValidatorTest extends AbstractCalendarValidatorTest {
         // Don't rely on specific German format - it varies between JVMs
         final DateFormat df = new SimpleDateFormat(germanPattern, locale);
         final Calendar cal = Calendar.getInstance(Locale.US);
-        cal.set(2005, 11, 31); // month is 0-based
+        cal.set(2005, Calendar.DECEMBER, 31); // month is 0-based
         final String germanVal = df.format(cal.getTime());
         final String localeVal = "31.12.2005";
         final String defaultVal = "12/31/05";
