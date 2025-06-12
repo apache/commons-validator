@@ -80,6 +80,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="Gary Gregory, SpotBugs">Shared primitive variable "page" in one thread may not yield the value of the most recent write from another thread [org.apache.commons.validator.Field] At Field.java:[line 818] AT_STALE_THREAD_WRITE_OF_PRIMITIVE.</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory, SpotBugs">Shared primitive variable "merged" in one thread may not yield the value of the most recent write from another thread [org.apache.commons.validator.FormSet] At FormSet.java:[line 302] AT_STALE_THREAD_WRITE_OF_PRIMITIVE.</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory">Pick up exec-maven-plugin version from parent POM.</action>
+    <action type="fix" dev="ggregory" due-to="Dávid Szigecsán">Use a Calendar constant instead of a magic number in tests. Make the code understandable without comment.</action>
     <!-- ADD -->
     <action type="add" issue="VALIDATOR-497" dev="sjaranowski" due-to="Slawomir Jaranowski">IBANValidator: add method validate with validation status</action>
     <action type="add" dev="sebb">DomainValidatorTest: added Maven profile to simplfy execution.</action>
