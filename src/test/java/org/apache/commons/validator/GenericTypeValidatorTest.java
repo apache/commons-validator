@@ -33,7 +33,7 @@ import org.xml.sax.SAXException;
 /**
  * Performs Validation Test for type validations.
  */
-public class GenericTypeValidatorTest extends AbstractCommonTest {
+class GenericTypeValidatorTest extends AbstractCommonTest {
 
     /**
      * The key used to retrieve the set of validation rules from the xml file.
@@ -102,7 +102,7 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
      * Tests the fr locale.
      */
     @Test
-    public void testFRLocale() throws ValidatorException {
+    void testFRLocale() throws ValidatorException {
         // Create bean to run test on.
         final TypeBean info = new TypeBean();
         info.setByte("12");
@@ -121,7 +121,7 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
      * Tests the byte validation.
      */
     @Test
-    public void testType() throws ValidatorException {
+    void testType() throws ValidatorException {
         // Create bean to run test on.
         final TypeBean info = new TypeBean();
         info.setByte("12");
@@ -175,7 +175,7 @@ public class GenericTypeValidatorTest extends AbstractCommonTest {
      * Tests the us locale
      */
     @Test
-    public void testUSLocale() throws ValidatorException {
+    void testUSLocale() throws ValidatorException {
         // Create bean to run test on.
         final TypeBean info = new TypeBean();
         info.setByte("12");

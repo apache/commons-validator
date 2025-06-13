@@ -30,7 +30,7 @@ import org.xml.sax.SAXException;
 /**
  * Performs Validation Test.
  */
-public class MultipleTest extends AbstractCommonTest {
+class MultipleTest extends AbstractCommonTest {
 
     /**
      * The key used to retrieve the set of validation rules from the xml file.
@@ -59,7 +59,7 @@ public class MultipleTest extends AbstractCommonTest {
      * With nothing provided, we should fail both because both are required.
      */
     @Test
-    public void testBothBlank() throws ValidatorException {
+    void testBothBlank() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
 
@@ -98,7 +98,7 @@ public class MultipleTest extends AbstractCommonTest {
      * @throws ValidatorException
      */
     @Test
-    public void testFailingFirstDependentValidator() throws ValidatorException {
+    void testFailingFirstDependentValidator() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
 
@@ -132,7 +132,7 @@ public class MultipleTest extends AbstractCommonTest {
      * @throws ValidatorException
      */
     @Test
-    public void testFailingNextDependentValidator() throws ValidatorException {
+    void testFailingNextDependentValidator() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
         name.setMiddleName("TEST");
@@ -168,7 +168,7 @@ public class MultipleTest extends AbstractCommonTest {
      * @throws ValidatorException
      */
     @Test
-    public void testPassingDependentsFailingMain() throws ValidatorException {
+    void testPassingDependentsFailingMain() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
         name.setMiddleName("-2534");
@@ -205,7 +205,7 @@ public class MultipleTest extends AbstractCommonTest {
      * @throws ValidatorException
      */
     @Test
-    public void testPassingDependentsPassingMain() throws ValidatorException {
+    void testPassingDependentsPassingMain() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
         name.setMiddleName("2534");
@@ -240,7 +240,7 @@ public class MultipleTest extends AbstractCommonTest {
      * If the first name fails required, and the second test fails int, we should get two errors.
      */
     @Test
-    public void testRequiredFirstNameBlankLastNameShort() throws ValidatorException {
+    void testRequiredFirstNameBlankLastNameShort() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
         name.setFirstName("");
@@ -274,7 +274,7 @@ public class MultipleTest extends AbstractCommonTest {
      * If first name is ok and last name is ok and is an int, no errors.
      */
     @Test
-    public void testRequiredLastNameLong() throws ValidatorException {
+    void testRequiredLastNameLong() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
         name.setFirstName("Joe");
@@ -308,7 +308,7 @@ public class MultipleTest extends AbstractCommonTest {
      * If the first name is there, and the last name fails int, we should get one error.
      */
     @Test
-    public void testRequiredLastNameShort() throws ValidatorException {
+    void testRequiredLastNameShort() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
         name.setFirstName("Test");

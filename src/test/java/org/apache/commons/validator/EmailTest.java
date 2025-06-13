@@ -34,7 +34,7 @@ import org.xml.sax.SAXException;
  * @deprecated to be removed when target class is removed
  */
 @Deprecated
-public class EmailTest extends AbstractCommonTest {
+class EmailTest extends AbstractCommonTest {
 
     /**
      * The key used to retrieve the set of validation rules from the xml file.
@@ -96,7 +96,7 @@ public class EmailTest extends AbstractCommonTest {
      * Tests the e-mail validation.
      */
     @Test
-    public void testEmail() throws ValidatorException {
+    void testEmail() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
 
@@ -108,7 +108,7 @@ public class EmailTest extends AbstractCommonTest {
      * Tests the e-mail validation with a user at a TLD
      */
     @Test
-    public void testEmailAtTLD() throws ValidatorException {
+    void testEmailAtTLD() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
 
@@ -125,7 +125,7 @@ public class EmailTest extends AbstractCommonTest {
      * Tests the e-mail validation.
      */
     @Test
-    public void testEmailExtension() throws ValidatorException {
+    void testEmailExtension() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
 
@@ -162,7 +162,7 @@ public class EmailTest extends AbstractCommonTest {
      *                            FIXME This test fails so disable it with a leading _ for 1.1.4 release. The real solution is to fix the email parsing.
      */
     @Disabled
-    public void testEmailFromPerl() throws ValidatorException {
+    void testEmailFromPerl() throws ValidatorException {
         final ValueBean info = new ValueBean();
         for (final ResultPair element : testEmailFromPerl) {
             info.setValue(element.item);
@@ -174,7 +174,7 @@ public class EmailTest extends AbstractCommonTest {
      * Test that @localhost and @localhost.localdomain addresses aren't declared valid by default
      */
     @Test
-    public void testEmailLocalhost() throws ValidatorException {
+    void testEmailLocalhost() throws ValidatorException {
         final ValueBean info = new ValueBean();
         info.setValue("joe@localhost");
         valueTest(info, false);
@@ -191,7 +191,7 @@ public class EmailTest extends AbstractCommonTest {
      * @throws ValidatorException
      */
     @Disabled
-    public void testEmailUserName() throws ValidatorException {
+    void testEmailUserName() throws ValidatorException {
         final ValueBean info = new ValueBean();
         info.setValue("joe1blow@apache.org");
         valueTest(info, true);
@@ -265,7 +265,7 @@ public class EmailTest extends AbstractCommonTest {
      * Tests the e-mail validation with an RCS-non-compliant character in the address.
      */
     @Test
-    public void testEmailWithBogusCharacter() throws ValidatorException {
+    void testEmailWithBogusCharacter() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
 
@@ -288,7 +288,7 @@ public class EmailTest extends AbstractCommonTest {
      * Tests the email validation with commas.
      */
     @Test
-    public void testEmailWithCommas() throws ValidatorException {
+    void testEmailWithCommas() throws ValidatorException {
         final ValueBean info = new ValueBean();
         info.setValue("joeblow@apa,che.org");
         valueTest(info, false);
@@ -303,7 +303,7 @@ public class EmailTest extends AbstractCommonTest {
      * Tests the email validation with ASCII control characters. (i.e. ASCII chars 0 - 31 and 127)
      */
     @Test
-    public void testEmailWithControlChars() {
+    void testEmailWithControlChars() {
         final EmailValidator validator = new EmailValidator();
         for (char c = 0; c < 32; c++) {
             assertFalse(validator.isValid("foo" + c + "bar@domain.com"), "Test control char " + (int) c);
@@ -317,7 +317,7 @@ public class EmailTest extends AbstractCommonTest {
      * </p>
      */
     @Test
-    public void testEmailWithDash() throws ValidatorException {
+    void testEmailWithDash() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
 
@@ -337,7 +337,7 @@ public class EmailTest extends AbstractCommonTest {
      * Tests the e-mail validation with a dot at the end of the address.
      */
     @Test
-    public void testEmailWithDotEnd() throws ValidatorException {
+    void testEmailWithDotEnd() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
 
@@ -350,7 +350,7 @@ public class EmailTest extends AbstractCommonTest {
      * Tests the email validation with numeric domains.
      */
     @Test
-    public void testEmailWithNumericAddress() throws ValidatorException {
+    void testEmailWithNumericAddress() throws ValidatorException {
         final ValueBean info = new ValueBean();
         info.setValue("someone@[216.109.118.76]");
         valueTest(info, true);
@@ -362,7 +362,7 @@ public class EmailTest extends AbstractCommonTest {
      * Tests the email validation with spaces.
      */
     @Test
-    public void testEmailWithSpaces() throws ValidatorException {
+    void testEmailWithSpaces() throws ValidatorException {
         final ValueBean info = new ValueBean();
         info.setValue("joeblow @apache.org");
         valueTest(info, false);

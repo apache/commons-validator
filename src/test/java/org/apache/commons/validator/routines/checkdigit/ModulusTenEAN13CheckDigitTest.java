@@ -21,7 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * ModulusTenCheckDigit EAN-13 Test.
  */
-public class ModulusTenEAN13CheckDigitTest extends AbstractCheckDigitTest {
+class ModulusTenEAN13CheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.

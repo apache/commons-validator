@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Test;
  */
 @Deprecated
 public class UrlTest {
+// Must be public, because it has a main method.
 
     static boolean incrementTestPartsIndex(final int[] testPartsIndex, final Object[] testParts) {
         boolean carry = true; // add 1 to lowest order part.
@@ -115,7 +116,7 @@ public class UrlTest {
     }
 
     @Test
-    public void testIsValid() {
+    void testIsValid() {
         testIsValid(testUrlParts, UrlValidator.ALLOW_ALL_SCHEMES);
         setUp();
         final int options = UrlValidator.ALLOW_2_SLASHES + UrlValidator.ALLOW_ALL_SCHEMES + UrlValidator.NO_FRAGMENTS;
@@ -170,7 +171,7 @@ public class UrlTest {
     }
 
     @Test
-    public void testIsValidScheme() {
+    void testIsValidScheme() {
         if (printStatus) {
             System.out.print("\n testIsValidScheme() ");
         }
@@ -209,12 +210,12 @@ public class UrlTest {
     }
 
     @Test
-    public void testValidateUrl() {
+    void testValidateUrl() {
         assertTrue(true);
     }
 
     @Test
-    public void testValidator202() {
+    void testValidator202() {
         final String[] schemes = { "http", "https" };
         final UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.NO_FRAGMENTS);
         urlValidator.isValid(
@@ -222,7 +223,7 @@ public class UrlTest {
     }
 
     @Test
-    public void testValidator204() {
+    void testValidator204() {
         final String[] schemes = { "http", "https" };
         final UrlValidator urlValidator = new UrlValidator(schemes);
         assertTrue(urlValidator.isValid("http://tech.yahoo.com/rc/desktops/102;_ylt=Ao8yevQHlZ4On0O3ZJGXLEQFLZA5"));

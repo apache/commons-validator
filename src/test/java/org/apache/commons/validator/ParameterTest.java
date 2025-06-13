@@ -31,7 +31,7 @@ import org.xml.sax.SAXException;
 /**
  * This TestCase is a confirmation of the parameter of the validator's method.
  */
-public class ParameterTest extends AbstractCommonTest {
+class ParameterTest extends AbstractCommonTest {
 
     private static final String FORM_KEY = "nameForm";
 
@@ -81,7 +81,7 @@ public class ParameterTest extends AbstractCommonTest {
      * Test all validations ran and passed.
      */
     @Test
-    public void testAllValid() {
+    void testAllValid() {
 
         // Create bean to run test on.
         final NameBean bean = createNameBean();

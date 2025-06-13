@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test Case for IntegerValidator.
  */
-public class IntegerValidatorTest extends AbstractNumberValidatorTest {
+class IntegerValidatorTest extends AbstractNumberValidatorTest {
 
     private static final Integer INT_MIN_VAL = Integer.valueOf(Integer.MIN_VALUE);
     private static final Integer INT_MAX_VAL = Integer.valueOf(Integer.MAX_VALUE);
@@ -81,7 +81,7 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
      * Test Integer Range/Min/Max
      */
     @Test
-    public void testIntegerRangeMinMax() {
+    void testIntegerRangeMinMax() {
         final IntegerValidator validator = (IntegerValidator) strictValidator;
         final Integer number9 = validator.validate("9", "#");
         final Integer number10 = validator.validate("10", "#");
@@ -112,7 +112,7 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
      * Test IntegerValidator validate Methods
      */
     @Test
-    public void testIntegerValidatorMethods() {
+    void testIntegerValidatorMethods() {
         final Locale locale = Locale.GERMAN;
         final String pattern = "0,00,00";
         final String patternVal = "1,23,45";
@@ -143,7 +143,7 @@ public class IntegerValidatorTest extends AbstractNumberValidatorTest {
     }
 
     @Test
-    public void testMinMaxValues() {
+    void testMinMaxValues() {
         assertTrue(validator.isValid("2147483647"), "2147483647 is max integer");
         assertFalse(validator.isValid("2147483648"), "2147483648 > max integer");
         assertTrue(validator.isValid("-2147483648"), "-2147483648 is min integer");

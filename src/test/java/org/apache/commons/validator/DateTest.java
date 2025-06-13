@@ -29,7 +29,7 @@ import org.xml.sax.SAXException;
 /**
  * Abstracts date unit tests methods.
  */
-public class DateTest extends AbstractCommonTest {
+class DateTest extends AbstractCommonTest {
 
     /**
      * The key used to retrieve the set of validation rules from the xml file.
@@ -54,7 +54,7 @@ public class DateTest extends AbstractCommonTest {
      * Tests the date validation.
      */
     @Test
-    public void testInvalidDate() throws ValidatorException {
+    void testInvalidDate() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue("12/01as/2005");
@@ -65,7 +65,7 @@ public class DateTest extends AbstractCommonTest {
      * Tests the date validation.
      */
     @Test
-    public void testValidDate() throws ValidatorException {
+    void testValidDate() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue("12/01/2005");

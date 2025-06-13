@@ -31,7 +31,7 @@ import org.xml.sax.SAXException;
 /**
  * Tests retrieving forms using different Locales.
  */
-public class RetrieveFormTest {
+class RetrieveFormTest {
 
     /**
      * Prefix for the forms.
@@ -86,7 +86,7 @@ public class RetrieveFormTest {
      * Test a form defined only in the "default" formset.
      */
     @Test
-    public void testDefaultForm() {
+    void testDefaultForm() {
 
         final String formKey = FORM_PREFIX + "default";
 
@@ -114,7 +114,7 @@ public class RetrieveFormTest {
      * Test a form not defined
      */
     @Test
-    public void testFormNotFound() {
+    void testFormNotFound() {
 
         final String formKey = "INVALID_NAME";
 
@@ -142,7 +142,7 @@ public class RetrieveFormTest {
      * Test a form defined in the "default" formset, formsets where just the "language" is specified and formset where the language and country are specified.
      */
     @Test
-    public void testLanguageCountryForm() {
+    void testLanguageCountryForm() {
 
         final String formKey = FORM_PREFIX + "language_country";
 
@@ -170,7 +170,7 @@ public class RetrieveFormTest {
      * Test a form defined in all the formsets
      */
     @Test
-    public void testLanguageCountryVariantForm() {
+    void testLanguageCountryVariantForm() {
 
         final String formKey = FORM_PREFIX + "language_country_variant";
 
@@ -198,7 +198,7 @@ public class RetrieveFormTest {
      * Test a form defined in the "default" formset and formsets where just the "language" is specified.
      */
     @Test
-    public void testLanguageForm() {
+    void testLanguageForm() {
 
         final String formKey = FORM_PREFIX + "language";
 

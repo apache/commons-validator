@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test Case for ByteValidator.
  */
-public class ByteValidatorTest extends AbstractNumberValidatorTest {
+class ByteValidatorTest extends AbstractNumberValidatorTest {
 
     private static final Byte BYTE_MIN_VAL = Byte.valueOf(Byte.MIN_VALUE);
     private static final Byte BYTE_MAX_VAL = Byte.valueOf(Byte.MAX_VALUE);
@@ -82,7 +82,7 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
      * Test Byte Range/Min/Max
      */
     @Test
-    public void testByteRangeMinMax() {
+    void testByteRangeMinMax() {
         final ByteValidator validator = (ByteValidator) strictValidator;
         final Byte number9 = validator.validate("9", "#");
         final Byte number10 = validator.validate("10", "#");
@@ -115,7 +115,7 @@ public class ByteValidatorTest extends AbstractNumberValidatorTest {
      * Test ByteValidator validate Methods
      */
     @Test
-    public void testByteValidatorMethods() {
+    void testByteValidatorMethods() {
         final Locale locale = Locale.GERMAN;
         final String pattern = "0,00";
         final String patternVal = "1,23";

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
  * @deprecated to be removed when the org.apache.commons.validator.ISBNValidator class is removed
  */
 @Deprecated
-public class ISBNValidatorTest {
+class ISBNValidatorTest {
 
     private static final String VALID_ISBN_RAW = "1930110995";
     private static final String VALID_ISBN_DASHES = "1-930110-99-5";
@@ -36,7 +36,7 @@ public class ISBNValidatorTest {
     private static final String INVALID_ISBN = "068-556-98-45";
 
     @Test
-    public void testIsValid() throws Exception {
+    void testIsValid() throws Exception {
         final ISBNValidator validator = new ISBNValidator();
         assertFalse(validator.isValid(null));
         assertFalse(validator.isValid(""));

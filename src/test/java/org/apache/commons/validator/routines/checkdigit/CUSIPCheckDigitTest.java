@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * CUSIP Check Digit Test.
  */
-public class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
+class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
 
     private static final String[] INVALID_CHECK_DIGITS = { "DUS0421CW", "DUS0421CN", "DUS0421CE" };
 
@@ -42,14 +42,14 @@ public class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
     }
 
     @Test
-    public void testValidator336InvalidCheckDigits() {
+    void testValidator336InvalidCheckDigits() {
         for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse(routine.isValid(invalidCheckDigit), "Should fail: " + invalidCheckDigit);
         }
     }
 
     @Test
-    public void testValidator336ValidCheckDigits() {
+    void testValidator336ValidCheckDigits() {
         for (final String validCheckDigit : VALID_CHECK_DIGITS) {
             assertTrue(routine.isValid(validCheckDigit), "Should fail: " + validCheckDigit);
         }

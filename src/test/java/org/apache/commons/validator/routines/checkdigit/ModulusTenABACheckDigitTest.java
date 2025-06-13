@@ -21,7 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * ModulusTenCheckDigit ABA Number Check Digit Test.
  */
-public class ModulusTenABACheckDigitTest extends AbstractCheckDigitTest {
+class ModulusTenABACheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.

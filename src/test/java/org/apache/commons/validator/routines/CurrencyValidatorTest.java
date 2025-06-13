@@ -32,7 +32,7 @@ import org.junitpioneer.jupiter.DefaultLocale;
 /**
  * Test Case for CurrencyValidator.
  */
-public class CurrencyValidatorTest {
+class CurrencyValidatorTest {
 
     private static final char CURRENCY_SYMBOL = '\u00A4';
 
@@ -49,7 +49,7 @@ public class CurrencyValidatorTest {
      * Test Format Type
      */
     @Test
-    public void testFormatType() {
+    void testFormatType() {
         assertEquals(1, CurrencyValidator.getInstance().getFormatType(), "Format Type A");
         assertEquals(AbstractNumberValidator.CURRENCY_FORMAT, CurrencyValidator.getInstance().getFormatType(), "Format Type B");
     }
@@ -58,7 +58,7 @@ public class CurrencyValidatorTest {
      * Test Invalid integer (non decimal) currency values
      */
     @Test
-    public void testIntegerInvalid() {
+    void testIntegerInvalid() {
         final CurrencyValidator validator = new CurrencyValidator(true, false);
 
         // Invalid UK - has decimals
@@ -75,7 +75,7 @@ public class CurrencyValidatorTest {
      */
     @Test
     @DefaultLocale("en-GB")
-    public void testIntegerValid() {
+    void testIntegerValid() {
         final CurrencyValidator validator = new CurrencyValidator();
         final BigDecimal expected = new BigDecimal("1234.00");
         final BigDecimal negative = new BigDecimal("-1234.00");
@@ -98,7 +98,7 @@ public class CurrencyValidatorTest {
      * Test Invalid currency values
      */
     @Test
-    public void testInvalid() {
+    void testInvalid() {
         final BigDecimalValidator validator = CurrencyValidator.getInstance();
 
         final String ukPlus = NumberFormat.getCurrencyInstance(Locale.UK).format(1234.56);
@@ -134,7 +134,7 @@ public class CurrencyValidatorTest {
      */
     @Test
     @DefaultLocale("en-GB")
-    public void testPattern() {
+    void testPattern() {
         final BigDecimalValidator validator = CurrencyValidator.getInstance();
         final String basicPattern = CURRENCY_SYMBOL + "#,##0.000";
         final String pattern = basicPattern + ";[" + basicPattern + "]";
@@ -163,7 +163,7 @@ public class CurrencyValidatorTest {
      */
     @Test
     @DefaultLocale("en-GB")
-    public void testValid() {
+    void testValid() {
         final BigDecimalValidator validator = CurrencyValidator.getInstance();
         final BigDecimal expected = new BigDecimal("1234.56");
         final BigDecimal negative = new BigDecimal("-1234.56");

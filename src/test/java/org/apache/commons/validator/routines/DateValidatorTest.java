@@ -38,7 +38,7 @@ import org.junitpioneer.jupiter.DefaultLocale;
 /**
  * Test Case for DateValidator.
  */
-public class DateValidatorTest extends AbstractCalendarValidatorTest {
+class DateValidatorTest extends AbstractCalendarValidatorTest {
 
     private DateValidator dateValidator;
 
@@ -55,7 +55,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
      * Test compare date methods
      */
     @Test
-    public void testCompare() {
+    void testCompare() {
         final int sameTime = 124522;
         final int testDate = 20050823;
         final Date diffHour = createDate(TimeZones.GMT, testDate, 115922); // same date, different time
@@ -130,7 +130,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
      */
     @Test
     @DefaultLocale(country = "US", language = "en")
-    public void testDateValidatorMethods() {
+    void testDateValidatorMethods() {
         final Locale locale = Locale.GERMAN;
         final String pattern = "yyyy-MM-dd";
         final String patternVal = "2005-12-31";
@@ -138,7 +138,7 @@ public class DateValidatorTest extends AbstractCalendarValidatorTest {
         // Don't rely on specific German format - it varies between JVMs
         final DateFormat df = new SimpleDateFormat(germanPattern, locale);
         final Calendar cal = Calendar.getInstance(Locale.US);
-        cal.set(2005, 11, 31); // month is 0-based
+        cal.set(2005, Calendar.DECEMBER, 31); // month is 0-based
         final String germanVal = df.format(cal.getTime());
         final String localeVal = "31.12.2005";
         final String defaultVal = "12/31/05";

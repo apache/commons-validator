@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test cases for InetAddressValidator.
  */
-public class InetAddressValidatorTest {
+class InetAddressValidatorTest {
 
     private InetAddressValidator validator;
 
@@ -39,7 +39,7 @@ public class InetAddressValidatorTest {
      * Test obviously broken IPs.
      */
     @Test
-    public void testBrokenInetAddresses() {
+    void testBrokenInetAddresses() {
         assertFalse(validator.isValid("124.14.32.abc"), "IP with characters should be invalid");
         // TODO: there is some debate as to whether leading zeros should be allowed
         // They are ambiguous: does the leading 0 mean octal?
@@ -53,7 +53,7 @@ public class InetAddressValidatorTest {
      * Test valid and invalid IPs from each address class.
      */
     @Test
-    public void testInetAddressesByClass() {
+    void testInetAddressesByClass() {
         assertTrue(validator.isValid("24.25.231.12"), "class A IP should be valid");
         assertFalse(validator.isValid("2.41.32.324"), "illegal class A IP should be invalid");
 
@@ -74,7 +74,7 @@ public class InetAddressValidatorTest {
      * Test IPs that point to real, well-known hosts (without actually looking them up).
      */
     @Test
-    public void testInetAddressesFromTheWild() {
+    void testInetAddressesFromTheWild() {
         assertTrue(validator.isValid("140.211.11.130"), "www.apache.org IP should be valid");
         assertTrue(validator.isValid("72.14.253.103"), "www.l.google.com IP should be valid");
         assertTrue(validator.isValid("199.232.41.5"), "fsf.org IP should be valid");
@@ -88,7 +88,7 @@ public class InetAddressValidatorTest {
      * </p>
      */
     @Test
-    public void testIPv6() {
+    void testIPv6() {
         // The original Perl script contained a lot of duplicate tests.
         // I removed the duplicates I noticed, but there may be more.
         assertFalse(validator.isValidInet6Address(""), "IPV6 empty string should be invalid"); // empty string
@@ -628,18 +628,18 @@ public class InetAddressValidatorTest {
      * Test reserved IPs.
      */
     @Test
-    public void testReservedInetAddresses() {
+    void testReservedInetAddresses() {
         assertTrue(validator.isValid("127.0.0.1"), "localhost IP should be valid");
         assertTrue(validator.isValid("255.255.255.255"), "broadcast IP should be valid");
     }
 
     @Test
-    public void testValidator335() {
+    void testValidator335() {
         assertTrue(validator.isValid("2001:0438:FFFE:0000:0000:0000:0000:0A35"), "2001:0438:FFFE:0000:0000:0000:0000:0A35 should be valid");
     }
 
     @Test
-    public void testValidator419() {
+    void testValidator419() {
         String addr;
         addr = "0:0:0:0:0:0:13.1.68.3";
         assertTrue(validator.isValid(addr));
@@ -660,7 +660,7 @@ public class InetAddressValidatorTest {
      * Inet6Address may also contain a scope id.
      */
     @Test
-    public void testValidator445() {
+    void testValidator445() {
         final String[] valid = { "2001:0000:1234:0000:0000:C1C0:ABCD:0876", "2001:0000:1234:0000:0000:C1C0:ABCD:0876/123",
                 "2001:0000:1234:0000:0000:C1C0:ABCD:0876/0", "2001:0000:1234:0000:0000:C1C0:ABCD:0876%0", "2001:0000:1234:0000:0000:C1C0:ABCD:0876%abcdefgh", };
         final String[] invalid = { "2001:0000:1234:0000:0000:C1C0:ABCD:0876/129", // too big

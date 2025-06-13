@@ -151,7 +151,7 @@ public class InetAddressValidator implements Serializable {
         parts = parts[0].split("%", -1);
         // The id syntax is implementation independent, but it presumably cannot allow:
         // whitespace, '/' or '%'
-        if ((parts.length > 2) || (parts.length == 2 && !ID_CHECK_PATTERN.matcher(parts[1]).matches())) {
+        if (parts.length > 2 || parts.length == 2 && !ID_CHECK_PATTERN.matcher(parts[1]).matches()) {
             return false; // invalid id
         }
         inet6Address = parts[0];

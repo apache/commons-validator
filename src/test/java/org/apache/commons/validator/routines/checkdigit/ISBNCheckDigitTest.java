@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * ISBN-10/ISBN-13 Check Digit Test.
  */
-public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
+class ISBNCheckDigitTest extends AbstractCheckDigitTest {
 
     /**
      * Sets up routine & valid codes.
@@ -45,7 +45,7 @@ public class ISBNCheckDigitTest extends AbstractCheckDigitTest {
      * Sets up routine & valid codes.
      */
     @Test
-    public void testInvalidLength() {
+    void testInvalidLength() {
         assertFalse(routine.isValid("123456789"), "isValid() Lth 9 ");
         assertFalse(routine.isValid("12345678901"), "isValid() Lth 11");
         assertFalse(routine.isValid("123456789012"), "isValid() Lth 12");

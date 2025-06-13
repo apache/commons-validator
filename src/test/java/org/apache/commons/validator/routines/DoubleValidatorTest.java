@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test Case for DoubleValidator.
  */
-public class DoubleValidatorTest extends AbstractNumberValidatorTest {
+class DoubleValidatorTest extends AbstractNumberValidatorTest {
 
     @BeforeEach
     protected void setUp() {
@@ -73,7 +73,7 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
      * Test Double Range/Min/Max
      */
     @Test
-    public void testDoubleRangeMinMax() {
+    void testDoubleRangeMinMax() {
         final DoubleValidator validator = (DoubleValidator) strictValidator;
         final Double number9 = validator.validate("9", "#");
         final Double number10 = validator.validate("10", "#");
@@ -104,7 +104,7 @@ public class DoubleValidatorTest extends AbstractNumberValidatorTest {
      * Test DoubleValidator validate Methods
      */
     @Test
-    public void testDoubleValidatorMethods() {
+    void testDoubleValidatorMethods() {
         final Locale locale = Locale.GERMAN;
         final String pattern = "0,00,00";
         final String patternVal = "1,23,45";

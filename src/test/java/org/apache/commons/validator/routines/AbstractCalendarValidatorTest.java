@@ -127,7 +127,7 @@ public abstract class AbstractCalendarValidatorTest {
      * Test Invalid Dates with "locale" validation
      */
     @Test
-    public void testFormat() {
+    void testFormat() {
 
         // Create a Date or Calendar
         final Object test = validator.parse("2005-11-28", "yyyy-MM-dd", null, null);
@@ -140,7 +140,7 @@ public abstract class AbstractCalendarValidatorTest {
      * Test Invalid Dates with "locale" validation
      */
     @Test
-    public void testLocaleInvalid() {
+    void testLocaleInvalid() {
         for (int i = 0; i < localeInvalid.length; i++) {
             final String text = i + " value=[" + localeInvalid[i] + "] passed ";
             final Object date = validator.parse(localeInvalid[i], null, Locale.US, null);
@@ -153,7 +153,7 @@ public abstract class AbstractCalendarValidatorTest {
      * Test Valid Dates with "locale" validation
      */
     @Test
-    public void testLocaleValid() {
+    void testLocaleValid() {
         for (int i = 0; i < localeValid.length; i++) {
             final String text = i + " value=[" + localeValid[i] + "] failed ";
             Object date = validator.parse(localeValid[i], null, Locale.US, null);
@@ -170,7 +170,7 @@ public abstract class AbstractCalendarValidatorTest {
      * Test Invalid Dates with "pattern" validation
      */
     @Test
-    public void testPatternInvalid() {
+    void testPatternInvalid() {
         for (int i = 0; i < patternInvalid.length; i++) {
             final String text = i + " value=[" + patternInvalid[i] + "] passed ";
             final Object date = validator.parse(patternInvalid[i], "yy-MM-dd", null, null);
@@ -183,7 +183,7 @@ public abstract class AbstractCalendarValidatorTest {
      * Test Valid Dates with "pattern" validation
      */
     @Test
-    public void testPatternValid() {
+    void testPatternValid() {
         for (int i = 0; i < patternValid.length; i++) {
             final String text = i + " value=[" + patternValid[i] + "] failed ";
             Object date = validator.parse(patternValid[i], "yy-MM-dd", null, null);
@@ -200,7 +200,7 @@ public abstract class AbstractCalendarValidatorTest {
      * Test validator serialization.
      */
     @Test
-    public void testSerialization() {
+    void testSerialization() {
         // Serialize the check digit routine
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {

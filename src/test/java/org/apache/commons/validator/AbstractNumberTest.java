@@ -58,7 +58,7 @@ public abstract class AbstractNumberTest extends AbstractCommonTest {
      * Tests the number validation.
      */
     @Test
-    public void testNumber() throws ValidatorException {
+    void testNumber() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue("0");
@@ -69,7 +69,7 @@ public abstract class AbstractNumberTest extends AbstractCommonTest {
      * Tests the float validation failure.
      */
     @Test
-    public void testNumberFailure() throws ValidatorException {
+    void testNumberFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         valueTest(info, false);

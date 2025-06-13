@@ -21,9 +21,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Performs Validation Test for {@code byte} validations.
  */
-public class ByteTest extends AbstractNumberTest {
+class ByteTest extends AbstractNumberTest {
 
-    public ByteTest() {
+    ByteTest() {
         action = "byte";
         formKey = "byteForm";
     }
@@ -32,7 +32,7 @@ public class ByteTest extends AbstractNumberTest {
      * Tests the byte validation.
      */
     @Test
-    public void testByte() throws ValidatorException {
+    void testByte() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue("0");
@@ -44,7 +44,7 @@ public class ByteTest extends AbstractNumberTest {
      * Tests the byte validation failure.
      */
     @Test
-    public void testByteBeyondMax() throws ValidatorException {
+    void testByteBeyondMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue(Byte.MAX_VALUE + "1");
@@ -56,7 +56,7 @@ public class ByteTest extends AbstractNumberTest {
      * Tests the byte validation failure.
      */
     @Test
-    public void testByteBeyondMin() throws ValidatorException {
+    void testByteBeyondMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue(Byte.MIN_VALUE + "1");
@@ -68,7 +68,7 @@ public class ByteTest extends AbstractNumberTest {
      * Tests the byte validation failure.
      */
     @Test
-    public void testByteFailure() throws ValidatorException {
+    void testByteFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
 
@@ -79,7 +79,7 @@ public class ByteTest extends AbstractNumberTest {
      * Tests the byte validation.
      */
     @Test
-    public void testByteMax() throws ValidatorException {
+    void testByteMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue(Byte.toString(Byte.MAX_VALUE));
@@ -91,7 +91,7 @@ public class ByteTest extends AbstractNumberTest {
      * Tests the byte validation.
      */
     @Test
-    public void testByteMin() throws ValidatorException {
+    void testByteMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue(Byte.toString(Byte.MIN_VALUE));

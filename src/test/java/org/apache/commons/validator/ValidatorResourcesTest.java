@@ -25,13 +25,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Test ValidatorResources.
  */
-public class ValidatorResourcesTest {
+class ValidatorResourcesTest {
 
     /**
      * Test null Input Stream for Validator Resources.
      */
     @Test
-    public void testNullInputStream() {
+    void testNullInputStream() {
         assertThrows(IllegalArgumentException.class, () -> new ValidatorResources((InputStream) null));
     }
 

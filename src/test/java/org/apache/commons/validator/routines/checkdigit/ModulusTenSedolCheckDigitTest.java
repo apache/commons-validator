@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * ModulusTenCheckDigit SEDOL Test.
  */
-public class ModulusTenSedolCheckDigitTest extends AbstractCheckDigitTest {
+class ModulusTenSedolCheckDigitTest extends AbstractCheckDigitTest {
 
     private static final String[] INVALID_CHECK_DIGITS = { "026349E", // proper check digit is '4', see above
             "087061C", // proper check digit is '2', see above
@@ -45,7 +45,7 @@ public class ModulusTenSedolCheckDigitTest extends AbstractCheckDigitTest {
     }
 
     @Test
-    public void testValidator346() {
+    void testValidator346() {
         for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse(routine.isValid(invalidCheckDigit), "Should fail: " + invalidCheckDigit);
         }

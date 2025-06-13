@@ -31,7 +31,7 @@ import org.xml.sax.SAXException;
 /**
  * Test ValidatorResults.
  */
-public class ValidatorResultsTest extends AbstractCommonTest {
+class ValidatorResultsTest extends AbstractCommonTest {
 
     private static final String FORM_KEY = "nameForm";
     private static final String FIRST_NAME_FIELD = "firstName";
@@ -97,7 +97,7 @@ public class ValidatorResultsTest extends AbstractCommonTest {
      * Test all validations ran and passed.
      */
     @Test
-    public void testAllValid() throws ValidatorException {
+    void testAllValid() throws ValidatorException {
 
         // Create bean to run test on.
         final NameBean bean = createNameBean();
@@ -119,7 +119,7 @@ public class ValidatorResultsTest extends AbstractCommonTest {
      * Test some validations failed and some didn't run.
      */
     @Test
-    public void testErrors() throws ValidatorException {
+    void testErrors() throws ValidatorException {
 
         middleName = "XXX";
         lastName = null;

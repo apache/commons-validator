@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
  * @deprecated this test can be removed when the deprecated class is removed
  */
 @Deprecated
-public class CreditCardValidatorTest {
+class CreditCardValidatorTest {
 
     /**
      * Test a custom implementation of CreditCardType.
@@ -51,7 +51,7 @@ public class CreditCardValidatorTest {
     private static final String VALID_DINERS = "30569309025904";
 
     @Test
-    public void testAddAllowedCardType() {
+    void testAddAllowedCardType() {
         final CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.NONE);
         // Turned off all cards so even valid numbers should fail
         assertFalse(ccv.isValid(VALID_VISA));
@@ -65,7 +65,7 @@ public class CreditCardValidatorTest {
     }
 
     @Test
-    public void testIsValid() {
+    void testIsValid() {
         CreditCardValidator ccv = new CreditCardValidator();
 
         assertFalse(ccv.isValid(null));

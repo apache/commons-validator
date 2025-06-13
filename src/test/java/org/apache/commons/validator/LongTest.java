@@ -21,9 +21,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Performs Validation Test for {@code long} validations.
  */
-public class LongTest extends AbstractNumberTest {
+class LongTest extends AbstractNumberTest {
 
-    public LongTest() {
+    LongTest() {
         formKey = "longForm";
         action = "long";
     }
@@ -32,7 +32,7 @@ public class LongTest extends AbstractNumberTest {
      * Tests the long validation.
      */
     @Test
-    public void testLong() throws ValidatorException {
+    void testLong() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue("0");
@@ -44,7 +44,7 @@ public class LongTest extends AbstractNumberTest {
      * Tests the long validation failure.
      */
     @Test
-    public void testLongBeyondMax() throws ValidatorException {
+    void testLongBeyondMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue(Long.MAX_VALUE + "1");
@@ -56,7 +56,7 @@ public class LongTest extends AbstractNumberTest {
      * Tests the long validation failure.
      */
     @Test
-    public void testLongBeyondMin() throws ValidatorException {
+    void testLongBeyondMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue(Long.MIN_VALUE + "1");
@@ -68,7 +68,7 @@ public class LongTest extends AbstractNumberTest {
      * Tests the long validation failure.
      */
     @Test
-    public void testLongFailure() throws ValidatorException {
+    void testLongFailure() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
 
@@ -79,7 +79,7 @@ public class LongTest extends AbstractNumberTest {
      * Tests the long validation.
      */
     @Test
-    public void testLongMax() throws ValidatorException {
+    void testLongMax() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue(Long.toString(Long.MAX_VALUE));
@@ -91,7 +91,7 @@ public class LongTest extends AbstractNumberTest {
      * Tests the long validation.
      */
     @Test
-    public void testLongMin() throws ValidatorException {
+    void testLongMin() throws ValidatorException {
         // Create bean to run test on.
         final ValueBean info = new ValueBean();
         info.setValue(Long.toString(Long.MIN_VALUE));

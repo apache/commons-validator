@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the GenericValidator class.
  */
-public class GenericValidatorTest {
+class GenericValidatorTest {
 
     @Test
-    public void testMaxLength() {
+    void testMaxLength() {
 
         // Use 0 for line end length
         assertFalse(GenericValidator.maxLength("12345\n\r", 4, 0), "Max=4 End=0");
@@ -49,7 +49,7 @@ public class GenericValidatorTest {
     }
 
     @Test
-    public void testMinLength() {
+    void testMinLength() {
 
         // Use 0 for line end length
         assertTrue(GenericValidator.minLength("12345\n\r", 5, 0), "Min=5 End=0");

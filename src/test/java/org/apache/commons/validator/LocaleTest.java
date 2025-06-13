@@ -30,7 +30,7 @@ import org.xml.sax.SAXException;
 /**
  * Performs Validation Test for locale validations.
  */
-public class LocaleTest extends AbstractCommonTest {
+class LocaleTest extends AbstractCommonTest {
 
     /**
      * The key used to retrieve the set of validation rules from the xml file.
@@ -63,7 +63,7 @@ public class LocaleTest extends AbstractCommonTest {
      * @throws ValidatorException If something goes wrong
      */
     @Test
-    public void testLocale1() throws ValidatorException {
+    void testLocale1() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
         name.setFirstName("");
@@ -78,7 +78,7 @@ public class LocaleTest extends AbstractCommonTest {
      * @throws ValidatorException If something goes wrong
      */
     @Test
-    public void testLocale2() throws ValidatorException {
+    void testLocale2() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
         name.setFirstName("");
@@ -93,7 +93,7 @@ public class LocaleTest extends AbstractCommonTest {
      * @throws ValidatorException If something goes wrong
      */
     @Test
-    public void testLocale3() throws ValidatorException {
+    void testLocale3() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
         name.setFirstName("");
@@ -109,7 +109,7 @@ public class LocaleTest extends AbstractCommonTest {
      * @throws ValidatorException If something goes wrong
      */
     @Test
-    public void testLocale4() throws ValidatorException {
+    void testLocale4() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
         name.setFirstName("");
@@ -124,7 +124,7 @@ public class LocaleTest extends AbstractCommonTest {
      * @throws ValidatorException If something goes wrong
      */
     @Test
-    public void testLocale5() throws ValidatorException {
+    void testLocale5() throws ValidatorException {
         // Create bean to run test on.
         final NameBean name = new NameBean();
         name.setFirstName("");

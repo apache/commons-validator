@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test {@code Field} objects.
  */
-public class FieldTest {
+class FieldTest {
 
     protected Field field;
 
@@ -86,7 +86,7 @@ public class FieldTest {
      * test Field with only 'default' arguments, position specified for one argument
      */
     @Test
-    public void testDefaultOnePosition() {
+    void testDefaultOnePosition() {
 
         field.addArg(createArg("default-position-0"));
         field.addArg(createArg("default-position-2", 2));
@@ -104,7 +104,7 @@ public class FieldTest {
      * test Field with only 'default' arguments, no positions specified.
      */
     @Test
-    public void testDefaultPositionImplied() {
+    void testDefaultPositionImplied() {
 
         field.addArg(createArg("default-position-0"));
         field.addArg(createArg("default-position-1"));
@@ -121,7 +121,7 @@ public class FieldTest {
      * test Field with only 'default' arguments, some position specified.
      */
     @Test
-    public void testDefaultSomePositions() {
+    void testDefaultSomePositions() {
 
         field.addArg(createArg("default-position-0"));
         field.addArg(createArg("default-position-2", 2));
@@ -140,7 +140,7 @@ public class FieldTest {
      * test Field with only 'default' arguments, positions specified.
      */
     @Test
-    public void testDefaultUsingPositions() {
+    void testDefaultUsingPositions() {
 
         field.addArg(createArg("default-position-1", 1));
         field.addArg(createArg("default-position-0", 0));
@@ -157,7 +157,7 @@ public class FieldTest {
      * test Field with no arguments
      */
     @Test
-    public void testEmptyArgs() {
+    void testEmptyArgs() {
 
         assertEquals(0, field.getArgs("required").length, "Empty Args(1) ");
 
@@ -167,7 +167,7 @@ public class FieldTest {
      * test Field with a 'default' argument overridden without positions specified.
      */
     @Test
-    public void testOverridePositionImplied() {
+    void testOverridePositionImplied() {
 
         field.addArg(createArg("default-position-0"));
         field.addArg(createArg("required-position-1", "required"));
@@ -197,7 +197,7 @@ public class FieldTest {
      * test Field with a 'default' argument overridden with some positions specified
      */
     @Test
-    public void testOverrideSomePosition() {
+    void testOverrideSomePosition() {
 
         field.addArg(createArg("default-position-0"));
         field.addArg(createArg("default-position-1"));
@@ -232,7 +232,7 @@ public class FieldTest {
      * test Field with a 'default' argument overridden using 'position' property
      */
     @Test
-    public void testOverrideUsingPositionA() {
+    void testOverrideUsingPositionA() {
 
         field.addArg(createArg("default-position-0"));
         field.addArg(createArg("default-position-1"));
@@ -256,7 +256,7 @@ public class FieldTest {
      * test Field with a 'default' argument overridden using 'position' property
      */
     @Test
-    public void testOverrideUsingPositionB() {
+    void testOverrideUsingPositionB() {
 
         field.addArg(createArg("required-position-3", "required", 3));
         field.addArg(createArg("required-position-1", "required", 1));

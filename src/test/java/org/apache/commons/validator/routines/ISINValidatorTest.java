@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ISINValidator}.
  */
-public class ISINValidatorTest {
+class ISINValidatorTest {
 
     private static final ISINValidator VALIDATOR_TRUE = ISINValidator.getInstance(true);
 
@@ -80,14 +80,14 @@ public class ISINValidatorTest {
     };
 
     @Test
-    public void testInvalidFalse() {
+    void testInvalidFalse() {
         for (final String f : invalidFormat) {
             assertFalse(VALIDATOR_FALSE.isValid(f), f);
         }
     }
 
     @Test
-    public void testInvalidTrue() {
+    void testInvalidTrue() {
         for (final String f : invalidFormat) {
             assertFalse(VALIDATOR_TRUE.isValid(f), f);
         }
@@ -97,14 +97,14 @@ public class ISINValidatorTest {
     }
 
     @Test
-    public void testIsValidFalse() {
+    void testIsValidFalse() {
         for (final String f : validFormat) {
             assertTrue(VALIDATOR_FALSE.isValid(f), f);
         }
     }
 
     @Test
-    public void testIsValidTrue() {
+    void testIsValidTrue() {
         for (final String f : validFormat) {
             assertTrue(VALIDATOR_TRUE.isValid(f), f);
         }

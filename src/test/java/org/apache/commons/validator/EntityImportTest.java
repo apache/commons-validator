@@ -26,13 +26,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests entity imports.
  */
-public class EntityImportTest extends AbstractCommonTest {
+class EntityImportTest extends AbstractCommonTest {
 
     /**
      * Tests the entity import loading the {@code byteForm} form.
      */
     @Test
-    public void testEntityImport() throws Exception {
+    void testEntityImport() throws Exception {
         final URL url = getClass().getResource("EntityImportTest-config.xml");
         final ValidatorResources resources = new ValidatorResources(url.toExternalForm());
         assertNotNull(resources.getForm(Locale.getDefault(), "byteForm"), "Form should be found");
@@ -42,7 +42,7 @@ public class EntityImportTest extends AbstractCommonTest {
      * Tests loading ValidatorResources from a URL
      */
     @Test
-    public void testParseURL() throws Exception {
+    void testParseURL() throws Exception {
         final URL url = getClass().getResource("EntityImportTest-config.xml");
         final ValidatorResources resources = new ValidatorResources(url);
         assertNotNull(resources.getForm(Locale.getDefault(), "byteForm"), "Form should be found");

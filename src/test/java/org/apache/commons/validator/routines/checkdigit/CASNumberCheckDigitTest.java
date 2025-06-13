@@ -21,7 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * CAS Number Check Digit Tests.
  */
-public class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
+class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
 
     private static final String MIN = "00-01-1"; // theoretical
     private static final String WATER = "7732-18-5";

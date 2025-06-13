@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test custom ValidatorResources.
  */
-public class CustomValidatorResourcesTest {
+class CustomValidatorResourcesTest {
 
     /**
      * Sets up.
@@ -47,7 +47,7 @@ public class CustomValidatorResourcesTest {
      * Test creating a custom validator resources.
      */
     @Test
-    public void testCustomResources() {
+    void testCustomResources() {
         // Load resources
         InputStream in = null;
         try {
