@@ -92,7 +92,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="add" dev="ggregory" due-to="nullwli, Gary Gregory">Add Validator.getParameters()</action>
     <action type="add" dev="ggregory" due-to="nullwli, Gary Gregory">Add Validator.getResources()</action>
     <!-- UPDATE -->
-    <action type="update" dev="sjaranowski" due-to="Slawomir Jaranowski, Gary Gregory">Bump org.apache.commons:commons-parent from 78 to 84, fix changes.xml format for new plugin version</action>
+    <action type="update" dev="sjaranowski" due-to="Slawomir Jaranowski, Gary Gregory">Bump org.apache.commons:commons-parent from 78 to 85, fix changes.xml format for new plugin version</action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-parent from 70 to 78 #231, #245, #253, #256, #262, #267, #272, #278.</action>
     <action type="update" dev="sebb">DomainValidator: Changes from 2025061000, Last Updated Tue Jun 10 07:07:01 2025 UTC.</action>
     <action type="update" dev="sebb">IBANValidatorTest: parameterise SWIFT registry version; update to v99</action>
