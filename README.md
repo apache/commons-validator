@@ -45,10 +45,11 @@ Apache Commons Validator
 
 [![Java CI](https://github.com/apache/commons-validator/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/maven.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/commons-validator/commons-validator?label=Maven%20Central)](https://search.maven.org/artifact/commons-validator/commons-validator)
-[![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.9.0.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.9.0)
+[![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.10.0.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.10.0)
+[![CodeQL](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-validator/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-validator)
 
-Apache Commons Validator provides the building blocks for both client side validation and server side data validation.
+Apache Commons Validator provides the building blocks for both client-side and server-side data validation.
     It may be used standalone or with a framework like Struts.
 
 Documentation
@@ -62,20 +63,20 @@ Getting the latest release
 --------------------------
 You can download source and binaries from our [download page](https://commons.apache.org/proper/commons-validator/download_validator.cgi).
 
-Alternatively, you can pull it from  the central Maven repositories:
+Alternatively, you can pull it from the central Maven repositories:
 
 ```xml
 <dependency>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <version>1.9.0</version>
+  <version>1.10.0</version>
 </dependency>
 ```
 
 Building
 --------
 
-Building requires a Java JDK and [Apache Maven](https://maven.apache.org/). 
+Building requires a Java JDK and [Apache Maven](https://maven.apache.org/).
 The required Java version is found in the `pom.xml` as the `maven.compiler.source` property.
 
 From a command shell, run `mvn` without arguments to invoke the default Maven goal to run all tests and checks.
@@ -88,7 +89,9 @@ There are some guidelines which will make applying PRs easier for us:
 + No tabs! Please use spaces for indentation.
 + Respect the existing code style for each file.
 + Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
-+ Provide JUnit tests for your changes and make sure your changes don't break any existing tests by running ```mvn```.
++ Provide JUnit tests for your changes and make sure your changes don't break any existing tests by running `mvn`.
++ Before you pushing a PR, run `mvn` (by itself), this runs the default goal, which contains all build checks.
++ To see the code coverage report, regardless of coverage failures, run `mvn clean site -Dcommons.jacoco.haltOnFailure=false -Pjacoco`
 
 If you plan to contribute on a regular basis, please consider filing a [contributor license agreement](https://www.apache.org/licenses/#clas).
 You can learn more about contributing via GitHub in our [contribution guidelines](CONTRIBUTING.md).

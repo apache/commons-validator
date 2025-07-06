@@ -62,7 +62,7 @@ The <action> type attribute can be add,update,fix,remove.
     Defining changes.version allows one to create the RN without first removing the SNAPSHOT suffix.
      -->
   <body>
-  <release version="1.10.0" date="YYYY-MM-DD" description="This is a maintenance and bug fix release; requires Java 8.">
+  <release version="1.10.0" date="2025-07-06" description="This is a maintenance and bug fix release; requires Java 8.">
     <!-- FIX -->
     <action type="fix" dev="sjaranowski">Add IBANValidator/IBANCheckDigit to package documentation.</action>
     <action type="fix" dev="sebb">Locale-dependent tests: calculate expected results as output varies between JVMs.</action>
@@ -74,7 +74,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate GenericValidator.GenericValidator().</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ValidatorUtils.ValidatorUtils().</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate Validator protected instance variable access for getter methods.</action>
-    <action type="fix" dev="ggregory" due-to="Gary Gregory">Remove -nouses directive from maven-bundle-plugin. OSGi package imports now state 'uses' definitions for package imports, this doesn't affect JPMS (from org.apache.commons:commons-parent:80).</action>
+    <action type="fix" dev="ggregory" due-to="Gary Gregory">Remove '-nouses' directive from maven-bundle-plugin. OSGi package imports now state 'uses' definitions for package imports, this doesn't affect JPMS (from org.apache.commons:commons-parent:80).</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory, SpotBugs">Shared primitive variable "clientValidation" in one thread may not yield the value of the most recent write from another thread [org.apache.commons.validator.Field] At Field.java:[line 758] AT_STALE_THREAD_WRITE_OF_PRIMITIVE.</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory, SpotBugs">Shared primitive variable "fieldOrder" in one thread may not yield the value of the most recent write from another thread [org.apache.commons.validator.Field] At Field.java:[line 785] AT_STALE_THREAD_WRITE_OF_PRIMITIVE.</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory, SpotBugs">Shared primitive variable "page" in one thread may not yield the value of the most recent write from another thread [org.apache.commons.validator.Field] At Field.java:[line 818] AT_STALE_THREAD_WRITE_OF_PRIMITIVE.</action>
@@ -95,7 +95,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="update" dev="sjaranowski" due-to="Slawomir Jaranowski, Gary Gregory">Bump org.apache.commons:commons-parent from 78 to 85, fix changes.xml format for new plugin version</action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-parent from 70 to 78 #231, #245, #253, #256, #262, #267, #272, #278.</action>
     <action type="update" dev="sebb">DomainValidator: Changes from 2025061000, Last Updated Tue Jun 10 07:07:01 2025 UTC.</action>
-    <action type="update" dev="sebb">IBANValidatorTest: parameterise SWIFT registry version; update to v99</action>
+    <action type="update" dev="sebb">IBANValidatorTest: parameterize SWIFT registry version; update to v99</action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump commons-logging:commons-logging from 1.3.2 to 1.3.5 #238, #254.</action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-lang3 from 3.15.0 to 3.17.0 #248, #257.</action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-csv from 1.11.0 to 1.14.0 #264.</action>
