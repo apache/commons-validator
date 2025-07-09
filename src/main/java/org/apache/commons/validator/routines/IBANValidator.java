@@ -152,7 +152,8 @@ public class IBANValidator {
      *
      * In the Regexes below, only upper-case is used.
      */
-    private static final Validator[] DEFAULT_VALIDATORS = {                   //
+    private static final Validator[] DEFAULT_VALIDATORS = {
+            // @formatter:off
             new Validator("AD", 24, "AD\\d{10}[A-Z0-9]{12}"),                 // Andorra
             new Validator("AE", 23, "AE\\d{21}"),                             // United Arab Emirates (The)
             new Validator("AL", 28, "AL\\d{10}[A-Z0-9]{16}"),                 // Albania
@@ -176,7 +177,7 @@ public class IBANValidator {
             new Validator("EE", 20, "EE\\d{18}"),                             // Estonia
             new Validator("EG", 29, "EG\\d{27}"),                             // Egypt
             new Validator("ES", 24, "ES\\d{22}"),                             // Spain
-            new Validator("FI", 18, "\\d{16}", "AX"),                // Finland
+            new Validator("FI", 18, "\\d{16}", "AX"),                         // Finland
             new Validator("FK", 18, "FK\\d{2}[A-Z]{2}\\d{12}"),               // Falkland Islands, since Jul-23
             new Validator("FO", 18, "FO\\d{16}"),                             // Faroe Islands
             new Validator("FR", 27, "\\d{12}[A-Z0-9]{11}\\d{2}", "GF", "GP", "MQ", "RE", "PF", "TF", "YT", "NC", "BL", "MF", "PM", "WF"), // France
@@ -242,6 +243,7 @@ public class IBANValidator {
             new Validator("VG", 24, "VG\\d{2}[A-Z]{4}\\d{16}"),               // Virgin Islands
             new Validator("XK", 20, "XK\\d{18}"),                             // Kosovo
             new Validator("YE", 30, "YE\\d{2}[A-Z]{4}\\d{4}[A-Z0-9]{18}"),    // Yemen
+            // @formatter:off
     };
 
     /*
