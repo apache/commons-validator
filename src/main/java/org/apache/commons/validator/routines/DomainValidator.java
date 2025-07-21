@@ -170,7 +170,7 @@ public class DomainValidator implements Serializable {
     // If the match fails, input is checked against DOMAIN_LABEL_REGEX (hostnameRegex)
     // RFC1123 sec 2.1 allows hostnames to start with a digit
     private static final String DOMAIN_NAME_REGEX =
-            "^(?:" + DOMAIN_LABEL_REGEX + "\\.)+" + "(" + TOP_LABEL_REGEX + ")\\.?$";
+            "^(?:" + DOMAIN_LABEL_REGEX + "\\.)+(" + TOP_LABEL_REGEX + ")\\.?$";
     private static final String UNEXPECTED_ENUM_VALUE = "Unexpected enum value: ";
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
