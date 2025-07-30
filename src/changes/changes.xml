@@ -67,6 +67,7 @@ The <action> type attribute can be add,update,fix,remove.
     <!-- ADD -->
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-lang3 from 3.17.0 to 3.18.0 #346.</action>
+    <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-csv from 1.14.0 to 1.14.0.</action>
   </release>
   <release version="1.10.0" date="2025-07-06" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
@@ -104,7 +105,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="update" dev="sebb">IBANValidatorTest: parameterize SWIFT registry version; update to v99</action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump commons-logging:commons-logging from 1.3.2 to 1.3.5 #238, #254.</action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-lang3 from 3.15.0 to 3.17.0 #248, #257.</action>
-    <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-csv from 1.11.0 to 1.14.1 #264.</action>
+    <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-csv from 1.11.0 to 1.14.0 #264.</action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.codehaus.mojo:exec-maven-plugin from 1.2.1 to 3.5.0 #305.</action>
     <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-beanutils:commons-beanutils from 1.9.4 to 1.11.0.</action> 
   </release>
