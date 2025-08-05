@@ -31,7 +31,7 @@ import java.text.Format;
  *
  * <p>However any of the <em>number</em> validators can be used for <em>percent</em> validation.
  *    For example, if you wanted a <em>percent</em> validator that converts to a
- *    {@code java.lang.Float} then you can simply instantiate an
+ *    {{@link Float} then you can simply instantiate an
  *    {@code FloatValidator} with the appropriate <em>format type</em>:</p>
  *
  *    <p>{@code ... = new FloatValidator(false, FloatValidator.PERCENT_FORMAT);}</p>
