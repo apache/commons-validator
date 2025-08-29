@@ -81,7 +81,7 @@ public class ValidatorAction implements Serializable {
      * the method takes.
      * </p>
      * <p>
-     * Note: {@code java.lang.Object} is reserved for the JavaBean that is being validated. The {@code ValidatorAction} and {@code Field} that
+     * Note: {@link Object} is reserved for the JavaBean that is being validated. The {@code ValidatorAction} and {@code Field} that
      * are associated with a field's validation will automatically be populated if they are specified in the method signature.
      * </p>
      */

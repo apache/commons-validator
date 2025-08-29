@@ -21,7 +21,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * <p><strong>Double Validation</strong> and Conversion routines ({@code java.lang.Double}).</p>
+ * <p><strong>Double Validation</strong> and Conversion routines ({@link Double}).</p>
  *
  * <p>This validator provides a number of methods for
  *    validating/converting a {@link String} value to

@@ -30,7 +30,7 @@ import java.text.Format;
  *
  * <p>However any of the <em>number</em> validators can be used for <em>currency</em> validation.
  *    For example, if you wanted a <em>currency</em> validator that converts to a
- *    {@code java.lang.Integer} then you can simply instantiate an
+ *    {@link Integer} then you can simply instantiate an
  *    {@code IntegerValidator} with the appropriate <em>format type</em>:</p>
  *
  *    <p>{@code ... = new IntegerValidator(false, IntegerValidator.CURRENCY_FORMAT);}</p>
