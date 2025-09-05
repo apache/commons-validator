@@ -2206,23 +2206,23 @@ public class DomainValidator implements Serializable {
      * @param domain the parameter to check for domain name syntax.
      * @return true if the parameter is a valid domain name.
      */
-    public boolean isValid(String domain) {
+    public boolean isValid(final String domain) {
         if (domain == null) {
             return false;
         }
-        domain = unicodeToASCII(domain);
+        final String ascii = unicodeToASCII(domain);
         // hosts must be equally reachable via punycode and Unicode
         // Unicode is never shorter than punycode, so check punycode
         // if domain did not convert, then it will be caught by ASCII
         // checks in the regexes below
-        if (domain.length() > MAX_DOMAIN_LENGTH) {
+        if (ascii.length() > MAX_DOMAIN_LENGTH) {
             return false;
         }
-        final String[] groups = domainRegex.match(domain);
+        final String[] groups = domainRegex.match(ascii);
         if (groups != null && groups.length > 0) {
             return isValidTld(groups[0]);
         }
-        return allowLocal && hostnameRegex.isValid(domain);
+        return allowLocal && hostnameRegex.isValid(ascii);
     }
 
     /**
