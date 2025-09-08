@@ -2239,20 +2239,20 @@ public class DomainValidator implements Serializable {
 
     // package protected for unit test access
     // must agree with isValid() above
-    final boolean isValidDomainSyntax(String domain) {
+    final boolean isValidDomainSyntax(final String domain) {
         if (domain == null) {
             return false;
         }
-        domain = unicodeToASCII(domain);
+        final String ascii = unicodeToASCII(domain);
         // hosts must be equally reachable via punycode and Unicode
         // Unicode is never shorter than punycode, so check punycode
         // if domain did not convert, then it will be caught by ASCII
         // checks in the regexes below
-        if (domain.length() > MAX_DOMAIN_LENGTH) {
+        if (ascii.length() > MAX_DOMAIN_LENGTH) {
             return false;
         }
-        final String[] groups = domainRegex.match(domain);
-        return groups != null && groups.length > 0 || hostnameRegex.isValid(domain);
+        final String[] groups = domainRegex.match(ascii);
+        return groups != null && groups.length > 0 || hostnameRegex.isValid(ascii);
     }
 
     /**
