@@ -64,7 +64,7 @@ import java.util.Locale;
 public class DomainValidator implements Serializable {
 
     /**
-     * enum used by {@link DomainValidator#updateTLDOverride(ArrayType, String[])}
+     * Enum used by {@link DomainValidator#updateTLDOverride(ArrayType, String[])}
      * to determine which override array to update / fetch
      * @since 1.5.0
      * @since 1.5.1 made public and added read-only array references
@@ -108,7 +108,8 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Used to specify overrides when creating a new class.
+     * Specifies overrides when creating a new class.
+     *
      * @since 1.7
      */
     public static class Item {
@@ -1802,20 +1803,20 @@ public class DomainValidator implements Serializable {
     private static String[] localTLDsPlus = EMPTY_STRING_ARRAY;
 
     /**
-     * Check if a sorted array contains the specified key
+     * Tests if a sorted array contains the specified key
      *
-     * @param sortedArray the array to search
-     * @param key the key to find
-     * @return {@code true} if the array contains the key
+     * @param sortedArray the array to search.
+     * @param key the key to find.
+     * @return {@code true} if the array contains the key.
      */
     private static boolean arrayContains(final String[] sortedArray, final String key) {
         return Arrays.binarySearch(sortedArray, key) >= 0;
     }
 
     /**
-     * Returns the singleton instance of this validator. It
-     *  will not consider local addresses as valid.
-     * @return the singleton instance of this validator
+     * Gets the singleton instance of this validator. It will not consider local addresses as valid.
+     *
+     * @return the singleton instance of this validator.
      */
     public static synchronized DomainValidator getInstance() {
         inUse = true;
@@ -1823,10 +1824,10 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Returns the singleton instance of this validator,
-     *  with local validation as required.
-     * @param allowLocal Should local addresses be considered valid?
-     * @return the singleton instance of this validator
+     * Gets the singleton instance of this validator, with local validation as required.
+     *
+     * @param allowLocal Whether local addresses are considered valid.
+     * @return the singleton instance of this validator.
      */
     public static synchronized DomainValidator getInstance(final boolean allowLocal) {
         inUse = true;
@@ -1837,17 +1838,13 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Returns a new instance of this validator.
-     * The user can provide a list of {@link Item} entries which can
-     * be used to override the generic and country code lists.
-     * Note that any such entries override values provided by the
-     * {@link #updateTLDOverride(ArrayType, String[])} method
-     * If an entry for a particular type is not provided, then
-     * the class override (if any) is retained.
+     * Gets a new instance of this validator. The user can provide a list of {@link Item} entries which can be used to override the generic and country code
+     * lists. Note that any such entries override values provided by the {@link #updateTLDOverride(ArrayType, String[])} method If an entry for a particular
+     * type is not provided, then the class override (if any) is retained.
      *
-     * @param allowLocal Should local addresses be considered valid?
-     * @param items   array of {@link Item} entries
-     * @return an instance of this validator
+     * @param allowLocal Whether local addresses are considered valid.
+     * @param items      array of {@link Item} entries.
+     * @return an instance of this validator.
      * @since 1.7
      */
     public static synchronized DomainValidator getInstance(final boolean allowLocal, final List<Item> items) {
@@ -1857,9 +1854,10 @@ public class DomainValidator implements Serializable {
 
     /**
      * Gets a copy of a class level internal array.
-     * @param table the array type (any of the enum values)
-     * @return a copy of the array
-     * @throws IllegalArgumentException if the table type is unexpected (should not happen)
+     *
+     * @param table the array type (any of the enum values).
+     * @return a copy of the array.
+     * @throws IllegalArgumentException if the table type is unexpected (should not happen).
      * @since 1.5.1
      */
     public static synchronized String[] getTLDEntries(final ArrayType table) {
@@ -1902,8 +1900,7 @@ public class DomainValidator implements Serializable {
     }
 
     /*
-     * Check if input contains only ASCII
-     * Treats null as all ASCII
+     * Tests whether input contains only ASCII. Treats null as all ASCII.
      */
     private static boolean isOnlyASCII(final String input) {
         if (input == null) {
@@ -1918,11 +1915,10 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Converts potentially Unicode input to punycode.
-     * If conversion fails, returns the original input.
+     * Converts potentially Unicode input to punycode. If conversion fails, returns the original input.
      *
-     * @param input the string to convert, not null
-     * @return converted input, or original input if conversion fails
+     * @param input the string to convert, not null.
+     * @return converted input, or original input if conversion fails.
      */
     // Needed by UrlValidator
     static String unicodeToASCII(final String input) {
@@ -1959,28 +1955,29 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Update one of the TLD override arrays.
-     * This must only be done at program startup, before any instances are accessed using getInstance.
+     * Updates one of the TLD override arrays. This must only be done at program startup, before any instances are accessed using getInstance.
      * <p>
      * For example:
+     * </p>
      * <p>
      * {@code DomainValidator.updateTLDOverride(ArrayType.GENERIC_PLUS, "apache")}
+     * </p>
      * <p>
      * To clear an override array, provide an empty array.
+     * </p>
      *
-     * @param table the table to update, see {@link DomainValidator.ArrayType}
-     * Must be one of the following
-     * <ul>
-     * <li>COUNTRY_CODE_MINUS</li>
-     * <li>COUNTRY_CODE_PLUS</li>
-     * <li>GENERIC_MINUS</li>
-     * <li>GENERIC_PLUS</li>
-     * <li>LOCAL_MINUS</li>
-     * <li>LOCAL_PLUS</li>
-     * </ul>
-     * @param tlds the array of TLDs, must not be null
-     * @throws IllegalStateException if the method is called after getInstance
-     * @throws IllegalArgumentException if one of the read-only tables is requested
+     * @param table the table to update, see {@link DomainValidator.ArrayType} Must be one of the following
+     *              <ul>
+     *              <li>COUNTRY_CODE_MINUS</li>
+     *              <li>COUNTRY_CODE_PLUS</li>
+     *              <li>GENERIC_MINUS</li>
+     *              <li>GENERIC_PLUS</li>
+     *              <li>LOCAL_MINUS</li>
+     *              <li>LOCAL_PLUS</li>
+     *              </ul>
+     * @param tlds  the array of TLDs, must not be null.
+     * @throws IllegalStateException    if the method is called after getInstance.
+     * @throws IllegalArgumentException if one of the read-only tables is requested.
      * @since 1.5.0
      */
     public static synchronized void updateTLDOverride(final ArrayType table, final String... tlds) {
@@ -2092,12 +2089,12 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Private constructor, allowing local overrides
+     * Private constructor, allowing local overrides.
+     *
      * @since 1.7
     */
     private DomainValidator(final boolean allowLocal, final List<Item> items) {
         this.allowLocal = allowLocal;
-
         // default to class overrides
         String[] ccMinus = countryCodeTLDsMinus;
         String[] ccPlus = countryCodeTLDsPlus;
@@ -2105,7 +2102,6 @@ public class DomainValidator implements Serializable {
         String[] genPlus = genericTLDsPlus;
         String[] localMinus = localTLDsMinus;
         String[] localPlus = localTLDsPlus;
-
         // apply the instance overrides
         for (final Item item : items) {
             final String[] copy = new String[item.values.length];
@@ -2143,7 +2139,6 @@ public class DomainValidator implements Serializable {
                 break;
             }
         }
-
         // init the instance overrides
         myCountryCodeTLDsMinus = ccMinus;
         myCountryCodeTLDsPlus = ccPlus;
@@ -2162,9 +2157,10 @@ public class DomainValidator implements Serializable {
 
     /**
      * Gets a copy of an instance level internal array.
-     * @param table the array type (any of the enum values)
-     * @return a copy of the array
-     * @throws IllegalArgumentException if the table type is unexpected, for example, GENERIC_RO
+     *
+     * @param table the array type (any of the enum values).
+     * @return a copy of the array.
+     * @throws IllegalArgumentException if the table type is unexpected, for example, GENERIC_RO.
      * @since 1.7
      */
     public String[] getOverrides(final ArrayType table) {
@@ -2195,7 +2191,7 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Does this instance allow local addresses?
+     * Tests whether this instance allow local addresses.
      *
      * @return true if local addresses are allowed.
      * @since 1.7
@@ -2205,37 +2201,36 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Returns true if the specified {@link String} parses
-     * as a valid domain name with a recognized top-level domain.
-     * The parsing is case-insensitive.
-     * @param domain the parameter to check for domain name syntax
-     * @return true if the parameter is a valid domain name
+     * Tests whether the specified {@link String} parses as a valid domain name with a recognized top-level domain. The parsing is case-insensitive.
+     *
+     * @param domain the parameter to check for domain name syntax.
+     * @return true if the parameter is a valid domain name.
      */
-    public boolean isValid(String domain) {
+    public boolean isValid(final String domain) {
         if (domain == null) {
             return false;
         }
-        domain = unicodeToASCII(domain);
+        final String ascii = unicodeToASCII(domain);
         // hosts must be equally reachable via punycode and Unicode
         // Unicode is never shorter than punycode, so check punycode
         // if domain did not convert, then it will be caught by ASCII
         // checks in the regexes below
-        if (domain.length() > MAX_DOMAIN_LENGTH) {
+        if (ascii.length() > MAX_DOMAIN_LENGTH) {
             return false;
         }
-        final String[] groups = domainRegex.match(domain);
+        final String[] groups = domainRegex.match(ascii);
         if (groups != null && groups.length > 0) {
             return isValidTld(groups[0]);
         }
-        return allowLocal && hostnameRegex.isValid(domain);
+        return allowLocal && hostnameRegex.isValid(ascii);
     }
 
     /**
-     * Returns true if the specified {@link String} matches any
-     * IANA-defined country code top-level domain. Leading dots are
-     * ignored if present. The search is case-insensitive.
-     * @param ccTld the parameter to check for country code TLD status, not null
-     * @return true if the parameter is a country code TLD
+     * Tests whether the specified {@link String} matches any IANA-defined country code top-level domain. Leading dots are ignored if present. The search is
+     * case-insensitive.
+     *
+     * @param ccTld the parameter to check for country code TLD status, not null.
+     * @return true if the parameter is a country code TLD.
      */
     public boolean isValidCountryCodeTld(final String ccTld) {
         final String key = chompLeadingDot(unicodeToASCII(ccTld).toLowerCase(Locale.ENGLISH));
@@ -2244,27 +2239,28 @@ public class DomainValidator implements Serializable {
 
     // package protected for unit test access
     // must agree with isValid() above
-    final boolean isValidDomainSyntax(String domain) {
+    final boolean isValidDomainSyntax(final String domain) {
         if (domain == null) {
             return false;
         }
-        domain = unicodeToASCII(domain);
+        final String ascii = unicodeToASCII(domain);
         // hosts must be equally reachable via punycode and Unicode
         // Unicode is never shorter than punycode, so check punycode
         // if domain did not convert, then it will be caught by ASCII
         // checks in the regexes below
-        if (domain.length() > MAX_DOMAIN_LENGTH) {
+        if (ascii.length() > MAX_DOMAIN_LENGTH) {
             return false;
         }
-        final String[] groups = domainRegex.match(domain);
-        return groups != null && groups.length > 0 || hostnameRegex.isValid(domain);
+        final String[] groups = domainRegex.match(ascii);
+        return groups != null && groups.length > 0 || hostnameRegex.isValid(ascii);
     }
+
     /**
-     * Returns true if the specified {@link String} matches any
-     * IANA-defined generic top-level domain. Leading dots are ignored
-     * if present. The search is case-insensitive.
-     * @param gTld the parameter to check for generic TLD status, not null
-     * @return true if the parameter is a generic TLD
+     * Tests whether the specified {@link String} matches any IANA-defined generic top-level domain. Leading dots are ignored if present. The search is
+     * case-insensitive.
+     *
+     * @param gTld the parameter to check for generic TLD status, not null.
+     * @return true if the parameter is a generic TLD.
      */
     public boolean isValidGenericTld(final String gTld) {
         final String key = chompLeadingDot(unicodeToASCII(gTld).toLowerCase(Locale.ENGLISH));
@@ -2272,11 +2268,11 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Returns true if the specified {@link String} matches any
-     * IANA-defined infrastructure top-level domain. Leading dots are
-     * ignored if present. The search is case-insensitive.
-     * @param iTld the parameter to check for infrastructure TLD status, not null
-     * @return true if the parameter is an infrastructure TLD
+     * Tests whether the specified {@link String} matches any IANA-defined infrastructure top-level domain. Leading dots are ignored if present. The search is
+     * case-insensitive.
+     *
+     * @param iTld the parameter to check for infrastructure TLD status, not null.
+     * @return true if the parameter is an infrastructure TLD.
      */
     public boolean isValidInfrastructureTld(final String iTld) {
         final String key = chompLeadingDot(unicodeToASCII(iTld).toLowerCase(Locale.ENGLISH));
@@ -2284,11 +2280,11 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Returns true if the specified {@link String} matches any
-     * widely used "local" domains (localhost or localdomain). Leading dots are
-     * ignored if present. The search is case-insensitive.
-     * @param lTld the parameter to check for local TLD status, not null
-     * @return true if the parameter is a local TLD
+     * Tests whether the specified {@link String} matches any widely used "local" domains (localhost or localdomain). Leading dots are ignored if present. The
+     * search is case-insensitive.
+     *
+     * @param lTld the parameter to check for local TLD status, not null.
+     * @return true if the parameter is a local TLD.
      */
     public boolean isValidLocalTld(final String lTld) {
         final String key = chompLeadingDot(unicodeToASCII(lTld).toLowerCase(Locale.ENGLISH));
@@ -2297,15 +2293,15 @@ public class DomainValidator implements Serializable {
     }
 
     /**
-     * Returns true if the specified {@link String} matches any
-     * IANA-defined top-level domain. Leading dots are ignored if present.
-     * The search is case-insensitive.
+     * Returns true if the specified {@link String} matches any IANA-defined top-level domain. Leading dots are ignored if present. The search is
+     * case-insensitive.
      * <p>
-     * If allowLocal is true, the TLD is checked using {@link #isValidLocalTld(String)}.
-     * The TLD is then checked against {@link #isValidInfrastructureTld(String)},
-     * {@link #isValidGenericTld(String)} and {@link #isValidCountryCodeTld(String)}
-     * @param tld the parameter to check for TLD status, not null
-     * @return true if the parameter is a TLD
+     * If allowLocal is true, the TLD is checked using {@link #isValidLocalTld(String)}. The TLD is then checked against
+     * {@link #isValidInfrastructureTld(String)}, {@link #isValidGenericTld(String)} and {@link #isValidCountryCodeTld(String)}.
+     * </p>
+     *
+     * @param tld the parameter to check for TLD status, not null.
+     * @return true if the parameter is a TLD.
      */
     public boolean isValidTld(final String tld) {
         if (allowLocal && isValidLocalTld(tld)) {

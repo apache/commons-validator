@@ -48,6 +48,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.validator.routines.DomainValidator.ArrayType;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -497,10 +498,20 @@ public class DomainValidatorTest {
         assertFalse(validator.isValid("---c.com"), "domain name starting with multiple dashes shouldn't validate");
         assertFalse(validator.isValid("c--.com"), "domain name ending with multiple dashes shouldn't validate");
         assertFalse(validator.isValid("apache.rog"), "domain name with invalid TLD shouldn't validate");
-
         assertFalse(validator.isValid("http://www.apache.org"), "URL shouldn't validate");
         assertFalse(validator.isValid(" "), "Empty string shouldn't validate as domain name");
         assertFalse(validator.isValid(null), "Null shouldn't validate as domain name");
+        // VALIDATOR-501
+        assertFalse(validator.isValid("-test.fr"));
+        assertFalse(validator.isValid("test-.fr"));
+    }
+
+    @Test
+    @Disabled
+    void testInvalidDomains501() {
+        // VALIDATOR-501
+        assertFalse(validator.isValid("-tést.fr"));
+        assertFalse(validator.isValid("tést-.fr"));
     }
 
     // Check if IDN.toASCII is broken or not
