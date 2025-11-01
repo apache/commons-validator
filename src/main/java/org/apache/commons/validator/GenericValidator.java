@@ -352,7 +352,7 @@ public class GenericValidator implements Serializable {
         return value <= max;
     }
 
-    // See https://issues.apache.org/bugzilla/show_bug.cgi?id=29015 regarding the "value" methods
+    // See https://issues.apache.org/bugzilla/show_bug.cgi?id=29015 regarding the "value" methods.
 
     /**
      * <p>Checks if the value is less than or equal to the max.</p>
