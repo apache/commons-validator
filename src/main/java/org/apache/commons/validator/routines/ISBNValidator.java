@@ -48,7 +48,7 @@ import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
  *   <li>EAN - see
  *       <a href="https://en.wikipedia.org/wiki/European_Article_Number">Wikipedia -
  *       European Article Number</a>.</li>
- *   <li><a href="http://www.isbn.org/standards/home/isbn/transition.asp">ISBN-13
+ *   <li><a href="https://www.isbn.org/standards/home/isbn/transition.asp">ISBN-13
  *       Transition details</a>.</li>
  * </ul>
  *

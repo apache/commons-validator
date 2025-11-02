@@ -26,8 +26,8 @@
 <!-- ================================================== -->
 <section name="Overview">
 <p>
-  Commons Validator uses <a href="http://maven.apache.org">Maven</a> or
-  <a href="http://ant.apache.org">Ant</a> as a build system.
+  Commons Validator uses <a href="https://maven.apache.org">Maven</a> or
+  <a href="https://ant.apache.org">Ant</a> as a build system.
 </p>
 </section>
 <!-- ================================================== -->
@@ -48,7 +48,7 @@
   </p>
   <p>
     Further details can be found in the
-    <a href="http://commons.apache.org/building.html">commons build instructions</a>.
+    <a href="https://commons.apache.org/building.html">commons build instructions</a>.
   </p>
 </section>
 <!-- ================================================== -->
@@ -63,10 +63,10 @@
 <!-- ================================================== -->
 <section name="Nightly Builds">
   <p>
-      <a href="http://people.apache.org/builds/commons/nightly/commons-validator/">Nightly Builds</a>
+      <a href="https://people.apache.org/builds/commons/nightly/commons-validator/">Nightly Builds</a>
       are built once a day from the current SVN HEAD. These are provided purely for test purposes and are <b>NOT
       official releases</b> of the Apache Software Foundation - Released versions of Commons Validator are
-      available <a href="http://commons.apache.org/validator/download_validator.cgi">here</a>.
+      available <a href="https://commons.apache.org/validator/download_validator.cgi">here</a>.
   </p>
 </section>
 

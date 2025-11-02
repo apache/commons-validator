@@ -34,7 +34,7 @@
     <menu name="Documentation">
       <item name="Framework"         href="/apidocs/org/apache/commons/validator/package-summary.html#package_description"/>
       <item name="Routines"          href="/apidocs/org/apache/commons/validator/routines/package-summary.html#package_description"/>
-      <item name="Wiki"              href="http://wiki.apache.org/commons/Validator"/>
+      <item name="Wiki"              href="https://wiki.apache.org/commons/Validator"/>
     </menu>
 
     <menu name="Development">

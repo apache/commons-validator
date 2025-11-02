@@ -905,7 +905,7 @@ http://commons.apache.org/validator/dependencies.html
     <action dev="niallp" type="fix"><![CDATA[
      Remove static Log instances to avoid problems if deployed via a shared
      classloader in a container. See
-     <a href="http://wiki.apache.org/commons/Logging/StaticLog">here</a>
+     <a href="https://wiki.apache.org/commons/Logging/StaticLog">here</a>
      for more details.]]>
     </action>
     <action dev="niallp" type="fix" issue="VALIDATOR-39">
@@ -923,11 +923,11 @@ http://commons.apache.org/validator/dependencies.html
     </action>
     <action dev="dgraham" type="update"><![CDATA[
     Upgrade dependency versions to
-    <a href="http://commons.apache.org/beanutils/">Commons BeanUtils</a> 1.7.0,
-    <a href="http://commons.apache.org/digester/">Commons Digester</a> 1.6
-    and <a href="http://commons.apache.org/logging/">Commons Logging</a> 1.0.4.
+    <a href="https://commons.apache.org/beanutils/">Commons BeanUtils</a> 1.7.0,
+    <a href="https://commons.apache.org/digester/">Commons Digester</a> 1.6
+    and <a href="https://commons.apache.org/logging/">Commons Logging</a> 1.0.4.
     Remove dependency on
-    <a href="http://commons.apache.org/beanutils/">Commons Collections</a>
+    <a href="https://commons.apache.org/beanutils/">Commons Collections</a>
     (BeanUtils 1.7.0 has removed its dependency on Collections by including the
      few Collections classes required in its distribution).]]>
     </action>
@@ -952,7 +952,7 @@ http://commons.apache.org/validator/dependencies.html
     </action>
     <action dev="mrdon" type="fix" issue="VALIDATOR-124"><![CDATA[
     Handling of float and double should use the locale object.
-    Fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=21282">21282</a>]]>
+    Fixes <a href="https://issues.apache.org/bugzilla/show_bug.cgi?id=21282">21282</a>]]>
     </action>
     <action dev="mrdon" type="update" issue="VALIDATOR-181">
     More informative Exception message when validation method not found.
@@ -966,8 +966,8 @@ http://commons.apache.org/validator/dependencies.html
     <action dev="mrdon" type="fix"><![CDATA[
     Changing the strategy for locating form name/id, now use a common utility
     function which works in both IE and Firefox.
-    Fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=35127">35127</a>
-    and <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=35127">32760</a>]]>
+    Fixes <a href="https://issues.apache.org/bugzilla/show_bug.cgi?id=35127">35127</a>
+    and <a href="https://issues.apache.org/bugzilla/show_bug.cgi?id=35127">32760</a>]]>
     </action>
     <action dev="mrdon" type="fix" fixed-issues="VALIDATOR-73,VALIDATOR-80">
     Validation fails when "name" attribute in form not specified.
@@ -1064,7 +1064,7 @@ http://commons.apache.org/validator/dependencies.html
     <action dev="rleland" type="update"><![CDATA[
     Allow multiple forms to be on the same page by
     generating a unique variable name based on form name.
-    Fixes <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=17667">17667</a>]]>
+    Fixes <a href="https://issues.apache.org/bugzilla/show_bug.cgi?id=17667">17667</a>]]>
     </action>
     <action dev="rleland" type="add" issue="VALIDATOR-152">
     Validate file extensions for file uploads.
@@ -1100,7 +1100,7 @@ http://commons.apache.org/validator/dependencies.html
   <release version="1.1.1 (alpha)" date="2003-12-15" description="1.1 Alpha">
     <action dev="rleland" type="add"><![CDATA[
     Add javadoc to javascript, and use
-    <a href="http://jsdoc.sf.net"> jsdoc</a> to process it.]]>
+    <a href="https://jsdoc.sf.net"> jsdoc</a> to process it.]]>
     </action>
     <action dev="rleland" type="fix">
     Ignore validation criteria when field is disabled for all field types.
