@@ -31,7 +31,7 @@
     Apache Commons Validator provides the building blocks for both client-side and server-side data validation.
     It may be used standalone or with a framework like Struts.
   </description>
-  <url>http://commons.apache.org/proper/commons-validator/</url>
+  <url>https://commons.apache.org/proper/commons-validator/</url>
   <inceptionYear>2002</inceptionYear>
   <properties>
     <commons.componentid>validator</commons.componentid>
