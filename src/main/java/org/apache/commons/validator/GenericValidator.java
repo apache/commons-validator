@@ -22,10 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import org.apache.commons.validator.routines.CreditCardValidator;
 import org.apache.commons.validator.routines.DateValidator;
 import org.apache.commons.validator.routines.EmailValidator;
-import org.apache.commons.validator.routines.UrlValidator;
 
 /**
  * This class contains basic methods for performing validations.
@@ -33,16 +31,6 @@ import org.apache.commons.validator.routines.UrlValidator;
 public class GenericValidator implements Serializable {
 
     private static final long serialVersionUID = -7212095066891517618L;
-
-    /**
-     * UrlValidator used in wrapper method.
-     */
-    private static final UrlValidator URL_VALIDATOR = new UrlValidator();
-
-    /**
-     * CreditCardValidator used in wrapper method.
-     */
-    private static final CreditCardValidator CREDIT_CARD_VALIDATOR = new CreditCardValidator();
 
     /**
      * Calculate an adjustment amount for line endings.
@@ -96,7 +84,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is valid Credit Card Number.
      */
     public static boolean isCreditCard(final String value) {
-        return CREDIT_CARD_VALIDATOR.isValid(value);
+        return Constants.CREDIT_CARD_VALIDATOR.isValid(value);
     }
 
     /**
@@ -277,7 +265,7 @@ public class GenericValidator implements Serializable {
      * @return true if the value is valid Url.
      */
     public static boolean isUrl(final String value) {
-        return URL_VALIDATOR.isValid(value);
+        return Constants.URL_VALIDATOR.isValid(value);
     }
 
     /**

@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.routines.CreditCardValidator.CreditCardRange;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 import org.junit.jupiter.api.Test;
@@ -345,6 +346,18 @@ class CreditCardValidatorTest {
         for (final String s : ERROR_CARDS) {
             assertFalse(ccv.isValid(s), s);
         }
+    }
+
+    /**
+     * Tests [VALIDATOR-502] Circular dependency in static initialization causes NPE in GenericValidator.isCreditCard().
+     */
+    @Test
+    public void testGenericValidatorCircularDependency() {
+        // Before the fix, commenting out this line will avoid the NPE.
+        @SuppressWarnings("unused")
+        final CreditCardValidator ccv = new CreditCardValidator();
+        // Threw an NPE.
+        GenericValidator.isCreditCard("1234567890");
     }
 
     @Test
