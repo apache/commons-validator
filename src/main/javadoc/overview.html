@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+     https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<body>
+  <a href="https://commons.apache.org/validator"> <img src="org/apache/commons/validator/doc-files/logo.png" alt="Apache Commons Validator">
+  </a>
+  <h1>
+    <img src="org/apache/commons/validator/doc-files/leaf.svg" style="height: 1em; padding-right: 0.25em" alt="leaf">Introduction
+  </h1>
+  <p>Apache Commons Validator helps you with common issues when receiving data either electronically or from user input and verifying the integrity of that
+    data. This work is repetitive and becomes even more complicated when different sets of validation rules need to be applied to the same set of data based on
+    locale. Error messages may also vary by locale. This package addresses some of these issues to speed development and maintenance of validation rules.</p>
+  <h1>
+    <img src="org/apache/commons/validator/doc-files/leaf.svg" style="height: 1em; padding-right: 0.25em" alt="leaf">Features
+  </h1>
+  <p>Commons Validator provides two distinct sets of functionality:</p>
+  <ol>
+    <li>A configurable (typically XML) validation engine</li>
+    <li>Reusable "primitive" validation methods</li>
+  </ol>
+  <p>Your validation methods are plugged into the engine and executed against your data. Often, these methods use resources specific to one application or
+    framework so Commons Validator doesn't directly provide pluggable validator actions. However, it does have a set of common validation methods (email
+    addresses, dates, URLs, etc.) that help in creating pluggable actions.</p>
+  <h1>
+    <img src="org/apache/commons/validator/doc-files/leaf.svg" style="height: 1em; padding-right: 0.25em" alt="leaf">Using Commons Validator
+  </h1>
+  <p>In order to use the Validator, the following basic steps are required:</p>
+  <ul>
+    <li>Create a new instance of the <code>org.apache.commons.validator.Validator</code> class. Currently Validator instances may be safely reused if the
+      current ValidatorResources are the same, as long as you have completed any previous validation, and you do not try to utilize a particular Validator
+      instance from more than one thread at a time.
+    </li>
+    <li>Add any resources needed to perform the validations, such as the JavaBean to validate.</li>
+    <li>Call the validate method on <code>org.apache.commons.validator.Validator</code>.
+    </li>
+  </ul>
+  <h1>
+    <img src="org/apache/commons/validator/doc-files/leaf.svg" style="height: 1em; padding-right: 0.25em" alt="leaf">Requirements
+  </h1>
+  <ul>
+    <li>Java 8 or above.</li>
+    <li>If using OSGi, R7 or above.</li>
+  </ul>
+</body>
+</html>

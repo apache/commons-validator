@@ -22,7 +22,6 @@
   <bannerRight name="Commons Validator" href="/index.html">
     <image src="/images/logo.png"/>
   </bannerRight>
-
   <body>
     <menu name="Validator">
       <item name="Overview"          href="/index.html"/>
@@ -30,13 +29,11 @@
       <item name="Release Notes"     href="/changes.html"/>
       <item name="Dependencies"      href="/dependencies.html"/>
     </menu>
-
     <menu name="Documentation">
       <item name="Framework"         href="/apidocs/org/apache/commons/validator/package-summary.html#package_description"/>
       <item name="Routines"          href="/apidocs/org/apache/commons/validator/routines/package-summary.html#package_description"/>
       <item name="Wiki"              href="https://wiki.apache.org/commons/Validator"/>
     </menu>
-
     <menu name="Development">
       <item name="Javadocs"          href="/apidocs/index.html"/>
       <item name="Mailing Lists"     href="/mail-lists.html"/>
@@ -44,7 +41,5 @@
       <item name="Source Repository" href="/scm.html"/>
       <item name="Building"          href="/building.html"/>
     </menu>
-
   </body>
-
 </site>
