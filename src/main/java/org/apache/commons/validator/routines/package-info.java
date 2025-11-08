@@ -421,7 +421,7 @@
  * </ul>
  * </li>
  * <li><strong>Case Sensitivity</strong> - matching can be done in either a
- * <i>case-sensitive</i> or <em>case-insensitive</em> way.</li>
+ * <em>case-sensitive</em> or <em>case-insensitive</em> way.</li>
  * <li><strong>Multiple Expressions</strong> - instances of the
  * <a href="RegexValidator.html">RegexValidator</a>
  * can be created to either match against a single regular expression
