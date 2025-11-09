@@ -23,22 +23,28 @@
     <image src="/images/logo.png"/>
   </bannerRight>
   <body>
-    <menu name="Validator">
-      <item name="Overview"          href="/index.html"/>
-      <item name="Download"          href="/download_validator.cgi"/>
-      <item name="Release Notes"     href="/changes.html"/>
-      <item name="Dependencies"      href="/dependencies.html"/>
+    <menu name="Commons Validator">
+      <!-- Start: For all components. -->
+      <item name="About" href="index.html" />
+      <item name="Asking Questions" href="/mail-lists.html" />
+      <item name="Release History" href="/changes.html" />
+      <item name="Issue Tracking" href="/issue-management.html" />
+      <item name="Dependency Management" href="/dependency-info.html" />
+      <item name="Sources" href="/scm.html" />
+      <item name="Security" href="security.html" />
+      <item name="License" href="https://www.apache.org/licenses/LICENSE-2.0" />
+      <item name="Code of Conduct" href="https://www.apache.org/foundation/policies/conduct.html" />
+      <item name="Download" href="https://commons.apache.org/proper/commons-validator/download_validator.cgi" />
+      <item name="Javadoc">
+        <item name="Javadoc Current" href="apidocs/index.html" />
+        <item name="Javadoc Archive" href="https://javadoc.io/doc/commons-validator/commons-validator/" />
+      </item>
+      <!-- End: For all components. -->
     </menu>
     <menu name="Documentation">
       <item name="Framework"         href="/apidocs/org/apache/commons/validator/package-summary.html#package_description"/>
       <item name="Routines"          href="/apidocs/org/apache/commons/validator/routines/package-summary.html#package_description"/>
       <item name="Wiki"              href="https://wiki.apache.org/commons/Validator"/>
-    </menu>
-    <menu name="Development">
-      <item name="Javadocs"          href="/apidocs/index.html"/>
-      <item name="Mailing Lists"     href="/mail-lists.html"/>
-      <item name="Issue Tracking"    href="/issue-tracking.html"/>
-      <item name="Source Repository" href="/scm.html"/>
       <item name="Building"          href="/building.html"/>
     </menu>
   </body>
