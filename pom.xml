@@ -73,9 +73,6 @@
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-validator</developerConnection>
     <url>https://gitbox.apache.org/repos/asf/commons-validator</url>
   </scm>
-  <issueManagement>
-    <url>https://issues.apache.org/jira/browse/VALIDATOR</url>
-  </issueManagement>
   <distributionManagement>
     <site>
       <id>apache.website</id>
