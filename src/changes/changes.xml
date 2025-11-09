@@ -64,7 +64,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
   <release version="1.10.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
-    <action type="fix" dev="ggregory" due-to="Mark Miller, Gary Gregory" issue="VALIDATOR-502">Circular dependency in static initialization causes NPE in GenericValidator.isCreditCard().</action>
+    <action type="fix" dev="ggregory" due-to="Mark Miller, Gary Gregory" issue="VALIDATOR-502">Circular dependency in static initialization causes NullPointerException in GenericValidator.isCreditCard().</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 85 to 90 #361, #370.</action>
