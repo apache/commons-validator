@@ -23,14 +23,12 @@
   <author email="dev@commons.apache.org">Apache Commons Team</author>
  </properties>
 <body>
-<!-- ================================================== -->
 <section name="Overview">
 <p>
   Commons Validator uses <a href="https://maven.apache.org">Maven</a> or
   <a href="https://ant.apache.org">Ant</a> as a build system.
 </p>
 </section>
-<!-- ================================================== -->
 <section name="Maven Goals">
   <p>
     To build a jar file, change into Validator's root directory and run 
@@ -51,16 +49,6 @@
     <a href="https://commons.apache.org/building.html">commons build instructions</a>.
   </p>
 </section>
-<!-- ================================================== -->
-<section name="Ant Goals">
-  <p>
-    To build a jar file and the javadocs, change into Validator's root directory
-    and run <strong><code>ant dist</code></strong>.
-    The result will be in the "dist" subdirectory.
-  </p>
-</section>
-
-<!-- ================================================== -->
 <section name="Nightly Builds">
   <p>
       <a href="https://people.apache.org/builds/commons/nightly/commons-validator/">Nightly Builds</a>
@@ -69,7 +57,5 @@
       available <a href="https://commons.apache.org/validator/download_validator.cgi">here</a>.
   </p>
 </section>
-
-<!-- ================================================== -->
 </body>
 </document>
