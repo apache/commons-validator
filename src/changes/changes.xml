@@ -67,7 +67,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="Mark Miller, Gary Gregory" issue="VALIDATOR-502">Circular dependency in static initialization causes NullPointerException in GenericValidator.isCreditCard().</action>
     <!-- ADD -->
     <!-- UPDATE -->
-    <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 85 to 90 #361, #370.</action>
+    <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 85 to 92 #361, #370.</action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-lang3 from 3.17.0 to 3.19.0 #346.</action>
     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-csv from 1.14.0 to 1.14.0.</action>
   </release>
