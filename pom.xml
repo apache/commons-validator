@@ -68,11 +68,6 @@
     <checkstyle.suppress.file>${basedir}/src/conf/checkstyle/checkstyle-suppressions.xml</checkstyle.suppress.file>
     <checkstyle.resourceExcludes>LICENSE.txt, NOTICE.txt, **/maven-archiver/pom.properties</checkstyle.resourceExcludes>
   </properties>
-  <scm>
-    <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-validator</connection>
-    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-validator</developerConnection>
-    <url>https://gitbox.apache.org/repos/asf/commons-validator</url>
-  </scm>
   <issueManagement>
     <url>https://issues.apache.org/jira/browse/${commons.jira.id}</url>
   </issueManagement>
