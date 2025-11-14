@@ -45,7 +45,7 @@ Apache Commons Validator
 
 [![Java CI](https://github.com/apache/commons-validator/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/maven.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/commons-validator/commons-validator?label=Maven%20Central)](https://search.maven.org/artifact/commons-validator/commons-validator)
-[![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.10.0.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.10.0)
+[![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.10.1.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.10.1)
 [![CodeQL](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-validator/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-validator)
 
@@ -69,7 +69,7 @@ Alternatively, you can pull it from the central Maven repositories:
 <dependency>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <version>1.10.0</version>
+  <version>1.10.1</version>
 </dependency>
 ```
 
@@ -90,7 +90,7 @@ There are some guidelines which will make applying PRs easier for us:
 + Respect the existing code style for each file.
 + Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
 + Provide JUnit tests for your changes and make sure your changes don't break any existing tests by running `mvn`.
-+ Before you pushing a PR, run `mvn` (by itself), this runs the default goal, which contains all build checks.
++ Before you push a PR, run `mvn` (without arguments). This runs the default goal which contains all build checks.
 + To see the code coverage report, regardless of coverage failures, run `mvn clean site -Dcommons.jacoco.haltOnFailure=false -Pjacoco`
 
 If you plan to contribute on a regular basis, please consider filing a [contributor license agreement](https://www.apache.org/licenses/#clas).
