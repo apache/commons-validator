@@ -69,7 +69,7 @@ import org.apache.commons.validator.GenericValidator;
  *  </pre>
  *
  * @see
- * <a href="http://www.ietf.org/rfc/rfc2396.txt">
+ * <a href="https://www.ietf.org/rfc/rfc2396.txt">
  *  Uniform Resource Identifiers (URI): Generic Syntax
  * </a>
  *

@@ -1,3 +1,43 @@
+Apache Commons Validator 1.10.1 RELEASE NOTES
+---------------------------------------------
+
+The Apache Commons Validator team is pleased to announce the release of Apache Commons Validator 1.10.1.
+
+Apache Commons Validator provides the building blocks for both client-side and server-side data validation.
+It may be used standalone or with a framework like Struts.
+
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+For complete information on Apache Commons Validator, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Validator website:
+
+https://commons.apache.org/proper/commons-validator/
+
+Download page: https://commons.apache.org/proper/commons-validator/download_validator.cgi
+
+Changes in this version
+-----------------------
+
+Fixed Bugs
+----------
+
+* VALIDATOR-502:  Circular dependency in static initialization causes NullPointerException in GenericValidator.isCreditCard(). Thanks to Mark Miller, Gary Gregory.
+
+Changes
+-------
+
+*                 Bump org.apache.commons:commons-parent from 85 to 92 #361, #370. Thanks to Gary Gregory, Dependabot.
+*                 Bump org.apache.commons:commons-lang3 from 3.17.0 to 3.19.0 #346. Thanks to Dependabot, Gary Gregory.
+*                 Bump org.apache.commons:commons-csv from 1.14.0 to 1.14.0. Thanks to Dependabot, Gary Gregory.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-validator/changes.html
+
+Enjoy!
+-Apache Commons Validator team
+
+-----------------------------------------------------------------------------
 Apache Commons Validator 1.10.0 RELEASE NOTES
 ---------------------------------------------
 

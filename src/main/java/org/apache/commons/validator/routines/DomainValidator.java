@@ -31,8 +31,8 @@ import java.util.Locale;
  * </p>
  *
  * <p>Domain names are evaluated according
- * to the standards <a href="http://www.ietf.org/rfc/rfc1034.txt">RFC1034</a>,
- * section 3, and <a href="http://www.ietf.org/rfc/rfc1123.txt">RFC1123</a>,
+ * to the standards <a href="https://www.ietf.org/rfc/rfc1034.txt">RFC1034</a>,
+ * section 3, and <a href="https://www.ietf.org/rfc/rfc1123.txt">RFC1123</a>,
  * section 2.1. No accommodation is provided for the specialized needs of
  * other applications; if the domain name has been URL-encoded, for example,
  * validation will fail even though the equivalent plaintext version of the

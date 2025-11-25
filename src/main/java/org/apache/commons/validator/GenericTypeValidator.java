@@ -93,7 +93,7 @@ public class GenericTypeValidator implements Serializable {
     /**
      * Checks if the field is a valid credit card number.
      *
-     * <p>Reference Sean M. Burke's <a href="http://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl">
+     * <p>Reference Sean M. Burke's <a href="https://www.ling.nwu.edu/~sburke/pub/luhn_lib.pl">
      * script</a>.</p>
      *
      * @param value The value validation is being performed on.

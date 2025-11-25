@@ -18,7 +18,7 @@
 
 <document xmlns="http://maven.apache.org/XDOC/2.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
+  xsi:schemaLocation="https://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
 
   <properties>
     <title>Commons Validator</title>
@@ -29,8 +29,8 @@
     <section name="Commons Validator">
 
       <p>
-        A common issue when receiving data either electronically or from 
-        user input is verifying the integrity of the data. This work is 
+        Apache Commons Validator helps you with common issues when receiving data either electronically or from 
+        user input and verifying the integrity of that data. This work is 
         repetitive and becomes even more complicated when different sets 
         of validation rules need to be applied to the same set of data based 
         on locale. Error messages may also vary by locale.  
@@ -40,11 +40,11 @@
     </section>
 
     <section name="Releases">
-        <p>See the <a href="http://commons.apache.org/validator/download_validator.cgi">Downloads</a>
+        <p>See the <a href="https://commons.apache.org/validator/download_validator.cgi">Downloads</a>
            page for current/previous releases.
            For details of whats new in each version see the <a href="changes.html">Release Notes</a>.
-           <a href="http://wiki.apache.org/commons/ValidatorReleaseNotes">Community Notes</a> on
-           release are maintained on the <a href="http://wiki.apache.org/commons/">Apache Commons Wiki</a>.
+           <a href="https://wiki.apache.org/commons/ValidatorReleaseNotes">Community Notes</a> on
+           release are maintained on the <a href="https://wiki.apache.org/commons/">Apache Commons Wiki</a>.
         </p>
     </section>
 

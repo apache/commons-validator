@@ -43,9 +43,9 @@ import org.apache.commons.validator.util.Flags;
  *
  * <p>
  * For a similar implementation in Perl, reference Sean M. Burke's
- * <a href="http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html">script</a>.
+ * <a href="https://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html">script</a>.
  * More information is also available
- * <a href="http://www.merriampark.com/anatomycc.htm">here</a>.
+ * <a href="https://www.merriampark.com/anatomycc.htm">here</a>.
  * </p>
  *
  * @since 1.1

@@ -21,27 +21,27 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>90</version>
+    <version>93</version>
   </parent>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <version>1.10.1-SNAPSHOT</version>
+  <version>1.10.2-SNAPSHOT</version>
   <name>Apache Commons Validator</name>
   <description>
     Apache Commons Validator provides the building blocks for both client-side and server-side data validation.
     It may be used standalone or with a framework like Struts.
   </description>
-  <url>http://commons.apache.org/proper/commons-validator/</url>
+  <url>https://commons.apache.org/proper/commons-validator/</url>
   <inceptionYear>2002</inceptionYear>
   <properties>
     <commons.componentid>validator</commons.componentid>
     <commons.module.name>org.apache.commons.validator</commons.module.name>
     <!-- Re-generate the download page using: mvn commons:download-page -->
-    <commons.release.version>1.10.1</commons.release.version>
-    <commons.release.next>1.10.2</commons.release.next>
+    <commons.release.version>1.10.2</commons.release.version>
+    <commons.release.next>1.10.3</commons.release.next>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.desc>(requires JDK ${maven.compiler.target})</commons.release.desc>
-    <commons.bc.version>1.10.0</commons.bc.version>
+    <commons.bc.version>1.10.1</commons.bc.version>
     <commons.jira.id>VALIDATOR</commons.jira.id>
     <commons.jira.pid>12310494</commons.jira.pid>
     <commons.encoding>UTF-8</commons.encoding>
@@ -52,7 +52,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- project.build.outputTimestamp is managed by Maven plugins, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
-    <project.build.outputTimestamp>2025-07-09T15:09:08Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2025-11-17T19:09:33Z</project.build.outputTimestamp>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <!-- JaCoCo: Don't make code coverage worse than: -->
     <commons.jacoco.haltOnFailure>true</commons.jacoco.haltOnFailure>
@@ -68,14 +68,8 @@
     <checkstyle.suppress.file>${basedir}/src/conf/checkstyle/checkstyle-suppressions.xml</checkstyle.suppress.file>
     <checkstyle.resourceExcludes>LICENSE.txt, NOTICE.txt, **/maven-archiver/pom.properties</checkstyle.resourceExcludes>
   </properties>
-  <scm>
-    <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-validator</connection>
-    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-validator</developerConnection>
-    <url>https://gitbox.apache.org/repos/asf/commons-validator</url>
-  </scm>
   <issueManagement>
-    <system>jira</system>
-    <url>https://issues.apache.org/jira/browse/VALIDATOR</url>
+    <url>https://issues.apache.org/jira/browse/${commons.jira.id}</url>
   </issueManagement>
   <distributionManagement>
     <site>
@@ -96,9 +90,10 @@
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
           <configuration>
-            <excludes combine.children="append">
-              <exclude>src/test/resources/org/apache/commons/validator/routines/iban_registry_v*.txt</exclude>
-            </excludes>
+            <inputExcludes combine.children="append">
+              <inputExclude>src/test/resources/org/apache/commons/validator/routines/iban_registry_v*.txt</inputExclude>
+              <inputExclude>site-content/**</inputExclude>
+            </inputExcludes>
           </configuration>
         </plugin>
         <plugin>
@@ -225,7 +220,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.19.0</version>
+      <version>3.20.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

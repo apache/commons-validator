@@ -17,20 +17,18 @@
 -->
 <document xmlns="http://maven.apache.org/XDOC/2.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
+  xsi:schemaLocation="https://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
  <properties>
   <title>Building</title>
   <author email="dev@commons.apache.org">Apache Commons Team</author>
  </properties>
 <body>
-<!-- ================================================== -->
 <section name="Overview">
 <p>
-  Commons Validator uses <a href="http://maven.apache.org">Maven</a> or
-  <a href="http://ant.apache.org">Ant</a> as a build system.
+  Commons Validator uses <a href="https://maven.apache.org">Maven</a> or
+  <a href="https://ant.apache.org">Ant</a> as a build system.
 </p>
 </section>
-<!-- ================================================== -->
 <section name="Maven Goals">
   <p>
     To build a jar file, change into Validator's root directory and run 
@@ -48,28 +46,16 @@
   </p>
   <p>
     Further details can be found in the
-    <a href="http://commons.apache.org/building.html">commons build instructions</a>.
+    <a href="https://commons.apache.org/building.html">commons build instructions</a>.
   </p>
 </section>
-<!-- ================================================== -->
-<section name="Ant Goals">
-  <p>
-    To build a jar file and the javadocs, change into Validator's root directory
-    and run <strong><code>ant dist</code></strong>.
-    The result will be in the "dist" subdirectory.
-  </p>
-</section>
-
-<!-- ================================================== -->
 <section name="Nightly Builds">
   <p>
-      <a href="http://people.apache.org/builds/commons/nightly/commons-validator/">Nightly Builds</a>
+      <a href="https://people.apache.org/builds/commons/nightly/commons-validator/">Nightly Builds</a>
       are built once a day from the current SVN HEAD. These are provided purely for test purposes and are <b>NOT
       official releases</b> of the Apache Software Foundation - Released versions of Commons Validator are
-      available <a href="http://commons.apache.org/validator/download_validator.cgi">here</a>.
+      available <a href="https://commons.apache.org/validator/download_validator.cgi">here</a>.
   </p>
 </section>
-
-<!-- ================================================== -->
 </body>
 </document>

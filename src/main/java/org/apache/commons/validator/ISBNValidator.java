@@ -19,7 +19,7 @@ package org.apache.commons.validator;
 /**
  * A class for validating 10 digit ISBN codes.
  * Based on this
- * <a href="http://www.isbn.org/standards/home/isbn/international/html/usm4.htm">
+ * <a href="https://www.isbn.org/standards/home/isbn/international/html/usm4.htm">
  * algorithm</a>
  *
  * <strong>NOTE:</strong> This has been replaced by the new
