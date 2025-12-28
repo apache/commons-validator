@@ -1775,7 +1775,7 @@ public class DomainValidator implements Serializable {
      * This field does not need to be volatile since it is only accessed from
      * synchronized methods.
      */
-    private static boolean inUse; //NOPMD @GuardedBy(this)
+    private static boolean inUse; //NOPMD @GuardedBy("this")
     /*
      * These arrays are mutable.
      * They can only be updated by the updateTLDOverride method, and readers must first get an instance
@@ -1783,13 +1783,13 @@ public class DomainValidator implements Serializable {
      * The only other access is via getTLDEntries which is now synchronized.
      */
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static String[] countryCodeTLDsPlus = EMPTY_STRING_ARRAY; //NOPMD @GuardedBy(this)
+    private static String[] countryCodeTLDsPlus = EMPTY_STRING_ARRAY; //NOPMD @GuardedBy("this")
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static String[] genericTLDsPlus = EMPTY_STRING_ARRAY; //NOPMD @GuardedBy(this)
+    private static String[] genericTLDsPlus = EMPTY_STRING_ARRAY; //NOPMD @GuardedBy("this")
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static String[] countryCodeTLDsMinus = EMPTY_STRING_ARRAY; //NOPMD @GuardedBy(this)
+    private static String[] countryCodeTLDsMinus = EMPTY_STRING_ARRAY; //NOPMD @GuardedBy("this")
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static String[] genericTLDsMinus = EMPTY_STRING_ARRAY; //NOPMD @GuardedBy(this)
+    private static String[] genericTLDsMinus = EMPTY_STRING_ARRAY; //NOPMD @GuardedBy("this")
 
     // The constructors are deliberately private to avoid possible problems with unsafe publication.
     // It is vital that the static override arrays are not mutable once they have been used in an instance
@@ -1797,10 +1797,10 @@ public class DomainValidator implements Serializable {
     // result in different settings for the shared default instances
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static String[] localTLDsMinus = EMPTY_STRING_ARRAY; //NOPMD @GuardedBy(this)
+    private static String[] localTLDsMinus = EMPTY_STRING_ARRAY; //NOPMD @GuardedBy("this")
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
-    private static String[] localTLDsPlus = EMPTY_STRING_ARRAY; //NOPMD @GuardedBy(this)
+    private static String[] localTLDsPlus = EMPTY_STRING_ARRAY; //NOPMD @GuardedBy("this")
 
     /**
      * Tests if a sorted array contains the specified key
