@@ -50,7 +50,7 @@ public class ValidateExample {
      * from.  Note that this is not strictly required to make the Validator
      * work, but is a good coding practice.
      */
-    private static ResourceBundle apps =
+    private static final ResourceBundle apps =
         ResourceBundle.getBundle(
             "org.apache.commons.validator.example.applicationResources");
 

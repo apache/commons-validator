@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.InputStream;
+import java.util.Locale;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -81,9 +82,9 @@ class ExtensionTest {
      */
     @Test
     void testOrder() {
-
-        final Form form = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY);
-        final Form form2 = resources.getForm(ValidatorResources.defaultLocale, FORM_KEY2);
+        final Locale defaultLocale = Locale.getDefault();
+        final Form form = resources.getForm(defaultLocale, FORM_KEY);
+        final Form form2 = resources.getForm(defaultLocale, FORM_KEY2);
 
         assertNotNull(form, FORM_KEY + " is null.");
         assertEquals(2, form.getFields().size(), "There should only be 2 fields in " + FORM_KEY);
