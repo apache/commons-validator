@@ -71,6 +71,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
 
     /**
      * Gets the singleton instance of this validator.
+     *
      * @return A singleton instance of the BigIntegerValidator.
      */
     public static BigIntegerValidator getInstance() {

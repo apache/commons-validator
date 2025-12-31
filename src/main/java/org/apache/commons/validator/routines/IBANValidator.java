@@ -56,6 +56,7 @@ import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
  * <p>
  * The singleton default instance cannot be modified in this way.
  * </p>
+ *
  * @since 1.5.0
  */
 public class IBANValidator {

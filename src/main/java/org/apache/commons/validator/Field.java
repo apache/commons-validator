@@ -108,6 +108,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * The flag that indicates whether scripting should be generated
      * by the client for client-side validation.
+     *
      * @since 1.4
      */
     protected volatile boolean clientValidation = true;
@@ -141,6 +142,7 @@ public class Field implements Cloneable, Serializable {
      * Holds Maps of arguments.  args[0] returns the Map for the first
      * replacement argument.  Start with a 0 length array so that it will
      * only grow to the size of the highest argument position.
+     *
      * @since 1.1
      */
     @SuppressWarnings("unchecked") // cannot instantiate generic array, so have to assume this is OK
@@ -180,6 +182,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Add a {@code Msg} to the {@code Field}.
+     *
      * @param msg A validation message.
      */
     public void addMsg(final Msg msg) {
@@ -189,6 +192,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Add a {@code Var}, based on the values passed in, to the
      * {@code Field}.
+     *
      * @param name Name of the validation.
      * @param value The Argument's value.
      * @param jsType The JavaScript type.
@@ -199,6 +203,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Add a {@code Var} to the {@code Field}.
+     *
      * @param v The Validator Argument.
      */
     public void addVar(final Var v) {
@@ -207,6 +212,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Creates and returns a copy of this object.
+     *
      * @return A copy of the Field.
      */
     @Override
@@ -281,6 +287,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Ensures that the args array can hold the given arg.  Resizes the array as
      * necessary.
+     *
      * @param arg Determine if the args array is long enough to store this arg's
      * position.
      */
@@ -307,6 +314,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Gets the default {@code Arg} object at the given position.
+     *
      * @param position Validation message argument's position.
      * @return The default Arg or null if not found.
      * @since 1.1
@@ -319,6 +327,7 @@ public class Field implements Cloneable, Serializable {
      * Gets the {@code Arg} object at the given position.  If the key
      * finds a {@code null} value then the default value will be
      * retrieved.
+     *
      * @param key The name the Arg is stored under.  If not found, the default
      * Arg for the given position (if any) will be retrieved.
      * @param position The Arg number to find.
@@ -343,6 +352,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Gets the Args for the given validator name.
+     *
      * @param key The validator's args to retrieve.
      * @return An Arg[] sorted by the Args' positions (for example, the Arg at index 0
      * has a position of 0).
@@ -361,6 +371,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Gets an unmodifiable {@code List} of the dependencies in the same
      * order they were defined in parameter passed to the setDepends() method.
+     *
      * @return A list of the Field's dependencies.
      */
     public List<String> getDependencyList() {
@@ -369,6 +380,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Gets the validation rules for this field as a comma separated list.
+     *
      * @return A comma separated list of validator names.
      */
     public String getDepends() {
@@ -377,6 +389,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Gets the position of the {@code Field} in the validation list.
+     *
      * @return The field position.
      */
     public int getFieldOrder() {
@@ -389,6 +402,7 @@ public class Field implements Cloneable, Serializable {
      * {@link Collection} used to retrieve the
      * list and then loop through the list performing the specified
      * validations.
+     *
      * @return The field's indexed List property name.
      */
     public String getIndexedListProperty() {
@@ -399,6 +413,7 @@ public class Field implements Cloneable, Serializable {
      * Gets the indexed property name of the field.  This
      * is the method name that can take an {@code int} as
      * a parameter for indexed property value retrieval.
+     *
      * @return The field's indexed property name.
      */
     public String getIndexedProperty() {
@@ -466,6 +481,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Gets a unique key based on the property and indexedProperty fields.
+     *
      * @return a unique key for the field.
      */
     public String getKey() {
@@ -478,6 +494,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Retrieve a message object.
+     *
      * @param key Validation key.
      * @return A validation message for a specified validator.
      * @since 1.1.4
@@ -489,6 +506,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * The {@code Field}'s messages are returned as an
      * unmodifiable {@link Map}.
+     *
      * @return Map of validation messages for the field.
      * @since 1.1.4
      */
@@ -498,6 +516,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Retrieve a message value.
+     *
      * @param key Validation key.
      * @return A validation message for a specified validator.
      */
@@ -508,6 +527,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Returns a Map of String Msg names to Msg objects.
+     *
      * @return A Map of the Field's messages.
      * @since 1.2.0
      */
@@ -519,6 +539,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Gets the page value that the Field is associated with for
      * validation.
+     *
      * @return The page number.
      */
     public int getPage() {
@@ -527,6 +548,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Gets the property name of the field.
+     *
      * @return The field's property name.
      */
     public String getProperty() {
@@ -535,6 +557,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Retrieve a variable.
+     *
      * @param mainKey The Variable's key
      * @return the Variable
      */
@@ -544,6 +567,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Returns a Map of String Var names to Var objects.
+     *
      * @return A Map of the Field's variables.
      * @since 1.2.0
      */
@@ -555,6 +579,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * The {@code Field}'s variables are returned as an
      * unmodifiable {@link Map}.
+     *
      * @return the Map of Variable's for a Field.
      */
     public Map<String, Var> getVars() {
@@ -563,6 +588,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Retrieve a variable's value.
+     *
      * @param mainKey The Variable's key
      * @return the Variable's value
      */
@@ -580,6 +606,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Called when a validator name is used in a depends clause but there is
      * no know ValidatorAction configured for that name.
+     *
      * @param name The name of the validator in the depends list.
      * @throws ValidatorException
      */
@@ -591,6 +618,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Determines whether client-side scripting should be generated
      * for this field. The default is {@code true}
+     *
      * @return {@code true} for scripting; otherwise false
      * @see #setClientValidation(boolean)
      * @since 1.4
@@ -601,6 +629,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Checks if the validator is listed as a dependency.
+     *
      * @param validatorName Name of the validator to check.
      * @return Whether the field is dependant on a validator.
      */
@@ -612,6 +641,7 @@ public class Field implements Cloneable, Serializable {
      * If there is a value specified for the indexedProperty field then
      * {@code true} will be returned.  Otherwise, it will be
      * {@code false}.
+     *
      * @return Whether the Field is indexed.
      */
     public boolean isIndexed() {
@@ -712,6 +742,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Calls all of the validators that this validator depends on.
      * TODO ValidatorAction should know how to run its own dependencies.
+     *
      * @param va Run dependent validators for this action.
      * @param results
      * @param actions
@@ -750,6 +781,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Sets the flag that determines whether client-side scripting should
      * be generated for this field.
+     *
      * @param clientValidation the scripting flag
      * @see #isClientValidation()
      * @since 1.4
@@ -760,6 +792,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Sets the validation rules for this field as a comma separated list.
+     *
      * @param depends A comma separated list of validator names.
      */
     public void setDepends(final String depends) {
@@ -779,6 +812,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Sets the position of the {@code Field} in the validation list.
+     *
      * @param fieldOrder The field position.
      */
     public void setFieldOrder(final int fieldOrder) {
@@ -787,6 +821,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Sets the indexed property name of the field.
+     *
      * @param indexedListProperty The field's indexed List property name.
      */
     public void setIndexedListProperty(final String indexedListProperty) {
@@ -794,6 +829,7 @@ public class Field implements Cloneable, Serializable {
     }
     /**
      * Sets the indexed property name of the field.
+     *
      * @param indexedProperty The field's indexed property name.
      */
     public void setIndexedProperty(final String indexedProperty) {
@@ -803,6 +839,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Sets a unique key for the field.  This can be used to change
      * the key temporarily to have a unique key for an indexed field.
+     *
      * @param key a unique key for the field
      */
     public void setKey(final String key) {
@@ -812,6 +849,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Sets the page value that the Field is associated with for
      * validation.
+     *
      * @param page The page number.
      */
     public void setPage(final int page) {
@@ -820,6 +858,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Sets the property name of the field.
+     *
      * @param property The field's property name.
      */
     public void setProperty(final String property) {
@@ -828,6 +867,7 @@ public class Field implements Cloneable, Serializable {
 
     /**
      * Returns a string representation of the object.
+     *
      * @return A string representation of the object.
      */
     @Override
@@ -860,6 +900,7 @@ public class Field implements Cloneable, Serializable {
      * Run the configured validations on this field.  Run all validations
      * in the depends clause over each item in turn, returning when the first
      * one fails.
+     *
      * @param params A Map of parameter class names to parameter values to pass
      * into validation methods.
      * @param actions A Map of validator names to ValidatorAction objects.
@@ -907,6 +948,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Executes the given ValidatorAction and all ValidatorActions that it
      * depends on.
+     *
      * @return true if the validation succeeded.
      */
     private boolean validateForRule(

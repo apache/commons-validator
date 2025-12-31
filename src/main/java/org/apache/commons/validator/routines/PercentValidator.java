@@ -57,6 +57,7 @@ public class PercentValidator extends BigDecimalValidator {
 
     /**
      * Gets the singleton instance of this validator.
+     *
      * @return A singleton instance of the PercentValidator.
      */
     public static BigDecimalValidator getInstance() {

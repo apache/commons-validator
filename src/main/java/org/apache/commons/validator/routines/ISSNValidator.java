@@ -59,6 +59,7 @@ import org.apache.commons.validator.routines.checkdigit.ISSNCheckDigit;
  *    some_method(valid.toString());
  * }
  * </pre>
+ *
  * @since 1.5.0
  */
 public class ISSNValidator implements Serializable {

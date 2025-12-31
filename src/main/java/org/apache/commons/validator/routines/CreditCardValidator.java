@@ -85,6 +85,7 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Class that represents a credit card range.
+     *
      * @since 1.6
      */
     public static class CreditCardRange {
@@ -106,6 +107,7 @@ public class CreditCardValidator implements Serializable {
          * The low and high parameters may be different lengths.
          * for example, Discover "644" and "65".
          * </p>
+         *
          * @param low the low digits of the IIN range
          * @param high the high digits of the IIN range
          * @param minLen the minimum length of the entire number
@@ -131,6 +133,7 @@ public class CreditCardValidator implements Serializable {
          * The low and high parameters may be different lengths.
          * for example, Discover "644" and "65".
          * </p>
+         *
          * @param low the low digits of the IIN range
          * @param high the high digits of the IIN range
          * @param lengths array of valid lengths
@@ -192,12 +195,14 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Option specifying that VPay (Visa) cards are allowed.
+     *
      * @since 1.5.0
      */
     public static final long VPAY = 1 << 5; // CHECKSTYLE IGNORE MagicNumber
 
     /**
      * Option specifying that Mastercard cards (pre Oct 2016 only) are allowed.
+     *
      * @deprecated for use until Oct 2016 only
      */
     @Deprecated
@@ -264,6 +269,7 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Mastercard Card Validator (pre Oct 2016)
+     *
      * @deprecated for use until Oct 2016 only
      */
     @Deprecated
@@ -282,6 +288,7 @@ public class CreditCardValidator implements Serializable {
      * <p>
      * 4xxxxx (13-19)
      * </p>
+     *
      * @since 1.5.0
      */
     public static final CodeValidator VPAY_VALIDATOR = new CodeValidator("^(4)(\\d{12,18})$", LUHN_VALIDATOR);
@@ -394,6 +401,7 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Constructs a new CreditCardValidator with the specified {@link CodeValidator}s.
+     *
      * @param creditCardValidators Set of valid code validators
      */
     public CreditCardValidator(final CodeValidator[] creditCardValidators) {
@@ -409,6 +417,7 @@ public class CreditCardValidator implements Serializable {
      * <p>
      * This can be used to combine predefined validators such as {@link #MASTERCARD_VALIDATOR}
      * with additional validators using the simpler {@link CreditCardRange}s.
+     *
      * @param creditCardValidators Set of valid code validators
      * @param creditCardRanges Set of valid code validators
      * @since 1.6
@@ -426,6 +435,7 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Constructs a new CreditCardValidator with the specified {@link CreditCardRange}s.
+     *
      * @param creditCardRanges Set of valid code validators
      * @since 1.6
      */
@@ -438,6 +448,7 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Constructs a new CreditCardValidator with the specified options.
+     *
      * @param options Pass in
      * CreditCardValidator.VISA + CreditCardValidator.AMEX to specify that
      * those are the only valid card types.
@@ -486,6 +497,7 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Checks if the field is a valid credit card number.
+     *
      * @param card The card number to validate.
      * @return Whether the card number is valid.
      */
@@ -503,6 +515,7 @@ public class CreditCardValidator implements Serializable {
 
     /**
      * Checks if the field is a valid credit card number.
+     *
      * @param card The card number to validate.
      * @return The card number if valid or {@code null}
      * if invalid.

@@ -44,6 +44,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * 03178471
  * 1050124X
  * </pre>
+ *
  * @since 1.5.0
  */
 public final class ISSNCheckDigit extends ModulusCheckDigit {

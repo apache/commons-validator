@@ -32,6 +32,7 @@ public class Msg implements Cloneable, Serializable {
     /**
      * The resource bundle name that this Msg's {@code key} should be
      * resolved in (optional).
+     *
      * @since 1.1
      */
     protected String bundle;
@@ -50,6 +51,7 @@ public class Msg implements Cloneable, Serializable {
      * Whether or not the key is a message resource (optional).  Defaults to
      * true.  If it is 'true', the value will try to be resolved as a message
      * resource.
+     *
      * @since 1.1.4
      */
     protected boolean resource = true;
@@ -63,6 +65,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Creates and returns a copy of this object.
+     *
      * @return A copy of the Msg.
      */
     @Override
@@ -77,6 +80,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Returns the resource bundle name.
+     *
      * @return The bundle name.
      * @since 1.1
      */
@@ -86,6 +90,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Gets the key/value.
+     *
      * @return The message key/value.
      */
     public String getKey() {
@@ -94,6 +99,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Gets the name of the dependency.
+     *
      * @return The dependency name.
      */
     public String getName() {
@@ -102,6 +108,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Tests whether or not the key is a resource key or literal value.
+     *
      * @return {@code true} if key is a resource key.
      * @since 1.1.4
      */
@@ -111,6 +118,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Sets the resource bundle name.
+     *
      * @param bundle The new bundle name.
      * @since 1.1
      */
@@ -120,6 +128,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Sets the key/value.
+     *
      * @param key The message key/value.
      */
     public void setKey(final String key) {
@@ -128,6 +137,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Sets the name of the dependency.
+     *
      * @param name The dependency name.
      */
     public void setName(final String name) {
@@ -136,6 +146,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Sets whether or not the key is a resource.
+     *
      * @param resource If true indicates the key is a resource.
      * @since 1.1.4
      */
@@ -145,6 +156,7 @@ public class Msg implements Cloneable, Serializable {
 
     /**
      * Returns a string representation of the object.
+     *
      * @return Msg String representation.
      */
     @Override

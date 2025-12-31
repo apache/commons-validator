@@ -70,6 +70,7 @@ public class ShortValidator extends AbstractNumberValidator {
 
     /**
      * Gets the singleton instance of this validator.
+     *
      * @return A singleton instance of the ShortValidator.
      */
     public static ShortValidator getInstance() {

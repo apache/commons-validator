@@ -69,6 +69,7 @@ public class CreditCardValidator {
     /**
      * CreditCardType implementations define how validation is performed
      * for one type/brand of credit card.
+     *
      * @since 1.1.2
      */
     public interface CreditCardType {
@@ -81,6 +82,7 @@ public class CreditCardValidator {
          * calling this method.  It is generally only required to valid the
          * length and prefix of the number to determine if it's the correct
          * type.
+         *
          * @param card The card number, never null.
          * @return true if the number matches.
          */
@@ -132,6 +134,7 @@ public class CreditCardValidator {
      * v.isValid(aCardNumber);
      * }
      * </pre>
+     *
      * @since 1.1.2
      */
     public static final int NONE = 0;
@@ -170,6 +173,7 @@ public class CreditCardValidator {
 
     /**
      * Creates a new CreditCardValidator with the specified options.
+     *
      * @param options Pass in
      * CreditCardValidator.VISA + CreditCardValidator.AMEX to specify that
      * those are the only valid card types.
@@ -196,6 +200,7 @@ public class CreditCardValidator {
     /**
      * Adds an allowed CreditCardType that participates in the card
      * validation algorithm.
+     *
      * @param type The type that is now allowed to pass validation.
      * @since 1.1.2
      */
@@ -205,6 +210,7 @@ public class CreditCardValidator {
 
     /**
      * Checks if the field is a valid credit card number.
+     *
      * @param card The card number to validate.
      * @return Whether the card number is valid.
      */
@@ -223,6 +229,7 @@ public class CreditCardValidator {
 
     /**
      * Checks for a valid credit card number.
+     *
      * @param cardNumber Credit Card Number.
      * @return Whether the card number passes the luhnCheck.
      */

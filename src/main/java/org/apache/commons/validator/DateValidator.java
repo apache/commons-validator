@@ -42,6 +42,7 @@ public class DateValidator {
 
     /**
      * Returns the Singleton instance of this validator.
+     *
      * @return A singleton instance of the DateValidator.
      */
     public static DateValidator getInstance() {

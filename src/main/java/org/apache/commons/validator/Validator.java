@@ -234,6 +234,7 @@ public class Validator implements Serializable {
      *     {@code useContextClassLoader} property is set to true</li>
      * <li>The class loader used to load the Digester class itself.</li>
      * </ul>
+     *
      * @return the class loader.
      */
     public ClassLoader getClassLoader() {
@@ -263,6 +264,7 @@ public class Validator implements Serializable {
 
     /**
      * Gets the form name which is the key to a set of validation rules.
+     *
      * @return the name of the form.
      */
     public String getFormName() {
@@ -271,6 +273,7 @@ public class Validator implements Serializable {
 
     /**
      * Returns true if the Validator is only returning Fields that fail validation.
+     *
      * @return whether only failed fields are returned.
      */
     public boolean getOnlyReturnErrors() {
@@ -326,6 +329,7 @@ public class Validator implements Serializable {
 
     /**
      * Gets the boolean as to whether the context classloader should be used.
+     *
      * @return whether the context classloader should be used.
      */
     public boolean getUseContextClassLoader() {
@@ -355,6 +359,7 @@ public class Validator implements Serializable {
 
     /**
      * Sets the form name which is the key to a set of validation rules.
+     *
      * @param formName the name of the form.
      */
     public void setFormName(final String formName) {
@@ -365,6 +370,7 @@ public class Validator implements Serializable {
      * Configures which Fields the Validator returns from the validate() method.  Set this
      * to true to only return Fields that failed validation.  By default, validate() returns
      * all fields.
+     *
      * @param onlyReturnErrors whether only failed fields are returned.
      */
     public void setOnlyReturnErrors(final boolean onlyReturnErrors) {

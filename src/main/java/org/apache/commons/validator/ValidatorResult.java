@@ -44,6 +44,7 @@ public class ValidatorResult implements Serializable {
 
        /**
         * Constructs a Result status.
+        *
         * @param valid Whether the validator passed or failed.
         * @param result Value returned by the validator.
         */
@@ -68,6 +69,7 @@ public class ValidatorResult implements Serializable {
          * Gets the result returned by a validation method.
          * This can be used to retrieve to the correctly
          * typed value of a date validation for example.
+         *
          * @return The value returned by the validation.
          */
         public Object getResult() {
@@ -76,6 +78,7 @@ public class ValidatorResult implements Serializable {
 
         /**
          * Tests whether or not the validation passed.
+         *
          * @return true if the result was good.
          */
         public boolean isValid() {
@@ -86,6 +89,7 @@ public class ValidatorResult implements Serializable {
          * Sets the result returned by a validation method.
          * This can be used to retrieve to the correctly
          * typed value of a date validation for example.
+         *
          * @param result The value returned by the validation.
          */
         public void setResult(final Object result) {
@@ -94,6 +98,7 @@ public class ValidatorResult implements Serializable {
 
         /**
          * Sets whether or not the validation passed.
+         *
          * @param valid Whether the validation passed.
          */
         public void setValid(final boolean valid) {
@@ -119,6 +124,7 @@ public class ValidatorResult implements Serializable {
     /**
      * Constructs a {@code ValidatorResult} with the associated field being
      * validated.
+     *
      * @param field Field that was validated.
      */
     public ValidatorResult(final Field field) {
@@ -127,6 +133,7 @@ public class ValidatorResult implements Serializable {
 
     /**
      * Add the result of a validator action.
+     *
      * @param validatorName Name of the validator.
      * @param result Whether the validation passed or failed.
      */
@@ -136,6 +143,7 @@ public class ValidatorResult implements Serializable {
 
     /**
      * Add the result of a validator action.
+     *
      * @param validatorName Name of the validator.
      * @param result Whether the validation passed or failed.
      * @param value Value returned by the validator.
@@ -146,6 +154,7 @@ public class ValidatorResult implements Serializable {
 
     /**
      * Indicate whether a specified validator is in the Result.
+     *
      * @param validatorName Name of the validator.
      * @return true if the validator is in the result.
      */
@@ -155,6 +164,7 @@ public class ValidatorResult implements Serializable {
 
     /**
      * Gets a Map of the validator actions in this Result.
+     *
      * @return Map of validator actions.
      * @deprecated Use getActions() to return the set of actions
      *             the isValid(name) and getResult(name) methods
@@ -167,6 +177,7 @@ public class ValidatorResult implements Serializable {
 
     /**
      * Gets an Iterator of the action names contained in this Result.
+     *
      * @return The set of action names.
      */
     public Iterator<String> getActions() {
@@ -175,6 +186,7 @@ public class ValidatorResult implements Serializable {
 
     /**
      * Returns the Field that was validated.
+     *
      * @return The Field associated with this result.
      */
     public Field getField() {
@@ -183,6 +195,7 @@ public class ValidatorResult implements Serializable {
 
     /**
      * Gets the result of a validation.
+     *
      * @param validatorName Name of the validator.
      * @return The validation result.
      */
@@ -193,6 +206,7 @@ public class ValidatorResult implements Serializable {
 
     /**
      * Indicate whether a specified validation passed.
+     *
      * @param validatorName Name of the validator.
      * @return true if the validation passed.
      */

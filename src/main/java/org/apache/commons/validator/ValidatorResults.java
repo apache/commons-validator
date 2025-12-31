@@ -89,6 +89,7 @@ public class ValidatorResults implements Serializable {
     /**
      * Gets the set of property names for which at least one message has
      * been recorded.
+     *
      * @return An unmodifiable Set of the property names.
      */
     public Set<String> getPropertyNames() {

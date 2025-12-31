@@ -70,6 +70,7 @@ public class ByteValidator extends AbstractNumberValidator {
 
     /**
      * Gets the singleton instance of this validator.
+     *
      * @return A singleton instance of the ByteValidator.
      */
     public static ByteValidator getInstance() {

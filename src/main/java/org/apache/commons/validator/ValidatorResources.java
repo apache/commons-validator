@@ -93,6 +93,7 @@ public class ValidatorResources implements Serializable {
     /**
      * {@link Map} of {@code FormSet}s stored under
      * a {@link Locale} key (expressed as a String).
+     *
      * @deprecated Subclasses should use getFormSets() instead.
      */
     @Deprecated
@@ -101,6 +102,7 @@ public class ValidatorResources implements Serializable {
     /**
      * {@link Map} of global constant values with
      * the name of the constant as the key.
+     *
      * @deprecated Subclasses should use getConstants() instead.
      */
     @Deprecated
@@ -109,6 +111,7 @@ public class ValidatorResources implements Serializable {
     /**
      * {@link Map} of {@code ValidatorAction}s with
      * the name of the {@code ValidatorAction} as the key.
+     *
      * @deprecated Subclasses should use getActions() instead.
      */
     @Deprecated
@@ -234,6 +237,7 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Add a global constant to the resource.
+     *
      * @param name The constant name.
      * @param value The constant value.
      */
@@ -249,6 +253,7 @@ public class ValidatorResources implements Serializable {
      * Add a {@code FormSet} to this {@code ValidatorResources}
      * object.  It will be associated with the {@link Locale} of the
      * {@code FormSet}.
+     *
      * @param fs The form set to add.
      * @since 1.1
      */
@@ -317,6 +322,7 @@ public class ValidatorResources implements Serializable {
      * instance of the class based on the {@code ValidatorAction}s
      * class name and retrieves the {@code Method} instance and sets them
      * in the {@code ValidatorAction}.
+     *
      * @param va The validator action.
      */
     public void addValidatorAction(final ValidatorAction va) {
@@ -332,6 +338,7 @@ public class ValidatorResources implements Serializable {
     /**
      * Builds a key to store the {@code FormSet} under based on its
      * language, country, and variant values.
+     *
      * @param fs The Form Set.
      * @return generated key for a formset.
      */
@@ -352,6 +359,7 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Returns a Map of String ValidatorAction names to their ValidatorAction.
+     *
      * @return Map of Validator Actions
      * @since 1.2.0
      */
@@ -362,6 +370,7 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Returns a Map of String constant names to their String values.
+     *
      * @return Map of Constants
      * @since 1.2.0
      */
@@ -380,6 +389,7 @@ public class ValidatorResources implements Serializable {
      *    <li>language</li>
      *    <li>default locale</li>
      * </ol>
+     *
      * @param locale The Locale.
      * @param formKey The key for the Form.
      * @return The validator Form.
@@ -400,6 +410,7 @@ public class ValidatorResources implements Serializable {
      *    <li>language</li>
      *    <li>default locale</li>
      * </ol>
+     *
      * @param language The locale's language.
      * @param country The locale's country.
      * @param variant The locale's language variant.
@@ -464,6 +475,7 @@ public class ValidatorResources implements Serializable {
     /**
      * <p>Gets a {@code FormSet} based on the language, country
      *    and variant.</p>
+     *
      * @param language The locale's language.
      * @param country The locale's country.
      * @param variant The locale's language variant.
@@ -480,6 +492,7 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Returns a Map of String locale keys to Lists of their FormSets.
+     *
      * @return Map of Form sets
      * @since 1.2.0
      */
@@ -539,6 +552,7 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Gets a {@code ValidatorAction} based on its name.
+     *
      * @param key The validator action key.
      * @return The validator action.
      */
@@ -548,6 +562,7 @@ public class ValidatorResources implements Serializable {
 
     /**
      * Gets an unmodifiable {@link Map} of the {@code ValidatorAction}s.
+     *
      * @return Map of validator actions.
      */
     public Map<String, ValidatorAction> getValidatorActions() {

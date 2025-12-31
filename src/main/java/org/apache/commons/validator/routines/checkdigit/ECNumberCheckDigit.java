@@ -60,6 +60,7 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
     static final CodeValidator REGEX_VALIDATOR = new CodeValidator(EC_REGEX, EC_LEN, null);
     /**
      * Gets the singleton instance of this validator.
+     *
      * @return A singleton instance of the EC Number validator.
      */
     public static CheckDigit getInstance() {

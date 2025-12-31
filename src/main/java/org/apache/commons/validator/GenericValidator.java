@@ -80,6 +80,7 @@ public class GenericValidator implements Serializable {
 
     /**
      * Checks if the field is a valid credit card number.
+     *
      * @param value The value validation is being performed on.
      * @return true if the value is valid Credit Card Number.
      */

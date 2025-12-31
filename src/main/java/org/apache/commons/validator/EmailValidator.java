@@ -65,6 +65,7 @@ public class EmailValidator {
 
     /**
      * Returns the Singleton instance of this validator.
+     *
      * @return singleton instance of this validator.
      */
     public static EmailValidator getInstance() {
@@ -90,6 +91,7 @@ public class EmailValidator {
 
     /**
      * Returns true if the domain component of an email address is valid.
+     *
      * @param domain being validated.
      * @return true if the email address's domain is valid.
      */
@@ -119,6 +121,7 @@ public class EmailValidator {
 
     /**
      * Validates an IP address. Returns true if valid.
+     *
      * @param ipAddress IP address
      * @return true if the ip address is valid.
      */
@@ -148,6 +151,7 @@ public class EmailValidator {
 
     /**
      * Validates a symbolic domain name.  Returns true if it's valid.
+     *
      * @param domain symbolic domain name
      * @return true if the symbolic domain name is valid.
      */
@@ -187,6 +191,7 @@ public class EmailValidator {
 
     /**
      * Returns true if the user component of an email address is valid.
+     *
      * @param user being validated
      * @return true if the username is valid.
      */

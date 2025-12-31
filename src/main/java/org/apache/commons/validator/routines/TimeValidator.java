@@ -89,6 +89,7 @@ public class TimeValidator extends AbstractCalendarValidator {
 
     /**
      * Gets the singleton instance of this validator.
+     *
      * @return A singleton instance of the TimeValidator.
      */
     public static TimeValidator getInstance() {

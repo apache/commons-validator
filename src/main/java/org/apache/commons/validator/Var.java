@@ -79,6 +79,7 @@ public class Var implements Cloneable, Serializable {
     /**
      * Constructs a variable with a specified name, value
      * and JavaScript type.
+     *
      * @param name Variable name.
      * @param value Variable value.
      * @param jsType Variable JavaScript type.
@@ -91,6 +92,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Creates and returns a copy of this object.
+     *
      * @return A copy of the variable.
      */
     @Override
@@ -105,6 +107,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Returns the resource bundle name.
+     *
      * @return The bundle name.
      * @since 1.2.0
      */
@@ -114,6 +117,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Gets the JavaScript type of the variable.
+     *
      * @return The JavaScript type of the variable.
      */
     public String getJsType() {
@@ -122,6 +126,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Gets the name of the variable.
+     *
      * @return The name of the variable.
      */
     public String getName() {
@@ -130,6 +135,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Gets the value of the variable.
+     *
      * @return The value of the variable.
      */
     public String getValue() {
@@ -138,6 +144,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Tests whether or not the value is a resource key or literal value.
+     *
      * @return {@code true} if value is a resource key.
      * @since 1.2.0
      */
@@ -147,6 +154,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Sets the resource bundle name.
+     *
      * @param bundle The new bundle name.
      * @since 1.2.0
      */
@@ -156,6 +164,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Sets the JavaScript type of the variable.
+     *
      * @param jsType The JavaScript type of the variable.
      */
     public void setJsType(final String jsType) {
@@ -164,6 +173,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Sets the name of the variable.
+     *
      * @param name The name of the variable.
      */
     public void setName(final String name) {
@@ -172,6 +182,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Sets whether or not the value is a resource.
+     *
      * @param resource If true indicates the value is a resource.
      * @since 1.2.0
      */
@@ -181,6 +192,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Sets the value of the variable.
+     *
      * @param value The value of the variable.
      */
     public void setValue(final String value) {
@@ -189,6 +201,7 @@ public class Var implements Cloneable, Serializable {
 
     /**
      * Returns a string representation of the object.
+     *
      * @return A string representation of the variable.
      */
     @Override

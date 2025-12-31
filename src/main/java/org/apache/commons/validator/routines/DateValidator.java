@@ -89,6 +89,7 @@ public class DateValidator extends AbstractCalendarValidator {
 
     /**
      * Gets the singleton instance of this validator.
+     *
      * @return A singleton instance of the DateValidator.
      */
     public static DateValidator getInstance() {

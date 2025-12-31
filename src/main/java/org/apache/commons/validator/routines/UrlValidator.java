@@ -163,6 +163,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Returns the singleton instance of this class with default schemes and options.
+     *
      * @return singleton instance with default schemes and options
      */
     public static UrlValidator getInstance() {
@@ -211,6 +212,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Constructs a new instance with the given validation options.
+     *
      * @param options The options should be set using the public constants declared in
      * this class.  To set multiple options you simply add them together.  For example,
      * ALLOW_2_SLASHES + NO_FRAGMENTS enables both of those options.
@@ -221,6 +223,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Constructs a new instance with the given validation options.
+     *
      * @param authorityValidator Regular expression validator used to validate the authority part
      * This allows the user to override the standard set of domains.
      * @param options Validation options. Set using the public constants of this class.
@@ -234,6 +237,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Behavior of validation is modified by passing in several strings options:
+     *
      * @param schemes Pass in one or more URL schemes to consider valid, passing in
      *        a null will default to "http,https,ftp" being valid.
      *        If a non-null schemes is specified then all valid schemes must
@@ -246,6 +250,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Behavior of validation is modified by passing in options:
+     *
      * @param schemes The set of valid schemes. Ignored if the ALLOW_ALL_SCHEMES option is set.
      * @param options The options should be set using the public constants declared in
      * this class.  To set multiple options you simply add them together.  For example,
@@ -257,6 +262,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Customizable constructor. Validation behavior is modified by passing in options.
+     *
      * @param schemes the set of valid schemes. Ignored if the ALLOW_ALL_SCHEMES option is set.
      * @param authorityValidator Regular expression validator used to validate the authority part
      * @param options Validation options. Set using the public constants of this class.
@@ -270,6 +276,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Customizable constructor. Validation behavior is modified by passing in options.
+     *
      * @param schemes the set of valid schemes. Ignored if the ALLOW_ALL_SCHEMES option is set.
      * @param authorityValidator Regular expression validator used to validate the authority part
      * @param options Validation options. Set using the public constants of this class.
@@ -306,6 +313,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Returns the number of times the token appears in the target.
+     *
      * @param token Token value to be counted.
      * @param target Target value to count tokens in.
      * @return the number of tokens.
@@ -391,6 +399,7 @@ public class UrlValidator implements Serializable {
      * If a RegexValidator was supplied, and it matches, then the authority is regarded
      * as valid with no further checks, otherwise the method checks against the
      * AUTHORITY_PATTERN and the DomainValidator (ALLOW_LOCAL_URLS)
+     *
      * @param authority Authority value to validate, allows IDN
      * @return true if authority (hostname and port) is valid.
      */
@@ -453,6 +462,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Returns true if the given fragment is null or fragments are allowed.
+     *
      * @param fragment Fragment value to validate.
      * @return true if fragment is valid.
      */
@@ -466,6 +476,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Returns true if the path is valid.  A {@code null} value is considered invalid.
+     *
      * @param path Path value to validate.
      * @return true if path is valid.
      */
@@ -496,6 +507,7 @@ public class UrlValidator implements Serializable {
 
     /**
      * Returns true if the query is null, or it's a properly formatted query string.
+     *
      * @param query Query value to validate.
      * @return true if query is valid.
      */
@@ -511,6 +523,7 @@ public class UrlValidator implements Serializable {
      * then only those schemes are allowed.
      * Otherwise, the default schemes are "http", "https", "ftp".
      * Matching is case-blind.
+     *
      * @param scheme The scheme to validate.  A {@code null} value is considered
      * invalid.
      * @return true if valid.

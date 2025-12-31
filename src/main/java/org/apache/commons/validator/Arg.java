@@ -42,6 +42,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * The resource bundle name that this Arg's {@code key} should be
      * resolved in (optional).
+     *
      * @since 1.1
      */
     protected String bundle;
@@ -59,6 +60,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * This argument's position in the message. Set position=0 to
      * make a replacement in this string: "some msg {0}".
+     *
      * @since 1.1
      */
     protected int position = -1;
@@ -79,6 +81,7 @@ public class Arg implements Cloneable, Serializable {
 
     /**
      * Creates and returns a copy of this object.
+     *
      * @return A copy of this object.
      */
     @Override
