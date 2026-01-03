@@ -778,7 +778,8 @@ public class DomainValidator implements Serializable {
 //        "ladbrokes", // ladbrokes LADBROKES INTERNATIONAL PLC
         "lamborghini", // lamborghini Automobili Lamborghini S.p.A.
         "lamer", // lamer The Estée Lauder Companies Inc.
-        "lancaster", // lancaster LANCASTER
+// [VALIDATOR-505] DomainValidator ICAAN .lancaster Registry Agreement - Terminated: https://www.icann.org/en/registry-agreements/terminated/lancaster
+//        "lancaster", // lancaster LANCASTER
         // "lancia", // lancia Fiat Chrysler Automobiles N.V.
 //        "lancome", // lancome L&#39;Oréal
         "land", // land Pine Moon, LLC
