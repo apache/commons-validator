@@ -65,7 +65,7 @@ The <action> type attribute can be add,update,fix,remove.
   <release version="1.10.2" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
     <action type="fix" dev="ggregory" due-to="Gary Gregory">Fix Apache RAT plugin console warnings.</action>
-    <action type="fix" dev="sebb">Fixes to non-final static fields</action>
+    <action type="fix" dev="sebb">Fixes to non-final static fields.</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory" issue="VALIDATOR-503">DomainValidator revocation for .dunlop: https://www.iana.org/reports/tld-transfer/20251021-dunlop.</action>
     <!-- ADD -->
     <!-- UPDATE -->
