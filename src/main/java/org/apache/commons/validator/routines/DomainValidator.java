@@ -1046,7 +1046,8 @@ public class DomainValidator implements Serializable {
         "realty", // realty Fegistry, LLC
         "recipes", // recipes Grand Island, LLC
         "red", // red Afilias Limited
-        "redstone", // redstone Redstone Haute Couture Co., Ltd.
+// [VALIDATOR-508] DomainValidator ICAAN Revocation for .redstone: https://www.iana.org/reports/tld-transfer/20250826-redstone
+//        "redstone", // redstone Redstone Haute Couture Co., Ltd.
         "redumbrella", // redumbrella Travelers TLD, LLC
         "rehab", // rehab United TLD Holdco Ltd.
         "reise", // reise Foggy Way, LLC
