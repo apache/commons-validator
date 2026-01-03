@@ -754,7 +754,8 @@ public class DomainValidator implements Serializable {
         "kaufen", // kaufen United TLD Holdco Ltd.
         "kddi", // kddi KDDI CORPORATION
         "kerryhotels", // kerryhotels Kerry Trading Co. Limited
-        "kerrylogistics", // kerrylogistics Kerry Trading Co. Limited
+// [VALIDATOR-504] DomainValidator ICAAN .kerrylogistics Registry Agreement - Terminated: https://www.icann.org/en/registry-agreements/terminated/kerrylogistics
+//        "kerrylogistics", // kerrylogistics Kerry Trading Co. Limited
         "kerryproperties", // kerryproperties Kerry Trading Co. Limited
         "kfh", // kfh Kuwait Finance House
         "kia", // kia KIA MOTORS CORPORATION
