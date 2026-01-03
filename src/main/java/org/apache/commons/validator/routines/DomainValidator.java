@@ -812,7 +812,8 @@ public class DomainValidator implements Serializable {
         "lincoln", // lincoln Ford Motor Company
         // "linde", // linde Linde Aktiengesellschaft
         "link", // link Uniregistry, Corp.
-        "lipsy", // lipsy Lipsy Ltd
+// [VALIDATOR-506] DomainValidator ICAAN Revocation for .lipsy: https://www.iana.org/reports/tld-transfer/20250227-lipsy
+//        "lipsy", // lipsy Lipsy Ltd
         "live", // live United TLD Holdco Ltd.
         "living", // living Lifestyle Domain Holdings, Inc.
 //        "lixil", // lixil LIXIL Group Corporation
