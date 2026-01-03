@@ -1015,7 +1015,8 @@ public class DomainValidator implements Serializable {
         "politie", // politie Politie Nederland
         "porn", // porn ICM Registry PN LLC
         "post", // post Universal Postal Union
-        "pramerica", // pramerica Prudential Financial, Inc.
+// [VALIDATOR-507] DomainValidator ICAAN Revocation for .pramerica" https://www.iana.org/reports/tld-transfer/20250516-pramerica
+//        "pramerica", // pramerica Prudential Financial, Inc.
         "praxi", // praxi Praxi S.p.A.
         "press", // press DotPress Inc.
         "prime", // prime Amazon Registry Services, Inc.

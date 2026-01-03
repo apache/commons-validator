@@ -70,6 +70,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="Gary Gregory" issue="VALIDATOR-504">DomainValidator ICAAN .kerrylogistics Registry Agreement - Terminated: https://www.icann.org/en/registry-agreements/terminated/kerrylogistics.</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory" issue="VALIDATOR-505">DomainValidator ICAAN .lancaster Registry Agreement - Terminated: https://www.icann.org/en/registry-agreements/terminated/lancaster.</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory" issue="VALIDATOR-506">DomainValidator ICAAN Revocation for .lipsy: https://www.iana.org/reports/tld-transfer/20250227-lipsy.</action>
+    <action type="fix" dev="ggregory" due-to="Gary Gregory" issue="VALIDATOR-507">DomainValidator ICAAN Revocation for .pramerica" https://www.iana.org/reports/tld-transfer/20250516-pramerica.</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 94 #377.</action>
