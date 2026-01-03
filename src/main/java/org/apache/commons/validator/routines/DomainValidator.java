@@ -501,7 +501,8 @@ public class DomainValidator implements Serializable {
         "dtv", // dtv Dish DBS Corporation
         "dubai", // dubai Dubai Smart Government Department
 //        "duck", // duck Johnson Shareholdings, Inc.
-        "dunlop", // dunlop The Goodyear Tire &amp; Rubber Company
+// Revocation Report for .dunlop: https://www.iana.org/reports/tld-transfer/20251021-dunlop
+//        "dunlop", // dunlop The Goodyear Tire &amp; Rubber Company
 //        "duns", // duns The Dun &amp; Bradstreet Corporation
         "dupont", // dupont E. I. du Pont de Nemours and Company
         "durban", // durban ZA Central Registry NPC trading as ZA Central Registry
