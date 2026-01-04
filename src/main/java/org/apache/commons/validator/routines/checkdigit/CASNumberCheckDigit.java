@@ -68,6 +68,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
     /** maximum capacity of 1,000,000,000 == 9999999-99-9*/
     private static final int CAS_MAX_LEN = 10;
     static final CodeValidator REGEX_VALIDATOR = new CodeValidator(CAS_REGEX, CAS_MIN_LEN, CAS_MAX_LEN, null);
+
     /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 

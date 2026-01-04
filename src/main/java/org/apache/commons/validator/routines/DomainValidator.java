@@ -71,28 +71,38 @@ public class DomainValidator implements Serializable {
      * @since 1.5.1 made public and added read-only array references
      */
     public enum ArrayType {
+
         /** Update (or get a copy of) the GENERIC_TLDS_PLUS table containing additional generic TLDs */
         GENERIC_PLUS,
+
         /** Update (or get a copy of) the GENERIC_TLDS_MINUS table containing deleted generic TLDs */
         GENERIC_MINUS,
+
         /** Update (or get a copy of) the COUNTRY_CODE_TLDS_PLUS table containing additional country code TLDs */
         COUNTRY_CODE_PLUS,
+
         /** Update (or get a copy of) the COUNTRY_CODE_TLDS_MINUS table containing deleted country code TLDs */
         COUNTRY_CODE_MINUS,
+
         /** Gets a copy of the generic TLDS table */
         GENERIC_RO,
+
         /** Gets a copy of the country code table */
         COUNTRY_CODE_RO,
+
         /** Gets a copy of the infrastructure table */
         INFRASTRUCTURE_RO,
+
         /** Gets a copy of the local table */
         LOCAL_RO,
+
         /**
          * Update (or get a copy of) the LOCAL_TLDS_PLUS table containing additional local TLDs
          *
          * @since 1.7
          */
         LOCAL_PLUS,
+
         /**
          * Update (or get a copy of) the LOCAL_TLDS_MINUS table containing deleted local TLDs
          *

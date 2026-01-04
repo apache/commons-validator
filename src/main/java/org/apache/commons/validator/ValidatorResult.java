@@ -52,6 +52,7 @@ public class ValidatorResult implements Serializable {
             this.valid = valid;
             this.result = result;
         }
+
         /**
          * Provided for backwards binary compatibility only.
          *

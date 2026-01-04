@@ -22,6 +22,7 @@ package org.apache.commons.validator.routines;
  * @since 1.10.0
  */
 public enum IBANValidatorStatus {
+
     /**
      * IBAN is valid
      */

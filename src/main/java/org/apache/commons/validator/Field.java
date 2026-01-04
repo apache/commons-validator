@@ -827,6 +827,7 @@ public class Field implements Cloneable, Serializable {
     public void setIndexedListProperty(final String indexedListProperty) {
         this.indexedListProperty = indexedListProperty;
     }
+
     /**
      * Sets the indexed property name of the field.
      *

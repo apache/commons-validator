@@ -58,6 +58,7 @@ public final class ECNumberCheckDigit extends ModulusCheckDigit {
     private static final int EC_LEN = 7;
 
     static final CodeValidator REGEX_VALIDATOR = new CodeValidator(EC_REGEX, EC_LEN, null);
+
     /**
      * Gets the singleton instance of this validator.
      *
