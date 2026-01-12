@@ -74,7 +74,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="Gary Gregory" issue="VALIDATOR-508">DomainValidator ICAAN Revocation for .redstone: https://www.iana.org/reports/tld-transfer/20250826-redstone.</action>
     <!-- ADD -->
     <!-- UPDATE -->
-    <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 94 #377.</action>
+    <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 95 #377.</action>
   </release>
   <release version="1.10.1" date="2025-11-14" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
