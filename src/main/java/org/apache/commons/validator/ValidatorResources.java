@@ -25,9 +25,10 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.collections.FastHashMap; // DEPRECATED
-import org.apache.commons.digester.Digester;
-import org.apache.commons.digester.Rule;
-import org.apache.commons.digester.xmlrules.DigesterLoader;
+import org.apache.commons.digester3.Digester;
+import org.apache.commons.digester3.Rule;
+import org.apache.commons.digester3.binder.DigesterLoader;
+import org.apache.commons.digester3.xmlrules.FromXmlRulesModule;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
@@ -573,15 +574,23 @@ public class ValidatorResources implements Serializable {
      *  Initialize the digester.
      */
     private Digester initDigester() {
-        URL rulesUrl = this.getClass().getResource(VALIDATOR_RULES);
-        if (rulesUrl == null) {
-            // Fix for Issue# VALIDATOR-195
-            rulesUrl = ValidatorResources.class.getResource(VALIDATOR_RULES);
-        }
-        if (getLog().isDebugEnabled()) {
-            getLog().debug("Loading rules from '" + rulesUrl + "'");
-        }
-        final Digester digester = DigesterLoader.createDigester(rulesUrl);
+        // Create a digester loader using FromXmlRulesModule
+        DigesterLoader loader = DigesterLoader.newLoader(new FromXmlRulesModule() {
+            @Override
+            protected void loadRules() {
+              URL rulesUrl = this.getClass().getResource(VALIDATOR_RULES);
+              if (rulesUrl == null) {
+                // Fix for Issue# VALIDATOR-195
+                rulesUrl = ValidatorResources.class.getResource(VALIDATOR_RULES);
+              }
+              if (getLog().isDebugEnabled()) {
+                getLog().debug("Loading rules from '" + rulesUrl + "'");
+              }
+              loadXMLRules(rulesUrl);
+            }
+        });
+        Digester digester = loader.newDigester();
+
         digester.setNamespaceAware(true);
         digester.setValidating(true);
         digester.setUseContextClassLoader(true);
