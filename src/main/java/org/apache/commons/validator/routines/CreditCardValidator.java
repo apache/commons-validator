@@ -74,10 +74,6 @@ import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
  * <p>
  * This can be combined with a list of {@code CodeValidator}s
  * </p>
- * <p>
- * More information can be found in Michael Gilleland's essay
- * <a href="https://web.archive.org/web/20120614072656/http://www.merriampark.com/anatomycc.htm">Anatomy of Credit Card Numbers</a>.
- * </p>
  *
  * @since 1.4
  */
