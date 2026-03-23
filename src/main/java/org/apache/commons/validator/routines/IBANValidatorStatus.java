@@ -17,7 +17,7 @@
 package org.apache.commons.validator.routines;
 
 /**
- * Statuses of IBAN validation.
+ * Enumerates statuses of IBAN validation.
  *
  * @since 1.10.0
  */

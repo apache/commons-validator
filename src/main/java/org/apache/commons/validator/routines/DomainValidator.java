@@ -64,8 +64,7 @@ import java.util.Locale;
 public class DomainValidator implements Serializable {
 
     /**
-     * Enum used by {@link DomainValidator#updateTLDOverride(ArrayType, String[])}
-     * to determine which override array to update / fetch
+     * Enumerates array types used by {@link DomainValidator#updateTLDOverride(ArrayType, String[])} to determine which override array to update / fetch
      *
      * @since 1.5.0
      * @since 1.5.1 made public and added read-only array references
