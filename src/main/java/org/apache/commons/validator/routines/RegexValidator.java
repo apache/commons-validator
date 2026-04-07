@@ -84,7 +84,7 @@ public class RegexValidator implements Serializable {
      * Constructs a new instance that matches any one of the set of regular expressions with the specified case sensitivity.
      *
      * @param regexs The set of regular expressions this validator will validate against
-     * @param flags  See {@link Pattern#compile(String, int)}. sensitive</i>, otherwise matching is <em>case in-sensitive</em>
+     * @param flags  See flags in {@link Pattern#compile(String, int)}.
      */
     private RegexValidator(final int flags, final String... regexs) {
         if (regexs == null || regexs.length == 0) {
