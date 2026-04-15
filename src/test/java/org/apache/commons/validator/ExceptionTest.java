@@ -107,7 +107,7 @@ class ExceptionTest extends AbstractCommonTest {
         // Get results of the validation which can throw ValidatorException
         try {
             validator.validate();
-            // fail("RuntimeException should occur here!");
+            // fail("RuntimeException should occur here.");
         } catch (final RuntimeException expected) {
             fail("RuntimeExceptions should be treated as validation failures in Validator 1.x.");
             // This will be true in Validator 2.0
