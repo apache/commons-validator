@@ -159,6 +159,9 @@ class InetAddressValidatorTest {
         assertTrue(validator.isValidInet6Address("1:2:3:4:5::7:8"), "IPV6 1:2:3:4:5::7:8 should be valid");
         assertFalse(validator.isValidInet6Address("1:2:3::4:5::7:8"), "IPV6 1:2:3::4:5::7:8 should be invalid"); // Double "::"
         assertFalse(validator.isValidInet6Address("12345::6:7:8"), "IPV6 12345::6:7:8 should be invalid");
+        assertFalse(validator.isValidInet6Address("1:2:3:4:5:6:7:+8"), "IPV6 1:2:3:4:5:6:7:+8 should be invalid"); // signed hex group
+        assertFalse(validator.isValidInet6Address("fe80::+1"), "IPV6 fe80::+1 should be invalid"); // signed hex group
+        assertFalse(validator.isValidInet6Address("::+f"), "IPV6 ::+f should be invalid"); // signed hex group
         assertTrue(validator.isValidInet6Address("1:2:3:4::7:8"), "IPV6 1:2:3:4::7:8 should be valid");
         assertTrue(validator.isValidInet6Address("1:2:3::7:8"), "IPV6 1:2:3::7:8 should be valid");
         assertTrue(validator.isValidInet6Address("1:2::7:8"), "IPV6 1:2::7:8 should be valid");
