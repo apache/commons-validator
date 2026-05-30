@@ -201,6 +201,9 @@ public class InetAddressValidator implements Serializable {
                 if (octet.length() > IPV6_MAX_HEX_DIGITS_PER_GROUP) {
                     return false;
                 }
+                if (octet.charAt(0) == '+' || octet.charAt(0) == '-') {
+                    return false; // Integer.parseInt accepts a leading sign, which is not a valid hex group
+                }
                 int octetInt = 0;
                 try {
                     octetInt = Integer.parseInt(octet, BASE_16);
