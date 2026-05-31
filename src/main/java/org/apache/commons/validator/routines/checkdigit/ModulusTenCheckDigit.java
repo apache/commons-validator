@@ -207,7 +207,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     @Override
     protected int toInt(final char character, final int leftPos, final int rightPos) throws CheckDigitException {
         final int num = Character.getNumericValue(character);
-        if (num < 0) {
+        if (num < 0 || character > 0x7F) {
             throw new CheckDigitException("Invalid Character[" + leftPos + "] = '" + character + "'");
         }
         return num;

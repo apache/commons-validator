@@ -179,8 +179,8 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
      * @throws CheckDigitException if character is non-numeric
      */
     protected int toInt(final char character, final int leftPos, final int rightPos) throws CheckDigitException {
-        if (Character.isDigit(character)) {
-            return Character.getNumericValue(character);
+        if (character >= '0' && character <= '9') {
+            return character - '0';
         }
         throw new CheckDigitException("Invalid Character[" + leftPos + "] = '" + character + "'");
     }

@@ -75,8 +75,9 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
             }
         }
         for (int i = 0; i < code.length(); i++) {
-            final int charValue = Character.getNumericValue(code.charAt(i));
-            if (charValue < 0 || charValue > MAX_ALPHANUMERIC_VALUE) {
+            final char character = code.charAt(i);
+            final int charValue = Character.getNumericValue(character);
+            if (character > 0x7F || charValue < 0 || charValue > MAX_ALPHANUMERIC_VALUE) {
                 throw new CheckDigitException("Invalid Character[" + (i + 1) + "] = '" + charValue + "'");
             }
             // this converts alphanumerics to two digits

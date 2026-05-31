@@ -102,11 +102,12 @@ public final class VerhoeffCheckDigit extends AbstractCheckDigit implements Seri
         int checksum = 0;
         for (int i = 0; i < code.length(); i++) {
             final int idx = code.length() - (i + 1);
-            final int num = Character.getNumericValue(code.charAt(idx));
-            if (num < 0 || num > 9) { // CHECKSTYLE IGNORE MagicNumber
+            final char character = code.charAt(idx);
+            if (character < '0' || character > '9') { // CHECKSTYLE IGNORE MagicNumber
                 throw new CheckDigitException("Invalid Character[" +
-                        i + "] = '" + (int) code.charAt(idx) + "'");
+                        i + "] = '" + (int) character + "'");
             }
+            final int num = character - '0';
             final int pos = includesCheckDigit ? i : i + 1;
             checksum = D_TABLE[checksum][P_TABLE[pos % 8][num]]; // CHECKSTYLE IGNORE MagicNumber
         }
