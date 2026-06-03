@@ -376,7 +376,13 @@ public class IBANValidator {
             throw new IllegalStateException("The singleton validator cannot be modified");
         }
         if (length < 0) {
-            return validatorMap.remove(countryCode);
+            final Validator prev = validatorMap.remove(countryCode);
+            if (prev != null) {
+                for (final String otherCC : prev.otherCountryCodes) {
+                    validatorMap.remove(otherCC);
+                }
+            }
+            return prev;
         }
         return setValidator(new Validator(countryCode, length, format));
     }
@@ -393,7 +399,16 @@ public class IBANValidator {
         if (this == DEFAULT_IBAN_VALIDATOR) {
             throw new IllegalStateException("The singleton validator cannot be modified");
         }
-        return validatorMap.put(validator.countryCode, validator);
+        final Validator prev = validatorMap.put(validator.countryCode, validator);
+        if (prev != null) {
+            for (final String otherCC : prev.otherCountryCodes) {
+                validatorMap.remove(otherCC);
+            }
+        }
+        for (final String otherCC : validator.otherCountryCodes) {
+            validatorMap.put(otherCC, validator);
+        }
+        return prev;
     }
 
     /**

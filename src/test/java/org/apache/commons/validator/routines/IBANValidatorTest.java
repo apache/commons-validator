@@ -466,6 +466,46 @@ class IBANValidatorTest {
     }
 
     @Test
+    void testSetValidatorCleanupOtherCountryCodes() {
+        final IBANValidator validator = new IBANValidator();
+        
+        // Confirm GB (United Kingdom) handles IM (Isle of Man), JE (Jersey), GG (Guernsey) by default
+        assertTrue(validator.hasValidator("GB"));
+        assertTrue(validator.hasValidator("IM"));
+        assertTrue(validator.hasValidator("JE"));
+        assertTrue(validator.hasValidator("GG"));
+        
+        // Remove GB validator
+        assertNotNull(validator.setValidator("GB", -1, null));
+        
+        // Verify that GB and all associated territories are removed
+        assertFalse(validator.hasValidator("GB"));
+        assertFalse(validator.hasValidator("IM"));
+        assertFalse(validator.hasValidator("JE"));
+        assertFalse(validator.hasValidator("GG"));
+    }
+
+    @Test
+    void testSetValidatorReplaceOtherCountryCodes() {
+        final IBANValidator validator = new IBANValidator();
+        
+        // Confirm GB handles IM by default
+        assertTrue(validator.hasValidator("GB"));
+        assertTrue(validator.hasValidator("IM"));
+        final Validator oldGbValidator = validator.getValidator("GB");
+        final Validator oldImValidator = validator.getValidator("IM");
+        assertEquals(oldGbValidator, oldImValidator);
+        
+        // Replace GB validator with a custom one (which will have no other country codes)
+        final Validator newGbValidator = new Validator("GB", 22, "GB\\d{20}");
+        validator.setValidator(newGbValidator);
+        
+        // Verify GB has the new validator, but IM no longer has the old validator
+        assertEquals(newGbValidator, validator.getValidator("GB"));
+        assertFalse(validator.hasValidator("IM"));
+    }
+
+    @Test
     void testSetValidatorLen35() {
         final IBANValidator validator = new IBANValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("GB", 35, "GB"));
