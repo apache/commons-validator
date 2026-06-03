@@ -16,12 +16,13 @@
  */
 package org.apache.commons.validator;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.net.URL;
 import java.util.Locale;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
+import org.xml.sax.SAXException;
 
 /**
  * Tests entity imports.
@@ -46,5 +47,11 @@ class EntityImportTest extends AbstractCommonTest {
         final URL url = getClass().getResource("EntityImportTest-config.xml");
         final ValidatorResources resources = new ValidatorResources(url);
         assertNotNull(resources.getForm(Locale.getDefault(), "byteForm"), "Form should be found");
+    }
+
+    @Test
+    void testRemoteExternalEntityIsBlocked() throws Exception {
+        final URL url = getClass().getResource("ExternalEntityTest-config.xml");
+        assertThrows(SAXException.class, () -> new ValidatorResources(url.toExternalForm()));
     }
 }

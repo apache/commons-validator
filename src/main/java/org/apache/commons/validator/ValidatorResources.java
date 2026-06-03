@@ -31,6 +31,8 @@ import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
@@ -318,6 +320,29 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
+     * EntityResolver that blocks remote external entity resolution.
+     */
+    private static final class SecureEntityResolver implements EntityResolver {
+
+        @Override
+        public InputSource resolveEntity(final String publicId, final String systemId)
+                throws SAXException, IOException {
+            if (publicId != null) {
+                return null;
+            }
+            if (systemId == null) {
+                return null;
+            }
+            final String lowerId = systemId.toLowerCase(Locale.ROOT);
+            if (lowerId.startsWith("http://") || lowerId.startsWith("https://")
+                    || lowerId.startsWith("ftp://") || lowerId.startsWith("jar:")) {
+                throw new SAXException("Remote external entity resolution is disabled for system identifier: " + systemId);
+            }
+            return null;
+        }
+    }
+
+    /**
      * Add a {@code ValidatorAction} to the resource.  It also creates an
      * instance of the class based on the {@code ValidatorAction}s
      * class name and retrieves the {@code Method} instance and sets them
@@ -585,6 +610,7 @@ public class ValidatorResources implements Serializable {
         digester.setNamespaceAware(true);
         digester.setValidating(true);
         digester.setUseContextClassLoader(true);
+        digester.setEntityResolver(new SecureEntityResolver());
 
         // Add rules for arg0-arg3 elements
         addOldArgRules(digester);
