@@ -474,6 +474,32 @@ public class UrlValidator implements Serializable {
         return isOff(NO_FRAGMENTS);
     }
 
+    private String decodePath(final String path) {
+        final StringBuilder sb = new StringBuilder();
+        final int len = path.length();
+        for (int i = 0; i < len; i++) {
+            final char c = path.charAt(i);
+            if (c == '%' && i + 2 < len) {
+                final char h1 = path.charAt(i + 1);
+                final char h2 = path.charAt(i + 2);
+                if (h1 == '2') {
+                    if (h2 == 'e' || h2 == 'E') {
+                        sb.append('.');
+                        i += 2;
+                        continue;
+                    }
+                    if (h2 == 'f' || h2 == 'F') {
+                        sb.append('/');
+                        i += 2;
+                        continue;
+                    }
+                }
+            }
+            sb.append(c);
+        }
+        return sb.toString();
+    }
+
     /**
      * Returns true if the path is valid.  A {@code null} value is considered invalid.
      *
@@ -487,7 +513,7 @@ public class UrlValidator implements Serializable {
 
         try {
             // Don't omit host otherwise leading path may be taken as host if it starts with //
-            final URI uri = new URI(null, "localhost", path, null);
+            final URI uri = new URI(null, "localhost", decodePath(path), null);
             final String norm = uri.normalize().getPath();
             if (norm.startsWith("/../") // Trying to go via the parent dir
                     || norm.equals("/..")) { // Trying to go to the parent dir

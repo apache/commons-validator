@@ -525,6 +525,19 @@ public class UrlValidatorTest {
     }
 
     @Test
+    void testPathTraversalPercentEncoding() {
+        final UrlValidator urlValidator = new UrlValidator();
+        assertFalse(urlValidator.isValid("http://www.example.org/..%2fworld"));
+        assertFalse(urlValidator.isValid("http://www.example.org/..%2Fworld"));
+        assertFalse(urlValidator.isValid("http://www.example.org/%2e%2e/world"));
+        assertFalse(urlValidator.isValid("http://www.example.org/%2e%2e%2fworld"));
+        assertFalse(urlValidator.isValid("http://www.example.org/%2E%2E%2Fworld"));
+        assertFalse(urlValidator.isValid("http://www.example.org/..%2f"));
+        assertFalse(urlValidator.isValid("http://www.example.org/%2e%2e"));
+        assertFalse(urlValidator.isValid("http://www.example.org/%2e%2e/"));
+    }
+
+    @Test
     void testValidator375() {
         final UrlValidator validator = new UrlValidator();
         String url = "http://[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]:80/index.html";
