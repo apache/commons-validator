@@ -19,6 +19,12 @@ package org.apache.commons.validator.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.commons.collections.FastHashMap;
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +42,25 @@ class ValidatorUtilsTest {
         original.setFast(true);
         final FastHashMap copy = ValidatorUtils.copyFastHashMap(original);
         assertEquals(original, copy);
-      }
+    }
+
+    @Test
+    void testGetValueAsString() {
+        final Map<String, Object> map = new HashMap<>();
+        map.put("string", "hello");
+        map.put("emptyArray", new String[0]);
+        map.put("array", new String[]{"a", "b"});
+        map.put("emptyCollection", Collections.emptyList());
+        map.put("collection", Arrays.asList("a", "b"));
+
+        assertEquals("hello", ValidatorUtils.getValueAsString(map, "string"));
+        assertEquals("", ValidatorUtils.getValueAsString(map, "emptyArray"));
+        assertEquals("", ValidatorUtils.getValueAsString(map, "emptyCollection"));
+        assertEquals("[a, b]", ValidatorUtils.getValueAsString(map, "collection"));
+
+        final String arrayVal = ValidatorUtils.getValueAsString(map, "array");
+        assertEquals("[a, b]", arrayVal);
+    }
 
 }
+

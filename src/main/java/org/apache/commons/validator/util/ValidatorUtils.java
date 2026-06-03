@@ -127,7 +127,7 @@ public class ValidatorUtils {
         }
 
         if (value instanceof String[]) {
-            return ((String[]) value).length > 0 ? value.toString() : "";
+            return ((String[]) value).length > 0 ? java.util.Arrays.toString((String[]) value) : "";
 
         }
         if (value instanceof Collection) {
