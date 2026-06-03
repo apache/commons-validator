@@ -263,8 +263,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
         if (GenericValidator.isBlankOrNull(value1)) {
             return null;
         }
-        final Format formatter = getFormat(pattern, locale);
-        return parse(value, formatter);
+        return parse(value, getFormat(pattern, locale));
 
     }
 
