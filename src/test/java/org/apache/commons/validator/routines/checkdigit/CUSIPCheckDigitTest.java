@@ -14,22 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.validator.routines.checkdigit;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * CUSIP Check Digit Test.
  */
 class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
-
-    private static final String[] INVALID_CHECK_DIGITS = { "DUS0421CW", "DUS0421CN", "DUS0421CE" };
-
-    private static final String[] VALID_CHECK_DIGITS = { "DUS0421C5" };
 
     /**
      * Sets up routine & valid codes.
@@ -41,17 +39,15 @@ class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
         invalid = new String[] { "0378#3100" };
     }
 
-    @Test
-    void testValidator336InvalidCheckDigits() {
-        for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
-            assertFalse(routine.isValid(invalidCheckDigit), "Should fail: " + invalidCheckDigit);
-        }
+    @ParameterizedTest
+    @ValueSource(strings = { "DUS0421CW", "DUS0421CN", "DUS0421CE" })
+    void testValidator336InvalidCheckDigits(final String invalidCheckDigit) {
+        assertFalse(routine.isValid(invalidCheckDigit), "Should fail: " + invalidCheckDigit);
     }
 
-    @Test
-    void testValidator336ValidCheckDigits() {
-        for (final String validCheckDigit : VALID_CHECK_DIGITS) {
-            assertTrue(routine.isValid(validCheckDigit), "Should fail: " + validCheckDigit);
-        }
+    @ParameterizedTest
+    @ValueSource(strings = { "DUS0421C5", "037833100", "17275R102", "38259P508", "594918104", "EJ7125481" })
+    void testValidator336ValidCheckDigits(final String validCheckDigit) {
+        assertTrue(routine.isValid(validCheckDigit), "Should fail: " + validCheckDigit);
     }
 }
