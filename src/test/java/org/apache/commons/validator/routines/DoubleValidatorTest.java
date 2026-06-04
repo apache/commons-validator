@@ -26,6 +26,8 @@ import java.util.Locale;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledForJreRange;
+import org.junit.jupiter.api.condition.JRE;
 
 /**
  * Tests {@link DoubleValidator}.
@@ -129,12 +131,32 @@ class DoubleValidatorTest extends AbstractNumberValidatorTest {
      * "-Infinity" cause a parse error and return null.
      */
     @Test
-    void testDoubleValidateSpecialValues() {
+    @EnabledForJreRange(min = JRE.JAVA_11)
+    void testDoubleValidateSpecialValuesJava11Plus() {
         final DoubleValidator validator = DoubleValidator.getInstance();
         // Double.NaN -> "NaN": NumberFormat parses "NaN" successfully
         final Double nanResult = validator.validate(Double.toString(Double.NaN));
         assertTrue(Double.isNaN(nanResult), "validate(\"NaN\") should return Double.NaN");
         assertTrue(validator.isValid(Double.toString(Double.NaN)), "isValid(\"NaN\") should be true");
+        // Double.POSITIVE_INFINITY -> "Infinity": NumberFormat cannot parse "Infinity"
+        assertNull(validator.validate(Double.toString(Double.POSITIVE_INFINITY)));
+        assertFalse(validator.isValid(Double.toString(Double.POSITIVE_INFINITY)));
+        // Double.NEGATIVE_INFINITY -> "-Infinity": NumberFormat cannot parse "-Infinity"
+        assertNull(validator.validate(Double.toString(Double.NEGATIVE_INFINITY)));
+        assertFalse(validator.isValid(Double.toString(Double.NEGATIVE_INFINITY)));
+    }
+
+    /**
+     * Test DoubleValidator.validate(String) with Double special values. NumberFormat.parseObject("NaN") succeeds and returns Double.NaN, but "Infinity" and
+     * "-Infinity" cause a parse error and return null.
+     */
+    @Test
+    void testDoubleValidateSpecialValuesJava8() {
+        final DoubleValidator validator = DoubleValidator.getInstance();
+        // Double.NaN -> "NaN": NumberFormat parses "NaN" successfully
+        final Double nanResult = validator.validate(Double.toString(Double.NaN));
+        assertNull(nanResult);
+        assertFalse(validator.isValid(Double.toString(Double.NaN)), "isValid(\"NaN\") should be true");
         // Double.POSITIVE_INFINITY -> "Infinity": NumberFormat cannot parse "Infinity"
         assertNull(validator.validate(Double.toString(Double.POSITIVE_INFINITY)));
         assertFalse(validator.isValid(Double.toString(Double.POSITIVE_INFINITY)));
