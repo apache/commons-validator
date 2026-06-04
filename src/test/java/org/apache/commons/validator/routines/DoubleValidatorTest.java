@@ -27,6 +27,7 @@ import java.util.Locale;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledForJreRange;
+import org.junit.jupiter.api.condition.EnabledOnJre;
 import org.junit.jupiter.api.condition.JRE;
 
 /**
@@ -151,6 +152,7 @@ class DoubleValidatorTest extends AbstractNumberValidatorTest {
      * "-Infinity" cause a parse error and return null.
      */
     @Test
+    @EnabledOnJre(JRE.JAVA_8)
     void testDoubleValidateSpecialValuesJava8() {
         final DoubleValidator validator = DoubleValidator.getInstance();
         // Double.NaN -> "NaN": NumberFormat parses "NaN" successfully
