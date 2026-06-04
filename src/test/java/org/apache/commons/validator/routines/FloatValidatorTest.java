@@ -29,7 +29,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test Case for FloatValidator.
+ * Tests {@link FloatValidator}.
  */
 class FloatValidatorTest extends AbstractNumberValidatorTest {
 

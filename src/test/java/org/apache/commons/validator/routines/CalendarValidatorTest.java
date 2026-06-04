@@ -40,7 +40,7 @@ import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
- * Test Case for CalendarValidator.
+ * Tests {@link CalendarValidator}.
  */
 class CalendarValidatorTest extends AbstractCalendarValidatorTest {
 

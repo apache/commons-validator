@@ -27,7 +27,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test Case for IntegerValidator.
+ * Tests {@link IntegerValidator}.
  */
 class IntegerValidatorTest extends AbstractNumberValidatorTest {
 

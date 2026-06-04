@@ -30,7 +30,7 @@ import java.util.regex.PatternSyntaxException;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test Case for RegexValidatorTest.
+ * Tests {@link RegexValidatorTest}.
  */
 class RegexValidatorTest {
     private static final String REGEX = "^([abc]*)(?:\\-)([DEF]*)(?:\\-)([123]*)$";

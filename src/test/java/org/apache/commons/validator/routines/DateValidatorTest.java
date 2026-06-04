@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
- * Test Case for DateValidator.
+ * Tests {@link DateValidator}.
  */
 class DateValidatorTest extends AbstractCalendarValidatorTest {
 

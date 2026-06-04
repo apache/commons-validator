@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
- * Test Case for CurrencyValidator.
+ * Tests {@link CurrencyValidator}.
  */
 class CurrencyValidatorTest {
 

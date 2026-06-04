@@ -27,7 +27,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test Case for LongValidator.
+ * Tests {@link LongValidator}.
  */
 class LongValidatorTest extends AbstractNumberValidatorTest {
 

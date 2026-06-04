@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
- * Test Case for PercentValidator.
+ * Tests {@link PercentValidator}.
  */
 class PercentValidatorTest {
 
