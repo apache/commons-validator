@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 /**
@@ -29,13 +30,20 @@ import org.junit.jupiter.params.provider.ValueSource;
  */
 class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
 
+    private static final String[] VALID = new String[] { "DUS0421C5", "037833100", "931142103", "837649128", "392690QT3", "594918104", "86770G101", "Y8295N109",
+            "G8572F100", "17275R102", "EJ7125481" };
+
+    static String[] cloneValid() {
+        return VALID.clone();
+    }
+
     /**
      * Sets up routine & valid codes.
      */
     @BeforeEach
     protected void setUp() {
         routine = CUSIPCheckDigit.CUSIP_CHECK_DIGIT;
-        valid = new String[] { "037833100", "931142103", "837649128", "392690QT3", "594918104", "86770G101", "Y8295N109", "G8572F100" };
+        valid = cloneValid();
         invalid = new String[] { "0378#3100" };
     }
 
@@ -46,7 +54,7 @@ class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "DUS0421C5", "037833100", "17275R102", "38259P508", "594918104", "EJ7125481" })
+    @MethodSource("org.apache.commons.validator.routines.checkdigit.CUSIPCheckDigitTest#cloneValid")
     void testValidator336ValidCheckDigits(final String validCheckDigit) {
         assertTrue(routine.isValid(validCheckDigit), "Should fail: " + validCheckDigit);
     }
