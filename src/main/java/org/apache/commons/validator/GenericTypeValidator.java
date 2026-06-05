@@ -405,10 +405,13 @@ public class GenericTypeValidator implements Serializable {
             final Number num = formatter.parse(value, pos);
 
             // If there was no error      and we used the whole string
+            // NumberFormat returns a Long only when the value fits in a long;
+            // out-of-range input is returned as a Double, so a doubleValue()
+            // range check cannot be used here (Long.MAX_VALUE is not exactly
+            // representable as a double and would let 2^63 through).
             if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
-                    num.doubleValue() >= Long.MIN_VALUE &&
-                    num.doubleValue() <= Long.MAX_VALUE) {
-                result = Long.valueOf(num.longValue());
+                    num instanceof Long) {
+                result = (Long) num;
             }
         }
 

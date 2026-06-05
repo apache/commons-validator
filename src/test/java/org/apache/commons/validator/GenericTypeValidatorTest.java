@@ -19,6 +19,7 @@ package org.apache.commons.validator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 import java.util.Date;
@@ -169,6 +170,18 @@ class GenericTypeValidatorTest extends AbstractCommonTest {
         // assertTrue(ACTION + " value ValidatorResult for the '" + ACTION +"' action should have " + (passed ? "passed" : "failed") + ".", (passed ?
         // result.isValid(ACTION) : !result.isValid(ACTION)));
 
+    }
+
+    /**
+     * Tests that {@link GenericTypeValidator#formatLong(String, Locale)} rejects values just outside the long range instead of clamping them.
+     */
+    @Test
+    void testLongLocaleOverflow() {
+        assertEquals(Long.valueOf(Long.MAX_VALUE), GenericTypeValidator.formatLong("9223372036854775807", Locale.US));
+        assertEquals(Long.valueOf(Long.MIN_VALUE), GenericTypeValidator.formatLong("-9223372036854775808", Locale.US));
+        // Long.MAX_VALUE + 1 and Long.MIN_VALUE - 1 round to the long bounds as a double and used to be accepted.
+        assertNull(GenericTypeValidator.formatLong("9223372036854775808", Locale.US));
+        assertNull(GenericTypeValidator.formatLong("-9223372036854775809", Locale.US));
     }
 
     /**
