@@ -27,7 +27,7 @@ import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.commons.validator.util.Flags;
 
 /**
- * <p>Validates URLs.</p>
+ * Validates URLs.
  * Behaviour of validation is modified by passing in options:
  * <ul>
  * <li>ALLOW_2_SLASHES - [FALSE]  Allows double '/' characters in the path
@@ -260,7 +260,7 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if a field has a valid URL address.</p>
+     * Checks if a field has a valid URL address.
      *
      * @param value The value validation is being performed on.  A {@code null}
      * value is considered invalid.

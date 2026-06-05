@@ -21,9 +21,10 @@ package org.apache.commons.validator;
  * Based on this
  * <a href="https://www.isbn.org/standards/home/isbn/international/html/usm4.htm">
  * algorithm</a>
- *
+ * <p>
  * <strong>NOTE:</strong> This has been replaced by the new
  *  {@link org.apache.commons.validator.routines.ISBNValidator}.
+ * </p>
  *
  * @since 1.2.0
  * @deprecated Use the new ISBNValidator in the routines package

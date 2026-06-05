@@ -38,8 +38,9 @@ import org.apache.commons.validator.util.ValidatorUtils;
 /**
  * Contains the information to dynamically create and run a validation method. This is the class representation of a pluggable validator that can be defined in
  * an xml file with the &lt;validator&gt; element.
- *
+ * <p>
  * <strong>Note</strong>: The validation method is assumed to be thread safe.
+ * </p>
  */
 public class ValidatorAction implements Serializable {
 
@@ -76,10 +77,8 @@ public class ValidatorAction implements Serializable {
     private transient Method validationMethod;
 
     /**
-     * <p>
      * The method signature of the validation method. This should be a comma-delimited list of the full class names of each parameter in the correct order that
      * the method takes.
-     * </p>
      * <p>
      * Note: {@link Object} is reserved for the JavaBean that is being validated. The {@code ValidatorAction} and {@code Field} that
      * are associated with a field's validation will automatically be populated if they are specified in the method signature.

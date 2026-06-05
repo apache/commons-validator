@@ -26,11 +26,9 @@ import java.util.Map;
 import org.apache.commons.collections.FastHashMap; // DEPRECATED
 
 /**
- * <p>
  * This contains a set of validation rules for a form/JavaBean. The information
  * is contained in a list of {@code Field} objects. Instances of this class
  * are configured with a &lt;form&gt; xml element.
- * </p>
  * <p>
  * The use of FastHashMap is deprecated and will be replaced in a future
  * release.

@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.validator.routines.InetAddressValidator;
 
 /**
- * <p>Perform email validations.</p>
+ * Perform email validations.
  * <p>
  * This class is a Singleton; you can retrieve the instance via the getInstance() method.
  * </p>
@@ -79,7 +79,7 @@ public class EmailValidator {
     }
 
     /**
-     * <p>Checks if a field has a valid e-mail address.</p>
+     * Checks if a field has a valid e-mail address.
      *
      * @param email The value validation is being performed on.  A {@code null}
      * value is considered invalid.

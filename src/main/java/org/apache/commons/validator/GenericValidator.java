@@ -57,8 +57,8 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the field isn't null and length of the field is greater
-     * than zero not including whitespace.</p>
+     * Checks if the field isn't null and length of the field is greater
+     * than zero not including whitespace.
      *
      * @param value The value validation is being performed on.
      * @return true if blank or null.
@@ -69,7 +69,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value can safely be converted to a byte primitive.</p>
+     * Checks if the value can safely be converted to a byte primitive.
      *
      * @param value The value validation is being performed on.
      * @return true if the value can be converted to a Byte.
@@ -89,9 +89,9 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the field is a valid date.  The {@link Locale} is
+     * Checks if the field is a valid date.  The {@link Locale} is
      * used with {@link DateFormat}.  The setLenient method
-     * is set to {@code false} for all.</p>
+     * is set to {@code false} for all.
      *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the date format, defaults to the
@@ -103,11 +103,11 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the field is a valid date.  The pattern is used with
+     * Checks if the field is a valid date.  The pattern is used with
      * {@link SimpleDateFormat}.  If strict is true, then the
      * length will be checked so '2/12/1999' will not pass validation with
      * the format 'MM/dd/yyyy' because the month isn't two digits.
-     * The setLenient method is set to {@code false} for all.</p>
+     * The setLenient method is set to {@code false} for all.
      *
      * @param value The value validation is being performed on.
      * @param datePattern The pattern passed to {@link SimpleDateFormat}.
@@ -120,7 +120,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value can safely be converted to a double primitive.</p>
+     * Checks if the value can safely be converted to a double primitive.
      *
      * @param value The value validation is being performed on.
      * @return true if the value can be converted to a Double.
@@ -130,7 +130,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if a field has a valid e-mail address.</p>
+     * Checks if a field has a valid e-mail address.
      *
      * @param value The value validation is being performed on.
      * @return true if the value is valid Email Address.
@@ -140,7 +140,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value can safely be converted to a float primitive.</p>
+     * Checks if the value can safely be converted to a float primitive.
      *
      * @param value The value validation is being performed on.
      * @return true if the value can be converted to a Float.
@@ -150,8 +150,8 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-    * <p>Checks if a value is within a range (min &amp; max specified
-    * in the vars attribute).</p>
+    * Checks if a value is within a range (min &amp; max specified
+    * in the vars attribute).
     *
     * @param value The value validation is being performed on.
     * @param min The minimum value of the range.
@@ -163,8 +163,8 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if a value is within a range (min &amp; max specified
-     * in the vars attribute).</p>
+     * Checks if a value is within a range (min &amp; max specified
+     * in the vars attribute).
      *
      * @param value The value validation is being performed on.
      * @param min The minimum value of the range.
@@ -176,8 +176,8 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if a value is within a range (min &amp; max specified
-     * in the vars attribute).</p>
+     * Checks if a value is within a range (min &amp; max specified
+     * in the vars attribute).
      *
      * @param value The value validation is being performed on.
      * @param min The minimum value of the range.
@@ -189,8 +189,8 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if a value is within a range (min &amp; max specified
-     * in the vars attribute).</p>
+     * Checks if a value is within a range (min &amp; max specified
+     * in the vars attribute).
      *
      * @param value The value validation is being performed on.
      * @param min The minimum value of the range.
@@ -202,8 +202,8 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if a value is within a range (min &amp; max specified
-     * in the vars attribute).</p>
+     * Checks if a value is within a range (min &amp; max specified
+     * in the vars attribute).
      *
      * @param value The value validation is being performed on.
      * @param min The minimum value of the range.
@@ -215,8 +215,8 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if a value is within a range (min &amp; max specified
-     * in the vars attribute).</p>
+     * Checks if a value is within a range (min &amp; max specified
+     * in the vars attribute).
      *
      * @param value The value validation is being performed on.
      * @param min The minimum value of the range.
@@ -228,7 +228,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value can safely be converted to an int primitive.</p>
+     * Checks if the value can safely be converted to an int primitive.
      *
      * @param value The value validation is being performed on.
      * @return true if the value can be converted to an Integer.
@@ -238,7 +238,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value can safely be converted to a long primitive.</p>
+     * Checks if the value can safely be converted to a long primitive.
      *
      * @param value The value validation is being performed on.
      * @return true if the value can be converted to a Long.
@@ -248,7 +248,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value can safely be converted to a short primitive.</p>
+     * Checks if the value can safely be converted to a short primitive.
      *
      * @param value The value validation is being performed on.
      * @return true if the value can be converted to a Short.
@@ -258,9 +258,11 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if a field is a valid URL address.</p>
+     * Checks if a field is a valid URL address.
+     * <p>
      * If you need to modify what is considered valid then
      * consider using the UrlValidator directly.
+     * </p>
      *
      * @param value The value validation is being performed on.
      * @return true if the value is valid Url.
@@ -270,7 +272,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value matches the regular expression.</p>
+     * Checks if the value matches the regular expression.
      *
      * @param value The value validation is being performed on.
      * @param regexp The regular expression.
@@ -285,7 +287,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value's length is less than or equal to the max.</p>
+     * Checks if the value's length is less than or equal to the max.
      *
      * @param value The value validation is being performed on.
      * @param max The maximum length.
@@ -296,7 +298,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value's adjusted length is less than or equal to the max.</p>
+     * Checks if the value's adjusted length is less than or equal to the max.
      *
      * @param value The value validation is being performed on.
      * @param max The maximum length.
@@ -309,7 +311,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value is less than or equal to the max.</p>
+     * Checks if the value is less than or equal to the max.
      *
      * @param value The value validation is being performed on.
      * @param max The maximum numeric value.
@@ -320,7 +322,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value is less than or equal to the max.</p>
+     * Checks if the value is less than or equal to the max.
      *
      * @param value The value validation is being performed on.
      * @param max The maximum numeric value.
@@ -331,7 +333,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value is less than or equal to the max.</p>
+     * Checks if the value is less than or equal to the max.
      *
      * @param value The value validation is being performed on.
      * @param max The maximum numeric value.
@@ -344,7 +346,7 @@ public class GenericValidator implements Serializable {
     // See https://issues.apache.org/bugzilla/show_bug.cgi?id=29015 regarding the "value" methods.
 
     /**
-     * <p>Checks if the value is less than or equal to the max.</p>
+     * Checks if the value is less than or equal to the max.
      *
      * @param value The value validation is being performed on.
      * @param max The maximum numeric value.
@@ -355,7 +357,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value's length is greater than or equal to the min.</p>
+     * Checks if the value's length is greater than or equal to the min.
      *
      * @param value The value validation is being performed on.
      * @param min The minimum length.
@@ -366,7 +368,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value's adjusted length is greater than or equal to the min.</p>
+     * Checks if the value's adjusted length is greater than or equal to the min.
      *
      * @param value The value validation is being performed on.
      * @param min The minimum length.
@@ -379,7 +381,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value is greater than or equal to the min.</p>
+     * Checks if the value is greater than or equal to the min.
      *
      * @param value The value validation is being performed on.
      * @param min The minimum numeric value.
@@ -390,7 +392,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value is greater than or equal to the min.</p>
+     * Checks if the value is greater than or equal to the min.
      *
      * @param value The value validation is being performed on.
      * @param min The minimum numeric value.
@@ -401,7 +403,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value is greater than or equal to the min.</p>
+     * Checks if the value is greater than or equal to the min.
      *
      * @param value The value validation is being performed on.
      * @param min The minimum numeric value.
@@ -412,7 +414,7 @@ public class GenericValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if the value is greater than or equal to the min.</p>
+     * Checks if the value is greater than or equal to the min.
      *
      * @param value The value validation is being performed on.
      * @param min The minimum numeric value.
