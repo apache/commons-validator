@@ -57,8 +57,6 @@ import org.junit.jupiter.params.provider.MethodSource;
  */
 class IBANValidatorTest {
 
-    private static final IBANValidator VALIDATOR = IBANValidator.getInstance();
-
     // Unfortunately Java only returns the last match of repeated patterns
     // Use a manual repeat instead
     private static final String IBAN_PART = "(?:(\\d+)!([acn]))"; // Assume all parts are fixed length
@@ -77,9 +75,29 @@ class IBANValidatorTest {
      * file helps no-one.
      */
     private static final String IBAN_REGISTRY = "iban_registry_v99.txt";
+
     private static final Charset IBAN_REGISTRY_CHARSET = Charset.forName("windows-1252");
-    private static final int MS_PER_DAY = 1000 * 60 * 60 * 24;
+    // @formatter:off
+    private static final List<String> INVALID_IBAN_FIXTURES = Arrays.asList(
+            "",                        // empty
+            "   ",                     // empty
+            "A",                       // too short
+            "AB",                      // too short
+            "FR1420041010050500013m02606", // lowercase version
+            "MT84MALT011000012345mtlcast001s", // lowercase version
+            "LI21088100002324013aa", // lowercase version
+            "QA58DOHB00001234567890abcdefg", // lowercase version
+            "RO49AAAA1b31007593840000", // lowercase version
+            "LC62HEMM000100010012001200023015", // wrong in SWIFT
+            "BY00NBRB3600000000000Z00AB00", // Wrong in SWIFT v73
+            "ST68000200010192194210112", // ditto - invalid example
+            "SV62CENR0000000000000700025", // ditto
+            "NI04BAPR00000013000003558124", // invalid example
+            "RU1704452522540817810538091310419" // invalid example
+    );
+    // @formatter:on
     private static final long MAX_AGE_DAYS = 180; // how old registry can get (approx 6 months)
+    private static final int MS_PER_DAY = 1000 * 60 * 60 * 24;
 
 
 
@@ -208,25 +226,7 @@ class IBANValidatorTest {
     );
     // @formatter:on
 
-    // @formatter:off
-    private static final List<String> INVALID_IBAN_FIXTURES = Arrays.asList(
-            "",                        // empty
-            "   ",                     // empty
-            "A",                       // too short
-            "AB",                      // too short
-            "FR1420041010050500013m02606", // lowercase version
-            "MT84MALT011000012345mtlcast001s", // lowercase version
-            "LI21088100002324013aa", // lowercase version
-            "QA58DOHB00001234567890abcdefg", // lowercase version
-            "RO49AAAA1b31007593840000", // lowercase version
-            "LC62HEMM000100010012001200023015", // wrong in SWIFT
-            "BY00NBRB3600000000000Z00AB00", // Wrong in SWIFT v73
-            "ST68000200010192194210112", // ditto - invalid example
-            "SV62CENR0000000000000700025", // ditto
-            "NI04BAPR00000013000003558124", // invalid example
-            "RU1704452522540817810538091310419" // invalid example
-    );
-    // @formatter:on
+    private static final IBANValidator VALIDATOR = IBANValidator.getInstance();
 
     private static String fmtRE(final String ibanPat, final int ibanLength) {
         final Matcher m = IBAN_PAT.matcher(ibanPat);
@@ -452,6 +452,23 @@ class IBANValidatorTest {
     }
 
     @Test
+    void testSetValidatorCleanupOtherCountryCodes() {
+        final IBANValidator validator = new IBANValidator();
+        // Confirm GB (United Kingdom) handles IM (Isle of Man), JE (Jersey), GG (Guernsey) by default
+        assertTrue(validator.hasValidator("GB"));
+        assertTrue(validator.hasValidator("IM"));
+        assertTrue(validator.hasValidator("JE"));
+        assertTrue(validator.hasValidator("GG"));
+        // Remove GB validator
+        assertNotNull(validator.setValidator("GB", -1, null));
+        // Verify that GB and all associated territories are removed
+        assertFalse(validator.hasValidator("GB"));
+        assertFalse(validator.hasValidator("IM"));
+        assertFalse(validator.hasValidator("JE"));
+        assertFalse(validator.hasValidator("GG"));
+    }
+
+    @Test
     void testSetValidatorLC() {
         final IBANValidator validator = new IBANValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("gb", 15, "GB"));
@@ -477,6 +494,23 @@ class IBANValidatorTest {
         final IBANValidator validator = new IBANValidator();
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> validator.setValidator("GB", 7, "GB"));
         assertEquals("Invalid length parameter, must be in range 8 to 34 inclusive: 7", thrown.getMessage());
+    }
+
+    @Test
+    void testSetValidatorReplaceOtherCountryCodes() {
+        final IBANValidator validator = new IBANValidator();
+        // Confirm GB handles IM by default
+        assertTrue(validator.hasValidator("GB"));
+        assertTrue(validator.hasValidator("IM"));
+        final Validator oldGbValidator = validator.getValidator("GB");
+        final Validator oldImValidator = validator.getValidator("IM");
+        assertEquals(oldGbValidator, oldImValidator);
+        // Replace GB validator with a custom one (which will have no other country codes)
+        final Validator newGbValidator = new Validator("GB", 22, "GB\\d{20}");
+        validator.setValidator(newGbValidator);
+        // Verify GB has the new validator, but IM no longer has the old validator
+        assertEquals(newGbValidator, validator.getValidator("GB"));
+        assertFalse(validator.hasValidator("IM"));
     }
 
     @Test
