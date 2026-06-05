@@ -27,13 +27,16 @@ import org.junit.jupiter.api.Test;
  */
 class CheckDigitNonAsciiDigitTest {
 
-    private static String toFullwidth(final String code) {
-        final StringBuilder sb = new StringBuilder(code.length());
-        for (int i = 0; i < code.length(); i++) {
-            final char c = code.charAt(i);
-            sb.append(c >= '0' && c <= '9' ? (char) ('０' + (c - '0')) : c);
+    private static void assertRejectsNonAscii(final CheckDigit routine, final String validCode) {
+        assertTrue(routine.isValid(validCode), "ASCII: " + validCode);
+        assertFalse(routine.isValid(toFullwidth(validCode)), "fullwidth: " + validCode);
+        assertFalse(routine.isValid(toArabicIndic(validCode)), "arabic-indic: " + validCode);
+        for (char i = 0; i < 32; i++) {
+            assertFalse(routine.isValid(validCode.replaceFirst("[a-zA-Z0-9]", Character.valueOf(i).toString())), validCode);
         }
-        return sb.toString();
+        for (char i = 127; i < 256; i++) {
+            assertFalse(routine.isValid(validCode.replaceFirst("[a-zA-Z0-9]", Character.valueOf(i).toString())), validCode);
+        }
     }
 
     private static String toArabicIndic(final String code) {
@@ -45,16 +48,13 @@ class CheckDigitNonAsciiDigitTest {
         return sb.toString();
     }
 
-    private static void assertRejectsNonAscii(final CheckDigit routine, final String validCode) {
-        assertTrue(routine.isValid(validCode), "ASCII: " + validCode);
-        assertFalse(routine.isValid(toFullwidth(validCode)), "fullwidth: " + validCode);
-        assertFalse(routine.isValid(toArabicIndic(validCode)), "arabic-indic: " + validCode);
-        for (char i = 0; i < 32; i++) {
-            assertFalse(routine.isValid(validCode.replaceFirst("[a-zA-Z0-9]", Character.valueOf(i).toString())), validCode);
+    private static String toFullwidth(final String code) {
+        final StringBuilder sb = new StringBuilder(code.length());
+        for (int i = 0; i < code.length(); i++) {
+            final char c = code.charAt(i);
+            sb.append(c >= '0' && c <= '9' ? (char) ('０' + (c - '0')) : c);
         }
-        for (char i = 127; i < 256; i++) {
-            assertFalse(routine.isValid(validCode.replaceFirst("[a-zA-Z0-9]", Character.valueOf(i).toString())), validCode);
-        }
+        return sb.toString();
     }
 
     @Test
@@ -68,13 +68,13 @@ class CheckDigitNonAsciiDigitTest {
     }
 
     @Test
-    void testISIN() {
-        assertRejectsNonAscii(ISINCheckDigit.ISIN_CHECK_DIGIT, "US0378331005");
+    void testISBN10() {
+        assertRejectsNonAscii(ISBN10CheckDigit.ISBN10_CHECK_DIGIT, "1930110995");
     }
 
     @Test
-    void testISBN10() {
-        assertRejectsNonAscii(ISBN10CheckDigit.ISBN10_CHECK_DIGIT, "1930110995");
+    void testISIN() {
+        assertRejectsNonAscii(ISINCheckDigit.ISIN_CHECK_DIGIT, "US0378331005");
     }
 
     @Test

@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +35,10 @@ import org.junit.jupiter.api.condition.JRE;
  * Tests {@link DoubleValidator}.
  */
 class DoubleValidatorTest extends AbstractNumberValidatorTest {
+
+    private static final String NEGATIVE_INFINITY_STRING = Double.toString(Double.NEGATIVE_INFINITY);
+    private static final String POSITIVE_INFINITY_STRING = Double.toString(Double.POSITIVE_INFINITY);
+    private static final String NAN_STRING = Double.toString(Double.NaN);
 
     @BeforeEach
     protected void setUp() {
@@ -128,46 +133,6 @@ class DoubleValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * Test DoubleValidator.validate(String) with Double special values. NumberFormat.parseObject("NaN") succeeds and returns Double.NaN, but "Infinity" and
-     * "-Infinity" cause a parse error and return null.
-     */
-    @Test
-    @EnabledForJreRange(min = JRE.JAVA_11)
-    void testDoubleValidateSpecialValuesJava11Plus() {
-        final DoubleValidator validator = DoubleValidator.getInstance();
-        // Double.NaN -> "NaN": NumberFormat parses "NaN" successfully
-        final Double nanResult = validator.validate(Double.toString(Double.NaN));
-        assertTrue(Double.isNaN(nanResult), "validate(\"NaN\") should return Double.NaN");
-        assertTrue(validator.isValid(Double.toString(Double.NaN)), "isValid(\"NaN\") should be true");
-        // Double.POSITIVE_INFINITY -> "Infinity": NumberFormat cannot parse "Infinity"
-        assertNull(validator.validate(Double.toString(Double.POSITIVE_INFINITY)));
-        assertFalse(validator.isValid(Double.toString(Double.POSITIVE_INFINITY)));
-        // Double.NEGATIVE_INFINITY -> "-Infinity": NumberFormat cannot parse "-Infinity"
-        assertNull(validator.validate(Double.toString(Double.NEGATIVE_INFINITY)));
-        assertFalse(validator.isValid(Double.toString(Double.NEGATIVE_INFINITY)));
-    }
-
-    /**
-     * Test DoubleValidator.validate(String) with Double special values. NumberFormat.parseObject("NaN") succeeds and returns Double.NaN, but "Infinity" and
-     * "-Infinity" cause a parse error and return null.
-     */
-    @Test
-    @EnabledOnJre(JRE.JAVA_8)
-    void testDoubleValidateSpecialValuesJava8() {
-        final DoubleValidator validator = DoubleValidator.getInstance();
-        // Double.NaN -> "NaN": NumberFormat parses "NaN" successfully
-        final Double nanResult = validator.validate(Double.toString(Double.NaN));
-        assertNull(nanResult);
-        assertFalse(validator.isValid(Double.toString(Double.NaN)), "isValid(\"NaN\") should be true");
-        // Double.POSITIVE_INFINITY -> "Infinity": NumberFormat cannot parse "Infinity"
-        assertNull(validator.validate(Double.toString(Double.POSITIVE_INFINITY)));
-        assertFalse(validator.isValid(Double.toString(Double.POSITIVE_INFINITY)));
-        // Double.NEGATIVE_INFINITY -> "-Infinity": NumberFormat cannot parse "-Infinity"
-        assertNull(validator.validate(Double.toString(Double.NEGATIVE_INFINITY)));
-        assertFalse(validator.isValid(Double.toString(Double.NEGATIVE_INFINITY)));
-    }
-
-    /**
      * Test DoubleValidator validate Methods
      */
     @Test
@@ -197,5 +162,59 @@ class DoubleValidatorTest extends AbstractNumberValidatorTest {
         assertFalse(validator.isValid(xxxx, locale), "isValid(B) locale");
         assertFalse(validator.isValid(xxxx, pattern), "isValid(B) pattern");
         assertFalse(validator.isValid(patternVal, pattern, Locale.GERMAN), "isValid(B) both");
+    }
+
+    @Test
+    void testSpecialSymbols() {
+        final DoubleValidator validator = DoubleValidator.getInstance();
+        // Double.NaN -> "NaN": NumberFormat parses "NaN" successfully
+        // Double.POSITIVE_INFINITY -> "Infinity": NumberFormat cannot parse "Infinity"
+        assertNull(validator.validate(POSITIVE_INFINITY_STRING));
+        assertFalse(validator.isValid(POSITIVE_INFINITY_STRING));
+        // Double.NEGATIVE_INFINITY -> "-Infinity": NumberFormat cannot parse "-Infinity"
+        assertNull(validator.validate(NEGATIVE_INFINITY_STRING));
+        assertFalse(validator.isValid(NEGATIVE_INFINITY_STRING));
+        // infinity is "∞" for Locale.US.
+        final String infinity = new DecimalFormatSymbols(Locale.US).getInfinity();
+        assertEquals(Double.POSITIVE_INFINITY, validator.validate(infinity, Locale.US));
+        assertEquals(Double.NEGATIVE_INFINITY, validator.validate("-" + infinity, Locale.US));
+        assertTrue(validator.isValid(infinity, Locale.US));
+        assertTrue(validator.isValid("-" + infinity, Locale.US));
+        //
+        // Double.POSITIVE_INFINITY -> "Infinity": NumberFormat cannot parse "Infinity"
+        assertNull(validator.validate(POSITIVE_INFINITY_STRING));
+        assertFalse(validator.isValid(POSITIVE_INFINITY_STRING));
+        // Double.NEGATIVE_INFINITY -> "-Infinity": NumberFormat cannot parse "-Infinity"
+        assertNull(validator.validate(NEGATIVE_INFINITY_STRING));
+        assertFalse(validator.isValid(NEGATIVE_INFINITY_STRING));
+    }
+
+    /**
+     * Test DoubleValidator.validate(String) with Double special values. NumberFormat.parseObject("NaN") succeeds and returns Double.NaN, but "Infinity" and
+     * "-Infinity" cause a parse error and return null.
+     */
+    @Test
+    @EnabledForJreRange(min = JRE.JAVA_11)
+    void testSpecialSymbolsJava11Plus() {
+        final DoubleValidator validator = DoubleValidator.getInstance();
+        // Double.NaN -> "NaN": NumberFormat parses "NaN" successfully
+        final Double nanResult = validator.validate(NAN_STRING);
+        assertTrue(Double.isNaN(nanResult));
+        assertTrue(validator.isValid(NAN_STRING, Locale.US));
+        assertTrue(validator.isValid(NAN_STRING));
+    }
+
+    /**
+     * Test DoubleValidator.validate(String) with Double special values. NumberFormat.parseObject("NaN") succeeds and returns Double.NaN, but "Infinity" and
+     * "-Infinity" cause a parse error and return null.
+     */
+    @Test
+    @EnabledOnJre(JRE.JAVA_8)
+    void testSpecialSymbolsJava8() {
+        final DoubleValidator validator = DoubleValidator.getInstance();
+        final Double nanResult = validator.validate(NAN_STRING);
+        assertNull(nanResult);
+        assertFalse(validator.isValid(NAN_STRING, Locale.US));
+        assertFalse(validator.isValid(NAN_STRING));
     }
 }

@@ -197,7 +197,6 @@ public class DoubleValidator extends AbstractNumberValidator {
             return value;
         }
         return Double.valueOf(((Number) value).doubleValue());
-
     }
 
     /**
