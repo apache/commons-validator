@@ -20,18 +20,29 @@ package org.apache.commons.validator.routines;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Locale;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledForJreRange;
+import org.junit.jupiter.api.condition.EnabledOnJre;
+import org.junit.jupiter.api.condition.JRE;
 
 /**
  * Tests {@link FloatValidator}.
  */
 class FloatValidatorTest extends AbstractNumberValidatorTest {
+
+    private static final String NAN_STRING = Float.toString(Float.NaN);
+    private static final String NEGATIVE_INFINITY_STRING = Float.toString(Float.NEGATIVE_INFINITY);
+    private static final String POSITIVE_INFINITY_STRING = Float.toString(Float.POSITIVE_INFINITY);
 
     @BeforeEach
     protected void setUp() {
@@ -180,5 +191,50 @@ class FloatValidatorTest extends AbstractNumberValidatorTest {
         assertFalse(validator.isValid(xxxx, locale), "isValid(B) locale");
         assertFalse(validator.isValid(xxxx, pattern), "isValid(B) pattern");
         assertFalse(validator.isValid(patternVal, pattern, Locale.GERMAN), "isValid(B) both");
+    }
+
+    @Test
+    void testSpecialSymbols() {
+        final FloatValidator validator = FloatValidator.getInstance();
+        // Double.NaN -> "NaN": NumberFormat parses "NaN" successfully
+        // Double.POSITIVE_INFINITY -> "Infinity": NumberFormat cannot parse "Infinity"
+        assertNull(validator.validate(POSITIVE_INFINITY_STRING));
+        assertFalse(validator.isValid(POSITIVE_INFINITY_STRING));
+        // Double.NEGATIVE_INFINITY -> "-Infinity": NumberFormat cannot parse "-Infinity"
+        assertNull(validator.validate(NEGATIVE_INFINITY_STRING));
+        assertFalse(validator.isValid(NEGATIVE_INFINITY_STRING));
+        // infinity is "∞" for Locale.US.
+        final String infinity = new DecimalFormatSymbols(Locale.US).getInfinity();
+        assertEquals(Float.POSITIVE_INFINITY, validator.validate(infinity, Locale.US));
+        assertEquals(Float.NEGATIVE_INFINITY, validator.validate("-" + infinity, Locale.US));
+        assertTrue(validator.isValid(infinity, Locale.US));
+        assertTrue(validator.isValid("-" + infinity, Locale.US));
+        //
+        // Double.POSITIVE_INFINITY -> "Infinity": NumberFormat cannot parse "Infinity"
+        assertNull(validator.validate(POSITIVE_INFINITY_STRING));
+        assertFalse(validator.isValid(POSITIVE_INFINITY_STRING));
+        // Double.NEGATIVE_INFINITY -> "-Infinity": NumberFormat cannot parse "-Infinity"
+        assertNull(validator.validate(NEGATIVE_INFINITY_STRING));
+        assertFalse(validator.isValid(NEGATIVE_INFINITY_STRING));
+    }
+
+    @Test
+    @EnabledForJreRange(min = JRE.JAVA_11)
+    void testSpecialSymbolsJava11Plus() throws ParseException {
+        // JRE check:
+        assertTrue(Double.isNaN(NumberFormat.getInstance(Locale.US).parse(NAN_STRING).doubleValue()));
+        // Ours:
+        final FloatValidator validator = FloatValidator.getInstance();
+        assertTrue(validator.isValid(NAN_STRING, Locale.US));
+    }
+
+    @Test
+    @EnabledOnJre(JRE.JAVA_8)
+    void testSpecialSymbolsJava8() {
+        // JRE check
+        assertThrows(ParseException.class, () -> NumberFormat.getInstance(Locale.US).parse(NAN_STRING));
+        // Ours:
+        final FloatValidator validator = FloatValidator.getInstance();
+        assertFalse(validator.isValid(NAN_STRING, Locale.US));
     }
 }

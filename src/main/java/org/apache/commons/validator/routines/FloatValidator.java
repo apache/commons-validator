@@ -194,22 +194,24 @@ public class FloatValidator extends AbstractNumberValidator {
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
-
-        final double doubleValue = ((Number) value).doubleValue();
-
+        final double doubleValue = value instanceof Double ? (Double) value : Double.valueOf(((Number) value).doubleValue());
         if (doubleValue > 0) {
+            if (doubleValue == Double.POSITIVE_INFINITY) {
+                return Float.POSITIVE_INFINITY;
+            }
             if (doubleValue < Float.MIN_VALUE || doubleValue > Float.MAX_VALUE) {
                 return null;
             }
         } else if (doubleValue < 0) {
+            if (doubleValue == Double.NEGATIVE_INFINITY) {
+                return Float.NEGATIVE_INFINITY;
+            }
             final double posDouble = doubleValue * -1;
             if (posDouble < Float.MIN_VALUE || posDouble > Float.MAX_VALUE) {
                 return null;
             }
         }
-
         return Float.valueOf((float) doubleValue);
-
     }
 
     /**
