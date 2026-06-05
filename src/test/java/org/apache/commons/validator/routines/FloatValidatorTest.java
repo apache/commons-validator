@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -148,6 +149,20 @@ class FloatValidatorTest extends AbstractNumberValidatorTest {
         final Double tooSmallNegative = Double.valueOf(tooSmallPositive.doubleValue() * -1);
         final String strTooSmallNegative = fmt.format(tooSmallNegative);
         assertFalse(FloatValidator.getInstance().isValid(strTooSmallNegative, pattern), "Too small -ve");
+    }
+
+    /**
+     * Test the locale infinity symbol is rejected. Unlike the "Infinity" string, the symbol parses through to an infinite value, so it is rejected to keep both
+     * paths consistent. NaN is unaffected.
+     */
+    @Test
+    void testFloatValidateInfinitySymbol() {
+        final FloatValidator validator = FloatValidator.getInstance();
+        final String infinity = new DecimalFormatSymbols(Locale.US).getInfinity();
+        assertNull(validator.validate(infinity, Locale.US), "validate(infinity symbol)");
+        assertNull(validator.validate("-" + infinity, Locale.US), "validate(-infinity symbol)");
+        assertFalse(validator.isValid(infinity, Locale.US), "isValid(infinity symbol)");
+        assertFalse(validator.isValid("-" + infinity, Locale.US), "isValid(-infinity symbol)");
     }
 
     /**

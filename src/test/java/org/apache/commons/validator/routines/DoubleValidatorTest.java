@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -165,6 +166,20 @@ class DoubleValidatorTest extends AbstractNumberValidatorTest {
         // Double.NEGATIVE_INFINITY -> "-Infinity": NumberFormat cannot parse "-Infinity"
         assertNull(validator.validate(Double.toString(Double.NEGATIVE_INFINITY)));
         assertFalse(validator.isValid(Double.toString(Double.NEGATIVE_INFINITY)));
+    }
+
+    /**
+     * Test the locale infinity symbol is rejected. Unlike the "Infinity" string, the symbol parses through to an infinite value, so it is rejected to keep both
+     * paths consistent. NaN is unaffected.
+     */
+    @Test
+    void testDoubleValidateInfinitySymbol() {
+        final DoubleValidator validator = DoubleValidator.getInstance();
+        final String infinity = new DecimalFormatSymbols(Locale.US).getInfinity();
+        assertNull(validator.validate(infinity, Locale.US), "validate(infinity symbol)");
+        assertNull(validator.validate("-" + infinity, Locale.US), "validate(-infinity symbol)");
+        assertFalse(validator.isValid(infinity, Locale.US), "isValid(infinity symbol)");
+        assertFalse(validator.isValid("-" + infinity, Locale.US), "isValid(-infinity symbol)");
     }
 
     /**

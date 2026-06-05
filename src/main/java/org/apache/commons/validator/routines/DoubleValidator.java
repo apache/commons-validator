@@ -193,10 +193,16 @@ public class DoubleValidator extends AbstractNumberValidator {
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
+        final double doubleValue = ((Number) value).doubleValue();
+        // The "Infinity"/"-Infinity" strings throw a ParseException, but the locale infinity
+        // symbol parses through to an infinite value; reject it so the two paths are consistent.
+        if (Double.isInfinite(doubleValue)) {
+            return null;
+        }
         if (value instanceof Double) {
             return value;
         }
-        return Double.valueOf(((Number) value).doubleValue());
+        return Double.valueOf(doubleValue);
 
     }
 

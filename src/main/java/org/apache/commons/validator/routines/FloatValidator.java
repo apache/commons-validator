@@ -197,6 +197,11 @@ public class FloatValidator extends AbstractNumberValidator {
 
         final double doubleValue = ((Number) value).doubleValue();
 
+        // The "Infinity"/"-Infinity" strings throw a ParseException, but the locale infinity
+        // symbol parses through to an infinite value; reject it so the two paths are consistent.
+        if (Double.isInfinite(doubleValue)) {
+            return null;
+        }
         if (doubleValue > 0) {
             if (doubleValue < Float.MIN_VALUE || doubleValue > Float.MAX_VALUE) {
                 return null;
