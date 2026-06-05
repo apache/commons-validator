@@ -23,12 +23,11 @@ import org.apache.commons.validator.GenericValidator;
 /**
  * <strong>Verhoeff</strong> (Dihedral) Check Digit calculation/validation.
  * <p>
- * Check digit calculation for numeric codes using a
- * <a href="https://en.wikipedia.org/wiki/Dihedral_group">Dihedral Group</a>
- * of order 10.
+ * Check digit calculation for numeric codes using a <a href="https://en.wikipedia.org/wiki/Dihedral_group">Dihedral Group</a> of order 10.
+ * </p>
  * <p>
- * See <a href="https://en.wikipedia.org/wiki/Verhoeff_algorithm">Wikipedia
- *  - Verhoeff algorithm</a> for more details.
+ * See <a href="https://en.wikipedia.org/wiki/Verhoeff_algorithm">Wikipedia - Verhoeff algorithm</a> for more details.
+ * </p>
  *
  * @since 1.4
  */
@@ -36,7 +35,9 @@ public final class VerhoeffCheckDigit extends AbstractCheckDigit implements Seri
 
     private static final long serialVersionUID = 4138993995483695178L;
 
-    /** Singleton Verhoeff Check Digit instance */
+    /**
+     * Singleton Verhoeff Check Digit instance.
+     */
     public static final CheckDigit VERHOEFF_CHECK_DIGIT = new VerhoeffCheckDigit();
 
     /** D - multiplication table */
@@ -76,37 +77,35 @@ public final class VerhoeffCheckDigit extends AbstractCheckDigit implements Seri
     /**
      * Calculate a Verhoeff <em>Check Digit</em> for a code.
      *
-     * @param code The code to calculate the Check Digit for
-     * @return The calculated Check Digit
-     * @throws CheckDigitException if an error occurs calculating
-     * the check digit for the specified code
+     * @param code The code to calculate the Check Digit for.
+     * @return The calculated Check Digit.
+     * @throws CheckDigitException if an error occurs calculating the check digit for the specified code.
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException("Code is missing");
         }
-        final int checksum = calculateChecksum(code, false);
-        return Integer.toString(INV_TABLE[checksum]);
+        return Integer.toString(INV_TABLE[calculateChecksum(code, false)]);
     }
 
     /**
      * Calculate the checksum.
      *
-     * @param code The code to calculate the checksum for.
+     * @param code               The code to calculate the checksum for.
      * @param includesCheckDigit Whether the code includes the Check Digit or not.
-     * @return The checksum value
-     * @throws CheckDigitException if the code contains an invalid character (that is, a non-numeric character)
+     * @return The checksum value.
+     * @throws CheckDigitException if the code contains an invalid character (that is, a non-numeric character).
      */
     private int calculateChecksum(final String code, final boolean includesCheckDigit) throws CheckDigitException {
         int checksum = 0;
         for (int i = 0; i < code.length(); i++) {
             final int idx = code.length() - (i + 1);
-            final int num = Character.getNumericValue(code.charAt(idx));
-            if (num < 0 || num > 9) { // CHECKSTYLE IGNORE MagicNumber
-                throw new CheckDigitException("Invalid Character[" +
-                        i + "] = '" + (int) code.charAt(idx) + "'");
+            final char ch = code.charAt(idx);
+            if (!isAsciiDigit(ch)) {
+                throw new CheckDigitException("Invalid Character[" + i + "] = '" + (int) ch + "'");
             }
+            final int num = ch - '0';
             final int pos = includesCheckDigit ? i : i + 1;
             checksum = D_TABLE[checksum][P_TABLE[pos % 8][num]]; // CHECKSTYLE IGNORE MagicNumber
         }
@@ -116,9 +115,8 @@ public final class VerhoeffCheckDigit extends AbstractCheckDigit implements Seri
     /**
      * Validate the Verhoeff <em>Check Digit</em> for a code.
      *
-     * @param code The code to validate
-     * @return {@code true} if the check digit is valid,
-     * otherwise {@code false}
+     * @param code The code to validate.
+     * @return {@code true} if the check digit is valid, otherwise {@code false}.
      */
     @Override
     public boolean isValid(final String code) {
@@ -131,5 +129,4 @@ public final class VerhoeffCheckDigit extends AbstractCheckDigit implements Seri
             return false;
         }
     }
-
 }

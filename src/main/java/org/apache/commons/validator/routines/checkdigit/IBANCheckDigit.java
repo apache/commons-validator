@@ -45,9 +45,9 @@ public final class IBANCheckDigit extends AbstractCheckDigit implements Serializ
 
     private static final long serialVersionUID = -3600191725934382801L;
 
-    private static final int MAX_ALPHANUMERIC_VALUE = 35; // Character.getNumericValue('Z')
-
-    /** Singleton IBAN Number Check Digit instance */
+    /**
+     * Singleton IBAN Number Check Digit instance.
+     */
     public static final CheckDigit IBAN_CHECK_DIGIT = new IBANCheckDigit();
 
     private static final long MAX = 999999999;
@@ -63,13 +63,11 @@ public final class IBANCheckDigit extends AbstractCheckDigit implements Serializ
     /**
      * Calculate the <em>Check Digit</em> for an IBAN code.
      * <p>
-     * <strong>Note:</strong> The check digit is the third and fourth
-     * characters and is set to the value "{@code 00}".
+     * <strong>Note:</strong> The check digit is the third and fourth characters and is set to the value "{@code 00}".
      *
-     * @param code The code to calculate the Check Digit for
-     * @return The calculated Check Digit as 2 numeric decimal characters, for example, "42"
-     * @throws CheckDigitException if an error occurs calculating
-     * the check digit for the specified code
+     * @param code The code to calculate the Check Digit for,
+     * @return The calculated Check Digit as 2 numeric decimal characters, for example, "42",
+     * @throws CheckDigitException if an error occurs calculating the check digit for the specified code,
      */
     @Override
     public String calculate(String code) throws CheckDigitException {
@@ -87,16 +85,16 @@ public final class IBANCheckDigit extends AbstractCheckDigit implements Serializ
      * Calculate the modulus for a code.
      *
      * @param code The code to calculate the modulus for.
-     * @return The modulus value
-     * @throws CheckDigitException if an error occurs calculating the modulus
-     * for the specified code
+     * @return The modulus value,
+     * @throws CheckDigitException if an error occurs calculating the modulus for the specified code,
      */
     private int calculateModulus(final String code) throws CheckDigitException {
         final String reformattedCode = code.substring(4) + code.substring(0, 4); // CHECKSTYLE IGNORE MagicNumber
         long total = 0;
         for (int i = 0; i < reformattedCode.length(); i++) {
-            final int charValue = Character.getNumericValue(reformattedCode.charAt(i));
-            if (charValue < 0 || charValue > MAX_ALPHANUMERIC_VALUE) {
+            final char ch = reformattedCode.charAt(i);
+            final int charValue = Character.getNumericValue(ch);
+            if (!isAsciiAlphaNum(reformattedCode.charAt(i))) {
                 throw new CheckDigitException("Invalid Character[" + i + "] = '" + charValue + "'");
             }
             total = (charValue > 9 ? total * 100 : total * 10) + charValue; // CHECKSTYLE IGNORE MagicNumber
@@ -110,9 +108,8 @@ public final class IBANCheckDigit extends AbstractCheckDigit implements Serializ
     /**
      * Validate the check digit of an IBAN code.
      *
-     * @param code The code to validate
-     * @return {@code true} if the check digit is valid, otherwise
-     * {@code false}
+     * @param code The code to validate.
+     * @return {@code true} if the check digit is valid, otherwise {@code false}.
      */
     @Override
     public boolean isValid(final String code) {
@@ -129,5 +126,4 @@ public final class IBANCheckDigit extends AbstractCheckDigit implements Serializ
             return false;
         }
     }
-
 }

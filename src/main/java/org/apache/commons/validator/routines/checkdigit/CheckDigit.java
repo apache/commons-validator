@@ -53,9 +53,8 @@ public interface CheckDigit {
     /**
      * Calculates the <em>Check Digit</em> for a code.
      *
-     * @param code The code to calculate the Check Digit for.
-     * The string must not include the check digit
-     * @return The calculated Check Digit
+     * @param code The code to calculate the Check Digit for. The string must not include the check digit.
+     * @return The calculated Check Digit.
      * @throws CheckDigitException if an error occurs.
      */
     String calculate(String code) throws CheckDigitException;
@@ -64,9 +63,7 @@ public interface CheckDigit {
      * Validates the check digit for the code.
      *
      * @param code The code to validate, the string must include the check digit.
-     * @return {@code true} if the check digit is valid, otherwise
-     * {@code false}.
+     * @return {@code true} if the check digit is valid, otherwise {@code false}.
      */
     boolean isValid(String code);
-
 }

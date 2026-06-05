@@ -40,6 +40,7 @@ package org.apache.commons.validator.routines.checkdigit;
  * <strong>Note:</strong> This class expects the input to be numeric only,
  * with all formatting removed.
  * For example:
+ * </p>
  * <pre>
  * 03178471
  * 1050124X
@@ -51,7 +52,9 @@ public final class ISSNCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = 1L;
 
-    /** Singleton ISSN Check Digit instance */
+    /**
+     * Singleton ISSN Check Digit instance.
+     */
     public static final CheckDigit ISSN_CHECK_DIGIT = new ISSNCheckDigit();
 
     /**

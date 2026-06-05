@@ -18,8 +18,28 @@
 package org.apache.commons.validator.routines.checkdigit;
 
 /**
- * Abstracts CheckDigit.
+ * Abstracts {@link CheckDigit} for implementations.
  */
 abstract class AbstractCheckDigit implements CheckDigit {
-    // Empty
+
+    /**
+     * Result from {@code Character.getNumericValue('Z')}.
+     */
+    static final int MAX_ALPHANUMERIC_VALUE = 35;
+
+    boolean isAsciiAlpha(final char ch) {
+        return ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z'; // CHECKSTYLE IGNORE MagicNumber
+    }
+
+    boolean isAsciiAlphaNum(final char ch) {
+        return isAsciiDigit(ch) || isAsciiAlpha(ch);
+    }
+
+    boolean isAsciiDigit(final char ch) {
+        return ch >= '0' && ch <= '9'; // CHECKSTYLE IGNORE MagicNumber
+    }
+
+    boolean isAsciiDigit(final int ch) {
+        return ch >= 0 && ch <= 9; // CHECKSTYLE IGNORE MagicNumber
+    }
 }

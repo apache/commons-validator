@@ -42,9 +42,9 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -1239211208101323599L;
 
-    private static final int MAX_ALPHANUMERIC_VALUE = 35; // Character.getNumericValue('Z')
-
-    /** Singleton ISIN Check Digit instance */
+    /**
+     * Singleton ISIN Check Digit instance.
+     */
     public static final CheckDigit ISIN_CHECK_DIGIT = new ISINCheckDigit();
 
     /** Weighting given to digits depending on their right position */
@@ -59,44 +59,45 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
     /**
      * Calculate the modulus for an ISIN code.
      *
-     * @param code The code to calculate the modulus for.
+     * @param code               The code to calculate the modulus for.
      * @param includesCheckDigit Whether the code includes the Check Digit or not.
-     * @return The modulus value
-     * @throws CheckDigitException if an error occurs calculating the modulus
-     * for the specified code
+     * @return The modulus value.
+     * @throws CheckDigitException if an error occurs calculating the modulus for the specified code.
      */
     @Override
     protected int calculateModulus(final String code, final boolean includesCheckDigit) throws CheckDigitException {
         final StringBuilder transformed = new StringBuilder(code.length() * 2); // CHECKSTYLE IGNORE MagicNumber
         if (includesCheckDigit) {
             final char checkDigit = code.charAt(code.length() - 1); // fetch the last character
-            if (!Character.isDigit(checkDigit)) {
+            if (!isAsciiDigit(checkDigit)) {
                 throw new CheckDigitException("Invalid checkdigit[" + checkDigit + "] in " + code);
             }
         }
         for (int i = 0; i < code.length(); i++) {
-            final int charValue = Character.getNumericValue(code.charAt(i));
-            if (charValue < 0 || charValue > MAX_ALPHANUMERIC_VALUE) {
-                throw new CheckDigitException("Invalid Character[" + (i + 1) + "] = '" + charValue + "'");
+            final char character = code.charAt(i);
+            if (!isAsciiAlphaNum(character)) {
+                throw new CheckDigitException("Invalid Character[" + (i + 1) + "] = '" + character + "'");
             }
             // this converts alphanumerics to two digits
             // so there is no need to overload toInt()
-            transformed.append(charValue);
+            transformed.append(Character.getNumericValue(character));
         }
         return super.calculateModulus(transformed.toString(), includesCheckDigit);
     }
 
     /**
-     * <p>Calculates the <em>weighted</em> value of a character in the
-     * code at a specified position.</p>
+     * <p>
+     * Calculates the <em>weighted</em> value of a character in the code at a specified position.
+     * </p>
      *
-     * <p>For ISIN (from right to left) <strong>odd</strong> digits are weighted
-     * with a factor of <strong>one</strong> and <strong>even</strong> digits with a factor
-     * of <strong>two</strong>. Weighted values are reduced to their digital root</p>
+     * <p>
+     * For ISIN (from right to left) <strong>odd</strong> digits are weighted with a factor of <strong>one</strong> and <strong>even</strong> digits with a
+     * factor of <strong>two</strong>. Weighted values are reduced to their digital root
+     * </p>
      *
      * @param charValue The numeric value of the character.
-     * @param leftPos  The position of the character in the code, counting from left to right
-     * @param rightPos The position of the character in the code, counting from right to left
+     * @param leftPos   The position of the character in the code, counting from left to right.
+     * @param rightPos  The position of the character in the code, counting from right to left.
      * @return The weighted value of the character.
      */
     @Override
