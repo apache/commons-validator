@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.validator.routines.checkdigit;
 
 /**
@@ -41,14 +42,12 @@ public class CheckDigitException extends Exception {
     }
 
     /**
-     * Constructs an Exception with a message and
-     * the underlying cause.
+     * Constructs an Exception with a message and the underlying cause.
      *
-     * @param msg The error message.
-     * @param cause The underlying cause of the error
+     * @param msg   The error message.
+     * @param cause The underlying cause of the error.
      */
     public CheckDigitException(final String msg, final Throwable cause) {
         super(msg, cause);
     }
-
 }
