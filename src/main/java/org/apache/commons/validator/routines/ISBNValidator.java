@@ -30,17 +30,21 @@ import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
  * (using a {@link CodeValidator} with the {@link ISBN10CheckDigit})
  * or a valid ISBN-13 code (using a {@link CodeValidator} with
  * the {@link EAN13CheckDigit} routine).
+ * </p>
  * <p>
  * The {@code validate()} methods return the ISBN code with formatting
  * characters removed if valid or {@code null} if invalid.
+ * </p>
  * <p>
  * This validator also provides the facility to convert ISBN-10 codes to
  * ISBN-13 if the {@code convert} property is {@code true}.
+ * </p>
  * <p>
  * From 1st January 2007 the book industry will start to use a new 13 digit
  * ISBN number (rather than this 10 digit ISBN number). ISBN-13 codes are
  * <a href="https://en.wikipedia.org/wiki/European_Article_Number">EAN</a>
- * codes, for more information see:</p>
+ * codes, for more information see:
+ * </p>
  *
  * <ul>
  *   <li><a href="https://en.wikipedia.org/wiki/ISBN">Wikipedia - International
@@ -52,16 +56,20 @@ import org.apache.commons.validator.routines.checkdigit.ISBN10CheckDigit;
  *       Transition details</a>.</li>
  * </ul>
  *
- * <p>ISBN-13s are either prefixed with 978 or 979. 978 prefixes are only assigned
+ * <p>
+ * ISBN-13s are either prefixed with 978 or 979. 978 prefixes are only assigned
  * to the ISBN agency. 979 prefixes may be assigned to ISBNs or ISMNs
  * (<a href="https://www.ismn-international.org/">International
  * Standard Music Numbers</a>).
+ * </p>
  * <ul>
  *     <li>979-0 are assigned to the ISMN agency</li>
  *     <li>979-10, 979-11, 979-12 are assigned to the ISBN agency</li>
  * </ul>
+ * <p>
  * All other 979 prefixed EAN-13 numbers have not yet been assigned to an agency. The
  * validator validates all 13-digit codes with 978 or 979 prefixes.
+ * </p>
  *
  * @since 1.4
  */
@@ -155,6 +163,7 @@ public class ISBNValidator implements Serializable {
      * <p>
      * This method requires a valid ISBN-10 with NO formatting
      * characters.
+     * </p>
      *
      * @param isbn10 The ISBN-10 code to convert
      * @return A converted ISBN-13 code or {@code null}
@@ -221,9 +230,11 @@ public class ISBNValidator implements Serializable {
      * <p>
      * If valid, this method returns the ISBN code with
      * formatting characters removed (such as space or hyphen).
+     * </p>
      * <p>
      * Converts an ISBN-10 codes to ISBN-13 if
      * {@code convertToISBN13} is {@code true}.
+     * </p>
      *
      * @param code The code to validate.
      * @return A valid ISBN code if valid, otherwise {@code null}.
@@ -244,6 +255,7 @@ public class ISBNValidator implements Serializable {
      * <p>
      * If valid, this method returns the ISBN-10 code with
      * formatting characters removed (such as space or hyphen).
+     * </p>
      *
      * @param code The code to validate.
      * @return A valid ISBN-10 code if valid,
@@ -259,6 +271,7 @@ public class ISBNValidator implements Serializable {
      * <p>
      * If valid, this method returns the ISBN-13 code with
      * formatting characters removed (such as space or hyphen).
+     * </p>
      *
      * @param code The code to validate.
      * @return A valid ISBN-13 code if valid,

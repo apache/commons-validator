@@ -27,7 +27,7 @@ import java.util.TimeZone;
 import org.apache.commons.validator.GenericValidator;
 
 /**
- * <p>Abstract class for Date/Time/Calendar validation.</p>
+ * Abstract class for Date/Time/Calendar validation.
  *
  * <p>This is a <em>base</em> class for building Date / Time
  *    Validators using format parsing.</p>
@@ -64,7 +64,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Compares the field from two calendars indicating whether the field for the
+     * Compares the field from two calendars indicating whether the field for the
      *    first calendar is equal to, less than or greater than the field from the
      *    second calendar.
      *
@@ -79,7 +79,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Calculate the quarter for the specified Calendar.</p>
+     * Calculate the quarter for the specified Calendar.
      *
      * @param calendar The Calendar value.
      * @param monthOfFirstQuarter The  month that the first quarter starts.
@@ -102,8 +102,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Compares a calendar value to another, indicating whether it is
-     *    equal, less than or more than at a specified level.</p>
+     * Compares a calendar value to another, indicating whether it is
+     *    equal, less than or more than at a specified level.
      *
      * @param value The Calendar value.
      * @param compare The {@link Calendar} to check the value against.
@@ -158,8 +158,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Compares a calendar's quarter value to another, indicating whether it is
-     *    equal, less than or more than the specified quarter.</p>
+     * Compares a calendar's quarter value to another, indicating whether it is
+     *    equal, less than or more than the specified quarter.
      *
      * @param value The Calendar value.
      * @param compare The {@link Calendar} to check the value against.
@@ -174,8 +174,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Compares a calendar time value to another, indicating whether it is
-     *    equal, less than or more than at a specified level.</p>
+     * Compares a calendar time value to another, indicating whether it is
+     *    equal, less than or more than at a specified level.
      *
      * @param value The Calendar value.
      * @param compare The {@link Calendar} to check the value against.
@@ -217,7 +217,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Format a value with the specified {@code DateFormat}.</p>
+     * Format a value with the specified {@code DateFormat}.
      *
      * @param value The value to be formatted.
      * @param formatter The Format to use.
@@ -235,8 +235,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Format an object into a {@link String} using
-     * the specified Locale.</p>
+     * Format an object into a {@link String} using
+     * the specified Locale.
      *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the Format.
@@ -249,7 +249,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Format an object using the specified pattern and/or
+     * Format an object using the specified pattern and/or
      *    {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -263,7 +263,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Format an object using the specified pattern and/or
+     * Format an object using the specified pattern and/or
      *    {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -284,8 +284,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Format an object into a {@link String} using
-     * the specified pattern.</p>
+     * Format an object into a {@link String} using
+     * the specified pattern.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
@@ -298,8 +298,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Format an object into a {@link String} using
-     * the default Locale.</p>
+     * Format an object into a {@link String} using
+     * the default Locale.
      *
      * @param value The value validation is being performed on.
      * @param timeZone The Time Zone used to format the date,
@@ -311,7 +311,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Returns a {@code DateFormat} for the specified Locale.</p>
+     * Returns a {@code DateFormat} for the specified Locale.
      *
      * @param locale The locale a {@code DateFormat} is required for,
      *        system default if null.
@@ -344,8 +344,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Returns a {@code DateFormat} for the specified <em>pattern</em>
-     *    and/or {@link Locale}.</p>
+     * Returns a {@code DateFormat} for the specified <em>pattern</em>
+     *    and/or {@link Locale}.
      *
      * @param pattern The pattern used to validate the value against or
      *        {@code null} to use the default for the {@link Locale}.
@@ -369,7 +369,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Validate using the specified {@link Locale}.
+     * Validate using the specified {@link Locale}.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
@@ -382,7 +382,7 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Checks if the value is valid against a specified pattern.</p>
+     * Checks if the value is valid against a specified pattern.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
@@ -406,8 +406,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
-     * <p>Process the parsed value, performing any further validation
-     *    and type conversion required.</p>
+     * rocess the parsed value, performing any further validation
+     *    and type conversion required.
      *
      * @param value The parsed object created.
      * @param formatter The Format used to parse the value with.

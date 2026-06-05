@@ -22,7 +22,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * <p><strong>BigDecimal Validation</strong> and Conversion routines ({@code java.math.BigDecimal}).</p>
+ * <strong>BigDecimal Validation</strong> and Conversion routines ({@code java.math.BigDecimal}).
  *
  * <p>This validator provides a number of methods for
  *    validating/converting a {@link String} value to
@@ -88,7 +88,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Construct an instance with the specified strict setting.</p>
+     * Construct an instance with the specified strict setting.
      *
      * @param strict {@code true} if strict
      *        {@code Format} parsing should be used.
@@ -98,8 +98,8 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Construct an instance with the specified strict setting
-     *    and format type.</p>
+     * Construct an instance with the specified strict setting
+     *    and format type.
      *
      * <p>The {@code formatType} specified what type of
      *    {@code NumberFormat} is created - valid types
@@ -188,7 +188,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code BigDecimal} using the default
+     * Validate/convert a {@code BigDecimal} using the default
      *    {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -200,7 +200,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code BigDecimal} using the
+     * Validate/convert a {@code BigDecimal} using the
      *    specified {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -212,7 +212,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code BigDecimal} using the
+     * Validate/convert a {@code BigDecimal} using the
      *    specified <em>pattern</em>.
      *
      * @param value The value validation is being performed on.
@@ -225,7 +225,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code BigDecimal} using the
+     * Validate/convert a {@code BigDecimal} using the
      *    specified pattern and/ or {@link Locale}.
      *
      * @param value The value validation is being performed on.

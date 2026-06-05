@@ -21,7 +21,7 @@ import java.text.DecimalFormat;
 import java.text.Format;
 
 /**
- * <p><strong>Percentage Validation</strong> and Conversion routines ({@code java.math.BigDecimal}).</p>
+ * <strong>Percentage Validation</strong> and Conversion routines ({@code java.math.BigDecimal}).
  *
  * <p>This is one implementation of a percent validator that has the following features:</p>
  *    <ul>
@@ -82,7 +82,7 @@ public class PercentValidator extends BigDecimalValidator {
     }
 
     /**
-     * <p>Parse the value with the specified {@code Format}.</p>
+     * Parse the value with the specified {@code Format}.
      *
      * <p>This implementation is lenient whether the currency symbol
      *    is present or not. The default {@code NumberFormat}

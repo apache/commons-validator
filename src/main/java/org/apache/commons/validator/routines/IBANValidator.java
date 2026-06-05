@@ -28,6 +28,7 @@ import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
  * IBAN Validator.
  * <p>
  * Checks an IBAN for:
+ * </p>
  * <ul>
  * <li>country code prefix</li>
  * <li>IBAN length</li>
@@ -90,8 +91,8 @@ public class IBANValidator {
         /**
          * Creates the validator.
          *
-         * @param countryCode the country code
-         * @param ibanLength the length of the IBAN
+         * @param countryCode the country code.
+         * @param ibanLength the length of the IBAN.
          * @param regexWithCC the regex to use to check the format, the regex MUST start with the country code.
          */
         public Validator(final String countryCode, final int ibanLength, final String regexWithCC) {
@@ -101,8 +102,8 @@ public class IBANValidator {
         /**
          * Creates the validator.
          *
-         * @param countryCode the country code
-         * @param ibanLength the length of the IBAN
+         * @param countryCode the country code.
+         * @param ibanLength the length of the IBAN.
          * @param regexWithoutCC the regex to use to check the format, the regex MUST NOT start with the country code.
          */
         Validator(final String countryCode, final int ibanLength, final String regexWithoutCC, final String... otherCountryCodes) {
@@ -149,7 +150,7 @@ public class IBANValidator {
     /*
      * Note: the IBAN PDF registry file implies that IBANs can contain lower-case letters.
      * However, several other documents state that IBANs must be upper-case only.
-     * [See the comment block following this array.]
+     * See the comment block following this array.
      *
      * In the Regexes below, only upper-case is used.
      */
@@ -244,7 +245,7 @@ public class IBANValidator {
             new Validator("VG", 24, "VG\\d{2}[A-Z]{4}\\d{16}"),               // Virgin Islands
             new Validator("XK", 20, "XK\\d{18}"),                             // Kosovo
             new Validator("YE", 30, "YE\\d{2}[A-Z]{4}\\d{4}[A-Z0-9]{18}"),    // Yemen
-            // @formatter:off
+            // @formatter:on
     };
 
     /*
@@ -279,9 +280,9 @@ public class IBANValidator {
     public static final IBANValidator DEFAULT_IBAN_VALIDATOR = new IBANValidator();
 
     /**
-     * Gets the singleton instance of the IBAN validator using the default formats
+     * Gets the singleton instance of the IBAN validator using the default formats.
      *
-     * @return A singleton instance of the IBAN validator
+     * @return A singleton instance of the IBAN validator.
      */
     public static IBANValidator getInstance() {
         return DEFAULT_IBAN_VALIDATOR;
@@ -299,7 +300,7 @@ public class IBANValidator {
     /**
      * Create an IBAN validator from the specified map of IBAN formats.
      *
-     * @param validators map of IBAN formats
+     * @param validators map of IBAN formats.
      */
     public IBANValidator(final Validator[] validators) {
         this.validatorMap = createValidators(validators);
@@ -319,16 +320,16 @@ public class IBANValidator {
     /**
      * Gets a copy of the default Validators.
      *
-     * @return a copy of the default Validator array
+     * @return a copy of the default Validator array.
      */
     public Validator[] getDefaultValidators() {
         return Arrays.copyOf(DEFAULT_VALIDATORS, DEFAULT_VALIDATORS.length);
     }
 
     /**
-     * Gets the Validator for a given IBAN
+     * Gets the Validator for a given IBAN.
      *
-     * @param code a string starting with the ISO country code (for example, an IBAN)
+     * @param code a string starting with the ISO country code (for example, an IBAN).
      * @return the validator or {@code null} if there is not one registered.
      */
     public Validator getValidator(final String code) {
@@ -340,36 +341,34 @@ public class IBANValidator {
     }
 
     /**
-     * Does the class have the required validator?
+     * Tests if the given code has a validator.
      *
-     * @param code the code to check
-     * @return true if there is a validator
+     * @param code the code to check.
+     * @return true if there is a validator.
      */
     public boolean hasValidator(final String code) {
         return getValidator(code) != null;
     }
 
     /**
-     * Validate an IBAN Code
+     * Tests an IBAN Code.
      *
-     * @param code The value validation is being performed on
-     * @return {@code true} if the value is valid
+     * @param code The value validation is being performed on.
+     * @return {@code true} if the value is valid.
      */
     public boolean isValid(final String code) {
         return validate(code) == IBANValidatorStatus.VALID;
     }
 
     /**
-     * Installs a validator.
-     * Will replace any existing entry which has the same countryCode.
+     * Installs a validator. Will replace any existing entry which has the same countryCode.
      *
-     * @param countryCode the country code
-     * @param length the length of the IBAN. Must be &ge; 8 and &le; 32.
-     * If the length is &lt; 0, the validator is removed, and the format is not used.
-     * @param format the format of the IBAN (as a regular expression)
-     * @return the previous Validator, or {@code null} if there was none
-     * @throws IllegalArgumentException if there is a problem
-     * @throws IllegalStateException if an attempt is made to modify the singleton validator
+     * @param countryCode the country code.
+     * @param length      the length of the IBAN. Must be &ge; 8 and &le; 32. If the length is &lt; 0, the validator is removed, and the format is not used.
+     * @param format      the format of the IBAN (as a regular expression).
+     * @return the previous Validator, or {@code null} if there was none.
+     * @throws IllegalArgumentException if there is a problem.
+     * @throws IllegalStateException    if an attempt is made to modify the singleton validator.
      */
     public Validator setValidator(final String countryCode, final int length, final String format) {
         if (this == DEFAULT_IBAN_VALIDATOR) {
@@ -388,12 +387,11 @@ public class IBANValidator {
     }
 
     /**
-     * Installs a validator.
-     * Will replace any existing entry which has the same countryCode
+     * Installs a validator. Will replace any existing entry which has the same countryCode.
      *
      * @param validator the instance to install.
-     * @return the previous Validator, or {@code null} if there was none
-     * @throws IllegalStateException if an attempt is made to modify the singleton validator
+     * @return the previous Validator, or {@code null} if there was none.
+     * @throws IllegalStateException if an attempt is made to modify the singleton validator.
      */
     public Validator setValidator(final Validator validator) {
         if (this == DEFAULT_IBAN_VALIDATOR) {
@@ -412,10 +410,10 @@ public class IBANValidator {
     }
 
     /**
-     * Validate an IBAN Code
+     * Validate an IBAN Code.
      *
-     * @param code The value validation is being performed on
-     * @return {@link IBANValidatorStatus} for validation
+     * @param code The value validation is being performed on.
+     * @return {@link IBANValidatorStatus} for validation.
      * @since 1.10.0
      */
     public IBANValidatorStatus validate(final String code) {
@@ -423,15 +421,12 @@ public class IBANValidator {
         if (formatValidator == null) {
             return IBANValidatorStatus.UNKNOWN_COUNTRY;
         }
-
         if (code.length() != formatValidator.ibanLength) {
             return IBANValidatorStatus.INVALID_LENGTH;
         }
-
         if (!formatValidator.regexValidator.isValid(code)) {
             return IBANValidatorStatus.INVALID_PATTERN;
         }
-
         return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code) ? IBANValidatorStatus.VALID : IBANValidatorStatus.INVALID_CHECKSUM;
     }
 }

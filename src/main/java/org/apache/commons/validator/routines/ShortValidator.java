@@ -21,7 +21,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * <p><strong>Short Validation</strong> and Conversion routines ({@link Short}).</p>
+ * <strong>Short Validation</strong> and Conversion routines ({@link Short}).
  *
  * <p>This validator provides a number of methods for
  *    validating/converting a {@link String} value to
@@ -85,8 +85,8 @@ public class ShortValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Construct an instance with the specified strict setting
-     *    and format type.</p>
+     * Construct an instance with the specified strict setting
+     *    and format type.
      *
      * <p>The {@code formatType} specified what type of
      *    {@code NumberFormat} is created - valid types
@@ -184,8 +184,8 @@ public class ShortValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Perform further validation and convert the {@code Number} to
-     * a {@code Short}.</p>
+     * Perform further validation and convert the {@code Number} to
+     * a {@code Short}.
      *
      * @param value The parsed {@code Number} object created.
      * @param formatter The Format used to parse the value with.
@@ -205,7 +205,7 @@ public class ShortValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Short} using the default
+     * Validate/convert a {@code Short} using the default
      *    {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -217,7 +217,7 @@ public class ShortValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Short} using the
+     * Validate/convert a {@code Short} using the
      *    specified {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -229,7 +229,7 @@ public class ShortValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Short} using the
+     * Validate/convert a {@code Short} using the
      *    specified <em>pattern</em>.
      *
      * @param value The value validation is being performed on.
@@ -241,7 +241,7 @@ public class ShortValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Short} using the
+     * Validate/convert a {@code Short} using the
      *    specified pattern and/ or {@link Locale}.
      *
      * @param value The value validation is being performed on.

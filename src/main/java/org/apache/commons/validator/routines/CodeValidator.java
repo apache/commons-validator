@@ -185,6 +185,7 @@ public final class CodeValidator implements Serializable {
      * <p>
      * <strong>N.B.</strong> Optional, if less than zero the
      * maximum length will not be checked.
+     * </p>
      *
      * @return The maximum length of the code or
      * {@code -1} if the code has no maximum length
@@ -198,6 +199,7 @@ public final class CodeValidator implements Serializable {
      * <p>
      * <strong>N.B.</strong> Optional, if less than zero the
      * minimum length will not be checked.
+     * </p>
      *
      * @return The minimum length of the code or
      * {@code -1} if the code has no minimum length
@@ -211,6 +213,7 @@ public final class CodeValidator implements Serializable {
      * <p>
      * <strong>N.B.</strong> Optional, if not set no regular
      * expression validation will be performed on the code.
+     * </p>
      *
      * @return The regular expression validator
      */
@@ -224,10 +227,12 @@ public final class CodeValidator implements Serializable {
      * <p>
      * This calls {@link #validate(String)} and returns false
      * if the return value is null, true otherwise.
+     * </p>
      * <p>
      * Note that {@link #validate(String)} trims the input
      * and if there is a {@link RegexValidator} it may also
      * change the input as part of the validation.
+     * </p>
      *
      * @param input The code to validate
      * @return {@code true} if valid, otherwise
@@ -244,6 +249,7 @@ public final class CodeValidator implements Serializable {
      * Note that this method trims the input
      * and if there is a {@link RegexValidator} it may also
      * change the input as part of the validation.
+     * </p>
      *
      * @param input The code to validate
      * @return The code if valid, otherwise {@code null}

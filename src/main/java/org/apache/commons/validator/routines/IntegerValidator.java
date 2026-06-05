@@ -21,7 +21,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * <p><strong>Integer Validation</strong> and Conversion routines ({{@link Integer}).</p>
+ * <strong>Integer Validation</strong> and Conversion routines ({{@link Integer}).
  *
  * <p>This validator provides a number of methods for
  *    validating/converting a {@link String} value to
@@ -85,8 +85,8 @@ public class IntegerValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Construct an instance with the specified strict setting
-     *    and format type.</p>
+     * Construct an instance with the specified strict setting
+     *    and format type.
      *
      * <p>The {@code formatType} specified what type of
      *    {@code NumberFormat} is created - valid types
@@ -207,7 +207,7 @@ public class IntegerValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert an {@code Integer} using the default
+     * Validate/convert an {@code Integer} using the default
      *    {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -219,7 +219,7 @@ public class IntegerValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert an {@code Integer} using the
+     * Validate/convert an {@code Integer} using the
      *    specified {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -231,7 +231,7 @@ public class IntegerValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert an {@code Integer} using the
+     * Validate/convert an {@code Integer} using the
      *    specified <em>pattern</em>.
      *
      * @param value The value validation is being performed on.
@@ -243,7 +243,7 @@ public class IntegerValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Integer} using the
+     * Validate/convert a {@code Integer} using the
      *    specified pattern and/ or {@link Locale}.
      *
      * @param value The value validation is being performed on.
