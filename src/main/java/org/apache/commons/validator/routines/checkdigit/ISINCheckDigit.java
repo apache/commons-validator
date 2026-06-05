@@ -86,9 +86,7 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * <p>
      * Calculates the <em>weighted</em> value of a character in the code at a specified position.
-     * </p>
      *
      * <p>
      * For ISIN (from right to left) <strong>odd</strong> digits are weighted with a factor of <strong>one</strong> and <strong>even</strong> digits with a

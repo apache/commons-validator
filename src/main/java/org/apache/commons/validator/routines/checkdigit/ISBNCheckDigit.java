@@ -88,11 +88,10 @@ public final class ISBNCheckDigit extends AbstractCheckDigit implements Serializ
     }
 
     /**
-     * <p>
      * Validate an ISBN-10 or ISBN-13 check digit, depending on the length of the code.
-     * </p>
      * <p>
      * If the length of the code is 10, it is treated as an ISBN-10 code or ff the length of the code is 13, it is treated as an ISBN-13 code.
+     * </p>
      *
      * @param code The ISBN code to validate (should have a length of 10 or 13).
      * @return {@code true} if the code has a length of 10 and is a valid ISBN-10 check digit or the code has a length of 13 and is a valid ISBN-13 check digit

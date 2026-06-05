@@ -64,6 +64,7 @@ public final class IBANCheckDigit extends AbstractCheckDigit implements Serializ
      * Calculate the <em>Check Digit</em> for an IBAN code.
      * <p>
      * <strong>Note:</strong> The check digit is the third and fourth characters and is set to the value "{@code 00}".
+     * </p>
      *
      * @param code The code to calculate the Check Digit for,
      * @return The calculated Check Digit as 2 numeric decimal characters, for example, "42",
