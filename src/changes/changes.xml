@@ -80,6 +80,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use CheckDigitException.CheckDigitException(String, Object...) (#389).</action>
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use ValidatorException.ValidatorException(Throwable). Call sites that previously called new ValidatorException(Throwable#getMessage()) now preserve that exception (#390).</action>
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use ValidatorException.ValidatorException(String, Object...) (#391).</action>
+    <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use ValidatorException(String, Throwable) (#392).</action>
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 101 #377.</action>
     <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-logging:commons-logging from 1.3.5 to 1.3.6.</action>
