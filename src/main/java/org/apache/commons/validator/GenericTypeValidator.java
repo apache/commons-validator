@@ -404,11 +404,15 @@ public class GenericTypeValidator implements Serializable {
             final ParsePosition pos = new ParsePosition(0);
             final Number num = formatter.parse(value, pos);
 
-            // If there was no error      and we used the whole string
-            if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() &&
-                    num.doubleValue() >= Long.MIN_VALUE &&
-                    num.doubleValue() <= Long.MAX_VALUE) {
-                result = Long.valueOf(num.longValue());
+            // If we used the whole string and the value fits in a long.
+            // NumberFormat returns a Long only when the value fits in a long;
+            // out-of-range input is returned as a Double, so a doubleValue()
+            // range check cannot be used here (Long.MAX_VALUE is not exactly
+            // representable as a double and would let 2^63 through). A failed
+            // parse returns null, so the instanceof check also covers it and
+            // the pos.getErrorIndex() test is no longer needed.
+            if (pos.getIndex() == value.length() && num instanceof Long) {
+                result = (Long) num;
             }
         }
 
