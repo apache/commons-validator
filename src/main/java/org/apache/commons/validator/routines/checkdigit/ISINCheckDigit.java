@@ -70,13 +70,13 @@ public final class ISINCheckDigit extends ModulusCheckDigit {
         if (includesCheckDigit) {
             final char checkDigit = code.charAt(code.length() - 1); // fetch the last character
             if (!isAsciiDigit(checkDigit)) {
-                throw new CheckDigitException("Invalid checkdigit[" + checkDigit + "] in " + code);
+                throw new CheckDigitException("Invalid checkdigit[%c] in %s", checkDigit, code);
             }
         }
         for (int i = 0; i < code.length(); i++) {
             final char character = code.charAt(i);
             if (!isAsciiAlphaNum(character)) {
-                throw new CheckDigitException("Invalid Character[" + (i + 1) + "] = '" + character + "'");
+                throw new CheckDigitException("Invalid Character[%d] = '%c'", i + 1, character);
             }
             // this converts alphanumerics to two digits
             // so there is no need to overload toInt()

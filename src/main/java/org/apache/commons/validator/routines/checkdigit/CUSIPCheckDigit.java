@@ -68,7 +68,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
         // the final character is only allowed to reach 9
         final int charValueMax = rightPos == 1 ? 9 : 35; // CHECKSTYLE IGNORE MagicNumber
         if (charValue > charValueMax || !isAsciiAlphaNum(character)) {
-            throw new CheckDigitException("Invalid Character[" + leftPos + "," + rightPos + "] = '" + charValue + "' out of range 0 to " + charValueMax);
+            throw new CheckDigitException("Invalid Character[%d,%d] = '%d' out of range 0 to %d", leftPos, rightPos, charValue, charValueMax);
         }
         return charValue;
     }

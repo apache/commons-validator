@@ -103,7 +103,7 @@ public final class VerhoeffCheckDigit extends AbstractCheckDigit implements Seri
             final int idx = code.length() - (i + 1);
             final char ch = code.charAt(idx);
             if (!isAsciiDigit(ch)) {
-                throw new CheckDigitException("Invalid Character[" + i + "] = '" + (int) ch + "'");
+                throw new CheckDigitException("Invalid Character[%d] = '%d'", i, (int) ch);
             }
             final int num = ch - '0';
             final int pos = includesCheckDigit ? i : i + 1;
