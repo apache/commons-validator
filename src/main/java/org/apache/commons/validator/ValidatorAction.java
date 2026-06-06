@@ -358,7 +358,7 @@ public class ValidatorAction implements Serializable {
             try {
                 instance = validationClass.getConstructor().newInstance();
             } catch (final ReflectiveOperationException e) {
-                throw new ValidatorException("Couldn't create instance of " + className + ".  " + e.getMessage());
+                throw new ValidatorException("Couldn't create instance of " + className + ":  " + e.getMessage(), e);
             }
         }
         return instance;
@@ -520,12 +520,10 @@ public class ValidatorAction implements Serializable {
         if (validationMethod != null) {
             return;
         }
-
         try {
             validationMethod = validationClass.getMethod(method, parameterClasses);
-
         } catch (final NoSuchMethodException e) {
-            throw new ValidatorException("No such validation method: " + e.getMessage());
+            throw new ValidatorException("No such validation method: " + e.getMessage(), e);
         }
     }
 
