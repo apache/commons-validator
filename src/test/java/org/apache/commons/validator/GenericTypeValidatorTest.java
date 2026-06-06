@@ -183,6 +183,8 @@ class GenericTypeValidatorTest extends AbstractCommonTest {
         // Long.MAX_VALUE + 1 and Long.MIN_VALUE - 1 round to the long bounds as a double and used to be accepted.
         assertNull(GenericTypeValidator.formatLong(BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE).toString(), Locale.US));
         assertNull(GenericTypeValidator.formatLong(BigInteger.valueOf(Long.MIN_VALUE).subtract(BigInteger.ONE).toString(), Locale.US));
+        // Trailing characters are only consumed up to the first non-digit, so the whole-string check must reject them.
+        assertNull(GenericTypeValidator.formatLong("123x", Locale.US));
     }
 
     /**
