@@ -100,6 +100,29 @@ public class ValidatorExceptionTest {
     }
 
     /**
+     * Tests the constructor with a message and cause.
+     */
+    @Test
+    public void testConstructorWithMessageAndCause() {
+        final String message = "error with cause";
+        final Throwable cause = new RuntimeException("root cause");
+        final ValidatorException e = new ValidatorException(message, cause);
+        assertEquals(message, e.getMessage());
+        assertSame(cause, e.getCause());
+    }
+
+    /**
+     * Tests the constructor with a message and a null cause.
+     */
+    @Test
+    public void testConstructorWithMessageAndNullCause() {
+        final String message = "error with null cause";
+        final ValidatorException e = new ValidatorException(message, (Throwable) null);
+        assertEquals(message, e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    /**
      * Tests the constructor with a null cause.
      */
     @Test
@@ -123,6 +146,27 @@ public class ValidatorExceptionTest {
     @Test
     public void testConstructorWithNullMessage() {
         final ValidatorException e = new ValidatorException((String) null);
+        assertNull(e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    /**
+     * Tests the constructor with a null message and a cause.
+     */
+    @Test
+    public void testConstructorWithNullMessageAndCause() {
+        final Throwable cause = new RuntimeException("root cause");
+        final ValidatorException e = new ValidatorException((String) null, cause);
+        assertNull(e.getMessage());
+        assertSame(cause, e.getCause());
+    }
+
+    /**
+     * Tests the constructor with a null message and a null cause.
+     */
+    @Test
+    public void testConstructorWithNullMessageAndNullCause() {
+        final ValidatorException e = new ValidatorException((String) null, (Throwable) null);
         assertNull(e.getMessage());
         assertNull(e.getCause());
     }
