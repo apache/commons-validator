@@ -158,7 +158,7 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
         if (isAsciiDigit(charValue)) {
             return Integer.toString(charValue);
         }
-        throw new CheckDigitException("Invalid Check Digit Value =" + +charValue);
+        throw new CheckDigitException("Invalid Check Digit Value =%d", charValue);
     }
 
     /**
@@ -178,7 +178,7 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
         if (isAsciiDigit(character)) {
             return character - '0';
         }
-        throw new CheckDigitException("Invalid Character[" + leftPos + "] = '" + character + "'");
+        throw new CheckDigitException("Invalid Character[%d,%d] = '%c'", leftPos, rightPos, character);
     }
 
     /**

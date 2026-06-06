@@ -73,7 +73,7 @@ public final class IBANCheckDigit extends AbstractCheckDigit implements Serializ
     @Override
     public String calculate(String code) throws CheckDigitException {
         if (code == null || code.length() < MIN_CODE_LEN) {
-            throw new CheckDigitException("Invalid Code length=" + (code == null ? 0 : code.length()));
+            throw new CheckDigitException("Invalid Code length=%,d", code == null ? 0 : code.length());
         }
         code = code.substring(0, 2) + "00" + code.substring(4); // CHECKSTYLE IGNORE MagicNumber
         final int modulusResult = calculateModulus(code);
@@ -96,7 +96,7 @@ public final class IBANCheckDigit extends AbstractCheckDigit implements Serializ
             final char ch = reformattedCode.charAt(i);
             final int charValue = Character.getNumericValue(ch);
             if (!isAsciiAlphaNum(reformattedCode.charAt(i))) {
-                throw new CheckDigitException("Invalid Character[" + i + "] = '" + charValue + "'");
+                throw new CheckDigitException("Invalid Character[%d] = '%d'", i, charValue);
             }
             total = (charValue > 9 ? total * 100 : total * 10) + charValue; // CHECKSTYLE IGNORE MagicNumber
             if (total > MAX) {

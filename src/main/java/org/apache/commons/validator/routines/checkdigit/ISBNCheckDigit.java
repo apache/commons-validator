@@ -84,7 +84,7 @@ public final class ISBNCheckDigit extends AbstractCheckDigit implements Serializ
         if (code.length() == 12) { // CHECKSTYLE IGNORE MagicNumber
             return ISBN13_CHECK_DIGIT.calculate(code);
         }
-        throw new CheckDigitException("Invalid ISBN Length = " + code.length());
+        throw new CheckDigitException("Invalid ISBN Length = %,d", code.length());
     }
 
     /**
