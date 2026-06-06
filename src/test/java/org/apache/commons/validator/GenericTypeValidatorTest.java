@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -177,11 +178,11 @@ class GenericTypeValidatorTest extends AbstractCommonTest {
      */
     @Test
     void testLongLocaleOverflow() {
-        assertEquals(Long.valueOf(Long.MAX_VALUE), GenericTypeValidator.formatLong("9223372036854775807", Locale.US));
-        assertEquals(Long.valueOf(Long.MIN_VALUE), GenericTypeValidator.formatLong("-9223372036854775808", Locale.US));
+        assertEquals(Long.valueOf(Long.MAX_VALUE), GenericTypeValidator.formatLong(Long.toString(Long.MAX_VALUE), Locale.US));
+        assertEquals(Long.valueOf(Long.MIN_VALUE), GenericTypeValidator.formatLong(Long.toString(Long.MIN_VALUE), Locale.US));
         // Long.MAX_VALUE + 1 and Long.MIN_VALUE - 1 round to the long bounds as a double and used to be accepted.
-        assertNull(GenericTypeValidator.formatLong("9223372036854775808", Locale.US));
-        assertNull(GenericTypeValidator.formatLong("-9223372036854775809", Locale.US));
+        assertNull(GenericTypeValidator.formatLong(BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE).toString(), Locale.US));
+        assertNull(GenericTypeValidator.formatLong(BigInteger.valueOf(Long.MIN_VALUE).subtract(BigInteger.ONE).toString(), Locale.US));
     }
 
     /**
