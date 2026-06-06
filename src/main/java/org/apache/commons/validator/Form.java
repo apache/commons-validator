@@ -305,14 +305,10 @@ public class Form implements Serializable {
     /**
      * Validate all Fields in this Form on the given page and below.
      *
-     * @param params               A Map of parameter class names to parameter
-     *      values to pass into validation methods.
-     * @param actions              A Map of validator names to ValidatorAction
-     *      objects.
-     * @param page                 Fields on pages higher than this will not be
-     *      validated.
-     * @return                     A ValidatorResults object containing all
-     *      validation messages.
+     * @param params  A Map of parameter class names to parameter values to pass into validation methods.
+     * @param actions A Map of validator names to ValidatorAction objects.
+     * @param page    Fields on pages higher than this will not be validated.
+     * @return A ValidatorResults object containing all validation messages.
      * @throws ValidatorException
      * @since 1.2.0
      */
@@ -320,30 +316,24 @@ public class Form implements Serializable {
             throws ValidatorException {
         final ValidatorResults results = new ValidatorResults();
         params.put(Validator.VALIDATOR_RESULTS_PARAM, results);
-
         // Only validate a single field if specified
         if (fieldName != null) {
             final Field field = getFieldMap().get(fieldName);
-
             if (field == null) {
-                throw new ValidatorException("Unknown field " + fieldName + " in form " + getName());
+                throw new ValidatorException("Unknown field %s in form %s", fieldName, getName());
             }
             params.put(Validator.FIELD_PARAM, field);
-
             if (field.getPage() <= page) {
                 results.merge(field.validate(params, actions));
             }
         } else {
             for (final Field field : lFields) {
-
                 params.put(Validator.FIELD_PARAM, field);
-
                 if (field.getPage() <= page) {
                     results.merge(field.validate(params, actions));
                 }
             }
         }
-
         return results;
     }
 }

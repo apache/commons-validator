@@ -29,13 +29,13 @@ public class CheckDigitException extends Exception {
     private static final long serialVersionUID = -3519894732624685477L;
 
     /**
-     * Constructs an Exception with no message.
+     * Constructs a new exception with no message.
      */
     public CheckDigitException() {
     }
 
     /**
-     * Constructs an Exception with a message.
+     * Constructs a new exception with a message.
      *
      * @param msg The error message.
      */
@@ -44,7 +44,7 @@ public class CheckDigitException extends Exception {
     }
 
     /**
-     * Constructs an Exception with a message and the underlying cause.
+     * Constructs a new exception with a message and the underlying cause.
      *
      * @param format See {@link String#format(String, Object...)}.
      * @param args   See {@link String#format(String, Object...)}.
