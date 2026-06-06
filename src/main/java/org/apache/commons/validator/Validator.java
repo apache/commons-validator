@@ -29,12 +29,36 @@ import java.util.Map;
 // TODO mutable fields should be made private and accessed via suitable methods only
 public class Validator implements Serializable {
 
-    private static final long serialVersionUID = -7119418755208731611L;
-
     /**
      * Resources key the JavaBean is stored to perform validation on.
      */
     public static final String BEAN_PARAM = "java.lang.Object";
+
+    /**
+     * Resources key the {@code Field} is stored under.
+     * This will be automatically passed into a validation method
+     * with the current {@code Field} if it is
+     * specified in the method signature.
+     */
+    public static final String FIELD_PARAM = "org.apache.commons.validator.Field";
+
+    /**
+     * Resources key the {@code Form} is stored under.
+     * This will be automatically passed into a validation method
+     * with the current {@code Form} if it is
+     * specified in the method signature.
+     */
+    public static final String FORM_PARAM = "org.apache.commons.validator.Form";
+
+    /**
+     * Resources key the {@link Locale} is stored.
+     * This will be used to retrieve the appropriate
+     * {@code FormSet} and {@code Form} to be
+     * processed.
+     */
+    public static final String LOCALE_PARAM = "java.util.Locale";
+
+    private static final long serialVersionUID = -7119418755208731611L;
 
     /**
      * Resources key the {@code ValidatorAction} is stored under.
@@ -46,31 +70,6 @@ public class Validator implements Serializable {
             "org.apache.commons.validator.ValidatorAction";
 
     /**
-     * Resources key the {@code ValidatorResults} is stored under.
-     * This will be automatically passed into a validation method
-     * with the current {@code ValidatorResults} if it is
-     * specified in the method signature.
-     */
-    public static final String VALIDATOR_RESULTS_PARAM =
-            "org.apache.commons.validator.ValidatorResults";
-
-    /**
-     * Resources key the {@code Form} is stored under.
-     * This will be automatically passed into a validation method
-     * with the current {@code Form} if it is
-     * specified in the method signature.
-     */
-    public static final String FORM_PARAM = "org.apache.commons.validator.Form";
-
-    /**
-     * Resources key the {@code Field} is stored under.
-     * This will be automatically passed into a validation method
-     * with the current {@code Field} if it is
-     * specified in the method signature.
-     */
-    public static final String FIELD_PARAM = "org.apache.commons.validator.Field";
-
-    /**
      * Resources key the {@code Validator} is stored under.
      * This will be automatically passed into a validation method
      * with the current {@code Validator} if it is
@@ -80,55 +79,17 @@ public class Validator implements Serializable {
             "org.apache.commons.validator.Validator";
 
     /**
-     * Resources key the {@link Locale} is stored.
-     * This will be used to retrieve the appropriate
-     * {@code FormSet} and {@code Form} to be
-     * processed.
+     * Resources key the {@code ValidatorResults} is stored under.
+     * This will be automatically passed into a validation method
+     * with the current {@code ValidatorResults} if it is
+     * specified in the method signature.
      */
-    public static final String LOCALE_PARAM = "java.util.Locale";
+    public static final String VALIDATOR_RESULTS_PARAM =
+            "org.apache.commons.validator.ValidatorResults";
 
-    /**
-     * The Validator Resources.
-     *
-     * @deprecated Use {@link #getResources()}, will be private in the next major version.
-     */
-    @Deprecated
-    protected ValidatorResources resources;
-
-    /**
-     * The name of the form to validate
-     *
-     * @deprecated Use {@link #getFormName()}, will be private in the next major version.
-     */
-    @Deprecated
-    protected String formName;
-
-    /**
-     * The name of the field on the form to validate
-     *
-     * @since 1.2.0
-     *
-     * @deprecated Use {@link #getFieldName()}, will be private in the next major version.
-     */
-    @Deprecated
-    protected String fieldName;
-
-    /**
-     * Maps validation method parameter class names to the objects to be passed
-     * into the method.
-     *
-     * @deprecated Use {@link #getParameters()}, will be private in the next major version.
-     */
-    @Deprecated
-    protected Map<String, Object> parameters = new HashMap<>();
-
-    /**
-     * The current page number to validate.
-     *
-     * @deprecated Use {@link #getPage()}, will be private in the next major version.
-     */
-    @Deprecated
-    protected int page;
+    static Locale toLocale(Locale locale) {
+        return locale != null ? locale : Locale.getDefault();
+    }
 
     /**
      * The class loader to use for instantiating application objects.
@@ -142,13 +103,22 @@ public class Validator implements Serializable {
     protected transient ClassLoader classLoader;
 
     /**
-     * Whether or not to use the Context ClassLoader when loading classes
-     * for instantiating new objects.  Default is {@code false}.
+     * The name of the field on the form to validate
      *
-     * @deprecated Use {@link #getUseContextClassLoader()}, will be private in the next major version.
+     * @since 1.2.0
+     *
+     * @deprecated Use {@link #getFieldName()}, will be private in the next major version.
      */
     @Deprecated
-    protected boolean useContextClassLoader;
+    protected String fieldName;
+
+    /**
+     * The name of the form to validate
+     *
+     * @deprecated Use {@link #getFormName()}, will be private in the next major version.
+     */
+    @Deprecated
+    protected String formName;
 
     /**
      * Sets this to true to not return Fields that pass validation.  Only return failures.
@@ -157,6 +127,40 @@ public class Validator implements Serializable {
      */
     @Deprecated
     protected boolean onlyReturnErrors;
+
+    /**
+     * The current page number to validate.
+     *
+     * @deprecated Use {@link #getPage()}, will be private in the next major version.
+     */
+    @Deprecated
+    protected int page;
+
+    /**
+     * Maps validation method parameter class names to the objects to be passed
+     * into the method.
+     *
+     * @deprecated Use {@link #getParameters()}, will be private in the next major version.
+     */
+    @Deprecated
+    protected Map<String, Object> parameters = new HashMap<>();
+
+    /**
+     * The Validator Resources.
+     *
+     * @deprecated Use {@link #getResources()}, will be private in the next major version.
+     */
+    @Deprecated
+    protected ValidatorResources resources;
+
+    /**
+     * Whether or not to use the Context ClassLoader when loading classes
+     * for instantiating new objects.  Default is {@code false}.
+     *
+     * @deprecated Use {@link #getUseContextClassLoader()}, will be private in the next major version.
+     */
+    @Deprecated
+    protected boolean useContextClassLoader;
 
     /**
      * Constructs a {@code Validator} that will
@@ -427,23 +431,13 @@ public class Validator implements Serializable {
      */
     public ValidatorResults validate() throws ValidatorException {
         Locale locale = (Locale) getParameterValue(LOCALE_PARAM);
-
-        if (locale == null) {
-            locale = Locale.getDefault();
-        }
-
+        locale = toLocale(locale);
         setParameter(VALIDATOR_PARAM, this);
-
         final Form form = resources.getForm(locale, formName);
         if (form != null) {
             setParameter(FORM_PARAM, form);
-            return form.validate(
-                parameters,
-                resources.getValidatorActions(),
-                page,
-                fieldName);
+            return form.validate(parameters, resources.getValidatorActions(), page, fieldName);
         }
-
         return new ValidatorResults();
     }
 
