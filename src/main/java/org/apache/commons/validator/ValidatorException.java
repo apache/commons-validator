@@ -17,6 +17,8 @@
 
 package org.apache.commons.validator;
 
+import java.util.IllegalFormatException;
+
 /**
  * The base exception for the Validator Framework. All other {@code Exception}s thrown during calls to {@code Validator.validate()} are considered errors.
  */
@@ -37,6 +39,18 @@ public class ValidatorException extends Exception {
      */
     public ValidatorException(final String message) {
         super(message);
+    }
+
+    /**
+     * Constructs an Exception with a message and the underlying cause.
+     *
+     * @param format See {@link String#format(String, Object...)}.
+     * @param args   See {@link String#format(String, Object...)}.
+     * @throws IllegalFormatException See {@link String#format(String, Object...)}.
+     * @since 1.11.0
+     */
+    public ValidatorException(String format, Object... args) {
+        super(String.format(format, args));
     }
 
     /**

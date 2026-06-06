@@ -21,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.IllegalFormatException;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -49,6 +51,44 @@ public class ValidatorExceptionTest {
     }
 
     /**
+     * Tests the constructor with a format string and multiple arguments.
+     */
+    @Test
+    public void testConstructorWithFormatMultipleArgs() {
+        final ValidatorException e = new ValidatorException("%s failed with code %d at %s", "validation", 404, "field1");
+        assertEquals("validation failed with code 404 at field1", e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    /**
+     * Tests the constructor with a format string and no arguments.
+     */
+    @Test
+    public void testConstructorWithFormatNoArgs() {
+        final ValidatorException e = new ValidatorException("no format args");
+        assertEquals("no format args", e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    /**
+     * Tests the constructor with a format string and one argument.
+     */
+    @Test
+    public void testConstructorWithFormatOneArg() {
+        final ValidatorException e = new ValidatorException("value is %d", 42);
+        assertEquals("value is 42", e.getMessage());
+        assertNull(e.getCause());
+    }
+
+    /**
+     * Tests the constructor with an invalid format string throws {@link IllegalFormatException}.
+     */
+    @Test
+    public void testConstructorWithInvalidFormat() {
+        assertThrows(IllegalFormatException.class, () -> new ValidatorException("%d is not a string", "oops"));
+    }
+
+    /**
      * Tests the constructor with a message.
      */
     @Test
@@ -67,6 +107,14 @@ public class ValidatorExceptionTest {
         final ValidatorException e = new ValidatorException((Throwable) null);
         assertNull(e.getCause());
         assertNull(e.getMessage());
+    }
+
+    /**
+     * Tests the constructor with a null format string throws {@link NullPointerException}.
+     */
+    @Test
+    public void testConstructorWithNullFormat() {
+        assertThrows(NullPointerException.class, () -> new ValidatorException((String) null, "arg"));
     }
 
     /**
