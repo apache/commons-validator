@@ -14,12 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.validator;
 
 /**
- * The base exception for the Validator Framework.  All other
- * {@code Exception}s thrown during calls to
- * {@code Validator.validate()} are considered errors.
+ * The base exception for the Validator Framework. All other {@code Exception}s thrown during calls to {@code Validator.validate()} are considered errors.
  */
 public class ValidatorException extends Exception {
 
@@ -34,10 +33,22 @@ public class ValidatorException extends Exception {
     /**
      * Constructs an Exception with the specified detail message.
      *
-     * @param    message The error message.
+     * @param message The error message.
      */
     public ValidatorException(final String message) {
         super(message);
     }
 
+    /**
+     * Constructs a new exception with the specified cause and a detail message of {@code (cause==null ? null : cause.toString())} (which typically contains the
+     * class and detail message of {@code cause}). This constructor is useful for exceptions that are little more than wrappers for other throwables (for
+     * example, {@link java.security.PrivilegedActionException}).
+     *
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method). (A {@code null} value is permitted, and indicates that the
+     *              cause is nonexistent or unknown.)
+     * @since 1.11.0
+     */
+    public ValidatorException(final Throwable cause) {
+        super(cause);
+    }
 }

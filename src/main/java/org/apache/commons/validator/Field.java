@@ -434,7 +434,7 @@ public class Field implements Cloneable, Serializable {
             indexProp = PropertyUtils.getProperty(bean, getIndexedListProperty());
 
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new ValidatorException(e.getMessage());
+            throw new ValidatorException(e);
         }
 
         if (indexProp instanceof Collection) {
@@ -463,7 +463,7 @@ public class Field implements Cloneable, Serializable {
             indexProp = PropertyUtils.getProperty(bean, getIndexedListProperty());
 
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new ValidatorException(e.getMessage());
+            throw new ValidatorException(e);
         }
 
         if (indexProp == null) {
@@ -611,8 +611,7 @@ public class Field implements Cloneable, Serializable {
      * @throws ValidatorException
      */
     private void handleMissingAction(final String name) throws ValidatorException {
-        throw new ValidatorException("No ValidatorAction named " + name
-                + " found for field " + getProperty());
+        throw new ValidatorException("No ValidatorAction named " + name + " found for field " + getProperty());
     }
 
     /**
