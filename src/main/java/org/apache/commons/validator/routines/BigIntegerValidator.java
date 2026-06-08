@@ -16,6 +16,7 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.Format;
 import java.text.NumberFormat;
@@ -157,7 +158,12 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
-        return BigInteger.valueOf(((Number) value).longValue());
+        // A value that fits in a long is parsed as a Long; anything larger comes back as a
+        // Double, whose longValue() saturates at Long.MAX_VALUE and loses the magnitude.
+        if (value instanceof Long) {
+            return BigInteger.valueOf(((Long) value).longValue());
+        }
+        return new BigDecimal(value.toString()).toBigInteger();
     }
 
     /**

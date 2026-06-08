@@ -134,4 +134,18 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
         assertFalse(BigIntegerValidator.getInstance().isValid(xxxx, pattern), "isValid(B) pattern");
         assertFalse(BigIntegerValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN), "isValid(B) both");
     }
+
+    /**
+     * Test a value larger than {@link Long#MAX_VALUE} keeps its magnitude instead of being
+     * clamped to {@link Long#MAX_VALUE}.
+     */
+    @Test
+    void testBigIntegerAboveLongMaxValue() {
+        final String aboveLong = "99999999999999999999999999"; // far beyond Long.MAX_VALUE
+        final BigInteger result = BigIntegerValidator.getInstance().validate(aboveLong, "#");
+        assertTrue(result.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0, "value clamped to Long.MAX_VALUE");
+        assertEquals(new BigInteger("100000000000000000000000000"), result);
+        // BigDecimalValidator already preserves the magnitude, so the two must agree
+        assertEquals(BigDecimalValidator.getInstance().validate(aboveLong, "#").toBigInteger(), result);
+    }
 }
