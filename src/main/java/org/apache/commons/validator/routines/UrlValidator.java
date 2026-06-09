@@ -479,12 +479,9 @@ public class UrlValidator implements Serializable {
 
     private String decodePath(final String path) {
         try {
-            // URLDecoder.decode converts '+' to a space character.
-            // Since '+' is a valid literal character in a URI path,
-            // we escape it to '%2B' before decoding to preserve it.
-            return URLDecoder.decode(path.replace("+", "%2B"), StandardCharsets.UTF_8.name());
-        } catch (final UnsupportedEncodingException | IllegalArgumentException e) {
-            return path;
+            return URLDecoder.decode(path, StandardCharsets.UTF_8.name());
+        } catch (final UnsupportedEncodingException e) {
+            throw new RuntimeException(e); // UTF-8 is always supported
         }
     }
 
@@ -507,7 +504,7 @@ public class UrlValidator implements Serializable {
                     || norm.equals("/..")) { // Trying to go to the parent dir
                 return false;
             }
-        } catch (final URISyntaxException e) {
+        } catch (final URISyntaxException | IllegalArgumentException e) {
             return false;
         }
 

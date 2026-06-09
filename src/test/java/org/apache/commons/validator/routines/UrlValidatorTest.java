@@ -539,6 +539,11 @@ public class UrlValidatorTest {
         // Test literal '+' and '%2B' in path
         assertTrue(urlValidator.isValid("http://www.example.org/foo+bar"));
         assertTrue(urlValidator.isValid("http://www.example.org/foo%2Bbar"));
+
+        // Test direct call to isValidPath with invalid percent encoding
+        assertFalse(urlValidator.isValidPath("/foo%frbar"));
+        assertTrue(urlValidator.isValidPath("/foo+bar"));
+        assertTrue(urlValidator.isValidPath("/foo%2Bbar"));
     }
 
     @Test
