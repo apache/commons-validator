@@ -223,6 +223,19 @@ class RegexValidatorTest {
     }
 
     /**
+     * Test that validate() is consistent with isValid() and match() when the only
+     * capturing group is optional and does not participate in the match. The value
+     * is valid, so validate() must not return null (which signals an invalid value).
+     */
+    @Test
+    void testValidateOptionalGroup() {
+        final RegexValidator validator = new RegexValidator("^(abc)?def$");
+        assertTrue(validator.isValid("def"), "isValid()");
+        checkArray("match()", new String[] { null }, validator.match("def"));
+        assertEquals("", validator.validate("def"), "validate()");
+    }
+
+    /**
      * Test toString() method
      */
     @Test
