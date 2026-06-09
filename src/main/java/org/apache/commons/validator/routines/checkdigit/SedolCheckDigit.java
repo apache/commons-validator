@@ -42,12 +42,12 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -8976881621148878443L;
 
-    private static final int MAX_ALPHANUMERIC_VALUE = 35; // Character.getNumericValue('Z')
-
-    /** Singleton SEDOL check digit instance */
+    /**
+     * Singleton SEDOL check digit instance.
+     */
     public static final CheckDigit SEDOL_CHECK_DIGIT = new SedolCheckDigit();
 
-    /** Weighting given to digits depending on their right position */
+    /** Weighting given to digits depending on their right position. */
     private static final int[] POSITION_WEIGHT = {1, 3, 1, 7, 3, 9, 1};
 
     /**
@@ -59,16 +59,15 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
     /**
      * Calculate the modulus for an SEDOL code.
      *
-     * @param code The code to calculate the modulus for.
+     * @param code               The code to calculate the modulus for.
      * @param includesCheckDigit Whether the code includes the Check Digit or not.
-     * @return The modulus value
-     * @throws CheckDigitException if an error occurs calculating the modulus
-     * for the specified code
+     * @return The modulus value.
+     * @throws CheckDigitException if an error occurs calculating the modulus for the specified code.
      */
     @Override
     protected int calculateModulus(final String code, final boolean includesCheckDigit) throws CheckDigitException {
         if (code.length() > POSITION_WEIGHT.length) {
-            throw new CheckDigitException("Invalid Code Length = " + code.length());
+            throw new CheckDigitException("Invalid Code Length = %d", code.length());
         }
         return super.calculateModulus(code, includesCheckDigit);
     }
@@ -76,35 +75,33 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
     /**
      * Convert a character at a specified position to an integer value.
      *
-     * @param character The character to convert
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The position of the character in the code, counting from right to left
-     * @return The integer value of the character
-     * @throws CheckDigitException if character is not alphanumeric
+     * @param character The character to convert.
+     * @param leftPos   The position of the character in the code, counting from left to right.
+     * @param rightPos  The position of the character in the code, counting from right to left.
+     * @return The integer value of the character.
+     * @throws CheckDigitException if character is not alphanumeric.
      */
     @Override
     protected int toInt(final char character, final int leftPos, final int rightPos) throws CheckDigitException {
         final int charValue = Character.getNumericValue(character);
         // the check digit is only allowed to reach 9
-        final int charMax = rightPos == 1 ? 9 : MAX_ALPHANUMERIC_VALUE; // CHECKSTYLE IGNORE MagicNumber
-        if (charValue < 0 || charValue > charMax) {
-            throw new CheckDigitException("Invalid Character[" + leftPos + "," + rightPos + "] = '" + charValue + "' out of range 0 to " + charMax);
+        final int charValueMax = rightPos == 1 ? 9 : MAX_ALPHANUMERIC_VALUE; // CHECKSTYLE IGNORE MagicNumber
+        if (charValue > charValueMax || !isAsciiAlphaNum(character)) {
+            throw new CheckDigitException("Invalid Character[%d,%d] = '%d' out of range 0 to %d", leftPos, rightPos, charValue, charValueMax);
         }
         return charValue;
     }
 
     /**
-     * Calculates the <em>weighted</em> value of a character in the
-     * code at a specified position.
+     * Calculates the <em>weighted</em> value of a character in the code at a specified position.
      *
      * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The position of the character in the code, counting from right to left
+     * @param leftPos   The position of the character in the code, counting from left to right.
+     * @param rightPos  The position of the character in the code, counting from right to left.
      * @return The weighted value of the character.
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
         return charValue * POSITION_WEIGHT[leftPos - 1];
     }
-
 }

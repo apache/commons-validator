@@ -28,10 +28,12 @@ import org.apache.commons.validator.GenericValidator;
  * either to the {@link ISBNCheckDigit#ISBN10_CHECK_DIGIT} or the
  * {@link ISBNCheckDigit#ISBN13_CHECK_DIGIT} routines to perform the actual
  * validation/calculation.
+ * </p>
  * <p>
  * <strong>N.B.</strong> From 1st January 2007 the book industry will start to use a new 13 digit
  * ISBN number (rather than this 10 digit ISBN number) which uses the EAN-13 / UPC
  * standard.
+ * </p>
  *
  * @since 1.4
  */
@@ -39,13 +41,19 @@ public final class ISBNCheckDigit extends AbstractCheckDigit implements Serializ
 
     private static final long serialVersionUID = 1391849166205184558L;
 
-    /** Singleton ISBN-10 Check Digit instance */
+    /**
+     * Singleton ISBN-10 Check Digit instance.
+     */
     public static final CheckDigit ISBN10_CHECK_DIGIT = ISBN10CheckDigit.ISBN10_CHECK_DIGIT;
 
-    /** Singleton ISBN-13 Check Digit instance */
+    /**
+     * Singleton ISBN-13 Check Digit instance.
+     */
     public static final CheckDigit ISBN13_CHECK_DIGIT = EAN13CheckDigit.EAN13_CHECK_DIGIT;
 
-    /** Singleton combined ISBN-10 / ISBN-13 Check Digit instance */
+    /**
+     * Singleton combined ISBN-10 / ISBN-13 Check Digit instance.
+     */
     public static final CheckDigit ISBN_CHECK_DIGIT = new ISBNCheckDigit();
 
     /**
@@ -56,20 +64,14 @@ public final class ISBNCheckDigit extends AbstractCheckDigit implements Serializ
     }
 
     /**
-     * Calculate an ISBN-10 or ISBN-13 check digit, depending
-     * on the length of the code.
+     * Calculate an ISBN-10 or ISBN-13 check digit, depending on the length of the code.
      * <p>
-     * If the length of the code is 9, it is treated as an ISBN-10
-     * code or if the length of the code is 12, it is treated as an ISBN-13
-     * code.
+     * If the length of the code is 9, it is treated as an ISBN-10 code or if the length of the code is 12, it is treated as an ISBN-13 code.
+     * </p>
      *
-     * @param code The ISBN code to validate (should have a length of
-     * 9 or 12)
-     * @return The ISBN-10 check digit if the length is 9 or an ISBN-13
-     * check digit if the length is 12.
-     * @throws CheckDigitException if the code is missing, or an invalid
-     * length (that is, not 9 or 12) or if there is an error calculating the
-     * check digit.
+     * @param code The ISBN code to validate (should have a length of 9 or 12).
+     * @return The ISBN-10 check digit if the length is 9 or an ISBN-13 check digit if the length is 12.
+     * @throws CheckDigitException if the code is missing, or an invalid length (that is, not 9 or 12) or if there is an error calculating the check digit.
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
@@ -82,22 +84,18 @@ public final class ISBNCheckDigit extends AbstractCheckDigit implements Serializ
         if (code.length() == 12) { // CHECKSTYLE IGNORE MagicNumber
             return ISBN13_CHECK_DIGIT.calculate(code);
         }
-        throw new CheckDigitException("Invalid ISBN Length = " + code.length());
+        throw new CheckDigitException("Invalid ISBN Length = %,d", code.length());
     }
 
     /**
-     * <p>Validate an ISBN-10 or ISBN-13 check digit, depending
-     * on the length of the code.</p>
+     * Validate an ISBN-10 or ISBN-13 check digit, depending on the length of the code.
      * <p>
-     * If the length of the code is 10, it is treated as an ISBN-10
-     * code or ff the length of the code is 13, it is treated as an ISBN-13
-     * code.
+     * If the length of the code is 10, it is treated as an ISBN-10 code or ff the length of the code is 13, it is treated as an ISBN-13 code.
+     * </p>
      *
-     * @param code The ISBN code to validate (should have a length of
-     * 10 or 13)
-     * @return {@code true} if the code has a length of 10 and is
-     * a valid ISBN-10 check digit or the code has a length of 13 and is
-     * a valid ISBN-13 check digit - otherwise {@code false}.
+     * @param code The ISBN code to validate (should have a length of 10 or 13).
+     * @return {@code true} if the code has a length of 10 and is a valid ISBN-10 check digit or the code has a length of 13 and is a valid ISBN-13 check digit
+     *         - otherwise {@code false}.
      */
     @Override
     public boolean isValid(final String code) {
@@ -112,5 +110,4 @@ public final class ISBNCheckDigit extends AbstractCheckDigit implements Serializ
         }
         return false;
     }
-
 }

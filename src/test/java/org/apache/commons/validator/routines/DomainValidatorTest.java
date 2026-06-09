@@ -52,7 +52,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests for the DomainValidator.
+ * Tests {@link DomainValidator}.
  */
 public class DomainValidatorTest {
 // Must be public, because it has a main method.

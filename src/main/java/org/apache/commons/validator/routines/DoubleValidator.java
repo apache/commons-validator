@@ -21,7 +21,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * <p><strong>Double Validation</strong> and Conversion routines ({@link Double}).</p>
+ * <strong>Double Validation</strong> and Conversion routines ({@link Double}).
  *
  * <p>This validator provides a number of methods for
  *    validating/converting a {@link String} value to
@@ -85,8 +85,8 @@ public class DoubleValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Construct an instance with the specified strict setting
-     *    and format type.</p>
+     * Construct an instance with the specified strict setting
+     *    and format type.
      *
      * <p>The {@code formatType} specified what type of
      *    {@code NumberFormat} is created - valid types
@@ -197,11 +197,10 @@ public class DoubleValidator extends AbstractNumberValidator {
             return value;
         }
         return Double.valueOf(((Number) value).doubleValue());
-
     }
 
     /**
-     * <p>Validate/convert a {@code Double} using the default
+     * Validate/convert a {@code Double} using the default
      *    {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -213,7 +212,7 @@ public class DoubleValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Double} using the
+     * Validate/convert a {@code Double} using the
      *    specified {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -225,7 +224,7 @@ public class DoubleValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Double} using the
+     * Validate/convert a {@code Double} using the
      *    specified <em>pattern</em>.
      *
      * @param value The value validation is being performed on.
@@ -237,7 +236,7 @@ public class DoubleValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Double} using the
+     * Validate/convert a {@code Double} using the
      *    specified pattern and/ or {@link Locale}.
      *
      * @param value The value validation is being performed on.

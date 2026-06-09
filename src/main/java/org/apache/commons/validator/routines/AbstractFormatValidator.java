@@ -22,7 +22,7 @@ import java.text.ParsePosition;
 import java.util.Locale;
 
 /**
- * <p>Abstract class for <em>Format</em> based Validation.</p>
+ * Abstract class for <em>Format</em> based Validation.
  *
  * <p>This is a <em>base</em> class for building Date and Number
  *    Validators using format parsing.</p>
@@ -49,8 +49,8 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Format an object into a {@link String} using
-     * the default Locale.</p>
+     * Format an object into a {@link String} using
+     * the default Locale.
      *
      * @param value The value validation is being performed on.
      * @return The value formatted as a {@link String}.
@@ -60,7 +60,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Format a value with the specified {@code Format}.</p>
+     * Format a value with the specified {@code Format}.
      *
      * @param value The value to be formatted.
      * @param formatter The Format to use.
@@ -71,8 +71,8 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Format an object into a {@link String} using
-     * the specified Locale.</p>
+     * Format an object into a {@link String} using
+     * the specified Locale.
      *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the Format.
@@ -83,8 +83,8 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Format an object into a {@link String} using
-     * the specified pattern.</p>
+     * Format an object into a {@link String} using
+     * the specified pattern.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
@@ -95,7 +95,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Format an object using the specified pattern and/or
+     * Format an object using the specified pattern and/or
      *    {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -108,8 +108,8 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Returns a {@code Format} for the specified <em>pattern</em>
-     *    and/or {@link Locale}.</p>
+     * Returns a {@code Format} for the specified <em>pattern</em>
+     *    and/or {@link Locale}.
      *
      * @param pattern The pattern used to validate the value against or
      *        {@code null} to use the default for the {@link Locale}.
@@ -119,8 +119,8 @@ public abstract class AbstractFormatValidator implements Serializable {
     protected abstract Format getFormat(String pattern, Locale locale);
 
     /**
-     * <p>Indicates whether validated values should adhere
-     *    strictly to the {@code Format} used.</p>
+     * Indicates whether validated values should adhere
+     *    strictly to the {@code Format} used.
      *
      * <p>Typically implementations of {@code Format}
      *    ignore invalid characters at the end of the value
@@ -140,7 +140,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Validate using the default {@link Locale}.
+     * Validate using the default {@link Locale}.
      *
      * @param value The value validation is being performed on.
      * @return {@code true} if the value is valid.
@@ -150,7 +150,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Validate using the specified {@link Locale}.
+     * Validate using the specified {@link Locale}.
      *
      * @param value The value validation is being performed on.
      * @param locale The locale to use for the Format, defaults to the default
@@ -161,7 +161,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Validate using the specified <em>pattern</em>.
+     * Validate using the specified <em>pattern</em>.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against.
@@ -172,7 +172,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Validate using the specified pattern and/or {@link Locale}.
+     * Validate using the specified pattern and/or {@link Locale}.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to format the value.
@@ -182,7 +182,7 @@ public abstract class AbstractFormatValidator implements Serializable {
     public abstract boolean isValid(String value, String pattern, Locale locale);
 
     /**
-     * <p>Parse the value with the specified {@code Format}.</p>
+     * Parse the value with the specified {@code Format}.
      *
      * @param value The value to be parsed.
      * @param formatter The Format to parse the value with.
@@ -202,8 +202,8 @@ public abstract class AbstractFormatValidator implements Serializable {
     }
 
     /**
-     * <p>Process the parsed value, performing any further validation
-     *    and type conversion required.</p>
+     * Process the parsed value, performing any further validation
+     *    and type conversion required.
      *
      * @param value The parsed object created.
      * @param formatter The Format used to parse the value with.

@@ -28,7 +28,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test Case for BigDecimalValidator.
+ * Tests {@link BigDecimalValidator}.
  */
 class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
 

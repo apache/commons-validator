@@ -21,7 +21,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * <p><strong>Long Validation</strong> and Conversion routines ({@link Long}).</p>
+ * <strong>Long Validation</strong> and Conversion routines ({@link Long}).
  *
  * <p>This validator provides a number of methods for
  *    validating/converting a {@link String} value to
@@ -84,8 +84,8 @@ public class LongValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Construct an instance with the specified strict setting
-     *    and format type.</p>
+     * Construct an instance with the specified strict setting
+     *    and format type.
      *
      * <p>The {@code formatType} specified what type of
      *    {@code NumberFormat} is created - valid types
@@ -202,7 +202,7 @@ public class LongValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Long} using the default
+     * Validate/convert a {@code Long} using the default
      *    {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -214,7 +214,7 @@ public class LongValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Long} using the
+     * Validate/convert a {@code Long} using the
      *    specified {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -226,7 +226,7 @@ public class LongValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Long} using the
+     * Validate/convert a {@code Long} using the
      *    specified <em>pattern</em>.
      *
      * @param value The value validation is being performed on.
@@ -238,7 +238,7 @@ public class LongValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Long} using the
+     * Validate/convert a {@code Long} using the
      *    specified pattern and/ or {@link Locale}.
      *
      * @param value The value validation is being performed on.

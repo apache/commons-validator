@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * <p><strong>Domain name</strong> validation routines.</p>
+ * <strong>Domain name</strong> validation routines.
  *
  * <p>
  * This validator provides methods for validating Internet domain names

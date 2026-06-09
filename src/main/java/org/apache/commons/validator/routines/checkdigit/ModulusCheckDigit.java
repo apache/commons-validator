@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.validator.routines.checkdigit;
 
 import java.io.Serializable;
@@ -21,13 +22,13 @@ import java.io.Serializable;
 import org.apache.commons.validator.GenericValidator;
 
 /**
- * Abstract <strong>Modulus</strong> Check digit calculation/validation.
+ * Abstracts <strong>Modulus</strong> Check digit calculation/validation.
  * <p>
  * Provides a <em>base</em> class for building <em>modulus</em> Check Digit routines.
  * </p>
  * <p>
- * This implementation only handles <em>single-digit numeric</em> codes, such as <strong>EAN-13</strong>. For <em>alphanumeric</em> codes such as <strong>EAN-128</strong> you will need
- * to implement/override the {@code toInt()} and {@code toChar()} methods.
+ * This implementation only handles <em>single-digit numeric</em> codes, such as <strong>EAN-13</strong>. For <em>alphanumeric</em> codes such as
+ * <strong>EAN-128</strong> you will need to implement/override the {@code toInt()} and {@code toChar()} methods.
  * </p>
  *
  * @since 1.4
@@ -39,10 +40,10 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
     private static final long serialVersionUID = 2948962251251528941L;
 
     /**
-     * Add together the individual digits in a number.
+     * Adds together the individual digits in a number.
      *
-     * @param number The number whose digits are to be added
-     * @return The sum of the digits
+     * @param number The number whose digits are to be added.
+     * @return The sum of the digits.
      */
     public static int sumDigits(final int number) {
         int total = 0;
@@ -69,19 +70,18 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
     /**
      * Constructs a {@link CheckDigit} routine for a specified modulus.
      *
-     * @param modulus The modulus value to use for the check digit calculation
+     * @param modulus The modulus value to use for the check digit calculation.
      */
     public ModulusCheckDigit(final int modulus) {
         this.modulus = modulus;
     }
 
     /**
-     * Calculate a modulus <em>Check Digit</em> for a code which does not yet have one.
+     * Calculates a modulus <em>Check Digit</em> for a code which does not yet have one.
      *
-     * @param code The code for which to calculate the Check Digit;
-     * the check digit should not be included
-     * @return The calculated Check Digit
-     * @throws CheckDigitException if an error occurs calculating the check digit
+     * @param code The code for which to calculate the Check Digit; the check digit should not be included.
+     * @return The calculated Check Digit.
+     * @throws CheckDigitException if an error occurs calculating the check digit.
      */
     @Override
     public String calculate(final String code) throws CheckDigitException {
@@ -94,13 +94,12 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
     }
 
     /**
-     * Calculate the modulus for a code.
+     * Calculates the modulus for a code.
      *
-     * @param code The code to calculate the modulus for.
+     * @param code               The code to calculate the modulus for.
      * @param includesCheckDigit Whether the code includes the Check Digit or not.
-     * @return The modulus value
-     * @throws CheckDigitException if an error occurs calculating the modulus
-     * for the specified code
+     * @return The modulus value.
+     * @throws CheckDigitException if an error occurs calculating the modulus for the specified code.
      */
     protected int calculateModulus(final String code, final boolean includesCheckDigit) throws CheckDigitException {
         int total = 0;
@@ -120,18 +119,17 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
     /**
      * Gets the modulus value this check digit routine is based on.
      *
-     * @return The modulus value this check digit routine is based on
+     * @return The modulus value this check digit routine is based on.
      */
     public int getModulus() {
         return modulus;
     }
 
     /**
-     * Validate a modulus check digit for a code.
+     * Validates a modulus check digit for a code.
      *
-     * @param code The code to validate
-     * @return {@code true} if the check digit is valid, otherwise
-     * {@code false}
+     * @param code The code to validate.
+     * @return {@code true} if the check digit is valid, otherwise {@code false}.
      */
     @Override
     public boolean isValid(final String code) {
@@ -139,69 +137,62 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
             return false;
         }
         try {
-            final int modulusResult = calculateModulus(code, true);
-            return modulusResult == 0;
+            return calculateModulus(code, true) == 0;
         } catch (final CheckDigitException ex) {
             return false;
         }
     }
 
     /**
-     * Convert an integer value to a check digit.
+     * Converts an integer value to a check digit.
      * <p>
-     * <strong>Note:</strong> this implementation only handles single-digit numeric values
-     * For non-numeric characters, override this method to provide
+     * <strong>Note:</strong> this implementation only handles single-digit numeric values For non-numeric characters, override this method to provide
      * integer--&gt;character conversion.
+     * </p>
      *
-     * @param charValue The integer value of the character
-     * @return The converted character
-     * @throws CheckDigitException if integer character value
-     * doesn't represent a numeric character
+     * @param charValue The integer value of the character.
+     * @return The converted character.
+     * @throws CheckDigitException if integer character value. doesn't represent a numeric character.
      */
     protected String toCheckDigit(final int charValue) throws CheckDigitException {
-        if (charValue >= 0 && charValue <= 9) { // CHECKSTYLE IGNORE MagicNumber
+        if (isAsciiDigit(charValue)) {
             return Integer.toString(charValue);
         }
-        throw new CheckDigitException("Invalid Check Digit Value =" + +charValue);
+        throw new CheckDigitException("Invalid Check Digit Value =%d", charValue);
     }
 
     /**
-     * Convert a character at a specified position to an integer value.
+     * Converts a character at a specified position to an integer value.
      * <p>
-     * <strong>Note:</strong> this implementation only handlers numeric values
-     * For non-numeric characters, override this method to provide
+     * <strong>Note:</strong> this implementation only handlers numeric values For non-numeric characters, override this method to provide
      * character--&gt;integer conversion.
+     * </p>
      *
-     * @param character The character to convert
-     * @param leftPos The position of the character in the code, counting from left to right (for identifiying the position in the string)
-     * @param rightPos The position of the character in the code, counting from right to left (not used here)
-     * @return The integer value of the character
-     * @throws CheckDigitException if character is non-numeric
+     * @param character The character to convert.
+     * @param leftPos   The position of the character in the code, counting from left to right (for identifying the position in the string).
+     * @param rightPos  The position of the character in the code, counting from right to left (not used here).
+     * @return The integer value of the character.
+     * @throws CheckDigitException if character is non-numeric.
      */
     protected int toInt(final char character, final int leftPos, final int rightPos) throws CheckDigitException {
-        if (Character.isDigit(character)) {
-            return Character.getNumericValue(character);
+        if (isAsciiDigit(character)) {
+            return character - '0';
         }
-        throw new CheckDigitException("Invalid Character[" + leftPos + "] = '" + character + "'");
+        throw new CheckDigitException("Invalid Character[%d,%d] = '%c'", leftPos, rightPos, character);
     }
 
     /**
-     * Calculates the <em>weighted</em> value of a character in the
-     * code at a specified position.
+     * Calculates the <em>weighted</em> value of a character in the code at a specified position.
      * <p>
-     * Some modulus routines weight the value of a character
-     * depending on its position in the code (for example, ISBN-10), while
-     * others use different weighting factors for odd/even positions
-     * (for example, EAN or Luhn). Implement the appropriate mechanism
-     * required by overriding this method.
+     * Some modulus routines weight the value of a character depending on its position in the code (for example, ISBN-10), while others use different weighting
+     * factors for odd/even positions (for example, EAN or Luhn). Implement the appropriate mechanism required by overriding this method.
+     * </p>
      *
-     * @param charValue The numeric value of the character
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The position of the character in the code, counting from right to left
-     * @return The weighted value of the character
-     * @throws CheckDigitException if an error occurs calculating
-     * the weighted value
+     * @param charValue The numeric value of the character.
+     * @param leftPos   The position of the character in the code, counting from left to right.
+     * @param rightPos  The position of the character in the code, counting from right to left.
+     * @return The weighted value of the character.
+     * @throws CheckDigitException if an error occurs calculating. the weighted value.
      */
     protected abstract int weightedValue(int charValue, int leftPos, int rightPos) throws CheckDigitException;
-
 }

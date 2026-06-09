@@ -139,7 +139,7 @@ public class ValidatorUtils {
     }
 
     /**
-     * <p>Replace part of a {@link String} with another value.</p>
+     * Replace part of a {@link String} with another value.
      *
      * @param value {@link String} to perform the replacement on.
      * @param key The name of the constant.

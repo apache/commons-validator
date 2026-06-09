@@ -47,7 +47,9 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -8255937433810380145L;
 
-    /** Singleton Routing Transit Number Check Digit instance */
+    /**
+     * Singleton Routing Transit Number Check Digit instance.
+     */
     public static final CheckDigit ABAN_CHECK_DIGIT = new ABANumberCheckDigit();
 
     /** Weighting given to digits depending on their right position */
@@ -64,14 +66,15 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
      * code at a specified position.
      * <p>
      * ABA Routing numbers are weighted in the following manner:
+     * </p>
      * <pre>{@code
      *     left position: 1  2  3  4  5  6  7  8  9
      *            weight: 3  7  1  3  7  1  3  7  1
      * }</pre>
      *
      * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The position of the character in the code, counting from right to left
+     * @param leftPos The position of the character in the code, counting from left to right.
+     * @param rightPos The position of the character in the code, counting from right to left.
      * @return The weighted value of the character.
      */
     @Override

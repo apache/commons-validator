@@ -25,7 +25,7 @@ import java.util.Locale;
 import org.apache.commons.validator.GenericValidator;
 
 /**
- * <p>Abstract class for Number Validation.</p>
+ * Abstract class for Number Validation.
  *
  * <p>This is a <em>base</em> class for building Number
  *    Validators using format parsing.</p>
@@ -73,7 +73,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Returns the <em>multiplier</em> of the {@code NumberFormat}.</p>
+     * Returns the <em>multiplier</em> of the {@code NumberFormat}.
      *
      * @param format The {@code NumberFormat} to determine the
      *        multiplier of.
@@ -106,7 +106,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Returns a {@code NumberFormat} for the specified Locale.</p>
+     * Returns a {@code NumberFormat} for the specified Locale.
      *
      * @param locale The locale a {@code NumberFormat} is required for,
      *   system default if null.
@@ -144,8 +144,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Returns a {@code NumberFormat} for the specified <em>pattern</em>
-     *    and/or {@link Locale}.</p>
+     * Returns a {@code NumberFormat} for the specified <em>pattern</em>
+     *    and/or {@link Locale}.
      *
      * @param pattern The pattern used to validate the value against or
      *        {@code null} to use the default for the {@link Locale}.
@@ -171,8 +171,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Indicates the type of {@code NumberFormat} created
-     *    by this validator instance.</p>
+     * Indicates the type of {@code NumberFormat} created
+     *    by this validator instance.
      *
      * @return the format type created.
      */
@@ -181,8 +181,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Indicates whether the number being validated is
-     *    a decimal or integer.</p>
+     * Indicates whether the number being validated is
+     *    a decimal or integer.
      *
      * @return {@code true} if decimals are allowed
      *       or {@code false} if the number is an integer.
@@ -205,7 +205,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Validate using the specified {@link Locale}.</p>
+     * Validate using the specified {@link Locale}.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
@@ -249,7 +249,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * <p>Parse the value using the specified pattern.</p>
+     * Parse the value using the specified pattern.
      *
      * @param value The value validation is being performed on.
      * @param pattern The pattern used to validate the value against, or the
@@ -263,14 +263,13 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
         if (GenericValidator.isBlankOrNull(value1)) {
             return null;
         }
-        final Format formatter = getFormat(pattern, locale);
-        return parse(value, formatter);
+        return parse(value, getFormat(pattern, locale));
 
     }
 
     /**
-     * <p>Process the parsed value, performing any further validation
-     *    and type conversion required.</p>
+     * Process the parsed value, performing any further validation
+     *    and type conversion required.
      *
      * @param value The parsed object created.
      * @param formatter The Format used to parse the value with.

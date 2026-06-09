@@ -21,7 +21,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * <p><strong>Float Validation</strong> and Conversion routines ({@link Float}).</p>
+ * <strong>Float Validation</strong> and Conversion routines ({@link Float}).
  *
  * <p>This validator provides a number of methods for
  *    validating/converting a {@link String} value to
@@ -85,8 +85,8 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Construct an instance with the specified strict setting
-     *    and format type.</p>
+     * Construct an instance with the specified strict setting
+     *    and format type.
      *
      * <p>The {@code formatType} specified what type of
      *    {@code NumberFormat} is created - valid types
@@ -110,7 +110,7 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Check if the value is within a specified range.
+     * Tests if the value is within a specified range.
      *
      * @param value The {@code Number} value to check.
      * @param min The minimum value of the range.
@@ -123,7 +123,7 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Check if the value is within a specified range.
+     * Tests if the value is within a specified range.
      *
      * @param value The {@code Number} value to check.
      * @param min The minimum value of the range.
@@ -136,7 +136,7 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Check if the value is less than or equal to a maximum.
+     * Tests if the value is less than or equal to a maximum.
      *
      * @param value The value validation is being performed on.
      * @param max The maximum value.
@@ -148,7 +148,7 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Check if the value is less than or equal to a maximum.
+     * Tests if the value is less than or equal to a maximum.
      *
      * @param value The value validation is being performed on.
      * @param max The maximum value.
@@ -160,7 +160,7 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Check if the value is greater than or equal to a minimum.
+     * Tests if the value is greater than or equal to a minimum.
      *
      * @param value The value validation is being performed on.
      * @param min The minimum value.
@@ -172,7 +172,7 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Check if the value is greater than or equal to a minimum.
+     * Tests if the value is greater than or equal to a minimum.
      *
      * @param value The value validation is being performed on.
      * @param min The minimum value.
@@ -184,8 +184,8 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Perform further validation and convert the {@code Number} to
-     * a {@code Float}.</p>
+     * Perform further validation and convert the {@code Number} to
+     * a {@code Float}.
      *
      * @param value The parsed {@code Number} object created.
      * @param formatter The Format used to parse the value with.
@@ -194,26 +194,28 @@ public class FloatValidator extends AbstractNumberValidator {
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
-
-        final double doubleValue = ((Number) value).doubleValue();
-
+        final double doubleValue = value instanceof Double ? (Double) value : Double.valueOf(((Number) value).doubleValue());
         if (doubleValue > 0) {
+            if (doubleValue == Double.POSITIVE_INFINITY) {
+                return Float.POSITIVE_INFINITY;
+            }
             if (doubleValue < Float.MIN_VALUE || doubleValue > Float.MAX_VALUE) {
                 return null;
             }
         } else if (doubleValue < 0) {
+            if (doubleValue == Double.NEGATIVE_INFINITY) {
+                return Float.NEGATIVE_INFINITY;
+            }
             final double posDouble = doubleValue * -1;
             if (posDouble < Float.MIN_VALUE || posDouble > Float.MAX_VALUE) {
                 return null;
             }
         }
-
         return Float.valueOf((float) doubleValue);
-
     }
 
     /**
-     * <p>Validate/convert a {@code Float} using the default
+     * Validate/convert a {@code Float} using the default
      *    {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -225,7 +227,7 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Float} using the
+     * Validate/convert a {@code Float} using the
      *    specified {@link Locale}.
      *
      * @param value The value validation is being performed on.
@@ -237,7 +239,7 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Float} using the
+     * Validate/convert a {@code Float} using the
      *    specified <em>pattern</em>.
      *
      * @param value The value validation is being performed on.
@@ -249,7 +251,7 @@ public class FloatValidator extends AbstractNumberValidator {
     }
 
     /**
-     * <p>Validate/convert a {@code Float} using the
+     * Validate/convert a {@code Float} using the
      *    specified pattern and/ or {@link Locale}.
      *
      * @param value The value validation is being performed on.

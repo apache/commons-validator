@@ -32,8 +32,10 @@ import java.util.regex.Pattern;
 import org.apache.commons.validator.GenericValidator;
 
 /**
- * <p><strong>URL Validation</strong> routines.</p>
+ * <strong>URL Validation</strong> routines.
+ * <p>
  * Behavior of validation is modified by passing in options:
+ * </p>
  * <ul>
  * <li>ALLOW_2_SLASHES - [FALSE]  Allows double '/' characters in the path
  * component.</li>
@@ -357,7 +359,7 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if a field has a valid URL address.</p>
+     * Checks if a field has a valid URL address.
      *
      * Note that the method calls #isValidAuthority()
      * which checks that the domain is valid.

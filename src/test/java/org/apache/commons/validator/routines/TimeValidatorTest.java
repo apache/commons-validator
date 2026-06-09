@@ -38,7 +38,7 @@ import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
- * Test Case for TimeValidator.
+ * Tests {@link TimeValidator}.
  */
 class TimeValidatorTest {
 

@@ -51,7 +51,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = -5387334603220786657L;
 
-    /** Singleton Check Digit instance */
+    /** Singleton Check Digit instance. */
     private static final CASNumberCheckDigit INSTANCE = new CASNumberCheckDigit();
 
     /**
@@ -65,7 +65,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
     static final String CAS_REGEX = "^(?:" + GROUP1 + DASH + "(\\d{2})" + DASH + "(\\d))$";
     private static final int CAS_MIN_LEN = 4; // 9-99-9 LEN without SEP
 
-    /** maximum capacity of 1,000,000,000 == 9999999-99-9*/
+    /** Maximum capacity of 1,000,000,000 == 9999999-99-9*/
     private static final int CAS_MAX_LEN = 10;
     static final CodeValidator REGEX_VALIDATOR = new CodeValidator(CAS_REGEX, CAS_MIN_LEN, CAS_MAX_LEN, null);
 
@@ -95,8 +95,7 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
         if (GenericValidator.isBlankOrNull(code)) {
             throw new CheckDigitException("Code is missing");
         }
-        final int modulusResult = INSTANCE.calculateModulus(code, false);
-        return toCheckDigit(modulusResult);
+        return toCheckDigit(INSTANCE.calculateModulus(code, false));
     }
 
     /**
@@ -130,8 +129,8 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
      * }</pre>
      *
      * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The position of the character in the code, counting from right to left
+     * @param leftPos The position of the character in the code, counting from left to right.
+     * @param rightPos The position of the character in the code, counting from right to left.
      * @return The weighted value of the character.
      */
     @Override

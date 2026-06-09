@@ -413,6 +413,7 @@ public class CreditCardValidator implements Serializable {
      * <p>
      * This can be used to combine predefined validators such as {@link #MASTERCARD_VALIDATOR}
      * with additional validators using the simpler {@link CreditCardRange}s.
+     * </p>
      *
      * @param creditCardValidators Set of valid code validators
      * @param creditCardRanges Set of valid code validators

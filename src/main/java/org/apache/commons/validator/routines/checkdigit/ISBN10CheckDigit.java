@@ -14,29 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.validator.routines.checkdigit;
 
 /**
  * Modulus 11 <strong>ISBN-10</strong> Check Digit calculation/validation.
  * <p>
- * ISBN-10 Numbers are a numeric code except for the last (check) digit
- * which can have a value of "X".
+ * ISBN-10 Numbers are a numeric code except for the last (check) digit which can have a value of "X".
+ * </p>
  * <p>
- * Check digit calculation is based on <em>modulus 11</em> with digits being weighted
- * based by their position, from right to left  with the first digit being weighted
- * 1, the second 2 and so on. If the check digit is calculated as "10" it is converted
- * to "X".
+ * Check digit calculation is based on <em>modulus 11</em> with digits being weighted based by their position, from right to left with the first digit being
+ * weighted 1, the second 2 and so on. If the check digit is calculated as "10" it is converted to "X".
+ * </p>
  * <p>
- * <strong>N.B.</strong> From 1st January 2007 the book industry will start to use a new 13 digit
- * ISBN number (rather than this 10 digit ISBN number) which uses the EAN-13 / UPC
- * (see {@link EAN13CheckDigit}) standard.
+ * <strong>N.B.</strong> From 1st January 2007 the book industry will start to use a new 13 digit ISBN number (rather than this 10 digit ISBN number) which uses
+ * the EAN-13 / UPC (see {@link EAN13CheckDigit}) standard.
+ * </p>
  * <p>
  * For further information see:
+ * </p>
  * <ul>
- *   <li><a href="https://en.wikipedia.org/wiki/ISBN">Wikipedia - International
- *       Standard Book Number (ISBN)</a>.</li>
- *   <li><a href="https://www.isbn.org/standards/home/isbn/transition.asp">ISBN-13
- *       Transition details</a>.</li>
+ * <li><a href="https://en.wikipedia.org/wiki/ISBN">Wikipedia - International Standard Book Number (ISBN)</a>.</li>
+ * <li><a href="https://www.isbn.org/standards/home/isbn/transition.asp">ISBN-13 Transition details</a>.</li>
  * </ul>
  *
  * @since 1.4
@@ -45,7 +44,9 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = 8000855044504864964L;
 
-    /** Singleton ISBN-10 Check Digit instance */
+    /**
+     * Singleton ISBN-10 Check Digit instance.
+     */
     public static final CheckDigit ISBN10_CHECK_DIGIT = new ISBN10CheckDigit();
 
     /**
@@ -56,59 +57,57 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
     }
 
     /**
-     * <p>Convert an integer value to a character at a specified position.</p>
-     *
-     * <p>Value '10' for position 1 (check digit) converted to 'X'.</p>
+     * Convert an integer value to a character at a specified position.
+     * <p>
+     * Value '10' for position 1 (check digit) converted to 'X'.
+     * </p>
      *
      * @param charValue The integer value of the character.
      * @return The converted character.
      * @throws CheckDigitException if an error occurs.
      */
     @Override
-    protected String toCheckDigit(final int charValue)
-            throws CheckDigitException {
-        if (charValue == 10) {  // CHECKSTYLE IGNORE MagicNumber
+    protected String toCheckDigit(final int charValue) throws CheckDigitException {
+        if (charValue == 10) { // CHECKSTYLE IGNORE MagicNumber
             return "X";
         }
         return super.toCheckDigit(charValue);
     }
 
     /**
-     * <p>Convert a character at a specified position to an
-     * integer value.</p>
-     *
-     * <p>Character 'X' check digit converted to 10.</p>
+     * Convert a character at a specified position to an integer value.
+     * <p>
+     * Character 'X' check digit converted to 10.
+     * </p>
      *
      * @param character The character to convert.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The position of the character in the code, counting from right to left
+     * @param leftPos   The position of the character in the code, counting from left to right.
+     * @param rightPos  The position of the character in the code, counting from right to left.
      * @return The integer value of the character.
      * @throws CheckDigitException if an error occurs.
      */
     @Override
-    protected int toInt(final char character, final int leftPos, final int rightPos)
-            throws CheckDigitException {
+    protected int toInt(final char character, final int leftPos, final int rightPos) throws CheckDigitException {
         if (rightPos == 1 && character == 'X') {
-            return 10;  // CHECKSTYLE IGNORE MagicNumber
+            return 10; // CHECKSTYLE IGNORE MagicNumber
         }
         return super.toInt(character, leftPos, rightPos);
     }
 
     /**
-     * Calculates the <em>weighted</em> value of a character in the
-     * code at a specified position.
+     * Calculates the <em>weighted</em> value of a character in the code at a specified position.
      *
-     * <p>For ISBN-10 (from right to left) digits are weighted
-     * by their position.</p>
+     * <p>
+     * For ISBN-10 (from right to left) digits are weighted by their position.
+     * </p>
      *
      * @param charValue The numeric value of the character.
-     * @param leftPos The position of the character in the code, counting from left to right
-     * @param rightPos The position of the character in the code, counting from right to left
+     * @param leftPos   The position of the character in the code, counting from left to right.
+     * @param rightPos  The position of the character in the code, counting from right to left.
      * @return The weighted value of the character.
      */
     @Override
     protected int weightedValue(final int charValue, final int leftPos, final int rightPos) {
         return charValue * rightPos;
     }
-
 }

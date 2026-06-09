@@ -14,22 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.validator.routines.checkdigit;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * CUSIP Check Digit Test.
  */
 class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
 
-    private static final String[] INVALID_CHECK_DIGITS = { "DUS0421CW", "DUS0421CN", "DUS0421CE" };
+    private static final String[] INVALID = { "DUS0421CW", "DUS0421CN", "DUS0421CE", "0378#3100" };
 
-    private static final String[] VALID_CHECK_DIGITS = { "DUS0421C5" };
+    private static final String[] VALID = { "DUS0421C5", "037833100", "931142103", "837649128", "392690QT3", "594918104", "86770G101", "Y8295N109",
+            "G8572F100", "17275R102", "EJ7125481" };
+
+    static String[] cloneInvalid() {
+        return INVALID.clone();
+    }
+
+    static String[] cloneValid() {
+        return VALID.clone();
+    }
 
     /**
      * Sets up routine & valid codes.
@@ -37,21 +48,19 @@ class CUSIPCheckDigitTest extends AbstractCheckDigitTest {
     @BeforeEach
     protected void setUp() {
         routine = CUSIPCheckDigit.CUSIP_CHECK_DIGIT;
-        valid = new String[] { "037833100", "931142103", "837649128", "392690QT3", "594918104", "86770G101", "Y8295N109", "G8572F100" };
-        invalid = new String[] { "0378#3100" };
+        valid = cloneValid();
+        invalid = cloneInvalid();
     }
 
-    @Test
-    void testValidator336InvalidCheckDigits() {
-        for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
-            assertFalse(routine.isValid(invalidCheckDigit), "Should fail: " + invalidCheckDigit);
-        }
+    @ParameterizedTest
+    @MethodSource("org.apache.commons.validator.routines.checkdigit.CUSIPCheckDigitTest#cloneInvalid")
+    void testValidator336InvalidCheckDigits(final String invalidCheckDigit) {
+        assertFalse(routine.isValid(invalidCheckDigit), "Should fail: " + invalidCheckDigit);
     }
 
-    @Test
-    void testValidator336ValidCheckDigits() {
-        for (final String validCheckDigit : VALID_CHECK_DIGITS) {
-            assertTrue(routine.isValid(validCheckDigit), "Should fail: " + validCheckDigit);
-        }
+    @ParameterizedTest
+    @MethodSource("org.apache.commons.validator.routines.checkdigit.CUSIPCheckDigitTest#cloneValid")
+    void testValidator336ValidCheckDigits(final String validCheckDigit) {
+        assertTrue(routine.isValid(validCheckDigit), "Should fail: " + validCheckDigit);
     }
 }

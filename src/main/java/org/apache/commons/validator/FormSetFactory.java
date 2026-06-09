@@ -39,8 +39,8 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
     }
 
     /**
-     * <p>Create or retrieve a {@code FormSet} based on the language, country
-     *    and variant.</p>
+     * Create or retrieve a {@code FormSet} based on the language, country
+     *    and variant.
      *
      * @param resources The validator resources.
      * @param language The locale's language.
@@ -81,8 +81,8 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
     }
 
     /**
-     * <p>Create or retrieve a {@code FormSet} for the specified
-     *    attributes.</p>
+     * Create or retrieve a {@code FormSet} for the specified
+     *    attributes.
      *
      * @param attributes The sax attributes for the formset element.
      * @return The FormSet for a locale.

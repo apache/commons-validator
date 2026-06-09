@@ -21,7 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * <p>Perform email validations.</p>
+ * Perform email validations.
  * <p>
  * Based on a script by <a href="mailto:stamhankar@hotmail.com">Sandeep V. Tamhankar</a>
  * https://javascript.internet.com
@@ -166,7 +166,7 @@ public class EmailValidator implements Serializable {
     }
 
     /**
-     * <p>Checks if a field has a valid e-mail address.</p>
+     * Checks if a field has a valid e-mail address.
      *
      * @param email The value validation is being performed on.  A {@code null}
      *              value is considered invalid.

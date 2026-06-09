@@ -38,8 +38,9 @@ import org.apache.commons.validator.util.ValidatorUtils;
 /**
  * Contains the information to dynamically create and run a validation method. This is the class representation of a pluggable validator that can be defined in
  * an xml file with the &lt;validator&gt; element.
- *
+ * <p>
  * <strong>Note</strong>: The validation method is assumed to be thread safe.
+ * </p>
  */
 public class ValidatorAction implements Serializable {
 
@@ -76,10 +77,8 @@ public class ValidatorAction implements Serializable {
     private transient Method validationMethod;
 
     /**
-     * <p>
      * The method signature of the validation method. This should be a comma-delimited list of the full class names of each parameter in the correct order that
      * the method takes.
-     * </p>
      * <p>
      * Note: {@link Object} is reserved for the JavaBean that is being validated. The {@code ValidatorAction} and {@code Field} that
      * are associated with a field's validation will automatically be populated if they are specified in the method signature.
@@ -154,9 +153,7 @@ public class ValidatorAction implements Serializable {
             // TODO What is this the correct value type?
             // both ValidatorAction and Validator are added as parameters
             final Map<String, Object> params, final ValidatorResults results, final int pos) throws ValidatorException {
-
         params.put(Validator.VALIDATOR_ACTION_PARAM, this);
-
         try {
             if (validationMethod == null) {
                 synchronized (this) {
@@ -166,52 +163,40 @@ public class ValidatorAction implements Serializable {
                     loadValidationMethod();
                 }
             }
-
             final Object[] paramValues = getParameterValues(params);
-
             if (field.isIndexed()) {
                 handleIndexedField(field, pos, paramValues);
             }
-
             Object result = null;
             try {
                 result = validationMethod.invoke(getValidationClassInstance(), paramValues);
-
             } catch (IllegalArgumentException | IllegalAccessException e) {
-                throw new ValidatorException(e.getMessage());
+                throw new ValidatorException(e);
             } catch (final InvocationTargetException e) {
-
                 if (e.getTargetException() instanceof Exception) {
                     throw (Exception) e.getTargetException();
-
                 }
                 if (e.getTargetException() instanceof Error) {
                     throw (Error) e.getTargetException();
                 }
             }
-
             final boolean valid = isValid(result);
             if (!valid || valid && !onlyReturnErrors(params)) {
                 results.add(field, name, valid, result);
             }
-
             if (!valid) {
                 return false;
             }
-
             // TODO This catch block remains for backward compatibility. Remove
             // this for Validator 2.0 when exception scheme changes.
         } catch (final Exception e) {
             if (e instanceof ValidatorException) {
                 throw (ValidatorException) e;
             }
-
             getLog().error("Unhandled exception thrown during validation: " + e.getMessage(), e);
-
             results.add(field, name, false);
             return false;
         }
-
         return true;
     }
 
@@ -369,17 +354,13 @@ public class ValidatorAction implements Serializable {
     private Object getValidationClassInstance() throws ValidatorException {
         if (Modifier.isStatic(validationMethod.getModifiers())) {
             instance = null;
-
         } else if (instance == null) {
             try {
                 instance = validationClass.getConstructor().newInstance();
             } catch (final ReflectiveOperationException e) {
-                final String msg1 = "Couldn't create instance of " + className + ".  " + e.getMessage();
-
-                throw new ValidatorException(msg1);
+                throw new ValidatorException("Couldn't create instance of " + className + ":  " + e.getMessage(), e);
             }
         }
-
         return instance;
     }
 
@@ -504,7 +485,7 @@ public class ValidatorAction implements Serializable {
                 parameterClasses[i] = loader.loadClass(paramClassName);
 
             } catch (final ClassNotFoundException e) {
-                throw new ValidatorException(e.getMessage());
+                throw new ValidatorException(e);
             }
         }
 
@@ -526,7 +507,7 @@ public class ValidatorAction implements Serializable {
         try {
             validationClass = loader.loadClass(className);
         } catch (final ClassNotFoundException e) {
-            throw new ValidatorException(e.toString());
+            throw new ValidatorException(e);
         }
     }
 
@@ -539,12 +520,10 @@ public class ValidatorAction implements Serializable {
         if (validationMethod != null) {
             return;
         }
-
         try {
             validationMethod = validationClass.getMethod(method, parameterClasses);
-
         } catch (final NoSuchMethodException e) {
-            throw new ValidatorException("No such validation method: " + e.getMessage());
+            throw new ValidatorException("No such validation method: " + e.getMessage(), e);
         }
     }
 

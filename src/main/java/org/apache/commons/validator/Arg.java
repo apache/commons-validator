@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.text.MessageFormat;
 
 /**
- * <p>
  * A default argument or an argument for a
  * specific validator definition (ex: required)
  * can be stored to pass into a message as parameters.  This can be used in a
@@ -31,7 +30,6 @@ import java.text.MessageFormat;
  * is a value to be retrieved from a locale sensitive
  * message retrieval system like {@code java.util.PropertyResourceBundle}.
  * The resource field defaults to 'true'.
- * </p>
  * <p>Instances of this class are configured with an &lt;arg&gt; xml element.</p>
  */
 //TODO mutable non-private fields

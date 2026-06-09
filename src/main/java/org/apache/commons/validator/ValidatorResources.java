@@ -34,11 +34,9 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 /**
- * <p>
  * General purpose class for storing {@code FormSet} objects based
  * on their associated {@link Locale}.  Instances of this class are usually
  * configured through a validation.xml file that is parsed in a constructor.
- * </p>
  *
  * <p><strong>Note</strong> - Classes that extend this class
  * must be Serializable so that instances may be used in distributable
@@ -380,9 +378,9 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * <p>Gets a {@code Form} based on the name of the form and the
+     * Gets a {@code Form} based on the name of the form and the
      * {@link Locale} that most closely matches the {@link Locale}
-     * passed in.  The order of {@link Locale} matching is:</p>
+     * passed in. The order of {@link Locale} matching is:
      * <ol>
      *    <li>language + country + variant</li>
      *    <li>language + country</li>
@@ -401,9 +399,9 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * <p>Gets a {@code Form} based on the name of the form and the
+     * Gets a {@code Form} based on the name of the form and the
      * {@link Locale} that most closely matches the {@link Locale}
-     * passed in.  The order of {@link Locale} matching is:</p>
+     * passed in. The order of {@link Locale} matching is:
      * <ol>
      *    <li>language + country + variant</li>
      *    <li>language + country</li>
@@ -473,8 +471,8 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * <p>Gets a {@code FormSet} based on the language, country
-     *    and variant.</p>
+     * Gets a {@code FormSet} based on the language, country
+     *    and variant.
      *
      * @param language The locale's language.
      * @param country The locale's country.
@@ -616,9 +614,9 @@ public class ValidatorResources implements Serializable {
     }
 
     /**
-     * <p>Process the {@code Form} objects.  This clones the {@code Field}s
+     * Process the {@code Form} objects. This clones the {@code Field}s
      * that don't exist in a {@code FormSet} compared to its parent
-     * {@code FormSet}.</p>
+     * {@code FormSet}.
      */
     private void processForms() {
         if (defaultFormSet == null) { // it isn't mandatory to have a
