@@ -17,8 +17,11 @@
 package org.apache.commons.validator.routines;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Locale;
@@ -475,29 +478,14 @@ public class UrlValidator implements Serializable {
     }
 
     private String decodePath(final String path) {
-        final StringBuilder sb = new StringBuilder();
-        final int len = path.length();
-        for (int i = 0; i < len; i++) {
-            final char c = path.charAt(i);
-            if (c == '%' && i + 2 < len) {
-                final char h1 = path.charAt(i + 1);
-                final char h2 = path.charAt(i + 2);
-                if (h1 == '2') {
-                    if (h2 == 'e' || h2 == 'E') {
-                        sb.append('.');
-                        i += 2;
-                        continue;
-                    }
-                    if (h2 == 'f' || h2 == 'F') {
-                        sb.append('/');
-                        i += 2;
-                        continue;
-                    }
-                }
-            }
-            sb.append(c);
+        try {
+            // URLDecoder.decode converts '+' to a space character.
+            // Since '+' is a valid literal character in a URI path,
+            // we escape it to '%2B' before decoding to preserve it.
+            return URLDecoder.decode(path.replace("+", "%2B"), StandardCharsets.UTF_8.name());
+        } catch (final UnsupportedEncodingException | IllegalArgumentException e) {
+            return path;
         }
-        return sb.toString();
     }
 
     /**

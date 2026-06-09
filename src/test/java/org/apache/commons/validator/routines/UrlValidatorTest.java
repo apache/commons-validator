@@ -535,6 +535,10 @@ public class UrlValidatorTest {
         assertFalse(urlValidator.isValid("http://www.example.org/..%2f"));
         assertFalse(urlValidator.isValid("http://www.example.org/%2e%2e"));
         assertFalse(urlValidator.isValid("http://www.example.org/%2e%2e/"));
+
+        // Test literal '+' and '%2B' in path
+        assertTrue(urlValidator.isValid("http://www.example.org/foo+bar"));
+        assertTrue(urlValidator.isValid("http://www.example.org/foo%2Bbar"));
     }
 
     @Test
