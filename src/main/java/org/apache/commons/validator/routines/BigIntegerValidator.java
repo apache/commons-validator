@@ -158,8 +158,6 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
-        // A value that fits in a long is parsed as a Long; anything larger comes back as a
-        // Double, whose longValue() saturates at Long.MAX_VALUE and loses the magnitude.
         if (value instanceof Long) {
             return BigInteger.valueOf(((Long) value).longValue());
         }
