@@ -233,7 +233,8 @@ public class RegexValidator implements Serializable {
             if (matcher.matches()) {
                 final int count = matcher.groupCount();
                 if (count == 1) {
-                    return matcher.group(1);
+                    final String group = matcher.group(1);
+                    return group != null ? group : "";
                 }
                 final StringBuilder buffer = new StringBuilder();
                 for (int j = 0; j < count; j++) {
