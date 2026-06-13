@@ -71,6 +71,50 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
+     * Test a value larger than {@link Long#MAX_VALUE} keeps its magnitude instead of being clamped to {@link Long#MAX_VALUE}.
+     */
+    @Test
+    void testBigIntegerAboveLongMaxValue() {
+        // One past Long.MAX_VALUE, so NumberFormat parses it as a Double rather than a Long.
+        final BigInteger aboveLong = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
+        final String aboveLongStr = aboveLong.toString();
+        final BigIntegerValidator instance = BigIntegerValidator.getInstance();
+        final BigInteger resultAboveLong = instance.validate(aboveLongStr, "#");
+        assertTrue(resultAboveLong.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) > 0);
+        assertTrue(resultAboveLong.compareTo(BigInteger.ZERO) > 0);
+        assertTrue(resultAboveLong.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0);
+        assertTrue(instance.minValue(resultAboveLong, Long.MIN_VALUE));
+        assertFalse(instance.minValue(resultAboveLong, Long.MAX_VALUE));
+        assertFalse(instance.maxValue(resultAboveLong, Long.MIN_VALUE));
+        assertFalse(instance.maxValue(resultAboveLong, Long.MAX_VALUE));
+        assertFalse(instance.isInRange(resultAboveLong, Long.MIN_VALUE, Long.MAX_VALUE));
+        // BigDecimalValidator already preserves the magnitude, so the two must agree
+        assertEquals(BigDecimalValidator.getInstance().validate(aboveLongStr, "#").toBigInteger(), resultAboveLong);
+    }
+
+    /**
+     * Test a value larger than {@link Long#MAX_VALUE} keeps its magnitude instead of being clamped to {@link Long#MAX_VALUE}.
+     */
+    @Test
+    void testBigIntegerBelowLongMinValue() {
+        // One past Long.MAX_VALUE, so NumberFormat parses it as a Double rather than a Long.
+        final BigInteger belowLong = BigInteger.valueOf(Long.MIN_VALUE).subtract(BigInteger.ONE);
+        final String belowLongStr = belowLong.toString();
+        final BigIntegerValidator instance = BigIntegerValidator.getInstance();
+        final BigInteger resultBelowLong = instance.validate(belowLongStr, "#");
+        assertTrue(resultBelowLong.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) < 0);
+        assertTrue(resultBelowLong.compareTo(BigInteger.ZERO) < 0);
+        assertTrue(resultBelowLong.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) < 0);
+        assertTrue(instance.minValue(resultBelowLong, Long.MIN_VALUE));
+        assertFalse(instance.minValue(resultBelowLong, Long.MAX_VALUE));
+        assertTrue(instance.maxValue(resultBelowLong, Long.MIN_VALUE));
+        assertTrue(instance.maxValue(resultBelowLong, Long.MAX_VALUE));
+        assertFalse(instance.isInRange(resultBelowLong, Long.MIN_VALUE, Long.MAX_VALUE));
+        // BigDecimalValidator already preserves the magnitude, so the two must agree
+        assertEquals(BigDecimalValidator.getInstance().validate(belowLongStr, "#").toBigInteger(), resultBelowLong);
+    }
+
+    /**
      * Test BigInteger Range/Min/Max
      */
     @Test
