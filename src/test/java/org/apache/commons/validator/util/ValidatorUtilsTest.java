@@ -56,15 +56,12 @@ class ValidatorUtilsTest {
         arg.setName("arg");
         final Var var = new Var("var", "value", null);
         final String plain = "plain";
-
         final Map<String, Object> original = new HashMap<>();
         original.put("msg", msg);
         original.put("arg", arg);
         original.put("var", var);
         original.put("plain", plain);
-
         final Map<String, Object> copy = ValidatorUtils.copyMap(original);
-
         assertEquals(original.size(), copy.size());
         // Msg, Arg and Var values are deep-copied (cloned into new instances).
         assertTrue(copy.get("msg") instanceof Msg);
@@ -88,5 +85,4 @@ class ValidatorUtilsTest {
         assertEquals("Hello world", ValidatorUtils.replace("Hello world", null, "there"));
         assertEquals("Hello world", ValidatorUtils.replace("Hello world", "world", null));
     }
-
 }
