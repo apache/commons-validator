@@ -155,14 +155,12 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     @Override
     protected Format getFormat(final String pattern, final Locale locale) {
         final NumberFormat formatter;
-        final boolean usePattern = !GenericValidator.isBlankOrNull(pattern);
-        if (!usePattern) {
+        if (GenericValidator.isBlankOrNull(pattern)) {
             formatter = (NumberFormat) getFormat(locale);
         } else if (locale == null) {
             formatter = new DecimalFormat(pattern);
         } else {
-            final DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
-            formatter = new DecimalFormat(pattern, symbols);
+            formatter = new DecimalFormat(pattern, new DecimalFormatSymbols(locale));
         }
         if (!isAllowFractions()) {
             formatter.setParseIntegerOnly(true);
