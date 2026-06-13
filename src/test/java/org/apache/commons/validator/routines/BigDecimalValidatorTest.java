@@ -84,26 +84,66 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
         final BigDecimal number19 = new BigDecimal("19");
         final BigDecimal number20 = new BigDecimal("20");
         final BigDecimal number21 = new BigDecimal("21");
-
         final float min = 10;
         final float max = 20;
-
         // Test isInRange()
         assertFalse(validator.isInRange(number9, min, max), "isInRange(A) < min");
         assertTrue(validator.isInRange(number10, min, max), "isInRange(A) = min");
         assertTrue(validator.isInRange(number11, min, max), "isInRange(A) in range");
         assertTrue(validator.isInRange(number20, min, max), "isInRange(A) = max");
         assertFalse(validator.isInRange(number21, min, max), "isInRange(A) > max");
-
         // Test minValue()
         assertFalse(validator.minValue(number9, min), "minValue(A) < min");
         assertTrue(validator.minValue(number10, min), "minValue(A) = min");
         assertTrue(validator.minValue(number11, min), "minValue(A) > min");
-
         // Test minValue()
         assertTrue(validator.maxValue(number19, max), "maxValue(A) < max");
         assertTrue(validator.maxValue(number20, max), "maxValue(A) = max");
         assertFalse(validator.maxValue(number21, max), "maxValue(A) > max");
+    }
+
+    /**
+     * Tests isInRange(), minValue(), and maxValue() with BigDecimal values whose magnitude exceeds Double.MAX_VALUE or whose positive magnitude is below
+     * Double.MIN_VALUE (the smallest positive non-zero double).
+     *
+     * <p>
+     * Because the implementation converts the BigDecimal to a {@code double} via {@link BigDecimal#doubleValue()}, values beyond {@code ±Double.MAX_VALUE}
+     * overflow to {@code ±Double.POSITIVE_INFINITY} / {@code Double.NEGATIVE_INFINITY}, and tiny positive values below {@code Double.MIN_VALUE} underflow to
+     * {@code 0.0}. The tests document this behaviour.
+     * </p>
+     */
+    @Test
+    void testBigDecimalBeyondDoubleRange() {
+        final BigDecimalValidator validator = BigDecimalValidator.getInstance();
+        //
+        // (1) Values above Double.MAX_VALUE (positive overflow -> POSITIVE_INFINITY via doubleValue())
+        final BigDecimal aboveMaxDouble = new BigDecimal(Double.MAX_VALUE).multiply(BigDecimal.TEN);
+        // aboveMaxDouble.doubleValue() == POSITIVE_INFINITY
+        assertTrue(validator.minValue(aboveMaxDouble, 0), "minValue: value above Double.MAX_VALUE should be >= 0");
+        assertFalse(validator.maxValue(aboveMaxDouble, Double.MAX_VALUE), "maxValue: value above Double.MAX_VALUE should not be <= Double.MAX_VALUE");
+        assertFalse(validator.isInRange(aboveMaxDouble, 0, Double.MAX_VALUE), "isInRange: value above Double.MAX_VALUE should not be in [0, Double.MAX_VALUE]");
+        assertTrue(validator.isInRange(aboveMaxDouble, 0, Double.POSITIVE_INFINITY),
+                "isInRange: value above Double.MAX_VALUE should be in [0, POSITIVE_INFINITY]");
+        //
+        // (2) Values below -Double.MAX_VALUE (negative overflow -> NEGATIVE_INFINITY via doubleValue())
+        final BigDecimal belowNegMaxDouble = new BigDecimal(-Double.MAX_VALUE).multiply(BigDecimal.TEN);
+        // belowNegMaxDouble.doubleValue() == NEGATIVE_INFINITY
+        assertFalse(validator.minValue(belowNegMaxDouble, -Double.MAX_VALUE), "minValue: value below -Double.MAX_VALUE should not be >= -Double.MAX_VALUE");
+        assertTrue(validator.maxValue(belowNegMaxDouble, 0), "maxValue: value below -Double.MAX_VALUE should be <= 0");
+        assertFalse(validator.isInRange(belowNegMaxDouble, -Double.MAX_VALUE, 0),
+                "isInRange: value below -Double.MAX_VALUE should not be in [-Double.MAX_VALUE, 0]");
+        assertTrue(validator.isInRange(belowNegMaxDouble, Double.NEGATIVE_INFINITY, 0),
+                "isInRange: value below -Double.MAX_VALUE should be in [NEGATIVE_INFINITY, 0]");
+        // (3) Tiny positive value below Double.MIN_VALUE (underflows to 0.0 via doubleValue())
+        // Double.MIN_VALUE is the smallest positive non-zero double (~4.9e-324).
+        // A BigDecimal smaller than that underflows to 0.0 when converted to double.
+        final BigDecimal belowMinDouble = new BigDecimal(Double.MIN_VALUE).divide(BigDecimal.TEN);
+        // belowMinDouble.doubleValue() == 0.0 (underflow)
+        assertTrue(validator.minValue(belowMinDouble, 0), "minValue: value below Double.MIN_VALUE underflows to 0.0; 0.0 >= 0 is true");
+        assertTrue(validator.maxValue(belowMinDouble, Double.MIN_VALUE),
+                "maxValue: value below Double.MIN_VALUE underflows to 0.0; 0.0 <= Double.MIN_VALUE is true");
+        assertTrue(validator.isInRange(belowMinDouble, 0, Double.MIN_VALUE),
+                "isInRange: value below Double.MIN_VALUE underflows to 0.0; 0.0 is in [0, Double.MIN_VALUE]");
     }
 
     /**
