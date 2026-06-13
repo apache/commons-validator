@@ -16,6 +16,7 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.Format;
 import java.text.NumberFormat;
@@ -120,7 +121,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      *         specified range.
      */
     public boolean isInRange(final BigInteger value, final long min, final long max) {
-        return value.longValue() >= min && value.longValue() <= max;
+        return value.compareTo(BigInteger.valueOf(min)) >= 0 && value.compareTo(BigInteger.valueOf(max)) <= 0;
     }
 
     /**
@@ -132,7 +133,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      *         or equal to the maximum.
      */
     public boolean maxValue(final BigInteger value, final long max) {
-        return value.longValue() <= max;
+        return value.compareTo(BigInteger.valueOf(max)) <= 0;
     }
 
     /**
@@ -157,7 +158,14 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
-        return BigInteger.valueOf(((Number) value).longValue());
+        if (value instanceof Long) {
+            return BigInteger.valueOf(((Long) value).longValue());
+        }
+        if (value instanceof Double) {
+            // No need to roundtrip with a string.
+            return BigDecimal.valueOf(((Double) value).doubleValue()).toBigInteger();
+        }
+        return new BigDecimal(value.toString()).toBigInteger();
     }
 
     /**
