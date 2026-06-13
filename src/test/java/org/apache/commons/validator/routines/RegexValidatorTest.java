@@ -114,11 +114,11 @@ class RegexValidatorTest {
     }
 
     /**
-     * Test with multiple regular expressions (case in-sensitive).
+     * Test with multiple regular expressions (case insensitive).
      */
     @Test
     void testMultipleInsensitive() {
-        // Set up In-sensitive Validators
+        // Set up insensitive Validators
         final RegexValidator multiple = new RegexValidator(MULTIPLE_REGEX, false);
         final RegexValidator single1 = new RegexValidator(REGEX_1, false);
         final RegexValidator single2 = new RegexValidator(REGEX_2, false);

@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * <strong>Regular Expression</strong> validation (using the JRE's regular expression support).
  * <p>
  * Constructs the validator either for a single regular expression or a set (array) of regular expressions. By default, validation is <em>case sensitive</em> but
- * constructors are provided to allow <em>case in-sensitive</em> validation. For example to create a validator which does <em>case in-sensitive</em> validation
+ * constructors are provided to allow <em>case insensitive</em> validation. For example to create a validator which does <em>case insensitive</em> validation
  * for a set of regular expressions:
  * </p>
  *
@@ -83,7 +83,7 @@ public class RegexValidator implements Serializable {
     /**
      * Constructs a new instance that matches any one of the set of regular expressions with the specified case sensitivity.
      *
-     * @param regexs The set of regular expressions this validator will validate against
+     * @param regexs The set of regular expressions this validator will validate against.
      * @param flags  See flags in {@link Pattern#compile(String, int)}.
      */
     private RegexValidator(final int flags, final String... regexs) {
@@ -103,7 +103,7 @@ public class RegexValidator implements Serializable {
     /**
      * Constructs a new <em>case sensitive</em> instance that matches any one in the list of regular expressions.
      *
-     * @param regexs The set of regular expressions this validator will validate against
+     * @param regexs The set of regular expressions this validator will validate against.
      */
     RegexValidator(final List<String> regexs) {
         this(CASE_SENSITIVE, regexs.toArray(new String[] {}));
@@ -112,7 +112,7 @@ public class RegexValidator implements Serializable {
     /**
      * Constructs a new <em>case sensitive</em> instance for a single regular expression.
      *
-     * @param regex The regular expression this validator will validate against
+     * @param regex The regular expression this validator will validate against.
      */
     public RegexValidator(final String regex) {
         this(CASE_SENSITIVE, regex);
@@ -121,7 +121,7 @@ public class RegexValidator implements Serializable {
     /**
      * Constructs a new <em>case sensitive</em> instance that matches any one in the array of regular expressions.
      *
-     * @param regexs The set of regular expressions this validator will validate against
+     * @param regexs The set of regular expressions this validator will validate against.
      */
     public RegexValidator(final String... regexs) {
         this(CASE_SENSITIVE, regexs);
@@ -130,8 +130,8 @@ public class RegexValidator implements Serializable {
     /**
      * Constructs a new instance for a single regular expression with the specified case sensitivity.
      *
-     * @param regex         The regular expression this validator will validate against
-     * @param caseSensitive when {@code true} matching is <em>case sensitive</em>, otherwise matching is <em>case in-sensitive</em>
+     * @param regex         The regular expression this validator will validate against.
+     * @param caseSensitive when {@code true} matching is <em>case sensitive</em>, otherwise matching is <em>case insensitive</em>.
      */
     public RegexValidator(final String regex, final boolean caseSensitive) {
         this(toCompileFlags(caseSensitive), regex);
@@ -140,8 +140,8 @@ public class RegexValidator implements Serializable {
     /**
      * Constructs a new instance that matches any one of the set of regular expressions with the specified case sensitivity.
      *
-     * @param regexs        The set of regular expressions this validator will validate against
-     * @param caseSensitive when {@code true} matching is <em>case sensitive</em>, otherwise matching is <em>case in-sensitive</em>
+     * @param regexs        The set of regular expressions this validator will validate against.
+     * @param caseSensitive when {@code true} matching is <em>case sensitive</em>, otherwise matching is <em>case insensitive</em>.
      */
     public RegexValidator(final String[] regexs, final boolean caseSensitive) {
         this(toCompileFlags(caseSensitive), regexs);
@@ -179,7 +179,7 @@ public class RegexValidator implements Serializable {
      * Validates a value against the set of regular expressions returning the array of matched groups.
      *
      * @param value The value to validate.
-     * @return String array of the <em>groups</em> matched if valid or {@code null} if invalid
+     * @return String array of the <em>groups</em> matched if valid or {@code null} if invalid.
      */
     public String[] match(final String value) {
         if (value == null) {
@@ -222,7 +222,7 @@ public class RegexValidator implements Serializable {
      * Validates a value against the set of regular expressions returning a String value of the aggregated groups.
      *
      * @param value The value to validate.
-     * @return Aggregated String value comprised of the <em>groups</em> matched if valid or {@code null} if invalid
+     * @return Aggregated String value comprised of the <em>groups</em> matched if valid or {@code null} if invalid.
      */
     public String validate(final String value) {
         if (value == null) {
