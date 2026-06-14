@@ -16,7 +16,10 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * CAS Number Check Digit Tests.
@@ -53,6 +56,15 @@ class CASNumberCheckDigitTest extends AbstractCheckDigitTest {
     protected void setUp() {
         routine = CASNumberCheckDigit.getInstance();
         valid = new String[] {MIN, WATER, ETHANOL, ASPIRIN, COFFEIN, FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS, MAX};
+    }
+
+    /**
+     * The format validator trims the input, so surrounding whitespace must not change the result.
+     */
+    @Test
+    void testIsValidSurroundingWhitespace() {
+        assertTrue(routine.isValid(" " + WATER), "leading whitespace");
+        assertTrue(routine.isValid(WATER + " "), "trailing whitespace");
     }
 
 }

@@ -16,7 +16,10 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * EC Number Check Digit Tests.
@@ -49,6 +52,15 @@ class ECNumberCheckDigitTest extends AbstractCheckDigitTest {
     protected void setUp() {
         routine = ECNumberCheckDigit.getInstance();
         valid = new String[] {MIN, FORMALDEHYDE, DEXAMETHASONE, ARSENIC, ASBESTOS, MAX};
+    }
+
+    /**
+     * The format validator trims the input, so surrounding whitespace must not change the result.
+     */
+    @Test
+    void testIsValidSurroundingWhitespace() {
+        assertTrue(routine.isValid(" " + DEXAMETHASONE), "leading whitespace");
+        assertTrue(routine.isValid(DEXAMETHASONE + " "), "trailing whitespace");
     }
 
 }
