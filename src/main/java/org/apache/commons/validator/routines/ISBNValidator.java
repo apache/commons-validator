@@ -262,8 +262,7 @@ public class ISBNValidator implements Serializable {
      * otherwise {@code null}.
      */
     public String validateISBN10(final String code) {
-        final Object result = isbn10Validator.validate(code);
-        return Objects.toString(result, null);
+        return Objects.toString(isbn10Validator.validate(code), null);
     }
 
     /**
@@ -278,8 +277,7 @@ public class ISBNValidator implements Serializable {
      * otherwise {@code null}.
      */
     public String validateISBN13(final String code) {
-        final Object result = isbn13Validator.validate(code);
-        return Objects.toString(result, null);
+        return Objects.toString(isbn13Validator.validate(code), null);
     }
 
 }
