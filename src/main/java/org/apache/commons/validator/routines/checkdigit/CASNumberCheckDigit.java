@@ -110,9 +110,10 @@ public final class CASNumberCheckDigit extends ModulusCheckDigit {
         if (!(cde instanceof String)) {
             return false;
         }
+        final String validated = (String) cde;
         try {
-            final int modulusResult = INSTANCE.calculateModulus((String) cde, true);
-            return modulusResult == Character.getNumericValue(code.charAt(code.length() - 1));
+            final int modulusResult = INSTANCE.calculateModulus(validated, true);
+            return modulusResult == Character.getNumericValue(validated.charAt(validated.length() - 1));
         } catch (final CheckDigitException ex) {
             return false;
         }
