@@ -16,10 +16,13 @@
  */
 package org.apache.commons.validator.routines;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Tests {@link ISINValidator}.
@@ -108,6 +111,17 @@ class ISINValidatorTest {
         for (final String f : validFormat) {
             assertTrue(VALIDATOR_TRUE.isValid(f), f);
         }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { " US0378331005", "US0378331005 ", " US0378331005 " })
+    void testValidWithSurroundingWhitespaceCountryCode(final String code) {
+        // The underlying CodeValidator trims the input, so the country code must be
+        // derived from the trimmed code. Otherwise a valid ISIN with surrounding whitespace
+        // is accepted without the country check but rejected with it.
+        assertTrue(VALIDATOR_FALSE.isValid(code), code);
+        assertTrue(VALIDATOR_TRUE.isValid(code), code);
+        assertEquals("US0378331005", VALIDATOR_TRUE.validate(code), code);
     }
 
 }

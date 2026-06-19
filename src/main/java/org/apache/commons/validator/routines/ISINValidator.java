@@ -460,11 +460,7 @@ public class ISINValidator implements Serializable {
      * code, otherwise {@code false}.
      */
     public boolean isValid(final String code) {
-        final boolean valid = VALIDATOR.isValid(code);
-        if (valid && checkCountryCode) {
-            return checkCode(code.substring(0, 2));
-        }
-        return valid;
+        return validate(code) != null;
     }
 
     /**
@@ -476,7 +472,7 @@ public class ISINValidator implements Serializable {
     public Object validate(final String code) {
         final Object validate = VALIDATOR.validate(code);
         if (validate != null && checkCountryCode) {
-            return checkCode(code.substring(0, 2)) ? validate : null;
+            return checkCode(validate.toString().substring(0, 2)) ? validate : null;
         }
         return validate;
     }
