@@ -143,6 +143,39 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
+     * Tests isInRange(), minValue(), and maxValue() when a bound is {@link Double#NaN}, {@link Double#POSITIVE_INFINITY} or
+     * {@link Double#NEGATIVE_INFINITY}.
+     *
+     * <p>
+     * {@link BigDecimal#valueOf(double)} rejects non-finite doubles, so these bounds keep the {@code doubleValue()} comparison path. A {@code NaN} bound can
+     * never be satisfied because every comparison with {@code NaN} is false. {@code POSITIVE_INFINITY} as a maximum (or {@code NEGATIVE_INFINITY} as a minimum)
+     * is an open bound that any finite value meets, whereas {@code NEGATIVE_INFINITY} as a maximum (or {@code POSITIVE_INFINITY} as a minimum) cannot be met by
+     * any finite value.
+     * </p>
+     */
+    @Test
+    void testBigDecimalNonFiniteBounds() {
+        final BigDecimalValidator validator = BigDecimalValidator.getInstance();
+        final BigDecimal value = BigDecimal.TEN;
+        // NaN bound: no value can compare against NaN
+        assertFalse(validator.maxValue(value, Double.NaN), "maxValue: nothing is <= NaN");
+        assertFalse(validator.minValue(value, Double.NaN), "minValue: nothing is >= NaN");
+        assertFalse(validator.isInRange(value, 0, Double.NaN), "isInRange: NaN maximum");
+        assertFalse(validator.isInRange(value, Double.NaN, 100), "isInRange: NaN minimum");
+        assertFalse(validator.isInRange(value, Double.NaN, Double.NaN), "isInRange: NaN bounds");
+        // POSITIVE_INFINITY maximum / NEGATIVE_INFINITY minimum: open bound, any finite value qualifies
+        assertTrue(validator.maxValue(value, Double.POSITIVE_INFINITY), "maxValue: a finite value is <= +Infinity");
+        assertTrue(validator.minValue(value, Double.NEGATIVE_INFINITY), "minValue: a finite value is >= -Infinity");
+        assertTrue(validator.isInRange(value, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY),
+                "isInRange: a finite value is in [-Infinity, +Infinity]");
+        // NEGATIVE_INFINITY maximum / POSITIVE_INFINITY minimum: no finite value qualifies
+        assertFalse(validator.maxValue(value, Double.NEGATIVE_INFINITY), "maxValue: a finite value is not <= -Infinity");
+        assertFalse(validator.minValue(value, Double.POSITIVE_INFINITY), "minValue: a finite value is not >= +Infinity");
+        assertFalse(validator.isInRange(value, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY),
+                "isInRange: a finite value is not in [+Infinity, +Infinity]");
+    }
+
+    /**
      * Test BigDecimal Range/Min/Max
      */
     @Test
