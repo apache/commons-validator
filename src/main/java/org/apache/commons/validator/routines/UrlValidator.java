@@ -17,8 +17,11 @@
 package org.apache.commons.validator.routines;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Locale;
@@ -29,10 +32,8 @@ import java.util.regex.Pattern;
 import org.apache.commons.validator.GenericValidator;
 
 /**
- * <strong>URL Validation</strong> routines.
- * <p>
+ * <p><strong>URL Validation</strong> routines.</p>
  * Behavior of validation is modified by passing in options:
- * </p>
  * <ul>
  * <li>ALLOW_2_SLASHES - [FALSE]  Allows double '/' characters in the path
  * component.</li>
@@ -356,7 +357,7 @@ public class UrlValidator implements Serializable {
     }
 
     /**
-     * Checks if a field has a valid URL address.
+     * <p>Checks if a field has a valid URL address.</p>
      *
      * Note that the method calls #isValidAuthority()
      * which checks that the domain is valid.
@@ -488,19 +489,19 @@ public class UrlValidator implements Serializable {
         }
 
         try {
+            final String decodedPath = URLDecoder.decode(path, StandardCharsets.UTF_8.name());
             // Don't omit host otherwise leading path may be taken as host if it starts with //
-            final URI uri = new URI(null, "localhost", path, null);
+            final URI uri = new URI(null, "localhost", decodedPath, null);
             final String norm = uri.normalize().getPath();
             if (norm.startsWith("/../") // Trying to go via the parent dir
                     || norm.equals("/..")) { // Trying to go to the parent dir
                 return false;
             }
-        } catch (final URISyntaxException e) {
-            return false;
-        }
-
-        final int slash2Count = countToken("//", path);
-        if (isOff(ALLOW_2_SLASHES) && slash2Count > 0) {
+            final int slash2Count = countToken("//", decodedPath);
+            if (isOff(ALLOW_2_SLASHES) && slash2Count > 0) {
+                return false;
+            }
+        } catch (final UnsupportedEncodingException | IllegalArgumentException | URISyntaxException e) {
             return false;
         }
 
