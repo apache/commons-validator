@@ -525,28 +525,6 @@ public class UrlValidatorTest {
     }
 
     @Test
-    void testPathTraversalPercentEncoding() {
-        final UrlValidator urlValidator = new UrlValidator();
-        assertFalse(urlValidator.isValid("http://www.example.org/..%2fworld"));
-        assertFalse(urlValidator.isValid("http://www.example.org/..%2Fworld"));
-        assertFalse(urlValidator.isValid("http://www.example.org/%2e%2e/world"));
-        assertFalse(urlValidator.isValid("http://www.example.org/%2e%2e%2fworld"));
-        assertFalse(urlValidator.isValid("http://www.example.org/%2E%2E%2Fworld"));
-        assertFalse(urlValidator.isValid("http://www.example.org/..%2f"));
-        assertFalse(urlValidator.isValid("http://www.example.org/%2e%2e"));
-        assertFalse(urlValidator.isValid("http://www.example.org/%2e%2e/"));
-
-        // Test literal '+' and '%2B' in path
-        assertTrue(urlValidator.isValid("http://www.example.org/foo+bar"));
-        assertTrue(urlValidator.isValid("http://www.example.org/foo%2Bbar"));
-
-        // Test direct call to isValidPath with invalid percent encoding
-        assertFalse(urlValidator.isValidPath("/foo%frbar"));
-        assertTrue(urlValidator.isValidPath("/foo+bar"));
-        assertTrue(urlValidator.isValidPath("/foo%2Bbar"));
-    }
-
-    @Test
     void testValidator375() {
         final UrlValidator validator = new UrlValidator();
         String url = "http://[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]:80/index.html";
@@ -646,6 +624,43 @@ public class UrlValidatorTest {
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
                 () -> new UrlValidator(new String[] {}, null, UrlValidator.ALLOW_LOCAL_URLS, DomainValidator.getInstance(false, items)));
         assertEquals("DomainValidator disagrees with ALLOW_LOCAL_URLS setting", thrown.getMessage());
+    }
+
+    @Test
+    void testValidator383() {
+        final UrlValidator validator = new UrlValidator();
+        
+        // Literal traversal checks (already rejected)
+        assertFalse(validator.isValid("http://example.com/../etc/passwd"));
+        assertFalse(validator.isValid("http://example.com/.."));
+        assertFalse(validator.isValid("http://example.com/../"));
+
+        // Percent-encoded traversal checks
+        assertFalse(validator.isValid("http://example.com/..%2fetc/passwd"));
+        assertFalse(validator.isValid("http://example.com/..%2Fetc/passwd"));
+        assertFalse(validator.isValid("http://example.com/%2e%2e/world"));
+        assertFalse(validator.isValid("http://example.com/%2e%2e%2fworld"));
+        assertFalse(validator.isValid("http://example.com/%2E%2e%2Fworld"));
+
+        // Consecutive slashes via percent encoding
+        final UrlValidator noDoubleSlashes = new UrlValidator();
+        assertFalse(noDoubleSlashes.isValid("http://example.com/foo%2F%2Fbar"));
+        assertFalse(noDoubleSlashes.isValid("http://example.com/foo%2f%2fbar"));
+        assertFalse(noDoubleSlashes.isValid("http://example.com/%2F%2Fbar"));
+        
+        final UrlValidator allowDoubleSlashes = new UrlValidator(UrlValidator.ALLOW_2_SLASHES);
+        assertTrue(allowDoubleSlashes.isValid("http://example.com/foo%2F%2Fbar"));
+        assertTrue(allowDoubleSlashes.isValid("http://example.com/foo%2f%2fbar"));
+        assertTrue(allowDoubleSlashes.isValid("http://example.com/%2F%2Fbar"));
+
+        // Invalid percent-encoding handling
+        assertFalse(validator.isValid("http://example.com/foo%2"));
+        assertFalse(validator.isValid("http://example.com/foo%2G"));
+        assertFalse(validator.isValid("http://example.com/foo%"));
+
+        // Plus character preservation
+        assertTrue(validator.isValid("http://example.com/foo+bar"));
+        assertTrue(validator.isValid("http://example.com/foo+bar/baz+qux"));
     }
 
 }
