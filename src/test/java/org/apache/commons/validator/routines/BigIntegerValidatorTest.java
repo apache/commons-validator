@@ -115,22 +115,6 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * Test minValue() against bounds for values outside the long range, using exact BigIntegers so the comparison is not affected by double rounding.
-     */
-    @Test
-    void testMinValueOutsideLongRange() {
-        final BigIntegerValidator instance = BigIntegerValidator.getInstance();
-        final BigInteger aboveMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
-        final BigInteger belowMin = BigInteger.valueOf(Long.MIN_VALUE).subtract(BigInteger.ONE);
-        // aboveMax is greater than every long, so it is >= any long minimum
-        assertTrue(instance.minValue(aboveMax, Long.MAX_VALUE));
-        assertTrue(instance.minValue(aboveMax, Long.MIN_VALUE));
-        // belowMin is smaller than every long, so it is not >= any long minimum
-        assertFalse(instance.minValue(belowMin, Long.MIN_VALUE));
-        assertFalse(instance.minValue(belowMin, Long.MAX_VALUE));
-    }
-
-    /**
      * Test BigInteger Range/Min/Max
      */
     @Test
@@ -193,5 +177,21 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
         assertFalse(BigIntegerValidator.getInstance().isValid(xxxx, locale), "isValid(B) locale ");
         assertFalse(BigIntegerValidator.getInstance().isValid(xxxx, pattern), "isValid(B) pattern");
         assertFalse(BigIntegerValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN), "isValid(B) both");
+    }
+
+    /**
+     * Test minValue() against bounds for values outside the long range, using exact BigIntegers so the comparison is not affected by double rounding.
+     */
+    @Test
+    void testMinValueOutsideLongRange() {
+        final BigIntegerValidator instance = BigIntegerValidator.getInstance();
+        final BigInteger aboveMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
+        final BigInteger belowMin = BigInteger.valueOf(Long.MIN_VALUE).subtract(BigInteger.ONE);
+        // aboveMax is greater than every long, so it is >= any long minimum
+        assertTrue(instance.minValue(aboveMax, Long.MAX_VALUE));
+        assertTrue(instance.minValue(aboveMax, Long.MIN_VALUE));
+        // belowMin is smaller than every long, so it is not >= any long minimum
+        assertFalse(instance.minValue(belowMin, Long.MIN_VALUE));
+        assertFalse(instance.minValue(belowMin, Long.MAX_VALUE));
     }
 }

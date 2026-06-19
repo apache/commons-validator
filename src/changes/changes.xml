@@ -83,6 +83,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Compare CAS and EC check digit against validated code, not raw input (#398).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq">Prevent URL path traversal bypass via percent encoding in UrlValidator (#383).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq">Fix ISIN country-code check using untrimmed input (#399).</action>
+    <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Use compareTo() in BigIntegerValidator.minValue() (#400)..</action>
     <!-- ADD -->
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use CheckDigitException.CheckDigitException(String, Object...) (#389).</action>
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use ValidatorException.ValidatorException(Throwable). Call sites that previously called new ValidatorException(Throwable#getMessage()) now preserve that exception (#390).</action>
