@@ -489,10 +489,7 @@ public class UrlValidator implements Serializable {
         }
 
         try {
-            // URLDecoder.decode converts '+' to a space character.
-            // Since '+' is a valid literal character in a URI path,
-            // we escape it to '%2B' before decoding to preserve it.
-            final String decodedPath = URLDecoder.decode(path.replace("+", "%2B"), StandardCharsets.UTF_8.name());
+            final String decodedPath = URLDecoder.decode(path, StandardCharsets.UTF_8.name());
             // Don't omit host otherwise leading path may be taken as host if it starts with //
             final URI uri = new URI(null, "localhost", decodedPath, null);
             final String norm = uri.normalize().getPath();
