@@ -84,7 +84,7 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
         assertTrue(resultAboveLong.compareTo(BigInteger.ZERO) > 0);
         assertTrue(resultAboveLong.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0);
         assertTrue(instance.minValue(resultAboveLong, Long.MIN_VALUE));
-        assertFalse(instance.minValue(resultAboveLong, Long.MAX_VALUE));
+        assertTrue(instance.minValue(resultAboveLong, Long.MAX_VALUE));
         assertFalse(instance.maxValue(resultAboveLong, Long.MIN_VALUE));
         assertFalse(instance.maxValue(resultAboveLong, Long.MAX_VALUE));
         assertFalse(instance.isInRange(resultAboveLong, Long.MIN_VALUE, Long.MAX_VALUE));
@@ -105,13 +105,29 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
         assertTrue(resultBelowLong.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) < 0);
         assertTrue(resultBelowLong.compareTo(BigInteger.ZERO) < 0);
         assertTrue(resultBelowLong.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) < 0);
-        assertTrue(instance.minValue(resultBelowLong, Long.MIN_VALUE));
+        assertFalse(instance.minValue(resultBelowLong, Long.MIN_VALUE));
         assertFalse(instance.minValue(resultBelowLong, Long.MAX_VALUE));
         assertTrue(instance.maxValue(resultBelowLong, Long.MIN_VALUE));
         assertTrue(instance.maxValue(resultBelowLong, Long.MAX_VALUE));
         assertFalse(instance.isInRange(resultBelowLong, Long.MIN_VALUE, Long.MAX_VALUE));
         // BigDecimalValidator already preserves the magnitude, so the two must agree
         assertEquals(BigDecimalValidator.getInstance().validate(belowLongStr, "#").toBigInteger(), resultBelowLong);
+    }
+
+    /**
+     * Test minValue() against bounds for values outside the long range, using exact BigIntegers so the comparison is not affected by double rounding.
+     */
+    @Test
+    void testMinValueOutsideLongRange() {
+        final BigIntegerValidator instance = BigIntegerValidator.getInstance();
+        final BigInteger aboveMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
+        final BigInteger belowMin = BigInteger.valueOf(Long.MIN_VALUE).subtract(BigInteger.ONE);
+        // aboveMax is greater than every long, so it is >= any long minimum
+        assertTrue(instance.minValue(aboveMax, Long.MAX_VALUE));
+        assertTrue(instance.minValue(aboveMax, Long.MIN_VALUE));
+        // belowMin is smaller than every long, so it is not >= any long minimum
+        assertFalse(instance.minValue(belowMin, Long.MIN_VALUE));
+        assertFalse(instance.minValue(belowMin, Long.MAX_VALUE));
     }
 
     /**

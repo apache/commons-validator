@@ -145,7 +145,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      *         or equal to the minimum.
      */
     public boolean minValue(final BigInteger value, final long min) {
-        return value.longValue() >= min;
+        return value.compareTo(BigInteger.valueOf(min)) >= 0;
     }
 
     /**
