@@ -72,6 +72,17 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     private static final BigDecimalValidator VALIDATOR = new BigDecimalValidator();
 
     /**
+     * Compares the given {@code BigDecimal} with the given double value.
+     *
+     * @param bigDecimal The {@code BigDecimal} to compare.
+     * @param value      The double value to compare with.
+     * @return a negative integer, zero, or a positive integer as this {@code BigDecimal} is less than, equal to, or greater than the specified double value.
+     */
+    private static int compareTo(final BigDecimal bigDecimal, final double value) {
+        return bigDecimal.compareTo(BigDecimal.valueOf(value));
+    }
+
+    /**
      * Gets the singleton instance of this validator.
      *
      * @return A singleton instance of the BigDecimalValidator.
@@ -147,10 +158,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      *         or equal to the maximum.
      */
     public boolean maxValue(final BigDecimal value, final double max) {
-        if (Double.isFinite(max)) {
-            return value.compareTo(BigDecimal.valueOf(max)) <= 0;
-        }
-        return value.doubleValue() <= max;
+        return Double.isFinite(max) ? compareTo(value, max) <= 0 : value.doubleValue() <= max;
     }
 
     /**
@@ -162,10 +170,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      *         or equal to the minimum.
      */
     public boolean minValue(final BigDecimal value, final double min) {
-        if (Double.isFinite(min)) {
-            return value.compareTo(BigDecimal.valueOf(min)) >= 0;
-        }
-        return value.doubleValue() >= min;
+        return Double.isFinite(min) ? compareTo(value, min) >= 0 : value.doubleValue() >= min;
     }
 
     /**
