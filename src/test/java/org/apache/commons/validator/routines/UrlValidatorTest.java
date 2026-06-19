@@ -629,7 +629,7 @@ public class UrlValidatorTest {
     @Test
     void testValidator383() {
         final UrlValidator validator = new UrlValidator();
-        
+
         // Literal traversal checks (already rejected)
         assertFalse(validator.isValid("http://example.com/../etc/passwd"));
         assertFalse(validator.isValid("http://example.com/.."));
@@ -647,7 +647,7 @@ public class UrlValidatorTest {
         assertFalse(noDoubleSlashes.isValid("http://example.com/foo%2F%2Fbar"));
         assertFalse(noDoubleSlashes.isValid("http://example.com/foo%2f%2fbar"));
         assertFalse(noDoubleSlashes.isValid("http://example.com/%2F%2Fbar"));
-        
+
         final UrlValidator allowDoubleSlashes = new UrlValidator(UrlValidator.ALLOW_2_SLASHES);
         assertTrue(allowDoubleSlashes.isValid("http://example.com/foo%2F%2Fbar"));
         assertTrue(allowDoubleSlashes.isValid("http://example.com/foo%2f%2fbar"));
