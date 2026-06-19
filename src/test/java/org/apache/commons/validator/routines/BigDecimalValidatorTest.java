@@ -73,36 +73,6 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * Test BigDecimal Range/Min/Max
-     */
-    @Test
-    void testBigDecimalRangeMinMax() {
-        final BigDecimalValidator validator = new BigDecimalValidator(true, AbstractNumberValidator.STANDARD_FORMAT, true);
-        final BigDecimal number9 = new BigDecimal("9");
-        final BigDecimal number10 = new BigDecimal("10");
-        final BigDecimal number11 = new BigDecimal("11");
-        final BigDecimal number19 = new BigDecimal("19");
-        final BigDecimal number20 = new BigDecimal("20");
-        final BigDecimal number21 = new BigDecimal("21");
-        final float min = 10;
-        final float max = 20;
-        // Test isInRange()
-        assertFalse(validator.isInRange(number9, min, max), "isInRange(A) < min");
-        assertTrue(validator.isInRange(number10, min, max), "isInRange(A) = min");
-        assertTrue(validator.isInRange(number11, min, max), "isInRange(A) in range");
-        assertTrue(validator.isInRange(number20, min, max), "isInRange(A) = max");
-        assertFalse(validator.isInRange(number21, min, max), "isInRange(A) > max");
-        // Test minValue()
-        assertFalse(validator.minValue(number9, min), "minValue(A) < min");
-        assertTrue(validator.minValue(number10, min), "minValue(A) = min");
-        assertTrue(validator.minValue(number11, min), "minValue(A) > min");
-        // Test minValue()
-        assertTrue(validator.maxValue(number19, max), "maxValue(A) < max");
-        assertTrue(validator.maxValue(number20, max), "maxValue(A) = max");
-        assertFalse(validator.maxValue(number21, max), "maxValue(A) > max");
-    }
-
-    /**
      * Tests isInRange(), minValue(), and maxValue() with BigDecimal values whose magnitude exceeds Double.MAX_VALUE or whose positive magnitude is below
      * Double.MIN_VALUE (the smallest positive non-zero double).
      *
@@ -144,6 +114,36 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
                 "maxValue: value below Double.MIN_VALUE underflows to 0.0; 0.0 <= Double.MIN_VALUE is true");
         assertTrue(validator.isInRange(belowMinDouble, 0, Double.MIN_VALUE),
                 "isInRange: value below Double.MIN_VALUE underflows to 0.0; 0.0 is in [0, Double.MIN_VALUE]");
+    }
+
+    /**
+     * Test BigDecimal Range/Min/Max
+     */
+    @Test
+    void testBigDecimalRangeMinMax() {
+        final BigDecimalValidator validator = new BigDecimalValidator(true, AbstractNumberValidator.STANDARD_FORMAT, true);
+        final BigDecimal number9 = new BigDecimal("9");
+        final BigDecimal number10 = new BigDecimal("10");
+        final BigDecimal number11 = new BigDecimal("11");
+        final BigDecimal number19 = new BigDecimal("19");
+        final BigDecimal number20 = new BigDecimal("20");
+        final BigDecimal number21 = new BigDecimal("21");
+        final float min = 10;
+        final float max = 20;
+        // Test isInRange()
+        assertFalse(validator.isInRange(number9, min, max), "isInRange(A) < min");
+        assertTrue(validator.isInRange(number10, min, max), "isInRange(A) = min");
+        assertTrue(validator.isInRange(number11, min, max), "isInRange(A) in range");
+        assertTrue(validator.isInRange(number20, min, max), "isInRange(A) = max");
+        assertFalse(validator.isInRange(number21, min, max), "isInRange(A) > max");
+        // Test minValue()
+        assertFalse(validator.minValue(number9, min), "minValue(A) < min");
+        assertTrue(validator.minValue(number10, min), "minValue(A) = min");
+        assertTrue(validator.minValue(number11, min), "minValue(A) > min");
+        // Test minValue()
+        assertTrue(validator.maxValue(number19, max), "maxValue(A) < max");
+        assertTrue(validator.maxValue(number20, max), "maxValue(A) = max");
+        assertFalse(validator.maxValue(number21, max), "maxValue(A) > max");
     }
 
     /**
