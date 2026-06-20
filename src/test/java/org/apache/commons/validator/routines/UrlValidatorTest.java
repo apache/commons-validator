@@ -29,9 +29,11 @@ import java.util.List;
 import org.apache.commons.validator.ResultPair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
- * Performs Validation Test for url validations.
+ * Tests {@link UrlValidator}.
  */
 public class UrlValidatorTest {
 // Must be public, because it has a main method.
@@ -159,12 +161,52 @@ public class UrlValidatorTest {
         assertTrue(urlValidator.isValid("http://apache.org/a/b/c#frag"));
     }
 
+    @ParameterizedTest
+    // @formatter:off
+    @ValueSource(strings = {
+            // 8 groups is the maximum allowed in an IPv6 address
+            // too many groups
+            "[1:2:3:4:5:6:7:8:9]",
+            "[1:2:3:4:5:6:7:8:9:0]",
+            "[::1:2:3:4:5:6:7:8:9]",
+            // group size too big
+            "[1111:2222:3333:4444:5555:6666:7777:88888]",
+            "[1111:2222:3333:4444:5555:6666:77777:8888]",
+            "[1111:2222:3333:4444:5555:66666:7777:8888]",
+            "[1111:2222:3333:4444:55555:6666:7777:8888]",
+            "[1111:2222:3333:44444:5555:6666:7777:8888]",
+            "[1111:2222:33333:4444:5555:6666:7777:8888]",
+            "[1111:22222:3333:4444:5555:6666.7777.8888]",
+            "[11111.2222.3333.4444.5555.6666.7777.8888]" })
+    // @formatter:on
+    void testIpv6SizesInvalid(final String host) {
+        // 8 groups is the maximum allowed in an IPv6 address
+        final UrlValidator urlValidator = new UrlValidator();
+        assertFalse(urlValidator.isValid("http://" + host + ":80/index.html"));
+        assertFalse(urlValidator.isValidAuthority(host));
+        assertFalse(urlValidator.isValidAuthority(host + ":80"));
+    }
+
+    @ParameterizedTest
+    // @formatter:off
+    @ValueSource(strings = {
+            // 8 groups is the maximum allowed in an IPv6 address
+            "[::1:2:3:4:5:6:7]",
+            "[1:2:3:4:5:6:7:8]",
+            "[1111:2222:3333:4444:5555:6666:7777:8888]" })
+    // @formatter:on
+    void testIpv6SizesValid(final String host) {
+        final UrlValidator urlValidator = new UrlValidator();
+        assertTrue(urlValidator.isValid("http://" + host + ":80/index.html"));
+        assertTrue(urlValidator.isValidAuthority(host));
+        assertTrue(urlValidator.isValidAuthority(host + ":80"));
+    }
+
     @Test
     void testIsValid() {
         testIsValid(testUrlParts, UrlValidator.ALLOW_ALL_SCHEMES);
         setUp();
         final long options = UrlValidator.ALLOW_2_SLASHES + UrlValidator.ALLOW_ALL_SCHEMES + UrlValidator.NO_FRAGMENTS;
-
         testIsValid(testUrlPartsOptions, options);
     }
 
