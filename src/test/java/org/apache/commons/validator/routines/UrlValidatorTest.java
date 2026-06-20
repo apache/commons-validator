@@ -207,7 +207,7 @@ public class UrlValidatorTest {
             "[1:2:3:4:5:6:7:8]",
             "[1111:2222:3333:4444:5555:6666:7777:8888]",
             "[aaaa:bbbb:cccc:dddd:eeee:ffff:aaaa:bbbb]",
-            "[AAAA:BBBB:CCCC:DDDD:EEEE:FFFF:AAAA:BBBB]",})
+            "[AAAA:BBBB:CCCC:DDDD:EEEE:FFFF:AAAA:BBBB]" })
     // @formatter:on
     void testIpv6SizesValid(final String host) {
         final UrlValidator urlValidator = new UrlValidator();
