@@ -93,6 +93,21 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
+     * A value carrying more significant digits than a {@code double} can hold must be converted exactly. Scaling
+     * {@link Long#MAX_VALUE} up pushes past the roughly 17 significant digits a double can represent, so a result routed
+     * through a double would be rounded rather than preserved.
+     */
+    @Test
+    void testBigIntegerExactBeyondDoublePrecision() {
+        final BigInteger exact = BigInteger.valueOf(Long.MAX_VALUE).multiply(BigInteger.TEN).add(BigInteger.valueOf(7));
+        final String exactStr = exact.toString();
+        final BigIntegerValidator instance = BigIntegerValidator.getInstance();
+        assertEquals(exact, instance.validate(exactStr, "#"));
+        // BigInteger and BigDecimal validators must agree on the exact value
+        assertEquals(BigDecimalValidator.getInstance().validate(exactStr, "#").toBigInteger(), instance.validate(exactStr, "#"));
+    }
+
+    /**
      * Test a value larger than {@link Long#MAX_VALUE} keeps its magnitude instead of being clamped to {@link Long#MAX_VALUE}.
      */
     @Test
