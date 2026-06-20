@@ -87,6 +87,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Compare Exact value in BigDecimalValidator min/max range checks (#401).</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory, sahvx655-wq">Compare exact values in BigInteger and BigDecimal Number range checks (#404).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Reject non-ASCII hex digits in isValidInet6Address (#403).</action>
+    <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Accept IPv4-embedded IPv6 addresses in UrlValidator (#405).</action>
     <!-- ADD -->
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use CheckDigitException.CheckDigitException(String, Object...) (#389).</action>
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use ValidatorException.ValidatorException(Throwable). Call sites that previously called new ValidatorException(Throwable#getMessage()) now preserve that exception (#390).</action>

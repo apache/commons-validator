@@ -161,6 +161,18 @@ public class UrlValidatorTest {
         assertTrue(urlValidator.isValid("http://apache.org/a/b/c#frag"));
     }
 
+    @Test
+    void testIpv6EmbeddedIpv4() {
+        final UrlValidator urlValidator = new UrlValidator();
+        // ::FFFF: in upper case already worked (testValidator452); the lower-case mapped form
+        // and the other IPv4-embedded notations must validate the same way.
+        assertTrue(urlValidator.isValid("http://[::ffff:129.144.52.38]:80/index.html"));
+        assertTrue(urlValidator.isValid("http://[::1.2.3.4]/"));
+        assertTrue(urlValidator.isValid("http://[2001:db8::1.2.3.4]/"));
+        // an embedded IPv4 part with an out-of-range octet is still rejected
+        assertFalse(urlValidator.isValid("http://[::ffff:129.144.52.999]/"));
+    }
+
     @ParameterizedTest
     // @formatter:off
     @ValueSource(strings = {
@@ -666,18 +678,6 @@ public class UrlValidatorTest {
     void testValidator452() {
         final UrlValidator urlValidator = new UrlValidator();
         assertTrue(urlValidator.isValid("http://[::FFFF:129.144.52.38]:80/index.html"));
-    }
-
-    @Test
-    void testIpv6EmbeddedIpv4() {
-        final UrlValidator urlValidator = new UrlValidator();
-        // ::FFFF: in upper case already worked (testValidator452); the lower-case mapped form
-        // and the other IPv4-embedded notations must validate the same way.
-        assertTrue(urlValidator.isValid("http://[::ffff:129.144.52.38]:80/index.html"));
-        assertTrue(urlValidator.isValid("http://[::1.2.3.4]/"));
-        assertTrue(urlValidator.isValid("http://[2001:db8::1.2.3.4]/"));
-        // an embedded IPv4 part with an out-of-range octet is still rejected
-        assertFalse(urlValidator.isValid("http://[::ffff:129.144.52.999]/"));
     }
 
     @Test
