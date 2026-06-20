@@ -118,8 +118,9 @@ public class UrlValidator implements Serializable {
     // TODO does not allow for optional userinfo.
     // Validation of character set is done by isValidAuthority
     private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\."; // allows for IPV4 but not IPV6
-    // Allow for IPv4 mapped addresses: ::FFF:123.123.123.123
-    private static final String IPV6_REGEX = "::FFFF:(?:\\d{1,3}\\.){3}\\d{1,3}|[0-9a-fA-F:]+"; // do this as separate match because : could cause ambiguity with port prefix
+    // Captured inside [ ] in AUTHORITY_REGEX and validated by InetAddressValidator.isValidInet6Address, so the
+    // dot is allowed for IPv4-mapped/embedded forms (for example ::ffff:1.2.3.4 or 2001:db8::1.2.3.4), not just ::FFFF:
+    private static final String IPV6_REGEX = "[0-9a-fA-F:.]+"; // the brackets remove the port-prefix ':' ambiguity
 
     // userinfo    = *( unreserved / pct-encoded / sub-delims / ":" )
     // unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
