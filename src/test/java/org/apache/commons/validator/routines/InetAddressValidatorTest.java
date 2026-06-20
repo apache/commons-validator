@@ -162,6 +162,9 @@ class InetAddressValidatorTest {
         assertFalse(validator.isValidInet6Address("1:2:3:4:5:6:7:+8"), "IPV6 1:2:3:4:5:6:7:+8 should be invalid"); // signed hex group
         assertFalse(validator.isValidInet6Address("fe80::+1"), "IPV6 fe80::+1 should be invalid"); // signed hex group
         assertFalse(validator.isValidInet6Address("::+f"), "IPV6 ::+f should be invalid"); // signed hex group
+        assertFalse(validator.isValidInet6Address("１２３４::"), "IPV6 with fullwidth digits should be invalid"); // non-ASCII hex group
+        assertFalse(validator.isValidInet6Address("١٢::"), "IPV6 with Arabic-Indic digits should be invalid"); // non-ASCII hex group
+        assertFalse(validator.isValidInet6Address("1:2:3:4:5:6:7:８"), "IPV6 with a fullwidth digit group should be invalid"); // non-ASCII hex group
         assertTrue(validator.isValidInet6Address("1:2:3:4::7:8"), "IPV6 1:2:3:4::7:8 should be valid");
         assertTrue(validator.isValidInet6Address("1:2:3::7:8"), "IPV6 1:2:3::7:8 should be valid");
         assertTrue(validator.isValidInet6Address("1:2::7:8"), "IPV6 1:2::7:8 should be valid");
