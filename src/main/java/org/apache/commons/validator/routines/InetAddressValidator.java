@@ -201,9 +201,14 @@ public class InetAddressValidator implements Serializable {
                 if (octet.length() > IPV6_MAX_HEX_DIGITS_PER_GROUP) {
                     return false;
                 }
-                final char char0 = octet.charAt(0);
-                if (char0 == '+' || char0 == '-') {
-                    return false; // Integer.parseInt accepts a leading sign, which is not a valid hex group
+                // Only ASCII hex digits are valid. Integer.parseInt(_, 16) also tolerates a leading sign
+                // and the non-ASCII Unicode digits that Character.digit maps to 0-15 (for example the
+                // fullwidth and Arabic-Indic forms), none of which belong in an IPv6 hex group.
+                for (int n = 0; n < octet.length(); n++) {
+                    final char ch = octet.charAt(n);
+                    if ((ch < '0' || ch > '9') && (ch < 'A' || ch > 'F') && (ch < 'a' || ch > 'f')) {
+                        return false;
+                    }
                 }
                 int octetInt = 0;
                 try {
