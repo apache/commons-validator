@@ -65,7 +65,6 @@ import java.util.Locale;
 public class BigDecimalValidator extends AbstractNumberValidator {
 
     private static final long serialVersionUID = -670320911490506772L;
-
     private static final BigDecimalValidator VALIDATOR = new BigDecimalValidator();
 
     /**
@@ -86,6 +85,23 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      */
     public static BigDecimalValidator getInstance() {
         return VALIDATOR;
+    }
+
+    private static boolean isFinite(final Number value) {
+        if (value instanceof Double) {
+            return Double.isFinite((Double) value);
+        }
+        if (value instanceof Float) {
+            return Float.isFinite((Float) value);
+        }
+        return true;
+    }
+
+    private static BigDecimal toBigDecimal(final Object value) {
+        if (value instanceof Long) {
+            return BigDecimal.valueOf(((Long) value).longValue());
+        }
+        return value instanceof BigDecimal ? (BigDecimal) value : new BigDecimal(value.toString());
     }
 
     /**
@@ -124,6 +140,17 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
+     * Compares two values as BigDecimals.
+     *
+     * @param value1 {@code BigDecimal} to compare.
+     * @param value2 {@code BigDecimal} to which {@code value1} is to be compared.
+     * @return -1, 0, or 1 as this {@code BigDecimal} is numerically less than, equal to, or greater than {@code val}.
+     */
+    private int compareTo(final Number value1, final Number value2) {
+        return toBigDecimal(value1).compareTo(toBigDecimal(value2));
+    }
+
+    /**
      * Tests if the value is within a specified range.
      *
      * @param value The {@code Number} value to check.
@@ -147,6 +174,24 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
+     * Tests if the value is less than or equal to a maximum, comparing the exact values.
+     *
+     * <p>
+     * This overrides the {@link Number} overload inherited from the superclass, which narrows the value to a {@code double} before comparing and so loses
+     * precision for a {@code BigDecimal} that differs from the bound only beyond double precision. A non-finite {@link Double} or {@link Float} operand keeps
+     * the {@code doubleValue()} comparison so the documented infinity behaviour is unchanged.
+     * </p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max   The maximum value.
+     * @return {@code true} if the value is less than or equal to the maximum.
+     */
+    @Override
+    public boolean maxValue(final Number value, final Number max) {
+        return isFinite(value) && isFinite(max) ? compareTo(value, max) <= 0 : value.doubleValue() <= max.doubleValue();
+    }
+
+    /**
      * Tests if the value is greater than or equal to a minimum.
      *
      * @param value The value validation is being performed on.
@@ -158,6 +203,24 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
+     * Tests if the value is greater than or equal to a minimum, comparing the exact values.
+     *
+     * <p>
+     * This overrides the {@link Number} overload inherited from the superclass, which narrows the value to a {@code double} before comparing and so loses
+     * precision for a {@code BigDecimal} that differs from the bound only beyond double precision. A non-finite {@link Double} or {@link Float} operand keeps
+     * the {@code doubleValue()} comparison so the documented infinity behaviour is unchanged.
+     * </p>
+     *
+     * @param value The value validation is being performed on.
+     * @param min   The minimum value.
+     * @return {@code true} if the value is greater than or equal to the minimum.
+     */
+    @Override
+    public boolean minValue(final Number value, final Number min) {
+        return isFinite(value) && isFinite(min) ? compareTo(value, min) >= 0 : value.doubleValue() >= min.doubleValue();
+    }
+
+    /**
      * Converts the parsed value to a {@code BigDecimal}.
      *
      * @param value     The parsed {@code Number} object created.
@@ -166,12 +229,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
-        BigDecimal decimal;
-        if (value instanceof Long) {
-            decimal = BigDecimal.valueOf(((Long) value).longValue());
-        } else {
-            decimal = new BigDecimal(value.toString());
-        }
+        BigDecimal decimal = toBigDecimal(value);
         final int scale = determineScale((NumberFormat) formatter);
         if (scale >= 0) {
             decimal = decimal.setScale(scale, BigDecimal.ROUND_DOWN);
