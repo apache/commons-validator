@@ -158,6 +158,56 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
+     * Tests if the value is less than or equal to a maximum, comparing the exact values.
+     *
+     * <p>This overrides the {@link Number} overload inherited from the superclass, which narrows
+     * the value to a {@code double} before comparing and so loses precision for a {@code BigDecimal}
+     * that differs from the bound only beyond double precision. A non-finite {@link Double} or
+     * {@link Float} operand keeps the {@code doubleValue()} comparison so the documented infinity
+     * behaviour is unchanged.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max The maximum value.
+     * @return {@code true} if the value is less than or equal to the maximum.
+     */
+    @Override
+    public boolean maxValue(final Number value, final Number max) {
+        return isFinite(value) && isFinite(max) ? toBigDecimal(value).compareTo(toBigDecimal(max)) <= 0 : value.doubleValue() <= max.doubleValue();
+    }
+
+    /**
+     * Tests if the value is greater than or equal to a minimum, comparing the exact values.
+     *
+     * <p>This overrides the {@link Number} overload inherited from the superclass, which narrows
+     * the value to a {@code double} before comparing and so loses precision for a {@code BigDecimal}
+     * that differs from the bound only beyond double precision. A non-finite {@link Double} or
+     * {@link Float} operand keeps the {@code doubleValue()} comparison so the documented infinity
+     * behaviour is unchanged.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than or equal to the minimum.
+     */
+    @Override
+    public boolean minValue(final Number value, final Number min) {
+        return isFinite(value) && isFinite(min) ? toBigDecimal(value).compareTo(toBigDecimal(min)) >= 0 : value.doubleValue() >= min.doubleValue();
+    }
+
+    private static boolean isFinite(final Number value) {
+        if (value instanceof Double) {
+            return Double.isFinite((Double) value);
+        }
+        if (value instanceof Float) {
+            return Float.isFinite((Float) value);
+        }
+        return true;
+    }
+
+    private static BigDecimal toBigDecimal(final Number value) {
+        return value instanceof BigDecimal ? (BigDecimal) value : new BigDecimal(value.toString());
+    }
+
+    /**
      * Converts the parsed value to a {@code BigDecimal}.
      *
      * @param value     The parsed {@code Number} object created.

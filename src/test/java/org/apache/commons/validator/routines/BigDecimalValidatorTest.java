@@ -143,6 +143,24 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
+     * The {@link Number} overloads inherited from the superclass must compare the exact value against a
+     * {@code BigDecimal} bound, not values narrowed to a double, so a difference smaller than double precision
+     * is not lost.
+     */
+    @Test
+    void testNumberRangeBeyondDoublePrecision() {
+        final BigDecimalValidator validator = BigDecimalValidator.getInstance();
+        final BigDecimal twoPow53 = BigDecimal.valueOf(2).pow(53);
+        // 2^53 + 1 collapses onto 2^53 as a double, so the double-based comparison cannot tell them apart
+        final Number value = twoPow53.add(BigDecimal.ONE);
+        final Number bound = twoPow53;
+        assertEquals(value.doubleValue(), bound.doubleValue());
+        assertFalse(validator.maxValue(value, bound));
+        assertTrue(validator.minValue(value, bound));
+        assertFalse(validator.isInRange(value, twoPow53.subtract(BigDecimal.ONE), bound));
+    }
+
+    /**
      * Tests isInRange(), minValue(), and maxValue() when a bound is {@link Double#NaN}, {@link Double#POSITIVE_INFINITY} or
      * {@link Double#NEGATIVE_INFINITY}.
      *

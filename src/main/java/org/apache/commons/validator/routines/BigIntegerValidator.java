@@ -149,6 +149,42 @@ public class BigIntegerValidator extends AbstractNumberValidator {
     }
 
     /**
+     * Check if the value is less than or equal to a maximum, comparing the exact values.
+     *
+     * <p>This overrides the {@link Number} overload inherited from the superclass, which narrows
+     * the value to a {@code long} before comparing and so loses magnitude for a {@code BigInteger}
+     * outside the long range.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max The maximum value.
+     * @return {@code true} if the value is less than or equal to the maximum.
+     */
+    @Override
+    public boolean maxValue(final Number value, final Number max) {
+        return toBigInteger(value).compareTo(toBigInteger(max)) <= 0;
+    }
+
+    /**
+     * Check if the value is greater than or equal to a minimum, comparing the exact values.
+     *
+     * <p>This overrides the {@link Number} overload inherited from the superclass, which narrows
+     * the value to a {@code long} before comparing and so loses magnitude for a {@code BigInteger}
+     * outside the long range.</p>
+     *
+     * @param value The value validation is being performed on.
+     * @param min The minimum value.
+     * @return {@code true} if the value is greater than or equal to the minimum.
+     */
+    @Override
+    public boolean minValue(final Number value, final Number min) {
+        return toBigInteger(value).compareTo(toBigInteger(min)) >= 0;
+    }
+
+    private static BigInteger toBigInteger(final Number value) {
+        return value instanceof BigInteger ? (BigInteger) value : new BigDecimal(value.toString()).toBigInteger();
+    }
+
+    /**
      * Convert the parsed value to a {@code BigInteger}.
      *
      * @param value The parsed {@code Number} object created.
