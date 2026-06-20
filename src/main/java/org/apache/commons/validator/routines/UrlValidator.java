@@ -489,6 +489,7 @@ public class UrlValidator implements Serializable {
         }
 
         try {
+            // This will convert '+' to space, but that is irrelevant for the purpose of validation
             final String decodedPath = URLDecoder.decode(path, StandardCharsets.UTF_8.name());
             // Don't omit host otherwise leading path may be taken as host if it starts with //
             final URI uri = new URI(null, "localhost", decodedPath, null);
