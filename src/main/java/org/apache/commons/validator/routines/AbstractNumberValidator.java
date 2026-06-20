@@ -51,6 +51,13 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      */
     public static final int PERCENT_FORMAT = 2;
 
+    static Format setParseBigDecimal(final Format format) {
+        if (format instanceof DecimalFormat) {
+            ((DecimalFormat) format).setParseBigDecimal(true);
+        }
+        return format;
+    }
+
     /**
      * {@code true} if fractions are allowed or {@code false} if integers only.
      */

@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.validator.routines;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,21 +37,16 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
     protected void setUp() {
         validator = new BigDecimalValidator(false);
         strictValidator = new BigDecimalValidator();
-
         testPattern = "#,###.###";
-
         // testValidateMinMax()
         max = null;
         maxPlusOne = null;
         min = null;
         minMinusOne = null;
-
         // testInvalidStrict()
         invalidStrict = new String[] { null, "", "X", "X12", "12X", "1X2", "1.234X" };
-
         // testInvalidNotStrict()
         invalid = new String[] { null, "", "X", "X12" };
-
         // testValid()
         testNumber = new BigDecimal("1234.5");
         final Number testNumber2 = new BigDecimal(".1");
@@ -60,22 +56,18 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
         validStrictCompare = new Number[] { testZero, testNumber, testNumber, testNumber2, testNumber3 };
         valid = new String[] { "0", "1234.5", "1,234.5", "1,234.5", "1234.5X" };
         validCompare = new Number[] { testZero, testNumber, testNumber, testNumber, testNumber };
-
         testStringUS = "1,234.5";
         testStringDE = "1.234,5";
-
         // Localized Pattern test
         localeValue = testStringDE;
         localePattern = "#.###,#";
         testLocale = Locale.GERMANY;
         localeExpected = testNumber;
-
     }
 
     /**
      * Tests isInRange(), minValue(), and maxValue() with BigDecimal values whose magnitude exceeds Double.MAX_VALUE or whose positive magnitude is below
      * Double.MIN_VALUE (the smallest positive non-zero double).
-     *
      * <p>
      * Because the implementation converts the BigDecimal to a {@code double} via {@link BigDecimal#doubleValue()}, values beyond {@code ±Double.MAX_VALUE}
      * overflow to {@code ±Double.POSITIVE_INFINITY} / {@code Double.NEGATIVE_INFINITY}, and tiny positive values below {@code Double.MIN_VALUE} underflow to
@@ -118,11 +110,10 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
 
     /**
      * Tests isInRange(), minValue(), and maxValue() with BigDecimal values that lie within Double range but cannot be represented exactly as a {@code double}.
-     *
      * <p>
      * 2<sup>53</sup>&nbsp;+&nbsp;1 is the smallest positive integer a {@code double} cannot hold, so {@link BigDecimal#doubleValue()} rounds it back to
-     * 2<sup>53</sup>. Comparing through {@code doubleValue()} therefore reported it as equal to (and not above) 2<sup>53</sup>, accepting a value that exceeds the
-     * supplied maximum. The comparison is done against the exact BigDecimal so the rounding no longer leaks into the result.
+     * 2<sup>53</sup>. Comparing through {@code doubleValue()} therefore reported it as equal to (and not above) 2<sup>53</sup>, accepting a value that exceeds
+     * the supplied maximum. The comparison is done against the exact BigDecimal so the rounding no longer leaks into the result.
      * </p>
      */
     @Test
@@ -143,9 +134,7 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * Tests isInRange(), minValue(), and maxValue() when a bound is {@link Double#NaN}, {@link Double#POSITIVE_INFINITY} or
-     * {@link Double#NEGATIVE_INFINITY}.
-     *
+     * Tests isInRange(), minValue(), and maxValue() when a bound is {@link Double#NaN}, {@link Double#POSITIVE_INFINITY} or {@link Double#NEGATIVE_INFINITY}.
      * <p>
      * {@link BigDecimal#valueOf(double)} rejects non-finite doubles, so these bounds keep the {@code doubleValue()} comparison path. A {@code NaN} bound can
      * never be satisfied because every comparison with {@code NaN} is false. {@code POSITIVE_INFINITY} as a maximum (or {@code NEGATIVE_INFINITY} as a minimum)
@@ -166,8 +155,7 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
         // POSITIVE_INFINITY maximum / NEGATIVE_INFINITY minimum: open bound, any finite value qualifies
         assertTrue(validator.maxValue(value, Double.POSITIVE_INFINITY), "maxValue: a finite value is <= +Infinity");
         assertTrue(validator.minValue(value, Double.NEGATIVE_INFINITY), "minValue: a finite value is >= -Infinity");
-        assertTrue(validator.isInRange(value, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY),
-                "isInRange: a finite value is in [-Infinity, +Infinity]");
+        assertTrue(validator.isInRange(value, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY), "isInRange: a finite value is in [-Infinity, +Infinity]");
         // NEGATIVE_INFINITY maximum / POSITIVE_INFINITY minimum: no finite value qualifies
         assertFalse(validator.maxValue(value, Double.NEGATIVE_INFINITY), "maxValue: a finite value is not <= -Infinity");
         assertFalse(validator.minValue(value, Double.POSITIVE_INFINITY), "minValue: a finite value is not >= +Infinity");
@@ -206,21 +194,6 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * A value carrying more significant digits than a {@code double} can hold must be converted exactly. Parsing through a
-     * {@code double} rounds at about 17 digits, so the result has to come straight from the {@code BigDecimal} parse.
-     */
-    @Test
-    void testValueBeyondDoublePrecision() {
-        final BigDecimalValidator validator = BigDecimalValidator.getInstance();
-        final BigDecimal expected = new BigDecimal("0.12345678901234567890");
-        assertEquals(expected, validator.validate(expected.toPlainString(), Locale.US));
-
-        // 2^53 + 1 has 16 digits but is the smallest integer a double cannot represent
-        final BigDecimal unrepresentable = BigDecimal.valueOf(2).pow(53).add(BigDecimal.ONE);
-        assertEquals(unrepresentable, validator.validate(unrepresentable.toPlainString(), Locale.US));
-    }
-
-    /**
      * Test BigDecimalValidator validate Methods
      */
     @Test
@@ -237,17 +210,14 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
         assertEquals(expected, BigDecimalValidator.getInstance().validate(localeVal, locale), "validate(A) locale ");
         assertEquals(expected, BigDecimalValidator.getInstance().validate(patternVal, pattern), "validate(A) pattern");
         assertEquals(expected, BigDecimalValidator.getInstance().validate(germanPatternVal, pattern, Locale.GERMAN), "validate(A) both");
-
         assertTrue(BigDecimalValidator.getInstance().isValid(defaultVal), "isValid(A) default");
         assertTrue(BigDecimalValidator.getInstance().isValid(localeVal, locale), "isValid(A) locale ");
         assertTrue(BigDecimalValidator.getInstance().isValid(patternVal, pattern), "isValid(A) pattern");
         assertTrue(BigDecimalValidator.getInstance().isValid(germanPatternVal, pattern, Locale.GERMAN), "isValid(A) both");
-
         assertNull(BigDecimalValidator.getInstance().validate(xxxx), "validate(B) default");
         assertNull(BigDecimalValidator.getInstance().validate(xxxx, locale), "validate(B) locale");
         assertNull(BigDecimalValidator.getInstance().validate(xxxx, pattern), "validate(B) pattern");
         assertNull(BigDecimalValidator.getInstance().validate(patternVal, pattern, Locale.GERMAN), "validate(B) both");
-
         assertFalse(BigDecimalValidator.getInstance().isValid(xxxx), "isValid(B) default");
         assertFalse(BigDecimalValidator.getInstance().isValid(xxxx, locale), "isValid(B) locale");
         assertFalse(BigDecimalValidator.getInstance().isValid(xxxx, pattern), "isValid(B) pattern");
@@ -255,9 +225,8 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * The {@link Number} overloads inherited from the superclass must compare the exact value against a
-     * {@code BigDecimal} bound, not values narrowed to a double, so a difference smaller than double precision
-     * is not lost.
+     * The {@link Number} overloads inherited from the superclass must compare the exact value against a {@code BigDecimal} bound, not values narrowed to a
+     * double, so a difference smaller than double precision is not lost.
      */
     @Test
     void testNumberRangeBeyondDoublePrecision() {
@@ -270,5 +239,19 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
         assertFalse(validator.maxValue(value, bound));
         assertTrue(validator.minValue(value, bound));
         assertFalse(validator.isInRange(value, twoPow53.subtract(BigDecimal.ONE), bound));
+    }
+
+    /**
+     * A value carrying more significant digits than a {@code double} can hold must be converted exactly. Parsing through a {@code double} rounds at about 17
+     * digits, so the result has to come straight from the {@code BigDecimal} parse.
+     */
+    @Test
+    void testValueBeyondDoublePrecision() {
+        final BigDecimalValidator validator = BigDecimalValidator.getInstance();
+        final BigDecimal expected = new BigDecimal("0.12345678901234567890");
+        assertEquals(expected, validator.validate(expected.toPlainString(), Locale.US));
+        // 2^53 + 1 has 16 digits but is the smallest integer a double cannot represent
+        final BigDecimal unrepresentable = BigDecimal.valueOf(2).pow(53).add(BigDecimal.ONE);
+        assertEquals(unrepresentable, validator.validate(unrepresentable.toPlainString(), Locale.US));
     }
 }

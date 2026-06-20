@@ -117,6 +117,25 @@ public class BigIntegerValidator extends AbstractNumberValidator {
     }
 
     /**
+     * Returns a {@code Format} that parses to a {@code BigDecimal} so the exact value of the input is preserved.
+     *
+     * <p>
+     * The superclass leaves {@link DecimalFormat} in its default mode, where {@code parse} yields a {@code Double} for a
+     * value outside the {@code long} range and so rounds an integer carrying more significant digits than a {@code double}
+     * can hold. Enabling {@link DecimalFormat#setParseBigDecimal(boolean)} keeps the full magnitude through parsing before
+     * it is converted to a {@code BigInteger}.
+     * </p>
+     *
+     * @param pattern The pattern used to validate the value against or {@code null} to use the default for the {@link Locale}.
+     * @param locale  The locale to use for the format, system default if null.
+     * @return The {@code Format} to use.
+     */
+    @Override
+    protected Format getFormat(final String pattern, final Locale locale) {
+        return setParseBigDecimal(super.getFormat(pattern, locale));
+    }
+
+    /**
      * Tests if the value is within a specified range.
      *
      * @param value The {@code Number} value to check.
@@ -182,29 +201,6 @@ public class BigIntegerValidator extends AbstractNumberValidator {
     @Override
     public boolean minValue(final Number value, final Number min) {
         return toBigInteger(value).compareTo(toBigInteger(min)) >= 0;
-    }
-
-    /**
-     * Returns a {@code Format} that parses to a {@code BigDecimal} so the exact value of the input is preserved.
-     *
-     * <p>
-     * The superclass leaves {@link DecimalFormat} in its default mode, where {@code parse} yields a {@code Double} for a
-     * value outside the {@code long} range and so rounds an integer carrying more significant digits than a {@code double}
-     * can hold. Enabling {@link DecimalFormat#setParseBigDecimal(boolean)} keeps the full magnitude through parsing before
-     * it is converted to a {@code BigInteger}.
-     * </p>
-     *
-     * @param pattern The pattern used to validate the value against or {@code null} to use the default for the {@link Locale}.
-     * @param locale  The locale to use for the format, system default if null.
-     * @return The {@code Format} to use.
-     */
-    @Override
-    protected Format getFormat(final String pattern, final Locale locale) {
-        final Format format = super.getFormat(pattern, locale);
-        if (format instanceof DecimalFormat) {
-            ((DecimalFormat) format).setParseBigDecimal(true);
-        }
-        return format;
     }
 
     /**
