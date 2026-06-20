@@ -26,10 +26,10 @@ import java.util.regex.Pattern;
 import org.apache.commons.validator.GenericValidator;
 
 /**
- * <strong>InetAddress</strong> validation and conversion routines ({@code java.net.InetAddress}).
- *
- * <p>This class provides methods to validate a candidate IP address.
- *
+ * Validates and converts IP addresses ({@code java.net.InetAddress}).
+ * <p>
+ * This class provides methods to validate a candidate IP address.
+ * </p>
  * <p>
  * This class is a Singleton; you can retrieve the instance via the {@link #getInstance()} method.
  * </p>
@@ -69,7 +69,7 @@ public class InetAddressValidator implements Serializable {
     private static final RegexValidator IPV4_VALIDATOR = new RegexValidator(IPV4_REGEX);
 
     /**
-     * Returns the singleton instance of this validator.
+     * Gets the singleton instance of this validator.
      *
      * @return the singleton instance of this validator
      */
@@ -85,7 +85,7 @@ public class InetAddressValidator implements Serializable {
     }
 
     /**
-     * Checks if the specified string is a valid IPv4 or IPv6 address.
+     * Tests if the specified string is a valid IPv4 or IPv6 address.
      *
      * @param inetAddress the string to validate
      * @return true if the string validates as an IP address
