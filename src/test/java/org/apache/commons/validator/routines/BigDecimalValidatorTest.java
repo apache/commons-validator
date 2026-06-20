@@ -54,7 +54,7 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
         // testValid()
         testNumber = new BigDecimal("1234.5");
         final Number testNumber2 = new BigDecimal(".1");
-        final Number testNumber3 = new BigDecimal("12345.67899");
+        final Number testNumber3 = new BigDecimal("12345.678990");
         testZero = new BigDecimal("0");
         validStrict = new String[] { "0", "1234.5", "1,234.5", ".1", "12345.678990" };
         validStrictCompare = new Number[] { testZero, testNumber, testNumber, testNumber2, testNumber3 };
@@ -203,6 +203,21 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
         assertTrue(validator.maxValue(number19, max), "maxValue(A) < max");
         assertTrue(validator.maxValue(number20, max), "maxValue(A) = max");
         assertFalse(validator.maxValue(number21, max), "maxValue(A) > max");
+    }
+
+    /**
+     * A value carrying more significant digits than a {@code double} can hold must be converted exactly. Parsing through a
+     * {@code double} rounds at about 17 digits, so the result has to come straight from the {@code BigDecimal} parse.
+     */
+    @Test
+    void testValueBeyondDoublePrecision() {
+        final BigDecimalValidator validator = BigDecimalValidator.getInstance();
+        final BigDecimal expected = new BigDecimal("0.12345678901234567890");
+        assertEquals(expected, validator.validate(expected.toPlainString(), Locale.US));
+
+        // 2^53 + 1 has 16 digits but is the smallest integer a double cannot represent
+        final BigDecimal unrepresentable = BigDecimal.valueOf(2).pow(53).add(BigDecimal.ONE);
+        assertEquals(unrepresentable, validator.validate(unrepresentable.toPlainString(), Locale.US));
     }
 
     /**
