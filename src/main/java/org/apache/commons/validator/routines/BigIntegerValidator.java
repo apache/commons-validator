@@ -89,6 +89,10 @@ public class BigIntegerValidator extends AbstractNumberValidator {
         if (value instanceof Long) {
             return BigDecimal.valueOf(value.longValue());
         }
+        if (value instanceof Double) {
+            // No need to roundtrip with a string.
+            return BigDecimal.valueOf(((Double) value).doubleValue());
+        }
         return new BigDecimal(value.toString());
     }
 
