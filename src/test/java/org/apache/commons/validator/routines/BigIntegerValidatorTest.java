@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Locale;
 
@@ -213,5 +214,28 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
         final Number wrapsIntoRange = BigInteger.ONE.shiftLeft(Long.SIZE).add(BigInteger.valueOf(50));
         assertEquals(50L, wrapsIntoRange.longValue());
         assertFalse(instance.isInRange(wrapsIntoRange, min, max));
+    }
+
+    /**
+     * The {@link Number} overloads must compare against the exact bound. A non-integer bound was converted with BigInteger.toBigInteger(), which truncates
+     * towards zero, so a fractional minimum was floored (wrongly admitting a value below it) and a fractional maximum was floored too (wrongly admitting a value
+     * above a negative maximum).
+     */
+    @Test
+    void testNumberRangeFractionalBound() {
+        final AbstractNumberValidator instance = BigIntegerValidator.getInstance();
+        final Number five = BigInteger.valueOf(5);
+        // 5 >= 5.9 is false, but flooring the bound to 5 made it pass
+        assertFalse(instance.minValue(five, Double.valueOf(5.9)));
+        assertFalse(instance.minValue(five, new BigDecimal("5.9")));
+        // a whole-number bound is unaffected
+        assertTrue(instance.minValue(five, BigInteger.valueOf(5)));
+
+        final Number minusFive = BigInteger.valueOf(-5);
+        // -5 <= -5.9 is false, but flooring the bound to -5 made it pass
+        assertFalse(instance.maxValue(minusFive, Double.valueOf(-5.9)));
+        assertFalse(instance.maxValue(minusFive, new BigDecimal("-5.9")));
+        // -6 <= -5.9 is true
+        assertTrue(instance.maxValue(BigInteger.valueOf(-6), Double.valueOf(-5.9)));
     }
 }
