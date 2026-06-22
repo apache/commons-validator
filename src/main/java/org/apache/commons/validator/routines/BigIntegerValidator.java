@@ -79,6 +79,23 @@ public class BigIntegerValidator extends AbstractNumberValidator {
         return VALIDATOR;
     }
 
+    private static BigDecimal toBigDecimal(final Number value) {
+        if (value instanceof BigDecimal) {
+            return (BigDecimal) value;
+        }
+        if (value instanceof BigInteger) {
+            return new BigDecimal((BigInteger) value);
+        }
+        if (value instanceof Long) {
+            return BigDecimal.valueOf(value.longValue());
+        }
+        if (value instanceof Double) {
+            // No need to roundtrip with a string.
+            return BigDecimal.valueOf(((Double) value).doubleValue());
+        }
+        return new BigDecimal(value.toString());
+    }
+
     private static BigInteger toBigInteger(final Object value) {
         if (value instanceof Long) {
             return BigInteger.valueOf(((Long) value).longValue());
@@ -163,7 +180,8 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      *
      * <p>
      * This overrides the {@link Number} overload inherited from the superclass, which narrows the value to a {@code long} before comparing and so loses
-     * magnitude for a {@code BigInteger} outside the long range.
+     * magnitude for a {@code BigInteger} outside the long range. The operands are compared as {@code BigDecimal} so a non-integer bound keeps its fractional
+     * part instead of being truncated towards zero.
      * </p>
      *
      * @param value The value validation is being performed on.
@@ -172,7 +190,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      */
     @Override
     public boolean maxValue(final Number value, final Number max) {
-        return toBigInteger(value).compareTo(toBigInteger(max)) <= 0;
+        return toBigDecimal(value).compareTo(toBigDecimal(max)) <= 0;
     }
 
     /**
@@ -191,7 +209,8 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      *
      * <p>
      * This overrides the {@link Number} overload inherited from the superclass, which narrows the value to a {@code long} before comparing and so loses
-     * magnitude for a {@code BigInteger} outside the long range.
+     * magnitude for a {@code BigInteger} outside the long range. The operands are compared as {@code BigDecimal} so a non-integer bound keeps its fractional
+     * part instead of being truncated towards zero.
      * </p>
      *
      * @param value The value validation is being performed on.
@@ -200,7 +219,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      */
     @Override
     public boolean minValue(final Number value, final Number min) {
-        return toBigInteger(value).compareTo(toBigInteger(min)) >= 0;
+        return toBigDecimal(value).compareTo(toBigDecimal(min)) >= 0;
     }
 
     /**
