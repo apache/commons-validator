@@ -17,7 +17,6 @@
 
 package org.apache.commons.validator.routines;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.Format;
@@ -77,34 +76,6 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      */
     public static BigIntegerValidator getInstance() {
         return VALIDATOR;
-    }
-
-    private static BigDecimal toBigDecimal(final Number value) {
-        if (value instanceof BigDecimal) {
-            return (BigDecimal) value;
-        }
-        if (value instanceof BigInteger) {
-            return new BigDecimal((BigInteger) value);
-        }
-        if (value instanceof Long) {
-            return BigDecimal.valueOf(value.longValue());
-        }
-        if (value instanceof Double) {
-            // No need to roundtrip with a string.
-            return BigDecimal.valueOf(((Double) value).doubleValue());
-        }
-        return new BigDecimal(value.toString());
-    }
-
-    private static BigInteger toBigInteger(final Object value) {
-        if (value instanceof Long) {
-            return BigInteger.valueOf(((Long) value).longValue());
-        }
-        if (value instanceof Double) {
-            // No need to roundtrip with a string.
-            return BigDecimal.valueOf(((Double) value).doubleValue()).toBigInteger();
-        }
-        return value instanceof BigInteger ? (BigInteger) value : new BigDecimal(value.toString()).toBigInteger();
     }
 
     /**

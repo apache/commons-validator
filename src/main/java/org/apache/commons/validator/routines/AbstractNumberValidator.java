@@ -16,6 +16,8 @@
  */
 package org.apache.commons.validator.routines;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.Format;
@@ -56,6 +58,30 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
             ((DecimalFormat) format).setParseBigDecimal(true);
         }
         return format;
+    }
+
+    static BigDecimal toBigDecimal(final Object value) {
+        if (value instanceof Long) {
+            return BigDecimal.valueOf(((Long) value).longValue());
+        }
+        if (value instanceof Double) {
+            return BigDecimal.valueOf(((Double) value).doubleValue());
+        }
+        if (value instanceof BigDecimal) {
+            return (BigDecimal) value;
+        }
+        if (value instanceof BigInteger) {
+            return new BigDecimal((BigInteger) value);
+        }
+        // No more shortcuts, convert from a string.
+        return new BigDecimal(value.toString());
+    }
+
+    static BigInteger toBigInteger(final Object value) {
+        if (value instanceof Long) {
+            return BigInteger.valueOf(((Long) value).longValue());
+        }
+        return toBigDecimal(value).toBigInteger();
     }
 
     /**

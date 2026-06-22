@@ -98,13 +98,6 @@ public class BigDecimalValidator extends AbstractNumberValidator {
         return true;
     }
 
-    private static BigDecimal toBigDecimal(final Object value) {
-        if (value instanceof Long) {
-            return BigDecimal.valueOf(((Long) value).longValue());
-        }
-        return value instanceof BigDecimal ? (BigDecimal) value : new BigDecimal(value.toString());
-    }
-
     /**
      * Constructs a <em>strict</em> instance.
      */
