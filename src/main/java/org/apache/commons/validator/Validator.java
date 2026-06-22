@@ -87,7 +87,7 @@ public class Validator implements Serializable {
     public static final String VALIDATOR_RESULTS_PARAM =
             "org.apache.commons.validator.ValidatorResults";
 
-    static Locale toLocale(Locale locale) {
+    static Locale toLocale(final Locale locale) {
         return locale != null ? locale : Locale.getDefault();
     }
 

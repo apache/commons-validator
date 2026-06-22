@@ -51,7 +51,7 @@ public class CheckDigitException extends Exception {
      * @throws IllegalFormatException See {@link String#format(String, Object...)}.
      * @since 1.11.0
      */
-    public CheckDigitException(String format, Object... args) {
+    public CheckDigitException(final String format, final Object... args) {
         super(String.format(format, args));
     }
 
