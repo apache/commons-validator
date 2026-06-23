@@ -598,6 +598,10 @@ public class DomainValidatorTest {
         assertTrue(validator.isValidCountryCodeTld(".uk"), ".uk should validate as ccTLD");
         assertFalse(validator.isValidCountryCodeTld(".org"), ".org shouldn't validate as ccTLD");
 
+        // бг (xn--90ae) is the IDN ccTLD for Bulgaria, not a gTLD
+        assertTrue(validator.isValidCountryCodeTld("xn--90ae"), "xn--90ae (бг) should validate as ccTLD");
+        assertFalse(validator.isValidGenericTld("xn--90ae"), "xn--90ae (бг) shouldn't validate as gTLD");
+
         // case-insensitive
         assertTrue(validator.isValidTld(".COM"), ".COM should validate as TLD");
         assertTrue(validator.isValidTld(".BiZ"), ".BiZ should validate as TLD");
