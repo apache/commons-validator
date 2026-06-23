@@ -1370,7 +1370,6 @@ public class DomainValidator implements Serializable {
         "xn--80asehdb", // онлайн CORE Association
         "xn--80aswg", // сайт CORE Association
         "xn--8y0a063a", // 联通 China United Network Communications Corporation Limited
-        "xn--90ae", // бг Imena.BG Plc (NAMES.BG Plc)
         "xn--9dbq2a", // קום VeriSign Sarl
         "xn--9et52u", // 时尚 RISE VICTORY LIMITED
         "xn--9krt00a", // 微博 Sina Corporation
@@ -1725,6 +1724,7 @@ public class DomainValidator implements Serializable {
         "xn--54b7fta0cc", // বাংলা Posts and Telecommunications Division
         "xn--80ao21a", // қаз Association of IT Companies of Kazakhstan
         "xn--90a3ac", // срб Serbian National Internet Domain Registry (RNIDS)
+        "xn--90ae", // бг Imena.BG Plc (NAMES.BG Plc)
         "xn--90ais", // ??? Reliable Software Inc.
         "xn--clchc0ea0b2g2a9gcd", // சிங்கப்பூர் Singapore Network Information Centre (SGNIC) Pte Ltd
         "xn--d1alf", // мкд Macedonian Academic Research Network Skopje
