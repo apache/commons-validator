@@ -303,6 +303,7 @@
     <profile>
       <!--
         Easily run DomainValidatorTest:
+        mvn compiler:compile compiler:testCompile # build classes (if necessary)
         mvn -PDomainValidatorTest
       -->
       <id>DomainValidatorTest</id>
