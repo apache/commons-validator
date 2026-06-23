@@ -301,6 +301,7 @@ public class DomainValidatorTest {
         final Map<String, String[]> htmlInfo = getHtmlInfo(htmlFile);
         final Map<String, String> missingTLD = new TreeMap<>(); // stores entry and comments as String[]
         final Map<String, String> missingCC = new TreeMap<>();
+        int errorsDetected = 0;
         while ((line = br.readLine()) != null) {
             if (!line.startsWith("#")) {
                 final String unicodeTld; // only different from asciiTld if that was punycode
@@ -310,11 +311,22 @@ public class DomainValidatorTest {
                 } else {
                     unicodeTld = asciiTld;
                 }
-                if (!dv.isValidTld(asciiTld)) {
-                    final String[] info = htmlInfo.get(asciiTld);
-                    if (info != null) {
-                        final String type = info[0];
-                        final String comment = info[1];
+                final String[] info = htmlInfo.get(asciiTld);
+                if (info != null) {
+                    final String type = info[0];
+                    final String comment = info[1];
+                    if (dv.isValidTld(asciiTld)) { // we have an entry; is it in correct list?
+                        if ("country-code".equals(type)) {
+                            if (!dv.isValidCountryCodeTld(asciiTld)) {// wrong list
+                                missingCC.put(asciiTld, unicodeTld + " " + comment);
+                                if (generateUnicodeTlds) {
+                                    missingCC.put(unicodeTld, asciiTld + " " + comment);
+                                }
+                                System.out.println("GENERIC list contains unexpected value: " + asciiTld);
+                                errorsDetected ++;
+                            }
+                        }
+                    } else { // missing entry, add it to correct list
                         if ("country-code".equals(type)) { // Which list to use?
                             missingCC.put(asciiTld, unicodeTld + " " + comment);
                             if (generateUnicodeTlds) {
@@ -326,9 +338,9 @@ public class DomainValidatorTest {
                                 missingTLD.put(unicodeTld, asciiTld + " " + comment);
                             }
                         }
-                    } else {
-                        System.err.println("Expected to find HTML info for " + asciiTld);
                     }
+                } else {
+                    System.err.println("Expected to find HTML info for " + asciiTld);
                 }
                 ianaTlds.add(asciiTld);
                 // Don't merge these conditions; generateUnicodeTlds is final so needs to be separate to avoid a warning
@@ -341,7 +353,6 @@ public class DomainValidatorTest {
             }
         }
         br.close();
-        int errorsDetected = 0;
         // List html entries not in TLD text list
         for (final String key : new TreeMap<>(htmlInfo).keySet()) {
             if (!ianaTlds.contains(key)) {
