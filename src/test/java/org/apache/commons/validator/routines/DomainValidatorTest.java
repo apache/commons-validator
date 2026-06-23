@@ -317,13 +317,13 @@ public class DomainValidatorTest {
                     final String comment = info[1];
                     if (dv.isValidTld(asciiTld)) { // we have an entry; is it in correct list?
                         if ("country-code".equals(type)) {
-                            if (!dv.isValidCountryCodeTld(asciiTld)) {// wrong list
+                            if (!dv.isValidCountryCodeTld(asciiTld)) { // wrong list
                                 missingCC.put(asciiTld, unicodeTld + " " + comment);
                                 if (generateUnicodeTlds) {
                                     missingCC.put(unicodeTld, asciiTld + " " + comment);
                                 }
                                 System.out.println("GENERIC list contains unexpected value: " + asciiTld);
-                                errorsDetected ++;
+                                errorsDetected++;
                             }
                         }
                     } else { // missing entry, add it to correct list
