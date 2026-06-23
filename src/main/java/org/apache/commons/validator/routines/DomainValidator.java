@@ -194,8 +194,7 @@ public class DomainValidator implements Serializable {
 
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static final String[] GENERIC_TLDS = {
-        // Taken from:
-        // Version 2025061000, Last Updated Tue Jun 10 07:07:01 2025 UTC
+        // Taken from Version 2026062300, Last Updated Tue Jun 23 07:07:01 2026 UTC
         "aaa", // aaa American Automobile Association, Inc.
         "aarp", // aarp AARP
         // "abarth", // abarth Fiat Chrysler Automobiles N.V.
@@ -640,7 +639,7 @@ public class DomainValidator implements Serializable {
         "gold", // gold June Edge, LLC
         "goldpoint", // goldpoint YODOBASHI CAMERA CO.,LTD.
         "golf", // golf Lone Falls, LLC
-        "goo", // goo NTT Resonant Inc.
+//        "goo", // goo NTT Resonant Inc.
 //        "goodhands", // goodhands Allstate Fire and Casualty Insurance Company
         "goodyear", // goodyear The Goodyear Tire &amp; Rubber Company
         "goog", // goog Charleston Road Registry Inc.
@@ -875,6 +874,7 @@ public class DomainValidator implements Serializable {
         "men", // men Exclusive Registry Limited
         "menu", // menu Wedding TLD2, LLC
 //        "meo", // meo PT Comunicacoes S.A.
+        "merck", // merck Merck Registry Holdings, Inc.
         "merckmsd", // merckmsd MSD Registry Holdings, Inc.
 //        "metlife", // metlife MetLife Services and Solutions, LLC
         "miami", // miami Top Level Domain Holdings Limited
@@ -1335,7 +1335,7 @@ public class DomainValidator implements Serializable {
         "wine", // wine June Station, LLC
         "winners", // winners The TJX Companies, Inc.
         "wme", // wme William Morris Endeavor Entertainment, LLC
-        "wolterskluwer", // wolterskluwer Wolters Kluwer N.V.
+//        "wolterskluwer", // wolterskluwer Wolters Kluwer N.V.
         "woodside", // woodside Woodside Petroleum Limited
         "work", // work Top Level Domain Holdings Limited
         "works", // works Little Dynamite, LLC
