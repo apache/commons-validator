@@ -332,8 +332,11 @@ public class DomainValidatorTest {
                 }
                 ianaTlds.add(asciiTld);
                 // Don't merge these conditions; generateUnicodeTlds is final so needs to be separate to avoid a warning
-                if (generateUnicodeTlds && !unicodeTld.equals(asciiTld)) {
-                    ianaTlds.add(unicodeTld);
+                if (generateUnicodeTlds) {
+                    // DO NOT MERGE THIS CHECK INTO ITS PARENT (See above)
+                    if (!unicodeTld.equals(asciiTld)) {
+                        ianaTlds.add(unicodeTld);
+                    }
                 }
             }
         }
