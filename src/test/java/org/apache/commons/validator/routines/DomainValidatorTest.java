@@ -27,7 +27,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 import java.net.IDN;
@@ -159,26 +158,9 @@ public class DomainValidatorTest {
         return info;
     }
 
-    // isInIanaList and isSorted are split into two methods.
-    // If/when access to the arrays is possible without reflection, the intermediate
-    // methods can be dropped
-    private static boolean isInIanaList(final String arrayName, final Set<String> ianaTlds) throws Exception {
-        final Field f = DomainValidator.class.getDeclaredField(arrayName);
-        final boolean isPrivate = Modifier.isPrivate(f.getModifiers());
-        if (isPrivate) {
-            f.setAccessible(true);
-        }
-        final String[] array = (String[]) f.get(null);
-        try {
-            return isInIanaList(arrayName, array, ianaTlds);
-        } finally {
-            if (isPrivate) {
-                f.setAccessible(false);
-            }
-        }
-    }
-
-    private static boolean isInIanaList(final String name, final String[] array, final Set<String> ianaTlds) {
+    private static boolean isInIanaList(final DomainValidator.ArrayType arraytype, final Set<String> ianaTlds) {
+        final String name = arraytype.name();
+        final String[] array = DomainValidator.getTLDEntries(arraytype);
         for (final String element : array) {
             if (!ianaTlds.contains(element)) {
                 System.out.println(name + " contains unexpected value: " + element);
@@ -221,24 +203,10 @@ public class DomainValidatorTest {
         return false;
     }
 
-    private static boolean isSortedLowerCase(final String arrayName) throws Exception {
-        final Field f = DomainValidator.class.getDeclaredField(arrayName);
-        final boolean isPrivate = Modifier.isPrivate(f.getModifiers());
-        if (isPrivate) {
-            f.setAccessible(true);
-        }
-        final String[] array = (String[]) f.get(null);
-        try {
-            return isSortedLowerCase(arrayName, array);
-        } finally {
-            if (isPrivate) {
-                f.setAccessible(false);
-            }
-        }
-    }
-
     // Check if an array is strictly sorted - and lowerCase
-    private static boolean isSortedLowerCase(final String name, final String[] array) {
+    private static boolean isSortedLowerCase(final DomainValidator.ArrayType type) {
+        final String[] array = DomainValidator.getTLDEntries(type);
+        final String name = type.name();
         boolean sorted = true;
         boolean strictlySorted = true;
         final int length = array.length;
@@ -270,7 +238,12 @@ public class DomainValidatorTest {
         // Check the arrays first as this affects later checks
         // Doing this here makes it easier when updating the lists
         boolean ok = true;
-        for (final String list : new String[] { "INFRASTRUCTURE_TLDS", "COUNTRY_CODE_TLDS", "GENERIC_TLDS", "LOCAL_TLDS" }) {
+        for (final DomainValidator.ArrayType list : new DomainValidator.ArrayType[] {
+            DomainValidator.ArrayType.INFRASTRUCTURE_RO,
+            DomainValidator.ArrayType.COUNTRY_CODE_RO,
+            DomainValidator.ArrayType.GENERIC_RO,
+            DomainValidator.ArrayType.LOCAL_RO,
+        }) {
             ok &= isSortedLowerCase(list);
         }
         if (!ok) {
@@ -373,16 +346,16 @@ public class DomainValidatorTest {
             printMap(header, missingCC, "COUNTRY_CODE_TLDS");
         }
         // Check if internal tables contain any additional entries
-        if (!isInIanaList("INFRASTRUCTURE_TLDS", ianaTlds)) {
+        if (!isInIanaList(DomainValidator.ArrayType.INFRASTRUCTURE_RO, ianaTlds)) {
             errorsDetected ++;
         }
-        if (!isInIanaList("COUNTRY_CODE_TLDS", ianaTlds)) {
+        if (!isInIanaList(DomainValidator.ArrayType.COUNTRY_CODE_RO, ianaTlds)) {
             errorsDetected ++;
         }
-        if (!isInIanaList("GENERIC_TLDS", ianaTlds)) {
+        if (!isInIanaList(DomainValidator.ArrayType.GENERIC_RO, ianaTlds)) {
             errorsDetected ++;
         }
-        // Don't check local TLDS isInIanaList("LOCAL_TLDS", ianaTlds);
+        // Don't check local TLDS isInIanaList(DomainValidator.ArrayType.LOCAL_RO, ianaTlds);
         System.out.println("Finished checks");
         if (errorsDetected > 0) {
             throw new RuntimeException("Errors detected: " + errorsDetected);
@@ -410,7 +383,7 @@ public class DomainValidatorTest {
     // Check array is sorted and is lower-case
     @Test
     public void tesLocalTldsSortedAndLowerCase() throws Exception {
-        final boolean sorted = isSortedLowerCase("LOCAL_TLDS");
+        final boolean sorted = isSortedLowerCase(DomainValidator.ArrayType.LOCAL_RO);
         assertTrue(sorted);
     }
 
@@ -440,7 +413,7 @@ public class DomainValidatorTest {
     // Check array is sorted and is lower-case
     @Test
     void testCountryCodeTldsSortedAndLowerCase() throws Exception {
-        final boolean sorted = isSortedLowerCase("COUNTRY_CODE_TLDS");
+        final boolean sorted = isSortedLowerCase(DomainValidator.ArrayType.COUNTRY_CODE_RO);
         assertTrue(sorted);
     }
 
@@ -463,7 +436,7 @@ public class DomainValidatorTest {
     // Check array is sorted and is lower-case
     @Test
     void testGenericTldsSortedAndLowerCase() throws Exception {
-        final boolean sorted = isSortedLowerCase("GENERIC_TLDS");
+        final boolean sorted = isSortedLowerCase(DomainValidator.ArrayType.GENERIC_RO);
         assertTrue(sorted);
     }
 
@@ -498,7 +471,7 @@ public class DomainValidatorTest {
     // Check array is sorted and is lower-case
     @Test
     void testInfrastructureTldsSortedAndLowerCase() throws Exception {
-        final boolean sorted = isSortedLowerCase("INFRASTRUCTURE_TLDS");
+        final boolean sorted = isSortedLowerCase(DomainValidator.ArrayType.INFRASTRUCTURE_RO);
         assertTrue(sorted);
     }
 
