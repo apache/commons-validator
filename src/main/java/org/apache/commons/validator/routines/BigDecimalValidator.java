@@ -88,16 +88,6 @@ public class BigDecimalValidator extends AbstractNumberValidator {
         return VALIDATOR;
     }
 
-    private static boolean isFinite(final Number value) {
-        if (value instanceof Double) {
-            return Double.isFinite((Double) value);
-        }
-        if (value instanceof Float) {
-            return Float.isFinite((Float) value);
-        }
-        return true;
-    }
-
     /**
      * Constructs a <em>strict</em> instance.
      */

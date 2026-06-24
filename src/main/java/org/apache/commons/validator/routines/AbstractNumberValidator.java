@@ -85,6 +85,22 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
+     * Tests if the given value is finite.
+     *
+     * @param value The value to test.
+     * @return {@code true} if the value is finite, {@code false} otherwise.
+     */
+    static boolean isFinite(final Number value) {
+        if (value instanceof Double) {
+            return Double.isFinite((Double) value);
+        }
+        if (value instanceof Float) {
+            return Float.isFinite((Float) value);
+        }
+        return true;
+    }
+
+    /**
      * {@code true} if fractions are allowed or {@code false} if integers only.
      */
     private final boolean allowFractions;
