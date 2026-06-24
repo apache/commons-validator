@@ -391,7 +391,10 @@ class IBANValidatorTest {
                 Arguments.of("AD0101", IBANValidatorStatus.INVALID_LENGTH),
                 Arguments.of("AD12XX012030200359100100", IBANValidatorStatus.INVALID_PATTERN),
                 Arguments.of("AD9900012030200359100100", IBANValidatorStatus.INVALID_CHECKSUM),
-                Arguments.of("AD1200012030200359100100", IBANValidatorStatus.VALID)
+                Arguments.of("AD1200012030200359100100", IBANValidatorStatus.VALID),
+                Arguments.of(" AD1200012030200359100100", IBANValidatorStatus.VALID),
+                Arguments.of("AD1200012030200359100100 ", IBANValidatorStatus.VALID),
+                Arguments.of("  AD1200012030200359100100\n", IBANValidatorStatus.VALID)
         );
     }
 
@@ -537,6 +540,14 @@ class IBANValidatorTest {
     @MethodSource("validateIbanStatuses")
     void testValidateIbanStatuses(final String iban, final IBANValidatorStatus expectedStatus) {
         assertEquals(expectedStatus, IBANValidator.getInstance().validate(iban));
+    }
+
+    @Test
+    void testValidateSurroundingWhitespace() {
+        final String iban = "DE89370400440532013000";
+        assertEquals(IBANValidatorStatus.VALID, VALIDATOR.validate(" " + iban), "leading space");
+        assertEquals(IBANValidatorStatus.VALID, VALIDATOR.validate(iban + " "), "trailing space");
+        assertTrue(VALIDATOR.isValid("\t" + iban + "\n"), "isValid trims surrounding whitespace");
     }
 
     @ParameterizedTest

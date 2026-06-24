@@ -417,16 +417,17 @@ public class IBANValidator {
      * @since 1.10.0
      */
     public IBANValidatorStatus validate(final String code) {
-        final Validator formatValidator = getValidator(code);
+        final String iban = code == null ? null : code.trim();
+        final Validator formatValidator = getValidator(iban);
         if (formatValidator == null) {
             return IBANValidatorStatus.UNKNOWN_COUNTRY;
         }
-        if (code.length() != formatValidator.ibanLength) {
+        if (iban.length() != formatValidator.ibanLength) {
             return IBANValidatorStatus.INVALID_LENGTH;
         }
-        if (!formatValidator.regexValidator.isValid(code)) {
+        if (!formatValidator.regexValidator.isValid(iban)) {
             return IBANValidatorStatus.INVALID_PATTERN;
         }
-        return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(code) ? IBANValidatorStatus.VALID : IBANValidatorStatus.INVALID_CHECKSUM;
+        return IBANCheckDigit.IBAN_CHECK_DIGIT.isValid(iban) ? IBANValidatorStatus.VALID : IBANValidatorStatus.INVALID_CHECKSUM;
     }
 }
