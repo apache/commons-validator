@@ -184,6 +184,42 @@ public class DoubleValidator extends AbstractNumberValidator {
     }
 
     /**
+     * Tests if the value is less than or equal to a maximum, comparing the exact values.
+     *
+     * <p>
+     * This overrides the {@link Number} overload inherited from the superclass, which narrows the bound to a {@code double} before comparing and so loses
+     * precision for a {@code BigDecimal} or {@code BigInteger} bound that carries more significant digits than a {@code double} can hold. A non-finite
+     * {@link Double} or {@link Float} operand keeps the {@code doubleValue()} comparison so the documented infinity behaviour is unchanged.
+     * </p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max   The maximum value.
+     * @return {@code true} if the value is less than or equal to the maximum.
+     */
+    @Override
+    public boolean maxValue(final Number value, final Number max) {
+        return isFinite(value) && isFinite(max) ? compareTo(value, max) <= 0 : value.doubleValue() <= max.doubleValue();
+    }
+
+    /**
+     * Tests if the value is greater than or equal to a minimum, comparing the exact values.
+     *
+     * <p>
+     * This overrides the {@link Number} overload inherited from the superclass, which narrows the bound to a {@code double} before comparing and so loses
+     * precision for a {@code BigDecimal} or {@code BigInteger} bound that carries more significant digits than a {@code double} can hold. A non-finite
+     * {@link Double} or {@link Float} operand keeps the {@code doubleValue()} comparison so the documented infinity behaviour is unchanged.
+     * </p>
+     *
+     * @param value The value validation is being performed on.
+     * @param min   The minimum value.
+     * @return {@code true} if the value is greater than or equal to the minimum.
+     */
+    @Override
+    public boolean minValue(final Number value, final Number min) {
+        return isFinite(value) && isFinite(min) ? compareTo(value, min) >= 0 : value.doubleValue() >= min.doubleValue();
+    }
+
+    /**
      * Convert the parsed value to a {@code Double}.
      *
      * @param value The parsed {@code Number} object created.
