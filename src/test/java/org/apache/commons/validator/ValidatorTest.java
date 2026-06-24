@@ -101,7 +101,7 @@ class ValidatorTest {
 
         final ValidatorAction va = new ValidatorAction();
         va.setName(action);
-        va.setClassname("org.apache.commons.validator.ValidatorTest");
+        va.setClassName("org.apache.commons.validator.ValidatorTest");
         va.setMethod("formatDate");
         va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field");
 
@@ -185,7 +185,7 @@ class ValidatorTest {
 
         final ValidatorAction va = new ValidatorAction();
         va.setName("capLetter");
-        va.setClassname("org.apache.commons.validator.ValidatorTest");
+        va.setClassName("org.apache.commons.validator.ValidatorTest");
         va.setMethod("isCapLetter");
         va.setMethodParams("java.lang.Object,org.apache.commons.validator.Field,java.util.List");
 
