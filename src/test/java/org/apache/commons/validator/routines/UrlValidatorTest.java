@@ -173,6 +173,17 @@ public class UrlValidatorTest {
         assertFalse(urlValidator.isValid("http://[::ffff:129.144.52.999]/"));
     }
 
+    @Test
+    void testIpv6Port() {
+        final UrlValidator urlValidator = new UrlValidator();
+        // a port on a bracketed IPv6 host must be range checked just like a hostname/IPv4 host
+        assertTrue(urlValidator.isValid("http://[::1]:65535/index.html"));
+        assertFalse(urlValidator.isValid("http://[::1]:65536/index.html"));
+        assertFalse(urlValidator.isValid("http://[::1]:99999/index.html"));
+        assertTrue(urlValidator.isValidAuthority("[::1]:65535"));
+        assertFalse(urlValidator.isValidAuthority("[::1]:65536"));
+    }
+
     @ParameterizedTest
     // @formatter:off
     @ValueSource(strings = {
