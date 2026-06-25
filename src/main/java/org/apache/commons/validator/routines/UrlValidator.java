@@ -443,16 +443,19 @@ public class UrlValidator implements Serializable {
                     return false;
                 }
             }
-            final String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
-            if (!GenericValidator.isBlankOrNull(port)) {
-                try {
-                    final int iPort = Integer.parseInt(port);
-                    if (iPort < 0 || iPort > MAX_UNSIGNED_16_BIT_INT) {
-                        return false;
-                    }
-                } catch (final NumberFormatException nfe) {
-                    return false; // this can happen for big numbers
+        }
+
+        // the port is captured in the same group regardless of host form, so it must be
+        // range checked for a bracketed IPv6 host too, not just the hostname/IPv4 branch
+        final String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
+        if (!GenericValidator.isBlankOrNull(port)) {
+            try {
+                final int iPort = Integer.parseInt(port);
+                if (iPort < 0 || iPort > MAX_UNSIGNED_16_BIT_INT) {
+                    return false;
                 }
+            } catch (final NumberFormatException nfe) {
+                return false; // this can happen for big numbers
             }
         }
 
