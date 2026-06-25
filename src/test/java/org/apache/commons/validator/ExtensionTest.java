@@ -23,7 +23,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -106,6 +108,43 @@ class ExtensionTest {
         assertEquals("firstName", fieldFirstName.getKey(), "firstName in " + FORM_KEY2 + " should be the first in the list");
         assertEquals("lastName", fieldLastName.getKey(), "lastName in " + FORM_KEY2 + " should be the first in the list");
 
+    }
+
+    /**
+     * A form-set constant overrides a global constant of the same name, because {@link Field#process} applies the
+     * form-set constants before the global ones. This precedence must also hold for a form reached through extension:
+     * when {@link Form#process} recurses into the parent form it has to pass the global and form-set constants in the
+     * same order as for a non-extended form. With the arguments swapped the parent's fields resolve a shared constant
+     * to the global value instead of the form-set value.
+     */
+    @Test
+    void testConstantOrderWhenExtending() {
+        final Map<String, String> globalConstants = new HashMap<>();
+        globalConstants.put("greeting", "global");
+        final Map<String, String> constants = new HashMap<>();
+        constants.put("greeting", "formset");
+
+        final Field baseField = new Field();
+        baseField.setProperty("name");
+        baseField.addVar("msg", "${greeting}", null);
+
+        final Form baseForm = new Form();
+        baseForm.setName("baseForm");
+        baseForm.addField(baseField);
+
+        final Form childForm = new Form();
+        childForm.setName("childForm");
+        childForm.setExtends("baseForm");
+
+        final Map<String, Form> forms = new HashMap<>();
+        forms.put("baseForm", baseForm);
+        forms.put("childForm", childForm);
+
+        // Processing the child reaches the still-unprocessed parent through the extension branch of Form.process.
+        childForm.process(globalConstants, constants, forms);
+
+        assertEquals("formset", baseForm.getField("name").getVar("msg").getValue(),
+                "the form-set constant should override the global constant for an extended form");
     }
 
     /**
