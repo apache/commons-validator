@@ -233,6 +233,52 @@ class CalendarValidatorTest extends AbstractCalendarValidatorTest {
     }
 
     /**
+     * Test compareWeeks() across the year boundary, where WEEK_OF_YEAR repeats: 31 December can be
+     * week 1 of the next year while 1 January of the same calendar year is also week 1.
+     */
+    @Test
+    @DefaultLocale(country = "US", language = "en")
+    void testCompareWeeksAcrossYearBoundary() {
+        final int noon = 120000;
+        // US locale: week starts Sunday, so Sun 30 Dec 2018 to Sat 5 Jan 2019 is a single week
+        final Calendar dec30y2018 = createCalendar(TimeZones.GMT, 20181230, noon);
+        final Calendar dec31y2018 = createCalendar(TimeZones.GMT, 20181231, noon);
+        final Calendar jan01y2018 = createCalendar(TimeZones.GMT, 20180101, noon);
+        final Calendar jan01y2019 = createCalendar(TimeZones.GMT, 20190101, noon);
+        final Calendar jan05y2019 = createCalendar(TimeZones.GMT, 20190105, noon);
+
+        // both are calendar year 2018 and WEEK_OF_YEAR 1, but lie ~52 weeks apart
+        assertEquals(1, calValidator.compareWeeks(dec31y2018, jan01y2018), "Dec 31 2018 is weeks after Jan 1 2018");
+        assertEquals(-1, calValidator.compareWeeks(jan01y2018, dec31y2018), "Jan 1 2018 is weeks before Dec 31 2018");
+
+        // different calendar years but the same week
+        assertEquals(0, calValidator.compareWeeks(dec31y2018, jan01y2019), "Dec 31 2018 is the same week as Jan 1 2019");
+
+        // the whole Sun 30 Dec 2018 to Sat 5 Jan 2019 span is one week
+        assertEquals(0, calValidator.compareWeeks(dec30y2018, jan05y2019), "Dec 30 2018 is the same week as Jan 5 2019");
+    }
+
+    /**
+     * Test WEEK_OF_MONTH comparison across a month/year boundary, where the week number resets and
+     * the first week of a month can hold days carried over from the previous month.
+     */
+    @Test
+    @DefaultLocale(country = "US", language = "en")
+    void testCompareWeekOfMonthAcrossBoundary() {
+        final int noon = 120000;
+        final Calendar dec30y2018 = createCalendar(TimeZones.GMT, 20181230, noon);
+        final Calendar dec31y2018 = createCalendar(TimeZones.GMT, 20181231, noon);
+        final Calendar jan01y2019 = createCalendar(TimeZones.GMT, 20190101, noon);
+
+        // 30 and 31 Dec 2018 fall in the same week of December
+        assertEquals(0, calValidator.compare(dec30y2018, dec31y2018, Calendar.WEEK_OF_MONTH), "Dec 30 and 31 2018 are the same week of month");
+
+        // 31 Dec 2018 and 1 Jan 2019 are one day apart but lie in different weeks of their months
+        assertEquals(-1, calValidator.compare(dec31y2018, jan01y2019, Calendar.WEEK_OF_MONTH), "Dec 31 2018 is before Jan 1 2019 by week of month");
+        assertEquals(1, calValidator.compare(jan01y2019, dec31y2018, Calendar.WEEK_OF_MONTH), "Jan 1 2019 is after Dec 31 2018 by week of month");
+    }
+
+    /**
      * Test Date/Time style Validator (there isn't an implementation for this)
      */
     @Test

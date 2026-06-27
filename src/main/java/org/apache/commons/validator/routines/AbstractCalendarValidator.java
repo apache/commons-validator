@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.validator.GenericValidator;
 
@@ -37,6 +38,9 @@ import org.apache.commons.validator.GenericValidator;
 public abstract class AbstractCalendarValidator extends AbstractFormatValidator {
 
     private static final long serialVersionUID = -1410008585975827379L;
+
+    /** Number of milliseconds in a week, beyond which two instants cannot share a week. */
+    private static final long MILLIS_PER_WEEK = TimeUnit.DAYS.toMillis(7);
 
     /**
      * The date style to use for Locale validation.
@@ -117,15 +121,18 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
 
         int result;
 
+        // Week of Year and Week of Month numbers repeat across the boundaries they reset on, and a
+        // week can belong to a different calendar year or month than its number suggests (for
+        // example 31 December may fall in week 1 of the following year), so the week is compared by
+        // day distance and week number rather than by comparing the calendar year first.
+        if (field == Calendar.WEEK_OF_YEAR || field == Calendar.WEEK_OF_MONTH) {
+            return compareWeek(value, compare, field);
+        }
+
         // Compare Year
         result = calculateCompareResult(value, compare, Calendar.YEAR);
         if (result != 0 || field == Calendar.YEAR) {
             return result;
-        }
-
-        // Compare Week of Year
-        if (field == Calendar.WEEK_OF_YEAR) {
-            return calculateCompareResult(value, compare, Calendar.WEEK_OF_YEAR);
         }
 
         // Compare Day of the Year
@@ -137,11 +144,6 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
         result = calculateCompareResult(value, compare, Calendar.MONTH);
         if (result != 0 || field == Calendar.MONTH) {
             return result;
-        }
-
-        // Compare Week of Month
-        if (field == Calendar.WEEK_OF_MONTH) {
-            return calculateCompareResult(value, compare, Calendar.WEEK_OF_MONTH);
         }
 
         // Compare Date
@@ -416,4 +418,25 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      */
     @Override
     protected abstract Object processParsedValue(Object value, Format formatter);
+
+    /**
+     * Compares the week two calendars fall in, ordering by the actual week rather than by the
+     * {@code WEEK_OF_YEAR} or {@code WEEK_OF_MONTH} number alone. Those numbers repeat across the
+     * boundaries they reset on (for example 31 December may be week 1 of the following year, and
+     * the first week of a month can hold days carried over from the previous month), so the gap
+     * between the two instants is checked first: dates a week or more apart are always in different
+     * weeks, and nearer dates share a week only when the week number also matches.
+     *
+     * @param value The Calendar value.
+     * @param compare The {@link Calendar} to check the value against.
+     * @param field {@code Calendar.WEEK_OF_YEAR} or {@code Calendar.WEEK_OF_MONTH}.
+     * @return Zero if both calendars are in the same week, -1 or +1 otherwise.
+     */
+    private int compareWeek(final Calendar value, final Calendar compare, final int field) {
+        final long millis = value.getTimeInMillis() - compare.getTimeInMillis();
+        if (Math.abs(millis) >= MILLIS_PER_WEEK || calculateCompareResult(value, compare, field) != 0) {
+            return Long.signum(millis);
+        }
+        return 0;
+    }
 }
