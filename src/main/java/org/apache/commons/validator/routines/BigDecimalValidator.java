@@ -124,17 +124,6 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
-     * Compares two values as BigDecimals.
-     *
-     * @param value1 {@code BigDecimal} to compare.
-     * @param value2 {@code BigDecimal} to which {@code value1} is to be compared.
-     * @return -1, 0, or 1 as this {@code BigDecimal} is numerically less than, equal to, or greater than {@code val}.
-     */
-    private int compareTo(final Number value1, final Number value2) {
-        return toBigDecimal(value1).compareTo(toBigDecimal(value2));
-    }
-
-    /**
      * Returns a {@code Format} that parses to a {@code BigDecimal} so the exact value of the input is preserved.
      *
      * <p>

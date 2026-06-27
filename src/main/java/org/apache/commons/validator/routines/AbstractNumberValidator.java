@@ -53,6 +53,33 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
      */
     public static final int PERCENT_FORMAT = 2;
 
+    /**
+     * Compares two values as BigDecimals.
+     *
+     * @param value1 {@code BigDecimal} to compare.
+     * @param value2 {@code BigDecimal} to which {@code value1} is to be compared.
+     * @return -1, 0, or 1 as this {@code BigDecimal} is numerically less than, equal to, or greater than {@code val}.
+     */
+    static int compareTo(final Number value1, final Number value2) {
+        return toBigDecimal(value1).compareTo(toBigDecimal(value2));
+    }
+
+    /**
+     * Tests if the given value is finite.
+     *
+     * @param value The value to test.
+     * @return {@code true} if the value is finite, {@code false} otherwise.
+     */
+    static boolean isFinite(final Number value) {
+        if (value instanceof Double) {
+            return Double.isFinite((Double) value);
+        }
+        if (value instanceof Float) {
+            return Float.isFinite((Float) value);
+        }
+        return true;
+    }
+
     static Format setParseBigDecimal(final Format format) {
         if (format instanceof DecimalFormat) {
             ((DecimalFormat) format).setParseBigDecimal(true);
@@ -82,22 +109,6 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
             return BigInteger.valueOf(((Long) value).longValue());
         }
         return toBigDecimal(value).toBigInteger();
-    }
-
-    /**
-     * Tests if the given value is finite.
-     *
-     * @param value The value to test.
-     * @return {@code true} if the value is finite, {@code false} otherwise.
-     */
-    static boolean isFinite(final Number value) {
-        if (value instanceof Double) {
-            return Double.isFinite((Double) value);
-        }
-        if (value instanceof Float) {
-            return Float.isFinite((Float) value);
-        }
-        return true;
     }
 
     /**
