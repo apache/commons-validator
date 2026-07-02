@@ -136,8 +136,8 @@ class DoubleValidatorTest extends AbstractNumberValidatorTest {
 
     /**
      * Test the {@link Number} range checks against a bound that carries more precision than a {@code double}.
-     * 2^53 is the largest integer with an exact {@code double} representation, so 2^53 + 1 cannot be narrowed
-     * onto the value: a value of 2^53 is below a minimum of 2^53 + 1 and above a maximum of 2^53 - 0.5.
+     * {@code 2^53} is the largest integer with an exact {@code double} representation, so {@code 2^53} + 1 cannot be narrowed
+     * onto the value: a value of {@code 2^53} is below a minimum of {@code 2^53 + 1} and above a maximum of {@code 2^53 - 0.5}.
      */
     @Test
     void testDoubleNumberRangeExactBound() {
