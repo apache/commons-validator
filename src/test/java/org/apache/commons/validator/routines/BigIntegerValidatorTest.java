@@ -248,18 +248,15 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
     void testNumberRangeNonFiniteBound() {
         final AbstractNumberValidator instance = BigIntegerValidator.getInstance();
         final Number value = BigInteger.valueOf(100);
-
         // NaN bound: nothing compares against NaN
         assertFalse(instance.maxValue(value, Double.NaN));
         assertFalse(instance.minValue(value, Double.NaN));
         assertFalse(instance.isInRange(value, 0, Double.NaN));
         assertFalse(instance.isInRange(value, Double.NaN, 200));
-
         // POSITIVE_INFINITY as a maximum / NEGATIVE_INFINITY as a minimum are open bounds any finite value meets
         assertTrue(instance.maxValue(value, Double.POSITIVE_INFINITY));
         assertTrue(instance.minValue(value, Double.NEGATIVE_INFINITY));
         assertTrue(instance.isInRange(value, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY));
-
         // POSITIVE_INFINITY as a minimum / NEGATIVE_INFINITY as a maximum cannot be met
         assertFalse(instance.minValue(value, Double.POSITIVE_INFINITY));
         assertFalse(instance.maxValue(value, Double.NEGATIVE_INFINITY));
