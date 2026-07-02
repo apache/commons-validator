@@ -94,6 +94,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="sebb" due-to="sahvx655-wq">range-check the port for IPv6 hosts in isValidAuthority (#412).</action>
     <action type="fix" dev="sebb" due-to="sahvx655-wq">Fix calculation of week_of_year and week_of_month to allow for dates that span a year gap (#408).</action>
     <action type="fix" dev="sebb">Fix deprecations in test classes.</action>
+    <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Compare exact values in DoubleValidator range checks (#410).</action>
     <!-- ADD -->
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use CheckDigitException.CheckDigitException(String, Object...) (#389).</action>
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use ValidatorException.ValidatorException(Throwable). Call sites that previously called new ValidatorException(Throwable#getMessage()) now preserve that exception (#390).</action>
