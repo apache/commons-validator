@@ -22,6 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
@@ -130,6 +132,26 @@ class DoubleValidatorTest extends AbstractNumberValidatorTest {
         assertFalse(validator.minValue(Double.NaN, 10), "minValue() NaN");
         // maxValue() with NaN: NaN <= max is always false
         assertFalse(validator.maxValue(Double.NaN, 20), "maxValue() NaN");
+    }
+
+    /**
+     * Test the {@link Number} range checks against a bound that carries more precision than a {@code double}.
+     * {@code 2^53} is the largest integer with an exact {@code double} representation, so {@code 2^53} + 1 cannot be narrowed
+     * onto the value: a value of {@code 2^53} is below a minimum of {@code 2^53 + 1} and above a maximum of {@code 2^53 - 0.5}.
+     */
+    @Test
+    void testDoubleNumberRangeExactBound() {
+        final DoubleValidator validator = (DoubleValidator) strictValidator;
+        final long maxExactInt = 1L << 53; // 2^53
+        final Double value = Double.valueOf(maxExactInt);
+        final BigInteger above = BigInteger.valueOf(maxExactInt).add(BigInteger.ONE); // 2^53 + 1
+        final BigInteger below = BigInteger.valueOf(maxExactInt).subtract(BigInteger.ONE); // 2^53 - 1
+        final BigDecimal justBelow = BigDecimal.valueOf(maxExactInt).subtract(BigDecimal.valueOf(0.5)); // 2^53 - 0.5
+        assertFalse(validator.minValue(value, above), "minValue() bound above value");
+        assertTrue(validator.minValue(value, below), "minValue() bound below value");
+        assertFalse(validator.maxValue(value, justBelow), "maxValue() bound below value");
+        assertTrue(validator.maxValue(value, above), "maxValue() bound above value");
+        assertFalse(validator.isInRange(value, above, above.add(BigInteger.ONE)), "isInRange() value below range");
     }
 
     /**
