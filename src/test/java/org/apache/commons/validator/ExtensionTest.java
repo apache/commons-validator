@@ -80,37 +80,6 @@ class ExtensionTest {
     }
 
     /**
-     * Tests if the order is maintained when extending a form. Parent form fields should preceed self form fields, except if we override the rules.
-     */
-    @Test
-    void testOrder() {
-        final Locale defaultLocale = Locale.getDefault();
-        final Form form = resources.getForm(defaultLocale, FORM_KEY);
-        final Form form2 = resources.getForm(defaultLocale, FORM_KEY2);
-
-        assertNotNull(form, FORM_KEY + " is null.");
-        assertEquals(2, form.getFields().size(), "There should only be 2 fields in " + FORM_KEY);
-
-        assertNotNull(form2, FORM_KEY2 + " is null.");
-        assertEquals(2, form2.getFields().size(), "There should only be 2 fields in " + FORM_KEY2);
-
-        // get the first field
-        Field fieldFirstName = form.getFields().get(0);
-        // get the second field
-        Field fieldLastName = form.getFields().get(1);
-        assertEquals("firstName", fieldFirstName.getKey(), "firstName in " + FORM_KEY + " should be the first in the list");
-        assertEquals("lastName", fieldLastName.getKey(), "lastName in " + FORM_KEY + " should be the first in the list");
-
-//     get the second field
-        fieldLastName = form2.getFields().get(0);
-        // get the first field
-        fieldFirstName = form2.getFields().get(1);
-        assertEquals("firstName", fieldFirstName.getKey(), "firstName in " + FORM_KEY2 + " should be the first in the list");
-        assertEquals("lastName", fieldLastName.getKey(), "lastName in " + FORM_KEY2 + " should be the first in the list");
-
-    }
-
-    /**
      * A form-set constant overrides a global constant of the same name, because {@link Field#process} applies the
      * form-set constants before the global ones. This precedence must also hold for a form reached through extension:
      * when {@link Form#process} recurses into the parent form it has to pass the global and form-set constants in the
@@ -145,6 +114,37 @@ class ExtensionTest {
 
         assertEquals("formset", baseForm.getField("name").getVar("msg").getValue(),
                 "the form-set constant should override the global constant for an extended form");
+    }
+
+    /**
+     * Tests if the order is maintained when extending a form. Parent form fields should preceed self form fields, except if we override the rules.
+     */
+    @Test
+    void testOrder() {
+        final Locale defaultLocale = Locale.getDefault();
+        final Form form = resources.getForm(defaultLocale, FORM_KEY);
+        final Form form2 = resources.getForm(defaultLocale, FORM_KEY2);
+
+        assertNotNull(form, FORM_KEY + " is null.");
+        assertEquals(2, form.getFields().size(), "There should only be 2 fields in " + FORM_KEY);
+
+        assertNotNull(form2, FORM_KEY2 + " is null.");
+        assertEquals(2, form2.getFields().size(), "There should only be 2 fields in " + FORM_KEY2);
+
+        // get the first field
+        Field fieldFirstName = form.getFields().get(0);
+        // get the second field
+        Field fieldLastName = form.getFields().get(1);
+        assertEquals("firstName", fieldFirstName.getKey(), "firstName in " + FORM_KEY + " should be the first in the list");
+        assertEquals("lastName", fieldLastName.getKey(), "lastName in " + FORM_KEY + " should be the first in the list");
+
+//     get the second field
+        fieldLastName = form2.getFields().get(0);
+        // get the first field
+        fieldFirstName = form2.getFields().get(1);
+        assertEquals("firstName", fieldFirstName.getKey(), "firstName in " + FORM_KEY2 + " should be the first in the list");
+        assertEquals("lastName", fieldLastName.getKey(), "lastName in " + FORM_KEY2 + " should be the first in the list");
+
     }
 
     /**

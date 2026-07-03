@@ -160,6 +160,24 @@ public class DoubleValidator extends AbstractNumberValidator {
     }
 
     /**
+     * Tests if the value is less than or equal to a maximum, comparing the exact values.
+     *
+     * <p>
+     * This overrides the {@link Number} overload inherited from the superclass, which narrows the bound to a {@code double} before comparing and so loses
+     * precision for a {@code BigDecimal} or {@code BigInteger} bound that carries more significant digits than a {@code double} can hold. A non-finite
+     * {@link Double} or {@link Float} operand keeps the {@code doubleValue()} comparison so the documented infinity behaviour is unchanged.
+     * </p>
+     *
+     * @param value The value validation is being performed on.
+     * @param max   The maximum value.
+     * @return {@code true} if the value is less than or equal to the maximum.
+     */
+    @Override
+    public boolean maxValue(final Number value, final Number max) {
+        return isFinite(value) && isFinite(max) ? compareTo(value, max) <= 0 : value.doubleValue() <= max.doubleValue();
+    }
+
+    /**
      * Check if the value is greater than or equal to a minimum.
      *
      * @param value The value validation is being performed on.
@@ -181,24 +199,6 @@ public class DoubleValidator extends AbstractNumberValidator {
      */
     public boolean minValue(final Double value, final double min) {
         return minValue(value.doubleValue(), min);
-    }
-
-    /**
-     * Tests if the value is less than or equal to a maximum, comparing the exact values.
-     *
-     * <p>
-     * This overrides the {@link Number} overload inherited from the superclass, which narrows the bound to a {@code double} before comparing and so loses
-     * precision for a {@code BigDecimal} or {@code BigInteger} bound that carries more significant digits than a {@code double} can hold. A non-finite
-     * {@link Double} or {@link Float} operand keeps the {@code doubleValue()} comparison so the documented infinity behaviour is unchanged.
-     * </p>
-     *
-     * @param value The value validation is being performed on.
-     * @param max   The maximum value.
-     * @return {@code true} if the value is less than or equal to the maximum.
-     */
-    @Override
-    public boolean maxValue(final Number value, final Number max) {
-        return isFinite(value) && isFinite(max) ? compareTo(value, max) <= 0 : value.doubleValue() <= max.doubleValue();
     }
 
     /**

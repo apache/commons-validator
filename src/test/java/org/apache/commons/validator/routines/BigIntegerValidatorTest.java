@@ -221,25 +221,6 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * The {@link Number} overloads inherited from the superclass must compare the exact value, not a value narrowed to a long, for BigIntegers outside the long
-     * range.
-     */
-    @Test
-    void testNumberRangeOutsideLongRange() {
-        final AbstractNumberValidator instance = BigIntegerValidator.getInstance();
-        final Number min = BigInteger.valueOf(5);
-        final Number max = BigInteger.valueOf(100);
-        // 2^63 narrows to Long.MIN_VALUE, which the long-based comparison wrongly reports as below the range
-        final Number aboveMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
-        assertTrue(instance.minValue(aboveMax, min));
-        assertFalse(instance.maxValue(aboveMax, max));
-        // 2^64 + 50 narrows to 50, which the long-based comparison wrongly reports as in range
-        final Number wrapsIntoRange = BigInteger.ONE.shiftLeft(Long.SIZE).add(BigInteger.valueOf(50));
-        assertEquals(50L, wrapsIntoRange.longValue());
-        assertFalse(instance.isInRange(wrapsIntoRange, min, max));
-    }
-
-    /**
      * A non-finite {@link Double} bound must not be routed through {@link BigDecimal}, which cannot represent {@code NaN} or an infinity. The {@link Number}
      * overloads previously converted every bound to a {@code BigDecimal} and so threw {@code NumberFormatException} for such a bound, whereas the sibling
      * {@link BigDecimalValidator} already handled it. The behaviour now matches: a {@code NaN} bound is never satisfied, and an infinity is an open bound.
@@ -277,5 +258,24 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
         assertFalse(instance.minValue(negInf, posInf));
         assertFalse(instance.maxValue(posInf, nan));
         assertFalse(instance.minValue(posInf, nan));
+    }
+
+    /**
+     * The {@link Number} overloads inherited from the superclass must compare the exact value, not a value narrowed to a long, for BigIntegers outside the long
+     * range.
+     */
+    @Test
+    void testNumberRangeOutsideLongRange() {
+        final AbstractNumberValidator instance = BigIntegerValidator.getInstance();
+        final Number min = BigInteger.valueOf(5);
+        final Number max = BigInteger.valueOf(100);
+        // 2^63 narrows to Long.MIN_VALUE, which the long-based comparison wrongly reports as below the range
+        final Number aboveMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
+        assertTrue(instance.minValue(aboveMax, min));
+        assertFalse(instance.maxValue(aboveMax, max));
+        // 2^64 + 50 narrows to 50, which the long-based comparison wrongly reports as in range
+        final Number wrapsIntoRange = BigInteger.ONE.shiftLeft(Long.SIZE).add(BigInteger.valueOf(50));
+        assertEquals(50L, wrapsIntoRange.longValue());
+        assertFalse(instance.isInRange(wrapsIntoRange, min, max));
     }
 }

@@ -219,6 +219,27 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
     }
 
     /**
+     * Compares the week two calendars fall in, ordering by the actual week rather than by the
+     * {@code WEEK_OF_YEAR} or {@code WEEK_OF_MONTH} number alone. Those numbers repeat across the
+     * boundaries they reset on (for example 31 December may be week 1 of the following year, and
+     * the first week of a month can hold days carried over from the previous month), so the gap
+     * between the two instants is checked first: dates a week or more apart are always in different
+     * weeks, and nearer dates share a week only when the week number also matches.
+     *
+     * @param value The Calendar value.
+     * @param compare The {@link Calendar} to check the value against.
+     * @param field {@code Calendar.WEEK_OF_YEAR} or {@code Calendar.WEEK_OF_MONTH}.
+     * @return Zero if both calendars are in the same week, -1 or +1 otherwise.
+     */
+    private int compareWeek(final Calendar value, final Calendar compare, final int field) {
+        final long millis = value.getTimeInMillis() - compare.getTimeInMillis();
+        if (Math.abs(millis) >= MILLIS_PER_WEEK || calculateCompareResult(value, compare, field) != 0) {
+            return Long.signum(millis);
+        }
+        return 0;
+    }
+
+    /**
      * Format a value with the specified {@code DateFormat}.
      *
      * @param value The value to be formatted.
@@ -418,25 +439,4 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      */
     @Override
     protected abstract Object processParsedValue(Object value, Format formatter);
-
-    /**
-     * Compares the week two calendars fall in, ordering by the actual week rather than by the
-     * {@code WEEK_OF_YEAR} or {@code WEEK_OF_MONTH} number alone. Those numbers repeat across the
-     * boundaries they reset on (for example 31 December may be week 1 of the following year, and
-     * the first week of a month can hold days carried over from the previous month), so the gap
-     * between the two instants is checked first: dates a week or more apart are always in different
-     * weeks, and nearer dates share a week only when the week number also matches.
-     *
-     * @param value The Calendar value.
-     * @param compare The {@link Calendar} to check the value against.
-     * @param field {@code Calendar.WEEK_OF_YEAR} or {@code Calendar.WEEK_OF_MONTH}.
-     * @return Zero if both calendars are in the same week, -1 or +1 otherwise.
-     */
-    private int compareWeek(final Calendar value, final Calendar compare, final int field) {
-        final long millis = value.getTimeInMillis() - compare.getTimeInMillis();
-        if (Math.abs(millis) >= MILLIS_PER_WEEK || calculateCompareResult(value, compare, field) != 0) {
-            return Long.signum(millis);
-        }
-        return 0;
-    }
 }
