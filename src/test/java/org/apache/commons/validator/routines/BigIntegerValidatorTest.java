@@ -260,5 +260,22 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
         // POSITIVE_INFINITY as a minimum / NEGATIVE_INFINITY as a maximum cannot be met
         assertFalse(instance.minValue(value, Double.POSITIVE_INFINITY));
         assertFalse(instance.maxValue(value, Double.NEGATIVE_INFINITY));
+        final Number posInf = Double.valueOf(Double.POSITIVE_INFINITY);
+        final Number negInf = Double.valueOf(Double.NEGATIVE_INFINITY);
+        final Number nan = Double.valueOf(Double.NaN);
+        // A non-finite value against itself: an infinity equals itself, NaN never compares equal
+        assertTrue(instance.maxValue(posInf, posInf));
+        assertTrue(instance.minValue(posInf, posInf));
+        assertTrue(instance.maxValue(negInf, negInf));
+        assertTrue(instance.minValue(negInf, negInf));
+        assertFalse(instance.maxValue(nan, nan));
+        assertFalse(instance.minValue(nan, nan));
+        // A non-finite value against a different non-finite bound: -inf < +inf, anything with NaN fails
+        assertTrue(instance.maxValue(negInf, posInf));
+        assertTrue(instance.minValue(posInf, negInf));
+        assertFalse(instance.maxValue(posInf, negInf));
+        assertFalse(instance.minValue(negInf, posInf));
+        assertFalse(instance.maxValue(posInf, nan));
+        assertFalse(instance.minValue(posInf, nan));
     }
 }
