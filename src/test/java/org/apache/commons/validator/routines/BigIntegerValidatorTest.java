@@ -238,4 +238,44 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
         assertEquals(50L, wrapsIntoRange.longValue());
         assertFalse(instance.isInRange(wrapsIntoRange, min, max));
     }
+
+    /**
+     * A non-finite {@link Double} bound must not be routed through {@link BigDecimal}, which cannot represent {@code NaN} or an infinity. The {@link Number}
+     * overloads previously converted every bound to a {@code BigDecimal} and so threw {@code NumberFormatException} for such a bound, whereas the sibling
+     * {@link BigDecimalValidator} already handled it. The behaviour now matches: a {@code NaN} bound is never satisfied, and an infinity is an open bound.
+     */
+    @Test
+    void testNumberRangeNonFiniteBound() {
+        final AbstractNumberValidator instance = BigIntegerValidator.getInstance();
+        final Number value = BigInteger.valueOf(100);
+        // NaN bound: nothing compares against NaN
+        assertFalse(instance.maxValue(value, Double.NaN));
+        assertFalse(instance.minValue(value, Double.NaN));
+        assertFalse(instance.isInRange(value, 0, Double.NaN));
+        assertFalse(instance.isInRange(value, Double.NaN, 200));
+        // POSITIVE_INFINITY as a maximum / NEGATIVE_INFINITY as a minimum are open bounds any finite value meets
+        assertTrue(instance.maxValue(value, Double.POSITIVE_INFINITY));
+        assertTrue(instance.minValue(value, Double.NEGATIVE_INFINITY));
+        assertTrue(instance.isInRange(value, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY));
+        // POSITIVE_INFINITY as a minimum / NEGATIVE_INFINITY as a maximum cannot be met
+        assertFalse(instance.minValue(value, Double.POSITIVE_INFINITY));
+        assertFalse(instance.maxValue(value, Double.NEGATIVE_INFINITY));
+        final Number posInf = Double.valueOf(Double.POSITIVE_INFINITY);
+        final Number negInf = Double.valueOf(Double.NEGATIVE_INFINITY);
+        final Number nan = Double.valueOf(Double.NaN);
+        // A non-finite value against itself: an infinity equals itself, NaN never compares equal
+        assertTrue(instance.maxValue(posInf, posInf));
+        assertTrue(instance.minValue(posInf, posInf));
+        assertTrue(instance.maxValue(negInf, negInf));
+        assertTrue(instance.minValue(negInf, negInf));
+        assertFalse(instance.maxValue(nan, nan));
+        assertFalse(instance.minValue(nan, nan));
+        // A non-finite value against a different non-finite bound: -inf < +inf, anything with NaN fails
+        assertTrue(instance.maxValue(negInf, posInf));
+        assertTrue(instance.minValue(posInf, negInf));
+        assertFalse(instance.maxValue(posInf, negInf));
+        assertFalse(instance.minValue(negInf, posInf));
+        assertFalse(instance.maxValue(posInf, nan));
+        assertFalse(instance.minValue(posInf, nan));
+    }
 }

@@ -152,7 +152,8 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * <p>
      * This overrides the {@link Number} overload inherited from the superclass, which narrows the value to a {@code long} before comparing and so loses
      * magnitude for a {@code BigInteger} outside the long range. The operands are compared as {@code BigDecimal} so a non-integer bound keeps its fractional
-     * part instead of being truncated towards zero.
+     * part instead of being truncated towards zero. A non-finite {@link Double} or {@link Float} operand keeps the {@code doubleValue()} comparison, since
+     * {@code BigDecimal} cannot represent {@code NaN} or an infinity.
      * </p>
      *
      * @param value The value validation is being performed on.
@@ -161,7 +162,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      */
     @Override
     public boolean maxValue(final Number value, final Number max) {
-        return toBigDecimal(value).compareTo(toBigDecimal(max)) <= 0;
+        return isFinite(value) && isFinite(max) ? compareTo(value, max) <= 0 : value.doubleValue() <= max.doubleValue();
     }
 
     /**
@@ -181,7 +182,8 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      * <p>
      * This overrides the {@link Number} overload inherited from the superclass, which narrows the value to a {@code long} before comparing and so loses
      * magnitude for a {@code BigInteger} outside the long range. The operands are compared as {@code BigDecimal} so a non-integer bound keeps its fractional
-     * part instead of being truncated towards zero.
+     * part instead of being truncated towards zero. A non-finite {@link Double} or {@link Float} operand keeps the {@code doubleValue()} comparison, since
+     * {@code BigDecimal} cannot represent {@code NaN} or an infinity.
      * </p>
      *
      * @param value The value validation is being performed on.
@@ -190,7 +192,7 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      */
     @Override
     public boolean minValue(final Number value, final Number min) {
-        return toBigDecimal(value).compareTo(toBigDecimal(min)) >= 0;
+        return isFinite(value) && isFinite(min) ? compareTo(value, min) >= 0 : value.doubleValue() >= min.doubleValue();
     }
 
     /**
