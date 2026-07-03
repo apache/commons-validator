@@ -89,7 +89,15 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
         if (charValue > charValueMax || !isAsciiAlphaNum(character)) {
             throw new CheckDigitException("Invalid Character[%d,%d] = '%d' out of range 0 to %d", leftPos, rightPos, charValue, charValueMax);
         }
+        // The SEDOL alphabet omits the vowels A, E, I, O and U, so a code containing one is not a SEDOL.
+        if (isVowel(character)) {
+            throw new CheckDigitException("Invalid Character[%d,%d] = '%c' - vowels are not used in a SEDOL", leftPos, rightPos, character);
+        }
         return charValue;
+    }
+
+    private boolean isVowel(final char character) {
+        return "AEIOU".indexOf(Character.toUpperCase(character)) >= 0;
     }
 
     /**

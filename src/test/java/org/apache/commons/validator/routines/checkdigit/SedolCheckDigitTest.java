@@ -51,4 +51,16 @@ class SedolCheckDigitTest extends AbstractCheckDigitTest {
         }
     }
 
+    /**
+     * SEDOLs never contain a vowel; each of these carries a correct modulus 10 check digit but a vowel in the
+     * six-character body, so the check digit alone would otherwise accept it.
+     */
+    @Test
+    void testVowelsRejected() {
+        final String[] withVowel = { "B0AKT02", "0EIOU02", "BAEIOU7", "AAAAAA0", };
+        for (final String code : withVowel) {
+            assertFalse(routine.isValid(code), "Should fail (contains a vowel): " + code);
+        }
+    }
+
 }
