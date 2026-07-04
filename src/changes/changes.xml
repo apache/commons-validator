@@ -98,6 +98,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Handle non-finite bounds in BigIntegerValidator range checks (#414).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Fix swapped constant maps in Form.process for extended forms (#413).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Reject vowels in SedolCheckDigit (#415).</action>
+    <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Compare exact bound in AbstractNumberValidator range checks (#416).</action>
     <!-- ADD -->
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use CheckDigitException.CheckDigitException(String, Object...) (#389).</action>
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use ValidatorException.ValidatorException(Throwable). Call sites that previously called new ValidatorException(Throwable#getMessage()) now preserve that exception (#390).</action>
