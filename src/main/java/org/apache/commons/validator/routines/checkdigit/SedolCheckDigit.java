@@ -72,6 +72,10 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
         return super.calculateModulus(code, includesCheckDigit);
     }
 
+    private boolean isVowel(final char character) {
+        return "AEIOU".indexOf(Character.toUpperCase(character)) >= 0;
+    }
+
     /**
      * Convert a character at a specified position to an integer value.
      *
@@ -79,25 +83,18 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      * @param leftPos   The position of the character in the code, counting from left to right.
      * @param rightPos  The position of the character in the code, counting from right to left.
      * @return The integer value of the character.
-     * @throws CheckDigitException if character is not alphanumeric.
+     * @throws CheckDigitException if character is not alphanumeric or a vowel.
      */
     @Override
     protected int toInt(final char character, final int leftPos, final int rightPos) throws CheckDigitException {
         final int charValue = Character.getNumericValue(character);
         // the check digit is only allowed to reach 9
         final int charValueMax = rightPos == 1 ? 9 : MAX_ALPHANUMERIC_VALUE; // CHECKSTYLE IGNORE MagicNumber
-        if (charValue > charValueMax || !isAsciiAlphaNum(character)) {
-            throw new CheckDigitException("Invalid Character[%d,%d] = '%d' out of range 0 to %d", leftPos, rightPos, charValue, charValueMax);
-        }
-        // The SEDOL alphabet omits the vowels A, E, I, O and U, so a code containing one is not a SEDOL.
-        if (isVowel(character)) {
-            throw new CheckDigitException("Invalid Character[%d,%d] = '%c' - vowels are not used in a SEDOL", leftPos, rightPos, character);
+        // The SEDOL alphabet excludes the vowels A, E, I, O and U, and treats Y as a consonant.
+        if (charValue > charValueMax || !isAsciiAlphaNum(character) || isVowel(character)) {
+            throw new CheckDigitException("Invalid Character[%d,%d] = '%d' out of range 0 to %d, exclusing vowels.", leftPos, rightPos, charValue, charValueMax);
         }
         return charValue;
-    }
-
-    private boolean isVowel(final char character) {
-        return "AEIOU".indexOf(Character.toUpperCase(character)) >= 0;
     }
 
     /**
