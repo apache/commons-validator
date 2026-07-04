@@ -272,6 +272,12 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     /**
      * Tests if the value is less than or equal to a maximum.
      *
+     * <p>
+     * For an integer validator the bound is compared exactly rather than narrowed to a {@code long}, so a {@code BigInteger} or {@code BigDecimal} bound outside
+     * the long range keeps its magnitude and a fractional bound keeps its fractional part. A non-finite {@link Double} or {@link Float} operand keeps the
+     * {@code doubleValue()} comparison, since {@code BigDecimal} cannot represent {@code NaN} or an infinity.
+     * </p>
+     *
      * @param value The value validation is being performed on.
      * @param max   The maximum value.
      * @return {@code true} if the value is less than or equal to the maximum.
@@ -280,11 +286,17 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
         if (isAllowFractions()) {
             return value.doubleValue() <= max.doubleValue();
         }
-        return value.longValue() <= max.longValue();
+        return isFinite(value) && isFinite(max) ? compareTo(value, max) <= 0 : value.doubleValue() <= max.doubleValue();
     }
 
     /**
      * Tests if the value is greater than or equal to a minimum.
+     *
+     * <p>
+     * For an integer validator the bound is compared exactly rather than narrowed to a {@code long}, so a {@code BigInteger} or {@code BigDecimal} bound outside
+     * the long range keeps its magnitude and a fractional bound keeps its fractional part. A non-finite {@link Double} or {@link Float} operand keeps the
+     * {@code doubleValue()} comparison, since {@code BigDecimal} cannot represent {@code NaN} or an infinity.
+     * </p>
      *
      * @param value The value validation is being performed on.
      * @param min   The minimum value.
@@ -294,7 +306,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
         if (isAllowFractions()) {
             return value.doubleValue() >= min.doubleValue();
         }
-        return value.longValue() >= min.longValue();
+        return isFinite(value) && isFinite(min) ? compareTo(value, min) >= 0 : value.doubleValue() >= min.doubleValue();
     }
 
     /**

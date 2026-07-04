@@ -21,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Locale;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -148,5 +150,20 @@ class IntegerValidatorTest extends AbstractNumberValidatorTest {
         assertFalse(validator.isValid("2147483648"), "2147483648 > max integer");
         assertTrue(validator.isValid("-2147483648"), "-2147483648 is min integer");
         assertFalse(validator.isValid("-2147483649"), "-2147483649 < min integer");
+    }
+
+    /**
+     * The inherited {@link Number}-typed range overloads must compare the exact bound rather than one narrowed to a {@code long}.
+     */
+    @Test
+    void testNumberRangeExactBound() {
+        final AbstractNumberValidator instance = IntegerValidator.getInstance();
+        final Number value = Integer.valueOf(100);
+        // A bound above the long range narrows to a negative long, wrongly reporting 100 as above the maximum.
+        final Number aboveLongMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
+        assertTrue(instance.maxValue(value, aboveLongMax));
+        assertTrue(instance.isInRange(value, BigInteger.ZERO, aboveLongMax));
+        // A fractional bound is not floored: 5 >= 5.5 is false.
+        assertFalse(instance.minValue(Integer.valueOf(5), new BigDecimal("5.5")));
     }
 }
