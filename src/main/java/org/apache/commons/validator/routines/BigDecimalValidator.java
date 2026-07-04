@@ -170,7 +170,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * <p>
      * This overrides the {@link Number} overload inherited from the superclass, which narrows the value to a {@code double} before comparing and so loses
      * precision for a {@code BigDecimal} that differs from the bound only beyond double precision. A non-finite {@link Double} or {@link Float} operand keeps
-     * the {@code doubleValue()} comparison so the documented infinity behaviour is unchanged.
+     * the {@code doubleValue()} comparison so the documented infinity behavior is unchanged.
      * </p>
      *
      * @param value The value validation is being performed on.
@@ -199,7 +199,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      * <p>
      * This overrides the {@link Number} overload inherited from the superclass, which narrows the value to a {@code double} before comparing and so loses
      * precision for a {@code BigDecimal} that differs from the bound only beyond double precision. A non-finite {@link Double} or {@link Float} operand keeps
-     * the {@code doubleValue()} comparison so the documented infinity behaviour is unchanged.
+     * the {@code doubleValue()} comparison so the documented infinity behavior is unchanged.
      * </p>
      *
      * @param value The value validation is being performed on.

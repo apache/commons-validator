@@ -165,7 +165,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * <p>
      * This overrides the {@link Number} overload inherited from the superclass, which narrows the bound to a {@code double} before comparing and so loses
      * precision for a {@code BigDecimal} or {@code BigInteger} bound that carries more significant digits than a {@code double} can hold. A non-finite
-     * {@link Double} or {@link Float} operand keeps the {@code doubleValue()} comparison so the documented infinity behaviour is unchanged.
+     * {@link Double} or {@link Float} operand keeps the {@code doubleValue()} comparison so the documented infinity behavior is unchanged.
      * </p>
      *
      * @param value The value validation is being performed on.
@@ -207,7 +207,7 @@ public class DoubleValidator extends AbstractNumberValidator {
      * <p>
      * This overrides the {@link Number} overload inherited from the superclass, which narrows the bound to a {@code double} before comparing and so loses
      * precision for a {@code BigDecimal} or {@code BigInteger} bound that carries more significant digits than a {@code double} can hold. A non-finite
-     * {@link Double} or {@link Float} operand keeps the {@code doubleValue()} comparison so the documented infinity behaviour is unchanged.
+     * {@link Double} or {@link Float} operand keeps the {@code doubleValue()} comparison so the documented infinity behavior is unchanged.
      * </p>
      *
      * @param value The value validation is being performed on.
