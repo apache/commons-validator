@@ -71,7 +71,7 @@ class BigDecimalValidatorTest extends AbstractNumberValidatorTest {
      * <p>
      * Because the implementation converts the BigDecimal to a {@code double} via {@link BigDecimal#doubleValue()}, values beyond {@code ±Double.MAX_VALUE}
      * overflow to {@code ±Double.POSITIVE_INFINITY} / {@code Double.NEGATIVE_INFINITY}, and tiny positive values below {@code Double.MIN_VALUE} underflow to
-     * {@code 0.0}. The tests document this behaviour.
+     * {@code 0.0}. The tests document this behavior.
      * </p>
      */
     @Test

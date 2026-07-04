@@ -223,7 +223,7 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
     /**
      * A non-finite {@link Double} bound must not be routed through {@link BigDecimal}, which cannot represent {@code NaN} or an infinity. The {@link Number}
      * overloads previously converted every bound to a {@code BigDecimal} and so threw {@code NumberFormatException} for such a bound, whereas the sibling
-     * {@link BigDecimalValidator} already handled it. The behaviour now matches: a {@code NaN} bound is never satisfied, and an infinity is an open bound.
+     * {@link BigDecimalValidator} already handled it. The behavior now matches: a {@code NaN} bound is never satisfied, and an infinity is an open bound.
      */
     @Test
     void testNumberRangeNonFiniteBound() {
