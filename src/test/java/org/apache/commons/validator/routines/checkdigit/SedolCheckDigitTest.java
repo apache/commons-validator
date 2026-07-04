@@ -20,6 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * ISIN Check Digit Test.
@@ -49,6 +51,17 @@ class SedolCheckDigitTest extends AbstractCheckDigitTest {
         for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
             assertFalse(routine.isValid(invalidCheckDigit), "Should fail: " + invalidCheckDigit);
         }
+    }
+
+    /**
+     * SEDOLs never contain a vowel, yet each of these codes carries a correct modulus 10 check digit with a vowel in
+     * its body, so without the vowel exclusion the check digit alone would accept it. The first five isolate A, E, I,
+     * O and U individually; the remainder combine several.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = { "A000000", "E000006", "I000002", "O000006", "U000000", "B0AKT02", "0EIOU02", "BAEIOU7", "AAAAAA0" })
+    void testVowelsRejected(final String code) {
+        assertFalse(routine.isValid(code), "Should fail (contains a vowel): " + code);
     }
 
 }
