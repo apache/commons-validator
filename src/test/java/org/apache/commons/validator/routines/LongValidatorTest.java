@@ -21,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Locale;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -109,6 +111,28 @@ class LongValidatorTest extends AbstractNumberValidatorTest {
         assertTrue(validator.maxValue(number19, 20), "maxValue() < max");
         assertTrue(validator.maxValue(number20, 20), "maxValue() = max");
         assertFalse(validator.maxValue(number21, 20), "maxValue() > max");
+    }
+
+    /**
+     * The {@link Number}-typed range overloads inherited from {@link AbstractNumberValidator} must compare the exact bound rather than one narrowed to a
+     * {@code long}, so a {@code BigInteger}/{@code BigDecimal} bound outside the long range or a fractional bound is not silently truncated.
+     */
+    @Test
+    void testNumberRangeExactBound() {
+        final AbstractNumberValidator instance = LongValidator.getInstance();
+        final Number value = Long.valueOf(Long.MAX_VALUE);
+        // One above Long.MAX_VALUE narrows to Long.MIN_VALUE, wrongly reporting Long.MAX_VALUE as above the maximum.
+        final Number aboveLongMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
+        assertTrue(instance.maxValue(value, aboveLongMax));
+        assertTrue(instance.isInRange(value, BigInteger.ZERO, aboveLongMax));
+        // A fractional bound is not floored: 5 >= 5.5 is false, 5 <= 5.5 is true.
+        assertFalse(instance.minValue(Long.valueOf(5), Double.valueOf(5.5)));
+        assertFalse(instance.minValue(Long.valueOf(5), new BigDecimal("5.5")));
+        assertTrue(instance.maxValue(Long.valueOf(5), new BigDecimal("5.5")));
+        // A non-finite bound falls back to the double comparison, matching the Big* validators.
+        assertFalse(instance.minValue(value, Double.NaN));
+        assertTrue(instance.maxValue(value, Double.POSITIVE_INFINITY));
+        assertTrue(instance.minValue(value, Double.NEGATIVE_INFINITY));
     }
 
     /**
