@@ -23,6 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -134,6 +136,22 @@ class FloatValidatorTest extends AbstractNumberValidatorTest {
         assertFalse(validator.minValue(Float.NaN, 10), "minValue() NaN");
         // maxValue() with NaN: NaN <= max is always false
         assertFalse(validator.maxValue(Float.NaN, 20), "maxValue() NaN");
+    }
+
+    /**
+     * The {@link Number}-typed range overloads inherited from {@link AbstractNumberValidator} must compare the exact bound, so a {@code BigInteger} or
+     * {@code BigDecimal} bound outside the long range or a fractional bound is not silently truncated.
+     */
+    @Test
+    void testNumberRangeExactBound() {
+        final AbstractNumberValidator instance = FloatValidator.getInstance();
+        final Number value = Float.valueOf(100);
+        // A bound above the long range must not narrow to a negative long and wrongly report 100 as above the maximum.
+        final Number aboveLongMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
+        assertTrue(instance.maxValue(value, aboveLongMax));
+        assertTrue(instance.isInRange(value, BigInteger.ZERO, aboveLongMax));
+        // A fractional bound is not floored: 5 >= 5.5 is false.
+        assertFalse(instance.minValue(Float.valueOf(5), new BigDecimal("5.5")));
     }
 
     /**

@@ -19,8 +19,10 @@ package org.apache.commons.validator.routines;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -43,6 +45,22 @@ class CurrencyValidatorTest {
     protected void setUp() {
         usDollar = new DecimalFormatSymbols(Locale.US).getCurrencySymbol();
         ukPound = new DecimalFormatSymbols(Locale.UK).getCurrencySymbol();
+    }
+
+    /**
+     * The {@link Number}-typed range overloads inherited through {@link BigDecimalValidator} from {@link AbstractNumberValidator} must compare the exact bound,
+     * so a {@code BigInteger} or {@code BigDecimal} bound outside the long range or a fractional bound is not silently truncated.
+     */
+    @Test
+    void testNumberRangeExactBound() {
+        final AbstractNumberValidator instance = CurrencyValidator.getInstance();
+        final Number value = new BigDecimal("100");
+        // A bound above the long range must not narrow to a negative long and wrongly report 100 as above the maximum.
+        final Number aboveLongMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
+        assertTrue(instance.maxValue(value, aboveLongMax));
+        assertTrue(instance.isInRange(value, BigInteger.ZERO, aboveLongMax));
+        // A fractional bound is not floored: 5 >= 5.5 is false.
+        assertFalse(instance.minValue(new BigDecimal("5"), new BigDecimal("5.5")));
     }
 
     /**
