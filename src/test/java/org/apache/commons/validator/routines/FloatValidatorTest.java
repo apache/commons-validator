@@ -139,22 +139,6 @@ class FloatValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * The {@link Number}-typed range overloads inherited from {@link AbstractNumberValidator} must compare the exact bound, so a {@code BigInteger} or
-     * {@code BigDecimal} bound outside the long range or a fractional bound is not silently truncated.
-     */
-    @Test
-    void testNumberRangeExactBound() {
-        final AbstractNumberValidator instance = FloatValidator.getInstance();
-        final Number value = Float.valueOf(100);
-        // A bound above the long range must not narrow to a negative long and wrongly report 100 as above the maximum.
-        final Number aboveLongMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
-        assertTrue(instance.maxValue(value, aboveLongMax));
-        assertTrue(instance.isInRange(value, BigInteger.ZERO, aboveLongMax));
-        // A fractional bound is not floored: 5 >= 5.5 is false.
-        assertFalse(instance.minValue(Float.valueOf(5), new BigDecimal("5.5")));
-    }
-
-    /**
      * Test Float validation for values too small to handle. (slightly different from max/min which are the largest +ve/-ve
      */
     @Test
@@ -209,6 +193,22 @@ class FloatValidatorTest extends AbstractNumberValidatorTest {
         assertFalse(validator.isValid(xxxx, locale), "isValid(B) locale");
         assertFalse(validator.isValid(xxxx, pattern), "isValid(B) pattern");
         assertFalse(validator.isValid(patternVal, pattern, Locale.GERMAN), "isValid(B) both");
+    }
+
+    /**
+     * The {@link Number}-typed range overloads inherited from {@link AbstractNumberValidator} must compare the exact bound, so a {@code BigInteger} or
+     * {@code BigDecimal} bound outside the long range or a fractional bound is not silently truncated.
+     */
+    @Test
+    void testNumberRangeExactBound() {
+        final AbstractNumberValidator instance = FloatValidator.getInstance();
+        final Number value = Float.valueOf(100);
+        // A bound above the long range must not narrow to a negative long and wrongly report 100 as above the maximum.
+        final Number aboveLongMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
+        assertTrue(instance.maxValue(value, aboveLongMax));
+        assertTrue(instance.isInRange(value, BigInteger.ZERO, aboveLongMax));
+        // A fractional bound is not floored: 5 >= 5.5 is false.
+        assertFalse(instance.minValue(Float.valueOf(5), new BigDecimal("5.5")));
     }
 
     @Test

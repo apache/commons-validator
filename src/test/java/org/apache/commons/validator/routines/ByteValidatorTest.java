@@ -114,21 +114,6 @@ class ByteValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * The inherited {@link Number}-typed range overloads must compare the exact bound rather than one narrowed to a {@code long}.
-     */
-    @Test
-    void testNumberRangeExactBound() {
-        final AbstractNumberValidator instance = ByteValidator.getInstance();
-        final Number value = Byte.valueOf((byte) 100);
-        // A bound above the long range narrows to a negative long, wrongly reporting 100 as above the maximum.
-        final Number aboveLongMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
-        assertTrue(instance.maxValue(value, aboveLongMax));
-        assertTrue(instance.isInRange(value, BigInteger.ZERO, aboveLongMax));
-        // A fractional bound is not floored: 5 >= 5.5 is false.
-        assertFalse(instance.minValue(Byte.valueOf((byte) 5), new BigDecimal("5.5")));
-    }
-
-    /**
      * Test ByteValidator validate Methods
      */
     @Test
@@ -160,5 +145,20 @@ class ByteValidatorTest extends AbstractNumberValidatorTest {
         assertFalse(ByteValidator.getInstance().isValid(xxxx, locale), "isValid(B) locale ");
         assertFalse(ByteValidator.getInstance().isValid(xxxx, pattern), "isValid(B) pattern");
         assertFalse(ByteValidator.getInstance().isValid(patternVal, pattern, Locale.GERMAN), "isValid(B) both");
+    }
+
+    /**
+     * The inherited {@link Number}-typed range overloads must compare the exact bound rather than one narrowed to a {@code long}.
+     */
+    @Test
+    void testNumberRangeExactBound() {
+        final AbstractNumberValidator instance = ByteValidator.getInstance();
+        final Number value = Byte.valueOf((byte) 100);
+        // A bound above the long range narrows to a negative long, wrongly reporting 100 as above the maximum.
+        final Number aboveLongMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
+        assertTrue(instance.maxValue(value, aboveLongMax));
+        assertTrue(instance.isInRange(value, BigInteger.ZERO, aboveLongMax));
+        // A fractional bound is not floored: 5 >= 5.5 is false.
+        assertFalse(instance.minValue(Byte.valueOf((byte) 5), new BigDecimal("5.5")));
     }
 }
