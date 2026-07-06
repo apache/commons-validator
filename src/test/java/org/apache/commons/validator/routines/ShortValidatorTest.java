@@ -87,6 +87,22 @@ class ShortValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
+     * A value whose fractional part is expressed through a negative exponent rather than a decimal point (for example
+     * {@code "15E-1"} for 1.5) is parsed to a fractional {@code Double}, not a {@code Long}, because {@code parseIntegerOnly}
+     * only stops at the decimal separator. It must be rejected like any other non-integer, matching {@link ByteValidator},
+     * {@link IntegerValidator} and {@link LongValidator}, rather than being truncated towards zero.
+     */
+    @Test
+    void testFractionalScientificNotation() {
+        final ShortValidator validator = ShortValidator.getInstance();
+        assertNull(validator.validate("15E-1", Locale.US), "validate(15E-1)");
+        assertFalse(validator.isValid("15E-1", Locale.US), "isValid(15E-1)");
+        assertNull(validator.validate("5E-1", Locale.US), "validate(5E-1)");
+        assertNull(validator.validate("-15E-1", Locale.US), "validate(-15E-1)");
+        assertNull(validator.validate("1E-100", Locale.US), "validate(1E-100)");
+    }
+
+    /**
      * Test Short Range/Min/Max
      */
     @Test
