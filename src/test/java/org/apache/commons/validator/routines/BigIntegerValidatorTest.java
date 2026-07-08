@@ -221,6 +221,27 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
+     * A {@link Float} bound must be compared at its real magnitude. The bound is converted through {@link AbstractNumberValidator#toBigDecimal}, which had no
+     * {@code Float} branch, so a {@code Float} fell through to {@code new BigDecimal(value.toString())}; {@code Float.toString} emits only the digits needed to
+     * round-trip the float, so the bound was read at a coarser value than it actually holds and a value sitting between the two magnitudes was mis-ranged.
+     */
+    @Test
+    void testNumberRangeFloatBound() {
+        final AbstractNumberValidator instance = BigIntegerValidator.getInstance();
+        final Float bound = Float.valueOf(1e20f);
+        final BigInteger exact = new BigDecimal(bound.doubleValue()).toBigInteger(); // what the float really holds
+        final BigInteger truncated = new BigDecimal(bound.toString()).toBigInteger(); // what Float.toString shows
+        final BigInteger between = truncated.add(BigInteger.ONE); // above the printed value, below the real float
+        // guard the fixture: the float prints smaller than it is
+        assertTrue(between.compareTo(truncated) > 0 && between.compareTo(exact) < 0);
+        assertTrue(instance.maxValue(between, bound), "value below the real float is within the maximum");
+        assertFalse(instance.minValue(between, bound), "value below the real float is below the minimum");
+        final BigInteger above = exact.add(BigInteger.ONE);
+        assertFalse(instance.maxValue(above, bound), "value above the real float exceeds the maximum");
+        assertTrue(instance.minValue(above, bound), "value above the real float meets the minimum");
+    }
+
+    /**
      * A non-finite {@link Double} bound must not be routed through {@link BigDecimal}, which cannot represent {@code NaN} or an infinity. The {@link Number}
      * overloads previously converted every bound to a {@code BigDecimal} and so threw {@code NumberFormatException} for such a bound, whereas the sibling
      * {@link BigDecimalValidator} already handled it. The behavior now matches: a {@code NaN} bound is never satisfied, and an infinity is an open bound.

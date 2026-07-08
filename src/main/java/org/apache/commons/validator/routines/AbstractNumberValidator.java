@@ -94,6 +94,9 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
         if (value instanceof Double) {
             return BigDecimal.valueOf(((Double) value).doubleValue());
         }
+        if (value instanceof Float) {
+            return BigDecimal.valueOf(((Float) value).doubleValue());
+        }
         if (value instanceof BigDecimal) {
             return (BigDecimal) value;
         }
