@@ -127,7 +127,7 @@ public class IBANValidator {
         /**
          * Gets the length.
          *
-         * @return the length.
+         * @return The length.
          * @since 1.10.0
          */
         public int getIbanLength() {
@@ -137,7 +137,7 @@ public class IBANValidator {
         /**
          * Gets the RegexValidator.
          *
-         * @return the RegexValidator.
+         * @return The RegexValidator.
          * @since 1.8
          */
         public RegexValidator getRegexValidator() {
@@ -330,7 +330,7 @@ public class IBANValidator {
      * Gets the Validator for a given IBAN.
      *
      * @param code a string starting with the ISO country code (for example, an IBAN).
-     * @return the validator or {@code null} if there is not one registered.
+     * @return The validator or {@code null} if there is not one registered.
      */
     public Validator getValidator(final String code) {
         if (code == null || code.length() < SHORT_CODE_LEN) { // ensure we can extract the code
@@ -366,7 +366,7 @@ public class IBANValidator {
      * @param countryCode the country code.
      * @param length      the length of the IBAN. Must be &ge; 8 and &le; 32. If the length is &lt; 0, the validator is removed, and the format is not used.
      * @param format      the format of the IBAN (as a regular expression).
-     * @return the previous Validator, or {@code null} if there was none.
+     * @return The previous Validator, or {@code null} if there was none.
      * @throws IllegalArgumentException if there is a problem.
      * @throws IllegalStateException    if an attempt is made to modify the singleton validator.
      */
@@ -390,7 +390,7 @@ public class IBANValidator {
      * Installs a validator. Will replace any existing entry which has the same countryCode.
      *
      * @param validator the instance to install.
-     * @return the previous Validator, or {@code null} if there was none.
+     * @return The previous Validator, or {@code null} if there was none.
      * @throws IllegalStateException if an attempt is made to modify the singleton validator.
      */
     public Validator setValidator(final Validator validator) {

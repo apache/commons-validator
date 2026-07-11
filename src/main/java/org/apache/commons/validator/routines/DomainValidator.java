@@ -1836,7 +1836,7 @@ public class DomainValidator implements Serializable {
     /**
      * Gets the singleton instance of this validator. It will not consider local addresses as valid.
      *
-     * @return the singleton instance of this validator.
+     * @return The singleton instance of this validator.
      */
     public static synchronized DomainValidator getInstance() {
         inUse = true;
@@ -1847,7 +1847,7 @@ public class DomainValidator implements Serializable {
      * Gets the singleton instance of this validator, with local validation as required.
      *
      * @param allowLocal Whether local addresses are considered valid.
-     * @return the singleton instance of this validator.
+     * @return The singleton instance of this validator.
      */
     public static synchronized DomainValidator getInstance(final boolean allowLocal) {
         inUse = true;

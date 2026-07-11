@@ -39,7 +39,7 @@ public class GenericValidator implements Serializable {
      *
      * @param value The value validation is being performed on.
      * @param lineEndLength The length to use for line endings.
-     * @return the adjustment amount.
+     * @return The adjustment amount.
      */
     private static int adjustForLineEnding(final String value, final int lineEndLength) {
         int nCount = 0;

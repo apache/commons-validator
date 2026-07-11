@@ -48,7 +48,7 @@ class TimeValidatorTest {
      * @param zone        The time zone
      * @param time        the time in HH:mm:ss format
      * @param millisecond the milliseconds
-     * @return the new Date instance.
+     * @return The new Date instance.
      */
     protected static Date createDate(final TimeZone zone, final int time, final int millisecond) {
         final Calendar calendar = createTime(zone, time, millisecond);
@@ -61,7 +61,7 @@ class TimeValidatorTest {
      * @param zone        The time zone
      * @param time        the time in HH:mm:ss format
      * @param millisecond the milliseconds
-     * @return the new Calendar instance.
+     * @return The new Calendar instance.
      */
     protected static Calendar createTime(final TimeZone zone, final int time, final int millisecond) {
         final Calendar calendar = zone == null ? Calendar.getInstance() : Calendar.getInstance(zone);

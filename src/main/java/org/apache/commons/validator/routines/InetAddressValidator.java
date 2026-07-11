@@ -71,7 +71,7 @@ public class InetAddressValidator implements Serializable {
     /**
      * Gets the singleton instance of this validator.
      *
-     * @return the singleton instance of this validator
+     * @return The singleton instance of this validator
      */
     public static InetAddressValidator getInstance() {
         return VALIDATOR;

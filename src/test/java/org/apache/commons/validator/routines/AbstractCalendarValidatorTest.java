@@ -46,7 +46,7 @@ public abstract class AbstractCalendarValidatorTest {
      * @param zone The time zone
      * @param date The date in yyyyMMdd format
      * @param time the time in HH:mm:ss format
-     * @return the new Calendar instance.
+     * @return The new Calendar instance.
      */
     protected static Calendar createCalendar(final TimeZone zone, final int date, final int time) {
         final Calendar calendar = zone == null ? Calendar.getInstance() : Calendar.getInstance(zone);
@@ -72,7 +72,7 @@ public abstract class AbstractCalendarValidatorTest {
      * @param zone The time zone
      * @param date The date in yyyyMMdd format
      * @param time the time in HH:mm:ss format
-     * @return the new Date instance.
+     * @return The new Date instance.
      */
     protected static Date createDate(final TimeZone zone, final int date, final int time) {
         final Calendar calendar = createCalendar(zone, date, time);

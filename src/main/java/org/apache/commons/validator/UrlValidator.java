@@ -244,7 +244,7 @@ public class UrlValidator implements Serializable {
      *
      * @param token Token value to be counted.
      * @param target Target value to count tokens in.
-     * @return the number of tokens.
+     * @return The number of tokens.
      */
     protected int countToken(final String token, final String target) {
         int tokenIndex = 0;

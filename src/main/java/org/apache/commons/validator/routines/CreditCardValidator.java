@@ -336,7 +336,7 @@ public class CreditCardValidator implements Serializable {
      * Creates a new generic CreditCardValidator which validates the syntax and check digit only.
      * Does not check the Issuer Identification Number (IIN)
      *
-     * @return the validator
+     * @return The validator
      * @since 1.6
      */
     public static CreditCardValidator genericCreditCardValidator() {
@@ -348,7 +348,7 @@ public class CreditCardValidator implements Serializable {
      * Does not check the Issuer Identification Number (IIN)
      *
      * @param length exact length
-     * @return the validator
+     * @return The validator
      * @since 1.6
      */
     public static CreditCardValidator genericCreditCardValidator(final int length) {
@@ -361,7 +361,7 @@ public class CreditCardValidator implements Serializable {
      *
      * @param minLen minimum allowed length
      * @param maxLen maximum allowed length
-     * @return the validator
+     * @return The validator
      * @since 1.6
      */
     public static CreditCardValidator genericCreditCardValidator(final int minLen, final int maxLen) {

@@ -94,7 +94,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * Gets the resource bundle name.
      *
-     * @return the bundle name.
+     * @return The bundle name.
      * @since 1.1
      */
     public String getBundle() {
@@ -104,7 +104,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * Gets the key/value.
      *
-     * @return the key value.
+     * @return The key value.
      */
     public String getKey() {
         return key;
@@ -113,7 +113,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * Gets the name of the dependency.
      *
-     * @return the name of the dependency.
+     * @return The name of the dependency.
      */
     public String getName() {
         return name;

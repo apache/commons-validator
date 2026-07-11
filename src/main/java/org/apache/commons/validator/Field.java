@@ -547,7 +547,7 @@ public class Field implements Cloneable, Serializable {
      * Retrieve a variable.
      *
      * @param mainKey The Variable's key
-     * @return the Variable
+     * @return The Variable
      */
     public Var getVar(final String mainKey) {
         return getVarMap().get(mainKey);
@@ -568,7 +568,7 @@ public class Field implements Cloneable, Serializable {
      * The {@code Field}'s variables are returned as an
      * unmodifiable {@link Map}.
      *
-     * @return the Map of Variable's for a Field.
+     * @return The Map of Variable's for a Field.
      */
     public Map<String, Var> getVars() {
         return Collections.unmodifiableMap(getVarMap());
@@ -578,7 +578,7 @@ public class Field implements Cloneable, Serializable {
      * Retrieve a variable's value.
      *
      * @param mainKey The Variable's key
-     * @return the Variable's value
+     * @return The Variable's value
      */
     public String getVarValue(final String mainKey) {
         String value = null;

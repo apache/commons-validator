@@ -229,7 +229,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     /**
      * Gets the type of {@code NumberFormat} created by this validator instance.
      *
-     * @return the format type created.
+     * @return The format type created.
      */
     public int getFormatType() {
         return formatType;

@@ -239,7 +239,7 @@ public class Validator implements Serializable {
      * <li>The class loader used to load the Digester class itself.</li>
      * </ul>
      *
-     * @return the class loader.
+     * @return The class loader.
      */
     public ClassLoader getClassLoader() {
         if (classLoader != null) {
@@ -259,7 +259,7 @@ public class Validator implements Serializable {
     /**
      * Gets the field name.
      *
-     * @return the field name.
+     * @return The field name.
      * @since 1.10.0
      */
     public String getFieldName() {
@@ -269,7 +269,7 @@ public class Validator implements Serializable {
     /**
      * Gets the form name which is the key to a set of validation rules.
      *
-     * @return the name of the form.
+     * @return The name of the form.
      */
     public String getFormName() {
         return formName;
@@ -293,7 +293,7 @@ public class Validator implements Serializable {
      * page is less than or equal to this page value, it will be processed.
      * </p>
      *
-     * @return the page number.
+     * @return The page number.
      */
     public int getPage() {
         return page;
@@ -302,7 +302,7 @@ public class Validator implements Serializable {
     /**
      * Gets the parameter map.
      *
-     * @return the parameter map.
+     * @return The parameter map.
      * @since 1.10.0
      */
     public Map<String, Object> getParameters() {
@@ -324,7 +324,7 @@ public class Validator implements Serializable {
     /**
      * Gets the validator resource.
      *
-     * @return the validator resource.
+     * @return The validator resource.
      * @since 1.10.0
      */
     public ValidatorResources getResources() {

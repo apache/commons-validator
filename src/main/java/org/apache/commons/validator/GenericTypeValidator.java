@@ -41,7 +41,7 @@ public class GenericTypeValidator implements Serializable {
      * Checks if the value can safely be converted to a byte primitive.
      *
      * @param value The value validation is being performed on.
-     * @return the converted Byte value.
+     * @return The converted Byte value.
      */
     public static Byte formatByte(final String value) {
         if (value == null) {
@@ -59,7 +59,7 @@ public class GenericTypeValidator implements Serializable {
      *
      * @param value  The value validation is being performed on.
      * @param locale The locale to use to parse the number (system default if null)
-     * @return the converted Byte value.
+     * @return The converted Byte value.
      */
     public static Byte formatByte(final String value, final Locale locale) {
         Byte result = null;
@@ -82,7 +82,7 @@ public class GenericTypeValidator implements Serializable {
      * </p>
      *
      * @param value The value validation is being performed on.
-     * @return the converted Credit Card number.
+     * @return The converted Credit Card number.
      */
     public static Long formatCreditCard(final String value) {
         return GenericValidator.isCreditCard(value) ? Long.valueOf(value) : null;
@@ -98,7 +98,7 @@ public class GenericTypeValidator implements Serializable {
      *
      * @param value  The value validation is being performed on.
      * @param locale The Locale to use to parse the date (system default if null)
-     * @return the converted Date value.
+     * @return The converted Date value.
      */
     public static Date formatDate(final String value, final Locale locale) {
         Date date = null;
@@ -140,7 +140,7 @@ public class GenericTypeValidator implements Serializable {
      * @param value       The value validation is being performed on.
      * @param datePattern The pattern passed to {@link SimpleDateFormat}.
      * @param strict      Whether or not to have an exact match of the datePattern.
-     * @return the converted Date value.
+     * @return The converted Date value.
      */
     public static Date formatDate(final String value, final String datePattern, final boolean strict) {
         Date date = null;
@@ -167,7 +167,7 @@ public class GenericTypeValidator implements Serializable {
      * Checks if the value can safely be converted to a double primitive.
      *
      * @param value The value validation is being performed on.
-     * @return the converted Double value.
+     * @return The converted Double value.
      */
     public static Double formatDouble(final String value) {
         if (value == null) {
@@ -185,7 +185,7 @@ public class GenericTypeValidator implements Serializable {
      *
      * @param value  The value validation is being performed on.
      * @param locale The locale to use to parse the number (system default if null)
-     * @return the converted Double value.
+     * @return The converted Double value.
      */
     public static Double formatDouble(final String value, final Locale locale) {
         Double result = null;
@@ -205,7 +205,7 @@ public class GenericTypeValidator implements Serializable {
      * Checks if the value can safely be converted to a float primitive.
      *
      * @param value The value validation is being performed on.
-     * @return the converted Float value.
+     * @return The converted Float value.
      */
     public static Float formatFloat(final String value) {
         if (value == null) {
@@ -223,7 +223,7 @@ public class GenericTypeValidator implements Serializable {
      *
      * @param value  The value validation is being performed on.
      * @param locale The locale to use to parse the number (system default if null)
-     * @return the converted Float value.
+     * @return The converted Float value.
      */
     public static Float formatFloat(final String value, final Locale locale) {
         Float result = null;
@@ -243,7 +243,7 @@ public class GenericTypeValidator implements Serializable {
      * Checks if the value can safely be converted to an int primitive.
      *
      * @param value The value validation is being performed on.
-     * @return the converted Integer value.
+     * @return The converted Integer value.
      */
     public static Integer formatInt(final String value) {
         if (value == null) {
@@ -261,7 +261,7 @@ public class GenericTypeValidator implements Serializable {
      *
      * @param value  The value validation is being performed on.
      * @param locale The locale to use to parse the number (system default if null)
-     * @return the converted Integer value.
+     * @return The converted Integer value.
      */
     public static Integer formatInt(final String value, final Locale locale) {
         Integer result = null;
@@ -282,7 +282,7 @@ public class GenericTypeValidator implements Serializable {
      * Checks if the value can safely be converted to a long primitive.
      *
      * @param value The value validation is being performed on.
-     * @return the converted Long value.
+     * @return The converted Long value.
      */
     public static Long formatLong(final String value) {
         if (value == null) {
@@ -300,7 +300,7 @@ public class GenericTypeValidator implements Serializable {
      *
      * @param value  The value validation is being performed on.
      * @param locale The locale to use to parse the number (system default if null)
-     * @return the converted Long value.
+     * @return The converted Long value.
      */
     public static Long formatLong(final String value, final Locale locale) {
         Long result = null;
@@ -326,7 +326,7 @@ public class GenericTypeValidator implements Serializable {
      * Checks if the value can safely be converted to a short primitive.
      *
      * @param value The value validation is being performed on.
-     * @return the converted Short value.
+     * @return The converted Short value.
      */
     public static Short formatShort(final String value) {
         if (value == null) {
@@ -344,7 +344,7 @@ public class GenericTypeValidator implements Serializable {
      *
      * @param value  The value validation is being performed on.
      * @param locale The locale to use to parse the number (system default if null)
-     * @return the converted Short value.
+     * @return The converted Short value.
      */
     public static Short formatShort(final String value, final Locale locale) {
         Short result = null;

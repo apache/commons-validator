@@ -116,7 +116,7 @@ public class Flags implements Serializable, Cloneable {
      * The hash code is based on the current state of the flags.
      *
      * @see Object#hashCode()
-     * @return the hash code for this object.
+     * @return The hash code for this object.
      */
     @Override
     public int hashCode() {
