@@ -1945,6 +1945,17 @@ public class DomainValidator implements Serializable {
         if (isOnlyASCII(input)) { // skip possibly expensive processing
             return input;
         }
+        // IDN.toASCII silently drops default-ignorable and format code points (soft hyphen,
+        // zero-width spaces, the byte order mark, ...) during nameprep, so a host carrying one
+        // would convert to a clean label and validate. Those code points are not legal in a host
+        // name, so keep the original here and let the label regex reject it.
+        for (int i = 0; i < input.length();) {
+            final int codePoint = input.codePointAt(i);
+            if (Character.getType(codePoint) == Character.FORMAT) {
+                return input;
+            }
+            i += Character.charCount(codePoint);
+        }
         try {
             final String ascii = IDN.toASCII(input);
             if (IDNBUGHOLDER.IDN_TOASCII_PRESERVES_TRAILING_DOTS) {

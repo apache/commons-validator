@@ -460,6 +460,18 @@ public class DomainValidatorTest {
     }
 
     @Test
+    void testIDNFormatCodePoints() {
+        // IDN.toASCII strips default-ignorable / format code points during nameprep, which would
+        // otherwise let an invisible character slip into a host that validates as the clean label.
+        // Those code points are not legal in a host name and must be rejected.
+        assertFalse(validator.isValid("exa\u00ADmple.com"), "soft hyphen shouldn't validate");
+        assertFalse(validator.isValid("exa\u200Bmple.com"), "zero-width space shouldn't validate");
+        assertFalse(validator.isValid("exa\u200Dmple.com"), "zero-width joiner shouldn't validate");
+        assertFalse(validator.isValid("\uFEFFexample.com"), "byte order mark shouldn't validate");
+        assertTrue(validator.isValid("www.b\u00fccher.ch"), "b\u00fccher.ch should still validate");
+    }
+
+    @Test
     void testIDNJava6OrLater() {
         // xn--d1abbgf6aiiy.xn--p1ai http://президент.рф
         assertTrue(validator.isValid("www.b\u00fccher.ch"), "b\u00fccher.ch should validate");
