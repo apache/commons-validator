@@ -88,14 +88,11 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     static BigDecimal toBigDecimal(final Object value) {
-        if (value instanceof Long) {
-            return BigDecimal.valueOf(((Long) value).longValue());
+        if (value instanceof Long || value instanceof Integer || value instanceof Short || value instanceof Byte) {
+            return BigDecimal.valueOf(((Number) value).longValue());
         }
-        if (value instanceof Double) {
-            return BigDecimal.valueOf(((Double) value).doubleValue());
-        }
-        if (value instanceof Float) {
-            return BigDecimal.valueOf(((Float) value).doubleValue());
+        if (value instanceof Double || value instanceof Float) {
+            return BigDecimal.valueOf(((Number) value).doubleValue());
         }
         if (value instanceof BigDecimal) {
             return (BigDecimal) value;
