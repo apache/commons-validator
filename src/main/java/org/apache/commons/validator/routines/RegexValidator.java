@@ -150,7 +150,7 @@ public class RegexValidator implements Serializable {
     /**
      * Gets a copy of the Patterns.
      *
-     * @return a copy of the Patterns.
+     * @return A copy of the Patterns.
      * @since 1.8
      */
     public Pattern[] getPatterns() {

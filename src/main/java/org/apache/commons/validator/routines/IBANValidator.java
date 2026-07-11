@@ -320,7 +320,7 @@ public class IBANValidator {
     /**
      * Gets a copy of the default Validators.
      *
-     * @return a copy of the default Validator array.
+     * @return A copy of the default Validator array.
      */
     public Validator[] getDefaultValidators() {
         return Arrays.copyOf(DEFAULT_VALIDATORS, DEFAULT_VALIDATORS.length);

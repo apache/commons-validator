@@ -470,7 +470,7 @@ public class Field implements Cloneable, Serializable {
     /**
      * Gets a unique key based on the property and indexedProperty fields.
      *
-     * @return a unique key for the field.
+     * @return A unique key for the field.
      */
     public String getKey() {
         if (key == null) {

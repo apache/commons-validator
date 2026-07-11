@@ -1864,7 +1864,7 @@ public class DomainValidator implements Serializable {
      *
      * @param allowLocal Whether local addresses are considered valid.
      * @param items      array of {@link Item} entries.
-     * @return an instance of this validator.
+     * @return An instance of this validator.
      * @since 1.7
      */
     public static synchronized DomainValidator getInstance(final boolean allowLocal, final List<Item> items) {
@@ -1876,7 +1876,7 @@ public class DomainValidator implements Serializable {
      * Gets a copy of a class level internal array.
      *
      * @param table the array type (any of the enum values).
-     * @return a copy of the array.
+     * @return A copy of the array.
      * @throws IllegalArgumentException if the table type is unexpected (should not happen).
      * @since 1.5.1
      */
@@ -2179,7 +2179,7 @@ public class DomainValidator implements Serializable {
      * Gets a copy of an instance level internal array.
      *
      * @param table the array type (any of the enum values).
-     * @return a copy of the array.
+     * @return A copy of the array.
      * @throws IllegalArgumentException if the table type is unexpected, for example, GENERIC_RO.
      * @since 1.7
      */

@@ -212,7 +212,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     /**
      * Return a string representation of this implementation.
      *
-     * @return a string representation.
+     * @return A string representation.
      */
     @Override
     public String toString() {

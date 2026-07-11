@@ -72,7 +72,7 @@ public class Flags implements Serializable, Cloneable {
     /**
      * Clone this Flags object.
      *
-     * @return a copy of this object.
+     * @return A copy of this object.
      * @see Object#clone()
      */
     @Override

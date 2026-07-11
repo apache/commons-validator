@@ -734,7 +734,7 @@ public class ValidatorAction implements Serializable {
     /**
      * Returns a string representation of the object.
      *
-     * @return a string representation.
+     * @return A string representation.
      */
     @Override
     public String toString() {

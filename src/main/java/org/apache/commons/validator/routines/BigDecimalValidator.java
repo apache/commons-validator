@@ -73,7 +73,7 @@ public class BigDecimalValidator extends AbstractNumberValidator {
      *
      * @param bigDecimal The {@code BigDecimal} to compare.
      * @param value      The double value to compare with.
-     * @return a negative integer, zero, or a positive integer as this {@code BigDecimal} is less than, equal to, or greater than the specified double value.
+     * @return A negative integer, zero, or a positive integer as this {@code BigDecimal} is less than, equal to, or greater than the specified double value.
      */
     private static int compareTo(final BigDecimal bigDecimal, final double value) {
         return bigDecimal.compareTo(BigDecimal.valueOf(value));

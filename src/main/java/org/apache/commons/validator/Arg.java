@@ -186,7 +186,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * Returns a string representation of the object.
      *
-     * @return a string representation of the object.
+     * @return A string representation of the object.
      */
     @Override
     public String toString() {
