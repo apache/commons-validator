@@ -239,12 +239,26 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
         final BigInteger above = exact.add(BigInteger.ONE);
         assertFalse(instance.maxValue(above, bound), "value above the real float exceeds the maximum");
         assertTrue(instance.minValue(above, bound), "value above the real float meets the minimum");
+
+        // mirrored negative bound: the float prints closer to zero than the value it really holds
+        final Float negBound = Float.valueOf(-1e20f);
+        final BigInteger negExact = new BigDecimal(negBound.doubleValue()).toBigInteger(); // what the float really holds
+        final BigInteger negTruncated = new BigDecimal(negBound.toString()).toBigInteger(); // what Float.toString shows
+        final BigInteger negBetween = negTruncated.subtract(BigInteger.ONE); // below the printed value, above the real float
+        // guard the fixture: the value sits between the two magnitudes
+        assertTrue(negBetween.compareTo(negTruncated) < 0 && negBetween.compareTo(negExact) > 0);
+        assertFalse(instance.maxValue(negBetween, negBound), "value above the real negative float exceeds the maximum");
+        assertTrue(instance.minValue(negBetween, negBound), "value above the real negative float meets the minimum");
+        final BigInteger negBelow = negExact.subtract(BigInteger.ONE);
+        assertTrue(instance.maxValue(negBelow, negBound), "value below the real negative float is within the maximum");
+        assertFalse(instance.minValue(negBelow, negBound), "value below the real negative float is below the minimum");
     }
 
     /**
      * A non-finite {@link Double} bound must not be routed through {@link BigDecimal}, which cannot represent {@code NaN} or an infinity. The {@link Number}
      * overloads previously converted every bound to a {@code BigDecimal} and so threw {@code NumberFormatException} for such a bound, whereas the sibling
-     * {@link BigDecimalValidator} already handled it. The behavior now matches: a {@code NaN} bound is never satisfied, and an infinity is an open bound.
+     * {@link BigDecimalValidator} already handled it. The behavior now matches: a {@code NaN} bound is never satisfied, and an infinity is an open bound. A
+     * {@link Float} carries the same non-finite values and takes the same guarded path, so it is delegated to the double comparison rather than converted.
      */
     @Test
     void testNumberRangeNonFiniteBound() {
@@ -279,6 +293,13 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
         assertFalse(instance.minValue(negInf, posInf));
         assertFalse(instance.maxValue(posInf, nan));
         assertFalse(instance.minValue(posInf, nan));
+        // a non-finite Float bound is caught by the same isFinite guard and never reaches toBigDecimal
+        assertFalse(instance.maxValue(value, Float.NaN));
+        assertFalse(instance.minValue(value, Float.NaN));
+        assertTrue(instance.maxValue(value, Float.POSITIVE_INFINITY));
+        assertTrue(instance.minValue(value, Float.NEGATIVE_INFINITY));
+        assertFalse(instance.minValue(value, Float.POSITIVE_INFINITY));
+        assertFalse(instance.maxValue(value, Float.NEGATIVE_INFINITY));
     }
 
     /**
