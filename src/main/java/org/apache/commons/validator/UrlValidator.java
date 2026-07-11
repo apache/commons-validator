@@ -268,23 +268,17 @@ public class UrlValidator implements Serializable {
      */
     public boolean isValid(final String value) {
         if (value == null || !LEGAL_ASCII_PATTERN.matcher(value).matches()) {
-           return false;
+            return false;
         }
-
         // Check the whole url address structure
         final Matcher urlMatcher = URL_PATTERN.matcher(value);
-        if (!urlMatcher.matches() || !isValidScheme(urlMatcher.group(PARSE_URL_SCHEME)) || !isValidAuthority(urlMatcher.group(PARSE_URL_AUTHORITY)) || !isValidPath(urlMatcher.group(PARSE_URL_PATH))) {
+        if (!urlMatcher.matches() || !isValidScheme(urlMatcher.group(PARSE_URL_SCHEME)) || !isValidAuthority(urlMatcher.group(PARSE_URL_AUTHORITY))
+                || !isValidPath(urlMatcher.group(PARSE_URL_PATH))) {
             return false;
         }
-
-        if (!isValidQuery(urlMatcher.group(PARSE_URL_QUERY))) {
+        if (!isValidQuery(urlMatcher.group(PARSE_URL_QUERY)) || !isValidFragment(urlMatcher.group(PARSE_URL_FRAGMENT))) {
             return false;
         }
-
-        if (!isValidFragment(urlMatcher.group(PARSE_URL_FRAGMENT))) {
-            return false;
-        }
-
         return true;
     }
 
