@@ -142,7 +142,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     /**
      * Constructs a modulus 10 Check Digit routine with the specified weighting from left to right.
      *
-     * @param positionWeight the weighted values to apply based on the character position
+     * @param positionWeight The weighted values to apply based on the character position
      */
     public ModulusTenCheckDigit(final int[] positionWeight) {
         this(positionWeight, false, false);
@@ -151,7 +151,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
     /**
      * Constructs a modulus 10 Check Digit routine with the specified weighting, indicating whether its from the left or right.
      *
-     * @param positionWeight the weighted values to apply based on the character position
+     * @param positionWeight The weighted values to apply based on the character position
      * @param useRightPos    {@code true} if use positionWeights from right to left
      */
     public ModulusTenCheckDigit(final int[] positionWeight, final boolean useRightPos) {
@@ -162,7 +162,7 @@ public final class ModulusTenCheckDigit extends ModulusCheckDigit {
      * Constructs a modulus 10 Check Digit routine with the specified weighting, indicating whether its from the left or right and whether the weighted digits
      * should be summed.
      *
-     * @param positionWeight    the weighted values to apply based on the character position
+     * @param positionWeight    The weighted values to apply based on the character position
      * @param useRightPos       {@code true} if use positionWeights from right to left
      * @param sumWeightedDigits {@code true} if sum the digits of the weighted value
      */

@@ -104,10 +104,10 @@ public class CreditCardValidator implements Serializable {
          * for example, Discover "644" and "65".
          * </p>
          *
-         * @param low the low digits of the IIN range
-         * @param high the high digits of the IIN range
-         * @param minLen the minimum length of the entire number
-         * @param maxLen the maximum length of the entire number
+         * @param low The low digits of the IIN range
+         * @param high The high digits of the IIN range
+         * @param minLen The minimum length of the entire number
+         * @param maxLen The maximum length of the entire number
          */
         public CreditCardRange(final String low, final String high, final int minLen, final int maxLen) {
             this.low = low;
@@ -130,8 +130,8 @@ public class CreditCardValidator implements Serializable {
          * for example, Discover "644" and "65".
          * </p>
          *
-         * @param low the low digits of the IIN range
-         * @param high the high digits of the IIN range
+         * @param low The low digits of the IIN range
+         * @param high The high digits of the IIN range
          * @param lengths array of valid lengths
          */
         public CreditCardRange(final String low, final String high, final int [] lengths) {

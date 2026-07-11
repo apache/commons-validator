@@ -58,8 +58,8 @@ public abstract class AbstractCalendarValidator extends AbstractFormatValidator 
      *
      * @param strict {@code true} if strict
      *        {@code Format} parsing should be used.
-     * @param dateStyle the date style to use for Locale validation.
-     * @param timeStyle the time style to use for Locale validation.
+     * @param dateStyle The date style to use for Locale validation.
+     * @param timeStyle The time style to use for Locale validation.
      */
     public AbstractCalendarValidator(final boolean strict, final int dateStyle, final int timeStyle) {
         super(strict);

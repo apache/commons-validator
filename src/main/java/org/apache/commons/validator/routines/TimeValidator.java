@@ -110,7 +110,7 @@ public class TimeValidator extends AbstractCalendarValidator {
      *
      * @param strict {@code true} if strict
      *        {@code Format} parsing should be used.
-     * @param timeStyle the time style to use for Locale validation.
+     * @param timeStyle The time style to use for Locale validation.
      */
     public TimeValidator(final boolean strict, final int timeStyle) {
         super(strict, -1, timeStyle);

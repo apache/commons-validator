@@ -176,7 +176,7 @@ public class Form implements Serializable {
      * not present in this form, include it. {@code depends} has precedence
      * in the way the fields are ordered.
      *
-     * @param depends  the form we want to merge
+     * @param depends  The form we want to merge
      * @since 1.2.0
      */
     protected void merge(final Form depends) {

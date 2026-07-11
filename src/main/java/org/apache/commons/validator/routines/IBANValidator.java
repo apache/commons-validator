@@ -91,9 +91,9 @@ public class IBANValidator {
         /**
          * Creates the validator.
          *
-         * @param countryCode the country code.
-         * @param ibanLength the length of the IBAN.
-         * @param regexWithCC the regex to use to check the format, the regex MUST start with the country code.
+         * @param countryCode The country code.
+         * @param ibanLength The length of the IBAN.
+         * @param regexWithCC The regex to use to check the format, the regex MUST start with the country code.
          */
         public Validator(final String countryCode, final int ibanLength, final String regexWithCC) {
             this(countryCode, ibanLength, regexWithCC.substring(countryCode.length()), new String[] {});
@@ -102,9 +102,9 @@ public class IBANValidator {
         /**
          * Creates the validator.
          *
-         * @param countryCode the country code.
-         * @param ibanLength the length of the IBAN.
-         * @param regexWithoutCC the regex to use to check the format, the regex MUST NOT start with the country code.
+         * @param countryCode The country code.
+         * @param ibanLength The length of the IBAN.
+         * @param regexWithoutCC The regex to use to check the format, the regex MUST NOT start with the country code.
          */
         Validator(final String countryCode, final int ibanLength, final String regexWithoutCC, final String... otherCountryCodes) {
             if (!(countryCode.length() == 2 && Character.isUpperCase(countryCode.charAt(0)) && Character.isUpperCase(countryCode.charAt(1)))) {
@@ -329,7 +329,7 @@ public class IBANValidator {
     /**
      * Gets the Validator for a given IBAN.
      *
-     * @param code a string starting with the ISO country code (for example, an IBAN).
+     * @param code A string starting with the ISO country code (for example, an IBAN).
      * @return The validator or {@code null} if there is not one registered.
      */
     public Validator getValidator(final String code) {
@@ -343,7 +343,7 @@ public class IBANValidator {
     /**
      * Tests if the given code has a validator.
      *
-     * @param code the code to check.
+     * @param code The code to check.
      * @return true if there is a validator.
      */
     public boolean hasValidator(final String code) {
@@ -363,9 +363,9 @@ public class IBANValidator {
     /**
      * Installs a validator. Will replace any existing entry which has the same countryCode.
      *
-     * @param countryCode the country code.
-     * @param length      the length of the IBAN. Must be &ge; 8 and &le; 32. If the length is &lt; 0, the validator is removed, and the format is not used.
-     * @param format      the format of the IBAN (as a regular expression).
+     * @param countryCode The country code.
+     * @param length      The length of the IBAN. Must be &ge; 8 and &le; 32. If the length is &lt; 0, the validator is removed, and the format is not used.
+     * @param format      The format of the IBAN (as a regular expression).
      * @return The previous Validator, or {@code null} if there was none.
      * @throws IllegalArgumentException if there is a problem.
      * @throws IllegalStateException    if an attempt is made to modify the singleton validator.
@@ -389,7 +389,7 @@ public class IBANValidator {
     /**
      * Installs a validator. Will replace any existing entry which has the same countryCode.
      *
-     * @param validator the instance to install.
+     * @param validator The instance to install.
      * @return The previous Validator, or {@code null} if there was none.
      * @throws IllegalStateException if an attempt is made to modify the singleton validator.
      */

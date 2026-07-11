@@ -30,7 +30,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code byte}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code byte} {@code true} is returned. Otherwise {@code false}.
      */
     public static Byte validateByte(final Object bean, final Field field) {
@@ -43,7 +43,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code byte}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code byte} {@code true} is returned. Otherwise {@code false}.
      */
     public static Byte validateByte(final Object bean, final Field field, final Locale locale) {
@@ -56,7 +56,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code date}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code date} {@code true} is returned. Otherwise {@code false}.
      */
     public static Date validateDate(final Object bean, final Field field) {
@@ -78,7 +78,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code date}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code date} {@code true} is returned. Otherwise {@code false}.
      */
     public static Date validateDate(final Object bean, final Field field, final Locale locale) {
@@ -91,7 +91,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code double}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code double} {@code true} is returned. Otherwise {@code false}.
      */
     public static Double validateDouble(final Object bean, final Field field) {
@@ -104,7 +104,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code double}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code double} {@code true} is returned. Otherwise {@code false}.
      */
     public static Double validateDouble(final Object bean, final Field field, final Locale locale) {
@@ -117,7 +117,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code float}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code float} {@code true} is returned. Otherwise {@code false}.
      */
     public static Float validateFloat(final Object bean, final Field field) {
@@ -130,7 +130,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code float}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code float} {@code true} is returned. Otherwise {@code false}.
      */
     public static Float validateFloat(final Object bean, final Field field, final Locale locale) {
@@ -143,7 +143,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code int}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code int} {@code true} is returned. Otherwise {@code false}.
      */
     public static Integer validateInt(final Object bean, final Field field) {
@@ -156,7 +156,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code int}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code int} {@code true} is returned. Otherwise {@code false}.
      */
     public static Integer validateInt(final Object bean, final Field field, final Locale locale) {
@@ -169,7 +169,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code long}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code long} {@code true} is returned. Otherwise {@code false}.
      */
     public static Long validateLong(final Object bean, final Field field) {
@@ -182,7 +182,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code long}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code long} {@code true} is returned. Otherwise {@code false}.
      */
     public static Long validateLong(final Object bean, final Field field, final Locale locale) {
@@ -195,7 +195,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code short}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code short} {@code true} is returned. Otherwise {@code false}.
      */
     public static Short validateShort(final Object bean, final Field field) {
@@ -208,7 +208,7 @@ public class GenericTypeValidatorImpl {
      * Checks if the field can be successfully converted to a {@code short}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code short} {@code true} is returned. Otherwise {@code false}.
      */
     public static Short validateShort(final Object bean, final Field field, final Locale locale) {

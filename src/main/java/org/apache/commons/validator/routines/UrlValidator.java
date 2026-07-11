@@ -267,7 +267,7 @@ public class UrlValidator implements Serializable {
     /**
      * Customizable constructor. Validation behavior is modified by passing in options.
      *
-     * @param schemes the set of valid schemes. Ignored if the ALLOW_ALL_SCHEMES option is set.
+     * @param schemes The set of valid schemes. Ignored if the ALLOW_ALL_SCHEMES option is set.
      * @param authorityValidator Regular expression validator used to validate the authority part
      * @param options Validation options. Set using the public constants of this class.
      * To set multiple options, simply add them together:
@@ -281,13 +281,13 @@ public class UrlValidator implements Serializable {
     /**
      * Customizable constructor. Validation behavior is modified by passing in options.
      *
-     * @param schemes the set of valid schemes. Ignored if the ALLOW_ALL_SCHEMES option is set.
+     * @param schemes The set of valid schemes. Ignored if the ALLOW_ALL_SCHEMES option is set.
      * @param authorityValidator Regular expression validator used to validate the authority part
      * @param options Validation options. Set using the public constants of this class.
      * To set multiple options, simply add them together:
      * <p>{@code ALLOW_2_SLASHES + NO_FRAGMENTS}</p>
      * enables both of those options.
-     * @param domainValidator the DomainValidator to use; must agree with ALLOW_LOCAL_URLS setting
+     * @param domainValidator The DomainValidator to use; must agree with ALLOW_LOCAL_URLS setting
      * @since 1.7
      */
     public UrlValidator(String[] schemes, final RegexValidator authorityValidator, final long options, final DomainValidator domainValidator) {

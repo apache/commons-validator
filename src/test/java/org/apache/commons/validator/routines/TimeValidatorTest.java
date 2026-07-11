@@ -46,8 +46,8 @@ class TimeValidatorTest {
      * Create a date instance for a specified time zone, date and time.
      *
      * @param zone        The time zone
-     * @param time        the time in HH:mm:ss format
-     * @param millisecond the milliseconds
+     * @param time        The time in HH:mm:ss format
+     * @param millisecond The milliseconds
      * @return The new Date instance.
      */
     protected static Date createDate(final TimeZone zone, final int time, final int millisecond) {
@@ -59,8 +59,8 @@ class TimeValidatorTest {
      * Create a calendar instance for a specified time zone, date and time.
      *
      * @param zone        The time zone
-     * @param time        the time in HH:mm:ss format
-     * @param millisecond the milliseconds
+     * @param time        The time in HH:mm:ss format
+     * @param millisecond The milliseconds
      * @return The new Calendar instance.
      */
     protected static Calendar createTime(final TimeZone zone, final int time, final int millisecond) {

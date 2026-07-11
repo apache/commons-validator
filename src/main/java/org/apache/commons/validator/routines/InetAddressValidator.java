@@ -87,7 +87,7 @@ public class InetAddressValidator implements Serializable {
     /**
      * Tests if the specified string is a valid IPv4 or IPv6 address.
      *
-     * @param inetAddress the string to validate
+     * @param inetAddress The string to validate
      * @return true if the string validates as an IP address
      */
     public boolean isValid(final String inetAddress) {
@@ -97,7 +97,7 @@ public class InetAddressValidator implements Serializable {
     /**
      * Validates an IPv4 address. Returns true if valid.
      *
-     * @param inet4Address the IPv4 address to validate
+     * @param inet4Address The IPv4 address to validate
      * @return true if the argument contains a valid IPv4 address
      */
     public boolean isValidInet4Address(final String inet4Address) {
@@ -127,7 +127,7 @@ public class InetAddressValidator implements Serializable {
     /**
      * Validates an IPv6 address. Returns true if valid.
      *
-     * @param inet6Address the IPv6 address to validate
+     * @param inet6Address The IPv6 address to validate
      * @return true if the argument contains a valid IPv6 address
      * @since 1.4.1
      */

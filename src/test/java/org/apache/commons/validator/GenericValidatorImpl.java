@@ -40,7 +40,7 @@ public class GenericValidatorImpl {
      * Checks if the field can be successfully converted to a {@code byte}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code byte} {@code true} is returned. Otherwise {@code false}.
      */
     public static boolean validateByte(final Object bean, final Field field) {
@@ -53,7 +53,7 @@ public class GenericValidatorImpl {
      * Checks if the field can be successfully converted to a {@code double}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code double} {@code true} is returned. Otherwise {@code false}.
      */
     public static boolean validateDouble(final Object bean, final Field field) {
@@ -66,7 +66,7 @@ public class GenericValidatorImpl {
      * Checks if the field is an e-mail address.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field is an e-mail address {@code true} is returned. Otherwise {@code false}.
      */
     public static boolean validateEmail(final Object bean, final Field field) {
@@ -79,7 +79,7 @@ public class GenericValidatorImpl {
      * Checks if the field can be successfully converted to a {@code float}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code float} {@code true} is returned. Otherwise {@code false}.
      */
     public static boolean validateFloat(final Object bean, final Field field) {
@@ -92,7 +92,7 @@ public class GenericValidatorImpl {
      * Checks if the field can be successfully converted to a {@code int}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code int} {@code true} is returned. Otherwise {@code false}.
      */
     public static boolean validateInt(final Object bean, final Field field) {
@@ -105,7 +105,7 @@ public class GenericValidatorImpl {
      * Checks if the field can be successfully converted to a {@code long}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code long} {@code true} is returned. Otherwise {@code false}.
      */
     public static boolean validateLong(final Object bean, final Field field) {
@@ -233,7 +233,7 @@ public class GenericValidatorImpl {
      * Checks if the field can be successfully converted to a {@code short}.
      *
      * @param bean  The value validation is being performed on.
-     * @param field the field to use
+     * @param field The field to use
      * @return boolean If the field can be successfully converted to a {@code short} {@code true} is returned. Otherwise {@code false}.
      */
     public static boolean validateShort(final Object bean, final Field field) {

@@ -768,7 +768,7 @@ public class Field implements Cloneable, Serializable {
      * Sets the flag that determines whether client-side scripting should
      * be generated for this field.
      *
-     * @param clientValidation the scripting flag
+     * @param clientValidation The scripting flag
      * @see #isClientValidation()
      * @since 1.4
      */
@@ -827,7 +827,7 @@ public class Field implements Cloneable, Serializable {
      * Sets a unique key for the field.  This can be used to change
      * the key temporarily to have a unique key for an indexed field.
      *
-     * @param key a unique key for the field
+     * @param key A unique key for the field
      */
     public void setKey(final String key) {
         this.key = key;

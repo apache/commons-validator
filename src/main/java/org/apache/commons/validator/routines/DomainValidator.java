@@ -1825,8 +1825,8 @@ public class DomainValidator implements Serializable {
     /**
      * Tests if a sorted array contains the specified key
      *
-     * @param sortedArray the array to search.
-     * @param key the key to find.
+     * @param sortedArray The array to search.
+     * @param key The key to find.
      * @return {@code true} if the array contains the key.
      */
     private static boolean arrayContains(final String[] sortedArray, final String key) {
@@ -1875,7 +1875,7 @@ public class DomainValidator implements Serializable {
     /**
      * Gets a copy of a class level internal array.
      *
-     * @param table the array type (any of the enum values).
+     * @param table The array type (any of the enum values).
      * @return A copy of the array.
      * @throws IllegalArgumentException if the table type is unexpected (should not happen).
      * @since 1.5.1
@@ -1937,7 +1937,7 @@ public class DomainValidator implements Serializable {
     /**
      * Converts potentially Unicode input to punycode. If conversion fails, returns the original input.
      *
-     * @param input the string to convert, not null.
+     * @param input The string to convert, not null.
      * @return converted input, or original input if conversion fails.
      */
     // Needed by UrlValidator
@@ -1986,7 +1986,7 @@ public class DomainValidator implements Serializable {
      * To clear an override array, provide an empty array.
      * </p>
      *
-     * @param table the table to update, see {@link ArrayType} Must be one of the following
+     * @param table The table to update, see {@link ArrayType} Must be one of the following
      *              <ul>
      *              <li>COUNTRY_CODE_MINUS</li>
      *              <li>COUNTRY_CODE_PLUS</li>
@@ -1995,7 +1995,7 @@ public class DomainValidator implements Serializable {
      *              <li>LOCAL_MINUS</li>
      *              <li>LOCAL_PLUS</li>
      *              </ul>
-     * @param tlds  the array of TLDs, must not be null.
+     * @param tlds  The array of TLDs, must not be null.
      * @throws IllegalStateException    if the method is called after getInstance.
      * @throws IllegalArgumentException if one of the read-only tables is requested.
      * @since 1.5.0
@@ -2178,7 +2178,7 @@ public class DomainValidator implements Serializable {
     /**
      * Gets a copy of an instance level internal array.
      *
-     * @param table the array type (any of the enum values).
+     * @param table The array type (any of the enum values).
      * @return A copy of the array.
      * @throws IllegalArgumentException if the table type is unexpected, for example, GENERIC_RO.
      * @since 1.7
@@ -2223,7 +2223,7 @@ public class DomainValidator implements Serializable {
     /**
      * Tests whether the specified {@link String} parses as a valid domain name with a recognized top-level domain. The parsing is case-insensitive.
      *
-     * @param domain the parameter to check for domain name syntax.
+     * @param domain The parameter to check for domain name syntax.
      * @return true if the parameter is a valid domain name.
      */
     public boolean isValid(final String domain) {
@@ -2249,7 +2249,7 @@ public class DomainValidator implements Serializable {
      * Tests whether the specified {@link String} matches any IANA-defined country code top-level domain. Leading dots are ignored if present. The search is
      * case-insensitive.
      *
-     * @param ccTld the parameter to check for country code TLD status, not null.
+     * @param ccTld The parameter to check for country code TLD status, not null.
      * @return true if the parameter is a country code TLD.
      */
     public boolean isValidCountryCodeTld(final String ccTld) {
@@ -2279,7 +2279,7 @@ public class DomainValidator implements Serializable {
      * Tests whether the specified {@link String} matches any IANA-defined generic top-level domain. Leading dots are ignored if present. The search is
      * case-insensitive.
      *
-     * @param gTld the parameter to check for generic TLD status, not null.
+     * @param gTld The parameter to check for generic TLD status, not null.
      * @return true if the parameter is a generic TLD.
      */
     public boolean isValidGenericTld(final String gTld) {
@@ -2291,7 +2291,7 @@ public class DomainValidator implements Serializable {
      * Tests whether the specified {@link String} matches any IANA-defined infrastructure top-level domain. Leading dots are ignored if present. The search is
      * case-insensitive.
      *
-     * @param iTld the parameter to check for infrastructure TLD status, not null.
+     * @param iTld The parameter to check for infrastructure TLD status, not null.
      * @return true if the parameter is an infrastructure TLD.
      */
     public boolean isValidInfrastructureTld(final String iTld) {
@@ -2303,7 +2303,7 @@ public class DomainValidator implements Serializable {
      * Tests whether the specified {@link String} matches any widely used "local" domains (localhost or localdomain). Leading dots are ignored if present. The
      * search is case-insensitive.
      *
-     * @param lTld the parameter to check for local TLD status, not null.
+     * @param lTld The parameter to check for local TLD status, not null.
      * @return true if the parameter is a local TLD.
      */
     public boolean isValidLocalTld(final String lTld) {
@@ -2320,7 +2320,7 @@ public class DomainValidator implements Serializable {
      * {@link #isValidInfrastructureTld(String)}, {@link #isValidGenericTld(String)} and {@link #isValidCountryCodeTld(String)}.
      * </p>
      *
-     * @param tld the parameter to check for TLD status, not null.
+     * @param tld The parameter to check for TLD status, not null.
      * @return true if the parameter is a TLD.
      */
     public boolean isValidTld(final String tld) {

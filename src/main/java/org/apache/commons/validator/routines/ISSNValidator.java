@@ -109,7 +109,7 @@ public class ISSNValidator implements Serializable {
      * </p>
      *
      * @param issn The ISSN code to convert
-     * @param suffix the two digit suffix, for example, "00"
+     * @param suffix The two digit suffix, for example, "00"
      * @return A converted EAN-13 code or {@code null}
      * if the input ISSN code is not valid
      */

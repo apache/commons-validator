@@ -364,7 +364,7 @@ public class Validator implements Serializable {
     /**
      * Sets the form name which is the key to a set of validation rules.
      *
-     * @param formName the name of the form.
+     * @param formName The name of the form.
      */
     public void setFormName(final String formName) {
         this.formName = formName;
@@ -389,7 +389,7 @@ public class Validator implements Serializable {
      * is less than or equal to this page value, it will be processed.
      * </p>
      *
-     * @param page the page number.
+     * @param page The page number.
      */
     public void setPage(final int page) {
         this.page = page;

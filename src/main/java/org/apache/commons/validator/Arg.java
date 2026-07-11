@@ -159,7 +159,7 @@ public class Arg implements Cloneable, Serializable {
     /**
      * Sets the name of the dependency.
      *
-     * @param name the name of the dependency.
+     * @param name The name of the dependency.
      */
     public void setName(final String name) {
         this.name = name;
