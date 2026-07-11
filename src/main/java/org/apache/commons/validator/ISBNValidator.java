@@ -14,16 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.validator;
 
 /**
- * A class for validating 10 digit ISBN codes.
- * Based on this
- * <a href="https://www.isbn.org/standards/home/isbn/international/html/usm4.htm">
- * algorithm</a>
+ * A class for validating 10 digit ISBN codes. Based on this <a href="https://www.isbn.org/standards/home/isbn/international/html/usm4.htm"> algorithm</a>
  * <p>
- * <strong>NOTE:</strong> This has been replaced by the new
- *  {@link org.apache.commons.validator.routines.ISBNValidator}.
+ * <strong>NOTE:</strong> This has been replaced by the new {@link ISBNValidator}.
  * </p>
  *
  * @since 1.2.0
@@ -39,17 +36,13 @@ public class ISBNValidator {
     }
 
     /**
-     * If the ISBN is formatted with space or dash separators its format is
-     * validated.  Then the digits in the number are weighted, summed, and
-     * divided by 11 according to the ISBN algorithm.  If the result is zero,
-     * the ISBN is valid.  This method accepts formatted or raw ISBN codes.
+     * If the ISBN is formatted with space or dash separators its format is validated. Then the digits in the number are weighted, summed, and divided by 11
+     * according to the ISBN algorithm. If the result is zero, the ISBN is valid. This method accepts formatted or raw ISBN codes.
      *
-     * @param isbn Candidate ISBN number to be validated. {@code null} is
-     * considered invalid.
+     * @param isbn Candidate ISBN number to be validated. {@code null} is considered invalid.
      * @return true if the string is a valid ISBN code.
      */
     public boolean isValid(final String isbn) {
         return org.apache.commons.validator.routines.ISBNValidator.getInstance().isValidISBN10(isbn);
     }
-
 }

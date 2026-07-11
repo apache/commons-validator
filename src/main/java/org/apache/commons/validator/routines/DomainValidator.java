@@ -18,6 +18,7 @@ package org.apache.commons.validator.routines;
 
 import java.io.Serializable;
 import java.net.IDN;
+import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -56,7 +57,7 @@ import java.util.Locale;
  * <p>
  * (<strong>NOTE</strong>: This class does not provide IP address lookup for domain names or
  * methods to ensure that a given domain name matches a specific IP; see
- * {@link java.net.InetAddress} for that functionality.)
+ * {@link InetAddress} for that functionality.)
  * </p>
  *
  * @since 1.4
@@ -1985,7 +1986,7 @@ public class DomainValidator implements Serializable {
      * To clear an override array, provide an empty array.
      * </p>
      *
-     * @param table the table to update, see {@link DomainValidator.ArrayType} Must be one of the following
+     * @param table the table to update, see {@link ArrayType} Must be one of the following
      *              <ul>
      *              <li>COUNTRY_CODE_MINUS</li>
      *              <li>COUNTRY_CODE_PLUS</li>
