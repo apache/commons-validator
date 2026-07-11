@@ -123,6 +123,28 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
+     * A fractional value written with a negative exponent and no decimal point (for example "15E-1" for 1.5) is consumed in full because parseIntegerOnly only
+     * stops at the decimal separator, so it arrives as a fractional BigDecimal and was floored by toBigInteger. It must be rejected instead, matching
+     * ByteValidator, IntegerValidator and LongValidator, which return null for the same input.
+     */
+    @Test
+    void testRejectFractionalExponent() {
+        final BigIntegerValidator instance = BigIntegerValidator.getInstance();
+        assertNull(instance.validate("15E-1")); // 1.5, was floored to 1
+        assertNull(instance.validate("5E-1")); // 0.5, was floored to 0
+        assertNull(instance.validate("5E-100"));
+        // the primitive integer validators already reject these
+        assertNull(IntegerValidator.getInstance().validate("15E-1"));
+        assertNull(LongValidator.getInstance().validate("15E-1"));
+        // a whole number written with an exponent stays valid
+        assertEquals(new BigInteger("100"), instance.validate("1E2"));
+        // the lenient (non-strict) validator still truncates trailing fraction digits
+        final BigIntegerValidator lenient = new BigIntegerValidator(false, 0);
+        assertEquals(new BigInteger("1234"), lenient.validate("1,234.5"));
+        assertNull(lenient.validate("15E-1"));
+    }
+
+    /**
      * Test BigInteger Range/Min/Max
      */
     @Test

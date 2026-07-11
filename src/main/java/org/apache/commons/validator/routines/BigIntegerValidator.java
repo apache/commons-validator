@@ -17,6 +17,7 @@
 
 package org.apache.commons.validator.routines;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.Format;
@@ -204,7 +205,14 @@ public class BigIntegerValidator extends AbstractNumberValidator {
      */
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
-        return toBigInteger(value);
+        final BigDecimal parsed = toBigDecimal(value);
+        // parseIntegerOnly only stops at the decimal separator, so a fractional value written with a negative exponent and no decimal point (for example
+        // "15E-1" for 1.5) is consumed in full and, because getFormat enables setParseBigDecimal, arrives here as a fractional BigDecimal. Reject it instead
+        // of flooring it with toBigInteger, matching ByteValidator, IntegerValidator and LongValidator, which return null for the same input.
+        if (parsed.signum() != 0 && parsed.stripTrailingZeros().scale() > 0) {
+            return null;
+        }
+        return parsed.toBigInteger();
     }
 
     /**
