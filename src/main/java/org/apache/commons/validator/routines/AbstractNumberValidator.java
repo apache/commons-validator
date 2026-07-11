@@ -28,9 +28,9 @@ import org.apache.commons.validator.GenericValidator;
 
 /**
  * Abstract class for Number Validation.
- *
- * <p>This is a <em>base</em> class for building Number
- *    Validators using format parsing.</p>
+ * <p>
+ * This is a <em>base</em> class for building Number Validators using format parsing.
+ * </p>
  *
  * @since 1.3.0
  */
@@ -167,7 +167,7 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     /**
-     * Returns a {@code NumberFormat} for the specified Locale.
+     * Gets the {@code NumberFormat} for the specified Locale.
      *
      * @param locale The locale a {@code NumberFormat} is required for, system default if null.
      * @return The {@code NumberFormat} to created.
