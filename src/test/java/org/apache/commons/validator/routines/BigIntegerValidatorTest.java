@@ -198,29 +198,6 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * The {@link Number} overloads must compare against the exact bound. A non-integer bound was converted with BigInteger.toBigInteger(), which truncates
-     * towards zero, so a fractional minimum was floored (wrongly admitting a value below it) and a fractional maximum was floored too (wrongly admitting a value
-     * above a negative maximum).
-     */
-    @Test
-    void testNumberRangeFractionalBound() {
-        final AbstractNumberValidator instance = BigIntegerValidator.getInstance();
-        final Number five = BigInteger.valueOf(5);
-        // 5 >= 5.9 is false, but flooring the bound to 5 made it pass
-        assertFalse(instance.minValue(five, Double.valueOf(5.9)));
-        assertFalse(instance.minValue(five, new BigDecimal("5.9")));
-        // a whole-number bound is unaffected
-        assertTrue(instance.minValue(five, BigInteger.valueOf(5)));
-
-        final Number minusFive = BigInteger.valueOf(-5);
-        // -5 <= -5.9 is false, but flooring the bound to -5 made it pass
-        assertFalse(instance.maxValue(minusFive, Double.valueOf(-5.9)));
-        assertFalse(instance.maxValue(minusFive, new BigDecimal("-5.9")));
-        // -6 <= -5.9 is true
-        assertTrue(instance.maxValue(BigInteger.valueOf(-6), Double.valueOf(-5.9)));
-    }
-
-    /**
      * A {@link Float} bound must be compared at its real magnitude. The bound is converted through {@link AbstractNumberValidator#toBigDecimal}, which had no
      * {@code Float} branch, so a {@code Float} fell through to {@code new BigDecimal(value.toString())}; {@code Float.toString} emits only the digits needed to
      * round-trip the float, so the bound was read at a coarser value than it actually holds and a value sitting between the two magnitudes was mis-ranged.
@@ -252,6 +229,29 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
         final BigInteger negBelow = negExact.subtract(BigInteger.ONE);
         assertTrue(instance.maxValue(negBelow, negBound), "value below the real negative float is within the maximum");
         assertFalse(instance.minValue(negBelow, negBound), "value below the real negative float is below the minimum");
+    }
+
+    /**
+     * The {@link Number} overloads must compare against the exact bound. A non-integer bound was converted with BigInteger.toBigInteger(), which truncates
+     * towards zero, so a fractional minimum was floored (wrongly admitting a value below it) and a fractional maximum was floored too (wrongly admitting a value
+     * above a negative maximum).
+     */
+    @Test
+    void testNumberRangeFractionalBound() {
+        final AbstractNumberValidator instance = BigIntegerValidator.getInstance();
+        final Number five = BigInteger.valueOf(5);
+        // 5 >= 5.9 is false, but flooring the bound to 5 made it pass
+        assertFalse(instance.minValue(five, Double.valueOf(5.9)));
+        assertFalse(instance.minValue(five, new BigDecimal("5.9")));
+        // a whole-number bound is unaffected
+        assertTrue(instance.minValue(five, BigInteger.valueOf(5)));
+
+        final Number minusFive = BigInteger.valueOf(-5);
+        // -5 <= -5.9 is false, but flooring the bound to -5 made it pass
+        assertFalse(instance.maxValue(minusFive, Double.valueOf(-5.9)));
+        assertFalse(instance.maxValue(minusFive, new BigDecimal("-5.9")));
+        // -6 <= -5.9 is true
+        assertTrue(instance.maxValue(BigInteger.valueOf(-6), Double.valueOf(-5.9)));
     }
 
     /**
