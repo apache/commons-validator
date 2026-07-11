@@ -105,8 +105,8 @@ public abstract class AbstractNumberValidator extends AbstractFormatValidator {
     }
 
     static BigInteger toBigInteger(final Object value) {
-        if (value instanceof Long) {
-            return BigInteger.valueOf(((Long) value).longValue());
+        if (value instanceof Long || value instanceof Integer || value instanceof Short || value instanceof Byte) {
+            return BigInteger.valueOf(((Number) value).longValue());
         }
         return toBigDecimal(value).toBigInteger();
     }
