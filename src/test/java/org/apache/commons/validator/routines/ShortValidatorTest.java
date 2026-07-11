@@ -72,21 +72,6 @@ class ShortValidatorTest extends AbstractNumberValidatorTest {
     }
 
     /**
-     * The inherited {@link Number}-typed range overloads must compare the exact bound rather than one narrowed to a {@code long}.
-     */
-    @Test
-    void testNumberRangeExactBound() {
-        final AbstractNumberValidator instance = ShortValidator.getInstance();
-        final Number value = Short.valueOf((short) 100);
-        // A bound above the long range narrows to a negative long, wrongly reporting 100 as above the maximum.
-        final Number aboveLongMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
-        assertTrue(instance.maxValue(value, aboveLongMax));
-        assertTrue(instance.isInRange(value, BigInteger.ZERO, aboveLongMax));
-        // A fractional bound is not floored: 5 >= 5.5 is false.
-        assertFalse(instance.minValue(Short.valueOf((short) 5), new BigDecimal("5.5")));
-    }
-
-    /**
      * A value whose fractional part is expressed through a negative exponent rather than a decimal point (for example
      * {@code "15E-1"} for 1.5) is parsed to a fractional {@code Double}, not a {@code Long}, because {@code parseIntegerOnly}
      * only stops at the decimal separator. It must be rejected like any other non-integer, matching {@link ByteValidator},
@@ -100,6 +85,21 @@ class ShortValidatorTest extends AbstractNumberValidatorTest {
         assertNull(validator.validate("5E-1", Locale.US), "validate(5E-1)");
         assertNull(validator.validate("-15E-1", Locale.US), "validate(-15E-1)");
         assertNull(validator.validate("1E-100", Locale.US), "validate(1E-100)");
+    }
+
+    /**
+     * The inherited {@link Number}-typed range overloads must compare the exact bound rather than one narrowed to a {@code long}.
+     */
+    @Test
+    void testNumberRangeExactBound() {
+        final AbstractNumberValidator instance = ShortValidator.getInstance();
+        final Number value = Short.valueOf((short) 100);
+        // A bound above the long range narrows to a negative long, wrongly reporting 100 as above the maximum.
+        final Number aboveLongMax = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
+        assertTrue(instance.maxValue(value, aboveLongMax));
+        assertTrue(instance.isInRange(value, BigInteger.ZERO, aboveLongMax));
+        // A fractional bound is not floored: 5 >= 5.5 is false.
+        assertFalse(instance.minValue(Short.valueOf((short) 5), new BigDecimal("5.5")));
     }
 
     /**
