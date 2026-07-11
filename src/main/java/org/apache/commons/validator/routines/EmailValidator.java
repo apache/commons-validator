@@ -178,13 +178,7 @@ public class EmailValidator implements Serializable {
         }
         // Check the whole email address structure
         final Matcher emailMatcher = EMAIL_PATTERN.matcher(email);
-        if (!emailMatcher.matches()) {
-            return false;
-        }
-        if (!isValidUser(emailMatcher.group(1))) {
-            return false;
-        }
-        if (!isValidDomain(emailMatcher.group(2))) {
+        if (!emailMatcher.matches() || !isValidUser(emailMatcher.group(1)) || !isValidDomain(emailMatcher.group(2))) {
             return false;
         }
         return true;
