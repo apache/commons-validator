@@ -133,9 +133,10 @@ public class UrlValidator implements Serializable {
             USERINFO_CHARS_REGEX + "+" + // At least one character for the name
             "(?::" + USERINFO_CHARS_REGEX + "*)?@"; // colon and password may be absent
 
+    // Optional userinfo ("user:pass@") precedes the host so it may come before either host form: a bracketed IPv6
+    // literal (group 1) or a hostname/IPv4 host (group 2). Group 3 is the port, group 4 any trailing remainder.
     private static final String AUTHORITY_REGEX =
-            "(?:\\[(" + IPV6_REGEX + ")\\]|(?:(?:" + USERINFO_FIELD_REGEX + ")?([" + AUTHORITY_CHARS_REGEX + "]*)))(?::(\\d*))?(.*)?";
-    //             1                         for example, user:pass@           2                                       3       4
+            "(?:" + USERINFO_FIELD_REGEX + ")?(?:\\[(" + IPV6_REGEX + ")\\]|([" + AUTHORITY_CHARS_REGEX + "]*))(?::(\\d*))?(.*)?";
     private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
 
     private static final int PARSE_AUTHORITY_IPV6 = 1;
