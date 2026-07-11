@@ -195,13 +195,15 @@ public class ShortValidator extends AbstractNumberValidator {
     @Override
     protected Object processParsedValue(final Object value, final Format formatter) {
 
-        final long longValue = ((Number) value).longValue();
-
-        if (longValue < Short.MIN_VALUE ||
-            longValue > Short.MAX_VALUE) {
-            return null;
+        // Parsed value will be Long if it fits in a long and is not fractional
+        if (value instanceof Long) {
+            final long longValue = ((Long) value).longValue();
+            if (longValue >= Short.MIN_VALUE &&
+                longValue <= Short.MAX_VALUE) {
+                return Short.valueOf((short) longValue);
+            }
         }
-        return Short.valueOf((short) longValue);
+        return null;
     }
 
     /**
