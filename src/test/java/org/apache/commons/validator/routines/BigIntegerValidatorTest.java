@@ -136,6 +136,8 @@ class BigIntegerValidatorTest extends AbstractNumberValidatorTest {
         // the primitive integer validators already reject these
         assertNull(IntegerValidator.getInstance().validate("15E-1"));
         assertNull(LongValidator.getInstance().validate("15E-1"));
+        assertNull(ShortValidator.getInstance().validate("15E-1"));
+        assertNull(ByteValidator.getInstance().validate("15E-1"));
         // a whole number written with an exponent stays valid
         assertEquals(new BigInteger("100"), instance.validate("1E2"));
         // the lenient (non-strict) validator still truncates trailing fraction digits
