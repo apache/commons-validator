@@ -43,9 +43,9 @@ import org.apache.commons.validator.routines.InetAddressValidator;
 @Deprecated
 public class EmailValidator {
 
-    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
+    private static final String SPECIAL_CHARS = "\\p{Cc}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
     private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String QUOTED_USER = "(\"[^\"\\p{Cc}]*\")";
     private static final String ATOM = VALID_CHARS + '+';
     private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
