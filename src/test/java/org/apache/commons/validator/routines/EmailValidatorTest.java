@@ -401,6 +401,26 @@ public class EmailValidatorTest {
     }
 
     /**
+     * Tests that a control character is rejected in the local part however it is introduced: inside a quoted string, as a quoted-pair, and in the C1 range
+     * (U+0080-U+009F). {@link #testEmailWithControlChars()} only exercises unquoted C0/DEL, which the ASCII-only {@code \p{Cntrl}} class already excluded; the
+     * quoted string accepted any character and {@code \p{Cntrl}} let the C1 controls through.
+     */
+    @Test
+    void testEmailWithControlCharsInQuotedStringAndC1Range() {
+        for (int c = 0; c <= 0x9F; c++) {
+            if (Character.getType(c) != Character.CONTROL) {
+                continue;
+            }
+            final char ch = (char) c;
+            assertFalse(validator.isValid("\"foo" + ch + "bar\"@domain.com"), "quoted control char " + c);
+            assertFalse(validator.isValid("foo\\" + ch + "bar@domain.com"), "quoted-pair control char " + c);
+            if (c >= 0x80) {
+                assertFalse(validator.isValid("foo" + ch + "bar@domain.com"), "C1 control char " + c);
+            }
+        }
+    }
+
+    /**
      * <p>
      * Tests the e-mail validation with a dash in the address.
      * </p>
