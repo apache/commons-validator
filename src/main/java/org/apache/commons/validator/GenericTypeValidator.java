@@ -66,9 +66,15 @@ public class GenericTypeValidator implements Serializable {
         if (value != null) {
             final ParsePosition pos = new ParsePosition(0);
             final Number num = getIntegerOnlyFormat(locale).parse(value, pos);
-            // If there was no error and we used the whole string
-            if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() && num.doubleValue() >= Byte.MIN_VALUE && num.doubleValue() <= Byte.MAX_VALUE) {
-                result = Byte.valueOf(num.byteValue());
+            // parseIntegerOnly only stops at the decimal separator, so a fractional value written with a negative
+            // exponent and no decimal point (for example "15E-1" for 1.5) is consumed in full and returned as a
+            // Double; byteValue() would floor it. NumberFormat returns a Long only for a non-fractional value in
+            // long range, so guard on that before the byte range check, matching formatLong.
+            if (pos.getIndex() == value.length() && num instanceof Long) {
+                final long longValue = (Long) num;
+                if (longValue >= Byte.MIN_VALUE && longValue <= Byte.MAX_VALUE) {
+                    result = Byte.valueOf((byte) longValue);
+                }
             }
         }
         return result;
@@ -269,10 +275,15 @@ public class GenericTypeValidator implements Serializable {
             final NumberFormat formatter = getIntegerOnlyFormat(locale);
             final ParsePosition pos = new ParsePosition(0);
             final Number num = formatter.parse(value, pos);
-            // If there was no error and we used the whole string
-            if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() && num.doubleValue() >= Integer.MIN_VALUE
-                    && num.doubleValue() <= Integer.MAX_VALUE) {
-                result = Integer.valueOf(num.intValue());
+            // parseIntegerOnly only stops at the decimal separator, so a fractional value written with a negative
+            // exponent and no decimal point (for example "15E-1" for 1.5) is consumed in full and returned as a
+            // Double; intValue() would floor it. NumberFormat returns a Long only for a non-fractional value in
+            // long range, so guard on that before the int range check, matching formatLong.
+            if (pos.getIndex() == value.length() && num instanceof Long) {
+                final long longValue = (Long) num;
+                if (longValue >= Integer.MIN_VALUE && longValue <= Integer.MAX_VALUE) {
+                    result = Integer.valueOf((int) longValue);
+                }
             }
         }
         return result;
@@ -352,9 +363,15 @@ public class GenericTypeValidator implements Serializable {
             final NumberFormat formatter = getIntegerOnlyFormat(locale);
             final ParsePosition pos = new ParsePosition(0);
             final Number num = formatter.parse(value, pos);
-            // If there was no error and we used the whole string
-            if (pos.getErrorIndex() == -1 && pos.getIndex() == value.length() && num.doubleValue() >= Short.MIN_VALUE && num.doubleValue() <= Short.MAX_VALUE) {
-                result = Short.valueOf(num.shortValue());
+            // parseIntegerOnly only stops at the decimal separator, so a fractional value written with a negative
+            // exponent and no decimal point (for example "15E-1" for 1.5) is consumed in full and returned as a
+            // Double; shortValue() would floor it. NumberFormat returns a Long only for a non-fractional value in
+            // long range, so guard on that before the short range check, matching formatLong.
+            if (pos.getIndex() == value.length() && num instanceof Long) {
+                final long longValue = (Long) num;
+                if (longValue >= Short.MIN_VALUE && longValue <= Short.MAX_VALUE) {
+                    result = Short.valueOf((short) longValue);
+                }
             }
         }
         return result;
