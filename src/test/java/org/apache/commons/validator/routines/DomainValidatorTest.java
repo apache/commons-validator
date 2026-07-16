@@ -47,7 +47,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.validator.routines.DomainValidator.ArrayType;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -506,11 +505,15 @@ public class DomainValidatorTest {
     }
 
     @Test
-    @Disabled
     void testInvalidDomains501() {
-        // VALIDATOR-501
+        // VALIDATOR-501: a non-ASCII label starting or ending with a hyphen is punycode-encoded by
+        // IDN.toASCII to a form that passes the label regex, so it slipped through although the
+        // all-ASCII form ("-test.fr" / "test-.fr") is rejected in testInvalidDomains above.
         assertFalse(validator.isValid("-tést.fr"));
         assertFalse(validator.isValid("tést-.fr"));
+        assertFalse(validator.isValid("-é.fr"), "single non-ASCII label starting with a hyphen shouldn't validate");
+        // an interior hyphen on a non-ASCII label is still allowed
+        assertTrue(validator.isValid("a-é.fr"), "interior hyphen on a non-ASCII label should validate");
     }
 
     // Check if IDN.toASCII is broken or not

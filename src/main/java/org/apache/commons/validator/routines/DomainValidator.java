@@ -1920,6 +1920,38 @@ public class DomainValidator implements Serializable {
     }
 
     /*
+     * Tests whether any label in the input begins or ends with an ASCII hyphen, which is not
+     * permitted in a host name label. Labels are separated by the dot characters recognized in
+     * RFC 3490 section 3.1.
+     */
+    private static boolean hasLabelBoundaryHyphen(final String input) {
+        boolean labelStart = true;
+        for (int i = 0; i < input.length(); i++) {
+            final char ch = input.charAt(i);
+            if (isLabelSeparator(ch)) {
+                if (i > 0 && input.charAt(i - 1) == '-') {
+                    return true; // label ends with a hyphen
+                }
+                labelStart = true;
+            } else {
+                if (labelStart && ch == '-') {
+                    return true; // label begins with a hyphen
+                }
+                labelStart = false;
+            }
+        }
+        final int last = input.length() - 1;
+        return last >= 0 && input.charAt(last) == '-';
+    }
+
+    /*
+     * Tests whether the character is one of the label separators recognized in RFC 3490 section 3.1.
+     */
+    private static boolean isLabelSeparator(final char ch) {
+        return ch == '.' || ch == '\u3002' || ch == '\uFF0E' || ch == '\uFF61';
+    }
+
+    /*
      * Tests whether input contains only ASCII. Treats null as all ASCII.
      */
     private static boolean isOnlyASCII(final String input) {
@@ -1955,6 +1987,15 @@ public class DomainValidator implements Serializable {
                 return input;
             }
             i += Character.charCount(codePoint);
+        }
+        // A label must not begin or end with a hyphen (RFC 1123, and RFC 5891 for IDN labels).
+        // IDN.toASCII with the default flags does not enforce this: it punycode-encodes such a
+        // label (for example a leading-hyphen "-tést" becomes "xn---tst-cpa") to a form that
+        // then satisfies the label regex, so the hyphen slips through on a non-ASCII label although
+        // the all-ASCII form is rejected. Keep the original here and let the label regex reject it
+        // (VALIDATOR-501).
+        if (hasLabelBoundaryHyphen(input)) {
+            return input;
         }
         try {
             final String ascii = IDN.toASCII(input);
