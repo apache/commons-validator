@@ -49,6 +49,14 @@ class GenericValidatorTest {
     }
 
     @Test
+    void testIsDate() {
+        assertTrue(GenericValidator.isDate("11/11/1999", "MM/dd/yyyy", true), "valid strict date");
+        // Strict validation used to accept a value with a trailing character by parsing only its leading portion.
+        assertFalse(GenericValidator.isDate("11/11/199f", "MM/dd/yyyy", true), "trailing character");
+        assertFalse(GenericValidator.isDate("2/12/1999", "MM/dd/yyyy", true), "abbreviated month");
+    }
+
+    @Test
     void testMinLength() {
 
         // Use 0 for line end length

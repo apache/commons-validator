@@ -143,22 +143,18 @@ public class GenericTypeValidator implements Serializable {
      * @return The converted Date value.
      */
     public static Date formatDate(final String value, final String datePattern, final boolean strict) {
-        Date date = null;
         if (value == null || datePattern == null || datePattern.isEmpty()) {
             return null;
         }
-        try {
-            final SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
-            formatter.setLenient(false);
-            date = formatter.parse(value);
-            if (strict && datePattern.length() != value.length()) {
-                date = null;
-            }
-        } catch (final ParseException e) {
-            // Bad date so return null
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Date parse failed value=[" + value + "], " + "pattern=[" + datePattern + "], " + "strict=[" + strict + "] " + e);
-            }
+        final SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+        formatter.setLenient(false);
+        final ParsePosition pos = new ParsePosition(0);
+        Date date = formatter.parse(value, pos);
+        // parse(String, ParsePosition) stops at the first unparsable character instead of failing, so a strict
+        // match must also confirm the whole value was consumed; otherwise trailing text such as the 'f' in
+        // "11/11/199f" is dropped and the truncated date validates.
+        if (date != null && strict && (pos.getIndex() < value.length() || datePattern.length() != value.length())) {
+            date = null;
         }
         return date;
     }
