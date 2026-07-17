@@ -18,6 +18,7 @@ package org.apache.commons.validator;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -97,12 +98,11 @@ public class DateValidator {
         }
         final SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
         formatter.setLenient(false);
-        try {
-            formatter.parse(value);
-        } catch (final ParseException e) {
-            return false;
-        }
-        if (strict && datePattern.length() != value.length()) {
+        final ParsePosition pos = new ParsePosition(0);
+        // parse(String, ParsePosition) stops at the first unparsable character instead of failing, so a strict
+        // match must also confirm the whole value was consumed; otherwise trailing text such as the 'f' in
+        // "11/11/199f" is dropped and the truncated date validates.
+        if (formatter.parse(value, pos) == null || strict && (pos.getIndex() < value.length() || datePattern.length() != value.length())) {
             return false;
         }
         return true;
