@@ -184,19 +184,6 @@ public class UrlValidatorTest {
         assertFalse(urlValidator.isValidAuthority("[::1]:65536"));
     }
 
-    @Test
-    void testIpv6Userinfo() {
-        final UrlValidator urlValidator = new UrlValidator();
-        // userinfo is allowed before a bracketed IPv6 host, not only before a hostname/IPv4 host
-        assertTrue(urlValidator.isValid("http://user@[::1]/"));
-        assertTrue(urlValidator.isValid("http://user:pass@[2001:db8::1]:8080/index.html"));
-        assertTrue(urlValidator.isValidAuthority("user@[::1]"));
-        assertTrue(urlValidator.isValidAuthority("user:pass@[::1]:65535"));
-        // the host and port checks still apply through the userinfo path
-        assertFalse(urlValidator.isValid("http://user@[::ffff:129.144.52.999]/"));
-        assertFalse(urlValidator.isValidAuthority("user@[::1]:65536"));
-    }
-
     @ParameterizedTest
     // @formatter:off
     @ValueSource(strings = {
@@ -238,6 +225,19 @@ public class UrlValidatorTest {
         assertTrue(urlValidator.isValid("http://" + host + ":80/index.html"));
         assertTrue(urlValidator.isValidAuthority(host));
         assertTrue(urlValidator.isValidAuthority(host + ":80"));
+    }
+
+    @Test
+    void testIpv6Userinfo() {
+        final UrlValidator urlValidator = new UrlValidator();
+        // userinfo is allowed before a bracketed IPv6 host, not only before a hostname/IPv4 host
+        assertTrue(urlValidator.isValid("http://user@[::1]/"));
+        assertTrue(urlValidator.isValid("http://user:pass@[2001:db8::1]:8080/index.html"));
+        assertTrue(urlValidator.isValidAuthority("user@[::1]"));
+        assertTrue(urlValidator.isValidAuthority("user:pass@[::1]:65535"));
+        // the host and port checks still apply through the userinfo path
+        assertFalse(urlValidator.isValid("http://user@[::ffff:129.144.52.999]/"));
+        assertFalse(urlValidator.isValidAuthority("user@[::1]:65536"));
     }
 
     @Test

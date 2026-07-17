@@ -101,6 +101,21 @@ class GenericTypeValidatorTest extends AbstractCommonTest {
     }
 
     /**
+     * Tests that strict {@link GenericTypeValidator#formatDate(String, String, boolean)} rejects a value with trailing characters instead of parsing only its
+     * leading portion.
+     */
+    @Test
+    void testFormatDateStrict() {
+        assertNotNull(GenericTypeValidator.formatDate("11/11/1999", "MM/dd/yyyy", true));
+        // The trailing 'f' used to be dropped, leaving the year parsed as 199 and the value reported as valid.
+        assertNull(GenericTypeValidator.formatDate("11/11/199f", "MM/dd/yyyy", true));
+        // An abbreviated field is still rejected in strict mode.
+        assertNull(GenericTypeValidator.formatDate("2/12/1999", "MM/dd/yyyy", true));
+        // Non-strict parsing stays lenient about the pattern length.
+        assertNotNull(GenericTypeValidator.formatDate("2/12/1999", "MM/dd/yyyy", false));
+    }
+
+    /**
      * Tests the fr locale.
      */
     @Test
@@ -131,21 +146,6 @@ class GenericTypeValidatorTest extends AbstractCommonTest {
         assertNull(GenericTypeValidator.formatLong(BigInteger.valueOf(Long.MIN_VALUE).subtract(BigInteger.ONE).toString(), Locale.US));
         // Trailing characters are only consumed up to the first non-digit, so the whole-string check must reject them.
         assertNull(GenericTypeValidator.formatLong("123x", Locale.US));
-    }
-
-    /**
-     * Tests that strict {@link GenericTypeValidator#formatDate(String, String, boolean)} rejects a value with trailing characters instead of parsing only its
-     * leading portion.
-     */
-    @Test
-    void testFormatDateStrict() {
-        assertNotNull(GenericTypeValidator.formatDate("11/11/1999", "MM/dd/yyyy", true));
-        // The trailing 'f' used to be dropped, leaving the year parsed as 199 and the value reported as valid.
-        assertNull(GenericTypeValidator.formatDate("11/11/199f", "MM/dd/yyyy", true));
-        // An abbreviated field is still rejected in strict mode.
-        assertNull(GenericTypeValidator.formatDate("2/12/1999", "MM/dd/yyyy", true));
-        // Non-strict parsing stays lenient about the pattern length.
-        assertNotNull(GenericTypeValidator.formatDate("2/12/1999", "MM/dd/yyyy", false));
     }
 
     /**

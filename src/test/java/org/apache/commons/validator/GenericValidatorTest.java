@@ -27,6 +27,14 @@ import org.junit.jupiter.api.Test;
 class GenericValidatorTest {
 
     @Test
+    void testIsDate() {
+        assertTrue(GenericValidator.isDate("11/11/1999", "MM/dd/yyyy", true), "valid strict date");
+        // Strict validation used to accept a value with a trailing character by parsing only its leading portion.
+        assertFalse(GenericValidator.isDate("11/11/199f", "MM/dd/yyyy", true), "trailing character");
+        assertFalse(GenericValidator.isDate("2/12/1999", "MM/dd/yyyy", true), "abbreviated month");
+    }
+
+    @Test
     void testMaxLength() {
 
         // Use 0 for line end length
@@ -46,14 +54,6 @@ class GenericValidatorTest {
         assertFalse(GenericValidator.maxLength("12345\n\r", 5, 2), "Max=5 End=2");
         assertFalse(GenericValidator.maxLength("12345\n\r", 6, 2), "Max=6 End=2");
         assertTrue(GenericValidator.maxLength("12345\n\r", 7, 2), "Max=7 End=2");
-    }
-
-    @Test
-    void testIsDate() {
-        assertTrue(GenericValidator.isDate("11/11/1999", "MM/dd/yyyy", true), "valid strict date");
-        // Strict validation used to accept a value with a trailing character by parsing only its leading portion.
-        assertFalse(GenericValidator.isDate("11/11/199f", "MM/dd/yyyy", true), "trailing character");
-        assertFalse(GenericValidator.isDate("2/12/1999", "MM/dd/yyyy", true), "abbreviated month");
     }
 
     @Test
