@@ -104,7 +104,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Handle Float operand in AbstractNumberValidator.toBigDecimal (#419).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Reject format code points in DomainValidator.unicodeToASCII (#420).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Allow userinfo before a bracketed IPv6 host in isValidAuthority (#421).</action>
-    <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Reject control characters in EmailValidator local part (#422).</action>
+    <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Reject trailing characters in strict date validation (#425).</action>
     <!-- ADD -->
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use CheckDigitException.CheckDigitException(String, Object...) (#389).</action>
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use ValidatorException.ValidatorException(Throwable). Call sites that previously called new ValidatorException(Throwable#getMessage()) now preserve that exception (#390).</action>
