@@ -16,7 +16,11 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * ISSN Check Digit Test.
@@ -36,6 +40,18 @@ class ISSNCheckDigitTest extends AbstractCheckDigitTest {
                 " 1365201X", "1365201X ", " 1365201X ", };
         missingMessage = "Code is missing";
         zeroSum = "00000000";
+    }
+
+    /**
+     * An ISSN is exactly eight characters. Appending a character to a valid ISSN pushes the extra character to a
+     * position weighted zero (the routine weights each position by {@code 9 - leftPos}), so the modulus was unaffected
+     * and every over-length code validated. The first ten append a digit to a valid ISSN; the last is longer still.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = { "031784710", "031784711", "031784712", "031784713", "031784714", "031784715", "031784716", "031784717", "031784718", "031784719",
+            "0317847100", })
+    void testOverLengthRejected(final String code) {
+        assertFalse(routine.isValid(code), "Should fail (not eight characters): " + code);
     }
 
 }
