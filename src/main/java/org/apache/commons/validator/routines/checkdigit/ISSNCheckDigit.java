@@ -52,6 +52,9 @@ public final class ISSNCheckDigit extends ModulusCheckDigit {
 
     private static final long serialVersionUID = 1L;
 
+    /** An ISSN is exactly eight characters: seven digits plus the check digit. */
+    private static final int ISSN_LEN = 8;
+
     /**
      * Singleton ISSN Check Digit instance.
      */
@@ -62,6 +65,23 @@ public final class ISSNCheckDigit extends ModulusCheckDigit {
      */
     public ISSNCheckDigit() {
         super(MODULUS_11);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * The {@code 9 - leftPos} weighting gives a ninth character a weight of zero, so an over-length code left the
+     * trailing characters unweighted and still passed the modulus test (for example every {@code 03178471} + digit
+     * validated). The length is checked here so only a genuine eight-character ISSN reaches the check digit test.
+     * </p>
+     */
+    @Override
+    public boolean isValid(final String code) {
+        if (code != null && code.length() != ISSN_LEN) {
+            return false;
+        }
+        return super.isValid(code);
     }
 
     @Override
