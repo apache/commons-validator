@@ -149,6 +149,42 @@ class GenericTypeValidatorTest extends AbstractCommonTest {
     }
 
     /**
+     * Tests that {@link GenericTypeValidator#formatByte(String, Locale)} rejects a fractional value instead of truncating it. A value written with a negative
+     * exponent and no decimal point (for example "15E-1" for 1.5) is consumed in full by the integer-only format and used to be floored to a non-null result,
+     * unlike {@link GenericTypeValidator#formatLong(String, Locale)}.
+     */
+    @Test
+    void testByteLocaleFractional() {
+        assertNull(GenericTypeValidator.formatByte("15E-1", Locale.US));
+        assertNull(GenericTypeValidator.formatByte("5E-1", Locale.US));
+        assertEquals(Byte.valueOf((byte) 100), GenericTypeValidator.formatByte("1E2", Locale.US));
+    }
+
+    /**
+     * Tests that {@link GenericTypeValidator#formatShort(String, Locale)} rejects a fractional value instead of truncating it. A value written with a negative
+     * exponent and no decimal point (for example "15E-1" for 1.5) is consumed in full by the integer-only format and used to be floored to a non-null result,
+     * unlike {@link GenericTypeValidator#formatLong(String, Locale)}.
+     */
+    @Test
+    void testShortLocaleFractional() {
+        assertNull(GenericTypeValidator.formatShort("15E-1", Locale.US));
+        assertNull(GenericTypeValidator.formatShort("5E-1", Locale.US));
+        assertEquals(Short.valueOf((short) 100), GenericTypeValidator.formatShort("1E2", Locale.US));
+    }
+
+    /**
+     * Tests that {@link GenericTypeValidator#formatInt(String, Locale)} rejects a fractional value instead of truncating it. A value written with a negative
+     * exponent and no decimal point (for example "15E-1" for 1.5) is consumed in full by the integer-only format and used to be floored to a non-null result,
+     * unlike {@link GenericTypeValidator#formatLong(String, Locale)}.
+     */
+    @Test
+    void testIntLocaleFractional() {
+        assertNull(GenericTypeValidator.formatInt("15E-1", Locale.US));
+        assertNull(GenericTypeValidator.formatInt("5E-1", Locale.US));
+        assertEquals(Integer.valueOf(100), GenericTypeValidator.formatInt("1E2", Locale.US));
+    }
+
+    /**
      * Tests the byte validation.
      */
     @Test
