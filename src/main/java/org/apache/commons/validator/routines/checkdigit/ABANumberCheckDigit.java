@@ -55,10 +55,30 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
     /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = {3, 1, 7};
 
+    /** An ABA number is exactly nine digits, the last being the check digit. */
+    private static final int ABAN_LEN = 9;
+
     /**
      * Constructs a modulus 10 Check Digit routine for ABA Numbers.
      */
     public ABANumberCheckDigit() {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * The weight is taken from {@code rightPos}, which does not change when a character is prepended, so
+     * {@code ModulusCheckDigit} would accept an over-length code whose leading digit lands on a no-op weight (for
+     * example {@code 0123456780}). The nine-character length is checked here before the check digit test.
+     * </p>
+     */
+    @Override
+    public boolean isValid(final String code) {
+        if (code != null && code.length() != ABAN_LEN) {
+            return false;
+        }
+        return super.isValid(code);
     }
 
     /**

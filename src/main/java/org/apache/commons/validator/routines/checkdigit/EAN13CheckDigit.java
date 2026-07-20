@@ -53,10 +53,31 @@ public final class EAN13CheckDigit extends ModulusCheckDigit {
     /** Weighting given to digits depending on their right position */
     private static final int[] POSITION_WEIGHT = {3, 1};
 
+    /** An EAN-13 (and ISBN-13) code is exactly thirteen digits, the last being the check digit. */
+    private static final int EAN13_LEN = 13;
+
     /**
      * Constructs a modulus 10 Check Digit routine for EAN/UPC.
      */
     public EAN13CheckDigit() {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * The weight is taken from {@code rightPos}, which does not change when a character is prepended, so
+     * {@code ModulusCheckDigit} would accept an over-length code whose leading digit lands on a no-op weight (for
+     * example a valid code with a {@code 0} prepended). The thirteen-character length is checked here before the check
+     * digit test.
+     * </p>
+     */
+    @Override
+    public boolean isValid(final String code) {
+        if (code != null && code.length() != EAN13_LEN) {
+            return false;
+        }
+        return super.isValid(code);
     }
 
     /**
