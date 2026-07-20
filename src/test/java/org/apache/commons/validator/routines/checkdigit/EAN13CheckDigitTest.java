@@ -16,7 +16,11 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * EAN-13 Check Digit Test.
@@ -30,6 +34,16 @@ class EAN13CheckDigitTest extends AbstractCheckDigitTest {
     protected void setUp() {
         routine = EAN13CheckDigit.EAN13_CHECK_DIGIT;
         valid = new String[] { "9780072129519", "9780764558313", "4025515373438", "0095673400332" };
+    }
+
+    /**
+     * An EAN-13 code is exactly thirteen digits. Prepending a zero to a valid code lands on a position weighted by the
+     * routine so the leading digit contributes nothing, leaving the modulus unchanged and the over-length code valid.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = { "09780072129519", "00095673400332" })
+    void testOverLengthRejected(final String code) {
+        assertFalse(routine.isValid(code), "Should fail (not thirteen digits): " + code);
     }
 
 }

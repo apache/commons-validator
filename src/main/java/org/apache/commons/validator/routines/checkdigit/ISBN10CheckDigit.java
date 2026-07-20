@@ -49,11 +49,32 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
      */
     public static final CheckDigit ISBN10_CHECK_DIGIT = new ISBN10CheckDigit();
 
+    /** An ISBN-10 is exactly ten characters, the last being the check digit. */
+    private static final int ISBN10_LEN = 10;
+
     /**
      * Constructs a modulus 11 Check Digit routine for ISBN-10.
      */
     public ISBN10CheckDigit() {
         super(MODULUS_11);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * The weight is {@code rightPos}, which does not change when a character is prepended, and modulus 11 makes the
+     * leading position weight a multiple of the modulus, so {@code ModulusCheckDigit} would accept an over-length code
+     * with any prepended digit (for example {@code 51930110995}). The ten-character length is checked here before the
+     * check digit test.
+     * </p>
+     */
+    @Override
+    public boolean isValid(final String code) {
+        if (code != null && code.length() != ISBN10_LEN) {
+            return false;
+        }
+        return super.isValid(code);
     }
 
     /**

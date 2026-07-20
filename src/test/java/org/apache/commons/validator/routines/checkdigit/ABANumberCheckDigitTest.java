@@ -16,7 +16,11 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * ABA Number Check Digit Test.
@@ -30,6 +34,16 @@ class ABANumberCheckDigitTest extends AbstractCheckDigitTest {
     protected void setUp() {
         routine = ABANumberCheckDigit.ABAN_CHECK_DIGIT;
         valid = new String[] { "123456780", "123123123", "011000015", "111000038", "231381116", "121181976" };
+    }
+
+    /**
+     * An ABA number is exactly nine digits. Prepending a zero to a valid code lands on a position weighted zero, so the
+     * modulus was unaffected and the over-length code validated.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = { "0123456780", "00123456780", "0011000015" })
+    void testOverLengthRejected(final String code) {
+        assertFalse(routine.isValid(code), "Should fail (not nine digits): " + code);
     }
 
 }

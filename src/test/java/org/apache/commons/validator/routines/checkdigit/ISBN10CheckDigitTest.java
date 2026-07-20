@@ -16,7 +16,11 @@
  */
 package org.apache.commons.validator.routines.checkdigit;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * ISBN-10 Check Digit Test.
@@ -30,6 +34,17 @@ class ISBN10CheckDigitTest extends AbstractCheckDigitTest {
     protected void setUp() {
         routine = ISBN10CheckDigit.ISBN10_CHECK_DIGIT;
         valid = new String[] { "1930110995", "020163385X", "1932394354", "1590596277" };
+    }
+
+    /**
+     * An ISBN-10 is exactly ten characters. Because the routine is modulus 11 and weights by position from the right,
+     * the prepended digit lands on a weight that is a multiple of the modulus, so any over-length code with a leading
+     * digit validated.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = { "01930110995", "51930110995", "91930110995", "0020163385X" })
+    void testOverLengthRejected(final String code) {
+        assertFalse(routine.isValid(code), "Should fail (not ten characters): " + code);
     }
 
 }
