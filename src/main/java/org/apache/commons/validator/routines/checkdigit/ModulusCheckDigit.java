@@ -126,6 +126,17 @@ public abstract class ModulusCheckDigit extends AbstractCheckDigit implements Se
     }
 
     /**
+     * Tests if the code is of the specified length.
+     *
+     * @param code The code to test.
+     * @param length The length to test for.
+     * @return {@code true} if the code is of the specified length, otherwise {@code false}.
+     */
+    boolean isLength(final String code, final int length) {
+        return code != null && code.length() == length;
+    }
+
+    /**
      * Validates a modulus check digit for a code.
      *
      * @param code The code to validate.

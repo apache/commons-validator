@@ -78,10 +78,7 @@ public final class ISSNCheckDigit extends ModulusCheckDigit {
      */
     @Override
     public boolean isValid(final String code) {
-        if (code != null && code.length() != ISSN_LEN) {
-            return false;
-        }
-        return super.isValid(code);
+        return isLength(code, ISSN_LEN) && super.isValid(code);
     }
 
     @Override

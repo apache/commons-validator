@@ -71,10 +71,7 @@ public final class ISBN10CheckDigit extends ModulusCheckDigit {
      */
     @Override
     public boolean isValid(final String code) {
-        if (code != null && code.length() != ISBN10_LEN) {
-            return false;
-        }
-        return super.isValid(code);
+        return isLength(code, ISBN10_LEN) && super.isValid(code);
     }
 
     /**

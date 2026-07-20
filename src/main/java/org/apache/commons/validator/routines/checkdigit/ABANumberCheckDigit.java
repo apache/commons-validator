@@ -75,10 +75,7 @@ public final class ABANumberCheckDigit extends ModulusCheckDigit {
      */
     @Override
     public boolean isValid(final String code) {
-        if (code != null && code.length() != ABAN_LEN) {
-            return false;
-        }
-        return super.isValid(code);
+        return isLength(code, ABAN_LEN) && super.isValid(code);
     }
 
     /**

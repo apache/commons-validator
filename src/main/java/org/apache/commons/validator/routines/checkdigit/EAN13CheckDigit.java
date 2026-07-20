@@ -74,10 +74,7 @@ public final class EAN13CheckDigit extends ModulusCheckDigit {
      */
     @Override
     public boolean isValid(final String code) {
-        if (code != null && code.length() != EAN13_LEN) {
-            return false;
-        }
-        return super.isValid(code);
+        return isLength(code, EAN13_LEN) && super.isValid(code);
     }
 
     /**

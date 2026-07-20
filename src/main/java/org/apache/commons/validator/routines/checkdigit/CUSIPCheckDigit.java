@@ -67,10 +67,7 @@ public final class CUSIPCheckDigit extends ModulusCheckDigit {
      */
     @Override
     public boolean isValid(final String code) {
-        if (code != null && code.length() != CUSIP_LEN) {
-            return false;
-        }
-        return super.isValid(code);
+        return isLength(code, CUSIP_LEN) && super.isValid(code);
     }
 
     /**
