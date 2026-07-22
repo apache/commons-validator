@@ -445,15 +445,6 @@ public class EmailValidatorTest {
     }
 
     /**
-     * Tests the email validation with numeric domains.
-     */
-    @Test
-    void testEmailWithNumericAddress() {
-        assertTrue(validator.isValid("someone@[216.109.118.76]"));
-        assertTrue(validator.isValid("someone@yahoo.com"));
-    }
-
-    /**
      * Tests IPv6 address literals in the domain, which RFC 5321 section 4.1.3 tags with "IPv6:".
      */
     @Test
@@ -468,6 +459,15 @@ public class EmailValidatorTest {
         // The tag is IPv6 only; an IPv4 literal stays untagged.
         assertTrue(validator.isValid("someone@[216.109.118.76]"));
         assertFalse(validator.isValid("someone@[IPv6:216.109.118.76]"));
+    }
+
+    /**
+     * Tests the email validation with numeric domains.
+     */
+    @Test
+    void testEmailWithNumericAddress() {
+        assertTrue(validator.isValid("someone@[216.109.118.76]"));
+        assertTrue(validator.isValid("someone@yahoo.com"));
     }
 
     /**
