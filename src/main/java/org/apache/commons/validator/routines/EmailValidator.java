@@ -42,7 +42,10 @@ public class EmailValidator implements Serializable {
     private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
     private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
-    // RFC 5321 section 4.1.3: an IPv6 address literal carries the "IPv6:" tag (case-insensitive), an IPv4 literal is untagged.
+
+    /**
+     * RFC 5321 section 4.1.3: an IPv6 address literal carries the "IPv6:" tag (case-insensitive), an IPv4 literal is untagged.
+     */
     private static final String IP_DOMAIN_REGEX = "^\\[((?i)IPv6:)?(.*)\\]$";
     private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
 
