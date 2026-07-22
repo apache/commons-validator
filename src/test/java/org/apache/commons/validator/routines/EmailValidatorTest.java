@@ -454,6 +454,23 @@ public class EmailValidatorTest {
     }
 
     /**
+     * Tests IPv6 address literals in the domain, which RFC 5321 section 4.1.3 tags with "IPv6:".
+     */
+    @Test
+    void testEmailWithIpv6AddressLiteral() {
+        // Tagged IPv6 literals are accepted; the tag is ABNF-literal text so it is case insensitive.
+        assertTrue(validator.isValid("someone@[IPv6:2001:db8::1]"));
+        assertTrue(validator.isValid("someone@[IPv6:::1]"));
+        assertTrue(validator.isValid("someone@[ipv6:fe80::1]"));
+        // A bare IPv6 literal without the tag is not a valid address literal.
+        assertFalse(validator.isValid("someone@[2001:db8::1]"));
+        assertFalse(validator.isValid("someone@[::1]"));
+        // The tag is IPv6 only; an IPv4 literal stays untagged.
+        assertTrue(validator.isValid("someone@[216.109.118.76]"));
+        assertFalse(validator.isValid("someone@[IPv6:216.109.118.76]"));
+    }
+
+    /**
      * VALIDATOR-296 - A / or a ! is valid in the user part, but not in the domain part
      */
     @Test
