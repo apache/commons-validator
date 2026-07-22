@@ -42,9 +42,8 @@ public class EmailValidator implements Serializable {
     private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
     private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
-    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
-    // RFC 5321 section 4.1.3: an IPv6 address literal is prefixed with this tag, an IPv4 literal is not.
-    private static final String IPV6_TAG = "IPv6:";
+    // RFC 5321 section 4.1.3: an IPv6 address literal carries the "IPv6:" tag (case-insensitive), an IPv4 literal is untagged.
+    private static final String IP_DOMAIN_REGEX = "^\\[((?i)IPv6:)?(.*)\\]$";
     private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
@@ -198,13 +197,10 @@ public class EmailValidator implements Serializable {
 
         if (ipDomainMatcher.matches()) {
             final InetAddressValidator inetAddressValidator = InetAddressValidator.getInstance();
-            final String ipLiteral = ipDomainMatcher.group(1);
-            // An IPv6 address literal carries the "IPv6:" tag and an IPv4 literal is untagged (RFC 5321). The tag
-            // is ABNF-literal text, so match it case insensitively rather than accepting a bare IPv6 address.
-            if (ipLiteral.regionMatches(true, 0, IPV6_TAG, 0, IPV6_TAG.length())) {
-                return inetAddressValidator.isValidInet6Address(ipLiteral.substring(IPV6_TAG.length()));
+            if (ipDomainMatcher.group(1) != null) {
+                return inetAddressValidator.isValidInet6Address(ipDomainMatcher.group(2));
             }
-            return inetAddressValidator.isValidInet4Address(ipLiteral);
+            return inetAddressValidator.isValidInet4Address(ipDomainMatcher.group(2));
         }
         // Domain is symbolic name
         if (allowTld) {
