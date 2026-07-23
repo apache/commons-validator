@@ -1966,6 +1966,19 @@ public class DomainValidator implements Serializable {
         return true;
     }
 
+    /*
+     * Tests whether the code point is one that IDNA nameprep (RFC 3454 Table B.1, "commonly mapped to
+     * nothing") deletes but that is not a Unicode FORMAT character, so the FORMAT check in
+     * unicodeToASCII does not catch it: the combining grapheme joiner, the Mongolian TODO soft hyphen
+     * and free variation selectors, and the variation selectors.
+     */
+    private static boolean isNameprepMappedToNothing(final int codePoint) {
+        return codePoint == '\u034F' // COMBINING GRAPHEME JOINER
+                || codePoint == '\u1806' // MONGOLIAN TODO SOFT HYPHEN
+                || codePoint >= '\u180B' && codePoint <= '\u180D' // MONGOLIAN FREE VARIATION SELECTOR ONE..THREE
+                || codePoint >= '\uFE00' && codePoint <= '\uFE0F'; // VARIATION SELECTOR-1..16
+    }
+
     /**
      * Converts potentially Unicode input to punycode. If conversion fails, returns the original input.
      *
@@ -1977,13 +1990,16 @@ public class DomainValidator implements Serializable {
         if (isOnlyASCII(input)) { // skip possibly expensive processing
             return input;
         }
-        // IDN.toASCII silently drops default-ignorable and format code points (soft hyphen,
-        // zero-width spaces, the byte order mark, ...) during nameprep, so a host carrying one
-        // would convert to a clean label and validate. Those code points are not legal in a host
-        // name, so keep the original here and let the label regex reject it.
+        // IDN.toASCII silently drops the code points that nameprep (RFC 3454 Table B.1) maps to
+        // nothing - the soft hyphen, zero-width spaces, the byte order mark, the combining grapheme
+        // joiner, the Mongolian and variation selectors and so on - so a host carrying one would
+        // convert to a clean label and validate as a different host. Most are Unicode FORMAT
+        // characters, but the combining grapheme joiner, the Mongolian selectors and the variation
+        // selectors are not, so the FORMAT check alone lets them through. Reject both here and let
+        // the label regex reject anything else.
         for (int i = 0; i < input.length();) {
             final int codePoint = input.codePointAt(i);
-            if (Character.getType(codePoint) == Character.FORMAT) {
+            if (Character.getType(codePoint) == Character.FORMAT || isNameprepMappedToNothing(codePoint)) {
                 return input;
             }
             i += Character.charCount(codePoint);

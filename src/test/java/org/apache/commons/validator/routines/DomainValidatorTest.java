@@ -465,8 +465,21 @@ public class DomainValidatorTest {
         // Those code points are not legal in a host name and must be rejected.
         assertFalse(validator.isValid("exa\u00ADmple.com"), "soft hyphen shouldn't validate");
         assertFalse(validator.isValid("exa\u200Bmple.com"), "zero-width space shouldn't validate");
+        assertFalse(validator.isValid("exa\u200Cmple.com"), "zero-width non-joiner shouldn't validate");
         assertFalse(validator.isValid("exa\u200Dmple.com"), "zero-width joiner shouldn't validate");
         assertFalse(validator.isValid("\uFEFFexample.com"), "byte order mark shouldn't validate");
+        assertTrue(validator.isValid("www.b\u00fccher.ch"), "b\u00fccher.ch should still validate");
+    }
+
+    @Test
+    void testIDNMappedToNothing() {
+        // IDN.toASCII also strips the code points that nameprep maps to nothing but that are not
+        // Unicode FORMAT characters, so the format-code-point guard alone would let them collapse a
+        // host to a clean label. They must be rejected too.
+        assertFalse(validator.isValid("exa\u034Fmple.com"), "combining grapheme joiner shouldn't validate");
+        assertFalse(validator.isValid("exa\uFE0Fmple.com"), "variation selector shouldn't validate");
+        assertFalse(validator.isValid("exa\u1806mple.com"), "Mongolian TODO soft hyphen shouldn't validate");
+        assertFalse(validator.isValid("exa\u180Bmple.com"), "Mongolian free variation selector shouldn't validate");
         assertTrue(validator.isValid("www.b\u00fccher.ch"), "b\u00fccher.ch should still validate");
     }
 
