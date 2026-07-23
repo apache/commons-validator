@@ -110,6 +110,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Reject fractional input in GenericTypeValidator integer helpers (#423).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Reject over-length codes in ABA, CUSIP, ISBN-10 and EAN-13 check digits (#427).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Require the IPv6: tag for bracketed IPv6 email literals (#428).</action>
+    <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Reject nameprep-stripped code points in unicodeToASCII (#429).</action>
     <!-- ADD -->
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use CheckDigitException.CheckDigitException(String, Object...) (#389).</action>
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use ValidatorException.ValidatorException(Throwable). Call sites that previously called new ValidatorException(Throwable#getMessage()) now preserve that exception (#390).</action>
