@@ -35,6 +35,11 @@ import org.junitpioneer.jupiter.DefaultLocale;
  */
 class PercentValidatorTest {
 
+    private static final char PERCENT_SYMBOL = '%';
+
+    /** The character locales such as fr-FR use between the number and a trailing percent symbol. */
+    private static final char NON_BREAKING_SPACE = '\u00A0';
+
     protected PercentValidator validator;
     private Locale originalLocale;
 
@@ -98,6 +103,21 @@ class PercentValidatorTest {
         assertTrue(instance.isInRange(value, BigInteger.ZERO, aboveLongMax));
         // A fractional bound is not floored: 5 >= 5.5 is false.
         assertFalse(instance.minValue(new BigDecimal("5"), new BigDecimal("5.5")));
+    }
+
+    /**
+     * Test percentage values with a pattern that suffixes the symbol, which locales such as fr-FR separate from the number with a non-breaking space. The
+     * symbol is optional, so its separator has to be optional too.
+     */
+    @Test
+    void testSuffixSymbolPattern() {
+        final BigDecimalValidator validator = PercentValidator.getInstance();
+        final String pattern = "#,##0" + NON_BREAKING_SPACE + PERCENT_SYMBOL;
+        final BigDecimal expected = new BigDecimal("0.12");
+
+        assertEquals(expected, validator.validate("12" + NON_BREAKING_SPACE + PERCENT_SYMBOL, pattern, Locale.US), "symbol");
+        assertEquals(expected, validator.validate("12", pattern, Locale.US), "no symbol");
+        assertNull(validator.validate("12" + NON_BREAKING_SPACE, pattern, Locale.US), "separator without symbol");
     }
 
     /**

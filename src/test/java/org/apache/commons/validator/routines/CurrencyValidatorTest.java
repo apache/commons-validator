@@ -38,6 +38,9 @@ class CurrencyValidatorTest {
 
     private static final char CURRENCY_SYMBOL = '\u00A4';
 
+    /** The character locales such as de-DE use between the number and a trailing currency symbol. */
+    private static final char NON_BREAKING_SPACE = '\u00A0';
+
     private String usDollar;
     private String ukPound;
 
@@ -174,6 +177,21 @@ class CurrencyValidatorTest {
         // invalid
         assertFalse(validator.isValid(usDollar + "1,234.567", pattern), "invalid symbol");
         assertFalse(validator.isValid(ukPound + "1,234.567", pattern, Locale.US), "invalid symbol");
+    }
+
+    /**
+     * Test currency values with a pattern that suffixes the symbol, which locales such as de-DE separate from the number with a non-breaking space. The symbol
+     * is optional, so its separator has to be optional too.
+     */
+    @Test
+    void testSuffixSymbolPattern() {
+        final BigDecimalValidator validator = CurrencyValidator.getInstance();
+        final String pattern = "#,##0.00" + NON_BREAKING_SPACE + CURRENCY_SYMBOL;
+        final BigDecimal expected = new BigDecimal("1234.56");
+
+        assertEquals(expected, validator.validate("1,234.56" + NON_BREAKING_SPACE + usDollar, pattern, Locale.US), "symbol");
+        assertEquals(expected, validator.validate("1,234.56", pattern, Locale.US), "no symbol");
+        assertNull(validator.validate("1,234.56" + NON_BREAKING_SPACE, pattern, Locale.US), "separator without symbol");
     }
 
     /**
