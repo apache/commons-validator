@@ -1,3 +1,99 @@
+Apache Commons Validator 1.11.0 RELEASE NOTES
+---------------------------------------------
+
+The Apache Commons Validator team is pleased to announce the release of Apache Commons Validator 1.11.0.
+
+Apache Commons Validator provides the building blocks for both client-side and server-side data validation.
+It may be used standalone or with a framework like Struts.
+
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+For complete information on Apache Commons Validator, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Validator website:
+
+https://commons.apache.org/proper/commons-validator/
+
+Download page: https://commons.apache.org/proper/commons-validator/download_validator.cgi
+
+Changes in this version
+-----------------------
+
+New features
+------------
+
+*                 Add and use CheckDigitException.CheckDigitException(String, Object...) (#389). Thanks to Gary Gregory.
+*                 Add and use ValidatorException.ValidatorException(Throwable). Call sites that previously called new ValidatorException(Throwable#getMessage()) now preserve that exception (#390). Thanks to Gary Gregory.
+*                 Add and use ValidatorException.ValidatorException(String, Object...) (#391). Thanks to Gary Gregory.
+*                 Add and use ValidatorException(String, Throwable) (#392). Thanks to Gary Gregory.
+
+Fixed Bugs
+----------
+
+*                 Fix Apache RAT plugin console warnings. Thanks to Gary Gregory.
+*                 Fixes to non-final static fields.
+* VALIDATOR-503:  DomainValidator Revocation for .dunlop: https://www.iana.org/reports/tld-transfer/20251021-dunlop. Thanks to Gary Gregory.
+* VALIDATOR-504:  DomainValidator ICAAN .kerrylogistics Registry Agreement - Terminated: https://www.icann.org/en/registry-agreements/terminated/kerrylogistics. Thanks to Gary Gregory.
+* VALIDATOR-505:  DomainValidator ICAAN .lancaster Registry Agreement - Terminated: https://www.icann.org/en/registry-agreements/terminated/lancaster. Thanks to Gary Gregory.
+* VALIDATOR-506:  DomainValidator ICAAN Revocation for .lipsy: https://www.iana.org/reports/tld-transfer/20250227-lipsy. Thanks to Gary Gregory.
+* VALIDATOR-507:  DomainValidator ICAAN Revocation for .pramerica" https://www.iana.org/reports/tld-transfer/20250516-pramerica. Thanks to Gary Gregory.
+* VALIDATOR-508:  DomainValidator ICAAN Revocation for .redstone: https://www.iana.org/reports/tld-transfer/20250826-redstone. Thanks to Gary Gregory.
+* VALIDATOR-508:  Reject signed hex group in InetAddressValidator.isValidInet6Address(String) #379. Thanks to Sahana Surendra Bogar, Gary Gregory.
+*                 CheckDigit implementations check for input in the alphanumeric range (#385). Thanks to Gary Gregory, sahvx655-wq.
+*                 Removing a country code from an IBANValidator now removes associated "other" codes (#386). Thanks to Gary Gregory, sahvx655-wq.
+*                 DoubleValidator and FloatValidator now treat special symbols consistently (#388). Thanks to Gary Gregory, sahvx655-wq.
+*                 Fix long range check in GenericTypeValidator.formatLong (#387). Thanks to Gary Gregory, sahvx655-wq.
+*                 Fix BigIntegerValidator minValue(), maxValue(), and processParsedValue() for out of Long range values (#397). Thanks to Gary Gregory, sahvx655-wq.
+*                 Add missing tests for ValidatorUtils.replace and ValidatorUtils.copyMap (#396). Thanks to Mauricio Bento, Gary Gregory.
+*                 Fix RegexValidator.validate() returning null for a valid match (#395). Thanks to sahvx655-wq, Gary Gregory.
+*                 Compare CAS and EC check digit against validated code, not raw input (#398). Thanks to sahvx655-wq, Gary Gregory.
+*                 Prevent URL path traversal bypass via percent encoding in UrlValidator (#383). Thanks to sahvx655-wq.
+*                 Fix ISIN country-code check using untrimmed input (#399). Thanks to sahvx655-wq.
+*                 Use compareTo() in BigIntegerValidator.minValue() (#400). Thanks to sahvx655-wq, Gary Gregory.
+*                 Compare exact value in BigDecimalValidator min/max range checks (#401). Thanks to sahvx655-wq, Gary Gregory.
+*                 Compare exact values in BigInteger and BigDecimal Number range checks (#404). Thanks to Gary Gregory, sahvx655-wq.
+*                 Reject non-ASCII hex digits in isValidInet6Address (#403). Thanks to sahvx655-wq, Gary Gregory.
+*                 Accept IPv4-embedded IPv6 addresses in UrlValidator (#405). Thanks to sahvx655-wq, Gary Gregory.
+*                 Preserve exact value in BigDecimal and BigInteger validate (#406). Thanks to sahvx655-wq, Gary Gregory.
+*                 Preserve fractional bound in BigIntegerValidator range checks (#407). Thanks to sahvx655-wq, Gary Gregory.
+*                 DomainValidatorTest: ensure CC is in correct list (#409). Thanks to sahvx655-wq.
+*                 Range-check the port for IPv6 hosts in isValidAuthority (#412). Thanks to sahvx655-wq.
+*                 Fix calculation of week_of_year and week_of_month to allow for dates that span a year gap (#408). Thanks to sahvx655-wq.
+*                 Fix deprecations in test classes.
+*                 Compare exact values in DoubleValidator range checks (#410). Thanks to sahvx655-wq, Gary Gregory.
+*                 Handle non-finite bounds in BigIntegerValidator range checks (#414). Thanks to sahvx655-wq, Gary Gregory.
+*                 Fix swapped constant maps in Form.process for extended forms (#413). Thanks to sahvx655-wq, Gary Gregory.
+*                 Reject vowels in SedolCheckDigit (#415). Thanks to sahvx655-wq, Gary Gregory.
+*                 Compare exact bound in AbstractNumberValidator range checks (#416). Thanks to sahvx655-wq, Gary Gregory.
+*                 Reject fractional scientific notation in ShortValidator (#417). Thanks to sahvx655-wq, Gary Gregory.
+*                 Reject fractional exponent input in BigIntegerValidator (#418). Thanks to sahvx655-wq, Gary Gregory.
+*                 Handle Float operand in AbstractNumberValidator.toBigDecimal (#419). Thanks to sahvx655-wq, Gary Gregory.
+*                 Reject format code points in DomainValidator.unicodeToASCII (#420). Thanks to sahvx655-wq, Gary Gregory.
+*                 Allow userinfo before a bracketed IPv6 host in isValidAuthority (#421). Thanks to sahvx655-wq, Gary Gregory.
+*                 Reject trailing characters in strict date validation (#425). Thanks to sahvx655-wq, Gary Gregory.
+*                 Reject leading and trailing label hyphens in DomainValidator unicodeToASCII (#424). Thanks to sahvx655-wq, Gary Gregory.
+*                 Reject over-length codes in ISSNCheckDigit (#426). Thanks to sahvx655-wq, Gary Gregory.
+*                 Reject fractional input in GenericTypeValidator integer helpers (#423). Thanks to sahvx655-wq, Gary Gregory.
+*                 Reject over-length codes in ABA, CUSIP, ISBN-10 and EAN-13 check digits (#427). Thanks to sahvx655-wq, Gary Gregory.
+*                 Require the IPv6: tag for bracketed IPv6 email literals (#428). Thanks to sahvx655-wq, Gary Gregory.
+*                 Reject nameprep-stripped code points in unicodeToASCII (#429). Thanks to sahvx655-wq, Gary Gregory.
+*                 Precompile Pattern in ISSNValidator.convertToEAN13(String, String). Thanks to Gary Gregory.
+
+Changes
+-------
+
+*                 Bump org.apache.commons:commons-parent from 92 to 103 #377. Thanks to Gary Gregory, Dependabot.
+*                 Bump commons-logging:commons-logging from 1.3.5 to 1.4.0. Thanks to Gary Gregory.
+*                 DomainValidator: Changes from 2026062300, Last Updated Tue Jun 23 07:07:01 2026 UTC.
+*                 DomainValidatorTest: reflection no longer needed to access arrays.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-validator/changes.html
+
+Enjoy!
+-Apache Commons Validator team
+
+-----------------------------------------------------------------------------
 Apache Commons Validator 1.10.1 RELEASE NOTES
 ---------------------------------------------
 

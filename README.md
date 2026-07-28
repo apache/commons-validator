@@ -45,7 +45,7 @@ Apache Commons Validator
 
 [![Java CI](https://github.com/apache/commons-validator/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/maven.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/commons-validator/commons-validator?label=Maven%20Central)](https://search.maven.org/artifact/commons-validator/commons-validator)
-[![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.10.1.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.10.1)
+[![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.11.0.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.11.0)
 [![CodeQL](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-validator/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-validator)
 
@@ -69,7 +69,7 @@ Alternatively, you can pull it from the central Maven repositories:
 <dependency>
   <groupId>commons-validator</groupId>
   <artifactId>commons-validator</artifactId>
-  <version>1.10.1</version>
+  <version>1.11.0</version>
 </dependency>
 ```
 
@@ -112,9 +112,9 @@ Additional Resources
 + [Apache Commons Homepage](https://commons.apache.org/)
 + [Apache Issue Tracker (JIRA)](https://issues.apache.org/jira/browse/VALIDATOR)
 + [Apache Commons Slack Channel](https://the-asf.slack.com/archives/C60NVB8AD)
-+ [Apache Commons Twitter Account](https://twitter.com/ApacheCommons)
 
 Apache Commons Components
 -------------------------
 
-Please see the [list of components](https://commons.apache.org/components.html)
++ [List of Apache Commons components](https://commons.apache.org/components.html): homepages and documentation for all components.
++ [`REPOSITORIES.md`](https://github.com/apache/commons-parent/blob/master/REPOSITORIES.md): overview of the code repositories and their build status.
