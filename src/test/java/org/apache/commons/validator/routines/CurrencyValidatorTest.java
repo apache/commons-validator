@@ -220,18 +220,23 @@ class CurrencyValidatorTest {
     }
 
     /**
-     * Test currency values with an explicit pattern that suffixes the symbol behind a non-breaking space, so the expectations are pinned independently of the
-     * JVM's locale data. The symbol is optional, so its separator has to be optional too.
+     * Test currency values with an explicit pattern that suffixes the symbol behind a non-breaking space, run against every available locale so every currency
+     * symbol the JVM knows is exercised. The inputs are formatted with each locale's own symbols, so the expectations do not depend on any particular locale's
+     * data. The symbol is optional, so its separator has to be optional too.
      */
-    @Test
-    void testSuffixSymbolPattern() {
+    @ParameterizedTest
+    @MethodSource("java.util.Locale#getAvailableLocales")
+    void testSuffixSymbolPattern(final Locale locale) {
         final BigDecimalValidator instance = CurrencyValidator.getInstance();
         final String pattern = "#,##0.00" + NON_BREAKING_SPACE + CURRENCY_SYMBOL;
         final BigDecimal expected = new BigDecimal("1234.56");
+        final DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
+        final String withSymbol = new DecimalFormat(pattern, symbols).format(expected);
+        final String withoutSymbol = new DecimalFormat("#,##0.00", symbols).format(expected);
 
-        assertEquals(expected, instance.validate("1,234.56" + NON_BREAKING_SPACE + usDollar, pattern, Locale.US), "symbol");
-        assertEquals(expected, instance.validate("1,234.56", pattern, Locale.US), "no symbol");
-        assertNull(instance.validate("1,234.56" + NON_BREAKING_SPACE, pattern, Locale.US), "separator without symbol");
+        assertEquals(expected, instance.validate(withSymbol, pattern, locale), "symbol");
+        assertEquals(expected, instance.validate(withoutSymbol, pattern, locale), "no symbol");
+        assertNull(instance.validate(withoutSymbol + NON_BREAKING_SPACE, pattern, locale), "separator without symbol");
     }
 
     /**
