@@ -89,6 +89,39 @@ public class BigDecimalValidator extends AbstractNumberValidator {
     }
 
     /**
+     * Tests whether the character at the given position of a pattern sits next to the given symbol.
+     *
+     * @param pattern The pattern being stripped of the symbol.
+     * @param index   The position to test.
+     * @param symbol  The symbol being removed.
+     * @return {@code true} if the character borders the symbol.
+     */
+    private static boolean isNextToSymbol(final String pattern, final int index, final char symbol) {
+        return (index > 0 && pattern.charAt(index - 1) == symbol)
+                || (index + 1 < pattern.length() && pattern.charAt(index + 1) == symbol);
+    }
+
+    /**
+     * Removes the given symbol, and any space characters adjacent to it, from a {@link DecimalFormat} pattern. A locale that suffixes the symbol usually
+     * separates it from the number with a (non-breaking) space; that space belongs to the symbol, so removing only the symbol would leave the separator
+     * mandatory.
+     *
+     * @param pattern The pattern to remove the symbol from.
+     * @param symbol  The symbol to remove.
+     * @return The pattern without the symbol and its separator.
+     */
+    static String removeSymbol(final String pattern, final char symbol) {
+        final StringBuilder buffer = new StringBuilder(pattern.length());
+        for (int i = 0; i < pattern.length(); i++) {
+            final char chr = pattern.charAt(i);
+            if (chr != symbol && !(Character.isSpaceChar(chr) && isNextToSymbol(pattern, i, symbol))) {
+                buffer.append(chr);
+            }
+        }
+        return buffer.toString();
+    }
+
+    /**
      * Constructs a <em>strict</em> instance.
      */
     public BigDecimalValidator() {

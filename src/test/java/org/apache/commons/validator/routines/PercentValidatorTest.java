@@ -20,14 +20,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
@@ -42,6 +48,15 @@ class PercentValidatorTest {
 
     protected PercentValidator validator;
     private Locale originalLocale;
+
+    /**
+     * Locales whose percent format suffixes the symbol behind a space separator.
+     *
+     * @return the locales to test.
+     */
+    static Stream<Locale> suffixSymbolLocales() {
+        return Stream.of(Locale.FRANCE, Locale.GERMANY);
+    }
 
     @BeforeEach
     protected void setUp() {
@@ -106,18 +121,44 @@ class PercentValidatorTest {
     }
 
     /**
-     * Test percentage values with a pattern that suffixes the symbol, which locales such as fr-FR separate from the number with a non-breaking space. The
-     * symbol is optional, so its separator has to be optional too.
+     * Test percentage values against the JVM's own format for locales that suffix the symbol behind a space separator. The symbol is optional, so its separator
+     * has to be optional too. The pattern, separator and input are all derived from the locale data at run time, so the expectations hold on any JVM; on older
+     * JVMs whose locale data does not use a space separated suffix symbol the test is skipped.
+     */
+    @ParameterizedTest
+    @MethodSource("suffixSymbolLocales")
+    void testSuffixSymbolLocale(final Locale locale) {
+        final DecimalFormat format = (DecimalFormat) NumberFormat.getPercentInstance(locale);
+        final String pattern = format.toPattern();
+        final int symbolIndex = pattern.indexOf(PERCENT_SYMBOL);
+        assumeTrue(symbolIndex > 0 && Character.isSpaceChar(pattern.charAt(symbolIndex - 1)),
+                () -> locale + " does not use a space separated suffix symbol: " + pattern);
+        final char separator = pattern.charAt(symbolIndex - 1);
+        final char symbol = format.getDecimalFormatSymbols().getPercent();
+        final String withSymbol = format.format(0.12);
+        assumeTrue(withSymbol.endsWith(separator + Character.toString(symbol)), () -> locale + " does not format the symbol last: " + withSymbol);
+        final String noSymbol = withSymbol.substring(0, withSymbol.length() - 2);
+
+        final BigDecimalValidator instance = PercentValidator.getInstance();
+        final BigDecimal expected = new BigDecimal("0.12");
+        assertEquals(expected, instance.validate(withSymbol, locale), "symbol: " + locale);
+        assertEquals(expected, instance.validate(noSymbol, locale), "no symbol: " + locale);
+        assertNull(instance.validate(noSymbol + separator, locale), "separator without symbol: " + locale);
+    }
+
+    /**
+     * Test percentage values with an explicit pattern that suffixes the symbol behind a non-breaking space, so the expectations are pinned independently of the
+     * JVM's locale data. The symbol is optional, so its separator has to be optional too.
      */
     @Test
     void testSuffixSymbolPattern() {
-        final BigDecimalValidator validator = PercentValidator.getInstance();
+        final BigDecimalValidator instance = PercentValidator.getInstance();
         final String pattern = "#,##0" + NON_BREAKING_SPACE + PERCENT_SYMBOL;
         final BigDecimal expected = new BigDecimal("0.12");
 
-        assertEquals(expected, validator.validate("12" + NON_BREAKING_SPACE + PERCENT_SYMBOL, pattern, Locale.US), "symbol");
-        assertEquals(expected, validator.validate("12", pattern, Locale.US), "no symbol");
-        assertNull(validator.validate("12" + NON_BREAKING_SPACE, pattern, Locale.US), "separator without symbol");
+        assertEquals(expected, instance.validate("12" + NON_BREAKING_SPACE + PERCENT_SYMBOL, pattern, Locale.US), "symbol");
+        assertEquals(expected, instance.validate("12", pattern, Locale.US), "no symbol");
+        assertNull(instance.validate("12" + NON_BREAKING_SPACE, pattern, Locale.US), "separator without symbol");
     }
 
     /**

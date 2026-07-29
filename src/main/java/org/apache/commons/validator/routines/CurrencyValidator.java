@@ -60,18 +60,6 @@ public class CurrencyValidator extends BigDecimalValidator {
     }
 
     /**
-     * Tests whether the character at the given position of a pattern sits next to the currency symbol.
-     *
-     * @param pattern The pattern being stripped of its currency symbol.
-     * @param index The position to test.
-     * @return {@code true} if the character borders the currency symbol.
-     */
-    private static boolean isNextToSymbol(final String pattern, final int index) {
-        return index > 0 && pattern.charAt(index - 1) == CURRENCY_SYMBOL
-                || index + 1 < pattern.length() && pattern.charAt(index + 1) == CURRENCY_SYMBOL;
-    }
-
-    /**
      * Constructs a <em>strict</em> instance.
      */
     public CurrencyValidator() {
@@ -112,20 +100,11 @@ public class CurrencyValidator extends BigDecimalValidator {
             return parsedValue;
         }
 
-        // Re-parse using a pattern without the currency symbol
+        // Re-parse using a pattern without the currency symbol and its separator
         final DecimalFormat decimalFormat = (DecimalFormat) formatter;
         final String pattern = decimalFormat.toPattern();
         if (pattern.indexOf(CURRENCY_SYMBOL) >= 0) {
-            final StringBuilder buffer = new StringBuilder(pattern.length());
-            for (int i = 0; i < pattern.length(); i++) {
-                final char chr = pattern.charAt(i);
-                // A locale that suffixes the symbol usually separates it from the number with a (non-breaking)
-                // space. That space belongs to the symbol, so dropping only the symbol would leave it mandatory.
-                if (chr != CURRENCY_SYMBOL && !(Character.isSpaceChar(chr) && isNextToSymbol(pattern, i))) {
-                    buffer.append(chr);
-                }
-            }
-            decimalFormat.applyPattern(buffer.toString());
+            decimalFormat.applyPattern(removeSymbol(pattern, CURRENCY_SYMBOL));
             parsedValue = super.parse(value, decimalFormat);
         }
         return parsedValue;
