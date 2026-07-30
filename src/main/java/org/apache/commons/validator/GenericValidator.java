@@ -53,7 +53,10 @@ public class GenericValidator implements Serializable {
             }
         }
         final int rnCount = rCount + nCount;
-        return nCount * lineEndLength - rnCount;
+        // A carriage return that is not paired with a line feed is still a line ending, so the number of line
+        // endings is at least the number of carriage returns as well as the number of line feeds. Counting only
+        // the line feeds discounts every character of a CR-only value, leaving its adjusted length at zero.
+        return Math.max(nCount, rCount) * lineEndLength - rnCount;
     }
 
     /**
