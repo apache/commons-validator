@@ -63,9 +63,10 @@ The <action> type attribute can be add,update,fix,remove.
      -->
   <body>
   <release version="1.11.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
-      <!-- FIX -->
-      <!-- ADD -->
-      <!-- UPDATE -->
+    <!-- FIX -->
+    <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Drop the symbol separator in the currency and percent re-parse (#430).</action>
+    <!-- ADD -->
+    <!-- UPDATE -->
   </release>
   <release version="1.11.0" date="2026-07-28" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
