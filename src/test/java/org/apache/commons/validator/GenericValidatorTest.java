@@ -40,24 +40,18 @@ class GenericValidatorTest {
      */
     @Test
     void testLengthUnpairedCarriageReturn() {
-
         // Use 0 for line end length
         assertTrue(GenericValidator.maxLength("12345\r", 5, 0), "Max=5 End=0");
-
         // Use 1 for line end length
         assertFalse(GenericValidator.maxLength("12345\r", 5, 1), "Max=5 End=1");
         assertTrue(GenericValidator.maxLength("12345\r", 6, 1), "Max=6 End=1");
-
         // Use 2 for line end length
         assertFalse(GenericValidator.maxLength("12345\r", 6, 2), "Max=6 End=2");
         assertTrue(GenericValidator.maxLength("12345\r", 7, 2), "Max=7 End=2");
-
         assertTrue(GenericValidator.minLength("12345\r", 7, 2), "Min=7 End=2");
         assertFalse(GenericValidator.minLength("12345\r", 8, 2), "Min=8 End=2");
-
         // Carriage returns alone used to leave the adjusted length at zero whatever the value's length
         assertFalse(GenericValidator.maxLength("\r\r\r\r\r", 1, 2), "Max=1 End=2");
-
         // The paired form is unchanged
         assertFalse(GenericValidator.maxLength("12345\r\n", 6, 2), "Max=6 End=2 paired");
         assertTrue(GenericValidator.maxLength("12345\r\n", 7, 2), "Max=7 End=2 paired");
