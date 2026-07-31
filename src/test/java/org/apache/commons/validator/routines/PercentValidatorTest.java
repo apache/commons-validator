@@ -124,7 +124,8 @@ class PercentValidatorTest {
     /**
      * Test percentage values against the JVM's own format for locales that suffix the symbol behind a space separator. The symbol is optional, so its separator
      * has to be optional too. The pattern, separator and input are all derived from the locale data at run time, so the expectations hold on any JVM; on older
-     * JVMs whose locale data does not use a space separated suffix symbol the test is skipped.
+     * JVMs whose locale data does not use a space separated suffix symbol the test is skipped. A bare separator with no symbol is rejected when the separator is
+     * a non-breaking space, but accepted when the locale data separates with a plain space, because the validator trims the input before parsing.
      */
     @ParameterizedTest
     @MethodSource("suffixSymbolLocales")
@@ -144,7 +145,12 @@ class PercentValidatorTest {
         final BigDecimal expected = new BigDecimal("0.12");
         assertEquals(expected, instance.validate(withSymbol, locale), "symbol: " + locale);
         assertEquals(expected, instance.validate(noSymbol, locale), "no symbol: " + locale);
-        assertNull(instance.validate(noSymbol + separator, locale), "separator without symbol: " + locale);
+        if (separator > ' ') {
+            assertNull(instance.validate(noSymbol + separator, locale), "separator without symbol: " + locale);
+        } else {
+            // The legacy (pre-CLDR) locale data separates with a plain space, which the validator trims off before parsing.
+            assertEquals(expected, instance.validate(noSymbol + separator, locale), "trimmed separator without symbol: " + locale);
+        }
     }
 
     /**
