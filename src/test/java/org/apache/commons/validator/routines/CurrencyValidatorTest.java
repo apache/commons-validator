@@ -46,9 +46,6 @@ class CurrencyValidatorTest {
     /** The character locales such as de-DE use between the number and a trailing currency symbol. */
     private static final char NON_BREAKING_SPACE = '\u00A0';
 
-    private String usDollar;
-    private String ukPound;
-
     /**
      * Locales whose currency format suffixes the symbol behind a space separator, covering different concrete symbols (&euro; and kr).
      *
@@ -57,6 +54,9 @@ class CurrencyValidatorTest {
     static Stream<Locale> suffixSymbolLocales() {
         return Stream.of(Locale.GERMANY, Locale.FRANCE, Locale.forLanguageTag("sv-SE"));
     }
+    private String usDollar;
+
+    private String ukPound;
 
     @BeforeEach
     protected void setUp() {

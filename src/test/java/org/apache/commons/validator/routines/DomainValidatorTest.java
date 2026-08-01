@@ -472,6 +472,15 @@ public class DomainValidatorTest {
     }
 
     @Test
+    void testIDNJava6OrLater() {
+        // xn--d1abbgf6aiiy.xn--p1ai http://президент.рф
+        assertTrue(validator.isValid("www.b\u00fccher.ch"), "b\u00fccher.ch should validate");
+        assertTrue(validator.isValid("xn--d1abbgf6aiiy.xn--p1ai"), "xn--d1abbgf6aiiy.xn--p1ai should validate");
+        assertTrue(validator.isValid("президент.рф"), "президент.рф should validate");
+        assertFalse(validator.isValid("www.\uFFFD.ch"), "www.\uFFFD.ch FFFD should fail");
+    }
+
+    @Test
     void testIDNMappedToNothing() {
         // IDN.toASCII also strips the code points that nameprep maps to nothing but that are not
         // Unicode FORMAT characters, so the format-code-point guard alone would let them collapse a
@@ -481,15 +490,6 @@ public class DomainValidatorTest {
         assertFalse(validator.isValid("exa\u1806mple.com"), "Mongolian TODO soft hyphen shouldn't validate");
         assertFalse(validator.isValid("exa\u180Bmple.com"), "Mongolian free variation selector shouldn't validate");
         assertTrue(validator.isValid("www.b\u00fccher.ch"), "b\u00fccher.ch should still validate");
-    }
-
-    @Test
-    void testIDNJava6OrLater() {
-        // xn--d1abbgf6aiiy.xn--p1ai http://президент.рф
-        assertTrue(validator.isValid("www.b\u00fccher.ch"), "b\u00fccher.ch should validate");
-        assertTrue(validator.isValid("xn--d1abbgf6aiiy.xn--p1ai"), "xn--d1abbgf6aiiy.xn--p1ai should validate");
-        assertTrue(validator.isValid("президент.рф"), "президент.рф should validate");
-        assertFalse(validator.isValid("www.\uFFFD.ch"), "www.\uFFFD.ch FFFD should fail");
     }
 
     // Check array is sorted and is lower-case

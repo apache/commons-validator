@@ -47,9 +47,6 @@ class PercentValidatorTest {
     /** The character locales such as fr-FR use between the number and a trailing percent symbol. */
     private static final char NON_BREAKING_SPACE = '\u00A0';
 
-    protected PercentValidator validator;
-    private Locale originalLocale;
-
     /**
      * Locales whose percent format suffixes the symbol behind a space separator.
      *
@@ -58,6 +55,9 @@ class PercentValidatorTest {
     static Stream<Locale> suffixSymbolLocales() {
         return Stream.of(Locale.FRANCE, Locale.GERMANY);
     }
+    protected PercentValidator validator;
+
+    private Locale originalLocale;
 
     @BeforeEach
     protected void setUp() {

@@ -1952,6 +1952,19 @@ public class DomainValidator implements Serializable {
     }
 
     /*
+     * Tests whether the code point is one that IDNA nameprep (RFC 3454 Table B.1, "commonly mapped to
+     * nothing") deletes but that is not a Unicode FORMAT character, so the FORMAT check in
+     * unicodeToASCII does not catch it: the combining grapheme joiner, the Mongolian TODO soft hyphen
+     * and free variation selectors, and the variation selectors.
+     */
+    private static boolean isNameprepMappedToNothing(final int codePoint) {
+        return codePoint == '\u034F' // COMBINING GRAPHEME JOINER
+                || codePoint == '\u1806' // MONGOLIAN TODO SOFT HYPHEN
+                || codePoint >= '\u180B' && codePoint <= '\u180D' // MONGOLIAN FREE VARIATION SELECTOR ONE..THREE
+                || codePoint >= '\uFE00' && codePoint <= '\uFE0F'; // VARIATION SELECTOR-1..16
+    }
+
+    /*
      * Tests whether input contains only ASCII. Treats null as all ASCII.
      */
     private static boolean isOnlyASCII(final String input) {
@@ -1964,19 +1977,6 @@ public class DomainValidator implements Serializable {
             }
         }
         return true;
-    }
-
-    /*
-     * Tests whether the code point is one that IDNA nameprep (RFC 3454 Table B.1, "commonly mapped to
-     * nothing") deletes but that is not a Unicode FORMAT character, so the FORMAT check in
-     * unicodeToASCII does not catch it: the combining grapheme joiner, the Mongolian TODO soft hyphen
-     * and free variation selectors, and the variation selectors.
-     */
-    private static boolean isNameprepMappedToNothing(final int codePoint) {
-        return codePoint == '\u034F' // COMBINING GRAPHEME JOINER
-                || codePoint == '\u1806' // MONGOLIAN TODO SOFT HYPHEN
-                || codePoint >= '\u180B' && codePoint <= '\u180D' // MONGOLIAN FREE VARIATION SELECTOR ONE..THREE
-                || codePoint >= '\uFE00' && codePoint <= '\uFE0F'; // VARIATION SELECTOR-1..16
     }
 
     /**
