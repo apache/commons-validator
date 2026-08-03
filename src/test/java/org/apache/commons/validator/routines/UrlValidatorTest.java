@@ -153,6 +153,45 @@ public class UrlValidatorTest {
     }
 
     @Test
+    void testFileSchemePath() {
+        final String[] schemes = { "file" };
+        final UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.ALLOW_LOCAL_URLS);
+
+        // an authority-less file: URL gets the same path check as one carrying an authority
+        assertFalse(urlValidator.isValid("file:///../../etc/passwd"));
+        assertFalse(urlValidator.isValid("file:/../../etc/passwd"));
+        assertFalse(urlValidator.isValid("file://localhost/../../etc/passwd"));
+
+        // percent-encoded form of the same, as covered for http in testValidator383
+        assertFalse(urlValidator.isValid("file:///..%2f..%2fetc/passwd"));
+        assertFalse(urlValidator.isValid("file:///%2e%2e/etc/passwd"));
+
+        // an opaque file: URI has no path at all, just as http:example.com has none
+        assertFalse(urlValidator.isValid("file:etc/passwd"));
+
+        assertTrue(urlValidator.isValid("file:///etc/hosts"));
+        assertTrue(urlValidator.isValid("file:/C:/path/to/dir/"));
+    }
+
+    @Test
+    void testFileSchemePathOptions() {
+        final String[] schemes = { "file" };
+
+        final UrlValidator noDoubleSlashes = new UrlValidator(schemes, UrlValidator.ALLOW_LOCAL_URLS);
+        assertFalse(noDoubleSlashes.isValid("file:///tmp/a//b"));
+        assertFalse(noDoubleSlashes.isValid("file://localhost/tmp/a//b"));
+
+        final UrlValidator allowDoubleSlashes = new UrlValidator(schemes, UrlValidator.ALLOW_LOCAL_URLS | UrlValidator.ALLOW_2_SLASHES);
+        assertTrue(allowDoubleSlashes.isValid("file:///tmp/a//b"));
+
+        final UrlValidator noFragments = new UrlValidator(schemes, UrlValidator.ALLOW_LOCAL_URLS | UrlValidator.NO_FRAGMENTS);
+        assertFalse(noFragments.isValid("file:///tmp/x#frag"));
+        assertFalse(noFragments.isValid("file://localhost/tmp/x#frag"));
+
+        assertTrue(noDoubleSlashes.isValid("file:///tmp/x#frag"));
+    }
+
+    @Test
     void testFragments() {
         final String[] schemes = { "http", "https" };
         UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.NO_FRAGMENTS);
