@@ -384,11 +384,12 @@ public class UrlValidator implements Serializable {
             return false;
         }
         final String authority = uri.getRawAuthority();
-        if ("file".equals(scheme) && GenericValidator.isBlankOrNull(authority)) { // Special case - file: allows an empty authority
-            return true; // this is a local file - nothing more to do here
-        }
+        // Special case - file: allows an empty authority, so only the authority check is skipped for it;
+        // the path, query and fragment below are validated as they are for any other scheme
+        final boolean emptyFileAuthority = "file".equals(scheme) && GenericValidator.isBlankOrNull(authority);
         // Validate the authority
-        if ("file".equals(scheme) && authority != null && authority.contains(":") || !isValidAuthority(authority)) {
+        if (!emptyFileAuthority
+                && ("file".equals(scheme) && authority != null && authority.contains(":") || !isValidAuthority(authority))) {
             return false;
         }
         if (!isValidPath(uri.getRawPath()) || !isValidQuery(uri.getRawQuery()) || !isValidFragment(uri.getRawFragment())) {
