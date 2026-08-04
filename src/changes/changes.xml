@@ -66,6 +66,7 @@ The <action> type attribute can be add,update,fix,remove.
     <!-- FIX -->
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Drop the symbol separator in the currency and percent re-parse (#430).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Count unpaired carriage returns in adjustForLineEnding (#431).</action>
+    <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Validate path, query and fragment for authority-less file URLs (#432).</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
