@@ -96,8 +96,20 @@ class ISBNValidatorTest {
         final String input3 = "";
         assertThrows(IllegalArgumentException.class, () -> validator.convertToISBN13(input3), "Expected IllegalArgumentException for '" + input3 + "'");
 
-        final String input4 = "X234567890";
+        final String input4 = "1234567890X";
         assertThrows(IllegalArgumentException.class, () -> validator.convertToISBN13(input4), "Expected IllegalArgumentException for '" + input4 + "'");
+    }
+
+    /**
+     * Test method for {@link org.apache.commons.validator.routines.ISBNValidator#convertToISBN13(java.lang.String)}.
+     */
+    @Test
+    void testConvertToISBN13Invalid() {
+        final ISBNValidator validator = ISBNValidator.getInstance();
+        // Correct length, but not a valid ISBN-10.
+        assertNull(validator.convertToISBN13("1234567890"), "wrong check digit");
+        assertNull(validator.convertToISBN13("020163385Y"), "invalid check character");
+        assertNull(validator.convertToISBN13("X234567890"), "non-digit body");
     }
 
     /**
