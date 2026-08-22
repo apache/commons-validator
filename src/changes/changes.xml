@@ -67,6 +67,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Drop the symbol separator in the currency and percent re-parse (#430).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Count unpaired carriage returns in adjustForLineEnding (#431).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Validate path, query and fragment for authority-less file URLs (#432).</action>
+    <action type="fix" dev="ggregory" due-to="Gary Gregory">Fix SpotBugs USO_UNSAFE_METHOD_SYNCHRONIZATION in DomainValidator.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
@@ -126,7 +127,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use ValidatorException.ValidatorException(String, Object...) (#391).</action>
     <action type="add" dev="ggregory" due-to="Gary Gregory">Add and use ValidatorException(String, Throwable) (#392).</action>
     <!-- UPDATE -->
-    <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 103 #377.</action>
+    <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 104 #377.</action>
     <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-logging:commons-logging from 1.3.5 to 1.4.0.</action>
     <action type="update" dev="sebb">DomainValidator: Changes from 2026062300, Last Updated Tue Jun 23 07:07:01 2026 UTC.</action>
     <action type="update" dev="sebb">DomainValidatorTest: reflection no longer needed to access arrays.</action>
