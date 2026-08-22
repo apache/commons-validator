@@ -1822,6 +1822,8 @@ public class DomainValidator implements Serializable {
     // WARNING: this array MUST be sorted, otherwise it cannot be searched reliably using binary search
     private static String[] localTLDsPlus = EMPTY_STRING_ARRAY; //NOPMD @GuardedBy("this")
 
+    private static final Object LOCK = new Object();
+
     /**
      * Tests if a sorted array contains the specified key
      *
@@ -1838,9 +1840,11 @@ public class DomainValidator implements Serializable {
      *
      * @return The singleton instance of this validator.
      */
-    public static synchronized DomainValidator getInstance() {
-        inUse = true;
-        return LazyHolder.DOMAIN_VALIDATOR;
+    public static DomainValidator getInstance() {
+        synchronized (LOCK) {
+            inUse = true;
+            return LazyHolder.DOMAIN_VALIDATOR;
+        }
     }
 
     /**
@@ -1849,12 +1853,14 @@ public class DomainValidator implements Serializable {
      * @param allowLocal Whether local addresses are considered valid.
      * @return The singleton instance of this validator.
      */
-    public static synchronized DomainValidator getInstance(final boolean allowLocal) {
-        inUse = true;
-        if (allowLocal) {
-            return LazyHolder.DOMAIN_VALIDATOR_WITH_LOCAL;
+    public static DomainValidator getInstance(final boolean allowLocal) {
+        synchronized (LOCK) {
+            inUse = true;
+            if (allowLocal) {
+                return LazyHolder.DOMAIN_VALIDATOR_WITH_LOCAL;
+            }
+            return LazyHolder.DOMAIN_VALIDATOR;
         }
-        return LazyHolder.DOMAIN_VALIDATOR;
     }
 
     /**
@@ -1867,9 +1873,11 @@ public class DomainValidator implements Serializable {
      * @return An instance of this validator.
      * @since 1.7
      */
-    public static synchronized DomainValidator getInstance(final boolean allowLocal, final List<Item> items) {
-        inUse = true;
-        return new DomainValidator(allowLocal, items);
+    public static DomainValidator getInstance(final boolean allowLocal, final List<Item> items) {
+        synchronized (LOCK) {
+            inUse = true;
+            return new DomainValidator(allowLocal, items);
+        }
     }
 
     /**
@@ -1880,43 +1888,45 @@ public class DomainValidator implements Serializable {
      * @throws IllegalArgumentException if the table type is unexpected (should not happen).
      * @since 1.5.1
      */
-    public static synchronized String[] getTLDEntries(final ArrayType table) {
-        final String[] array;
-        switch (table) {
-        case COUNTRY_CODE_MINUS:
-            array = countryCodeTLDsMinus;
-            break;
-        case COUNTRY_CODE_PLUS:
-            array = countryCodeTLDsPlus;
-            break;
-        case GENERIC_MINUS:
-            array = genericTLDsMinus;
-            break;
-        case GENERIC_PLUS:
-            array = genericTLDsPlus;
-            break;
-        case LOCAL_MINUS:
-            array = localTLDsMinus;
-            break;
-        case LOCAL_PLUS:
-            array = localTLDsPlus;
-            break;
-        case GENERIC_RO:
-            array = GENERIC_TLDS;
-            break;
-        case COUNTRY_CODE_RO:
-            array = COUNTRY_CODE_TLDS;
-            break;
-        case INFRASTRUCTURE_RO:
-            array = INFRASTRUCTURE_TLDS;
-            break;
-        case LOCAL_RO:
-            array = LOCAL_TLDS;
-            break;
-        default:
-            throw new IllegalArgumentException(UNEXPECTED_ENUM_VALUE + table);
+    public static String[] getTLDEntries(final ArrayType table) {
+        synchronized (LOCK) {
+            final String[] array;
+            switch (table) {
+            case COUNTRY_CODE_MINUS:
+                array = countryCodeTLDsMinus;
+                break;
+            case COUNTRY_CODE_PLUS:
+                array = countryCodeTLDsPlus;
+                break;
+            case GENERIC_MINUS:
+                array = genericTLDsMinus;
+                break;
+            case GENERIC_PLUS:
+                array = genericTLDsPlus;
+                break;
+            case LOCAL_MINUS:
+                array = localTLDsMinus;
+                break;
+            case LOCAL_PLUS:
+                array = localTLDsPlus;
+                break;
+            case GENERIC_RO:
+                array = GENERIC_TLDS;
+                break;
+            case COUNTRY_CODE_RO:
+                array = COUNTRY_CODE_TLDS;
+                break;
+            case INFRASTRUCTURE_RO:
+                array = INFRASTRUCTURE_TLDS;
+                break;
+            case LOCAL_RO:
+                array = LOCAL_TLDS;
+                break;
+            default:
+                throw new IllegalArgumentException(UNEXPECTED_ENUM_VALUE + table);
+            }
+            return Arrays.copyOf(array, array.length); // clone the array
         }
-        return Arrays.copyOf(array, array.length); // clone the array
     }
 
     /*
@@ -2068,42 +2078,44 @@ public class DomainValidator implements Serializable {
      * @throws IllegalArgumentException if one of the read-only tables is requested.
      * @since 1.5.0
      */
-    public static synchronized void updateTLDOverride(final ArrayType table, final String... tlds) {
-        if (inUse) {
-            throw new IllegalStateException("Can only invoke this method before calling getInstance");
-        }
-        final String[] copy = new String[tlds.length];
-        // Comparisons are always done with lower-case entries
-        for (int i = 0; i < tlds.length; i++) {
-            copy[i] = tlds[i].toLowerCase(Locale.ENGLISH);
-        }
-        Arrays.sort(copy);
-        switch (table) {
-        case COUNTRY_CODE_MINUS:
-            countryCodeTLDsMinus = copy;
-            break;
-        case COUNTRY_CODE_PLUS:
-            countryCodeTLDsPlus = copy;
-            break;
-        case GENERIC_MINUS:
-            genericTLDsMinus = copy;
-            break;
-        case GENERIC_PLUS:
-            genericTLDsPlus = copy;
-            break;
-        case LOCAL_MINUS:
-            localTLDsMinus = copy;
-            break;
-        case LOCAL_PLUS:
-            localTLDsPlus = copy;
-            break;
-        case COUNTRY_CODE_RO:
-        case GENERIC_RO:
-        case INFRASTRUCTURE_RO:
-        case LOCAL_RO:
-            throw new IllegalArgumentException("Cannot update the table: " + table);
-        default:
-            throw new IllegalArgumentException(UNEXPECTED_ENUM_VALUE + table);
+    public static void updateTLDOverride(final ArrayType table, final String... tlds) {
+        synchronized (LOCK) {
+            if (inUse) {
+                throw new IllegalStateException("Can only invoke this method before calling getInstance");
+            }
+            final String[] copy = new String[tlds.length];
+            // Comparisons are always done with lower-case entries
+            for (int i = 0; i < tlds.length; i++) {
+                copy[i] = tlds[i].toLowerCase(Locale.ENGLISH);
+            }
+            Arrays.sort(copy);
+            switch (table) {
+            case COUNTRY_CODE_MINUS:
+                countryCodeTLDsMinus = copy;
+                break;
+            case COUNTRY_CODE_PLUS:
+                countryCodeTLDsPlus = copy;
+                break;
+            case GENERIC_MINUS:
+                genericTLDsMinus = copy;
+                break;
+            case GENERIC_PLUS:
+                genericTLDsPlus = copy;
+                break;
+            case LOCAL_MINUS:
+                localTLDsMinus = copy;
+                break;
+            case LOCAL_PLUS:
+                localTLDsPlus = copy;
+                break;
+            case COUNTRY_CODE_RO:
+            case GENERIC_RO:
+            case INFRASTRUCTURE_RO:
+            case LOCAL_RO:
+                throw new IllegalArgumentException("Cannot update the table: " + table);
+            default:
+                throw new IllegalArgumentException(UNEXPECTED_ENUM_VALUE + table);
+            }
         }
     }
 
