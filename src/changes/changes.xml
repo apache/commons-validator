@@ -68,6 +68,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Count unpaired carriage returns in adjustForLineEnding (#431).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Validate path, query and fragment for authority-less file URLs (#432).</action>
     <action type="fix" dev="ggregory" due-to="Gary Gregory">Fix SpotBugs USO_UNSAFE_METHOD_SYNCHRONIZATION in DomainValidator.</action>
+    <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Reject under-length codes in SedolCheckDigit (#435).</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
