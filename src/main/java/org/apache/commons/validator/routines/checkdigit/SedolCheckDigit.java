@@ -66,8 +66,13 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
      */
     @Override
     protected int calculateModulus(final String code, final boolean includesCheckDigit) throws CheckDigitException {
-        if (code.length() > POSITION_WEIGHT.length) {
-            throw new CheckDigitException("Invalid Code Length = %d", code.length());
+        final int length = code.length();
+        // A SEDOL is exactly seven characters. When the check digit is included the whole code must be that
+        // length; the previous test only rejected over-length codes, so a shorter string carrying a chance
+        // modulus 10 check digit (for example "55") still validated. The calculate path receives the six
+        // character base, so only the over-length case is guarded there.
+        if (length > POSITION_WEIGHT.length || includesCheckDigit && length != POSITION_WEIGHT.length) {
+            throw new CheckDigitException("Invalid Code Length = %d", length);
         }
         return super.calculateModulus(code, includesCheckDigit);
     }
