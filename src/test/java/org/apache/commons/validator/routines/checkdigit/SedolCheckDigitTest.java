@@ -64,4 +64,15 @@ class SedolCheckDigitTest extends AbstractCheckDigitTest {
         assertFalse(routine.isValid(code), "Should fail (contains a vowel): " + code);
     }
 
+    /**
+     * A SEDOL is exactly seven characters, but a shorter string can carry a modulus 10 check digit by chance (for
+     * example "55", "550" and "5500" all weight to 20, and "0055" to 40), so the length must be enforced or isValid
+     * accepts it.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = { "55", "550", "5500", "0055" })
+    void testUnderLengthRejected(final String code) {
+        assertFalse(routine.isValid(code), "Should fail (not seven characters): " + code);
+    }
+
 }
