@@ -384,12 +384,15 @@ public class UrlValidator implements Serializable {
             return false;
         }
         final String authority = uri.getRawAuthority();
+        // URI schemes are case-insensitive (RFC 3986 3.1) and isValidScheme already matches case-blind,
+        // so the file: handling has to recognise the scheme case-blind too
+        final boolean fileScheme = "file".equalsIgnoreCase(scheme);
         // Special case - file: allows an empty authority, so only the authority check is skipped for it;
         // the path, query and fragment below are validated as they are for any other scheme
-        final boolean emptyFileAuthority = "file".equals(scheme) && GenericValidator.isBlankOrNull(authority);
+        final boolean emptyFileAuthority = fileScheme && GenericValidator.isBlankOrNull(authority);
         // Validate the authority
         if (!emptyFileAuthority
-                && ("file".equals(scheme) && authority != null && authority.contains(":") || !isValidAuthority(authority))) {
+                && (fileScheme && authority != null && authority.contains(":") || !isValidAuthority(authority))) {
             return false;
         }
         if (!isValidPath(uri.getRawPath()) || !isValidQuery(uri.getRawQuery()) || !isValidFragment(uri.getRawFragment())) {
