@@ -153,6 +153,22 @@ public class UrlValidatorTest {
     }
 
     @Test
+    void testFileSchemeCaseInsensitive() {
+        final String[] schemes = { "file" };
+        final UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.ALLOW_LOCAL_URLS);
+
+        // the scheme is case-insensitive, so an upper or mixed case file: URL is treated like the lower case form
+        assertTrue(urlValidator.isValid("file:///etc/hosts"));
+        assertTrue(urlValidator.isValid("FILE:///etc/hosts"));
+        assertTrue(urlValidator.isValid("File:///etc/hosts"));
+
+        // a Windows drive letter in the authority is never valid, whatever the scheme case, and must not
+        // slip past the guard the lower case form is checked against
+        assertFalse(urlValidator.isValid("file://C:/some.file"));
+        assertFalse(urlValidator.isValid("FILE://C:/some.file"));
+    }
+
+    @Test
     void testFileSchemePath() {
         final String[] schemes = { "file" };
         final UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.ALLOW_LOCAL_URLS);
@@ -171,22 +187,6 @@ public class UrlValidatorTest {
 
         assertTrue(urlValidator.isValid("file:///etc/hosts"));
         assertTrue(urlValidator.isValid("file:/C:/path/to/dir/"));
-    }
-
-    @Test
-    void testFileSchemeCaseInsensitive() {
-        final String[] schemes = { "file" };
-        final UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.ALLOW_LOCAL_URLS);
-
-        // the scheme is case-insensitive, so an upper or mixed case file: URL is treated like the lower case form
-        assertTrue(urlValidator.isValid("file:///etc/hosts"));
-        assertTrue(urlValidator.isValid("FILE:///etc/hosts"));
-        assertTrue(urlValidator.isValid("File:///etc/hosts"));
-
-        // a Windows drive letter in the authority is never valid, whatever the scheme case, and must not
-        // slip past the guard the lower case form is checked against
-        assertFalse(urlValidator.isValid("file://C:/some.file"));
-        assertFalse(urlValidator.isValid("FILE://C:/some.file"));
     }
 
     @Test

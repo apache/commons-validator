@@ -46,6 +46,17 @@ class SedolCheckDigitTest extends AbstractCheckDigitTest {
         zeroSum = "0000000";
     }
 
+    /**
+     * A SEDOL is exactly seven characters, but a shorter string can carry a modulus 10 check digit by chance (for
+     * example "55", "550" and "5500" all weight to 20, and "0055" to 40), so the length must be enforced or isValid
+     * accepts it.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = { "55", "550", "5500", "0055" })
+    void testUnderLengthRejected(final String code) {
+        assertFalse(routine.isValid(code), "Should fail (not seven characters): " + code);
+    }
+
     @Test
     void testValidator346() {
         for (final String invalidCheckDigit : INVALID_CHECK_DIGITS) {
@@ -62,17 +73,6 @@ class SedolCheckDigitTest extends AbstractCheckDigitTest {
     @ValueSource(strings = { "A000000", "E000006", "I000002", "O000006", "U000000", "B0AKT02", "0EIOU02", "BAEIOU7", "AAAAAA0" })
     void testVowelsRejected(final String code) {
         assertFalse(routine.isValid(code), "Should fail (contains a vowel): " + code);
-    }
-
-    /**
-     * A SEDOL is exactly seven characters, but a shorter string can carry a modulus 10 check digit by chance (for
-     * example "55", "550" and "5500" all weight to 20, and "0055" to 40), so the length must be enforced or isValid
-     * accepts it.
-     */
-    @ParameterizedTest
-    @ValueSource(strings = { "55", "550", "5500", "0055" })
-    void testUnderLengthRejected(final String code) {
-        assertFalse(routine.isValid(code), "Should fail (not seven characters): " + code);
     }
 
 }
