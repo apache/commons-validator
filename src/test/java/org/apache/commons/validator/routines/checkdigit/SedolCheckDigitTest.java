@@ -24,7 +24,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 /**
- * ISIN Check Digit Test.
+ * Tests {@link SedolCheckDigit#SEDOL_CHECK_DIGIT}.
  */
 class SedolCheckDigitTest extends AbstractCheckDigitTest {
 
