@@ -70,6 +70,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="Gary Gregory">Fix SpotBugs USO_UNSAFE_METHOD_SYNCHRONIZATION in DomainValidator.</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Reject under-length codes in SedolCheckDigit (#435).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">UrlValidator compare the file scheme case-insensitively in isValid (#433).</action>
+    <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Reject invalid ISBN-10 in convertToISBN1 (#434).</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
