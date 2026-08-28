@@ -179,6 +179,9 @@ public class ISBNValidator implements Serializable {
         if (input.length() != ISBN_10_LEN) {
             throw new IllegalArgumentException("Invalid length " + input.length() + " for '" + input + "'");
         }
+        if (!isbn10Validator.isValid(input)) {
+            return null;
+        }
 
         // Calculate the new ISBN-13 code (drop the original checkdigit)
         String isbn13 = "978" + input.substring(0, ISBN_10_LEN - 1);
