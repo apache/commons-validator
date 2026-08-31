@@ -16,7 +16,7 @@
  */
 package org.apache.commons.validator;
 
-import org.apache.commons.digester.AbstractObjectCreationFactory;
+import org.apache.commons.digester3.AbstractObjectCreationFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
@@ -26,7 +26,7 @@ import org.xml.sax.Attributes;
  *
  * @since 1.2
  */
-public class FormSetFactory extends AbstractObjectCreationFactory {
+public class FormSetFactory extends AbstractObjectCreationFactory<FormSet> {
 
     /** Logging */
     private transient Log log = LogFactory.getLog(FormSetFactory.class);
@@ -89,9 +89,9 @@ public class FormSetFactory extends AbstractObjectCreationFactory {
      * @throws Exception If an error occurs creating the FormSet.
      */
     @Override
-    public Object createObject(final Attributes attributes) throws Exception {
+    public FormSet createObject(final Attributes attributes) throws Exception {
 
-        final ValidatorResources resources = (ValidatorResources) digester.peek(0);
+        final ValidatorResources resources = (ValidatorResources) getDigester().peek(0);
 
         final String language = attributes.getValue("language");
         final String country = attributes.getValue("country");
