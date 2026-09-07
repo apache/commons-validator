@@ -47,7 +47,7 @@ Apache Commons Validator
 [![Maven Central](https://img.shields.io/maven-central/v/commons-validator/commons-validator?label=Maven%20Central)](https://search.maven.org/artifact/commons-validator/commons-validator)
 [![Javadocs](https://javadoc.io/badge/commons-validator/commons-validator/1.11.0.svg)](https://javadoc.io/doc/commons-validator/commons-validator/1.11.0)
 [![CodeQL](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-validator/actions/workflows/codeql-analysis.yml)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-validator/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-validator)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-validator/badge)](https://scorecard.dev/viewer/?uri=github.com/apache/commons-validator)
 
 Apache Commons Validator provides the building blocks for both client-side and server-side data validation.
     It may be used standalone or with a framework like Struts.
