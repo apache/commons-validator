@@ -252,6 +252,7 @@ class TimeValidatorTest {
     @DefaultLocale("en-GB")
     @DefaultTimeZone("GMT")
     void testTimeZone() {
+        validator = new TimeValidator();
         Calendar result = validator.validate("18:01");
         assertNotNull(result, "default result");
         assertEquals(TimeZones.GMT, result.getTimeZone(), "default zone");
