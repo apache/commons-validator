@@ -217,6 +217,21 @@ public class UrlValidatorTest {
     }
 
     @Test
+    void testIdnAuthority() {
+        final UrlValidator urlValidator = new UrlValidator();
+        // the userinfo and port are split off before the IDN conversion, so neither is punycoded into a host label
+        assertTrue(urlValidator.isValid("http://президент.рф:8080/"));
+        assertTrue(urlValidator.isValid("http://user:pass@президент.рф:8080/index.html"));
+        assertTrue(urlValidator.isValidAuthority("user@www.b\u00fccher.ch"));
+        assertFalse(urlValidator.isValidAuthority("президент.рф:65536"));
+        // nameprep folds the fullwidth commercial at (U+FF20) and the fullwidth colon (U+FF1A) to '@' and ':';
+        // neither is a delimiter in the URL as given, so it must not be read as the userinfo or port separator
+        assertFalse(urlValidator.isValid("http://example.com\uFF20apache.org/"));
+        assertFalse(urlValidator.isValid("http://user\uFF1Apass\uFF20apache.org/"));
+        assertFalse(urlValidator.isValid("http://apache.org\uFF1A80/"));
+    }
+
+    @Test
     void testIpv6EmbeddedIpv4() {
         final UrlValidator urlValidator = new UrlValidator();
         // ::FFFF: in upper case already worked (testValidator452); the lower-case mapped form
