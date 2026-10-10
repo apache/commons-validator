@@ -16,6 +16,8 @@
 github:
   description: "Apache Commons Validator"
   homepage: https://commons.apache.org/validator/
+  autolink_jira:
+    - VALIDATOR
 
   rulesets:
     - name: "Default Branch Protection"
