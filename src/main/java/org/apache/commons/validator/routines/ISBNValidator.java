@@ -79,7 +79,7 @@ public class ISBNValidator implements Serializable {
 
     private static final long serialVersionUID = 4319515687976420405L;
 
-    private static final String SEP = "(?:\\-|\\s)";
+    private static final String SEP = "[- ]";
     private static final String GROUP = "(\\d{1,5})";
     private static final String PUBLISHER = "(\\d{1,7})";
     private static final String TITLE = "(\\d{1,6})";
