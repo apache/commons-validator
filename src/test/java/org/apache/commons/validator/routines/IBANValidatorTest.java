@@ -514,6 +514,37 @@ class IBANValidatorTest {
     }
 
     @Test
+    void testSetValidatorForOtherCountryCode() {
+        final IBANValidator validator = new IBANValidator();
+        // AX (Aland Islands) is handled by the FI (Finland) validator by default
+        assertEquals(validator.getValidator("FI"), validator.getValidator("AX"));
+        // Give AX its own validator
+        final Validator axValidator = new Validator("AX", 18, "AX\\d{16}");
+        assertEquals(validator.getValidator("FI"), validator.setValidator(axValidator));
+        assertEquals(axValidator, validator.getValidator("AX"));
+        assertTrue(validator.isValid("AX2112345600000785"));
+        assertTrue(validator.isValid("FI2112345600000785"));
+        // Replacing FI must not remove the AX validator, which no longer belongs to FI
+        validator.setValidator(new Validator("FI", 18, "FI\\d{16}"));
+        assertEquals(axValidator, validator.getValidator("AX"));
+    }
+
+    @Test
+    void testSetValidatorRemoveOtherCountryCode() {
+        final IBANValidator validator = new IBANValidator();
+        // GF (French Guiana) and GP (Guadeloupe) are handled by the FR (France) validator by default
+        final Validator frValidator = validator.getValidator("FR");
+        assertEquals(frValidator, validator.getValidator("GF"));
+        assertEquals(frValidator, validator.getValidator("GP"));
+        // Removing GF must only remove GF
+        assertEquals(frValidator, validator.setValidator("GF", -1, null));
+        assertFalse(validator.hasValidator("GF"));
+        assertEquals(frValidator, validator.getValidator("FR"));
+        assertEquals(frValidator, validator.getValidator("GP"));
+        assertTrue(validator.isValid("GP1120041010050500013M02606"));
+    }
+
+    @Test
     void testSorted() {
         final IBANValidator validator = new IBANValidator();
         final Validator[] vals = validator.getDefaultValidators();
