@@ -44,9 +44,11 @@ public class EmailValidator implements Serializable {
     private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
 
     /**
-     * RFC 5321 section 4.1.3: an IPv6 address literal carries the "IPv6:" tag (case-insensitive), an IPv4 literal is untagged.
+     * RFC 5321 section 4.1.3: an IPv6 address literal carries the "IPv6:" tag (case-insensitive), an IPv4 literal is untagged. The address itself is
+     * built from hex digits, ':' and the embedded IPv4 dotted form only, so a zone id ('%') or prefix length ('/'), which
+     * {@link InetAddressValidator#isValidInet6Address(String)} tolerates, is kept out of the literal here.
      */
-    private static final String IP_DOMAIN_REGEX = "^\\[((?i)IPv6:)?(.*)\\]$";
+    private static final String IP_DOMAIN_REGEX = "^\\[((?i)IPv6:)?([0-9a-fA-F:.]+)\\]$";
     private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
