@@ -49,13 +49,15 @@ class CreditCardValidatorTest {
     private static final String VALID_VPAY = "4370000000000061"; // 16
     private static final String VALID_VPAY2 = "4370000000000012";
     private static final String ERROR_VPAY = "4370000000000069";
+    private static final String VALID_JCB = "3530111333300000"; // 16
+    private static final String ERROR_JCB = "3530111333300001";
 
     private static final String[] VALID_CARDS = { VALID_VISA, VALID_SHORT_VISA, VALID_AMEX, VALID_MASTERCARD, VALID_DISCOVER, VALID_DISCOVER65, VALID_DINERS,
-            VALID_VPAY, VALID_VPAY2, "60115564485789458", // VALIDATOR-403
+            VALID_VPAY, VALID_VPAY2, VALID_JCB, "60115564485789458", // VALIDATOR-403
     };
 
     private static final String[] ERROR_CARDS = { ERROR_VISA, ERROR_SHORT_VISA, ERROR_AMEX, ERROR_MASTERCARD, ERROR_DISCOVER, ERROR_DISCOVER65, ERROR_DINERS,
-            ERROR_VPAY,
+            ERROR_VPAY, ERROR_JCB,
 //        ERROR_VPAY2,
             "", "12345678901", // too short (11)
             "12345678901234567890", // too long (20)
@@ -392,6 +394,75 @@ class CreditCardValidatorTest {
     }
 
     /**
+     * Test the JCB Card option
+     */
+    @Test
+    void testJcbOption() {
+        final CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.JCB);
+        assertFalse(validator.isValid(ERROR_JCB), "Invalid");
+        assertNull(validator.validate(ERROR_JCB), "validate()");
+        assertEquals(VALID_JCB, validator.validate(VALID_JCB));
+
+        assertFalse(validator.isValid(VALID_AMEX), "Amex");
+        assertFalse(validator.isValid(VALID_DINERS), "Diners");
+        assertFalse(validator.isValid(VALID_DISCOVER), "Discover");
+        assertTrue(validator.isValid(VALID_JCB), "JCB");
+        assertFalse(validator.isValid(VALID_MASTERCARD), "Mastercard");
+        assertFalse(validator.isValid(VALID_VISA), "Visa");
+        assertFalse(validator.isValid(VALID_SHORT_VISA), "Visa Short");
+    }
+
+    /**
+     * Test the JCB Card validator
+     */
+    @Test
+    void testJcbValidator() {
+
+        final CodeValidator validator = CreditCardValidator.JCB_VALIDATOR;
+        final RegexValidator regex = validator.getRegexValidator();
+
+        // ****** Test Regular Expression ******
+        // length 16-19 and start with "3528" to "3589"
+        assertFalse(regex.isValid("352812345678901"), "Length 15");
+        assertTrue(regex.isValid("3528123456789012"), "Length 16");
+        assertTrue(regex.isValid("35281234567890123"), "Length 17");
+        assertTrue(regex.isValid("352812345678901234"), "Length 18");
+        assertTrue(regex.isValid("3528123456789012345"), "Length 19");
+        assertFalse(regex.isValid("35281234567890123456"), "Length 20");
+
+        assertFalse(regex.isValid("3527123456789012"), "Prefix 3527");
+        assertTrue(regex.isValid("3528123456789012"), "Prefix 3528");
+        assertTrue(regex.isValid("3529123456789012"), "Prefix 3529");
+        assertTrue(regex.isValid("3530123456789012"), "Prefix 3530");
+        assertTrue(regex.isValid("3566123456789012"), "Prefix 3566");
+        assertTrue(regex.isValid("3589123456789012"), "Prefix 3589");
+        assertFalse(regex.isValid("3590123456789012"), "Prefix 3590");
+        assertFalse(regex.isValid("3428123456789012"), "Prefix 3428");
+
+        assertFalse(regex.isValid("3528123x56789012"), "Invalid Char");
+
+        // *********** Test Validator **********
+        assertTrue(regex.isValid(ERROR_JCB), "Valid regex");
+        assertFalse(validator.isValid(ERROR_JCB), "Invalid");
+        assertNull(validator.validate(ERROR_JCB), "validate()");
+        assertEquals(VALID_JCB, validator.validate(VALID_JCB));
+
+        assertFalse(validator.isValid(VALID_AMEX), "Amex");
+        assertFalse(validator.isValid(VALID_DINERS), "Diners");
+        assertFalse(validator.isValid(VALID_DISCOVER), "Discover");
+        assertTrue(validator.isValid(VALID_JCB), "JCB");
+        assertFalse(validator.isValid(VALID_MASTERCARD), "Mastercard");
+        assertFalse(validator.isValid(VALID_VISA), "Visa");
+        assertFalse(validator.isValid(VALID_SHORT_VISA), "Visa Short");
+
+        assertTrue(validator.isValid("3566002020360505"), "Valid-A");
+        assertTrue(validator.isValid("3528000000000007"), "Valid-B");
+        assertTrue(validator.isValid("3589123456789018"), "Valid-C");
+        assertTrue(validator.isValid("352812345678901234"), "Valid-D");
+        assertTrue(validator.isValid("3589000000000000009"), "Valid-E");
+    }
+
+    /**
      * Test the Mastercard Card option
      */
     @Test
@@ -508,6 +579,7 @@ class CreditCardValidatorTest {
                         new CreditCardRange("3095", null, 14, 14), // Diners
                         new CreditCardRange("36", null, 14, 14), // Diners
                         new CreditCardRange("38", "39", 14, 14), // Diners
+                        new CreditCardRange("3528", "3589", 16, 19), // JCB
                 }
         // we don't have any VPAY examples yet that aren't handled by VISA
         );
