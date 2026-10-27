@@ -462,6 +462,24 @@ public class EmailValidatorTest {
     }
 
     /**
+     * Tests that an IPv6 address literal carrying a zone (scope) id or a prefix length is rejected. RFC 5321 section 4.1.3 builds IPv6-addr from
+     * hex groups and an optional embedded IPv4 address only, so neither belongs in a mailbox address literal even though
+     * {@link InetAddressValidator#isValidInet6Address(String)} accepts both.
+     */
+    @Test
+    void testEmailWithIpv6AddressLiteralZoneOrPrefix() {
+        assertFalse(validator.isValid("someone@[IPv6:fe80::1%eth0]"));
+        assertFalse(validator.isValid("someone@[IPv6:fe80::1%25eth0]"));
+        assertFalse(validator.isValid("someone@[IPv6:2001:db8::1/64]"));
+        assertFalse(validator.isValid("someone@[IPv6:::1/128]"));
+        assertFalse(validator.isValid("someone@[216.109.118.76/24]"));
+        // The bare address forms, including the embedded IPv4 form, still validate.
+        assertTrue(validator.isValid("someone@[IPv6:fe80::1]"));
+        assertTrue(validator.isValid("someone@[IPv6:2001:db8::1]"));
+        assertTrue(validator.isValid("someone@[IPv6:::ffff:216.109.118.76]"));
+    }
+
+    /**
      * Tests the email validation with numeric domains.
      */
     @Test
