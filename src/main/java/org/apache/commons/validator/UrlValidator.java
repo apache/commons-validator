@@ -306,9 +306,6 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        final InetAddressValidator inetAddressValidator =
-                InetAddressValidator.getInstance();
-
         final Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authority);
         if (!authorityMatcher.matches()) {
             return false;
@@ -317,6 +314,8 @@ public class UrlValidator implements Serializable {
         boolean hostname = false;
         // check if authority is IP address or hostname
         String hostIP = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
+        final InetAddressValidator inetAddressValidator =
+                InetAddressValidator.getInstance();
         final boolean ipV4Address = inetAddressValidator.isValid(hostIP);
 
         if (!ipV4Address) {
