@@ -166,22 +166,7 @@ public class ValidatorAction implements Serializable {
                 this.handleIndexedField(field, pos, paramValues);
             }
 
-            Object result = null;
-            try {
-                result = validationMethod.invoke(getValidationClassInstance(), paramValues);
-
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                throw new ValidatorException(e.getMessage());
-            } catch (final InvocationTargetException e) {
-
-                if (e.getTargetException() instanceof Exception) {
-                    throw (Exception) e.getTargetException();
-
-                }
-                if (e.getTargetException() instanceof Error) {
-                    throw (Error) e.getTargetException();
-                }
-            }
+            final Object result = this.invokeValidationMethod(paramValues);
 
             final boolean valid = this.isValid(result);
             if (!valid || valid && !onlyReturnErrors(params)) {
@@ -474,6 +459,29 @@ public class ValidatorAction implements Serializable {
             getLog().trace("  Loading JavaScript function completed");
         }
 
+    }
+
+    /**
+     * Invokes the validation method and translates the reflection exceptions.
+     *
+     * @param paramValues The values passed to the validation method.
+     * @return The value returned by the validation method.
+     * @throws Exception if the validation method fails.
+     */
+    private Object invokeValidationMethod(final Object[] paramValues) throws Exception {
+        try {
+            return validationMethod.invoke(getValidationClassInstance(), paramValues);
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            throw new ValidatorException(e.getMessage());
+        } catch (final InvocationTargetException e) {
+            if (e.getTargetException() instanceof Exception) {
+                throw (Exception) e.getTargetException();
+            }
+            if (e.getTargetException() instanceof Error) {
+                throw (Error) e.getTargetException();
+            }
+            return null;
+        }
     }
 
     /**
