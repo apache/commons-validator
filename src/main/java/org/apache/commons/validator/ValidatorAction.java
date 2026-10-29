@@ -488,20 +488,20 @@ public class ValidatorAction implements Serializable {
             return;
         }
 
-        final Class<?>[] parameterClasses = new Class[this.methodParameterList.size()];
+        final Class<?>[] loadedClasses = new Class[this.methodParameterList.size()];
 
         for (int i = 0; i < this.methodParameterList.size(); i++) {
             final String paramClassName = this.methodParameterList.get(i);
 
             try {
-                parameterClasses[i] = loader.loadClass(paramClassName);
+                loadedClasses[i] = loader.loadClass(paramClassName);
 
             } catch (final ClassNotFoundException e) {
                 throw new ValidatorException(e.getMessage());
             }
         }
 
-        this.parameterClasses = parameterClasses;
+        this.parameterClasses = loadedClasses;
     }
 
     /**
