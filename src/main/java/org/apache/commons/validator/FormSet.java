@@ -37,24 +37,24 @@ public class FormSet implements Serializable {
     /**
      * This is the type of <code>FormSet</code>s where no locale is specified.
      */
-    protected final static int GLOBAL_FORMSET = 1;
+    protected static final int GLOBAL_FORMSET = 1;
 
     /**
      * This is the type of <code>FormSet</code>s where only language locale is
      * specified.
      */
-    protected final static int LANGUAGE_FORMSET = 2;
+    protected static final int LANGUAGE_FORMSET = 2;
 
     /**
      * This is the type of <code>FormSet</code>s where only language and country
      * locale are specified.
      */
-    protected final static int COUNTRY_FORMSET = 3;
+    protected static final int COUNTRY_FORMSET = 3;
 
     /**
      * This is the type of <code>FormSet</code>s where full locale has been set.
      */
-    protected final static int VARIANT_FORMSET = 4;
+    protected static final int VARIANT_FORMSET = 4;
 
     /** Logging */
     private transient Log log = LogFactory.getLog(FormSet.class);

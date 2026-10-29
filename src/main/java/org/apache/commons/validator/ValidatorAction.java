@@ -166,22 +166,7 @@ public class ValidatorAction implements Serializable {
                 this.handleIndexedField(field, pos, paramValues);
             }
 
-            Object result = null;
-            try {
-                result = validationMethod.invoke(getValidationClassInstance(), paramValues);
-
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                throw new ValidatorException(e.getMessage());
-            } catch (final InvocationTargetException e) {
-
-                if (e.getTargetException() instanceof Exception) {
-                    throw (Exception) e.getTargetException();
-
-                }
-                if (e.getTargetException() instanceof Error) {
-                    throw (Error) e.getTargetException();
-                }
-            }
+            final Object result = this.invokeValidationMethod(paramValues);
 
             final boolean valid = this.isValid(result);
             if (!valid || valid && !onlyReturnErrors(params)) {
@@ -477,6 +462,29 @@ public class ValidatorAction implements Serializable {
     }
 
     /**
+     * Invokes the validation method and translates the reflection exceptions.
+     *
+     * @param paramValues The values passed to the validation method.
+     * @return The value returned by the validation method.
+     * @throws Exception if the validation method fails.
+     */
+    private Object invokeValidationMethod(final Object[] paramValues) throws Exception {
+        try {
+            return validationMethod.invoke(getValidationClassInstance(), paramValues);
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            throw new ValidatorException(e.getMessage());
+        } catch (final InvocationTargetException e) {
+            if (e.getTargetException() instanceof Exception) {
+                throw (Exception) e.getTargetException();
+            }
+            if (e.getTargetException() instanceof Error) {
+                throw (Error) e.getTargetException();
+            }
+            return null;
+        }
+    }
+
+    /**
      * Converts a List of parameter class names into their Class objects. Stores the output in {@link #parameterClasses}. This array is in the same order as the
      * given List and is suitable for passing to the validation method.
      *
@@ -488,20 +496,20 @@ public class ValidatorAction implements Serializable {
             return;
         }
 
-        final Class<?>[] parameterClasses = new Class[this.methodParameterList.size()];
+        final Class<?>[] loadedClasses = new Class[this.methodParameterList.size()];
 
         for (int i = 0; i < this.methodParameterList.size(); i++) {
             final String paramClassName = this.methodParameterList.get(i);
 
             try {
-                parameterClasses[i] = loader.loadClass(paramClassName);
+                loadedClasses[i] = loader.loadClass(paramClassName);
 
             } catch (final ClassNotFoundException e) {
                 throw new ValidatorException(e.getMessage());
             }
         }
 
-        this.parameterClasses = parameterClasses;
+        this.parameterClasses = loadedClasses;
     }
 
     /**
@@ -609,7 +617,7 @@ public class ValidatorAction implements Serializable {
      */
     @Deprecated
     public void setClassname(final String className) {
-        this.className = className;
+        setClassName(className);
     }
 
     /**
