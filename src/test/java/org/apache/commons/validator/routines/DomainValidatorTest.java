@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedReader;
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -55,16 +54,6 @@ import org.junit.jupiter.api.Test;
  * Tests for the DomainValidator.
  */
 public class DomainValidatorTest {
-
-    private static void closeQuietly(final Closeable in) {
-        if (in != null) {
-            try {
-                in.close();
-            } catch (final IOException ignore) {
-                // ignore
-            }
-        }
-    }
 
     /*
      * Download a file if it is more recent than our cached copy. Unfortunately the server does not seem to honor If-Modified-Since for the Html page, so we
@@ -201,21 +190,18 @@ public class DomainValidatorTest {
     private static boolean isNotInRootZone(final String domain) {
         final String tldUrl = "http://www.iana.org/domains/root/db/" + domain + ".html";
         final File rootCheck = new File("target", "tld_" + domain + ".html");
-        BufferedReader in = null;
         try {
             download(rootCheck, tldUrl);
-            in = new BufferedReader(new FileReader(rootCheck));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                if (inputLine.contains("This domain is not present in the root zone at this time.")) {
-                    return true;
+            try (BufferedReader in = new BufferedReader(new FileReader(rootCheck))) {
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    if (inputLine.contains("This domain is not present in the root zone at this time.")) {
+                        return true;
+                    }
                 }
             }
-            in.close();
         } catch (final IOException ignore) {
             // ignore
-        } finally {
-            closeQuietly(in);
         }
         return false;
     }
