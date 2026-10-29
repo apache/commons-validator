@@ -609,7 +609,7 @@ public class ValidatorAction implements Serializable {
      */
     @Deprecated
     public void setClassname(final String className) {
-        this.className = className;
+        setClassName(className);
     }
 
     /**
