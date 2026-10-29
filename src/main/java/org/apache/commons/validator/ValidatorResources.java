@@ -414,38 +414,21 @@ public class ValidatorResources implements Serializable {
      */
     public Form getForm(final String language, final String country, final String variant, final String formKey) {
 
-        Form form = null;
-
         // Try language/country/variant
         String key = this.buildLocale(language, country, variant);
-        if (!key.isEmpty()) {
-            final FormSet formSet = getFormSets().get(key);
-            if (formSet != null) {
-                form = formSet.getForm(formKey);
-            }
-        }
+        Form form = getForm(key, formKey);
         final String localeKey = key;
 
         // Try language/country
         if (form == null) {
             key = buildLocale(language, country, null);
-            if (!key.isEmpty()) {
-                final FormSet formSet = getFormSets().get(key);
-                if (formSet != null) {
-                    form = formSet.getForm(formKey);
-                }
-            }
+            form = getForm(key, formKey);
         }
 
         // Try language
         if (form == null) {
             key = buildLocale(language, null, null);
-            if (!key.isEmpty()) {
-                final FormSet formSet = getFormSets().get(key);
-                if (formSet != null) {
-                    form = formSet.getForm(formKey);
-                }
-            }
+            form = getForm(key, formKey);
         }
 
         // Try default formset
@@ -464,6 +447,21 @@ public class ValidatorResources implements Serializable {
 
         return form;
 
+    }
+
+    /**
+     * Gets a {@code Form} from the {@code FormSet} matching the given locale key.
+     *
+     * @param key The locale key.
+     * @param formKey The key for the Form.
+     * @return The validator Form, or {@code null} if not found.
+     */
+    private Form getForm(final String key, final String formKey) {
+        if (key.isEmpty()) {
+            return null;
+        }
+        final FormSet formSet = getFormSets().get(key);
+        return formSet != null ? formSet.getForm(formKey) : null;
     }
 
     /**
