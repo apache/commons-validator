@@ -306,9 +306,6 @@ public class UrlValidator implements Serializable {
             return false;
         }
 
-        final InetAddressValidator inetAddressValidator =
-                InetAddressValidator.getInstance();
-
         final Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authority);
         if (!authorityMatcher.matches()) {
             return false;
@@ -317,6 +314,8 @@ public class UrlValidator implements Serializable {
         boolean hostname = false;
         // check if authority is IP address or hostname
         String hostIP = authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
+        final InetAddressValidator inetAddressValidator =
+                InetAddressValidator.getInstance();
         final boolean ipV4Address = inetAddressValidator.isValid(hostIP);
 
         if (!ipV4Address) {
@@ -421,11 +420,15 @@ public class UrlValidator implements Serializable {
 
         final int slashCount = countToken("/", path);
         final int dot2Count = countToken("..", path);
-        if (dot2Count > 0 && slashCount - slash2Count - 1 <= dot2Count) {
-            return false;
-        }
+        return !goesAboveRoot(slashCount, slash2Count, dot2Count);
+    }
 
-        return true;
+
+    /**
+     * Returns true if the ".." segments would navigate above the root of the path.
+     */
+    private boolean goesAboveRoot(final int slashCount, final int slash2Count, final int dot2Count) {
+        return dot2Count > 0 && slashCount - slash2Count - 1 <= dot2Count;
     }
 
     /**
