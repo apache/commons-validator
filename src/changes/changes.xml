@@ -72,6 +72,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">UrlValidator compare the file scheme case-insensitively in isValid (#433).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Reject invalid ISBN-10 in convertToISBN1 (#434).</action>
     <!-- ADD -->
+    <action type="add" dev="ggregory" due-to="Karl Kauc" issue="VALIDATOR-481">Add LEIValidator and Modulus97CheckDigit (ISO/IEC 7064 MOD 97-10).</action>
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 103 to 106.</action>
     <action type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-lang3 from 3.20.0 to 3.21.0.</action>
