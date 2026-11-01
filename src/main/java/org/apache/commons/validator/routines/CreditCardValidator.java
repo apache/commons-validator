@@ -205,6 +205,13 @@ public class CreditCardValidator implements Serializable {
     public static final long MASTERCARD_PRE_OCT2016 = 1 << 6; // CHECKSTYLE IGNORE MagicNumber
 
     /**
+     * Option specifying that JCB cards are allowed.
+     *
+     * @since 1.12.0
+     */
+    public static final long JCB = 1 << 7; // CHECKSTYLE IGNORE MagicNumber
+
+    /**
      * Luhn checkdigit validator for the card numbers.
      */
     private static final CheckDigit LUHN_VALIDATOR = LuhnCheckDigit.LUHN_CHECK_DIGIT;
@@ -241,6 +248,16 @@ public class CreditCardValidator implements Serializable {
 
     /** Discover Card Validator */
     public static final CodeValidator DISCOVER_VALIDATOR = new CodeValidator(DISCOVER_REGEX, LUHN_VALIDATOR);
+
+    /**
+     * JCB Card Validator
+     * <ul>
+     * <li>3528xx - 3589xx (16-19)</li>
+     * </ul>
+     *
+     * @since 1.12.0
+     */
+    public static final CodeValidator JCB_VALIDATOR = new CodeValidator("^(35(?:2[89]|[3-8]\\d)\\d{12,15})$", LUHN_VALIDATOR);
 
     /**
      * Mastercard regular expressions
@@ -477,6 +494,10 @@ public class CreditCardValidator implements Serializable {
 
         if (isOn(options, DINERS)) {
             cardTypes.add(DINERS_VALIDATOR);
+        }
+
+        if (isOn(options, JCB)) {
+            cardTypes.add(JCB_VALIDATOR);
         }
     }
 
