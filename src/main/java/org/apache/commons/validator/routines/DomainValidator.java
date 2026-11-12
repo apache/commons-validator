@@ -1995,7 +1995,7 @@ public class DomainValidator implements Serializable {
      * @param input The string to convert, not null.
      * @return converted input, or original input if conversion fails.
      */
-    // Needed by UrlValidator
+    // package protected for unit test access
     static String unicodeToASCII(final String input) {
         if (isOnlyASCII(input)) { // skip possibly expensive processing
             return input;
