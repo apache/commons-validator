@@ -144,9 +144,11 @@ public class ISSNValidator implements Serializable {
      * That is a 13 digit EAN-13 code with the '977' prefix.
      * </p>
      *
-     * @param ean13 The ISSN code to convert
+     * @param ean13 The ISSN-EAN-13 code to convert
      * @return A valid ISSN code or {@code null}
-     * if the input ISSN EAN-13 code is not valid
+     * if the input ISSN-EAN-13 code fails validation after the length and prefix checks.
+     * @throws NullPointerException if {@code ean13} is {@code null}.
+     * @throws IllegalArgumentException if the trimmed input is not 13 characters long or does not start with {@code "977"}.
      * @since 1.7
      */
     public String extractFromEAN13(final String ean13) {
