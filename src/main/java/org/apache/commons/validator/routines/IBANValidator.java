@@ -361,6 +361,25 @@ public class IBANValidator {
     }
 
     /**
+     * Removes the other country codes of a validator that was replaced or removed under the given country code.
+     * <p>
+     * Nothing is removed when the country code was one of the other country codes of the previous validator (for example
+     * AX for FI), since the previous validator remains installed under its own country code. Only entries that still map to
+     * the previous validator are removed, so other country codes that have since been given their own validator are kept.
+     * </p>
+     *
+     * @param countryCode The country code that was replaced or removed.
+     * @param prev        The validator previously installed for the country code, may be null.
+     */
+    private void removeOtherCountryCodes(final String countryCode, final Validator prev) {
+        if (prev != null && prev.countryCode.equals(countryCode)) {
+            for (final String otherCC : prev.otherCountryCodes) {
+                validatorMap.remove(otherCC, prev);
+            }
+        }
+    }
+
+    /**
      * Installs a validator. Will replace any existing entry which has the same countryCode.
      *
      * @param countryCode The country code.
@@ -376,11 +395,7 @@ public class IBANValidator {
         }
         if (length < 0) {
             final Validator prev = validatorMap.remove(countryCode);
-            if (prev != null) {
-                for (final String otherCC : prev.otherCountryCodes) {
-                    validatorMap.remove(otherCC);
-                }
-            }
+            removeOtherCountryCodes(countryCode, prev);
             return prev;
         }
         return setValidator(new Validator(countryCode, length, format));
@@ -398,11 +413,7 @@ public class IBANValidator {
             throw new IllegalStateException("The singleton validator cannot be modified");
         }
         final Validator prev = validatorMap.put(validator.countryCode, validator);
-        if (prev != null) {
-            for (final String otherCC : prev.otherCountryCodes) {
-                validatorMap.remove(otherCC);
-            }
-        }
+        removeOtherCountryCodes(validator.countryCode, prev);
         for (final String otherCC : validator.otherCountryCodes) {
             validatorMap.put(otherCC, validator);
         }
