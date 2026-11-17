@@ -49,6 +49,11 @@ class ISBNValidatorTest {
             "1.2.3.4", // Invalid Separator
             "1=2=3=4", // Invalid Separator
             "1_2_3_4", // Invalid Separator
+            "1\t930110\t99\t5", // Invalid Separator: tab
+            "1\n930110\n99\n5", // Invalid Separator: line feed
+            "1\r930110\r99\r5", // Invalid Separator: carriage return
+            "1\u000B930110\u000B99\u000B5", // Invalid Separator: vertical tab
+            "1\f930110\f99\f5", // Invalid Separator: form feed
             "123456789Y", // Other character at the end
             "dsasdsadsa", // invalid characters
             "I love sparrows!", // invalid characters
@@ -73,6 +78,11 @@ class ISBNValidatorTest {
             "123-4-567890-12-8", // format
             "978.1.2.3.4", // Invalid Separator
             "978=1=2=3=4", // Invalid Separator
+            "978\t1\t930110\t99\t1", // Invalid Separator: tab
+            "978\n1\n930110\n99\n1", // Invalid Separator: line feed
+            "978\r1\r930110\r99\r1", // Invalid Separator: carriage return
+            "978\u000B1\u000B930110\u000B99\u000B1", // Invalid Separator: vertical tab
+            "978\f1\f930110\f99\f1", // Invalid Separator: form feed
             "978_1_2_3_4", // Invalid Separator
             "978123456789X", // invalid character
             "978-0-201-63385-X", // invalid character
