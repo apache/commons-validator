@@ -46,11 +46,12 @@
  * <li>4.3 <a href="#other.checkdigit">Check Digit Validation/Calculation</a></li>
  * <li>4.4 <a href="#other.code">General Code Validation</a></li>
  * <li>4.5 <a href="#other.iban">IBAN Validation</a></li>
- * <li>4.6 <a href="#other.isbn">ISBN Validation</a></li>
- * <li>4.7 <a href="#other.inet">IP Address Validation</a></li>
- * <li>4.8 <a href="#other.email">Email Address Validation</a></li>
- * <li>4.9 <a href="#other.url">URL Validation</a></li>
- * <li>4.10 <a href="#other.domain">Domain Name Validation</a></li>
+ * <li>4.6 <a href="#other.lei">LEI Validation</a></li>
+ * <li>4.7 <a href="#other.isbn">ISBN Validation</a></li>
+ * <li>4.8 <a href="#other.inet">IP Address Validation</a></li>
+ * <li>4.9 <a href="#other.email">Email Address Validation</a></li>
+ * <li>4.10 <a href="#other.url">URL Validation</a></li>
+ * <li>4.11 <a href="#other.domain">Domain Name Validation</a></li>
  * </ul>
  * </li>
  * </ul>
@@ -389,6 +390,7 @@
  * <li><a href="#other.code">Code Validation</a> - provides generic
  * code validation - format, minimum/maximum length and check digit.</li>
  * <li><a href="#other.iban">IBAN Validation</a> - provides International Bank Account Number validation.</li>
+ * <li><a href="#other.lei">LEI Validation</a> - provides Legal Entity Identifier validation.</li>
  * <li><a href="#other.isbn">ISBN Validation</a> - provides ISBN-10
  * and ISBN-13 validation.</li>
  * <li><a href="#other.inet">IP Address Validation</a> - provides IPv4 address
@@ -506,6 +508,8 @@
  * for <strong>ISIN</strong> International Securities Identifying Number check digit calculation.</li>
  * <li><a href="checkdigit/LuhnCheckDigit.html">LuhnCheckDigit</a>
  * for <strong>Luhn</strong> check digit calculation - used by <strong>credit cards</strong>.</li>
+ * <li><a href="checkdigit/Modulus97CheckDigit.html">Modulus97CheckDigit</a>
+ * for <strong>ISO/IEC 7064, MOD 97-10</strong> check digit calculation - used by <strong>LEI</strong>.</li>
  * <li><a href="checkdigit/ModulusCheckDigit.html">ModulusCheckDigit</a>
  * - <strong>abstract</strong> class for custom <strong>modulus</strong> check digit
  * implementations.</li>
@@ -596,8 +600,31 @@
  * ... // invalid
  * }
  * </pre>
+ * <a id="other.lei"></a>
+ * <h2>4.6 LEI validation</h2>
+ * <p>
+ * <a href="LEIValidator.html">LEIValidator</a> provides validation of
+ * Legal Entity Identifiers (ISO 17442): 20 character alphanumeric codes whose last two
+ * characters are check digits calculated using ISO/IEC 7064, MOD 97-10
+ * (<a href="checkdigit/Modulus97CheckDigit.html">Modulus97CheckDigit</a>).
+ * </p>
+ * <p>
+ * The validator checks the format and the check digits only; it does not check whether the
+ * LEI has actually been issued (see https://www.gleif.org/).
+ * </p>
+ * <p>
+ * For example:
+ * </p>
+ * <pre>
+ * // Get an LEIValidator
+ * LEIValidator validator = LEIValidator.getInstance();
+ * // Validate an LEI
+ * if (!validator.isValid(candidateLEI)) {
+ * ... // invalid
+ * }
+ * </pre>
  * <a id="other.isbn"></a>
- * <h2>4.6 ISBN validation</h2>
+ * <h2>4.7 ISBN validation</h2>
  * <p>
  * <a href="ISBNValidator.html">ISBNValidator</a> provides ISBN-10
  * and ISBN-13 validation and can <em>optionally</em> convert
@@ -648,7 +675,7 @@
  * String code = ISBNValidator.getInstance(false).validate(code);
  * </pre>
  * <a id="other.inet"></a>
- * <h2>4.7 IP Address Validation</h2>
+ * <h2>4.8 IP Address Validation</h2>
  * <p>
  * <a href="InetAddressValidator.html">InetAddressValidator</a> provides
  * IPv4 address validation.
@@ -665,7 +692,7 @@
  * }
  * </pre>
  * <a id="other.email"></a>
- * <h2>4.8 Email Address Validation</h2>
+ * <h2>4.9 Email Address Validation</h2>
  * <p>
  * <a href="EmailValidator.html">EmailValidator</a> provides email address
  * validation according to RFC 822 standards.
@@ -685,7 +712,7 @@
  * }
  * </pre>
  * <a id="other.url"></a>
- * <h2>4.9 URL Validation</h2>
+ * <h2>4.10 URL Validation</h2>
  * <p>
  * <a href="UrlValidator.html">UrlValidator</a> provides URL validation by
  * checking the scheme, authority, path, query, and fragment in turn. Clients
@@ -721,7 +748,7 @@
  * }
  * </pre>
  * <a id="other.domain"></a>
- * <h2>4.10 Domain Name Validation</h2>
+ * <h2>4.11 Domain Name Validation</h2>
  * <p>
  * <a href="DomainValidator.html">DomainValidator</a> provides validation of Internet
  * domain names as specified by RFC1034/RFC1123 and according to the IANA-recognized
