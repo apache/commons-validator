@@ -64,6 +64,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
   <release version="1.11.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
+    <action type="fix" issue="VALIDATOR-510" due-to="Aryan Ganjoo">IBANValidator.setValidator() preserves unrelated secondary country codes when changing an alias.</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Drop the symbol separator in the currency and percent re-parse (#430).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Count unpaired carriage returns in adjustForLineEnding (#431).</action>
     <action type="fix" dev="ggregory" due-to="sahvx655-wq, Gary Gregory">Validate path, query and fragment for authority-less file URLs (#432).</action>
