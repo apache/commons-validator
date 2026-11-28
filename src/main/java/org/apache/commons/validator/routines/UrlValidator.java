@@ -117,7 +117,9 @@ public class UrlValidator implements Serializable {
     // Drop numeric, and  "+-." for now
     // TODO does not allow for optional userinfo.
     // Validation of character set is done by isValidAuthority
-    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\."; // allows for IPV4 but not IPV6
+    // Non-ASCII characters are admitted so an IDN host can be split from the userinfo and port before it is converted
+    // to ASCII; DomainValidator then converts and checks the host on its own.
+    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.\\P{ASCII}"; // allows for IPV4 but not IPV6
     // Captured inside [ ] in AUTHORITY_REGEX and validated by InetAddressValidator.isValidInet6Address, so the
     // dot is allowed for IPv4-mapped/embedded forms (for example ::ffff:1.2.3.4 or 2001:db8::1.2.3.4), not just ::FFFF:
     private static final String IPV6_REGEX = "[0-9a-fA-F:.]+"; // the brackets remove the port-prefix ':' ambiguity
@@ -421,10 +423,10 @@ public class UrlValidator implements Serializable {
         if (authorityValidator != null && authorityValidator.isValid(authority)) {
             return true;
         }
-        // convert to ASCII if possible
-        final String authorityASCII = DomainValidator.unicodeToASCII(authority);
-
-        final Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authorityASCII);
+        // Split the authority before any IDN conversion. IDN.toASCII folds compatibility characters such as the
+        // fullwidth '@' and ':' to their ASCII forms and punycodes a whole label, so converting the authority first
+        // would invent delimiters that are not in the URL and encode the userinfo or port into the host label.
+        final Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authority);
         if (!authorityMatcher.matches()) {
             return false;
         }
